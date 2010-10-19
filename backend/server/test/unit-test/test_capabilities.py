@@ -30,7 +30,7 @@ if _basedir not in sys.path:
 
 import time
 from rhn import rpclib
-from server import rhnSQL, rhnServer, rhnCapability
+from spacewalk.server import rhnSQL, rhnServer, rhnCapability
 
 def main():
     if len(sys.argv) == 1:

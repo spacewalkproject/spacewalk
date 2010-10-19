@@ -22,8 +22,8 @@ import math
 import string
 
 # rhn imports:
-from common import CFG, rhnCache
-from common.rhnLib import hash_object_id
+from spacewalk.common import CFG, rhnCache
+from spacewalk.common.rhnLib import hash_object_id
 
 # NOTE: this is a python 2.2-ism
 __all__ = []
@@ -88,7 +88,7 @@ class KickstartableTreesCache(BaseCache):
             object_id))
 
 if __name__ == '__main__':
-    from common import initCFG
+    from spacewalk.common import initCFG
     initCFG("server.satellite")
     c = PackageCache()
     pid = 'package-12345'

@@ -34,15 +34,13 @@ _LIBPATH = ""
 for p in ["/var/www/rhns", "/usr/share/rhn"]:
     if exists(p) and exists(join(p, 'server')) and exists(join(p, 'common')):
         _LIBPATH = p
-if not _LIBPATH:
-    errAndExit(-1, 'ERROR: this is not an RHN Management Satellite or server.')
 if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
 
 try:
-    from server import rhnSQL
-    from common import initCFG
+    from spacewalk.server import rhnSQL
+    from spacewalk.common import initCFG
 except KeyboardInterrupt:
     sys.stderr.write("\nUser interrupted process.\n")
     sys.exit(0)

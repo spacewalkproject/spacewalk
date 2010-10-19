@@ -17,11 +17,7 @@
 
 import sys
 import xmlrpclib
-try:
-    from common import log_error
-except:
-    sys.path.append("/usr/share/rhn")
-    from common import log_error
+from spacewalk.common import log_error
 
 class SearchNotify:
     def __init__(self, host="127.0.0.1", port="2828"):

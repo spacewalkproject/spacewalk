@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-from server import rhnImport
+from spacewalk.server import rhnImport
 
 root_dir = "/var/www/rhns"
 

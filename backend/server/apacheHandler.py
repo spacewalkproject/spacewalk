@@ -17,15 +17,8 @@ import os
 import time
 import string
 
-# global module imports
-from common import apache
-
-# common module imports
-from common import rhnApache, rhnTB
-from common import rhnFault, rhnException, rhnFlags
-from common import log_debug, log_error
-from common import CFG, initCFG, initLOG
-
+from spacewalk.common import apache, rhnApache, rhnTB, rhnFault, rhnException, \
+    rhnFlags, log_debug, log_error, CFG, initCFG, initLOG
 
 # local module imports
 import rhnSQL

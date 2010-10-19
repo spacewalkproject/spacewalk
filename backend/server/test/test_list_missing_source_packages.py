@@ -14,8 +14,7 @@
 #
 import unittest
 from TestServer import TestServer
-from server import xp
-from server import rhnSQL
+from spacewalk.server import xp, rhnSQL
 
 #   Tests the functionality of the listMissingSourcePackages function of the packages.py file
 

@@ -6,7 +6,7 @@
 # $Id$
 
 import unittest
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 DB = 'rhnuser/rhnuser@webdev'
 

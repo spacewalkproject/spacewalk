@@ -15,10 +15,10 @@
 # Activation key related queuing functions
 #
 
-from common import log_debug
-from server import rhnSQL, rhnAction, rhnServer
-from server.rhnLib import ShadowAction
-from server.rhnServer import server_kickstart
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL, rhnAction, rhnServer
+from spacewalk.server.rhnLib import ShadowAction
+from spacewalk.server.rhnServer import server_kickstart
 
 # the "exposed" functions
 __rhnexport__ = ['schedule_deploy', 'schedule_pkg_install', ]

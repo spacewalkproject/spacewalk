@@ -18,7 +18,7 @@ import re
 import string
 
 # common module
-from common import log_debug, rhnFlags
+from spacewalk.common import log_debug, rhnFlags
 
 # local module
 import rhnSQL

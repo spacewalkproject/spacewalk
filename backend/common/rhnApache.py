@@ -23,7 +23,7 @@ import os.path
 
 
 # global module imports
-from common import apache
+from spacewalk.common import apache
 
 
 # Now local module imports

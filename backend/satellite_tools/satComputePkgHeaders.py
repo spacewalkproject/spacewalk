@@ -20,11 +20,7 @@
 import sys
 from optparse import OptionParser, Option
 
-_path = "/usr/share/rhn"
-if _path not in sys.path:
-    sys.path.append(_path)
-
-from common import initCFG
+from spacewalk.common import initCFG
 
 SERVER_RETURN = 0
 
@@ -54,8 +50,8 @@ OK = 1
 sys.modules["_apache"] = sys.modules["__main__"]
 
 
-from server import rhnSQL
-from spacewalk.common import rhn_rpm
+from spacewalk.server import rhnSQL
+from spacewalk.spacewalk.common import rhn_rpm
 
 options_table = [
     Option("-v", "--verbose",       action="count", 

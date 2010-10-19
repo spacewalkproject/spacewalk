@@ -19,7 +19,7 @@
 import sys
 import locale
 import unittest
-from common import rhnLib
+from spacewalk.common import rhnLib
 
 class Tests(unittest.TestCase):
 

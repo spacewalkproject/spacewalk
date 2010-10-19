@@ -5,6 +5,7 @@
 %if 0%{?fedora} < 13 && 0%{?rhel} < 6
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
+%global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
@@ -275,7 +276,8 @@ export PYTHON_MODULE_VERSION=%{version}
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
-make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+install -d $RPM_BUILD_ROOT/%{pythonrhnroot}
+make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
     MANDIR=%{_mandir}
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
@@ -324,26 +326,26 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
-%dir %{rhnroot}
-%dir %{rhnroot}/common
-%{rhnroot}/common/__init__.py*
-%{rhnroot}/common/apache.py*
-%{rhnroot}/common/byterange.py*
-%{rhnroot}/common/rhn_posix.py*
-%{rhnroot}/common/rhn_timer.py*
-%{rhnroot}/common/rhnApache.py*
-%{rhnroot}/common/rhnCache.py*
-%{rhnroot}/common/rhnConfig.py*
-%{rhnroot}/common/rhnException.py*
-%{rhnroot}/common/rhnFlags.py*
-%{rhnroot}/common/rhnLib.py*
-%{rhnroot}/common/rhnLog.py*
-%{rhnroot}/common/rhnMail.py*
-%{rhnroot}/common/rhnTB.py*
-%{rhnroot}/common/rhnRepository.py*
-%{rhnroot}/common/rhnTranslate.py*
-%{rhnroot}/common/UserDictCase.py*
-%{rhnroot}/common/RPC_Base.py*
+%dir %{pythonrhnroot}
+%dir %{pythonrhnroot}/common
+%{pythonrhnroot}/common/__init__.py*
+%{pythonrhnroot}/common/apache.py*
+%{pythonrhnroot}/common/byterange.py*
+%{pythonrhnroot}/common/rhn_posix.py*
+%{pythonrhnroot}/common/rhn_timer.py*
+%{pythonrhnroot}/common/rhnApache.py*
+%{pythonrhnroot}/common/rhnCache.py*
+%{pythonrhnroot}/common/rhnConfig.py*
+%{pythonrhnroot}/common/rhnException.py*
+%{pythonrhnroot}/common/rhnFlags.py*
+%{pythonrhnroot}/common/rhnLib.py*
+%{pythonrhnroot}/common/rhnLog.py*
+%{pythonrhnroot}/common/rhnMail.py*
+%{pythonrhnroot}/common/rhnTB.py*
+%{pythonrhnroot}/common/rhnRepository.py*
+%{pythonrhnroot}/common/rhnTranslate.py*
+%{pythonrhnroot}/common/UserDictCase.py*
+%{pythonrhnroot}/common/RPC_Base.py*
 %attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
 %attr(755,root,apache) %dir %{rhnconf}/default
@@ -352,7 +354,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
 # wsgi stuff
 %if !( 0%{?rhel} && 0%{?rhel} < 6)
-%dir %{rhnroot}/wsgi
+%dir %{pythonrhnroot}/wsgi
 %{rhnroot}/wsgi/__init__.py*
 %{rhnroot}/wsgi/wsgiHandler.py*
 %{rhnroot}/wsgi/wsgiRequest.py*
@@ -362,82 +364,83 @@ rm -f %{rhnconf}/rhnSecret.py*
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
 # Need __init__ = share it with rhns-server
-%dir %{rhnroot}/server
+%dir %{pythonrhnroot}/server
+%{pythonrhnroot}/server/__init__.py*
 %{rhnroot}/server/__init__.py*
-%dir %{rhnroot}/server/rhnSQL
-%{rhnroot}/server/rhnSQL/const.py*
-%{rhnroot}/server/rhnSQL/dbi.py*
-%{rhnroot}/server/rhnSQL/__init__.py*
-%{rhnroot}/server/rhnSQL/sql_*.py*
+%dir %{pythonrhnroot}/server/rhnSQL
+%{pythonrhnroot}/server/rhnSQL/const.py*
+%{pythonrhnroot}/server/rhnSQL/dbi.py*
+%{pythonrhnroot}/server/rhnSQL/__init__.py*
+%{pythonrhnroot}/server/rhnSQL/sql_*.py*
 
 %files sql-oracle
 %defattr(-,root,root,-)
 %doc PYTHON-LICENSES.txt LICENSE
-%{rhnroot}/server/rhnSQL/driver_cx_Oracle.py*
+%{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
 
 %files sql-postgresql
 %defattr(-,root,root,-)
 %doc PYTHON-LICENSES.txt LICENSE
-%{rhnroot}/server/rhnSQL/driver_postgresql.py*
+%{pythonrhnroot}/server/rhnSQL/driver_postgresql.py*
 
 %files server
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
 # modules
-%{rhnroot}/server/apacheAuth.py*
-%{rhnroot}/server/apacheHandler.py*
-%{rhnroot}/server/apacheRequest.py*
-%{rhnroot}/server/apacheServer.py*
-%{rhnroot}/server/apacheUploadServer.py*
-%{rhnroot}/server/rhnAction.py*
-%{rhnroot}/server/rhnAuthPAM.py*
-%{rhnroot}/server/rhnCapability.py*
-%{rhnroot}/server/rhnChannel.py*
-%{rhnroot}/server/rhnKickstart.py*
-%{rhnroot}/server/rhnDatabaseCache.py*
-%{rhnroot}/server/rhnDependency.py*
-%{rhnroot}/server/rhnPackage.py*
-%{rhnroot}/server/rhnPackageUpload.py*
-%{rhnroot}/server/basePackageUpload.py*
-%{rhnroot}/server/rhnHandler.py*
-%{rhnroot}/server/rhnImport.py*
-%{rhnroot}/server/rhnLib.py*
-%{rhnroot}/server/rhnMapping.py*
-%{rhnroot}/server/rhnRepository.py*
-%{rhnroot}/server/rhnSession.py*
-%{rhnroot}/server/rhnUser.py*
-%{rhnroot}/server/rhnVirtualization.py*
-%{rhnroot}/server/taskomatic.py*
-%dir %{rhnroot}/server/rhnServer
-%{rhnroot}/server/rhnServer/*
-%dir %{rhnroot}/server/importlib
-%{rhnroot}/server/importlib/__init__.py*
-%{rhnroot}/server/importlib/archImport.py*
-%{rhnroot}/server/importlib/backend.py*
-%{rhnroot}/server/importlib/backendLib.py*
-%{rhnroot}/server/importlib/backendOracle.py*
-%{rhnroot}/server/importlib/blacklistImport.py*
-%{rhnroot}/server/importlib/channelImport.py*
-%{rhnroot}/server/importlib/debPackage.py*
-%{rhnroot}/server/importlib/errataCache.py*
-%{rhnroot}/server/importlib/errataImport.py*
-%{rhnroot}/server/importlib/headerSource.py*
-%{rhnroot}/server/importlib/importLib.py*
-%{rhnroot}/server/importlib/kickstartImport.py*
-%{rhnroot}/server/importlib/mpmSource.py*
-%{rhnroot}/server/importlib/packageImport.py*
-%{rhnroot}/server/importlib/packageUpload.py*
-%{rhnroot}/server/importlib/productNamesImport.py*
-%{rhnroot}/server/importlib/userAuth.py*
+%{pythonrhnroot}/server/apacheAuth.py*
+%{pythonrhnroot}/server/apacheHandler.py*
+%{pythonrhnroot}/server/apacheRequest.py*
+%{pythonrhnroot}/server/apacheServer.py*
+%{pythonrhnroot}/server/apacheUploadServer.py*
+%{pythonrhnroot}/server/rhnAction.py*
+%{pythonrhnroot}/server/rhnAuthPAM.py*
+%{pythonrhnroot}/server/rhnCapability.py*
+%{pythonrhnroot}/server/rhnChannel.py*
+%{pythonrhnroot}/server/rhnKickstart.py*
+%{pythonrhnroot}/server/rhnDatabaseCache.py*
+%{pythonrhnroot}/server/rhnDependency.py*
+%{pythonrhnroot}/server/rhnPackage.py*
+%{pythonrhnroot}/server/rhnPackageUpload.py*
+%{pythonrhnroot}/server/basePackageUpload.py*
+%{pythonrhnroot}/server/rhnHandler.py*
+%{pythonrhnroot}/server/rhnImport.py*
+%{pythonrhnroot}/server/rhnLib.py*
+%{pythonrhnroot}/server/rhnMapping.py*
+%{pythonrhnroot}/server/rhnRepository.py*
+%{pythonrhnroot}/server/rhnSession.py*
+%{pythonrhnroot}/server/rhnUser.py*
+%{pythonrhnroot}/server/rhnVirtualization.py*
+%{pythonrhnroot}/server/taskomatic.py*
+%dir %{pythonrhnroot}/server/rhnServer
+%{pythonrhnroot}/server/rhnServer/*
+%dir %{pythonrhnroot}/server/importlib
+%{pythonrhnroot}/server/importlib/__init__.py*
+%{pythonrhnroot}/server/importlib/archImport.py*
+%{pythonrhnroot}/server/importlib/backend.py*
+%{pythonrhnroot}/server/importlib/backendLib.py*
+%{pythonrhnroot}/server/importlib/backendOracle.py*
+%{pythonrhnroot}/server/importlib/blacklistImport.py*
+%{pythonrhnroot}/server/importlib/channelImport.py*
+%{pythonrhnroot}/server/importlib/debPackage.py*
+%{pythonrhnroot}/server/importlib/errataCache.py*
+%{pythonrhnroot}/server/importlib/errataImport.py*
+%{pythonrhnroot}/server/importlib/headerSource.py*
+%{pythonrhnroot}/server/importlib/importLib.py*
+%{pythonrhnroot}/server/importlib/kickstartImport.py*
+%{pythonrhnroot}/server/importlib/mpmSource.py*
+%{pythonrhnroot}/server/importlib/packageImport.py*
+%{pythonrhnroot}/server/importlib/packageUpload.py*
+%{pythonrhnroot}/server/importlib/productNamesImport.py*
+%{pythonrhnroot}/server/importlib/userAuth.py*
 %{rhnroot}/server/handlers/__init__.py*
 
 # Repomd stuff
-%dir %{rhnroot}/server/repomd
-%{rhnroot}/server/repomd/__init__.py*
-%{rhnroot}/server/repomd/domain.py*
-%{rhnroot}/server/repomd/mapper.py*
-%{rhnroot}/server/repomd/repository.py*
-%{rhnroot}/server/repomd/view.py*
+%dir %{pythonrhnroot}/server/repomd
+%{pythonrhnroot}/server/repomd/__init__.py*
+%{pythonrhnroot}/server/repomd/domain.py*
+%{pythonrhnroot}/server/repomd/mapper.py*
+%{pythonrhnroot}/server/repomd/repository.py*
+%{pythonrhnroot}/server/repomd/view.py*
 
 # the cache
 %attr(755,apache,apache) %dir %{_var}/cache/rhn
@@ -473,10 +476,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/xmlrpc
 %{rhnroot}/server/handlers/xmlrpc/*
-%dir %{rhnroot}/server/action
-%{rhnroot}/server/action/*
-%dir %{rhnroot}/server/action_extra_data
-%{rhnroot}/server/action_extra_data/*
+%dir %{pythonrhnroot}/server/action
+%{pythonrhnroot}/server/action/*
+%dir %{pythonrhnroot}/server/action_extra_data
+%{pythonrhnroot}/server/action_extra_data/*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_xmlrpc.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xmlrpc.conf
@@ -523,10 +526,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files iss-export
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
-%dir %{rhnroot}/satellite_exporter
-%{rhnroot}/satellite_exporter/__init__.py*
-%{rhnroot}/satellite_exporter/satexport.py*
+%dir %{pythonrhnroot}/satellite_exporter
+%{pythonrhnroot}/satellite_exporter/__init__.py*
+%{pythonrhnroot}/satellite_exporter/satexport.py*
 
+%dir %{rhnroot}/satellite_exporter
 %dir %{rhnroot}/satellite_exporter/handlers
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
@@ -543,9 +547,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files config-files-common
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
-%{rhnroot}/server/configFilesHandler.py*
-%dir %{rhnroot}/server/config_common
-%{rhnroot}/server/config_common/*
+%{pythonrhnroot}/server/configFilesHandler.py*
+%dir %{pythonrhnroot}/server/config_common
+%{pythonrhnroot}/server/config_common/*
 
 %files config-files
 %defattr(-,root,root)
@@ -599,33 +603,33 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-remove-channel*
 %attr(755,root,root) %{_bindir}/rhn-entitlement-report
 %attr(755,root,root) %{_bindir}/spacewalk-update-signatures
-%{rhnroot}/satellite_tools/SequenceServer.py*
-%{rhnroot}/satellite_tools/messages.py*
-%{rhnroot}/satellite_tools/progress_bar.py*
-%{rhnroot}/satellite_tools/req_channels.py*
-%{rhnroot}/satellite_tools/satsync.py*
-%{rhnroot}/satellite_tools/satCerts.py*
-%{rhnroot}/satellite_tools/satComputePkgHeaders.py*
-%{rhnroot}/satellite_tools/syncCache.py*
-%{rhnroot}/satellite_tools/sync_handlers.py*
-%{rhnroot}/satellite_tools/rhn_satellite_activate.py*
-%{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
-%{rhnroot}/satellite_tools/xmlWireSource.py*
-%{rhnroot}/satellite_tools/updatePackages.py*
-%{rhnroot}/satellite_tools/reposync.py*
-%{rhnroot}/satellite_tools/constants.py*
-%dir %{rhnroot}/satellite_tools/disk_dumper
-%{rhnroot}/satellite_tools/disk_dumper/__init__.py*
-%{rhnroot}/satellite_tools/disk_dumper/iss.py*
-%{rhnroot}/satellite_tools/disk_dumper/iss_ui.py*
-%{rhnroot}/satellite_tools/disk_dumper/iss_isos.py*
-%{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
-%{rhnroot}/satellite_tools/disk_dumper/dumper.py*
-%{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
-%dir %{rhnroot}/satellite_tools/repo_plugins
+%{pythonrhnroot}/satellite_tools/SequenceServer.py*
+%{pythonrhnroot}/satellite_tools/messages.py*
+%{pythonrhnroot}/satellite_tools/progress_bar.py*
+%{pythonrhnroot}/satellite_tools/req_channels.py*
+%{pythonrhnroot}/satellite_tools/satsync.py*
+%{pythonrhnroot}/satellite_tools/satCerts.py*
+%{pythonrhnroot}/satellite_tools/satComputePkgHeaders.py*
+%{pythonrhnroot}/satellite_tools/syncCache.py*
+%{pythonrhnroot}/satellite_tools/sync_handlers.py*
+%{pythonrhnroot}/satellite_tools/rhn_satellite_activate.py*
+%{pythonrhnroot}/satellite_tools/rhn_ssl_dbstore.py*
+%{pythonrhnroot}/satellite_tools/xmlWireSource.py*
+%{pythonrhnroot}/satellite_tools/updatePackages.py*
+%{pythonrhnroot}/satellite_tools/reposync.py*
+%{pythonrhnroot}/satellite_tools/constants.py*
+%dir %{pythonrhnroot}/satellite_tools/disk_dumper
+%{pythonrhnroot}/satellite_tools/disk_dumper/__init__.py*
+%{pythonrhnroot}/satellite_tools/disk_dumper/iss.py*
+%{pythonrhnroot}/satellite_tools/disk_dumper/iss_ui.py*
+%{pythonrhnroot}/satellite_tools/disk_dumper/iss_isos.py*
+%{pythonrhnroot}/satellite_tools/disk_dumper/iss_actions.py*
+%{pythonrhnroot}/satellite_tools/disk_dumper/dumper.py*
+%{pythonrhnroot}/satellite_tools/disk_dumper/string_buffer.py*
+%dir %{pythonrhnroot}/satellite_tools/repo_plugins
 %attr(755,root,apache) %dir %{_var}/log/rhn/reposync
-%{rhnroot}/satellite_tools/repo_plugins/__init__.py*
-%{rhnroot}/satellite_tools/repo_plugins/yum_src.py*
+%{pythonrhnroot}/satellite_tools/repo_plugins/__init__.py*
+%{pythonrhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
@@ -644,22 +648,22 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files xml-export-libs
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
-%dir %{rhnroot}/satellite_tools
-%{rhnroot}/satellite_tools/__init__.py*
-%{rhnroot}/satellite_tools/geniso.py*
-%{rhnroot}/satellite_tools/gentree.py*
-%{rhnroot}/satellite_tools/xmlDiskDumper.py*
+%dir %{pythonrhnroot}/satellite_tools
+%{pythonrhnroot}/satellite_tools/__init__.py*
+%{pythonrhnroot}/satellite_tools/geniso.py*
+%{pythonrhnroot}/satellite_tools/gentree.py*
+%{pythonrhnroot}/satellite_tools/xmlDiskDumper.py*
 # A bunch of modules shared with satellite-tools
-%{rhnroot}/satellite_tools/connection.py*
-%{rhnroot}/satellite_tools/diskImportLib.py*
-%{rhnroot}/satellite_tools/syncLib.py*
-%{rhnroot}/satellite_tools/xmlDiskSource.py*
-%{rhnroot}/satellite_tools/xmlSource.py*
-%dir %{rhnroot}/satellite_tools/exporter
-%{rhnroot}/satellite_tools/exporter/__init__.py*
-%{rhnroot}/satellite_tools/exporter/exporter.py*
-%{rhnroot}/satellite_tools/exporter/exportLib.py*
-%{rhnroot}/satellite_tools/exporter/xmlWriter.py*
+%{pythonrhnroot}/satellite_tools/connection.py*
+%{pythonrhnroot}/satellite_tools/diskImportLib.py*
+%{pythonrhnroot}/satellite_tools/syncLib.py*
+%{pythonrhnroot}/satellite_tools/xmlDiskSource.py*
+%{pythonrhnroot}/satellite_tools/xmlSource.py*
+%dir %{pythonrhnroot}/satellite_tools/exporter
+%{pythonrhnroot}/satellite_tools/exporter/__init__.py*
+%{pythonrhnroot}/satellite_tools/exporter/exporter.py*
+%{pythonrhnroot}/satellite_tools/exporter/exportLib.py*
+%{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 # $Id$
 %changelog

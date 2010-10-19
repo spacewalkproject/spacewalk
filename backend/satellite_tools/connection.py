@@ -21,7 +21,7 @@ import string
 import gzipstream
 
 from rhn import rpclib
-from satellite_tools import constants
+from spacewalk.satellite_tools import constants
 
 __version__ = "0.1"
 

@@ -17,7 +17,7 @@
 
 from wsgi import wsgiRequest
 
-from common import log_debug
+from spacewalk.common import log_debug
 
 def handle(environ, start_response, server, component_type, type="server.apacheServer"):
     #wsgi seems to capitalize incoming headers and add HTTP- to the front :/

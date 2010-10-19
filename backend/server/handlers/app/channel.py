@@ -16,9 +16,9 @@
 # This is the XML-RPC response handler for manage-channel tool
 
 
-from common import RPC_Base, rhnFault, log_debug
-from server import rhnSQL, rhnKickstart
-from server.importlib.userAuth import UserAuth
+from spacewalk.common import RPC_Base, rhnFault, log_debug
+from spacewalk.server import rhnSQL, rhnKickstart
+from spacewalk.server.importlib.userAuth import UserAuth
 
 import string
 

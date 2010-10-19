@@ -19,12 +19,12 @@ from rhn.rpclib import xmlrpclib
 import random
 
 # common modules imports
-from common import rhnCache, rhnFlags, log_debug, CFG, rhnFault
-from common.rhnTranslate import _
-from spacewalk.common import rhn_rpm
+from spacewalk.common import rhnCache, rhnFlags, log_debug, CFG, rhnFault, rhn_rpm
+from spacewalk.common.rhnTranslate import _
 
 # server modules imports
-from server import rhnChannel, rhnSQL, rhnHandler, rhnLib
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnChannel, rhnSQL, rhnLib
 
 # Applet class --- retrieve (via xmlrpc) date required for applet
 # functionality

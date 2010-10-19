@@ -16,7 +16,7 @@
 #
 #
 
-from common import log_debug
+from spacewalk.common import log_debug
 
 # the "exposed" functions
 __rhnexport__ = ['reboot']

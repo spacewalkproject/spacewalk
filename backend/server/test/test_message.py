@@ -12,8 +12,8 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from common import initCFG
-from server import rhnSQL, rhnServer
+from spacewalk.common import initCFG
+from spacewalk.server import rhnSQL, rhnServer
 
 
 initCFG("server.xmlrpc")

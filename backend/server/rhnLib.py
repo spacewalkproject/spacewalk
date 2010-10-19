@@ -20,7 +20,7 @@ import time
 import string
 import base64
 
-from common import rhnFault, log_debug
+from spacewalk.common import rhnFault, log_debug
 
 # architecture work
 from rhnMapping import check_package_arch

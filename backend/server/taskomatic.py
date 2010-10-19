@@ -3,7 +3,7 @@
 Module for taskomatic related functions (inserting into queues, etc)
 """
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 class RepodataQueueEntry(object):
 

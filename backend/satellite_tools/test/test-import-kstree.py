@@ -12,10 +12,10 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server import rhnSQL
-from server.importlib.kickstartImport import KickstartableTreeImport
-from satellite_tools import xmlSource
-from satellite_tools.diskImportLib import getBackend
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.kickstartImport import KickstartableTreeImport
+from spacewalk.satellite_tools import xmlSource
+from spacewalk.satellite_tools.diskImportLib import getBackend
 
 class KickstartableTreesContainer(xmlSource.KickstartableTreesContainer):
     def endContainerCallback(self):

@@ -20,12 +20,12 @@ import time
 import gzip
 import dumper
 import cStringIO
-from common import CFG, initCFG, rhnMail, Traceback
-from server import rhnSQL
-from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
-from satellite_tools.exporter import xmlWriter
-from satellite_tools import xmlDiskSource, diskImportLib, progress_bar
-from satellite_tools.syncLib import initEMAIL_LOG, dumpEMAIL_LOG, log2email, log2stderr, log2stdout, log
+from spacewalk.common import CFG, initCFG, rhnMail, Traceback
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
+from spacewalk.satellite_tools.exporter import xmlWriter
+from spacewalk.satellite_tools import xmlDiskSource, diskImportLib, progress_bar
+from spacewalk.satellite_tools.syncLib import initEMAIL_LOG, dumpEMAIL_LOG, log2email, log2stderr, log2stdout, log
 from iss_ui import UI
 from iss_actions import ActionDeps
 import shutil

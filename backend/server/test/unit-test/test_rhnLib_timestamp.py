@@ -21,7 +21,7 @@
 import sys
 import time
 import unittest
-from common import rhnLib
+from spacewalk.common import rhnLib
 
 class Tests(unittest.TestCase):
     def _test_timestamp_1(self):

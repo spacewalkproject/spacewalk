@@ -13,8 +13,8 @@
 # in this software or its documentation. 
 #
 import sys
-from common import rhn_memusage
-from server.rhnServer import satellite_cert
+from spacewalk.common import rhn_memusage
+from spacewalk.server.rhnServer import satellite_cert
 
 def main():
     for i in range(1000):

@@ -21,14 +21,13 @@ import base64
 import string
 from rhn import rpclib
 from rhn.rpclib import transports
-from common import apache
 
 # common modules
-from common import CFG, rhnFault, rhnFlags, redirectException #to catch redirect exception
-from common import log_debug, log_error, Traceback
-from common.rhnTranslate import _
-from common.rhnLib import setHeaderValue
-from common import byterange
+from spacewalk.common import apache, CFG, rhnFault, rhnFlags, \
+    redirectException #to catch redirect exception
+from spacewalk.common import log_debug, log_error, Traceback, byterange
+from spacewalk.common.rhnTranslate import _
+from spacewalk.common.rhnLib import setHeaderValue
 
 # local modules
 import rhnRepository

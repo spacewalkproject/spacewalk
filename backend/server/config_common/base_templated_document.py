@@ -20,7 +20,7 @@
 import re
 import string
 
-from common import log_error
+from spacewalk.common import log_error
 
 class BaseTemplatedDocument:
     compiled_regexes = {}

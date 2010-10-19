@@ -18,13 +18,9 @@
 import time
 import string
 
-from common import RPC_Base, log_debug
-from spacewalk.common import rhn_rpm
-
-from server import rhnSQL
-
-#from app.importlib.packageImport import uploadPackages, listChannels
-from server.importlib.userAuth import UserAuth
+from spacewalk.common import RPC_Base, log_debug, rhn_rpm
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.userAuth import UserAuth
 
 class RHNLint(RPC_Base):
     def __init__(self):

@@ -15,8 +15,8 @@
 # remote script functions
 #
 
-from common import log_debug
-from server import rhnSQL
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
 
 # the "exposed" functions
 __rhnexport__ = ['run']

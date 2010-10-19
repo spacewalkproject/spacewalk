@@ -30,13 +30,11 @@ except ImportError:
         pass
 
 ## common, server imports
-from common import rhnTB
-from common import rhnLib
-from common.rhnConfig import CFG, initCFG
-from common.rhnTranslate import _
-from server import rhnSQL
-from server.rhnServer import satellite_cert
-from spacewalk.common import fileutils
+from spacewalk.common import rhnTB, rhnLib, fileutils
+from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import satellite_cert
 
 import tempfile
 

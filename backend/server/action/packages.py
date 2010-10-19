@@ -18,9 +18,9 @@
 # the DB.
 #
 
-from common import log_debug
-from server import rhnSQL, rhnCapability
-from server.rhnLib import InvalidAction
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL, rhnCapability
+from spacewalk.server.rhnLib import InvalidAction
 
 # the "exposed" functions
 __rhnexport__ = ['update',

@@ -13,8 +13,8 @@
 # in this software or its documentation. 
 #
 import sys
-from server import rhnSQL
-from satellite_tools import satCerts
+from spacewalk.server import rhnSQL
+from spacewalk.satellite_tools import satCerts
 
 def main():
     if len(sys.argv) != 3:

@@ -21,7 +21,7 @@
 import sys
 import time
 import unittest
-from server import rhnSQL, rhnActivationKey
+from spacewalk.server import rhnSQL, rhnActivationKey
 
 import misc_functions
 

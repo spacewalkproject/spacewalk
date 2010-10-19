@@ -30,7 +30,7 @@ topdir = os.path.abspath(os.path.dirname(topdir + "/../../../../.."))
 if topdir not in sys.path:
     sys.path.append(topdir)
 
-from common import rhnTranslate
+from spacewalk.common import rhnTranslate
 
 class Tests(unittest.TestCase):
     

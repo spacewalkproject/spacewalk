@@ -17,8 +17,8 @@
 import os
 import sys
 import time
-from common import initCFG
-from server import rhnFileDownload, rhnSQL
+from spacewalk.common import initCFG
+from spacewalk.server import rhnFileDownload, rhnSQL
 
 def main():
     if len(sys.argv) < 2:

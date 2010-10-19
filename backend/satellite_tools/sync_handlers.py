@@ -17,8 +17,8 @@
 import types
 import string
 
-from server import rhnSQL
-from server.importlib import channelImport, packageImport, errataImport, \
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport, importLib
 import diskImportLib
 import xmlSource

@@ -29,8 +29,8 @@ create table test_blob_update
 """
 
 import sys
-from server import rhnSQL
-from server.importlib.backendLib import Table, DBblob, DBint, TableUpdate, \
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendLib import Table, DBblob, DBint, TableUpdate, \
     TableInsert
 
 def main():

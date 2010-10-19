@@ -19,8 +19,8 @@
 # Run the test and look into the email.
 # $Id$
 
-from server import rhnSQL
-from common import Traceback, initCFG
+from spacewalk.server import rhnSQL
+from spacewalk.common import Traceback, initCFG
 
 initCFG('server.xmlrpc')
 

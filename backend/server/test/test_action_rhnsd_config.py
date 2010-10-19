@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server import rhnSQL, rhnAction
+from spacewalk.server import rhnSQL, rhnAction
 
 rhnSQL.initDB('rhnuser/rhnuser@webdev')
 

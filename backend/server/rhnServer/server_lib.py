@@ -20,11 +20,11 @@ import hashlib
 import time
 import string
 
-from common import rhnFault, rhnException, log_error, log_debug
-from common import CFG, rhnFlags
-from common.rhnTranslate import _
+from spacewalk.common import rhnFault, rhnException, log_error, log_debug
+from spacewalk.common import CFG, rhnFlags
+from spacewalk.common.rhnTranslate import _
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 # Do not import server.apacheAuth in this module, or the secret generation
 # script will traceback - since it would try to import rhnSecret which doesn't

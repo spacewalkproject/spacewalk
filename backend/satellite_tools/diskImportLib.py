@@ -20,16 +20,16 @@ import os
 
 from xml.sax import SAXParseException
 
-from common import Traceback, CFG
-from server.rhnSQL.const import ORACLE, POSTGRESQL
+from spacewalk.common import Traceback, CFG
+from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
 import xmlSource
 import xmlDiskSource
-from server.importlib.channelImport import ChannelImport, ChannelFamilyImport
-from server.importlib.packageImport import PackageImport
-from server.importlib import archImport
-from server.importlib import blacklistImport
-from server.importlib import productNamesImport
+from spacewalk.server.importlib.channelImport import ChannelImport, ChannelFamilyImport
+from spacewalk.server.importlib.packageImport import PackageImport
+from spacewalk.server.importlib import archImport
+from spacewalk.server.importlib import blacklistImport
+from spacewalk.server.importlib import productNamesImport
 
 class Backend:
     __backend = None
@@ -40,10 +40,10 @@ class Backend:
 
 
         if CFG.DB_BACKEND == ORACLE:
-            from server.importlib.backendOracle import OracleBackend
+            from spacewalk.server.importlib.backendOracle import OracleBackend
             Backend.__backend = OracleBackend()
         elif CFG.DB_BACKEND == POSTGRESQL:
-            from server.importlib.backendOracle import PostgresqlBackend
+            from spacewalk.server.importlib.backendOracle import PostgresqlBackend
             Backend.__backend = PostgresqlBackend()
         Backend.__backend.init()
         return Backend.__backend

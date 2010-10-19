@@ -17,9 +17,9 @@ import os
 import sys
 from optparse import Option, OptionParser
 
-from common import rhnTB
-from common.rhnConfig import CFG, initCFG
-from server import rhnSQL
+from spacewalk.common import rhnTB
+from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.server import rhnSQL
 
 import satCerts
 

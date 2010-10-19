@@ -18,8 +18,8 @@
 
 import string
 
-from common import rhnFlags, log_debug
-from server import rhnSQL, apacheAuth
+from spacewalk.common import rhnFlags, log_debug
+from spacewalk.server import rhnSQL, apacheAuth
 
 def store_client_route(server_id):
     """ Stores the route the client took to get to hosted or the Satellite """

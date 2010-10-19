@@ -22,10 +22,9 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, ListType, DictType
 
 # common module
-from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG
-from common.rhnTranslate import _
-from spacewalk.common import rhn_rpm
-from rhnServer import server_lib
+from spacewalk.common import log_debug, log_error, rhnFault, rhnException, \
+    rhnCache, rhnFlags, CFG, rhn_rpm
+from spacewalk.common.rhnTranslate import _
 from rhnDependency import MakeEvrError
 
 # local module
@@ -2019,6 +2018,7 @@ def system_reg_message(server):
 
 
     # System does have a base channel; check entitlements
+    from rhnServer import server_lib   #having this on top, cause TB due circular imports
     entitlements = server_lib.check_entitlement(server_id)
     if not entitlements:
         # No entitlement

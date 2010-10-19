@@ -16,9 +16,9 @@
 
 import os
 import tempfile
-from common import apache
+from spacewalk.common import apache
 
-from common import log_debug, rhnFault, UserDictCase
+from spacewalk.common import log_debug, rhnFault, UserDictCase
 
 
 class BasePackageUpload:

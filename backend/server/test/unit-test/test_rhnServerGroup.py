@@ -20,7 +20,7 @@
 
 import sys
 import unittest
-from server import rhnSQL, rhnServerGroup
+from spacewalk.server import rhnSQL, rhnServerGroup
 
 import misc_functions
 

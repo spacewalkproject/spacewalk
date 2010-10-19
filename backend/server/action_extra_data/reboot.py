@@ -14,8 +14,8 @@
 #
 #
 
-from common import log_debug, rhnFlags
-from server.rhnServer import server_kickstart
+from spacewalk.common import log_debug, rhnFlags
+from spacewalk.server.rhnServer import server_kickstart
 
 # the "exposed" functions
 __rhnexport__ = ['reboot']

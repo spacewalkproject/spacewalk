@@ -16,7 +16,7 @@
 import unittest
 
 import spacewalk.test.setpath
-from common.rhnLib import parseUrl
+from spacewalk.common.rhnLib import parseUrl
 
 class RhnLibTests(unittest.TestCase):
 

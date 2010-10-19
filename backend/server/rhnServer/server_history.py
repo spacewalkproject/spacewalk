@@ -15,11 +15,8 @@
 # Class for handling and updating the server history.
 #
 
-# Global Modules
-from common import log_debug
-
-# Local Modules
-from server import rhnSQL
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
 
 # these are kind of out there...
 MAX_SUMMARY = 128

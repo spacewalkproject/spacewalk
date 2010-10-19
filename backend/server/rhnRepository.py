@@ -23,12 +23,12 @@ import types
 from rhn import rpclib
 
 # common modules imports
-from common import log_debug, CFG, rhnFault
-from common import rhnRepository, rhnFlags, rhnCache, redirectException
-from common.rhnLib import rfc822time, timestamp
+from spacewalk.common import log_debug, CFG, rhnFault, rhnRepository, rhnFlags, \
+    rhnCache, redirectException
+from spacewalk.common.rhnLib import rfc822time, timestamp
 
 # local modules imports
-from server import rhnChannel, rhnPackage, taskomatic, rhnSQL
+from spacewalk.server import rhnChannel, rhnPackage, taskomatic, rhnSQL
 from rhnServer import server_lib
 from repomd import repository
 

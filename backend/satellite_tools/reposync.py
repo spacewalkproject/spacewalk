@@ -15,15 +15,14 @@
 import sys, os, time, grp
 import hashlib
 from optparse import OptionParser
-from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from common import CFG, initCFG, rhnLog, fetchTraceback
-from spacewalk.common import rhn_rpm
+from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
+from spacewalk.common import CFG, initCFG, rhnLog, fetchTraceback, rhn_rpm
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_mpm import InvalidPackageError
-from server.importlib.importLib import IncompletePackage
-from server.importlib.backendOracle import OracleBackend
-from server.importlib.packageImport import ChannelPackageSubscription
-from server import taskomatic
+from spacewalk.server.importlib.importLib import IncompletePackage
+from spacewalk.server.importlib.backendOracle import OracleBackend
+from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
+from spacewalk.server import taskomatic
 
 
 default_log_location = '/var/log/rhn/reposync/'

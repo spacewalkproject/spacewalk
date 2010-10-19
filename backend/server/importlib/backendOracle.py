@@ -21,7 +21,7 @@
 from backend import Backend
 from backendLib import DBint, DBstring, DBdateTime, DBblob, Table, \
         TableCollection
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 class OracleBackend(Backend):
     tables = TableCollection(

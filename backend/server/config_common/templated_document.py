@@ -18,10 +18,10 @@
 
 from base_templated_document import TemplatedDocument
 
-from common import log_debug
+from spacewalk.common import log_debug
 
-from server.rhnServer.server_hardware import NetworkInformation
-from server.rhnServer.server_hardware import NetIfaceInformation
+from spacewalk.server.rhnServer.server_hardware import NetworkInformation
+from spacewalk.server.rhnServer.server_hardware import NetIfaceInformation
 
 RHN_PREFIX = 'rhn.system.'
 

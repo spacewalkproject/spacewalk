@@ -4,10 +4,9 @@ import sys
 import getopt
 from pprint import pprint
 
-sys.path.append('/usr/share/rhn')
 try:
-   from server import rhnSQL
-   from common import initCFG, CFG
+   from spacewalk.server import rhnSQL
+   from spacewalk.common import initCFG, CFG
 except:
    print "Couldn't load needed libs, Are you sure you are running this on a satellite?"
    sys.exit(1)

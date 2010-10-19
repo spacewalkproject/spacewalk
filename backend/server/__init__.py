@@ -16,6 +16,3 @@
 # exposed classes for making import statements nicer
 #
 
-# expose higher level classes we need.
-from rhnHandler import rhnHandler
-

@@ -13,8 +13,8 @@
 # in this software or its documentation. 
 #
 import sys
-from common import initLOG
-from server import rhnSQL, rhnDatabaseCache
+from spacewalk.common import initLOG
+from spacewalk.server import rhnSQL, rhnDatabaseCache
 
 if __name__ == '__main__':
     initLOG("stderr", 4)

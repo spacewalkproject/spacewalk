@@ -25,14 +25,12 @@ import os.path
 from gzip import GzipFile
 from gzip import write32u
 
-from common import log_debug
-from common import rhnCache
-from common import CFG
+from spacewalk.common import log_debug, rhnCache, CFG
 
 import mapper
 import view
 from domain import Comps
-from server import rhnChannel
+from spacewalk.server import rhnChannel
 
 # One meg
 CHUNK_SIZE = 1048576

@@ -17,8 +17,8 @@
 
 
 # these are pretty much the only entry points
-from common import rhnFault, log_debug, log_error
-from server import rhnUser
+from spacewalk.common import rhnFault, log_debug, log_error
+from spacewalk.server import rhnUser
 
 # Local imports
 from server_class import Server

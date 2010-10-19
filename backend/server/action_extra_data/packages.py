@@ -18,9 +18,9 @@ import re
 
 from types import ListType, IntType
 
-from common import log_debug, log_error, rhnFlags, rhnException
-from server import rhnSQL
-from server.rhnServer import server_kickstart
+from spacewalk.common import log_debug, log_error, rhnFlags, rhnException
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import server_kickstart
 
 # the "exposed" functions
 __rhnexport__ = ['remove',

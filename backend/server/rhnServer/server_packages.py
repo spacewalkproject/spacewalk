@@ -21,9 +21,8 @@ import string
 import time
 from types import DictType, TupleType
 
-from common import log_debug, rhnFault
-from spacewalk.common import rhn_rpm
-from server import rhnSQL, rhnLib
+from spacewalk.common import log_debug, rhnFault, rhn_rpm
+from spacewalk.server import rhnSQL, rhnLib
 from server_lib import snapshot_server, check_entitlement
 
 UNCHANGED = 0

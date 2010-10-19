@@ -14,9 +14,9 @@
 #
 
 
-from common import log_debug
-from server import rhnSQL
-from server.rhnLib import InvalidAction
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnLib import InvalidAction
 
 __rhnexport__ = [   'refresh',
                     'shutdown',

@@ -14,10 +14,10 @@
 #
 #
 
-from common import RPC_Base, rhnFault, log_debug, log_error, CFG
-from common.rhnTranslate import _
+from spacewalk.common import RPC_Base, rhnFault, log_debug, log_error, CFG
+from spacewalk.common.rhnTranslate import _
 
-from server import rhnServer
+from spacewalk.server import rhnServer
 
 # extend the RPC_Base base class
 class rhnHandler(RPC_Base):

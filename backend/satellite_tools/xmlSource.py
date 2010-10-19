@@ -21,9 +21,8 @@ import string
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
-from common import log_debug, Traceback, rhnFlags, CFG
-
-from server.importlib import importLib, backendLib
+from spacewalk.common import log_debug, Traceback, rhnFlags, CFG
+from spacewalk.server.importlib import importLib, backendLib
 
 # Terminology used throughout this file:
 # Item: an atomic entity from the database's perspective.

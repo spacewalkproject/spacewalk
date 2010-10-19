@@ -20,10 +20,10 @@ import string
 import cPickle
 import cStringIO
 
-from common import rhnCache, log_debug, log_error
-from common.rhnLib import timestamp
+from spacewalk.common import rhnCache, log_debug, log_error
+from spacewalk.common.rhnLib import timestamp
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 # XXX Although it would have been much easier to do it all in python, we want
 # this code to commit as soon as possible. Also, we cannot just commit

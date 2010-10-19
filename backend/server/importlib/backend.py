@@ -21,9 +21,8 @@ import string
 import re
 import sys
 
-from common import rhnFault, CFG
-from spacewalk.common import rhn_rpm
-from server import rhnSQL, rhnChannel, taskomatic
+from spacewalk.common import rhnFault, CFG, rhn_rpm
+from spacewalk.server import rhnSQL, rhnChannel, taskomatic
 from importLib import Diff, Package, IncompletePackage, Erratum, \
         AlreadyUploadedError, InvalidPackageError, TransactionError, \
         InvalidSeverityError, SourcePackage

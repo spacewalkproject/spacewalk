@@ -21,11 +21,10 @@
 import os
 import base64
 import string
-from common import apache
 from rhn import rpclib
 
-from common import CFG, log_debug, log_error, rhnFault, rhnFlags
-from server import rhnPackageUpload, rhnSQL, basePackageUpload
+from spacewalk.common import apache, CFG, log_debug, log_error, rhnFault, rhnFlags
+from spacewalk.server import rhnPackageUpload, rhnSQL, basePackageUpload
 from spacewalk.common.checksum import getFileChecksum
 
 class PackagePush(basePackageUpload.BasePackageUpload):

@@ -18,8 +18,8 @@ import string
 import urlparse
 from optparse import Option, OptionParser
 
-from common import rhnLib, initCFG
-from satellite_tools import xmlSource, xmlDiskSource, xmlDiskDumper, \
+from spacewalk.common import rhnLib, initCFG
+from spacewalk.satellite_tools import xmlSource, xmlDiskSource, xmlDiskDumper, \
     diskImportLib, connection
 
 def main():

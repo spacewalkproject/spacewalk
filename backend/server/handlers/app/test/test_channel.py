@@ -16,10 +16,9 @@
 
 import sys
 import unittest
-sys.path.append('/usr/share/rhn/')
-from server import rhnSQL
-from common import rhnFault
-from server.handlers.app import channel
+from spacewalk.server import rhnSQL
+from spacewalk.common import rhnFault
+from spacewalk.server.handlers.app import channel
 
 #setup
 db = 'webdev'

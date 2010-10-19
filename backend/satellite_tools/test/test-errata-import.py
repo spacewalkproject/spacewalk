@@ -15,9 +15,9 @@
 import sys
 import xmlSource
 
-from server import rhnSQL
-from server.importlib.errataImport import ErrataImport
-from server.importlib.backendOracle import OracleBackend
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.errataImport import ErrataImport
+from spacewalk.server.importlib.backendOracle import OracleBackend
 
 def main():
     #rhnSQL.initDB("satdev2/satdev2@testdb2")

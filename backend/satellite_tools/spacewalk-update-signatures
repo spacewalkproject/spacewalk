@@ -22,15 +22,13 @@ import os
 import time
 import shutil
 
-sys.path.append('/usr/share/rhn')
-
 from optparse import Option, OptionParser
-from common import rhnLib, rhnLog, initLOG, CFG, initCFG
+from spacewalk.common import rhnLib, rhnLog, initLOG, CFG, initCFG
 from spacewalk.common import rhn_rpm
-from server.rhnLib import parseRPMFilename, get_package_path
-from server import rhnSQL
-from server.rhnServer import server_packages
-from satellite_tools.progress_bar import ProgressBar
+from spacewalk.server.rhnLib import parseRPMFilename, get_package_path
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import server_packages
+from spacewalk.satellite_tools.progress_bar import ProgressBar
 
 initCFG('server.satellite')
 initLOG(CFG.LOG_FILE, CFG.DEBUG)

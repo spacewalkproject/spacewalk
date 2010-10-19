@@ -21,7 +21,7 @@
 import os
 import sys
 import unittest
-from server import rhnSQL, rhnDatabaseCache
+from spacewalk.server import rhnSQL, rhnDatabaseCache
 
 DB = 'rhnuser/rhnuser@webdev'
     

@@ -17,8 +17,8 @@ import time
 import string
 from types import StringType
 
-from common import log_debug, rhnLib
-from server import rhnSQL
+from spacewalk.common import log_debug, rhnLib
+from spacewalk.server import rhnSQL
 
 class ArrayIterator:
     def __init__(self, arr):

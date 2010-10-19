@@ -14,7 +14,7 @@
 #
 import os
 import sys
-from satellite_tools.connection import StreamConnection
+from spacewalk.satellite_tools.connection import StreamConnection
 
 if __name__ == '__main__':    
     #s = StreamConnection("https://xmlrpc.rhn.redhat.com/SAT-DUMP",

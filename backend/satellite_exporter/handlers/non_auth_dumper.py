@@ -19,15 +19,15 @@ Non-authenticated dumper
 import os
 import xmlrpclib
 import gzip, tempfile
-from common import log_debug, log_error, rhnFault, CFG, UserDictCase, rhnCache
-from common import rhnLib as rhnLib_common
-from server import rhnSQL, rhnLib
-from server.rhnHandler import rhnHandler
-from server.importlib.backendLib import localtime
-from common.rhnTranslate import _
+from spacewalk.common import log_debug, log_error, rhnFault, CFG, UserDictCase, rhnCache
+from spacewalk.common import rhnLib as rhnLib_common
+from spacewalk.server import rhnSQL, rhnLib
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server.importlib.backendLib import localtime
+from spacewalk.common.rhnTranslate import _
 
-from satellite_tools.exporter import exportLib
-from satellite_tools.disk_dumper import dumper
+from spacewalk.satellite_tools.exporter import exportLib
+from spacewalk.satellite_tools.disk_dumper import dumper
 
 class InvalidPackageError(Exception):
     pass

@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from satellite_tools import connection
+from spacewalk.satellite_tools import connection
 
 systemid = open("systemid-satellite-live").read()
 #server_url = "http://satellite.rhn.webqa.redhat.com/SAT"

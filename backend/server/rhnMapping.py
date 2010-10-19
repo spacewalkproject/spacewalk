@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 # maps a funky product release to something that is canonical
 # and has a chance of hitting some channels

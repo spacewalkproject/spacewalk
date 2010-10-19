@@ -16,14 +16,14 @@
 
 import time
 import xmlrpclib
-from common import apache
+from spacewalk.common import apache
 
-from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
+from spacewalk.common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnException, rhnFlags
-from common.rhnTranslate import _
-from server import rhnSQL, rhnImport
-from satellite_tools.disk_dumper.dumper import ClosedConnectionError
-from satellite_tools import constants
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL, rhnImport
+from spacewalk.satellite_tools.disk_dumper.dumper import ClosedConnectionError
+from spacewalk.satellite_tools import constants
 
 class BaseApacheServer:
     def __init__(self):

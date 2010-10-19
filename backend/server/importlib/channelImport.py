@@ -17,8 +17,8 @@
 
 from importLib import Import, InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
-from common import CFG
-from satellite_tools.syncLib import log
+from spacewalk.common import CFG
+from spacewalk.satellite_tools.syncLib import log
 
 import re
 RHEL5_REGEXP = re.compile("rhel-[^-]*-(server|client)-5")
@@ -381,7 +381,7 @@ class ReleaseChannelMapImport(Import):
 # for testing only
 if __name__ == '__main__':
     import sys
-    from server import rhnSQL
+    from spacewalk.server import rhnSQL
     from backendOracle import OracleBackend
     from importLib import Collection, ChannelFamily, DistChannelMap
     backend = OracleBackend()

@@ -16,8 +16,8 @@
 # Kickstart-related operations
 #
 
-from common import rhnException, rhnFlags, log_debug
-from server import rhnSQL, rhnAction, rhnLib, rhnChannel
+from spacewalk.common import rhnException, rhnFlags, log_debug
+from spacewalk.server import rhnSQL, rhnAction, rhnLib, rhnChannel
 
 def update_kickstart_session(server_id, action_id, action_status, 
         kickstart_state, next_action_type):

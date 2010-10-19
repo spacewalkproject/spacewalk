@@ -21,7 +21,7 @@ TOP	= ../..
 
 # Specific stuff
 SUBDIR	= satellite_tools/repo_plugins
-FILES	= __init__ yum_src
+SPACEWALK_FILES	= __init__ yum_src
 
 include $(TOP)/Makefile.defs
 

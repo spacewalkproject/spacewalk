@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server.rhnServer import server_packages
+from spacewalk.server.rhnServer import server_packages
 
 unzip1      = ( 'unzip',    '1.1', '2', '')
 unzip2      = ( 'unzip',    '1.2', '1', '')

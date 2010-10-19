@@ -17,18 +17,18 @@
 import os
 import tempfile
 
-from common import CFG, log_debug, rhnFault, UserDictCase
-from spacewalk.common import rhn_mpm, rhn_deb
+from spacewalk.common import CFG, log_debug, rhnFault, UserDictCase, rhn_mpm, \
+    rhn_deb
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
-from server import rhnSQL
-from server.importlib import importLib, userAuth, mpmSource, \
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib import importLib, userAuth, mpmSource, \
     packageImport, errataCache
-from server.rhnLib import get_package_path, \
+from spacewalk.server.rhnLib import get_package_path, \
     get_package_path_without_package_name
-from server.rhnServer import server_packages
-from server.rhnSQL.const import ORACLE, POSTGRESQL
+from spacewalk.server.rhnServer import server_packages
+from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
 def source_match(v1, v2):
     """ returns true if both parameters are true, false otherwise """
@@ -162,10 +162,10 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
     batch.append(pkg)
 
     if CFG.DB_BACKEND == ORACLE:
-        from server.importlib.backendOracle import OracleBackend
+        from spacewalk.server.importlib.backendOracle import OracleBackend
         backend = OracleBackend()
     elif CFG.DB_BACKEND == POSTGRESQL:
-        from server.importlib.backendOracle import PostgresqlBackend
+        from spacewalk.server.importlib.backendOracle import PostgresqlBackend
         backend = PostgresqlBackend()
     backend.init()
 

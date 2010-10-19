@@ -22,7 +22,8 @@ import string
 import connection
 
 # rhn imports
-from common import CFG, rhnLib
+from spacewalk.common import CFG, rhnLib
+sys.path.append("/usr/share/rhn")
 from up2date_client import config
 
 # local imports

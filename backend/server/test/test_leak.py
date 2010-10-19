@@ -16,7 +16,7 @@
 import os
 import sys
 import time
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 print os.getpid()
 rhnSQL.initDB('rhnuser/rhnuser@webdev')

@@ -16,7 +16,7 @@
 # Errata import process
 #
 
-from common import rhnFault
+from spacewalk.common import rhnFault
 from importLib import GenericPackageImport
 
 class ErrataImport(GenericPackageImport):

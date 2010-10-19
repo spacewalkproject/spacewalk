@@ -13,8 +13,8 @@
 # in this software or its documentation. 
 #
 
-from common import initCFG
-from server import rhnSQL, rhnUser
+from spacewalk.common import initCFG
+from spacewalk.server import rhnSQL, rhnUser
 
 rhnSQL.initDB("rhnuser/rhnuser@webdev")
 initCFG('server.xmlrpc')

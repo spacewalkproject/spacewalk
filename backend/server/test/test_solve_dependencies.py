@@ -14,7 +14,7 @@
 # in this software or its documentation. 
 #
 
-from server import rhnDependency, rhnSQL
+from spacewalk.server import rhnDependency, rhnSQL
 import unittest
 from TestServer import TestServer
 import rpm

@@ -32,7 +32,7 @@
 import TestServer
 import server.redhat_xmlrpc
 import SimpleXMLRPCServer
-from common import rhnConfig
+from spacewalk.common import rhnConfig
 
 class TestRedhat( TestServer.TestServer ):
     def __init__(self):

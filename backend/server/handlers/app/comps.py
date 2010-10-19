@@ -16,9 +16,9 @@
 # This is the XML-RPC response handler for manage-comps tool
 
 
-from common import RPC_Base, rhnFault
-from server import rhnSQL
-from server.importlib.userAuth import UserAuth
+from spacewalk.common import RPC_Base, rhnFault
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.userAuth import UserAuth
 
 
 class Comps(RPC_Base):

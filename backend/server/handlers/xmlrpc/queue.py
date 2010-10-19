@@ -21,14 +21,13 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, TupleType
 
 # Global modules
-from common import CFG, log_debug, log_error, Traceback
-from common import rhnFlags
-from common import rhnFault
-from common.rhnTranslate import _
-
-from server import rhnSQL, rhnHandler, rhnCapability, rhnAction
-from server.rhnLib import InvalidAction, EmptyAction, ShadowAction
-from server.rhnServer import server_kickstart
+from spacewalk.common import CFG, log_debug, log_error, Traceback, \
+    rhnFlags, rhnFault
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnSQL, rhnCapability, rhnAction
+from spacewalk.server.rhnLib import InvalidAction, EmptyAction, ShadowAction
+from spacewalk.server.rhnServer import server_kickstart
 
 import getMethod
 

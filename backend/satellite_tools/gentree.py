@@ -17,7 +17,7 @@
 import os
 import sys
 from optparse import Option, OptionParser
-from common import initCFG, CFG
+from spacewalk.common import initCFG, CFG
 
 import xmlSource
 import xmlDiskSource

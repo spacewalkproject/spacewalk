@@ -14,10 +14,9 @@
 #
 import sys
 import StringIO
-from server import rhnSQL
-
-from satellite_tools import xmlSource
-from satellite_tools.exporter import xmlWriter, exportLib
+from spacewalk.server import rhnSQL
+from spacewalk.satellite_tools import xmlSource
+from spacewalk.satellite_tools.exporter import xmlWriter, exportLib
 
 rhnSQL.initDB("rhnuser/rhnuser@webdev")
 
@@ -54,9 +53,6 @@ sys.exit(0)
 cont = xmlSource.ChannelContainer()
 handler = xmlSource.SatelliteDispatchHandler()
 handler.set_container(cont)
-
-#from common import initCFG
-#initCFG('server.satellite')
 
 s.seek(0, 0)
 handler.process(s)

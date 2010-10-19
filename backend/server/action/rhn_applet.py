@@ -18,7 +18,7 @@
 # the DB.
 #
 
-from common import log_debug
+from spacewalk.common import log_debug
 
 # the "exposed" functions
 __rhnexport__ = ['use_satellite']

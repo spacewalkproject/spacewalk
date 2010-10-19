@@ -24,8 +24,8 @@ from server_packages import Packages
 from server_history import History
 from server_solarispatches import SolarisPatches
 
-from common import UserDictCase
-from server import rhnSQL
+from spacewalk.common import UserDictCase
+from spacewalk.server import rhnSQL
 
 # This is a middle class that ties all the subclasses together, plus it
 # provides a cleaner way to keep all the wrapper functions in one place.

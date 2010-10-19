@@ -14,15 +14,12 @@
 #
 
 import sys
-rhn_path = '/usr/share/rhn'
-if rhn_path not in sys.path:
-    sys.path.append(rhn_path)
 
-from server import rhnSQL
-from server.importlib.backendOracle import OracleBackend
-from server.importlib.packageImport import PackageImport
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendOracle import OracleBackend
+from spacewalk.server.importlib.packageImport import PackageImport
 
-from server.importlib.mpmSource import mpmBinaryPackage
+from spacewalk.server.importlib.mpmSource import mpmBinaryPackage
 
 solaris_pkgs = [
     mpmBinaryPackage().populate(

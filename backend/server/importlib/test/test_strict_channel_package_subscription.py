@@ -30,10 +30,10 @@
 #   invalid should become non-null (2 in my tests)
 
 import sys
-from common import initCFG
+from spacewalk.common import initCFG
 
-from server import rhnSQL
-from server.importlib import importLib, packageImport, backendOracle
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib import importLib, packageImport, backendOracle
 
 def main():
     initCFG("server.app")

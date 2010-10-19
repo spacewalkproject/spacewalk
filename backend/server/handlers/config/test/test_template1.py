@@ -15,7 +15,7 @@
 import sys
 
 from templated_document import ServerTemplatedDocument
-from server import rhnServer, rhnSQL
+from spacewalk.server import rhnServer, rhnSQL
 
 rhnSQL.initDB('rhnuser/rhnuser@webdev')
 

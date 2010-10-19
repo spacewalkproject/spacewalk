@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 rhnSQL.initDB("rhnuser/rhnuser@webdev")
 

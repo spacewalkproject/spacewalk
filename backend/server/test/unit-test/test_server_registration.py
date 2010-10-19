@@ -20,9 +20,9 @@
 
 import sys
 import unittest
-from common import initCFG, rhnFlags
-from server import rhnSQL, rhnServer, rhnChannel
-from server.xmlrpc import registration
+from spacewalk.common import initCFG, rhnFlags
+from spacewalk.server import rhnSQL, rhnServer, rhnChannel
+from spacewalk.server.xmlrpc import registration
 
 import misc_functions
 

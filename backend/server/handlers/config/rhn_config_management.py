@@ -16,10 +16,10 @@
 # Config file handler (client side)
 #
 
-from common import rhnFault, log_debug
+from spacewalk.common import rhnFault, log_debug
 
-from server import rhnSQL, configFilesHandler
-from server.rhnHandler import rhnHandler
+from spacewalk.server import rhnSQL, configFilesHandler
+from spacewalk.server.rhnHandler import rhnHandler
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):

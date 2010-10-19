@@ -1,15 +1,12 @@
 #!/usr/bin/python
 
-import sys
-sys.path.append("/usr/share/rhn")
-
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 
 DB = 'rhnsat/rhnsat@rhnsat'
 
-from server.importlib.backendOracle import OracleBackend
-from server.importlib.backendLib import DBint, DBstring, DBdateTime, DBblob
+from spacewalk.server.importlib.backendOracle import OracleBackend
+from spacewalk.server.importlib.backendLib import DBint, DBstring, DBdateTime, DBblob
 
 tabs = OracleBackend.tables
 utabs = {}

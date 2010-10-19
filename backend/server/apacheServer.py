@@ -14,10 +14,10 @@
 #
 
 # global module imports
-from common import apache
+from spacewalk.common import apache
 
 # common module imports
-from common import CFG, initCFG, log_setreq, initLOG, Traceback
+from spacewalk.common import CFG, initCFG, log_setreq, initLOG, Traceback
 
 from apacheHandler import apacheHandler
 apache_server       = apacheHandler()

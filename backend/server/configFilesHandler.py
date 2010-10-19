@@ -19,13 +19,13 @@
 import base64
 import os
 
-from common import rhnFault, rhnException, log_debug, CFG, rhnFlags
+from spacewalk.common import rhnFault, rhnException, log_debug, CFG, rhnFlags
 from spacewalk.common.checksum import getStringChecksum
 
-from server import rhnSQL, rhnUser, rhnCapability
-from server.rhnHandler import rhnHandler
+from spacewalk.server import rhnSQL, rhnUser, rhnCapability
+from spacewalk.server.rhnHandler import rhnHandler
 
-from server.config_common.templated_document import ServerTemplatedDocument, var_interp_prep
+from spacewalk.server.config_common.templated_document import ServerTemplatedDocument, var_interp_prep
 
 
 import rhnSession

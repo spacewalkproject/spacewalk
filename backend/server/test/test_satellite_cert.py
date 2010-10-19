@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 import sys
-from server.rhnServer import satellite_cert
+from spacewalk.server.rhnServer import satellite_cert
 
 if len(sys.argv) != 2:
     print "Usage: %s <cert-file>" % sys.argv[0]

@@ -17,9 +17,9 @@ import os
 
 from types import ListType
 
-from common import log_debug, log_error, CFG, rhnFault, rhnFlags
-from common.rhnTranslate import _
-from server import rhnSQL
+from spacewalk.common import log_debug, log_error, CFG, rhnFault, rhnFlags
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL
 from rhnLib import parseRPMFilename
 
 
@@ -474,7 +474,7 @@ def _none2emptyString(foo):
 if __name__ == '__main__':
     """Test code.
     """
-    from common import initLOG
+    from spacewalk.common import initLOG
     initLOG("stdout", 1)
     rhnSQL.initDB('rhnuser/rhnuser@webqa')
     print

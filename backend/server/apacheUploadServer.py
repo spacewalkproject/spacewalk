@@ -15,13 +15,13 @@
 #
 
 import string
-from common import apache
+from spacewalk.common import apache
 
 import rhnSession
 
-from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
+from spacewalk.common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnFlags
-from server import apacheServer, rhnImport
+from spacewalk.server import apacheServer, rhnImport
 
 class UploadHandler:
     def __init__(self):

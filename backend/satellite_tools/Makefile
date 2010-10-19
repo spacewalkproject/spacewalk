@@ -7,12 +7,13 @@ TOP	= ..
 # Specific stuff
 SUBDIR	= satellite_tools
 SUBDIRS = exporter disk_dumper accounts repo_plugins
-FILES	= __init__ connection constants diskImportLib messages \
+SPACEWALK_FILES	= __init__ connection constants diskImportLib messages \
             progress_bar req_channels satCerts satsync syncCache \
             sync_handlers \
             syncLib SequenceServer xmlDiskDumper xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
-            satComputePkgHeaders updatePackages reposync
+            satComputePkgHeaders updatePackages reposync \
+	    geniso gentree
 
 SCRIPTS = satellite-sync spacewalk-debug rhn-entitlement-report \
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
@@ -31,7 +32,6 @@ MANDIR	?= /usr/man
 
 EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR)
 
-INSTALL_FILES   = geniso.py gentree.py
 SAT_ACTIV       = rhn-satellite-activate
 CA_DBSTORE      = rhn-ssl-dbstore
 

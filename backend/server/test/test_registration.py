@@ -13,9 +13,9 @@
 # in this software or its documentation. 
 #
 
-from common import initCFG
-from server.rhnSQL import initDB
-from server.xmlrpc import registration
+from spacewalk.common import initCFG
+from spacewalk.server.rhnSQL import initDB
+from spacewalk.server.xmlrpc import registration
 
 initCFG("server.xmlrpc")
 initDB('rhnuser/rhnuser@webdev')

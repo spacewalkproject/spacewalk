@@ -14,7 +14,7 @@
 #
 #
 
-from common import log_debug
+from spacewalk.common import log_debug
 
 __rhnexport__ = ['refresh_list']
 

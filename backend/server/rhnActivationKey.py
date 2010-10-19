@@ -21,7 +21,7 @@ import hashlib
 import time
 import types
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 class InvalidTokenError(Exception):
     pass

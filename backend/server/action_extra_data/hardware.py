@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-from common import log_error
+from spacewalk.common import log_error
 
 # the "exposed" functions
 __rhnexport__ = ['refresh_list']

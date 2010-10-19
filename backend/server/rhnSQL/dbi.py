@@ -33,7 +33,7 @@ def get_database_module(backend=None):
     else:
         driver = BACKEND_DRIVERS[backend]
 
-    driver_dir = "server.rhnSQL"
+    driver_dir = "spacewalk.server.rhnSQL"
     driver_mod = "driver_" + driver
     try:
         module = __import__(driver_dir, globals(), locals(), [driver_mod])

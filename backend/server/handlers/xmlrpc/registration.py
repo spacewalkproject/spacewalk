@@ -17,23 +17,17 @@
 import types
 import string
 
-# Global modules
-
-# common module
-from common import CFG, rhnFault, rhnFlags, log_debug, log_error, rhnMail
-from common.rhnTranslate import _, cat
-from common.rhnLib import checkValue
-
-# local modules
-from server import rhnVirtualization
-
-from server.rhnLib import normalize_server_arch
-from server.rhnServer import server_route, server_lib
-from server.rhnMapping import real_version
-from server import rhnUser, rhnServer, rhnSQL, rhnHandler, rhnCapability, \
-        rhnChannel, rhnAction
-from server.rhnSQL import procedure
-from server.action.utils import ChannelPackage
+from spacewalk.common import CFG, rhnFault, rhnFlags, log_debug, log_error, rhnMail
+from spacewalk.common.rhnTranslate import _, cat
+from spacewalk.common.rhnLib import checkValue
+from spacewalk.server.rhnLib import normalize_server_arch
+from spacewalk.server.rhnServer import server_route, server_lib
+from spacewalk.server.rhnMapping import real_version
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnUser, rhnServer, rhnSQL, rhnCapability, \
+        rhnChannel, rhnAction, rhnVirtualization
+from spacewalk.server.rhnSQL import procedure
+from spacewalk.server.action.utils import ChannelPackage
 
 
 def hash_validate(data, *keylist):

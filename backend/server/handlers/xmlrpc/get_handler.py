@@ -16,7 +16,7 @@
 # GET handler for /XMLRPC
 #
 
-from server import apacheRequest
+from spacewalk.server import apacheRequest
 
 class GetHandler(apacheRequest.GetHandler):
     """ handles the GET requests

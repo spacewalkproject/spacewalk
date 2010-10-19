@@ -20,8 +20,8 @@
 
 import sys
 import unittest
-from common import initCFG
-from server import rhnSQL
+from spacewalk.common import initCFG
+from spacewalk.server import rhnSQL
 
 import misc_functions
 

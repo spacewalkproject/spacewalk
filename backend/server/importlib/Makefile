@@ -6,7 +6,7 @@ TOP	= ../..
 
 SUBDIR	= server/importlib
 
-FILES	= __init__ archImport backendLib backendOracle backend  \
+SPACEWALK_FILES	= __init__ archImport backendLib backendOracle backend  \
             blacklistImport  \
             channelImport debPackage errataCache errataImport headerSource importLib \
 	    kickstartImport mpmSource \

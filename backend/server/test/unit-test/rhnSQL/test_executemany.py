@@ -13,7 +13,7 @@ This test is no more valid; see the bug
 
 import os
 import unittest
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 DB = 'rhnuser/rhnuser@webdev'
 

@@ -17,7 +17,7 @@
 import re
 
 # common module
-from common import log_debug, rhnException
+from spacewalk.common import log_debug, rhnException
 
 # Parses the HTTP header value and stores in the flags  a list of (start, end)
 # tuples that are more pythonic than the RFC semantics

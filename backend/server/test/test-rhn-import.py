@@ -14,17 +14,13 @@
 # in this software or its documentation. 
 #
 
-# Run with:
-# PYTHONPATH=/usr/share/rhn python test/test-rhn-import.py
-
-from common import rhnLog
-from server import rhnImport
+from spacewalk.common import rhnLog
+from spacewalk.server import rhnImport
 
 rhnLog.initLOG(level=4)
 
-dir = "server/handlers"
-root_dir = "/usr/share/rhn"
+dir = "spacewalk/server/handlers"
 
 for i in range(2):
     for iface in ['rpcClasses', 'getHandler']:
-        m = rhnImport.load(dir, root_dir=root_dir, interface_signature=iface)
+        m = rhnImport.load(dir, interface_signature=iface)

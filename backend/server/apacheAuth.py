@@ -17,8 +17,8 @@
 import time
 import string
 
-from common import CFG, rhnFlags, rhnFault, log_debug, log_error
-from common.rhnTranslate import _
+from spacewalk.common import CFG, rhnFlags, rhnFault, log_debug, log_error
+from spacewalk.common.rhnTranslate import _
 
 from rhnLib import computeSignature
 

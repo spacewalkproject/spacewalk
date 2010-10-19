@@ -18,9 +18,9 @@
 # $Id$
 
 import os
-from common import rhnFault, log_debug
+from spacewalk.common import rhnFault, log_debug
 import tempfile
-from server import rhnSQL, configFilesHandler
+from spacewalk.server import rhnSQL, configFilesHandler
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):

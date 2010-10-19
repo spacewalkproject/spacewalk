@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 import sys
-from satellite_tools.connection import StreamConnection
+from spacewalk.satellite_tools.connection import StreamConnection
 
 if __name__ == '__main__':    
     #s = StreamConnection("http://scripts.back-webqa.redhat.com/SAT-DUMP-INTERNAL",

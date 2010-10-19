@@ -17,7 +17,7 @@
 
 import types
 
-from server import rhnSQL, rhnUser
+from spacewalk.server import rhnSQL, rhnUser
 
 class InvalidUserError(Exception):
     pass

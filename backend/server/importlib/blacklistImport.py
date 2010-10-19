@@ -60,7 +60,7 @@ class BlacklistObsoletesImport(Import):
         return tuple(result)
 
 if __name__ == '__main__':
-    from server import rhnSQL
+    from spacewalk.server import rhnSQL
     rhnSQL.initDB('satuser/satuser@satdev')
     from importLib import BlacklistObsoletes
     batch = [

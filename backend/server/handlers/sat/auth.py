@@ -16,9 +16,10 @@
 
 import time
 
-from common import CFG, rhnFault, log_debug
-from common.rhnTranslate import _
-from server import rhnHandler, rhnSQL, rhnLib
+from spacewalk.common import CFG, rhnFault, log_debug
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnSQL, rhnLib
 
 class Authentication(rhnHandler):
     """ Simple authentication based on hostname and allowed_iss_slaves

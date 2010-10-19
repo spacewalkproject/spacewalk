@@ -24,7 +24,7 @@ _topdir = os.path.abspath(os.path.dirname(sys.argv[0]))
 if _topdir not in sys.path:
     sys.path.append(_topdir)
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 def main():
     options_table = [

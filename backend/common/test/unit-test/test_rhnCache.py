@@ -19,7 +19,7 @@
 import sys
 import unittest
 import tempfile
-from common import rhnCache
+from spacewalk.common import rhnCache
 
 class Tests(unittest.TestCase):
     key = "unit-test/test"

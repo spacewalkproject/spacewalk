@@ -12,9 +12,9 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server import rhnSQL
-from common import initCFG, rhnFlags, initLOG
-from server.xmlrpc import queue
+from spacewalk.server import rhnSQL
+from spacewalk.common import initCFG, rhnFlags, initLOG
+from spacewalk.server.xmlrpc import queue
 
 initLOG("stderr", 4)
 initCFG('server.xmlrpc')

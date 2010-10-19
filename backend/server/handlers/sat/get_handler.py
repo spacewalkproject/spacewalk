@@ -16,8 +16,8 @@
 
 import auth
 
-from common import log_debug 
-from server import apacheRequest
+from spacewalk.common import log_debug
+from spacewalk.server import apacheRequest
 
 class GetHandler(apacheRequest.GetHandler):
     """ handles the GET requests for /SAT requests """

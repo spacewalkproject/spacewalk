@@ -25,8 +25,8 @@ import server.importlib.headerSource
 import server.importlib.packageImport
 import server.importlib.backendOracle
 import server.xmlrpc.up2date
-from server import rhnSQL, rhnChannel, rhnServer, rhnUser, rhnServerGroup, rhnActivationKey
-from server.xmlrpc import registration
+from spacewalk.server import rhnSQL, rhnChannel, rhnServer, rhnUser, rhnServerGroup, rhnActivationKey
+from spacewalk.server.xmlrpc import registration
 
 def init_db(username, password, dbhost):
     db = "%s/%s@%s" % (username, password, dbhost)

@@ -25,8 +25,8 @@
 import string
 from types import IntType, ListType, TupleType, StringType
 
-from common import rhnFault, log_error, log_debug
-from common.rhnTranslate import _
+from spacewalk.common import rhnFault, log_error, log_debug
+from spacewalk.common.rhnTranslate import _
 
 ################
 ## FUNCTIONS

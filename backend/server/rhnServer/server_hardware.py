@@ -19,8 +19,8 @@
 
 import string
 
-from common import UserDictCase, log_debug, log_error, rhnFault, Traceback
-from server import rhnSQL
+from spacewalk.common import UserDictCase, log_debug, log_error, rhnFault, Traceback
+from spacewalk.server import rhnSQL
 
 # this is a class we use to get the mapping for a kudzu entry
 def kudzu_mapping(dict = None):

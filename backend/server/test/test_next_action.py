@@ -12,9 +12,9 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from common import rhnFlags
-from server import rhnSQL
-from server.action_extra_data import packages, kickstart, reboot
+from spacewalk.common import rhnFlags
+from spacewalk.server import rhnSQL
+from spacewalk.server.action_extra_data import packages, kickstart, reboot
 
 rhnSQL.initDB('rhnuser/rhnuser@webdev')
 rhnFlags.set('action_id', 11921273)

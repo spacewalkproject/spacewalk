@@ -21,11 +21,11 @@ import re
 from types import ListType
 from cStringIO import StringIO
 
-from common import log_debug, log_error, rhnFault, UserDictCase, rhnCache, \
+from spacewalk.common import log_debug, log_error, rhnFault, UserDictCase, rhnCache, \
     CFG, rhnLib, rhnFlags
-from server import rhnSQL, rhnDatabaseCache
-from satellite_tools import constants
-from satellite_tools.exporter import exportLib, xmlWriter
+from spacewalk.server import rhnSQL, rhnDatabaseCache
+from spacewalk.satellite_tools import constants
+from spacewalk.satellite_tools.exporter import exportLib, xmlWriter
 from string_buffer import StringBuffer
 
 # globals

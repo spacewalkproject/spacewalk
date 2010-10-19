@@ -14,8 +14,8 @@
 #
 #
 
-from common import log_debug, log_error
-from common import rhnException
+from spacewalk.common import log_debug, log_error
+from spacewalk.common import rhnException
 import rhnSQL
 import rpm
 import string

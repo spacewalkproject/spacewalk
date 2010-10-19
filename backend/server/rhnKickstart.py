@@ -16,7 +16,7 @@
 import string
 
 # common module
-from common import log_debug, rhnFault
+from spacewalk.common import log_debug, rhnFault
 
 # local module
 import rhnSQL, rhnChannel

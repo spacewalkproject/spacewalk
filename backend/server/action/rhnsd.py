@@ -16,8 +16,8 @@
 #
 #
 
-from server import rhnSQL
-from common import log_debug, rhnException
+from spacewalk.server import rhnSQL
+from spacewalk.common import log_debug, rhnException
 
 # the "exposed" functions
 __rhnexport__ = ['configure']

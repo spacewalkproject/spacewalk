@@ -17,7 +17,7 @@
 
 
 import socket
-from common import log_debug
+from spacewalk.common import log_debug
 import httplib
 
 

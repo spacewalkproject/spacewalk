@@ -14,10 +14,10 @@
 #
 #
 
-from common import log_debug
-from server import rhnSQL
-from server.rhnLib import InvalidAction, ShadowAction
-from server.rhnServer import server_kickstart, server_packages
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnLib import InvalidAction, ShadowAction
+from spacewalk.server.rhnServer import server_kickstart, server_packages
 
 # the "exposed" functions
 __rhnexport__ = ['initiate', 'schedule_sync']

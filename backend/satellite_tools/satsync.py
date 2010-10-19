@@ -33,16 +33,17 @@ import gettext
 _ = gettext.gettext
 
 # __rhn imports__
-from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
+from spacewalk.common import CFG, initCFG, initLOG, Traceback, rhnMail, \
     rhnLib, rhnFlags
+sys.path.append("/usr/share/rhn")
 from up2date_client import config
 from spacewalk.common import rhn_rpm
 from spacewalk.common.checksum import getFileChecksum
 
-from server import rhnSQL
-from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
-from server.rhnServer import satellite_cert, server_packages
-from server.rhnLib import get_package_path
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
+from spacewalk.server.rhnServer import satellite_cert, server_packages
+from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
 
 initCFG('server.satellite')
@@ -61,11 +62,11 @@ from syncLib import initEMAIL_LOG, dumpEMAIL_LOG
 from syncLib import FileCreationError, FileManip, intersection
 
 from SequenceServer import SequenceServer
-from server.importlib.errataCache import schedule_errata_cache_update
+from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 
-from server.importlib.importLib import InvalidChannelFamilyError
-from server.importlib.importLib import MissingParentChannelError
-from server.importlib.importLib import get_nevra, get_nevra_dict
+from spacewalk.server.importlib.importLib import InvalidChannelFamilyError
+from spacewalk.server.importlib.importLib import MissingParentChannelError
+from spacewalk.server.importlib.importLib import get_nevra, get_nevra_dict
 
 import satCerts
 import req_channels
@@ -2505,7 +2506,7 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, SystemExit), e:
         sys.exit(e)
     except Exception:
-        from common import fetchTraceback
+        from spacewalk.common import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)
         log2email(-1, tb)

@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 import unittest
-from server import rhnDependency
+from spacewalk.server import rhnDependency
 
 
 class MakeEvrTestCase( unittest.TestCase ):

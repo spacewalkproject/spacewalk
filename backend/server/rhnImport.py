@@ -17,7 +17,7 @@
 import os
 import sys
 
-from common import log_debug, log_error
+from spacewalk.common import log_debug, log_error
 
 class Loader:
     # Class that saves the state of imported objects

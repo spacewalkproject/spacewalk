@@ -17,11 +17,10 @@
 import cStringIO
 
 import sys
-sys.path.append("/usr/share/rhn/")
 
-from satellite_tools.disk_dumper import iss
-from satellite_tools.syncLib import log2stderr, log2email
-from common import Traceback
+from spacewalk.satellite_tools.disk_dumper import iss
+from spacewalk.satellite_tools.syncLib import log2stderr, log2email
+from spacewalk.common import Traceback
 
 if __name__ == "__main__":
     try:

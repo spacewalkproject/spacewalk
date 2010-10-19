@@ -15,9 +15,9 @@
 # config file-related error handling functions
 #
 
-from common import log_debug, log_error, rhnFlags
-from server import rhnSQL
-from server.rhnServer import server_kickstart
+from spacewalk.common import log_debug, log_error, rhnFlags
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import server_kickstart
 
 # the "exposed" functions
 __rhnexport__ = ['upload', 'deploy', 'verify', 'diff', 'mtime_upload']

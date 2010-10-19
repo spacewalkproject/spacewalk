@@ -22,19 +22,17 @@ import string
 import tempfile
 from types import TupleType
 
-from common import RPC_Base, rhnFault, log_debug, log_error, CFG
+from spacewalk.common import RPC_Base, rhnFault, log_debug, log_error, CFG
 
-from server import rhnSQL, rhnPackageUpload, rhnUser, rhnSession
+from spacewalk.server import rhnSQL, rhnPackageUpload, rhnUser, rhnSession
 
-from server.importlib.importLib import Collection, IncompatibleArchError,\
+from spacewalk.server.importlib.importLib import Collection, IncompatibleArchError,\
     Channel, IncompletePackage, InvalidChannelError
-from server.importlib.packageImport import ChannelPackageSubscription
+from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 
-from common import CFG
-
-from server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
-from server.importlib.userAuth import UserAuth
-from server.importlib.errataCache import schedule_errata_cache_update
+from spacewalk.server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
+from spacewalk.server.importlib.userAuth import UserAuth
+from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 from spacewalk.common.checksum import getFileChecksum
 
 #12/22/05 wregglej 173287
@@ -383,10 +381,10 @@ class Packages(RPC_Base):
         caller = "server.app.channelPackageSubscription"
 
         if CFG.DB_BACKEND == ORACLE:
-            from server.importlib.backendOracle import OracleBackend
+            from spacewalk.server.importlib.backendOracle import OracleBackend
             backend = OracleBackend()
         elif CFG.DB_BACKEND == POSTGRESQL:
-            from server.importlib.backendOracle import PostgresqlBackend
+            from spacewalk.server.importlib.backendOracle import PostgresqlBackend
             backend = PostgresqlBackend()
 
         backend.init()

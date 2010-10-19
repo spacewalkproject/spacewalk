@@ -21,7 +21,7 @@
 import sys
 import time
 import unittest
-from server import rhnSQL, rhnChannel
+from spacewalk.server import rhnSQL, rhnChannel
 
 DB = 'rhnuser/rhnuser@webdev'
     

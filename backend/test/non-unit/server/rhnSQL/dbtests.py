@@ -24,8 +24,8 @@ import unittest
 
 from random import randint
 
-from server import rhnSQL
-from server.rhnSQL import sql_base
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnSQL import sql_base
 
 TEST_IDS = [1, 2, 3]
 TEST_NAMES = ["Bill", "Susan", "Joe"]

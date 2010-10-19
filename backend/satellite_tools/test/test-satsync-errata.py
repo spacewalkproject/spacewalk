@@ -12,8 +12,8 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from common import CFG, initCFG, initLOG
-from server import rhnSQL
+from spacewalk.common import CFG, initCFG, initLOG
+from spacewalk.server import rhnSQL
 from syncCache import SyncCache
 from syncContainerHandlers import processErrata
 

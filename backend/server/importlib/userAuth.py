@@ -16,10 +16,10 @@
 # Authentication
 #
 
-from common import CFG, rhnFault, log_debug, add_to_seclist
-from common.rhnTranslate import _
+from spacewalk.common import CFG, rhnFault, log_debug, add_to_seclist
+from spacewalk.common.rhnTranslate import _
 
-from server import rhnSQL, rhnUser
+from spacewalk.server import rhnSQL, rhnUser
 
 class UserAuth:
     def __init__(self):

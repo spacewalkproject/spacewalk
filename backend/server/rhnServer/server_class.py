@@ -19,16 +19,11 @@
 import time
 import string
 
-# Global Modules
-from common import rhnException, rhnFault, log_debug, log_error, CFG
-from common import rhnFlags
-from common.rhnTranslate import _
-from spacewalk.common import rhn_rpm
-
-# from the server stuff...
-from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \
+from spacewalk.common import rhnException, rhnFault, log_debug, log_error, \
+    CFG, rhnFlags, rhn_rpm
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \
                    rhnVirtualization
-# from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction
 from search_notify import SearchNotify
 
 # Local Modules

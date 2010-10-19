@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from common import rhnCache
+from spacewalk.common import rhnCache
 
 key = "/var/goo/goo"
 

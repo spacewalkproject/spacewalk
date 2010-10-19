@@ -20,7 +20,7 @@ import gzip
 import stat
 import tempfile
 
-from common import rhnLib
+from spacewalk.common import rhnLib
 import xmlSource
 import xmlDiskSource
 

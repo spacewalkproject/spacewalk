@@ -20,8 +20,8 @@ import sys
 from importLib import GenericPackageImport, IncompletePackage, Package, \
     Import, InvalidArchError, InvalidChannelError, \
     IncompatibleArchError
-from server import taskomatic
-from common import CFG
+from spacewalk.server import taskomatic
+from spacewalk.common import CFG
 from types import StringType
 
 class ChannelPackageSubscription(GenericPackageImport):

@@ -16,7 +16,7 @@ import yum
 import shutil
 import sys
 from yum import config
-from satellite_tools.reposync import ContentPackage
+from spacewalk.satellite_tools.reposync import ContentPackage
 
 class YumWarnings:
     def write(self, s):

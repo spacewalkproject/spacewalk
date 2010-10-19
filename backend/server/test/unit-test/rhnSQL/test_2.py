@@ -6,7 +6,7 @@
 # $Id$
 
 import unittest
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 class ExceptionsTest(unittest.TestCase):
     def test_failed_connection(self):

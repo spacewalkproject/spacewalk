@@ -25,9 +25,7 @@ import socket
 import string
 from rhn.rpclib import xmlrpclib
 
-# Global modules
-from common import rhnFault, log_debug, log_error
-# local imports
+from spacewalk.common import rhnFault, log_debug, log_error
 from server_lib import getServerSecret
 
 # Generate a secret

@@ -17,7 +17,7 @@ import time
 import types
 import string
 import urlparse
-from common import log_debug, log_error
+from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.checksum import getFileChecksum
 
 def setHeaderValue(mp_table, name, values):

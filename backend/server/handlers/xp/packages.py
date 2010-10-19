@@ -19,12 +19,11 @@
 
 import string
 
-from common import RPC_Base, rhnFault, log_debug
-
-from server.importlib.packageUpload import uploadPackages, listChannels
-from server.importlib.importLib import IncompatibleArchError
-from server.importlib.userAuth import UserAuth
-from server import rhnSQL
+from spacewalk.common import RPC_Base, rhnFault, log_debug
+from spacewalk.server.importlib.packageUpload import uploadPackages, listChannels
+from spacewalk.server.importlib.importLib import IncompatibleArchError
+from spacewalk.server.importlib.userAuth import UserAuth
+from spacewalk.server import rhnSQL
 
 class Packages(RPC_Base):
     def __init__(self):

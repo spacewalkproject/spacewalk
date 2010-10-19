@@ -20,7 +20,7 @@
 
 import time
 import types
-from server import rhnSQL, rhnServerGroup, rhnUser, rhnActivationKey
+from spacewalk.server import rhnSQL, rhnServerGroup, rhnUser, rhnActivationKey
 
 def create_new_org():
     "Create a brand new org; return the new org id"

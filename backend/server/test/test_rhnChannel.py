@@ -14,8 +14,8 @@
 #
 import sys
 import time
-from common import initCFG, rhnFlags
-from server import rhnSQL, rhnChannel, rhnServer, rhnUser
+from spacewalk.common import initCFG, rhnFlags
+from spacewalk.server import rhnSQL, rhnChannel, rhnServer, rhnUser
 
 def test_server_search(use_key=0):
     if use_key:

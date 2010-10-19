@@ -14,14 +14,14 @@
 #
 
 
-from common import log_debug
-from server.rhnLib import InvalidAction, ShadowAction
-from server.action.utils import SubscribedChannel,\
+from spacewalk.common import log_debug
+from spacewalk.server.rhnLib import InvalidAction, ShadowAction
+from spacewalk.server.action.utils import SubscribedChannel,\
                                 ChannelPackage, \
                                 PackageInstallScheduler, \
                                 NoActionInfo, \
                                 PackageNotFound
-from server.rhnChannel import subscribe_to_tools_channel
+from spacewalk.server.rhnChannel import subscribe_to_tools_channel
 
 __rhnexport__ = ['schedule_virt_host_pkg_install', 'add_tools_channel']
 

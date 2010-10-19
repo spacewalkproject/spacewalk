@@ -19,20 +19,16 @@
 import time
 import string
 
-# global module import
 from rhn import rpclib
 from types import ListType, TupleType, StringType, IntType
-
-# common module imports
-from common import CFG, rhnFlags, rhnFault, log_debug, log_error
-from common.rhnTranslate import _
-from spacewalk.common import rhn_rpm
-
-# local module imports
-from server.rhnLib import computeSignature
-from server import rhnChannel, rhnHandler, rhnPackage, rhnDependency,\
+from spacewalk.common import CFG, rhnFlags, rhnFault, log_debug, log_error, \
+    rhn_rpm
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server.rhnLib import computeSignature
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnChannel, rhnPackage, rhnDependency,\
     rhnCapability
-from server.rhnServer import server_route
+from spacewalk.server.rhnServer import server_route
 
 class Up2date(rhnHandler):
     """ xml-rpc Server Functions that we will provide for the outside world.

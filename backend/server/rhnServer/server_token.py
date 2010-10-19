@@ -19,10 +19,10 @@ import string
 
 from cStringIO import StringIO
 
-from common import rhnFlags
-from common import rhnFault, rhnException, log_error, log_debug
-from common.rhnTranslate import _
-from server import rhnSQL, rhnChannel, rhnAction
+from spacewalk.common import rhnFlags, rhnFault, rhnException, log_error, \
+    log_debug
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL, rhnChannel, rhnAction
 
 from server_lib import join_server_group
 

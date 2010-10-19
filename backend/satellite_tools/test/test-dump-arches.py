@@ -12,9 +12,9 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
-from satellite_tools.exporter import xmlWriter, exportLib
+from spacewalk.satellite_tools.exporter import xmlWriter, exportLib
 
 rhnSQL.initDB("satdev/satdev@citisat")
 
