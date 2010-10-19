@@ -665,13 +665,15 @@ SELECT  DISTINCT SP.server_id id,
 
 <mode name="out_of_date" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, user_id">
-SELECT    DISTINCT S.ID, S.NAME,
+SELECT * FROM (
+  SELECT    DISTINCT S.ID, S.NAME,
        (SELECT 1
           FROM rhnServerFeaturesView SFV
          WHERE SFV.server_id = S.id
            AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM    rhnServer S, rhnUserServerPerms USP, rhnServerNeededPackageCache SNPC
- WHERE    S.ORG_ID = :org_id AND S.ID = USP.server_id AND USP.user_id = :user_id AND S.id = SNPC.server_id
+  WHERE    S.ORG_ID = :org_id AND S.ID = USP.server_id AND USP.user_id = :user_id AND S.id = SNPC.server_id
+  ) X, rhnServer S
 ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
