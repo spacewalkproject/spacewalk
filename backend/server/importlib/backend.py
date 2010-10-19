@@ -48,6 +48,8 @@ sequences = {
     'rhnErrataFile'             : 'rhn_erratafile_id_seq',
     'rhnKickstartableTree'      : 'rhn_kstree_id_seq',
     'rhnArchType'               : 'rhn_archtype_id_seq',
+    'rhnPackageChangeLogRec'    : 'rhn_pkg_cl_id_seq',
+    'rhnPackageChangeLogData'   : 'rhn_pkg_cld_id_seq',
 }
 
 class NoFreeEntitlementsError(Exception):
@@ -124,6 +126,33 @@ class Backend:
         """
         h = self.dbmodule.prepare(sql)
         h.executemany(id=toinsert[0], name=toinsert[1], version=toinsert[2])
+
+    def processChangeLog(self, changelogHash):
+        sql = "select id from rhnPackageChangeLogData where name = :name and time = :time and text = :text"
+        h = self.dbmodule.prepare(sql)
+        toinsert = [[], [], [], []]
+        for name, time, text in changelogHash.keys():
+            h.execute(name=name, time=time, text=text)
+            row = h.fetchone_dict()
+            if row:
+                changelogHash[(name, time, text)] = row['id']
+                continue
+
+            id = self.sequences['rhnPackageChangeLogData'].next()
+            changelogHash[(name, time, text)] = id
+
+            toinsert[0].append(id)
+            toinsert[1].append(name[0:128])
+            toinsert[2].append(time)
+            toinsert[3].append(text[0:3000])
+
+        if not toinsert[0]:
+            # Nothing to do
+            return
+
+        sql = "insert into rhnPackageChangeLogData (id, name, time, text) values (:id, :name, :time, :text)"
+        h = self.dbmodule.prepare(sql)
+        h.executemany(id=toinsert[0], name=toinsert[1], time=toinsert[2], text=toinsert[3])
 
     def processCVEs(self, cveHash):
         # First figure out which CVE's are already inserted
@@ -654,7 +683,7 @@ class Backend:
             'rhnPackageConflicts':  'package_id',
             'rhnPackageObsoletes':  'package_id', 
             'rhnPackageFile':       'package_id',
-            'rhnPackageChangeLog':  'package_id',
+            'rhnPackageChangeLogRec':  'package_id',
         }
 
         solarisChildTables = {

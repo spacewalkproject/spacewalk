@@ -225,6 +225,7 @@ class PackageImport(ChannelPackageSubscription):
         self.capabilities = {}
         self.groups = {}
         self.sourceRPMs = {}
+        self.changelog_data = {}
 
     def _processPackage(self, package):
         ChannelPackageSubscription._processPackage(self, package)
@@ -269,17 +270,10 @@ class PackageImport(ChannelPackageSubscription):
                 self.checksums[fchecksumTuple] = None
 
         # Uniquify changelog entries
-        changelogs = {}
         for changelog in package['changelog']:
             key = (changelog['name'], changelog['time'], changelog['text']) 
-            changelogs[key] = changelog
+            self.changelog_data[key] = None
         
-        changelogs = changelogs.values()
-        # Sort the changelogs by time (descending), then name (ascending)
-        changelogs.sort(lambda a, b: cmp(b['time'], a['time']) or 
-            cmp(a['name'], b['name']))
-        package['changelog'] = changelogs
-
         if 'solaris_patch_set' in package:
             if package.arch.startswith("sparc"):
                 self.package_arches['sparc-solaris-patch'] = None
@@ -297,6 +291,8 @@ class PackageImport(ChannelPackageSubscription):
                 raise
             # Since this is the bulk of the work, commit
             self.backend.commit()
+
+        self.backend.processChangeLog(self.changelog_data)
 
         ChannelPackageSubscription.fix(self)
 
@@ -372,6 +368,8 @@ class PackageImport(ChannelPackageSubscription):
             for entry in package[tag]:
                 nv = entry['capability']
                 entry['capability_id'] = self.capabilities[nv]
+        for c in package['changelog']:
+            c['changelog_data_id'] = self.changelog_data[(c['name'], c['time'], c['text'])]
         fileList = package['files']
         for f in fileList:
             f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]

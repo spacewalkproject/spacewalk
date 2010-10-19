@@ -68,15 +68,15 @@ class OracleBackend(Backend):
             attribute   = 'obsoletes',
             map         = { 'sense' : 'flags', },
         ),
-        Table('rhnPackageChangeLog',
+        Table('rhnPackageChangeLogRec',
             fields      = {
+                'id'            : DBint(),
                 'package_id'    : DBint(),
-                'name'          : DBstring(128),
-                'text'          : DBstring(3000),
-                'time'          : DBdateTime()
+                'changelog_data_id'    : DBint(),
             },
-            pk          = ['package_id', 'name', 'text', 'time'],
+            pk          = ['package_id', 'changelog_data_id'],
             attribute   = 'changelog',
+            sequenceColumn = 'id',
         ),
         Table('rhnPackageFile',
             fields      = {
