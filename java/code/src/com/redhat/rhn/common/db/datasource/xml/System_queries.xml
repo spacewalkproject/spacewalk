@@ -840,16 +840,14 @@ SELECT PI.server_id ID, S.name,
 	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable,
 	 1 AS selectable
     FROM rhnVirtualInstance VI,
-	 rhnVirtualInstanceInfo VII,
-	 rhnVirtualInstanceState VIS
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS VII.state = VIS.id
    WHERE EXISTS (SELECT 1
                    FROM rhnUserServerPerms USP
                   WHERE USP.user_id = :user_id
                     AND USP.server_id = VI.host_system_id)
      AND VI.host_system_id = :sid
      AND VI.uuid IS NOT NULL
-     AND VI.id = VII.instance_id (+)
-     AND VII.state = VIS.id (+)
 ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
@@ -889,15 +887,13 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
      NVL(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
 	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable       
      FROM rhnVirtualInstance VI,
- 	 rhnVirtualInstanceInfo VII,
-	 rhnVirtualInstanceState VIS
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS VII.state = VIS.id
     WHERE EXISTS (SELECT 1
                   FROM rhnUserServerPerms USP
                   WHERE USP.user_id = :user_id
                         AND (USP.server_id = VI.host_system_id
                         OR USP.server_id = VI.virtual_system_id))
-      AND VI.id = VII.instance_id (+)
-      AND VII.state = VIS.id (+)
   ORDER BY VI.host_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
@@ -1263,14 +1259,12 @@ DISTINCT VI.id,
 	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
 	 1 AS selectable
     FROM rhnVirtualInstance VI,
-	 rhnVirtualInstanceInfo VII,
-	 rhnVirtualInstanceState VIS,
-         rhnSet ST
+     rhnSet ST,
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS VII.state = VIS.id
    WHERE ST.user_id = :user_id
      AND ST.label = :set_label
      AND ST.element = VI.id
-     AND VI.id = VII.instance_id (+)
-     AND VII.state = VIS.id (+)
 ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
