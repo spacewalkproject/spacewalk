@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.64
+Version: 1.2.65
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,31 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 19 2010 Tomas Lestach <tlestach@redhat.com> 1.2.65-1
+- removing unused imports (tlestach@redhat.com)
+- 644361 - use cache instead of view for update check (tlestach@redhat.com)
+- Port /network/systems/groups/create.pxt, part 2 (colin.coe@gmail.com)
+- Port /network/systems/groups/create.pxt (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/new_value.pxt (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/remove_value_conf.pxt
+  (colin.coe@gmail.com)
+- More checkstyle fixes (colin.coe@gmail.com)
+- Fix checkstyle errors (colin.coe@gmail.com)
+- Fix missing links (colin.coe@gmail.com)
+- Fix /rhn/systems/details/UpdateCustomData.do (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/edit.pxt (colin.coe@gmail.com)
+- Fix NPE when lastModifier is null (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/index.pxt (colin.coe@gmail.com)
+- Fix page not updating description (colin.coe@gmail.com)
+- Checkstyle fixes (colin.coe@gmail.com)
+- Port /network/systems/custominfo/edit.pxt (colin.coe@gmail.com)
+- 644349 - remove hasProcessedErrata method (tlestach@redhat.com)
+- 644349 - extend ErrataMailer logging (tlestach@redhat.com)
+- 644349 - do not update/delete all errata entries when the erratum affects
+  multiple channels (tlestach@redhat.com)
+- 644349 - do not list one system several times in the errata notification
+  e-mail (tlestach@redhat.com)
+
 * Tue Oct 19 2010 Lukas Zapletal 1.2.64-1
 - Fixing system list for Oracle
 
