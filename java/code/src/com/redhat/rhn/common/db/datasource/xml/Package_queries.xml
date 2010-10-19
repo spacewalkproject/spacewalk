@@ -1782,7 +1782,7 @@ SELECT distinct P.id AS ID,
 
 <write-mode name="cleanup_package_changelog_from_set">
   <query params="set_label">
-    DELETE FROM rhnPackageChangeLog r
+    DELETE FROM rhnPackageChangeLogRec r
           WHERE r.package_id IN
                 (SELECT element
                    FROM rhnSet s
