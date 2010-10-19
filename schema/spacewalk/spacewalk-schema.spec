@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.44
+Version:        1.2.45
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Oct 19 2010 Jan Pazdziora 1.2.45-1
+- 644349 - do not update/delete all errata entries when the erratum affects
+  multiple channels (tlestach@redhat.com)
+- Fixing the date_diff_in_days source.
+- Use numtodsinterval instead of the arithmetics.
+
 * Mon Oct 18 2010 Jan Pazdziora 1.2.44-1
 - Remove the timestamptz_minus_int and minus operator -- we want the interval
   issue addressed properly.
