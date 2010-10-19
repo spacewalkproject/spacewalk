@@ -736,7 +736,7 @@ SELECT S.id, S.NAME,
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
    AND SI.server_id = S.id
-   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second'))
+   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
@@ -757,7 +757,7 @@ SELECT S.id, S.NAME,
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
    AND SI.server_id = S.id
-   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second'))
+   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')
 ORDER BY SI.checkin DESC
   </query>
   <elaborator name="system_overview" />
@@ -779,7 +779,7 @@ SELECT S.id, S.NAME, S.info, S.created,
   FROM rhnServer S
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
-   AND S.created &gt; sysdate - :threshold
+   AND S.created &gt; current_timestamp - numtodsinterval(:threshold * 86400, 'second')
 ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
@@ -1744,7 +1744,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,
-    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
+    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')) as inactive,
     TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
     pcf.FVE_CURRENT_MEMBERS as current_members,
     pcf.FVE_MAX_MEMBERS as max_members
@@ -1770,7 +1770,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,
-    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
+    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')) as inactive,
     TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
     pcf.FVE_CURRENT_MEMBERS as current_members,
     pcf.FVE_MAX_MEMBERS as max_members
