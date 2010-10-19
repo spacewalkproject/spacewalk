@@ -74,7 +74,6 @@ class Function(sql_base.Procedure):
                 positional_args = positional_args + ", %s"
             i += 1
         query = "SELECT %s(%s)" % (self.name, positional_args)
-        log_debug(2, query)
 
         # Ugh, unicode strings coming in here, PostgreSQL doesn't like
         # getting them as such:
@@ -86,7 +85,7 @@ class Function(sql_base.Procedure):
                 new_args.append(arg)
 
         # for now return just result (ret_type is ignored)
-        print query, new_args
+        log_debug(2, query, new_args)
         return self.cursor.execute(query, new_args)
 
 
