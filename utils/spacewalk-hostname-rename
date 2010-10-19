@@ -34,10 +34,6 @@ if [ -x /etc/init.d/oracle ]; then
     DB_SERVICE="oracle"
 fi
 
-if [ -x /etc/init.d/oracle-xe ]; then
-    DB_SERVICE="oracle-xe"
-fi
-
 MONITORING_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_backend/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
 MONITORING_SCOUT_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_scout/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
 NOCPULSE_PRIVATE_KEY_FILE=~nocpulse/.ssh/nocpulse-identity
@@ -402,6 +398,9 @@ fi
 if [ -e $ORACLE_XE_TNSNAMES_ORA_FILE ]
 then
     sed -i$BACKUP_EXT 's/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1localhost\2/' $ORACLE_XE_TNSNAMES_ORA_FILE
+    if [ -x /etc/init.d/oracle-xe ]; then
+        /sbin/service oracle-xe restart >> $LOG 2>&1
+    fi
 fi
 
 SQL_RET=$(
