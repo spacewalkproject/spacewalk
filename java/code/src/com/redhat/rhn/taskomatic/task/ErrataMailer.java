@@ -172,17 +172,13 @@ public class ErrataMailer extends RhnJavaJob {
                 new Long(errataId.longValue()));
         List users = findTargetUsers();
         if (users == null || users.size() == 0) {
-            if (log.isDebugEnabled()) {
-                log.debug("No target users found for errata " + errata.getId() +
-                        "...skipping");
-            }
+            log.info("No target users found for erratum " + errata.getId() +
+                    " in channel " + channelId + " for org " + orgId +
+                    "... skipping.");
             return;
         }
-        else {
-            if (log.isDebugEnabled()) {
-                log.debug("Found " + String.valueOf(users.size()) + " target users");
-            }
-        }
+        log.info("Found " + String.valueOf(users.size()) + " target users for erratum " +
+                errata.getId() + " in channel " + channelId + " for org" + orgId + ".");
 
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             Map row = (Map) iter.next();
