@@ -736,7 +736,7 @@ SELECT S.id, S.NAME,
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
    AND SI.server_id = S.id
-   AND SI.checkin &lt; sysdate - :checkin_threshold
+   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second'))
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
@@ -757,7 +757,7 @@ SELECT S.id, S.NAME,
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
    AND SI.server_id = S.id
-   AND SI.checkin &lt; sysdate - :checkin_threshold
+   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second'))
 ORDER BY SI.checkin DESC
   </query>
   <elaborator name="system_overview" />
