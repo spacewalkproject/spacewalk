@@ -375,7 +375,7 @@ ORDER BY next_action DESC
   INSERT INTO rhnPaidErrataTempCache
     (user_id, server_id, errata_id)
     SELECT urn.user_id, snv.server_id, snv.errata_id
-      FROM rhnServerNeededView snv
+      FROM rhnServerNeededCache snv
       JOIN rhnUserReceiveNotifications urn
         ON snv.server_id = urn.server_id
       JOIN rhnServerChannel sc
