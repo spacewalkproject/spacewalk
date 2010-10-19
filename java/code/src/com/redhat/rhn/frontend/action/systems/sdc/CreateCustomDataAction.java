@@ -15,10 +15,7 @@
 package com.redhat.rhn.frontend.action.systems.sdc;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.org.CustomDataKey;
-import com.redhat.rhn.domain.server.CustomDataValue;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;

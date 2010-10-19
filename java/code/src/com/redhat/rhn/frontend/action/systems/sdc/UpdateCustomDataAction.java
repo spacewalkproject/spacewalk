@@ -33,7 +33,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.hibernate.Session;
 
 import java.util.Date;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
