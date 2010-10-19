@@ -836,12 +836,12 @@ SELECT PI.server_id ID, S.name,
 	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
      NVL(VII.vcpus, 0) AS VCPUS,
      NVL(VII.memory_size_k, 0) AS MEMORY,
-     NVL(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
+     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
 	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable,
 	 1 AS selectable
     FROM rhnVirtualInstance VI,
-	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII VI.id = VII.instance_id
-	 LEFT OUTER JOIN rhnVirtualInstanceState VIS VII.state = VIS.id
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
    WHERE EXISTS (SELECT 1
                    FROM rhnUserServerPerms USP
                   WHERE USP.user_id = :user_id
@@ -884,11 +884,11 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 						and VI.virtual_system_id is null
 						and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')
        ) as virt_entitlement,
-     NVL(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
-	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable       
+     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
+	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
      FROM rhnVirtualInstance VI,
 	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
-	 LEFT OUTER JOIN rhnVirtualInstanceState VIS VII.state = VIS.id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
     WHERE EXISTS (SELECT 1
                   FROM rhnUserServerPerms USP
                   WHERE USP.user_id = :user_id
@@ -1260,8 +1260,8 @@ DISTINCT VI.id,
 	 1 AS selectable
     FROM rhnVirtualInstance VI,
      rhnSet ST,
-	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII VI.id = VII.instance_id
-	 LEFT OUTER JOIN rhnVirtualInstanceState VIS VII.state = VIS.id
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
    WHERE ST.user_id = :user_id
      AND ST.label = :set_label
      AND ST.element = VI.id
