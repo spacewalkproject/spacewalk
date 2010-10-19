@@ -6353,6 +6353,34 @@ value for this entitlement, excluding the default organization's consumption.</s
             <source>Remove Systems</source>
      </trans-unit>
     </group>
+
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/groups/CreateGroup.do</context>
+       </context-group>
+       <trans-unit id="systemgroup.create.header">
+         <source>Create System Group</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.summary">
+         <source>Create a system group using the form provided. Note that the group will be empty until systems are joined to it. Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.requiredfield">
+         <source>Required Field</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.requirements">
+         <source>Both name and description are required for System Groups.</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.name">
+         <source>Name</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.description">
+         <source>Description</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.creategroup">
+         <source>Create Group</source>
+       </trans-unit>
+     </group>
+
 <!--System Entitlements Page - entitlements.jsp -->
      <trans-unit id="systementitlements.jsp.header">
 		<source>System Entitlements</source>

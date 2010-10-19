@@ -1069,6 +1069,13 @@
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="createSystemGroupForm"
+      type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="name" type="java.lang.String" />
+      <form-property name="description" type="java.lang.String" />
+      <form-property name="submitted"   type="java.lang.Boolean" />
+    </form-bean>
+
     <form-bean name="submittedForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="submitted"   type="java.lang.Boolean" />
@@ -3340,6 +3347,22 @@
                       path="/WEB-INF/pages/groups/listsystems.jsp" />
              <forward name="success"
                       path="/groups/ListRemoveSystems.do"
+                      redirect="true" />
+     </action>
+
+     <action path="/groups/CreateGroup"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.CreateGroupAction"
+             input="/WEB-INF/pages/groups/create.jsp"
+             parameter="dispatch"
+             name="createSystemGroupForm"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/create.jsp" />
+             <forward name="error"
+                      path="/WEB-INF/pages/groups/create.jsp" />
+             <forward name="success"
+                      path="/systems/SystemGroupList.do"
                       redirect="true" />
      </action>
 
