@@ -547,6 +547,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 
 <mode name="affected_by_errata" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="eid, user_id">
+  SELECT * FROM (
   SELECT  DISTINCT S.id, S.name,
           1 as selectable
     FROM  rhnServerNeededErrataCache SNEC,
@@ -556,6 +557,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
      AND  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = SNEC.server_id
+  ) X, rhnEntitledServers S
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   </query>
   <elaborator params="eid" multiple="t">
@@ -1239,11 +1241,13 @@ ORDER BY  SERVER_ID
 
 
 <query name="in_set" params="user_id, set_label">
+  SELECT * FROM (
   SELECT  DISTINCT S.id, S.name
     FROM  rhnServer S, rhnSet ST
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
      AND  ST.element = S.id
+  ) X, rhnServer S
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 </query>
 
