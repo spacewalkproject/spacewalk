@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.2.3
+Version:	1.2.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 19 2010 Jan Pazdziora 1.2.4-1
+- As Oracle XE is no longer managed by rhn-satellite, we need to change the
+  logic in spacewalk-hostname-rename a bit as well.
+
 * Tue Oct 05 2010 Tomas Lestach <tlestach@redhat.com> 1.2.3-1
 - 639818 - fixing sys path (tlestach@redhat.com)
 
