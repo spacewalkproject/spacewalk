@@ -15,6 +15,13 @@
   <p><bean:message key="systemgroup.create.summary"/></p>
     <p><span class="required-form-field">*</span> - <bean:message key="systemgroup.create.requiredfield"/></p>
 
+    <c:if test="${not empty emptynameordesc}">
+      <div class="local-alert"><bean:message key="systemgroup.create.requirements"/><br /></div>
+    </c:if>
+    <c:if test="${not empty alreadyexists}">
+      <div class="local-alert"><bean:message key="systemgroup.create.alreadyexists"/><br /></div>
+    </c:if>
+
     <html:form method="post" action="/groups/CreateGroup.do">
       <html:hidden property="submitted" value="true"/>
 

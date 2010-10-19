@@ -3273,6 +3273,10 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+     <trans-unit id="systemgroups.create.successmessage">
+        <source>System group {0} created.</source>
+     </trans-unit>
+
       <trans-unit id="probe.empty.status">
 <source>No status for probe</source>
         <context-group name="ctx">

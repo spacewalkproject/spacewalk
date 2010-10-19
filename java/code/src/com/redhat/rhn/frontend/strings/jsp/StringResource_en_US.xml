@@ -6370,6 +6370,9 @@ value for this entitlement, excluding the default organization's consumption.</s
        <trans-unit id="systemgroup.create.requirements">
          <source>Both name and description are required for System Groups.</source>
        </trans-unit>
+       <trans-unit id="systemgroup.create.alreadyexists">
+         <source>That group name is already in use. Please choose another.</source>
+       </trans-unit>
        <trans-unit id="systemgroup.create.name">
          <source>Name</source>
        </trans-unit>
