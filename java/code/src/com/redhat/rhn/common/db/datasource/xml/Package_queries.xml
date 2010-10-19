@@ -737,7 +737,6 @@ SELECT  COUNT(pn.id) AS COUNT
        GROUP BY  SOP.package_name_id
          ) full_list
  WHERE  full_list.name_id = PN.id
-ORDER BY  UPPER(PN.name)
   </query>
 </mode>
 
