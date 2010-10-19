@@ -37,7 +37,6 @@ import java.io.StringWriter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -80,29 +79,27 @@ public class ErrataMailer extends RhnJavaJob {
                     Long orgId = (Long) row.get("org_id");
                     Long channelId = (Long) row.get("channel_id");
                     markErrataDone(errataId, orgId, channelId);
-                    if (!hasProcessedErrata(orgId, errataId, erratas)) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("Processing errata " + errataId +
+                                " for org " + orgId);
+                    }
+                    try {
+                        sendEmails(errataId, orgId, channelId);
                         if (log.isDebugEnabled()) {
-                            log.debug("Processing errata " + errataId +
+                            log.debug("Finished errata " + errataId +
                                     " for org " + orgId);
                         }
-                        try {
-                            sendEmails(errataId, orgId, channelId);
-                            if (log.isDebugEnabled()) {
-                                log.debug("Finished errata " + errataId +
-                                        " for org " + orgId);
-                            }
-                        }
-                        catch (JavaMailException e) {
-                            log.error("Error sending mail", e);
-                        }
-                        try {
-                            cleanUp.executeUpdate(Collections.EMPTY_MAP);
-                            HibernateFactory.commitTransaction();
-                            HibernateFactory.closeSession();
-                        }
-                        catch (Exception e) {
-                            log.error("Error cleaning up ErrataMailer queue", e);
-                        }
+                    }
+                    catch (JavaMailException e) {
+                        log.error("Error sending mail", e);
+                    }
+                    try {
+                        cleanUp.executeUpdate(Collections.EMPTY_MAP);
+                        HibernateFactory.commitTransaction();
+                        HibernateFactory.closeSession();
+                    }
+                    catch (Exception e) {
+                        log.error("Error cleaning up ErrataMailer queue", e);
                     }
                 }
             }
@@ -131,24 +128,6 @@ public class ErrataMailer extends RhnJavaJob {
         params.put("threshold", new Integer(1));
         List results = select.execute(params);
         return results;
-    }
-
-    private boolean hasProcessedErrata(Long orgId, Long errataId,
-            Map erratas) {
-        boolean retval = false;
-        List errataIds = (List) erratas.get(orgId);
-        if (errataIds == null) {
-            errataIds = new LinkedList();
-            errataIds.add(errataId);
-            erratas.put(orgId, errataIds);
-        }
-        else {
-            retval = errataIds.contains(errataId);
-            if (!retval) {
-                errataIds.add(errataId);
-            }
-        }
-        return retval;
     }
 
     private void markErrataDone(Long errataId, Long orgId, Long channelId)
