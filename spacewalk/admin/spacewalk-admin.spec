@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.2.5
+Version: 1.2.6
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Oct 19 2010 Jan Pazdziora 1.2.6-1
+- The /usr/sbin/rhn-satellite will no longer start/stop Oracle XE.
+
 * Wed Oct 13 2010 Jan Pazdziora 1.2.5-1
 - 631847 - in RHN Proxy 5.4 is used jabber 2.0 where user is called jabber
   (instead of jabberd) (msuchy@redhat.com)
