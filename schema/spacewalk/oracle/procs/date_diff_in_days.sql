@@ -24,3 +24,6 @@ return number is
 begin
     return ts2 - ts1;
 end date_diff_in_days;
+/
+show errors
+
