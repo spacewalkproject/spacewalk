@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,7 +25,7 @@ def schedule_errata_cache_update(channels):
     h = rhnSQL.prepare("""
         insert into rhnTaskQueue
        (org_id, task_name, task_data, priority, earliest)
-       select coalesce(c.org_id, 1), 'update_errata_cache_by_channel', c.id, 0, SYSDATE
+       select coalesce(c.org_id, 1), 'update_errata_cache_by_channel', c.id, 0, current_timestamp
        from rhnChannel c
        where c.label = :label
     """)
