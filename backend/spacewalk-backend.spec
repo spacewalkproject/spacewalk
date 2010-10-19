@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.29
+Version: 1.2.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -663,6 +663,24 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Oct 19 2010 Jan Pazdziora 1.2.30-1
+- check_package_spec() already defined in handlers/xmlrpc/up2date.py
+  (michael.mraka@redhat.com)
+- startswith(), endswith() are builtin functions since RHEL4
+  (michael.mraka@redhat.com)
+- _delete_channel() is dead after delete_channel() removal
+  (michael.mraka@redhat.com)
+- _delete_channel_family() is dead after delete_channel_families() removal
+  (michael.mraka@redhat.com)
+- removed delete_channel_families() -  it is used only in self unit tests
+  (michael.mraka@redhat.com)
+- removed delete_channel() - it is used only in self unit test
+  (michael.mraka@redhat.com)
+- Insert current_timestamp instead of sysdate.
+- Move the debugging print to log_debug.
+- Use numtodsinterval instead of the arithmetics.
+- Revert "Using the interval syntax instead of the arithmetic."
+
 * Mon Oct 18 2010 Jan Pazdziora 1.2.29-1
 - Using the interval syntax instead of the arithmetic.
 - If the epoch is an empty string, make it None (NULL), to avoid bad surprise
