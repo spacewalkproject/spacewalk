@@ -1049,7 +1049,7 @@ ORDER BY  UPPER(NVL(SERVER_NAME, '(none)')), SERVER_ID
          SEV.is_base
     FROM rhnServerEntitlementView SEV
    WHERE SEV.server_id IN (%s)
-ORDER BY DECODE(SEV.is_base,'Y',1,'N',2), SEV.label
+ORDER BY CASE SEV.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
 </query>
 
 <query name="in_set" params="user_id, set_label">
