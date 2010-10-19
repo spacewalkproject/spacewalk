@@ -86,19 +86,21 @@ def get_package_path(server_id, pkg_spec, channel):
         if _none2emptyString(each['epoch']) > _none2emptyString(max_row['epoch']):
             max_row = each
 
-    if max_row['path'] is None:
-        log_error("Package path null for package id", max_row['id'])
-        raise rhnFault(17, _("Invalid RPM package %s requested") % pkg_spec)
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, max_row['path'])
+    # Set the flag for the proxy download accelerator
+    rhnFlags.set("Download-Accelerator-Path", rel_path)
+    return check_package_file(max_row['path'], max_row['id'], pkg_spec), max_row['id']
+
+def check_package_file(rel_path, logpkg, raisepkg):
+    if rel_path is None:
+        log_error("Package path null for package id", logpkg)
+        raise rhnFault(17, _("Invalid RPM package %s requested") % raisepkg)
+    filePath = "%s/%s" % (CFG.MOUNT_POINT, rel_path)
     if not os.access(filePath, os.R_OK):
         # Package not found on the filesystem
         log_error("Package not found", filePath)
         raise rhnFault(17, _("Package not found"))
 
-    pkgId = max_row['id']
-    # Set the flag for the proxy download accelerator
-    rhnFlags.set("Download-Accelerator-Path", max_row['path'])
-    return filePath, pkgId
+    return filePath
 
 
 # Old client
@@ -159,16 +161,7 @@ def get_package_path_compat_arches(server_id, pkg, server_arch):
             pkg, server_arch)
         raise rhnFault(17, _("Invalid RPM package %s requested") % str(pkg))
 
-    if row['path'] is None:
-        log_error("Package path null for package id", row['id'])
-        raise rhnFault(17, _("Invalid RPM package %s requested") % str(pkg))
-
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, row['path'])
-    if not os.access(filePath, os.R_OK):
-        # Package not found on the filesystem
-        log_error("Package not found", filePath)
-        raise rhnFault(17, _("Package not found"))
-    return filePath
+    return check_package_file(row['path'], row['id'], str(pkg))
 
 def get_all_package_paths(server_id, pkg_spec, channel):
     """
@@ -192,20 +185,9 @@ def get_source_package_path(server_id, pkgFilename, channel):
             pkgFilename, channel)
         raise rhnFault(17, _("Invalid RPM package %s requested") % pkgFilename)
 
-    if rs['path'] is None:
-        log_error("Package path null for source package", pkgFilename,
-            server_id, channel)
-        raise rhnFault(17, _("Invalid RPM package %s requested") % pkgFilename)
-
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, rs['path'])
-    if not os.access(filePath, os.R_OK):
-        # Package not found on the filesystem
-        log_error("Package not found", filePath)
-        raise rhnFault(17, _("Package not found"))
-
     # Set the flag for the proxy download accelerator
     rhnFlags.set("Download-Accelerator-Path", rs['path'])
-    return filePath
+    return check_package_file(rs['path'], pkgFilename, pkgFilename)
 
 
 # 0 or 1: is this source in this channel?
