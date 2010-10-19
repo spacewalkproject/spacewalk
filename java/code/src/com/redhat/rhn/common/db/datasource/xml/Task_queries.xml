@@ -400,7 +400,7 @@ ORDER BY next_action DESC
 
 <mode name="erratamailer_find_servers">
    <query params="user_id">
-  SELECT S.id, S.name, S.release, SA.name as arch, C.name base_channel
+  SELECT DISTINCT S.id, S.name, S.release, SA.name as arch, C.name base_channel
     FROM rhnChannel C,
          rhnServerChannel SC,
          rhnServer S,
