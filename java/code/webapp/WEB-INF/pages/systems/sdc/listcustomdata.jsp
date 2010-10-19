@@ -9,7 +9,7 @@
     <div class="toolbar-h2">
       <div class="toolbar">
         <span class="toolbar">
-          <a href="/network/systems/details/custominfo/new_value.pxt?sid=${system.id}">
+          <a href="/rhn/systems/details/CreateCustomData.do?sid=${system.id}">
           <img src="/img/action-add.gif" alt="create new value" title="add new value" />create new value</a>
         </span>
       </div>
@@ -33,7 +33,7 @@
           <c:forEach items="${pageList}" var="current" varStatus="loop">
             <tr>
               <th>${current.label}</th>
-              <td>
+              <td width="50%">
                 <pre>${current.value}</pre>
                 <a href="/rhn/systems/details/UpdateCustomData.do?sid=${system.id}&cikid=${current.cikid}">
                   <bean:message key="sdc.details.customdata.editvalue"/>

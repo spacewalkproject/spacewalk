@@ -2902,4 +2902,21 @@ public class SystemManager extends BaseManager {
         return n;
     }
 
+    /**
+     * Lookup all the custom info keys not assigned to this server
+     * @param orgId The org ID that the server belongs to
+     * @param sid The ID of the server
+     * @return DataResult of keys
+     */
+    public static DataResult lookupKeysSansValueForServer(Long orgId, Long sid) {
+        SelectMode m = ModeFactory.getMode("CustomInfo_queries",
+                "custom_info_keys_sans_value_for_system");
+        Map inParams = new HashMap();
+
+        inParams.put("org_id", orgId);
+        inParams.put("sid", sid);
+
+        return m.execute(inParams);
+    }
+
 }

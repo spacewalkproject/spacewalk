@@ -32,6 +32,8 @@ import org.apache.struts.action.DynaActionForm;
 
 import org.hibernate.Session;
 
+import java.util.Date;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,25 +85,43 @@ public class UpdateCustomDataAction extends RhnAction {
         request.setAttribute("sid", server.getId());
         request.setAttribute(CIKID_PARAM, cikid);
         request.setAttribute(LABEL_PARAM, key.getLabel());
-        request.setAttribute(CREATE_PARAM, cdv.getCreated());
-        request.setAttribute(MODIFY_PARAM, cdv.getModified());
-        request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
-        User lastModifier = cdv.getLastModifier();
-        if (lastModifier != null) {
-            request.setAttribute(MODIFIER_PARAM, cdv.getLastModifier().getLogin());
+
+        if (cdv != null) {
+
+            request.setAttribute(CREATE_PARAM, cdv.getCreated());
+            request.setAttribute(MODIFY_PARAM, cdv.getModified());
+            request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
+            if (cdv.getLastModifier() == null) {
+                request.setAttribute(MODIFIER_PARAM, user.getLogin());
+            }
+            else {
+                request.setAttribute(MODIFIER_PARAM, cdv.getLastModifier().getLogin());
+            }
+            if (!context.isSubmitted()) {
+                request.setAttribute(VAL_PARAM, cdv.getValue());
+            }
         }
         else {
-            request.setAttribute(MODIFIER_PARAM, "");
+            request.setAttribute(CREATE_PARAM, new Date());
+            request.setAttribute(CREATOR_PARAM, user.getLogin());
+            request.setAttribute(MODIFY_PARAM, new Date());
+            request.setAttribute(MODIFIER_PARAM, user.getLogin());
         }
 
         if (context.isSubmitted()) {
             server.addCustomDataValue(key.getLabel(), (String)form.get(VAL_PARAM), user);
+            if (cdv == null) {
+                cdv = new CustomDataValue();
+                cdv.setKey(key);
+                cdv.setValue((String)form.get(VAL_PARAM));
+            }
+            cdv.setModified(new Date());
+            cdv.setCreated(new Date());
+            cdv.setCreator(user);
+            cdv.setLastModifier(user);
             request.setAttribute(VAL_PARAM, (String)form.get(VAL_PARAM));
             return getStrutsDelegate().forwardParams(mapping.findForward("updated"),
                     params);
-        }
-        else {
-            request.setAttribute(VAL_PARAM, cdv.getValue());
         }
 
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);

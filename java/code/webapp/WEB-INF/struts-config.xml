@@ -3232,6 +3232,14 @@
                       path="/WEB-INF/pages/systems/sdc/listcustomdata.jsp" />
      </action>
 
+   <action path="/systems/details/CreateCustomData"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/createcustomdata.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.CreateCustomDataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/sdc/createcustomdata.jsp" />
+      </action>
+
    <action path="/systems/details/UpdateCustomData"
         name="updateCustomDataForm"
         scope="request"

@@ -1,0 +1,45 @@
+<datasource_modes>
+
+<mode name="custom_info_keys">
+  <query params="org_id, user_id">
+SELECT CDK.id,
+       CDK.label,
+       CDK.description,
+       (
+SELECT COUNT(SCDV.server_id)
+  FROM rhnServerCustomDataValue SCDV,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND USP.server_id = SCDV.server_id (+)
+   AND SCDV.key_id = CDK.id
+       ) as system_count,
+       TO_CHAR(CDK.modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnCustomDataKey CDK
+ WHERE CDK.org_id = :org_id
+GROUP BY CDK.id, CDK.label, CDK.description, CDK.modified
+ORDER BY UPPER(CDK.label)
+  </query>
+</mode>
+
+<mode name="custom_info_keys_sans_value_for_system">
+  <query params="org_id, sid">
+SELECT CDK.id,
+       CDK.label,
+       CDK.description,
+       COUNT(SCDV.key_id) as system_count,
+       TO_CHAR(CDK.modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnServerCustomDataValue SCDV,
+       rhnCustomDataKey CDK
+ WHERE CDK.org_id = :org_id
+   AND CDK.id = SCDV.key_id (+)
+   AND NOT EXISTS (
+SELECT 1 FROM rhnServerCustomDataValue
+ WHERE server_id = :sid
+   AND key_id = CDK.id
+)
+GROUP BY CDK.id, CDK.label, CDK.description, CDK.modified
+ORDER BY UPPER(CDK.label)
+  </query>
+</mode>
+
+</datasource_modes>
