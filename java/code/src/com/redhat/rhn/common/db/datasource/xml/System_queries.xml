@@ -1139,10 +1139,10 @@ ORDER BY S.ID
                    MAX(CASE PS.state WHEN 'OK' THEN 1 WHEN 'PENDING' THEN 2 WHEN 'UNKNOWN' THEN 3 WHEN 'WARNING' THEN 4 WHEN 'CRITICAL' THEN 5 END)
                          WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
                          FROM  rhn_probe_state PS
-                         LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
           WHERE  PS.probe_id = CP.probe_id
          GROUP BY OV.server_id ) MONITORING_STATUS
     FROM  rhnServerOverview OV
+    LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
    WHERE  server_id IN (%s)
 ORDER BY  UPPER(NVL(SERVER_NAME, '(none)')), SERVER_ID
 </query>
