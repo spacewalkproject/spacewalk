@@ -47,5 +47,5 @@ CREATE INDEX rhn_enqueue_na_eid_idx
     TABLESPACE [[8m_tbs]];
 
 ALTER TABLE rhnErrataNotificationQueue
-    ADD CONSTRAINT rhn_enqueue_eoid_uq UNIQUE (errata_id, org_id);
+    ADD CONSTRAINT rhn_enqueue_eoid_uq UNIQUE (errata_id, channel_id, org_id);
 

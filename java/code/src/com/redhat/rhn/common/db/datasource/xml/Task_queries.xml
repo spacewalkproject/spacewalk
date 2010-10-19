@@ -115,19 +115,20 @@ SELECT DISTINCT
        and not exists (select q2.errata_id
                          from   rhnErrataNotificationQueue Q2
                          where Q2.errata_id = :errata_id and
+                               Q2.channel_id = :channel_id and
                                Q2.org_id = wc.id)
    </query>
 </write-mode>
 
 <write-mode name="errataqueue_dequeue_errata_notification">
-   <query params="errata_id">
-      DELETE FROM rhnErrataNotificationQueue WHERE errata_id = :errata_id
+   <query params="errata_id, channel_id">
+      DELETE FROM rhnErrataNotificationQueue WHERE errata_id = :errata_id AND channel_id = :channel_id
    </query>
 </write-mode>
 
 <write-mode name="errataqueue_dequeue_errata">
-   <query params="errata_id">
-      DELETE FROM rhnErrataQueue WHERE errata_id = :errata_id
+   <query params="errata_id, channel_id">
+      DELETE FROM rhnErrataQueue WHERE errata_id = :errata_id AND channel_id = :channel_id
    </query>
 </write-mode>
 

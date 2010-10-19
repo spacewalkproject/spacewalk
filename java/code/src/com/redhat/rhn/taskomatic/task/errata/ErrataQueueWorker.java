@@ -92,6 +92,8 @@ class ErrataQueueWorker implements QueueWorker {
                     TaskConstants.TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA_NOTIFICATION);
             Map deqNotifParams = new HashMap();
             deqNotifParams.put("errata_id", errataId);
+            deqNotifParams.put("channel_id", channelId);
+            deqNotifParams.put("org_id", orgId);
             int notifDeleted = deqNotif.executeUpdate(deqNotifParams);
             if (logger.isDebugEnabled()) {
                 logger.debug("deleted " + notifDeleted +
@@ -127,6 +129,7 @@ class ErrataQueueWorker implements QueueWorker {
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA);
         Map dqeParams = new HashMap();
         dqeParams.put("errata_id", errataId);
+        dqeParams.put("channel_id", channelId);
         int eqDeleted = deqErrata.executeUpdate(dqeParams);
         if (logger.isDebugEnabled()) {
             logger.debug("deleted " + eqDeleted +
