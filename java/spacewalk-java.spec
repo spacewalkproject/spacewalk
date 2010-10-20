@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.66
+Version: 1.2.67
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 20 2010 Jan Pazdziora 1.2.67-1
+- Delete from rhnPackageChangeLogRec, not from the view.
+- Fix ISE in AK child channel page (colin.coe@gmail.com)
+
 * Wed Oct 20 2010 Lukas Zapletal 1.2.66-1
 - Removed unnecessary ORDER BY 
 - Using date time function instead of arithmetics 
