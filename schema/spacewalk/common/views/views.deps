@@ -104,3 +104,4 @@ rhnServerNeededView              :: rhnPackage rhnChannelNewestPackage \
                                     rhnChannelPackage rhnServerChannel \
                                     rhnServer rhnErrataPackage \
                                     rhnChannelErrata rhnPackageUpgradeArchCompat
+rhnPackageChangeLog              :: rhnPackageChangeLogData rhnPackageChangeLogRec
