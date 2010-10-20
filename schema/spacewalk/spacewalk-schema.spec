@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.45
+Version:        1.2.46
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Oct 20 2010 Jan Pazdziora 1.2.46-1
+- Process in chunks of 10000 packages, so that we do not blow the undo
+  tablespace.
+- Schema upgrade script for the rhnPackageChangeLog refactoring.
+- Replace the rhnPackageChangeLog table with compatibility view, so that we do
+  not have to rewrite code which just reads the table.
+- To save space for rhnPackageChangeLog data, split the table to two.
+
 * Tue Oct 19 2010 Jan Pazdziora 1.2.45-1
 - 644349 - do not update/delete all errata entries when the erratum affects
   multiple channels (tlestach@redhat.com)
