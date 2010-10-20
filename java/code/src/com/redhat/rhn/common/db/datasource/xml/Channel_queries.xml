@@ -497,7 +497,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	 rhnUserChannel UC on UC.channel_id = C.id
         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
 	 where UC.user_id = :user_id  and
-	 C.end_of_life &lt; sysdate
+	 C.end_of_life &lt; current_timestamp
     </query>
       <elaborator name="visible_server_count"/>
 </mode>
