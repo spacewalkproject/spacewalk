@@ -83,7 +83,7 @@ where
                     from rhnUserServerPerms usp
                     where usp.user_id = :user_id
                     and usp.server_id = sa.server_id)
-    and a.created &gt; sysdate - :age
+    and a.created &gt; current_timestamp - numtodsinterval(:age * 86400, 'second')
 order by id desc
   </query>
 </mode>
