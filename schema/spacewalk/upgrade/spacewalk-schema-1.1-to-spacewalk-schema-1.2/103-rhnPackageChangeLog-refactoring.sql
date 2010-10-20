@@ -74,13 +74,25 @@ group by name, text, time;
 
 commit;
 
-select rhnPackageChangeLog.id, rhnPackageChangeLog.package_id, rhnPackageChangeLogData.id, rhnPackageChangeLog.created, rhnPackageChangeLog.created
-from rhnPackageChangeLog, rhnPackageChangeLogData
-where rhnPackageChangeLog.name = rhnPackageChangeLogData.name
-	and rhnPackageChangeLog.text = rhnPackageChangeLogData.text
-	and rhnPackageChangeLog.time = rhnPackageChangeLogData.time;
-
-commit;
+declare
+	max_id integer;
+	i integer;
+begin
+	select max(id), min(id) into max_id, i from rhnPackageChangeLog;
+	while i < max_id loop
+		insert /*+append*/ into rhnPackageChangelogRec (id, package_id, changelog_data_id, created, modified)
+		select rhnPackageChangeLog.id, rhnPackageChangeLog.package_id, rhnPackageChangeLogData.id, rhnPackageChangeLog.created, rhnPackageChangeLog.created
+		from rhnPackageChangeLog, rhnPackageChangeLogData
+		where rhnPackageChangeLog.name = rhnPackageChangeLogData.name
+			and rhnPackageChangeLog.text = rhnPackageChangeLogData.text
+			and rhnPackageChangeLog.time = rhnPackageChangeLogData.time
+			and rhnPackageChangeLog.id >= i
+			and rhnPackageChangeLog.id < i + 10000;
+		commit;
+		i := i + 10000;
+	end loop;
+end;
+/
 
 drop table rhnPackageChangelog;
 
