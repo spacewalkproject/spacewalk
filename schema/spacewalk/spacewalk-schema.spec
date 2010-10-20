@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.46
+Version:        1.2.47
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Oct 20 2010 Jan Pazdziora 1.2.47-1
+- Dropping rhn_package_changelog_id_trig. The id is always specified explicitly
+  (it seems).
+- Fixing the SHA1 mapping.
+- Schema upgrade script for the new trigger on rhnPackageChangeLogRec.
+- Move the triggers from rhnPackageChangeLog to rhnPackageChangeLogRec.
+
 * Wed Oct 20 2010 Jan Pazdziora 1.2.46-1
 - Process in chunks of 10000 packages, so that we do not blow the undo
   tablespace.
