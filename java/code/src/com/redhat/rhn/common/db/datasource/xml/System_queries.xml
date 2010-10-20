@@ -7,11 +7,11 @@
                    SI.server_id AS IS_RHN_SATELLITE,
                    PI.server_id AS IS_RHN_PROXY,
                    TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECKIN
-    FROM  rhnSatelliteInfo SI, rhnServerInfo SInfo, rhnProxyInfo PI, rhnServer S, rhnUserServerPerms USP
+    FROM rhnServerInfo SInfo, rhnUserServerPerms USP, rhnServer S
+    LEFT OUTER JOIN rhnSatelliteInfo SI ON S.id = SI.server_id
+    LEFT OUTER JOIN rhnProxyInfo PI ON S.id = PI.server_id
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
-     AND  S.id = SI.server_id (+)
-     AND  S.id = PI.server_id (+)
      AND  Sinfo.server_id = S.id
      AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.ID AND SFV.label = :feature)
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
@@ -1086,11 +1086,11 @@ SELECT  DISTINCT ST.element AS ID
                      FROM rhnServerFeaturesView SFV
                     WHERE SFV.server_id = S.id
                       AND SFV.label = 'ftr_system_grouping') AS selectable
-    FROM  rhnSatelliteInfo SI, rhnServerInfo SInfo, rhnProxyInfo PI, rhnServer S, rhnUserServerPerms USP
+    FROM rhnServerInfo SInfo, rhnUserServerPerms USP, rhnServer S
+    LEFT OUTER JOIN rhnSatelliteInfo SI ON S.id = SI.server_id
+    LEFT OUTER JOIN rhnProxyInfo PI ON S.id = PI.server_id
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
-     AND  S.id = SI.server_id (+)
-     AND  S.id = PI.server_id (+)
      AND  Sinfo.server_id = S.id
      AND ((SELECT count (*) FROM rhnServerErrataTypeView setv WHERE setv.server_id = s.id) > 0)
 </query>
@@ -1259,8 +1259,7 @@ DISTINCT VI.id,
 	 NVL(VIS.name, '(unknown)') AS STATE_NAME,
 	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
 	 1 AS selectable
-    FROM rhnVirtualInstance VI,
-     rhnSet ST
+    FROM rhnSet ST, rhnVirtualInstance VI
 	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
 	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
    WHERE ST.user_id = :user_id
