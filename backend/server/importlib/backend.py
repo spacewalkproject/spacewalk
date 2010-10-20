@@ -543,12 +543,7 @@ class Backend:
                 names.append(name)
                 
             sql = """
-            declare
-                pragma autonomous_transaction;
-            begin
-                insert into %s (id, label, name) values (:id, :label, :name);
-                commit;
-            end;
+                insert into %s (id, label, name) values (:id, :label, :name)
             """
             h = self.dbmodule.prepare(sql % table_name)
             h.executemany(id=row_ids, label=labels, name=names)
@@ -561,12 +556,7 @@ class Backend:
                 names.append(name)
 
             sql = """
-            declare
-                pragma autonomous_transaction;
-            begin
-                update %s set name = :name where label = :label;
-                commit;
-            end;
+                update %s set name = :name where label = :label
             """
             h = self.dbmodule.prepare(sql % table_name)
             h.executemany(label=labels, name=names)
