@@ -56,6 +56,8 @@ BEGIN
     IF NOT FOUND THEN
         PERFORM rhn_exception.raise_exception('sgm_insert_diff_orgs');
     END IF;
+
+    return new;
 END;
 $$
 LANGUAGE PLPGSQL;
