@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.11
+Version: 0.2.12
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Oct 20 2010 Michael Mraka <michael.mraka@redhat.com> 0.2.12-1
+- must not provide & conflict with same (unversioned) package
+
 * Mon Oct 18 2010 Jan Pazdziora 0.2.11-1
 - spacewalk-koan conflicts with any version of rhn-kickstart
   (michael.mraka@redhat.com)
