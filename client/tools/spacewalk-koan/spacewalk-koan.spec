@@ -13,8 +13,6 @@ BuildRequires:  python
 Requires:       python >= 1.5
 Requires:       koan >= 1.4.3
 
-Provides: rhn.kickstart.boot_image = 5.3.0
-Provides: rhn-kickstart = 5.3.0
 Conflicts: rhn-kickstart
 
 #this currently doesn't work for RHEL 2.1
