@@ -292,13 +292,13 @@ ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN P
   <query params="cid">
 SELECT PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
        PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
        P.summary,
        PA.id AS arch_id,
        PE.epoch,
        PE.version,
        PE.release,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
        PN.id as name_id,
        PE.id as evr_id
   FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
@@ -363,7 +363,7 @@ ORDER BY UPPER(PN.name)
      will be the name -->
 
 SELECT DISTINCT
-       PN.name || '-' || PE.evr.as_vre_simple() AS nvre,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS nvre,
        PN.id || '|' || CNP.evr_id || '|' || PA.id AS id_combo,
        (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY,
        PA.label as arch
@@ -382,8 +382,8 @@ ORDER BY UPPER(NVRE)
 <mode name="system_package_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
 SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
-        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
-        PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
         PN.name AS name,
         PE.version,
         PE.release,
@@ -409,8 +409,8 @@ SELECT PN.id || '|' || SPE.id AS ID_COMBO,
        SP.evr_id,
        SP.package_arch_id AS ARCH_ID,
        PA.label AS ARCH,
-       SPE.evr.as_vre_simple() AS EVR,
-       SPE.evr.as_vre_simple() || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS EVRA,
+       Sevr_t_as_vre_simple(PE.evr) AS EVR,
+       Sevr_t_as_vre_simple(PE.evr) || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS EVRA,
        SPE.epoch,
        SPE.version,
        SPE.release
@@ -432,9 +432,9 @@ SELECT PN.id || '|' || SPE.id AS ID_COMBO,
        SP.evr_id,
        SP.package_arch_id AS ARCH_ID,
        PA.label AS ARCH,
-       SPE.evr.as_vre_simple() AS EVR,
-       SPE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-       SPE.evr.as_vre_simple() || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS EVRA,
+       Sevr_t_as_vre_simple(PE.evr) AS EVR,
+       Sevr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
+       Sevr_t_as_vre_simple(PE.evr) || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS EVRA,
        SPE.epoch,
        SPE.version,
        SPE.release
@@ -451,7 +451,7 @@ SELECT PN.id || '|' || SPE.id AS ID_COMBO,
 <mode name="packages_from_server_set" class="com.redhat.rhn.frontend.dto.SsmRemovePackageListItem">
   <query params="user_id, set_label">
 SELECT   PN.ID || '|' || PE.ID || '|' || X.package_arch_id AS id_combo,
-         PN.name || '-' || PE.evr.as_vre_simple() AS nvre,
+         PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS nvre,
          PA.label AS arch,
          X.num_systems AS num_systems
     FROM rhnPackageName PN,
@@ -478,7 +478,7 @@ ORDER BY UPPER (PN.NAME)
 
 <mode name="packages_in_set"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="set_label, user_id">
-  SELECT  PN.id || '|' || PE.id AS ID_COMBO, PN.name || '-' || PE.evr.as_vre_simple() AS NVRE
+  SELECT  PN.id || '|' || PE.id AS ID_COMBO, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
     FROM  rhnPackageName PN, rhnPackageEVR PE, rhnSet S
    WHERE  S.label = :set_label
      AND  S.user_id = :user_id
@@ -564,7 +564,7 @@ ORDER BY UPPER(PACKAGE_NVRE)
 <mode name="packages_available_to_errata_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="source_cid, target_eid">
 SELECT P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() AS PACKAGE_NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS PACKAGE_NVRE,
        P.summary
   FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
        rhnChannelPackage CP
@@ -584,7 +584,7 @@ ORDER BY UPPER(PACKAGE_NVRE)
 <mode name="packages_available_to_tmp_errata_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="source_cid, target_eid">
 SELECT P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() AS PACKAGE_NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS PACKAGE_NVRE,
        P.summary
   FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
        rhnChannelPackage CP
@@ -751,7 +751,7 @@ SELECT  PN.id AS id,
         latest.evr.release AS release,
         PN.name AS name,
         PN.name ||'-'|| latest.evr.version || '-' || latest.evr.release || DECODE(latest.evr.epoch, NULL, '', ':' || latest.evr.epoch) || (CASE WHEN latest.arch_id IS NULL THEN '' ELSE '.' || latest.arch_label END) AS nvrea,
-        PN.name || '-' || PE.evr.as_vre_simple() || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS installed_package,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS installed_package,
         PN.id || '|' || lookup_evr(latest.evr.epoch, latest.evr.version, latest.evr.release)|| '|' || latest.arch_id AS id_combo
   FROM  rhnPackageName PN,
         rhnServerPackage SP
@@ -862,7 +862,7 @@ SELECT CP.package_id as ID,
 
 <mode name="packages_associated_with_action">
   <query params="aid">
-SELECT  DISTINCT PN.id || '|' || PE.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() AS NVRE
+SELECT  DISTINCT PN.id || '|' || PE.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
   FROM  rhnPackageName PN,
         rhnPackageEVR PE,
         rhnActionPackage AP
@@ -896,7 +896,7 @@ SELECT DISTINCT pa.label, pa.name
   <query params="sid">
 SELECT PN.id as ID,
        PN.id || '|' || PE.id AS ID_COMBO,
-      PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+      PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
       PN.name AS name,
       PE.version,
       PE.release,
@@ -950,7 +950,7 @@ ORDER BY UPPER(NVRE)
 <mode name="patches_in_set" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="set_label, user_id">
 SELECT PN.id || '|' || PE.id AS ID_COMBO,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
        PN.name AS name,
        PN.id AS NAME_ID,
        PE.id AS EVR_ID,
@@ -975,7 +975,7 @@ SELECT PN.id || '|' || PE.id AS ID_COMBO,
 <mode name="system_solaris_package_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
 SELECT  PN.id || '|' || PE.id AS ID_COMBO,
-        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
         PN.name AS name,
         PE.version,
         PE.release,
@@ -1033,7 +1033,7 @@ ORDER BY  UPPER(NVRE)
   </query>
   <elaborator params="sid" multiple="t">
 SELECT DISTINCT PN.name AS NAME,
-       PN.name || '-' || PE.evr.as_vre_simple() AS ELAB_NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS ELAB_NVRE,
        PN.id || '|' || PE.id AS ELAB_ID_COMBO,
        SPP.patch_id as ID
   FROM rhnPackage P,
@@ -1169,7 +1169,7 @@ SELECT  P.id AS id,
         PN.id as name_id,
         pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS nvre,
         lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS evr_id,
-        PN.name || '-' || SPE.evr.as_vre_simple() AS installed,
+        PN.name || '-' || Sevr_t_as_vre_simple(PE.evr) AS installed,
         full_list.server_id SERVER_ID,
         full_list.errata_id ERRATA_ID,
         full_list.errata_advisory ERRATA_ADVISORY,
@@ -1476,7 +1476,7 @@ SELECT P.id, PE.epoch, PE.version, PE.release
 SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
   FROM (SELECT DISTINCT
                PE.evr AS EVR,
-               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
                C.name AS CHANNEL_NAME,
                P.ID AS PACKAGE_ID,
                C.id AS CHANNEL_ID
@@ -1512,7 +1512,7 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
 SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
   FROM (SELECT DISTINCT
                PE.evr AS EVR,
-               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
                C.name AS CHANNEL_NAME,
                P.ID AS PACKAGE_ID,
                C.id AS CHANNEL_ID
@@ -1547,7 +1547,7 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
 SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
   FROM (SELECT DISTINCT
                PE.evr AS EVR,
-               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
                C.name AS CHANNEL_NAME,
                P.ID AS PACKAGE_ID,
                C.id AS CHANNEL_ID
@@ -1582,7 +1582,7 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
 SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
   FROM (SELECT DISTINCT
                PE.evr AS EVR,
-               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
                C.name AS CHANNEL_NAME,
                P.ID AS PACKAGE_ID,
                C.id AS CHANNEL_ID
@@ -1614,10 +1614,10 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
   <query params="cid">
 SELECT P.id AS ID,
        PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
        P.summary,
        PA.label AS ARCH,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
        TO_CHAR(SP.set_date, 'YYYY-MM-DD') AS set_date
   FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
        rhnChannelPackage CP, rhnSolarisPatchSet SP
@@ -1634,7 +1634,7 @@ ORDER BY UPPER(NVRE)
 <mode name="packages_for_channel_from_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, scid">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
   	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
 	   rhnPackageName PN on P.name_id = PN.id inner join
@@ -1657,7 +1657,7 @@ SELECT distinct P.id AS ID,
 <mode name="custom_packages_for_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, org_id">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
   	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
 	   rhnPackageName PN on P.name_id = PN.id inner join
@@ -1680,7 +1680,7 @@ SELECT distinct P.id AS ID,
 <mode name="orphan_packages_for_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, org_id">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
   	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
 	   rhnPackageName PN on P.name_id = PN.id inner join
@@ -1721,7 +1721,7 @@ SELECT distinct P.id AS ID,
 <mode name="all_custom_packages" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
 	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
 	   rhnPackageName PN on P.name_id = PN.id inner join
@@ -1736,7 +1736,7 @@ SELECT distinct P.id AS ID,
 <mode name="custom_package_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, org_id">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
 	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
 	   rhnPackageName PN on P.name_id = PN.id inner join
