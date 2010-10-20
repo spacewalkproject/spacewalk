@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.67
+Version: 1.2.68
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 20 2010 Lukas Zapletal 1.2.68-1
+- Rewrite of LEFT OUTER JOIN into ANSI syntax 
+- Function evr_t_as_vre_simple in all package queries now general
+- Using date time function instead of arithmetics 
+- Sysdate replaced with current_timestamp 
+- Removed unnecessary ORDER BY in SELECT COUNT
+- Use the global function evr_t_as_vre_simple in package_ids_in_set instead of
+  method .as_vre_simple; this works on PostgreSQL as well.
+
 * Wed Oct 20 2010 Jan Pazdziora 1.2.67-1
 - Delete from rhnPackageChangeLogRec, not from the view.
 - Fix ISE in AK child channel page (colin.coe@gmail.com)
