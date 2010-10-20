@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.13
+Version: 1.2.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Oct 20 2010 Lukas Zapletal 1.2.14-1
+- Fix in PostgreSQL (of previous commit)
+- All DECODE functions replaced with CASE-WHEN in System_queries
+- Fixing system overview list for PostgreSQL 
+- Port /network/systems/details/custominfo/edit.pxt 
+- Port /network/systems/details/custominfo/index.pxt 
+- Update Perl module to redirect to Java not PXT 
+- s|/network/systems/ssm/misc/index.pxt|/rhn/systems/ssm/misc/Index.do|
+
 * Wed Oct 13 2010 Jan Pazdziora 1.2.13-1
 - 642203- Removed the Task Status page for it needs a serious work over with
   our new configs (paji@redhat.com)
