@@ -297,7 +297,6 @@ SELECT
    AND S.id = SC.server_id
    AND SC.channel_id = :cid
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
 </mode>
 
