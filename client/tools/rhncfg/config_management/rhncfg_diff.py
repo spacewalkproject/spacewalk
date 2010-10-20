@@ -110,7 +110,7 @@ class Handler(handler_base.HandlerBase):
                 % (path, revision, channel))
         if os.path.islink(local_file) and info['filetype'] != 'symlink' :
              die(8, "Cannot diff %s; the file on the system is a symbolic link while the file in the channel is not. " % local_file)
-        if  info['filetype'] != 'symlink' and not os.path.islink(local_file) :
+        if  info['filetype'] == 'symlink' and not os.path.islink(local_file) :
              die(8, "Cannot diff %s; the file on the system is not a symbolic link while the file in the channel is. " % local_file)             
         if info['filetype'] == 'symlink':
             src_link = info['symlink']
