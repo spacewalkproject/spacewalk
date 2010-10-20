@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.65
+Version: 1.2.66
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 20 2010 Lukas Zapletal 1.2.66-1
+- Removed unnecessary ORDER BY 
+- Using date time function instead of arithmetics 
+- Added setHasSubscription for Integer 
+- Using date time function instead of arithmetics 
+- Fix in PostgreSQL (ORDER BY) in Out Of Date system list.
+- Fixed comma in ANSI JOIN syntax from previous commit 
+- Left join now in ANSI syntax for virtual system list. 
+- Fix in PostgreSQL plus NVL fix
+- All DECODE functions replaced with CASE-WHEN in System_queries
+- Fixing system overview list for PostgreSQL 
+
 * Tue Oct 19 2010 Tomas Lestach <tlestach@redhat.com> 1.2.65-1
 - removing unused imports (tlestach@redhat.com)
 - 644361 - use cache instead of view for update check (tlestach@redhat.com)
