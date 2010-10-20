@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.30
+Version: 1.2.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -663,6 +663,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 20 2010 Jan Pazdziora 1.2.31-1
+- Changing backend (satellite-sync) to use the new rhnPackageChangeLogRec and
+  rhnPackageChangeLogData tables.
+- autonomous_transaction not supported by PostgreSQL.
+
 * Tue Oct 19 2010 Jan Pazdziora 1.2.30-1
 - check_package_spec() already defined in handlers/xmlrpc/up2date.py
   (michael.mraka@redhat.com)
