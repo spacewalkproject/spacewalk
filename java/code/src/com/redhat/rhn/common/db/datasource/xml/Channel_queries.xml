@@ -1256,7 +1256,7 @@ END;
     SELECT DISTINCT c1.id as id,
        (select name from rhnChannel C2 where c1.parent_channel = c2.id) parent,
        c1.name as name,
-       CASE WHEN (SELECT 1 FROM rhnRegTokenChannels WHERE :token_id = 2 AND channel_id = c1.id)
+       CASE WHEN (SELECT 1 FROM rhnRegTokenChannels WHERE token_id = :token_id AND channel_id = c1.id)
        IS NOT NULL THEN 'selected' ELSE '' END s
     FROM rhnChannel c1 inner join rhnUserChannel UC on UC.channel_id = C1.id
     AND c1.parent_channel IS NOT NULL
