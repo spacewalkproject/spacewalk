@@ -1,7 +1,11 @@
 -- Note: this file is not a full equivalent of the Oracle sources.
 -- Neither the flex stuff nor the update_family_countsYN was fully migrated.
--- Only things on the code path of simple rhn-satellite-activate
--- were done.
+-- Migrated functions or code paths:
+--
+-- can_entitle_server
+-- entitle_server
+-- code path of simple rhn-satellite-activate
+--
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -190,7 +194,7 @@ as $$
       from rhnServerGroupType
       where label = type_label_in;
 
-      if array_upper(previous_ent, 1) = 0 then
+      if array_upper(previous_ent, 1) is null or array_upper(previous_ent, 1) = 0 then
          if is_base_in = 'Y' then
             sgid := rhn_entitlements.find_compatible_sg (server_id_in, type_label_in);
             if sgid is not null then
