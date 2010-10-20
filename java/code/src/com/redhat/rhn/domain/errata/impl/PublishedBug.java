@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.domain.errata.impl;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
@@ -32,6 +35,7 @@ public class PublishedBug extends BaseDomainHelper implements Bug, Serializable 
     private Long id;
     private String summary;
     private Errata errata;
+    private String url;
 
     /**
      * @return Returns the id.
@@ -59,6 +63,20 @@ public class PublishedBug extends BaseDomainHelper implements Bug, Serializable 
      */
     public void setSummary(String s) {
         this.summary = s;
+    }
+
+    /**
+     * @return Returns the url.
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param urlIn The url to set.
+     */
+    public void setUrl(String urlIn) {
+        this.url = urlIn;
     }
 
     /**

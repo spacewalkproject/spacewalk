@@ -4970,6 +4970,12 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/errata/details/Details</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="details.jsp.from">
+<source>From:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/details/Details</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="details.jsp.description">
 <source>Description</source>
         <context-group name="ctx">
@@ -5087,6 +5093,13 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
 
+      <trans-unit id="errata.create.jsp.from">
+<source>Author:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="errata.create.jsp.bugs">
 <source>Bugs:</source>
         <context-group name="ctx">
@@ -5103,6 +5116,13 @@ value for this entitlement, excluding the default organization's consumption.</s
 
       <trans-unit id="errata.create.jsp.summary">
 <source>Summary:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="errata.create.jsp.bugurl">
+<source>Bugzilla URL:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
         </context-group>

@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.manager.errata;
 
 import com.redhat.rhn.common.conf.Config;
@@ -221,20 +224,22 @@ public class ErrataManager extends BaseManager {
      * Creates a new Unpublished Bug with the id and summary given.
      * @param id The id for the new bug.
      * @param summary The summary for the new bug.
+     * @param url The url for the new bug.
      * @return Returns a Bug object.
      */
-    public static Bug createNewUnpublishedBug(Long id, String summary) {
-        return ErrataFactory.createUnpublishedBug(id, summary);
+    public static Bug createNewUnpublishedBug(Long id, String summary, String url) {
+        return ErrataFactory.createUnpublishedBug(id, summary, url);
     }
 
     /**
      * Creates a new PublishedBug with the id and summary given.
      * @param id The id for the new bug
      * @param summary The summary for the new bug
+     * @param url The url for the new bug.
      * @return Returns a Bug object
      */
-    public static Bug createNewPublishedBug(Long id, String summary) {
-        return ErrataFactory.createPublishedBug(id, summary);
+    public static Bug createNewPublishedBug(Long id, String summary, String url) {
+        return ErrataFactory.createPublishedBug(id, summary, url);
     }
 
     /**

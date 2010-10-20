@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.domain.errata;
 
 import com.redhat.rhn.domain.channel.Channel;
@@ -318,6 +321,13 @@ public interface Errata {
     void setKeywords(Set k);
 
     /**
+     * Search for the given keyword in the set
+     * @param s The keyword to search for
+     * @return true if keyword was found
+     */
+    boolean hasKeyword(String s);
+
+    /**
      * Adds a package to the packages set.
      * @param packageIn The package to add.
      */
@@ -348,6 +358,18 @@ public interface Errata {
      * @param channelsIn The set of channels to set for this errata
      */
     void setChannels(Set channelsIn);
+
+    /**
+     * Getter for author
+     * @return String to get
+     */
+    String getErrataFrom();
+
+    /**
+     * Setter for author
+     * @param from to set
+     */
+    void   setErrataFrom(String from);
 
     /**
      * Adds a single channel to this errata

@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.frontend.xmlrpc.errata;
 
 import com.redhat.rhn.FaultException;
@@ -199,6 +202,7 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("int", "release")
      *          #prop("string", "type")
      *          #prop("string", "product")
+     *          #prop("string", "errataFrom")
      *          #prop("string", "topic")
      *          #prop("string", "description")
      *          #prop("string", "references")
@@ -233,6 +237,8 @@ public class ErrataHandler extends BaseHandler {
         }
         errataMap.put("product",
                 StringUtils.defaultString(errata.getProduct()));
+        errataMap.put("errataFrom",
+                StringUtils.defaultString(errata.getErrataFrom()));
         errataMap.put("solution",
                 StringUtils.defaultString(errata.getSolution()));
         errataMap.put("description",
@@ -274,6 +280,7 @@ public class ErrataHandler extends BaseHandler {
      *                  following: 'Security Advisory', 'Product Enhancement Advisory',
      *                  or 'Bug Fix Advisory'")
      *          #prop("string", "product")
+     *          #prop("string", "errataFrom")
      *          #prop("string", "topic")
      *          #prop("string", "description")
      *          #prop("string", "references")
@@ -284,6 +291,7 @@ public class ErrataHandler extends BaseHandler {
      *                 #struct("bug")
      *                    #prop_desc("int", "id", "Bug Id")
      *                    #prop("string", "summary")
+     *                    #prop("string", "url")
      *                 #struct_end()
      *              #array_end()
      *          #prop_desc("array", "keywords", "'keywords' is the key into the struct")
@@ -305,6 +313,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("advisory_release");
         validKeys.add("advisory_type");
         validKeys.add("product");
+        validKeys.add("errataFrom");
         validKeys.add("topic");
         validKeys.add("description");
         validKeys.add("references");
@@ -318,6 +327,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.clear();
         validKeys.add("id");
         validKeys.add("summary");
+        validKeys.add("url");
         if (details.containsKey("bugs")) {
             for (Map<String, Object> bugMap :
                  (ArrayList<Map<String, Object>>) details.get("bugs")) {
@@ -354,6 +364,9 @@ public class ErrataHandler extends BaseHandler {
         if (details.containsKey("product")) {
             errata.setProduct((String)details.get("product"));
         }
+        if (details.containsKey("errataFrom")) {
+            errata.setErrataFrom((String)details.get("errataFrom"));
+        }
         if (details.containsKey("topic")) {
             errata.setTopic((String)details.get("topic"));
         }
@@ -380,10 +393,14 @@ public class ErrataHandler extends BaseHandler {
                  (ArrayList<Map<String, Object>>) details.get("bugs")) {
 
                 if (bugMap.containsKey("id") && bugMap.containsKey("summary")) {
+                    String url = "";
+                    if (bugMap.containsKey("url")) {
+                      url = (String) bugMap.get("url");
+                    }
 
                     Bug bug = ErrataFactory.createPublishedBug(
                             new Long((Integer) bugMap.get("id")),
-                            (String) bugMap.get("summary"));
+                            (String) bugMap.get("summary"), url);
 
                     errata.addBug(bug);
                 }
@@ -912,6 +929,7 @@ public class ErrataHandler extends BaseHandler {
      *          following: "Security Advisory", "Product Enhancement Advisory", or
      *          "Bug Fix Advisory"
      *  String "product" the product the errata affects
+     *  String "errataFrom" the author of the errata
      *  String "topic" the topic of the errata
      *  String "description" the description of the errata
      *  String "solution" the solution of the errata
@@ -938,6 +956,7 @@ public class ErrataHandler extends BaseHandler {
      *                  following: 'Security Advisory', 'Product Enhancement Advisory',
      *                  or 'Bug Fix Advisory'")
      *          #prop("string", "product")
+     *          #prop("string", "errataFrom")
      *          #prop("string", "topic")
      *          #prop("string", "description")
      *          #prop("string", "references")
@@ -949,6 +968,7 @@ public class ErrataHandler extends BaseHandler {
      *              #struct("bug")
      *                  #prop_desc("int", "id", "Bug Id")
      *                  #prop("string", "summary")
+     *                  #prop("string", "url")
      *               #struct_end()
      *       #array_end()
      * @xmlrpc.param #array_single("string", "keyword - List of keywords to associate
@@ -972,6 +992,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("advisory_release");
         validKeys.add("advisory_type");
         validKeys.add("product");
+        validKeys.add("errataFrom");
         validKeys.add("topic");
         validKeys.add("description");
         validKeys.add("references");
@@ -982,6 +1003,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.clear();
         validKeys.add("id");
         validKeys.add("summary");
+        validKeys.add("url");
         for (Map<String, Object> bugMap : (ArrayList<Map<String, Object>>) bugs) {
             validateMap(validKeys, bugMap);
         }
@@ -1004,6 +1026,7 @@ public class ErrataHandler extends BaseHandler {
         }
         String advisoryType = (String) getRequiredAttribute(errataInfo, "advisory_type");
         String product = (String) getRequiredAttribute(errataInfo, "product");
+        String errataFrom = (String) errataInfo.get("errataFrom");
         String topic = (String) getRequiredAttribute(errataInfo, "topic");
         String description = (String) getRequiredAttribute(errataInfo, "description");
         String solution = (String) getRequiredAttribute(errataInfo, "solution");
@@ -1041,14 +1064,20 @@ public class ErrataHandler extends BaseHandler {
         newErrata.setUpdateDate(new Date());
 
         //not required
+        newErrata.setErrataFrom(errataFrom);
         newErrata.setRefersTo(references);
         newErrata.setNotes(notes);
 
         for (Iterator itr = bugs.iterator(); itr.hasNext();) {
             Map bugMap = (Map) itr.next();
+            String url = "";
+            if (bugMap.containsKey("url")) {
+                url = (String) bugMap.get("url");
+            }
+
             Bug bug = ErrataFactory.createPublishedBug(
                     new Long(((Integer)bugMap.get("id")).longValue()),
-                    (String)bugMap.get("summary"));
+                    (String)bugMap.get("summary"), url);
             newErrata.addBug(bug);
         }
         for (Iterator itr = keywords.iterator(); itr.hasNext();) {

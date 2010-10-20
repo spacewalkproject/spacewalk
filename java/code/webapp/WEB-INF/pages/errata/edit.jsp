@@ -105,6 +105,15 @@
 
     <tr>
       <th nowrap="nowrap">
+        <bean:message key="errata.create.jsp.from"/>
+      </th>
+      <td class="small-form">
+        <html:text property="errataFrom" size="30" maxlength="127" />
+      </td>
+    </tr>
+
+    <tr>
+      <th nowrap="nowrap">
         <bean:message key="errata.create.jsp.topic"/>
       </th>
       <td class="small-form">
@@ -146,13 +155,19 @@
             <tr>
               <td><bean:message key="errata.create.jsp.summary"/></td>
               <td><html:text property="buglistSummary${bug.id}" size="60"
-                       value="${bug.summary}" />
+                       value="${bug.summary}" /></td>
+            </tr>
+            <tr>
+              <td><bean:message key="errata.create.jsp.bugurl"/></td>
+              <td><html:text property="buglistUrl${bug.id}" size="60"
+                       value="${bug.url}" />
 
-            &nbsp;&nbsp;
-            <a href="/rhn/errata/manage/DeleteBug.do?eid=<c:out value="${param.eid}"/>&amp;bid=<c:out value="${bug.id}"/>">
-              <img src="/img/action-del.gif" alt="<bean:message key="errata.edit.deletebug"/>" />
-            </a>
-            </td>
+                   &nbsp;&nbsp;
+                   <a href="/rhn/errata/manage/DeleteBug.do?eid=<c:out value="${param.eid}"/>&amp;bid=<c:out value="${bug.id}"/>">
+                     <img src="/img/action-del.gif" alt="<bean:message key="errata.edit.deletebug"/>" />
+                   </a>
+              </td>
+            </tr>
           </table>
           <hr />
         </c:forEach>
@@ -166,6 +181,10 @@
             <tr>
               <td><bean:message key="errata.create.jsp.summary"/></td>
               <td><html:text property="buglistSummaryNew" value="" size="60"/></td>
+            </tr>
+            <tr>
+              <td><bean:message key="errata.create.jsp.bugurl"/></td>
+              <td><html:text property="buglistUrlNew" value="" size="60"/></td>
             </tr>
           </table>
       </td>

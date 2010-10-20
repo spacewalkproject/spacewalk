@@ -22,6 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="topic" column="topic" type="string" length="4000" />
         <property name="solution" column="solution" type="string" length="4000"
             />
+        <property name="errataFrom" column="errata_from" type="string" length="127" />
         <property name="issueDate" column="issue_date" type="timestamp" />
         <property name="updateDate" column="update_date" type="timestamp" />
         <property name="notes" column="notes" type="string" length="4000" />

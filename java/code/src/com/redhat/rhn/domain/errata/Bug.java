@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.domain.errata;
 
 
@@ -42,6 +45,16 @@ public interface Bug  {
     void setSummary(String s);
 
     /**
+     * @return Returns the url
+     */
+    String getUrl();
+
+    /**
+    * @param url The url to set.
+    */
+    void setUrl(String url);
+
+    /**
      * @return Returns the errata.
      */
     Errata getErrata();
@@ -50,4 +63,5 @@ public interface Bug  {
      * @param errataIn the errata to set.
      */
     void setErrata(Errata errataIn);
+
 }

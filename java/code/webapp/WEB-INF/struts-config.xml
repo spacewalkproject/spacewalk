@@ -263,8 +263,10 @@
             <form-property name="advisoryType" type="java.lang.String"/>
             <form-property name="advisoryTypeLabels" type="java.util.List"/>
             <form-property name="product" type="java.lang.String"/>
+            <form-property name="errataFrom" type="java.lang.String"/>
             <form-property name="buglistId" type="java.lang.String"/>
             <form-property name="buglistSummary" type="java.lang.String"/>
+            <form-property name="buglistUrl" type="java.lang.String"/>
             <form-property name="topic" type="java.lang.String"/>
             <form-property name="description" type="java.lang.String"/>
             <form-property name="solution" type="java.lang.String"/>
@@ -280,6 +282,7 @@
             <form-property name="advisoryType" type="java.lang.String"/>
             <form-property name="advisoryTypeLabels" type="java.util.List"/>
             <form-property name="product" type="java.lang.String"/>
+            <form-property name="errataFrom" type="java.lang.String"/>
             <form-property name="topic" type="java.lang.String"/>
             <form-property name="description" type="java.lang.String"/>
             <form-property name="solution" type="java.lang.String"/>

@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.frontend.action.channel.manage;
 
 import com.redhat.rhn.common.localization.LocalizationService;
@@ -98,7 +101,8 @@ public class PublishErrataHelper {
         for (Bug bugIn : (Set<Bug>) original.getBugs()) {
             Bug bClone;
                 bClone = ErrataManager.createNewPublishedBug(bugIn.getId(),
-                                                            bugIn.getSummary());
+                                                             bugIn.getSummary(),
+                                                             bugIn.getUrl());
            clone.addBug(bClone);
         }
 

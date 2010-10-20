@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.domain.errata;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -425,6 +428,7 @@ public class ErrataFactory extends HibernateFactory {
 
         copy.setAdvisoryType(original.getAdvisoryType());
         copy.setProduct(original.getProduct());
+        copy.setErrataFrom(original.getErrataFrom());
         copy.setDescription(original.getDescription());
         copy.setSynopsis(original.getSynopsis());
         copy.setTopic(original.getTopic());
@@ -467,11 +471,13 @@ public class ErrataFactory extends HibernateFactory {
             Bug cloneB;
             if (copy.isPublished()) { //we want published bugs
                 cloneB = ErrataManager.createNewPublishedBug(bugIn.getId(),
-                                                            bugIn.getSummary());
+                                                             bugIn.getSummary(),
+                                                             bugIn.getUrl());
             }
             else { //we want unpublished bugs
                 cloneB = ErrataManager.createNewUnpublishedBug(bugIn.getId(),
-                                                              bugIn.getSummary());
+                                                               bugIn.getSummary(),
+                                                               bugIn.getUrl());
             }
            copy.addBug(cloneB);
         }
@@ -497,12 +503,14 @@ public class ErrataFactory extends HibernateFactory {
      * Creates a new Unpublished Bug object with the given id and summary.
      * @param id The id for the new bug
      * @param summary The summary for the new bug
+     * @param url The bug URL
      * @return The new unpublished bug.
      */
-    public static Bug createUnpublishedBug(Long id, String summary) {
+    public static Bug createUnpublishedBug(Long id, String summary, String url) {
         Bug bug = new UnpublishedBug();
         bug.setId(id);
         bug.setSummary(summary);
+        bug.setUrl(url);
         return bug;
     }
 
@@ -510,12 +518,14 @@ public class ErrataFactory extends HibernateFactory {
      * Creates a new Published Bug object with the given id and summary.
      * @param id The id for the new bug
      * @param summary The summary for the new bug
+     * @param url The bug URL
      * @return The new published bug.
      */
-    public static Bug createPublishedBug(Long id, String summary) {
+    public static Bug createPublishedBug(Long id, String summary, String url) {
         Bug bug = new PublishedBug();
         bug.setId(id);
         bug.setSummary(summary);
+        bug.setUrl(url);
         return bug;
     }
 

@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.domain.errata.Bug;
@@ -83,6 +86,7 @@ public class CreateAction extends RhnAction {
         e.setAdvisoryRel(new Long(form.getString("advisoryRelease")));
         e.setAdvisoryType(form.getString("advisoryType"));
         e.setProduct(form.getString("product"));
+        e.setErrataFrom(form.getString("errataFrom"));
 
         //Advisory = advisoryName-advisoryRelease
         e.setAdvisory(form.getString("advisoryName") + "-" +
@@ -146,7 +150,8 @@ public class CreateAction extends RhnAction {
             form.getString("buglistSummary").length() > 0) {
             Long id = new Long(form.getString("buglistId"));
             String summary = form.getString("buglistSummary");
-            return ErrataManager.createNewUnpublishedBug(id, summary);
+            String url = form.getString("buglistUrl");
+            return ErrataManager.createNewUnpublishedBug(id, summary, url);
         }
         else {
             return null;

@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.domain.errata;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
@@ -63,6 +66,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     private Set keywords;
     protected Set packages;
     private boolean selected;
+    private String errataFrom;
 
     /**
      * Getter for id
@@ -126,6 +130,22 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public void setProduct(String productIn) {
         this.product = productIn;
+    }
+
+    /**
+     * Getter for author
+     * @return String to get
+     */
+    public String getErrataFrom() {
+        return this.errataFrom;
+    }
+
+    /**
+     * Setter for author
+     * @param from to set
+     */
+    public void setErrataFrom(String from) {
+        this.errataFrom = from;
     }
 
     /**
@@ -526,6 +546,22 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public void setKeywords(Set k) {
         this.keywords = k;
+    }
+
+    /**
+     * Search for the given keyword in the set
+     * @param s The keyword to search for
+     * @return true if keyword was found
+     */
+    public boolean hasKeyword(String s) {
+         Iterator iter = this.keywords.iterator();
+         while (iter.hasNext()) {
+             Keyword k = (Keyword) iter.next();
+             if (k.getKeyword().equals(s)) {
+               return true;
+             }
+         }
+         return false;
     }
 
     /**

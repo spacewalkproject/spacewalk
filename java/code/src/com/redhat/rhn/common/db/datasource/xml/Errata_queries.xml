@@ -1081,7 +1081,7 @@ SELECT DISTINCT E.id, E.update_date
 
 <mode name="bugs_fixed_by_errata" class="com.redhat.rhn.frontend.dto.Bug">
   <query params="eid">
-SELECT  EBL.bug_id, EBL.summary
+SELECT  EBL.bug_id, EBL.summary, EBL.href
   FROM  rhnErrataBugList EBL
  WHERE  EBL.errata_id = :eid
 ORDER BY EBL.bug_id

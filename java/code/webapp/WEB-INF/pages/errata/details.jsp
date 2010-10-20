@@ -24,6 +24,10 @@
           <th><bean:message key="details.jsp.updated"/></th>
           <td>${updated}</td>
         </tr>
+        <tr>
+          <th><bean:message key="details.jsp.from"/></th>
+          <td>${errataFrom}</td>
+        </tr>
       </table>
 
 <h2><bean:message key="details.jsp.topic"/></h2>
@@ -52,12 +56,16 @@
     <c:forEach items="${fixed}" var="current">
         <div class="page-summary">
             <c:choose>
-              <c:when test="${errata.org == null}">
-            <a href="https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=${current.bugId}">
+              <c:when test="${current.href == null && errata.org == null}">
+                <a href="https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=${current.bugId}">
                 <c:out value="${current.summary}"/></a>
               </c:when>
-              <c:otherwise>
+              <c:when test="${current.href == null && errata.org != null}">
                 <bean:message key="details.jsp.bugnumber" arg0="${current.bugId}"/> <c:out value="${current.summary}"/>
+              </c:when>
+              <c:otherwise>
+                <a href="${current.href}">
+                <c:out value="${current.summary}"/></a>
               </c:otherwise>
             </c:choose>
         </div>
