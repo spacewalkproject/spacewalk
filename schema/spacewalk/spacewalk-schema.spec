@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.47
+Version:        1.2.48
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Oct 20 2010 Lukas Zapletal 1.2.48-1
+- Trigger rhn_server_group_org_mapping_fun was missing return clause
+- Reformat of rhnServerGroupMembers.sql prior to next change
+- PostgreSQL function array_upper returns NULL on empty array
+  
+
 * Wed Oct 20 2010 Jan Pazdziora 1.2.47-1
 - Dropping rhn_package_changelog_id_trig. The id is always specified explicitly
   (it seems).
