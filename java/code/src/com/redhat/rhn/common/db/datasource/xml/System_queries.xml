@@ -1346,17 +1346,13 @@ SELECT S.id,
 
 <callable-mode name="delete_server">
     <query params="server_id">
-BEGIN
-  delete_server(:server_id);
-END;
+    { call delete_server(:server_id) }
     </query>
 </callable-mode>
 
 <callable-mode name="snapshot_server">
     <query params="server_id, reason">
-BEGIN
-  rhn_server.snapshot_server(:server_id, :reason);
-END;
+    { call rhn_server.snapshot_server(:server_id, :reason) }
     </query>
 </callable-mode>
 
