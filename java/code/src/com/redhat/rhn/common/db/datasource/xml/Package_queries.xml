@@ -750,8 +750,8 @@ SELECT  PN.id AS id,
         (latest.evr).version AS version,
         (latest.evr).release AS release,
         PN.name AS name,
-        PN.name ||'-'|| (latest.evr).version || '-' || (latest.evr).release || DECODE((latest.evr).epoch, NULL, '', ':' || (latest.evr).epoch) || (CASE WHEN latest.arch_id IS NULL THEN '' ELSE '.' || latest.arch_label END) AS nvrea,
-        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS installed_package,
+        PN.name ||'-'|| evr_t_as_vre_simple(latest.evr) || (CASE WHEN latest.arch_id IS NULL THEN '' ELSE '.' || latest.arch_label END) AS nvrea,
+        PN.name ||'-'|| evr_t_as_vre_simple(PE.evr) || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS installed_package,
         PN.id || '|' || lookup_evr((latest.evr).epoch, (latest.evr).version, (latest.evr).release)|| '|' || latest.arch_id AS id_combo
   FROM  rhnPackageName PN,
         rhnServerPackage SP
