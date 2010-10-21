@@ -260,7 +260,6 @@ backend = OracleBackend()
 backend.init()
 
 pi = PackageImport(solaris_pkgs, backend, update_last_modified=1)
-pi.setIgnoreUploaded(1)
 pi.run()
 
 # vim:sw=4:ts=4:et:mouse=a

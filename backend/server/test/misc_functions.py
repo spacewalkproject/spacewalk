@@ -204,7 +204,6 @@ def upload_packages( channel_label, directory, org_id = None, username = None, p
             raise
     
     p = package_import( package_list, oracle_backend, source = source )
-    p.ignoreUploaded = 1
     p.run()
     if source == 0:
         p.subscribeToChannels()

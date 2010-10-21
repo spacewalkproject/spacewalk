@@ -54,7 +54,6 @@ def uploadPackages(info, source=0, force=0, caller=None):
     backend.init()
     importer = packageImporter(batch, backend, source, caller=caller)
 
-    importer.setIgnoreUploaded(1)
     importer.setUploadForce(force)
 
     importer.run()

@@ -195,6 +195,7 @@ class PackageImport(ChannelPackageSubscription):
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
         ChannelPackageSubscription.__init__(self, batch, backend,
             caller=caller)
+        self.ignoreUploaded = 1
         self._update_last_modified = update_last_modified
         self.capabilities = {}
         self.groups = {}

@@ -168,7 +168,6 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
     importer = packageImport.packageImporter(batch, backend,
         source=header.is_source, caller="server.app.uploadPackage")
     importer.setUploadForce(upload_force)
-    importer.setIgnoreUploaded(1)
     importer.run()
 
     package = batch[0]

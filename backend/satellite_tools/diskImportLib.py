@@ -197,7 +197,6 @@ class ChannelContainer(diskImportLibContainer, xmlSource.ChannelContainer):
 class PackageContainer(xmlSource.PackageContainer):
     def endContainerCallback(self):
         importer = PackageImport(self.batch, get_backend())
-        importer.setIgnoreUploaded(1)
         importer.run()
         self.batch = []
 
