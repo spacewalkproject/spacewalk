@@ -73,6 +73,7 @@ sub process_tables {
 		# print "commit;\n";
 	}
 	for (@$tables) {
+		next if /^qrtz_/;		# skip the quartz tables, they get regenerated anyway
 		process_table($dbh, $_);
 	}
 	for (@$tables) {
