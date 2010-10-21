@@ -27,8 +27,24 @@ if (grep { not defined $_ } $db, $user, $password) {
 	usage(2);
 }
 
-my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, { RaiseError => 1 });
+my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, { RaiseError => 1, FetchHashKeyName => 'NAME_lc' });
+process_sequences($dbh);
 $dbh->disconnect();
+
+exit 0;
+
+sub process_sequences {
+	my $dbh = shift;
+	my $sth = $dbh->prepare(q!
+		select lower(sequence_name) sequence_name, last_number
+		from user_sequences
+		order by sequence_name
+	!);
+	$sth->execute();
+	while (my $row = $sth->fetchrow_hashref()) {
+		print "select pg_catalog.setval('$row->{sequence_name}', $row->{last_number}, false);\n";
+	}
+}
 
 1;
 
