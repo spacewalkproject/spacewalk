@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.69
+Version: 1.2.70
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 21 2010 Jan Pazdziora 1.2.70-1
+- Fix checkstyle errors (colin.coe@gmail.com)
+
 * Thu Oct 21 2010 Lukas Zapletal 1.2.69-1
 - Fixed all LEFT OUTER JOINs in Channels 
 - Fixed LEFT OUTER JOIN for PostgreSQL in Software Channels
