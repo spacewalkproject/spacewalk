@@ -744,15 +744,15 @@ SELECT  COUNT(pn.id) AS COUNT
   <query params="sid">
 SELECT  PN.id AS id,
         PN.id AS name_id,
-        lookup_evr(latest.evr.epoch, latest.evr.version, latest.evr.release) AS evr_id,
+        lookup_evr(((latest.evr)).epoch, (latest.evr).version, (latest.evr).release) AS evr_id,
         latest.arch_id AS arch_id,
-        latest.evr.epoch AS epoch,
-        latest.evr.version AS version,
-        latest.evr.release AS release,
+        (latest.evr).epoch AS epoch,
+        (latest.evr).version AS version,
+        (latest.evr).release AS release,
         PN.name AS name,
-        PN.name ||'-'|| latest.evr.version || '-' || latest.evr.release || DECODE(latest.evr.epoch, NULL, '', ':' || latest.evr.epoch) || (CASE WHEN latest.arch_id IS NULL THEN '' ELSE '.' || latest.arch_label END) AS nvrea,
+        PN.name ||'-'|| (latest.evr).version || '-' || (latest.evr).release || DECODE((latest.evr).epoch, NULL, '', ':' || (latest.evr).epoch) || (CASE WHEN latest.arch_id IS NULL THEN '' ELSE '.' || latest.arch_label END) AS nvrea,
         PN.name || '-' || evr_t_as_vre_simple(PE.evr) || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS installed_package,
-        PN.id || '|' || lookup_evr(latest.evr.epoch, latest.evr.version, latest.evr.release)|| '|' || latest.arch_id AS id_combo
+        PN.id || '|' || lookup_evr((latest.evr).epoch, (latest.evr).version, (latest.evr).release)|| '|' || latest.arch_id AS id_combo
   FROM  rhnPackageName PN,
         rhnServerPackage SP
         INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id
