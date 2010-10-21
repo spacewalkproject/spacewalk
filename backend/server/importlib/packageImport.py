@@ -480,6 +480,7 @@ class SourcePackageImport(Import):
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
         Import.__init__(self, batch, backend)
         self._update_last_modified = update_last_modified
+        self.ignoreUploaded = 1
         self.sourceRPMs = {}
         self.groups = {}
         self.checksums = {}

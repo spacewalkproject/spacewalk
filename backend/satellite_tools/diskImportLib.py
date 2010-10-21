@@ -200,7 +200,6 @@ class PackageContainer(diskImportLibContainer, xmlSource.PackageContainer):
 class SourcePackageContainer(xmlSource.SourcePackageContainer):
     def endContainerCallback(self):
         importer = SourcePackageImport(self.batch, get_backend())
-        importer.setIgnoreUploaded(1)
         importer.run()
         self.batch = []
 
