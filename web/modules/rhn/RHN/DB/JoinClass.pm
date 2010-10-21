@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -115,15 +115,20 @@ sub select_query {
   }
   $ret .= join(", ", @clauses) . "\nFROM ";
 
-  $ret .= join(", ", map { "$_->{name} $_->{alias}" } @{$self->{tables}});
+  # append first and new line
+  $ret .= "$self->{tables}->[0]->{name} $self->{tables}->[0]->{alias}\n";
 
-  $ret .= "\nWHERE ";
+  # append all joins
+  foreach my $table (@{$self->{tables}}[1..$#{$self->{tables}}]) {
+    $ret .= (defined $self->{outer}->{$table->{name}}) ? "LEFT OUTER JOIN " : "JOIN ";
+    $ret .= "$table->{name} $table->{alias} ON " .
+    "$self->{tables}->[0]->{alias}." .
+    "$self->{assoc}->{$self->{tables}->[0]->{name}}->{$table->{name}}->[0] = " .
+    "$table->{alias}.$self->{assoc}->{$self->{tables}->[0]->{name}}->{$table->{name}}->[1]\n";
 
-  $ret .= join(" AND ",
-	       (map { "$self->{tables}->[0]->{alias}.$self->{assoc}->{$self->{tables}->[0]->{name}}->{$_->{name}}->[0] =" .
-		       " $_->{alias}.$self->{assoc}->{$self->{tables}->[0]->{name}}->{$_->{name}}->[1]" . ($self->{outer}->{$_->{name}} || '')}
-	       @{$self->{tables}}[1..$#{$self->{tables}}]),
-	       $where);
+  }
+
+  $ret .= "\nWHERE $where" if defined $where;
 
   return $ret;
 }
