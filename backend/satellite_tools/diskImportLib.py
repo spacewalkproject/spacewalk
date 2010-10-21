@@ -197,11 +197,8 @@ class ChannelContainer(diskImportLibContainer, xmlSource.ChannelContainer):
 class PackageContainer(diskImportLibContainer, xmlSource.PackageContainer):
     importer_class = PackageImport
 
-class SourcePackageContainer(xmlSource.SourcePackageContainer):
-    def endContainerCallback(self):
-        importer = SourcePackageImport(self.batch, get_backend())
-        importer.run()
-        self.batch = []
+class SourcePackageContainer(diskImportLibContainer, xmlSource.SourcePackageContainer):
+    importer_class = SourcePackageImport
 
 # Handy function that returns a new handler object (so we can parse XML
 # streams)
