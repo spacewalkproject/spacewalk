@@ -1347,6 +1347,30 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         ret.sort()
         return ret
 
+    def _download_kickstarts_file(self, chunk, channel_label):
+        cfg = config.initUp2dateConfig()
+        assert len(chunk) == 1
+        item = chunk[0]
+        label, base_path, relative_path, timestamp, file_size = item
+        path = os.path.join(base_path, relative_path)
+        f = FileManip(path, timestamp=timestamp, file_size=file_size)
+        # Retry a number of times, we may have network errors
+        for i in range(cfg['networkRetries']):
+            stream = self._get_ks_file_stream(channel_label, label, relative_path)
+            try:
+                f.write_file(stream)
+                break # inner for
+            except FileCreationError, e:
+                msg = e[0]
+                log2disk(-1, _("Unable to save file %s: %s") % (path,
+                    msg))
+                # Try again
+                continue
+        else: # for
+            # Retried a number of times and it still failed; log the
+            # file as being failed and move on
+            log2disk(-1, _("Failed to fetch file %s") % path)
+
     def download_kickstarts(self):
         """Downloads all the kickstart-related information"""
 
@@ -1378,7 +1402,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         missing_ks_files = self._compute_missing_ks_files()
 
         log(1, ["", _("Downloading kickstartable trees files")])
-        cfg = config.initUp2dateConfig()
         for channel, files in missing_ks_files.items():
             files_count = len(files)
 
@@ -1387,42 +1410,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not files_count:
                 continue
 
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=files_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(files[:], nevermorethan=1)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                assert item_count == 1
-                item = chunk[0]
-                label, base_path, relative_path, timestamp, file_size = item
-                path = os.path.join(base_path, relative_path)
-                f = FileManip(path, timestamp=timestamp, file_size=file_size)
-                # Retry a number of times, we may have network errors
-                for i in range(cfg['networkRetries']):
-                    stream = self._get_ks_file_stream(channel, label, relative_path)
-                    try:
-                        f.write_file(stream)
-                        break # inner for
-                    except FileCreationError, e:
-                        msg = e[0]
-                        log2disk(-1, _("Unable to save file %s: %s") % (path,
-                            msg))
-                        # Try again
-                        continue
-                else: # for
-                    # Retried a number of times and it still failed; log the
-                    # file as being failed and move on
-                    log2disk(-1, _("Failed to fetch file %s") % path)
-
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+            self._processWithProgressBar(files[:], files_count,
+                                            self._download_kickstarts_file,
+                                            process_function_args=[channel])
 
     def _get_ks_file_stream(self, channel, kstree_label, relative_path):
         if self.mountpoint:
