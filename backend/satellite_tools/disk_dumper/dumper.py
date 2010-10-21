@@ -644,6 +644,7 @@ class CachedDumper(exportLib.BaseDumper):
         exportLib.BaseDumper.__init__(self, writer, data_iterator=iterator)
         self.use_database_cache = CFG.USE_DATABASE_CACHE
         log_debug(1, "Use database cache", self.use_database_cache)
+        self.non_cached_class = self.__class__.__bases__[1]
 
     def _get_last_modified(self, params):
         """ To be overwritten. """
@@ -672,10 +673,6 @@ class CachedDumper(exportLib.BaseDumper):
         return rhnDatabaseCache.set(key, value, modified=last_modified, raw=1,
             compressed=1)
 
-    def _dump_subelement(self, data):
-        """ To be overridden in subclasses. """
-        pass
-        
     def dump_subelement(self, data):
         log_debug(2)
         # CachedQueryIterator returns (params, row) as data
@@ -689,7 +686,8 @@ class CachedDumper(exportLib.BaseDumper):
         self.set_writer(xmlWriter.XMLWriter(stream=tee_stream, skip_xml_decl=1))
 
         start = time.time()
-        self._dump_subelement(row)
+        # call dump_subelement() from original (non-cached) class
+        self.non_cached_class.dump_subelement(row)
         log_debug(5, 
             "Timer for _dump_subelement: %.2f" % (time.time() - start))
 
@@ -758,10 +756,6 @@ class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
         channel_id = params['channel_id']
         return "xml-channels/rhn-channel-%d.xml" % channel_id
 
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.ChannelsDumper.dump_subelement(self, data)
-
 class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
     def __init__(self, writer, packages):
         h = rhnSQL.prepare("""
@@ -792,10 +786,6 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
         hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-short-packages/%s/rhn-package-short-%s.xml" % (
             hash_val, package_id)
-
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.ShortPackagesDumper.dump_subelement(self, data)
 
 class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
     def __init__(self, writer, packages):
@@ -846,10 +836,6 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
         hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-packages/%s/rhn-package-%s.xml" % (hash_val, package_id)
 
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.PackagesDumper.dump_subelement(self, data)
-
 class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
     def __init__(self, writer, packages):
         h = rhnSQL.prepare("""
@@ -884,10 +870,6 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
         hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-packages/%s/rhn-source-package-%s.xml" % (hash_val, package_id)
 
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.SourcePackagesDumper.dump_subelement(self, data)
-
 class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
     def __init__(self, writer, errata):
         h = rhnSQL.prepare("""
@@ -918,10 +900,6 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
         hash_val = rhnLib.hash_object_id(errata_id, 1)
         return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
 
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.ErrataDumper.dump_subelement(self, data)
-
 class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper):
     _query_lookup_ks_tree = rhnSQL.Statement("""
         select kt.id,
@@ -951,10 +929,6 @@ class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper)
     def _get_key(self, params):
         kickstart_label = params['kickstart_label']
         return "xml-kickstartable-tree/%s.xml" % kickstart_label
-
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.KickstartableTreesDumper.dump_subelement(self, data)
 
 class ClosedConnectionError(Exception):
     pass
