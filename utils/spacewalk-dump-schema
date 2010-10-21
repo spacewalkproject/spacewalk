@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -CSAD
 
 use strict;
 use warnings FATAL => 'all';
@@ -27,6 +27,7 @@ if (grep { not defined $_ } $db, $user, $password) {
 	usage(2);
 }
 
+$ENV{NLS_LANG} = 'AMERICAN_AMERICA.UTF8';
 my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, {
 	RaiseError => 1,
 	FetchHashKeyName => 'NAME_lc',
