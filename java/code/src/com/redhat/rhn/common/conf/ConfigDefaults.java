@@ -181,26 +181,50 @@ public class ConfigDefaults {
     private ConfigDefaults() {
     }
 
+    /**
+     * Returns the System Currency multiplier for critical security errata
+     * @return the System Currency multiplier for critical security errata
+     */
     public Integer getSCCrit() {
         return Config.get().getInt(SYSTEM_CURRENCY_CRIT);
     }
 
+    /**
+     * Returns the System Currency multiplier for important security errata
+     * @return the System Currency multiplier for important security errata
+     */
     public Integer getSCImp() {
         return Config.get().getInt(SYSTEM_CURRENCY_IMP);
     }
 
+    /**
+     * Returns the System Currency multiplier for moderate security errata
+     * @return the System Currency multiplier for moderate security errata
+     */
     public Integer getSCMod() {
         return Config.get().getInt(SYSTEM_CURRENCY_MOD);
     }
 
+    /**
+     * Returns the System Currency multiplier for low security errata
+     * @return the System Currency multiplier for low security errata
+     */
     public Integer getSCLow() {
         return Config.get().getInt(SYSTEM_CURRENCY_LOW);
     }
 
+    /**
+     * Returns the System Currency multiplier for bug fix errata
+     * @return the System Currency multiplier for bug fix errata
+     */
     public Integer getSCBug() {
         return Config.get().getInt(SYSTEM_CURRENCY_BUG);
     }
 
+    /**
+     * Returns the System Currency multiplier for enhancement errata
+     * @return the System Currency multiplier for enhancement errata
+     */
     public Integer getSCEnh() {
         return Config.get().getInt(SYSTEM_CURRENCY_ENH);
     }
