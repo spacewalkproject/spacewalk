@@ -599,8 +599,18 @@ public class SystemOverview extends BaseDto implements Serializable  {
     }
 
     /**
-     * @param selectableIn Whether a server is selectable
-     * one if selectable, null if not selectable
+     * For compatibility reasons with PostgreSQL we accept also Integer.
+     *
+     * @param selectableIn Whether a server is selectable one if selectable,
+     * null if not selectable
+     */
+    public void setSelectable(Integer selectableIn) {
+        setSelectable(new Long(selectableIn));
+    }
+
+    /**
+     * @param selectableIn Whether a server is selectable one if selectable,
+     * null if not selectable
      */
     public void setSelectable(Long selectableIn) {
         selectable = (selectableIn != null);
