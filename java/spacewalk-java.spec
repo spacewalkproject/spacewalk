@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.68
+Version: 1.2.69
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,21 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 21 2010 Lukas Zapletal 1.2.69-1
+- Fixed all LEFT OUTER JOINs in Channels 
+- Fixed LEFT OUTER JOIN for PostgreSQL in Software Channels
+- Removed unnecessary ORDER BY in DISTINCT query. 
+- Simplified SQL query with evr_t_as_vre_simple function. 
+- Fixed composite type accessing for PostgreSQL for all packages
+- Simplified SQL query with evr_t_as_vre_simple function. 
+- Fixed composite type accessing for PostgreSQL 
+- Sorting fix in packages for PostgreSQL 
+- Fix of evr_t_as_vre_simple PostgreSQL function 
+- ANSI JOIN syntax fix for PostgreSQL in system update 
+- PostgreSQL fix in package search 
+- Integer-Long fix in channel subscribers for PostgreSQL 
+- Update System Currency to use rhn.cfg file 
+
 * Wed Oct 20 2010 Lukas Zapletal 1.2.68-1
 - Rewrite of LEFT OUTER JOIN into ANSI syntax 
 - Function evr_t_as_vre_simple in all package queries now general
