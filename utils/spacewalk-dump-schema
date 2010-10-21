@@ -33,6 +33,7 @@ print <<'EOS';
 \set ON_ERROR_STOP on
 EOS
 process_sequences($dbh);
+process_tables($dbh);
 $dbh->disconnect();
 
 exit 0;
@@ -47,6 +48,25 @@ sub process_sequences {
 	$sth->execute();
 	while (my $row = $sth->fetchrow_hashref()) {
 		print "select pg_catalog.setval('$row->{sequence_name}', $row->{last_number}, false);\n";
+	}
+}
+
+sub process_tables {
+	my $dbh = shift;
+	my $tables = $dbh->selectcol_arrayref(q!
+		select lower(table_name) table_name
+		from user_tables
+		order by table_name
+	!);
+	for (@$tables) {
+		print "alter table $_ disable trigger all;\n";
+	}
+	for (@$tables) {
+		print "delete from $_;\n";
+		print "commit;\n";
+	}
+	for (@$tables) {
+		print "alter table $_ enable trigger all;\n";
 	}
 }
 
