@@ -56,6 +56,7 @@ sub process_tables {
 	my $tables = $dbh->selectcol_arrayref(q!
 		select lower(table_name) table_name
 		from user_tables
+		where temporary = 'N'
 		order by table_name
 	!);
 	for (@$tables) {
