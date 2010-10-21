@@ -1138,7 +1138,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 continue
             log(1, messages.warning_slow)
 
-            self._processWithProgressBar(pids[:], package_count)
+            self._processWithProgressBar(pids[:], package_count, stream_loader.process)
 
         h.close()
 
@@ -1295,7 +1295,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 continue
             log(1, _("   * WARNING: this may be a very slow process."))
 
-            self._processWithProgressBar(pids[:], package_count)
+            self._processWithProgressBar(pids[:], package_count, stream_loader.process)
 
         h.close()
 
@@ -1391,7 +1391,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not kt_count:
                 continue
 
-            self._processWithProgressBar(ktids[:], kt_count)
+            self._processWithProgressBar(ktids[:], kt_count, stream_loader.process)
 
         h.close()
 
@@ -1643,7 +1643,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 log(2, _("    * no new relevant errata for this channel"))
                 continue
 
-            self._processWithProgressBar(erratum_ids[:], erratum_count)
+            self._processWithProgressBar(erratum_ids[:], erratum_count, stream_loader.process)
 
         h.close()
         # XXX This step should go away once the channel info contains the
@@ -1652,7 +1652,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log(1, _("Downloading errata data complete"))
 
     # __private methods__
-    def _processWithProgressBar(self, batch, size, process_function=stream_loader.process):
+    def _processWithProgressBar(self, batch, size, process_function):
         pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
                 finalSize=size, finalBarLength=40, stream=sys.stdout)
         if CFG.DEBUG > 2:
