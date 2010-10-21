@@ -113,3 +113,17 @@ begin
 end;
 /
 
+
+create view rhnPackageChangeLog
+as
+select rhnPackageChangeLogRec.id,
+	rhnPackageChangeLogRec.package_id,
+	rhnPackageChangeLogRec.changelog_data_id,
+	rhnPackageChangeLogData.name,
+	rhnPackageChangeLogData.text,
+	rhnPackageChangeLogData.time,
+	rhnPackageChangeLogRec.created,
+	rhnPackageChangeLogRec.modified
+from rhnPackageChangeLogRec, rhnPackageChangeLogData
+where rhnPackageChangeLogRec.changelog_data_id = rhnPackageChangeLogData.id;
+
