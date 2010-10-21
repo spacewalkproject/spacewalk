@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.15
+Version: 1.2.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Oct 21 2010 Lukas Zapletal 1.2.16-1
+- Sorting fix in packages for PostgreSQL 
+- Fix of evr_t_as_vre_simple PostgreSQL function 
+- Fix in package file list for PostgreSQL 
+- Changed SQL Perl generator joins to ANSI 
+
 * Wed Oct 20 2010 Lukas Zapletal 1.2.15-1
 - Function evr_t_as_vre_simple in all package queries now general
 
