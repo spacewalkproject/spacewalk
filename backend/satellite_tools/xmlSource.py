@@ -708,7 +708,6 @@ addItem(ErratumItem)
 class ErrorItem(BaseItem):
     item_name = 'rhn-error'
     item_class = importLib.Error
-    tagMap = {}
 addItem(ErrorItem)
 
 class ErrataFileItem(BaseChecksummedItem):
@@ -727,13 +726,11 @@ addItem(ErrataFileItem)
 class BlacklistObsoleteItem(BaseItem):
     item_name = 'rhn-blacklist-obsolete'
     item_class = importLib.BlacklistObsoletes
-    tagMap = {}
 addItem(BlacklistObsoleteItem)
 
 class ProductNamesItem(BaseItem):
     item_name = 'rhn-product-name'
     item_class = importLib.ProductName
-    tagMap = {}
 addItem(ProductNamesItem)
 
 class KickstartableTreeItem(BaseItem):
