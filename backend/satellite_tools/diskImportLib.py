@@ -137,24 +137,6 @@ def rpmsPath(obj_id, mountPoint, sources=0):
         mountPoint, xmlDiskSource.hashPackageId(obj_id, mod=100, padding=2), obj_id))
 
 
-class BlacklistObsoletesContainer(xmlSource.BlacklistObsoletesContainer):
-    def endContainerCallback(self):
-        if not self.batch:
-            return
-        importer = blacklistImport.BlacklistObsoletesImport(
-            self.batch, get_backend())
-        importer.run()
-        self.batch = []
-
-class ProductNamesContainer(xmlSource.ProductNamesContainer):
-    def endContainerCallback(self):
-        if not self.batch:
-            return
-        importer = productNamesImport.ProductNamesImport(
-            self.batch, get_backend())
-        importer.run()
-        self.batch = []
-
 class diskImportLibContainer:
     """virtual class - redefines endContainerCallback"""
     importer_class = None
@@ -162,6 +144,20 @@ class diskImportLibContainer:
         importer = importer_class(self.batch, get_backend())
         importer.run()
         self.batch = []
+
+class BlacklistObsoletesContainer(diskImportLibContainer, xmlSource.BlacklistObsoletesContainer):
+    importer_class = blacklistImport.BlacklistObsoletesImport
+    def endContainerCallback(self):
+        if not self.batch:
+            return
+        diskImportLibContainer.endContainerCallback(self)
+
+class ProductNamesContainer(diskImportLibContainer, xmlSource.ProductNamesContainer):
+    importer_class = productNamesImport.ProductNamesImport
+    def endContainerCallback(self):
+        if not self.batch:
+            return
+        diskImportLibContainer.endContainerCallback(self)
 
 class ChannelArchContainer(diskImportLibContainer, xmlSource.ChannelArchContainer):
     importer_class = archImport.ChannelArchImport
