@@ -124,3 +124,53 @@ sub process_table {
 
 1;
 
+__END__
+
+=head1 NAME
+
+spacewalk-dump-schema
+
+=head1 SYNOPSIS
+
+	spacewalk-dump-schema --db=SID \
+		--user=USERNAME --password=PASSWORD
+
+	spacewalk-dump-schema --help
+
+=head1 DESCRIPTION
+
+The B<spacewalk-dump-schema> script dumps the content of Spacewalk's
+Oracle database schema in format which can be fed to PostgreSQL's
+B<psql>. Thus it can be used to convert Spacewalk with Oracle database
+backend to the one which uses PostgreSQL database backend.
+
+The script connects to the Oracle instance, so that one must be
+running and accessible with given connect parameter.
+
+The output is printed to the standard output. It can be piped to
+B<psql> directly in which case the PostgreSQL server must also be
+running, or you can redirect it to a file and use that file as
+input for B<psql> later.
+
+The database schema in PostgreSQL must already exist, created by
+(probably) B<spacewalk-setup>. The output of this script does not
+create any tables or other database objects, it only emits commands
+to set sequences and table contents in the PostgreSQL database schema.
+Any existing content in those PostgreSQL tables is discarded, data
+is not appended.
+
+The exit value is 0 upon success, non-zero value upon error.
+
+=head1 EXAMPLE
+
+	spacewalk-dump-schema --db=xe \
+		--user=spacewalk --password=o9k2HInsl \
+		| PGPASSWORD=o9k2HInsl psql -h localhost \
+			-U spaceuser spaceschema
+
+=head1 AUTHOR
+
+Jan Pazdziora
+
+=cut
+
