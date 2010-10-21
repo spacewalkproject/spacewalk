@@ -254,11 +254,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
    <sql-query name="Channel.accessibleChildChannels">
         <![CDATA[SELECT {c.*}
-  					FROM rhnChannel c,
-       						rhnChannelCloned c_1_
+					FROM rhnChannel c
+				LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
 		        where  parent_channel = :cid AND
-  		           		rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1
-  		           		AND c.id = c_1_.id (+)]]>
+					rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
 
