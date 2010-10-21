@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.2.4
+Version:	1.2.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,28 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Oct 21 2010 Jan Pazdziora 1.2.5-1
+- Adding spacewalk-dump-schema to the Makefile to be added to the rpm.
+- Documentation (man page).
+- For blobs, quote everything; for varchars, do not quote the UTF-8 characters.
+- Export in UTF-8.
+- To process the evr type, we need to handle the ARRAY ref.
+- Skip the quartz tables, they get regenerated anyway.
+- Escape characters that we need to escape.
+- Use the ISO format for date.
+- Dump records.
+- No commit command, we run psql in autocommit.
+- Fail if we try to dump lob longer than 10 MB.
+- Do not dump copy commands for tables that are empty.
+- For each table, print the copy command.
+- Do not attempt to copy over temporary tables or we get error about
+  rhnpaiderratatempcache.
+- Initial table processing -- just purge for now.
+- Stop on errors.
+- Dump sequences.
+- Process arguments and connect.
+- Original stub of the schema dumper.
+
 * Tue Oct 19 2010 Jan Pazdziora 1.2.4-1
 - As Oracle XE is no longer managed by rhn-satellite, we need to change the
   logic in spacewalk-hostname-rename a bit as well.
