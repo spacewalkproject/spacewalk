@@ -67,8 +67,20 @@ sub process_tables {
 		print "commit;\n";
 	}
 	for (@$tables) {
+		process_table($dbh, $_);
+	}
+	for (@$tables) {
 		print "alter table $_ enable trigger all;\n";
 	}
+}
+
+sub process_table {
+	my ($dbh, $table) = @_;
+	my $sth = $dbh->prepare("select * from $table");
+	$sth->execute();
+	my $names = $sth->{NAME_lc};
+	print qq!copy $table(@{[ join ',', @$names ]}) from stdin;\n!;
+	print "\\.\n";
 }
 
 1;
