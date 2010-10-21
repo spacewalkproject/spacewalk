@@ -11,9 +11,9 @@
 SELECT
         pn.name AS name,
         full_list.id AS id,
-        NVL(full_list.evr.version, ' ') AS version,
-        NVL(full_list.evr.release, ' ') AS release,
-        NVL(full_list.evr.epoch, ' ') AS epoch,
+        NVL((full_list.evr).version, ' ') AS version,
+        NVL((full_list.evr).release, ' ') AS release,
+        NVL((full_list.evr).epoch, ' ') AS epoch,
         NVL(full_list.arch_label, ' ') AS arch_label
   FROM  (
          SELECT  p.name_id name_id,
@@ -632,9 +632,9 @@ SELECT P.id, P.summary, PP.name as provider
 <mode name="system_available_packages"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
 SELECT  distinct pn.name AS NAME,
-        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) || '.' || full_list.arch_label AS NVREA,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || full_list.arch_id AS ID_COMBO,
+        pn.name || '-' || (full_list.evr).version || '-' || (full_list.evr).release || DECODE((full_list.evr).epoch, NULL, '', ':' || (full_list.evr).epoch) AS NVRE,
+        pn.name || '-' || (full_list.evr).version || '-' || (full_list.evr).release || DECODE((full_list.evr).epoch, NULL, '', ':' || (full_list.evr).epoch) || '.' || full_list.arch_label AS NVREA,
+        pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
         full_list.arch_label as ARCH
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr,
@@ -664,7 +664,7 @@ ORDER BY  UPPER(pn.name)
 
 <mode name="lookup_id_combo_by_name">
 <query params="sid, name">
-SELECT  pn.id as name_id, lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS evr_id
+SELECT  pn.id as name_id, lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS evr_id
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr
            FROM  rhnPackageEVR PE, rhnPackage P,
@@ -802,9 +802,9 @@ SELECT  PN.name,
         NVL(PE.epoch, ' ') as FROM_EPOCH,
         NVL(PE.version, ' ') as FROM_VERSION,
         NVL(PE.release, ' ') as FROM_RELEASE,
-        NVL(full_list.evr.epoch, ' ') as TO_EPOCH,
-        NVL(full_list.evr.version, ' ') as TO_VERSION,
-        NVL(full_list.evr.release, ' ') as TO_RELEASE,
+        NVL((full_list.evr).epoch, ' ') as TO_EPOCH,
+        NVL((full_list.evr).version, ' ') as TO_VERSION,
+        NVL((full_list.evr).release, ' ') as TO_RELEASE,
         full_list.arch_label as ARCH,
         P.id as TO_PACKAGE_ID
   FROM  (
@@ -997,8 +997,8 @@ ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
 <mode name="system_available_patch_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
 SELECT  pn.name AS NAME,
-        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID_COMBO,
+        pn.name || '-' || (full_list.evr).version || '-' || (full_list.evr).release || DECODE((full_list.evr).epoch, NULL, '', ':' || (full_list.evr).epoch) AS NVRE,
+        pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS ID_COMBO,
         full_list.id,
         full_list.PATCH_TYPE
   FROM  (
@@ -1066,8 +1066,8 @@ SELECT DISTINCT PN.name AS NAME,
 <mode name="system_available_solaris_package_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
 SELECT  pn.name AS NAME,
-        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID_COMBO,
+        pn.name || '-' || (full_list.evr).version || '-' || (full_list.evr).release || DECODE((full_list.evr).epoch, NULL, '', ':' || (full_list.evr).epoch) AS NVRE,
+        pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS ID_COMBO,
         pa.name as ARCH
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr
@@ -1147,7 +1147,7 @@ SELECT 1
   <query params="sid">
 SELECT  P.id AS id,
         PN.name AS name,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS id_combo
+        pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS id_combo
   FROM  rhnPackage P,
         rhnSolarisPackage SP,
         rhnPackageName PN,
@@ -1160,22 +1160,22 @@ SELECT  P.id AS id,
          ) full_list
  WHERE  full_list.name_id = PN.id
    AND  PN.id = P.name_id
-   AND  P.evr_id = lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)
+   AND  P.evr_id = lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release)
    AND  P.id = SP.package_id
 ORDER BY  UPPER(PN.name)
   </query>
   <elaborator params="sid" multiple="t">
 SELECT  P.id AS id,
         PN.id as name_id,
-        pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS nvre,
-        lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS evr_id,
+        pn.name ||'-'|| (full_list.evr).version || '-' || (full_list.evr).release || DECODE((full_list.evr).epoch, NULL, '', ':' || (full_list.evr).epoch) AS nvre,
+        lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS evr_id,
         PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS installed,
         full_list.server_id SERVER_ID,
         full_list.errata_id ERRATA_ID,
         full_list.errata_advisory ERRATA_ADVISORY,
-        full_list.evr.epoch EPOCH,
-        full_list.evr.version VERSION,
-        full_list.evr.release RELEASE,
+        (full_list.evr).epoch EPOCH,
+        (full_list.evr).version VERSION,
+        (full_list.evr).release RELEASE,
         E.advisory_type ERRATA_ADVISORY_TYPE
   FROM  rhnErrata E,
         rhnPackage P,
@@ -1196,7 +1196,7 @@ SELECT  P.id AS id,
    AND  P.name_id = PN.id
    AND  PN.id = full_list.name_id
    AND  full_list.errata_id = E.id (+)
-   AND  PE.id = lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)
+   AND  PE.id = lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release)
    AND  SP.name_id = PN.id
    AND  SP.server_id = :sid
    AND  SPE.id = SP.evr_id
