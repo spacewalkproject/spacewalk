@@ -469,10 +469,13 @@ class Channel(BaseChannelObject):
             return
         count = len(releases)
         channel_ids = [self._row['id']] * count
-        channel_arch_ids = [self._row['channel_arch_id']] * count
+        query_args = {'channel_id': channel_ids, 'release': releases}
+        if oses:
+            channel_arch_ids = [self._row['channel_arch_id']] * count
+            query_args.update({'channel_arch_id': channel_arch_ids,
+                               'os': oses})
         h = rhnSQL.prepare(query)
-        h.executemany(channel_id=channel_ids, channel_arch_id=channel_arch_ids,
-            release=releases, os=oses)
+        h.executemany(**query_args)
 
     _query_update_dists = rhnSQL.Statement("""
         update rhnDistChannelMap
@@ -490,12 +493,7 @@ class Channel(BaseChannelObject):
            and release = :release
     """)
     def _remove_dists(self, releases):
-        if not releases:
-            return
-        count = len(releases)
-        channel_ids = [self._row['id']] * count
-        h = rhnSQL.prepare(self._query_remove_dists)
-        h.executemany(channel_id=channel_ids, release=releases)
+        self._modify_dists(self._query_remove_dists, releases, None)
 
     def _compatible_channel_arches(self, parent_channel_arch, channel_arch):
         # This could get more complicated later
