@@ -923,30 +923,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                (p.org_id is null and :org_id is null))
            and p.checksum_id = c.id
     """
-    # XXX the "is null" condition will have to change in multiorg satellites
-    def _diff_packages(self):
+
+    def _diff_packages_process(self, chunk, channel_label):
         package_collection = sync_handlers.ShortPackageCollection()
+
         h = rhnSQL.prepare(self._query_compare_packages)
-
-        missing_channel_packages = {}
-        missing_fs_packages = {}
-
-        for channel_label, upids in self._channel_packages.items():
-            log(1, _("Diffing package metadata (what's missing locally?): %s") %
-                channel_label)
-            m_channel_packages = missing_channel_packages[channel_label] = []
-            m_fs_packages = missing_fs_packages[channel_label] = []
-            pb = ProgressBar(prompt=_('Diffing:    '), endTag=_(' - complete'),
-                finalSize=len(upids), finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            if not upids:
-                pb.printComplete()
-                continue
-
-            for pid in upids:
+        for pid in chunk:
                 p_timestamp = package_collection.get_package_timestamp(pid)
                 l_timestamp = rhnLib.timestamp(p_timestamp)
                 package = package_collection.get_package(pid, p_timestamp)
@@ -965,17 +947,27 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                        row = r
                        break
 
-                # Update the progress bar
-                pb.addTo(1)
-                pb.printIncrement()
                 self._process_package(pid, package, l_timestamp, row,
-                    m_channel_packages, m_fs_packages, source=0)
-            pb.printComplete()
+                    self._missing_channel_packages[channel_label],
+                    self._missing_fs_packages[channel_label],
+                    source=0)
 
-        self._verify_missing_channel_packages(missing_channel_packages)
+    # XXX the "is null" condition will have to change in multiorg satellites
+    def _diff_packages(self):
+        self._missing_channel_packages = {}
+        self._missing_fs_packages = {}
 
-        self._missing_channel_packages = missing_channel_packages
-        self._missing_fs_packages = missing_fs_packages
+        for channel_label, upids in self._channel_packages.items():
+            log(1, _("Diffing package metadata (what's missing locally?): %s") %
+                channel_label)
+            self._missing_channel_packages[channel_label] = []
+            self._missing_fs_packages[channel_label] = []
+            self._processWithProgressBar(upids[:], len(upids),
+                                self._diff_packages_process,
+                                _('Diffing:    '),
+                                [channel_label])
+
+        self._verify_missing_channel_packages(self._missing_channel_packages)
 
     def _verify_missing_channel_packages(self, missing_channel_packages, sources=0):
         """Verify if all the missing packages are actually available somehow.
@@ -1652,8 +1644,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log(1, _("Downloading errata data complete"))
 
     # __private methods__
-    def _processWithProgressBar(self, batch, size, process_function):
-        pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
+    def _processWithProgressBar(self, batch, size,
+                                process_function,
+                                prompt=_('Downloading:'),
+                                process_function_args=[]):
+        pb = ProgressBar(prompt=prompt, endTag=_(' - complete'),
                 finalSize=size, finalBarLength=40, stream=sys.stdout)
         if CFG.DEBUG > 2:
             pb.redrawYN = 0
@@ -1663,7 +1658,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         while not ss.doneYN():
             chunk = ss.getChunk()
             item_count = len(chunk)
-            process_function(chunk)
+            process_function(chunk, *process_function_args)
             ss.clearChunk()
             pb.addTo(item_count)
             pb.printIncrement()
