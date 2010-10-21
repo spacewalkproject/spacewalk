@@ -8,7 +8,8 @@ SUBDIR  = utils
 
 FILES	= __init__ systemSnapshot migrateSystemProfile
 SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata \
-	  scr.cgi spacewalk-common-channels delete-old-systems-interactive spacewalk-hostname-rename
+	  scr.cgi spacewalk-common-channels delete-old-systems-interactive spacewalk-hostname-rename \
+	  spacewalk-dump-schema
 CONFIGS = spacewalk-common-channels.ini
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
@@ -34,8 +35,9 @@ ifneq ($(DOCBOOK),)
 all	:: $(MANS)
 	pod2man --section=8 spacewalk-api spacewalk-api.8
 	pod2man --section=8 delete-old-systems-interactive delete-old-systems-interactive.8
+	pod2man --section=8 spacewalk-dump-schema spacewalk-dump-schema.8
 install :: $(MANS) $(PREFIX)/$(MANDIR)
-	$(INSTALL_DATA) $(MANS) spacewalk-api.8* delete-old-systems-interactive.8 $(PREFIX)/$(MANDIR)/man8
+	$(INSTALL_DATA) $(MANS) spacewalk-api.8* delete-old-systems-interactive.8 spacewalk-dump-schema.8* $(PREFIX)/$(MANDIR)/man8
 install :: $(CONFIGS) $(PREFIX)/$(CONFDIR)
 	$(INSTALL_DATA) $(CONFIGS) $(PREFIX)/$(CONFDIR)
 endif
