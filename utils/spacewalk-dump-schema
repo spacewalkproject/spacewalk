@@ -89,6 +89,14 @@ sub process_table {
 	}
 	my $names = $sth->{NAME_lc};
 	print qq!copy $table(@{[ join ',', @$names ]}) from stdin;\n!;
+	while ($row) {
+		for (my $i = 0; $i < @$row; $i++) {
+			print "\t" if $i;
+			print ( defined $row->[$i] ? $row->[$i] : '\N' );
+		}
+		print "\n";
+		$row = $sth->fetchrow_arrayref();
+	}
 	print "\\.\n";
 }
 
