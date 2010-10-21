@@ -100,9 +100,9 @@ drop table rhnPackageChangelog;
 -- the current max valu in rhnPackageChangeLogData.
 begin
 	for rec in (
-		select id - rhn_pkg_cld_id_seq.nextval id from ( select max(id) id from rhnPackageChangeLogData )
+		select id - rhn_pkg_cld_id_seq.nextval id from ( select nvl(max(id), 0) id from rhnPackageChangeLogData )
 		) loop
-		execute immediate 'alter sequence rhn_pkg_cld_id_seq increment by ' || rec.id;
+		execute immediate 'alter sequence rhn_pkg_cld_id_seq increment by ' || greatest(rec.id, 1);
 	end loop;
 	for rec in (
 		select rhn_pkg_cld_id_seq.nextval from dual
