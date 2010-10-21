@@ -556,19 +556,15 @@ def create_channel_families(entries, update=0):
 
 
 def list_channel_families(pattern=None):
-    if pattern:
-        query = """
+    query = """
             select id 
               from rhnChannelFamily 
              where org_id is null
-               and label like :pattern
         """
-        h = rhnSQL.prepare(query)
-        h.execute(pattern=pattern)
-    else:
-        query = "select id from rhnChannelFamily where org_id is null"
-        h = rhnSQL.prepare(query)
-        h.execute()
+    if pattern:
+        query += "and label like :pattern"
+    h = rhnSQL.prepare(query)
+    h.execute()
     ret = []
     while 1:
         row = h.fetchone_dict()
@@ -580,18 +576,14 @@ def list_channel_families(pattern=None):
     return ret
     
 def list_channels(pattern=None):
-    if pattern:
-        query = """
+    query = """
             select id 
               from rhnChannel
-             where label like :pattern
         """
-        h = rhnSQL.prepare(query)
-        h.execute(pattern=pattern)
-    else:
-        query = "select id from rhnChannel"
-        h = rhnSQL.prepare(query)
-        h.execute()
+    if pattern:
+        query = "where label like :pattern"
+    h = rhnSQL.prepare(query)
+    h.execute()
     ret = []
     while 1:
         row = h.fetchone_dict()
