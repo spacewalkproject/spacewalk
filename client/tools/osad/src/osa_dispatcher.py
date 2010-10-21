@@ -18,8 +18,8 @@ import select
 import time
 import socket
 import SocketServer
-from common import initCFG, CFG, initLOG, log_debug, log_error
-from server import rhnSQL
+from spacewalk.common import initCFG, CFG, initLOG, log_debug, log_error
+from spacewalk.server import rhnSQL
 
 import jabber_lib
 import dispatcher_client

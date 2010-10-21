@@ -42,7 +42,7 @@ only poll the Spacewalk Server from time to time.
 %package -n osa-dispatcher
 Summary: OSA dispatcher
 Group:    System Environment/Daemons
-Requires: spacewalk-backend-server
+Requires: spacewalk-backend-server >= 1.2.32
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
