@@ -585,36 +585,27 @@ class ChangelogItem(BaseItem):
     }
 addItem(ChangelogItem)
 
-class ProvidesItem(BaseItem):
-    item_name = 'rhn-package-provides-entry'
+class DependencyItem(BaseItem):
+    """virtual class - common settings for dependency items"""
     item_class = importLib.Dependency
     tagMap = {
         'sense'                     : 'flags',
     }
+
+class ProvidesItem(DependencyItem):
+    item_name = 'rhn-package-provides-entry'
 addItem(ProvidesItem)
     
-class RequiresItem(BaseItem):
+class RequiresItem(DependencyItem):
     item_name = 'rhn-package-requires-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(RequiresItem)
 
-class ConflictsItem(BaseItem):
+class ConflictsItem(DependencyItem):
     item_name = 'rhn-package-conflicts-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(ConflictsItem)
 
-class ObsoletesItem(BaseItem):
+class ObsoletesItem(DependencyItem):
     item_name = 'rhn-package-obsoletes-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(ObsoletesItem)
 
 class FileItem(BaseChecksummedItem):
