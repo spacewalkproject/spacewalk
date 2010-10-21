@@ -33,6 +33,7 @@ my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, {
 	LongReadLen => 10_000_000,
 	LongTruncOk => 0,
 });
+$dbh->do(q!alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS'!);
 
 print <<'EOS';
 \set ON_ERROR_STOP on
