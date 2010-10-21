@@ -3,5 +3,32 @@
 use strict;
 use warnings FATAL => 'all';
 
+use Getopt::Long ();
+use DBI ();
+
+my ($db, $user, $password);
+
+sub usage {
+	print "$0: --db=SID --user=USERNAME --password=PASSWORD [ --help ]\n";
+	if ($@) {
+		exit shift;
+	}
+	exit;
+}
+
+Getopt::Long::GetOptions (
+	'db=s' => \$db,
+	'user=s' => \$user,
+	'password=s' => \$password,
+	'help' => \&usage,
+) or exit 1;
+
+if (grep { not defined $_ } $db, $user, $password) {
+	usage(2);
+}
+
+my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, { RaiseError => 1 });
+$dbh->disconnect();
+
 1;
 
