@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.9
+Version: 1.2.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -328,6 +328,9 @@ fi
 
 
 %changelog
+* Thu Oct 21 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.10-1
+- 612581 - spacewalk-backend modules has been migrated to spacewalk namespace
+
 * Thu Oct 21 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.9-1
 - 641371 - do not read response body if request is HEAD
 
