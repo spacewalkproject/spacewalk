@@ -14,8 +14,8 @@
 #
 
 import time
-from common import log_debug, log_error
-from server import rhnSQL
+from spacewalk.common import log_debug, log_error
+from spacewalk.server import rhnSQL
 
 import jabber_lib
 
