@@ -462,15 +462,18 @@ class Channel(BaseChannelObject):
         values (:channel_id, :channel_arch_id, :release, :os)
         """)
     def _add_dists(self, releases, oses):
+        self._modify_dists(self._query_add_dists, releases, oses)
+
+    def _modify_dists(self, query, releases, oses):
         if not releases:
             return
         count = len(releases)
         channel_ids = [self._row['id']] * count
         channel_arch_ids = [self._row['channel_arch_id']] * count
-        h = rhnSQL.prepare(self._query_add_dists)
+        h = rhnSQL.prepare(query)
         h.executemany(channel_id=channel_ids, channel_arch_id=channel_arch_ids,
             release=releases, os=oses)
-    
+
     _query_update_dists = rhnSQL.Statement("""
         update rhnDistChannelMap
            set channel_arch_id = :channel_arch_id,
@@ -479,14 +482,7 @@ class Channel(BaseChannelObject):
            and release = :release
     """)
     def _update_dists(self, releases, oses):
-        if not releases:
-            return
-        count = len(releases)
-        channel_ids = [self._row['id']] * count
-        channel_arch_ids = [self._row['channel_arch_id']] * count
-        h = rhnSQL.prepare(self._query_update_dists)
-        h.executemany(channel_id=channel_ids, channel_arch_id=channel_arch_ids,
-            release=releases, os=oses)
+        self._modify_dists(self._query_update_dists, releases, oses)
 
     _query_remove_dists = rhnSQL.Statement("""
         delete from rhnDistChannelMap
