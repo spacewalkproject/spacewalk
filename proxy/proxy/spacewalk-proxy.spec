@@ -23,7 +23,7 @@ This package is never built.
 Summary: Packages required by the SpacewalkManagement Proxy
 Group:   Applications/Internet
 Requires: squid
-Requires: spacewalk-backend
+Requires: spacewalk-backend >= 1.2.32
 # python-hashlib is optional for spacewalk-backend-libs
 # but we need made it mandatory here
 Requires: python-hashlib
@@ -119,7 +119,7 @@ Requires: mod_python
 Requires: mod_wsgi
 %endif
 Requires: %{name}-broker >= %{version}
-Requires: spacewalk-backend >= 0.9.22
+Requires: spacewalk-backend >= 1.2.32
 Requires: policycoreutils
 Obsoletes: rhns-proxy-common < 5.3.0
 
@@ -135,7 +135,7 @@ Spacewalk Proxy components.
 %package package-manager
 Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
 Group:   Applications/Internet
-Requires: spacewalk-backend
+Requires: spacewalk-backend >= 1.2.32
 Requires: rhnlib
 Requires: python
 Requires: rhnpush

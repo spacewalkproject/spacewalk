@@ -23,16 +23,15 @@ import base64
 import string
 from rhnConstants import *
 from rhn import rpclib, connections
-from common import apache
 
 ## common imports
-from common import rhnApache, rhnFlags, log_debug, log_error, CFG, \
-                   UserDictCase, Traceback, rhnFault, rhnException
-from common.rhnLib import setHeaderValue
+from spacewalk.common import rhnApache, rhnFlags, log_debug, log_error, CFG, \
+                   UserDictCase, Traceback, rhnFault, rhnException, apache
+from spacewalk.common.rhnLib import setHeaderValue
 
 ## local imports
 from proxy.rhnProxyAuth import get_proxy_auth
-from common.byterange import parse_byteranges, get_content_range
+from spacewalk.common.byterange import parse_byteranges, get_content_range
 
 def getComponentType(req):
     """ 

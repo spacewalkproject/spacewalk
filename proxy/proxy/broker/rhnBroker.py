@@ -21,14 +21,11 @@ import string
 import socket
 import re
 
-# global module imports
-from common import apache
-
 # common module imports
-from common.rhnLib import parseUrl
-from common import UserDictCase, rhnFlags, log_debug, log_error, CFG, \
-    rhnFault, rhnException
-from common.rhnTranslate import _
+from spacewalk.common.rhnLib import parseUrl
+from spacewalk.common import UserDictCase, rhnFlags, log_debug, log_error, CFG, \
+    rhnFault, rhnException, apache
+from spacewalk.common.rhnTranslate import _
 
 # local module imports
 from proxy.rhnShared import SharedHandler

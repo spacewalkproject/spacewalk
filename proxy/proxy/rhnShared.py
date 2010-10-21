@@ -23,13 +23,12 @@ from types import ListType, TupleType
 
 ## global imports
 from rhn import connections
-from common import apache
 from rhn.SSL import TimeoutException
 
 ## common imports
-from common import UserDictCase, rhnFlags, log_debug, log_error, Traceback, \
-    CFG, rhnException, rhnFault, rhnLib
-from common.rhnTranslate import _
+from spacewalk.common import UserDictCase, rhnFlags, log_debug, log_error, \
+    Traceback, CFG, rhnException, rhnFault, rhnLib, apache
+from spacewalk.common.rhnTranslate import _
 
 ## local imports
 import rhnConstants

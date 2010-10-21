@@ -19,11 +19,9 @@
 # system module imports
 import os
 
-# global module imports
-from common import apache
-
 # common module imports
-from common import CFG, initCFG, initLOG, log_setreq, Traceback, log_debug
+from spacewalk.common import CFG, initCFG, initLOG, log_setreq, Traceback, \
+    log_debug, apache
 
 class HandlerWrap:
     """ Wrapper handlers to catch unwanted exceptions """

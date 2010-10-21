@@ -30,10 +30,10 @@ from xxmlrpclib import rpclib, Fault, loads
 from rhn import SSL
 
 ## common imports
-from common.rhnLib import parseUrl
-from common import Traceback, log_debug, log_error, CFG, \
+from spacewalk.common.rhnLib import parseUrl
+from spacewalk.common import Traceback, log_debug, log_error, CFG, \
     rhnCache, rhnFault
-from common.rhnTranslate import _
+from spacewalk.common.rhnTranslate import _
 
 
 # To avoid doing unnecessary work, keep ProxyAuth object global

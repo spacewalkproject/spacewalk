@@ -23,8 +23,8 @@
 import socket
 
 ## local imports
-from common import log_debug, log_error, Traceback, rhnFault
-from common.rhnTranslate import _
+from spacewalk.common import log_debug, log_error, Traceback, rhnFault
+from spacewalk.common.rhnTranslate import _
 from rhnAuthProtocol import CommunicationError, Fault, send, recv
 
 #
@@ -170,7 +170,7 @@ class Shelf:
 #-------------------------------------------------------------------------------
 # test code
 if __name__ == '__main__':
-    from common import initCFG
+    from spacewalk.common import initCFG
     initCFG("proxy.broker")
     s = Shelf(('localhost', 9999))
     s['1234'] = [1, 2, 3, 4, None, None]

@@ -29,8 +29,8 @@ import types
 from operator import truth
 
 ## common imports
-from common import rhnRepository, log_debug, log_error, CFG, rhnFault
-from common.rhnTranslate import _
+from spacewalk.common import rhnRepository, log_debug, log_error, CFG, rhnFault
+from spacewalk.common.rhnTranslate import _
 
 ## local imports
 from rhn import rpclib

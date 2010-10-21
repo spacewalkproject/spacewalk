@@ -25,7 +25,7 @@ from types import NoneType, InstanceType
 from rhn import rpclib
 
 ## local imports
-from common import log_error, UserDictCase
+from spacewalk.common import log_error, UserDictCase
 
 class Marshaller(rpclib.xmlrpclib.Marshaller):
     """ Marshaller that understands NoneTypes
