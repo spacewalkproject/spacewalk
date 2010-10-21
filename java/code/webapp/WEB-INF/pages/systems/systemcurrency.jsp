@@ -177,12 +177,12 @@
 		           sortattr="created"
                            styleclass="last-column"
 		           defaultsort="desc">
-                           <c:out value="${current.enhancement +
-				current.bug * 2 +
-				current.low * 4 +
-				current.moderate * 8 +
-				current.important * 16 +
-				current.critical * 32}"/>
+                           <c:out value="${current.enhancement * $scEnh +
+				current.bug * scBug +
+				current.low * scLow +
+				current.moderate * scMod +
+				current.important * scImp +
+				current.critical * scCrit}"/>
 		</rl:column>
 	</rl:list>
 </rl:listset>

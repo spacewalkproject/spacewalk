@@ -168,7 +168,41 @@ public class ConfigDefaults {
 
     public static final String KS_PARTITION_DEFAULT = "kickstart.partition.default";
 
+    /**
+     * System Currency defaults
+     */
+    public static final String SYSTEM_CURRENCY_CRIT = "sc.crit";
+    public static final String SYSTEM_CURRENCY_IMP  = "sc.imp";
+    public static final String SYSTEM_CURRENCY_MOD  = "sc.mod";
+    public static final String SYSTEM_CURRENCY_LOW  = "sc.low";
+    public static final String SYSTEM_CURRENCY_BUG  = "sc.bug";
+    public static final String SYSTEM_CURRENCY_ENH  = "sc.enh";
+
     private ConfigDefaults() {
+    }
+
+    public Integer getSCCrit() {
+        return Config.get().getInt(SYSTEM_CURRENCY_CRIT);
+    }
+
+    public Integer getSCImp() {
+        return Config.get().getInt(SYSTEM_CURRENCY_IMP);
+    }
+
+    public Integer getSCMod() {
+        return Config.get().getInt(SYSTEM_CURRENCY_MOD);
+    }
+
+    public Integer getSCLow() {
+        return Config.get().getInt(SYSTEM_CURRENCY_LOW);
+    }
+
+    public Integer getSCBug() {
+        return Config.get().getInt(SYSTEM_CURRENCY_BUG);
+    }
+
+    public Integer getSCEnh() {
+        return Config.get().getInt(SYSTEM_CURRENCY_ENH);
     }
 
     /**
