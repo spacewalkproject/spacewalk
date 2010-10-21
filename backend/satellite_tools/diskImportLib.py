@@ -26,7 +26,7 @@ from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 import xmlSource
 import xmlDiskSource
 from spacewalk.server.importlib.channelImport import ChannelImport, ChannelFamilyImport
-from spacewalk.server.importlib.packageImport import PackageImport
+from spacewalk.server.importlib.packageImport import PackageImport, SourcePackageImport
 from spacewalk.server.importlib import archImport
 from spacewalk.server.importlib import blacklistImport
 from spacewalk.server.importlib import productNamesImport
