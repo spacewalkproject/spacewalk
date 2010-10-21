@@ -69,7 +69,7 @@ sub process_tables {
 	}
 	for (@$tables) {
 		print "delete from $_;\n";
-		print "commit;\n";
+		# print "commit;\n";
 	}
 	for (@$tables) {
 		process_table($dbh, $_);
