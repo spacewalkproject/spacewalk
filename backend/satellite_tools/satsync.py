@@ -1642,6 +1642,22 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             pb.printIncrement()
         pb.printComplete()
 
+    def _import_packages_process(self, chunk, sources):
+        batch = self._get_cached_package_batch(chunk, sources)
+        # check to make sure the orgs exported are valid
+        _validate_package_org(batch)
+        try:
+            sync_handlers.import_packages(batch, sources)
+        except (SQLError, SQLSchemaError, SQLConnectError), e:
+            tbOut = cStringIO.StringIO()
+            Traceback(mail=0, ostream=tbOut, with_locals=1)
+            log(-1, _('ERROR: %s Exception caught during import: %s') %
+                (e.__class__.__name__, e), stream=sys.stderr)
+            log(-1, _('TRACEBACK: %s') % tbOut.getvalue(),
+                stream=sys.stderr)
+            # an SQL error is fatal... crash and burn
+            sys.exit(13)
+
     def import_packages(self, sources=0):
         if sources:
             log(1, ["", _("Importing source package metadata")])
@@ -1658,34 +1674,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not package_count:
                 continue
             log(1, messages.warning_slow)
-            pb = ProgressBar(prompt=_('Importing:  '), endTag=_(' - complete'),
-                finalSize=package_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
+            self._processWithProgressBar(packages[:], package_count,
+                                         self._import_packages_process,
+                                         _('Importing:  '),
+                                         [sources])
 
-            ss = SequenceServer(packages[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                batch = self._get_cached_package_batch(chunk, sources)
-                # check to make sure the orgs exported are valid
-                _validate_package_org(batch)
-                try:
-                    sync_handlers.import_packages(batch, sources)
-                except (SQLError, SQLSchemaError, SQLConnectError), e:
-                    tbOut = cStringIO.StringIO()
-                    Traceback(mail=0, ostream=tbOut, with_locals=1)
-                    log(-1, _('ERROR: %s Exception caught during import: %s') %
-                        (e.__class__.__name__, e), stream=sys.stderr)
-                    log(-1, _('TRACEBACK: %s') % tbOut.getvalue(),
-                        stream=sys.stderr)
-                    # an SQL error is fatal... crash and burn
-                    sys.exit(13)
-                ss.clearChunk()
-                pb.addTo(ss.returnedChunksize)
-                pb.printIncrement()
             self._import_package_signatures(packages, channel)
-            pb.printComplete()
         return self._link_channel_packages()
 
     def _import_package_signatures(self, packages, channel):
