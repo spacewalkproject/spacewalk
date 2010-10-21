@@ -95,6 +95,10 @@ sub process_table {
 		for (my $i = 0; $i < @$row; $i++) {
 			print "\t" if $i;
 			if (defined $row->[$i]) {
+				if (ref $row->[$i] and ref $row->[$i] eq 'ARRAY') {
+					no warnings 'uninitialized';
+					$row->[$i] = "(@{[ join ',', @{$row->[$i]} ]})";
+				}
 				$row->[$i] =~ s!([\x00-\x1f\x5c\x7f-\xff])! sprintf "\\x%02x", ord($1) !seg;
 				print $row->[$i];
 			} else {
