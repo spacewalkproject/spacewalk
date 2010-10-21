@@ -1094,40 +1094,8 @@ def list_packages_sql(channel_id):
     """
     return _list_packages_sql(query, channel_id)
 
-# This function executes the SQL call for listing packages
-def list_all_packages_sql(channel_id):
-    log_debug(3, channel_id)
-    # return the latest packages from the specified channel
-    query = """
-    select
-        pn.name,  
-        pevr.version,  
-        pevr.release,  
-        pevr.epoch,  
-        pa.label arch,  
-        p.package_size 
-    from  
-        rhnChannelPackage cp,
-        rhnPackage p,
-        rhnPackageName pn,
-        rhnPackageEVR pevr,
-        rhnPackageArch pa
-    where
-        cp.channel_id = :channel_id
-    and cp.package_id = p.id
-    and p.name_id = pn.id
-    and p.evr_id = pevr.id
-    and p.package_arch_id = pa.id
-    order by pn.name, pevr.evr desc, pa.label
-    """
-    return _list_packages_sql(query, channel_id)
-
-# This function executes the SQL call for listing packages with all the 
-# dep information for each package also
-def list_all_packages_complete_sql(channel_id):
-    log_debug(3, channel_id)
-    # return the latest packages from the specified channel
-    h = rhnSQL.prepare("""
+# the latest packages from the specified channel
+_query_latest_packages_from_channel = """
     select
         p.id,
         pn.name,  
@@ -1149,7 +1117,19 @@ def list_all_packages_complete_sql(channel_id):
     and p.evr_id = pevr.id
     and p.package_arch_id = pa.id
     order by pn.name, pevr.evr desc, pa.label
-    """)
+    """
+
+# This function executes the SQL call for listing packages
+def list_all_packages_sql(channel_id):
+    log_debug(3, channel_id)
+    return _list_packages_sql(_query_latest_packages_from_channel, channel_id)
+
+# This function executes the SQL call for listing packages with all the 
+# dep information for each package also
+def list_all_packages_complete_sql(channel_id):
+    log_debug(3, channel_id)
+    # return the latest packages from the specified channel
+    h = rhnSQL.prepare(_query_latest_packages_from_channel)
     # This gathers the provides, requires, conflicts, obsoletes info  
     g = rhnSQL.prepare("""
     select
