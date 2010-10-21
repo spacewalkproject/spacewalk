@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.48
+Version:        1.2.49
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Oct 21 2010 Jan Pazdziora 1.2.49-1
+- Need to add date_diff_in_days to schema upgrade scripts.
+- Missed the rhnPackageChangeLog view from schema upgrades, fixing.
+- Fixing the rhn_pkg_cld_id_seq update for situations when there is no data in
+  rhnPackageChangeLogData.
+
 * Wed Oct 20 2010 Lukas Zapletal 1.2.48-1
 - Trigger rhn_server_group_org_mapping_fun was missing return clause
 - Reformat of rhnServerGroupMembers.sql prior to next change
