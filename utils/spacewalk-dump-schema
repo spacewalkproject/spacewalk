@@ -27,7 +27,12 @@ if (grep { not defined $_ } $db, $user, $password) {
 	usage(2);
 }
 
-my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, { RaiseError => 1, FetchHashKeyName => 'NAME_lc' });
+my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, {
+	RaiseError => 1,
+	FetchHashKeyName => 'NAME_lc',
+	LongReadLen => 10_000_000,
+	LongTruncOk => 0,
+});
 
 print <<'EOS';
 \set ON_ERROR_STOP on
