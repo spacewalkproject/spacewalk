@@ -1211,30 +1211,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
            and c.checksum = :checksum
            and c.checksum_type = :checksum_type
     """
-    # XXX the "is null" condition will have to change in multiorg satellites
-    def _diff_source_packages(self):
+    def _diff_source_packages_process(self, chunk, channel_label):
         package_collection = sync_handlers.SourcePackageCollection()
         sql_params = ['package_id', 'checksum', 'checksum_type']
         h = rhnSQL.prepare(self._query_compare_source_packages)
-
-        missing_channel_source_packages = {}
-        missing_fs_source_packages = {}
-
-        for channel_label, upids in self._channel_source_packages.items():
-            log(1, _("Diffing source package metadata (what's missing locally?): %s") % channel_label)
-            m_channel_source_packages = missing_channel_source_packages[channel_label] = []
-            m_fs_source_packages = missing_fs_source_packages[channel_label] = []
-            pb = ProgressBar(prompt=_('Diffing:    '), endTag=_(' - complete'),
-                finalSize=len(upids), finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            if not upids:
-                pb.printComplete()
-                continue
-
-            for pid, timestamp in upids:
+        for pid, timestamp in chunk:
                 package = package_collection.get_package(pid, timestamp)
                 assert package is not None
 
@@ -1250,18 +1231,25 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
                 apply(h.execute, (), params)
                 row = h.fetchone_dict()
-                # Update the progress bar
-                pb.addTo(1)
-                pb.printIncrement()
-              # print "process package:", package['name']
                 self._process_package(pid, package, None, row,
-                    m_channel_source_packages, m_fs_source_packages, source=1)
-            pb.printComplete()
+                    self._missing_channel_source_packages[channel_label],
+                    self._missing_fs_source_packages[channel_label],
+                    source=1)
 
-        self._verify_missing_channel_packages(missing_channel_source_packages, sources=1)
+    # XXX the "is null" condition will have to change in multiorg satellites
+    def _diff_source_packages(self):
+        self._missing_channel_source_packages = {}
+        self._missing_fs_source_packages = {}
+        for channel_label, upids in self._channel_source_packages.items():
+            log(1, _("Diffing source package metadata (what's missing locally?): %s") % channel_label)
+            self._missing_channel_source_packages[channel_label] = []
+            self._missing_fs_source_packages[channel_label] = []
+            self._processWithProgressBar(upids[:], len(upids),
+                                         self._diff_source_packages_process,
+                                         _('Diffing:    '),
+                                         [channel_label])
 
-        self._missing_channel_source_packages = missing_channel_source_packages
-        self._missing_fs_source_packages = missing_fs_source_packages
+        self._verify_missing_channel_packages(self._missing_channel_source_packages, sources=1)
 
     def download_source_package_metadata(self):
         log(1, ["", _("Downloading source package metadata")])
