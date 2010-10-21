@@ -555,12 +555,7 @@ def create_channel_families(entries, update=0):
         c.save(with_updates=update)
 
 
-def list_channel_families(pattern=None):
-    query = """
-            select id 
-              from rhnChannelFamily 
-             where org_id is null
-        """
+def _load_by_id(query, item_object, pattern=None):
     if pattern:
         query += "and label like :pattern"
     h = rhnSQL.prepare(query)
@@ -570,29 +565,25 @@ def list_channel_families(pattern=None):
         row = h.fetchone_dict()
         if not row:
             break
-        channel_family_id = row['id']
-        c = ChannelFamily().load_by_id(channel_family_id)
+        c = item_object.load_by_id(row['id'])
         ret.append(c.as_dict()) 
     return ret
     
+def list_channel_families(pattern=None):
+    query = """
+            select id
+              from rhnChannelFamily
+             where org_id is null
+        """
+    return _load_by_id(query, ChannelFamily(), pattern)
+
 def list_channels(pattern=None):
     query = """
             select id 
               from rhnChannel
+             where 1=1
         """
-    if pattern:
-        query = "where label like :pattern"
-    h = rhnSQL.prepare(query)
-    h.execute()
-    ret = []
-    while 1:
-        row = h.fetchone_dict()
-        if not row:
-            break
-        channel_id = row['id']
-        c = Channel().load_by_id(channel_id)
-        ret.append(c.as_dict()) 
-    return ret
+    return _load_by_id(query, Channel(), pattern)
 
 # makes sure there are no None values in dictionaries, etc.
 def __stringify(object):
