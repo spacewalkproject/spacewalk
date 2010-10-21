@@ -141,7 +141,7 @@ class diskImportLibContainer:
     """virtual class - redefines endContainerCallback"""
     importer_class = None
     def endContainerCallback(self):
-        importer = importer_class(self.batch, get_backend())
+        importer = self.importer_class(self.batch, get_backend())
         importer.run()
         self.batch = []
 
