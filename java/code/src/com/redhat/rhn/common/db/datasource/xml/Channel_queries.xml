@@ -589,8 +589,8 @@ AND    wc.id  = rto.org_trust_id
 
 <mode name="channel_family_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id, family_id">
-SELECT DISTINCT C.name NAME,
-       C.id ID,
+SELECT DISTINCT C.name AS NAME,
+       C.id AS ID,
        C.parent_channel as parent_id,
        (
          SELECT COUNT(P.package_id)
@@ -619,9 +619,9 @@ SELECT DISTINCT C.name NAME,
 
 <mode name="channels_with_downloads_tree_full" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -646,9 +646,9 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channels_with_downloads_tree_supported" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -674,9 +674,9 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channels_with_downloads_tree_retired" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -726,8 +726,8 @@ ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_sel
 
 <mode name="all_channels_tree">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
         UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
