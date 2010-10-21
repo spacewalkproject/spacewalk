@@ -28,6 +28,10 @@ if (grep { not defined $_ } $db, $user, $password) {
 }
 
 my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, { RaiseError => 1, FetchHashKeyName => 'NAME_lc' });
+
+print <<'EOS';
+\set ON_ERROR_STOP on
+EOS
 process_sequences($dbh);
 $dbh->disconnect();
 
