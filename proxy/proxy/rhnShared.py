@@ -421,7 +421,7 @@ class SharedHandler:
         # Now fill in the bytes if need be.
 
         # read content if there is some or the size is unknown
-        if size > 0 or size == -1:
+        if (size > 0 or size == -1) and (toRequest.method != 'HEAD'):
             buf = fromResponse.read(CFG.BUFFER_SIZE)
             while buf:
                 try:
