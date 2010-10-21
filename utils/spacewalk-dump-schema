@@ -78,6 +78,10 @@ sub process_table {
 	my ($dbh, $table) = @_;
 	my $sth = $dbh->prepare("select * from $table");
 	$sth->execute();
+	my $row = $sth->fetchrow_arrayref();
+	if (not $row) {
+		return;
+	}
 	my $names = $sth->{NAME_lc};
 	print qq!copy $table(@{[ join ',', @$names ]}) from stdin;\n!;
 	print "\\.\n";
