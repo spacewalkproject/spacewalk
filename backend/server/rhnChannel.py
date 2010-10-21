@@ -1028,10 +1028,22 @@ def list_packages_source(channel_id):
     return ret
 
 # This function executes the SQL call for listing packages
+def _list_packages_sql(query, channel_id):
+    h = rhnSQL.prepare(query)
+    h.execute(channel_id = str(channel_id))
+    ret = h.fetchall_dict()
+    if not ret:
+        return []
+    # process the results
+    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
+                         a["arch"], a["package_size"]),
+              __stringify(ret))
+    return ret
+
 def list_packages_sql(channel_id):
     log_debug(3, channel_id)
     # return the latest packages from the specified channel
-    h = rhnSQL.prepare("""
+    query = """
     select
         pn.name,  
         pevr.version,  
@@ -1085,26 +1097,14 @@ def list_packages_sql(channel_id):
     and pa.id = full_channel.package_arch_id
     and pa.id = arch_rank.package_arch_id
     order by pn.name, arch_rank.rank desc
-    """)
-    h.execute(channel_id = str(channel_id))
-    # XXX This query has to order the architectures somehow; the 7.2 up2date
-    # client was broken and was selecting the wrong architecture if athlons
-    # are passed first. The rank ordering here should make sure that i386
-    # kernels appear before athlons.
-    ret = h.fetchall_dict()
-    if not ret:
-        return []
-    # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
-                         a["arch"], a["package_size"]),
-              __stringify(ret))
-    return ret
+    """
+    return _list_packages_sql(query, channel_id)
 
 # This function executes the SQL call for listing packages
 def list_all_packages_sql(channel_id):
     log_debug(3, channel_id)
     # return the latest packages from the specified channel
-    h = rhnSQL.prepare("""
+    query = """
     select
         pn.name,  
         pevr.version,  
@@ -1125,21 +1125,8 @@ def list_all_packages_sql(channel_id):
     and p.evr_id = pevr.id
     and p.package_arch_id = pa.id
     order by pn.name, pevr.evr desc, pa.label
-    """)
-    h.execute(channel_id = str(channel_id))
-    # XXX This query has to order the architectures somehow; the 7.2 up2date
-    # client was broken and was selecting the wrong architecture if athlons
-    # are passed first. The rank ordering here should make sure that i386
-    # kernels appear before athlons.
-    ret = h.fetchall_dict()
-    if not ret:
-        return []
-    # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
-                         a["arch"], a["package_size"]),
-              __stringify(ret))
-    return ret
-
+    """
+    return _list_packages_sql(query, channel_id)
 
 # This function executes the SQL call for listing packages with all the 
 # dep information for each package also
