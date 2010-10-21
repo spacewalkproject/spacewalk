@@ -155,69 +155,43 @@ class ProductNamesContainer(xmlSource.ProductNamesContainer):
         importer.run()
         self.batch = []
 
-class ChannelArchContainer(xmlSource.ChannelArchContainer):
+class diskImportLibContainer:
+    """virtual class - redefines endContainerCallback"""
+    importer_class = None
     def endContainerCallback(self):
-        importer = archImport.ChannelArchImport(self.batch, get_backend())
+        importer = importer_class(self.batch, get_backend())
         importer.run()
         self.batch = []
 
-class PackageArchContainer(xmlSource.PackageArchContainer):
-    def endContainerCallback(self):
-        importer = archImport.PackageArchImport(self.batch, get_backend())
-        importer.run()
-        self.batch = []
+class ChannelArchContainer(diskImportLibContainer, xmlSource.ChannelArchContainer):
+    importer_class = archImport.ChannelArchImport
 
-class ServerArchContainer(xmlSource.ServerArchContainer):
-    def endContainerCallback(self):
-        importer = archImport.ServerArchImport(self.batch, get_backend())
-        importer.run()
-        self.batch = []
+class PackageArchContainer(diskImportLibContainer, xmlSource.PackageArchContainer):
+    importer_class = archImport.PackageArchImport
 
-class CPUArchContainer(xmlSource.CPUArchContainer):
-    def endContainerCallback(self):
-        importer = archImport.CPUArchImport(self.batch, get_backend())
-        importer.run()
-        self.batch = []
+class ServerArchContainer(diskImportLibContainer, xmlSource.ServerArchContainer):
+    importer_class = archImport.ServerArchImport
 
-class ServerPackageArchCompatContainer(xmlSource.ServerPackageArchCompatContainer):
-    def endContainerCallback(self):
-        importer = archImport.ServerPackageArchCompatImport(self.batch,
-            get_backend())
-        importer.run()
-        self.batch = []
+class CPUArchContainer(diskImportLibContainer, xmlSource.CPUArchContainer):
+    importer_class = archImport.CPUArchImport
 
-class ServerChannelArchCompatContainer(xmlSource.ServerChannelArchCompatContainer):
-    def endContainerCallback(self):
-        importer = archImport.ServerChannelArchCompatImport(self.batch,
-            get_backend())
-        importer.run()
-        self.batch = []
+class ServerPackageArchCompatContainer(diskImportLibContainer, xmlSource.ServerPackageArchCompatContainer):
+    importer_class = archImport.ServerPackageArchCompatImport
 
-class ChannelPackageArchCompatContainer(xmlSource.ChannelPackageArchCompatContainer):
-    def endContainerCallback(self):
-        importer = archImport.ChannelPackageArchCompatImport(self.batch,
-            get_backend())
-        importer.run()
-        self.batch = []
+class ServerChannelArchCompatContainer(diskImportLibContainer, xmlSource.ServerChannelArchCompatContainer):
+    importer_class = archImport.ServerChannelArchCompatImport
 
-class ServerGroupServerArchCompatContainer(xmlSource.ServerGroupServerArchCompatContainer):
-    def endContainerCallback(self):
-        importer = archImport.ServerGroupServerArchCompatImport(self.batch,
-            get_backend())
-        importer.run()
-        self.batch = []
+class ChannelPackageArchCompatContainer(diskImportLibContainer, xmlSource.ChannelPackageArchCompatContainer):
+    importer_class = archImport.ChannelPackageArchCompatImport
 
-class ChannelFamilyContainer(xmlSource.ChannelFamilyContainer):
-    def endContainerCallback(self):
-        importer = ChannelFamilyImport(self.batch, get_backend())
-        importer.run()
-        self.batch = []
+class ServerGroupServerArchCompatContainer(diskImportLibContainer, xmlSource.ServerGroupServerArchCompatContainer):
+    importer_class = archImport.ServerGroupServerArchCompatImport
 
-class ChannelContainer(xmlSource.ChannelContainer):
-    def endContainerCallback(self):
-        importer = ChannelImport(self.batch, get_backend())
-        importer.run()
-        self.batch = []
+class ChannelFamilyContainer(diskImportLibContainer, xmlSource.ChannelFamilyContainer):
+    importer_class = ChannelFamilyImport
+
+class ChannelContainer(diskImportLibContainer, xmlSource.ChannelContainer):
+    importer_class = ChannelImport
 
 
 class PackageContainer(xmlSource.PackageContainer):
