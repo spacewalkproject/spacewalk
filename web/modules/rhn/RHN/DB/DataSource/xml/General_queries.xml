@@ -109,11 +109,10 @@ SELECT C.name,
        F.file_mode,
        F.linkto,
        TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
-  FROM rhnPackageFile F, rhnPackageCapability C,
-       rhnChecksumView Cs
+  FROM rhnPackageCapability C, rhnPackageFile F
+  RIGHT OUTER JOIN rhnChecksumView Cs ON CS.id = F.checksum_id
  WHERE F.package_id = :pid
    AND F.capability_id = C.id
-   AND CS.id (+) = F.checksum_id
 ORDER BY UPPER(C.name)
   </query>
 </mode>
