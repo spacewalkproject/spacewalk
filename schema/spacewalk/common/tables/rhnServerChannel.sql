@@ -38,8 +38,8 @@ CREATE UNIQUE INDEX rhn_sc_sid_cid_uq
     ON rhnServerChannel (server_id, channel_id)
     TABLESPACE [[8m_tbs]];
 
-CREATE INDEX rhn_sc_cid_sid_idx
-    ON rhnServerChannel (channel_id, server_id)
+CREATE INDEX rhn_sc_cid_idx
+    ON rhnServerChannel (channel_id)
     TABLESPACE [[8m_tbs]]
     NOLOGGING;
 
