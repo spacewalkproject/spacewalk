@@ -4,6 +4,7 @@
   <query params="user_id, feature">
   SELECT  DISTINCT S.id,
                    S.name,
+                   UPPER(NVL(S.name, '(none)')) name_upper,
                    SI.server_id AS IS_RHN_SATELLITE,
                    PI.server_id AS IS_RHN_PROXY,
                    TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECKIN
@@ -14,14 +15,15 @@
      AND  S.id = USP.server_id
      AND  Sinfo.server_id = S.id
      AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.ID AND SFV.label = :feature)
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+ORDER BY name_upper, S.id
   </query>
 </mode>
 
 <mode name="virtual_hosts_for_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">
   SELECT  DISTINCT S.id,
-                   S.name
+                   S.name,
+                   UPPER(NVL(S.name, '(none)')) name_upper
     FROM  rhnServer S,
     rhnUserServerPerms USP,
     rhnVirtualInstance VI
@@ -30,7 +32,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
      AND VI.host_system_id = S.id
      AND USP.server_id  = S.id
      AND USP.user_id = :user_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+ORDER BY name_upper, S.id
   </query>
   <elaborator name="system_overview" />
 </mode>
@@ -72,6 +74,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 <mode name="ssm_remote_commandable">
   <query params="user_id">
 SELECT DISTINCT S.id,
+       UPPER(NVL(S.name, '(none)')) name_upper,
        S.name AS SERVER_NAME
   FROM rhnServer S,
        rhnClientCapabilityName CCN,
@@ -87,7 +90,7 @@ SELECT DISTINCT S.id,
    AND CC.capability_name_id = CCN.id
    AND CCN.name = 'script.run'
    AND USP.server_id = S.id
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+ORDER BY name_upper, S.ID
   </query>
   <elaborator name="system_overview" />
 </mode>
@@ -114,7 +117,7 @@ SELECT CDK.id,
 <query name="ssm_package_upgrades_systems" params="user_id, set_label, package_set_label">
 SELECT  DISTINCT
         S.id,
-        S.name AS SERVER_NAME
+        S.name AS SERVER_NAME, UPPER(S.name) AS name_upper
   FROM  rhnChannelPackage CP,
         rhnChannel C,
         rhnServerChannel SC,
@@ -139,7 +142,7 @@ SELECT  DISTINCT
    AND  C.id = CP.channel_id
    AND  CP.package_id = P.id
    AND  P.package_arch_id = PA.id
-ORDER BY UPPER(S.name)
+ORDER BY name_upper
 </query>
 
 <mode name="ssm_package_upgrades_conf">
@@ -153,7 +156,8 @@ SELECT  DISTINCT
         P.name_id AS NAME_ID,
         P.evr_id AS EVR_ID,
         PA.id AS ARCH_ID,
-        C.name AS PROVIDING_CHANNEL_NAME
+        C.name AS PROVIDING_CHANNEL_NAME,
+        UPPER(S.name) AS name_upper, UPPER(PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label) AS name_evr_upper
   FROM  rhnChannelPackage CP,
         rhnChannel C,
         rhnServerChannel SC,
@@ -179,7 +183,7 @@ SELECT  DISTINCT
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
-ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label)
+ORDER BY name_upper, name_evr_upper
   </elaborator>
 </mode>
 
@@ -403,12 +407,13 @@ SELECT ES.id, S.name, 1 as selectable
   <query params="user_id">
   SELECT  DISTINCT S.id AS ID,
           S.name AS NAME,
+          UPPER(NVL(S.name, '(none)')) AS name_upper,
           INFO.checkin AS LAST_CHECKIN
     FROM  rhnServer S, rhnUserServerPerms USP, rhnServerInfo INFO
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = INFO.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+ORDER BY  name_upper, S.id
   </query>
 </mode>
 
@@ -469,6 +474,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 <query name="available_to_uid" params="formvar_uid">
   SELECT  DISTINCT S.id AS ID,
           S.name AS SERVER_NAME,
+          UPPER(NVL(S.name, '(none)')) AS name_upper,
           (SELECT 1
           FROM rhnServerFeaturesView SFV
          WHERE SFV.server_id = S.id
@@ -476,7 +482,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
     FROM  rhnServer S, rhnUserServerPerms USP
    WHERE  USP.user_id = :formvar_uid
      AND  S.id = USP.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+ORDER BY  name_upper, S.id
 </query>
 
 
@@ -531,6 +537,7 @@ where a.user_id = :formvar_uid
   <query params="eid, user_id">
   SELECT  DISTINCT S.id as system_id,
   					S.name as system_name,
+                    UPPER(NVL(S.name, '(none)')) AS name_upper,
 					S.id as id,
   					S.name as name
     FROM  rhnServerNeededErrataCache SNEC,
@@ -540,7 +547,7 @@ where a.user_id = :formvar_uid
      AND  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = SNEC.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+ORDER BY  name_upper, S.id
   </query>
 </mode>
 
@@ -607,7 +614,8 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <query name="system_set_remove_package_query" params="user_id, set_label, package_set_label">
 	SELECT  DISTINCT S.id,
-	        S.name SYSTEM_NAME
+	        S.name SYSTEM_NAME,
+	        UPPER(S.name) AS name_upper
 	  FROM  rhnServer S,
 	        rhnServerPackage SP,
 	        rhnSet ST2
@@ -618,7 +626,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 	   AND  SP.evr_id = ST2.element_two
 	   AND  (SP.package_arch_id  = ST2.element_three  OR (SP.package_arch_id is null and ST2.element_three is null))
 	   AND  SP.server_id = S.id
-	ORDER BY UPPER(S.name), S.id
+	ORDER BY name_upper, S.id
    </query>
 
 
@@ -1283,7 +1291,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 </mode>
 
 <query name="system_package_data_from_set" params="user_id, package_set_label">
-SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, PN.name || '-' || PE.evr.as_vre_simple() NVRE
+SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, UPPER(S.name) AS name_upper, PN.name || '-' || PE.evr.as_vre_simple() NVRE
   FROM  rhnServer S,
         rhnPackageEVR PE,
         rhnPackageName PN,
@@ -1293,7 +1301,7 @@ SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, PN.name || '-' || PE.evr.as
    AND  PN.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
    AND  SP.server_id = S.id
-ORDER BY UPPER(S.name)
+ORDER BY name_upper
 </query>
 
 <mode name="system_installed_packages">
