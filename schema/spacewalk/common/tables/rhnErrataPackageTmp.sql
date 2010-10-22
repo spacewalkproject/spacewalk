@@ -35,8 +35,8 @@ CREATE UNIQUE INDEX rhn_err_pkgtmp_eid_pid_uq
     ON rhnErrataPackageTmp (errata_id, package_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_err_pkgtmp_pid_eid_idx
-    ON rhnErrataPackageTmp (package_id, errata_id)
+CREATE INDEX rhn_err_pkgtmp_pid_idx
+    ON rhnErrataPackageTmp (package_id)
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 
