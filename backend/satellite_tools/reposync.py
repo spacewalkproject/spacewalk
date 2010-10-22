@@ -20,10 +20,10 @@ from spacewalk.common import CFG, initCFG, rhnLog, fetchTraceback, rhn_rpm
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_mpm import InvalidPackageError
 from spacewalk.server.importlib.importLib import IncompletePackage
-from spacewalk.server.importlib.backendOracle import OracleBackend
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server import taskomatic
 
+from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
 default_log_location = '/var/log/rhn/reposync/'
 default_hash = 'sha256'
@@ -235,7 +235,12 @@ class RepoSync:
 
     def associate_package(self, pack):
         caller = "server.app.yumreposync"
-        backend = OracleBackend()
+        if CFG.DB_BACKEND == ORACLE:
+            from spacewalk.server.importlib.backendOracle import OracleBackend
+            backend = OracleBackend()
+        elif CFG.DB_BACKEND == POSTGRESQL:
+            from spacewalk.server.importlib.backendOracle import PostgresqlBackend
+            backend = PostgresqlBackend()
         backend.init()
         package = {}
         package['name'] = pack.name
