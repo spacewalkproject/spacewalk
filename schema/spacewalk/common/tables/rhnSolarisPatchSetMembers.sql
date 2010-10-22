@@ -38,7 +38,7 @@ CREATE INDEX rhn_solaris_psm_pid_psid_idx
     ON rhnSolarisPatchSetMembers (patch_id, patch_set_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_solaris_psm_psid_pid_idx
-    ON rhnSolarisPatchSetMembers (patch_set_id, patch_id)
+CREATE INDEX rhn_solaris_psm_psid_idx
+    ON rhnSolarisPatchSetMembers (patch_set_id)
     TABLESPACE [[4m_tbs]];
 
