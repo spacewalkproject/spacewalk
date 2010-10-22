@@ -9,8 +9,7 @@ import sys
 import re
 import optparse
 
-sys.path.append('/usr/share/rhn')
-import common
+import spacewalk.common
 
 TEMPLATES_DIR = '/usr/share/cobbler/installer_templates'
 MODULES_TEMPLATE = join(TEMPLATES_DIR, 'modules.conf.template')
@@ -84,10 +83,10 @@ def main():
     copy(TEMP_MODULES, MODULES)
     m = re.compile(r"^cobbler\.host\s*=\s*", re.MULTILINE)
 
-    conf_lines = open(common.rhnConfig._CONFIG_FILE).read()
+    conf_lines = open(spacewalk.common.rhnConfig._CONFIG_FILE).read()
     if not m.search(conf_lines):
         system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
-                                        common.rhnConfig._CONFIG_FILE))
+                      spacewalk.common.rhnConfig._CONFIG_FILE))
     setup_pxe_services(options)    
     system("cobbler sync")
 
