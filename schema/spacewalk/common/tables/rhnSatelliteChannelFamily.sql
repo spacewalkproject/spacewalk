@@ -36,8 +36,8 @@ CREATE INDEX rhn_sat_cf_sid_cfid_idx
     ON rhnSatelliteChannelFamily (server_id, channel_family_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_sat_cf_cfid_sid_idx
-    ON rhnSatelliteChannelFamily (channel_family_id, server_id)
+CREATE INDEX rhn_sat_cf_cfid_idx
+    ON rhnSatelliteChannelFamily (channel_family_id)
     TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhnSatelliteChannelFamily
