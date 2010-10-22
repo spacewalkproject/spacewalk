@@ -34,10 +34,6 @@ CREATE INDEX rhn_sarch_id_l_n_idx
     ON rhnServerArch (id, label, name)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_sarch_l_id_n_idx
-    ON rhnServerArch (label, id, name)
-    TABLESPACE [[2m_tbs]];
-
 CREATE SEQUENCE rhn_server_arch_id_seq START WITH 1000;
 
 ALTER TABLE rhnServerArch
