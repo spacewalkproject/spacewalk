@@ -52,9 +52,6 @@ rhnHWDevice                      :: rhnDevice
 rhnOrgChannelTreeView            :: rhnChannel rhnChannelFamilyMembers \
                                     rhnOrgChannelFamilyPermissions
 rhnOrgErrata                     :: rhnChannelErrata  rhnAvailableChannels
-rhnOrgPackageOverview            :: rhnPackageName rhnPackageEVR rhnPackageArch \
-                                    rhnChannelPackageArchCompat rhnPackage \
-                                    rhn_package.pks
 rhnPackageUpgradeArchCompat      :: rhnPackageArch
 rhnServerErrataTypeView          :: rhnErrata rhnServerNeededErrataCache
 rhnServerFeaturesView            :: rhnFeature rhnServerGroupTypeFeature \
