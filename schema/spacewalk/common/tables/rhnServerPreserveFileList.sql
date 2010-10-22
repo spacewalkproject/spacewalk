@@ -35,7 +35,7 @@ CREATE UNIQUE INDEX rhn_serverpfl_ksid_flid_uq
     ON rhnServerPreserveFileList (server_id, file_list_id)
     TABLESPACE [[8m_tbs]];
 
-CREATE INDEX rhn_serverpfl_flid_ksid_idx
-    ON rhnServerPreserveFileList (file_list_id, server_id)
+CREATE INDEX rhn_serverpfl_flid_idx
+    ON rhnServerPreserveFileList (file_list_id)
     TABLESPACE [[4m_tbs]];
 
