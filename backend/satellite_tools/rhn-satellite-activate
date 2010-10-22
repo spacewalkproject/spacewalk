@@ -24,8 +24,6 @@ except KeyboardInterrupt:
     sys.exit(0)
 
 
-sys.path.append("@@ROOT@@")
-
 mod_name = string.replace(os.path.basename(sys.argv[0]), '-', '_')
 try:
     mod = __import__("spacewalk.satellite_tools", globals(), locals(), [mod_name])
