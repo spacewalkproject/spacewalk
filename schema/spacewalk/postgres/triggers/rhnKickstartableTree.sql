@@ -18,13 +18,14 @@
 create or replace function rhn_kstree_mod_trig_fun() returns trigger as
 $$
 begin
-        if tg_op='UPDATE' and (
-                new.cobbler_id = old.cobbler_id and
-                new.cobbler_xen_id = old.cobbler_xen_id and
-                new.last_modified = old.last_modified or
-                new.last_modified is null
-                ) then
-                new.last_modified := current_timestamp;
+        if tg_op='UPDATE' then
+                if new.cobbler_id = old.cobbler_id
+                        and new.cobbler_xen_id = old.cobbler_xen_id
+                        and new.last_modified = old.last_modified
+                        or new.last_modified is null
+                        then
+                        new.last_modified := current_timestamp;
+                end if;
         elseif tg_op='INSERT' and new.last_modified is null then
                 new.last_modified := current_timestamp;
         end if;
