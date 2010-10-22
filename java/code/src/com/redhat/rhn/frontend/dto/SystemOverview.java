@@ -265,6 +265,13 @@ public class SystemOverview extends BaseDto implements Serializable  {
         return locked;
     }
     /**
+     * This overloaded method is for PostgreSQL compatibility reasons.
+     * @param lockedIn The locked to set.
+     */
+    public void setLocked(Integer lockedIn) {
+        setLocked(new Long(lockedIn));
+    }
+    /**
      * @param lockedIn The locked to set.
      */
     public void setLocked(Long lockedIn) {
@@ -288,6 +295,15 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public Long getNoteCount() {
         return noteCount;
     }
+
+    /**
+     * This overloaded method is for PostgreSQL compatibility reasons.
+     * @param noteCountIn The noteCount to set.
+     */
+    public void setNoteCount(Integer noteCountIn) {
+        setNoteCount(new Long(noteCountIn));
+    }
+
     /**
      * @param noteCountIn The noteCount to set.
      */

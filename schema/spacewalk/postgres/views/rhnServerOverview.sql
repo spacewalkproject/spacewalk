@@ -43,7 +43,7 @@ rhnServerOverview
 )
 as
 select
-    s.org_id, s.id, s.name, cast(0 as bigint), s.modified,
+    s.org_id, s.id, s.name, 0, s.modified,
     ( select count(user_id) from rhnUserServerPerms ap 
       where server_id = s.id ), 
     ( select count(server_group_id) from rhnVisibleServerGroupMembers
@@ -106,7 +106,7 @@ select
     os,
     release,
     ( select name from rhnServerArch where id = s.server_arch_id),
-    cast(coalesce((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0) as numeric)
+    coalesce((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0)
 from 
     rhnServer S
 ;
