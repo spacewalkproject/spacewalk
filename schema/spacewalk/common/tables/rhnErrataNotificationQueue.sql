@@ -38,12 +38,8 @@ CREATE TABLE rhnErrataNotificationQueue
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_enqueue_eid_idx
-    ON rhnErrataNotificationQueue (errata_id, org_id)
-    TABLESPACE [[4m_tbs]];
-
-CREATE INDEX rhn_enqueue_na_eid_idx
-    ON rhnErrataNotificationQueue (next_action, errata_id)
+CREATE INDEX rhn_enqueue_na_idx
+    ON rhnErrataNotificationQueue (next_action)
     TABLESPACE [[8m_tbs]];
 
 ALTER TABLE rhnErrataNotificationQueue
