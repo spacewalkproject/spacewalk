@@ -50,8 +50,8 @@ CREATE UNIQUE INDEX rhn_package_file_pid_cid_uq
     ON rhnPackageFile (package_id, capability_id)
     TABLESPACE [[32m_tbs]];
 
-CREATE INDEX rhn_package_file_cid_pid_idx
-    ON rhnPackageFile (capability_id, package_id)
+CREATE INDEX rhn_package_file_cid_idx
+    ON rhnPackageFile (capability_id)
     TABLESPACE [[32m_tbs]]
     NOLOGGING;
 
