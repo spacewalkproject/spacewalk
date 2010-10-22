@@ -270,9 +270,15 @@ class PackageImport(ChannelPackageSubscription):
                 self.checksums[fchecksumTuple] = None
 
         # Uniquify changelog entries
+        unique_package_changelog_hash = {}
+        unique_package_changelog = []
         for changelog in package['changelog']:
             key = (changelog['name'], changelog['time'], changelog['text']) 
-            self.changelog_data[key] = None
+            if not unique_package_changelog_hash.has_key(key):
+                self.changelog_data[key] = None
+                unique_package_changelog.append(changelog)
+                unique_package_changelog_hash[key] = 1
+        package['changelog'] = unique_package_changelog
         
         if 'solaris_patch_set' in package:
             if package.arch.startswith("sparc"):
