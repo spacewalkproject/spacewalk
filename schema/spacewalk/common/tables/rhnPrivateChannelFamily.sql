@@ -42,8 +42,8 @@ CREATE UNIQUE INDEX rhn_privcf_oid_cfid_uq
     ON rhnPrivateChannelFamily (org_id, channel_family_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_cfperm_cfid_oid_idx
-    ON rhnPrivateChannelFamily (channel_family_id, org_id)
+CREATE INDEX rhn_cfperm_cfid_idx
+    ON rhnPrivateChannelFamily (channel_family_id)
     TABLESPACE [[2m_tbs]]
     NOLOGGING;
 
