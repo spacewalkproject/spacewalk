@@ -40,9 +40,6 @@ CREATE UNIQUE INDEX rhn_ss_tag_ssid_tid_uq
 CREATE UNIQUE INDEX rhn_ss_tag_sid_tid_uq
     ON rhnSnapshotTag (server_id, tag_id);
 
-CREATE INDEX rhn_ss_tag_tid_ssid_idx
-    ON rhnSnapshotTag (tag_id, snapshot_id);
-
-CREATE INDEX rhn_ss_tag_tid_sid_idx
-    ON rhnSnapshotTag (tag_id, server_id);
+CREATE INDEX rhn_ss_tag_tid_idx
+    ON rhnSnapshotTag (tag_id);
 
