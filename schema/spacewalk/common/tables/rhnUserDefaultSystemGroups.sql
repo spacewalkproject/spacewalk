@@ -32,7 +32,7 @@ CREATE UNIQUE INDEX rhn_udsg_uid_sgid_idx
     ON rhnUserDefaultSystemGroups (user_id, system_group_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_udsg_sgid_uid_idx
-    ON rhnUserDefaultSystemGroups (system_group_id, user_id)
+CREATE INDEX rhn_udsg_sgid_idx
+    ON rhnUserDefaultSystemGroups (system_group_id)
     TABLESPACE [[2m_tbs]];
 
