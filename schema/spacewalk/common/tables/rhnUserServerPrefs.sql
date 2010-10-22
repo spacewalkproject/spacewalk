@@ -37,13 +37,8 @@ CREATE UNIQUE INDEX rhn_usprefs_uid_sid_n_uq
     ON rhnUserServerPrefs (user_id, server_id, name)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_usprefs_n_sid_uid_idx
-    ON rhnUserServerPrefs (name, server_id, user_id)
-    TABLESPACE [[2m_tbs]]
-    NOLOGGING;
-
-CREATE INDEX rhn_usprefs_sid_uid_n_idx
-    ON rhnUserServerPrefs (server_id, user_id, name)
+CREATE INDEX rhn_usprefs_sid_idx
+    ON rhnUserServerPrefs (server_id)
     TABLESPACE [[2m_tbs]]
     NOLOGGING;
 
