@@ -309,7 +309,7 @@ SELECT PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -400,7 +400,7 @@ SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
   			INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id
   			LEFT JOIN rhnPackageArch PA on SP.PACKAGE_ARCH_ID  = PA.id
   WHERE  SP.server_id = :sid
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -637,6 +637,7 @@ SELECT P.id, P.summary, PP.name as provider
 <mode name="system_available_packages"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
 SELECT  distinct pn.name AS NAME,
+        UPPER(pn.name) AS name_upper,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
         pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
@@ -662,7 +663,7 @@ SELECT  distinct pn.name AS NAME,
                      WHERE SP.server_id = :sid
                        AND SP.name_id = full_list.name_id
                        AND (SP.package_arch_id = full_list.arch_id or SP.package_arch_id is null))
-ORDER BY  UPPER(pn.name)
+ORDER BY name_upper
   </query>
 </mode>
 
@@ -930,7 +931,7 @@ WHERE SP.server_id = :sid
                 WHERE  PA.id = SP.package_arch_id
                   AND  AT.id = PA.arch_type_id
                   AND  AT.label = 'solaris-patch' )
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
   <elaborator params="sid" multiple="t">
       SELECT PN.id,
@@ -974,7 +975,7 @@ SELECT PN.id || '|' || PE.id AS ID_COMBO,
      AND  S.user_id = :user_id
      AND  S.element = PN.id
      AND  S.element_two = PE.id
- ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -996,7 +997,7 @@ SELECT  PN.id || '|' || PE.id AS ID_COMBO,
   			INNER JOIN rhnArchType AT ON AT.id = PA.arch_type_id
   WHERE  SP.server_id = :sid
 	   AND  AT.label = 'sysv-solaris'
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -1633,7 +1634,7 @@ SELECT P.id AS ID,
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
    AND P.id = SP.package_id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 

@@ -184,7 +184,7 @@ SELECT PN.id || '|' || PE.id AS ID,
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -211,7 +211,7 @@ SELECT P.id AS ID,
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -236,7 +236,7 @@ SELECT P.id AS ID,
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
    AND P.id = SP.package_id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -263,7 +263,7 @@ SELECT P.id AS ID,
    AND PA.id = P.package_arch_id
    AND P.id = SP.package_id
    AND SP.patch_type = SPT.id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
@@ -289,13 +289,9 @@ SELECT P.id AS ID,
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
    AND P.id = SP.package_id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
-
-
-
-
 
 <mode name="packages_available_to_errata">
   <query params="">
@@ -485,7 +481,7 @@ SELECT  PN.id || '|' || PE.id AS ID,
    AND  SP.name_id = PN.id
    AND  SP.evr_id = PE.id
    AND  SP.package_arch_id = PA.id
-ORDER BY UPPER(NVRE)
+ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
   </query>
 </mode>
 
