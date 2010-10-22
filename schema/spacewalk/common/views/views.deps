@@ -56,8 +56,6 @@ rhnOrgErrata                     :: rhnChannelErrata  rhnAvailableChannels
 rhnOrgPackageOverview            :: rhnPackageName rhnPackageEVR rhnPackageArch \
                                     rhnChannelPackageArchCompat rhnPackage \
                                     rhn_package.pks
-rhnPrivateErrataMail             :: rhnServerPackage \
-                                    rhnWebContactDisabled
 rhnPackageUpgradeArchCompat      :: rhnPackageArch
 rhnServerErrataTypeView          :: rhnErrata rhnServerNeededErrataCache
 rhnServerFeaturesView            :: rhnFeature rhnServerGroupTypeFeature \
