@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.33
+Version: 1.2.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -667,6 +667,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 22 2010 Jan Pazdziora 1.2.34-1
+- Put import sys back, needed for sys.argv.
+
 * Fri Oct 22 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.33-1
 - 612581 - removing /usr/share/rhn from PYTHONPATH
 - 612581 - fixing dynamic import
