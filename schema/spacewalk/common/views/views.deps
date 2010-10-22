@@ -69,8 +69,6 @@ rhnUserChannel                   :: rhn_channel.pks rhnChannelFamilyMembers \
                                     rhnUserChannelFamilyPerms web_contact
 rhnUserChannelTreeView           :: rhnChannel rhnChannelFamilyMembers \
                                     rhnUserChannelFamilyPerms
-rhnUserGroupMembership           :: rhnUserGroupType rhnUserGroup \
-                                    rhnUserGroupMembers
 rhnUserManagedServerGroups       :: rhnServerGroup rhnServerGroupType \
                                     rhnUserGroup rhnUserGroupMembers web_contact
 rhnUserServerPermsDupes          :: rhnServerGroupMembers rhnUserGroup \
