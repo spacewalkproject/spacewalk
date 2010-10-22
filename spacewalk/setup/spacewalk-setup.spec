@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.11
+Version:        1.2.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Oct 22 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.12-1
+- 612581 - use new spacewalk namespace for spacewalk-setup
+
 * Fri Oct 15 2010 Jan Pazdziora 1.2.11-1
 - Revert "avoid people install packages for different os"
 - Revert "valid require format is name = version"
