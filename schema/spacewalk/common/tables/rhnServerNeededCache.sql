@@ -39,12 +39,6 @@ CREATE INDEX rhn_snc_pid_idx
     TABLESPACE [[128m_tbs]]
     NOLOGGING;
 
-CREATE INDEX rhn_snc_sid_idx
-    ON rhnServerNeededCache (server_id)
-    NOPARALLEL
-    TABLESPACE [[128m_tbs]]
-    NOLOGGING;
-
 CREATE INDEX rhn_snc_eid_idx
     ON rhnServerNeededCache (errata_id)
     TABLESPACE [[128m_tbs]]
