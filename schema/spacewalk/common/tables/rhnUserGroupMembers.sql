@@ -35,8 +35,8 @@ CREATE UNIQUE INDEX rhn_ugmembers_uid_ugid_uq
     ON rhnUserGroupMembers (user_id, user_group_id)
     TABLESPACE [[8m_tbs]];
 
-CREATE INDEX rhn_ugmembers_ugid_uid_idx
-    ON rhnUserGroupMembers (user_group_id, user_id)
+CREATE INDEX rhn_ugmembers_ugid_idx
+    ON rhnUserGroupMembers (user_group_id)
     TABLESPACE [[8m_tbs]]
     NOLOGGING;
 
