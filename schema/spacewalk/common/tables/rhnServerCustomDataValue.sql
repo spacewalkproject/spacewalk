@@ -42,6 +42,6 @@ ENABLE ROW MOVEMENT
 CREATE UNIQUE INDEX rhn_scdv_sid_kid_uq
     ON rhnServerCustomDataValue (server_id, key_id);
 
-CREATE INDEX rhn_scdv_kid_sid_idx
-    ON rhnServerCustomDataValue (key_id, server_id);
+CREATE INDEX rhn_scdv_kid_idx
+    ON rhnServerCustomDataValue (key_id);
 
