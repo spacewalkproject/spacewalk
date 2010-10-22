@@ -35,7 +35,7 @@ CREATE UNIQUE INDEX rhn_snapshotcc_sid_ccid_uq
     ON rhnSnapshotConfigChannel (snapshot_id, config_channel_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_snpsht_cc_ccid_sid_idx
-    ON rhnSnapshotConfigChannel (config_channel_id, snapshot_id)
+CREATE INDEX rhn_snpsht_cc_ccid_idx
+    ON rhnSnapshotConfigChannel (config_channel_id)
     TABLESPACE [[4m_tbs]];
 
