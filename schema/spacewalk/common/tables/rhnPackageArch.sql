@@ -34,10 +34,6 @@ CREATE INDEX rhn_parch_id_l_n_idx
     ON rhnPackageArch (id, label, name)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_parch_l_id_n_idx
-    ON rhnPackageArch (label, id, name)
-    TABLESPACE [[2m_tbs]];
-
 CREATE SEQUENCE rhn_package_arch_id_seq START WITH 100;
 
 ALTER TABLE rhnPackageArch
