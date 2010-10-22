@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.51
+Version:        1.2.52
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Oct 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.52-1
+- removed unused views
+- reviewed more indexes
+
 * Fri Oct 22 2010 Tomas Lestach <tlestach@redhat.com> 1.2.51-1
 - 529064 - fixed update_needed_cache which wrongly updated cache if a package
   was in more erratas (michael.mraka@redhat.com)
