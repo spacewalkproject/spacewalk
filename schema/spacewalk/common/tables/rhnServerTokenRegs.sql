@@ -32,8 +32,8 @@ CREATE INDEX rhn_srv_reg_tok_ts_idx
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 
-CREATE INDEX RHN_SRVR_TKN_RGS_SID_TID_IDX
-    ON rhnServerTokenRegs (server_id, token_id)
+CREATE INDEX RHN_SRVR_TKN_RGS_SID_IDX
+    ON rhnServerTokenRegs (server_id)
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 
