@@ -43,21 +43,13 @@ CREATE UNIQUE INDEX rhn_ug_oid_name_uq
     ON rhnUserGroup (org_id, name)
     TABLESPACE [[32m_tbs]];
 
-CREATE INDEX rhn_ug_org_id_name_idx
-    ON rhnUserGroup (org_id, id, name)
-    TABLESPACE [[32m_tbs]]
-    NOLOGGING;
-
 CREATE INDEX rhn_ug_org_id_type_idx
     ON rhnUserGroup (group_type, id)
     TABLESPACE [[8m_tbs]]
     NOLOGGING;
 
-CREATE INDEX rhn_ug_org_id_gtype_idx
-    ON rhnUserGroup (org_id, group_type, id)
-    TABLESPACE [[8m_tbs]];
-
 ALTER TABLE rhnUserGroup
 ADD CONSTRAINT rhn_ug_oid_gt_uq
-UNIQUE (org_id, group_type);
+UNIQUE (org_id, group_type)
+USING INDEX TABLESPACE [[8m_tbs]];
 
