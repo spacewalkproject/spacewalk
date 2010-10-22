@@ -36,7 +36,7 @@ CREATE UNIQUE INDEX rhn_kspreservefl_ksid_flid_uq
     ON rhnKickstartPreserveFileList (kickstart_id, file_list_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_kspreservefl_flid_ksid_idx
-    ON rhnKickstartPreserveFileList (file_list_id, kickstart_id)
+CREATE INDEX rhn_kspreservefl_flid_idx
+    ON rhnKickstartPreserveFileList (file_list_id)
     TABLESPACE [[8m_tbs]];
 
