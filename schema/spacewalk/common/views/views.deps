@@ -41,7 +41,6 @@ rhnChannelFamilyPermissions      :: rhnPublicChannelFamily \
                                     rhnPrivateChannelFamily
 rhnChannelFamilyServers          :: rhnChannelFamilyMembers rhnChannelFamily \
                                     rhnServerChannel rhnServer
-rhnChannelPackageOverview        :: rhnChannelPackage rhnPackageEVR rhnPackage
 rhnChannelPermissions            :: rhnChannelFamilyMembers rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
 rhnChannelTreeView               :: rhnChannel rhnChannelFamilyMembers \
