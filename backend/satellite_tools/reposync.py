@@ -125,7 +125,7 @@ class RepoSync:
 
     def load_plugin(self):
         name = self.type + "_src"
-        mod = __import__('satellite_tools.repo_plugins', globals(), locals(), [name])
+        mod = __import__('spacewalk.satellite_tools.repo_plugins', globals(), locals(), [name])
         submod = getattr(mod, name)
         return getattr(submod, "ContentSource")
         
