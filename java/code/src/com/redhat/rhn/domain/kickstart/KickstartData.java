@@ -793,6 +793,21 @@ public class KickstartData {
     }
 
     /**
+     *
+     * @return if this kickstart profile is RHEL 5 or less
+     */
+    public boolean isRHEL5OrLess() {
+        if (getInstallType() != null) {
+            return (getInstallType().isFedora() ||
+                    getInstallType().isRhel5() ||
+                    !getInstallType().isRhel5OrGreater());
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
      * returns true if this is a fedora kickstart
      * @return if this is a fedora kickstart or not
      */

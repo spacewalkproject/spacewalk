@@ -1,5 +1,4 @@
 #raw
-%pre
 echo "Saving RHN keys..." > /dev/ttyS0
 SYSTEM_ID=/etc/sysconfig/rhn/systemid
 rhn_keys_found=no
