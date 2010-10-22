@@ -32,6 +32,6 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_solaris_pp_pid_pnid_idx
     ON rhnSolarisPatchPackages (patch_id, package_nevra_id);
 
-CREATE INDEX rhn_solaris_pp_pnid_pid_idx
-    ON rhnSolarisPatchPackages (package_nevra_id, patch_id);
+CREATE INDEX rhn_solaris_pp_pnid_idx
+    ON rhnSolarisPatchPackages (package_nevra_id);
 
