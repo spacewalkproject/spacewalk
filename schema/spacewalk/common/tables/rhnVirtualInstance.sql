@@ -40,8 +40,8 @@ CREATE INDEX rhn_vi_hsid_vsid_idx
     ON rhnVirtualInstance (host_system_id, virtual_system_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_vi_vsid_hsid_idx
-    ON rhnVirtualInstance (virtual_system_id, host_system_id)
+CREATE INDEX rhn_vi_vsid_idx
+    ON rhnVirtualInstance (virtual_system_id)
     TABLESPACE [[64k_tbs]];
 
 CREATE SEQUENCE rhn_vi_id_seq;
