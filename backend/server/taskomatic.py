@@ -44,6 +44,8 @@ class RepodataQueue(object):
 
 def add_to_repodata_queue(channel, client, reason, force=False,
         bypass_filters=False):
+    if reason == '':
+        reason = None
     entry = RepodataQueueEntry(channel, client, reason, force, bypass_filters)
     queue = RepodataQueue()
     queue.add(entry)
