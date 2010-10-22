@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.34
+Version: 1.2.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -667,6 +667,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 22 2010 Jan Pazdziora 1.2.35-1
+- Remove duplicates from package changelog.
+- Load the appropriate database backend.
+- Replace sysdate with current_timestamp.
+- Need to avoid inserting empty strings, we use NULL (None) instead.
+
 * Fri Oct 22 2010 Jan Pazdziora 1.2.34-1
 - Put import sys back, needed for sys.argv.
 
