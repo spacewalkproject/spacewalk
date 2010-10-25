@@ -97,3 +97,5 @@ rhnServerNeededView              :: rhnPackage rhnChannelNewestPackage \
                                     rhnServer rhnErrataPackage \
                                     rhnChannelErrata rhnPackageUpgradeArchCompat
 rhnPackageChangeLog              :: rhnPackageChangeLogData rhnPackageChangeLogRec
+rhnUserReceiveNotifications      :: rhnUserServerPerms rhnWebContactDisabled web_contact \
+                                    rhnUserInfo web_user_personal_info rhnUserServerPrefs
