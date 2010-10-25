@@ -296,13 +296,13 @@ class _ChannelDumper(BaseRowDumper):
         return ArrayIterator(arr)
 
     _query_get_package_ids = rhnSQL.Statement("""
-        select package_id 
+        select package_id as id
           from rhnChannelPackage
          where channel_id = :channel_id
     """)
 
     _query_get_package_ids_by_date_limits = rhnSQL.Statement("""
-        select package_id
+        select package_id as id
           from rhnPackage rp, rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
          and rcp.package_id = rp.id
@@ -317,16 +317,20 @@ class _ChannelDumper(BaseRowDumper):
 
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
+        return self._get_ids(self._query_get_package_ids_by_date_limits,
+                             self._query_get_package_ids)
+
+    def _get_ids(self, query_with_limit, query_no_limits):
         query_args = {'channel_id': self._row['id']}
         if self.start_date:
-            query = self._query_get_package_ids_by_date_limits
+            query = query_with_limit
             query_args.update({'lower_limit': self.start_date,
                                'upper_limit': self.end_date})
         else:
-            query = self._query_get_package_ids
+            query = query_no_limits
         h = rhnSQL.prepare(query)
         h.execute(**query_args)
-        return map(lambda x: x['package_id'], h.fetchall_dict() or [])
+        return map(lambda x: x['id'], h.fetchall_dict() or [])
 
     _query_get_source_package_ids = rhnSQL.Statement("""
         select distinct ps.id, sr.name source_rpm,
@@ -348,7 +352,7 @@ class _ChannelDumper(BaseRowDumper):
         return h
 
     _query__get_errata_ids = rhnSQL.Statement("""
-        select ce.errata_id, e.advisory_name,
+        select ce.errata_id as id, e.advisory_name,
               TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified
           from rhnChannelErrata ce, rhnErrata e
          where ce.channel_id = :channel_id
@@ -367,16 +371,8 @@ class _ChannelDumper(BaseRowDumper):
 
     
     def _get_errata_ids(self):
-        query_args = {'channel_id': self._row['id']}
-        if self.start_date:
-            query = self._query__get_errata_ids_by_limits
-            query_args.update({'lower_limit': self.start_date,
-                               'upper_limit': self.end_date})
-        else:
-            query = self._query__get_errata_ids
-        h = rhnSQL.prepare(query)
-        h.execute(**query_args)
-        return map(lambda x: x['errata_id'], h.fetchall_dict() or [])
+        return self._get_ids(self._query__get_errata_ids_by_limits,
+                             self._query__get_errata_ids)
 
     _query_get_kickstartable_trees = rhnSQL.Statement("""
         select kt.label
@@ -527,7 +523,7 @@ class _ChannelErratumDumper(BaseRowDumper):
     tag_name = 'erratum'
     def set_attributes(self):
         return {
-            'id'            : 'rhn-erratum-%s' % self._row['errata_id'],
+            'id'            : 'rhn-erratum-%s' % self._row['id'],
             'advisory-name' : self._row['advisory_name'],
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
