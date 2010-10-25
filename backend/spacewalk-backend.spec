@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.35
+Version: 1.2.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -667,6 +667,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 25 2010 Jan Pazdziora 1.2.36-1
+- Reset the System Currency multipliers to the original values
+  (colin.coe@gmail.com)
+- Need to truncate the values upon select as well.
+
 * Fri Oct 22 2010 Jan Pazdziora 1.2.35-1
 - Remove duplicates from package changelog.
 - Load the appropriate database backend.
