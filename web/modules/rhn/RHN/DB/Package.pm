@@ -297,11 +297,11 @@ sub provides {
   my $sth;
 
   $query = <<EOQ;
-SELECT  DISTINCT C.name, C.version, P.sense
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
   FROM  rhnPackageCapability C, rhnPackageProvides P
  WHERE  P.package_id = ?
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+ORDER BY name_upper, C.version
 EOQ
 
 
@@ -324,11 +324,11 @@ sub requires {
   my $sth;
 
   $query = <<EOQ;
-SELECT  DISTINCT C.name, C.version, P.sense 
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
   FROM  rhnPackageCapability C, rhnPackageRequires P
  WHERE  P.package_id = ?
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+ORDER BY name_upper, C.version
 EOQ
 
   $sth = $dbh->prepare($query);
@@ -352,11 +352,11 @@ sub obsoletes {
   my $sth;
 
   $query = <<EOQ;
-SELECT  DISTINCT C.name, C.version, P.sense 
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
   FROM  rhnPackageCapability C, rhnPackageObsoletes P
  WHERE  P.package_id = ?
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+ORDER BY name_upper, C.version
 EOQ
 
   $sth = $dbh->prepare($query);
@@ -379,11 +379,11 @@ sub conflicts {
   my $sth;
 
   $query = <<EOQ;
-SELECT  DISTINCT C.name, C.version, P.sense
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
   FROM  rhnPackageCapability C, rhnPackageConflicts P
  WHERE  P.package_id = ?
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+ORDER BY name_upper, C.version
 EOQ
 
   $sth = $dbh->prepare($query);
