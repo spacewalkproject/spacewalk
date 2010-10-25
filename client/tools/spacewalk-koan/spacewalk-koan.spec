@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.12
+Version: 0.2.13
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Oct 25 2010 Jan Pazdziora 0.2.13-1
+- 645795 - changing spaceawlk-koan to use subproccess only if it is available
+  and to fall back to popen2 if its not, this enables RHEL 4 support again
+  (jsherril@redhat.com)
+
 * Wed Oct 20 2010 Michael Mraka <michael.mraka@redhat.com> 0.2.12-1
 - must not provide & conflict with same (unversioned) package
 
