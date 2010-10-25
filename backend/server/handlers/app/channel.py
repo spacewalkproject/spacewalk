@@ -228,16 +228,12 @@ class Channel(RPC_Base):
         h = None
         # Red Hat only:
         if not orgId:
-            h = rhnSQL.prepare("""select label
-                                          from rhnChannel
-                                          where org_id is 1""")
-            h.execute()
-        # any other org:
-        else:
-            h = rhnSQL.prepare("""select label
+            orgId = 1
+
+        h = rhnSQL.prepare("""select label
                                           from rhnChannel
                                           where org_id=:orgId""")
-            h.execute(orgId=int(orgId))
+        h.execute(orgId=int(orgId))
         ret = h.fetchall_dict() or []
         return map(lambda x: x['label'], ret)
 
