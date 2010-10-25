@@ -499,7 +499,10 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
     # v2 clients are done
     if version > 1:
         return packages
-    
+    else:
+        return _v2packages_to_v1list(packages, deplist, all)
+
+def _v2packages_to_v1list(packages, deplist, all=0):
     # v1 clients expect a list as a result
     result = []
     # Return the results in order (not that anyone would care)
@@ -607,20 +610,8 @@ def solve_dependencies_arch(server_id, deps, version):
     # v2 clients are done
     if version > 1:
         return packages
-    
-    # v1 clients expect a list as a result
-    result = []
-    # Return the results in order (not that anyone would care)
-    for dep in deplist:
-        if not packages[dep]:
-            # Unresolved dependency; skip it
-            continue
-        # consider only the first one for each dep
-        r = packages[dep][0]
-        # Avoid sending the same result back multiple times
-        if r not in result:
-            result.append(r)
-    return result
+    else:
+        return _v2packages_to_v1list(packages, deplist)
 
 def solve_dependencies(server_id, deps, version):
     """ The unchanged version of solve_dependencies. 
@@ -689,21 +680,8 @@ def solve_dependencies(server_id, deps, version):
     # v2 clients are done
     if version > 1:
         return packages
-    
-    # v1 clients expect a list as a result
-    result = []
-    # Return the results in order (not that anyone would care)
-    for dep in deplist:
-        if not packages[dep]:
-            # Unresolved dependency; skip it
-            continue
-        # consider only the first one for each dep
-        r = packages[dep][0]
-        # Avoid sending the same result back multiple times
-        if r not in result:
-            result.append(r)
-    return result
-
+    else:
+        return _v2packages_to_v1list(packages, deplist)
 
 
 def cmp_evr(pkg1, pkg2):
