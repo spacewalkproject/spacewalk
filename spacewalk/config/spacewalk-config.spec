@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -91,6 +91,9 @@ fi
 
 
 %changelog
+* Mon Oct 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.3-1
+- fixing changelog entry
+
 * Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.2-1
 - removed unneeded oracle settings from httpd environment
 
