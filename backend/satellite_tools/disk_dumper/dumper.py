@@ -218,7 +218,7 @@ class XML_Dumper:
         self.close()
         return 0
 
-    def dump_channel_packages_short(self, channel_label, last_modified, filepath=None
+    def dump_channel_packages_short(self, channel_label, last_modified, filepath=None,
                                     validate_channels=False, send_headers=False,
                                     open_stream=True):
         log_debug(2, channel_label)
