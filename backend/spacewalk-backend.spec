@@ -644,6 +644,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/satwho.8*
 %{_mandir}/man8/spacewalk-remove-channel.8*
 %{_mandir}/man8/spacewalk-repo-sync.8*
+%{_mandir}/man8/spacewalk-update-signatures.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
