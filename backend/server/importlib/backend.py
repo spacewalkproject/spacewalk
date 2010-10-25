@@ -131,7 +131,7 @@ class Backend:
         h = self.dbmodule.prepare(sql)
         toinsert = [[], [], [], []]
         for name, time, text in changelogHash.keys():
-            h.execute(name=name, time=time, text=text)
+            h.execute(name=name[0:128], time=time, text=text[0:3000])
             row = h.fetchone_dict()
             if row:
                 changelogHash[(name, time, text)] = row['id']
