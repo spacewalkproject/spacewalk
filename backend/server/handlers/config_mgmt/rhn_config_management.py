@@ -62,10 +62,9 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def management_list_channels(self, dict):
         log_debug(1)
         self._get_and_validate_session()
-
-        h = rhnSQL.prepare(self._query_list_config_channels)
-        h.execute(org_id=self.org_id)
-        return map(lambda x: x['label'], h.fetchall_dict() or [])
+        return map(lambda x: x['label'],
+                  rhnSQL.fetchall_dict(self._query_list_config_channels,
+                                       org_id=self.org_id) or [])
 
     _query_lookup_config_channel = rhnSQL.Statement("""
         select id
@@ -84,9 +83,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         config_channel_name = dict.get('config_channel_name') or config_channel
         config_channel_description = dict.get('description') or config_channel
 
-        h = rhnSQL.prepare(self._query_lookup_config_channel)
-        h.execute(org_id=self.org_id, config_channel=config_channel)
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_lookup_config_channel,
+                  org_id=self.org_id, config_channel=config_channel)
         if row:
             raise rhnFault(4010, "Configuration channel %s already exists" % 
                 config_channel, explain=0)
@@ -116,10 +114,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
 
-        h = rhnSQL.prepare(self._query_config_channel_by_label)
-        h.execute(org_id=self.org_id, label=config_channel)
-
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_config_channel_by_label,
+                  org_id=self.org_id, label=config_channel)
 
         if not row:
             raise rhnFault(4009, "Channel not found")
@@ -219,10 +215,9 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # XXX Validate the namespace
         path = dict.get('path')
 
-        h = rhnSQL.prepare(self._query_list_file_revisions)
-        h.execute(org_id=self.org_id, config_channel=config_channel, path=path)
-
-        retval = map(lambda x: x['revision'], h.fetchall_dict() or [])
+        retval = map(lambda x: x['revision'],
+                 rhnSQL.fetchall_dict(self._query_list_file_revisions,
+                        org_id=self.org_id, config_channel=config_channel, path=path) or [])
         if not retval:
             raise rhnFault(4011, "File %s does not exist in channel %s" % 
                 (path, config_channel), explain=0)
@@ -332,11 +327,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         else:
             params['revision'] = revision
             q = self._query_get_file_revision
-        h = rhnSQL.prepare(q)
         log_debug(4, params)
-        apply(h.execute, (), params)
-
-        return h.fetchone_dict()
+        return rhnSQL.fetchone_dict(q, **params)
 
     _query_lookup_config_file_by_channel = rhnSQL.Statement("""
         select cf.id,
@@ -357,11 +349,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # XXX Validate the namespace
         path = dict.get('path')
 
-
-        h = rhnSQL.prepare(self._query_lookup_config_file_by_channel)
-        h.execute(org_id=self.org_id, config_channel=config_channel, path=path)
-
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_lookup_config_file_by_channel,
+                  org_id=self.org_id, config_channel=config_channel, path=path)
         if not row:
             raise rhnFault(4011, "File %s does not exist in channel %s" %
                 (path, config_channel), explain=0)
@@ -393,20 +382,15 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         t = rhnSQL.Table('rhnConfigFileState', 'label')
         state_id_dead = t['dead']['id']
 
-        h = rhnSQL.prepare(self._query_lookup_config_file_by_channel)
-        h.execute(config_channel=config_channel, path=path)
-
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_lookup_config_file_by_channel,
+                  config_channel=config_channel, path=path)
         if not row or row['state_id'] == state_id_dead:
             raise rhnFault(4011, "File %s does not exist in channel %s" %
                 (path, config_channel), explain=0)
 
-        config_file_id = row['id']
-        h = rhnSQL.prepare(self._query_update_file_state)
-        h.execute(config_file_id=config_file_id, state_id=state_id_dead)
-
+        rhnSQL.execute(self._query_update_file_state,
+                config_file_id=row['id'], state_id=state_id_dead)
         rhnSQL.commit()
-
         return {}
 
     def management_put_file(self, dict):
@@ -551,9 +535,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     """)
 
     def lookup_org_config_channel_by_name(self, config_channel):
-        h = rhnSQL.prepare(self._query_org_config_channels)
-        h.execute(config_channel=config_channel, org_id=self.org_id)
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_org_config_channels,
+                  config_channel=config_channel, org_id=self.org_id)
         if not row:
             raise rhnFault(4009, "Configuration channel %s does not exist" % 
                 config_channel, explain=0)

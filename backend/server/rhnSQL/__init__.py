@@ -191,6 +191,14 @@ def prepare(sql, params=None):
 def execute(sql, *args, **kwargs):
     db = __test_DB()
     return apply(db.execute, (sql, ) + args, kwargs)
+def fetchall_dict(sql, *args, **kwargs):
+    h = prepare(sql)
+    h.execute(sql, *args, **kwargs)
+    return h.fetchall_dict()
+def fetchone_dict(sql, *args, **kwargs):
+    h = prepare(sql)
+    h.execute(sql, *args, **kwargs)
+    return h.fetchone_dict()
 def commit():
     db = __test_DB()
     return db.commit()
