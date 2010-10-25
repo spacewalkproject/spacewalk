@@ -118,23 +118,19 @@ class ChannelImport(Import):
             })
         channel['families'] = families
         # Dists
-        if channel.has_key('dists') and channel['dists'] is not None:
-            for dist in channel['dists']:
-                arch = dist['channel_arch']
-                if self.arches[arch] is None:
-                    # Mark it as ignored
-                    channel.ignored = 1
-                    raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
-                dist['channel_arch_id'] = self.arches[arch]
+        self.__postprocessChannelMaps(channel, 'dists')
         #release
-        if channel.has_key('release') and channel['release'] is not None:
-            for release in channel['release']:
-                arch = release['channel_arch']
+        self.__postprocessChannelMaps(channel, 'release')
+
+    def __postprocessChannelMaps(self, channel, map)
+        if channel.has_key(map) and channel[map] is not None:
+            for dict in channel[map]:
+                arch = dict['channel_arch']
                 if self.arches[arch] is None:
                     # Mark it as ignored
                     channel.ignored = 1
                     raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
-                release['channel_arch_id'] = self.arches[arch]
+                dict['channel_arch_id'] = self.arches[arch]
 
     def submit(self):
         parentChannels = {}
