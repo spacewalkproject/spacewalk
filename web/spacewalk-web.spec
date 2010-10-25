@@ -54,7 +54,7 @@ Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 
 %description -n spacewalk-base-minimal
-Independent perl modules in the RHN:: namespace.
+Independent Perl modules in the RHN:: namespace.
 
 %package -n spacewalk-dobby
 Summary: Perl modules and scripts to administer an Oracle database
@@ -64,7 +64,7 @@ Obsoletes: rhn-dobby < 5.3.0
 Provides: rhn-dobby = 5.3.0
 
 %description -n spacewalk-dobby
-Dobby is collection of perl modules and scripts to administer an Oracle
+Dobby is collection of Perl modules and scripts to administer an Oracle
 database.
 
 
