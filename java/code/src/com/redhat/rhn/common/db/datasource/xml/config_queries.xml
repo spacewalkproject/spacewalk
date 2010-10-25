@@ -42,7 +42,7 @@ SELECT cc.id from rhnConfigChannel cc
 		    AND CF.latest_config_revision_id = CR.id
 		   AND CCT.label   = :cct_label
 		   AND USP.user_id = :user_id
-         AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1) AS subselect
+         AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1) subselect
 		   GROUP by file_type
 	</query>
 </mode>
@@ -115,7 +115,7 @@ the were associated to a scheduled action on a server-->
 	        where
 	            rac.server_id = :sid and
 	            rac.action_id  = :aid
-	    ) AS subselect GROUP BY file_type
+	    ) subselect GROUP BY file_type
     </query>
 </mode>
 
@@ -133,7 +133,7 @@ successfully compared in a scheduled diff action on a server-->
 	            acr.server_id = :sid and
 	            acr.action_id  = :aid and
 	            acr.failure_id is null
-	    ) AS subselect GROUP BY file_type
+	    ) subselect GROUP BY file_type
     </query>
 </mode>
 
@@ -155,7 +155,7 @@ on the server in a scheduled diff action on a server-->
 		    acr.action_id  = :aid and
 	   	    acr.failure_id is null and
        		acrr.result is not null
-	    ) AS subselect GROUP BY file_type
+	    ) subselect GROUP BY file_type
     </query>
 </mode>
 
