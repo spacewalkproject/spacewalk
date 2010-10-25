@@ -14,16 +14,12 @@
  */
 package com.redhat.rhn.taskomatic;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-
-import org.hibernate.Hibernate;
-
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Blob;
 import java.util.Date;
 import java.util.Map;
 
@@ -124,12 +120,12 @@ public class TaskoSchedule {
         return baos.toByteArray();
     }
 
-    private Map getDataMapFromBlob(Blob blob) {
+    private Map getDataMapFromBlob(byte[] blob) {
         Object obj = null;
 
         try {
             if (blob != null) {
-                InputStream binaryInput = blob.getBinaryStream();
+                InputStream binaryInput = new ByteArrayInputStream(blob);
 
                 if (null != binaryInput) {
                     ObjectInputStream in = new ObjectInputStream(binaryInput);
@@ -146,7 +142,7 @@ public class TaskoSchedule {
 
     /**
      * set job parameters
-     * @param dataMap job paramters
+     * @param dataMap job parameters
      */
     public void setDataMap(Map dataMap) {
         data = serializeMap(dataMap);
@@ -247,15 +243,15 @@ public class TaskoSchedule {
     /**
      * @return Returns the data.
      */
-    public Blob getData() {
-        return Hibernate.createBlob(data);
+    public byte[] getData() {
+        return data;
     }
 
     /**
-     * @param dataBlobIn The params to set.
+     * @param datain The params to set.
      */
-    public void setData(Blob dataBlobIn) {
-        data = HibernateFactory.blobToByteArray(dataBlobIn);
+    public void setData(byte[] datain) {
+        this.data = datain;
     }
 
     /**
