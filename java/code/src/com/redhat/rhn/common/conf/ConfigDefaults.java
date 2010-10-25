@@ -156,6 +156,7 @@ public class ConfigDefaults {
 
     public static final String DB_BACKEND = "db_backend";
     public static final String DB_BACKEND_ORACLE = "oracle";
+    public static final String DB_BACKEND_POSTGRESQL = "postgresql";
     public static final String DB_USER = "db_user";
     public static final String DB_PASSWORD = "db_password";
     public static final String DB_NAME = "db_name";
@@ -546,5 +547,13 @@ public class ConfigDefaults {
      */
     public boolean isOracle() {
         return DB_BACKEND_ORACLE.equals(Config.get().getString(DB_BACKEND));
+    }
+
+    /**
+     * is the server configured to use oracle
+     * @return true if so
+     */
+    public boolean isPostgresql() {
+        return DB_BACKEND_POSTGRESQL.equals(Config.get().getString(DB_BACKEND));
     }
 }

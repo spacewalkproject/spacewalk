@@ -37,7 +37,6 @@ import java.util.Properties;
 
 /**
  * Taskomatic Kernel.
- * @version $Rev$
  */
 public class SchedulerKernel {
 
@@ -87,6 +86,25 @@ public class SchedulerKernel {
             dbUrl += dbName;
             props.setProperty(ds + ".URL", dbUrl);
         }
+        else if (ConfigDefaults.get().isPostgresql()) {
+            props.setProperty("org.quartz.jobStore.driverDelegateClass",
+                    "org.quartz.impl.jdbcjobstore.PostgreSQLDelegate");
+
+            String driver = Config.get().getString(ConfigDefaults.DB_CLASS,
+                    "org.postgresql.Driver");
+            props.setProperty(ds + ".driver", driver);
+
+            // the format is jdbc:postgresql://localhost:5432/dbname
+            String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
+            String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
+            String dbUrl = "jdbc:postgresql://" + dbHost + ":" + dbPort + "/" +
+                    dbName;
+            props.setProperty(ds + ".URL", dbUrl);
+        }
+        else {
+            throw new InstantiationException(
+                    "Unknown db backend set, expecting oracle or postgresql");
+        }
 
         try {
             SchedulerKernel.factory = new StdSchedulerFactory(props);
@@ -108,7 +126,6 @@ public class SchedulerKernel {
             xmlrpcServer.start();
         }
         catch (SchedulerException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new InstantiationException("this.scheduler failed");
         }
