@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.2.9
+Version: 1.2.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -281,6 +281,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Oct 25 2010 Jan Pazdziora 1.2.10-1
+- correct man page acording to reality (msuchy@redhat.com)
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.9-1
 - l10n: Updates to Panjabi (Punjabi) (pa) translation (jassy@fedoraproject.org)
 
