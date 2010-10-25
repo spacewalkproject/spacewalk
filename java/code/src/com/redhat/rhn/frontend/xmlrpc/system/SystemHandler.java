@@ -75,6 +75,7 @@ import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.ServerPath;
+import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -4683,4 +4684,72 @@ public class SystemHandler extends BaseHandler {
                             convertToFlex(serverIds, cf.getId(), user);
     }
 
+    /**
+     * Get the System Currency score multipliers
+     * @param sessionKey session
+     * @return the score multipliers used by the System Currency page
+     *
+     * @xmlrpc.doc Get the System Currency score multipliers
+     *  @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype Map of score multipliers
+     */
+    public Map getSystemCurrencyMultipliers(String sessionKey) {
+        Map multipliers = new HashMap();
+        multipliers.put("scCrit", ConfigDefaults.get().getSCCrit());
+        multipliers.put("scImp", ConfigDefaults.get().getSCImp());
+        multipliers.put("scMod", ConfigDefaults.get().getSCMod());
+        multipliers.put("scLow", ConfigDefaults.get().getSCLow());
+        multipliers.put("scBug", ConfigDefaults.get().getSCBug());
+        multipliers.put("scEnh", ConfigDefaults.get().getSCEnh());
+        return multipliers;
+    }
+
+    /**
+     * Get System Currency scores for all servers the user has access to
+     * @param sessionKey session
+     * @return List of user visible systems and a breakdown of the security,
+     * bug fix and enhancement errata counts plus a score based on the default
+     * system currency multipliers.
+     *
+     * @xmlrpc.doc Get the System Currency score multipliers
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("system currency")
+     *              #prop("int", "sid")
+     *              #prop("int", "critical security errata count")
+     *              #prop("int", "important security errata count")
+     *              #prop("int", "moderate security errata count")
+     *              #prop("int", "low security errata count")
+     *              #prop("int", "bug fix errata count")
+     *              #prop("int", "enhancement errata count")
+     *              #prop("int", "system currency score")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public List getSystemCurrencyScores(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        DataResult<SystemCurrency> dr = SystemManager.systemCurrencyList(user, null);
+        List l = new ArrayList();
+        for (Iterator it = dr.iterator(); it.hasNext();) {
+            Map m = new HashMap();
+            SystemCurrency s = (SystemCurrency) it.next();
+            m.put("sid", s.getId());
+            m.put("crit", s.getCritical());
+            m.put("imp", s.getImportant());
+            m.put("mod", s.getModerate());
+            m.put("low", s.getLow());
+            m.put("bug", s.getBug());
+            m.put("enh", s.getEnhancement());
+            m.put("score", s.getCritical()    * ConfigDefaults.get().getSCCrit() +
+                           s.getImportant()   * ConfigDefaults.get().getSCImp() +
+                           s.getModerate()    * ConfigDefaults.get().getSCMod() +
+                           s.getLow()         * ConfigDefaults.get().getSCLow() +
+                           s.getBug()         * ConfigDefaults.get().getSCBug() +
+                           s.getEnhancement() * ConfigDefaults.get().getSCEnh());
+            l.add(m);
+        }
+
+        return l;
+    }
 }
