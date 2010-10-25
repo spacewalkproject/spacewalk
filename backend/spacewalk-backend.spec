@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.36
+Version: 1.2.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -667,6 +667,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 25 2010 Jan Pazdziora 1.2.37-1
+- The psycopg2 seems to be handling unicode strings just fine.
+- packages_cursor() and _source_packages_cursor() are dead; removing
+  (michael.mraka@redhat.com)
+- errata_cursor() and _errata_cursor() are dead; removing
+  (michael.mraka@redhat.com)
+
 * Mon Oct 25 2010 Jan Pazdziora 1.2.36-1
 - Reset the System Currency multipliers to the original values
   (colin.coe@gmail.com)
