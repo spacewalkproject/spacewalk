@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.30
+Version: 5.9.31
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 25 2010 Jan Pazdziora 5.9.31-1
+- 645795 - making script actions (within rhncfg) work with RHEL 4 by using
+  popen2 if subprocess is not available (jsherril@redhat.com)
+
 * Fri Oct 22 2010 Jan Pazdziora 5.9.30-1
 - 628920 - Fixed an rhcfg-manager-diff  issue where files were not being
   properly checked (paji@redhat.com)
