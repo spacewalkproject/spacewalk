@@ -64,6 +64,12 @@ class Up2date(rhnHandler):
         self.functions.append('solveDependencies_arch')
         self.functions.append('solveDependencies_with_limits')
     
+    def auth_system(self, action, system_id):
+        # Stuff the action in the headers:
+        transport = rhnFlags.get('outputTransportOptions')
+        transport['X-RHN-Action'] = action
+        return rhnHandler.auth_system(self, system_id)
+
     def login(self, system_id, extra_data={}):
         """ Clients v2+
             Log in routine.
@@ -74,7 +80,7 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate. We need the user record
         # to generate the tokens
         self.load_user = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('login', system_id)
         # log the entry
         log_debug(1, self.server_id)
         # Update the capabilities list
@@ -125,7 +131,6 @@ class Up2date(rhnHandler):
         # Duplicate these values in the headers so that the proxy can
         # intercept and cache them without parseing the xmlrpc.
         transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'login'
         for k, v in loginDict.items():
             # Special case for channels
             if string.lower(k) == string.lower('X-RHN-Auth-Channels'):
@@ -144,11 +149,8 @@ class Up2date(rhnHandler):
     def listChannels(self, system_id):
         """ Clients v2+ """
         log_debug(5, system_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'listChannels'
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('listChannels', system_id)
         # log the entry
         log_debug(1, self.server_id)
         channelList = rhnChannel.channels_for_server(self.server_id)
@@ -158,11 +160,8 @@ class Up2date(rhnHandler):
     def subscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
         log_debug(5, system_id, channelNames, username, passwd)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'subscribeChannel'
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('subscribeChannel', system_id)
         # log the entry
         log_debug(1, self.server_id, channelNames)
         for channelName in channelNames:
@@ -174,11 +173,8 @@ class Up2date(rhnHandler):
     def unsubscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
         log_debug(3)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'unsubscribeChannel'
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('unsubscribeChannel', system_id)
         # log the entry
         log_debug(1, self.server_id, channelNames)
         for channelName in channelNames:
@@ -195,12 +191,9 @@ class Up2date(rhnHandler):
         """
         log_debug(5, system_id)
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('listall', system_id)
         # log the entry
         log_debug(1, self.server_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'listall'
         # and now call into rhnChannel to find the data
         return rhnChannel.list_packages_for_server(self.server_id)
 
@@ -213,12 +206,9 @@ class Up2date(rhnHandler):
         """
         log_debug(5, system_id)
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('listall_size', system_id)
         # log the entry
         log_debug(1, self.server_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'listall_size'
         # call into rhnChannel to find the data
         return rhnChannel.list_packages_for_server(self.server_id,
                                                    need_size = 1)
@@ -248,7 +238,7 @@ class Up2date(rhnHandler):
         for p in pkgList:
             req_list.append(check_package_spec(p))
         # Authenticate the system certificate
-        server = self.auth_system(system_id)
+        server = self.auth_system('header', system_id)
         # log the entry
         log_debug(1, self.server_id, "items: %d" % len(req_list))
 
@@ -268,10 +258,6 @@ class Up2date(rhnHandler):
                         _("Unable to retrieve package header %s") % str(pkg))
             rpmHeaders.append(rpclib.xmlrpclib.Binary(h.unload()))
             del h
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'header'
 
         # Reset the flag for the proxy download accelerator
         # This gets set by default in rhnPackage
@@ -294,17 +280,13 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate and set the QoS data
         # according to the user type
         self.set_qos = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('package', system_id)
 
         # log the entry (avoiding to fill the log in case of abuse)
         log_debug(1, self.server_id, str(package)[:100])
 
         filePath = rhnPackage.get_package_path_compat_arches(self.server_id,
             package, server.archname)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = "package"
         return rpclib.File(open(filePath, "r"), name=filePath)
 
 
@@ -320,17 +302,13 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate and set the QoS data
         # according to the user type
         self.set_qos = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('source_package', system_id)
 
         # log the entry (avoiding to fill the log in case of abuse)
         log_debug(1, self.server_id, str(package)[:100])
 
         filePath = rhnPackage.get_source_package_path_by_nvre(self.server_id,
             package)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = "source_package"
         return rpclib.File(open(filePath, "r"), name=filePath)
 
 
@@ -344,17 +322,13 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate and set the QoS data
         # according to the user type
         self.set_qos = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('source_package_by_name', system_id)
 
         # log the entry (avoiding to fill the log in case of abuse)
         log_debug(1, self.server_id, str(filename)[:100])
 
         filePath = rhnPackage.get_source_package_path_by_name(self.server_id,
             filename)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = "source_package_by_name"
         return rpclib.File(open(filePath, "r"), name=filePath)
 
 
@@ -411,12 +385,9 @@ class Up2date(rhnHandler):
         """
         log_debug(5, system_id, summary, body)
         # Authenticate the system certificate
-        server = self.auth_system(system_id)
+        server = self.auth_system('history', system_id)
         # log the entry
         log_debug(1, self.server_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'history'
         # XXX: Probably this should be a non fatal error...
         server.add_history(summary, body)
         server.save_history()
@@ -445,11 +416,8 @@ class Up2date(rhnHandler):
         if not deps:
             return []
         # Authenticate the system certificate
-        server = self.auth_system(system_id)
+        server = self.auth_system(action, system_id)
         log_debug(1, self.server_id, action, "items: %d" % len(deps))
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = action
         return deps
 
     def __solveDep(self, system_id, deps, action, clientVersion):
