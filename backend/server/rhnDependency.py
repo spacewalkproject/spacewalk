@@ -468,20 +468,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
                 list_of_tuples.append(newtuple)
 
         if all == 0:
-            # attempt to avoid giving out the compat-* packages if there are other candidates
-            if len(dict) > 1:
-                matches = dict.keys()
-        
-                # check we have at least one non- "compat-*" package name
-                compats = filter(lambda a: a[:7] == "compat-", matches)
-        
-                if len(compats) > 0 and len(compats) < len(matches): # compats and other things
-                    for p in compats: # delete all references to a compat package for this dependency
-                        del dict[p]
-                # otherwise there's nothing much we can do (no compats or only compats)
-        
-            # and now return these final results ordered by preferece
-            list_of_tuples = dict.values()
+            packages[dep] = _avoid_compat_packages(dict)
         else:
             #filter out compats
             if len(list_of_tuples) > 1:
@@ -493,8 +480,8 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
                         tup_keep.append(tup)
                 list_of_tuples = tup_keep
 
-        list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
-        packages[dep] = map(lambda x: x[0], list_of_tuples)
+            list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
+            packages[dep] = map(lambda x: x[0], list_of_tuples)
         
     # v2 clients are done
     if version > 1:
@@ -590,22 +577,7 @@ def solve_dependencies_arch(server_id, deps, version):
             # The first time we see this package.
             dict[name_key] = (entry, p['preference'])
 
-        # attempt to avoid giving out the compat-* packages if there are other candidates
-        if len(dict) > 1:
-            matches = dict.keys()
-        
-            # check we have at least one non- "compat-*" package name
-            compats = filter(lambda a: a[:7] == "compat-", matches)
-        
-            if len(compats) > 0 and len(compats) < len(matches): # compats and other things
-                for p in compats: # delete all references to a compat package for this dependency
-                    del dict[p]
-            # otherwise there's nothing much we can do (no compats or only compats)
-        
-        # and now return these final results ordered by preferece
-        list_of_tuples = dict.values()
-        list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
-        packages[dep] = map(lambda x: x[0], list_of_tuples)
+        packages[dep] = _avoid_compat_packages(dict)
         
     # v2 clients are done
     if version > 1:
@@ -663,19 +635,8 @@ def solve_dependencies(server_id, deps, version):
                 continue
             # The first time we see this package.
             dict[entry[0]] = (entry, p['preference'])
-        # attempt to avoid giving out the compat-* packages if there are other candidates
-        if len(dict) > 1:
-            matches = dict.keys()
-            # check we have at least one non- "compat-*" package name
-            compats = filter(lambda a: a[:7] == "compat-", matches)
-            if len(compats) > 0 and len(compats) < len(matches): # compats and other things
-                for p in compats: # delete all references to a compat package for this dependency
-                    del dict[p]
-            # otherwise there's nothing much we can do (no compats or only compats)
-        # and now return these final results ordered by preferece
-        l = dict.values()
-        l.sort(lambda a, b: cmp(a[1], b[1]))
-        packages[dep] = map(lambda x: x[0], l)
+
+        packages[dep] = _avoid_compat_packages(dict)
 
     # v2 clients are done
     if version > 1:
@@ -683,6 +644,22 @@ def solve_dependencies(server_id, deps, version):
     else:
         return _v2packages_to_v1list(packages, deplist)
 
+def _avoid_compat_packages(dict):
+    """ attempt to avoid giving out the compat-* packages
+        if there are other candidates
+    """
+    if len(dict) > 1:
+        matches = dict.keys()
+        # check we have at least one non- "compat-*" package name
+        compats = filter(lambda a: a[:7] == "compat-", matches)
+        if len(compats) > 0 and len(compats) < len(matches): # compats and other things
+            for p in compats: # delete all references to a compat package for this dependency
+                del dict[p]
+        # otherwise there's nothing much we can do (no compats or only compats)
+    # and now return these final results ordered by preferece
+    l = dict.values()
+    l.sort(lambda a, b: cmp(a[1], b[1]))
+    return map(lambda x: x[0], l)
 
 def cmp_evr(pkg1, pkg2):
     """ Intended to be passed to a list object's sort().
