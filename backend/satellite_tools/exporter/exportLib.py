@@ -1578,33 +1578,6 @@ def _source_packages_cursor(package_id):
     return h
 
 
-def _errata_cursor(errata_id, synopsis):
-    _query_errata_info = """
-        select 
-            e.id,
-            e.advisory_name,
-            e.advisory,
-            e.advisory_type,
-            e.advisory_rel,
-            e.product,
-            e.description,
-            %s
-            e.topic,
-            e.solution,
-            TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
-            TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
-            e.refers_to,
-            e.notes
-        from rhnErrata e
-        where e.id = :errata_id
-    """
-    h = rhnSQL.prepare(_query_errata_info % synopsis)
-    h.execute(errata_id=errata_id)
-    return h
-
-def errata_cursor(errata_id):
-    return _errata_cursor(errata_id, "e.synopsis,")
-
 class ChannelProductsDumper(BaseDumper):
     
     def set_iterator(self):
