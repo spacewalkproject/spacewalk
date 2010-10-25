@@ -1,0 +1,103 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "Spacewalk Server" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>update-packages</RefEntryTitle><manvolnum>8</manvolnum>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>update-packages</command></RefName>
+<RefPurpose>
+Migration script for nvrea issue to migrate already existing paths and include the package gpg key id for different providers.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>update-packages</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+Running this script is necessary if you are upgrading from RHN Satellite 5.2.
+If you're upgrading from RHN Satellite 5.3, this step can be safely skipped.
+</para>
+<para>
+Run update-packages script as root:
+<code>
+  /usr/bin/update-packages --db=$(spacewalk-cfg-get default_db) \
+        --update-filer \
+        --update-kstrees \
+        --debug
+</code>
+</para>
+<para>
+The --debug option will direct the script to log all actions into /var/log/rhn/update-packages.log
+</para>
+<para>
+* Time estimate: the time required for whole conversion depends on the current
+size of your filer and the speed of your hardware. Assume 60 - 120 GB / hour.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--help</term>
+        <listitem>
+            <para>Display usage and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v, --verbose</term>
+        <listitem>
+            <para>Increase verbosity.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d DB, --db=DB</term>
+        <listitem>
+            <para>DB string to connect to.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--debug</term>
+        <listitem>
+            <para>Logs the debug information to a log file /var/log/rhn/update-packages.log</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--update-sha256</term>
+        <listitem>
+            <para>Update SHA-256 capable packages.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--update-filer</term>
+        <listitem>
+            <para>Convert filer structure.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--update-kstrees</term>
+        <listitem>
+            <para>Fix kickstart trees permissions.</para>
+        </listitem>
+    </varlistentry>
+ 
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Pradeep Kilambi <email>pkilambi@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
