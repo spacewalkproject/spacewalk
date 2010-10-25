@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.72
+Version: 1.2.73
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 25 2010 Lukas Zapletal 1.2.73-1
+- Fixing Taskomatic blob handling (now binary)
+- Support for PostgreSQL driver in Taskomatic
+- Implement API calls for System Currency
+
 * Mon Oct 25 2010 Lukas Zapletal 1.2.72-1
 - Addressing subquery in FROM must have an alias issue (fix)
 - Sorting fix in packages for PostgreSQL
