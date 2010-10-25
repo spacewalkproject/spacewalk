@@ -645,16 +645,10 @@ class _ChannelFamilyDumper(BaseRowDumper):
         return attributes
 
 ##
-class PackagesDumper(BaseSubelementDumper):
+class PackagesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-packages'
     subelement_dumper_class = _PackageDumper
-
-    def set_iterator(self):
-        if self._iterator:
-            return self._iterator
-
-        # Sample query only
-        h = rhnSQL.prepare("""
+    iterator_query = """
             select 
                 p.id,
                 p.org_id, 
@@ -694,10 +688,10 @@ class PackagesDumper(BaseSubelementDumper):
             and p.path is not null
             and p.checksum_id = c.id
             and rownum < 3
-        """)
-        h.execute()
-        return h
+        """
 
+    def set_iterator(self):
+        return BaseQueryDumper.set_iterator(self)
 
 class _PackageDumper(BaseRowDumper):
     tag_name = 'rhn-package'
@@ -793,16 +787,10 @@ class _PackageDumper(BaseRowDumper):
         return ArrayIterator(arr)
 
 ##
-class ShortPackagesDumper(BaseSubelementDumper):
+class ShortPackagesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-packages-short'
     subelement_dumper_class = ShortPackageEntryDumper
-
-    def set_iterator(self):
-        if self._iterator:
-            return self._iterator
-
-        # Sample query only
-        h = rhnSQL.prepare("""
+    iterator_query = """
             select 
                 p.id, 
                 pn.name, 
@@ -822,9 +810,10 @@ class ShortPackagesDumper(BaseSubelementDumper):
             and p.path is not null
             and p.checksum_id = c.id
             and rownum < 3
-        """)
-        h.execute()
-        return h
+        """
+
+    def set_iterator(self):
+        return BaseQueryDumper.set_iterator(self)
 
 class ShortPackageEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-package-short'
@@ -1394,12 +1383,10 @@ class BlacklistObsoletesDumper(BaseQueryDumper):
         EmptyDumper(self._writer, 'rhn-blacklist-obsolete', data).dump()
 
 
-class KickstartableTreesDumper(BaseSubelementDumper):
+class KickstartableTreesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-kickstartable-trees'
     subelement_dumper_class = _KickstartableTreeDumper
-
-    def set_iterator(self):
-        h = rhnSQL.prepare("""
+    iterator_query = """
             select kt.id, 
                    c.label channel, 
                    kt.base_path "base-path", 
@@ -1418,9 +1405,9 @@ class KickstartableTreesDumper(BaseSubelementDumper):
                and ktt.id = kt.kstree_type
                and kit.id = kt.install_type
                and kt.org_id is NULL
-        """)
-        h.execute()
-        return h
+        """
+    def set_iterator(self):
+        return BaseQueryDumper.set_iterator(self)
 
 class _KickstartableTreeDumper(BaseRowDumper):
     tag_name = 'rhn-kickstartable-tree'
