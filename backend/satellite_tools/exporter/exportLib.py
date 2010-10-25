@@ -181,8 +181,9 @@ class SatelliteDumper(BaseDumper):
     def set_iterator(self):
         return ArrayIterator(self._dumpers)
 
-class ChannelsDumper(BaseDumper):
+class ChannelsDumper(BaseSubelementDumper):
     tag_name = 'rhn-channels'
+    subelement_dumper_class = _ChannelDumper
     
     def __init__(self, writer, channels=[]):
         BaseDumper.__init__(self, writer)
@@ -194,10 +195,6 @@ class ChannelsDumper(BaseDumper):
             return
 
         raise NotImplementedError, "To be overridden in a child class"
-
-    def dump_subelement(self, data):
-       c = _ChannelDumper(self._writer, data)
-       c.dump()
 
 
 class _ChannelDumper(BaseRowDumper):
@@ -638,8 +635,9 @@ class _ChannelFamilyDumper(BaseRowDumper):
         return attributes
 
 ##
-class PackagesDumper(BaseDumper):
+class PackagesDumper(BaseSubelementDumper):
     tag_name = 'rhn-packages'
+    subelement_dumper_class = _PackageDumper
 
     def set_iterator(self):
         if self._iterator:
@@ -689,10 +687,6 @@ class PackagesDumper(BaseDumper):
         """)
         h.execute()
         return h
-
-    def dump_subelement(self, data):
-        p = _PackageDumper(self._writer, data) 
-        p.dump()
 
 
 class _PackageDumper(BaseRowDumper):
@@ -789,8 +783,9 @@ class _PackageDumper(BaseRowDumper):
         return ArrayIterator(arr)
 
 ##
-class ShortPackagesDumper(BaseDumper):
+class ShortPackagesDumper(BaseSubelementDumper):
     tag_name = 'rhn-packages-short'
+    subelement_dumper_class = ShortPackageEntryDumper
 
     def set_iterator(self):
         if self._iterator:
@@ -820,10 +815,6 @@ class ShortPackagesDumper(BaseDumper):
         """)
         h.execute()
         return h
-
-    def dump_subelement(self, data):
-        d = ShortPackageEntryDumper(self._writer, data)
-        d.dump()
 
 class ShortPackageEntryDumper(BaseRowDumper):
     tag_name = 'rhn-package-short'
@@ -974,17 +965,14 @@ class _PackageFilesDumper(BaseDumper):
         d.dump()
 
 ## Errata
-class ErrataDumper(BaseDumper):
+class ErrataDumper(BaseSubelementDumper):
     tag_name = 'rhn-errata'
+    subelement_dumper_class = _ErratumDumper
 
     def set_iterator(self):
         if self._iterator:
             return self._iterator
         raise NotImplementedError, "To be overridden in a child class"
-
-    def dump_subelement(self, data):
-        d = _ErratumDumper(self._writer, data) 
-        d.dump()
 
 class _ErratumDumper(BaseRowDumper):
     tag_name = 'rhn-erratum'
@@ -1424,8 +1412,9 @@ class BlacklistObsoletesDumper(BaseDumper):
         EmptyDumper(self._writer, 'rhn-blacklist-obsolete', data).dump()
 
 
-class KickstartableTreesDumper(BaseDumper):
+class KickstartableTreesDumper(BaseSubelementDumper):
     tag_name = 'rhn-kickstartable-trees'
+    subelement_dumper_class = _KickstartableTreeDumper
 
     def set_iterator(self):
         h = rhnSQL.prepare("""
@@ -1450,10 +1439,6 @@ class KickstartableTreesDumper(BaseDumper):
         """)
         h.execute()
         return h
-
-    def dump_subelement(self, data):
-        d = _KickstartableTreeDumper(self._writer, data)
-        return d.dump()
 
 class _KickstartableTreeDumper(BaseRowDumper):
     tag_name = 'rhn-kickstartable-tree'
