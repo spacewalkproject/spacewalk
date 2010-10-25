@@ -109,6 +109,8 @@ def process_package_data():
         pb.printIncrement()
         path =  pkg['path']
 
+        if path is None:
+                continue
         full_path = os.path.join(CFG.MOUNT_POINT, path)
         checksum_type = pkg['checksum_type']
         checksum = pkg['checksum']
