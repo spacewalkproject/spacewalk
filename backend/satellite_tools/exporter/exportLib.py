@@ -132,6 +132,12 @@ class BaseRowDumper(BaseDumper):
         BaseDumper.__init__(self, writer)
         self._row = row
 
+class BaseSubelementDumper(BaseDumper):
+    subelement_dumper_class = None
+    def dump_subelement(self, data):
+        d = self.subelement_dumper_class(self._writer, data)
+        d.dump()
+
 ####
 
 class ExportTypeDumper(BaseDumper):
@@ -486,13 +492,11 @@ class ChannelDumper(_ChannelDumper):
 #            'is-default'  : self._row['is_default'],
 #        }
 
-class ChannelSourcePackagesDumper(BaseDumper):
+class ChannelSourcePackagesDumper(BaseSubelementDumper):
     # Dumps the erratum id and the last modified for an erratum in this
     # channel
     tag_name = 'source-packages'
-    def dump_subelement(self, data):
-        d = _ChannelSourcePackageDumper(self._writer, data)
-        d.dump()
+    subelement_dumper_class = _ChannelSourcePackageDumper
 
 class _ChannelSourcePackageDumper(BaseRowDumper):
     tag_name = 'source-package'
@@ -503,13 +507,11 @@ class _ChannelSourcePackageDumper(BaseRowDumper):
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
 
-class ChannelErrataDumper(BaseDumper):
+class ChannelErrataDumper(BaseSubelementDumper):
     # Dumps the erratum id and the last modified for an erratum in this
     # channel
     tag_name = 'rhn-channel-errata'
-    def dump_subelement(self, data):
-        d = _ChannelErratumDumper(self._writer, data)
-        d.dump()
+    subelement_dumper_class = _ChannelErratumDumper
 
 class _ChannelErratumDumper(BaseRowDumper):
     tag_name = 'erratum'
@@ -520,12 +522,9 @@ class _ChannelErratumDumper(BaseRowDumper):
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
 
-class DistsDumper(BaseDumper):
+class DistsDumper(BaseSubelementDumper):
     tag_name = 'rhn-dists'
-
-    def dump_subelement(self, data):
-        d = _DistDumper(self._writer, data)
-        d.dump()
+    subelement_dumper_class = _DistDumper
 
 class _DistDumper(BaseRowDumper):
     tag_name = 'rhn-dist'
@@ -920,12 +919,9 @@ class _ChecksumDumper(BaseDumper):
         c.dump()
 
 ##
-class _ChangelogDumper(BaseDumper):
+class _ChangelogDumper(BaseSubelementDumper):
     tag_name = 'rhn-package-changelog'
-    
-    def dump_subelement(self, data):
-        c = _ChangelogEntryDumper(self._writer, data) 
-        c.dump()
+    subelement_dumper_class = _ChangelogEntryDumper
 
 class _ChangelogEntryDumper(BaseRowDumper):
     tag_name = 'rhn-package-changelog-entry'
@@ -1096,12 +1092,9 @@ class _ErratumKeywordDumper(BaseDumper):
         d = SimpleDumper(self._writer, 'rhn-erratum-keyword', data['keyword'])
         d.dump()
 
-class _ErratumBuglistDumper(BaseDumper):
+class _ErratumBuglistDumper(BaseSubelementDumper):
     tag_name = 'rhn-erratum-bugs'
-
-    def dump_subelement(self, data):
-        d = _ErratumBugDumper(self._writer, data)
-        d.dump()
+    subelement_dumper_class = _ErratumBugDumper
 
 class _ErratumBugDumper(BaseRowDumper):
     tag_name = 'rhn-erratum-bug'
@@ -1114,12 +1107,9 @@ class _ErratumBugDumper(BaseRowDumper):
         ]
         return ArrayIterator(arr)
 
-class _ErratumFilesDumper(BaseDumper):
+class _ErratumFilesDumper(BaseSubelementDumper):
     tag_name = 'rhn-erratum-files'
-
-    def dump_subelement(self, data):
-        d = _ErratumFileEntryDumper(self._writer, data)
-        d.dump()
+    subelement_dumper_class = _ErratumFileEntryDumper
 
 class _ErratumFileEntryDumper(BaseRowDumper):
     tag_name = 'rhn-erratum-file'
@@ -1492,12 +1482,9 @@ class _KickstartableTreeDumper(BaseRowDumper):
         h.execute(kstree_id=kstree_id)
         return ArrayIterator([_KickstartFilesDumper(self._writer, h)])
 
-class _KickstartFilesDumper(BaseDumper):
+class _KickstartFilesDumper(BaseSubelementDumper):
     tag_name = 'rhn-kickstart-files'
-
-    def dump_subelement(self, data):
-        d = _KickstartFileEntryDumper(self._writer, data)
-        d.dump()
+    subelement_dumper_class = _KickstartFileEntryDumper
 
 class _KickstartFileEntryDumper(BaseRowDumper):
     tag_name = 'rhn-kickstart-file'
