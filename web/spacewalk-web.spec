@@ -13,7 +13,7 @@ BuildRequires: perl(ExtUtils::MakeMaker)
 %description
 This package contains the code for the Spacewalk Web Site.
 Normally this source rpm does not generate a %{name} binary package,
-but it does generate a number of subpackages
+but it does generate a number of sub-packages
 
 %package -n spacewalk-html
 Summary: HTML document files for Spacewalk
