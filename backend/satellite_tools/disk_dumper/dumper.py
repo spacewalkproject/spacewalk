@@ -651,7 +651,9 @@ class CachedDumper(exportLib.BaseDumper):
         return params['last_modified']
 
     def _get_key(self, params):
-        raise NotImplementedError
+        item_id = str(params[self.item_id_key])
+        hash_val = rhnLib.hash_object_id(item_id, self.hash_factor)
+        return self.key_template % (hash_val, item_id)
 
     def cache_get(self, params):
         log_debug(4, params)
@@ -780,12 +782,9 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
             and p.checksum_id = c.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
-
-    def _get_key(self, params):
-        package_id = str(params['package_id'])
-        hash_val = rhnLib.hash_object_id(package_id, 2)
-        return "xml-short-packages/%s/rhn-package-short-%s.xml" % (
-            hash_val, package_id)
+        self.item_id_key = 'package_id'
+        self.hash_factor = 2
+        self.key_template = 'xml-short-packages/%s/rhn-package-short-%s.xml'
 
 class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
     def __init__(self, writer, packages):
@@ -830,11 +829,9 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
             and p.checksum_id = c.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
-
-    def _get_key(self, params):
-        package_id = str(params['package_id'])
-        hash_val = rhnLib.hash_object_id(package_id, 2)
-        return "xml-packages/%s/rhn-package-%s.xml" % (hash_val, package_id)
+        self.item_id_key = 'package_id'
+        self.hash_factor = 2
+        self.key_template = 'xml-packages/%s/rhn-package-%s.xml'
 
 class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
     def __init__(self, writer, packages):
@@ -864,11 +861,9 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
             and ps.sigchecksum_id = sig.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
-
-    def _get_key(self, params):
-        package_id = str(params['package_id'])
-        hash_val = rhnLib.hash_object_id(package_id, 2)
-        return "xml-packages/%s/rhn-source-package-%s.xml" % (hash_val, package_id)
+        self.item_id_key = 'package_id'
+        self.hash_factor = 2
+        self.key_template = 'xml-packages/%s/rhn-source-package-%s.xml'
 
 class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
     def __init__(self, writer, errata):
@@ -894,11 +889,9 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
             where e.id = :errata_id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=errata)
-
-    def _get_key(self, params):
-        errata_id = str(params['errata_id'])
-        hash_val = rhnLib.hash_object_id(errata_id, 1)
-        return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
+        self.item_id_key = 'errata_id'
+        self.hash_factor = 1
+        self.key_template = 'xml-errata/%s/rhn-erratum-%s.xml'
 
 class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper):
     _query_lookup_ks_tree = rhnSQL.Statement("""
