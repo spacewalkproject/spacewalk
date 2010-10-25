@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.53
+Version:        1.2.54
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Oct 25 2010 Lukas Zapletal 1.2.54-1
+- Taskomatic data being inserted in PostgreSQL schema now
+- Default cast fix for PostgreSQL
+
 * Mon Oct 25 2010 Jan Pazdziora 1.2.53-1
 - Fix dependencies for rhnUserReceiveNotifications.
 
