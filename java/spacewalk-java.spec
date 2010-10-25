@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.70
+Version: 1.2.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 25 2010 Jan Pazdziora 1.2.71-1
+- 639999 - adding %end tags to generated kickstart files if os is fedora or
+  RHEL 6 (jsherril@redhat.com)
+
 * Thu Oct 21 2010 Jan Pazdziora 1.2.70-1
 - Fix checkstyle errors (colin.coe@gmail.com)
 
