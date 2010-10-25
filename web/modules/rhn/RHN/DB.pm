@@ -186,6 +186,7 @@ sub connect {
 							AutoCommit => 0,
 							private_rhndb_transaction_level => 0,
 							FetchHashKeyName => 'NAME_uc',
+							pg_enable_utf8 => 1,
 						      });
 
   # this dbh is from a cache, which means disconnects fail
