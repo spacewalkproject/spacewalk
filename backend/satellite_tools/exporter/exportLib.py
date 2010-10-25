@@ -140,6 +140,14 @@ class BaseChecksumRowDumper(BaseRowDumper):
         arr = [_ChecksumDumper(self._writer, data_iterator=ArrayIterator(checksum_arr))]
         return ArrayIterator(arr)
 
+class BaseQueryDumper(BaseDumper):
+    iterator_query = None
+    def set_iterator(self):
+        if self._iterator:
+            return self._iterator
+        h = rhnSQL.prepare(self.iterator_query)
+        h.execute
+        return h
 
 class BaseSubelementDumper(BaseDumper):
     subelement_dumper_class = None
@@ -542,8 +550,9 @@ class _DistDumper(BaseRowDumper):
             'channel-arch'  : self._row['channel_arch'],
         }
 
-class ChannelFamiliesDumper(BaseDumper):
+class ChannelFamiliesDumper(BaseQueryDumper):
     tag_name = 'rhn-channel-families'
+    iterator_query = 'select cf.* from rhnChannelFamily'
 
     def __init__(self, writer, data_iterator=None, ignore_subelements=0, 
             null_max_members=1, virt_filter=0):
@@ -551,14 +560,6 @@ class ChannelFamiliesDumper(BaseDumper):
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
         self.virt_filter = virt_filter
-
-    def set_iterator(self):
-        if self._iterator:
-            return self._iterator
-
-        h = rhnSQL.prepare('select cf.* from rhnChannelFamily')
-        h.execute()
-        return h
 
     def dump_subelement(self, data):
         cf = _ChannelFamilyDumper(self._writer, data, 
@@ -846,15 +847,9 @@ class ShortPackageEntryDumper(BaseChecksumRowDumper):
         return attr
 
 ##
-class SourcePackagesDumper(BaseDumper):
+class SourcePackagesDumper(BaseQueryDumper):
     tag_name = 'rhn-source-packages'
-
-    def set_iterator(self):
-        if self._iterator:
-            return self._iterator
-
-        # Sample query only
-        h = rhnSQL.prepare("""
+    iterator_query = """
             select 
                 ps.id, 
                 sr.name source_rpm, 
@@ -879,9 +874,7 @@ class SourcePackagesDumper(BaseDumper):
             and ps.checksum_id = c.id
             and ps.sigchecksum_id = sig.id
             and rownum < 3
-        """)
-        h.execute()
-        return h
+        """
 
     def dump_subelement(self, data):
         attributes = {}
@@ -1381,11 +1374,9 @@ class ServerGroupTypeServerArchCompatDumper(RestrictedArchCompatDumper):
            %s
     """
 
-class BlacklistObsoletesDumper(BaseDumper):
+class BlacklistObsoletesDumper(BaseQueryDumper):
     tag_name = 'rhn-blacklist-obsoletes'
-
-    def set_iterator(self):
-        h = rhnSQL.prepare("""
+    iterator_query = """
             select pn1.name, pe.epoch, pe.version, pe.release, 
                 pa.name "package-arch", pn2.name "ignored-name"
             from rhnBlacklistObsoletes bo, 
@@ -1395,9 +1386,7 @@ class BlacklistObsoletesDumper(BaseDumper):
                 and bo.evr_id = pe.id
                 and bo.package_arch_id = pa.id
                 and bo.ignore_name_id = pn2.id
-        """)
-        h.execute()
-        return h
+        """
 
     def dump_subelement(self, data):
         if data['epoch'] is None:
@@ -1483,13 +1472,7 @@ def _dbtime2timestamp(val):
 
 class ProductNamesDumper(BaseDumper):
     tag_name = "rhn-product-names"
-
-    def set_iterator(self):
-        query = rhnSQL.prepare("""
-            select label, name from rhnProductName
-        """)
-        query.execute()
-        return query
+    iterator_query = 'select label, name from rhnProductName'
 
     def dump_subelement(self, data):
         EmptyDumper(self._writer, 'rhn-product-name', data).dump()
