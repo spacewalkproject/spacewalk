@@ -375,7 +375,7 @@ class _ChannelDumper(BaseRowDumper):
                              self._query__get_errata_ids)
 
     _query_get_kickstartable_trees = rhnSQL.Statement("""
-        select kt.label
+        select kt.label as id
           from rhnKickstartableTree kt
          where kt.channel_id = :channel_id
            and kt.org_id is null
@@ -390,16 +390,8 @@ class _ChannelDumper(BaseRowDumper):
     """ % _query_get_kickstartable_trees)
 
     def _get_kickstartable_trees(self):
-        query_args = {'channel_id': self._row['id']}
-        if self.start_date:
-            query = self._query_get_kickstartable_trees_by_limits
-            query_args.update({'lower_limit': self.start_date,
-                               'upper_limit': self.end_date})
-        else:
-            query = self._query_get_kickstartable_trees
-        h = rhnSQL.prepare(query)
-        h.execute(**query_args)
-        ks_trees = map(lambda x: x['label'], h.fetchall_dict() or [])
+        ks_trees = self._get_ids(self._query_get_kickstartable_trees_by_limits,
+                                 self._query_get_kickstartable_trees)
         ks_trees.sort()
         return ks_trees
 
