@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.16
+Version: 1.2.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 25 2010 Jan Pazdziora 1.2.17-1
+- To get UTF-8 strings in character semantics from DBD::Pg automatically, we
+  have to enable it.
+- Error in packages dependencies and obsoletes (PXT) (lzap+git@redhat.com)
+- Sorting fix in packages for PostgreSQL (lzap+git@redhat.com)
+- Reverting "Removed unnecessary ORDER BY" commits and fixing
+  (lzap+git@redhat.com)
+
 * Thu Oct 21 2010 Lukas Zapletal 1.2.16-1
 - Sorting fix in packages for PostgreSQL 
 - Fix of evr_t_as_vre_simple PostgreSQL function 
