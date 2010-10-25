@@ -132,6 +132,15 @@ class BaseRowDumper(BaseDumper):
         BaseDumper.__init__(self, writer)
         self._row = row
 
+class BaseChecksumRowDumper(BaseRowDumper):
+    def set_iterator(self):
+        # checksums
+        checksum_arr = [{'type':  self._row['checksum_type'],
+                         'value': self._row['checksum']}]
+        arr = [_ChecksumDumper(self._writer, data_iterator=ArrayIterator(checksum_arr))]
+        return ArrayIterator(arr)
+
+
 class BaseSubelementDumper(BaseDumper):
     subelement_dumper_class = None
     def dump_subelement(self, data):
@@ -816,7 +825,7 @@ class ShortPackagesDumper(BaseSubelementDumper):
         h.execute()
         return h
 
-class ShortPackageEntryDumper(BaseRowDumper):
+class ShortPackageEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-package-short'
 
     def set_attributes(self):
@@ -835,14 +844,6 @@ class ShortPackageEntryDumper(BaseRowDumper):
             # compatibility with older satellite
             attr['md5sum'] = self._row['checksum']
         return attr
-
-    def set_iterator(self):
-        # checksums
-        checksum_arr = [{'type':  self._row['checksum_type'],
-                         'value': self._row['checksum']}]
-        arr = [_ChecksumDumper(self._writer,
-                              data_iterator=ArrayIterator(checksum_arr))]
-        return ArrayIterator(arr)
 
 ##
 class SourcePackagesDumper(BaseDumper):
@@ -1099,7 +1100,7 @@ class _ErratumFilesDumper(BaseSubelementDumper):
     tag_name = 'rhn-erratum-files'
     subelement_dumper_class = _ErratumFileEntryDumper
 
-class _ErratumFileEntryDumper(BaseRowDumper):
+class _ErratumFileEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-erratum-file'
 
     def set_attributes(self):
@@ -1134,14 +1135,6 @@ class _ErratumFileEntryDumper(BaseRowDumper):
             if package_id is not None:
                 attributes['source-package'] = 'rhn-package-source-%s' % package_id
         return attributes
-
-    def set_iterator(self):
-        # checksums
-        checksum_arr = [{'type':  self._row['checksum_type'],
-                         'value': self._row['checksum']}]
-        arr = [_ChecksumDumper(self._writer,
-                         data_iterator=ArrayIterator(checksum_arr))]
-        return ArrayIterator(arr)
 
 # Arches
 class BaseArchesDumper(BaseDumper):
@@ -1471,7 +1464,7 @@ class _KickstartFilesDumper(BaseSubelementDumper):
     tag_name = 'rhn-kickstart-files'
     subelement_dumper_class = _KickstartFileEntryDumper
 
-class _KickstartFileEntryDumper(BaseRowDumper):
+class _KickstartFileEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-kickstart-file'
 
     def set_attributes(self):
@@ -1483,14 +1476,6 @@ class _KickstartFileEntryDumper(BaseRowDumper):
         if self._row['checksum_type'] == 'md5':
             attr['md5sum'] = self._row['checksum']
         return attr
-
-    def set_iterator(self):
-        # checksums
-        checksum_arr = [{'type':  self._row['checksum_type'],
-                         'value': self._row['checksum']}]
-        arr = [_ChecksumDumper(self._writer,
-                              data_iterator=ArrayIterator(checksum_arr))]
-        return ArrayIterator(arr)
 
 def _dbtime2timestamp(val):
     return int(rhnLib.timestamp(val))
