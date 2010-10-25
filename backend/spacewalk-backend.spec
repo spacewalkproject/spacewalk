@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.37
+Version: 1.2.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -670,6 +670,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.38-1
+- 623966 - add man page for rhn-entitlement-report
+- 623964 - add man page for update-packages
+- 623967 - write man page for spacewalk-update-signatures
+- if package is not on disk do not throw TB
+
 * Mon Oct 25 2010 Jan Pazdziora 1.2.37-1
 - The psycopg2 seems to be handling unicode strings just fine.
 - packages_cursor() and _source_packages_cursor() are dead; removing
