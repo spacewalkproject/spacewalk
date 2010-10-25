@@ -74,18 +74,9 @@ class Function(sql_base.Procedure):
             i += 1
         query = "SELECT %s(%s)" % (self.name, positional_args)
 
-        # Ugh, unicode strings coming in here, PostgreSQL doesn't like
-        # getting them as such:
-        new_args = []
-        for arg in args:
-            if type(arg) == type(u""):
-                new_args.append(str(arg))
-            else:
-                new_args.append(arg)
-
         # for now return just result (ret_type is ignored)
-        log_debug(2, query, new_args)
-        return self.cursor.execute(query, new_args)
+        log_debug(2, query, args)
+        return self.cursor.execute(query, args)
 
 
 class Procedure(Function):
@@ -235,12 +226,7 @@ class Cursor(sql_base.Cursor):
         return cursor
 
     def _execute_wrapper(self, function, *p, **kw):
-        # PostgreSQL really doesn't like getting unicode strings:
-        for key, value in kw.items():
-            if type(value) == type(u""):
-                kw[key] = str(value)
-
-        params =  ','.join(["%s: %s" % (str(key), str(value)) for key, value \
+        params =  ','.join(["%s: %s" % (key, value) for key, value \
                 in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                 % (self.sql, params))
