@@ -882,14 +882,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # Compute the unique packages and populate self._channel_packages
         self._compute_unique_packages()
 
-        h = sync_handlers.get_short_package_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.ShortPackageDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getChannelShortPackagesXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_short_package_handler(),
+		self.mountpoint,
+                xmlDiskSource.ShortPackageDiskSource,
+                self.xmlWireServer.getChannelShortPackagesXmlStream)
 
         # OK, now uq_channel_packages only has the unique packages
         for channel_label, package_ids in self._channel_packages.items():
@@ -903,7 +900,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             stream_loader.set_args(channel_label, channel_last_modified)
             stream_loader.process(package_ids)
 
-        h.close()
+        stream_loader.close()
 
         self._diff_packages()
 
@@ -1107,14 +1104,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # Get the missing but uncached packages
         missing_packages = self._missing_not_cached_packages()
 
-        h = sync_handlers.get_package_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.PackageDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getPackageXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_package_handler(),
+		self.mountpoint,
+                xmlDiskSource.PackageDiskSource,
+                self.xmlWireServer.getPackageXmlStream)
 
         for channel, pids in missing_packages.items():
             package_count = len(pids)
@@ -1127,7 +1121,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             self._processWithProgressBar(pids[:], package_count, stream_loader.process)
 
-        h.close()
+        stream_loader.close()
 
         # Double-check that we got all the packages
         missing_packages = self._missing_not_cached_packages()
@@ -1252,14 +1246,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # Get the missing but uncached packages
         missing_packages = self._compute_not_cached_source_packages()
 
-        h = sync_handlers.get_source_package_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.SourcePackageDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getSourcePackageXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_source_package_handler(),
+		self.mountpoint,
+                xmlDiskSource.SourcePackageDiskSource,
+                self.xmlWireServer.getSourcePackageXmlStream)
 
         for channel, pids in missing_packages.items():
             package_count = len(pids)
@@ -1272,7 +1263,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             self._processWithProgressBar(pids[:], package_count, stream_loader.process)
 
-        h.close()
+        stream_loader.close()
 
         # Double-check that we got all the packages
         missing_packages = self._compute_not_cached_source_packages()
@@ -1373,14 +1364,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         self._compute_unique_kickstarts()
 
-        h = sync_handlers.get_kickstarts_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.KickstartDataDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getKickstartsXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_kickstarts_handler(),
+		self.mountpoint,
+                xmlDiskSource.KickstartDataDiskSource,
+                self.xmlWireServer.getKickstartsXmlStream)
 
         for channel, ktids in self._channel_kickstarts.items():
             kt_count = len(ktids)
@@ -1392,7 +1380,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             self._processWithProgressBar(ktids[:], kt_count, stream_loader.process)
 
-        h.close()
+        stream_loader.close()
 
         missing_ks_files = self._compute_missing_ks_files()
 
@@ -1592,14 +1580,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             log(2, _("Forcing download of all errata data for requested channels."))
         self._diff_errata()
         not_cached_errata = self._compute_not_cached_errata()
-        h = sync_handlers.get_errata_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.ErrataDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getErrataXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_errata_handler(),
+		self.mountpoint,
+                xmlDiskSource.ErrataDiskSource,
+                self.xmlWireServer.getErrataXmlStream)
 
         for channel, erratum_ids in not_cached_errata.items():
             erratum_count = len(erratum_ids)
@@ -1610,7 +1595,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             self._processWithProgressBar(erratum_ids[:], erratum_count, stream_loader.process)
 
-        h.close()
+        stream_loader.close()
         # XXX This step should go away once the channel info contains the
         # errata timestamps and advisory names
         self._diff_db_errata()
@@ -1966,11 +1951,17 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
 
 class StreamProducer:
-    def __init__(self, handler):
+    def __init__(self, handler, mountpoint, disk_source_class, wire_server_class):
         self.handler = handler
         self.disk_loader = None
         self.wire_loader = None
         self._args = ()
+	if mountpoint:
+		s = disk_source_class(mountpoint)
+		self.set_disk_loader(s)
+	else:
+		s = wire_server_class
+		self.set_wire_loader(s)
 
     def set_disk_loader(self, disk_loader):
         self.disk_loader = disk_loader
@@ -1980,6 +1971,9 @@ class StreamProducer:
 
     def set_args(self, *args):
         self._args = args
+
+    def close(self):
+	self.handler.close()
 
     def process(self, batch):
         if self.disk_loader:
