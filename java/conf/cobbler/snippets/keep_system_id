@@ -6,7 +6,7 @@ rhn_keys_found=no
 insmod /lib/jbd.o
 insmod /lib/ext3.o
 
-if [ -f /lib/ext4.o ];
+if [ -f /lib/ext4.o ]; then
     insmod /lib/ext4.o
 fi
 
