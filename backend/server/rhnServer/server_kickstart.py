@@ -152,28 +152,6 @@ def get_kickstart_session_id(server_id, action_id):
         return None
     return row['id']
 
-_query_lookup_kickstart_label = rhnSQL.Statement("""
-    select k.label
-      from rhnKickstartSession ks, rhnKSData k
-     where (
-             (ks.old_server_id = :server_id and ks.new_server_id is NULL) 
-             or ks.new_server_id = :server_id
-             or ks.host_server_id = :server_id
-           )
-       and ks.action_id = :action_id
-       and k.id = ks.kickstart_id
-""")
-
-def get_kickstart_label(server_id, action_id):
-    h = rhnSQL.prepare(_query_lookup_kickstart_label)
-    h.execute(server_id=server_id, action_id=action_id)
-
-    row = h.fetchone_dict()
-    if not row:
-        # Nothing to do
-        return None
-    return row['label']
-
 
 
 _query_insert_package_delta = rhnSQL.Statement("""
