@@ -536,7 +536,7 @@ ORDER BY next_action DESC
 
 <write-mode name="erratamailer_clean_work_queue">
    <query params="">
-      DELETE rhnPaidErrataTempCache
+      DELETE FROM rhnPaidErrataTempCache
    </query>
 </write-mode>
 
@@ -605,7 +605,7 @@ ORDER BY next_action DESC
 
 <write-mode name="delete_task">
   <query params="org_id, name, task_data, priority">
-  DELETE rhnTaskQueue where org_id = :org_id and task_name = :name
+  DELETE FROM rhnTaskQueue where org_id = :org_id and task_name = :name
   and task_data = :task_data and priority = :priority
   </query>
 </write-mode>
