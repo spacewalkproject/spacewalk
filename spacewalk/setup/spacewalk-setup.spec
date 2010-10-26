@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.12
+Version:        1.2.13
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Tue Oct 26 2010 Jan Pazdziora 1.2.13-1
+- When run with the --db-only option, stop after populating the database.
+
 * Fri Oct 22 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.12-1
 - 612581 - use new spacewalk namespace for spacewalk-setup
 
