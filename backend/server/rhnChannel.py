@@ -709,7 +709,7 @@ def channels_for_server(server_id):
         c.summary,
         c.description,
         c.gpg_key_url,
-        decode(s.org_id, c.org_id, 1, 0) local_channel,
+        case s.org_id when c.org_id then 1 else 0 end local_channel,
         TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
     from
         rhnChannelArch ca,
