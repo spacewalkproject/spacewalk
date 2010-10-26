@@ -323,6 +323,3 @@ def load_package(package_stream):
 class AlreadyUploadedError(Exception):
     pass
 
-class PackageConflictError(Exception):
-    pass
-
