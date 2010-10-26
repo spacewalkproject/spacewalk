@@ -386,12 +386,6 @@ def auth_username_password(username, password):
     return user
 
 
-# placeholder for future OCS user <-> org access checks
-def auth_org_access(user_obj, org_id):
-    if user_obj.contact["org_id"] != org_id:
-        raise rhnFault(42)
-
-
 def session_reload(session_string):
     log_debug(4, session_string)
     session = rhnSession.load(session_string)
