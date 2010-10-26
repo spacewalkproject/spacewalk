@@ -204,7 +204,6 @@ maximum membership exceeded"),
      # 100-109: e-mail and uuid related faults
      100: _("Maximum e-mail length violation."),
      101: _("Changing e-mail address is not supported."),
-     102: _("Unique e-mail address check failed."),
      105: _("This system has been previously registered."),
      106: _("Invalid username"),
 
