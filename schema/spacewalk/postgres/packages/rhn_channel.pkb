@@ -1,5 +1,6 @@
 -- This file is not yet in sync with Oracle. Synced functions are:
--- subscribe_server + all subfunctions called
+-- subscribe_server + all subfunctions
+-- unsubscribe_server + all subfunctions
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -428,7 +429,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION unsubscribe_server(server_id_in IN NUMERIC, channel_id_in NUMERIC, immediate_in NUMERIC default 1, unsubscribe_children_in numeric default 0,
-                                 deleting_server IN NUMERIC default 0 ) returns void
+                                 deleting_server in numeric default 0,
+                                 update_family_countsYN in numeric default 1) returns void
     AS $$
     declare
         channel_family_id_val   NUMERIC;
@@ -445,6 +447,9 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 from    rhnChannelFamily
                 where   id = channel_family_id_in
                     and label = 'rhn-satellite';
+        -- this is *EXACTLY* like check_server_parent_membership, but if we recurse
+        -- with the package-level one, we get a "cursor already open", so we need a
+        -- copy on our call stack instead.  GROAN.
         local_chk_server_parent_memb cursor (
                         server_id_in numeric,
                         channel_id_in numeric ) for
@@ -463,7 +468,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                                                        child.id,
                                                        immediate_in,
                                                        unsubscribe_children_in,
-                                                       deleting_server);
+                                                       deleting_server,
+                                                       update_family_countsYN);
             else
                 perform rhn_exception.raise_exception('channel_unsubscribe_child_exists');
             end if;
@@ -510,16 +516,13 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         for ignore in channel_family_is_proxy(channel_family_id_val) loop
                 delete from rhnProxyInfo where server_id = server_id_in;
         end loop;
-
-        DELETE FROM rhnChannelFamilyLicenseConsent
-         WHERE channel_family_id = channel_family_id_val
-           AND server_id = server_id_in;
-                        
         SELECT org_id INTO server_org_id_val
           FROM rhnServer
          WHERE id = server_id_in;
          
-        perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        if update_family_countsYN = 1 then
+           perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        end if;
     END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION family_for_channel(channel_id_in IN NUMERIC)
