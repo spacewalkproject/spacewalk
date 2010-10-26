@@ -249,10 +249,9 @@ ORDER BY name_upper
 
 <mode name="packages_in_errata" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="eid">
-SELECT DISTINCT P.id id, PN.name || '-' || PE.version
+SELECT P.id id, PN.name || '-' || PE.version
        || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
-       || '-' || PA.label package_nvre,
-        UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label) as nvre_upper
+       || '-' || PA.label package_nvre
  FROM rhnPackageName PN,
       rhnPackageEVR PE,
       rhnPackageArch PA,
@@ -263,17 +262,16 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-ORDER BY nvre_upper
+  ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
   <elaborator name="package_channels" />
 </mode>
 
 <mode name="packages_in_tmp_errata" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="eid">
-SELECT DISTINCT P.id id, PN.name || '-' || PE.version
+SELECT P.id id, PN.name || '-' || PE.version
        || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
-       || '-' || PA.label package_nvre,
-        UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label) as nvre_upper
+       || '-' || PA.label package_nvre
  FROM rhnPackageName PN,
       rhnPackageEVR PE,
       rhnPackageArch PA,
@@ -284,7 +282,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-ORDER BY nvre_upper
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
   <elaborator name="package_channels" />
 </mode>
