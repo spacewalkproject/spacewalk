@@ -281,16 +281,6 @@ def new_server(user, org_id):
     serv.save()
     return serv
 
-def create_user(username, password, email=None, org_id=None, org_password=None):
-    #reserved = rhnUser.reserve_user( username, password )
-    #newuser = rhnUser.new_user( username, password, email, org_id, org_password )
-    u = rhnUser.User( username, password )
-    u.set_org_id( org_id )
-    u.save()
-    u.contact['password'] = password
-    u.save()
-    return u
-
 class Counter:
     _counter = 0
     def value(self):
