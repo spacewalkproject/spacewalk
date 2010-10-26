@@ -505,7 +505,7 @@ class Syncer:
                 log(-1, _('*** SYSTEM INTERRUPT CALLED ***'), stream=sys.stderr)
                 raise
             else:
-                msg = (_('ERROR: exception (during parse) occurred: ')
+                msg = _('ERROR: exception (during parse) occurred: ')
             log2stderr(-1, _('   Encountered some errors with %s data (see logs (%s) for more information)') % (step_name, CFG.LOG_FILE))
             log2(-1, 3, [_('   Encountered some errors with %s data:') % step_name,
                          _('   ------- %s PARSE/IMPORT ERROR -------') % step_name,
@@ -1587,7 +1587,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                       process_function,
                       prompt=_('Downloading:'),
                       process_function_args=[],
-                      is_slow=False)
+                      is_slow=False):
         count = len(batch)
         log(1, log_msg % (channel, count or _('NONE RELEVANT')))
         if not count:
