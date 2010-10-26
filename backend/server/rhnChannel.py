@@ -679,44 +679,6 @@ def get_base_channel(server_id, none_ok = 0):
         return None
     return __stringify(ret)
     
-# list the available channels for an org_id
-# We DO NOT want to cache this one because we depend on getting
-# accurate information and the caching would only introduce more
-# overhead on an otherwise very fast query
-def channels_for_org(org_id):
-    if not org_id:
-        org_id = ''
-    org_id = string.strip(str(org_id))
-    log_debug(3, org_id)
-
-    # select channels this org can access
-    h = rhnSQL.prepare("""
-    select
-        ca.label arch,
-        c.id,
-        c.parent_channel,
-        c.org_id,
-        c.label,
-        c.name,
-        c.summary,
-        c.description,
-        to_char(c.last_modified, 'YYYYMMDDHH24MISS') last_modified      
-    from
-        rhnChannelArch ca
-        rhnChannel c,
-        rhnChannelPermissions cp
-    where
-      cp.org_id = :org_id
-      and cp.channel_id = c.id
-      and c.channel_arch_id = ca.id
-    """)
-    h.execute(org_id = org_id)
-    ret = h.fetchall_dict()
-    if not ret:
-        return []
-    # stringify for xmlrpc return
-    return __stringify(ret)
-
 def channels_for_server(server_id):
     """channel info list for all channels accessible by this server.
 
