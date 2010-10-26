@@ -669,23 +669,6 @@ def check_email(email):
     # XXX More to come (check the format is indeed foo@bar.baz
     return email
     
-def check_unique_email(email):
-    return __check_unique_email_db(email)
-
-def __check_unique_email_db(email):
-    h = rhnSQL.prepare("""
-        select 1
-        from web_user_personal_info
-        where email = :email
-    """)
-    h.execute(email=email)
-    row = h.fetchone_dict()
-    if row:
-        # e-mail already exists
-        raise rhnFault(102, 
-            _("A user with the supplied e-mail address (%s)\n"
-            "    is already registered with Red Hat Network") % email)
-
 # Validates the given key against the current or old password
 # If encrypted_password is false, it compares key with pwd1 and pwd2
 # If encrypted_password is true, it compares the encrypted key
