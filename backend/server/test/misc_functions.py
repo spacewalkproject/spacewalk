@@ -326,14 +326,6 @@ def build_sys_params_with_username(**kwargs):
         del params['token']
     return params
 
-def register_system( params ):
-    data = registration.Registration().new_system(params)
-    sysfile = open("/tmp/systemid", "w+")
-    sysfile.write(data)
-    sysfile.close()
-
-    return data
-
 
 
 def create_activation_key(org_id=None, user_id=None, groups=None, 
