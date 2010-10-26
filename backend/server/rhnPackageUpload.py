@@ -326,14 +326,3 @@ class AlreadyUploadedError(Exception):
 class PackageConflictError(Exception):
     pass
 
-def check_package_exists(package_path, package_checksum_type, package_checksum, force=0):
-    if not os.path.exists(package_path):
-        return
-    # File exists, same checksum?
-    checksum = getFileChecksum(package_checksum_type, package_path)
-    if package_checksum == checksum and not force:
-        raise AlreadyUploadedError(package_path)
-    if force:
-        return
-    raise PackageConflictError(package_path, package_checksum_type, checksum)
-
