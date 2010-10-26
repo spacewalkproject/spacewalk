@@ -574,7 +574,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             CobblerSystemCreateCommand cmd =
                 getCobblerSystemCreateCommand(user, server,
                         ksdata, uhelper.
-                        getKickstartMediaPath(kickstartSession),
+                        getKickstartMediaPath(kickstartSession, scheduleDate),
                         tokenList);
             cmd.setKickstartHost(host);
             cmd.setKernelOptions(getExtraOptions());
