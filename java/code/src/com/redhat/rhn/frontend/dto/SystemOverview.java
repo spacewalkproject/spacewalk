@@ -621,7 +621,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
      * null if not selectable
      */
     public void setSelectable(Integer selectableIn) {
-        setSelectable(new Long(selectableIn));
+        selectable = (selectableIn != null);
     }
 
     /**
