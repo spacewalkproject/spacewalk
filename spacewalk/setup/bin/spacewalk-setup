@@ -83,6 +83,10 @@ else {
     die "No idea how to install to database: " . $answers{'db-backend'};
 }
 
+if ($opts{'db-only'}) {
+    exit;
+}
+
 remove_old_jvm(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Setting up users and groups.\n");

@@ -110,6 +110,7 @@ sub parse_options {
             "run-cobbler",
             "enable-tftp:s",
                     "external-db",
+                    "db-only",
 		   );
 
   my $usage = loc("usage: %s %s\n",
