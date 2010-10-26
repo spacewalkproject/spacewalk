@@ -447,21 +447,17 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 from    rhnChannelFamily
                 where   id = channel_family_id_in
                     and label = 'rhn-satellite';
-        -- this is *EXACTLY* like check_server_parent_membership, but if we recurse
-        -- with the package-level one, we get a "cursor already open", so we need a
-        -- copy on our call stack instead.  GROAN.
-        local_chk_server_parent_memb cursor (
-                        server_id_in numeric,
-                        channel_id_in numeric ) for
-                select  c.id
+        child record;
+    BEGIN
+        -- In PostgreSQL recursion with opened cursors is not allowed so we use
+        -- FOR IN SELECT form which is ok.
+        FOR child IN select  c.id
                 from    rhnChannel                      c,
                                 rhnServerChannel        sc
                 where   1=1
                         and c.parent_channel = channel_id_in
                         and c.id = sc.channel_id
-                        and sc.server_id = server_id_in;
-    BEGIN
-        FOR child IN local_chk_server_parent_memb(server_id_in, channel_id_in)
+                        and sc.server_id = server_id_in
         LOOP
             if unsubscribe_children_in = 1 then
                 perform rhn_channel.unsubscribe_server(server_id_in,
