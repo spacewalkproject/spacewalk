@@ -128,15 +128,6 @@ def add_listener(listener):
     if not listener in Listeners.listeners:
         Listeners.listeners.append(listener)
 
-def remove_listener(listener):
-    """
-    Removes a virt event listener.
-    """
-    log_debug(3, "Virt listener removed: %s" % str(listener))
-    
-    if listener in Listeners.listeners:
-        Listeners.listeners.remove(listener)
-
 
 ###############################################################################
 # VirtualizationEventHandler Class
