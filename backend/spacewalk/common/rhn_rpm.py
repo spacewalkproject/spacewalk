@@ -355,18 +355,6 @@ def rpmLabelCompare(rpmFilename1, rpmFilename2):
                            get_package_header(rpmFilename2))
 
 
-def sortHeaders(hdrs):
-    """ Sorts a list of RPM headers (or RPMs).
-        Assertion: they *must* exist.
-    """
-
-    assert isinstance(hdrs, type([]))
-
-    sorted = hdrs[:]
-    sorted.sort(hdrLabelCompare)
-    return sorted
-
-
 def sortRPMs(rpms):
     """ Sorts a list of RPM files. They *must* exist.  """
 
