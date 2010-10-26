@@ -29,12 +29,6 @@ from server_lib import join_server_group
 VIRT_ENT_LABEL = 'virtualization_host'
 VIRT_PLATFORM_ENT_LABEL = 'virtualization_host_platform'
 
-# Convert a SQLError exception into the appropriate text
-def sql_exception_text(e):
-    if isinstance(e, rhnSQL.SQLSchemaError):
-        return e.errmsg
-    return str(e)
-
 # Handle channel subscriptions for the registration token
 def token_channels(server, server_arch, tokens_obj):
     assert(isinstance(tokens_obj, ActivationTokens))
