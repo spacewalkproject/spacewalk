@@ -347,6 +347,16 @@ class XML_Dumper:
         return self._packages(packages, prefix='rhn-source-package-',
             dump_class=SourcePackagesDumper, sources=1)
         
+    def _get_item_id(self, prefix, name, errnum, errmsg):
+        prefix_len = len(prefix)
+        if name[:prefix_len] != prefix:
+            raise rhnFault(errnum, errmsg % name)
+        try:
+            id = int(name[prefix_len:])
+        except ValueError:
+            raise rhnFault(errnum, errmsg % name)
+        return id
+
     def _packages(self, packages, prefix, dump_class, sources=0,
                         verify_packages=False):
         packages_hash = {}
@@ -357,14 +367,8 @@ class XML_Dumper:
                 h = self.get_packages_statement()
 
             for package in packages:
-                package = str(package)
-                if package[:len(prefix)] != prefix:
-                    raise rhnFault(3002, "Invalid package name %s" % package)
-                package_id = package[len(prefix):]
-                try:
-                    package_id = int(package_id)
-                except ValueError:
-                    raise rhnFault(3002, "Invalid package name %s" % package)
+                package_id = self._get_item_id(prefix, str(package),
+                                               3002, 'Invalid package name %s')
                 if packages_hash.has_key(package_id):
                     # Already verified
                     continue
@@ -394,16 +398,9 @@ class XML_Dumper:
         errata_hash = {} 
         if verify_errata:
             h = self.get_errata_statement()
-            prefix = 'rhn-erratum-'
             for erratum in errata:
-                erratum = str(erratum)
-                if erratum[:len(prefix)] != prefix:
-                    raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-                errata_id = erratum[len(prefix):]
-                try:
-                    errata_id = int(errata_id)
-                except ValueError:
-                    raise rhnFault(3004, "Wrong erratum name %s" % erratum)
+                errata_id = self._get_item_id('rhn-erratum-', str(erratum),
+                                              3004, "Wrong erratum name %s")
                 if errata_hash.has_key(errata_id):
                     # Already verified
                     continue
