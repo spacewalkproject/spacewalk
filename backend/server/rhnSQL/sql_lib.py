@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,14 +32,6 @@ from spacewalk.common.rhnTranslate import _
 ## FUNCTIONS
 ################
     
-# build a list of :pN arguments and a dictionary for complex SQL selects
-def build_sql_args(l):
-    args = map(lambda a: "p%d" % a, range(len(l)))
-    ret_dict = {}
-    ret_str = string.join(map(lambda a: ":%s" % a, args), ", ")
-    map(ret_dict.update, map(lambda a, b: { a: b }, args, l))
-    return ret_str, ret_dict
-
 # This statement builds a sql statement for an insert
 # of 'items' into "table" indexed by "hash_name"
 def build_sql_insert(table, hash_name, items):
