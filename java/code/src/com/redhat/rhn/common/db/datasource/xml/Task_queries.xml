@@ -361,7 +361,7 @@ AND CC.confchan_type_id =
    <query params="threshold">
 SELECT enq.errata_id, enq.org_id, enq.channel_id
   FROM rhnErrataNotificationQueue ENQ
- WHERE (enq.next_action &lt; current_timestamp + numtodsinterval(:threshold, 'minute')
+ WHERE (enq.next_action &lt; current_timestamp + numtodsinterval(:threshold, 'minute'))
 ORDER BY next_action DESC
    </query>
 </mode>
