@@ -59,10 +59,6 @@ class ReprocessingNeeded(Exception):
 ##  3  - a bit much
 ##  4+ - excessive
 
-def _timeString0():
-    """time string as: "Mon Nov 18 12:56:34 2002" """
-    return time.ctime(time.time())
-
 def _timeString1():
     """time string as: "2002/11/18 12:56:34" """
     return log_time()
