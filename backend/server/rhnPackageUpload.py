@@ -30,14 +30,6 @@ from spacewalk.server.rhnLib import get_package_path, \
 from spacewalk.server.rhnServer import server_packages
 from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
-def source_match(v1, v2):
-    """ returns true if both parameters are true, false otherwise """
-    if v1 and v2:
-        return 1
-    if not v1 and not v2:
-        return 1
-    return 0
-
 
 def write_temp_file(req, buffer_size, packaging=None):
     """ Write request to temporary file (write max. buffer_size at once).
