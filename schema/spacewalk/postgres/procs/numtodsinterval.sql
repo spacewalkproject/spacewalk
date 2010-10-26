@@ -14,7 +14,7 @@
 -- in this software or its documentation. 
 --
 
-create or replace function numtodsinterval(sec_in in numeric, type_in in varchar)
+create or replace function numtodsinterval(num_in in numeric, type_in in varchar)
 returns interval
 as
 $$
