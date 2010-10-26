@@ -16,7 +16,6 @@
 #
 #
 
-import urllib
 import string
 import gzipstream
 
@@ -100,18 +99,6 @@ class GETServer(rpclib.GETServer):
     _transport_class_https = SafeTransport
     _transport_class_proxy = ProxyTransport
     _transport_class_https_proxy = SafeProxyTransport
-
-def parse_url(url):
-    url_type, rest = urllib.splittype(url)
-    if url_type is None:
-        url_type = 'http'
-        rest = '//' + rest
-
-    url_type = string.lower(url_type)
-
-    hostport, path = urllib.splithost(rest)
-    host, port = urllib.splitport(hostport)
-    return url_type, host, port, path
 
 class CompressedStream:
     """
