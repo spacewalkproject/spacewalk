@@ -276,7 +276,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.kickstartableChannels">
         <![CDATA[SELECT {c.*}
-				  FROM rhnChannel {c},
+				  FROM rhnChannel c,
 				      rhnAvailableChannels ACh,
 					  rhnChannelArch CA
 		      LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
