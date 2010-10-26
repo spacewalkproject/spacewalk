@@ -1252,8 +1252,8 @@ ORDER BY  SERVER_ID
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
      AND  ST.element = S.id
-  ) X, rhnServer S
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  ) X
+ORDER BY  UPPER(NVL(name, '(none)')), id
 </query>
 
 <mode name="virtual_systems_in_set" class="com.redhat.rhn.frontend.dto.VirtualSystemOverview">
