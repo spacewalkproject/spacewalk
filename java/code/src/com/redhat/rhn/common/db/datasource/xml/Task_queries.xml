@@ -197,7 +197,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
       WHERE KS.state_id = KSS.id
       AND ((KSS.label NOT IN ('created', 'complete', 'failed') AND KS.last_action &lt; current_timestamp - interval '1' day)
           OR
-          (KSS.label = 'created' AND KS.last_action &lt; current_timestamp - '6' day))
+          (KSS.label = 'created' AND KS.last_action &lt; current_timestamp - interval '6' day))
       AND (KS.kickstart_mode != 'default_session' OR KS.kickstart_mode is NULL)
    </query>
 </mode>
