@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.2.5
+Version:	1.2.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 26 2010 Jan Pazdziora 1.2.6-1
+- Blobs (byteas) want double backslashes and octal values.
+
 * Thu Oct 21 2010 Jan Pazdziora 1.2.5-1
 - Adding spacewalk-dump-schema to the Makefile to be added to the rpm.
 - Documentation (man page).
