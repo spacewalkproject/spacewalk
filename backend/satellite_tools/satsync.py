@@ -1108,16 +1108,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 self.xmlWireServer.getPackageXmlStream)
 
         for channel, pids in missing_packages.items():
-            package_count = len(pids)
-
-            log(1, messages.package_parsing % (channel,
-                package_count or _('NONE RELEVANT')))
-            if not package_count:
-                continue
-            log(1, messages.warning_slow)
-
-            self._processWithProgressBar(pids[:], package_count, stream_loader.process)
-
+            self._proces_batch(channel, pids[:], messages.package_parsing,
+                               stream_loader.process, is_slow=True)
         stream_loader.close()
 
         # Double-check that we got all the packages
@@ -1250,16 +1242,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 self.xmlWireServer.getSourcePackageXmlStream)
 
         for channel, pids in missing_packages.items():
-            package_count = len(pids)
-
-            log(1, messages.package_parsing % (channel,
-                package_count or _('NONE RELEVANT')))
-            if not package_count:
-                continue
-            log(1, _("   * WARNING: this may be a very slow process."))
-
-            self._processWithProgressBar(pids[:], package_count, stream_loader.process)
-
+            self._proces_batch(channel, pids[:], messages.package_parsing,
+                               stream_loader.process, is_slow=True)
         stream_loader.close()
 
         # Double-check that we got all the packages
@@ -1368,31 +1352,17 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 self.xmlWireServer.getKickstartsXmlStream)
 
         for channel, ktids in self._channel_kickstarts.items():
-            kt_count = len(ktids)
-
-            log(1, messages.kickstart_parsing % (channel,
-                kt_count or _('NONE RELEVANT')))
-            if not kt_count:
-                continue
-
-            self._processWithProgressBar(ktids[:], kt_count, stream_loader.process)
-
+            self._proces_batch(channel, ktids[:], messages.kickstart_parsing,
+                               stream_loader.process)
         stream_loader.close()
 
         missing_ks_files = self._compute_missing_ks_files()
 
         log(1, ["", _("Downloading kickstartable trees files")])
         for channel, files in missing_ks_files.items():
-            files_count = len(files)
-
-            log(1, messages.kickstart_downloading % (channel,
-                files_count or _('NONE RELEVANT')))
-            if not files_count:
-                continue
-
-            self._processWithProgressBar(files[:], files_count,
-                                            self._download_kickstarts_file,
-                                            process_function_args=[channel])
+            self._proces_batch(channel, files[:], messages.kickstart_downloading,
+                               self._download_kickstarts_file,
+                               process_function_args=[channel])
 
     def _get_ks_file_stream(self, channel, kstree_label, relative_path):
         if self.mountpoint:
@@ -1584,14 +1554,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 self.xmlWireServer.getErrataXmlStream)
 
         for channel, erratum_ids in not_cached_errata.items():
-            erratum_count = len(erratum_ids)
-            log(1, messages.erratum_parsing % (channel, erratum_count))
-            if not erratum_count:
-                log(2, _("    * no new relevant errata for this channel"))
-                continue
-
-            self._processWithProgressBar(erratum_ids[:], erratum_count, stream_loader.process)
-
+            self._proces_batch(channel, erratum_ids[:], messages.erratum_parsing,
+                               stream_loader.process)
         stream_loader.close()
         # XXX This step should go away once the channel info contains the
         # errata timestamps and advisory names
@@ -1619,6 +1583,20 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             pb.printIncrement()
         pb.printComplete()
 
+    def _proces_batch(self, channel, batch, log_msg,
+                      process_function,
+                      prompt=_('Downloading:'),
+                      process_function_args=[],
+                      is_slow=False)
+        count = len(batch)
+        log(1, log_msg % (channel, count or _('NONE RELEVANT')))
+        if not count:
+            return
+        if is_slow:
+            log(1, messages.warning_slow)
+        self._processWithProgressBar(batch, count, process_function,
+                        prompt, process_function_args)
+
     def _import_packages_process(self, chunk, sources):
         batch = self._get_cached_package_batch(chunk, sources)
         # check to make sure the orgs exported are valid
@@ -1638,18 +1616,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             missing_channel_items = self._missing_channel_packages
 
         for channel, packages in missing_channel_items.items():
-            package_count = len(packages)
-
-            log(1, messages.package_importing % (channel,
-                package_count or _('NONE RELEVANT')))
-            if not package_count:
-                continue
-            log(1, messages.warning_slow)
-            self._processWithProgressBar(packages[:], package_count,
-                                         self._import_packages_process,
-                                         _('Importing:  '),
-                                         [sources])
-
+            self._proces_batch(channel, packages[:],
+                        messages.package_importing,
+                        self._import_packages_process,
+                        _('Importing:  '),
+                        [sources])
             self._import_package_signatures(packages, channel)
         return self._link_channel_packages()
 
@@ -1744,14 +1715,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     self._fix_erratum(erratum)
                     batch.append(erratum)
 
-            errata_count = len(batch)
-            log(1, messages.errata_importing % (chn,
-                errata_count or _('NONE RELEVANT')))
-            if not errata_count:
-                continue
-
-            self._processWithProgressBar(batch, errata_count,
-                                         sync_handlers.import_errata)
+            self._proces_batch(chn, batch, messages.errata_importing,
+                        sync_handlers.import_errata)
 
     def _fix_erratum(self, erratum):
         """ Replace the list of packages with references to short packages"""
