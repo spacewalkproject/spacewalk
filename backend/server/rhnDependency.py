@@ -378,27 +378,6 @@ def find_package_with_arch(server_id, deps):
     log_debug(4, server_id, deps)
     return __single_query_with_arch_and_id(server_id, deps, __packages_with_arch_and_id_sql)
 
-def find_by_packages(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __packages_sql)
-def find_by_packages_all(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __packages_all_sql)
-
-def find_by_provides(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __provides_sql)
-def find_by_provides_all(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __provides_all_sql)
-
-def find_by_files(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __files_sql)
-def find_by_files_all(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __files_all_sql)
-
 def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_operator=None, limit = None):
     """ This version of solve_dependencies allows the caller to get all of the packages that solve a dependency and limit
         the packages that are returned to those that match the criteria defined by limit_operator and limit. This version
