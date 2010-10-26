@@ -94,10 +94,9 @@ public class SchedulerKernel {
                     "org.postgresql.Driver");
             props.setProperty(ds + ".driver", driver);
 
-            // the format is jdbc:postgresql://localhost:5432/dbname
             String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
             String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
-            String dbUrl = "jdbc:postgresql://" + dbHost + ":" + dbPort + "/" +
+            String dbUrl = dbProto + "://" + dbHost + ":" + dbPort + "/" +
                     dbName;
             props.setProperty(ds + ".URL", dbUrl);
         }
