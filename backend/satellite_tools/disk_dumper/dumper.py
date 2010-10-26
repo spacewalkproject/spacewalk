@@ -135,16 +135,17 @@ class XML_Dumper:
     def _get_xml_writer(self):
         return xmlWriter.XMLWriter(stream=StringBuffer(self))
 
-    # Dumper functions here
-    def dump_blacklist_obsoletes(self):
-        log_debug(2)
+    def _write_dump(self, item_dumper_class, **kwargs):
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-            exportLib.BlacklistObsoletesDumper(writer))
+        dumper = SatelliteDumper(writer, item_dumper_class(writer, **kwargs))
         dumper.dump()
         writer.flush()
         log_debug(4, "OK")
-        self.close()
+
+    # Dumper functions here
+    def dump_blacklist_obsoletes(self):
+        log_debug(2)
+        self._write_dump(exportLib.BlacklistObsoletesDumper)
         return 0
         
     def dump_arches(self, rpm_arch_type_only=0):
@@ -174,15 +175,8 @@ class XML_Dumper:
     def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
             virt_filter=0):
         log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-            exportLib.ServerGroupTypeServerArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter),
-        )
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
+        self._write_dump(ServerGroupTypeServerArchCompatDumper,
+                rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter)
         return 0
 
     def dump_channel_families(self):
@@ -193,29 +187,16 @@ class XML_Dumper:
         h = self.get_channel_families_statement_new(cids)
         h.execute()
 
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer, 
-            exportLib.ChannelFamiliesDumper(writer,
-                data_iterator=h, null_max_members=0))
-
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
+        self._write_dump(exportLib.ChannelFamiliesDumper,
+                data_iterator=h, null_max_members=0)
         return 0
 
     def dump_channels(self, channel_labels=None, start_date=None, end_date=None):
         log_debug(2)
         #channels = self._validate_channels(channel_labels=channel_labels)
 
-        writer = self._get_xml_writer()
-
-        dumper = SatelliteDumper(writer, 
-            ChannelsDumper(writer, channel_labels, start_date, end_date))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
+        self._write_dump(ChannelsDumper,
+                channels=channel_labels, start_date=start_date, end_date=end_date)
         return 0
 
     def dump_channel_packages_short(self, channel_label, last_modified, filepath=None,
@@ -383,13 +364,7 @@ class XML_Dumper:
             for package in packages:
                 packages_hash[package['package_id']] = package
 
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer, 
-            dump_class(writer, packages_hash.values()))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
+        self._write_dump(dump_class, packages=packages_hash.values())
         return 0
 
     def dump_errata(self, errata, verify_errata=False):
@@ -415,14 +390,7 @@ class XML_Dumper:
             for erratum in errata:
                 errata_hash[erratum['errata_id']] = erratum
 
-
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer, 
-            ErrataDumper(writer, errata_hash.values()))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
+        self._write_dump(ErrataDumper, errata=errata_hash.values())
         return 0
 
     def dump_kickstartable_trees(self, kickstart_labels=None,
@@ -432,14 +400,7 @@ class XML_Dumper:
             kickstart_labels = self._validate_kickstarts(
                             kickstart_labels=kickstart_labels)
         
-        
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer, 
-            KickstartableTreesDumper(writer, kickstarts=kickstart_labels))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
+        self._write_dump(KickstartableTreesDumper, kickstarts=kickstart_labels)
         return 0
     
     def _validate_channels(self, channel_labels=None):
