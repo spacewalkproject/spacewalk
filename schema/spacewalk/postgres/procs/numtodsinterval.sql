@@ -19,12 +19,11 @@ returns interval
 as
 $$
 begin
-	if type_in != 'second' then
-		raise exception 'Function numtodsinterval only supports conversion from [second], not from [%].', type_in;
-	end if;
-
-	return sec_in || ' ' || type_in;
+  if type_in = any(array['second', 'hour', 'minute', 'day']) then
+    return num_in || ' ' || type_in;
+  else
+    raise exception 'Function numtodsinterval only supports conversion from [second, hour, minte, day], not from [%].', type_in;
+  end if;
 end;
 $$ language plpgsql
 stable;
-
