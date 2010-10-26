@@ -299,17 +299,6 @@ class IncompleteLimitInfo(SolveDependenciesError):
 class MakeEvrError(SolveDependenciesError):
     pass
 
-def __single_query(server_id, deps, query):
-    """ Now run one of those queries and return the results. """
-    ret = {}
-    # first prepare the statement
-    h = rhnSQL.prepare(query)
-    for dep in deps:
-        h.execute(server_id = server_id, dep = dep)
-        data = h.fetchall() or []
-        ret[dep] = map(lambda a: a[:4], data)
-    return ret
-
 def __single_query_with_arch_and_id(server_id, deps, query):
     """ Run one of the queries and return the results along with the arch. """
     ret = {}
