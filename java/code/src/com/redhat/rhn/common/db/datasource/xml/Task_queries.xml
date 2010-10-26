@@ -49,7 +49,7 @@ SELECT DISTINCT S.id, S.name, SI.checkin
        rhnUserServerPerms USP
  WHERE USP.user_id = :user_id
    AND USP.server_id = SI.server_id
-   AND (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold)
+   AND date_diff_in_days(current_timestamp, SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold)
    AND SI.server_id = S.id
    AND NOT EXISTS (
   SELECT *
@@ -91,8 +91,8 @@ SELECT AT.name as type,
                  where sfv.server_id = usp.server_id
                    and sfv.label = 'ftr_daily_summary')
     AND USP.server_id = SA.server_id
-    AND sysdate - SA.modified &gt; 0
-    AND sysdate - SA.modified &lt; 1
+    AND date_diff_in_days(current_timestamp, SA.modified) &gt; 0
+    AND date_diff_in_days(current_timestamp, SA.modified) &lt; 1
     AND SA.status = AStat.id
     AND SA.action_id = A.id
     AND A.action_type = AT.id
@@ -108,7 +108,10 @@ INSERT
   INTO rhnErrataNotificationQueue
        (errata_id, org_id, next_action, channel_id)
 SELECT DISTINCT
-       :errata_id, wc.id, sysdate + :minutes / 1440, :channel_id
+       :errata_id,
+       wc.id,
+       current_timestamp + numtodsinterval(:minutes, 'minute'),
+       :channel_id
   FROM web_customer wc,
        rhnChannelErrata CE
  WHERE CE.errata_id = :errata_id
@@ -170,13 +173,13 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
 
 <write-mode name="repomd_mark_in_progress">
    <query params="channel_label">
-      UPDATE rhnRepoRegenQueue set next_action=null, modified=sysdate WHERE channel_label = :channel_label
+      UPDATE rhnRepoRegenQueue set next_action=null, modified=current_timestamp WHERE channel_label = :channel_label
    </query>
 </write-mode>
 
 <write-mode name="repomd_clear_in_progress">
    <query params="">
-      UPDATE rhnRepoRegenQueue set next_action=sysdate, modified=sysdate WHERE next_action is null
+      UPDATE rhnRepoRegenQueue set next_action=current_timestamp, modified=current_timestamp WHERE next_action is null
    </query>
 </write-mode>
 
@@ -192,9 +195,9 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
       SELECT KS.id, KSS.label, KS.action_id, KS.new_server_id, KS.old_server_id
       FROM rhnKickstartSession KS, rhnKickstartSessionState KSS
       WHERE KS.state_id = KSS.id
-      AND ((KSS.label NOT IN ('created', 'complete', 'failed') AND KS.last_action &lt; sysdate - 1)
+      AND ((KSS.label NOT IN ('created', 'complete', 'failed') AND KS.last_action &lt; current_timestamp - interval '1' day)
           OR
-          (KSS.label = 'created' AND KS.last_action &lt; sysdate - 6))
+          (KSS.label = 'created' AND KS.last_action &lt; current_timestamp - '6' day))
       AND (KS.kickstart_mode != 'default_session' OR KS.kickstart_mode is NULL)
    </query>
 </mode>
@@ -231,7 +234,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
 
 <callable-mode name="synchprobestate_synch_proc">
    <query params="">
-      {call rhn_synch_probe_state}
+      { call rhn_synch_probe_state() }
    </query>
 </callable-mode>
 
@@ -264,7 +267,8 @@ inner join rhnServerGroup sg on (s.org_id = sg.org_id)
 inner join rhnServerGroupType sgt on (sg.group_type = sgt.id)
 where sgt.label in ('enterprise_entitled', 'provisioning_entitled')
   and sg.max_members > 0
-  and si.checkin between (sysdate + 1) and (sysdate + 1 + :checkin_threshold)
+  and si.checkin between (current_timestamp + interval '1' day)
+  and (current_timestamp + numtodsinterval(1 + :checkin_threshold, 'day')
    </query>
 </mode>
 
@@ -281,7 +285,7 @@ select distinct sg.org_id as id
        select s.org_id
          from rhnServer s, rhnServerINfo si
         where s.id = si.SERVER_ID
-          AND (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold))
+          AND date_diff_in_days(current_timestamp, SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold))
    </query>
 </mode>
 
@@ -299,7 +303,7 @@ SELECT /*+full(sa)*/  DISTINCT S.org_id as id
    AND SG.max_members > 0
    AND SG.org_id = S.org_id
    AND  S.id = SA.server_id
-   AND SA.modified between sysdate - 1 and sysdate
+   AND SA.modified between current_timestamp - interval '1' day and current_timestamp
    </query>
 </mode>
 
@@ -335,7 +339,7 @@ FROM rhnConfigFile CF
 WHERE CF.config_channel_id IN
     (SELECT cc.Id
      FROM rhnConfigChannel CC
-     WHERE CC.created &lt; sysdate - :window
+     WHERE CC.created &lt; current_timestamp - numtodsinterval(:window, 'day')
      AND CC.confchan_type_id =
      (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import'))
   </query>
@@ -345,7 +349,7 @@ WHERE CF.config_channel_id IN
   <query params="window">
 SELECT CC.id
 FROM rhnConfigChannel CC
-WHERE CC.created &lt; sysdate - :window
+WHERE CC.created &lt; current_timestamp - numtodsinterval(:window, 'day')
 AND CC.confchan_type_id =
    (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import')
 
@@ -357,7 +361,7 @@ AND CC.confchan_type_id =
    <query params="threshold">
 SELECT enq.errata_id, enq.org_id, enq.channel_id
   FROM rhnErrataNotificationQueue ENQ
- WHERE (enq.next_action &lt; sysdate + :threshold/1440)
+ WHERE (enq.next_action &lt; current_timestamp + numtodsinterval(:threshold, 'minute')
 ORDER BY next_action DESC
    </query>
 </mode>
@@ -547,14 +551,14 @@ ORDER BY next_action DESC
 <write-mode name="create_task_stats">
   <query params="display_name">
     INSERT INTO rhnDaemonState (LABEL, LAST_POLL)
-    VALUES (:display_name, sysdate)
+    VALUES (:display_name, current_timestamp)
   </query>
 </write-mode>
 
 <write-mode name="update_task_stats">
   <query params="display_name">
     UPDATE rhnDaemonState
-      SET LAST_POLL = sysdate
+      SET LAST_POLL = current_timestamp
       WHERE LABEL = :display_name
   </query>
 </write-mode>
@@ -569,7 +573,7 @@ ORDER BY next_action DESC
 
 <mode name="get_current_time">
 	<query params="">
-		SELECT sysdate
+		SELECT current_timestamp
 		FROM dual
 	</query>
 </mode>
