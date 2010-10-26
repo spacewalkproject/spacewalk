@@ -183,6 +183,15 @@ def fetchTraceback(method=None, req=None, extra=None, with_locals=0):
               severity=None, with_locals=with_locals)
     return exc.getvalue()
 
+def exitWithTraceback(e, msg, exitnum, mail=0):
+    tbOut = StringIO()
+    Traceback(mail, ostream=tbOut, with_locals=1)
+    log(-1, _('ERROR: %s %s: %s') %
+        (e.__class__.__name__, msg, e), stream=sys.stderr)
+    log(-1, _('TRACEBACK: %s') % tbOut.getvalue(),
+        stream=sys.stderr)
+    sys.exit(exitnum)
+
 class SecurityList:
     """ The SecurityList is a list of strings that are censored out of a debug email.
         Right now it's only used for censoring traceback emails.

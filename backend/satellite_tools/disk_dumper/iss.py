@@ -20,7 +20,7 @@ import time
 import gzip
 import dumper
 import cStringIO
-from spacewalk.common import CFG, initCFG, rhnMail, Traceback
+from spacewalk.common import CFG, initCFG, rhnMail, Traceback, exitWithTraceback
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
 from spacewalk.satellite_tools.exporter import xmlWriter
@@ -925,11 +925,7 @@ class ExporterMain:
             sys.exit(-1)
         except (SQLError, SQLSchemaError), e:
             # An SQL error is fatal... crash and burn
-            tbOut = cStringIO.StringIO()
-            Traceback(mail=0, ostream=tbOut, with_locals=1)
-            log(-1, 'SQL ERROR during xml processing: %s' % e, stream=sys.stderr)
-            log(-1, 'TRACEBACK: %s' % tbOut.getvalue(), stream=sys.stderr)
-            sys.exit(-1)
+            exitWithTraceback(e, 'SQL ERROR during xml processing', -1)
         
         #This was cribbed from satsync.py.
         if self.options.print_configuration:

@@ -33,7 +33,7 @@ import gettext
 _ = gettext.gettext
 
 # __rhn imports__
-from spacewalk.common import CFG, initCFG, initLOG, Traceback, rhnMail, \
+from spacewalk.common import CFG, initCFG, initLOG, exitWithTraceback, rhnMail, \
     rhnLib, rhnFlags
 sys.path.append("/usr/share/rhn")
 from up2date_client import config
@@ -505,16 +505,13 @@ class Syncer:
                 log(-1, _('*** SYSTEM INTERRUPT CALLED ***'), stream=sys.stderr)
                 raise
             else:
-                tbOut = cStringIO.StringIO()
-                Traceback(mail=0, ostream=tbOut, with_locals=1)
-                msg = (_('ERROR: exception (during parse) occurred: ') +
-                       _('%s, TRACEBACK: %s') % (e, tbOut.getvalue()))
+                msg = (_('ERROR: exception (during parse) occurred: ')
             log2stderr(-1, _('   Encountered some errors with %s data (see logs (%s) for more information)') % (step_name, CFG.LOG_FILE))
             log2(-1, 3, [_('   Encountered some errors with %s data:') % step_name,
                          _('   ------- %s PARSE/IMPORT ERROR -------') % step_name,
                          '   %s' % msg,
                          _('   ---------------------------------------')], stream=sys.stderr)
-            sys.exit(11)
+            exitWithTraceback(e, '', 11)
         self.containerHandler.reset()
         log(1, _("%s data complete") % step_name)
 
@@ -1629,14 +1626,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         try:
             sync_handlers.import_packages(batch, sources)
         except (SQLError, SQLSchemaError, SQLConnectError), e:
-            tbOut = cStringIO.StringIO()
-            Traceback(mail=0, ostream=tbOut, with_locals=1)
-            log(-1, _('ERROR: %s Exception caught during import: %s') %
-                (e.__class__.__name__, e), stream=sys.stderr)
-            log(-1, _('TRACEBACK: %s') % tbOut.getvalue(),
-                stream=sys.stderr)
             # an SQL error is fatal... crash and burn
-            sys.exit(13)
+            exitWithTraceback(e, 'Exception caught during import', 13)
 
     def import_packages(self, sources=0):
         if sources:
@@ -1715,13 +1706,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             else:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data)
         except (SQLError, SQLSchemaError, SQLConnectError), e:
-            tbOut = cStringIO.StringIO()
-            Traceback(mail=0, ostream=tbOut, with_locals=1)
-            log(-1, _('ERROR: %s Exception caught during import: %s') %
-                (e.__class__.__name__, e), stream=sys.stderr)
-            log(-1, _('TRACEBACK: %s') % tbOut.getvalue(), stream=sys.stderr)
             # an SQL error is fatal... crash and burn
-            sys.exit(14)
+            exitWithTraceback(e, 'Exception caught during import', 14)
         return importer.affected_channels
 
     def _get_cached_package_batch(self, chunk, sources=0):
@@ -2038,11 +2024,7 @@ def _getImportedChannels():
         return map(lambda x: x['label'], h.fetchall_dict() or [])
     except (SQLError, SQLSchemaError, SQLConnectError), e:
         # An SQL error is fatal... crash and burn
-        tbOut = cStringIO.StringIO()
-        Traceback(mail=0, ostream=tbOut, with_locals=1)
-        log(-1, _('SQL ERROR during xml processing: %s') % e, stream=sys.stderr)
-        log(-1, _('TRACEBACK: %s') % tbOut.getvalue(), stream=sys.stderr)
-        sys.exit(17)
+        exitWithTraceback(e, 'SQL ERROR during xml processing', 17)
     return []
 
 
