@@ -66,12 +66,6 @@ class FatalParseException(SAXParseException):
     """
     pass
 
-class WarningParseException(SAXParseException):
-    """exception wrapper for a PyXML parser warning - probably not used.
-    """
-    pass
-
-
 # XML Node
 class Node:
     def __init__(self, name, attributes=None, subelements=None):
