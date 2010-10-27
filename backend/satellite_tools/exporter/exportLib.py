@@ -1323,22 +1323,6 @@ class ChannelPackageArchCompatDumper(RestrictedArchCompatDumper):
     """)
 
 
-class ServerGroupTypeDumper(BaseDumper):
-    tag_name = 'rhn-server-group-types'
-
-    _query_set_iterator = rhnSQL.Statement("""
-        select label, name
-          from rhnServerGroupType
-    """)
-    def set_iterator(self):
-        h = rhnSQL.prepare(self._query_set_iterator)
-        h.execute()
-        return h
-
-    def dump_subelement(self, data):
-        EmptyDumper(self._writer, 'rhn-server-group-type', data).dump()
-
-
 class ServerGroupTypeServerArchCompatDumper(RestrictedArchCompatDumper):
     tag_name = 'rhn-server-group-server-arch-compatibility-map'
     _subelement_tag = 'rhn-server-group-server-arch-compat'
