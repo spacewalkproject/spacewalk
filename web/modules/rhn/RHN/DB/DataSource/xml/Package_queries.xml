@@ -138,7 +138,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -158,7 +158,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -803,7 +803,7 @@ ORDER BY  UPPER(NVREA)
      AND PN.id = P.name_id
      AND PE.id = P.evr_id
      AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -923,7 +923,7 @@ SELECT CP.package_id id, C.name package_channels
      AND PE.id = P.evr_id
      AND PA.id = P.package_arch_id
      AND P.org_id = :org_id
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, CP.package_id
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -944,7 +944,7 @@ ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN P
      AND NOT EXISTS (SELECT 1
                        FROM rhnChannelPackage CP
                       WHERE P.id = CP.package_id)
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
 </mode>
 

@@ -263,7 +263,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -283,7 +283,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
   </query>
   <elaborator name="package_channels" />
 </mode>
