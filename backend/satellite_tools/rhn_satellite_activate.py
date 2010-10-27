@@ -54,9 +54,6 @@ DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 class CaCertInsertionError(Exception):
     "raise when fail to insert CA cert into the local database"
 
-class genServerCertError(Exception):
-    "Raise when we fail to properly generate a httpd server certificate"
-
 class SatCertNoFreeEntitlementsException(Exception):
     "Raise when no free entitlements are available during activation"
 
