@@ -55,9 +55,6 @@ class ConfigFileMissingInfoError(ConfigFileError):
 class ConfigFileMissingContentError(ConfigFileError):
     pass
 
-class ConfigFileMissingStatInfo(ConfigFileError):
-    pass
-
 class ConfigFileTooLargeError(ConfigFileError):
     pass
 
