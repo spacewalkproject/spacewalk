@@ -4,6 +4,7 @@
   <query params="eid">
 SELECT  EBL.bug_id AS ID,
         EBL.summary AS SUMMARY
+        EBL.href AS HREF
   FROM  rhnErrataBugList EBL
  WHERE  EBL.errata_id = :eid
 ORDER BY UPPER(EBL.bug_id)

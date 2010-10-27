@@ -1,5 +1,6 @@
 #
 # Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,7 +28,7 @@ use RHN::Exception;
 
 use RHN::DB::TableClass;
 
-my @errata_fields = qw/ID ADVISORY ADVISORY_TYPE PRODUCT DESCRIPTION SYNOPSIS TOPIC SOLUTION ISSUE_DATE:shortdate REFERS_TO CREATED:shortdate MODIFIED:longdate UPDATE_DATE:shortdate NOTES ORG_ID ADVISORY_NAME ADVISORY_REL LOCALLY_MODIFIED LAST_MODIFIED:longdate/;
+my @errata_fields = qw/ID ADVISORY ADVISORY_TYPE PRODUCT ERRATA_FROM DESCRIPTION SYNOPSIS TOPIC SOLUTION ISSUE_DATE:shortdate REFERS_TO CREATED:shortdate MODIFIED:longdate UPDATE_DATE:shortdate NOTES ORG_ID ADVISORY_NAME ADVISORY_REL LOCALLY_MODIFIED LAST_MODIFIED:longdate/;
 
 my $e = new RHN::DB::TableClass("rhnErrata", "E", "", @errata_fields);
 
@@ -131,7 +132,7 @@ sub bugs_fixed {
   my $sth;
 
   $query = <<EOQ;
-SELECT  EBL.bug_id, EBL.summary
+SELECT  EBL.bug_id, EBL.summary, EBL.href
   FROM  $bl_table EBL
  WHERE  EBL.errata_id = ?
 ORDER BY UPPER(EBL.bug_id)

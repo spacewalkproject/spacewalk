@@ -1,5 +1,6 @@
 #
 # Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -53,8 +54,8 @@ sub publish_errata {
   $query =<<EOQ;
 INSERT
   INTO rhnErrataBugList
-       (errata_id, bug_id, summary)
-       (SELECT :new_eid, BL.bug_id, BL.summary
+       (errata_id, bug_id, summary, href)
+       (SELECT :new_eid, BL.bug_id, BL.summary, BL.href
           FROM rhnErrataBuglistTmp BL
          WHERE BL.errata_id = :temp_eid)
 EOQ
@@ -214,8 +215,8 @@ sub clone_into_org {
   $query =<<EOQ;
 INSERT
   INTO rhnErrataBugListTmp
-       (errata_id, bug_id, summary)
-       (SELECT :new_eid, BL.bug_id, BL.summary
+       (errata_id, bug_id, summary, href)
+       (SELECT :new_eid, BL.bug_id, BL.summary, BL.href
           FROM rhnErrataBuglist BL
          WHERE BL.errata_id = :old_eid)
 EOQ

@@ -1,5 +1,6 @@
 #
 # Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -162,6 +163,7 @@ sub errata_details {
   $subst{errata_synopsis} = defined $e->synopsis ? PXT::Utils->escapeHTML($e->synopsis) : $no_data;
   $subst{errata_description} = defined $e->description ? PXT::HTML->htmlify_text($e->description) : $no_data;
   $subst{errata_product} = defined $e->product ? $e->product : $no_data;
+  $subst{errata_from} = defined $e->errata_from ? PXT::HTML->htmlify_text($e->errata_from) : $no_data;
   $subst{errata_icon} = $icon;
   $subst{errata_icon_file} = $icon_file;
   $subst{errata_topic} = defined $e->topic ? PXT::HTML->htmlify_text($e->topic) : $no_data;
@@ -178,7 +180,14 @@ sub errata_details {
   my $bugs_fixed = '<table border="0" cellspacing="0" cellpadding="2">';
   foreach my $bug ($e->bugs_fixed) {
     $i = 1;
-    $bugs_fixed .= '<tr valign="middle"><td><a href="https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id='.$bug->[0].'">' . PXT::Utils->escape_html($bug->[1])  . "</a></td></tr>";
+    if(defined $bug->[3] && $bug->[3] ne "")
+    {
+      $bugs_fixed .= '<tr valign="middle"><td><a href="'.$bug->[3].'">' . PXT::Utils->escape_html($bug->[1])  . "</a></td></tr>";
+    }
+    else
+    {
+      $bugs_fixed .= '<tr valign="middle"><td><a href="https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id='.$bug->[0].'">' . PXT::Utils->escape_html($bug->[1])  . "</a></td></tr>";
+    }
   }
   $bugs_fixed .= "</table>";
   $subst{errata_bugs_fixed} = $i eq 1 ? $bugs_fixed : $no_data;
