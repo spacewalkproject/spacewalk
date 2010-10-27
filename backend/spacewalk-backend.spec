@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.38
+Version: 1.2.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -670,6 +670,33 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 27 2010 Jan Pazdziora 1.2.39-1
+- Previous commit leaves __single_query unused, removing.
+- Six find_by_* functions do not seem to be called by our code, removing.
+- Removal of spacewalk-backend-upload-server makes source_match not called
+  anywhere, removing.
+- The _timeString0 function looks unused, we shall consider it a dead code.
+- The sql_exception_text utility function never called, seems like a dead code.
+- The sortHeaders is not called in our code base, removing.
+- That setup_old function in test does not seem to be called, we better remove
+  it.
+- If remove_listener not in our code, remove(remove_listener).
+- Function register_system not called, removing.
+- Method parse_url not used in backend, removing as dead code.
+- The method _line_value does not seem to be used in the test.
+- Removing get_kickstart_label which does not seem to be used anywhere.
+- Removing function create_user from test.
+- After removal of __check_unique_email_db, fault 102 is not longer used.
+- Method check_unique_email (and __check_unique_email_db) not used anywhere,
+  removing.
+- Exception PackageConflictError was only used in check_package_exists,
+  removing.
+- Removal of spacewalk-backend-upload-server makes check_package_exists unused,
+  removing.
+- Method channels_for_org not called, removing as dead code.
+- Method build_sql_args is not called, removing.
+- Method auth_org_access is not used in our code, removing as dead code.
+
 * Mon Oct 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.38-1
 - 623966 - add man page for rhn-entitlement-report
 - 623964 - add man page for update-packages
