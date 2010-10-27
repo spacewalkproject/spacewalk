@@ -44,41 +44,41 @@ ORDER BY  UPPER(pn.name), full_list.evr
 
 <mode name="package_conflicts">
   <query params="pid">
-SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
+SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageConflicts P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY name_upper, C.version
+ORDER BY UPPER(C.name), C.version
   </query>
 </mode>
 
 <mode name="package_provides">
   <query params="pid">
-SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
+SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageProvides P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY name_upper, C.version
+ORDER BY UPPER(C.name), C.version
   </query>
 </mode>
 
 <mode name="package_obsoletes">
   <query params="pid">
-SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
+SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageObsoletes P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY name_upper, C.version
+ORDER BY UPPER(C.name), C.version
   </query>
 </mode>
 
 <mode name="package_requires">
   <query params="pid">
-SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
+SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageRequires P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY name_upper, C.version
+ORDER BY UPPER(C.name), C.version
   </query>
 </mode>
 
@@ -194,7 +194,7 @@ ORDER BY UPPER(C.label)
 
 <mode name="name_by_provide" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="org_id, cap_name">
-SELECT DISTINCT PN.name, UPPER(PN.name) AS name_upper
+SELECT DISTINCT PN.name
  FROM rhnPackageName PN,
       rhnPackage P,
       rhnPackageProvides PP,
@@ -212,13 +212,14 @@ WHERE PC.name = :cap_name
              AND  CFM.CHANNEL_ID = CP.channel_id
              AND  CP.package_id = P.id))
   AND P.name_id = PN.id
-ORDER BY name_upper
+ORDER BY UPPER(PN.name)
   </query>
 </mode>
 
 <mode name="name_by_provide_and_channel" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="channel_id, org_id, cap_name">
-SELECT DISTINCT PN.name, UPPER(PN.name) AS name_upper
+SELECT DISTINCT PN.name
+
  FROM rhnPackageName PN,
       rhnPackage P,
       rhnPackageProvides PP,
@@ -243,7 +244,7 @@ WHERE PC.name = :cap_name
              AND  CFM.CHANNEL_ID = CP.channel_id
              AND  CP.package_id = P.id))
   AND P.name_id = PN.id
-ORDER BY name_upper
+ORDER BY UPPER(PN.name)
   </query>
 </mode>
 
@@ -262,7 +263,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-  ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -282,7 +283,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -307,7 +308,7 @@ SELECT PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
+ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
 </mode>
 
@@ -338,7 +339,6 @@ SELECT P.id AS ID,
 SELECT DISTINCT
                 CNP.package_id as id,
                 PN.name as name,
-                UPPER(PN.name) as name_upper,
                 NVL(PE.version, ' ') as version,
                 NVL(PE.release, ' ') as release,
                 NVL(PE.epoch, ' ') as epoch,
@@ -353,7 +353,7 @@ SELECT DISTINCT
    AND PN.id = CNP.name_id
    AND PE.id = CNP.evr_id
    AND PA.id = CNP.package_arch_id
-ORDER BY name_upper
+ORDER BY UPPER(PN.name)
 </query>
 </mode>
 
@@ -364,7 +364,6 @@ ORDER BY name_upper
 
 SELECT DISTINCT
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS nvre,
-       UPPER(PN.name || '-' || evr_t_as_vre_simple(PE.evr)) AS nvre_upper,
        PN.id || '|' || CNP.evr_id || '|' || PA.id AS id_combo,
        (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY,
        PA.label as arch
@@ -376,7 +375,7 @@ SELECT DISTINCT
    AND PN.id = CNP.name_id
    AND PE.id = CNP.evr_id
    AND PA.id = CNP.PACKAGE_ARCH_ID
-ORDER BY nvre_upper
+ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
 </mode>
 
@@ -398,7 +397,7 @@ SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
   			INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id
   			LEFT JOIN rhnPackageArch PA on SP.PACKAGE_ARCH_ID  = PA.id
   WHERE  SP.server_id = :sid
-ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
+ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
 </mode>
 
@@ -515,8 +514,7 @@ ORDER BY  UPPER(NVREA)
   <query params="org_id, eid">
 SELECT DISTINCT P.id id, PN.name || '-' || PE.version
            || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
-           || '-' || PA.label PACKAGE_NVRE,
-           UPPER(PACKAGE_NVRE) AS nvre_upper
+           || '-' || PA.label PACKAGE_NVRE
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
          rhnPackageArch PA,
@@ -532,7 +530,7 @@ SELECT DISTINCT P.id id, PN.name || '-' || PE.version
                        FROM rhnErrataPackage EP
                       WHERE EP.errata_id = :eid
                         AND EP.package_id = P.id)
-ORDER BY nvre_upper
+ORDER BY UPPER(PACKAGE_NVRE)
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -542,8 +540,7 @@ ORDER BY nvre_upper
   SELECT DISTINCT P.id ID,
                   PN.name || '-' || PE.version || '-' || PE.release
                     || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
-                    || '-' || PA.label PACKAGE_NVRE,
-           UPPER(PACKAGE_NVRE) AS nvre_upper
+                    || '-' || PA.label PACKAGE_NVRE
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
          rhnPackageArch PA,
@@ -559,7 +556,7 @@ ORDER BY nvre_upper
                        FROM rhnErrataPackageTmp EP
                       WHERE EP.errata_id = :eid
                         AND EP.package_id = P.id)
-ORDER BY nvre_upper
+ORDER BY UPPER(PACKAGE_NVRE)
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -661,7 +658,6 @@ SELECT  distinct pn.name AS NAME,
                      WHERE SP.server_id = :sid
                        AND SP.name_id = full_list.name_id
                        AND (SP.package_arch_id = full_list.arch_id or SP.package_arch_id is null))
-ORDER BY name_upper
   </query>
 </mode>
 
@@ -866,15 +862,14 @@ SELECT CP.package_id as ID,
 
 <mode name="packages_associated_with_action">
   <query params="aid">
-SELECT  DISTINCT PN.id || '|' || PE.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
-        UPPER(NVRE) as nvre_upper
+SELECT  DISTINCT PN.id || '|' || PE.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
   FROM  rhnPackageName PN,
         rhnPackageEVR PE,
         rhnActionPackage AP
  WHERE  AP.action_id = :aid
    AND  PN.id = AP.name_id
    AND  PE.id = AP.evr_id
-ORDER BY nvre_upper
+ORDER BY  UPPER(NVRE)
   </query>
 </mode>
 
@@ -929,7 +924,7 @@ WHERE SP.server_id = :sid
                 WHERE  PA.id = SP.package_arch_id
                   AND  AT.id = PA.arch_type_id
                   AND  AT.label = 'solaris-patch' )
-ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
+ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
   <elaborator params="sid" multiple="t">
       SELECT PN.id,
@@ -973,7 +968,7 @@ SELECT PN.id || '|' || PE.id AS ID_COMBO,
      AND  S.user_id = :user_id
      AND  S.element = PN.id
      AND  S.element_two = PE.id
-ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
+ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
 </mode>
 
@@ -995,7 +990,7 @@ SELECT  PN.id || '|' || PE.id AS ID_COMBO,
   			INNER JOIN rhnArchType AT ON AT.id = PA.arch_type_id
   WHERE  SP.server_id = :sid
 	   AND  AT.label = 'sysv-solaris'
-ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
+ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
 </mode>
 
@@ -1632,7 +1627,7 @@ SELECT P.id AS ID,
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
    AND P.id = SP.package_id
-ORDER BY UPPER(PN.name), evr_t_as_vre_simple(PE.evr)
+ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
 </mode>
 
