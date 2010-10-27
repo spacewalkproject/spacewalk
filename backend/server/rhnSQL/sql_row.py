@@ -94,7 +94,7 @@ class Row(UserDictCase):
 
     # load an entry
     def load(self, hashval):
-        return load_sql(self, "%s = :hashval" % self.hashname, {'hashval': hashval})
+        return self.load_sql("%s = :hashval" % self.hashname, {'hashval': hashval})
     
     # load from a sql clause
     def load_sql(self, sql, pdict = {}):
