@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.41
+Version: 1.2.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -670,6 +670,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 27 2010 Lukas Zapletal 1.2.42-1
+- Fixing c89830b90cb36bd6a79641553c5091c57af8fb8e typo 
+
 * Wed Oct 27 2010 Lukas Zapletal 1.2.41-1
 - Fixing typo in driver_postgresql.py 
 - Class ReleaseChannelMapImport does not seem to be called, removing.
