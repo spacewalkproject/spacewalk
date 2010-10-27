@@ -295,53 +295,6 @@ class XMLRPCWireSource(BaseWireSource):
         return retval
 
 
-class FileWireSource(XMLRPCWireSource):
-
-    """retrieve rpm (or arbitrary file) stream through an xmlrpc interface."""
-
-    def __init__(self, systemid, sslYN):
-        XMLRPCWireSource.__init__(self, systemid, sslYN)
-        self.extinctErrorYN = 0
-
-    def getRpmStream(self, chn, nvrea):
-        """Fetch a file handle, given channel and nvrea
-        """
-        self.setServer(CFG.RHN_XMLRPC_HANDLER)
-        stream = None
-        try:
-            stream = self._xmlrpc('package.get', (self.systemid, chn, nvrea))
-        except (rpclib.Fault), e:
-            if e.faultCode == -17:
-                pass
-                #log(-1, 2, '   WARNING: originating RPM is extinct: %s' % self.__makeFilename(nvrea))
-            else:
-                log(-1, 'ERROR: rpclib.Fault: %s' % e, stream=sys.stderr)
-            self.extinctErrorYN = 1
-            # Marked as erronous... handled elsewhere. Don't reraise.
-        return stream
-
-    def __makeFilename(self, nvrea):
-        return "%s-%s-%s.%s.rpm" % (nvrea[0], nvrea[1], nvrea[2], nvrea[4]) 
-
-    def getKickstartFileStream(self, ksLabel, relativePath):
-        """Fetch a kickstart file handle, given kickstart label and the path
-        """
-        self.setServer(CFG.RHN_XMLRPC_HANDLER)
-        stream = None
-        try:
-            stream = self._xmlrpc('kickstart.get_ks_file',
-                       (self.systemid, ksLabel, relativePath))
-        except (rpclib.Fault), e:
-            if e.faultCode == -17:
-                pass
-                #log2(-1, 2, '   WARNING: originating RPM is extinct: %s' % self.__makeFilename(nvrea))
-            else:
-                log2(-1, 2, 'ERROR: rpclib.Fault: %s' % e, stream=sys.stderr)
-            self.extinctErrorYN = 1
-            raise e
-        return stream
-
-
 class AuthWireSource(XMLRPCWireSource):
 
     """Simply authenticate this systemid as a satellite."""
