@@ -28,9 +28,6 @@ class ConfigChannelAlreadyExistsError(Exception):
 class ConfigChannelNotEmptyError(Exception):
     pass
 
-class RepoAlreadyExists(Exception):
-    pass
-
 class RepoPlainFile(Exception):
     pass
 
