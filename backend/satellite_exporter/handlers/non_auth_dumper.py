@@ -485,22 +485,11 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         stream.seek(0, 0)
         log_debug(3, "Package size", file_size)
         self.headers_out['Content-Length'] = file_size
-        self._send_headers_rpm()
+        self.compress_level = 0
+        self._raw_stream.content_type = 'application/x-rpm'
+        self._send_headers()
         self.send_rpm(stream)
         return 0
-
-    def _send_headers_rpm(self):
-        log_debug(3, "is_closed", self._is_closed)
-        if self._is_closed:
-            raise Exception, "Trying to write to a closed connection"
-        if self._headers_sent:
-            return
-        self._headers_sent = 1
-
-        self._raw_stream.content_type = 'application/x-rpm'
-        for h, v in self.headers_out.items():
-            self._raw_stream.headers_out[h] = str(v)
-        self._raw_stream.send_http_header()
 
     def send_rpm(self, stream):
         buffer_size = 65536
