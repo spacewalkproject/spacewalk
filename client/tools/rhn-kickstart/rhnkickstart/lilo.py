@@ -242,64 +242,6 @@ class LiloConfigFile:
         self.unsupported = []
 
 
-class LiloConfiguration:
-    """Class used to represent the data in the lilo.conf lilo configuration file."""
-    def allowLiloLocationConfig(self, fstab):
-	bootDevice = fstab.getBootDevice()
-	if bootDevice[0:2] == "md":
-	    self.setDevice(("raid", bootDevice))
-	    return None
-
-	return 1
-
-    def setLiloImages(self, images):
-	self.liloImages = images
-
-
-    def setDevice(self, device):
-	if (type(device) == type((1,))):
-	    self.liloDevice = device
-	elif device != "mbr" and device != "partition" and device:
-	    raise ValueError, "device must be raid, mbr, partition, or None"
-	self.liloDevice = device
-
-    def setLinear(self, linear):
-	self.liloLinear = linear
-
-    def setAppend(self, append):
-	self.liloAppend = append
-
-    def setDefault(self, default):
-	for (label, fsType) in self.liloImages.values():
-	    if label == default:
-		self.default = default
-		return
-	raise IndexError, "unknown lilo label %s" % (default,)
-
-    def getLinear(self):
-	return self.liloLinear
-
-    def getDevice(self):
-	return self.liloDevice
-
-    def getAppend(self):
-	return self.liloAppend
-
-    def __init__(self):
-	self.liloImages = {}
-	self.liloDevice = 'mbr'
-	self.liloLinear = 1
-	self.default = None
-	self.initrdsMade = {}
-        # XXX only i386 supports edd, nothing else should
-        # instantiate this class
-        if getArch() == "i386":
-            import edd
-            self.edd = edd.detect()
-        else:
-            self.edd = 0
-
-
 def getArch ():
     arch = os.uname ()[4]
     if (len (arch) == 4 and arch[0] == 'i' and
