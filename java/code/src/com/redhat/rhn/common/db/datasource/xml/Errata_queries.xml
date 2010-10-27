@@ -963,13 +963,6 @@ ORDER BY  E.update_date DESC
   </query>
 </callable-mode>
 
-<write-mode name="deletePaidErrataTempCacheBulk">
-  <query params="set, uid">
- delete from rhnPaidErrataTempCache where errata_id in
-	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
-  </query>
-</write-mode>
-
 <write-mode name="deleteErrataFileBulk">
   <query params="set, uid">
  delete from rhnErrataFile where errata_id in

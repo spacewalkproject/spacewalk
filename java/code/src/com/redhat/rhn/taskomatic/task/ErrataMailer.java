@@ -34,7 +34,7 @@ import org.quartz.JobExecutionException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -59,66 +59,39 @@ public class ErrataMailer extends RhnJavaJob {
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
 
-        try {
-            List results = getErrataToProcess();
-            if (results == null || results.size() == 0) {
-                if (log.isDebugEnabled()) {
-                    log.debug("No errata found...exiting");
-                }
+        List results = getErrataToProcess();
+        if (results == null || results.size() == 0) {
+            if (log.isDebugEnabled()) {
+                log.debug("No errata found...exiting");
             }
-            else {
+        }
+        else {
+            if (log.isDebugEnabled()) {
+                log.debug("=== Queued up " + results.size() + " errata");
+            }
+            Map erratas = new HashMap();
+            for (Iterator iter = results.iterator(); iter.hasNext();) {
+                Map row = (Map) iter.next();
+                Long errataId = (Long) row.get("errata_id");
+                Long orgId = (Long) row.get("org_id");
+                Long channelId = (Long) row.get("channel_id");
+                markErrataDone(errataId, orgId, channelId);
                 if (log.isDebugEnabled()) {
-                    log.debug("=== Queued up " + results.size() + " errata");
+                    log.debug("Processing errata " + errataId +
+                            " for org " + orgId);
                 }
-                Map erratas = new HashMap();
-                WriteMode cleanUp = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
-                        TaskConstants.TASK_QUERY_ERRATAMAILER_CLEAN_QUEUE);
-                for (Iterator iter = results.iterator(); iter.hasNext();) {
-                    Map row = (Map) iter.next();
-                    Long errataId = (Long) row.get("errata_id");
-                    Long orgId = (Long) row.get("org_id");
-                    Long channelId = (Long) row.get("channel_id");
-                    markErrataDone(errataId, orgId, channelId);
+                try {
+                    sendEmails(errataId, orgId, channelId);
                     if (log.isDebugEnabled()) {
-                        log.debug("Processing errata " + errataId +
+                        log.debug("Finished errata " + errataId +
                                 " for org " + orgId);
                     }
-                    try {
-                        sendEmails(errataId, orgId, channelId);
-                        if (log.isDebugEnabled()) {
-                            log.debug("Finished errata " + errataId +
-                                    " for org " + orgId);
-                        }
-                    }
-                    catch (JavaMailException e) {
-                        log.error("Error sending mail", e);
-                    }
-                    try {
-                        cleanUp.executeUpdate(Collections.EMPTY_MAP);
-                        HibernateFactory.commitTransaction();
-                        HibernateFactory.closeSession();
-                    }
-                    catch (Exception e) {
-                        log.error("Error cleaning up ErrataMailer queue", e);
-                    }
+                }
+                catch (JavaMailException e) {
+                    log.error("Error sending mail", e);
                 }
             }
         }
-        catch (Exception e) {
-            log.error(e.getMessage(), e);
-            throw new JobExecutionException(e);
-        }
-        finally {
-            WriteMode cleanUp = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
-                    TaskConstants.TASK_QUERY_ERRATAMAILER_CLEAN_QUEUE);
-            try {
-                cleanUp.executeUpdate(Collections.EMPTY_MAP);
-            }
-            catch (Exception e) {
-                log.error("Error cleaning up ErrataMailer queue", e);
-            }
-        }
-
     }
 
     protected List getErrataToProcess() {
@@ -130,8 +103,8 @@ public class ErrataMailer extends RhnJavaJob {
         return results;
     }
 
-    private void markErrataDone(Long errataId, Long orgId, Long channelId)
-                                                            throws Exception {
+    private void markErrataDone(Long errataId, Long orgId, Long channelId) {
+                                                            // throws Exception {
         HibernateFactory.getSession();
         WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE);
@@ -145,26 +118,28 @@ public class ErrataMailer extends RhnJavaJob {
         }
     }
 
-    private void sendEmails(Long errataId, Long orgId, Long channelId) throws Exception {
-        populateWorkQueue(errataId, orgId, channelId);
+    private void sendEmails(Long errataId, Long orgId, Long channelId) {
         Errata errata = (Errata) HibernateFactory.getSession().load(PublishedErrata.class,
                 new Long(errataId.longValue()));
-        List users = findTargetUsers();
-        if (users == null || users.size() == 0) {
-            log.info("No target users found for erratum " + errata.getId() +
+        List orgServers = getOrgRelevantServers(errataId, orgId, channelId);
+
+        if (orgServers == null || orgServers.size() == 0) {
+            log.info("No target servers found for erratum " + errata.getId() +
                     " in channel " + channelId + " for org " + orgId +
                     "... skipping.");
             return;
         }
-        log.info("Found " + String.valueOf(users.size()) + " target users for erratum " +
+
+        List<Long> users = getAffectedUsers(orgServers);
+
+        log.info("Found " + String.valueOf(orgServers.size()) + " systems for erratum " +
                 errata.getId() + " in channel " + channelId + " for org" + orgId + ".");
 
-        for (Iterator iter = users.iterator(); iter.hasNext();) {
-            Map row = (Map) iter.next();
-            String email = (String) row.get("email");
-            Long userPK = (Long) row.get("id");
-            List servers = findTargetServers(userPK);
-            String login = (String) row.get("login");
+        for (Long userId : users) {
+            Map userInfo = getUserInfo(userId);
+            String email = (String) userInfo.get("email");
+            String login = (String) userInfo.get("login");
+            List servers = getUserServers(userId, orgServers);
             String emailBody = formatEmail(login, email, errata, servers);
             Mail mail = new SmtpMail();
             mail.setRecipient(email);
@@ -183,32 +158,45 @@ public class ErrataMailer extends RhnJavaJob {
         }
     }
 
-    private List findTargetServers(Long userPK) throws Exception {
+    private List getUserServers(Long userId, List serversIn) {
+        List userSystems = new ArrayList();
+        for (Iterator i = serversIn.iterator(); i.hasNext();) {
+            Map server = (Map) i.next();
+            if (server.get("user_id").equals(userId)) {
+                userSystems.add(server);
+            }
+        }
+        return userSystems;
+    }
+
+    private Map getUserInfo(Long userId) {
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_ERRATAMAILER_FIND_TARGET_SERVERS);
+                TaskConstants.TASK_QUERY_ERRATAMAILER_GET_USERINFO);
         Map params = new HashMap();
-        params.put("user_id", userPK);
-        return mode.execute(params);
+        params.put("user_id", userId);
+        return (Map) mode.execute(params).get(0);
     }
 
-    protected List findTargetUsers() throws Exception {
+    private List<Long> getAffectedUsers(List serversIn) {
+        List<Long> users = new ArrayList<Long>();
+        for (Iterator i = serversIn.iterator(); i.hasNext();) {
+            Map row = (Map) i.next();
+            Long userId = (Long) row.get("user_id");
+            if (!users.contains(userId)) {
+                users.add(userId);
+            }
+        }
+        return users;
+    }
+
+    protected List getOrgRelevantServers(Long errataId, Long orgId, Long channelId) {
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_ERRATAMAILER_FIND_TARGET_USERS);
-        return mode.execute(Collections.EMPTY_MAP);
-    }
-
-    private void populateWorkQueue(Long errataId, Long orgId, Long channelId)
-            throws Exception {
-        WriteMode queueWriter = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_ERRATAMAILER_FILL_WORK_QUEUE);
+                TaskConstants.TASK_QUERY_ERRATAMAILER_GET_RELEVANT_SERVERS);
         Map params = new HashMap();
         params.put("errata_id", errataId);
         params.put("org_id", orgId);
         params.put("channel_id", channelId);
-        int workItemsFound = queueWriter.executeUpdate(params);
-        if (log.isDebugEnabled()) {
-            log.debug("Queuing " + workItemsFound +  " rows of work");
-        }
+        return mode.execute(params);
     }
 
     private String formatEmail(String login,

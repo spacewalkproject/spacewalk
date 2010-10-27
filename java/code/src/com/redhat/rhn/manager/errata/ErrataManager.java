@@ -585,8 +585,6 @@ public class ErrataManager extends BaseManager {
         List<WriteMode> modes = new LinkedList<WriteMode>();
         modes.add(ModeFactory.getWriteMode("Errata_queries",
                                 "deleteChannelErrataPackagesBulk"));
-        modes.add(ModeFactory.getWriteMode("Errata_queries",
-                                    "deletePaidErrataTempCacheBulk"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataFileBulk"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataPackageBulk"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataTmpBulk"));

@@ -35,12 +35,15 @@ public class ErrataMailerTest extends BaseTestCaseWithUser {
         // We still test the majority of the stuff in ErrataMailer(), just not
         // the queries that get all the users and errata.
         ErrataMailer em = new ErrataMailer() {
-            protected List findTargetUsers() throws Exception {
+            protected List getOrgRelevantServers(Long errataId, Long orgId,
+                    Long channelId) {
                 List retval = new LinkedList();
                 Map row = new HashMap();
-                row.put("id", user.getId());
-                row.put("email", user.getEmail());
-                row.put("login", user.getLogin());
+                row.put("server_id", 5000);
+                row.put("name", "test_client_hostname");
+                row.put("release", "test_release");
+                row.put("arch", "test_arch");
+                row.put("user_id", user.getId());   // existing user id needed
                 retval.add(row);
                 return retval;
             }
@@ -56,18 +59,5 @@ public class ErrataMailerTest extends BaseTestCaseWithUser {
             }
         };
         em.execute(null);
-    }
-
-    public void testErrataQueries() throws Exception {
-
-        TestErrataMailer em = new TestErrataMailer();
-        assertNotNull(em.testFindUsers());
-    }
-
-    public class TestErrataMailer extends ErrataMailer {
-
-        public List testFindUsers() throws Exception {
-            return findTargetUsers();
-        }
     }
 }

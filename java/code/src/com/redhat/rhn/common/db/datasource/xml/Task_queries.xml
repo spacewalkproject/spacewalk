@@ -374,11 +374,10 @@ ORDER BY next_action DESC
    </query>
 </write-mode>
 
-<write-mode name="erratamailer_fill_work_queue">
+<mode name="erratamailer_get_relevant_servers">
    <query params="errata_id,org_id, channel_id">
-  INSERT INTO rhnPaidErrataTempCache
-    (user_id, server_id, errata_id)
-    SELECT urn.user_id, snv.server_id, snv.errata_id
+    SELECT snv.server_id AS server_id, S.name, S.release, SA.name as arch,
+        urn.user_id
       FROM rhnServerNeededCache snv
       JOIN rhnUserReceiveNotifications urn
         ON snv.server_id = urn.server_id
@@ -386,38 +385,21 @@ ORDER BY next_action DESC
         ON sc.server_id = snv.server_id
       JOIN rhnServer S
         ON S.id = SC.server_id
+      JOIN rhnServerArch sa
+        ON s.server_arch_id = sa.id
      WHERE sc.channel_id = :channel_id
        AND snv.errata_id = :errata_id
        AND S.org_id = :org_id
    </query>
-</write-mode>
-
-<mode name="erratamailer_find_users">
-   <query params="">
-  SELECT distinct WC.id, WC.org_id, WC.login, WUPI.email
-    FROM web_user_personal_info WUPI,
-         web_contact WC,
-         rhnPaidErrataTempCache PETC
-   WHERE WC.id = PETC.user_id
-     AND WUPI.web_user_id = WC.id
-   </query>
 </mode>
 
-<mode name="erratamailer_find_servers">
+<mode name="erratamailer_get_userinfo">
    <query params="user_id">
-  SELECT DISTINCT S.id, S.name, S.release, SA.name as arch, C.name base_channel
-    FROM rhnChannel C,
-         rhnServerChannel SC,
-         rhnServer S,
-         rhnServerArch SA,
-         rhnPaidErrataTempCache PETC
-   WHERE S.server_arch_id = SA.id
-     AND S.id = PETC.server_id
-     AND PETC.user_id = :user_id
-     AND S.id = SC.server_id
-     AND SC.channel_id = C.id
-     AND C.parent_channel IS NULL
-   ORDER BY 3,4,2
+  SELECT wc.id, wc.org_id, wc.login, wupi.email
+    FROM web_user_personal_info wupi,
+         web_contact wc
+   WHERE wupi.web_user_id = wc.id
+     AND wc.id = :user_id
    </query>
 </mode>
 
@@ -533,12 +515,6 @@ ORDER BY next_action DESC
   ORDER BY pkglog.package_id
    </query>
 </mode>
-
-<write-mode name="erratamailer_clean_work_queue">
-   <query params="">
-      DELETE FROM rhnPaidErrataTempCache
-   </query>
-</write-mode>
 
 <mode name="find_task_stats">
   <query params="display_name">
