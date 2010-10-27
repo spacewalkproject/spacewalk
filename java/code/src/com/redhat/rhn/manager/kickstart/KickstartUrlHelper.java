@@ -278,6 +278,7 @@ public class KickstartUrlHelper {
      * /ty/xZ38
      *
      * @param session to compute tracking URL for.
+     * @param date for tiny url track
      *
      * @return String url to this KickstartData's media (packages, kernel
      * etc...)
