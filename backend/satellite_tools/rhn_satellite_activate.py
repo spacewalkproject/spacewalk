@@ -54,9 +54,6 @@ DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 class CaCertInsertionError(Exception):
     "raise when fail to insert CA cert into the local database"
 
-class SatCertNoFreeEntitlementsException(Exception):
-    "Raise when no free entitlements are available during activation"
-
 def openGzippedFile(filename):
     """ Open a file for reading. File may or may not be a gzipped file.
         Returns a file object.
