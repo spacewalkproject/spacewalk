@@ -395,17 +395,6 @@ class SourcePackage(IncompletePackage):
         return self.source_rpm
 
 
-class SourcePackageFile(Information):
-    attributeTypes = {
-        'file_size'         : IntType,
-        'path'              : StringType,
-        'org_id'            : IntType,
-        # these attributes are mutualy exclusive
-        'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum_list'     : [Checksum],
-    }
-
-
 class Bug(Information):
     attributeTypes = {
         'bug_id'            : StringType,
