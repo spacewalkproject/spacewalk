@@ -20,24 +20,3 @@ if _config_libs_path not in sys.path:
 
 from config_libs import templated_document
 
-class ClientTemplatedDocument(templated_document.TemplatedDocument):
-    def set_functions(self):
-        self.functions.clear()
-        self.functions.update({
-            'hostname'      : self.get_hostname,
-        })
-
-    def get_hostname(self):
-        import socket
-        return socket.gethostname()
-
-    def call(self, fname, params, defval):
-        if not self.functions.has_key(fname):
-            if defval:
-                return defval
-            raise ValueError, "Cannot expand macro %s" % fname
-        f = self.functions[fname]
-        if params is None:
-            params = ()
-        return str(apply(f, params))
-
