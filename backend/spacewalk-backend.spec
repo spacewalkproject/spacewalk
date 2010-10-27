@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.39
+Version: 1.2.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -670,6 +670,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 27 2010 Lukas Zapletal 1.2.40-1
+- In PostgreSQL NUMERIC types are returned as int or float now
+- Rewritten DECODE to ANSI CASE-WHEN syntax for yum 
+- Class FileWireSource does not seem to be used, removing.
+- Class ChannelProductsDumper does not seem to be used, removing.
+  
+
 * Wed Oct 27 2010 Jan Pazdziora 1.2.39-1
 - Previous commit leaves __single_query unused, removing.
 - Six find_by_* functions do not seem to be called by our code, removing.
