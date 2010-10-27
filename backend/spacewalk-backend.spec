@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.40
+Version: 1.2.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -670,6 +670,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 27 2010 Lukas Zapletal 1.2.41-1
+- Fixing typo in driver_postgresql.py 
+- Class ReleaseChannelMapImport does not seem to be called, removing.
+- fixed NameError: name 'SourcePackageImport' is not defined
+- removed redundant empty tagMaps 
+- reused load_sql
+- XXX: not used currently; removing 
+
 * Wed Oct 27 2010 Lukas Zapletal 1.2.40-1
 - In PostgreSQL NUMERIC types are returned as int or float now
 - Rewritten DECODE to ANSI CASE-WHEN syntax for yum 
