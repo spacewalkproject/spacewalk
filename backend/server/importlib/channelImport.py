@@ -335,48 +335,6 @@ class DistChannelMapImport(Import):
             raise
         self.backend.commit()
 
-class ReleaseChannelMapImport(Import):
-    """
-     Importer class to process Release Channel Mappings
-    """
-    def __init__(self, batch, backend):
-        Import.__init__(self, batch, backend)
-
-    def preprocess(self):
-        # Processes the batch to a form more suitable for database
-        # operations
-        for rcm in self.batch:
-            self.arches[rcm['arch']] = None
-            self.channels[rcm['channel']] = None
-
-    def fix(self):
-        # Look up arches and channels
-        self.backend.lookupChannelArches(self.arches)
-        self.backend.lookupChannels(self.channels)
-        for dcm in self.batch:
-            arch = self.arches[rcm['arch']]
-            if arch is None:
-                # Invalid arch
-                rcm.ignored = 1
-                raise InvalidArchError(rcm['arch'],
-                    "Invalid release_channel_map arch %s" % rcm['arch'])
-            channel = self.channels[rcm['channel']]
-            if channel is None:
-                rcm.ignored = 1
-                raise InvalidChannelError(rcm['channel'],
-                    "Invalid release_channel_map channel %s" % rcm['channel'])
-            rcm['arch'] = arch
-            rcm['channel_id'] = channel['id']
-
-
-    def submit(self):
-        try:
-            self.backend.processReleaseChannelMap(self.batch)
-        except:
-            self.backend.rollback()
-            raise
-        self.backend.commit()
-
 
 # for testing only
 if __name__ == '__main__':
