@@ -33,9 +33,6 @@ cp -R actions temp_src/
 cp -R config_* temp_src/
 cd temp_src
 
-perl -pi -e "s|/var/www/rhns|$DEST_PREFIX/var/www/rhns|" \
-    ./config_common/rhncfg_template.py
-
 perl -pi -e "s|/usr/bin/diff|$DEST_PREFIX/bin/diff|" \
     ./config_client/rhncfgcli_diff.py \
     ./config_common/file_utils.py \
