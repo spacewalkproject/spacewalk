@@ -73,9 +73,6 @@ class Slots:
         rhn_entitlements.modify_org_service"""
         return self._slot_name
 
-class UpdateSlots(Slots):
-    _db_label = 'sw_mgr_entitled'
-
 class ManagementSlots(Slots):
     _db_label = 'enterprise_entitled'
     _slot_name = 'enterprise'
