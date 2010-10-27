@@ -284,18 +284,6 @@ class SolveDependenciesError(Exception):
         self.deps = deps
         self.packages = packages
 
-class InvalidLimitField(SolveDependenciesError):
-    pass
-
-class InvalidLimitOperator(SolveDependenciesError):
-    pass
-
-class InvalidLimit(SolveDependenciesError):
-    pass
-
-class IncompleteLimitInfo(SolveDependenciesError):
-    pass
-
 class MakeEvrError(SolveDependenciesError):
     pass
 
