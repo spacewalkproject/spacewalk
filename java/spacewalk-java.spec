@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.73
+Version: 1.2.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,24 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 27 2010 Lukas Zapletal 1.2.74-1
+- Fixing missing brace in Taskomatic query 
+- Addressing issue in system overview 
+- PostgreSQL needs FROM keyword in DELETE 
+- Adding missing interval keyword to Taskomatic 
+- Protocol config value is now used in Taskomatic 
+- Getting taskomatic working on PostgreSQL 
+- removing unneeded insmod on kickstart %pre script, since they are already
+  loaded 
+- fixing query to run correctly, c.id was not valid because the join did not
+  come directly after rhnChannel c 
+- adding missing import 
+- 646892 - fixing issue where kickstart expiration would occur after current
+  date and not scheduled date of kickstart 
+- removing need of setNvreUpper method in PackageOverview 
+- fixing broken if statement in snippet 
+- fixing broken query used by SSM System delete 
+
 * Mon Oct 25 2010 Lukas Zapletal 1.2.73-1
 - Fixing Taskomatic blob handling (now binary)
 - Support for PostgreSQL driver in Taskomatic
