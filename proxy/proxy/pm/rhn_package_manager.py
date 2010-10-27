@@ -255,11 +255,6 @@ def getPackagePath(nvrea, source=0, prepend=""):
         release, pkgarch)
 
 
-class rhnPackageManagerException(Exception):
-    """Custom exception class"""
-    pass
-
-
 if __name__ == '__main__':
     try:
         main()
