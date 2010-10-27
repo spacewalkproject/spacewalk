@@ -120,7 +120,7 @@ class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
 
     def __init__(self, host=None, port=None, username=None,
-        password=None, database=None):
+                 password=None, database=None):
 
         self.host = host
         self.port = port
@@ -143,13 +143,13 @@ class Database(sql_base.Database):
         try:
             if self.host is None:
                 self.dbh = psycopg2.connect(database=self.database, user=self.username,
-                    password=self.password)
+                                            password=self.password)
             else:
                 self.dbh = psycopg2.connect(database=self.database, user=self.username,
-                    password=self.password, host=self.host, port=self.port)
+                                            password=self.password, host=self.host, port=self.port)
                 # convert all DECIMAL types to float (let Python to choose one)
                 DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2.extensions.DECIMAL.values,
-                        'DEC2INTFLOAT', decimal2intfloat)
+                                                            'DEC2INTFLOAT', decimal2intfloat)
                 psycopg2.extensions.register_type(DEC2INTFLOAT)
         except Exception, e:
             if reconnect:
@@ -158,16 +158,16 @@ class Database(sql_base.Database):
 
             # Failed reconnect, time to error out:
             raise apply(sql_base.SQLConnectError,
-                [self.database, e.pgcode, e.pgerror, "Attempting Re-Connect to the database failed",])
+                        [self.database, e.pgcode, e.pgerror, "Attempting Re-Connect to the database failed",])
 
     def is_connected_to(self, backend, host, port, username, password,
-            database):
+                        database):
         adjusted_port = -1
         if port:
             adjusted_port = port
         return (backend == POSTGRESQL) and (self.host == host) and \
-                (self.port == adjusted_port) and (self.username == username) \
-                and (self.password == password) and (self.database == database)
+               (self.port == adjusted_port) and (self.username == username) \
+               and (self.password == password) and (self.database == database)
 
     def check_connection(self):
         try:
@@ -248,9 +248,9 @@ class Cursor(sql_base.Cursor):
 
     def _execute_wrapper(self, function, *p, **kw):
         params =  ','.join(["%s: %s" % (key, value) for key, value \
-                in kw.items()])
+                            in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
-                % (self.sql, params))
+                  % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
 
@@ -297,14 +297,14 @@ class Cursor(sql_base.Cursor):
         return rowcount
 
     def update_blob(self, table_name, column_name, where_clause, data, 
-            **kwargs):
+                    **kwargs):
         """ 
         PostgreSQL uses bytea columns instead of blobs. Nothing special
         needs to be done to insert text into one.
         """
         # NOTE: Injecting a :column_name parameter here
         sql = "UPDATE %s SET %s = :%s %s" % (table_name, column_name,
-            column_name, where_clause)
+                                             column_name, where_clause)
         c = rhnSQL.prepare(sql)
         kwargs[column_name] = data
         apply(c.execute, (), kwargs)
