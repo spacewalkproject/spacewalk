@@ -19,9 +19,6 @@ class InvalidSession(Exception):
 class AuthenticationError(Exception):
     pass
 
-class MalformedRepository(Exception):
-    pass
-
 class ConfigChannelNotInRepo(Exception):
     pass
 
