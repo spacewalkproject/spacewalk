@@ -1501,25 +1501,6 @@ def _dbtime2timestamp(val):
     return int(rhnLib.timestamp(val))
 
 
-class ChannelProductsDumper(BaseDumper):
-    
-    def set_iterator(self):
-        h = rhnSQL.prepare("""
-            select id, product, version, beta
-            from rhnChannelProduct
-        """)
-        h.execute()
-        return h
-
-    def dump_subelement(self, data):
-        attributes = {
-            'id'            : "rhn-channel-product-id-%s" % (data['id']),
-            'product'       : data['product'],
-            'version'       : data['version'],
-            'beta'          : data['beta'],
-        }
-        EmptyDumper(self._writer, 'rhn-channel-product', attributes).dump()
-
 class ProductNamesDumper(BaseDumper):
     tag_name = "rhn-product-names"
 
