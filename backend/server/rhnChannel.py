@@ -60,9 +60,6 @@ class InvalidEntryError(Exception):
 class InvalidDataError(Exception):
     pass
 
-class ForceNotSpecified(Exception):
-    pass
-
 class ChannelNotFoundError(Exception):
     pass
 
