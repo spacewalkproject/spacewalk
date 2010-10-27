@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.55
+Version:        1.2.56
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Oct 27 2010 Lukas Zapletal 1.2.56-1
+- Addresing recursion with opened cursor in PostgreSQL 
+- Function unsubscribe_server now in sync with Oracle 
+- Function numtodsinterval now accepts days, minutes, hours (incl. fix)
+  
+
 * Mon Oct 25 2010 Lukas Zapletal 1.2.55-1
 - Taskomatic schedule schema correction (sysdate)
 
