@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.42
+Version: 1.2.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,19 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 27 2010 Jan Pazdziora 1.2.43-1
+- Class UpdateSlots unused, removing.
+- Exception SatCertNoFreeEntitlementsException not used, removing.
+- Classes _KickstartTreeTypeDumper and _KickstartInstalTypeDumper do not seem
+  to be used, removing.
+- Exceptions IncompleteLimitInfo and IncompleteLimitInfo* not used, removing.
+- Exception genServerCertError not used, removing.
+- Exception ForceNotSpecified not used, removing.
+- Class ConfigFileMissingStatInfo not used, removing.
+- The rhn_timer.py does not seem to be used anywhere, removing.
+- Class SourcePackageFile does not seem to be invoked, removing.
+- Class ServerGroupTypeDumper not used anywhere, removing.
+
 * Wed Oct 27 2010 Lukas Zapletal 1.2.42-1
 - Fixing c89830b90cb36bd6a79641553c5091c57af8fb8e typo 
 
