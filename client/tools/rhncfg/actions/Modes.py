@@ -22,9 +22,6 @@ import string
 True = 1
 False = 0
 
-class PathNotPresent(Exception):
-    pass
-
 #Base class for all modes.
 class BaseMode:
     def __init__(self):
