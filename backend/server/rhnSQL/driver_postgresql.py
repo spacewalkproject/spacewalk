@@ -100,6 +100,10 @@ class Procedure(Function):
 
 def decimal2intfloat(dec, cursor):
     "Convert a Decimal to an int or a float with no loss of information"
+    if dec is None:
+        return None
+    if not isinstance(dec, decimal.Decimal):
+        return dec
     oldcontext = decimal.getcontext()
     decimal.setcontext(decimal.Context(traps=[decimal.Inexact]))
     try:
