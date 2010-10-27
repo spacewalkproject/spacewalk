@@ -1473,14 +1473,6 @@ class _KickstartFileEntryDumper(BaseRowDumper):
                               data_iterator=ArrayIterator(checksum_arr))]
         return ArrayIterator(arr)
 
-class _KickstartTreeTypeDumper(BaseDumper):
-    tag_name = 'rhn-kickstart-tree-type'
-    # STUB
-
-class _KickstartInstalTypeDumper(BaseDumper):
-    tag_name = 'rhn-kickstart-install-type'
-    # STUB
-
 def _dbtime2timestamp(val):
     return int(rhnLib.timestamp(val))
 
