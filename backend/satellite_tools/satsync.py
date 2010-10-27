@@ -951,7 +951,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 channel_label)
             self._missing_channel_packages[channel_label] = []
             self._missing_fs_packages[channel_label] = []
-            self._processWithProgressBar(upids[:], len(upids),
+            self._proces_batch(channel_label, upids[:], None,
                                 self._diff_packages_process,
                                 _('Diffing:    '),
                                 [channel_label])
@@ -1222,7 +1222,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             log(1, _("Diffing source package metadata (what's missing locally?): %s") % channel_label)
             self._missing_channel_source_packages[channel_label] = []
             self._missing_fs_source_packages[channel_label] = []
-            self._processWithProgressBar(upids[:], len(upids),
+            self._proces_batch(channel_label, upids[:], None,
                                          self._diff_source_packages_process,
                                          _('Diffing:    '),
                                          [channel_label])
@@ -1589,7 +1589,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                       process_function_args=[],
                       is_slow=False):
         count = len(batch)
-        log(1, log_msg % (channel, count or _('NONE RELEVANT')))
+        if log_msg:
+            log(1, log_msg % (channel, count or _('NONE RELEVANT')))
         if not count:
             return
         if is_slow:
