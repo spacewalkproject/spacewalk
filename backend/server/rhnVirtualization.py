@@ -106,7 +106,6 @@ CLIENT_SERVER_STATE_MAP = {
 # VirtualizationEventError Class
 ###############################################################################
 
-class VirtualizationListenerError(Exception): pass
 class VirtualizationEventError(Exception): pass
 
 ###############################################################################
