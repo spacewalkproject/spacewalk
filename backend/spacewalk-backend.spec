@@ -332,7 +332,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/apache.py*
 %{pythonrhnroot}/common/byterange.py*
 %{pythonrhnroot}/common/rhn_posix.py*
-%{pythonrhnroot}/common/rhn_timer.py*
 %{pythonrhnroot}/common/rhnApache.py*
 %{pythonrhnroot}/common/rhnCache.py*
 %{pythonrhnroot}/common/rhnConfig.py*

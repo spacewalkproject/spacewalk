@@ -11,7 +11,6 @@ SPACEWALK_FILES	=   __init__ \
 	    apache \
             byterange \
             rhn_posix \
-            rhn_timer \
             rhnApache \
             rhnCache \
             rhnConfig \
