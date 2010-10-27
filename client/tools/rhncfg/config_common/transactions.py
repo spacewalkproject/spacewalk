@@ -28,7 +28,6 @@ from config_common.rhn_log import log_debug
 
 class TargetNotFile(Exception): pass
 class DuplicateDeployment(Exception): pass
-class BackupFileMissing(Exception): pass
 class FailedRollback(Exception): pass
 
 try:
