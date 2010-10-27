@@ -98,6 +98,23 @@ class Procedure(Function):
         #if not (type(result) == 'tuple' and result[0] == ''):
             #raise rhnSQL.SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
 
+def decimal2intfloat(dec, cursor):
+    "Convert a Decimal to an int or a float with no loss of information"
+    oldcontext = decimal.getcontext()
+    decimal.setcontext(decimal.Context(traps=[decimal.Inexact]))
+    try:
+        while True:
+            try:
+                # try to quantize to integer
+                return int(dec.quantize(decimal.Decimal(1)))
+            except decimal.Inexact:
+                # if not exact return float
+                return float(dec)
+            except:
+                # if anything bad happends return float as well
+                return float(dec)
+    finally:
+        decimal.setcontext(oldcontext)
 
 class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
@@ -130,6 +147,10 @@ class Database(sql_base.Database):
             else:
                 self.dbh = psycopg2.connect(database=self.database, user=self.username,
                     password=self.password, host=self.host, port=self.port)
+                # convert all DECIMAL types to float (let Python to choose one)
+                DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2.extensions.DECIMAL.values,
+                        'DEC2INTFLOAT', decimal2intfloat)
+                psycopg2.extensions.register_type(DEC2INTFLOAT)
         except Exception, e:
             if reconnect:
                 # Try one more time:
