@@ -21,6 +21,7 @@ import sys
 import re
 import psycopg2
 import hashlib
+import decimal
 
 import sql_base
 from spacewalk.server import rhnSQL
@@ -114,9 +115,6 @@ def decimal2intfloat(dec, cursor):
             except decimal.Inexact:
                 # if not exact return float
                 return float(dec)
-            except:
-                # if anything bad happends return float as well
-                return float(dec)
     finally:
         decimal.setcontext(oldcontext)
 
@@ -152,7 +150,7 @@ class Database(sql_base.Database):
                 self.dbh = psycopg2.connect(database=self.database, user=self.username,
                                             password=self.password, host=self.host, port=self.port)
                 # convert all DECIMAL types to float (let Python to choose one)
-                DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2.extensions.DECIMAL.values,
+                DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
                                                             'DEC2INTFLOAT', decimal2intfloat)
                 psycopg2.extensions.register_type(DEC2INTFLOAT)
         except Exception, e:
