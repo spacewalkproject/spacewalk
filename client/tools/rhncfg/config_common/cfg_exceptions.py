@@ -22,9 +22,6 @@ class AuthenticationError(Exception):
 class MalformedRepository(Exception):
     pass
 
-class FileNotInRepo(Exception):
-    pass
-
 class ConfigChannelNotInRepo(Exception):
     pass
 
