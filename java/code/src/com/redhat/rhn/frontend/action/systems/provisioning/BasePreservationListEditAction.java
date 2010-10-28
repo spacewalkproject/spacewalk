@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.systems.provisioning;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.action.BaseEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -43,7 +45,8 @@ public abstract class BasePreservationListEditAction extends BaseEditAction {
     }
 
     protected ValidatorError processCommandSetters(PersistOperation opr,
-                                                        DynaActionForm form) {
+                                                        DynaActionForm form,
+                                                        HttpServletRequest request) {
         BaseFileListEditCommand bopr = (BaseFileListEditCommand) opr;
         bopr.setLabel(form.getString(LABEL));
         bopr.updateFiles(form.getString(FILES_STRING));

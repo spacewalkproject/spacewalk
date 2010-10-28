@@ -31,6 +31,7 @@ public class KickstartInstallType extends BaseDomainHelper {
     public static final String RHEL_6 = "rhel_6";
     public static final String FEDORA = "fedora";
     public static final String GENERIC = "generic";
+    public static final String SUSE = "suse";
 
     private Long id;
     private String label;
@@ -91,6 +92,13 @@ public class KickstartInstallType extends BaseDomainHelper {
      */
     public boolean isGeneric() {
         return GENERIC.equals(getLabel());
+    }
+
+    /**
+     * @return true if the installer type is suse.
+     */
+    public boolean isSUSE() {
+        return SUSE.equals(getLabel());
     }
 
     /**

@@ -12,6 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/*
+ * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ */
 package com.redhat.rhn.frontend.action.kickstart.tree;
 
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -30,6 +33,8 @@ import org.apache.struts.util.LabelValueBean;
 
 import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * TreeCreate class for creating Kickstart Trees
@@ -81,7 +86,8 @@ public abstract class BaseTreeAction extends BaseEditAction {
     }
 
     protected ValidatorError processCommandSetters(PersistOperation operation,
-                                                            DynaActionForm form) {
+                                                            DynaActionForm form,
+                                                            HttpServletRequest request) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) operation;
 
         String label = form.getString(LABEL);
@@ -103,7 +109,17 @@ public abstract class BaseTreeAction extends BaseEditAction {
             lookupKickstartInstallTypeByLabel(form.getString(INSTALL_TYPE));
         bte.setInstallType(type);
 
-        bte.setKernelOptions(form.getString(KERNEL_OPTS));
+        if (type.isSUSE()) {
+            String kopts = form.getString(POST_KERNEL_OPTS);
+            if (kopts.contains("install=")) {
+                kopts = kopts + " install=http://" + request.getLocalName() +
+                    "/ks/dist/" + form.getString(LABEL);
+            }
+            bte.setKernelOptions(kopts);
+        }
+        else {
+            bte.setKernelOptions(form.getString(KERNEL_OPTS));
+        }
         bte.setPostKernelOptions(form.getString(POST_KERNEL_OPTS));
 
         return null;

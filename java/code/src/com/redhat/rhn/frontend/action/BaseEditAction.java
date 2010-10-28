@@ -58,7 +58,7 @@ public abstract class BaseEditAction extends RhnAction {
                 getStrutsDelegate().saveMessages(request, errors);
             }
             else {
-                ValidatorError verrors = processCommandSetters(opr, form);
+                ValidatorError verrors = processCommandSetters(opr, form, request);
 
                 if (verrors == null) {
                     verrors = opr.store();
@@ -114,7 +114,7 @@ public abstract class BaseEditAction extends RhnAction {
      * @return TODO
      */
     protected abstract ValidatorError processCommandSetters(PersistOperation opr,
-            DynaActionForm form);
+            DynaActionForm form, HttpServletRequest request);
 
 
     /**

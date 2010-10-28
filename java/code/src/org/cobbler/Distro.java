@@ -53,6 +53,9 @@ public class Distro extends CobblerObject {
         distro.modify(NAME, name);
         distro.setKernel(kernel);
         distro.setInitrd(initrd);
+        if( ksmeta.containsKey( "autoyast" ) ) {
+            distro.setBreed( "suse" );
+        }
         distro.setKsMeta(ksmeta);
         distro.save();
         distro = lookupByName(client, name);

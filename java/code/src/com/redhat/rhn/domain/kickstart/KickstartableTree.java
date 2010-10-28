@@ -277,6 +277,10 @@ public class KickstartableTree extends BaseDomainHelper {
         else if (arch.equals("channel-ppc")) {
             return StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/vmlinuz");
         }
+        else if ( this.installType.isSUSE() )
+        {
+            return StringUtil.addPath(getAbsolutePath(), "/boot/" + this.getChannel().getChannelArch().getName() + "/loader/linux");
+        }
         else {
             return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
         }
@@ -295,6 +299,10 @@ public class KickstartableTree extends BaseDomainHelper {
         }
         else if (arch.equals("channel-ppc")) {
             return StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/ramdisk.image.gz");
+        }
+        else if ( this.installType.isSUSE() )
+        {
+            return StringUtil.addPath(getAbsolutePath(), "/boot/" + this.getChannel().getChannelArch().getName() + "/loader/initrd");
         }
         else {
             return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");
