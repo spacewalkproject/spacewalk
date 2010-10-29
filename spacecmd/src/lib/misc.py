@@ -167,7 +167,7 @@ def do_login(self, args):
     # logout before logging in again
     if len(self.session):
         logging.warning('You are already logged in')
-        return
+        return True
 
     if self.options.nossl:
         proto = 'http'
@@ -187,7 +187,7 @@ def do_login(self, args):
         server = self.options.server
     else:
         logging.warning('No server specified')
-        return
+        return False
 
     server_url = '%s://%s/rpc/api' % (proto, server)
 
@@ -213,7 +213,7 @@ def do_login(self, args):
                       % (self.api_version, self.MINIMUM_API_VERSION))
 
         self.client = None
-        return
+        return False
 
     # store the session file in the server's own directory
     session_file = os.path.join(self.conf_dir, server, 'session')
@@ -244,8 +244,7 @@ def do_login(self, args):
     # check the cached credentials by doing an API call
     if self.session:
         try:
-            logging.debug('Using cached credentials from %s' %
-                          session_file)
+            logging.debug('Using cached credentials from %s' % session_file)
 
             self.client.user.listUsers(self.session)
         except:
@@ -256,7 +255,7 @@ def do_login(self, args):
     # attempt to login if we don't have a valid session yet
     if not len(self.session):
         if len(username):
-            print 'Username: %s' % username
+            print 'Spacewalk Username: %s' % username
         else:
             if self.options.username:
                 username = self.options.username
@@ -265,7 +264,7 @@ def do_login(self, args):
                 # again, the user is prompted for the information
                 self.options.username = None
             else:
-                username = prompt_user('Username:', noblank = True)
+                username = prompt_user('Spacewalk Username:', noblank = True)
 
         if self.options.password:
             password = self.options.password
@@ -274,14 +273,14 @@ def do_login(self, args):
             # again, the user is prompted for the information
             self.options.password = None
         else:
-            password = getpass('Password: ')
+            password = getpass('Spacewalk Password: ')
 
         # login to the server
         try:
             self.session = self.client.auth.login(username, password)
         except:
             logging.error('Invalid credentials')
-            return
+            return False
 
         try:
             # make sure ~/.spacecmd/<server> exists
@@ -308,6 +307,8 @@ def do_login(self, args):
     self.server = server
 
     logging.info('Connected to %s as %s' % (server_url, username))
+
+    return True
 
 ####################
 
