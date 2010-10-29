@@ -77,9 +77,9 @@ def manipulate_child_channels(self, args, remove=False):
 
     if len(args) < 2:
         if remove:
-            self.help_system_removechildchannel()
+            self.help_system_removechildchannels()
         else:
-            self.help_system_addchildchannel()
+            self.help_system_addchildchannels()
         return
 
     # use the systems listed in the SSM
@@ -1786,13 +1786,13 @@ def do_system_listchildchannels(self, args):
 
 ####################
 
-def help_system_addchildchannel(self):
-    print "system_addchildchannel: Add child channels to a system"
-    print 'usage: system_addchildchannel <SYSTEMS> <CHANNEL ...>'
+def help_system_addchildchannels(self):
+    print "system_addchildchannels: Add child channels to a system"
+    print 'usage: system_addchildchannels <SYSTEMS> <CHANNEL ...>'
     print
     print self.HELP_SYSTEM_OPTS
 
-def complete_system_addchildchannel(self, text, line, beg, end):
+def complete_system_addchildchannels(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
@@ -1800,18 +1800,18 @@ def complete_system_addchildchannel(self, text, line, beg, end):
     elif len(parts) > 2:
         return tab_completer(self.list_child_channels(), text)
 
-def do_system_addchildchannel(self, args):
+def do_system_addchildchannels(self, args):
     self.manipulate_child_channels(args)
 
 ####################
 
-def help_system_removechildchannel(self):
-    print "system_removechildchannel: Remove child channels from a system"
-    print 'usage: system_removechildchannel <SYSTEMS> <CHANNEL ...>'
+def help_system_removechildchannels(self):
+    print "system_removechildchannels: Remove child channels from a system"
+    print 'usage: system_removechildchannels <SYSTEMS> <CHANNEL ...>'
     print
     print self.HELP_SYSTEM_OPTS
 
-def complete_system_removechildchannel(self, text, line, beg, end):
+def complete_system_removechildchannels(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
@@ -1819,7 +1819,7 @@ def complete_system_removechildchannel(self, text, line, beg, end):
     elif len(parts) > 2:
         return tab_completer(self.list_child_channels(), text)
 
-def do_system_removechildchannel(self, args):
+def do_system_removechildchannels(self, args):
     self.manipulate_child_channels(args, True)
 
 ####################
