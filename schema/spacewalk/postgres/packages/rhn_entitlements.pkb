@@ -26,7 +26,6 @@
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_entitlements,' || setting where name = 'search_path';
 
-   -- returns NULL if no match found; this is different from the Oracle coding
    create or replace function find_compatible_sg (
       server_id_in in numeric,
       type_label_in in varchar
