@@ -264,19 +264,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     _generate_executemany_data = staticmethod(_generate_executemany_data)
 
-    def _do_snapshot(self, label, channels, channel_data, query,
-            with_channels=0):
-        snapshot_channel_ids, channel_ids, obj_ids, last_modifieds = \
-            self._generate_executemany_data(label, channels, channel_data)
-        h = rhnSQL.prepare(query)
-        if with_channels:
-            h.executemany(snapshot_channel_id=snapshot_channel_ids,
-                obj_id=obj_ids, channel_id=channel_ids,
-                last_modified=last_modifieds)
-        else:
-            h.executemany(snapshot_channel_id=snapshot_channel_ids,
-                obj_id=obj_ids, last_modified=last_modifieds)
-
     # Dumper functions here
     def dump_channel_families(self, virt_filter=0):
         log_debug(2)
