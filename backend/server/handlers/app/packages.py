@@ -406,19 +406,6 @@ class Packages(RPC_Base):
 
         return 0
 
-    _query_count_channel_servers = rhnSQL.Statement("""
-        select count(*) server_count
-          from rhnServerChannel sc, 
-               rhnChannel c
-         where c.label = :channel
-           and c.id = sc.channel_id
-    """)
-    def _count_channel_servers(self, channel):
-        h = rhnSQL.prepare(self._query_count_channel_servers)
-        h.execute(channel=channel)
-        row = h.fetchone_dict()
-        return row['server_count']
-
     def getPackageChecksum(self, username, password, info):
         """ returns checksum info of available packages
             also does an existance check on the filesystem.
