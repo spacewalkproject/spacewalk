@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.56
+Version:        1.2.57
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,22 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.57-1
+- The Oracle version and use of find_compatible_sg was changed in
+  b6832310938382e6f4e0f3c2d26807f4594ae96d, the comment no longer true.
+- Move the source of find_compatible_sg up in the file, to match the position
+  of the Oracle code.
+- Apply change 15c8aa97447223934e3e9c991b76deef466b0b9b to PostgreSQL code.
+- We have rhn_snapshotpkg_sid_nid_uq, no need to have another index on column
+  snapshot_id.
+- We have rhn_sprofile_id_oid_bc_idx and rhn_server_profile_noid_uq, so
+  rhn_server_profile_o_id_bc_idx is not useful, removing.
+- Clearing the ancient changelogs for rhn_channel.
+- Removing rhnSatelliteChannelFamily as it is no longer referenced.
+- Fixing dependencies for rhnRepoRegenQueue.
+- No need to have index which includes column which is in primary key and the
+  first two which are in rhn_pkgnevra_nid_eid_paid_uq.
+
 * Wed Oct 27 2010 Lukas Zapletal 1.2.56-1
 - Addresing recursion with opened cursor in PostgreSQL 
 - Function unsubscribe_server now in sync with Oracle 
