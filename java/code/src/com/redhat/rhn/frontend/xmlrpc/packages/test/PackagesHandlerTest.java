@@ -50,12 +50,9 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void testListChangeLog() throws Exception {
+    public void IGNOREDtestListChangeLog() throws Exception {
         // TODO: GET THIS WORKING
         // if (Config.get().isSatellite()) {
-        if (true) {
-            return;
-        }
 
         Package pkg = PackageTest.createTestPackage(admin.getOrg());
         assertNotNull(pkg.getOrg().getId());

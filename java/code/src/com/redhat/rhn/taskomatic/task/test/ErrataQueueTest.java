@@ -39,7 +39,6 @@ public class ErrataQueueTest extends BaseTestCaseWithUser {
         ErrataQueue eq = new ErrataQueue() {
 
             // Override this so we only process one errata.
-            @SuppressWarnings("unused")
             protected List findCandidates() throws Exception {
                 Long eid = ErrataFactoryTest.
                     createTestErrata(user.getOrg().getId()).getId();
