@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.7.5
+Version:     1.2.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,14 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Oct 29 2010 Aron Parsons <aparsons@redhat.com> 1.2.1-1
+- renamed system_addchildchannel to system_addchildchannels and
+  system_removechildchannel to system_removechildchannels for consistency
+- added help topics for time and system options
+- print the system ID and last checkin in report_duplicates
+- print help messages for functions if the user passes --help
+- exit the shell if the initial login attempt fails
+- version bump to 1.2 to stay in sync with other Spacewalk packages
 * Thu Oct 07 2010 Aron Parsons <aparsons@redhat.com> 0.7.5-1
 - fix unhandled exception in activationkey_create
   (aparsons@redhat.com)
