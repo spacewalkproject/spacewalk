@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.76
+Version: 1.2.77
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.77-1
+- removed unused Spacewalk (Certificate Signing Key) <jmrodri@nc.rr.com> key
+  from keyring (michael.mraka@redhat.com)
+- Operations on rhnSatelliteChannelFamily are not longer called, removing the
+  queries.
+- Method deactivateSatellite not used (presumably hosted only), removing.
+- Queries channel_download_categories_by_type and
+  satellite_channel_download_categories_by_type not used after previous
+  removal, removing.
+- ISOCategory not referenced, removing.
+- The listDownloadCategories is not used, removing.
+
 * Fri Oct 29 2010 Lukas Zapletal 1.2.76-1
 - Making DISTINCT-ORDER BY package/system queries portable
 - Removing unnecessary subselect 
