@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.77
+Version: 1.2.78
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.78-1
+- removing unused imports
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.77-1
 - removed unused Spacewalk (Certificate Signing Key) <jmrodri@nc.rr.com> key
   from keyring (michael.mraka@redhat.com)
