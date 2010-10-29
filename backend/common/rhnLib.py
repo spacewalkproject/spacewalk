@@ -146,32 +146,6 @@ class InvalidUrlError(Exception):
     pass
 
 
-def fix_url(url, scheme="http", path="/"):
-    if string.lower(scheme) not in ('http', 'https'):
-        # Programmer error
-        raise ValueError("Unknown URL scheme %s" % scheme)
-    _scheme, _netloc, _path, _params, _query, _fragment = \
-        urlparse.urlparse(url)
-
-    if not _netloc:
-        # No schema - trying to patch it up
-        new_url = scheme + '://' + url
-        _scheme, _netloc, _path, _params, _query, _fragment = \
-            urlparse.urlparse(new_url)
-
-    if string.lower(_scheme) not in ('http', 'https'):
-        raise InvalidUrlError("Invalid scheme %s for URL %s" % (_scheme, url))
-
-    if not _netloc:
-        raise InvalidUrlError(url)
-
-    if _path == '':
-        _path = path
-
-    url = urlparse.urlunparse((_scheme, _netloc, _path, _params, _query,
-        _fragment))
-    return url
-
 def hash_object_id(object_id, factor):
     """Given an object id (assumed to be <label>-<number>), returns the
     last few digits for the number. For instance, (812345, 3) should

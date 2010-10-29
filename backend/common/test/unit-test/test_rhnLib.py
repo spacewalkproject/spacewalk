@@ -24,50 +24,6 @@ from spacewalk.common import rhnLib
 class Tests(unittest.TestCase):
 
     ###########################################################################
-    # Tests for rhnLib.fix_url()
-    ###########################################################################
-
-    def test_normal_1(self):
-        "Simple call"
-        test_url = 'http://example.com'
-        result = rhnLib.fix_url(test_url)
-        self.assertEqual(result, 'http://example.com/', test_url)
-
-    def test_normal_2(self):
-        "host has port number too"
-        test_url = 'http://example.com:8080'
-        result = rhnLib.fix_url(test_url)
-        self.assertEqual(result, 'http://example.com:8080/', test_url)
-
-    def test_normal_path_1(self):
-        "Specifying path"
-        test_url = 'http://example.com'
-        result = rhnLib.fix_url(test_url, path='/abc')
-        self.assertEqual(result, 'http://example.com/abc', test_url)
-
-    def test_normal_scheme_1(self):
-        "No scheme, default"
-        test_url = 'example.com'
-        result = rhnLib.fix_url(test_url)
-        self.assertEqual(result, 'http://example.com/', test_url)
-    
-    def test_normal_scheme_2(self):
-        "No scheme, scheme specified"
-        test_url = 'example.com'
-        result = rhnLib.fix_url(test_url, scheme='https')
-        self.assertEqual(result, 'https://example.com/', test_url)
-
-    def test_failure_bad_scheme_1(self):
-        "Invalid default scheme"
-        test_url = 'example.com'
-        self.assertRaises(ValueError, rhnLib.fix_url, test_url, scheme='httpq')
-
-    def test_failure_bad_scheme_2(self):
-        "Invalid default scheme"
-        test_url = 'ftp://example.com'
-        self.assertRaises(rhnLib.InvalidUrlError, rhnLib.fix_url, test_url)
-
-    ###########################################################################
     # Tests for rhnLib.rfc822time()
     ###########################################################################
 
