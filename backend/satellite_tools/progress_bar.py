@@ -101,11 +101,6 @@ class ProgressBar:
         "Update the object's status to an additional bar size."
         self.update(self.size + additionalSize)
 
-    def updateAndPrint(self, newSize):
-        "shorthand for update() and printIncrement()"
-        self.update(newSize)
-        self.printIncrement()
-
     def complete(self):
         self.update(self.finalSize)
 
