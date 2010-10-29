@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.43
+Version: 1.2.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.44-1
+- /XP handler defines just 4 calls identical to /APP calls
+  (michael.mraka@redhat.com)
+- removed unused class WarningParseException (michael.mraka@redhat.com)
+- removed unused class VirtualizationListenerError (michael.mraka@redhat.com)
+
 * Wed Oct 27 2010 Jan Pazdziora 1.2.43-1
 - Class UpdateSlots unused, removing.
 - Exception SatCertNoFreeEntitlementsException not used, removing.
