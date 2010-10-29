@@ -443,7 +443,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
        rhnSet S
  WHERE CE.channel_id  = S.element
  AND S.label =  'channels_for_errata'
-         and temp.clonedId is null		
+         and temp.clonedId is null
          and S.user_id = :user_id
   </query>
 </mode>
@@ -494,7 +494,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
         where CE2.channel_id = :custom_cid
     )  temp on temp.clonedId = Errata1.id
    where  channel_id is null
-   	and temp.clonedId is null 		
+	and temp.clonedId is null
   </query>
 </mode>
 
@@ -1110,28 +1110,6 @@ SELECT  EK.keyword
   FROM  rhnErrataKeyword EK
  WHERE  EK.errata_id = :eid
 ORDER BY UPPER(EK.keyword)
-  </query>
-</mode>
-
-<mode name="errata_packages" class="com.redhat.rhn.frontend.dto.ErrataPackageFile">
-  <query params="eid, org_id">
-SELECT  DISTINCT EFP.package_id,
-                 CS.checksum,
-                 CS.checksum_type AS CHECKSUMTYPE,
-                 EF.filename AS FILENAME,
-                 C.name AS CHANNEL_NAME
-  FROM  rhnChannel C,
-        rhnErrataFilePackage EFP,
-        rhnErrataFileChannel EFC,
-        rhnErrataFile EF,
-        rhnChecksumView CS
- WHERE  EF.errata_id = :eid
-   AND  EF.id = EFC.errata_file_id (+)
-   AND  EF.id = EFP.errata_file_id (+)
-   AND  EFC.channel_id IN (SELECT AC.channel_id FROM rhnAvailableChannels AC WHERE AC.org_id = :org_id)
-   AND  EFC.channel_id = C.id
-   AND  EF.checksum_id = CS.id
-ORDER BY C.name, EF.filename DESC
   </query>
 </mode>
 

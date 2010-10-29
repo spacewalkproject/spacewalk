@@ -32,7 +32,6 @@ import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
-import com.redhat.rhn.domain.errata.ErrataFileType;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -236,36 +235,6 @@ public class ErrataManager extends BaseManager {
      */
     public static Bug createNewPublishedBug(Long id, String summary) {
         return ErrataFactory.createPublishedBug(id, summary);
-    }
-
-    /**
-     * Creates a new Unpublished Errata file with given ErrataFileType, checksum, and name
-     * @param ft ErrataFileType for the new ErrataFile
-     * @param cs MD5 Checksum for the new Errata File
-     * @param name name for the file
-     * @param packages Packages for the file.
-     * @return new Unpublished Errata File
-     */
-    public static ErrataFile createNewUnpublishedErrataFile(ErrataFileType ft,
-                                                         String cs,
-                                                         String name,
-                                                         Set packages) {
-        return ErrataFactory.createUnpublishedErrataFile(ft, cs, name, packages);
-    }
-
-    /**
-     * Creates a new Published Errata file with given ErrataFileType, checksum, and name
-     * @param ft ErrataFileType for the new ErrataFile
-     * @param cs MD5 Checksum for the new Errata File
-     * @param name name for the file
-     * @param packages Packages for the file.
-     * @return new Published Errata File
-     */
-    public static ErrataFile createNewPublishedErrataFile(ErrataFileType ft,
-                                                       String cs,
-                                                       String name,
-                                                       Set packages) {
-        return ErrataFactory.createPublishedErrataFile(ft, cs, name, packages);
     }
 
     /**
@@ -709,15 +678,6 @@ public class ErrataManager extends BaseManager {
     }
 
     /**
-     * Looks up errata by advisory id
-     * @param advisoryId errata advisory id
-     * @return Errata if found, otherwise null
-     */
-    public static Errata lookupByAdvisoryId(String advisoryId) {
-        return ErrataFactory.lookupByAdvisoryId(advisoryId);
-    }
-
-    /**
      * Looks up errata by CVE string
      * @param cve errata's CVE string
      * @return Errata if found, otherwise null
@@ -733,15 +693,6 @@ public class ErrataManager extends BaseManager {
      */
     public static List lookupErrataByType(String advisoryType) {
         return ErrataFactory.lookupErratasByAdvisoryType(advisoryType);
-    }
-
-    /**
-     * Lookup all Security Errata by synopsis
-     * @param synopsis the synopsis to use to query the set of Errata
-     * @return List of Errata found
-     */
-    public static List lookupErrataBySynopsis(String synopsis) {
-        return ErrataFactory.lookupErratasBySynopsis(synopsis);
     }
 
     /**
@@ -867,22 +818,6 @@ public class ErrataManager extends BaseManager {
 
         Map params = new HashMap();
         params.put("eid", eid);
-        DataResult dr = m.execute(params);
-        return dr;
-    }
-
-    /**
-     * Returns a list of packages for an errata
-     * @param eid The errata id
-     * @param user The user
-     * @return packages
-     */
-    public static DataResult packages(Long eid, User user) {
-        SelectMode m = ModeFactory.getMode("Errata_queries", "errata_packages");
-
-        Map params = new HashMap();
-        params.put("eid", eid);
-        params.put("org_id", user.getOrg().getId());
         DataResult dr = m.execute(params);
         return dr;
     }
