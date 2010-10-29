@@ -643,10 +643,15 @@ def get_system_id(self, name):
         logging.warning("Can't find system ID for %s" % name)
         return 0
     else:
-        logging.warning('Multiple systems found with the same name')
+        logging.warning('Duplicate system profile names found')
+        logging.warning("You can delete duplicates with 'system_delete'")
+
+        id_list = '%s = ' % name
 
         for id in systems:
-            logging.warning('%s = %i' % (name, id))
+            id_list = id_list + '%i, ' % id
+
+        logging.warning(id_list[:-2])
 
         return 0
 
