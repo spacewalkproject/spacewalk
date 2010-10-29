@@ -182,39 +182,6 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
-     * Retrieves a list of base channels the given user can subscribe the given server to.
-     * @param user The user in question
-     * @param server The server in question
-     * @return Returns a list of base channels the user can subscribe the server to.
-     */
-    public static DataResult userSubscribableBaseChannelsForSystem(User user,
-                                 Server server) {
-        SelectMode m = ModeFactory.getMode("Channel_queries",
-                           "subscribable_base_channels_for_system", Map.class);
-        Map params = new HashMap();
-        params.put("org_id", user.getOrg().getId());
-        params.put("server_id", server.getId());
-        DataResult dr = m.execute(params);
-        /*
-         * This sucks, but verifying channel access for a user is a stored proc so we have
-         * to loop through each of the org's base channels and make sure we can show them
-         * to this user.
-         */
-        List toRemove = new ArrayList();
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            Map map = (Map) itr.next();
-            //Verify channel access for the user
-            Long id = (Long) map.get("id");
-            if (!verifyChannelSubscribe(user, id)) {
-                toRemove.add(map);
-            }
-        }
-
-        dr.removeAll(toRemove);
-        return dr;
-    }
-
-    /**
      * Returns a list channel entitlements
      * @param orgId The users org ID
      * @param pc The PageControl
