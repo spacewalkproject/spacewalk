@@ -420,12 +420,6 @@ class Keyword(Information):
     }
 
 
-class CVE(Information):
-    attributeTypes = {
-        'name'              : StringType,
-    }
-
-
 class Erratum(Information):
     attributeTypes = {
         'advisory'          : StringType,
