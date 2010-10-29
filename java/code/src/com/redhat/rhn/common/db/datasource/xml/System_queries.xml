@@ -1559,24 +1559,9 @@ INSERT INTO  rhnSatelliteInfo (server_id, cert, product, owner, issued_string, e
   </query>
 </write-mode>
 
-<write-mode name="insert_satellite_channel_family">
-  <query params="sid, channel_family_label, quantity">
-INSERT INTO rhnSatelliteChannelFamily
-  (server_id, channel_family_id, quantity)
-VALUES
-  (:sid, (SELECT id FROM rhnChannelFamily WHERE label = :channel_family_label), :quantity)
-  </query>
-</write-mode>
-
 <write-mode name="delete_satellite_info">
   <query params="sid">
 DELETE FROM  rhnSatelliteInfo WHERE  server_id = :sid
-  </query>
-</write-mode>
-
-<write-mode name="delete_satellite_channel_family">
-  <query params="sid">
-DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
   </query>
 </write-mode>
 
