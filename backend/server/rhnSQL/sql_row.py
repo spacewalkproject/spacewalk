@@ -37,13 +37,6 @@ class Row(UserDictCase):
         self.db = db              
         self.table = table
         self.hashname = string.lower(hashname)
-        # see if the table exists
-	sql = "select %s from %s where rownum = 0" % (self.hashname, self.table)
-	try:
-	    h = self.db.prepare(sql)
-	except:
-	    raise ValueError, "Invalid table or column"
-	del h
 
         # and the data dictionary
         self.data = {}

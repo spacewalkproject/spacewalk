@@ -71,14 +71,6 @@ class Table:
         if cache:
             self.__cache = {}
 
-	# see if the table exists
-	sql = "select %s from %s where rownum = 0" % (self.__hashid, self.__table)
-	try:
-	    h = self.__db.prepare(sql)
-	except:
-	    raise ValueError,"Invalid table or column"
-	del h
-
     def set_cache(self, value):
         if not value:
             self.__cache = None
