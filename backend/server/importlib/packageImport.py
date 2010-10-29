@@ -143,32 +143,6 @@ class ChannelPackageSubscription(GenericPackageImport):
                 affected_channels[channel_id] = channel_label
         self.affected_channels = affected_channels.values()
 
-    def addFromPackageBatch(self, batch):
-        # Initialize the batch with information from the other batch
-        for package in batch:
-            if not isinstance(package, Package):
-                raise TypeError("Expected a Package instance")
-            if package.ignored:
-                # Skip it
-                continue
-            # Build an IncompletePackage
-            dict = {
-                'name'      : package.name,
-                'epoch'     : package.evr[0],
-                'version'   : package.evr[1],
-                'release'   : package.evr[2],
-                'arch'      : package.arch,
-                'org_id'    : package.org_id,
-            }
-            channels = package.channels or []
-            l = []
-            for channel in channels:
-                l.append({'label' : channel})
-            dict['channels'] = l
-            p = IncompletePackage()
-            p.populate(dict)
-            self.batch.append(p)
-
     def _processPackage(self, package):
         GenericPackageImport._processPackage(self, package)
 
