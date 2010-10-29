@@ -710,38 +710,6 @@ class Server(ServerWrapper):
             return 0
         return 1
 
-    def checkSatEntitlement(self):
-        """Check serverId against DB to see if it maps to an entitled
-           RHN Satellite Server.
-        """
-        h = rhnSQL.prepare("""
-            select cert
-            from rhnsatelliteinfo si
-            where si.server_id = :serverId
-        """)
-        h.execute(serverId=self.server["id"])
-        row = h.fetchone_dict()
-        if not row:
-            return 0
-
-        cert = row['cert']
-        if not cert:
-            return 0
-
-        # Bugzilla #219625
-        # Cert is now a blob, so convert it to a string
-        cert = cert.read()
-
-        self.satellite_cert = SatelliteCert()
-        self.satellite_cert.load(cert)
-        # Some sanity checking
-        #if self.satellite_cert.expires:
-        #    if time.time() > self.satellite_cert.expires:
-        #        # Expired satellite
-        #        return 0
-
-        return 1
-
     def checkin(self, commit = 1, check_for_abuse = 1):
         """ convenient wrapper for these thing until we clean the code up """
         if not self.server.has_key("id"):
