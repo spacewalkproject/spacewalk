@@ -12,9 +12,6 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---
---
---
 
 CREATE OR REPLACE
 PACKAGE BODY rhn_channel
