@@ -550,29 +550,6 @@ public class ChannelManager extends BaseManager {
 
     /**
      * Returns a list of ChannelTreeNodes containing all channels
-     * the trusted org is consuming from a specific org
-     * @param org Org that is consuming from the trusted org shared channels
-     * @param trustOrg org that is sharing the channels
-     * @param user User of trust org that is sharing the channels
-     * @param lc ListControl to use
-     * @return list of ChannelTreeNode's
-     */
-    public static DataResult trustChannelProvide(Org org, Org trustOrg, User user,
-                                            ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
-
-        Map params = new HashMap();
-        params.put("org_id", trustOrg.getId());
-        params.put("user_id", user.getId());
-        params.put("org_id2", org.getId());
-
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
-    }
-
-
-    /**
-     * Returns a list of ChannelTreeNodes containing all channels
      * the user can see
      * @param user who we are requesting channels for
      * @param lc ListControl to use
@@ -1276,16 +1253,6 @@ public class ChannelManager extends BaseManager {
                 "Errata_queries", "relevant_to_channel_by_type");
 
         return m.execute(params);
-    }
-
-    /**
-     * Returns list of packages in channel
-     * @param channel channel whose packages are sought
-     * @param startDate package start date
-     * @return list of packages in channel
-     */
-    public static List listAllPackages(Channel channel, String startDate) {
-        return listAllPackages(channel, startDate, null);
     }
 
     /**
