@@ -538,7 +538,6 @@ IS
 
         for ignore in channel_family_is_satellite(channel_family_id_val) loop
                 delete from rhnSatelliteInfo where server_id = server_id_in;
-                delete from rhnSatelliteChannelFamily where server_id = server_id_in;
         end loop;
 
         for ignore in channel_family_is_proxy(channel_family_id_val) loop
