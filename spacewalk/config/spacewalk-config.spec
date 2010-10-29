@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.3
+Version: 1.2.4
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -91,6 +91,10 @@ fi
 
 
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.4-1
+- removed unused Spacewalk (Certificate Signing Key) <jmrodri@nc.rr.com> key
+  from keyring (michael.mraka@redhat.com)
+
 * Mon Oct 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.3-1
 - fixing changelog entry
 
