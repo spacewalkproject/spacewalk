@@ -228,10 +228,7 @@ Create everything as well as unlimited activation key for every channel:
                         channel_arch[base_info['arch']], '', base_info['checksum'],
                         { 'url': base_info['gpgkey_url'],
                           'id' : base_info['gpgkey_id'],
-                          'fingerprint': base_info['gpgkey_fingerprint']},
-                        { 'url': base_info['yumrepo_url'],
-                          'label': 'X',
-                          'sync': False})
+                          'fingerprint': base_info['gpgkey_fingerprint']})
                 except xmlrpclib.Fault, e:
                     if e.faultCode != 1200: # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
@@ -287,10 +284,7 @@ Create everything as well as unlimited activation key for every channel:
                             child_info['checksum'],
                             { 'url': child_info['gpgkey_url'],
                               'id' : child_info['gpgkey_id'],
-                              'fingerprint': child_info['gpgkey_fingerprint']},
-                            { 'url': child_info['yumrepo_url'],
-                              'label': 'X',
-                              'sync': False})
+                              'fingerprint': child_info['gpgkey_fingerprint']})
                 except xmlrpclib.Fault, e:
                     if e.faultCode != 1200: # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
