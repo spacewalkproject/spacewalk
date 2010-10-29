@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.13
+Version:        1.2.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Oct 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.14-1
+- change ascii art animation to bow, arrow and target
+
 * Tue Oct 26 2010 Jan Pazdziora 1.2.13-1
 - When run with the --db-only option, stop after populating the database.
 
