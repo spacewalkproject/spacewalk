@@ -583,15 +583,6 @@ class QueryIterator:
 
             self._result_set_exhausted = 1
                 
-    def _execute_next(self):
-        log_debug(4)
-        self._params_pos = self._params_pos + 1
-        if self._params_pos == len(self._params):
-            log_debug(5, "Done")
-            self._statement = None
-            return None
-        apply(self._statement.execute, (), self._params[self._params_pos])
-        
 class CachedQueryIterator:
     """ This class will attempt to retrieve information, either from the database or
         from a local cache.
