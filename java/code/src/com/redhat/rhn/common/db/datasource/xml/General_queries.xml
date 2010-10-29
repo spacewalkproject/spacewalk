@@ -307,16 +307,16 @@ ORDER BY KTZ.name
 <write-mode name="update_current_alerts_date_completed">
   <query>
     UPDATE rhn_current_alerts
-       SET date_completed = sysdate, in_progress = '0'
+       SET date_completed = current_timestamp, in_progress = '0'
      WHERE date_completed is null
-       AND sysdate - date_submitted > 1
+       AND date_diff_in_days(current_timestamp, date_submitted) > 1
   </query>
 </write-mode>
 
 <write-mode name="delete_old_current_alerts">
   <query>
     DELETE from rhn_current_alerts
-     WHERE sysdate - date_completed > 1
+     WHERE date_diff_in_days(current_timestamp, date_completed) > 1
   </query>
 </write-mode>
 
@@ -330,7 +330,7 @@ ORDER BY KTZ.name
 <write-mode name="add_daemon_state">
   <query params="label">
     INSERT into rhnDaemonState (label, last_poll)
-    VALUES (:label, sysdate)
+    VALUES (:label, current_timestamp)
   </query>
 </write-mode>
 
