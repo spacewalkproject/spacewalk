@@ -689,6 +689,8 @@ def expand_systems(self, args):
         args = args.split()
 
     systems = []
+    system_ids = []
+
     for item in args:
         if re.match('ssm', item, re.I):
             systems.extend(self.ssm)
@@ -715,12 +717,17 @@ def expand_systems(self, args):
             else:
                 logging.warning('No systems subscribed to %s' % item)
         else:
-            # just a system name
-            systems.append(item)
+            # translate system IDs that the user passes
+            try:
+                id = int(item)
+                system_ids.append(id)
+            except ValueError:
+                # just a system name
+                systems.append(item)
     
     matches = filter_results(self.get_system_names(), systems)
 
-    return matches
+    return matches + system_ids
 
 
 def list_base_channels(self):
