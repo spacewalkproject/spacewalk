@@ -773,26 +773,6 @@ class VirtualizationEventHandler:
 ###############################################################################
 # Module level functions
 ###############################################################################
-def _handle_virt_guest_params(system_certificate, params):
-    # Get the uuid, if there is one.
-    if params.has_key('virt_uuid'):
-        virt_uuid = params['virt_uuid']
-        if virt_uuid is not None and not is_host_uuid(virt_uuid):
-            # If we don't have a virt_type key, we'll assume PARA.
-            virt_type = None
-            if params.has_key('virt_type'):
-                virt_type = params['virt_type']
-                if virt_type == 'para':
-                    virt_type = VirtualizationType.PARA
-                elif virt_type == 'fully':
-                    virt_type = VirtualizationType.FULLY
-                else:
-                    raise Exception(
-                        "Unknown virtualization type: %s" % virt_type)
-            else:
-                raise Exception("Virtualization type not provided")
-
-            _notify_guest(system_certificate, virt_uuid, virt_type)
 
 # Notifies the virtualization backend that there is a guest with a
 # specific

@@ -554,9 +554,6 @@ class Registration(rhnHandler):
 
         system_certificate = newserv.system_id()
 
-        # Check guest parameters and perform updates if necessary.
-        # self._handle_virt_guest_params(system_certificate, data)
-
         # Return the server certificate file down to the client.
         return system_certificate
 
@@ -629,9 +626,6 @@ class Registration(rhnHandler):
 
         # Get the server certificate file
         system_certificate = newserv.system_id()
-
-        # Check guest parameters and perform updates if necessary.
-        # self._handle_virt_guest_params(system_certificate, other)
 
         log_debug(4, 'Server id created as %s' % server_id)
 
