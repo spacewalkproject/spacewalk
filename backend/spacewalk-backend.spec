@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.46
+Version: 1.2.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.47-1
+- For Function in PostgreSQL, we have to not just execute, but also fetch the
+  value to return.
+- Move the SQL munging messages to debug level 6, to be above the "Executing
+  SQL" message level.
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.46-1
 - Removing select with rownum. It seems not that useful anyway.
 
