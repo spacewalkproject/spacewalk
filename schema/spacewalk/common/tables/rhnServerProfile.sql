@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,11 +45,6 @@ CREATE UNIQUE INDEX rhn_server_profile_noid_uq
 CREATE INDEX rhn_sprofile_id_oid_bc_idx
     ON rhnServerProfile (id, org_id, base_channel)
     TABLESPACE [[64k_tbs]];
-
-CREATE INDEX rhn_server_profile_o_id_bc_idx
-    ON rhnServerProfile (org_id, id, base_channel)
-    TABLESPACE [[64k_tbs]]
-    NOLOGGING;
 
 CREATE INDEX rhn_server_profile_bc_idx
     ON rhnServerProfile (base_channel)
