@@ -33,7 +33,7 @@ group:GROUP
 channel:CHANNEL
 '''
 
-TIME_OPTS = '''Dates can be any of the following:
+HELP_TIME_OPTS = '''Dates can be any of the following:
 Explicit Dates:
 Dates can be expressed as explicit date strings in the YYYYMMDD[HHMM]
 format.  The year, month and day are required, while the hours and
@@ -73,6 +73,14 @@ ENTITLEMENTS = ['provisioning_entitled',
 
 SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname',
                         'device', 'vendor', 'driver']
+
+####################
+
+def help_systems(self):
+    print HELP_SYSTEM_OPTS
+
+def help_time(self):
+    print HELP_TIME_OPTS
 
 ####################
 

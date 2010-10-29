@@ -283,7 +283,7 @@ options:
     print
     print self.HELP_SYSTEM_OPTS
     print
-    print self.TIME_OPTS
+    print self.HELP_TIME_OPTS
 
 def complete_system_runscript(self, text, line, beg, end):
     return self.tab_complete_systems(text)
