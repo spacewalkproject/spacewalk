@@ -40,13 +40,6 @@ class SpacewalkShell(Cmd):
     # maximum length of history file
     HISTORY_LENGTH = 1024
 
-    intro = '''
-Welcome to spacecmd, a command-line interface to Spacewalk.
-
-Type: 'help' for a list of commands
-      'help <cmd>' for command-specific help
-      'quit' to quit
-'''
     cmdqueue = []
     completekey = 'tab'
     stdout = sys.stdout
