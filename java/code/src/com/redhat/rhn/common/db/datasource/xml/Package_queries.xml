@@ -44,41 +44,49 @@ ORDER BY  UPPER(pn.name), full_list.evr
 
 <mode name="package_conflicts">
   <query params="pid">
+select * from (
 SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageConflicts P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+) X
+ORDER BY UPPER(X.name), X.version
   </query>
 </mode>
 
 <mode name="package_provides">
   <query params="pid">
+select * from (
 SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageProvides P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+) X
+ORDER BY UPPER(X.name), X.version
   </query>
 </mode>
 
 <mode name="package_obsoletes">
   <query params="pid">
+select * from (
 SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageObsoletes P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+) X
+ORDER BY UPPER(X.name), X.version
   </query>
 </mode>
 
 <mode name="package_requires">
   <query params="pid">
+select * from (
 SELECT  DISTINCT C.name, C.version, P.sense
   FROM  rhnPackageCapability C, rhnPackageRequires P
  WHERE  P.package_id = :pid
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+) X
+ORDER BY UPPER(X.name), X.version
   </query>
 </mode>
 
@@ -194,6 +202,7 @@ ORDER BY UPPER(C.label)
 
 <mode name="name_by_provide" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="org_id, cap_name">
+select * from (
 SELECT DISTINCT PN.name
  FROM rhnPackageName PN,
       rhnPackage P,
@@ -212,12 +221,14 @@ WHERE PC.name = :cap_name
              AND  CFM.CHANNEL_ID = CP.channel_id
              AND  CP.package_id = P.id))
   AND P.name_id = PN.id
-ORDER BY UPPER(PN.name)
+) X
+ORDER BY UPPER(X.name)
   </query>
 </mode>
 
 <mode name="name_by_provide_and_channel" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="channel_id, org_id, cap_name">
+select * from (
 SELECT DISTINCT PN.name
 
  FROM rhnPackageName PN,
@@ -244,7 +255,8 @@ WHERE PC.name = :cap_name
              AND  CFM.CHANNEL_ID = CP.channel_id
              AND  CP.package_id = P.id))
   AND P.name_id = PN.id
-ORDER BY UPPER(PN.name)
+) X
+ORDER BY UPPER(X.name)
   </query>
 </mode>
 
@@ -336,6 +348,7 @@ SELECT P.id AS ID,
 <!-- used by ChannelSoftwareHandler -->
 <mode name="latest_packages_in_channel_api">
     <query params="cid">
+select * from (
 SELECT DISTINCT
                 CNP.package_id as id,
                 PN.name as name,
@@ -353,7 +366,8 @@ SELECT DISTINCT
    AND PN.id = CNP.name_id
    AND PE.id = CNP.evr_id
    AND PA.id = CNP.package_arch_id
-ORDER BY UPPER(PN.name)
+) X
+ORDER BY UPPER(X.name)
 </query>
 </mode>
 
@@ -362,6 +376,7 @@ ORDER BY UPPER(PN.name)
 <!-- must call the id_combo simply 'id' because listview assumes that
      will be the name -->
 
+select * from (
 SELECT DISTINCT
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS nvre,
        PN.id || '|' || CNP.evr_id || '|' || PA.id AS id_combo,
@@ -375,7 +390,8 @@ SELECT DISTINCT
    AND PN.id = CNP.name_id
    AND PE.id = CNP.evr_id
    AND PA.id = CNP.PACKAGE_ARCH_ID
-ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
+) X
+ORDER BY UPPER(X.nvre)
   </query>
 </mode>
 
@@ -510,6 +526,7 @@ ORDER BY  UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr)), UPPER(PA.label), P
 
 <mode name="packages_available_to_errata" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id, eid">
+select * from (
 SELECT DISTINCT P.id id, PN.name || '-' || PE.version
            || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
            || '-' || PA.label PACKAGE_NVRE
@@ -528,13 +545,15 @@ SELECT DISTINCT P.id id, PN.name || '-' || PE.version
                        FROM rhnErrataPackage EP
                       WHERE EP.errata_id = :eid
                         AND EP.package_id = P.id)
-ORDER BY UPPER(PACKAGE_NVRE)
+) X
+ORDER BY UPPER(X.PACKAGE_NVRE)
   </query>
   <elaborator name="package_channels" />
 </mode>
 
 <mode name="packages_available_to_tmp_errata"  class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id, eid">
+select * from (
   SELECT DISTINCT P.id ID,
                   PN.name || '-' || PE.version || '-' || PE.release
                     || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
@@ -554,7 +573,8 @@ ORDER BY UPPER(PACKAGE_NVRE)
                        FROM rhnErrataPackageTmp EP
                       WHERE EP.errata_id = :eid
                         AND EP.package_id = P.id)
-ORDER BY UPPER(PACKAGE_NVRE)
+) X
+ORDER BY UPPER(X.PACKAGE_NVRE)
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -860,6 +880,7 @@ SELECT CP.package_id as ID,
 
 <mode name="packages_associated_with_action">
   <query params="aid">
+select * from (
 SELECT  DISTINCT PN.id || '|' || PE.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
   FROM  rhnPackageName PN,
         rhnPackageEVR PE,
@@ -867,7 +888,8 @@ SELECT  DISTINCT PN.id || '|' || PE.id AS ID, PN.name || '-' || evr_t_as_vre_sim
  WHERE  AP.action_id = :aid
    AND  PN.id = AP.name_id
    AND  PE.id = AP.evr_id
-ORDER BY  UPPER(NVRE)
+) X
+ORDER BY  UPPER(X.NVRE)
   </query>
 </mode>
 
