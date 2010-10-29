@@ -1211,19 +1211,6 @@ def do_system_delete(self, args):
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
-        # check for system IDs
-        for item in args:
-            try:
-                system_id = int(item)
-                system_ids.append(system_id)
-            except ValueError:
-                pass
-
-        # don't try to expand IDs below
-        for system_id in system_ids:
-            if system_id in args:
-                args.remove(system_id)
-
         systems = self.expand_systems(args)
 
     # get the system ID for each system
@@ -1239,6 +1226,8 @@ def do_system_delete(self, args):
 
     # make the column the right size
     colsize = max_length([ self.get_system_name(s) for s in system_ids ])
+    if colsize < 7: colsize = 7
+
     print '%s  System ID' % 'Profile'.ljust(colsize)
     print '%s  ---------' % ('-' * colsize)
 
