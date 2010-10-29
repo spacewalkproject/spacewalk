@@ -488,10 +488,6 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
     ) returns void
     as $$
     declare
-		sg_users cursor is
-			select	user_id id
-			from	rhnUserServerGroupPerms
-			where	server_group_id = server_group_id_in;
 		used_slots numeric;
 		max_slots numeric;
 		org_id numeric;
@@ -529,9 +525,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 				set current_members = current_members + 1
 				where id = server_group_id_in;
 
-			for u in sg_users loop
-				perform rhn_cache.update_perms_for_user(u.id);
-			end loop;
+			perform rhn_cache.update_perms_for_server_group(server_group_id_in);
 			return;
 		end if;
 
@@ -637,11 +631,6 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
     ) returns void
     as $$
     declare
-		sg_users cursor is
-			select	user_id id
-			from	rhnUserServerGroupPerms
-			where	server_group_id = server_group_id_in;
-
         server_virt_groups cursor is
             select 1
             from rhnServerEntitlementVirtual sev
@@ -674,9 +663,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 			update rhnServerGroup
 				set current_members = current_members - 1
 				where id = server_group_id_in;
-			for u in sg_users loop
-				perform rhn_cache.update_perms_for_user(u.id);
-			end loop;
+			perform rhn_cache.update_perms_for_server_group(server_group_id_in);
 			return;
 		end if;
 
