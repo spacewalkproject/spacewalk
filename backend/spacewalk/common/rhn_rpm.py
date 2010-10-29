@@ -349,19 +349,11 @@ def hdrLabelCompare(hdr1, hdr2):
     return 1
 
 
-def rpmLabelCompare(rpmFilename1, rpmFilename2):
-    """ take two RPMs and compare them for order """
-    return hdrLabelCompare(get_package_header(rpmFilename1),
-                           get_package_header(rpmFilename2))
-
-
 def sortRPMs(rpms):
     """ Sorts a list of RPM files. They *must* exist.  """
 
     assert isinstance(rpms, type([]))
 
-    # We don't want to use rpmLabelCompare as a sorting mechanism, it would
-    # extract the rpm header for each comparison.
     # Build a list of (header, rpm)
     helper = map(lambda x: (get_package_header(x), x), rpms)
 
