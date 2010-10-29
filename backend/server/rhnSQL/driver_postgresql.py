@@ -75,9 +75,12 @@ class Function(sql_base.Procedure):
             i += 1
         query = "SELECT %s(%s)" % (self.name, positional_args)
 
-        # for now return just result (ret_type is ignored)
         log_debug(2, query, args)
-        return self.cursor.execute(query, args)
+        ret = self.cursor.execute(query, args)
+        if self.ret_type == None:
+            return ret
+        else:
+            return self.cursor.fetchone()[0]
 
 
 class Procedure(Function):
@@ -92,6 +95,7 @@ class Procedure(Function):
 
     def __init__(self, name, cursor):
         Function.__init__(self, name, cursor, None)
+        self.ret_type = None
 
     def __call__(self, *args):
         result = Function.__call__(self, *args)
