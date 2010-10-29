@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.17
+Version: 1.2.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.18-1
+- fix rpmlint error (msuchy@redhat.com)
+- fix rpmlint error (msuchy@redhat.com)
+- fix rpmlint error (msuchy@redhat.com)
+
 * Mon Oct 25 2010 Jan Pazdziora 1.2.17-1
 - To get UTF-8 strings in character semantics from DBD::Pg automatically, we
   have to enable it.
