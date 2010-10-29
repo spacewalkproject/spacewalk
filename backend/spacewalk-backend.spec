@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.44
+Version: 1.2.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,25 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.45-1
+- Function fix_url not used anywhere, removing; removing its tests as well.
+- The common.rhn_memusage is also only used by tests, moving to test/attic.
+- Class CVE does not seem to be used, removing.
+- Moved server.rhnServerGroup to test/attic.
+- Moved server.rhnActivationKey to test/attic, not shipped.
+- Method _execute_next does not seem to be used, removing.
+- Method _do_snapshot does not seem to be used in Satellite, removing.
+- Method _count_channel_servers not used in _channelPackageSubscription in
+  Satellite, removing.
+- Method checkSatEntitlement not used in Satellite code, hosted only, removing.
+- Method updateAndPrint not used, removing.
+- Method addToAndPrint not used, removing.
+- Method addFromPackageBatch not used, removing.
+- The comment says we do not want to use rpmLabelCompare, let us just remove
+  it.
+- The method _handle_virt_guest_params was commented out for ages; the
+  virt_type processing is done in create_system anyway.
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.44-1
 - /XP handler defines just 4 calls identical to /APP calls
   (michael.mraka@redhat.com)
