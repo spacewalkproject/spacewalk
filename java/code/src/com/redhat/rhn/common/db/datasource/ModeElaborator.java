@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.db.datasource;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +24,12 @@ import java.util.Map;
  * ModeElaborator
  * @version $Rev$
  */
-public class ModeElaborator implements Elaborator {
+public class ModeElaborator implements Elaborator, Serializable {
     private SelectMode mode;
     private Map params;
+
+    // increase this number on any data change
+    private static final long serialVersionUID = 1L;
 
     /**
      * @param select Select mode

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.common.db.datasource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -25,11 +26,14 @@ import java.util.Map;
  *
  * @version $Rev$
  */
-public class SelectMode extends BaseMode {
+public class SelectMode extends BaseMode implements Serializable {
 
     private String clazz;
     private List elaborators;
     private int maxRows;
+
+    // increase this number on any data change
+    private static final long serialVersionUID = 1L;
 
     // We could (and probably should) cache the ResultSet metadata here as
     // well.  There is no reason that the first call to each statement
