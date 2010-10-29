@@ -14,6 +14,8 @@ Requires:       python >= 1.5
 Requires:       koan >= 1.4.3
 
 Conflicts: rhn-kickstart
+Conflicts: rhn-kickstart-common
+Conflicts: rhn-kickstart-virtualization
 
 #this currently doesn't work for RHEL 2.1
 %if 0%{?rhel} && 0%{?rhel} < 5
