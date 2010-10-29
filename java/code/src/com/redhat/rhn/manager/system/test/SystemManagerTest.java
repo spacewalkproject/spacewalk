@@ -882,21 +882,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertNotEmpty(dr);
     }
 
-    public void testDeactivateSatellite() throws Exception {
-        // Server s = ServerFactory.lookupById(new Long(1007294616));
-        Server s = ServerTestUtils.createTestSystem();
-        flushAndEvict(s);
-        s = (Server) reload(s);
-        assertNotNull(s);
-        try {
-            SystemManager.deactivateSatellite(s);
-            fail("Should have thrown an NotActivatedSatelliteException");
-        }
-        catch (Exception e) {
-           // do nothing
-        }
-    }
-
     public void testDeactivateProxy() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
         user.addRole(RoleFactory.ORG_ADMIN);

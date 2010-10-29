@@ -1498,37 +1498,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Deactivate a current satellite
-     * @param server the current satellite to be deactivated
-     * @throws NotActivatedSatelliteException <code>server</code> is not a satellite
-     * @throws NoSuchSystemException thrown if the server is null.
-     */
-    public static void deactivateSatellite(Server server)
-        throws NotActivatedSatelliteException, NoSuchSystemException {
-        if (server == null) {
-            throw new NoSuchSystemException();
-        }
-
-        if (!server.isSatellite()) {
-            throw new NotActivatedSatelliteException();
-        }
-
-        Map params = new HashMap();
-        params.put("sid", server.getId());
-        executeWriteMode("System_queries", "delete_satellite_info", params);
-        executeWriteMode("System_queries", "delete_satellite_channel_family", params);
-
-        Set channels = server.getChannels();
-        for (Iterator itr = channels.iterator(); itr.hasNext();) {
-            Channel c = (Channel)itr.next();
-            ChannelFamily cf = c.getChannelFamily();
-            if (cf.getLabel().equals("rhn-satellite")) {
-                SystemManager.unsubscribeServerFromChannel(server, c);
-            }
-        }
-    }
-
-    /**
      * Entitles the given server to the given Entitlement.
      * @param server Server to be entitled.
      * @param ent Level of Entitlement.
