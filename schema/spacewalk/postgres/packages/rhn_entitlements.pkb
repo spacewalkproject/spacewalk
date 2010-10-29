@@ -26,6 +26,43 @@
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_entitlements,' || setting where name = 'search_path';
 
+   -- returns NULL if no match found; this is different from the Oracle coding
+   create or replace function find_compatible_sg (
+      server_id_in in numeric,
+      type_label_in in varchar
+   )
+   returns numeric
+as $$
+    declare
+      servergroups cursor for
+         select sg.id
+           from rhnServerGroupType             sgt,
+                rhnServerGroup                 sg,
+                rhnServer                     s,
+                rhnServerServerGroupArchCompat ssgac
+          where s.id = server_id_in
+            and s.org_id = sg.org_id
+            and sgt.label = type_label_in
+            and sg.group_type = sgt.id
+            and ssgac.server_group_type = sgt.id
+            and ssgac.server_arch_id = s.server_arch_id
+            and not exists ( 
+                     select 1
+                      from rhnServerGroupMembers sgm
+                     where sgm.server_group_id = sg.id 
+                       and sgm.server_id = s.id);
+
+         
+   begin
+      for servergroup in servergroups loop
+         return servergroup.id;
+      end loop;
+
+      --no servergroup found
+      return NULL;
+   end$$
+language plpgsql;
+
     -- *******************************************************************
     -- PROCEDURE: remove_org_entitlements
     --
@@ -287,43 +324,6 @@ as $$
          end if;
       end if;
 
-   end$$
-language plpgsql;
-
-   -- returns NULL if no match found; this is different from the Oracle coding
-   create or replace function find_compatible_sg (
-      server_id_in in numeric,
-      type_label_in in varchar
-   )
-   returns numeric
-as $$
-    declare
-      servergroups cursor for
-         select sg.id
-           from rhnServerGroupType             sgt,
-                rhnServerGroup                 sg,
-                rhnServer                     s,
-                rhnServerServerGroupArchCompat ssgac
-          where s.id = server_id_in
-            and s.org_id = sg.org_id
-            and sgt.label = type_label_in
-            and sg.group_type = sgt.id
-            and ssgac.server_group_type = sgt.id
-            and ssgac.server_arch_id = s.server_arch_id
-            and not exists ( 
-                     select 1
-                      from rhnServerGroupMembers sgm
-                     where sgm.server_group_id = sg.id 
-                       and sgm.server_id = s.id);
-
-         
-   begin
-      for servergroup in servergroups loop
-         return servergroup.id;
-      end loop;
-
-      --no servergroup found
-      return NULL;
    end$$
 language plpgsql;
 
