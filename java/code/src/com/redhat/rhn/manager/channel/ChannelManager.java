@@ -1817,43 +1817,6 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
-     * Return a list of categories available for download
-     * @param u User making the request
-     * @param channelLabel channel to download from
-     * @param downloadType download-type to look for (typically "iso")
-     * @param lc associated list-control (if any)
-     * @param forSatellite true if we want satellite-related categories
-     * @return DataResult<ISOCategory>
-     */
-    public static DataResult listDownloadCategories(
-            User u,
-            String channelLabel, String downloadType, ListControl lc,
-            boolean forSatellite) {
-        SelectMode m = null;
-
-        if (forSatellite) {
-            m = ModeFactory.getMode("Channel_queries",
-                    "satellite_channel_download_categories_by_type");
-        }
-        else {
-            m = ModeFactory.getMode("Channel_queries",
-            "channel_download_categories_by_type");
-        }
-
-        Map params = new HashMap();
-        params.put("org_id", u.getOrg().getId());
-        params.put("channel_label", channelLabel);
-        params.put("download_type", downloadType);
-        DataResult dr = makeDataResult(params, params, lc, m);
-        if (dr.size() == 0) {
-            return null;
-        }
-        else {
-            return dr;
-        }
-    }
-
-    /**
      * Return a list of all downlaods available for download from the specified channel
      * @param u User making the request
      * @param channelLabel label of channel of interest
