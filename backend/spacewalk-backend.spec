@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.45
+Version: 1.2.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 1.2.46-1
+- Removing select with rownum. It seems not that useful anyway.
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.45-1
 - Function fix_url not used anywhere, removing; removing its tests as well.
 - The common.rhn_memusage is also only used by tests, moving to test/attic.
