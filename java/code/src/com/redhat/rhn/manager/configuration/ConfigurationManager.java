@@ -1498,30 +1498,6 @@ public class ConfigurationManager extends BaseManager {
     }
 
     /**
-     * For a specified channel, return info about all systems that the
-     * user has access to that are NOT already in that channel
-     * @param usr User making the request
-     * @param cc ConfigChannel of interest
-     * @param pc A page control for this user.
-     * @return DataResult; entities are
-     */
-     public DataResult listAvailableFilesNotInChannel(User usr, ConfigChannel cc,
-             PageControl pc) {
-         // Validate params
-         if (usr == null || cc == null) {
-             throw new IllegalArgumentException("User and channel cannot be null.");
-         }
-
-         Map params = new HashMap();
-         params.put("ccid", cc.getId());
-         params.put("user_id", usr.getId());
-         params.put("orgid", usr.getOrg().getId());
-         SelectMode m = ModeFactory
-                 .getMode("config_queries", "config_files_not_in_channel");
-         return makeDataResult(params, new HashMap(), pc, m);
-     }
-
-    /**
      * Provides a list of 'Unique' paths (ConfigFileNameDto's)
      * for a given server and channel type. The returned list
      * takes care of the channel priority ordering and stuff like that..
