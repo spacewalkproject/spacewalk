@@ -128,6 +128,10 @@ class SpacewalkShell(Cmd):
         else:
             args = ''
 
+        # print the help message if the user passes '--help'
+        if re.search('--help', line):
+            return 'help %s' % command
+
         # should we look for an item in the history?
         if command[0] != '!' or len(command) < 2:
             return line
