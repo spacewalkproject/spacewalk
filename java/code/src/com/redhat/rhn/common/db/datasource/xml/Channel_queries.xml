@@ -189,26 +189,6 @@ ORDER BY C.parent_channel NULLS LAST, UPPER(C.name)
 </mode>
 
 
-<mode name="channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
-  <query params="channel_label, download_type, org_id">
-SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
-  FROM rhnDownloads RD,
-       rhnDownloadType DT,
-       rhnAvailableChannels AC,
-       rhnChannelDownloads CD,
-       rhnChannel C
- WHERE AC.org_id = :org_id
-   AND RD.id = CD.downloads_id
-   AND CD.channel_id = C.id
-   AND C.label = :channel_label
-   AND C.id = AC.channel_id
-   AND DT.id = RD.download_type
-   AND DT.label = :download_type
-GROUP BY RD.category
-ORDER BY MIN(ordering)
-  </query>
-</mode>
-
 <mode name="channel_downloads_by_type" class="com.redhat.rhn.frontend.dto.ISOImage">
   <query params="channel_label, download_type, org_id" >
 SELECT RD.name AS DOWNLOAD_NAME,
@@ -241,29 +221,6 @@ SELECT FL.file_id id, FL.location LOCATIONS
   FROM rhnFileLocation FL
  WHERE FL.file_id in (%s)
   </elaborator>
-</mode>
-
-
-<mode name="satellite_channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
-  <query params="channel_label, download_type, org_id">
-SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
-  FROM rhnDownloads RD,
-       rhnDownloadType DT,
-       rhnSatelliteChannelFamily SCF,
-       rhnServer S,
-       rhnChannelDownloads CD,
-       rhnChannel C
- WHERE S.org_id = :org_id
-   AND S.id = SCF.server_id
-   AND RD.id = CD.downloads_id
-   AND CD.channel_id = C.id
-   AND C.label = :channel_label
-   AND RD.channel_family_id = SCF.channel_family_id
-   AND DT.id = RD.download_type
-   AND DT.label = :download_type
-GROUP BY RD.category
-ORDER BY MIN(ordering)
-  </query>
 </mode>
 
 
