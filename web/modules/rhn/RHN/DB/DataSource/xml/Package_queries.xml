@@ -500,7 +500,7 @@ SELECT PN.id || '|' || SPE.id AS ID,
        PN.name,
        SP.evr_id,
        PA.label AS ARCH,
-       evr_t_as_vre_simple(PE.evr) AS EVR,
+       evr_t_as_vre_simple(SPE.evr) AS EVR,
        SPE.epoch,
        SPE.version,
        SPE.release
