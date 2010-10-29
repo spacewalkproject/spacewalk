@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.31
+Version: 5.9.32
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,17 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Oct 29 2010 Jan Pazdziora 5.9.32-1
+- removed unused class RepoPlainFile (michael.mraka@redhat.com)
+- removed unused class RepoAlreadyExists (michael.mraka@redhat.com)
+- removed unused class PathNotPresent (michael.mraka@redhat.com)
+- removed unused class MalformedRepository (michael.mraka@redhat.com)
+- removed unused class FileNotInRepo (michael.mraka@redhat.com)
+- after ClientTemplatedDocument removal rhncfg_template.py is empty; removing
+  (michael.mraka@redhat.com)
+- removed unused class ClientTemplatedDocument (michael.mraka@redhat.com)
+- removed unused class BackupFileMissing (michael.mraka@redhat.com)
+
 * Mon Oct 25 2010 Jan Pazdziora 5.9.31-1
 - 645795 - making script actions (within rhncfg) work with RHEL 4 by using
   popen2 if subprocess is not available (jsherril@redhat.com)
