@@ -30,6 +30,11 @@ Requires: python-dmidecode
 Requires: libxml2-python
 
 Conflicts: up2date < 5.0.0
+Conflicts: yum-rhn-plugin < 1.1.4-1
+Conflicts: rhncfg < 5.9.23-1
+Conflicts: spacewalk-koan < 0.2.7-1
+Conflicts: rhn-kickstart < 5.4.3-1
+Conflicts: rhn-virtualization < 5.4.14-1
 
 BuildRequires: python-devel
 BuildRequires: gettext
