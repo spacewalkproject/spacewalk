@@ -16,7 +16,7 @@ export PATH
 
 reportusage() {
    # don't report UNDO usage
-   /sbin/runuser oracle -c "db-control report" | egrep -v 'UNDO|TEMP'
+   /sbin/runuser oracle -c "db-control report" | grep -E -v 'UNDO|TEMP'
 }
 
 mailitout() {

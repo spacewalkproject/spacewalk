@@ -305,7 +305,7 @@ fi
 # Is secret key in our config file?
 regex="^[[:space:]]*(server\.|)secret_key[[:space:]]*=.*$"
 
-if egrep -i $regex %{rhnconf}/rhn.conf > /dev/null 2>&1 ; then
+if grep -E -i $regex %{rhnconf}/rhn.conf > /dev/null 2>&1 ; then
     # secret key already there
     rm -f %{rhnconf}/rhnSecret.py*
     exit 0

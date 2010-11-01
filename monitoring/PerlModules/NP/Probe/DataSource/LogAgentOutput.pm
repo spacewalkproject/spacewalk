@@ -58,7 +58,7 @@ sub init {
 	}
 	if ((!$self->error_msg) && ($regex)) {
 	    #regex param is set, so find total number of occurences in the log
-	    my $grep = 'egrep -c';
+	    my $grep = 'grep -E -c';
 	    $Log->log_method(2, "Grepping log for ", $regex, " \n" );
 	    $unix_command->execute("$grep \'$regex\' $log_file");
 	    if ($unix_command->errors) {
