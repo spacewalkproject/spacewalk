@@ -14,9 +14,6 @@
 --
 -- data for rhnTemplateString
 
-SET SQLBLANKLINES ON
-SET SCAN OFF
-
 INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
      VALUES (sequence_nextval('rhn_template_str_id_seq'),
              (SELECT TC.id 
