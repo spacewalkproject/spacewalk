@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,7 +23,7 @@ __rhnexport__ = ['run']
 
 _query_action_script = rhnSQL.Statement("""
     select script, username, groupname, timeout,
-           TO_CHAR(sysdate, 'YYYY-MM-DD HH24:MI:SS') as now
+           TO_CHAR(current_timestamp, 'YYYY-MM-DD HH24:MI:SS') as now
       from rhnActionScript
      where action_id = :action_id
 """)
