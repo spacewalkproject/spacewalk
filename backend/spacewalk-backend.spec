@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.47
+Version: 1.2.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,24 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Nov 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.48-1
+- 612581 - take ownership of /usr/lib/python2.7/site-packages/spacewalk/wsgi
+  (msuchy@redhat.com)
+- 612581 - change egrep to grep -E (msuchy@redhat.com)
+- even getPackageChecksum() and getPackageChecksumBySession() can be merged
+  into a single function (michael.mraka@redhat.com)
+- fixed typo and syntax error (michael.mraka@redhat.com)
+- merged getSourcePackageChecksum() into getPackageChecksum()
+  (michael.mraka@redhat.com)
+- merged getSourcePackageChecksumBySession() to getPackageChecksumBySession()
+  (michael.mraka@redhat.com)
+- merged duplicated code into _get_package_checksum()
+  (michael.mraka@redhat.com)
+- reordered commands to put checksum stuff together (michael.mraka@redhat.com)
+- merged 2 calls with just different arguments (michael.mraka@redhat.com)
+- moved X-RHN-Action stuff into one place (michael.mraka@redhat.com)
+- moved duplicated code to a function (michael.mraka@redhat.com)
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.47-1
 - For Function in PostgreSQL, we have to not just execute, but also fetch the
   value to return.
