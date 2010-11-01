@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.19
+Version: 1.2.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Nov 01 2010 Jan Pazdziora 1.2.20-1
+- The sequence_nextval method returns sequence value both on Oracle and
+  PostgreSQL.
+- Only do Oracle LOB handling for Oracle database backend.
+- The sequence_nextval method returns sequence value both on Oracle and
+  PostgreSQL.
+- Use ANSI syntax for outer join.
+- 612581 - change egrep to grep -E (msuchy@redhat.com)
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.19-1
 - Making DISTINCT-ORDER BY package/system queries portable
   (lzap+git@redhat.com)
