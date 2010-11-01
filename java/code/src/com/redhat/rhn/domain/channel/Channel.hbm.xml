@@ -131,7 +131,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="Channel.listCustomChannels">
-        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c where c.org = :org]]>
+        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c where c.org = :org order by name]]>
     </query>
 
     <query name="Channel.findRedHatBaseChannels">
