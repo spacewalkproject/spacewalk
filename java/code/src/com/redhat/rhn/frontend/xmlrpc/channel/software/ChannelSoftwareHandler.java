@@ -58,7 +58,6 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
@@ -1130,10 +1129,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
             //doesn't exist.
             throw new NoSuchPackageException(le);
         }
+        /*
         catch (IncompatibleArchException iae) {
             throw new FaultException(1202, "incompatiblePackageArch",
                     "package architecture is incompatible with channel", iae);
         }
+        */
 
         //refresh channel with newest packages
         ChannelManager.refreshWithNewestPackages(channel, "api");
