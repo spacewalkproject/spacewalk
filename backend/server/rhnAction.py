@@ -83,7 +83,7 @@ def update_server_action(server_id, action_id, status, result_code=None,
         set status = :status,
             result_code = :result_code,
             result_msg  = :result_message,
-            completion_time = SYSDATE
+            completion_time = current_timestamp
     where action_id = :action_id
       and server_id = :server_id
     """)
