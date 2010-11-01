@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,22 +22,22 @@
 
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
-    values ( rhn_ntfmt_recid_seq.nextval,NULL,'Default Format','^[alert id] | ^[timestamp]','^[alert id] | ^[timestamp]',70,1920,NULL);
+    values ( sequence_nextval('rhn_ntfmt_recid_seq'),NULL,'Default Format','^[alert id] | ^[timestamp]','^[alert id] | ^[timestamp]',70,1920,NULL);
 
 --Skip #2
-select rhn_ntfmt_recid_seq.nextval from dual;
+select sequence_nextval('rhn_ntfmt_recid_seq') from dual;
 
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
-    values ( rhn_ntfmt_recid_seq.nextval,NULL,'New Default (2.15)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is a Spacewalk Monitoring Satellite event notification.\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]\n\nTo acknowledge, reply to this message with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message with this subject line:\n     NACK ^[alert id]',150,1920,NULL);
+    values ( sequence_nextval('rhn_ntfmt_recid_seq'),NULL,'New Default (2.15)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is a Spacewalk Monitoring Satellite event notification.\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]\n\nTo acknowledge, reply to this message with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message with this subject line:\n     NACK ^[alert id]',150,1920,NULL);
 
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
-    values ( rhn_ntfmt_recid_seq.nextval,NULL,'New Default (2.18)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is Spacewalk Monitoring Satellite notification ^[alert id].\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]',150,1920,'\n\nTo acknowledge, reply to this message within ^[ack wait] minutes with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message within ^[ack wait] minutes with this subject line:\n     NACK ^[alert id]');
+    values ( sequence_nextval('rhn_ntfmt_recid_seq'),NULL,'New Default (2.18)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is Spacewalk Monitoring Satellite notification ^[alert id].\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]',150,1920,'\n\nTo acknowledge, reply to this message within ^[ack wait] minutes with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message within ^[ack wait] minutes with this subject line:\n     NACK ^[alert id]');
 
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
-    values ( rhn_ntfmt_recid_seq.nextval,NULL,'Pager Default (3.6)',NULL,'^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"], notification ^[alert id]',0,200,NULL);
+    values ( sequence_nextval('rhn_ntfmt_recid_seq'),NULL,'Pager Default (3.6)',NULL,'^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"], notification ^[alert id]',0,200,NULL);
 commit;
 
 --

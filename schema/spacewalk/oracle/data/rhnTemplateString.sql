@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,14 +18,14 @@ SET SQLBLANKLINES ON
 SET SCAN OFF
 
 INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
-     VALUES (rhn_template_str_id_seq.nextval,
+     VALUES (sequence_nextval('rhn_template_str_id_seq'),
              (SELECT TC.id 
                 FROM rhnTemplateCategory TC
 	       WHERE TC.label = 'email_strings'),
 	     'email_footer', '-' || '-the Spacewalk Team', 'Footer for Spacewalk e-mail');
 
 INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
-     VALUES (rhn_template_str_id_seq.nextval,
+     VALUES (sequence_nextval('rhn_template_str_id_seq'),
              (SELECT TC.id 
                 FROM rhnTemplateCategory TC
 	       WHERE TC.label = 'email_strings'),
