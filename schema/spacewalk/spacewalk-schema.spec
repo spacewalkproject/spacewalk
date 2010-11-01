@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.59
+Version:        1.2.60
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.60-1
+- 645702 - adding upgrade script for delete_errata procedure
+  (tlestach@redhat.com)
+- updating sha1 in postgres procs/delete_errata.sql file (tlestach@redhat.com)
+
 * Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.59-1
 - 645702 - remove rhnPaidErrataTempCache temporary table (tlestach@redhat.com)
 
