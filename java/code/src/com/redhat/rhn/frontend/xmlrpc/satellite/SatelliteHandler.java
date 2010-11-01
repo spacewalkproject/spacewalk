@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.satellite;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
@@ -158,5 +159,17 @@ public class SatelliteHandler extends BaseHandler {
         return CertificateFactory.lookupNewestCertificate().getExpires();
     }
 
-
+    /**
+     * Indicates if monitoring is enabled on the satellite
+     * @param sessionKey session of the logged in user
+     * @return True if monitoring is enabled
+     *
+     * @xmlrpc.doc Indicates if monitoring is enabled on the satellite
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype #param("boolean", "True if monitoring is enabled")
+     */
+    public boolean isMonitoringEnabled(String sessionKey) {
+        getLoggedInUser(sessionKey);
+        return ConfigDefaults.get().isMonitoringBackend();
+    }
 }
