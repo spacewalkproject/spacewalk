@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.2.7
+Version:	1.2.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Nov 01 2010 Jan Pazdziora 1.2.8-1
+- As the table rhnPaidErrataTempCache is no more, we do not need to have check
+  for temporary tables.
+
 * Fri Oct 29 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.7-1
 - fixed spacewalk-common-channels
 - updated spacewalk-common-channels to Spacewalk 1.1 and Fedora 13 and 14
