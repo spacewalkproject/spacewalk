@@ -17,7 +17,7 @@
 -- data for rhnTemplateString
 
 INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
-     VALUES (nextval('rhn_template_str_id_seq'),
+     VALUES (sequence_nextval('rhn_template_str_id_seq'),
              (SELECT TC.id 
                 FROM rhnTemplateCategory TC
 	       WHERE TC.label = 'email_strings'),
@@ -26,7 +26,7 @@ INSERT INTO rhnTemplateString (id, category_id, label, value, description)
              'Footer for Spacewalk e-mail');
 
 INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
-     VALUES (nextval('rhn_template_str_id_seq'),
+     VALUES (sequence_nextval('rhn_template_str_id_seq'),
              (SELECT TC.id 
                 FROM rhnTemplateCategory TC
 	       WHERE TC.label = 'email_strings'),
