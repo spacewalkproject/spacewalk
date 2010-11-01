@@ -60,7 +60,7 @@ public class GeneralConfigAction extends BaseConfigAction {
 
     private static final String[] BOOLEAN_CONFIG_ARRAY = {"web.ssl_available",
         "web.enable_solaris_support", ConfigDefaults.DISCONNECTED,
-            "web.is_monitoring_backend"};
+            ConfigDefaults.WEB_IS_MONITORING_BACKEND};
 
     private static final List COMBO_LIST = new LinkedList();
     static {
