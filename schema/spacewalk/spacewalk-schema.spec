@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.57
+Version:        1.2.58
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Nov 01 2010 Jan Pazdziora 1.2.58-1
+- Missed drop of rhnSatelliteChannelFamily in schema upgrades, dropping now.
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.57-1
 - The Oracle version and use of find_compatible_sg was changed in
   b6832310938382e6f4e0f3c2d26807f4594ae96d, the comment no longer true.
