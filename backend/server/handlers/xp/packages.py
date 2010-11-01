@@ -18,7 +18,9 @@
 #
 
 from spacewalk.common import RPC_Base, log_debug
-from spacewalk.server.handlers.app.packages import Packages as APP_Packages
+import sys
+sys.path.append("/usr/share/rhn")
+from server.handlers.app.packages import Packages as APP_Packages
 
 class Packages(APP_Packages):
     def __init__(self):
