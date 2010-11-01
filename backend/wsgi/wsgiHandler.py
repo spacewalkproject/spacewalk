@@ -14,12 +14,12 @@
 #
 #
 
-
+import os
 from wsgi import wsgiRequest
 
 from spacewalk.common import log_debug
 
-def handle(environ, start_response, server, component_type, type="server.apacheServer"):
+def handle(environ, start_response, server, component_type, type="spacewalk.server.apacheServer"):
     #wsgi seems to capitalize incoming headers and add HTTP- to the front :/
     # so we strip out the first 5 letters, and transform it into what we want.
     replacements = {'_':'-', 'Rhn':'RHN', 'Md5Sum':'MD5sum', 'Xml':'XML'}
