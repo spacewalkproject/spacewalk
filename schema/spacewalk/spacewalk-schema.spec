@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.58
+Version:        1.2.59
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.59-1
+- 645702 - remove rhnPaidErrataTempCache temporary table (tlestach@redhat.com)
+
 * Mon Nov 01 2010 Jan Pazdziora 1.2.58-1
 - Missed drop of rhnSatelliteChannelFamily in schema upgrades, dropping now.
 
