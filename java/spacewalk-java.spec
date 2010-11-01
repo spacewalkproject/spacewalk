@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.79
+Version: 1.2.80
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.80-1
+- adding new TimeSeriesCleanUp taskomatic task (tlestach@redhat.com)
+- Fixing system_available_packages -- the order by got lost in previous
+  commits, and the name_upper is still there. (jpazdziora@redhat.com)
+
 * Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.79-1
 - 645702 - remove rhnPaidErrataTempCache temporary table (tlestach@redhat.com)
 
