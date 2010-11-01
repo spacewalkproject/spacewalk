@@ -153,10 +153,10 @@ class Database(sql_base.Database):
             else:
                 self.dbh = psycopg2.connect(database=self.database, user=self.username,
                                             password=self.password, host=self.host, port=self.port)
-                # convert all DECIMAL types to float (let Python to choose one)
-                DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
+            # convert all DECIMAL types to float (let Python to choose one)
+            DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
                                                             'DEC2INTFLOAT', decimal2intfloat)
-                psycopg2.extensions.register_type(DEC2INTFLOAT)
+            psycopg2.extensions.register_type(DEC2INTFLOAT)
         except Exception, e:
             if reconnect:
                 # Try one more time:
