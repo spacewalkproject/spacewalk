@@ -98,3 +98,8 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(rhn_tasko_schedule_id_seq.nextval, 'clear-taskologs-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='clear-taskologs-bunch'),
         sysdate, '0 0 23 ? * *');
+
+INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
+    VALUES(rhn_tasko_schedule_id_seq.nextval, 'cleanup-data-default',
+        (SELECT id FROM rhnTaskoBunch WHERE name='cleanup-data-bunch'),
+        sysdate, '0 0 23 ? * *');

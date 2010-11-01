@@ -1,3 +1,4 @@
+-- oracle equivalent source sha1 e15471c8a2e037d40e13886d1cfc8d23a7a0ba16
 --
 -- Copyright (c) 2010 Red Hat, Inc.
 --
@@ -97,4 +98,9 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
 INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(nextval('rhn_tasko_schedule_id_seq'), 'clear-taskologs-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='clear-taskologs-bunch'),
+        current_timestamp, '0 0 23 ? * *');
+
+INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
+    VALUES(rhn_tasko_schedule_id_seq.nextval, 'cleanup-data-default',
+        (SELECT id FROM rhnTaskoBunch WHERE name='cleanup-data-bunch'),
         current_timestamp, '0 0 23 ? * *');

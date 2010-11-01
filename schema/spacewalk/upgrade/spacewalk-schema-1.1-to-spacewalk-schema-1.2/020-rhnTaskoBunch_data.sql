@@ -72,4 +72,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'satcert-check-bunch', 'Checks whether satellite certificate has not expired', '');
 
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'cleanup-data-bunch', 'Cleans up orpaned and outdated data', null);
+
 commit;

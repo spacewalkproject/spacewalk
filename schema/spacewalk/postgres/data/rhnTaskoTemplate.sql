@@ -1,3 +1,4 @@
+-- oracle equivalent source sha1 09b2c0541a5b55f0347067f741b5efe12e591a46
 --
 -- Copyright (c) 2010 Red Hat, Inc.
 --
@@ -146,5 +147,12 @@ INSERT INTO rhnTaskoTemplate (id, bunch_id, task_id, ordering, start_if)
                         (SELECT id FROM rhnTaskoTask WHERE name='errata-mailer'),
                         1,
                         'FINISHED');
+
+INSERT INTO rhnTaskoTemplate (id, bunch_id, task_id, ordering, start_if)
+             VALUES (rhn_tasko_template_id_seq.nextval,
+                        (SELECT id FROM rhnTaskoBunch WHERE name='cleanup-data-bunch'),
+                        (SELECT id FROM rhnTaskoTask WHERE name='cleanup-timeseries-data'),
+                        0,
+                        null);
 
 commit;

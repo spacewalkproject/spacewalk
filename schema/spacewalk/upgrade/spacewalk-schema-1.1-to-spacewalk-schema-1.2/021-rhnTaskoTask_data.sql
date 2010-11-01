@@ -71,4 +71,7 @@ INSERT INTO rhnTaskoTask (id, name, class)
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (rhn_tasko_task_id_seq.nextval, 'clear-log-history', 'com.redhat.rhn.taskomatic.task.ClearLogHistory');
 
+INSERT INTO rhnTaskoTask (id, name, class)
+         VALUES (rhn_tasko_task_id_seq.nextval, 'cleanup-timeseries-data', 'com.redhat.rhn.taskomatic.task.TimeSeriesCleanUp');
+
 commit;

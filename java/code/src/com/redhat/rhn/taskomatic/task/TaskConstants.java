@@ -50,6 +50,9 @@ public class TaskConstants {
     public static final String TASK_QUERY_SESSION_CLEANUP =
         "taskomatic_session_cleanup";
 
+    public static final String TASK_QUERY_TIME_SERIES_CLEANUP =
+        "taskomatic_time_series_cleanup";
+
     public static final String TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES =
         "errataqueue_find_candidates";
 

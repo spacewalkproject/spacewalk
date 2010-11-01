@@ -232,6 +232,18 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </write-mode>
 
+<write-mode name="taskomatic_time_series_cleanup">
+   <query params="">
+        DELETE FROM time_series
+        WHERE NOT EXISTS (
+            SELECT 1 FROM rhn_probe
+            WHERE substr(time_series.o_id, instr(time_series.o_id,'-')+1,
+            (instr(time_series.o_id,'-',
+            instr(time_series.o_id,'-')+1)-instr(time_series.o_id,'-'))-1)
+            = rhn_probe.recid)
+   </query>
+</write-mode>
+
 <callable-mode name="synchprobestate_synch_proc">
    <query params="">
       { call rhn_synch_probe_state() }
