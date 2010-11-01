@@ -137,7 +137,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Channel.findRedHatBaseChannels">
 	<![CDATA[
 		from com.redhat.rhn.domain.channel.Channel as c where c.org is null
-    						and parentChannel is null]]>
+    						and parentChannel is null order by c.name]]>
     </query>
 
 
@@ -150,7 +150,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                     AND uc.user_id = :user_id
                     AND c.org_id is not null
                     AND uc.role = 'subscribe'
-    				AND c.parent_channel is null]]>						
+    				AND c.parent_channel is null
+    		    order by C.name]]>						
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     <sql-query name="Channel.findAllBaseChannels">
