@@ -10522,7 +10522,7 @@ insert into rhnKickstartTimezone (id, label, name, install_type)
     	    	(SELECT IT.id FROM rhnKSInstallType IT WHERE IT.label = 'rhel_5')
         );
 
--- RHEL  timezones
+-- RHEL 6 timezones
 
 insert into rhnKickstartTimezone (id, label, name, install_type)
         values (sequence_nextval('rhn_ks_timezone_id_seq'),
