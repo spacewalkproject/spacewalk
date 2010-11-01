@@ -1159,6 +1159,7 @@ public class PackageManager extends BaseManager {
         WriteMode mode;
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("set_label", set.getLabel());
+        params.put("uid", user.getId());
 
         // First, capture all of the channels that have one or more of the packages
         // to delete (we'll need this later)
