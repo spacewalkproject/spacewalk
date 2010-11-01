@@ -92,7 +92,7 @@ sub make_base_action {
 
   my $dbh = $transaction || RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
-SELECT rhn_event_id_seq.nextval,
+SELECT sequence_nextval('rhn_event_id_seq'),
        rAT.id,
        rAS.id
   FROM rhnActionType rAT,
