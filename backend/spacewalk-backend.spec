@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.49
+Version: 1.2.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Nov 01 2010 Jan Pazdziora 1.2.50-1
+- Use current_timestamp instead of SYSDATE.
+- fixing package upload, to pass in checksums (jsherril@redhat.com)
+- fixing wsgiHandler to look in new location for apacheServer
+  (jsherril@redhat.com)
+- Use current_timestamp with numtodsinterval instead of sysdate.
+- Fixing decimal2intfloat -- the function is passed str, not decimal.Decimal;
+  we just try to convert to int or float.
+- The conversion should take place both for remote and local connections.
+
 * Mon Nov 01 2010 Jan Pazdziora 1.2.49-1
 - Use _buildExternalValue to properly sanitize Unicode strings.
 
