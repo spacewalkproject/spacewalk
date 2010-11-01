@@ -212,7 +212,7 @@ class Queue(rhnHandler):
                        and sa.action_id = a.id
                        and a.action_type = at.id
                        and sa.status in (0, 1) -- Queued or picked up
-                       and a.earliest_action <= sysdate + (:time_window/24)  -- Check earliest_action
+                       and a.earliest_action <= current_timestamp + numtodsinterval(:time_window * 3600, 'second')  -- Check earliest_action
                        and at.label in ('packages.update', 'errata.update',
                             'packages.runTransaction', 'packages.fullUpdate')
                       order by a.earliest_action, a.prerequisite nulls first, a.id
@@ -245,7 +245,7 @@ class Queue(rhnHandler):
                        and sa.action_id = a.id
                        and a.action_type = at.id
                        and sa.status in (0, 1) -- Queued or picked up
-                       and a.earliest_action <= sysdate -- Check earliest_action
+                       and a.earliest_action <= current_timestamp -- Check earliest_action
                        and not exists (
                            select 1
                              from rhnServerAction sap
