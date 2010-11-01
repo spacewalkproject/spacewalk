@@ -353,7 +353,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
 # wsgi stuff
 %if !( 0%{?rhel} && 0%{?rhel} < 6)
-%dir %{pythonrhnroot}/wsgi
+%dir %{rhnroot}/wsgi
 %{rhnroot}/wsgi/__init__.py*
 %{rhnroot}/wsgi/wsgiHandler.py*
 %{rhnroot}/wsgi/wsgiRequest.py*
