@@ -34,6 +34,7 @@ from spacewalk.server.importlib.packageUpload import uploadPackages, listChannel
 from spacewalk.server.importlib.userAuth import UserAuth
 from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 from spacewalk.common.checksum import getFileChecksum
+from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
 #12/22/05 wregglej 173287
 #I made a decent number of changes to this file to implement session authentication.
@@ -259,7 +260,6 @@ class Packages(RPC_Base):
         log_debug(3)
         channels = info.get('channels', [])
         force = info.get('force', 0)
-
         org_id, force = rhnPackageUpload.authenticate_session(session_string,
             channels=channels, force=force)
         return self._uploadPackage(channels, org_id, force, info)
@@ -275,11 +275,13 @@ class Packages(RPC_Base):
 
         header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(package_stream)
-        relative_path = rhnPackageUpload.relative_path_from_header(
-            header, org_id=org_id)
 
         checksum_type = header.checksum_type()
         checksum = getFileChecksum(header.checksum_type(), file=payload_stream)
+
+        relative_path = rhnPackageUpload.relative_path_from_header(
+            header, org_id=org_id,checksum=checksum, checksum_type=checksum_type)
+
         package_dict, diff_level = rhnPackageUpload.push_package(
             header, payload_stream, checksum_type, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,
