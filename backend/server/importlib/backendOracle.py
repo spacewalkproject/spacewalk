@@ -78,6 +78,14 @@ class OracleBackend(Backend):
             attribute   = 'changelog',
             sequenceColumn = 'id',
         ),
+        Table('rhnPackageChangeLogData',
+            fields      = {
+                'id'            : DBint(),
+                'name'          : DBstring(128),
+                'text'          : DBstring(3000),
+                'time'          : DBdateTime()
+            },
+        ),
         Table('rhnPackageFile',
             fields      = {
                 'package_id'    : DBint(),

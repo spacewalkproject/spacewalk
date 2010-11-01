@@ -131,7 +131,9 @@ class Backend:
         h = self.dbmodule.prepare(sql)
         toinsert = [[], [], [], []]
         for name, time, text in changelogHash.keys():
-            h.execute(name=name[0:128], time=time, text=text[0:3000])
+            val = {}
+            _buildExternalValue(val, { 'name' : name, 'time' : time, 'text' : text }, self.tables['rhnPackageChangeLogData'])
+            h.execute(name=val['name'], time=val['time'], text=val['text'])
             row = h.fetchone_dict()
             if row:
                 changelogHash[(name, time, text)] = row['id']
@@ -141,9 +143,9 @@ class Backend:
             changelogHash[(name, time, text)] = id
 
             toinsert[0].append(id)
-            toinsert[1].append(name[0:128])
-            toinsert[2].append(time)
-            toinsert[3].append(text[0:3000])
+            toinsert[1].append(val['name'])
+            toinsert[2].append(val['time'])
+            toinsert[3].append(val['text'])
 
         if not toinsert[0]:
             # Nothing to do
