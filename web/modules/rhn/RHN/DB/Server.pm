@@ -2830,10 +2830,9 @@ SELECT VI.id,
        VI.host_system_id,
        VI.UUID,
        S.name AS HOST_SYSTEM_NAME
-  FROM rhnVirtualInstance VI,
-       rhnServer S
+  FROM rhnVirtualInstance VI left outer join rhnServer S
+       on VI.host_system_id = S.id
  WHERE VI.virtual_system_id = :sid
-   AND VI.host_system_id = S.id (+)
 EOQ
 
   $sth->execute_h(sid => $self->id());
