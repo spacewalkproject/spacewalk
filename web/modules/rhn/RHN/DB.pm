@@ -541,10 +541,12 @@ sub execute_h {
     use Scalar::Util qw/blessed/;
 
     if (ref $v and blessed($v) and $v->isa("RHN::DB::Type::BLOB")) {
-      eval 'use DBD::Oracle ()' or die $@;
-      $attr->{ora_type} = DBD::Oracle::ORA_BLOB();
-      if (defined $v->{ora_field}) {
-        $attr->{ora_field} = $v->{ora_field};
+      if ($self->{Database}->{Driver}->{Name} eq 'Oracle') {
+        eval 'use DBD::Oracle ()' or die $@;
+        $attr->{ora_type} = DBD::Oracle::ORA_BLOB();
+        if (defined $v->{ora_field}) {
+          $attr->{ora_field} = $v->{ora_field};
+        }
       }
       $v = $v->{value};
     }
