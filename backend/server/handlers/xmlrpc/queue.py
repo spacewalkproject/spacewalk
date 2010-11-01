@@ -354,7 +354,7 @@ class Queue(rhnHandler):
                 h = rhnSQL.prepare("""
                 update rhnServerAction
                     set status = 1,
-                        pickup_time = SYSDATE,
+                        pickup_time = current_timestamp,
                         remaining_tries = :tries - 1
                 where action_id = :action_id
                   and server_id = :server_id
