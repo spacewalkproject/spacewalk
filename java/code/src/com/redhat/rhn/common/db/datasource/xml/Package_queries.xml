@@ -649,8 +649,8 @@ SELECT P.id, P.summary, PP.name as provider
 
 <mode name="system_available_packages"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
+select * from (
 SELECT  distinct pn.name AS NAME,
-        UPPER(pn.name) AS name_upper,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
         pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
@@ -676,6 +676,8 @@ SELECT  distinct pn.name AS NAME,
                      WHERE SP.server_id = :sid
                        AND SP.name_id = full_list.name_id
                        AND (SP.package_arch_id = full_list.arch_id or SP.package_arch_id is null))
+) x
+order by upper(name)
   </query>
 </mode>
 
