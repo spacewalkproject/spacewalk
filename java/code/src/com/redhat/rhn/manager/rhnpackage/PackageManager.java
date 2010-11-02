@@ -299,39 +299,6 @@ public class PackageManager extends BaseManager {
      * errata. Picks the right query depending on whether or not the errata
      * is published.
      * @param errata The errata in question
-     * @param user The user requesting the list
-     * @param pc The page control for this user
-     * @return Returns the list of packages available for this particular errata.
-     */
-    public static DataResult packagesAvailableToErrata(Errata errata,
-                                                       User user,
-                                                       PageControl pc) {
-        Org org = errata.getOrg();
-
-        // Get the correct query depending on whether or not this errata is published.
-        String mode = "packages_available_to_tmp_errata";
-        if (errata.isPublished()) {
-            mode = "packages_available_to_errata";
-        }
-
-        // Setup the params and execute the query
-        SelectMode m = ModeFactory.getMode("Package_queries", mode);
-        Map params = new HashMap();
-        params.put("org_id", org.getId());
-        params.put("eid", errata.getId());
-        if (pc != null) {
-            return makeDataResult(params, params, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
-    }
-
-    /**
-     * Returns a dataResult containing all of the packages available to an
-     * errata. Picks the right query depending on whether or not the errata
-     * is published.
-     * @param errata The errata in question
      * @return Returns the list of packages available for this particular errata.
      */
     public static DataResult packagesAvailableToErrata(Errata errata) {
