@@ -175,44 +175,6 @@ public class SsmManager {
         m.execute(in, new HashMap());
     }
 
-
-    /**
-     * Parses through the indicated changes, populating the necessary RhnSets. This call
-     * is necessary before {@link #performChannelActions(User)} as the perform call
-     * requires the sets contain the subscription change information.
-     *
-     * @param user    user performing the change
-     * @param actions subscription changes being made
-     */
-    public static void populateSsmChannelServerSets(User user,
-                                                    Collection<ChannelActionDAO> actions) {
-
-        RhnSet subscribeSet = RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.get(user);
-        RhnSet unsubscribeSet = RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.get(user);
-
-        for (ChannelActionDAO action : actions) {
-            long serverId = action.getId();
-
-            // New Subscriptions
-            if (action.getSubscribeChannelIds() != null) {
-                for (Long subscribeMe : action.getSubscribeChannelIds()) {
-                    subscribeSet.addElement(serverId, subscribeMe);
-                }
-            }
-
-            // Unsubscribe
-            if (action.getUnsubscribeChannelIds() != null) {
-                for (Long unsubscribeMe : action.getUnsubscribeChannelIds()) {
-                    unsubscribeSet.addElement(serverId, unsubscribeMe);
-                }
-            }
-        }
-
-        RhnSetManager.store(subscribeSet);
-        RhnSetManager.store(unsubscribeSet);
-    }
-
-
     /**
      * Adds the selected server IDs to the SSM RhnSet.
      *
