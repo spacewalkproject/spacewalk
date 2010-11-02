@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.14
+Version:        1.2.15
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.15-1
+- Update copyright years in the rest of the repo.
+
 * Fri Oct 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.14-1
 - change ascii art animation to bow, arrow and target
 
