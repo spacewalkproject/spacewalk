@@ -945,7 +945,8 @@
 	  <form-property name="revnum"         type="java.lang.String" />
 	  <form-property name="binary"         type="java.lang.Boolean" />
       <form-property name="submitted"      type="java.lang.Boolean"/>
-      <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
+      <form-property name="no_scrub" type="java.lang.String"
+                  initial="contents, cffMacroStart, cffMacroEnd"/>
       
     </form-bean>
 
