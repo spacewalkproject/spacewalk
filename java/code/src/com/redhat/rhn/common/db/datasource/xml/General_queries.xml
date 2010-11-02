@@ -191,17 +191,6 @@ ORDER BY SEV.label
   </query>
 </mode>
 
-<mode name="system_features">
-  <query params="sid">
-  SELECT DISTINCT F.id, F.label, F.name
-    FROM rhnFeature F,
-         rhnServerFeaturesView SFV
-   WHERE SFV.server_id = :sid
-     AND F.label = SFV.label
-ORDER BY F.label
-  </query>
-</mode>
-
 <mode name="system_has_feature">
   <query params="sid, feature">
   SELECT 1

@@ -844,31 +844,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Returns a list of errata relevant to a system, sorted by priority. Security errata
-     * come first, then bug fix errata, and finally enhancement errata
-     * @param user The user
-     * @param sid System Id
-     * @param pc PageControl
-     * @return a list of ErrataOverviews
-     */
-    public static DataResult relevantErrataSortedByPriority(User user,
-                                                            Long sid,
-                                                            PageControl pc) {
-        SelectMode m = ModeFactory.getMode("Errata_queries",
-                                           "relevant_to_system_sorted_by_priority");
-
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("sid", sid);
-
-        Map elabParams = new HashMap();
-        elabParams.put("sid", sid);
-        elabParams.put("user_id", user.getId());
-
-        return makeDataResult(params, elabParams, pc, m);
-    }
-
-    /**
      * Returns a count of the number of critical errata that are present on the system.
      *
      * @param user user making the request
@@ -1051,31 +1026,6 @@ public class SystemManager extends BaseManager {
         List entitlements = getServerEntitlements(sid);
 
         return entitlements != null && entitlements.contains(ent);
-    }
-
-    /**
-     * Returns the features for the given server id.
-     * @param sid Server id
-     * @return features - ArrayList of features (Strings)
-     */
-    public static ArrayList getServerFeatures(Long sid) {
-        ArrayList features = new ArrayList();
-
-        SelectMode m = ModeFactory.getMode("General_queries", "system_features");
-
-        Map params = new HashMap();
-        params.put("sid", sid);
-
-        DataResult dr = makeDataResult(params, null, null, m);
-
-        Iterator iter = dr.iterator();
-        while (iter.hasNext()) {
-            Map map = (Map) iter.next();
-            String feat = (String) map.get("label");
-            features.add(feat);
-        }
-
-        return features;
     }
 
     /**
@@ -2348,7 +2298,7 @@ public class SystemManager extends BaseManager {
      */
     public static List<SystemOverview> subscribedToChannel(User user, Long cid) {
         SelectMode m = ModeFactory.getMode("System_queries",
-        "systems_subscribed_to_channel");
+                "systems_subscribed_to_channel");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -2359,11 +2309,11 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Returns the number of systems subscribed to the channel that are <strong>not</strong>
-     * in the given org.
+     * Returns the number of systems subscribed to the channel that are
+     * <strong>not</strong> in the given org.
      *
      * @param orgId identifies the filter org
-     * @param cid   identifies the channel
+     * @param cid identifies the channel
      * @return count of systems
      */
     public static int countSubscribedToChannelWithoutOrg(Long orgId, Long cid) {
