@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.81
+Version: 1.2.82
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,24 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 02 2010 Lukas Zapletal 1.2.82-1
+- Renaming two ignored unit tests properly 
+- Removing unused methods from java db manager 
+- Removing unused class from java db manager 
+- Removing unused class - Worker 
+- Removing dead code in two tests 
+- Fixing table name aliases 
+- Two classes were not serializabled while putting them into HttpSession
+- Fixing date diff in alerts 
+- making kickstart channel list sorted alphabetically 
+- sorting activation key base channel drop down by alphabetical order
+- 648470 - changing manage package page to sort channels by name
+- 644880 - check for arch compatibility when adding packages into a channel
+- 647099 - introducing satellite.isMonitoringEnabled API 
+- replace web.is_monitoring_backend with
+  ConfigDefaults.WEB_IS_MONITORING_BACKEND 
+- fixing ISE on package deletion due to RHNSAT.RHN_PFDQUEUE_PATH_UQ violation
+
 * Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.81-1
 - updating logging of SessionCleanup task (tlestach@redhat.com)
 - checkstyle fix (tlestach@redhat.com)
