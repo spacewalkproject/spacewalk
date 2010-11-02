@@ -511,7 +511,7 @@ class Packages(RPC_Base):
                 'pkg_version':  pkg_info['version'],
                 'pkg_rel':      pkg_info['release'],
                 'pkg_arch':     pkg_info['arch'],
-                'orgid ':       org_id,
+                'orgid':       org_id,
                     }
 
             _checksum_sql_filter = ""
