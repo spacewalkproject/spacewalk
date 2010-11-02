@@ -15,4 +15,4 @@
 
 path = . tables
 
-rhnUser :: web_contact
+rhnUser.satellite :: web_contact
