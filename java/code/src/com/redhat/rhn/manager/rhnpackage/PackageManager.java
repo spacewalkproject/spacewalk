@@ -325,41 +325,6 @@ public class PackageManager extends BaseManager {
      * @param errata The errata in question
      * @param cid The channel id, we want packages in this channel
      * @param user The user requesting the list
-     * @param pc The page control for this user
-     * @return Returns the list of packages available for this particular errata in
-     * this particular channel.
-     */
-    public static DataResult packagesAvailableToErrataInChannel(Errata errata,
-                                                                Long cid,
-                                                                User user,
-                                                                PageControl pc) {
-        //Set the mode depending on if the errata is published
-        String mode = "packages_available_to_tmp_errata_in_channel";
-        if (errata.isPublished()) {
-            mode = "packages_available_to_errata_in_channel";
-        }
-
-        //Setup params and execute query
-        SelectMode m = ModeFactory.getMode("Package_queries", mode);
-        Map params = new HashMap();
-        params.put("target_eid", errata.getId().toString());
-        params.put("source_cid", cid.toString());
-        if (pc != null) {
-            Map elabParams = new HashMap();
-            elabParams.put("org_id", user.getOrg().getId());
-            return makeDataResult(params, elabParams, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
-    }
-
-    /**
-     * Returns a data result containing all of the packages available to an errata
-     * in the channel specified by cid.
-     * @param errata The errata in question
-     * @param cid The channel id, we want packages in this channel
-     * @param user The user requesting the list
      * @return Returns the list of packages available for this particular errata in
      * this particular channel.
      */
