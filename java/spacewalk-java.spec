@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.83
+Version: 1.2.84
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 02 2010 Lukas Zapletal 1.2.84-1
+- Changing the way how taskomatic connects to PostgreSQL db
+- Replacing some constants with ConfigDefaults in java codebase
+
 * Tue Nov 02 2010 Jan Pazdziora 1.2.83-1
 - Typo in a java resource (lzap+git@redhat.com)
 - Spelling java resource script correction + retab (lzap+git@redhat.com)
