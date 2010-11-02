@@ -78,7 +78,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="schedule_virt_guest_pkg_install"></a><span class="summary-sig-name">schedule_virt_guest_pkg_install</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span><br />
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span><br />
       ShadowAction that schedules a package installation action for the 
       rhn-virtualization-guest package.</td>
           <td align="right" valign="top">
@@ -97,7 +98,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="initiate"></a><span class="summary-sig-name">initiate</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.kickstart_guest-pysrc.html#initiate">source&nbsp;code</a></span>
             
@@ -114,7 +116,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="add_tools_channel"></a><span class="summary-sig-name">add_tools_channel</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.kickstart_guest-pysrc.html#add_tools_channel">source&nbsp;code</a></span>
             
@@ -146,14 +149,14 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.kickstart_guest-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">initiate</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">schedule_virt_guest_pkg_install</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+        <a href="server.action.kickstart_guest-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']">['initiate', 'schedule_virt_guest_pkg_install'<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.kickstart_guest-module.html#_query_initiate_guest" class="summary-name" onclick="show_private();">_query_initiate_guest</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159507436; statement=
+        <a href="server.action.kickstart_guest-module.html#_query_initiate_guest" class="summary-name" onclick="show_private();">_query_initiate_guest</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
  select  ksd.label as profile_name, akg.kickstart_host, kvt.label as v\
 irt_type, 
        akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge, akg.cobb\
@@ -161,14 +164,7 @@ ler_system_name,
        akg.disk_gb, akg.append_string, 
        akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest \
 akg, 
-...">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.action'"><code class="variable-quote">'</code><code class="variable-string">server.action</code><code class="variable-quote">'</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -202,7 +198,7 @@ akg,
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">initiate</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">schedule_virt_guest_pkg_install</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">add_tools_channel</code><code class="variable-quote">'</code><code class="variable-group">]</code>
+['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -220,7 +216,7 @@ akg,
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159507436; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
  select  ksd.label as profile_name, akg.kickstart_host, kvt.label as v<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 irt_type, 
        akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge, akg.cobb<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
@@ -258,7 +254,7 @@ akg,
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

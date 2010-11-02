@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
-        <a href="server.handlers.xmlrpc.registration-module.html" onclick="show_private();">Module&nbsp;registration</a> ::
+        server ::
+        handlers ::
+        xmlrpc ::
+        registration ::
+        Registration ::
         Class&nbsp;Registration
       </span>
     </td>
@@ -57,31 +58,11 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Registration</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_17" name="uml_class_diagram_for_server_h_17">
-<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="247,111,428,129"/>
-<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="245,85,429,131"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#__init__" title="server.handlers.xmlrpc.registration.Registration.__init__" alt="" coords="17,185,657,204"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#reserve_user" title="Get an username and a password and create a record for this user." alt="" coords="17,204,657,223"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#new_user" title="Finish off creating the user." alt="" coords="17,223,657,241"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#validate_system_input" title="server.handlers.xmlrpc.registration.Registration.validate_system_input" alt="" coords="17,241,657,260"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#validate_system_user" title="server.handlers.xmlrpc.registration.Registration.validate_system_user" alt="" coords="17,260,657,279"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#create_system" title="Create a system based on the input parameters." alt="" coords="17,279,657,297"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#new_system" title="This function expects at the INPUT a dictionary that has at least the &#160;following members: username, password, os_release, email If the username &#160;does not exist, it is created." alt="" coords="17,297,657,316"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#new_system_user_pass" title="server.handlers.xmlrpc.registration.Registration.new_system_user_pass" alt="" coords="17,316,657,335"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#get_possible_orgs" title="server.handlers.xmlrpc.registration.Registration.get_possible_orgs" alt="" coords="17,335,657,353"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#activate_registration_number" title="server.handlers.xmlrpc.registration.Registration.activate_registration_number" alt="" coords="17,353,657,372"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#activate_hardware_info" title="Given some hardware&#45;based criteria per&#45;vendor, try giving entitlements." alt="" coords="17,372,657,391"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#attempt_eol_mailing" title="server.handlers.xmlrpc.registration.Registration.attempt_eol_mailing" alt="" coords="17,391,657,409"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#send_serial" title="Receive a vendor serial number from the client and tag it to the server." alt="" coords="17,409,657,428"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#remaining_subscriptions" title="server.handlers.xmlrpc.registration.Registration.remaining_subscriptions" alt="" coords="17,447,657,465"/>
-<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html" title="server.handlers.xmlrpc.registration.Registration" alt="" coords="16,160,659,467"/>
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="240,36,435,55"/>
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="239,11,436,56"/>
-</map>
-  <img src="uml_class_diagram_for_server_h_17.png" alt='' usemap="#uml_class_diagram_for_server_h_17" ismap="ismap" class="graph-without-title" />
-</center>
+
 </center>
 <hr />
+<p>encapsulate functions that we will provide for the outside world</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -105,7 +86,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__init__">source&nbsp;code</a></span>
             
@@ -163,7 +144,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="validate_system_input"></a><span class="summary-sig-name">validate_system_input</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">data</span>)</span></td>
+        <span class="summary-sig-arg">data</span>)</span><br />
+      check the input data</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.validate_system_input">source&nbsp;code</a></span>
             
@@ -239,14 +221,16 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="new_system_user_pass"></a><span class="summary-sig-name">new_system_user_pass</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#new_system_user_pass" class="summary-sig-name">new_system_user_pass</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">profile_name</span>,
         <span class="summary-sig-arg">os_release_name</span>,
         <span class="summary-sig-arg">version</span>,
         <span class="summary-sig-arg">arch</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">other</span>)</span></td>
+        <span class="summary-sig-arg">other</span>)</span><br />
+      Registers a new system to an org specified by a username, password, and
+optionally an org id.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.new_system_user_pass">source&nbsp;code</a></span>
             
@@ -262,9 +246,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_possible_orgs"></a><span class="summary-sig-name">get_possible_orgs</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#get_possible_orgs" class="summary-sig-name">get_possible_orgs</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">password</span>)</span></td>
+        <span class="summary-sig-arg">password</span>)</span><br />
+      Gets all the orgs that a user belongs to.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.get_possible_orgs">source&nbsp;code</a></span>
             
@@ -280,11 +265,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="activate_registration_number"></a><span class="summary-sig-name">activate_registration_number</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#activate_registration_number" class="summary-sig-name">activate_registration_number</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
         <span class="summary-sig-arg">key</span>,
-        <span class="summary-sig-arg">other</span>)</span></td>
+        <span class="summary-sig-arg">other</span>)</span><br />
+      Entitle a particular org using an entitlement number.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.activate_registration_number">source&nbsp;code</a></span>
             
@@ -300,9 +286,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__findAssetTag"></a><span class="summary-sig-name">__findAssetTag</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#__findAssetTag" class="summary-sig-name" onclick="show_private();">__findAssetTag</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">vendor</span>,
-        <span class="summary-sig-arg">hardware_info</span>)</span></td>
+        <span class="summary-sig-arg">hardware_info</span>)</span><br />
+      Given some hardware information, we try to find the asset tag or 
+      serial number.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__findAssetTag">source&nbsp;code</a></span>
             
@@ -470,9 +458,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="virt_notify"></a><span class="summary-sig-name">virt_notify</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#virt_notify" class="summary-sig-name">virt_notify</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">actions</span>)</span></td>
+        <span class="summary-sig-arg">actions</span>)</span><br />
+      This function fields virtualization-related notifications from the 
+      client and delegates them out to the appropriate downstream handlers.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.virt_notify">source&nbsp;code</a></span>
             
@@ -490,7 +480,9 @@
         <tr>
           <td><span class="summary-sig"><a name="update_packages"></a><span class="summary-sig-name">update_packages</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">packages</span>)</span></td>
+        <span class="summary-sig-arg">packages</span>)</span><br />
+      This function will update the package list associated with a server 
+      to be exactly the list of packages passed on the argument list</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.update_packages">source&nbsp;code</a></span>
             
@@ -530,7 +522,8 @@
         <tr>
           <td><span class="summary-sig"><a name="add_hw_profile"></a><span class="summary-sig-name">add_hw_profile</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">hwlist</span>)</span></td>
+        <span class="summary-sig-arg">hwlist</span>)</span><br />
+      Insert a new profile for the server</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.add_hw_profile">source&nbsp;code</a></span>
             
@@ -548,7 +541,8 @@
         <tr>
           <td><span class="summary-sig"><a name="refresh_hw_profile"></a><span class="summary-sig-name">refresh_hw_profile</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">hwlist</span>)</span></td>
+        <span class="summary-sig-arg">hwlist</span>)</span><br />
+      Recreate the server HW profile</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.refresh_hw_profile">source&nbsp;code</a></span>
             
@@ -565,7 +559,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="welcome_message"></a><span class="summary-sig-name">welcome_message</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>)</span><br />
+      returns string of welcome message</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.welcome_message">source&nbsp;code</a></span>
             
@@ -582,7 +577,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="privacy_statement"></a><span class="summary-sig-name">privacy_statement</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>)</span><br />
+      returns string of privacy statement</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.privacy_statement">source&nbsp;code</a></span>
             
@@ -598,10 +594,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="register_product"></a><span class="summary-sig-name">register_product</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#register_product" class="summary-sig-name">register_product</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">product</span>,
-        <span class="summary-sig-arg">oeminfo</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
+        <span class="summary-sig-arg">oeminfo</span>=<span class="summary-sig-default">{}</span>)</span><br />
+      register a product and record the data sent with the registration</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.register_product">source&nbsp;code</a></span>
             
@@ -617,8 +614,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__save_user"></a><span class="summary-sig-name">__save_user</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">user</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#__save_user" class="summary-sig-name" onclick="show_private();">__save_user</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">user</span>)</span><br />
+      Moved the saving of the user out to a common method so that we can 
+      save to the db in a satellite.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__save_user">source&nbsp;code</a></span>
             
@@ -634,25 +633,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__translate_site_type"></a><span class="summary-sig-name">__translate_site_type</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">type</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__translate_site_type">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="__save_user_db"></a><span class="summary-sig-name">__save_user_db</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">user</span>)</span></td>
+        <span class="summary-sig-arg">user</span>)</span><br />
+      Saves the user to the database.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__save_user_db">source&nbsp;code</a></span>
             
@@ -671,7 +654,7 @@
           <td><span class="summary-sig"><a name="update_contact_info"></a><span class="summary-sig-name">update_contact_info</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
+        <span class="summary-sig-arg">info</span>=<span class="summary-sig-default">{}</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.update_contact_info">source&nbsp;code</a></span>
             
@@ -690,7 +673,8 @@
           <td><span class="summary-sig"><a name="update_transactions"></a><span class="summary-sig-name">update_transactions</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">timestamp</span>,
-        <span class="summary-sig-arg">transactions_hash</span>)</span></td>
+        <span class="summary-sig-arg">transactions_hash</span>)</span><br />
+      Updates the RPM transactions</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.update_transactions">source&nbsp;code</a></span>
             
@@ -708,7 +692,8 @@
         <tr>
           <td><span class="summary-sig"><a name="anonymous"></a><span class="summary-sig-name">anonymous</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">release</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">arch</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">arch</span>=<span class="summary-sig-default">None</span>)</span><br />
+      To reduce the number of tracebacks</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.anonymous">source&nbsp;code</a></span>
             
@@ -724,8 +709,13 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="finish_message"></a><span class="summary-sig-name">finish_message</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">system_id</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#finish_message" class="summary-sig-name">finish_message</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">system_id</span>)</span><br />
+      Presents the client with a message to display
+Returns:
+(returnCode, titleText, messageText)
+titleText is the window's title, messageText is the message displayed in
+that window by the client</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.finish_message">source&nbsp;code</a></span>
             
@@ -759,7 +749,7 @@
         <tr>
           <td><span class="summary-sig"><a name="register_osad"></a><span class="summary-sig-name">register_osad</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
+        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default">{}</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.register_osad">source&nbsp;code</a></span>
             
@@ -777,7 +767,7 @@
         <tr>
           <td><span class="summary-sig"><a name="register_osad_jid"></a><span class="summary-sig-name">register_osad_jid</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
+        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default">{}</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.register_osad_jid">source&nbsp;code</a></span>
             
@@ -818,11 +808,13 @@ in the org specified by username/password</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="remaining_subscriptions"></a><span class="summary-sig-name">remaining_subscriptions</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#remaining_subscriptions" class="summary-sig-name">remaining_subscriptions</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
         <span class="summary-sig-arg">arch</span>,
-        <span class="summary-sig-arg">release</span>)</span></td>
+        <span class="summary-sig-arg">release</span>)</span><br />
+      given username, password, os release, and arch, say how many 
+      available entitlements remain for the org.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.remaining_subscriptions">source&nbsp;code</a></span>
             
@@ -830,16 +822,6 @@ in the org specified by username/password</td>
         </tr>
       </table>
       
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
-      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
-      </p>
     </td>
   </tr>
 </table>
@@ -864,9 +846,9 @@ in the org specified by username/password</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.xmlrpc.registration.Registration-class.html#_query_get_dispatchers" class="summary-name" onclick="show_private();">_query_get_dispatchers</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151628076; statement=
+        <a href="server.handlers.xmlrpc.registration.Registration-class.html#_query_get_dispatchers" class="summary-name" onclick="show_private();">_query_get_dispatchers</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select jabber_id from rhnPushDispatcher
-    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
+    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -888,29 +870,6 @@ in the org specified by username/password</td>
   </td>
 </tr>
 </table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  
-  <dl class="fields">
-    <dt>Overrides:
-        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
 <a name="reserve_user"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -929,6 +888,7 @@ in the org specified by username/password</td>
   
   <p>Get an username and a password and create a record for this user. 
   Eventually mark it as such.</p>
+  <p>Returns true value if user is reserved, otherwise fault is raised.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -955,6 +915,7 @@ in the org specified by username/password</td>
   <p>Finish off creating the user.</p>
   <p>The user has to exist (must be already reserved), the password must 
   match and we set the e-mail address if one is given</p>
+  <p>Return true if success</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -1021,6 +982,195 @@ Called by new_system (&lt; rhel5)
   </dl>
 </td></tr></table>
 </div>
+<a name="new_system_user_pass"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">new_system_user_pass</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">profile_name</span>,
+        <span class="sig-arg">os_release_name</span>,
+        <span class="sig-arg">version</span>,
+        <span class="sig-arg">arch</span>,
+        <span class="sig-arg">username</span>,
+        <span class="sig-arg">password</span>,
+        <span class="sig-arg">other</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.new_system_user_pass">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Registers a new system to an org specified by a username, password, and
+optionally an org id.
+
+New for RHEL 5.
+
+All args are strings except other.
+other is a dict with:
+* org_id - optional. Must be a string that contains the number. If it's
+not given, the default org is used.
+* reg_num - optional. It should be an EN. It will not be activated. It's
+used for automatic subscription to child channels and for deciding which
+service level to entitle the machine to (managment, provisioning, etc).
+If not given, the machine will only be registered to a base channel and
+entitled to the highest level possible.
+
+If a profile is created it will return a dict with:
+* system_id - the same xml as was previously returned
+* channels - a list of the channels (as strings) the system was
+  subscribed to
+* failed_channels - a list of channels (as strings) that
+  the system should have been subscribed to but couldn't be because they
+  don't have the necessary entitlements available. Can contain all the
+  channels including the base channel.
+* system_slots - a list of the system slots used (as strings).
+* failed_system_slots - a list of system slots (as strings) that they
+  should have used but couldn't because there weren't available
+  entitlements
+* universal_activation_key - a list of universal default activation keys
+  (as strings) that were used while registering.
+Allowable slots are 'enterprise_entitled' (management), 'sw_mgr_entitled'
+(updates), 'monitoring_entitled' (monitoring add on to management), and
+provisioning_entitled (provisioning add on to management).
+The call will try to use the highest system slot available. An entry will
+be added to failed_system_slots for each one that is tried and fails and
+system_slots wil contain the one that succeeded if any.
+Eg: Calling this on hosted with no reg num and only update entitlements
+will result in system_slots containing 'sw_mgr_entitled' and
+failed_system_slots containing 'enterprise_entitled'.
+
+If an error occurs which prevents the creation of a profile, a fault will
+be raised:
+TODO
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_possible_orgs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_possible_orgs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">username</span>,
+        <span class="sig-arg">password</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.get_possible_orgs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Gets all the orgs that a user belongs to.
+In the OCS-future, users may belong to more than one org.
+
+New for RHEL 5.
+
+Returns a dict like:
+{
+    'orgs': {'19': 'Engineering', '4009': 'Finance'},
+    'default_org': '19'
+}
+'orgs' must have at least one pair and 'default_org' must exist and point
+to something in 'orgs'.
+
+TODO Pick fault number for this and document it here
+Fault:
+* Bad credentials
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="activate_registration_number"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">activate_registration_number</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">username</span>,
+        <span class="sig-arg">password</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">other</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.activate_registration_number">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Entitle a particular org using an entitlement number.
+
+New for RHEL 5.
+
+username, password, and key are strings.
+other is a dict with:
+* org_id - optional. If it's not given, the user's default org is used.
+
+Returns a dict:
+{
+    'status_code': &lt;status code&gt;,
+    'registration_number': 'EN for this system'
+    'channels' : channels,
+    'system_slots' : system_slots
+}
+'status_code' must be 0 for &quot;we just activated the key&quot; or 1 for &quot;this
+key was already activated.&quot;
+'registration_number' will be the EN corresponding to this activation. If
+we activated an EN we'll get the same thing back. If we activate an OEM
+number (eg asset tag) and maybe a pre-rhel 5 subscription number, we'll
+get back the EN that was generated from it.
+'channels' is a dict of the channel susbscriptions that the key activated
+the key/value pairs are label (string) / quantity (int)
+'system_slots' is a dict of the system slots that the key activated
+the key/value pairs are label (string) / quantity (int)
+
+TODO Assign fault values and document them here
+Faults:
+* Invalid key (600)
+* Bad credentials (?) - covers bad username and password, bad org id, and
+user not in specified org
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__findAssetTag"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__findAssetTag</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">vendor</span>,
+        <span class="sig-arg">hardware_info</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__findAssetTag">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Given some hardware information, we try to find the asset tag or 
+  serial number.</p>
+  <p>See activate_hardware_info below for the structure of the 
+  hardware_info</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="activate_hardware_info"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -1054,6 +1204,123 @@ Computer -&gt; system.* and smbios.*. For example:
     'smbios.chassis.type': 'Notebook',
     ...
 }
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="virt_notify"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">virt_notify</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">actions</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.virt_notify">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This function fields virtualization-related notifications from the 
+  client and delegates them out to the appropriate downstream handlers. The
+  'actions' argument is formatted as follows:</p>
+  <p>actions = [ ( timestamp, event, target, properties ), ... ]</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="register_product"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">register_product</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">product</span>,
+        <span class="sig-arg">oeminfo</span>=<span class="sig-default">{}</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.register_product">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+register a product and record the data sent with the registration
+
+bretm:  hasn't registered a product or recorded anything since 2001, near
+  as I can tell what it actually appears to be responsible for is
+  protecting us against people registering systems from t7/t9
+  countries
+
+  actual use of registration numbers has been moved into the
+  server_class.__save stuff
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__save_user"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__save_user</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">user</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__save_user">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Moved the saving of the user out to a common method so that we can 
+  save to the db in a satellite.</p>
+  <p>It is called from the update_contact_info.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="finish_message"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">finish_message</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.finish_message">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Presents the client with a message to display
+Returns:
+(returnCode, titleText, messageText)
+titleText is the window's title, messageText is the message displayed in
+that window by the client
+
+if returnCode is 1, the client
+  will show the message in a window with the
+  title of titleText, and allow the user to
+  continue.
+if returnCode is -1, the client
+  will show the message in a window with the
+  title of titleText, and not allow the user
+  to continue
+if returnCode is 0, no message
+  screen will be shown.
 
 </pre>
   <dl class="fields">
@@ -1098,6 +1365,31 @@ Returns a dict of the available channels in the format:
   </dl>
 </td></tr></table>
 </div>
+<a name="remaining_subscriptions"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remaining_subscriptions</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">username</span>,
+        <span class="sig-arg">password</span>,
+        <span class="sig-arg">arch</span>,
+        <span class="sig-arg">release</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.remaining_subscriptions">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>given username, password, os release, and arch, say how many available
+  entitlements remain for the org. o  return -1 in case of infinite 
+  entitlements</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
@@ -1129,9 +1421,9 @@ Returns a dict of the available channels in the format:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 151628076; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select jabber_id from rhnPushDispatcher
-    
+    &quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1161,7 +1453,7 @@ Returns a dict of the available channels in the format:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:53 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

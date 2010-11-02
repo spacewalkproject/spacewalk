@@ -118,6 +118,22 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="process_sha256_packages"></a><span class="summary-sig-name">process_sha256_packages</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.updatePackages-pysrc.html#process_sha256_packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -140,8 +156,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="OPTIONS"></a><span class="summary-name">OPTIONS</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="OPTIONS"></a><span class="summary-name">OPTIONS</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
@@ -162,10 +177,14 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#options_table" class="summary-name">options_table</a> = <code title="[Option(&quot;-v&quot;, &quot;--verbose&quot;, action= &quot;count&quot;, help= &quot;Increase verbosity&quot;\
-), Option(&quot;-d&quot;, &quot;--db&quot;, action= &quot;store&quot;, help= &quot;DB string to connect t\
-o&quot;), Option(&quot;--debug&quot;, action= &quot;store_true&quot;, help= &quot;logs the debug inf\
-ormation to a log file&quot;),]">[Option(&quot;-v&quot;, &quot;--verbose&quot;, action= &quot;count&quot;, he<code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.updatePackages-module.html#options_table" class="summary-name">options_table</a> = <code title="[Option(&quot;--update-sha256&quot;, action= &quot;store_true&quot;, help= &quot;Update SHA-256\
+ capable packages&quot;), Option(&quot;--update-filer&quot;, action= &quot;store_true&quot;, he\
+lp= &quot;Convert filer structure&quot;), Option(&quot;--update-kstrees&quot;, action= &quot;st\
+ore_true&quot;, help= &quot;Fix kickstart trees permissions&quot;), Option(&quot;-d&quot;, &quot;--d\
+b&quot;, action= &quot;store&quot;, help= &quot;DB string to connect to&quot;), Option(&quot;-v&quot;, &quot;-\
+-verbose&quot;, action= &quot;count&quot;, help= &quot;Increase verbosity&quot;), Option(&quot;--deb\
+ug&quot;, action= &quot;store_true&quot;, help= &quot;Log the debug information to a log f\
+ile&quot;),]">[Option(&quot;--update-sha256&quot;, action= &quot;store_true<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
@@ -192,6 +211,57 @@ ormation to a log file&quot;),]">[Option(&quot;-v&quot;, &quot;--verbose&quot;, 
        set path =: new_path
     where id = :the_id
 &quot;&quot;&quot;"><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#_get_sha256_packages_query" class="summary-name" onclick="show_private();">_get_sha256_packages_query</a> = <code title="&quot;&quot;&quot;
+select p.id, p.path
+from rhnPackage p,
+     rhnPackageRequires pr,
+     rhnPackageCapability pc,
+     rhnChecksumView cv
+where pr.package_id = p.id and
+      pr.capability_id = pc.id and
+..."><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#_update_sha256_package" class="summary-name" onclick="show_private();">_update_sha256_package</a> = <code title="&quot;&quot;&quot;
+update rhnPackage
+set checksum_id = lookup_checksum(:ctype, :csum),
+    path = :path
+where id = :id
+&quot;&quot;&quot;"><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#_select_checksum_type_id" class="summary-name" onclick="show_private();">_select_checksum_type_id</a> = <code title="&quot;&quot;&quot;
+select id from rhnChecksumType where label = :ctype
+&quot;&quot;&quot;"><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#_update_package_files" class="summary-name" onclick="show_private();">_update_package_files</a> = <code title="&quot;&quot;&quot;
+declare
+    checksum_id number;
+begin
+    begin
+        insert into rhnChecksum values (
+            rhnChecksum_seq.nextval,
+            :ctype_id,
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -225,10 +295,14 @@ ormation to a log file&quot;),]">[Option(&quot;-v&quot;, &quot;--verbose&quot;, 
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-[Option(&quot;-v&quot;, &quot;--verbose&quot;, action= &quot;count&quot;, help= &quot;Increase verbosity&quot;<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-), Option(&quot;-d&quot;, &quot;--db&quot;, action= &quot;store&quot;, help= &quot;DB string to connect t<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-o&quot;), Option(&quot;--debug&quot;, action= &quot;store_true&quot;, help= &quot;logs the debug inf<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ormation to a log file&quot;),]
+[Option(&quot;--update-sha256&quot;, action= &quot;store_true&quot;, help= &quot;Update SHA-256<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ capable packages&quot;), Option(&quot;--update-filer&quot;, action= &quot;store_true&quot;, he<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+lp= &quot;Convert filer structure&quot;), Option(&quot;--update-kstrees&quot;, action= &quot;st<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ore_true&quot;, help= &quot;Fix kickstart trees permissions&quot;), Option(&quot;-d&quot;, &quot;--d<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+b&quot;, action= &quot;store&quot;, help= &quot;DB string to connect to&quot;), Option(&quot;-v&quot;, &quot;-<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+-verbose&quot;, action= &quot;count&quot;, help= &quot;Increase verbosity&quot;), Option(&quot;--deb<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ug&quot;, action= &quot;store_true&quot;, help= &quot;Log the debug information to a log f<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ile&quot;),]
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -282,6 +356,101 @@ ormation to a log file&quot;),]
   </dl>
 </td></tr></table>
 </div>
+<a name="_get_sha256_packages_query"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_get_sha256_packages_query</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&quot;&quot;&quot;
+select p.id, p.path
+from rhnPackage p,
+     rhnPackageRequires pr,
+     rhnPackageCapability pc,
+     rhnChecksumView cv
+where pr.package_id = p.id and
+      pr.capability_id = pc.id and
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_update_sha256_package"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_update_sha256_package</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&quot;&quot;&quot;
+update rhnPackage
+set checksum_id = lookup_checksum(:ctype, :csum),
+    path = :path
+where id = :id
+&quot;&quot;&quot;
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_select_checksum_type_id"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_select_checksum_type_id</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&quot;&quot;&quot;
+select id from rhnChecksumType where label = :ctype
+&quot;&quot;&quot;
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_update_package_files"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_update_package_files</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&quot;&quot;&quot;
+declare
+    checksum_id number;
+begin
+    begin
+        insert into rhnChecksum values (
+            rhnChecksum_seq.nextval,
+            :ctype_id,
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -306,7 +475,7 @@ ormation to a log file&quot;),]
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

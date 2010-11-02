@@ -132,24 +132,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_package_remote_location_path"></a><span class="summary-sig-name">get_package_remote_location_path</span>(<span class="summary-sig-arg">pkg_id</span>)</span><br />
-      check if the given package is available on remote host and return the
-      base_url + remotepath</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_package_remote_location_path">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="get_source_package_path"></a><span class="summary-sig-name">get_source_package_path</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">pkgFilename</span>,
         <span class="summary-sig-arg">channel</span>)</span></td>
@@ -238,44 +220,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_source_package_path_by_nvrea"></a><span class="summary-sig-name">get_source_package_path_by_nvrea</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">pkg</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_source_package_path_by_nvrea">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_channels_for_package"></a><span class="summary-sig-name">get_channels_for_package</span>(<span class="summary-sig-arg">pkg</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_channels_for_package">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_package_for_checksum"></a><span class="summary-sig-name">get_package_for_checksum</span>(<span class="summary-sig-arg">org_id</span>,
+          <td><span class="summary-sig"><a name="get_path_for_checksum"></a><span class="summary-sig-name">get_path_for_checksum</span>(<span class="summary-sig-arg">org_id</span>,
         <span class="summary-sig-arg">checksum_type</span>,
         <span class="summary-sig-arg">checksum</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_package_for_checksum">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_path_for_checksum">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_path_for_package"></a><span class="summary-sig-name">get_path_for_package</span>(<span class="summary-sig-arg">pkg</span>,
+        <span class="summary-sig-arg">channel_label</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_path_for_package">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -297,31 +263,6 @@
         </tr>
       </table>
       
-    </td>
-  </tr>
-</table>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Variables</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Variables"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -348,7 +289,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

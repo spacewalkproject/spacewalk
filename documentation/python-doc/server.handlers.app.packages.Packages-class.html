@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.app-module.html">Package&nbsp;app</a> ::
-        <a href="server.handlers.app.packages-module.html" onclick="show_private();">Module&nbsp;packages</a> ::
+        server ::
+        handlers ::
+        app ::
+        packages ::
+        Packages ::
         Class&nbsp;Packages
       </span>
     </td>
@@ -57,27 +58,7 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Packages</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_3" name="uml_class_diagram_for_server_h_3">
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="117,36,312,55"/>
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="116,11,313,56"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#__init__" title="server.handlers.app.packages.Packages.__init__" alt="" coords="17,111,412,129"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#no_op" title="This is so the client can tell if the satellite supports session tokens or &#160;not." alt="" coords="17,129,412,148"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadPackageInfo" title="Upload a collection of binary packages." alt="" coords="17,148,412,167"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadPackageInfoBySession" title="server.handlers.app.packages.Packages.uploadPackageInfoBySession" alt="" coords="17,167,412,185"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadSourcePackageInfo" title="Upload a collection of source packages." alt="" coords="17,185,412,204"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadSourcePackageInfoBySession" title="server.handlers.app.packages.Packages.uploadSourcePackageInfoBySession" alt="" coords="17,204,412,223"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannelSource" title="server.handlers.app.packages.Packages.listChannelSource" alt="" coords="17,223,412,241"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannelSourceBySession" title="server.handlers.app.packages.Packages.listChannelSourceBySession" alt="" coords="17,241,412,260"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannel" title="List packages of a specified channel." alt="" coords="17,260,412,279"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannelBySession" title="server.handlers.app.packages.Packages.listChannelBySession" alt="" coords="17,279,412,297"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#login" title="This function that takes in the username and password and returns a session string if they are correct." alt="" coords="17,297,412,316"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#check_session" title="Checks a session string to make sure it is authentic expired." alt="" coords="17,316,412,335"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#test_login" title="server.handlers.app.packages.Packages.test_login" alt="" coords="17,335,412,353"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html#getSourcePackageMD5sumBySession" title="server.handlers.app.packages.Packages.getSourcePackageMD5sumBySession" alt="" coords="17,372,412,391"/>
-<area shape="rect" href="server.handlers.app.packages.Packages-class.html" title="server.handlers.app.packages.Packages" alt="" coords="16,85,413,392"/>
-</map>
-  <img src="uml_class_diagram_for_server_h_3.png" alt='' usemap="#uml_class_diagram_for_server_h_3" ismap="ismap" class="graph-without-title" />
-</center>
+
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -103,7 +84,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.handlers.app.packages.Packages-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.__init__">source&nbsp;code</a></span>
             
@@ -619,16 +600,22 @@
       
     </td>
   </tr>
-<tr class="private">
+<tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_count_channel_servers"></a><span class="summary-sig-name">_count_channel_servers</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">channel</span>)</span></td>
+          <td><span class="summary-sig"><a name="getAnyChecksum"></a><span class="summary-sig-name">getAnyChecksum</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">info</span>,
+        <span class="summary-sig-arg">username</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">password</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">session</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">is_source</span>=<span class="summary-sig-default">0</span>)</span><br />
+      returns checksum info of available packages also does an existance 
+      check on the filesystem.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._count_channel_servers">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getAnyChecksum">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -645,9 +632,7 @@
           <td><span class="summary-sig"><a name="getPackageChecksum"></a><span class="summary-sig-name">getPackageChecksum</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span><br />
-      returns checksum info of available packages also does an existance 
-      check on the filesystem.</td>
+        <span class="summary-sig-arg">info</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getPackageChecksum">source&nbsp;code</a></span>
             
@@ -737,6 +722,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="_get_package_checksum"></a><span class="summary-sig-name">_get_package_checksum</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">h</span>,
+        <span class="summary-sig-arg">query_args</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._get_package_checksum">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="_MD5sum2Checksum_info"></a><span class="summary-sig-name">_MD5sum2Checksum_info</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">info</span>)</span></td>
           <td align="right" valign="top">
@@ -774,8 +777,7 @@
           <td><span class="summary-sig"><a name="getSourcePackageChecksum"></a><span class="summary-sig-name">getSourcePackageChecksum</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span><br />
-      Uploads an RPM package</td>
+        <span class="summary-sig-arg">info</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getSourcePackageChecksum">source&nbsp;code</a></span>
             
@@ -859,13 +861,6 @@
       
     </td>
   </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
-      </p>
-    </td>
-  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -888,20 +883,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.app.packages.Packages-class.html#_query_count_channel_servers" class="summary-name" onclick="show_private();">_query_count_channel_servers</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 152570476; statement=
-        select count(*) server_count
-          from rhnServerChannel sc, 
-               rhnChannel c
-         where c.label = :channel
-           and c.id = sc.channel_id
-    ">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="server.handlers.app.packages.Packages-class.html#_get_pkg_info_query" class="summary-name" onclick="show_private();">_get_pkg_info_query</a> = <code title="'''
+        <a href="server.handlers.app.packages.Packages-class.html#_get_pkg_info_query" class="summary-name" onclick="show_private();">_get_pkg_info_query</a> = <code title="&quot;&quot;&quot;
         select
                c.checksum_type,
                c.checksum,
@@ -909,7 +891,7 @@
          from
                rhnPackageEVR pe,
                rhnPackageName pn,
-..."><code class="variable-quote">'</code><code class="variable-string">\n        select\n               c.chec</code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -931,29 +913,6 @@
   </td>
 </tr>
 </table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  
-  <dl class="fields">
-    <dt>Overrides:
-        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
 <a name="login"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -1041,30 +1000,6 @@
   </td>
 </tr>
 </table>
-<a name="_query_count_channel_servers"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">_query_count_channel_servers</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 152570476; statement=
-        select count(*) server_count
-          from rhnServerChannel sc, 
-               rhnChannel c
-         where c.label = :channel
-           and c.id = sc.channel_id
-    
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
 <a name="_get_pkg_info_query"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -1077,14 +1012,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">        select</code>
-<code class="variable-string">               c.checksum_type,</code>
-<code class="variable-string">               c.checksum,</code>
-<code class="variable-string">               p.path path</code>
-<code class="variable-string">         from</code>
-<code class="variable-string">               rhnPackageEVR pe,</code>
-<code class="variable-string">               rhnPackageName pn,</code>
+&quot;&quot;&quot;
+        select
+               c.checksum_type,
+               c.checksum,
+               p.path path
+         from
+               rhnPackageEVR pe,
+               rhnPackageName pn,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -1115,7 +1050,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:45 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:53 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

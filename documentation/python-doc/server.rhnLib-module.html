@@ -127,22 +127,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="removeNewlines"></a><span class="summary-sig-name">removeNewlines</span>(<span class="summary-sig-arg">str</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnLib-pysrc.html#removeNewlines">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="computeSignature"></a><span class="summary-sig-name">computeSignature</span>(<span class="summary-sig-arg">*fields</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnLib-pysrc.html#computeSignature">source&nbsp;code</a></span>
@@ -211,23 +195,6 @@ Understood rules:
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="timestamp2dbtime"></a><span class="summary-sig-name">timestamp2dbtime</span>(<span class="summary-sig-arg">timestamp</span>)</span><br />
-      Returns the timestamp in a format the database can understand</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnLib-pysrc.html#timestamp2dbtime">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="transpose_to_hash"></a><span class="summary-sig-name">transpose_to_hash</span>(<span class="summary-sig-arg">arr</span>,
         <span class="summary-sig-arg">column_names</span>)</span><br />
       Handy function to transpose an array from row-based to column-based, 
@@ -250,9 +217,9 @@ Understood rules:
           <td><span class="summary-sig"><a name="get_package_path"></a><span class="summary-sig-name">get_package_path</span>(<span class="summary-sig-arg">nevra</span>,
         <span class="summary-sig-arg">org_id</span>,
         <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default">&quot;&quot;</span>,
         <span class="summary-sig-arg">omit_epoch</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">package_type</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">rpm</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">package_type</span>=<span class="summary-sig-default">'rpm'</span>,
         <span class="summary-sig-arg">checksum_type</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">checksum</span>=<span class="summary-sig-default">None</span>)</span><br />
       Computes a package path, optionally prepending a prefix The path will
@@ -278,7 +245,7 @@ Understood rules:
         <tr>
           <td><span class="summary-sig"><a name="get_package_path_without_package_name"></a><span class="summary-sig-name">get_package_path_without_package_name</span>(<span class="summary-sig-arg">nevra</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default">&quot;&quot;</span>,
         <span class="summary-sig-arg">checksum_type</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">checksum</span>=<span class="summary-sig-default">None</span>)</span><br />
       return a package path without the package name appended</td>
@@ -313,14 +280,7 @@ Understood rules:
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="re_rpmName"></a><span class="summary-name">re_rpmName</span> = <code title="re.compile(r'^(.*)-([^-]*)-([^-]*)$')">re.compile(r'^<code class="re-group">(</code>.<code class="re-op">*</code><code class="re-group">)</code>-<code class="re-group">(</code><code class="re-group">[^</code>-<code class="re-group">]</code><code class="re-op">*</code><code class="re-group">)</code>-<code class="re-group">(</code><code class="re-group">[^</code>-<code class="re-group">]</code><code class="re-op">*</code><code class="re-group">)</code>$')</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
+        <a name="re_rpmName"></a><span class="summary-name">re_rpmName</span> = <code title="re.compile(&quot;^(.*)-([^-]*)-([^-]*)$&quot;)">re.compile(&quot;^(.*)-([^-]*)-([^-]*)$&quot;)</code>
     </td>
   </tr>
 </table>
@@ -418,7 +378,7 @@ OUT: [n,e,v,r, arch].
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

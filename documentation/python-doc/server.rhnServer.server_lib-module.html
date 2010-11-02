@@ -109,26 +109,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="use_registration_number"></a><span class="summary-sig-name">use_registration_number</span>(<span class="summary-sig-arg">user</span>,
-        <span class="summary-sig-arg">registration_number</span>,
-        <span class="summary-sig-arg">commit</span>=<span class="summary-sig-default">1</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#use_registration_number">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="getServerID"></a><span class="summary-sig-name">getServerID</span>(<span class="summary-sig-arg">server</span>,
-        <span class="summary-sig-arg">fields</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span></td>
+        <span class="summary-sig-arg">fields</span>=<span class="summary-sig-default">[]</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#getServerID">source&nbsp;code</a></span>
             
@@ -162,7 +144,7 @@
         <tr>
           <td><span class="summary-sig"><a name="__create_server_group"></a><span class="summary-sig-name">__create_server_group</span>(<span class="summary-sig-arg">group_label</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">maxnum</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">maxnum</span>=<span class="summary-sig-default">''</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#__create_server_group">source&nbsp;code</a></span>
             
@@ -249,22 +231,6 @@
           <td><span class="summary-sig"><a name="set_qos"></a><span class="summary-sig-name">set_qos</span>(<span class="summary-sig-arg">server_id</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#set_qos">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="set_qos_dummy"></a><span class="summary-sig-name">set_qos_dummy</span>(<span class="summary-sig-arg">server_id</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#set_qos_dummy">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -441,7 +407,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_registration" class="summary-name" onclick="show_private();">_query_update_push_client_registration</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144029164; statement=
+        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_registration" class="summary-name" onclick="show_private();">_query_update_push_client_registration</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -449,14 +415,14 @@ begin
        set name = :name,
            shared_key = :shared_key,
            state_id = :state_id,
-...">&lt;server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_jid" class="summary-name" onclick="show_private();">_query_update_push_client_jid</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144029228; statement=
+        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_jid" class="summary-name" onclick="show_private();">_query_update_push_client_jid</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -464,14 +430,7 @@ begin
        set jabber_id = :jid,
            next_action_time = NULL,
            last_ping_time = NULL
-...">&lt;server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.rhnServer'"><code class="variable-quote">'</code><code class="variable-string">server.rhnServer</code><code class="variable-quote">'</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -505,7 +464,7 @@ begin
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 144029164; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -531,7 +490,7 @@ begin
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 144029228; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -569,7 +528,7 @@ begin
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

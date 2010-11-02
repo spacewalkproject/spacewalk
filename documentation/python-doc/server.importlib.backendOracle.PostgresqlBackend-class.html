@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.backendOracle-module.html" onclick="show_private();">Module&nbsp;backendOracle</a> ::
+        <a href="server.importlib.backendOracle-module.html">Module&nbsp;backendOracle</a> ::
         Class&nbsp;PostgresqlBackend
       </span>
     </td>
@@ -56,30 +56,7 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class PostgresqlBackend</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.backendOracle-pysrc.html#PostgresqlBackend">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_i_27" name="uml_class_diagram_for_server_i_27">
-<area shape="rect" href="server.importlib.backendOracle.OracleBackend-class.html#tables" title="server.importlib.backendOracle.OracleBackend.tables" alt="" coords="155,364,251,383"/>
-<area shape="rect" href="server.importlib.backendOracle.OracleBackend-class.html#__init__" title="server.importlib.backendOracle.OracleBackend.__init__" alt="" coords="155,385,251,404"/>
-<area shape="rect" href="server.importlib.backendOracle.OracleBackend-class.html" title="server.importlib.backendOracle.OracleBackend" alt="" coords="153,347,252,405"/>
-<area shape="rect" href="server.importlib.backendOracle.PostgresqlBackend-class.html#init" title="Avoid the Oracle specific stuff here in parent method." alt="" coords="143,460,263,479"/>
-<area shape="rect" href="server.importlib.backendOracle.PostgresqlBackend-class.html" title="PostgresqlBackend specific implementation." alt="" coords="141,435,264,480"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#setDateFormat" title="server.importlib.backend.Backend.setDateFormat" alt="" coords="17,36,388,55"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#processCapabilities" title="server.importlib.backend.Backend.processCapabilities" alt="" coords="17,55,388,73"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#processCVEs" title="server.importlib.backend.Backend.processCVEs" alt="" coords="17,73,388,92"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupErrataFileTypes" title="server.importlib.backend.Backend.lookupErrataFileTypes" alt="" coords="17,92,388,111"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannelArches" title="server.importlib.backend.Backend.lookupChannelArches" alt="" coords="17,111,388,129"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupPackageArches" title="server.importlib.backend.Backend.lookupPackageArches" alt="" coords="17,129,388,148"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupServerArches" title="server.importlib.backend.Backend.lookupServerArches" alt="" coords="17,148,388,167"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupArchTypes" title="server.importlib.backend.Backend.lookupArchTypes" alt="" coords="17,167,388,185"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupOrg" title="server.importlib.backend.Backend.lookupOrg" alt="" coords="17,185,388,204"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannels" title="server.importlib.backend.Backend.lookupChannels" alt="" coords="17,204,388,223"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#updateChannelFamilyInfo" title="server.importlib.backend.Backend.updateChannelFamilyInfo" alt="" coords="17,223,388,241"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannelPackageArchCompat" title="server.importlib.backend.Backend.lookupChannelPackageArchCompat" alt="" coords="17,241,388,260"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupServerGroupTypes" title="server.importlib.backend.Backend.lookupServerGroupTypes" alt="" coords="17,260,388,279"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html#validate_pks" title="server.importlib.backend.Backend.validate_pks" alt="" coords="17,297,388,316"/>
-<area shape="rect" href="server.importlib.backend.Backend-class.html" title="server.importlib.backend.Backend" alt="" coords="16,11,389,317"/>
-</map>
-  <img src="uml_class_diagram_for_server_i_27.png" alt='' usemap="#uml_class_diagram_for_server_i_27" ismap="ismap" class="graph-without-title" />
-</center>
+
 </center>
 <hr />
 <p>PostgresqlBackend specific implementation. The bulk of the 
@@ -159,10 +136,10 @@
       <code><a href="server.importlib.backend.Backend-class.html#lookup_ks_install_types">lookup_ks_install_types</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#lookup_kstree_types">lookup_kstree_types</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processBlacklistObsoletes">processBlacklistObsoletes</a></code>,
-      <code><a href="server.importlib.backend.Backend-class.html#processBugzillaPaths">processBugzillaPaths</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processCPUArches">processCPUArches</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processCVEs">processCVEs</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processCapabilities">processCapabilities</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChangeLog">processChangeLog</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processChannelArches">processChannelArches</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processChannelFamilies">processChannelFamilies</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processChannelFamilyMembers">processChannelFamilyMembers</a></code>,
@@ -176,7 +153,6 @@
       <code><a href="server.importlib.backend.Backend-class.html#processKickstartTrees">processKickstartTrees</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processPackageArches">processPackageArches</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processPackages">processPackages</a></code>,
-      <code><a href="server.importlib.backend.Backend-class.html#processPathChannels">processPathChannels</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processProductNames">processProductNames</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processReleaseChannelMap">processReleaseChannelMap</a></code>,
       <code><a href="server.importlib.backend.Backend-class.html#processSGTVirtSubLevel">processSGTVirtSubLevel</a></code>,
@@ -291,7 +267,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:50 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:54 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

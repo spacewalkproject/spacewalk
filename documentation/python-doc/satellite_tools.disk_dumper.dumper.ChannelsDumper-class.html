@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
+        <a href="satellite_tools.disk_dumper-module.html">Package&nbsp;disk_dumper</a> ::
         <a href="satellite_tools.disk_dumper.dumper-module.html">Module&nbsp;dumper</a> ::
         Class&nbsp;ChannelsDumper
       </span>
@@ -56,25 +56,7 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ChannelsDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_satellit_32" name="uml_class_diagram_for_satellit_32">
-<area shape="rect" href="satellite_tools.exporter.exportLib.ChannelsDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib.ChannelsDumper.tag_name" alt="" coords="17,215,236,233"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.ChannelsDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelsDumper" alt="" coords="16,197,237,243"/>
-<area shape="rect" href="satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#__init__" title="satellite_tools.disk_dumper.dumper.ChannelsDumper.__init__" alt="" coords="165,316,347,335"/>
-<area shape="rect" href="satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html" title="satellite_tools.disk_dumper.dumper.ChannelsDumper" alt="" coords="164,291,348,336"/>
-<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_get" title="satellite_tools.disk_dumper.dumper.CachedDumper.cache_get" alt="" coords="289,204,481,223"/>
-<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_set" title="satellite_tools.disk_dumper.dumper.CachedDumper.cache_set" alt="" coords="289,223,481,241"/>
-<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#dump_subelement" title="satellite_tools.disk_dumper.dumper.CachedDumper.dump_subelement" alt="" coords="289,241,481,260"/>
-<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html" title="satellite_tools.disk_dumper.dumper.CachedDumper" alt="" coords="288,179,483,261"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="73,36,439,55"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="73,55,439,73"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.BaseDumper.set_iterator" alt="" coords="73,73,439,92"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="73,92,439,111"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="73,111,439,129"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="73,129,439,148"/>
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="72,11,440,149"/>
-</map>
-  <img src="uml_class_diagram_for_satellit_32.png" alt='' usemap="#uml_class_diagram_for_satellit_32" ismap="ismap" class="graph-without-title" />
-</center>
+
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -100,9 +82,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">writer</span>,
-        <span class="summary-sig-arg">channels</span>)</span></td>
+        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">start_date</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">end_date</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper.__init__">source&nbsp;code</a></span>
             
@@ -112,16 +96,16 @@
       
     </td>
   </tr>
-<tr class="private">
+<tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#_get_key" class="summary-sig-name" onclick="show_private();">_get_key</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">params</span>)</span></td>
+          <td><span class="summary-sig"><a name="dump_subelement"></a><span class="summary-sig-name">dump_subelement</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper._get_key">source&nbsp;code</a></span>
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper.dump_subelement">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -129,42 +113,20 @@
       
     </td>
   </tr>
-<tr class="private">
+<tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#_dump_subelement" class="summary-sig-name" onclick="show_private();">_dump_subelement</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">data</span>)</span><br />
-      To be overridden in subclasses.</td>
+          <td><span class="summary-sig"><a name="set_iterator"></a><span class="summary-sig-name">set_iterator</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper._dump_subelement">source&nbsp;code</a></span>
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper.set_iterator">source&nbsp;code</a></span>
             
           </td>
         </tr>
       </table>
       
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html">CachedDumper</a></code></b>:
-      <code><a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_get">cache_get</a></code>,
-      <code><a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_set">cache_set</a></code>,
-      <code><a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#dump_subelement">dump_subelement</a></code>
-      </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html">CachedDumper</a></code></b> (private):
-      <code><a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#_get_last_modified" onclick="show_private();">_get_last_modified</a></code>
-      </p></div>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html">exporter.exportLib.BaseDumper</a></code></b>:
-      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump">dump</a></code>,
-      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer">get_writer</a></code>,
-      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes">set_attributes</a></code>,
-      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_iterator">set_iterator</a></code>,
-      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer">set_writer</a></code>,
-      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer">timer</a></code>
-      </p>
     </td>
   </tr>
 </table>
@@ -189,7 +151,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#_query_list_channels" class="summary-name" onclick="show_private();">_query_list_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403244; statement=
+        <a href="satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#_query_list_channels" class="summary-name" onclick="show_private();">_query_list_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select c.id, c.org_id, 
 	       c.label, ca.label channel_arch, c.basedir, c.name, 
                c.summary, c.description, c.gpg_key_url,
@@ -197,108 +159,10 @@
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modif\
 ied, 
                pc.label parent_channel
-...">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib.ChannelsDumper-class.html">exporter.exportLib.ChannelsDumper</a></code></b>:
-      <code><a href="satellite_tools.exporter.exportLib.ChannelsDumper-class.html#tag_name">tag_name</a></code>
-      </p>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
-<!-- ==================== METHOD DETAILS ==================== -->
-<a name="section-MethodDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Method Details</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-MethodDetails"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-</table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">writer</span>,
-        <span class="sig-arg">channels</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  
-  <dl class="fields">
-    <dt>Overrides:
-        <a href="satellite_tools.exporter.exportLib.ChannelsDumper-class.html#__init__">exporter.exportLib.ChannelsDumper.__init__</a>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="_get_key"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">_get_key</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">params</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper._get_key">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  
-  <dl class="fields">
-    <dt>Overrides:
-        <a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#_get_key" onclick="show_private();">CachedDumper._get_key</a>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="_dump_subelement"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">_dump_subelement</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">data</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#ChannelsDumper._dump_subelement">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>To be overridden in subclasses.</p>
-  <dl class="fields">
-    <dt>Overrides:
-        <a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#_dump_subelement" onclick="show_private();">CachedDumper._dump_subelement</a>
-        <dd><em class="note">(inherited documentation)</em></dd>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -329,7 +193,7 @@ ied,
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 147403244; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select c.id, c.org_id, 
 	       c.label, ca.label channel_arch, c.basedir, c.name, 
                c.summary, c.description, c.gpg_key_url,
@@ -367,7 +231,7 @@ ied,
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:25 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:48 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

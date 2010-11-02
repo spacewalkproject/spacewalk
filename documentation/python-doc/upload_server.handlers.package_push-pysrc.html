@@ -54,36 +54,35 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="upload_server.handlers.package_push-module.html">Package upload_server.handlers.package_push</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
-<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
-<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
-<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
-<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
-<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
-<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
-<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
-<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
-<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
-<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
-<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2010 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment"># This file defines the classes available for the XMLRPC receiver</tt> </tt>
-<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
-<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
-<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-name">__all__</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
-<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
-<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module server.wsgi.package_push=server.wsgi.package_push-module.html,Package upload_server.handlers.package_push=upload_server.handlers.package_push-module.html,Module upload_server.handlers.package_push.package_push=upload_server.handlers.package_push.package_push-module.html"><a title="server.wsgi.package_push
-upload_server.handlers.package_push
-upload_server.handlers.package_push.package_push" class="py-name" href="#" onclick="return doclink('link-0', 'package_push', 'link-0');">package_push</a></tt> </tt>
-<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"> </tt>
-<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-name">upload_class</tt> <tt class="py-op">=</tt> <tt id="link-1" class="py-name"><a title="server.wsgi.package_push
-upload_server.handlers.package_push
-upload_server.handlers.package_push.package_push" class="py-name" href="#" onclick="return doclink('link-1', 'package_push', 'link-0');">package_push</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Class upload_server.handlers.package_push.package_push.PackagePush=upload_server.handlers.package_push.package_push.PackagePush-class.html"><a title="upload_server.handlers.package_push.package_push.PackagePush" class="py-name" href="#" onclick="return doclink('link-2', 'PackagePush', 'link-2');">PackagePush</a></tt> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment"># This file defines the classes available for the XMLRPC receiver</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-name">__all__</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package upload_server.handlers.package_push=upload_server.handlers.package_push-module.html,Module upload_server.handlers.package_push.package_push=upload_server.handlers.package_push.package_push-module.html,Module wsgi.package_push=wsgi.package_push-module.html"><a title="upload_server.handlers.package_push
+upload_server.handlers.package_push.package_push
+wsgi.package_push" class="py-name" href="#" onclick="return doclink('link-0', 'package_push', 'link-0');">package_push</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-name">upload_class</tt> <tt class="py-op">=</tt> <tt id="link-1" class="py-name"><a title="upload_server.handlers.package_push
+upload_server.handlers.package_push.package_push
+wsgi.package_push" class="py-name" href="#" onclick="return doclink('link-1', 'package_push', 'link-0');">package_push</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Class upload_server.handlers.package_push.package_push.PackagePush=upload_server.handlers.package_push.package_push.PackagePush-class.html"><a title="upload_server.handlers.package_push.package_push.PackagePush" class="py-name" href="#" onclick="return doclink('link-2', 'PackagePush', 'link-2');">PackagePush</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -113,7 +112,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:43 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:03:21 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

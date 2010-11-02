@@ -93,6 +93,23 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="update_date"></a><span class="summary-sig-name">update_date</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Updates the last sync time</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.reposync-pysrc.html#RepoSync.update_date">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="process_args"></a><span class="summary-sig-name">process_args</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.reposync-pysrc.html#RepoSync.process_args">source&nbsp;code</a></span>
@@ -126,7 +143,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="import_packages"></a><span class="summary-sig-name">import_packages</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">packages</span>)</span></td>
+        <span class="summary-sig-arg">plug</span>,
+        <span class="summary-sig-arg">url</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.reposync-pysrc.html#RepoSync.import_packages">source&nbsp;code</a></span>
             
@@ -257,6 +275,23 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="short_hash"></a><span class="summary-sig-name">short_hash</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">str</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.reposync-pysrc.html#RepoSync.short_hash">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -279,48 +314,35 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="parser"></a><span class="summary-name">parser</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="parser"></a><span class="summary-name">parser</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="type"></a><span class="summary-name">type</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="type"></a><span class="summary-name">type</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="url"></a><span class="summary-name">url</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="urls"></a><span class="summary-name">urls</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="channel_label"></a><span class="summary-name">channel_label</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="channel_label"></a><span class="summary-name">channel_label</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="plugin"></a><span class="summary-name">plugin</span> = <code title="None">None</code><br />
-      hash(x)
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="channel"></a><span class="summary-name">channel</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="channel"></a><span class="summary-name">channel</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
@@ -334,14 +356,6 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="repo_label"></a><span class="summary-name">repo_label</span> = <code title="None">None</code><br />
-      hash(x)
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a name="quiet"></a><span class="summary-name">quiet</span> = <code title="False">False</code>
     </td>
   </tr>
@@ -349,7 +363,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="mirrorlist"></a><span class="summary-name">mirrorlist</span> = <code title="False">False</code>
+        <a name="regen"></a><span class="summary-name">regen</span> = <code title="False">False</code>
     </td>
   </tr>
 </table>
@@ -376,7 +390,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:32 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:49 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

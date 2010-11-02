@@ -130,13 +130,6 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization.VirtualizationListenerError-class.html" class="summary-name">VirtualizationListenerError</a>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a href="server.rhnVirtualization.VirtualizationEventError-class.html" class="summary-name">VirtualizationEventError</a>
     </td>
   </tr>
@@ -197,40 +190,6 @@
       related events.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#add_listener">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="remove_listener"></a><span class="summary-sig-name">remove_listener</span>(<span class="summary-sig-arg">listener</span>)</span><br />
-      Removes a virt event listener.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#remove_listener">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_handle_virt_guest_params"></a><span class="summary-sig-name">_handle_virt_guest_params</span>(<span class="summary-sig-arg">system_certificate</span>,
-        <span class="summary-sig-arg">params</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#_handle_virt_guest_params">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -330,20 +289,11 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization-module.html#CLIENT_SERVER_STATE_MAP" class="summary-name">CLIENT_SERVER_STATE_MAP</a> = <code title="{'blocked': 'running',
- 'crashed': 'crashed',
- 'nostate': 'running',
- 'paused': 'paused',
- 'running': 'running',
- 'shutdown': 'stopped',
- 'shutoff': 'stopped'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">blocked</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
+        <a href="server.rhnVirtualization-module.html#CLIENT_SERVER_STATE_MAP" class="summary-name">CLIENT_SERVER_STATE_MAP</a> = <code title="{ClientStateType.NOSTATE: ServerStateType.RUNNING, ClientStateType.RUN\
+NING: ServerStateType.RUNNING, ClientStateType.BLOCKED: ServerStateTyp\
+e.RUNNING, ClientStateType.PAUSED: ServerStateType.PAUSED, ClientState\
+Type.SHUTDOWN: ServerStateType.STOPPED, ClientStateType.SHUTOFF: Serve\
+rStateType.STOPPED, ClientStateType.CRASHED: ServerStateType.CRASHED}">{ClientStateType.NOSTATE: ServerStat<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -433,13 +383,11 @@ Return a tuple consisting of (timestamp, event, target, properties).
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">blocked</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">nostate</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">paused</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">paused</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">shutdown</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">stopped</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">shutoff</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">stopped</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+{ClientStateType.NOSTATE: ServerStateType.RUNNING, ClientStateType.RUN<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+NING: ServerStateType.RUNNING, ClientStateType.BLOCKED: ServerStateTyp<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+e.RUNNING, ClientStateType.PAUSED: ServerStateType.PAUSED, ClientState<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+Type.SHUTDOWN: ServerStateType.STOPPED, ClientStateType.SHUTOFF: Serve<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+rStateType.STOPPED, ClientStateType.CRASHED: ServerStateType.CRASHED}
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -469,7 +417,7 @@ Return a tuple consisting of (timestamp, event, target, properties).
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
-        <a href="server.handlers.xmlrpc.proxy-module.html" onclick="show_private();">Module&nbsp;proxy</a> ::
+        server ::
+        handlers ::
+        xmlrpc ::
+        proxy ::
+        Proxy ::
         Class&nbsp;Proxy
       </span>
     </td>
@@ -57,22 +58,11 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Proxy</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.proxy-pysrc.html#Proxy">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_14" name="uml_class_diagram_for_server_h_14">
-<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="147,85,285,117"/>
-<area shape="rect" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_system" title="server.handlers.xmlrpc.proxy.rhnProxyHandler.auth_system" alt="" coords="125,172,307,191"/>
-<area shape="rect" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_client" title="server.handlers.xmlrpc.proxy.rhnProxyHandler.auth_client" alt="" coords="125,191,307,209"/>
-<area shape="rect" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html" title="server.handlers.xmlrpc.proxy.rhnProxyHandler" alt="" coords="124,147,308,211"/>
-<area shape="rect" href="server.handlers.xmlrpc.proxy.Proxy-class.html#__init__" title="server.handlers.xmlrpc.proxy.Proxy.__init__" alt="" coords="17,265,415,284"/>
-<area shape="rect" href="server.handlers.xmlrpc.proxy.Proxy-class.html#package_source_in_channel" title="server.handlers.xmlrpc.proxy.Proxy.package_source_in_channel" alt="" coords="17,284,415,303"/>
-<area shape="rect" href="server.handlers.xmlrpc.proxy.Proxy-class.html#login" title="server.handlers.xmlrpc.proxy.Proxy.login" alt="" coords="17,303,415,321"/>
-<area shape="rect" href="server.handlers.xmlrpc.proxy.Proxy-class.html" title="server.handlers.xmlrpc.proxy.Proxy" alt="" coords="16,240,416,323"/>
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="119,36,313,55"/>
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="117,11,315,56"/>
-</map>
-  <img src="uml_class_diagram_for_server_h_14.png" alt='' usemap="#uml_class_diagram_for_server_h_14" ismap="ismap" class="graph-without-title" />
-</center>
+
 </center>
 <hr />
+<p>this is the XML-RPC receiver for proxy calls</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -115,7 +105,8 @@
           <td><span class="summary-sig"><a name="package_source_in_channel"></a><span class="summary-sig-name">package_source_in_channel</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">package</span>,
         <span class="summary-sig-arg">channel</span>,
-        <span class="summary-sig-arg">auth_token</span>)</span></td>
+        <span class="summary-sig-arg">auth_token</span>)</span><br />
+      Validates the client request for a source package download</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.proxy-pysrc.html#Proxy.package_source_in_channel">source&nbsp;code</a></span>
             
@@ -131,8 +122,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="login"></a><span class="summary-sig-name">login</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">system_id</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.proxy.Proxy-class.html#login" class="summary-sig-name">login</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">system_id</span>)</span><br />
+      Login routine for the proxy</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.proxy-pysrc.html#Proxy.login">source&nbsp;code</a></span>
             
@@ -147,9 +139,6 @@
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html">rhnProxyHandler</a></code></b>:
       <code><a href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_client">auth_client</a></code>,
       <code><a href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_system">auth_system</a></code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
       </p>
     </td>
   </tr>
@@ -190,8 +179,38 @@
   
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+        <a href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#__init__">rhnProxyHandler.__init__</a>
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="login"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">login</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.proxy-pysrc.html#Proxy.login">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Login routine for the proxy
+
+Return a formatted string of session token information as regards
+an RHN Proxy.  Also sets this information in the headers.
+
+NOTE: design description for the auth token format and how it is
+   is used is well documented in the proxy/broker/rhnProxyAuth.py
+   code.
+
+</pre>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -219,7 +238,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
+    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:53 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
