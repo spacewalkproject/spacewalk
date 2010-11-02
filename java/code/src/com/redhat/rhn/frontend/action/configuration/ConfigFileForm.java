@@ -180,7 +180,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         set("submitted", Boolean.TRUE);
         if (cr.isFile()) {
             set(ConfigFileForm.REV_BINARY, cr.getConfigContent().isBinary());
-            if (!cr.getConfigContent().isBinary() && !cr.isDirectory()) {
+            if (!cr.getConfigContent().isBinary()) {
                 set(ConfigFileForm.REV_CONTENTS, cr.getConfigContent().getContentsString());
             }
             Boolean toolarge = cr.getConfigContent().getFileSize().
