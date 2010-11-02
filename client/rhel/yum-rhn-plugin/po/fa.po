@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:28+0200\n"
+"POT-Creation-Date: 2010-11-02 11:20+0100\n"
 "PO-Revision-Date: 2010-08-28 05:00+0330\n"
 "Last-Translator: Ali Yousefi Sabzevar <aysabzevar@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,8 +26,12 @@ msgstr "پشتیبانی شبکه ردهت غیر فعال خواهد شد."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:81
-msgid "*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories."
-msgstr "*توجه* مخازن شبکه ردهت در زیر نیامده‌اند. شما باید این دستور را توسطکاربر ریشه اجرا کنید تا به مخازن شبکه ردهت دسترسی پیدا کنید."
+msgid ""
+"*Note* Red Hat Network repositories are not listed below. You must run this "
+"command as root to access RHN repositories."
+msgstr ""
+"*توجه* مخازن شبکه ردهت در زیر نیامده‌اند. شما باید این دستور را توسطکاربر "
+"ریشه اجرا کنید تا به مخازن شبکه ردهت دسترسی پیدا کنید."
 
 #: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
@@ -53,8 +58,10 @@ msgid "This system is not subscribed to any channels."
 msgstr "این سیستم در هیچ کانالی عضو نیست."
 
 #: ../rhnplugin.py:139
-msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr "این سیستم نمی‌تواند در شبکه ردهت ثبت شود. مشخصات سیستم قابل دستیابی نیست.\n"
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+"این سیستم نمی‌تواند در شبکه ردهت ثبت شود. مشخصات سیستم قابل دستیابی نیست.\n"
 
 #: ../rhnplugin.py:213
 msgid "Package profile information could not be sent."
@@ -75,4 +82,3 @@ msgstr "لطفا دستور rhn_register را توسط کاربر ریشه در 
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "اطلاعات موردنیاز برای ورود به شبکه ردهت ناقص است %s"
-
