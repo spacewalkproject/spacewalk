@@ -251,29 +251,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Returns a list of downloadable packages for the given server id in the given set
-     * @param label Set label
-     * @param user User
-     * @param sid Server id
-     * @param pc PageControl
-     * @return list of packages
-     */
-    public static DataResult downloadableInSet(String label, User user, Long sid,
-                                          PageControl pc) {
-
-        SelectMode m = ModeFactory.getMode("Package_queries",
-                "package_download_for_system_arch_select");
-        Map params = new HashMap();
-        params.put("set_label", label);
-        params.put("user_id", user.getId());
-        params.put("sid", sid);
-        Map elabParams = new HashMap();
-        elabParams.put("sid", sid);
-        return makeDataResult(params, elabParams, pc, m);
-
-    }
-
-    /**
      * Returns a list of upgradable packages for the given server id.
      * @param sid Server Id
      * @param pc PageControl to limit page size, maybe null for all

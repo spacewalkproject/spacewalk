@@ -850,37 +850,6 @@ SELECT  PN.name,
   </query>
 </mode>
 
-<mode name="package_download_for_system_arch_select" class="com.redhat.rhn.frontend.dto.PackageListItem">
-  <query params="set_label, user_id, sid">
-SELECT P.id, PN.name || '-' || PEVR.evr.as_vre_simple() as NVRE,
-  PA.label as ARCH, P.path
-  FROM rhnPackage P,
-       rhnPackageName PN,
-       rhnPackageEVR PEVR,
-       rhnPackageArch PA,
-       rhnSet S
- WHERE S.label = :set_label
-   AND S.user_id = :user_id
-   AND PN.id = S.element
-   AND PEVR.id = S.element_two
-   AND P.name_id = PN.id
-   AND P.evr_id = PEVR.id
-   AND P.package_arch_id = PA.id
-   AND EXISTS (SELECT 1 FROM rhnServerNeededPackageCache SNPC WHERE SNPC.server_id = :sid AND SNPC.package_id = P.id)
-  </query>
-  <elaborator multiple="t" params="sid">
-SELECT CP.package_id as ID,
-       C.name as CHANNEL_NAME,
-       C.id as CHANNEL_ID
-  FROM rhnServerChannel SC, rhnChannelPackage CP, rhnChannel C
- WHERE CP.package_id in (%s)
-   AND C.id = CP.channel_id
-   AND SC.server_id = :sid
-   AND SC.channel_id = C.id
-  </elaborator>
-</mode>
-
-
 <mode name="packages_associated_with_action">
   <query params="aid">
 select * from (
@@ -1690,7 +1659,7 @@ SELECT distinct P.id AS ID,
 	   rhnPackageName PN on P.name_id = PN.id inner join
 	   rhnPackageEVR PE on P.evr_id = PE.id
  WHERE  P.org_id = :org_id and
- 		not exists (	
+		not exists (
 			select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
@@ -1715,7 +1684,7 @@ SELECT distinct P.id AS ID,
   	   rhnChannelPackage CP on P.id = CP.package_id
  WHERE  (P.org_id = :org_id) and
  		CP.channel_id is null and
- 		not exists (	
+		not exists (
 			select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
@@ -1951,9 +1920,9 @@ SELECT
 <mode name="lookup_release_package_evr_id">
   <query params="sid">
 select distinct p.evr_id as id
-        from 
-                   rhnPackageProvides pp 
-        inner join rhnPackageCapability pc on pc.id= pp.CAPABILITY_ID 
+        from
+                   rhnPackageProvides pp
+        inner join rhnPackageCapability pc on pc.id= pp.CAPABILITY_ID
         inner join rhnPackage p on p.id = pp.package_id
         inner join rhnServerPackage sp on sp.name_id = p.name_id and sp.evr_id = p.evr_id
     where pc.name='redhat-release' and sp.server_id= :sid
