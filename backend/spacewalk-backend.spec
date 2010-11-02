@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.51
+Version: 1.2.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.52-1
+- Update copyright years in backend/.
+- allow to enable/disable QOS in config file (msuchy@redhat.com)
+- do not throttle by default (msuchy@redhat.com)
+- update .po and .pot files for spacewalk-backend
+
 * Tue Nov 02 2010 Jan Pazdziora 1.2.51-1
 - fixed Error importing xp: No module named handlers.app.packages
   (michael.mraka@redhat.com)
