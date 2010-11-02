@@ -5,7 +5,11 @@ documentation for java:
     make java
 
 documentation of python:
-    make python
+    git rm -f python-doc/*
+    make python	# epydoc needs to be installed, it needs texlive, ouch :-(
+    git add python-doc/*
+    rm -rf build
+    # update python-doc.readme
 
 documentation for the db schema:
     ORASCHEMADOC=/path/to/oraschemadoc.py DSN=user/pass@db make schema
