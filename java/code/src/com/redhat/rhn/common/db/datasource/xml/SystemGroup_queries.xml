@@ -136,14 +136,4 @@ ORDER BY UPPER(SG.name), SG.id
   </query>
 </mode>
 
-<mode name="unused_entitlements">
-  <query params="org_id">
-SELECT SUM(max_members - current_members) AS available
-  FROM rhnServerGroup
- WHERE org_id = :org_id
-   AND (   group_type = (SELECT id FROM rhnServerGroupType WHERE label = 'sw_mgr_entitled')
-        OR group_type = (SELECT id FROM rhnServerGroupType WHERE label = 'enterprise_entitled'))
-  </query>
-</mode>
-
 </datasource_modes>

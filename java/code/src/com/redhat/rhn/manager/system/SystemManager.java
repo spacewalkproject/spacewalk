@@ -748,21 +748,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Returns whether or not this org has unused entitlements.
-     * @param org The organization
-     * @return boolean for the presence of unused entitlements
-     */
-    public static boolean unusedEntitlements(Org org) {
-        SelectMode m = ModeFactory.getMode("SystemGroup_queries", "unused_entitlements");
-
-        Map params = new HashMap();
-        params.put("org_id", org.getId());
-
-        DataResult dr = makeDataResult(params, params, null, m);
-        return ((Long)((HashMap)dr.get(0)).get("available")).intValue() > 0;
-    }
-
-    /**
      * Returns a list of errata relevant to a system
      * @param user The user
      * @param sid System Id
