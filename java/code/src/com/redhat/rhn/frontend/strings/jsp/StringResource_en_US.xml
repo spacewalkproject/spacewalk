@@ -13134,7 +13134,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <source>Edit Custom Info Key</source>
        </trans-unit>
        <trans-unit id="system.jsp.customkey.updatemsg">
-         <source>Define infomation about this key below.</source>
+         <source>Define information about this key below.</source>
        </trans-unit>
        <trans-unit id="system.jsp.customkey.updateheader">
          <source>Systems with a value for this key</source>
