@@ -40,7 +40,7 @@ class rhnHandler(RPC_Base):
         # do we attempt throttling 
         self.throttle = CFG.THROTTLE
         # attempt quality of service checks
-        self.set_qos = 0
+        self.set_qos = CFG.QOS
         # do we update the checking counters
         self.update_checkin = 1
             
