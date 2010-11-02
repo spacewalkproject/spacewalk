@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.62
+Version:        1.2.63
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.63-1
+- Update copyright years in schema/.
+
 * Tue Nov 02 2010 Jan Pazdziora 1.2.62-1
 - Generally, we use sequence_nextval when populating tables, we will just
   require it for all tables.
