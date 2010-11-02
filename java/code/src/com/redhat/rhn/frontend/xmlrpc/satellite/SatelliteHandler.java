@@ -161,6 +161,7 @@ public class SatelliteHandler extends BaseHandler {
 
     /**
      * Indicates if monitoring is enabled on the satellite
+     * available since API version 10.13
      * @param sessionKey session of the logged in user
      * @return True if monitoring is enabled
      *
