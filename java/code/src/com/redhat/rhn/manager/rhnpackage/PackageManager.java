@@ -989,19 +989,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Clear the needed package cache entries for a package
-     * @param pid the package id
-     */
-    public static void clearNeededPackageCache(Long pid) {
-        Map params = new HashMap();
-        params.put("pid", pid);
-            WriteMode m = ModeFactory.getWriteMode("Package_queries",
-                    "cleanup_needed_package_cache");
-            m.executeUpdate(params);
-    }
-
-
-    /**
      * This deletes a package completely from the satellite including the
      *      physical rpm on the disk
      * @param ids the set of package ids

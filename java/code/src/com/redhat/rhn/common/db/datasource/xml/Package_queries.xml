@@ -1732,14 +1732,6 @@ SELECT distinct P.id AS ID,
     <elaborator name="package_details" />
 </mode>
 
-<write-mode name="cleanup_needed_package_cache">
-  <query params="pid">
-    DELETE from
-    rhnServerNeededCache r
-    WHERE r.package_id = :pid
-  </query>
-</write-mode>
-
 <!-- Runs the cache cleanup for all packages in an RhnSet. The package ID must be in
      "element" of the set. -->
 <write-mode name="cleanup_needed_package_cache_from_set">
