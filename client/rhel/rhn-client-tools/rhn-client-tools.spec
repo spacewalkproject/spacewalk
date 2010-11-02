@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.2.10
+Version: 1.2.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -286,6 +286,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.11-1
+- Update copyright years in the rest of the repo.
+- update .po and .pot files for rhn-client-tools
+- require versions which can handle cache_only (msuchy@redhat.com)
+
 * Mon Oct 25 2010 Jan Pazdziora 1.2.10-1
 - correct man page acording to reality (msuchy@redhat.com)
 
