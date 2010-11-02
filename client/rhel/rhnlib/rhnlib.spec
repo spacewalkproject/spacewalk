@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.27
+Version: 2.5.28
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 2.5.28-1
+- Update copyright years in the rest of the repo.
+
 * Mon Sep 20 2010 Miroslav Suchý <msuchy@redhat.com> 2.5.27-1
 - add copyright file - this is required by Debian policy
 - update GPLv2 license file
