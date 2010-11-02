@@ -2,10 +2,13 @@ documentation for java and python:
     make all
 
 documentation for java:
-    make java
+    git rm -rf javadoc/*
+    make java	# javadoc needs to be installed, it needs java-1.6.0-openjdk-devel
+    git add javadoc/
+    # update javadoc.readme
 
 documentation of python:
-    git rm -f python-doc/*
+    git rm -rf python-doc/*
     make python	# epydoc needs to be installed, it needs texlive, ouch :-(
     git add python-doc/*
     rm -rf build
