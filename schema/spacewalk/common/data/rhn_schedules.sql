@@ -23,7 +23,7 @@
 
 insert into rhn_schedules(recid,schedule_type_id,description,last_update_user,
 last_update_date,customer_id) 
-    values ( sequence_nextval('rhn_schedules_recid_seq'),1,'24x7','system',sysdate,NULL);
+    values ( sequence_nextval('rhn_schedules_recid_seq'),1,'24x7','system',current_timestamp,NULL);
 commit;
 
 --

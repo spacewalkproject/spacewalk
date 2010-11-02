@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,55 +23,55 @@
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'none','-','No physical quantity',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'time','secs','Measure of time',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'data','bytes','Measure of information',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'datarate','Bps','Measure of information flow',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'frequency','hertz','Measure of freqency',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'temp','kelvins','Measure of temperature',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'length','metres','Measure of length',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'mass','kilograms','Measure of mass',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'current','amperes','Measure of electric current',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'force','newtons','Measure of force/weight',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'power','watts','Measure of power',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'charge','coulombs','Measure of charge',
-    'system',sysdate);
+    'system',current_timestamp);
 insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'voltage','volts','Measure of electric potential difference',
-    'system',sysdate);
+    'system',current_timestamp);
 commit;
 
 --

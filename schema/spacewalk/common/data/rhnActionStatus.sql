@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,10 +17,10 @@
 --
 -- data for rhnActionStatus
 
-insert into rhnActionStatus values (0, 'Queued', sysdate, sysdate);
-insert into rhnActionStatus values (1, 'Picked Up', sysdate, sysdate);
-insert into rhnActionStatus values (2, 'Completed', sysdate, sysdate);
-insert into rhnActionStatus values (3, 'Failed', sysdate, sysdate);
+insert into rhnActionStatus values (0, 'Queued', current_timestamp, current_timestamp);
+insert into rhnActionStatus values (1, 'Picked Up', current_timestamp, current_timestamp);
+insert into rhnActionStatus values (2, 'Completed', current_timestamp, current_timestamp);
+insert into rhnActionStatus values (3, 'Failed', current_timestamp, current_timestamp);
 
 commit;
 

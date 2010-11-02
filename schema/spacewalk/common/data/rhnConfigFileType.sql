@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,9 +16,9 @@
 --
 --
 
-insert into rhnConfigFileType values (1, 'file', 'File', sysdate, sysdate);
-insert into rhnConfigFileType values (2, 'directory', 'Directory', sysdate, sysdate);
-insert into rhnConfigFileType values (3, 'symlink', 'Symlink', sysdate, sysdate);
+insert into rhnConfigFileType values (1, 'file', 'File', current_timestamp, current_timestamp);
+insert into rhnConfigFileType values (2, 'directory', 'Directory', current_timestamp, current_timestamp);
+insert into rhnConfigFileType values (3, 'symlink', 'Symlink', current_timestamp, current_timestamp);
 
 --
 --

@@ -18,7 +18,7 @@
 -- data for rhnPackageGroup
 
 insert into rhnPackageGroup values (sequence_nextval('rhn_package_group_id_seq'),'NoGroup',
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 
 commit;
 

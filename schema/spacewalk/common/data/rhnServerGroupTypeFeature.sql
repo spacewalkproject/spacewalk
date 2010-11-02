@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,130 +19,130 @@
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id, 
                                        created, modified)
 values (lookup_sg_type('sw_mgr_entitled'), lookup_feature_type('ftr_package_updates'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id, 
                                        created, modified)
 values (lookup_sg_type('sw_mgr_entitled'), lookup_feature_type('ftr_errata_updates'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id, 
                                        created, modified)
 values (lookup_sg_type('sw_mgr_entitled'), lookup_feature_type('ftr_hardware_refresh'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id, 
                                        created, modified)
 values (lookup_sg_type('sw_mgr_entitled'), lookup_feature_type('ftr_package_refresh'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id, 
                                        created, modified)
 values (lookup_sg_type('sw_mgr_entitled'), lookup_feature_type('ftr_package_remove'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id, 
                                        created, modified)
 values (lookup_sg_type('sw_mgr_entitled'), lookup_feature_type('ftr_auto_errata_updates'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('sw_mgr_entitled'), lookup_feature_type('ftr_daily_summary'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 
 
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_package_updates'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_errata_updates'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_hardware_refresh'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_package_refresh'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_package_remove'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_auto_errata_updates'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_system_grouping'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_package_verify'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_profile_compare'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_proxy_capable'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_sat_capable'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_reboot'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_satellite_applet'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_osa_bus'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('enterprise_entitled'), lookup_feature_type('ftr_daily_summary'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 
 
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_kickstart'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_config'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_custom_info'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_delta_action'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_snapshotting'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_agent_smith'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_remote_command'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('monitoring_entitled'), lookup_feature_type('ftr_schedule_probe'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
                                        created, modified)
 values (lookup_sg_type('monitoring_entitled'), lookup_feature_type('ftr_probes'),
-        sysdate,sysdate);
+        current_timestamp,current_timestamp);
 

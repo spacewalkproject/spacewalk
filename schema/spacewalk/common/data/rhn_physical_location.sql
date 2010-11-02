@@ -17,7 +17,7 @@
 --data for rhn_physical_location (uses sequence!!!)
 
 insert into rhn_physical_location(recid, location_name, last_update_user, last_update_date)
-    values (sequence_nextval('rhn_physical_loc_recid_seq'), 'Generic All-Encompassing Location','system', sysdate);
+    values (sequence_nextval('rhn_physical_loc_recid_seq'), 'Generic All-Encompassing Location','system', current_timestamp);
 
 commit;
 
