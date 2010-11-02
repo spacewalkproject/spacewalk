@@ -94,11 +94,20 @@ public class SchedulerKernel {
                     "org.postgresql.Driver");
             props.setProperty(ds + ".driver", driver);
 
+            String connectionUrl = Config.get().getString(
+                    ConfigDefaults.DB_PROTO) +
+                    ":";
             String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
             String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
-            String dbUrl = dbProto + "://" + dbHost + ":" + dbPort + "/" +
-                    dbName;
-            props.setProperty(ds + ".URL", dbUrl);
+            if (dbHost != null && dbHost.length() > 0) {
+                connectionUrl += "//" + dbHost;
+                if (dbPort != null && dbPort.length() > 0) {
+                    connectionUrl += ":" + dbPort;
+                }
+                connectionUrl += "/";
+            }
+            connectionUrl += dbName;
+            props.setProperty(ds + ".URL", connectionUrl);
         }
         else {
             throw new InstantiationException(
