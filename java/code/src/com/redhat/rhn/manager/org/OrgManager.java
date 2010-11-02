@@ -310,20 +310,6 @@ public class OrgManager extends BaseManager {
                 Collections.EMPTY_MAP);
     }
 
-
-    /**
-     *
-     * @param entLabel to check used active orgs
-     * @return DataList of Objects
-     */
-    public static DataList getUsedActiveOrgCount(String entLabel) {
-        SelectMode m = ModeFactory
-                .getMode("Org_queries", "get_used_org_counts");
-        Map params = new HashMap();
-        params.put("label", entLabel);
-        return DataList.getDataList(m, params, Collections.EMPTY_MAP);
-    }
-
     /**
      * @param user User to cross security check
      * @param entLabel to check used active orgs
