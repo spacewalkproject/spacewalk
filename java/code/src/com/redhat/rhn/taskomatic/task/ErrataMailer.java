@@ -104,7 +104,6 @@ public class ErrataMailer extends RhnJavaJob {
     }
 
     private void markErrataDone(Long errataId, Long orgId, Long channelId) {
-                                                            // throws Exception {
         HibernateFactory.getSession();
         WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE);
@@ -124,22 +123,24 @@ public class ErrataMailer extends RhnJavaJob {
         List orgServers = getOrgRelevantServers(errataId, orgId, channelId);
 
         if (orgServers == null || orgServers.size() == 0) {
-            log.info("No target servers found for erratum " + errata.getId() +
+            log.info("No relevant servers found for erratum " + errata.getId() +
                     " in channel " + channelId + " for org " + orgId +
-                    "... skipping.");
+                    " ... skipping.");
             return;
         }
 
-        List<Long> users = getAffectedUsers(orgServers);
+        Map<Long, List> userMap = createUserEmailMap(orgServers);
 
-        log.info("Found " + String.valueOf(orgServers.size()) + " systems for erratum " +
-                errata.getId() + " in channel " + channelId + " for org" + orgId + ".");
+        log.info("Found " + userMap.keySet().size() + " user(s) to notify about erratum " +
+                errata.getId() + " in channel " + channelId + " for org " + orgId + ".");
 
-        for (Long userId : users) {
+        for (Long userId : userMap.keySet()) {
             Map userInfo = getUserInfo(userId);
             String email = (String) userInfo.get("email");
             String login = (String) userInfo.get("login");
-            List servers = getUserServers(userId, orgServers);
+            List servers = userMap.get(userId);
+            log.info("Nofification for user " + login + "(" + userId + ") about " +
+                    servers.size()  + " relevant server(s).");
             String emailBody = formatEmail(login, email, errata, servers);
             Mail mail = new SmtpMail();
             mail.setRecipient(email);
@@ -158,15 +159,18 @@ public class ErrataMailer extends RhnJavaJob {
         }
     }
 
-    private List getUserServers(Long userId, List serversIn) {
-        List userSystems = new ArrayList();
-        for (Iterator i = serversIn.iterator(); i.hasNext();) {
-            Map server = (Map) i.next();
-            if (server.get("user_id").equals(userId)) {
-                userSystems.add(server);
+    private Map createUserEmailMap(List orgServersIn) {
+        Map<Long, List> map = new HashMap<Long, List>();
+        for (Iterator i = orgServersIn.iterator(); i.hasNext();) {
+            Map row = (Map) i.next();
+            Long userId = (Long) row.get("user_id");
+            if (!map.containsKey(userId)) {
+                map.put(userId, new ArrayList<Map>());
             }
+            map.get(userId).add(row);
+            i.remove();
         }
-        return userSystems;
+        return map;
     }
 
     private Map getUserInfo(Long userId) {
@@ -175,18 +179,6 @@ public class ErrataMailer extends RhnJavaJob {
         Map params = new HashMap();
         params.put("user_id", userId);
         return (Map) mode.execute(params).get(0);
-    }
-
-    private List<Long> getAffectedUsers(List serversIn) {
-        List<Long> users = new ArrayList<Long>();
-        for (Iterator i = serversIn.iterator(); i.hasNext();) {
-            Map row = (Map) i.next();
-            Long userId = (Long) row.get("user_id");
-            if (!users.contains(userId)) {
-                users.add(userId);
-            }
-        }
-        return users;
     }
 
     protected List getOrgRelevantServers(Long errataId, Long orgId, Long channelId) {
