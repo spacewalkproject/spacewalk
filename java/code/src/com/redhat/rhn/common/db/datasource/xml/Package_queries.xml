@@ -1202,7 +1202,7 @@ SELECT
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
    AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY UPPER(name)
+ORDER BY UPPER(PN.name), P.id
   </query>
 </mode>
 
@@ -1227,7 +1227,7 @@ SELECT
    AND PA.id = P.package_arch_id
    AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
       AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY UPPER(name)
+ORDER BY UPPER(PN.name), P.id
   </query>
 </mode>
 
@@ -1250,7 +1250,7 @@ SELECT P.id AS id,
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
    AND P.checksum_id = CV.id
-ORDER BY UPPER(name)
+ORDER BY UPPER(PN.name), P.id
   </query>
 </mode>
 
