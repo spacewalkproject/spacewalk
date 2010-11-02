@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 a56fde1bd42b930c324f4d2cbbd9e319c1d6a2e2
+-- oracle equivalent source sha1 65343f2baf34323725bb91e9e45170ab4efe9989
 
 create or replace function rhn_repo_regen_queue_mod_trig_fun() returns trigger as
 $$
