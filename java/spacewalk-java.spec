@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.82
+Version: 1.2.83
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.83-1
+- Typo in a java resource (lzap+git@redhat.com)
+- Spelling java resource script correction + retab (lzap+git@redhat.com)
+- ErrataMailer improvements (tlestach@redhat.com)
+- bumping API version to identify new API call availability
+  (tlestach@redhat.com)
+
 * Tue Nov 02 2010 Lukas Zapletal 1.2.82-1
 - Renaming two ignored unit tests properly 
 - Removing unused methods from java db manager 
