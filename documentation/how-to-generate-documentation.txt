@@ -15,7 +15,10 @@ documentation of python:
     # update python-doc.readme
 
 documentation for the db schema:
+    git rm -rf db-schema/*
     ORASCHEMADOC=/path/to/oraschemadoc.py DSN=user/pass@db make schema
+    git add db-schema/*
+    # update db-schema.readme
 
 DB Schema is created using http://oraschemadoc.sourceforge.net/
 Which requires cx_Oracle and graphviz.
