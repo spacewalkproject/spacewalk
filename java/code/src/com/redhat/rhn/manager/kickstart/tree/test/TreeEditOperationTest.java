@@ -15,15 +15,12 @@
 package com.redhat.rhn.manager.kickstart.tree.test;
 
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
-import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeCreateOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeDeleteOperation;
-import com.redhat.rhn.manager.kickstart.tree.TreeDeleteWithProfilesOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeEditOperation;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
@@ -81,25 +78,6 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         assertNull(deleteCmd.store());         // actually does a remove operation
         assertNull(KickstartFactory.
               lookupKickstartTreeByIdAndOrg(cmd.getTree().getId(), user.getOrg()));
-    }
-
-    public void testDeleteWithProfiles() throws Exception {
-        TreeCreateOperation cmd = new TreeCreateOperation(user);
-        setTreeParamsAndStore(cmd);
-        KickstartData ksd = KickstartDataTest.createKickstartWithOptions(user.getOrg());
-        ksd.getKickstartDefaults().setKstree(cmd.getTree());
-        KickstartFactory.saveKickstartData(ksd);
-        flushAndEvict(ksd);
-
-        TreeDeleteOperation deleteCmd = new TreeDeleteOperation(
-                                                     cmd.getTree().getId(), user);
-        assertNotNull(deleteCmd.store());   // Check to make sure we got an error message
-
-        // Now delete associated profiles
-        TreeDeleteWithProfilesOperation delCmd2 = new
-            TreeDeleteWithProfilesOperation(cmd.getTree().getId(), user);
-        assertNull(delCmd2.store());
-
     }
 
     private void setTreeParamsAndStore(BaseTreeEditOperation cmd) throws Exception {
