@@ -285,29 +285,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Returns a DataResult of the packages in the set.
-     * @param user User who owns set
-     * @param label Set label
-     * @param pc PageControl containing paging information.
-     * @return DataResult of packages in the set
-     */
-    public static DataResult packagesInSet(User user, String label,
-            PageControl pc) {
-
-        SelectMode m = ModeFactory.getMode("Package_queries",
-                                           "packages_in_set");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("set_label", label);
-        if (pc != null) {
-            return makeDataResult(params, params, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
-    }
-
-    /**
      * Finds a package by using the id column of rhnPackage
      * @param id The package id
      * @param user The user performing the lookup

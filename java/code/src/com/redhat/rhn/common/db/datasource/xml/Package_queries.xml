@@ -493,18 +493,6 @@ ORDER BY UPPER (PN.NAME)
   </query>
 </mode>
 
-<mode name="packages_in_set"  class="com.redhat.rhn.frontend.dto.PackageListItem">
-  <query params="set_label, user_id">
-  SELECT  PN.id || '|' || PE.id AS ID_COMBO, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
-    FROM  rhnPackageName PN, rhnPackageEVR PE, rhnSet S
-   WHERE  S.label = :set_label
-     AND  S.user_id = :user_id
-     AND  S.element = PN.id
-     AND  S.element_two = PE.id
-ORDER BY  UPPER(NVRE)
-  </query>
-</mode>
-
 <mode name="package_ids_in_set" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="set_label, user_id">
   SELECT  P.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
