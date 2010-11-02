@@ -1,5 +1,5 @@
 # Serbian translations for rhnsd
-# Copyright (C) 2006 Red Hat, Inc.
+# Copyright (c) 2006--2010 Red Hat, Inc.
 # This file is distributed under the same license as the rhnsd package.
 # Miloš Komarčević <kmilos@gmail.com>, 2006.
 #

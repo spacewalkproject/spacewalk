@@ -1,6 +1,6 @@
 # Translation of up2date.po to Bangla.
 # This file is distributed under the same license as the up2date package.
-# Copyright (C) 2004 Red Hat Inc.
+# Copyright (c) 2004--2010 Red Hat, Inc.
 # Progga <progga@BengaLinux.Org>, 2004.
 # Salahuddin <salahuddin66@gmail.com>, 2004.
 # Runa Bhattacharjee <runab@redhat.com>, 2004.

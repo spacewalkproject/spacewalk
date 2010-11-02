@@ -1,6 +1,6 @@
 # translation of ko-new.po to Korean
 # translation of ko.po to Korean
-# Copyright (C) 2002 Red Hat, Inc.
+# Copyright (c) 2002--2010 Red Hat, Inc.
 # Michelle Kim <mkim@redhat.com>, 2002.
 # Michelle J Kim <mkim@redhat.com>, 2003, 2004.
 # Michelle Ji Yeen Kim <mkim@redhat.com>, 2005.

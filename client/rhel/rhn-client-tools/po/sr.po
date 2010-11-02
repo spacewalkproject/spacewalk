@@ -1,5 +1,5 @@
 # Serbian translations for up2date
-# Copyright (C) 2005 Red Hat, Inc.
+# Copyright (c) 2005--2010 Red Hat, Inc.
 # This file is distributed under the same license as the up2date package. 
 # Игор Несторовић <igor@prevod.org>, 2005
 #

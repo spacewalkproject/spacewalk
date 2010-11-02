@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 #
 # String constants for the RHN Register TUI/GUI.
-# Copyright (c) 2000-2010 Red Hat, Inc.
+# Copyright (c) 2000--2010 Red Hat, Inc.
 #
 # Author:
 #       James Slagle <jslagle@redhat.com>

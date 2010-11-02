@@ -1,6 +1,6 @@
 # translation of spacewalk.rhn-client-tools.po to
 # translation of de.po to
-# Copyright (C) 2001 Red Hat, Inc.
+# Copyright (c) 2001--2010 Red Hat, Inc.
 #
 # Bernd Groh <bgroh@redhat.com>, 2003.
 # Verena <vfuehrer@redhat.com>, 2004, 2005.
