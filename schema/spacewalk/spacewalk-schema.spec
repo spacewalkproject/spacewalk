@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.61
+Version:        1.2.62
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.62-1
+- Generally, we use sequence_nextval when populating tables, we will just
+  require it for all tables.
+- Removing sqlplus-specific pieces.
+- Replace sysdate with current_timestamp now that common/data is not processed
+  by chameleon.
+- Replace .nextval notation with sequence_nextval now that common/data is not
+  processed by chameleon.
+- Turn off chameleon processing for common/data.
+- Merging the db-specific data/ sources to common/data.
+- fixed typo in upgrade script (tlestach@redhat.com)
+- Fixing typo in comment.
+- Cannot use the .nextval notation in PostgreSQL sources (which became
+  .sequence_nextval with the previous substitution).
+- Replace sydate with current_timestamp in Oracle sources.
+- Replace nextval with sequence_nextval in PostgreSQL sources.
+- Replace .nextval with sequence_nextval in Oracle sources.
+- Fixed the oracle equivalent source sha1 of rhnTaskoSchedule.sql.
+
 * Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.61-1
 - adding new TimeSeriesCleanUp taskomatic task (tlestach@redhat.com)
 
