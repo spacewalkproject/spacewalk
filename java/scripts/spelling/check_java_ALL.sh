@@ -1,7 +1,6 @@
 #!/bin/bash
 
 langs=(
-en_US
 bn_IN
 de
 en_US
@@ -22,5 +21,5 @@ zh_TW
 
 for lang in "${langs[@]}"
 do
-	./check_java.sh ../.. "$lang"
+    ./check_java.sh ../.. "$lang"
 done
