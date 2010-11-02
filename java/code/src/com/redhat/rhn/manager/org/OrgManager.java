@@ -311,28 +311,6 @@ public class OrgManager extends BaseManager {
     }
 
     /**
-     * @param user User to cross security check
-     * @param entLabel to check used active orgs
-     * @return DataList of Objects
-     */
-    public static DataList getAllOrgs(User user, String entLabel) {
-        if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
-            // Throw an exception w/error msg so the user knows what went wrong.
-            LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a " +
-                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
-            throw pex;
-        }
-        SelectMode m = ModeFactory
-                .getMode("Org_queries", "get_all_orgs");
-        Map params = new HashMap();
-        params.put("label", entLabel);
-        return DataList.getDataList(m, params, Collections.EMPTY_MAP);
-    }
-
-    /**
      * Returns the total number of orgs on this satellite.
      * @param user User performing the query.
      * @return Total number of orgs.
