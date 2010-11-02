@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,27 +17,27 @@
 --
 
 insert into rhnSnapshotInvalidReason (id, label, name)
-	values (rhn_ssinvalid_id_seq.nextval, 'channel_removed',
+	values (sequence_nextval('rhn_ssinvalid_id_seq'), 'channel_removed',
 		'A channel this snapshot was associated with no longer exists');
 
 insert into rhnSnapshotInvalidReason (id, label, name)
-	values (rhn_ssinvalid_id_seq.nextval, 'channel_modified',
+	values (sequence_nextval('rhn_ssinvalid_id_seq'), 'channel_modified',
 		'A channel this snapshot is associated with has been modified');
 
 insert into rhnSnapshotInvalidReason (id, label, name)
-	values (rhn_ssinvalid_id_seq.nextval, 'sg_removed',
+	values (sequence_nextval('rhn_ssinvalid_id_seq'), 'sg_removed',
 		'A server group this snapshot was associated with no longer exists');
 
 insert into rhnSnapshotInvalidReason (id, label, name)
-	values (rhn_ssinvalid_id_seq.nextval, 'ns_removed',
+	values (sequence_nextval('rhn_ssinvalid_id_seq'), 'ns_removed',
 		'A namespace this snapshot was associated with no longer exists');
 
 insert into rhnSnapshotInvalidReason (id, label, name)
-	values (rhn_ssinvalid_id_seq.nextval, 'cr_removed',
+	values (sequence_nextval('rhn_ssinvalid_id_seq'), 'cr_removed',
 		'A config revision this snapshot was associated with no longer exists');
 
 insert into rhnSnapshotInvalidReason (id, label, name)
-	values (rhn_ssinvalid_id_seq.nextval, 'cc_removed',
+	values (sequence_nextval('rhn_ssinvalid_id_seq'), 'cc_removed',
 		'A config channel this snapshot was associated with no longer exists');
 
 commit;

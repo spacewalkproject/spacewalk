@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,7 @@
 --
 
 insert into rhn_pager_types(recid,pager_type_name)
-    values ( rhn_pager_types_recid_seq.nextval,'All pager types');
+    values ( sequence_nextval('rhn_pager_types_recid_seq'),'All pager types');
 commit;
 
 --

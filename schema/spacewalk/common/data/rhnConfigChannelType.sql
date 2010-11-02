@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,15 +17,15 @@
 --
 
 insert into rhnConfigChannelType(id, label, name, priority) values (
-	rhn_confchantype_id_seq.nextval, 'normal',
+	sequence_nextval('rhn_confchantype_id_seq'), 'normal',
 	'A general purpose configuration channel', 1);
 
 insert into rhnConfigChannelType(id, label, name, priority) values (
-	rhn_confchantype_id_seq.nextval, 'local_override',
+	sequence_nextval('rhn_confchantype_id_seq'), 'local_override',
 	'Files on disk win', 0);
 
 insert into rhnConfigChannelType(id, label, name, priority) values (
-	rhn_confchantype_id_seq.nextval, 'server_import',
+	sequence_nextval('rhn_confchantype_id_seq'), 'server_import',
 	'Files imported from the server', 2);
 
 commit;

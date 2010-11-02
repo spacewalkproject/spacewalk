@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,8 +15,8 @@
 --
 --
 --
-insert into rhnWebContactChangeState (id, label) values (rhn_wcon_change_state_seq.nextval, 'enabled');
-insert into rhnWebContactChangeState (id, label) values (rhn_wcon_change_state_seq.nextval, 'disabled');
+insert into rhnWebContactChangeState (id, label) values (sequence_nextval('rhn_wcon_change_state_seq'), 'enabled');
+insert into rhnWebContactChangeState (id, label) values (sequence_nextval('rhn_wcon_change_state_seq'), 'disabled');
 
 --
 --

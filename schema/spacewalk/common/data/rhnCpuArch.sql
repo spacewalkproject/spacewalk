@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,53 +17,53 @@
 --
 
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'i386', 'i386');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'i386', 'i386');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'i486', 'i486');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'i486', 'i486');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'i586', 'i586');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'i586', 'i586');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'i686', 'i686');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'i686', 'i686');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'athlon', 'athlon');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'athlon', 'athlon');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'alpha', 'alpha');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'alpha', 'alpha');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'alphaev6', 'alphaev6');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'alphaev6', 'alphaev6');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'ia64', 'ia64');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'ia64', 'ia64');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'sparc', 'sparc');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'sparc', 'sparc');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'sparcv9', 'sparcv9');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'sparcv9', 'sparcv9');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'sparc64', 'sparc64');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'sparc64', 'sparc64');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 's390', 's390');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 's390', 's390');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 's390x', 's390x');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 's390x', 's390x');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'ppc', 'ppc');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'ppc', 'ppc');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'ppc64', 'ppc64');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'ppc64', 'ppc64');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'pSeries', 'pSeries');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'pSeries', 'pSeries');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'iSeries', 'iSeries');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'iSeries', 'iSeries');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'x86_64', 'x86_64');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'x86_64', 'x86_64');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'sun4u', 'sun4u');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'sun4u', 'sun4u');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'sun4v', 'sun4v');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'sun4v', 'sun4v');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'sun4m', 'sun4m');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'sun4m', 'sun4m');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'ia32e', 'EM64T');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'ia32e', 'EM64T');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'amd64', 'AMD64');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'amd64', 'AMD64');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'i86pc', 'i86pc');
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'i86pc', 'i86pc');
 commit;
 
 --

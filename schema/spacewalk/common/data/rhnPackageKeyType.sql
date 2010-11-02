@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,13 +15,13 @@
 --
 
 insert into rhnPackageKeyType (id, label) values
-(rhn_package_key_type_id_seq.nextval, 'gpg' );
+(sequence_nextval('rhn_package_key_type_id_seq'), 'gpg' );
 insert into rhnPackageKeyType (id, label) values
-(rhn_package_key_type_id_seq.nextval, 'pgp' );
+(sequence_nextval('rhn_package_key_type_id_seq'), 'pgp' );
 insert into rhnPackageKeyType (id, label) values
-(rhn_package_key_type_id_seq.nextval, 'rsa' );
+(sequence_nextval('rhn_package_key_type_id_seq'), 'rsa' );
 insert into rhnPackageKeyType (id, label) values
-(rhn_package_key_type_id_seq.nextval, 'dsa' );
+(sequence_nextval('rhn_package_key_type_id_seq'), 'dsa' );
 
 
 

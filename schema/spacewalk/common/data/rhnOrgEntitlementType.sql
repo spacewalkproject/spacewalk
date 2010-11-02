@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,32 +18,32 @@
 -- data for rhnOrgEntitlementType
 
 insert into rhnOrgEntitlementType (id, label, name)
-        values (rhn_org_entitlement_type_seq.nextval,
+        values (sequence_nextval('rhn_org_entitlement_type_seq'),
                 'sw_mgr_enterprise','Software Manager Enterprise'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
-        values (rhn_org_entitlement_type_seq.nextval,
+        values (sequence_nextval('rhn_org_entitlement_type_seq'),
                 'rhn_monitor','Spacewalk Monitoring'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
-        values (rhn_org_entitlement_type_seq.nextval,
+        values (sequence_nextval('rhn_org_entitlement_type_seq'),
                 'rhn_provisioning','Spacewalk Provisioning'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
-        values (rhn_org_entitlement_type_seq.nextval,
+        values (sequence_nextval('rhn_org_entitlement_type_seq'),
                 'rhn_nonlinux','Spacewalk Non-Linux'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
-        values (rhn_org_entitlement_type_seq.nextval,
+        values (sequence_nextval('rhn_org_entitlement_type_seq'),
                 'rhn_virtualization', 'Spacewalk Virtualization'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
-        values (rhn_org_entitlement_type_seq.nextval,
+        values (sequence_nextval('rhn_org_entitlement_type_seq'),
                 'rhn_virtualization_platform', 'Spacewalk Virtualization Platform'
         );
 

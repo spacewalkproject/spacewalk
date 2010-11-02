@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,11 +17,11 @@
 --
 
 insert into rhnChannelPermissionRole (id, label, description)
-	values (rhn_cperm_role_id_seq.nextval,
+	values (sequence_nextval('rhn_cperm_role_id_seq'),
 		'subscribe',
 		'Permission to subscribe to channel');
 insert into rhnChannelPermissionRole (id, label, description)
-	values (rhn_cperm_role_id_seq.nextval,
+	values (sequence_nextval('rhn_cperm_role_id_seq'),
 		'manage',
 		'Permission to manage channel');
 

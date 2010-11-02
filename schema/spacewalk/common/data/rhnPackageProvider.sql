@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,19 +15,19 @@
 --
 
 insert into rhnPackageProvider (id, name) values
-(rhn_package_provider_id_seq.nextval, 'Red Hat Inc.' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'Red Hat Inc.' );
 insert into rhnPackageProvider (id, name) values
-(rhn_package_provider_id_seq.nextval, 'Fedora' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'Fedora' );
 insert into rhnPackageProvider (id, name) values
-(rhn_package_provider_id_seq.nextval, 'CentOS' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'CentOS' );
 insert into rhnPackageProvider (id, name) values
-(rhn_package_provider_id_seq.nextval, 'Scientific Linux' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'Scientific Linux' );
 insert into rhnPackageProvider (id, name) values
-(rhn_package_provider_id_seq.nextval, 'Suse' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'Suse' );
 insert into rhnPackageProvider (id, name) values
-(rhn_package_provider_id_seq.nextval, 'Oracle Inc.' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'Oracle Inc.' );
 insert into rhnPackageProvider (id, name) values
-(rhn_package_provider_id_seq.nextval, 'Spacewalk' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'Spacewalk' );
 
 
 

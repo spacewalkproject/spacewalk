@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,9 +14,9 @@
 --
 -- data for rhnVirtualInstanceState
 
-insert into rhnVirtualInstanceState (id, name, label) values (rhn_vis_id_seq.nextval, 'Unknown', 'unknown');
-insert into rhnVirtualInstanceState (id, name, label) values (rhn_vis_id_seq.nextval, 'Running', 'running');
-insert into rhnVirtualInstanceState (id, name, label) values (rhn_vis_id_seq.nextval, 'Stopped', 'stopped');
-insert into rhnVirtualInstanceState (id, name, label) values (rhn_vis_id_seq.nextval, 'Crashed', 'crashed');
-insert into rhnVirtualInstanceState (id, name, label) values (rhn_vis_id_seq.nextval, 'Paused', 'paused');
+insert into rhnVirtualInstanceState (id, name, label) values (sequence_nextval('rhn_vis_id_seq'), 'Unknown', 'unknown');
+insert into rhnVirtualInstanceState (id, name, label) values (sequence_nextval('rhn_vis_id_seq'), 'Running', 'running');
+insert into rhnVirtualInstanceState (id, name, label) values (sequence_nextval('rhn_vis_id_seq'), 'Stopped', 'stopped');
+insert into rhnVirtualInstanceState (id, name, label) values (sequence_nextval('rhn_vis_id_seq'), 'Crashed', 'crashed');
+insert into rhnVirtualInstanceState (id, name, label) values (sequence_nextval('rhn_vis_id_seq'), 'Paused', 'paused');
 

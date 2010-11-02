@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,19 +16,19 @@
 
 
 insert into rhnVirtualInstanceType (id, name, label)
-     values (rhn_vit_id_seq.nextval, 'Fully Virtualized', 'fully_virtualized');
+     values (sequence_nextval('rhn_vit_id_seq'), 'Fully Virtualized', 'fully_virtualized');
 
 insert into rhnVirtualInstanceType (id, name, label)
-     values (rhn_vit_id_seq.nextval, 'Para-Virtualized', 'para_virtualized');
+     values (sequence_nextval('rhn_vit_id_seq'), 'Para-Virtualized', 'para_virtualized');
 
 insert into rhnVirtualInstanceType (id, name, label)
-      values (rhn_vit_id_seq.nextval, 'KVM/QEMU', 'qemu');
+      values (sequence_nextval('rhn_vit_id_seq'), 'KVM/QEMU', 'qemu');
 
 insert into rhnVirtualInstanceType (id, name, label) 
-    values (rhn_vit_id_seq.nextval, 'VMware', 'vmware');
+    values (sequence_nextval('rhn_vit_id_seq'), 'VMware', 'vmware');
 
 insert into rhnVirtualInstanceType (id, name, label) 
-    values (rhn_vit_id_seq.nextval, 'Hyper-V', 'hyperv');
+    values (sequence_nextval('rhn_vit_id_seq'), 'Hyper-V', 'hyperv');
 
 insert into rhnVirtualInstanceType (id, name, label) 
-    values (rhn_vit_id_seq.nextval, 'Virtage', 'virtage');
+    values (sequence_nextval('rhn_vit_id_seq'), 'Virtage', 'virtage');

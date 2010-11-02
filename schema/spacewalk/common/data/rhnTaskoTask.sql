@@ -15,63 +15,63 @@
 
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'repo-sync', 'com.redhat.rhn.taskomatic.task.RepoSyncTask');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'repo-sync', 'com.redhat.rhn.taskomatic.task.RepoSyncTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'satellite-sync', 'com.redhat.rhn.taskomatic.task.SatSyncTask');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'satellite-sync', 'com.redhat.rhn.taskomatic.task.SatSyncTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'kickstartfile-sync', 'com.redhat.rhn.taskomatic.task.KickstartFileSyncTask');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'kickstartfile-sync', 'com.redhat.rhn.taskomatic.task.KickstartFileSyncTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'kickstart-cleanup', 'com.redhat.rhn.taskomatic.task.KickstartCleanup');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'kickstart-cleanup', 'com.redhat.rhn.taskomatic.task.KickstartCleanup');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'errata-cache', 'com.redhat.rhn.taskomatic.task.ErrataCacheTask');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'errata-cache', 'com.redhat.rhn.taskomatic.task.ErrataCacheTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'errata-queue', 'com.redhat.rhn.taskomatic.task.ErrataQueue');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'errata-queue', 'com.redhat.rhn.taskomatic.task.ErrataQueue');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'errata-mailer', 'com.redhat.rhn.taskomatic.task.ErrataMailer');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'errata-mailer', 'com.redhat.rhn.taskomatic.task.ErrataMailer');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'sandbox-cleanup', 'com.redhat.rhn.taskomatic.task.SandboxCleanup');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'sandbox-cleanup', 'com.redhat.rhn.taskomatic.task.SandboxCleanup');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'session-cleanup', 'com.redhat.rhn.taskomatic.task.SessionCleanup');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'session-cleanup', 'com.redhat.rhn.taskomatic.task.SessionCleanup');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'channel-repodata', 'com.redhat.rhn.taskomatic.task.ChannelRepodata');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'channel-repodata', 'com.redhat.rhn.taskomatic.task.ChannelRepodata');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'package-cleanup', 'com.redhat.rhn.taskomatic.task.PackageCleanup');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'package-cleanup', 'com.redhat.rhn.taskomatic.task.PackageCleanup');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'cobbler-sync', 'com.redhat.rhn.taskomatic.task.CobblerSyncTask');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'cobbler-sync', 'com.redhat.rhn.taskomatic.task.CobblerSyncTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'daily-summary', 'com.redhat.rhn.taskomatic.task.DailySummary');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'daily-summary', 'com.redhat.rhn.taskomatic.task.DailySummary');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'summary-population', 'com.redhat.rhn.taskomatic.task.SummaryPopulation');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'summary-population', 'com.redhat.rhn.taskomatic.task.SummaryPopulation');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'compare-config-files', 'com.redhat.rhn.taskomatic.task.CompareConfigFilesTask');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'compare-config-files', 'com.redhat.rhn.taskomatic.task.CompareConfigFilesTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'clean-current-alerts', 'com.redhat.rhn.taskomatic.task.CleanCurrentAlerts');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'clean-current-alerts', 'com.redhat.rhn.taskomatic.task.CleanCurrentAlerts');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'sync-probe-state', 'com.redhat.rhn.taskomatic.task.SynchProbeState');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'sync-probe-state', 'com.redhat.rhn.taskomatic.task.SynchProbeState');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'sat-cert-check', 'com.redhat.rhn.taskomatic.task.SatelliteCertificateCheck');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'sat-cert-check', 'com.redhat.rhn.taskomatic.task.SatelliteCertificateCheck');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'clear-log-history', 'com.redhat.rhn.taskomatic.task.ClearLogHistory');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'clear-log-history', 'com.redhat.rhn.taskomatic.task.ClearLogHistory');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'cleanup-timeseries-data', 'com.redhat.rhn.taskomatic.task.TimeSeriesCleanUp');
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'cleanup-timeseries-data', 'com.redhat.rhn.taskomatic.task.TimeSeriesCleanUp');
 
 commit;

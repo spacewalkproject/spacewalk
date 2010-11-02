@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,67 +20,67 @@
 -- StringResource_*.xml (search for rhnChannelArch.sql comment).
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-ia32', 'IA-32', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-ia32', 'IA-32', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-ia32-deb', 'IA-32 Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-ia32-deb', 'IA-32 Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-ia64', 'IA-64', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-ia64', 'IA-64', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-ia64-deb', 'IA-64 Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-ia64-deb', 'IA-64 Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-sparc', 'Sparc', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-sparc', 'Sparc', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-sparc-deb', 'Sparc Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-sparc-deb', 'Sparc Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-alpha', 'Alpha', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-alpha', 'Alpha', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-alpha-deb', 'Alpha Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-alpha-deb', 'Alpha Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-s390', 's390', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-s390', 's390', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-s390-deb', 's390 Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-s390-deb', 's390 Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-s390x', 's390x', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-s390x', 's390x', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-iSeries', 'iSeries', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-iSeries', 'iSeries', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-pSeries', 'pSeries', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-pSeries', 'pSeries', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-x86_64', 'x86_64', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-x86_64', 'x86_64', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-amd64-deb', 'AMD64 Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-amd64-deb', 'AMD64 Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-ppc', 'PPC', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-ppc', 'PPC', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-powerpc-deb', 'PowerPC Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-powerpc-deb', 'PowerPC Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-arm-deb', 'arm Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-arm-deb', 'arm Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-mips-deb', 'mips Debian', lookup_arch_type('deb'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-mips-deb', 'mips Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-sparc-sun-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-sparc-sun-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-i386-sun-solaris', 'i386 Solaris', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-i386-sun-solaris', 'i386 Solaris', lookup_arch_type('sysv-solaris'));
 
 commit;
 

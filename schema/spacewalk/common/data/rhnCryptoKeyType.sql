@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,9 +17,9 @@
 --
 
 insert into rhnCryptoKeyType(id, label, description) values
-	(rhn_cryptokeytype_id_seq.nextval,'GPG','GPG');
+	(sequence_nextval('rhn_cryptokeytype_id_seq'),'GPG','GPG');
 insert into rhnCryptoKeyType(id, label, description) values
-	(rhn_cryptokeytype_id_seq.nextval,'SSL','SSL');
+	(sequence_nextval('rhn_cryptokeytype_id_seq'),'SSL','SSL');
 
 commit;
 

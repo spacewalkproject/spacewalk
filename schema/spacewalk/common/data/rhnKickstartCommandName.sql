@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,150 +17,150 @@
 --
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'deviceprobe', 'Y', 17, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'deviceprobe', 'Y', 17, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'device', 'Y', 16, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'device', 'Y', 16, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'driverdisk', 'Y', 18, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'driverdisk', 'Y', 18, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'nfs', 'Y', 10, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'nfs', 'Y', 10, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'interactive', 'N', 2, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'interactive', 'N', 2, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'harddrive', 'Y', 9, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'harddrive', 'Y', 9, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'upgrade', 'N', 4, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'upgrade', 'N', 4, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'install', 'N', 3, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'install', 'N', 3, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'lilocheck', 'N', 5, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'lilocheck', 'N', 5, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'text', 'N', 6, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'text', 'N', 6, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'network', 'Y', 7, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'network', 'Y', 7, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'url', 'Y', 11, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'url', 'Y', 11, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'lang', 'Y', 12, 'Y');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'lang', 'Y', 12, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'langsupport', 'Y', 13, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'langsupport', 'Y', 13, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'keyboard', 'Y', 14, 'Y');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'keyboard', 'Y', 14, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'mouse', 'Y', 15, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'mouse', 'Y', 15, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'zerombr', 'Y', 19, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'zerombr', 'Y', 19, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'clearpart', 'Y', 20, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'clearpart', 'Y', 20, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'bootloader', 'Y', 26, 'Y');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'bootloader', 'Y', 26, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'timezone', 'Y', 27, 'Y');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'timezone', 'Y', 27, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'auth', 'Y', 28, 'Y');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'auth', 'Y', 28, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'reboot', 'N', 31, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'reboot', 'N', 31, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'xconfig', 'Y', 32, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'xconfig', 'Y', 32, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'rootpw', 'Y', 29, 'Y');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'rootpw', 'Y', 29, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'firewall', 'Y', 31, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'firewall', 'Y', 31, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'skipx', 'N', 32, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'skipx', 'N', 32, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'cdrom', 'N', 8, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'cdrom', 'N', 8, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'selinux', 'Y', 30, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'selinux', 'Y', 30, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'autostep', 'Y', 1, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'autostep', 'Y', 1, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'repo', 'Y', 33, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'repo', 'Y', 33, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'key', 'Y', 34, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'key', 'Y', 34, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'ignoredisk', 'Y', 35, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'ignoredisk', 'Y', 35, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'autopart', 'N', 36, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'autopart', 'N', 36, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'cmdline', 'N', 37, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'cmdline', 'N', 37, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'firstboot', 'Y', 38, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'firstboot', 'Y', 38, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'graphical', 'N', 39, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'graphical', 'N', 39, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'iscsi', 'Y', 40, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'iscsi', 'Y', 40, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'iscsiname', 'Y', 41, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'iscsiname', 'Y', 41, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'logging', 'Y', 42, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'logging', 'Y', 42, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'monitor', 'Y', 43, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'monitor', 'Y', 43, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'multipath', 'Y', 44, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'multipath', 'Y', 44, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'poweroff', 'N', 45, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'poweroff', 'N', 45, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'halt', 'N', 46, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'halt', 'N', 46, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'services', 'Y', 47, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'services', 'Y', 47, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'shutdown', 'N', 48, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'shutdown', 'N', 48, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'user', 'Y', 49, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'user', 'Y', 49, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'vnc', 'Y', 50, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'vnc', 'Y', 50, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'zfcp', 'Y', 51, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'zfcp', 'Y', 51, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'custom', 'Y', 52, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'custom', 'Y', 52, 'N');
 
 commit;

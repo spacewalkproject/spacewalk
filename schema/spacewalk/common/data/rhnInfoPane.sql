@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,12 +12,12 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'tasks',null);
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'critical-systems',null);
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'critical-probes','show_monitoring();');
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'warning-probes','show_monitoring();');
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'system-groups-widget','org_entitlement(sw_mgr_enterprise);');
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'latest-errata',null);
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'inactive-systems',null);
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval,'pending-actions',null);
-insert into RHNINFOPANE(ID,LABEL,ACL) values (rhn_info_pane_id_seq.nextval, 'recently-registered-systems', null);
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'tasks',null);
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'critical-systems',null);
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'critical-probes','show_monitoring();');
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'warning-probes','show_monitoring();');
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'system-groups-widget','org_entitlement(sw_mgr_enterprise);');
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'latest-errata',null);
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'inactive-systems',null);
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'pending-actions',null);
+insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'), 'recently-registered-systems', null);

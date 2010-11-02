@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,17 +16,17 @@
 --
 --
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'rpm', 'RPM');
+	(sequence_nextval('rhn_archtype_id_seq'), 'rpm', 'RPM');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'deb', 'DEB');
+	(sequence_nextval('rhn_archtype_id_seq'), 'deb', 'DEB');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'sysv-solaris', 'SysV-Solaris');
+	(sequence_nextval('rhn_archtype_id_seq'), 'sysv-solaris', 'SysV-Solaris');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'tar', 'tar');
+	(sequence_nextval('rhn_archtype_id_seq'), 'tar', 'tar');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'solaris-patch', 'Solaris Patch');
+	(sequence_nextval('rhn_archtype_id_seq'), 'solaris-patch', 'Solaris Patch');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_Seq.nextval, 'solaris-patch-cluster',
+	(sequence_nextval('rhn_archtype_id_Seq'), 'solaris-patch-cluster',
 		'Solaris Patch Cluster');
 commit;
 
