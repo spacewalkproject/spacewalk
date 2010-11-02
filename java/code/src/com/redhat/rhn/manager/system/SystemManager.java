@@ -2291,24 +2291,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * List systems subscribed to a particular channel
-     * @param user the user checking
-     * @param cid the channel id
-     * @return list of systems
-     */
-    public static List<SystemOverview> subscribedToChannel(User user, Long cid) {
-        SelectMode m = ModeFactory.getMode("System_queries",
-                "systems_subscribed_to_channel");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("org_id", user.getOrg().getId());
-        params.put("cid", cid);
-        DataResult toReturn = m.execute(params);
-        toReturn.elaborate();
-        return toReturn;
-    }
-
-    /**
      * Returns the number of systems subscribed to the channel that are
      * <strong>not</strong> in the given org.
      *
