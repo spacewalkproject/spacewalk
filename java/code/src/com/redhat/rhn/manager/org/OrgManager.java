@@ -21,7 +21,6 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -311,29 +310,6 @@ public class OrgManager extends BaseManager {
                 Collections.EMPTY_MAP);
     }
 
-
-    /**
-     * Lookup orgs with servers with access to any channel that's a part of the
-     * given family.
-     * @param family Channel family
-     * @param user User performing the query
-     * @return List of orgs.
-     */
-    public static List<Org> orgsUsingChannelFamily(ChannelFamily family,
-            User user) {
-
-        if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
-            // Throw an exception w/error msg so the user knows what went wrong.
-            LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a " +
-                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
-            throw pex;
-        }
-
-        return OrgFactory.lookupOrgsUsingChannelFamily(family);
-    }
 
     /**
      *
