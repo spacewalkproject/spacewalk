@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:03 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:18 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "SPACEWALK"."RHN_INSTALL_ORG_SATELLITES"
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."RHN_INSTALL_ORG_SATELLITES" 
 (
     for_customer_id in web_customer.id%type,
     sat_cluster_id in rhn_sat_cluster.recid%type,

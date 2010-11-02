@@ -1,4 +1,4 @@
--- created by Oraschemadoc Fri Jan 22 13:41:02 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:18 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PROCEDURE "SPACEWALK"."DELETE_SERVER" (
@@ -133,7 +133,6 @@ begin
 	delete from rhnActionConfigChannel where server_id = server_id_in;
 	delete from rhnActionConfigRevision where server_id = server_id_in;
 	delete from rhnActionPackageRemovalFailure where server_id = server_id_in;
-	delete from rhnChannelFamilyLicenseConsent where server_id = server_id_in;
 	delete from rhnClientCapability where server_id = server_id_in;
 	delete from rhnCpu where server_id = server_id_in;
 	-- there's still a cascade here, because the constraint keeps the
@@ -142,8 +141,6 @@ begin
 	delete from rhnProxyInfo where server_id = server_id_in;
 	delete from rhnRam where server_id = server_id_in;
 	delete from rhnRegToken where server_id = server_id_in;
-	delete from rhnSNPServerQueue where server_id = server_id_in;
-	delete from rhnSatelliteChannelFamily where server_id = server_id_in;
 	delete from rhnSatelliteInfo where server_id = server_id_in;
 	-- this cascades to rhnActionConfigChannel and rhnActionConfigFileName
 	delete from rhnServerAction where server_id = server_id_in;
@@ -156,8 +153,6 @@ begin
 	delete from rhnServerConfigChannel where server_id = server_id_in;
 	delete from rhnServerCustomDataValue where server_id = server_id_in;
 	delete from rhnServerDMI where server_id = server_id_in;
-	delete from rhnServerMessage where server_id = server_id_in;
-	-- this gets rhnServerMessage (only) on cascade; it's handled just above
 	delete from rhnServerEvent where server_id = server_id_in;
 	delete from rhnServerHistory where server_id = server_id_in;
 	delete from rhnServerInfo where server_id = server_id_in;
@@ -179,7 +174,6 @@ begin
 	-- We may want to consider delete_snapshot() at some point, but
 	--   I don't think we need to yet.
 	delete from rhnSnapshot where server_id = server_id_in;
-	delete from rhnTransaction where server_id = server_id_in;
 	delete from rhnUserServerPrefs where server_id = server_id_in;
 	-- hrm, this one's interesting... we _probably_ should delete
 	-- everything for the parent server_id when we delete the proxy,
@@ -187,7 +181,6 @@ begin
 	delete from rhnServerPath where server_id_in in (server_id, proxy_server_id);
 	delete from rhnUserServerPerms where server_id = server_id_in;
 
-	delete from rhn_interface_monitoring where server_id = server_id_in;
 	delete from rhnServerNetInterface where server_id = server_id_in;
 	delete from rhn_server_monitoring_info where recid = server_id_in;
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - Function - CONCAT_LIST_CLOB returns CLOB </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#f-args">Arguments</a> <a href="#f-src">Source</a> </div><h2>CONCAT_LIST_CLOB</h2>
+<a href="sql_sources/function/concat_list_clob.sql">DDL script</a><h3>Arguments:<a name="f-args"></a></h3>
+<table>
+<tr><th>Name</th><th>Data Type</th><th>Default Value</th><th>In/Out</th></tr><tr><td>CONCAT_STRING</td><td>VARCHAR2</td><td>&nbsp;</td><td>IN</td></tr>
+<tr><td>CUR</td><td>REF CURSOR</td><td>&nbsp;</td><td>IN</td></tr>
+<tr><td>CLOSE_THE_CURSOR</td><td>INTEGER(38)</td><td>&nbsp;</td><td>IN</td></tr>
+</table><h3>Returns:</h3>
+CLOB<h2>Source</h2>
+<a name="f-src"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+     1<span class="operator">:</span> <span class="keyword">function</span> concat_list_clob<span class="operator">(</span>
+     2<span class="operator">:</span>         concat_string <span class="reserved">in</span> varchar<span class="operator">,</span>
+     3<span class="operator">:</span>         cur <span class="reserved">in</span> sys_refcursor<span class="operator">,</span>
+     4<span class="operator">:</span>         close_the_cursor <span class="reserved">in</span> integer <span class="reserved">default</span> 0
+     5<span class="operator">:</span> <span class="operator">)</span>
+     6<span class="operator">:</span> <span class="keyword">return</span> clob
+     7<span class="operator">:</span> <span class="reserved">is</span>
+     8<span class="operator">:</span>     ret clob;
+     9<span class="operator">:</span>     tmp varchar2<span class="operator">(</span>4000<span class="operator">)</span>;
+    10<span class="operator">:</span> <span class="reserved">begin</span>
+    11<span class="operator">:</span>     dbms_lob<span class="operator">.</span>createtemporary<span class="operator">(</span>ret<span class="operator">,</span> true<span class="operator">)</span>;
+    12<span class="operator">:</span>     <span class="keyword">loop</span>
+    13<span class="operator">:</span>         fetch cur <span class="reserved">into</span> tmp;
+    14<span class="operator">:</span>         <span class="keyword">exit</span> <span class="reserved">when</span> cur<span class="operator">%</span>notfound;
+    15<span class="operator">:</span>         <span class="reserved">if</span> cur<span class="operator">%</span>rowcount <span class="operator">&gt;</span> 1 <span class="reserved">then</span>
+    16<span class="operator">:</span>             dbms_lob<span class="operator">.</span>writeappend<span class="operator">(</span>ret<span class="operator">,</span> <span class="keyword">length</span><span class="operator">(</span>concat_string<span class="operator">)</span><span class="operator">,</span> concat_string<span class="operator">)</span>;
+    17<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+    18<span class="operator">:</span>         dbms_lob<span class="operator">.</span>writeappend<span class="operator">(</span>ret<span class="operator">,</span> <span class="keyword">length</span><span class="operator">(</span>tmp<span class="operator">)</span><span class="operator">,</span> tmp<span class="operator">)</span>;
+    19<span class="operator">:</span>     <span class="reserved">end</span> <span class="keyword">loop</span>;
+    20<span class="operator">:</span>     <span class="reserved">if</span> close_the_cursor <span class="operator">&gt;</span> 0 <span class="reserved">then</span>
+    21<span class="operator">:</span>         <span class="keyword">close</span> cur;
+    22<span class="operator">:</span>     <span class="reserved">end</span> <span class="reserved">if</span>;
+    23<span class="operator">:</span>     <span class="keyword">return</span> ret;
+    24<span class="operator">:</span> <span class="reserved">end</span>;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Tue Nov  2 08:33:22 2010</div>
+</body></html>

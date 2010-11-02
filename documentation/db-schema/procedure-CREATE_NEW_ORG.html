@@ -50,117 +50,116 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     13<span class="operator">:</span>         <span class="reserved">select</span> web_customer_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> new_org_id <span class="reserved">from</span> dual;
     14<span class="operator">:</span> 
     15<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> web_customer <span class="operator">(</span>
-    16<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
-    17<span class="operator">:</span> 		oracle_customer_id<span class="operator">,</span> oracle_customer_number<span class="operator">,</span>
-    18<span class="operator">:</span> 		customer_type
+    16<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span>
+    17<span class="operator">:</span> 
+    18<span class="operator">:</span> 
     19<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
-    20<span class="operator">:</span> 		new_org_id<span class="operator">,</span> name_in<span class="operator">,</span>
-    21<span class="operator">:</span> 		new_org_id<span class="operator">,</span> new_org_id<span class="operator">,</span> <span class="string">'B'</span>
-    22<span class="operator">:</span> 	<span class="operator">)</span>;
-    23<span class="operator">:</span> 
-    24<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
-    25<span class="operator">:</span> 
-    26<span class="operator">:</span> 	<span class="reserved">select</span>	id
-    27<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
-    28<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
-    29<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'org_admin'</span>;
-    30<span class="operator">:</span> 
-    31<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
-    32<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
-    33<span class="operator">:</span> 		description<span class="operator">,</span>
-    34<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
-    35<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
-    36<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Organization Administrators'</span><span class="operator">,</span>
-    37<span class="operator">:</span> 		<span class="string">'Organization Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
-    38<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
-    39<span class="operator">:</span> 	<span class="operator">)</span>;
-    40<span class="operator">:</span> 
-    41<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
-    42<span class="operator">:</span> 
-    43<span class="operator">:</span> 	<span class="reserved">select</span>	id
-    44<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
-    45<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
-    46<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'org_applicant'</span>;
-    47<span class="operator">:</span> 
-    48<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
-    49<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
-    50<span class="operator">:</span> 		description<span class="operator">,</span>
-    51<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
-    52<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">VALues</span> <span class="operator">(</span>
-    53<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Organization Applicants'</span><span class="operator">,</span>
-    54<span class="operator">:</span> 		<span class="string">'Organization Applicants for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
-    55<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
-    56<span class="operator">:</span> 	<span class="operator">)</span>;
-    57<span class="operator">:</span> 
-    58<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
-    59<span class="operator">:</span> 
-    60<span class="operator">:</span> 	<span class="reserved">select</span>	id
-    61<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
-    62<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
-    63<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'system_group_admin'</span>;
-    64<span class="operator">:</span> 
-    65<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
-    66<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
-    67<span class="operator">:</span> 		description<span class="operator">,</span>
-    68<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
-    69<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
-    70<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'System Group Administrators'</span><span class="operator">,</span>
-    71<span class="operator">:</span> 		<span class="string">'System Group Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
-    72<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
-    73<span class="operator">:</span> 	<span class="operator">)</span>;
+    20<span class="operator">:</span> 		new_org_id<span class="operator">,</span> name_in
+    21<span class="operator">:</span> 	<span class="operator">)</span>;
+    22<span class="operator">:</span> 
+    23<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
+    24<span class="operator">:</span> 
+    25<span class="operator">:</span> 	<span class="reserved">select</span>	id
+    26<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
+    27<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
+    28<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'org_admin'</span>;
+    29<span class="operator">:</span> 
+    30<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
+    31<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
+    32<span class="operator">:</span> 		description<span class="operator">,</span>
+    33<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
+    34<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+    35<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Organization Administrators'</span><span class="operator">,</span>
+    36<span class="operator">:</span> 		<span class="string">'Organization Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
+    37<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
+    38<span class="operator">:</span> 	<span class="operator">)</span>;
+    39<span class="operator">:</span> 
+    40<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
+    41<span class="operator">:</span> 
+    42<span class="operator">:</span> 	<span class="reserved">select</span>	id
+    43<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
+    44<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
+    45<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'org_applicant'</span>;
+    46<span class="operator">:</span> 
+    47<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
+    48<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
+    49<span class="operator">:</span> 		description<span class="operator">,</span>
+    50<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
+    51<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">VALues</span> <span class="operator">(</span>
+    52<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Organization Applicants'</span><span class="operator">,</span>
+    53<span class="operator">:</span> 		<span class="string">'Organization Applicants for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
+    54<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
+    55<span class="operator">:</span> 	<span class="operator">)</span>;
+    56<span class="operator">:</span> 
+    57<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
+    58<span class="operator">:</span> 
+    59<span class="operator">:</span> 	<span class="reserved">select</span>	id
+    60<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
+    61<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
+    62<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'system_group_admin'</span>;
+    63<span class="operator">:</span> 
+    64<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
+    65<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
+    66<span class="operator">:</span> 		description<span class="operator">,</span>
+    67<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
+    68<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+    69<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'System Group Administrators'</span><span class="operator">,</span>
+    70<span class="operator">:</span> 		<span class="string">'System Group Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
+    71<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
+    72<span class="operator">:</span> 	<span class="operator">)</span>;
+    73<span class="operator">:</span> 
     74<span class="operator">:</span> 
-    75<span class="operator">:</span> 
-    76<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
-    77<span class="operator">:</span> 
-    78<span class="operator">:</span> 	<span class="reserved">select</span>	id
-    79<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
-    80<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
-    81<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'activation_key_admin'</span>;
-    82<span class="operator">:</span> 
-    83<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
-    84<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
-    85<span class="operator">:</span> 		description<span class="operator">,</span>
-    86<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
-    87<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
-    88<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Activation Key Administrators'</span><span class="operator">,</span>
-    89<span class="operator">:</span> 		<span class="string">'Activation Key Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
-    90<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
-    91<span class="operator">:</span> 	<span class="operator">)</span>;
-    92<span class="operator">:</span> 
-    93<span class="operator">:</span> 	<span class="comment">-- config admin is special; it gets created in</span>
-    94<span class="operator">:</span> 	<span class="comment">-- rhn_entitlements.set_customer_provisioning instead.</span>
-    95<span class="operator">:</span> 
-    96<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
-    97<span class="operator">:</span> 
-    98<span class="operator">:</span> 	<span class="reserved">select</span>	id
-    99<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
-   100<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
-   101<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'channel_admin'</span>;
-   102<span class="operator">:</span> 
-   103<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
-   104<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
-   105<span class="operator">:</span> 		description<span class="operator">,</span>
-   106<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
-   107<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
-   108<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Channel Administrators'</span><span class="operator">,</span>
-   109<span class="operator">:</span> 		<span class="string">'Channel Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
-   110<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
-   111<span class="operator">:</span> 	<span class="operator">)</span>;
-   112<span class="operator">:</span> 
-   113<span class="operator">:</span> 	<span class="comment">-- there aren't any users yet, so we don't need to update</span>
-   114<span class="operator">:</span> 	<span class="comment">-- rhnUserServerPerms</span>
-   115<span class="operator">:</span>         <span class="reserved">insert</span> <span class="reserved">into</span> rhnServerGroup
-   116<span class="operator">:</span> 		<span class="operator">(</span> id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span> description<span class="operator">,</span> max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id <span class="operator">)</span>
-   117<span class="operator">:</span> 		<span class="reserved">select</span> rhn_server_group_id_seq<span class="operator">.</span>nextval<span class="operator">,</span> sgt<span class="operator">.</span><span class="keyword">name</span><span class="operator">,</span> sgt<span class="operator">.</span><span class="keyword">name</span><span class="operator">,</span>
-   118<span class="operator">:</span> 			0<span class="operator">,</span> sgt<span class="operator">.</span>id<span class="operator">,</span> new_org_id
-   119<span class="operator">:</span> 		<span class="reserved">from</span> rhnServerGroupType sgt
-   120<span class="operator">:</span> 		<span class="reserved">where</span> sgt<span class="operator">.</span>label <span class="operator">=</span> <span class="string">'sw_mgr_entitled'</span>;
-   121<span class="operator">:</span> 
-   122<span class="operator">:</span> 	org_id_out <span class="operator">:</span><span class="operator">=</span> new_org_id;
-   123<span class="operator">:</span> 
-   124<span class="operator">:</span> <span class="reserved">end</span> create_new_org;
+    75<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
+    76<span class="operator">:</span> 
+    77<span class="operator">:</span> 	<span class="reserved">select</span>	id
+    78<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
+    79<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
+    80<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'activation_key_admin'</span>;
+    81<span class="operator">:</span> 
+    82<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
+    83<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
+    84<span class="operator">:</span> 		description<span class="operator">,</span>
+    85<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
+    86<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+    87<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Activation Key Administrators'</span><span class="operator">,</span>
+    88<span class="operator">:</span> 		<span class="string">'Activation Key Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
+    89<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
+    90<span class="operator">:</span> 	<span class="operator">)</span>;
+    91<span class="operator">:</span> 
+    92<span class="operator">:</span> 	<span class="comment">-- config admin is special; it gets created in</span>
+    93<span class="operator">:</span> 	<span class="comment">-- rhn_entitlements.set_customer_provisioning instead.</span>
+    94<span class="operator">:</span> 
+    95<span class="operator">:</span> 	<span class="reserved">select</span> rhn_user_group_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> group_val <span class="reserved">from</span> dual;
+    96<span class="operator">:</span> 
+    97<span class="operator">:</span> 	<span class="reserved">select</span>	id
+    98<span class="operator">:</span> 	<span class="reserved">into</span>	ug_type
+    99<span class="operator">:</span> 	<span class="reserved">from</span>	rhnUserGroupType
+   100<span class="operator">:</span> 	<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'channel_admin'</span>;
+   101<span class="operator">:</span> 
+   102<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnUserGroup <span class="operator">(</span>
+   103<span class="operator">:</span> 		id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span>
+   104<span class="operator">:</span> 		description<span class="operator">,</span>
+   105<span class="operator">:</span> 		max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id
+   106<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+   107<span class="operator">:</span> 		group_val<span class="operator">,</span> <span class="string">'Channel Administrators'</span><span class="operator">,</span>
+   108<span class="operator">:</span> 		<span class="string">'Channel Administrators for Org '</span> <span class="operator">|</span><span class="operator">|</span> name_in<span class="operator">,</span>
+   109<span class="operator">:</span> 		<span class="reserved">NULL</span><span class="operator">,</span> ug_type<span class="operator">,</span> new_org_id
+   110<span class="operator">:</span> 	<span class="operator">)</span>;
+   111<span class="operator">:</span> 
+   112<span class="operator">:</span> 	<span class="comment">-- there aren't any users yet, so we don't need to update</span>
+   113<span class="operator">:</span> 	<span class="comment">-- rhnUserServerPerms</span>
+   114<span class="operator">:</span>         <span class="reserved">insert</span> <span class="reserved">into</span> rhnServerGroup
+   115<span class="operator">:</span> 		<span class="operator">(</span> id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span> description<span class="operator">,</span> max_members<span class="operator">,</span> group_type<span class="operator">,</span> org_id <span class="operator">)</span>
+   116<span class="operator">:</span> 		<span class="reserved">select</span> rhn_server_group_id_seq<span class="operator">.</span>nextval<span class="operator">,</span> sgt<span class="operator">.</span><span class="keyword">name</span><span class="operator">,</span> sgt<span class="operator">.</span><span class="keyword">name</span><span class="operator">,</span>
+   117<span class="operator">:</span> 			0<span class="operator">,</span> sgt<span class="operator">.</span>id<span class="operator">,</span> new_org_id
+   118<span class="operator">:</span> 		<span class="reserved">from</span> rhnServerGroupType sgt
+   119<span class="operator">:</span> 		<span class="reserved">where</span> sgt<span class="operator">.</span>label <span class="operator">=</span> <span class="string">'sw_mgr_entitled'</span>;
+   120<span class="operator">:</span> 
+   121<span class="operator">:</span> 	org_id_out <span class="operator">:</span><span class="operator">=</span> new_org_id;
+   122<span class="operator">:</span> 
+   123<span class="operator">:</span> <span class="reserved">end</span> create_new_org;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:15 2010</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Tue Nov  2 08:33:22 2010</div>
 </body></html>

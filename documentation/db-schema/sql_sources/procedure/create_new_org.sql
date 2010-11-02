@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:02 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:18 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "SPACEWALK"."CREATE_NEW_ORG"
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."CREATE_NEW_ORG" 
 (
 	name_in      in varchar2,
 	password_in  in varchar2,
@@ -15,12 +15,11 @@ begin
         select web_customer_id_seq.nextval into new_org_id from dual;
 
 	insert into web_customer (
-		id, name,
-		oracle_customer_id, oracle_customer_number,
-		customer_type
+		id, name
+
+
 	) values (
-		new_org_id, name_in,
-		new_org_id, new_org_id, 'B'
+		new_org_id, name_in
 	);
 
 	select rhn_user_group_id_seq.nextval into group_val from dual;

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Fri Jan 22 13:41:03 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:18 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PROCEDURE "SPACEWALK"."QUEUE_SERVER" (server_id_in IN NUMBER, immediate_in IN NUMBER := 1)

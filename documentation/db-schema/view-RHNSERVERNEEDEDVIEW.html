@@ -28,44 +28,74 @@
             </div><div class="subcontextbar"><a href="#v-descr">Description</a> <a href="#v-cols">Columns</a> <a href="#v-query">Query</a> <a href="#v-cc">Constraints</a> <a href="#v-trgs">Triggers</a> </div><h2>RHNSERVERNEEDEDVIEW</h2>
 <a href="sql_sources/view/rhnserverneededview.sql">DDL script</a><h3>Columns<a name="v-cols"></a></h3>
 <table>
-<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>ORG_ID<a name="col-ORG_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>ORG_ID<a name="col-ORG_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>SERVER_ID<a name="col-SERVER_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>ERRATA_ID<a name="col-ERRATA_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>PACKAGE_ID<a name="col-PACKAGE_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>PACKAGE_ID<a name="col-PACKAGE_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>PACKAGE_NAME_ID<a name="col-PACKAGE_NAME_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>CHANNEL_ID<a name="col-CHANNEL_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>CHANNEL_ID<a name="col-CHANNEL_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 </table><h3>Query:</h3>
 <a name="v-query"></a><pre>
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
 <pre>
-<span class="reserved">SELECT</span> <span class="reserved">DISTINCT</span> S<span class="operator">.</span>org_id<span class="operator">,</span>
-     S<span class="operator">.</span>id <span class="reserved">as</span> server_id<span class="operator">,</span>
-     ep<span class="operator">.</span>errata_id <span class="reserved">as</span> errata_id<span class="operator">,</span>
-     P<span class="operator">.</span>id <span class="reserved">as</span> package_id<span class="operator">,</span>
-     P<span class="operator">.</span>name_id <span class="reserved">as</span> package_name_id<span class="operator">,</span>
-     CP<span class="operator">.</span>channel_id <span class="reserved">as</span> channel_id
-<span class="reserved">FROM</span>
-    rhnPackage P
-    inner join rhnPackageEVR P_EVR <span class="reserved">on</span> P_EVR<span class="operator">.</span>id <span class="operator">=</span> P<span class="operator">.</span>evr_id
-    inner join rhnPackageEVR SP_EVR <span class="reserved">on</span> SP_EVR<span class="operator">.</span>evr <span class="operator">&lt;</span> P_EVR<span class="operator">.</span>evr
-    inner join rhnServerPackage SP <span class="reserved">on</span> SP<span class="operator">.</span>name_id <span class="operator">=</span> P<span class="operator">.</span>name_id
-               <span class="reserved">and</span> SP<span class="operator">.</span>evr_id <span class="operator">=</span> SP_EVR<span class="operator">.</span>id
-               <span class="reserved">AND</span> SP<span class="operator">.</span>evr_id <span class="operator">!</span><span class="operator">=</span> P<span class="operator">.</span>evr_id
-    inner join rhnServer S <span class="reserved">on</span> SP<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
-    inner join rhnServerPackageArchCompat SPAC <span class="reserved">on</span> spac<span class="operator">.</span>server_arch_id <span class="operator">=</span> s<span class="operator">.</span>server_arch_id
-               <span class="reserved">AND</span> p<span class="operator">.</span>package_arch_id <span class="operator">=</span> spac<span class="operator">.</span>package_arch_id
-    inner join rhnServerChannel SC <span class="reserved">on</span> SC<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
-    inner join rhnChannelPackage CP <span class="reserved">on</span> CP<span class="operator">.</span>package_id <span class="operator">=</span> P<span class="operator">.</span>id
-               <span class="reserved">and</span> SC<span class="operator">.</span>channel_id <span class="operator">=</span> CP<span class="operator">.</span>channel_id
-    left outer join rhnErrataPackage EP <span class="reserved">on</span> EP<span class="operator">.</span>package_id <span class="operator">=</span> P<span class="operator">.</span>id
-                   <span class="reserved">AND</span> EXISTS
-                   <span class="operator">(</span><span class="reserved">SELECT</span> 1 <span class="reserved">from</span> rhnChannelErrata CE <span class="reserved">where</span> ce<span class="operator">.</span>channel_id <span class="operator">=</span> SC<span class="operator">.</span>channel_id
-                    <span class="reserved">AND</span> CE<span class="operator">.</span>errata_id <span class="operator">=</span> EP<span class="operator">.</span>errata_id<span class="operator">)</span>
-    <span class="reserved">where</span> SP_EVR<span class="operator">.</span>evr <span class="operator">=</span> <span class="operator">(</span><span class="reserved">SELECT</span> <span class="keyword">MAX</span><span class="operator">(</span>PE<span class="operator">.</span>evr<span class="operator">)</span> <span class="reserved">FROM</span> rhnServerPackage SP2<span class="operator">,</span> rhnPackageEvr PE
-                       <span class="reserved">WHERE</span> PE<span class="operator">.</span>id <span class="operator">=</span> SP2<span class="operator">.</span>evr_id <span class="reserved">AND</span> SP2<span class="operator">.</span>server_id <span class="operator">=</span> SP<span class="operator">.</span>server_id <span class="reserved">AND</span>
-                        SP2<span class="operator">.</span>name_id <span class="operator">=</span> SP<span class="operator">.</span>name_id<span class="operator">)</span>
+<span class="reserved">select</span> s<span class="operator">.</span>org_id<span class="operator">,</span>
+       s<span class="operator">.</span>id <span class="reserved">as</span> server_id<span class="operator">,</span>
+       pce<span class="operator">.</span>errata_id<span class="operator">,</span>
+       pkg<span class="operator">.</span>id <span class="reserved">as</span> package_id<span class="operator">,</span>
+       neededpkg<span class="operator">.</span>name_id <span class="reserved">as</span> package_name_id<span class="operator">,</span>
+       scp<span class="operator">.</span>min_channel_id <span class="reserved">as</span> channel_id
+  <span class="reserved">from</span> <span class="operator">(</span><span class="reserved">select</span> sc<span class="operator">.</span>server_id<span class="operator">,</span> np<span class="operator">.</span>name_id<span class="operator">,</span> np<span class="operator">.</span>package_arch_id<span class="operator">,</span> <span class="keyword">max</span><span class="operator">(</span>np<span class="operator">.</span>evr<span class="operator">)</span> max_evr
+          <span class="reserved">from</span> <span class="operator">(</span><span class="comment">-- list of newest packages in channels with EVR</span>
+                <span class="reserved">select</span> np_np<span class="operator">.</span><span class="operator">*</span><span class="operator">,</span> np_pe<span class="operator">.</span>evr
+                  <span class="reserved">from</span> rhnChannelNewestPackage np_np
+                  join rhnPackageEVR np_pe
+                    <span class="reserved">on</span> np_pe<span class="operator">.</span>id <span class="operator">=</span> np_np<span class="operator">.</span>evr_id<span class="operator">)</span> np
+          join <span class="operator">(</span><span class="comment">-- list of packages on the server with EVR</span>
+                <span class="reserved">select</span> sp_sp<span class="operator">.</span>server_id<span class="operator">,</span> sp_sp<span class="operator">.</span>name_id<span class="operator">,</span> sp_sp<span class="operator">.</span>package_arch_id<span class="operator">,</span> <span class="keyword">max</span><span class="operator">(</span>sp_pe<span class="operator">.</span>evr<span class="operator">)</span> <span class="reserved">as</span> max_evr
+                  <span class="reserved">from</span> rhnServerPackage sp_sp
+                  join rhnPackageEVR sp_pe
+                    <span class="reserved">on</span> sp_pe<span class="operator">.</span>id <span class="operator">=</span> sp_sp<span class="operator">.</span>evr_id
+                 <span class="reserved">group</span> <span class="reserved">by</span> sp_sp<span class="operator">.</span>server_id<span class="operator">,</span> sp_sp<span class="operator">.</span>name_id<span class="operator">,</span> sp_sp<span class="operator">.</span>package_arch_id<span class="operator">)</span> sp
+            <span class="reserved">on</span> <span class="comment">-- at first - we want only newer (=higher EVR) packages than there are on the server</span>
+               sp<span class="operator">.</span>name_id <span class="operator">=</span> np<span class="operator">.</span>name_id <span class="reserved">and</span> sp<span class="operator">.</span>max_evr <span class="operator">&lt;</span> np<span class="operator">.</span>evr
+          join <span class="comment">-- secondly - packages must be upgrade compatible</span>
+               rhnPackageUpgradeArchCompat puac
+            <span class="reserved">on</span> puac<span class="operator">.</span>package_arch_id <span class="operator">=</span> sp<span class="operator">.</span>package_arch_id <span class="reserved">and</span> puac<span class="operator">.</span>package_upgrade_arch_id <span class="operator">=</span> np<span class="operator">.</span>package_arch_id
+          join <span class="comment">-- thirdly - packages must be in channel where server is subscribed to</span>
+               rhnServerChannel sc
+            <span class="reserved">on</span> sc<span class="operator">.</span>server_id <span class="operator">=</span> sp<span class="operator">.</span>server_id <span class="reserved">and</span> sc<span class="operator">.</span>channel_id <span class="operator">=</span> np<span class="operator">.</span>channel_id
+        <span class="reserved">group</span> <span class="reserved">by</span> sc<span class="operator">.</span>server_id<span class="operator">,</span> np<span class="operator">.</span>name_id<span class="operator">,</span> np<span class="operator">.</span>package_arch_id
+        <span class="operator">)</span> neededpkg
+  join <span class="comment">-- lookup org_id by server</span>
+       rhnServer s
+    <span class="reserved">on</span> neededpkg<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
+  join <span class="operator">(</span><span class="comment">--lookup package_id by max_evr, name and package_arch</span>
+        <span class="reserved">select</span> p<span class="operator">.</span><span class="operator">*</span><span class="operator">,</span> p_evr<span class="operator">.</span>evr
+               <span class="comment">--</span>
+               <span class="operator">,</span> p_evr<span class="operator">.</span>release<span class="operator">,</span> p_evr<span class="operator">.</span>version<span class="operator">,</span> p_evr<span class="operator">.</span>epoch
+          <span class="reserved">from</span> rhnPackage p
+          join rhnPackageEVR p_evr
+            <span class="reserved">on</span> p_evr<span class="operator">.</span>id <span class="operator">=</span> p<span class="operator">.</span>evr_id<span class="operator">)</span> pkg
+    <span class="reserved">on</span> pkg<span class="operator">.</span>evr <span class="operator">=</span> neededpkg<span class="operator">.</span>max_evr
+   <span class="reserved">and</span> pkg<span class="operator">.</span>name_id <span class="operator">=</span> neededpkg<span class="operator">.</span>name_id
+   <span class="reserved">and</span> pkg<span class="operator">.</span>package_arch_id <span class="operator">=</span> neededpkg<span class="operator">.</span>package_arch_id
+  join <span class="operator">(</span><span class="comment">-- lookup channel_id - we want only one id eve if package is in more channels</span>
+        <span class="comment">-- so pick lowest one</span>
+        <span class="reserved">select</span> cp<span class="operator">.</span>package_id<span class="operator">,</span> csc<span class="operator">.</span>server_id<span class="operator">,</span> <span class="keyword">min</span><span class="operator">(</span>cp<span class="operator">.</span>channel_id<span class="operator">)</span> <span class="reserved">as</span> min_channel_id
+          <span class="reserved">from</span> rhnChannelPackage cp
+          join rhnServerChannel csc
+            <span class="reserved">on</span> csc<span class="operator">.</span>channel_id <span class="operator">=</span> cp<span class="operator">.</span>channel_id
+         <span class="reserved">group</span> <span class="reserved">by</span> cp<span class="operator">.</span>package_id<span class="operator">,</span> csc<span class="operator">.</span>server_id<span class="operator">)</span> scp
+    <span class="reserved">on</span> scp<span class="operator">.</span>package_id <span class="operator">=</span> pkg<span class="operator">.</span>id <span class="reserved">and</span> scp<span class="operator">.</span>server_id <span class="operator">=</span> neededpkg<span class="operator">.</span>server_id
+  left join <span class="operator">(</span><span class="comment">-- lookup errata id (can be NULL)</span>
+             <span class="reserved">select</span> ep<span class="operator">.</span>package_id<span class="operator">,</span> ce<span class="operator">.</span>errata_id<span class="operator">,</span> ce<span class="operator">.</span>channel_id
+               <span class="reserved">from</span> rhnErrataPackage ep
+               join rhnChannelErrata ce
+                 <span class="reserved">on</span> ce<span class="operator">.</span>errata_id <span class="operator">=</span> ep<span class="operator">.</span>errata_id<span class="operator">)</span> pce
+    <span class="reserved">on</span> pce<span class="operator">.</span>package_id <span class="operator">=</span> pkg<span class="operator">.</span>id <span class="reserved">and</span> pce<span class="operator">.</span>channel_id <span class="operator">=</span> scp<span class="operator">.</span>min_channel_id
+
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:14 2010</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Tue Nov  2 08:33:22 2010</div>
 </body></html>

@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:41 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:11 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCDDEVICE" ("ID", "SERVER_ID", "CLASS", "BUS", "DETACHED", "DEVICE", "DRIVER", "DESCRIPTION", "DEV_HOST", "DEV_ID", "DEV_CHANNEL", "DEV_LUN", "PCITYPE") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCDDEVICE" ("ID", "SERVER_ID", "CLASS", "BUS", "DETACHED", "DEVICE", "DRIVER", "DESCRIPTION", "DEV_HOST", "DEV_ID", "DEV_CHANNEL", "DEV_LUN", "PCITYPE") AS 
   select
 	d.id,
 	d.server_Id,

@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:02 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:18 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."WEB_USER_SI_TIMESTAMP"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."WEB_USER_SI_TIMESTAMP" 
 before insert or update on web_user_site_info
 for each row
 begin

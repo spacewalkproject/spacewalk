@@ -1,4 +1,4 @@
--- created by Oraschemadoc Fri Jan 22 13:41:07 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:20 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RPM" AS

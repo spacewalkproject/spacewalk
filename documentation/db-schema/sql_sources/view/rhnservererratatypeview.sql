@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:44 2010
+-- created by Oraschemadoc Tue Nov  2 08:33:13 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERERRATATYPEVIEW" ("SERVER_ID", "ERRATA_ID", "ERRATA_TYPE") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERERRATATYPEVIEW" ("SERVER_ID", "ERRATA_ID", "ERRATA_TYPE") AS 
   SELECT
     	SNEC.server_id,
 	SNEC.errata_id,
