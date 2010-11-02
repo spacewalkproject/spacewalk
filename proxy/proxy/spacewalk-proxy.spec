@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.11
+Version: 1.2.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -328,6 +328,9 @@ fi
 
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.12-1
+- Update copyright years in the rest of the repo.
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.11-1
 - removed unused class rhnPackageManagerException (michael.mraka@redhat.com)
 
