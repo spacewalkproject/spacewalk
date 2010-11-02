@@ -151,6 +151,10 @@ public class ConfigFileBuilder {
                         form.getContentSize());
             if (revision.isFile()) {
                 revision.getConfigContent().setBinary(form.isBinary());
+                if (!form.isBinary()) {
+                    revision.getConfigContent().setDelimStart(form.getMacroStart());
+                    revision.getConfigContent().setDelimEnd(form.getMacroEnd());
+                }
             }
         }
         revision.setConfigInfo(form.extractInfo());
