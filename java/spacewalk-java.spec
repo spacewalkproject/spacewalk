@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.84
+Version: 1.2.85
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 02 2010 Lukas Zapletal 1.2.85-1
+- Fixing unambiguous column 'name' for PostgreSQL 
+- 645829 - make it possile to update macro delimiters 
+- 645829 - do not trim curly brackets in macro delimiters 
+- removing unnecessary condition 
+
 * Tue Nov 02 2010 Lukas Zapletal 1.2.84-1
 - Changing the way how taskomatic connects to PostgreSQL db
 - Replacing some constants with ConfigDefaults in java codebase
