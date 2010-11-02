@@ -111,23 +111,6 @@ ORDER BY UPPER(C.name)
   </query>
 </mode>
 
-<mode name="org_pkg_channel_ids">
-  <query params="org_id, pid">
-SELECT C.id AS channel_id
-  FROM rhnChannel C2,
-       rhnChannel C,
-       rhnAvailableChannels AC,
-       rhnChannelPackage CP
- WHERE AC.org_id = :org_id
-   AND C.org_id = :org_id
-   AND CP.package_id = :pid
-   AND AC.channel_id = CP.channel_id
-   AND CP.channel_id = C.id
-   AND C.parent_channel = C2.id (+)
-ORDER BY UPPER(C.name)
-  </query>
-</mode>
-
 <mode name="channels_owned_by_org"
     class="com.redhat.rhn.frontend.dto.ChannelOverview">
     <query params="org_id">

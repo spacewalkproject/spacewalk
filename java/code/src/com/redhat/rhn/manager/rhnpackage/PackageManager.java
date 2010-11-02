@@ -177,22 +177,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Runs Channel_queries.org.pkg_channel_ids query
-     * @param orgId The id of the org for the logged in user
-     * @param pid The id of the package in question
-     * @return Returns a list of channel ids which provide the given package
-     */
-    public static DataResult orgPackageChannelIds(Long orgId, Long pid) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "org_pkg_channel_ids",
-                Map.class);
-        Map params = new HashMap();
-        params.put("pid", pid);
-        params.put("org_id", orgId);
-        DataResult dr = m.execute(params);
-        return dr;
-    }
-
-    /**
      * Returns the erratas providing a given package
      * @param orgId The id of the org for the logged in user
      * @param pid The package id for the package in question
