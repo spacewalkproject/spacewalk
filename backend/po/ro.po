@@ -1,5 +1,5 @@
 # Red Hat Network.
-# Copyright (C) 2000 Red Hat, Inc.
+# Copyright (c) 2000--2010 Red Hat, Inc.
 # Cristian Gafton <gafton@redhat.com>, 2000, 2001.
 # Mihai Ibanescu <misa@redhat.com> 2005
 #
