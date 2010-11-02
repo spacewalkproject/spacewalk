@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.2.6
+Version: 1.2.7
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.7-1
+- Update copyright years in the rest of the repo.
+
 * Tue Oct 19 2010 Jan Pazdziora 1.2.6-1
 - The /usr/sbin/rhn-satellite will no longer start/stop Oracle XE.
 
