@@ -233,27 +233,6 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     }
 
     /**
-     * Get the list of packages that provide the kickstart capability in the
-     * given base channel.
-     * @param baseChannel Base channel to search for kickstart packages.
-     * @return List of kickstart packages for the given channel.
-     */
-    public List getKickstartPackageNamesForChannel(Channel baseChannel) {
-
-        // Kickstart packages are found in the tools channel associated with a base
-        // channel, not the base channel itself:
-        Channel toolsChannel = ChannelManager.getToolsChannel(baseChannel, user);
-        if (toolsChannel == null) {
-            return new LinkedList();
-        }
-
-        List ksPackages = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(),
-                KICKSTART_CAPABILITY, toolsChannel);
-        replaceLegacyPackageNames(ksPackages);
-        return ksPackages;
-    }
-
-    /**
      * Get List of KickstartInstallType objects for this channel.
      * @param channel Channel to list the install types for.
      * @return List of KickstartInstallType objects.
