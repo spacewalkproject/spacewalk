@@ -15,6 +15,7 @@
 
 path = . tables procs
 
+* :: procs/sequence_nextval
 rhnChannelArch                   :: lookup_arch_type
 rhnChannelPackageArchCompat      :: data/rhnChannelArch \
                                     data/rhnPackageArch lookup_functions
