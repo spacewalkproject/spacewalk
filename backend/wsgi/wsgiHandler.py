@@ -35,7 +35,6 @@ def handle(environ, start_response, server, component_type, type="spacewalk.serv
     req = wsgiRequest.WsgiRequest(environ, start_response)
     req.set_option("SERVER", server)
     req.set_option("RHNComponentType", component_type)
-    req.set_option("RootDir", "/usr/share/rhn")
 
     parseServ = get_handle(type, "HeaderParserHandler", init=1)
     ret = parseServ(req)

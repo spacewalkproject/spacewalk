@@ -73,12 +73,8 @@ class Queue(rhnHandler):
         """ Fetches queued actions for the clients version 2+. """
         log_debug(3, self.server_id)
         # Get the root dir of this install
-        rootDir = rhnFlags.get("RootDir")
-        if not rootDir:
-            raise EmptyAction("Could not figure out RootDir for "
-                              "action retrieval via getMethod")
         try:
-            method = getMethod.getMethod(action['method'], rootDir,
+            method = getMethod.getMethod(action['method'],
                                          'server.action')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
@@ -505,13 +501,8 @@ class Queue(rhnHandler):
             # Shouldn't happen
             return
 
-        rootDir = rhnFlags.get("RootDir")
-        if not rootDir:
-            log_error("Could not figure out RootDir")
-            return
-
         try:
-            method = getMethod.getMethod(action_type, rootDir,
+            method = getMethod.getMethod(action_type,
                                          'server.action_extra_data')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")

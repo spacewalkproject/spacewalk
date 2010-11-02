@@ -149,12 +149,6 @@ class rhnApache:
         return apache.OK
 
     def _set_other(self, req):
-        req_config = req.get_options()
-        # XXX: attempt to catch these KeyErrors sometime when there is
-        # time to play nicely
-        # Save the RootDir in the global flags
-        root_dir = req_config["RootDir"]
-        rhnFlags.set("RootDir", root_dir)
         return apache.OK
 
     def _init_request_processor(self, req):
@@ -221,9 +215,7 @@ class rhnApache:
         """
         self.lang = lang
         self.domain = domain
-        rootdir = rhnFlags.get("RootDir") or "."
-        localedir = os.path.abspath("%s/locale" % rootdir)
-        cat.set(domain=domain, localedir=localedir)
+        cat.set(domain=domain)
         # If the language presented by the client does not exist, the
         # translation object falls back to printing the original string, which
         # is pretty much the same as translating to en

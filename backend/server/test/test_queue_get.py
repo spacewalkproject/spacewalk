@@ -20,8 +20,6 @@ initLOG("stderr", 4)
 initCFG('server.xmlrpc')
 rhnSQL.initDB('rhnuser/rhnuser@webdev')
 
-rhnFlags.set('RootDir', '/var/www/rhns')
-
 q = queue.Queue()
 if 1:
     systemid = open("../../test/backend/checks/systemid-farm06").read()

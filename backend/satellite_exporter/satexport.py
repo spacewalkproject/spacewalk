@@ -61,9 +61,7 @@ class BaseApacheServer:
         rhnSQL.initDB(CFG.DEFAULT_DB)
         self.server = options['SERVER']
 
-        root_dir = options["RootDir"]
-        self.server_classes = rhnImport.load("satellite_exporter/handlers",
-            root_dir=root_dir)
+        self.server_classes = rhnImport.load("satellite_exporter/handlers")
 
         if not self.server_classes.has_key(self.server):
             # XXX do something interesting here

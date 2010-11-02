@@ -257,7 +257,7 @@ def throttle(server):
     log_debug(3, server_id)
 
     # Are we throttling?
-    throttlefile = "%s/throttle" % rhnFlags.get("RootDir")
+    throttlefile = "/usr/share/rhn/throttle"
     if not os.path.exists(throttlefile):
         # We don't throttle anybody
         return

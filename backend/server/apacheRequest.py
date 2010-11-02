@@ -70,12 +70,11 @@ class apacheRequest:
         self.server = req_config["SERVER"]
         # Load the server classes
         # XXX: some day we're going to trust the timestamp stuff...
-        self.root_dir = req_config["RootDir"]
         self.servers = None
         self._setup_servers()
         
     def _setup_servers(self):
-        self.servers = rhnImport.load("server/handlers", root_dir=self.root_dir,
+        self.servers = rhnImport.load("server/handlers",
             interface_signature='rpcClasses')
 
     # return a reference to a method name. The method in the base
@@ -477,10 +476,9 @@ class apacheGET:
         # from the request configuration options
         req_config = req.get_options()
         self.server = req_config["SERVER"]
-        self.root_dir = req_config["RootDir"]
         # XXX: some day we're going to trust the timestamp stuff...
         self.handler_classes = rhnImport.load("server/handlers", 
-            root_dir=self.root_dir, interface_signature='getHandler')
+            interface_signature='getHandler')
         log_debug(3, "Handler classes", self.handler_classes)
 
         self.handler = None
