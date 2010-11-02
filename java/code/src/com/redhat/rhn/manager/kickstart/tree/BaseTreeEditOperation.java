@@ -19,7 +19,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ChannelVersion;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
@@ -27,7 +26,6 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.manager.BasePersistOperation;
-import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -37,10 +35,8 @@ import org.cobbler.XmlRpcException;
 
 import java.io.File;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -230,31 +226,6 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
           pli.setName(pli.getName().replaceFirst(
                   KickstartData.LEGACY_KICKSTART_PACKAGE_NAME, EMPTY_STRING));
         }
-    }
-
-    /**
-     * Get List of KickstartInstallType objects for this channel.
-     * @param channel Channel to list the install types for.
-     * @return List of KickstartInstallType objects.
-     */
-    public List getKickstartInstallTypesForChannel(Channel channel) {
-        List installTypes = KickstartFactory.lookupKickstartInstallTypes();
-        List returnInstallTypes = new LinkedList();
-
-        Set channelVersions = ChannelManager.getChannelVersions(channel);
-
-        // Filter the list of all install types and return only those applicable to this
-        // channel:
-        Iterator iter = installTypes.iterator();
-        while (iter.hasNext()) {
-            KickstartInstallType ksType = (KickstartInstallType)iter.next();
-            if (channelVersions.contains(
-                    ChannelVersion.getChannelVersionForKickstartInstallType(ksType))) {
-                returnInstallTypes.add(ksType);
-            }
-        }
-
-        return returnInstallTypes;
     }
 
     /**
