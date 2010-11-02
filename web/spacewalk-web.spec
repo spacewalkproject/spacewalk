@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.20
+Version: 1.2.21
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.2.21-1
+- Update copyright years in web/.
+- bumping API version to identify new API call availability
+  (tlestach@redhat.com)
+- Fixing table name aliases (PE -> SPE) (lzap+git@redhat.com)
+
 * Mon Nov 01 2010 Jan Pazdziora 1.2.20-1
 - The sequence_nextval method returns sequence value both on Oracle and
   PostgreSQL.
