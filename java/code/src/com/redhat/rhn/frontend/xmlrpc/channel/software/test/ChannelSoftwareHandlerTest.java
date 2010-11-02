@@ -65,7 +65,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
     private ChannelSoftwareHandler handler = new ChannelSoftwareHandler();
     private ErrataHandler errataHandler = new ErrataHandler();
 
-    public void IGNOREDtestAddRemovePackages() throws Exception {
+    public void ignoredtestAddRemovePackages() throws Exception {
 
         // TODO : GET THIS WORKING
         Channel channel = ChannelFactoryTest.createTestChannel(admin);

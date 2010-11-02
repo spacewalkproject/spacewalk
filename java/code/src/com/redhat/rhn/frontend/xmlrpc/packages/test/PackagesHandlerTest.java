@@ -50,7 +50,7 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void IGNOREDtestListChangeLog() throws Exception {
+    public void ignoredtestListChangeLog() throws Exception {
         // TODO: GET THIS WORKING
         // if (Config.get().isSatellite()) {
 
