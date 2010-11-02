@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.85
+Version: 1.2.86
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 02 2010 Lukas Zapletal 1.2.86-1
+- Removing unnecessary JSPF fragment file 
+
 * Tue Nov 02 2010 Lukas Zapletal 1.2.85-1
 - Fixing unambiguous column 'name' for PostgreSQL 
 - 645829 - make it possile to update macro delimiters 
