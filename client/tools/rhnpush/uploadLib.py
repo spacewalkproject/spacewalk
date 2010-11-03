@@ -717,9 +717,10 @@ def exists_getPackageChecksumBySession(server):
     try:
         raw_call(server.packages.getPackageChecksumBySession, '', {})
     except rpclib.Fault, e:
-        if e.faultCode == -33:
+        if e.faultCode in [-2, -33]:
             # Fault -33: session token is invalid
             # i.e. function exists but we supplied wrong data
+            # Fault -2 session is unknown - expected when empty
             pass
         elif e.faultCode == -1:
             # Fault -1: function invalid
