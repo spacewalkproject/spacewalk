@@ -173,4 +173,45 @@ public class SatelliteHandler extends BaseHandler {
         getLoggedInUser(sessionKey);
         return ConfigDefaults.get().isMonitoringBackend();
     }
+
+    /**
+     * Indicates if monitoring is enabled on the satellite
+     * available since API version 10.14
+     * @param clientcert client certificate of the system.
+     * @return True if monitoring is enabled
+     * @throws MethodInvalidParamException thrown if certificate is invalid.
+     *
+     * @xmlrpc.doc Indicates if monitoring is enabled on the satellite
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype #param("boolean", "True if monitoring is enabled")
+     */
+
+    public int isMonitoringEnabledBySystemId(String clientcert)
+        throws MethodInvalidParamException {
+
+        StringReader rdr = new StringReader(clientcert);
+        Server server = null;
+
+        ClientCertificate cert;
+        try {
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        return ConfigDefaults.get().isMonitoringBackend();
+    }
 }
