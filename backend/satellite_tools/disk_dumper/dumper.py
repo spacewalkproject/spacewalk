@@ -88,7 +88,7 @@ class XML_Dumper:
         }
 
         query = """
-            select unique cf.*, to_number(null) max_members 
+            select distinct cf.*, to_number(null, null) max_members
               from rhnchannelfamily cf, rhnchannelfamilymembers cfm
               where cf.id = cfm.channel_family_id and cfm.channel_id in ( %(ch_ids)s )
         """
