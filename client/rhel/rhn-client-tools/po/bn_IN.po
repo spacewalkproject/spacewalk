@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2007-02-01 09:48+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali India\n"
@@ -95,23 +95,23 @@ msgid "There was some sort of I/O error: %s"
 msgstr "I/O ( ইনপুট/আউটপুট ) জড়িত কোনো সমস্যা উৎপন্ন হয়েছে: %s"
 
 # modified for RHEL
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "cpu সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "সিস্টেম মেমরি সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "নেটওয়ার্ক সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "ইনস্টলেশন পদ্ধতি সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "নেটওয়ার্ক ইন্টারফেস সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
@@ -247,7 +247,7 @@ msgstr "অধিক বিবরণের জন্য /var/log/up2date দে�
 
 #: ../src/up2date_client/rhnreg_constants.py:13
 #, fuzzy
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "স্বত্বাধিকার Â© ২০০৬  Red Hat, Inc. সর্ব স্বত্ব সংরক্ষিত"
 
 # modified for RHEL
@@ -1174,6 +1174,12 @@ msgstr ""
 "প্রদত্ত গ্রাহক সংখ্যা [ %s ] বৈধ নয়। অনুগ্রহ করে পূর্ববর্তী পর্দায় প্রত্যাবর্তন করে এটি "
 "সংশোধন করুন।"
 
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "ইনস্টলেশন সংখ্যা: (_N)"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "সিস্টেম নিবন্ধনে সমস্যা।"
@@ -1344,13 +1350,13 @@ msgid "ERROR: can not find RHNS CA file"
 msgstr "সমস্যা: RHNS CA ফাইল পাওয়া যায়নি"
 
 # modified for RHEL
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "ব্যবহারকারীর দ্বারা সংযোগ বিচ্ছিন্ন করা হয়েছে"
 
 # FIXME
 # modified for RHEL
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "অতিরিক্ত চাপের কারণে সার্ভারের দ্বারা সংযোগ প্রত্যাখ্যান করা হয়েছে"
 
@@ -1443,6 +1449,10 @@ msgstr "সম্পন্ন"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "উল্লিখিত প্রোটোকল বৈধ নয়।"
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
+msgstr "শুধুমাত্র https ও http ব্যবহার করা যাবে।"
 
 # modified for RHEL
 #: ../src/up2date_client/tui.py:1096
@@ -2920,9 +2930,6 @@ msgstr "Red Hat Network-এ নিবন্ধিত করুন"
 # modified for RHEL
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "ইনস্টলেশন সংখ্যা উল্লেখ করা আবশ্যক।"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "শুধুমাত্র https ও http ব্যবহার করা যাবে।"
 
 # modified for RHEL
 #~ msgid "Error reading hardware information:"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2007-02-06 14:32+0000\n"
 "Last-Translator: José Nuno Pires <jncp@netcabo.pt>\n"
 "Language-Team: pt <kde@poli.org>\n"
@@ -86,23 +86,23 @@ msgstr "Deve executar o rhn_register como 'root'."
 msgid "There was some sort of I/O error: %s"
 msgstr "Ocorreu um erro de entradas/saídas: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "Erro ao ler as informações do CPU:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "Erro ao ler as informações de memória de sistema:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "Erro as ler os dados de rede:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "Erro ao ler as informações de método de instalação:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "Erro ao ler as informações de interfaces de rede:"
 
@@ -219,7 +219,7 @@ msgstr "Ver o /var/log/up2date para obter mais informações"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
 #, fuzzy
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "Copyright © 2006  Red Hat, Inc. Todos os direitos reservados."
 
 #. Connect Window
@@ -1133,6 +1133,11 @@ msgstr ""
 "O número de instalação [ %s ] indicado não é um número de instalação válido. "
 "Por favor, volte ao ecrã anterior e corrija-o."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "_Número de Instalação:"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Problema ao registar o sistema."
@@ -1286,11 +1291,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "ERRO: não foi possível encontrar o ficheiro CA da RHNS"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Ligação interrompida pelo utilizador"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "O servidor recusou a ligação devido a um excesso de carga"
 
@@ -1376,6 +1381,10 @@ msgstr "Terminar"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "Você indicou um protocolo inválido."
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
+msgstr "Só são permitidos o HTTP e o HTTPS."
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""
@@ -2775,9 +2784,6 @@ msgstr "Registar na Red Hat Network"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "active as inscrições da sua conta."
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "Só são permitidos o HTTP e o HTTPS."
 
 #~ msgid "Error reading hardware information:"
 #~ msgstr "Erro ao ler as informações de hardware:"

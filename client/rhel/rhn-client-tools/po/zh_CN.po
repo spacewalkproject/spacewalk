@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2010-06-10 13:14+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Wei Liu\n"
@@ -59,23 +59,23 @@ msgstr "您必须以根用户的身份运行 rhn_register。"
 msgid "There was some sort of I/O error: %s"
 msgstr "出现了某种 I/O 错误：%s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "读取 cpu 信息时出错："
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "读取系统内存信息时出错："
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "读取联网信息时出错："
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "读取安装方法信息时出错："
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "读取网络接口信息时出错："
 
@@ -188,7 +188,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "查看 /var/log/up2date 来获得详悉信息"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+#, fuzzy
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "版权 © 2006  Red Hat, Inc. 版权所有。"
 
 #. Connect Window
@@ -1018,6 +1019,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr "所提供的安装号 [ %s ] 不是一个有效的安装号码。请返回到前一页并改正它。"
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "安装号(_N)："
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "注册系统时出现问题。"
@@ -1163,11 +1169,11 @@ msgstr "错误：服务器不可用，请稍后再试。"
 msgid "ERROR: can not find RHNS CA file"
 msgstr "错误：找不到 RHNS CA 文件"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "连接被用户中止"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "由于高度载量，服务器被拒绝连接"
 
@@ -1247,6 +1253,11 @@ msgstr "结束"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "您指定了一个无效的协议。"
+
+#: ../src/up2date_client/tui.py:1058
+#, fuzzy
+msgid "Only https and http are allowed."
+msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2005-10-20 11:30+0200\n"
 "Last-Translator: Mike Karas <zoliqe@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -63,23 +63,23 @@ msgstr "Update Agenta musíte spúšťať ako root."
 msgid "There was some sort of I/O error: %s"
 msgstr "Vyskytlo sa niekoľko V/V chýb: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "Chyba pri čítaní cpu informácii:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "Chyba pri čítaní pamäťových informácii:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "Chyba pri čítaní sieťových informácii:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "Chyba pri čítaní informácii inštalačnej metódy:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "Chyba pri čítaní informácii sieťového rozhrania:"
 
@@ -192,7 +192,7 @@ msgid "See /var/log/up2date for more information"
 msgstr "Pozri /var/log/up2date pre viac informácii"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr ""
 
 #. Connect Window
@@ -959,6 +959,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr "Zadané prihlasovacie číslo [ %s ] nie je platným prihlasovacím číslom."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "registračnéČíslo"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Problém s registráciou systému."
@@ -1113,11 +1118,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "CHYBA: nemožno nájsť RHNS CA súbor:"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Spojenie prerušené užívateľom"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "Server odmietol spojenie pre príliš veľké vyťaženie"
 
@@ -1206,6 +1211,10 @@ msgstr "Dokončiť"
 
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1096

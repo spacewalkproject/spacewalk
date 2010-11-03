@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2010-07-17 17:00+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -59,23 +59,23 @@ msgstr "Du måste köra rhn_register som root."
 msgid "There was some sort of I/O error: %s"
 msgstr "Någon form av I/O-fel uppstod: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "Fel vid läsning av cpu-information:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "Fel vid läsning av information om systemminne:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "Fel vid läsning av nätverksinformation:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "Fel vid läsning av information om installationsmetod:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "Fel vid läsning av information om nätverksgränssnitt:"
 
@@ -198,7 +198,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "Se /var/log/up2date för mer information"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+#, fuzzy
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "Copyright © 2006--2010  Red Hat, Inc. All rights reserved."
 
 #. Connect Window
@@ -1116,6 +1117,11 @@ msgstr ""
 "Installationsnumret [ %s ] som angivits är inte ett giltigt "
 "installationsnummer.  Gå tillbaka till föregående skärm och rätta det."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "Installations_nummer:"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Problem vid registrering av system."
@@ -1266,11 +1272,11 @@ msgstr "Fel: Servern otillgänglig.  Försök senare."
 msgid "ERROR: can not find RHNS CA file"
 msgstr "FEL: kan inte hitta RHNS CA-fil"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Anslutningen avbröts av användaren"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "Servern nekade anslutning på grund av hög belastning"
 
@@ -1350,6 +1356,11 @@ msgstr "Slutför"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "Du angav ett ogiltigt protokoll."
+
+#: ../src/up2date_client/tui.py:1058
+#, fuzzy
+msgid "Only https and http are allowed."
+msgstr "Du angav ett ogiltigt protokoll.  Endast https och http är tillåtna."
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""

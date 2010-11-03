@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2007-02-01 11:21+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -60,23 +60,23 @@ msgstr "root 계정으로 rhn_register를 실행하셔야 합니다."
 msgid "There was some sort of I/O error: %s"
 msgstr "입/출력 오류 발생: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "cpu 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "시스템 메모리 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "네트워크 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "설치 방식 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "네트워크 인터페이스 정보를 읽어오는 중 오류 발생:"
 
@@ -193,7 +193,7 @@ msgstr "보다 자세한 정보는 /var/log/up2date 를 참조하시기 바랍�
 
 #: ../src/up2date_client/rhnreg_constants.py:13
 #, fuzzy
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "저작권  2006  Red Hat, Inc. 저작권법에 의해 보호받습니다."
 
 #. Connect Window
@@ -1079,6 +1079,11 @@ msgstr ""
 "입력하신 설치 번호 [ %s ]는 잘못된 설치 번호입니다. 이전 화면으로 가셔서 수정"
 "하시기 바랍니다."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "설치 번호(_N):"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "시스템 등록 중 문제 발생"
@@ -1231,11 +1236,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "오류: RHNS CA 파일을 찾을 수 없음"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "사용자에 의해 연결이 중지"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "네트워크 부하로 인해 서버 연결 실패"
 
@@ -1322,6 +1327,10 @@ msgstr "완료"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "잘못된 프로토콜을 지정하셨습니다."
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
+msgstr "https와 http만이 허용됩니다."
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""
@@ -2688,9 +2697,6 @@ msgstr "Red Hat Network에 등록"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "설치 번호를 입력해 주십시오."
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "https와 http만이 허용됩니다."
 
 #~ msgid "Error reading hardware information:"
 #~ msgstr "하드웨어 정보를 읽는 동안 오류 발생:"

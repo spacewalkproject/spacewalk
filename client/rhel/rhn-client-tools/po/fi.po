@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2005-11-28 13:53+0200\n"
 "Last-Translator: Pekka Harjamäki <pekka@mcfish.org>\n"
 "Language-Team: Finnish <kde-i18n-fi-discussion@lists.sourceforge.net>\n"
@@ -64,24 +64,24 @@ msgstr "Päivitysohjelma täytyy suorittaa pääkäyttäjänä."
 msgid "There was some sort of I/O error: %s"
 msgstr "Tapahtui I/O-virhe: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "Virhe luettaessa cpu tietoa:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "Virhe luettaessa järjestelmän muistitietoa:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "Virhe luettaessa verkkotietoa:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 #, fuzzy
 msgid "Error reading install method information:"
 msgstr "Virhe luettaessa asennustapa tietoa:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr ""
 
@@ -197,7 +197,7 @@ msgid "See /var/log/up2date for more information"
 msgstr "Lähetä _laitteistotieto"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr ""
 
 #. Connect Window
@@ -958,6 +958,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr "Kirjautumisnumero [ %s ] ei ole voimassa."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "rekisteröintiNumero"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Ongelma järjestelmän rekisteröimisessä."
@@ -1111,11 +1116,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "VIRHE: RHNS CA tiedostoa ei löydy:"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Käyttäjä katkaisi yhteyden"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 #, fuzzy
 msgid "Server has refused connection due to high load"
 msgstr "Palvelimeen ei voida muodostaa yhteyttä suuren kuormituksen takia."
@@ -1204,6 +1209,10 @@ msgstr "Lopeta"
 
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1096

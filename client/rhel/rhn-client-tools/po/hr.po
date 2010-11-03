@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2007-02-03 11:45+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: Croatian <http://translator-shop.org>\n"
@@ -54,23 +54,23 @@ msgstr "Alat rhn_register morate pokrenuti kao korijenski korisnik."
 msgid "There was some sort of I/O error: %s"
 msgstr "Došlo je do neke vrste I/O pogreške: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "Pogreška pri čitanju podataka o procesoru:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "Pogreška pri čitanju podataka o memoriji:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "Pogreška pri čitanju podataka o umreženosti:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "Pogreška pri čitanju podataka o načinu instalacije:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "Pogreška pri čitanju podataka o mrežnom sučelju:"
 
@@ -188,7 +188,7 @@ msgstr "Za dodatne podatke pogledajte /var/log/up2date "
 
 #: ../src/up2date_client/rhnreg_constants.py:13
 #, fuzzy
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "Autorska prava Â© 2006 Red Hat, Inc. Sva prava pridržana."
 
 #. Connect Window
@@ -1098,6 +1098,11 @@ msgstr ""
 "Pruženi instalacijski broj [ %s ] nije valjani instalacijski broj. Vratite "
 "se na prethodni zaslon i ispravite ga."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "Instalacijski _broj:"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Problem tijekom registriranja sustava."
@@ -1252,11 +1257,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "POGREŠKA: Nije moguće pronaći RHNS CA datoteku."
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Veza je prekinuta od strane korisnika"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "Poslužitelj je odbio povezivanje zbog svog prevelikog opterećenja"
 
@@ -1343,6 +1348,10 @@ msgstr "Završi"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "Odredili ste nepravilan protokol."
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
+msgstr "Dopušteni su samo https i http protokoli."
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""
@@ -2740,9 +2749,6 @@ msgstr "Registriraj pri Red Hat Mreži"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "koji aktivira pretplatu vašeg naloga."
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "Dopušteni su samo https i http protokoli."
 
 #~ msgid "Error reading hardware information:"
 #~ msgstr "Pogreška pri čitanju podataka o hardveru:"

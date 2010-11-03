@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2007-02-01 11:02+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
@@ -71,27 +71,27 @@ msgid "There was some sort of I/O error: %s"
 msgstr "I/O エラーが発生しました: %s"
 
 # ../wrapper.py:50
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "CPU 情報を読み込み中に問題発生:"
 
 # ../wrapper.py:50
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "システムメモリ情報を読み込み中に問題発生:"
 
 # ../wrapper.py:50
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "ネットワーク情報を登録中に問題発生:"
 
 # ../wrapper.py:50
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "インストール方法に関する情報を読み込み中に問題発生:"
 
 # ../wrapper.py:50
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "ネットワークインターフェース情報を読み込み中に問題発生:"
 
@@ -214,7 +214,7 @@ msgstr "詳細については、/var/log/up2date を参照してください"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
 #, fuzzy
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
 
 #. Connect Window
@@ -1135,6 +1135,11 @@ msgstr ""
 "入力されたインストール番号 [ %s ] は有効なインストール番号ではありません。 前"
 "の画面に戻って修正してください。"
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "インストール番号(_N):"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "システムを登録中に問題発生。"
@@ -1307,11 +1312,11 @@ msgstr "エラー: RHNS CA ファイルが見つかりません"
 # ../up2date.py:168 ../up2date.py:433 ../up2date.py:572 ../up2date.py:601
 # ../up2date.py:718 ../up2date.py:758 ../up2date.py:839 ../up2date.py:856
 # ../up2date.py:878 ../up2date.py:900
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "ユーザーによって接続が中断されました"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "高負荷の為にサーバは接続拒否されました"
 
@@ -1404,6 +1409,10 @@ msgstr "終了"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "無効なプロトコルを指定しました。"
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
+msgstr "https または http しか使用できません。"
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""
@@ -2841,9 +2850,6 @@ msgstr "Red Hat Network に登録します"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "インストール番号を入力する必要があります。"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "https または http しか使用できません。"
 
 # ../up2date.py:485
 #~ msgid "Error reading hardware information:"

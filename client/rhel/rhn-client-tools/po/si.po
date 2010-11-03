@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2007-02-01 15:28+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
@@ -62,23 +62,23 @@ msgstr "ඔබ rhn_register විධානය ක්‍රියාත්මක
 msgid "There was some sort of I/O error: %s"
 msgstr "යම් ආකාරයක I/O දෝශයක් ඇතිවිය: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "cpu තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "පද්ධතියේ මතක තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "ජාලයේ තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "ස්ථාපනය සිදුකල යුතු ආකාරය සම්බන්ධ තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "ජාල අන්තර් මුහුණත් තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය :"
 
@@ -195,7 +195,7 @@ msgstr "වැඩි විස්තර සඳහා /var/log/up2date බලන�
 
 #: ../src/up2date_client/rhnreg_constants.py:13
 #, fuzzy
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "© 2006  Red Hat, Inc. සියළුම හිමිකම් ඇවරිණි."
 
 #. Connect Window
@@ -1071,6 +1071,11 @@ msgstr ""
 "ඔබ විසින් සපයා ඇති ග්‍රාහක අංකය [ %s ] වලංගු ග්‍රාහක අංකයක් නොවේ. කරුණාකර පෙර තිරය වෙත "
 "ගොස් මෙය නිවැරදි කරන්න."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "ස්ථාපනය අංකය(_N):"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "පද්ධතිය ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය"
@@ -1222,11 +1227,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "දෝශයකි: RHNS CA ගොනුව සොයාගත නොහැකි විය:"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "සම්බන්ධතාවය පරිශීලක විසින් නවතා දමන ලදී"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "කාර්යයන් අධික හෙයින් සේවා දායකය සම්බන්ධතාවය ප්‍රතික්‍ෂේප කර ඇත"
 
@@ -1311,6 +1316,10 @@ msgstr "නිමයි"
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
 msgstr "ඔබ විසින් සපයා ඇත්තේ සාවද්‍ය වාහකයෙකි."
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
+msgstr "https සහ http හට පමණක් ඉඩ දී තිබේ"
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""
@@ -2671,9 +2680,6 @@ msgstr "Red Hat Network සමඟ ලියාපදිංචි වන්න"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "ඔබේ ගිණුම තුල ග්‍රාහකත්වයන් සක්‍රීය කරයි"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "https සහ http හට පමණක් ඉඩ දී තිබේ"
 
 #~ msgid "Error reading hardware information:"
 #~ msgstr "දෘඪාංග තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"

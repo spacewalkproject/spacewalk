@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date.mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2005-04-27 21:45+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -63,23 +63,23 @@ msgstr "Морате да го извршите агентот за надгра
 msgid "There was some sort of I/O error: %s"
 msgstr "Се појави некаква I/O грешка: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "Грешка при читање на информациите за процесорот:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "Грешка при читање на информациите за системската меморија:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "Грешка при читање на информациите за мрежата:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "Грешка при читање на информациите за методот на инсталација:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "Грешка при читање на информациите за мрежниот интерфејс:"
 
@@ -196,7 +196,7 @@ msgid "See /var/log/up2date for more information"
 msgstr "Испрати _информации за хардверот"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr ""
 
 #. Connect Window
@@ -962,6 +962,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr "Бројот за претплата [ %s ] е невалиден."
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "Број за регистрација"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Проблем при регистрација на системот."
@@ -1116,11 +1121,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr ""
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Врската беше прекината од страна на корисникот"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "Серверот ја одби врската поради презафатеност"
 
@@ -1210,6 +1215,10 @@ msgstr "Крај"
 
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1096

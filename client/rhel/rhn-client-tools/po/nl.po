@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2007-01-16 23:33+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -62,23 +62,23 @@ msgstr "U dient rhn_register als root op te starten."
 msgid "There was some sort of I/O error: %s"
 msgstr "Er deed zich een soort I/O fout voor: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 msgid "Error reading cpu information:"
 msgstr "Fout bij het inlezen van de processor-informatie:"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 msgid "Error reading system memory information:"
 msgstr "Fout bij het inlezen van de systeemgeheugen-informatie:"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading networking information:"
 msgstr "Fout bij het inlezen van de netwerk-informatie:"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 msgid "Error reading install method information:"
 msgstr "Fout bij het inlezen van de installatiemethode-informatie:"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 msgid "Error reading network interface information:"
 msgstr "Fout bij het inlezen van de netwerkinterface-informatie:"
 
@@ -195,7 +195,7 @@ msgid "See /var/log/up2date for more information"
 msgstr "Zie /var/log/up2date voor meer informatie"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr ""
 
 #. Connect Window
@@ -942,6 +942,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr ""
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "Installatie_nummer:"
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Probleem met het registreren van het systeem."
@@ -1090,11 +1095,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "FOUT: kan RHNS CA bestand niet vinden"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Verbinding verbroken door de gebruiker"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 msgid "Server has refused connection due to high load"
 msgstr "De server weigerde de verbinding omdat er teveel dataverkeer is"
 
@@ -1183,6 +1188,10 @@ msgstr "Voltooien"
 
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1096

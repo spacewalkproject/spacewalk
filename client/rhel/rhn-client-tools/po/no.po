@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
+"POT-Creation-Date: 2010-11-03 04:35-0400\n"
 "PO-Revision-Date: 2004-03-13 13:45+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no\n"
 "Language-Team: Norwegian <nb@lister.ping.uio.no>\n"
@@ -59,27 +59,27 @@ msgstr "Du må kjøre Oppdateringsagenten som root."
 msgid "There was some sort of I/O error: %s"
 msgstr "Det oppstod en eller annen Inn/Ut-feil: %s"
 
-#: ../src/up2date_client/hardware.py:655
+#: ../src/up2date_client/hardware.py:677
 #, fuzzy
 msgid "Error reading cpu information:"
 msgstr "Problem med registrering av personlig informasjon:\n"
 
-#: ../src/up2date_client/hardware.py:662
+#: ../src/up2date_client/hardware.py:684
 #, fuzzy
 msgid "Error reading system memory information:"
 msgstr "Problem med registrering av personlig informasjon:\n"
 
-#: ../src/up2date_client/hardware.py:672
+#: ../src/up2date_client/hardware.py:694
 #, fuzzy
 msgid "Error reading networking information:"
 msgstr "Problem med registrering av personlig informasjon:\n"
 
-#: ../src/up2date_client/hardware.py:693
+#: ../src/up2date_client/hardware.py:715
 #, fuzzy
 msgid "Error reading install method information:"
 msgstr "Problem med registrering av personlig informasjon:\n"
 
-#: ../src/up2date_client/hardware.py:701
+#: ../src/up2date_client/hardware.py:723
 #, fuzzy
 msgid "Error reading network interface information:"
 msgstr "Problem med registrering av personlig informasjon:\n"
@@ -196,7 +196,7 @@ msgid "See /var/log/up2date for more information"
 msgstr "Feil ved lesing av hode"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr ""
 
 #. Connect Window
@@ -963,6 +963,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr "    --activationkey=<value>    - oppgi en aktiveringsnøkkel "
 
+#: ../src/up2date_client/rhnregGui.py:748
+#, fuzzy
+msgid "registration_number"
+msgstr "Du må skrive inn et brukernavn."
+
 #: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
 msgid "Problem registering system."
 msgstr "Problem med å registrere systemet."
@@ -1119,11 +1124,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr ""
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:205
 msgid "Connection aborted by the user"
 msgstr "Tilkoblingen brutt av bruker"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:250
 #, fuzzy
 msgid "Server has refused connection due to high load"
 msgstr "Tjeneren avviste forbindelsen grunnet for høy trafikk"
@@ -1213,6 +1218,10 @@ msgstr "Fullfør"
 
 #: ../src/up2date_client/tui.py:1057
 msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1058
+msgid "Only https and http are allowed."
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1096
