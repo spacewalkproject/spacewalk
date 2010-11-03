@@ -229,23 +229,6 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         }
     }
 
-    /**
-     * CONTENTS. MACROSTART, and MACROEND field -cannot- be scrubbed -
-     * but the rest MUST be scrubbed
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean isScrubbable(String name, Object value) {
-        if (REV_CONTENTS.equals(name) ||
-            REV_MACROSTART.equals(name) ||
-            REV_MACROEND.equals(name)) {
-            return false;
-        }
-        else {
-            return super.isScrubbable(name, value);
-        }
-    }
-
     private boolean isUpload() {
         return get(REV_UPLOAD) != null;
     }
@@ -341,7 +324,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     /**
      * Returns a ConfigFileData representation of this Form, similar to toData()
      * however in addition it replicates the contents of the passed in revision
-     * rev to the ConfigFIleData.. This is mainly used in the FileDetailAction
+     * rev to the ConfigFileData.. This is mainly used in the FileDetailAction
      * where want the contents of a "non-displayable" file replicated on to the
      * newer revision...
      * @param rev the revision to replicate the content stream.

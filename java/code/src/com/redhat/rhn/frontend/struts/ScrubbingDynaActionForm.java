@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.struts;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.DynaActionForm;
 
@@ -92,21 +91,4 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
         }
         return Scrubber.canScrub(value);
     }
-
-    protected boolean isScrubbable(String name, Object value) {
-        if (name.equals(NO_SCRUB) || NO_PAREN_SCRUB.equals(name)) {
-            return false;
-        }
-
-        if (dynaValues.containsKey(NO_SCRUB)) {
-            String [] noScrubList = StringUtils.split(
-                            (String)dynaValues.get(NO_SCRUB), ",");
-            if (!ArrayUtils.contains(noScrubList, name)) {
-                return Scrubber.canScrub(value);
-            }
-            return false;
-        }
-        return Scrubber.canScrub(value);
-    }
-
 }
