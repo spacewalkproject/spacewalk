@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.87
+Version: 1.2.88
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 03 2010 Tomas Lestach <tlestach@redhat.com> 1.2.88-1
+- 649319 - enable upload of binary files (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- use public static string instead of directly calling query name
+  (tlestach@redhat.com)
+- migrating change log to java, and making it use the rpm itself instead of the
+  database (jsherril@redhat.com)
+
 * Wed Nov 03 2010 Lukas Zapletal 1.2.87-1
 - Using general nextval function in ssm operation queries 
 - fixing some fedora 14 provisioning issues 
