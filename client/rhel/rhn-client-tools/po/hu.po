@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date-hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-02 11:20+0100\n"
+"POT-Creation-Date: 2010-08-10 11:49+0200\n"
 "PO-Revision-Date: 2005-04-15 14:56+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: Hungarian\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -63,23 +62,23 @@ msgstr "A rendszerfrissítő szolgáltatást rendszergazdaként kell futtatni."
 msgid "There was some sort of I/O error: %s"
 msgstr "Beviteli/kiviteli (I/O) hiba történt: %s"
 
-#: ../src/up2date_client/hardware.py:677
+#: ../src/up2date_client/hardware.py:655
 msgid "Error reading cpu information:"
 msgstr "Hiba történt a processzorjellemzők lekérdezésekor:"
 
-#: ../src/up2date_client/hardware.py:684
+#: ../src/up2date_client/hardware.py:662
 msgid "Error reading system memory information:"
 msgstr "Hiba történt a rendszermemória lekérdezésekor:"
 
-#: ../src/up2date_client/hardware.py:694
+#: ../src/up2date_client/hardware.py:672
 msgid "Error reading networking information:"
 msgstr "Hiba történt a hálózati adatok lekérdezésekor:"
 
-#: ../src/up2date_client/hardware.py:715
+#: ../src/up2date_client/hardware.py:693
 msgid "Error reading install method information:"
 msgstr "Hiba történt a telepítési mód lekérdezésekor:"
 
-#: ../src/up2date_client/hardware.py:723
+#: ../src/up2date_client/hardware.py:701
 msgid "Error reading network interface information:"
 msgstr "Hiba történt a hálózati csatolók adatainak lekérdezésekor:"
 
@@ -235,7 +234,7 @@ msgid ""
 msgstr ""
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:36
+#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:94
 msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
@@ -244,7 +243,7 @@ msgstr ""
 msgid "Why connect to Red Hat Network?"
 msgstr "Kapcsolódás a Red Hat Networkre"
 
-#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:45
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
@@ -273,19 +272,19 @@ msgid ""
 "this Red Hat Enterprise Linux system updated and secure."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:46
+#: ../src/up2date_client/rhnreg_constants.py:46 ../data/rh_register.glade.h:47
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:33
 msgid ""
 "Access to the technical support experts at Red Hat or Red Hat's partners for "
 "help with any issues you might encounter with this system."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:50
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:81
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
@@ -479,15 +478,17 @@ msgid "*Email Address:"
 msgstr "E-mail cím:"
 
 #: ../src/up2date_client/rhnreg_constants.py:120
-#: ../data/rh_register.glade.h:28
+#: ../data/rh_register.glade.h:83
 msgid "System software updates already set up"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
+#: ../data/rh_register.glade.h:61
 msgid "It appears this system has already been set up for software updates:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:122
+#: ../data/rh_register.glade.h:38
 msgid "Are you sure you would like to continue?"
 msgstr ""
 
@@ -534,6 +535,7 @@ msgid "Review system subscription details"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:67
 msgid "Please review the subscription details below:"
 msgstr ""
 
@@ -1119,11 +1121,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "Hiba történt: nem található az RHNS CA-fájl:"
 
-#: ../src/up2date_client/rpcServer.py:205
+#: ../src/up2date_client/rpcServer.py:203
 msgid "Connection aborted by the user"
 msgstr "A kapcsolat megszakítva a felhasználó által"
 
-#: ../src/up2date_client/rpcServer.py:250
+#: ../src/up2date_client/rpcServer.py:248
 msgid "Server has refused connection due to high load"
 msgstr "A kiszolgáló elutasította a kapcsolódást túlterheltség miatt"
 
@@ -1286,7 +1288,7 @@ msgid ""
 msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
-#: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:16
+#: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:43
 msgid "Choose Server"
 msgstr ""
 
@@ -1522,36 +1524,71 @@ msgid "       "
 msgstr "     "
 
 #: ../data/rh_register.glade.h:4
+msgid "<b>Compliance:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:5
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:6
+#, fuzzy
+msgid "<b>HTTP Proxy</b>"
+msgstr "HTTP-proxy bekapcsolása:"
+
+#: ../data/rh_register.glade.h:7
+#, fuzzy
+msgid "<b>Login:</b>"
+msgstr "Regisztrációs információ"
+
+#: ../data/rh_register.glade.h:8
+#, fuzzy
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "Red Hat Network-azonosító"
+
+#: ../data/rh_register.glade.h:9
+msgid "<b>Security &amp; Updates:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:10
+msgid "<b>Support:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:11
+msgid "<b>System ID:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:12
 msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:5
+#: ../data/rh_register.glade.h:13
 msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
 msgstr ""
 
-#: ../data/rh_register.glade.h:6
+#: ../data/rh_register.glade.h:14
 msgid ""
 "<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
 "release that is older than the most recent minor release if you select this "
 "option."
 msgstr ""
 
-#: ../data/rh_register.glade.h:7
+#: ../data/rh_register.glade.h:15
 msgid ""
 "<b>You have no active subscriptions available in your account.</b> You will "
 "need to do one of the following to create an active subscription in your "
 "account before this system can be registered:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:8
+#: ../data/rh_register.glade.h:16
 msgid "<b>Your system was registered for updates during installation.</b>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:9
+#: ../data/rh_register.glade.h:17
 msgid ""
 "<b>_All available updates</b> will be provided to this system.  This system, "
 "if kept updated, will always be equivalent to the latest available minor "
@@ -1559,18 +1596,51 @@ msgid ""
 "'Red Hat Enterprise Linux 5' software channel."
 msgstr ""
 
-#: ../data/rh_register.glade.h:10
+#: ../data/rh_register.glade.h:18
 msgid ""
 "<b>_Limited updates</b> will be provided to this system to maintain "
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:11
+#: ../data/rh_register.glade.h:19
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:12
+#: ../data/rh_register.glade.h:20
+msgid "<big><b>Profile Data</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:21
+msgid "<big><b>System Name</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:22
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:23
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:24
+#, fuzzy
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:26
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:27
 #, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
@@ -1580,64 +1650,224 @@ msgstr ""
 "látogassa meg a http://www.redhat.com/software/rhn/ weblapot.\n"
 " "
 
-#: ../data/rh_register.glade.h:14
+#: ../data/rh_register.glade.h:30
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+
+#: ../data/rh_register.glade.h:35
 #, fuzzy
 msgid "Advanced Network Configuration"
 msgstr "A Red Hat Network beállítása"
 
-#: ../data/rh_register.glade.h:15
+#: ../data/rh_register.glade.h:36
+#, fuzzy
+msgid "Advanced _Network Configuration ..."
+msgstr "A Red Hat Network beállítása"
+
+#: ../data/rh_register.glade.h:37
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:39
+msgid "CPU Model:"
+msgstr "CPU-típus:"
+
+#: ../data/rh_register.glade.h:40
+msgid "CPU Speed:"
+msgstr "CPU-sebesség:"
+
+#: ../data/rh_register.glade.h:41
+msgid "Certificate _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:42
 #, fuzzy
 msgid "Choose Channel"
 msgstr "Csatorna"
 
-#: ../data/rh_register.glade.h:17
+#: ../data/rh_register.glade.h:44
 msgid "Confirm operation system release selection"
 msgstr ""
 
-#: ../data/rh_register.glade.h:18
+#: ../data/rh_register.glade.h:46
 #, fuzzy
 msgid "Create profile"
 msgstr "Hardverprofil"
 
-#: ../data/rh_register.glade.h:19
+#: ../data/rh_register.glade.h:48
+msgid "ERROR"
+msgstr "HIBA"
+
+#: ../data/rh_register.glade.h:49
 #, fuzzy
 msgid "Enter Your Account Information"
 msgstr "Információ az azonosítóról"
 
-#: ../data/rh_register.glade.h:20
+#: ../data/rh_register.glade.h:50
 msgid "Enter in the format hostname(:port)"
 msgstr "gépnév(:port) formában adja meg"
 
-#: ../data/rh_register.glade.h:21
+#: ../data/rh_register.glade.h:51
 msgid "Hardware Info"
 msgstr "Hardverinformáció"
 
-#: ../data/rh_register.glade.h:22
+#: ../data/rh_register.glade.h:52
+msgid "Hardware Profile"
+msgstr "Hardverprofil"
+
+#: ../data/rh_register.glade.h:53
+msgid "Hostname:"
+msgstr "Gépnév:"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:57
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:58
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:59
+msgid "IP Address:"
+msgstr "IP-cím:"
+
+#: ../data/rh_register.glade.h:60
+#, fuzzy
+msgid "Installation _Number:"
+msgstr "regisztrációsSzám"
+
+#: ../data/rh_register.glade.h:62
 #, fuzzy
 msgid "Link To Subscription"
 msgstr "Leírás"
 
-#: ../data/rh_register.glade.h:23
+#: ../data/rh_register.glade.h:63
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+
+#: ../data/rh_register.glade.h:64
+msgid "Memory:"
+msgstr "Memória:"
+
+#: ../data/rh_register.glade.h:65
 msgid "Package Information"
 msgstr "Csomaginformáció"
 
-#: ../data/rh_register.glade.h:24
+#: ../data/rh_register.glade.h:66
+#, fuzzy
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr "https://rhn.redhat.com"
+
+#: ../data/rh_register.glade.h:68
 msgid "Provide a Security Certificate"
 msgstr ""
 
-#: ../data/rh_register.glade.h:25
+#: ../data/rh_register.glade.h:69
+#, fuzzy
+msgid "Proxy P_assword:"
+msgstr "Jelszó:"
+
+#: ../data/rh_register.glade.h:70
+#, fuzzy
+msgid "Proxy _Username:"
+msgstr "Felhasználónév:"
+
+#: ../data/rh_register.glade.h:71
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+
+#: ../data/rh_register.glade.h:72
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+
+#: ../data/rh_register.glade.h:73
+msgid "Red Hat Linux Version:"
+msgstr "Red Hat Linux-verzió:"
+
+#: ../data/rh_register.glade.h:74
+#, fuzzy
+msgid "Red Hat Network _Location:"
+msgstr "Red Hat Network-azonosító"
+
+#: ../data/rh_register.glade.h:75
 msgid "Review system..."
 msgstr ""
 
-#: ../data/rh_register.glade.h:26
+#: ../data/rh_register.glade.h:76
 msgid "Select A File"
 msgstr ""
 
-#: ../data/rh_register.glade.h:27
+#: ../data/rh_register.glade.h:77
+#, fuzzy
+msgid "Send _hardware profile"
+msgstr "Hardverprofil"
+
+#: ../data/rh_register.glade.h:78
+#, fuzzy
+msgid "Send _package profile"
+msgstr "_Csomaglista küldése"
+
+#: ../data/rh_register.glade.h:79
+msgid "Software update setup has been completed for this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:80
 msgid "Start Window"
 msgstr ""
 
-#: ../data/rh_register.glade.h:29
+#: ../data/rh_register.glade.h:82
+#, fuzzy
+msgid "System _Name:"
+msgstr "Vezetéknév:"
+
+#: ../data/rh_register.glade.h:84
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:85
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1652,421 +1882,58 @@ msgid ""
 "the <b>System > Administration</b> menu."
 msgstr ""
 
-#: ../data/rh_register.glade.h:35
+#: ../data/rh_register.glade.h:91
+#, fuzzy
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "Azonosítás használata"
+
+#: ../data/rh_register.glade.h:92
+#, fuzzy
+msgid "V_iew Package Profile ..."
+msgstr "Csomagprofil frissítése..."
+
+#: ../data/rh_register.glade.h:93
 #, fuzzy
 msgid "Why Register"
 msgstr "Már regisztrálva van"
 
-#: ../data/rh_register.glade.h:37
-msgid ""
-"Your system will be subscribed to the base software channel.  You will not "
-"be able to move this system to an earlier minor release channel if you "
-"continue (you will be able to move to a later release.)"
-msgstr ""
-
-#: ../data/rh_register.glade.h:38
-#, fuzzy
-msgid "_Activate a subscription now..."
-msgstr "Az előfizetés aktiválása"
-
-#: ../data/rh_register.glade.h:39
-msgid "_Minor release:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:40
-msgid "_Operating system version:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:41
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Compliance:</b>"
-msgstr "Cég:"
-
-#: ../data/rh_register.glade.h:42
-msgctxt "yes"
-msgid "<b>Downloads &amp; Upgrades:</b>"
-msgstr ""
-
-#: ../data/rh_register.glade.h:43
-#, fuzzy
-msgctxt "yes"
-msgid "<b>HTTP Proxy</b>"
-msgstr "HTTP-proxy bekapcsolása:"
-
-#: ../data/rh_register.glade.h:44
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Login:</b>"
-msgstr "Regisztrációs információ"
-
-#: ../data/rh_register.glade.h:45
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hat Network-azonosító"
-
-#: ../data/rh_register.glade.h:46
-msgctxt "yes"
-msgid "<b>Security &amp; Updates:</b>"
-msgstr ""
-
-#: ../data/rh_register.glade.h:47
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Support:</b>"
-msgstr "Regisztrációs információ"
-
-#: ../data/rh_register.glade.h:48
-#, fuzzy
-msgctxt "yes"
-msgid "<b>System ID:</b>"
-msgstr "Vezetéknév:"
-
-#: ../data/rh_register.glade.h:49
-msgctxt "yes"
-msgid "<big><b>Profile Data</b></big>"
-msgstr ""
-
-#: ../data/rh_register.glade.h:50
-msgctxt "yes"
-msgid "<big><b>System Name</b></big>"
-msgstr ""
-
-#: ../data/rh_register.glade.h:51
-#, fuzzy
-msgctxt "yes"
-msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
-
-#: ../data/rh_register.glade.h:52
-#, fuzzy
-msgctxt "yes"
-msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
-
-#: ../data/rh_register.glade.h:53
-#, fuzzy
-msgctxt "yes"
-msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
-
-#: ../data/rh_register.glade.h:54
-msgctxt "yes"
-msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
-msgstr ""
-
-#: ../data/rh_register.glade.h:55
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"<small>Tip: Forgot your login or password? Contact your Satellite's "
-"<i>Organization Administrator</i>.</small>"
-msgstr ""
-"Ha elfelejtette Red Hat-azonosítóját vagy jelszavát, akkor\n"
-"látogassa meg a http://www.redhat.com/software/rhn/ weblapot.\n"
-" "
-
-#: ../data/rh_register.glade.h:57
-#, no-c-format
-msgctxt "yes"
-msgid ""
-"A security certificate compatible with <b>%s</b> was not found on this "
-"system."
-msgstr ""
-
-#: ../data/rh_register.glade.h:58
-msgctxt "yes"
-msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
-msgstr ""
-
-#: ../data/rh_register.glade.h:59
-msgctxt "yes"
-msgid ""
-"Activate a previously purchased subscription you have not yet activated."
-msgstr ""
-
-#: ../data/rh_register.glade.h:60
-#, fuzzy
-msgctxt "yes"
-msgid "Advanced _Network Configuration ..."
-msgstr "A Red Hat Network beállítása"
-
-#: ../data/rh_register.glade.h:61
-msgctxt "yes"
-msgid ""
-"Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:62
-msgctxt "yes"
-msgid "Are you sure you would like to continue?"
-msgstr ""
-
-#: ../data/rh_register.glade.h:63
-#, fuzzy
-msgctxt "yes"
-msgid "CPU Model:"
-msgstr "CPU-típus:"
-
-#: ../data/rh_register.glade.h:64
-#, fuzzy
-msgctxt "yes"
-msgid "CPU Speed:"
-msgstr "CPU-sebesség:"
-
-#: ../data/rh_register.glade.h:65
-#, fuzzy
-msgctxt "yes"
-msgid "Certificate _Location:"
-msgstr "Red Hat Network-azonosító"
-
-#: ../data/rh_register.glade.h:66
-msgctxt "yes"
-msgid ""
-"Connecting your system to Red Hat Network allows you to take full advantage "
-"of the benefits of a paid subscription, including:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:67
-msgctxt "yes"
-msgid ""
-"Download installation images for Red Hat Enterprise Linux releases, "
-"including new releases."
-msgstr ""
-
-#: ../data/rh_register.glade.h:68
-#, fuzzy
-msgctxt "yes"
-msgid "ERROR"
-msgstr "HIBA"
-
-#: ../data/rh_register.glade.h:69
-#, fuzzy
-msgctxt "yes"
-msgid "Hardware Profile"
-msgstr "Hardverprofil"
-
-#: ../data/rh_register.glade.h:70
-#, fuzzy
-msgctxt "yes"
-msgid "Hostname:"
-msgstr "Gépnév:"
-
-#: ../data/rh_register.glade.h:71
-msgctxt "yes"
-msgid ""
-"I <b>_don't</b> have an SSL certificate. I will contact my system "
-"administrator for assistance and will register at a later time."
-msgstr ""
-
-#: ../data/rh_register.glade.h:72
-msgctxt "yes"
-msgid ""
-"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
-"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
-"below:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:73
-#, fuzzy
-msgctxt "yes"
-msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Hiba lépett fel a regisztrációs kiszolgálóval való kommunikációban:\n"
-
-#: ../data/rh_register.glade.h:74
-#, fuzzy
-msgctxt "yes"
-msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Kapcsolódás a Red Hat Networkre"
-
-#: ../data/rh_register.glade.h:75
-msgctxt "yes"
-msgid ""
-"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
-"access to a Red Hat Network Satellite or Proxy.)"
-msgstr ""
-
-#: ../data/rh_register.glade.h:76
-#, fuzzy
-msgctxt "yes"
-msgid "IP Address:"
-msgstr "IP-cím:"
-
-#: ../data/rh_register.glade.h:77
-#, fuzzy
-msgctxt "yes"
-msgid "Installation _Number:"
-msgstr "regisztrációsSzám"
-
-#: ../data/rh_register.glade.h:78
-#, fuzzy
-msgctxt "yes"
-msgid "It appears this system has already been set up for software updates:"
-msgstr "Az Up2date újraindítása"
-
-#: ../data/rh_register.glade.h:79
-msgctxt "yes"
-msgid ""
-"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
-"RHN > Subscription Management > System Entitlements."
-msgstr ""
-
-#: ../data/rh_register.glade.h:80
-#, fuzzy
-msgctxt "yes"
-msgid "Memory:"
-msgstr "Memória:"
-
-#: ../data/rh_register.glade.h:81
-#, fuzzy
-msgctxt "yes"
-msgid "Package Information"
-msgstr "Csomaginformáció"
-
-#: ../data/rh_register.glade.h:82
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
-"redhat.com/)"
-msgstr "https://rhn.redhat.com"
-
-#: ../data/rh_register.glade.h:83
-msgctxt "yes"
-msgid "Please review the subscription details below:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:84
-#, fuzzy
-msgctxt "yes"
-msgid "Proxy P_assword:"
-msgstr "Jelszó:"
-
-#: ../data/rh_register.glade.h:85
-#, fuzzy
-msgctxt "yes"
-msgid "Proxy _Username:"
-msgstr "Felhasználónév:"
-
-#: ../data/rh_register.glade.h:86
-msgctxt "yes"
-msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
-msgstr ""
-
-#: ../data/rh_register.glade.h:87
-msgctxt "yes"
-msgid ""
-"Receive the latest software updates, including security updates, keeping "
-"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
-msgstr ""
-
-#: ../data/rh_register.glade.h:88
-#, fuzzy
-msgctxt "yes"
-msgid "Red Hat Linux Version:"
-msgstr "Red Hat Linux-verzió:"
-
-#: ../data/rh_register.glade.h:89
-#, fuzzy
-msgctxt "yes"
-msgid "Red Hat Network _Location:"
-msgstr "Red Hat Network-azonosító"
-
-#: ../data/rh_register.glade.h:90
-#, fuzzy
-msgctxt "yes"
-msgid "Send _hardware profile"
-msgstr "Hardverprofil"
-
-#: ../data/rh_register.glade.h:91
-#, fuzzy
-msgctxt "yes"
-msgid "Send _package profile"
-msgstr "_Csomaglista küldése"
-
-#: ../data/rh_register.glade.h:92
-msgctxt "yes"
-msgid "Software update setup has been completed for this system."
-msgstr ""
-
-#: ../data/rh_register.glade.h:93
-msgctxt "yes"
-msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
-msgstr ""
-
-#: ../data/rh_register.glade.h:94
-#, fuzzy
-msgctxt "yes"
-msgid "System _Name:"
-msgstr "Vezetéknév:"
-
 #: ../data/rh_register.glade.h:95
-msgctxt "yes"
-msgid ""
-"This assistant will guide you through connecting your system  to Red Hat "
-"Network (RHN) for software updates, such as:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:96
-#, fuzzy
-msgctxt "yes"
-msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Azonosítás használata"
-
-#: ../data/rh_register.glade.h:97
-#, fuzzy
-msgctxt "yes"
-msgid "V_iew Package Profile ..."
-msgstr "Csomagprofil frissítése..."
-
-#: ../data/rh_register.glade.h:98
-msgctxt "yes"
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:99
-msgctxt "yes"
+#: ../data/rh_register.glade.h:96
 msgid ""
 "You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
 "b> in order to receive software updates."
 msgstr ""
 
-#: ../data/rh_register.glade.h:100
-msgctxt "yes"
+#: ../data/rh_register.glade.h:97
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
 msgstr ""
 
-#: ../data/rh_register.glade.h:101
-msgctxt "yes"
+#: ../data/rh_register.glade.h:98
 msgid ""
 "You won't be able to receive software updates, including security updates, "
-"for this system."
+"for this system.\n"
+"\n"
+"You may access the RHN registration tool by running <b>RHN Registration</b> "
+"in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in "
+"the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-msgctxt "yes"
 msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
 msgstr ""
 
 #: ../data/rh_register.glade.h:103
-msgctxt "yes"
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
@@ -2074,131 +1941,136 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:104
 #, fuzzy
-msgctxt "yes"
 msgid "Your system is not setup for software updates."
 msgstr "Az Up2date újraindítása"
 
 #: ../data/rh_register.glade.h:105
-msgctxt "yes"
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
-"secure and supported."
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:106
-msgctxt "yes"
+#: ../data/rh_register.glade.h:108
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
-"secure and supported."
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:107
-msgctxt "yes"
+#: ../data/rh_register.glade.h:111
+msgid ""
+"Your system will be subscribed to the base software channel.  You will not "
+"be able to move this system to an earlier minor release channel if you "
+"continue (you will be able to move to a later release.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:112
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
 msgstr ""
 
-#: ../data/rh_register.glade.h:108
+#: ../data/rh_register.glade.h:113
 #, fuzzy
-msgctxt "yes"
+msgid "_Activate a subscription now..."
+msgstr "Az előfizetés aktiválása"
+
+#: ../data/rh_register.glade.h:114
+#, fuzzy
 msgid "_Close"
 msgstr "Bezárás"
 
-#: ../data/rh_register.glade.h:109
+#: ../data/rh_register.glade.h:115
 #, fuzzy
-msgctxt "yes"
 msgid "_Login:"
 msgstr "_Azonosító:  "
 
-#: ../data/rh_register.glade.h:110
-msgctxt "yes"
+#: ../data/rh_register.glade.h:116
+msgid "_Minor release:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:117
 msgid "_No thanks, I'll connect later."
 msgstr ""
 
-#: ../data/rh_register.glade.h:111
+#: ../data/rh_register.glade.h:118
 #, fuzzy
-msgctxt "yes"
 msgid "_No, Cancel"
 msgstr "Mégsem"
 
-#: ../data/rh_register.glade.h:112
-msgctxt "yes"
+#: ../data/rh_register.glade.h:119
 msgid "_No, I prefer to register at a later time."
 msgstr ""
 
-#: ../data/rh_register.glade.h:113
-#, fuzzy
-msgctxt "yes"
-msgid "_Password:"
-msgstr "Jelszó:"
-
-#: ../data/rh_register.glade.h:114
-msgctxt "yes"
-msgid "_Proxy Location:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:115
-#, fuzzy
-msgctxt "yes"
-msgid "_Take me back to the registration"
-msgstr "Up2date - csomaglista (regisztráció)"
-
-#: ../data/rh_register.glade.h:116
-#, fuzzy
-msgctxt "yes"
-msgid "_Take me back to the setup process."
-msgstr "Up2date - csomaglista (regisztráció)"
-
-#: ../data/rh_register.glade.h:117
-#, fuzzy
-msgctxt "yes"
-msgid "_View Hardware Profile ..."
-msgstr "Hardverprofil"
-
-#: ../data/rh_register.glade.h:118
-#, fuzzy
-msgctxt "yes"
-msgid "_Why Should I Connect to RHN? ..."
-msgstr "Miért érdemes regisztrálni?"
-
-#: ../data/rh_register.glade.h:119
-msgctxt "yes"
-msgid "_Yes, Continue"
-msgstr ""
-
 #: ../data/rh_register.glade.h:120
-msgctxt "yes"
-msgid "_Yes, I'd like to register now."
+msgid "_Operating system version:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
-msgctxt "yes"
-msgid "label"
-msgstr "címke10"
+msgid "_Password:"
+msgstr "Jelszó:"
 
 #: ../data/rh_register.glade.h:122
-msgctxt "yes"
-msgid "•"
+msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:123
 #, fuzzy
-msgctxt "yes"
-msgid "• A name for your system's Red Hat Network profile"
-msgstr "Kapcsolódás a Red Hat Networkre"
+msgid "_Take me back to the registration"
+msgstr "Up2date - csomaglista (regisztráció)"
 
 #: ../data/rh_register.glade.h:124
-msgctxt "yes"
-msgid "• The address to your Red Hat Network Satellite (optional)"
+msgid "_Take me back to the setup process."
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
 #, fuzzy
-msgctxt "yes"
+msgid "_View Hardware Profile ..."
+msgstr "Hardverprofil"
+
+#: ../data/rh_register.glade.h:126
+#, fuzzy
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "Miért érdemes regisztrálni?"
+
+#: ../data/rh_register.glade.h:127
+msgid "_Yes, Continue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:128
+msgid "_Yes, I'd like to register now."
+msgstr ""
+
+#: ../data/rh_register.glade.h:129
+#, fuzzy
+msgid "label"
+msgstr "címke10"
+
+#: ../data/rh_register.glade.h:130
+msgid "•"
+msgstr ""
+
+#: ../data/rh_register.glade.h:131
+msgid "• A name for your system's Red Hat Network profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:132
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:133
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Új Red Hat Network-felhasználóazonosító létrehozása"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
 #, fuzzy
@@ -2605,6 +2477,10 @@ msgstr "Regisztrálás a Red Hat Networkön"
 #~ msgid "<b>Login Information:</b>"
 #~ msgstr "Regisztrációs információ"
 
+#, fuzzy
+#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
+#~ msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
+
 #~ msgid "Afghanistan"
 #~ msgstr "Afganisztán"
 
@@ -2765,6 +2641,10 @@ msgstr "Regisztrálás a Red Hat Networkön"
 #, fuzzy
 #~ msgid "Create a _New Login"
 #~ msgstr "Azonosító létrehozása"
+
+#, fuzzy
+#~ msgid "Create a new Red Hat Network login"
+#~ msgstr "Új Red Hat Network-felhasználóazonosító létrehozása"
 
 #~ msgid "Croatia"
 #~ msgstr "Horvátország"
@@ -3433,6 +3313,10 @@ msgstr "Regisztrálás a Red Hat Networkön"
 
 #, fuzzy
 #~ msgid "re-connect this system to Red Hat Network."
+#~ msgstr "Kapcsolódás a Red Hat Networkre"
+
+#, fuzzy
+#~ msgid "for your system's connection to Red Hat Network "
 #~ msgstr "Kapcsolódás a Red Hat Networkre"
 
 #, fuzzy

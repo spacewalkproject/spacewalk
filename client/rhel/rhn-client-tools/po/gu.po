@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-02 11:20+0100\n"
+"POT-Creation-Date: 2010-08-10 11:49+0200\n"
 "PO-Revision-Date: 2007-02-01 11:01+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
-"Language: gu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -71,23 +70,23 @@ msgstr "તમારે rhn_register ને રુટ તરીકે જ ચલ
 msgid "There was some sort of I/O error: %s"
 msgstr "ત્યાં અમુક પ્રમાણમાં I/O ભૂલ હતી: %s"
 
-#: ../src/up2date_client/hardware.py:677
+#: ../src/up2date_client/hardware.py:655
 msgid "Error reading cpu information:"
 msgstr "cpu જાણકારી વાંચવામાં ભૂલ:"
 
-#: ../src/up2date_client/hardware.py:684
+#: ../src/up2date_client/hardware.py:662
 msgid "Error reading system memory information:"
 msgstr "સિસ્ટમ મેમરી જાણકારી વાંચવામાં ભૂલ:"
 
-#: ../src/up2date_client/hardware.py:694
+#: ../src/up2date_client/hardware.py:672
 msgid "Error reading networking information:"
 msgstr "નેટવર્ક જાણકારી વાંચવામાં ભૂલ:"
 
-#: ../src/up2date_client/hardware.py:715
+#: ../src/up2date_client/hardware.py:693
 msgid "Error reading install method information:"
 msgstr "સ્થાપન પદ્ધતિ જાણકારી વાંચવામાં ભૂલ:"
 
-#: ../src/up2date_client/hardware.py:723
+#: ../src/up2date_client/hardware.py:701
 msgid "Error reading network interface information:"
 msgstr "નેટવર્ક ઈન્ટરફેસ જાણકારી વાંચવામાં ભૂલ:"
 
@@ -249,7 +248,7 @@ msgstr ""
 "\n"
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:36
+#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:94
 msgid "Why Should I Connect to RHN? ..."
 msgstr "મારે શા માટે RHN માં જોડાવાની જરૂર પડશે? ..."
 
@@ -257,7 +256,7 @@ msgstr "મારે શા માટે RHN માં જોડાવાની 
 msgid "Why connect to Red Hat Network?"
 msgstr "શા માટે Red Hat Network માં જોડાવું?"
 
-#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:45
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
@@ -289,7 +288,7 @@ msgstr ""
 "આ Red Hat Enterprise Linux સિસ્ટમને સુધારાયેલ અને સુરક્ષિત રાખીને સુરક્ષા સુધારાઓ "
 "સમાવીને, તાજેતરના સોફ્ટવેર સુધારાઓ મેળવી રહ્યા છીએ."
 
-#: ../src/up2date_client/rhnreg_constants.py:46
+#: ../src/up2date_client/rhnreg_constants.py:46 ../data/rh_register.glade.h:47
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
@@ -297,7 +296,7 @@ msgstr ""
 "નવા પ્રકાશનોને સમાવીને Red Hat Enterprise Linux પ્રકાશનો માટે, સ્થાપન CD ઈમેજો "
 "ડાઉનલોડ કરો."
 
-#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:33
 msgid ""
 "Access to the technical support experts at Red Hat or Red Hat's partners for "
 "help with any issues you might encounter with this system."
@@ -305,7 +304,7 @@ msgstr ""
 "તમે આ સિસ્ટમ સાથે જે કંઈપણ સમસ્યાઓ અનુભવો તેની મદદ માટે Red Hat અથવા Red Hat ના "
 "ભાગીદારો આગળ નિષ્ણાતોની ટેક્નિકલ આધારનો વપરાશ."
 
-#: ../src/up2date_client/rhnreg_constants.py:50
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:81
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
@@ -503,15 +502,17 @@ msgid "*Email Address:"
 msgstr "*ઈમેઈલ સરનામું:"
 
 #: ../src/up2date_client/rhnreg_constants.py:120
-#: ../data/rh_register.glade.h:28
+#: ../data/rh_register.glade.h:83
 msgid "System software updates already set up"
 msgstr "સોફ્ટવેર સિસ્ટમ સુધારાઓ પહેલાંથી જ સુયોજિત છે"
 
 #: ../src/up2date_client/rhnreg_constants.py:121
+#: ../data/rh_register.glade.h:61
 msgid "It appears this system has already been set up for software updates:"
 msgstr "એવું દેખાય છે કે આ સિસ્ટમ સોફ્ટવેર સુધારાઓ માટે પહેલાથી જ સુયોજિત થઈ ગયેલ છે:"
 
 #: ../src/up2date_client/rhnreg_constants.py:122
+#: ../data/rh_register.glade.h:38
 msgid "Are you sure you would like to continue?"
 msgstr "શું તમે ખરેખર ચાલુ રાખવા માંગો છો?"
 
@@ -562,6 +563,7 @@ msgid "Review system subscription details"
 msgstr "સિસ્ટમ ઉમેદવારી વિગતો રીવ્યુ કરો"
 
 #: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:67
 msgid "Please review the subscription details below:"
 msgstr "મહેરબાની કરીને ઉમેદવારી વિગતો નીચે પ્રમાણે રીવ્યુ કરો:"
 
@@ -1230,11 +1232,11 @@ msgstr ""
 msgid "ERROR: can not find RHNS CA file"
 msgstr "ભૂલ: RHNS CA ફાઈલ શોધી શકતા નથી"
 
-#: ../src/up2date_client/rpcServer.py:205
+#: ../src/up2date_client/rpcServer.py:203
 msgid "Connection aborted by the user"
 msgstr "વપરાશકર્તા દ્વારા સંપર્ક તોડી નંખાયો"
 
-#: ../src/up2date_client/rpcServer.py:250
+#: ../src/up2date_client/rpcServer.py:248
 msgid "Server has refused connection due to high load"
 msgstr "સર્વરે વધુ પડતા ભારને લીધે સંપર્ક તોડી નાંખ્યો"
 
@@ -1388,7 +1390,7 @@ msgid ""
 msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
-#: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:16
+#: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:43
 msgid "Choose Server"
 msgstr "સર્વર પસંદ કરો"
 
@@ -1596,6 +1598,38 @@ msgid "       "
 msgstr ""
 
 #: ../data/rh_register.glade.h:4
+msgid "<b>Compliance:</b>"
+msgstr "<b>સુસંગતતા:</b>"
+
+#: ../data/rh_register.glade.h:5
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr "<b>ડાઉનલોડ &amp; સુધારાઓ:</b>"
+
+#: ../data/rh_register.glade.h:6
+msgid "<b>HTTP Proxy</b>"
+msgstr "<b>HTTP પ્રોક્સી</b>"
+
+#: ../data/rh_register.glade.h:7
+msgid "<b>Login:</b>"
+msgstr "<b>પ્રવેશ:</b>"
+
+#: ../data/rh_register.glade.h:8
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "<b>Red Hat Network સ્થાન:</b>"
+
+#: ../data/rh_register.glade.h:9
+msgid "<b>Security &amp; Updates:</b>"
+msgstr "<b>સુરક્ષા &amp; સુધારાઓ:</b>"
+
+#: ../data/rh_register.glade.h:10
+msgid "<b>Support:</b>"
+msgstr "<b>આધાર:</b>"
+
+#: ../data/rh_register.glade.h:11
+msgid "<b>System ID:</b>"
+msgstr "<b>સિસ્ટમ ID:</b>"
+
+#: ../data/rh_register.glade.h:12
 msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
@@ -1603,20 +1637,20 @@ msgstr ""
 "<b>તમારી સિસ્ટમ પરનું નેટવર્ક જોડાણ સક્રિય નથી. તમારી સિસ્ટમ આ સમયે સોફ્ટવેર સુધારાઓ "
 "માટે સુયોજિત કરી શકાતી નથી.</b>"
 
-#: ../data/rh_register.glade.h:5
+#: ../data/rh_register.glade.h:13
 msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
 msgstr ""
 
-#: ../data/rh_register.glade.h:6
+#: ../data/rh_register.glade.h:14
 msgid ""
 "<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
 "release that is older than the most recent minor release if you select this "
 "option."
 msgstr ""
 
-#: ../data/rh_register.glade.h:7
+#: ../data/rh_register.glade.h:15
 msgid ""
 "<b>You have no active subscriptions available in your account.</b> You will "
 "need to do one of the following to create an active subscription in your "
@@ -1626,11 +1660,11 @@ msgstr ""
 "કરી શકાય તે પહેલાં તમારે તમારા ખાતામાં સક્રિય ઉમેદવારી બનાવવા માટે તમારે નીચેનામાંનુ એક "
 "કરવું જોઈએ:"
 
-#: ../data/rh_register.glade.h:8
+#: ../data/rh_register.glade.h:16
 msgid "<b>Your system was registered for updates during installation.</b>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:9
+#: ../data/rh_register.glade.h:17
 msgid ""
 "<b>_All available updates</b> will be provided to this system.  This system, "
 "if kept updated, will always be equivalent to the latest available minor "
@@ -1638,18 +1672,55 @@ msgid ""
 "'Red Hat Enterprise Linux 5' software channel."
 msgstr ""
 
-#: ../data/rh_register.glade.h:10
+#: ../data/rh_register.glade.h:18
 msgid ""
 "<b>_Limited updates</b> will be provided to this system to maintain "
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:11
+#: ../data/rh_register.glade.h:19
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:12
+#: ../data/rh_register.glade.h:20
+msgid "<big><b>Profile Data</b></big>"
+msgstr "<big><b>રૂપરેખા માહિતી</b></big>"
+
+#: ../data/rh_register.glade.h:21
+msgid "<big><b>System Name</b></big>"
+msgstr "<big><b>સિસ્ટમ નામ</b></big>"
+
+#: ../data/rh_register.glade.h:22
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr "<small><b>ઉદાહરણ:</b> https://satellite.example.com</small>"
+
+#: ../data/rh_register.glade.h:23
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr "<small><b>ઉદાહરણ:</b> squid.example.com:3128</small>"
+
+#: ../data/rh_register.glade.h:24
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr "<small><b>ઉદાહરણ</b>: XXXX-XXXX-XXXX-XXXX</small>"
+
+#: ../data/rh_register.glade.h:25
+#, fuzzy
+msgid ""
+"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html.</small>"
+msgstr ""
+"મદદ: Red Hat તમારા ખાનગીપણાને મૂલ્ય આપે છે: http://www.redhat.com/legal/"
+"privacy_statement.html"
+
+#: ../data/rh_register.glade.h:26
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+"<small>મદદ: શું તમારો પ્રવેશ અથવા પાસવર્ડ ભૂલી ગયા છો? તમારા સેટેલાઈટના <i>સંસ્થા "
+"સંચાલક</i> નો સંપર્ક કરો.</small>"
+
+#: ../data/rh_register.glade.h:27
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
@@ -1657,60 +1728,234 @@ msgstr ""
 "<small>મદદ: શું તમારો પ્રવેશ અથવા પાસવર્ડ ભૂલી ગયા છો? તેને અંહિ જુઓ \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#: ../data/rh_register.glade.h:14
+#: ../data/rh_register.glade.h:30
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+"<b>%s</b> સાથે સુસંગત સુરક્ષા પ્રમાણપત્ર આ સિસ્ટમ પર મળ્યું નહિં.\n"
+"\n"
+"સુરક્ષા પ્રમાણપત્ર, SSL ટેક્નોલોજીની મદદથી, એ ખાતરી કરવા માટે જરૂરી છે કે આ સિસ્ટમ અને "
+"Red Hat Network (તમારા પ્રવેશ અને પાસવર્ડનો સમાવેશ કરીને) વચ્ચે સંપર્કવ્યવહાર થયેલ "
+"માહિતી સુરક્ષિત છે."
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr "તમે પહેલાં ખરીદેલ ઉમેદવારી કે જે તમે હજુ સુધી સક્રિય કરેલ નથી તેને સક્રિય કરો."
+
+#: ../data/rh_register.glade.h:35
 msgid "Advanced Network Configuration"
 msgstr "અદ્યતન નેટવર્ક રૂપરેખાંકન"
 
-#: ../data/rh_register.glade.h:15
+#: ../data/rh_register.glade.h:36
+msgid "Advanced _Network Configuration ..."
+msgstr "અદ્યતન નેટવર્ક રૂપરેખાંકન (_N) ..."
+
+#: ../data/rh_register.glade.h:37
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+"શું તમે ખરેખર તમારી સિસ્ટમને Red Hat Network સાથે જોડવા માંગતા નથી? તમે Red Hat "
+"Enterprise Linux ઉમેદવારીના લાભો ગુમાવી બેસશો:"
+
+#: ../data/rh_register.glade.h:39
+msgid "CPU Model:"
+msgstr "CPU મોડેલ:"
+
+#: ../data/rh_register.glade.h:40
+msgid "CPU Speed:"
+msgstr "CPU ઝડપ:"
+
+#: ../data/rh_register.glade.h:41
+msgid "Certificate _Location:"
+msgstr "પ્રમાણપત્ર સ્થાન (_L):"
+
+#: ../data/rh_register.glade.h:42
 #, fuzzy
 msgid "Choose Channel"
 msgstr "સંસ્થા પસંદ કરો"
 
-#: ../data/rh_register.glade.h:17
+#: ../data/rh_register.glade.h:44
 msgid "Confirm operation system release selection"
 msgstr ""
 
-#: ../data/rh_register.glade.h:18
+#: ../data/rh_register.glade.h:46
 msgid "Create profile"
 msgstr "રૂપરેખા બનાવો"
 
-#: ../data/rh_register.glade.h:19
+#: ../data/rh_register.glade.h:48
+msgid "ERROR"
+msgstr "ભૂલ"
+
+#: ../data/rh_register.glade.h:49
 msgid "Enter Your Account Information"
 msgstr "તમારી ખાતા જાણકારી દાખલ કરો"
 
-#: ../data/rh_register.glade.h:20
+#: ../data/rh_register.glade.h:50
 msgid "Enter in the format hostname(:port)"
 msgstr "hostname(:port) બંધારણમાં દાખલ કરો"
 
-#: ../data/rh_register.glade.h:21
+#: ../data/rh_register.glade.h:51
 msgid "Hardware Info"
 msgstr "હાર્ડવેર જાણકારી"
 
-#: ../data/rh_register.glade.h:22
+#: ../data/rh_register.glade.h:52
+msgid "Hardware Profile"
+msgstr "હાર્ડવેર રુપરેખા"
+
+#: ../data/rh_register.glade.h:53
+msgid "Hostname:"
+msgstr "યજમાન નામ:"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+"મારી પાસે SSL પ્રમાણપત્ર <b>નથી</b>. સહાય માટે હું મારા સિસ્ટમ સંચાલકનો સંપર્ક કરીશ અને "
+"પછીના સમયે રજીસ્ટર કરીશ (_d)."
+
+#: ../data/rh_register.glade.h:55
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+"મારી પાસે <b>Red Hat Network સેટેલાઈટ</b> અથવા <b>Red Hat Network પ્રોક્સી</b> નો "
+"વપરાશ છે. હું સેટેલાઈટ અથવા પ્રોક્સીમાંથી નીચેથી સોફ્ટવેર સુધારાઓ મેળવવા ઈચ્છુ છું:"
+
+#: ../data/rh_register.glade.h:56
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr "Red Hat Network સાથે સંપર્ક કરવા માટે મારી પાસે <b>_SSL પ્રમાણપત્ર</b> છે:"
+
+#: ../data/rh_register.glade.h:57
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr "હું _HTTP પ્રોક્સી મારફતે Red Hat Network સાથે જોડાવા ઈચ્છુ છું."
+
+#: ../data/rh_register.glade.h:58
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+"હું <b>Red Hat Network</b> માંથી સુધારાઓ મેળવવા ઈચ્છુ છું. (મારી પાસે Red Hat Network "
+"સેટેલાઈટ અથવા પ્રોક્સીનો વપરાશ નથી.)"
+
+#: ../data/rh_register.glade.h:59
+msgid "IP Address:"
+msgstr "IP સરનામું:"
+
+#: ../data/rh_register.glade.h:60
+msgid "Installation _Number:"
+msgstr "સ્થાપન નંબર (_N):"
+
+#: ../data/rh_register.glade.h:62
 msgid "Link To Subscription"
 msgstr "ઉમેદવારીમાં કડી કરો"
 
-#: ../data/rh_register.glade.h:23
+#: ../data/rh_register.glade.h:63
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+"http://rhn.redhat.com/ માં પ્રવેશ કરો અને તમારું RHN > ઉમેદવારી વ્યવસ્થાપન > સિસ્ટમ "
+"ઉમેદવારીઓ આગળ અસક્રિય સિસ્ટમની ઉમેદવારી દૂર કરો."
+
+#: ../data/rh_register.glade.h:64
+msgid "Memory:"
+msgstr "મેમરી:"
+
+#: ../data/rh_register.glade.h:65
 msgid "Package Information"
 msgstr "પેકેજ જાણકારી"
 
-#: ../data/rh_register.glade.h:24
+#: ../data/rh_register.glade.h:66
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr ""
+"મહેરબાની કરીને <b>Red Hat Network</b> (http://rhn.redhat.com/) માટે તમારી ખાતા "
+"જાણકારી દાખલ કરો"
+
+#: ../data/rh_register.glade.h:68
 msgid "Provide a Security Certificate"
 msgstr "સુરક્ષા પ્રમાણપત્ર પૂરું પાડો"
 
-#: ../data/rh_register.glade.h:25
+#: ../data/rh_register.glade.h:69
+msgid "Proxy P_assword:"
+msgstr "પ્રોક્સી પાસવર્ડ (_a):"
+
+#: ../data/rh_register.glade.h:70
+msgid "Proxy _Username:"
+msgstr "પ્રોક્સી વપરાશકર્તાનામ (_U):"
+
+#: ../data/rh_register.glade.h:71
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+"વધારાની Red Hat Enterprise Linux ઉમેદવારી http://www.redhat.com/store/ આગળ "
+"પૂરી પાડો."
+
+#: ../data/rh_register.glade.h:72
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+"તાજેતરના સોફ્ટવેર સુધારાઓ મેળવો, સુરક્ષા સુધારાઓને સમાવીને, આ Red Hat Enterprise Linux "
+"સિસ્ટમ <b>સુધારાયેલ</b> અને <b>સુરક્ષિત</b> રાખીને."
+
+#: ../data/rh_register.glade.h:73
+msgid "Red Hat Linux Version:"
+msgstr "Red Hat લિનક્સ આવૃત્તિ:"
+
+#: ../data/rh_register.glade.h:74
+msgid "Red Hat Network _Location:"
+msgstr "Red Hat Network સ્થાન (_L):"
+
+#: ../data/rh_register.glade.h:75
 msgid "Review system..."
 msgstr "સિસ્ટમનું રીવ્યુ કરો..."
 
-#: ../data/rh_register.glade.h:26
+#: ../data/rh_register.glade.h:76
 msgid "Select A File"
 msgstr "ફાઈલ પસંદ કરો"
 
-#: ../data/rh_register.glade.h:27
+#: ../data/rh_register.glade.h:77
+msgid "Send _hardware profile"
+msgstr "હાર્ડવેર રૂપરેખા મોકલો (_h)"
+
+#: ../data/rh_register.glade.h:78
+msgid "Send _package profile"
+msgstr "પેકેજ રૂપરેખા મોકલો (_p)"
+
+#: ../data/rh_register.glade.h:79
+msgid "Software update setup has been completed for this system."
+msgstr "સોફ્ટવેર સુધારા સુયોજન આ સિસ્ટમ માટે પરિપૂર્ણ થઈ ગયેલ છે."
+
+#: ../data/rh_register.glade.h:80
 msgid "Start Window"
 msgstr "શરૂઆત વિન્ડો"
 
-#: ../data/rh_register.glade.h:29
+#: ../data/rh_register.glade.h:82
+msgid "System _Name:"
+msgstr "સિસ્ટમ નામ (_N):"
+
+#: ../data/rh_register.glade.h:84
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+"આ સહાય તમને તમારી સિસ્ટમ સોફ્ટવેર સુધારાઓ માટે Red Hat Network (RHN) સાથે જોડાવા "
+"માટે સહાય કરશે, જેમ કે:"
+
+#: ../data/rh_register.glade.h:85
 #, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
@@ -1732,440 +1977,25 @@ msgstr ""
 "તમારી વહેલી સુગમતાએ મહેરબાની કરીને રજીસ્ટર કરો. તમે આ રજીસ્ટ્રેશન સાધનને <b>સોફ્ટવેર "
 "સુધારક</b> ને <b>કાર્યક્રમો > સિસ્ટમ સાધનો</b> મેનુમાં ચલાવીને વાપરી શકશો."
 
-#: ../data/rh_register.glade.h:35
-msgid "Why Register"
-msgstr "કેમ રજીસ્ટર કરવું છે"
-
-#: ../data/rh_register.glade.h:37
-msgid ""
-"Your system will be subscribed to the base software channel.  You will not "
-"be able to move this system to an earlier minor release channel if you "
-"continue (you will be able to move to a later release.)"
-msgstr ""
-
-#: ../data/rh_register.glade.h:38
-msgid "_Activate a subscription now..."
-msgstr "ઉમેદવારી હમણાં જ સક્રિય કરો (_A)..."
-
-#: ../data/rh_register.glade.h:39
-msgid "_Minor release:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:40
-msgid "_Operating system version:"
-msgstr ""
-
-#: ../data/rh_register.glade.h:41
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Compliance:</b>"
-msgstr "<b>સુસંગતતા:</b>"
-
-#: ../data/rh_register.glade.h:42
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Downloads &amp; Upgrades:</b>"
-msgstr "<b>ડાઉનલોડ &amp; સુધારાઓ:</b>"
-
-#: ../data/rh_register.glade.h:43
-#, fuzzy
-msgctxt "yes"
-msgid "<b>HTTP Proxy</b>"
-msgstr "<b>HTTP પ્રોક્સી</b>"
-
-#: ../data/rh_register.glade.h:44
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Login:</b>"
-msgstr "<b>પ્રવેશ:</b>"
-
-#: ../data/rh_register.glade.h:45
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Red Hat Network Location:</b>"
-msgstr "<b>Red Hat Network સ્થાન:</b>"
-
-#: ../data/rh_register.glade.h:46
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Security &amp; Updates:</b>"
-msgstr "<b>સુરક્ષા &amp; સુધારાઓ:</b>"
-
-#: ../data/rh_register.glade.h:47
-#, fuzzy
-msgctxt "yes"
-msgid "<b>Support:</b>"
-msgstr "<b>આધાર:</b>"
-
-#: ../data/rh_register.glade.h:48
-#, fuzzy
-msgctxt "yes"
-msgid "<b>System ID:</b>"
-msgstr "<b>સિસ્ટમ ID:</b>"
-
-#: ../data/rh_register.glade.h:49
-#, fuzzy
-msgctxt "yes"
-msgid "<big><b>Profile Data</b></big>"
-msgstr "<big><b>રૂપરેખા માહિતી</b></big>"
-
-#: ../data/rh_register.glade.h:50
-#, fuzzy
-msgctxt "yes"
-msgid "<big><b>System Name</b></big>"
-msgstr "<big><b>સિસ્ટમ નામ</b></big>"
-
-#: ../data/rh_register.glade.h:51
-#, fuzzy
-msgctxt "yes"
-msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "<small><b>ઉદાહરણ:</b> https://satellite.example.com</small>"
-
-#: ../data/rh_register.glade.h:52
-#, fuzzy
-msgctxt "yes"
-msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "<small><b>ઉદાહરણ:</b> squid.example.com:3128</small>"
-
-#: ../data/rh_register.glade.h:53
-#, fuzzy
-msgctxt "yes"
-msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "<small><b>ઉદાહરણ</b>: XXXX-XXXX-XXXX-XXXX</small>"
-
-#: ../data/rh_register.glade.h:54
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
-msgstr ""
-"મદદ: Red Hat તમારા ખાનગીપણાને મૂલ્ય આપે છે: http://www.redhat.com/legal/"
-"privacy_statement.html"
-
-#: ../data/rh_register.glade.h:55
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"<small>Tip: Forgot your login or password? Contact your Satellite's "
-"<i>Organization Administrator</i>.</small>"
-msgstr ""
-"<small>મદદ: શું તમારો પ્રવેશ અથવા પાસવર્ડ ભૂલી ગયા છો? તમારા સેટેલાઈટના <i>સંસ્થા "
-"સંચાલક</i> નો સંપર્ક કરો.</small>"
-
-#: ../data/rh_register.glade.h:57
-#, no-c-format
-msgctxt "yes"
-msgid ""
-"A security certificate compatible with <b>%s</b> was not found on this "
-"system."
-msgstr ""
-
-#: ../data/rh_register.glade.h:58
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
-msgstr ""
-"તમે આ સિસ્ટમ સાથે જે કંઈપણ સમસ્યાઓ અનુભવો તેની મદદ માટે Red Hat અથવા Red Hat ના "
-"ભાગીદારો આગળ નિષ્ણાતોની ટેક્નિકલ આધારનો વપરાશ."
-
-#: ../data/rh_register.glade.h:59
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Activate a previously purchased subscription you have not yet activated."
-msgstr "તમે પહેલાં ખરીદેલ ઉમેદવારી કે જે તમે હજુ સુધી સક્રિય કરેલ નથી તેને સક્રિય કરો."
-
-#: ../data/rh_register.glade.h:60
-#, fuzzy
-msgctxt "yes"
-msgid "Advanced _Network Configuration ..."
-msgstr "અદ્યતન નેટવર્ક રૂપરેખાંકન (_N) ..."
-
-#: ../data/rh_register.glade.h:61
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-msgstr ""
-"શું તમે ખરેખર તમારી સિસ્ટમને Red Hat Network સાથે જોડવા માંગતા નથી? તમે Red Hat "
-"Enterprise Linux ઉમેદવારીના લાભો ગુમાવી બેસશો:"
-
-#: ../data/rh_register.glade.h:62
-#, fuzzy
-msgctxt "yes"
-msgid "Are you sure you would like to continue?"
-msgstr "શું તમે ખરેખર ચાલુ રાખવા માંગો છો?"
-
-#: ../data/rh_register.glade.h:63
-#, fuzzy
-msgctxt "yes"
-msgid "CPU Model:"
-msgstr "CPU મોડેલ:"
-
-#: ../data/rh_register.glade.h:64
-#, fuzzy
-msgctxt "yes"
-msgid "CPU Speed:"
-msgstr "CPU ઝડપ:"
-
-#: ../data/rh_register.glade.h:65
-#, fuzzy
-msgctxt "yes"
-msgid "Certificate _Location:"
-msgstr "પ્રમાણપત્ર સ્થાન (_L):"
-
-#: ../data/rh_register.glade.h:66
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Connecting your system to Red Hat Network allows you to take full advantage "
-"of the benefits of a paid subscription, including:"
-msgstr ""
-"તમારી સિસ્ટમને Red Hat Network સલાથે જોડવાનું તમને ચૂકવણી ઉમેદવારીના પૂરેપૂરો લાભો "
-"ઉઠાવવા માટે પરવાનગી આપે છે, આ બધું સમાવીને:"
-
-#: ../data/rh_register.glade.h:67
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Download installation images for Red Hat Enterprise Linux releases, "
-"including new releases."
-msgstr ""
-"નવા પ્રકાશનોને સમાવીને Red Hat Enterprise Linux પ્રકાશનો માટે, સ્થાપન CD ઈમેજો "
-"ડાઉનલોડ કરો."
-
-#: ../data/rh_register.glade.h:68
-#, fuzzy
-msgctxt "yes"
-msgid "ERROR"
-msgstr "ભૂલ"
-
-#: ../data/rh_register.glade.h:69
-#, fuzzy
-msgctxt "yes"
-msgid "Hardware Profile"
-msgstr "હાર્ડવેર રુપરેખા"
-
-#: ../data/rh_register.glade.h:70
-#, fuzzy
-msgctxt "yes"
-msgid "Hostname:"
-msgstr "યજમાન નામ:"
-
-#: ../data/rh_register.glade.h:71
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"I <b>_don't</b> have an SSL certificate. I will contact my system "
-"administrator for assistance and will register at a later time."
-msgstr ""
-"મારી પાસે SSL પ્રમાણપત્ર <b>નથી</b>. સહાય માટે હું મારા સિસ્ટમ સંચાલકનો સંપર્ક કરીશ અને "
-"પછીના સમયે રજીસ્ટર કરીશ (_d)."
-
-#: ../data/rh_register.glade.h:72
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
-"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
-"below:"
-msgstr ""
-"મારી પાસે <b>Red Hat Network સેટેલાઈટ</b> અથવા <b>Red Hat Network પ્રોક્સી</b> નો "
-"વપરાશ છે. હું સેટેલાઈટ અથવા પ્રોક્સીમાંથી નીચેથી સોફ્ટવેર સુધારાઓ મેળવવા ઈચ્છુ છું:"
-
-#: ../data/rh_register.glade.h:73
-#, fuzzy
-msgctxt "yes"
-msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Red Hat Network સાથે સંપર્ક કરવા માટે મારી પાસે <b>_SSL પ્રમાણપત્ર</b> છે:"
-
-#: ../data/rh_register.glade.h:74
-#, fuzzy
-msgctxt "yes"
-msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "હું _HTTP પ્રોક્સી મારફતે Red Hat Network સાથે જોડાવા ઈચ્છુ છું."
-
-#: ../data/rh_register.glade.h:75
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
-"access to a Red Hat Network Satellite or Proxy.)"
-msgstr ""
-"હું <b>Red Hat Network</b> માંથી સુધારાઓ મેળવવા ઈચ્છુ છું. (મારી પાસે Red Hat Network "
-"સેટેલાઈટ અથવા પ્રોક્સીનો વપરાશ નથી.)"
-
-#: ../data/rh_register.glade.h:76
-#, fuzzy
-msgctxt "yes"
-msgid "IP Address:"
-msgstr "IP સરનામું:"
-
-#: ../data/rh_register.glade.h:77
-#, fuzzy
-msgctxt "yes"
-msgid "Installation _Number:"
-msgstr "સ્થાપન નંબર (_N):"
-
-#: ../data/rh_register.glade.h:78
-#, fuzzy
-msgctxt "yes"
-msgid "It appears this system has already been set up for software updates:"
-msgstr "એવું દેખાય છે કે આ સિસ્ટમ સોફ્ટવેર સુધારાઓ માટે પહેલાથી જ સુયોજિત થઈ ગયેલ છે:"
-
-#: ../data/rh_register.glade.h:79
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
-"RHN > Subscription Management > System Entitlements."
-msgstr ""
-"http://rhn.redhat.com/ માં પ્રવેશ કરો અને તમારું RHN > ઉમેદવારી વ્યવસ્થાપન > સિસ્ટમ "
-"ઉમેદવારીઓ આગળ અસક્રિય સિસ્ટમની ઉમેદવારી દૂર કરો."
-
-#: ../data/rh_register.glade.h:80
-#, fuzzy
-msgctxt "yes"
-msgid "Memory:"
-msgstr "મેમરી:"
-
-#: ../data/rh_register.glade.h:81
-#, fuzzy
-msgctxt "yes"
-msgid "Package Information"
-msgstr "પેકેજ જાણકારી"
-
-#: ../data/rh_register.glade.h:82
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
-"redhat.com/)"
-msgstr ""
-"મહેરબાની કરીને <b>Red Hat Network</b> (http://rhn.redhat.com/) માટે તમારી ખાતા "
-"જાણકારી દાખલ કરો"
-
-#: ../data/rh_register.glade.h:83
-#, fuzzy
-msgctxt "yes"
-msgid "Please review the subscription details below:"
-msgstr "મહેરબાની કરીને ઉમેદવારી વિગતો નીચે પ્રમાણે રીવ્યુ કરો:"
-
-#: ../data/rh_register.glade.h:84
-#, fuzzy
-msgctxt "yes"
-msgid "Proxy P_assword:"
-msgstr "પ્રોક્સી પાસવર્ડ (_a):"
-
-#: ../data/rh_register.glade.h:85
-#, fuzzy
-msgctxt "yes"
-msgid "Proxy _Username:"
-msgstr "પ્રોક્સી વપરાશકર્તાનામ (_U):"
-
-#: ../data/rh_register.glade.h:86
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
-msgstr ""
-"વધારાની Red Hat Enterprise Linux ઉમેદવારી http://www.redhat.com/store/ આગળ "
-"પૂરી પાડો."
-
-#: ../data/rh_register.glade.h:87
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Receive the latest software updates, including security updates, keeping "
-"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
-msgstr ""
-"તાજેતરના સોફ્ટવેર સુધારાઓ મેળવો, સુરક્ષા સુધારાઓને સમાવીને, આ Red Hat Enterprise Linux "
-"સિસ્ટમ <b>સુધારાયેલ</b> અને <b>સુરક્ષિત</b> રાખીને."
-
-#: ../data/rh_register.glade.h:88
-#, fuzzy
-msgctxt "yes"
-msgid "Red Hat Linux Version:"
-msgstr "Red Hat લિનક્સ આવૃત્તિ:"
-
-#: ../data/rh_register.glade.h:89
-#, fuzzy
-msgctxt "yes"
-msgid "Red Hat Network _Location:"
-msgstr "Red Hat Network સ્થાન (_L):"
-
-#: ../data/rh_register.glade.h:90
-#, fuzzy
-msgctxt "yes"
-msgid "Send _hardware profile"
-msgstr "હાર્ડવેર રૂપરેખા મોકલો (_h)"
-
 #: ../data/rh_register.glade.h:91
-#, fuzzy
-msgctxt "yes"
-msgid "Send _package profile"
-msgstr "પેકેજ રૂપરેખા મોકલો (_p)"
-
-#: ../data/rh_register.glade.h:92
-#, fuzzy
-msgctxt "yes"
-msgid "Software update setup has been completed for this system."
-msgstr "સોફ્ટવેર સુધારા સુયોજન આ સિસ્ટમ માટે પરિપૂર્ણ થઈ ગયેલ છે."
-
-#: ../data/rh_register.glade.h:93
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
-msgstr ""
-"તમારા ઉમેદવારી મંજૂરીપત્ર સાથે સુસંગત થયેલ રહો અને http://rhn.redhat.com આગળ તમારા "
-"ખાતા સાથે જોડાયેલ સિસ્ટમો માટે ઉમેદવારીઓની વ્યવસ્થા કરો."
-
-#: ../data/rh_register.glade.h:94
-#, fuzzy
-msgctxt "yes"
-msgid "System _Name:"
-msgstr "સિસ્ટમ નામ (_N):"
-
-#: ../data/rh_register.glade.h:95
-#, fuzzy
-msgctxt "yes"
-msgid ""
-"This assistant will guide you through connecting your system  to Red Hat "
-"Network (RHN) for software updates, such as:"
-msgstr ""
-"આ સહાય તમને તમારી સિસ્ટમ સોફ્ટવેર સુધારાઓ માટે Red Hat Network (RHN) સાથે જોડાવા "
-"માટે સહાય કરશે, જેમ કે:"
-
-#: ../data/rh_register.glade.h:96
-#, fuzzy
-msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "HTTP પ્રોક્સી સાથે સત્તાધિકરણ વાપરો (_t):"
 
-#: ../data/rh_register.glade.h:97
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:92
 msgid "V_iew Package Profile ..."
 msgstr "પેકેજ રૂપરેખા જુઓ (_i) ..."
 
-#: ../data/rh_register.glade.h:98
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:93
+msgid "Why Register"
+msgstr "કેમ રજીસ્ટર કરવું છે"
+
+#: ../data/rh_register.glade.h:95
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr "શું તમે તમારી સિસ્ટમ આ સમયે રજીસ્ટર કરવા ઈચ્છો છો? <b>(ખૂબ આગ્રહણીય.)</b>"
 
-#: ../data/rh_register.glade.h:99
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:96
 msgid ""
 "You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
@@ -2175,9 +2005,7 @@ msgstr ""
 "redhat.com/) અથવા <b>Red Hat Network સેટેલાઈટ</b> અથવા <b>Red Hat Network "
 "પ્રોક્સી</b> માં જોડી શકશો."
 
-#: ../data/rh_register.glade.h:100
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:97
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
@@ -2185,19 +2013,24 @@ msgstr ""
 "તમે તમારી સિસ્ટમને Red Hat Network સાથે જોડ્યા વિના આ ઉમેદવારીઓના વિશેષાધિકારોના "
 "લાભો ઉઠાવવા માટે સમર્થ હશો <b>નહિં</b>."
 
-#: ../data/rh_register.glade.h:101
+#: ../data/rh_register.glade.h:98
 #, fuzzy
-msgctxt "yes"
 msgid ""
 "You won't be able to receive software updates, including security updates, "
-"for this system."
+"for this system.\n"
+"\n"
+"You may access the RHN registration tool by running <b>RHN Registration</b> "
+"in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in "
+"the <b>System > Administration</b> menu."
 msgstr ""
-"આ Red Hat Enterprise Linux સિસ્ટમને સુધારાયેલ અને સુરક્ષિત રાખીને સુરક્ષા સુધારાઓ "
-"સમાવીને, તાજેતરના સોફ્ટવેર સુધારાઓ મેળવી રહ્યા છીએ."
+"આ સિસ્ટમ માટે તમે, સુરક્ષા સુધારાઓને સમાવીને, સોફ્ટવેર સુધારાઓ મેળવવા માટે સમર્થ હશો નહિં.\n"
+"\n"
+"તમારી સિસ્ટમને સુધારાયેલ, સુરક્ષિત, અને આધારભૂત રાખવા માટે, મહેરબાની કરીને આ સિસ્ટમને "
+"તમારી સુગમતાએ RHN સાથે જોડો. કાર્યક્રમો > સિસ્ટમ સાધનો મેનુમાંથી સોફ્ટવેર સુધારક ચલાવીને "
+"તમે ગમે તે સમયે આ સોફ્ટવેર સુધારાઓ સુયોજન સાધનનો વપરાશ કરી શકશો."
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
-msgctxt "yes"
 msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
@@ -2206,8 +2039,6 @@ msgstr ""
 "રહેશે કે જેથી અમે નક્કી કરી શકીએ કે કયા સુધારાઓ ઉપલબ્ધ છે."
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
-msgctxt "yes"
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
@@ -2216,34 +2047,50 @@ msgstr ""
 "ઓળખવા સમર્થ થઈ શકશો."
 
 #: ../data/rh_register.glade.h:104
-#, fuzzy
-msgctxt "yes"
 msgid "Your system is not setup for software updates."
 msgstr "તમારી સિસ્ટમ એ સોફ્ટવેર સુધારાઓ માટે સુયોજિત થયેલ નથી."
 
 #: ../data/rh_register.glade.h:105
-#, fuzzy
-msgctxt "yes"
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
-"secure and supported."
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
 msgstr ""
-"તમારી સિસ્ટમને ઉમેદવારીના વપરાશની જરૂર રહેશે. આ તમને તમારી સિસ્ટમ સુધારાયેલ, સુરક્ષિત, "
-"અને આધારભૂત રાખવા માટે પરવાનગી આપશે."
+"તમારી સિસ્ટમ હવે સોફ્ટવેર સુધારાઓ મેળવવા માટે તૈયાર છે કે જે તેને સુરક્ષિત અને આધારભૂત રાખે.\n"
+"\n"
+"તમને ખબર પડી જશે કે ક્યારે સોફ્ટવેર સુધારાઓ ઉપલબ્ધ છે જ્યારે પેકેજ ચિહ્ન તમારી ડેસ્કટોપના સૂચક "
+"વિસ્તારમાં દેખાય (સામાન્ય રીતે ઉપર-જમણા ખૂણે, નીચે વતૃળ કરાયેલ). આ ચિહ્ન પર ક્લિક કરવાનું, "
+"જ્યારે ઉપલબ્ધ હોય, તે તમને કોઈપણ સુધારાઓ લાગુ કરવા મારફતે મદદ કરશે કે જે ઉપલબ્ધ છે:"
 
-#: ../data/rh_register.glade.h:106
+#: ../data/rh_register.glade.h:108
 #, fuzzy
-msgctxt "yes"
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
-"secure and supported."
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
 msgstr ""
-"તમારી સિસ્ટમને ઉમેદવારીના વપરાશની જરૂર રહેશે. આ તમને તમારી સિસ્ટમ સુધારાયેલ, સુરક્ષિત, "
-"અને આધારભૂત રાખવા માટે પરવાનગી આપશે."
+"તમારી સિસ્ટમ હવે સોફ્ટવેર સુધારાઓ મેળવવા માટે તૈયાર છે કે જે તેને સુરક્ષિત અને આધારભૂત રાખે.\n"
+"\n"
+"તમને ખબર પડી જશે કે ક્યારે સોફ્ટવેર સુધારાઓ ઉપલબ્ધ છે જ્યારે પેકેજ ચિહ્ન તમારી ડેસ્કટોપના સૂચક "
+"વિસ્તારમાં દેખાય (સામાન્ય રીતે ઉપર-જમણા ખૂણે, નીચે વતૃળ કરાયેલ). આ ચિહ્ન પર ક્લિક કરવાનું, "
+"જ્યારે ઉપલબ્ધ હોય, તે તમને કોઈપણ સુધારાઓ લાગુ કરવા મારફતે મદદ કરશે કે જે ઉપલબ્ધ છે:"
 
-#: ../data/rh_register.glade.h:107
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:111
+msgid ""
+"Your system will be subscribed to the base software channel.  You will not "
+"be able to move this system to an earlier minor release channel if you "
+"continue (you will be able to move to a later release.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:112
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
@@ -2251,111 +2098,87 @@ msgstr ""
 "તમારી સિસ્ટમને ઉમેદવારીના વપરાશની જરૂર રહેશે. આ તમને તમારી સિસ્ટમ સુધારાયેલ, સુરક્ષિત, "
 "અને આધારભૂત રાખવા માટે પરવાનગી આપશે."
 
-#: ../data/rh_register.glade.h:108
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:113
+msgid "_Activate a subscription now..."
+msgstr "ઉમેદવારી હમણાં જ સક્રિય કરો (_A)..."
+
+#: ../data/rh_register.glade.h:114
 msgid "_Close"
 msgstr "બંધ કરો (_C)"
 
-#: ../data/rh_register.glade.h:109
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:115
 msgid "_Login:"
 msgstr "પ્રવેશ (_L):"
 
-#: ../data/rh_register.glade.h:110
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:116
+msgid "_Minor release:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:117
 msgid "_No thanks, I'll connect later."
 msgstr "વાંધો નહિં, હું પછીથી જોડાઈશ (_N)."
 
-#: ../data/rh_register.glade.h:111
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:118
 msgid "_No, Cancel"
 msgstr "ના, રદ કરો (_N)"
 
-#: ../data/rh_register.glade.h:112
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:119
 msgid "_No, I prefer to register at a later time."
 msgstr "ના, હું પછીના સમયે રજીસ્ટર કરવાને પ્રાધાન્ય આપું છું (_N)."
 
-#: ../data/rh_register.glade.h:113
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:120
+msgid "_Operating system version:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:121
 msgid "_Password:"
 msgstr "પાસવર્ડ (_P):"
 
-#: ../data/rh_register.glade.h:114
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:122
 msgid "_Proxy Location:"
 msgstr "પ્રોક્સી સ્થાન (_P):"
 
-#: ../data/rh_register.glade.h:115
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:123
 msgid "_Take me back to the registration"
 msgstr "મને પાછા રજીસ્ટ્રેશન પર લઈ જાવ (_T)"
 
-#: ../data/rh_register.glade.h:116
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:124
 msgid "_Take me back to the setup process."
 msgstr "મને પાછા સુયોજન પ્રક્રિયા પર લઈ જાવ (_T)."
 
-#: ../data/rh_register.glade.h:117
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:125
 msgid "_View Hardware Profile ..."
 msgstr "હાર્ડવેર રૂપરેખા જુઓ (_V) ..."
 
-#: ../data/rh_register.glade.h:118
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:126
 msgid "_Why Should I Connect to RHN? ..."
 msgstr "મારે શા માટે RHN સાથે જોડાવાની જરૂર છે? (_W)..."
 
-#: ../data/rh_register.glade.h:119
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:127
 msgid "_Yes, Continue"
 msgstr "હા, ચાલુ રાખો (_Y)"
 
-#: ../data/rh_register.glade.h:120
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:128
 msgid "_Yes, I'd like to register now."
 msgstr "હા, હું હમણાં રજીસ્ટર કરવા માંગુ છું (_Y)."
 
-#: ../data/rh_register.glade.h:121
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:129
 msgid "label"
 msgstr "લેબલ"
 
-#: ../data/rh_register.glade.h:122
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:130
 msgid "•"
 msgstr "•"
 
-#: ../data/rh_register.glade.h:123
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:131
 msgid "• A name for your system's Red Hat Network profile"
 msgstr "• તમારી સિસ્ટમની Red Hat Network રૂપરેખાનું નામ"
 
-#: ../data/rh_register.glade.h:124
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:132
 msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr "• તમારા Red Hat Network સેટેલાઈટનું નામ (વૈકલ્પિક)"
 
-#: ../data/rh_register.glade.h:125
-#, fuzzy
-msgctxt "yes"
+#: ../data/rh_register.glade.h:133
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• તમારું Red Hat Network અથવા Red Hat Network સેટેલાઈટ પ્રવેશ "
 
@@ -2372,72 +2195,6 @@ msgstr ""
 #, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Red Hat નેટવર્ક સાથે નોંધણી કરાવો"
-
-#~ msgid ""
-#~ "A security certificate compatible with <b>%s</b> was not found on this "
-#~ "system.\n"
-#~ "\n"
-#~ "A security certificate, using SSL technology, is necessary to ensure that "
-#~ "data communicated between this system and Red Hat Network (including your "
-#~ "login and password) is secure."
-#~ msgstr ""
-#~ "<b>%s</b> સાથે સુસંગત સુરક્ષા પ્રમાણપત્ર આ સિસ્ટમ પર મળ્યું નહિં.\n"
-#~ "\n"
-#~ "સુરક્ષા પ્રમાણપત્ર, SSL ટેક્નોલોજીની મદદથી, એ ખાતરી કરવા માટે જરૂરી છે કે આ સિસ્ટમ "
-#~ "અને Red Hat Network (તમારા પ્રવેશ અને પાસવર્ડનો સમાવેશ કરીને) વચ્ચે સંપર્કવ્યવહાર થયેલ "
-#~ "માહિતી સુરક્ષિત છે."
-
-#, fuzzy
-#~ msgid ""
-#~ "You won't be able to receive software updates, including security "
-#~ "updates, for this system.\n"
-#~ "\n"
-#~ "You may access the RHN registration tool by running <b>RHN Registration</"
-#~ "b> in the <b>System > Administration</b> menu.\n"
-#~ "You may access the software update tool by running <b>Software Update</b> "
-#~ "in the <b>System > Administration</b> menu."
-#~ msgstr ""
-#~ "આ સિસ્ટમ માટે તમે, સુરક્ષા સુધારાઓને સમાવીને, સોફ્ટવેર સુધારાઓ મેળવવા માટે સમર્થ હશો "
-#~ "નહિં.\n"
-#~ "\n"
-#~ "તમારી સિસ્ટમને સુધારાયેલ, સુરક્ષિત, અને આધારભૂત રાખવા માટે, મહેરબાની કરીને આ સિસ્ટમને "
-#~ "તમારી સુગમતાએ RHN સાથે જોડો. કાર્યક્રમો > સિસ્ટમ સાધનો મેનુમાંથી સોફ્ટવેર સુધારક "
-#~ "ચલાવીને તમે ગમે તે સમયે આ સોફ્ટવેર સુધારાઓ સુયોજન સાધનનો વપરાશ કરી શકશો."
-
-#~ msgid ""
-#~ "Your system is now ready to receive the software updates that will keep "
-#~ "it secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of your desktop (usually in the upper-"
-#~ "right corner, circled below.) Clicking on this icon, when available, will "
-#~ "guide you through applying any updates that are available:"
-#~ msgstr ""
-#~ "તમારી સિસ્ટમ હવે સોફ્ટવેર સુધારાઓ મેળવવા માટે તૈયાર છે કે જે તેને સુરક્ષિત અને આધારભૂત "
-#~ "રાખે.\n"
-#~ "\n"
-#~ "તમને ખબર પડી જશે કે ક્યારે સોફ્ટવેર સુધારાઓ ઉપલબ્ધ છે જ્યારે પેકેજ ચિહ્ન તમારી ડેસ્કટોપના "
-#~ "સૂચક વિસ્તારમાં દેખાય (સામાન્ય રીતે ઉપર-જમણા ખૂણે, નીચે વતૃળ કરાયેલ). આ ચિહ્ન પર ક્લિક "
-#~ "કરવાનું, જ્યારે ઉપલબ્ધ હોય, તે તમને કોઈપણ સુધારાઓ લાગુ કરવા મારફતે મદદ કરશે કે જે "
-#~ "ઉપલબ્ધ છે:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your system is ready to receive the software updates that will keep it "
-#~ "secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of your desktop (usually in the upper-"
-#~ "right corner, circled below.) Clicking on this icon, when available, will "
-#~ "guide you through applying any updates that are available:"
-#~ msgstr ""
-#~ "તમારી સિસ્ટમ હવે સોફ્ટવેર સુધારાઓ મેળવવા માટે તૈયાર છે કે જે તેને સુરક્ષિત અને આધારભૂત "
-#~ "રાખે.\n"
-#~ "\n"
-#~ "તમને ખબર પડી જશે કે ક્યારે સોફ્ટવેર સુધારાઓ ઉપલબ્ધ છે જ્યારે પેકેજ ચિહ્ન તમારી ડેસ્કટોપના "
-#~ "સૂચક વિસ્તારમાં દેખાય (સામાન્ય રીતે ઉપર-જમણા ખૂણે, નીચે વતૃળ કરાયેલ). આ ચિહ્ન પર ક્લિક "
-#~ "કરવાનું, જ્યારે ઉપલબ્ધ હોય, તે તમને કોઈપણ સુધારાઓ લાગુ કરવા મારફતે મદદ કરશે કે જે "
-#~ "ઉપલબ્ધ છે:"
 
 #~ msgid "Warning:"
 #~ msgstr "ચેતવણી:"
