@@ -56,6 +56,7 @@ install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cluster.ini $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
+install -m 644 cobbler-proxy.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
 install -m 755 rhn-proxy-activate $RPM_BUILD_ROOT%{_bindir}
 install -m 644 rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
