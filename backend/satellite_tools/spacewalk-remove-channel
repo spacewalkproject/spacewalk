@@ -255,9 +255,8 @@ def __kickstartCheck(labels):
 def __listChannels():
     sql = """
         select c1.label, c2.label parent_channel 
-        from rhnChannel c1, rhnChannel c2
-        where c1.parent_channel = c2.id (+) and
-              (C1.org_id is null or C2.org_id is null)
+        from rhnChannel c1 left outer join rhnChannel c2 on c1.parent_channel = c2.id
+        where C1.org_id is null or C2.org_id is null
         order by c2.label desc, c1.label asc
     """
     h = rhnSQL.prepare(sql)
