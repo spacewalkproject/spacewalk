@@ -166,6 +166,8 @@ install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
+touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
+
 %if  0%{?rhel} && 0%{?rhel} < 6
 rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-wsgi.conf
 rm -rfv $RPM_BUILD_ROOT%{rhnroot}/wsgi/
@@ -294,6 +296,8 @@ fi
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
 %attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+# this file is created by either cli or webui installer
+%ghost %config %{httpdconf}/cobbler-proxy.conf
 %if  0%{?rhel} && 0%{?rhel} < 6
 %attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
 %else
