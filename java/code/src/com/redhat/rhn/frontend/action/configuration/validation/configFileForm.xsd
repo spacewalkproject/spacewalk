@@ -27,12 +27,14 @@
 	</attribute>
 	<attribute name="cffMacroStart">
 		<simpleType baseType="string">
+            <requiredIf field="binary" value="false"/>
 			<minLength value="1" />
 			<maxLength value="3" />
 		</simpleType>
 	</attribute>
 	<attribute name="cffMacroEnd">
 		<simpleType baseType="string">
+            <requiredIf field="binary" value="false"/>
 			<minLength value="1" />
 			<maxLength value="3" />
 		</simpleType>

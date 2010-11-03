@@ -733,16 +733,11 @@ public class ConfigurationFactory extends HibernateFactory {
 
         //Steps 2-4
         if (revision.isFile()) {
-            String delimStart = null;
-            String delimEnd = null;
-            if (!revision.getConfigContent().isBinary()) {
-                delimStart = revision.getConfigContent().getDelimStart();
-                delimEnd = revision.getConfigContent().getDelimEnd();
-            }
             revision.setConfigContent(
                     createNewContentFromStream(stream, size,
                             revision.getConfigContent().isBinary(),
-                                delimStart, delimEnd));
+                            revision.getConfigContent().getDelimStart(),
+                            revision.getConfigContent().getDelimEnd()));
         }
 
         //Step 5
@@ -797,10 +792,8 @@ public class ConfigurationFactory extends HibernateFactory {
         Checksum newChecksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(foo), "md5");
         content.setChecksum(newChecksum);
         content.setBinary(isBinary);
-        if (!isBinary) {
-            content.setDelimEnd(delimEnd);
-            content.setDelimStart(delimStart);
-        }
+        content.setDelimStart(delimStart);
+        content.setDelimEnd(delimEnd);
         return content;
     }
 
