@@ -1,5 +1,3 @@
-%{!?__redhat_release:%define __redhat_release 2.1AS}
-
 Name: spacewalk-config
 Summary: Spacewalk Configuration
 Version: 1.2.4
