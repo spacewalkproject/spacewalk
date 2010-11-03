@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.56
+Version: 1.2.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 03 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.57-1
+- merged simple sql fetches into a single command
+- merged channelManagePermission() and revokeChannelPermission()
+- every function calls get('session') and _validate_session(session)
+- merged duplicated code into _get_file_revision()
+- moved duplicate code for 'dists' and 'release' to a procedure
+
 * Wed Nov 03 2010 Lukas Zapletal 1.2.56-1
 - Adding one parameter to to_number functions to be PG compatible
 - Fixing query in dumper to be PostgreSQL compatible 
