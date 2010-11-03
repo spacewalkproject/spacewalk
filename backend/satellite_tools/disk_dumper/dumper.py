@@ -897,13 +897,12 @@ class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
                cp.beta channel_product_beta,
                c.receiving_updates,
                ct.label checksum_type
-          from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp,
-               rhnChecksumType ct
+          from rhnChannel c left outer join rhnChannel pc on c.parent_channel = pc.id
+               left outer join rhnChannelProduct cp on c.channel_product_id = cp.id
+               left outer join rhnChecksumType ct on c.checksum_type_id = ct.id,
+               rhnChannelArch ca
          where c.id = :channel_id
            and c.channel_arch_id = ca.id
-           and c.parent_channel = pc.id (+)
-           and c.channel_product_id = cp.id (+)
-           and c.checksum_type_id = ct.id (+)
     """)
     def __init__(self, writer, channels):
         h = rhnSQL.prepare(self._query_list_channels)
