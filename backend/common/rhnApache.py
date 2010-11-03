@@ -220,7 +220,7 @@ class rhnApache:
         # translation object falls back to printing the original string, which
         # is pretty much the same as translating to en
         cat.setlangs(self.lang)
-        log_debug(3, rootdir, self.lang, self.domain)
+        log_debug(3, self.lang, self.domain)
 
     def getlang(self):
         """

@@ -26,12 +26,12 @@ class Loader:
 
     def load(self, dir, interface_signature='rpcClasses'):
         # The key we use for caching
+        root_dir = "/usr/share/rhn"
         key = (dir, root_dir, interface_signature)
 
         if self._imports.has_key(key):
             return self._imports[key]
 
-        root_dir = "/usr/share/rhn"
         dirname = "%s/%s" % (root_dir, dir)
 
         # We need to import things
@@ -95,4 +95,4 @@ def load(dir, root_dir = None, interface_signature='rpcClasses'):
     """
 
     l = Loader()
-    return l.load(dir, root_dir=root_dir, interface_signature=interface_signature)
+    return l.load(dir, interface_signature=interface_signature)
