@@ -218,7 +218,7 @@ public class KickstartWizardHelper {
      * @param ksdata the ksdata to which the key command has to be aded or removed..
      */
     public void processSkipKey(KickstartData ksdata) {
-        if (ksdata.isRhel5OrGreater()) {
+        if (ksdata.isRhel5()) {
             KickstartCommand command = ksdata.getCommand("key");
             if (command == null) {
                 createCommand("key", "--skip", ksdata);

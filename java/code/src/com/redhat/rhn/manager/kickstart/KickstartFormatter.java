@@ -263,6 +263,7 @@ public class KickstartFormatter {
         buf.append(getPrePost(KickstartScript.TYPE_POST));
         buf.append(NEWLINE);
         buf.append("%post"); //new %post for last kernel stuff
+        buf.append(NEWLINE);
         addCobblerSnippet(buf, "post_install_kernel_options");
         addCobblerSnippet(buf, "koan_environment");
         buf.append(MOTD_FOOTER);
