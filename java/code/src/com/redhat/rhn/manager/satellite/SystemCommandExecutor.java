@@ -30,11 +30,30 @@ public class SystemCommandExecutor implements Executor {
 
     private String lastCommandOutput;
     private String lastCommandError;
+    private boolean logError;
 
     /**
      * Logger for this class
      */
     private final Logger logger = Logger.getLogger(this.getClass());
+
+    /**
+     * Constructor
+     */
+    public SystemCommandExecutor() {
+        logError = true;
+    }
+
+    /**
+     * Whether to log errors as an ERROR within log4j
+     *  Even if this is set to false, the error will still be logged
+     *  with DEBUG priority
+     * @param toLog true to log as an error
+     */
+    public void setLogError(boolean toLog) {
+        logError = toLog;
+    }
+
 
     /**
      * {@inheritDoc}
@@ -58,9 +77,17 @@ public class SystemCommandExecutor implements Executor {
 
             lastCommandError = inputStreamToString(p.getErrorStream());
             if (lastCommandError != null && lastCommandError.trim().length() > 0) {
-                logger.error("Error encountered executing (args=" +
-                             Arrays.asList(args) + ")");
-                logger.error("Error message from process: " + lastCommandError);
+                String msg1 = "Error encountered executing (args=" +
+                        Arrays.asList(args) + ")";
+                String msg2 = "Error message from process: " + lastCommandError;
+                if (logError) {
+                    logger.error(msg1);
+                    logger.error(msg2);
+                }
+                else {
+                    logger.debug(msg1);
+                    logger.debug(msg2);
+                }
             }
 
             try {

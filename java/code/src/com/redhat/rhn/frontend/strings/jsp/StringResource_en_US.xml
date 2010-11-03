@@ -22961,6 +22961,12 @@ given channel.</source>
 	 <trans-unit id="debuginfo.external">
 	   <source>Note:  A local debuginfo rpm could not be found.  The above links to an external FTP server and may not be valid.</source>
 	 </trans-unit>
+	<trans-unit id="channel.jsp.changelog.title">
+	        <source>Change Log</source>
+	 </trans-unit>
+	 <trans-unit id="channel.jsp.changelog.error">
+        <source>There was an error reading the selected package changelog.  Please check that the package physically exists and has the correct permissions.</source>
+     </trans-unit>
   </body>
   </file>
 </xliff>

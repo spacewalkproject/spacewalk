@@ -7002,6 +7002,13 @@
 		<forward name="package" path="/software/packages/Details.do" redirect="true"/>
       </action>
 
+   <action path="/software/packages/ChangeLog"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.PackageChangeLogAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/changelog.jsp" />
+      </action>
+
 
 <!-- Repo Sync -->
 

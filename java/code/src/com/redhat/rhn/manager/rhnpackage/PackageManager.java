@@ -49,12 +49,14 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1333,6 +1335,32 @@ public class PackageManager extends BaseManager {
 
         DataResult result = m.execute(params);
         return result;
+    }
+
+
+    /**
+     * Gets a package changelog from the file system
+     * @param pkg the package to get
+     * @return the changelog as a string or null if package isn't readable/doesn't exist
+     */
+    public static String getPackageChangeLog(Package pkg) {
+
+        File f = new File(Config.get().getString(ConfigDefaults.MOUNT_POINT),
+                            pkg.getPath());
+        if (!f.canRead()) {
+                return null;
+        }
+
+        List<String> cmd = new ArrayList<String>();
+        cmd.add(Config.get().getString("rpm.path", "/bin/rpm"));
+        cmd.add("-qp");
+        cmd.add("--changelog");
+        cmd.add(f.getPath());
+
+        SystemCommandExecutor ce = new SystemCommandExecutor();
+        ce.setLogError(false);
+        ce.execute(cmd.toArray(new String[0]));
+        return ce.getLastCommandOutput();
     }
 
 }
