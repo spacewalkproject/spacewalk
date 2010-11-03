@@ -50,10 +50,10 @@ use constant DEFAULT_RHN_ETC_DIR =>
   '/etc/sysconfig/rhn';
 
 use constant DEFAULT_SATCON_DICT =>
-  '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf';
+  '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf';
 
 use constant DEFAULT_RHN_SATCON_TREE =>
-  '/etc/sysconfig/rhn-satellite-prep/etc';
+  '/var/lib/rhn/rhn-satellite-prep/etc';
 
 use constant DEFAULT_BACKUP_DIR =>
    '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;

@@ -21,7 +21,7 @@ Requires(preun): initscripts
 # We need package httpd to be able to assign group apache in files section
 Requires: httpd
 
-%define prepdir %{_sysconfdir}/sysconfig/rhn-satellite-prep
+%define prepdir %{_sharedstatedir}/rhn/rhn-satellite-prep
 
 %description
 Spacewalk Configuration Templates
@@ -74,6 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
 %config(noreplace) %{_sysconfdir}/pki/tls/certs/spacewalk.crt
 %config(noreplace) %{_sysconfdir}/satname
+%{_sharedstatedir}/rhn
 %{prepdir}
 %doc LICENSE
 

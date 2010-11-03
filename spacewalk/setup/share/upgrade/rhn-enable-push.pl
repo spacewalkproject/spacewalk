@@ -81,7 +81,7 @@ $config_opts{jabberDOTpassword} = 'rhn-dispatcher-' . PXT::Utils->random_passwor
 $config_opts{osadispatcherDOTosa_ssl_cert} = $opts{'pub-ssl-cert'} || '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT';
 
 RHN::SatInstall->write_config(\%config_opts,
-			      '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+			      '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf');
 
 print "Deploying config\n";
 

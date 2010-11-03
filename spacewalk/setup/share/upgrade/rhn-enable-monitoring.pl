@@ -92,7 +92,7 @@ $config_opts{monitoringDOTsmonDOTtestfqdn} = 'localhost';
 $config_opts{monitoringDOTscout_shared_key} = $scout_shared_key;
 
 RHN::SatInstall->write_config(\%config_opts,
-			      '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+			      '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf');
 
 print "Deploying config\n";
 

@@ -49,7 +49,7 @@ scp -r ./backend/satellite_tools $SWHOST:/usr/share/rhn/
 
 scp ./spacewalk/admin/rhn-populate-database.pl $SWHOST:/usr/bin/rhn-populate-database.pl
 
-scp ./spacewalk/config/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf $SWHOST:/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf
+scp ./spacewalk/config/var/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf $SWHOST:/var/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf
 scp ./web/conf/rhn_web.conf $SWHOST:/etc/rhn/default/rhn_web.conf
 
 echo ""
