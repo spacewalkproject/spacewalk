@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.86
+Version: 1.2.87
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 03 2010 Lukas Zapletal 1.2.87-1
+- Using general nextval function in ssm operation queries 
+- fixing some fedora 14 provisioning issues 
+
 * Tue Nov 02 2010 Lukas Zapletal 1.2.86-1
 - Removing unnecessary JSPF fragment file 
 
