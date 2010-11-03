@@ -229,7 +229,7 @@ class ApacheServer(BaseApacheServer):
             raise rhnException("Invalid server version string %s"
                 % server_version)
 
-        if client_major != server_major or server_minor < client_minor:
+        if client_major != server_major:
             raise rhnFault(3012, "Client version %s does not match"
                 " server version %s" % (client_version, server_version),
                 explain=0)
