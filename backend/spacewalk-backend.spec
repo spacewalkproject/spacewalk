@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.54
+Version: 1.2.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 03 2010 Jan Pazdziora 1.2.55-1
+- fixed couple of root_dir leftovers from commit
+  6a6e58f490b97f941687b56f38e29aad1d6ed69f (michael.mraka@redhat.com)
+
 * Tue Nov 02 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.54-1
 - remove RootDir (msuchy@redhat.com)
 - fixing package push error 'Not all variables bound', 'ORGID'
