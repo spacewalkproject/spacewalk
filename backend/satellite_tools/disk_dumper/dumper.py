@@ -100,13 +100,12 @@ class XML_Dumper:
             select c.id channel_id, c.label,
 	           ct.label as checksum_type,
                    TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
-              from rhnChannel c, rhnChannelFamilyMembers cfm,
-	           rhnChecksumType ct,
+              from rhnChannel c left outer join rhnChecksumType ct on c.checksum_type_id = ct.id,
+	           rhnChannelFamilyMembers cfm,
                    (%s
                    ) scf
              where scf.channel_family_id = cfm.channel_family_id
                and cfm.channel_id = c.id
-	       and c.checksum_type_id = ct.id(+)
         """ % self._channel_family_query
         return DatabaseStatement().set_statement(rhnSQL.prepare(query))
 
@@ -713,12 +712,10 @@ class ChannelsDumper(exportLib.ChannelsDumper):
                ct.label checksum_type,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified, 
                pc.label parent_channel
-          from rhnChannel c, rhnChannelArch ca, rhnChannel pc,
-               rhnChecksumType ct
+          from rhnChannel c left outer join rhnChannel pc on c.parent_channel = pc.id
+               left outer join rhnChecksumType ct on c.checksum_type_id = ct.id, rhnChannelArch ca
          where c.id = :channel_id
            and c.channel_arch_id = ca.id
-           and c.parent_channel = pc.id (+)
-           and c.checksum_type_id = ct.id (+)
     """)
 
     def __init__(self, writer, channels=[], start_date=None, end_date=None):
