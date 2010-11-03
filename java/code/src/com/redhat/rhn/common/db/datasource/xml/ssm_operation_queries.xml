@@ -63,7 +63,7 @@
 <!-- Returns the next value in the operation sequence. -->
 <mode name="get_seq_nextval">
    <query>
-      SELECT rhn_ss_op_seq.nextval
+      SELECT sequence_nextval('rhn_ss_op_seq')
         FROM dual
    </query>
 </mode>
