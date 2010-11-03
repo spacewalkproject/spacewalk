@@ -77,7 +77,7 @@ public class ChannelRepodataDriver implements QueueDriver {
      */
     public List getCandidates() {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                "repomd_driver_query");
+                TaskConstants.TASK_QUERY_REPOMD_DRIVER_QUERY);
 
         Map params = new HashMap();
         List<Object> retval = new LinkedList<Object>();

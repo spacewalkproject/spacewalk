@@ -65,10 +65,14 @@ public class TaskConstants {
     public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA =
         "errataqueue_dequeue_errata";
 
+    public static final String TASK_QUERY_REPOMD_DRIVER_QUERY =
+        "repomd_driver_query";
+
     public static final String TASK_QUERY_REPOMD_DEQUEUE =
         "repomd_dequeue";
 
-    public static final String TASK_QUERY_REPOMD_DETAILS_QUERY = "repomd_details_query";
+    public static final String TASK_QUERY_REPOMD_DETAILS_QUERY =
+        "repomd_details_query";
 
     public static final String TASK_QUERY_REPOMD_MARK_IN_PROGRESS =
         "repomd_mark_in_progress";
