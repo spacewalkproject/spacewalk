@@ -31,10 +31,10 @@ class ChannelsDumper(exportLib.ChannelsDumper):
                c.summary, c.description,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified,
                pc.label parent_channel
-          from rhnChannel c, rhnChannelArch ca, rhnChannel pc
+          from rhnChannel c left outer join rhnChannel pc on c.parent_channel = pc.id,
+               rhnChannelArch ca
          where c.label = :channel
            and c.channel_arch_id = ca.id
-           and c.parent_channel = pc.id (+)
     """)
 
     def set_iterator(self):
