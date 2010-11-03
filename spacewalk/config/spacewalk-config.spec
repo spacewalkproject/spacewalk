@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.4
+Version: 1.2.5
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -90,6 +90,11 @@ fi
 
 
 %changelog
+* Wed Nov 03 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
+- code cleanup - no one use Red Hat Enterprise Linux 2AS
+- 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
+  satellite-prep
+
 * Fri Oct 29 2010 Jan Pazdziora 1.2.4-1
 - removed unused Spacewalk (Certificate Signing Key) <jmrodri@nc.rr.com> key
   from keyring (michael.mraka@redhat.com)
