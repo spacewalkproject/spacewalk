@@ -51,7 +51,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self._compressed_stream = None
         # Redefine in subclasses
         self._channel_family_query = """
-            select pcf.channel_family_id, to_number(null) quantity
+            select pcf.channel_family_id, to_number(null, null) quantity
               from rhnPublicChannelFamily pcf
         """
 

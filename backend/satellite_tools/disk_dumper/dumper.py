@@ -63,11 +63,11 @@ class XML_Dumper:
         self.llimit = None
         self.ulimit = None
         self._channel_family_query = """
-             select cf.id channel_family_id, to_number(null) quantity
+             select cf.id channel_family_id, to_number(null, null) quantity
              from rhnChannelFamily cf
         """
         #self._channel_family_query = """
-        #    select pcf.channel_family_id, to_number(null) quantity
+        #    select pcf.channel_family_id, to_number(null, null) quantity
         #      from rhnPublicChannelFamily pcf
         #"""
 
