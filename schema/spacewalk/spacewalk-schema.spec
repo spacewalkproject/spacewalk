@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.63
+Version:        1.2.64
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Nov 03 2010 Jan Pazdziora 1.2.64-1
+- correct the rule for rhnUser (mzazrivec@redhat.com)
+- define rhnUser as a view of web_customer (mzazrivec@redhat.com)
+
 * Tue Nov 02 2010 Jan Pazdziora 1.2.63-1
 - Update copyright years in schema/.
 
