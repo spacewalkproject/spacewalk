@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.55
+Version: 1.2.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 03 2010 Lukas Zapletal 1.2.56-1
+- Adding one parameter to to_number functions to be PG compatible
+- Fixing query in dumper to be PostgreSQL compatible 
+- Rewriting SQL JOIN to ANSI syntax in test-dump-channel 
+- Rewriting SQL JOIN to ANSI syntax in exporter 
+- Rewriting SQL JOIN to ANSI syntax in disk_dumper 
+- Rewriting SQL JOIN to ANSI syntax in spacewalk-remove-channel
+- 644239 - do not check minor version of xml_dump_version 
+
 * Wed Nov 03 2010 Jan Pazdziora 1.2.55-1
 - fixed couple of root_dir leftovers from commit
   6a6e58f490b97f941687b56f38e29aad1d6ed69f (michael.mraka@redhat.com)
