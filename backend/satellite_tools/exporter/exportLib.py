@@ -1023,18 +1023,15 @@ class _ErratumDumper(BaseRowDumper):
         arr.append(_ErratumBuglistDumper(self._writer, data_iterator=h))
         _query_errata_file_info = """
              select ef.id errata_file_id, c.checksum_type, c.checksum,
-                    ef.filename, eft.label type,
-                    efp.package_id, efps.package_id source_package_id
-               from rhnErrataFile ef, rhnErrataFileType eft,
-                    rhnErrataFilePackage efp, rhnErrataFilePackageSource efps,
-                    rhnChecksumView c
+                    ef.filename, eft.label as type,
+                    efp.package_id, efps.package_id as source_package_id
+               from rhnErrataFile ef left outer join rhnErrataFilePackage efp on ef.id = efp.errata_file_id
+                    left outer join rhnErrataFilePackageSource efps on ef.id = efps.errata_file_id,
+                    rhnErrataFileType eft, rhnChecksumView c
               where ef.errata_id = :errata_id
                 and ef.type = eft.id
                 and ef.checksum_id = c.id
                 %s
-                and ef.id = efp.errata_file_id (+)
-                and ef.id = efps.errata_file_id (+)
-
         """  
         h = rhnSQL.prepare(_query_errata_file_info % self.type_id_column)
         h.execute(errata_id=self._row['id'])
