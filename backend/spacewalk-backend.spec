@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.58
+Version: 1.2.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Nov 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.59-1
+- merged import / download loop code into procedure
+- merged several Traceback blocks
+- merged StreamProducer setup into its constructor
+- moved channel printing code to _printChannel()
+- moved progress bar blocks into function
+
 * Thu Nov 04 2010 Lukas Zapletal 1.2.58-1
 - Adding missing colon in channelImport.py 
 
