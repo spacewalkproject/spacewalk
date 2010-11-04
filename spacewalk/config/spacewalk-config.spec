@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
+%dir %{_var}/lib/cobbler/
+%dir %{_var}/lib/cobbler/kickstarts/
+%dir %{_var}/lib/cobbler/snippets/
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
 %attr(0750,root,apache) %dir %{_sysconfdir}/rhn
