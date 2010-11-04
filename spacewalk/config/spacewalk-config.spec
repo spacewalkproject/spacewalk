@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.5
+Version: 1.2.6
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -95,6 +95,19 @@ fi
 
 
 %changelog
+* Thu Nov 04 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.6-1
+- 491331 move /etc/rhn/satellite-httpd/conf/satidmap.pl to
+  /usr/share/rhn/satidmap.pl
+- 491331 - do not list duplicates in %%files
+- 491331 - require openssl
+- 491331 - we should own /var/lib/cobbler
+- 491331 - _sharedstatedir expands on el5 to /usr/com instead of expected
+  /var/lib/ as on fedora or EL6
+- 491331 - %%description should end with a dot (and could be a little more
+  elaborate)
+- 491331 - use %%global instead of %%define
+- 491331 - use correct buildroot
+
 * Wed Nov 03 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
 - code cleanup - no one use Red Hat Enterprise Linux 2AS
 - 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
