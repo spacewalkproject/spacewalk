@@ -17,7 +17,7 @@ sub clusterIdFromKey
 		$ua->agent("SatIDXL8r/1.0 ");
 		my $req = HTTP::Request->new(GET => "http://localhost/cgi-bin/translate_key.cgi?scout_shared_key=$key");
 		$req->content_type('application/x-www-form-urlencoded');
-	
+
 		# alarm around this else apache can hang
 		my $res;
 		eval {
@@ -26,7 +26,7 @@ sub clusterIdFromKey
 			$res = $ua->request($req);
 			alarm 0;
 		};
-		
+
 		if ($res->is_success) {
 			my $id = $res->content;
 			chomp($id);

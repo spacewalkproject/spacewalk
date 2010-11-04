@@ -37,6 +37,7 @@ rm -Rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
 mv var $RPM_BUILD_ROOT/
+mv usr $RPM_BUILD_ROOT/
 
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      | tar -C $RPM_BUILD_ROOT -xvf -
@@ -55,7 +56,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
@@ -77,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/pki/tls/certs/spacewalk.crt
 %config(noreplace) %{_sysconfdir}/satname
 %{_var}/lib/rhn
+%dir %{_prefix}/share/rhn
+%attr(0755,root,root) %{_prefix}/share/rhn/satidmap.pl
 %doc LICENSE
 
 %pre
