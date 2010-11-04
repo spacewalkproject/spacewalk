@@ -58,8 +58,8 @@ class YumAction(yum.YumBase):
 
     def __init__(self):
         yum.YumBase.__init__(self)
-        cfg = config.initUp2dateConfig()
-        self.doConfigSetup(debuglevel=cfg["debug"])
+        self.cfg = config.initUp2dateConfig()
+        self.doConfigSetup(debuglevel=self.cfg["debug"])
         self.cache_only = None
 
         self.doTsSetup()
@@ -96,8 +96,7 @@ class YumAction(yum.YumBase):
                     errstring += '  %s: %s\n' % (key, error)
             raise yum.Errors.YumBaseError, errstring
 
-        cfg = config.initUp2dateConfig()
-        if cfg['retrieveOnly']:
+        if self.cfg['retrieveOnly']:
             # We are configured to only download packages, so
             # skip rest of transaction work and return now.
             log.log_debug('Configured to "retrieveOnly" so skipping package install')
