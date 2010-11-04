@@ -22,7 +22,7 @@ Requires: httpd
 %global prepdir %{_sharedstatedir}/rhn/rhn-satellite-prep
 
 %description
-Spacewalk Configuration Templates
+Common Spacewalk configuration files and templates.
 
 %prep
 %setup -q
