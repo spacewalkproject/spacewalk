@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.57
+Version: 1.2.58
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Nov 04 2010 Lukas Zapletal 1.2.58-1
+- Adding missing colon in channelImport.py 
+
 * Wed Nov 03 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.57-1
 - merged simple sql fetches into a single command
 - merged channelManagePermission() and revokeChannelPermission()
