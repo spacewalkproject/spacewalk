@@ -19,7 +19,7 @@ Requires(preun): initscripts
 # We need package httpd to be able to assign group apache in files section
 Requires: httpd
 
-%define prepdir %{_sharedstatedir}/rhn/rhn-satellite-prep
+%global prepdir %{_sharedstatedir}/rhn/rhn-satellite-prep
 
 %description
 Spacewalk Configuration Templates
