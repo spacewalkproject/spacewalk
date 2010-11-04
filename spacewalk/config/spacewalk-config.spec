@@ -18,6 +18,7 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 # We need package httpd to be able to assign group apache in files section
 Requires: httpd
+Requires: openssl
 
 %global prepdir %{_var}/lib/rhn/rhn-satellite-prep
 
