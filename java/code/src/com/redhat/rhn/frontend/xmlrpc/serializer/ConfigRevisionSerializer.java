@@ -109,23 +109,19 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
             helper.add(PERMISSIONS, rev.getConfigInfo().getFilemode());
             helper.add(PERMISSIONS_MODE, new DecimalFormat("000").format(
                 rev.getConfigInfo().getFilemode().longValue()));
-
+        }
+        else {
+            helper.add(TARGET_PATH, rev.getConfigInfo().getTargetFileName().getPath());
         }
 
         if (rev.isFile()) {
+            helper.add(BINARY, rev.getConfigContent().isBinary());
+            helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
             if (!rev.getConfigContent().isBinary()) {
-                helper.add(BINARY, Boolean.FALSE);
                 helper.add(CONTENTS, rev.getConfigContent().getContentsString());
-            }
-            else {
-                helper.add(BINARY, Boolean.TRUE);
                 helper.add(MACRO_START, rev.getConfigContent().getDelimStart());
                 helper.add(MACRO_END, rev.getConfigContent().getDelimEnd());
             }
-            helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
-        }
-        else if (rev.isSymlink()) {
-            helper.add(TARGET_PATH, rev.getConfigInfo().getTargetFileName().getPath());
         }
         helper.add("channel", rev.getConfigFile().getConfigChannel().getName());
         helper.writeTo(output);
