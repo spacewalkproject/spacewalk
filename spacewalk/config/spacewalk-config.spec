@@ -77,7 +77,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/pki/tls/certs/spacewalk.crt
 %config(noreplace) %{_sysconfdir}/satname
 %{_var}/lib/rhn
-%{prepdir}
 %doc LICENSE
 
 %pre
