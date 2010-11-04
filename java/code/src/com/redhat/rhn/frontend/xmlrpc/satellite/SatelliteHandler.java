@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.satellite;
 
+import com.redhat.rhn.common.client.ClientCertificate;
+import com.redhat.rhn.common.client.ClientCertificateDigester;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
@@ -27,11 +29,18 @@ import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -186,7 +195,7 @@ public class SatelliteHandler extends BaseHandler {
      * @xmlrpc.returntype #param("boolean", "True if monitoring is enabled")
      */
 
-    public int isMonitoringEnabledBySystemId(String clientcert)
+    public boolean isMonitoringEnabledBySystemId(String clientcert)
         throws MethodInvalidParamException {
 
         StringReader rdr = new StringReader(clientcert);
