@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.xmlrpc.satellite;
 
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.ClientCertificateDigester;
+import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
@@ -57,7 +58,7 @@ import java.util.Map;
  * @xmlrpc.doc Provides methods to obtain details on the Satellite.
  */
 public class SatelliteHandler extends BaseHandler {
-
+    private static Logger log = Logger.getLogger(SatelliteHandler.class);
 
     /**
      * List all proxies on the Satellite for the current org
