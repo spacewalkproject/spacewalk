@@ -122,7 +122,7 @@ class ChannelImport(Import):
         #release
         self.__postprocessChannelMaps(channel, 'release')
 
-    def __postprocessChannelMaps(self, channel, map)
+    def __postprocessChannelMaps(self, channel, map):
         if channel.has_key(map) and channel[map] is not None:
             for dict in channel[map]:
                 arch = dict['channel_arch']
