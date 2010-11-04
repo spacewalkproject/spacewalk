@@ -769,7 +769,7 @@ ORDER BY  E.update_date DESC, E.id
   <query params="org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-         NVL(((SELECT 1
+         COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -796,7 +796,7 @@ ORDER BY update_date DESC, E.id
   <query params="org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-         NVL(((SELECT 1
+         COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -833,7 +833,7 @@ ORDER BY update_date DESC, E.id
   <query params="channel_id, org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-         NVL(((SELECT 1
+         COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -861,7 +861,7 @@ ORDER BY update_date DESC, E.id
   <query params="channel_id, org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-                  NVL(((SELECT 1
+                  COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
