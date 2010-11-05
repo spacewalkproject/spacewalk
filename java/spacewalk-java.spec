@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.92
+Version: 1.2.93
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 05 2010 Lukas Zapletal 1.2.93-1
+- Two config queries are ported to PostgreSQL 
+- rewriting INSERT ALL in insert_channel_packages_in_set (PG)
+
 * Thu Nov 04 2010 Lukas Zapletal 1.2.92-1
 - Replacing 4 occurances of NVL with ANSI COALESCE 
 - 645842 - return macro delims for config files 
