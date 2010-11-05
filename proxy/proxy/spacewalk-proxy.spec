@@ -58,7 +58,7 @@ Obsoletes: rhn-apache < 1.4.0
 Provides: rhn-apache = 1:%{version}
 
 %description management
-Spacewalk Management Proxy components.
+This package require all needed packages for Spacewalk Proxy Server.
 
 %package broker
 Group:   Applications/Internet
@@ -83,12 +83,12 @@ Obsoletes: rhns-proxy-broker < 5.3.0
 
 
 %description broker
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of 
 resources to package update and deployment.
 
-This package includes module, which request is cacheable and should
+This package includes module, which request is cache-able and should
 be sent to Squid and which should be sent directly to parent Spacewalk
 server.
 
