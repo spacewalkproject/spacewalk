@@ -100,7 +100,7 @@ Requires: httpd
 Obsoletes: rhns-proxy-redirect < 5.3.0
 
 %description redirect
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
@@ -124,7 +124,7 @@ Requires: policycoreutils
 Obsoletes: rhns-proxy-common < 5.3.0
 
 %description common
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
@@ -145,7 +145,7 @@ Obsoletes: rhn_package_manager < 5.3.0
 Obsoletes: rhns-proxy-package-manager < 5.3.0
 
 %description package-manager
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
