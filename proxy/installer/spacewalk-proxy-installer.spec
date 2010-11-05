@@ -74,6 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %{defaultdir}/cluster.ini
 %{defaultdir}/squid.conf
 %{defaultdir}/rhn.conf
+%{defaultdir}/cobbler-proxy.conf
 %{_usr}/sbin/configure-proxy.sh
 %{_mandir}/man8/*
 %dir %{_usr}/share/rhn/installer
