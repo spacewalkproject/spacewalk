@@ -268,7 +268,7 @@ fi
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
 %attr(770,root,apache) %dir %{_var}/log/rhn
-%config(noreplace) %{_sysconfdir}/logrotate.d/rhn_proxy_redirect
+%config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-redirect
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
