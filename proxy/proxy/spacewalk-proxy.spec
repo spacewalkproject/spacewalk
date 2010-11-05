@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.13
+Version: 1.2.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -332,6 +332,10 @@ fi
 
 
 %changelog
+* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.14-1
+- 514253 - file cobbler-proxy.conf should have owner, winner is spacewalk-
+  proxy-common (msuchy@redhat.com)
+
 * Wed Nov 03 2010 Jan Pazdziora 1.2.13-1
 - remove RootDir (msuchy@redhat.com)
 
