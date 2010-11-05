@@ -363,7 +363,7 @@ fi
 - fix typo in macro (msuchy@redhat.com)
 
 * Wed Oct 13 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
-- 640195 - put upgrade script to %posttrans (msuchy@redhat.com)
+- 640195 - put upgrade script to %%posttrans (msuchy@redhat.com)
 
 * Wed Oct 13 2010 Jan Pazdziora 1.2.4-1
 - bump up version of proxy (msuchy@redhat.com)
