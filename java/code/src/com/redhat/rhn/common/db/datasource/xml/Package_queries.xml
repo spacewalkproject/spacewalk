@@ -1446,11 +1446,11 @@ SELECT P.id, PE.epoch, PE.version, PE.release
 
 <write-mode name="insert_channel_packages_in_set">
   <query params="cid, set_label, user_id">
-    INSERT ALL INTO rhnChannelPackage(channel_id, package_id) VALUES (:cid, pid)
-    select element  as pid
-    from rhnSet S
-    	where S.user_id = :user_id and
-    			S.label = :set_label
+    INSERT INTO rhnChannelPackage(channel_id, package_id)
+        SELECT :cid, element
+        FROM rhnSet S
+        WHERE S.user_id = :user_id
+        AND S.label = :set_label
   </query>
 </write-mode>
 
