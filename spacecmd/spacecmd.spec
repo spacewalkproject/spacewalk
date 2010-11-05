@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.2.1
+Version:     1.2.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Nov 05 2010 Aron Parsons <aparsons@redhat.com> 1.2.2-1
+- spacecmd: fixed exception in kickstart_create due to typo
+  (aparsons@redhat.com)
+
 * Fri Oct 29 2010 Aron Parsons <aparsons@redhat.com> 1.2.1-1
 - renamed system_addchildchannel to system_addchildchannels and
   system_removechildchannel to system_removechildchannels for consistency
