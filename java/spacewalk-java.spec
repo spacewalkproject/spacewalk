@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.93
+Version: 1.2.94
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 05 2010 Tomas Lestach <tlestach@redhat.com> 1.2.94-1
+- removing insert of NULL value(PG) (tlestach@redhat.com)
+
 * Fri Nov 05 2010 Lukas Zapletal 1.2.93-1
 - Two config queries are ported to PostgreSQL 
 - rewriting INSERT ALL in insert_channel_packages_in_set (PG)
