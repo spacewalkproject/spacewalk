@@ -256,7 +256,7 @@ fi
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
 %attr(770,root,apache) %dir %{_var}/log/rhn
-%config(noreplace) %{_sysconfdir}/logrotate.d/rhn_proxy_broker
+%config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-broker
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
