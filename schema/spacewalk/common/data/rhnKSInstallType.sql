@@ -46,4 +46,8 @@ insert into rhnKSInstallType (id, label, name)
         values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'generic_rpm','Generic RPM'
         );
+insert into rhnKSInstallType (id, label, name)
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
+                'suse','SUSE Linux'
+        );
 commit;
