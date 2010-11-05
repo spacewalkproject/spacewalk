@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.2.4
+Version:        1.2.5
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
+- set correct context on satidmap.pl (msuchy@redhat.com)
+
 * Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.4-1
 - 491331 move /etc/rhn/satellite-httpd/conf/satidmap.pl to
   /usr/share/rhn/satidmap.pl (msuchy@redhat.com)
