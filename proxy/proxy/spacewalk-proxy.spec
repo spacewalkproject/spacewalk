@@ -258,21 +258,21 @@ fi
 %attr(770,root,apache) %dir %{_var}/log/rhn
 %config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-broker
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %{rhnconf}/default/rhn_proxy_broker.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(755,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %{rhnconf}/default/rhn_proxy_broker.conf
 
 %files redirect
 %defattr(-,root,root)
 %dir %{destdir}
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
-%attr(770,root,apache) %dir %{_var}/log/rhn
+%attr(775,root,apache) %dir %{_var}/log/rhn
 %config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-redirect
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %{rhnconf}/default/rhn_proxy_redirect.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(755,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %{rhnconf}/default/rhn_proxy_redirect.conf
 
 %files common
 %defattr(-,root,root)
@@ -291,17 +291,17 @@ fi
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
 %attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(640,root,apache) %config %{rhnconf}/rhn.conf
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
-%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(645,root,apache) %config %{rhnconf}/rhn.conf
+%attr(754,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %{rhnconf}/default/rhn_proxy.conf
+%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
 # this file is created by either cli or webui installer
 %ghost %config %{httpdconf}/cobbler-proxy.conf
 %if  0%{?rhel} && 0%{?rhel} < 6
-%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
+%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
 %else
-%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
+%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
 %{rhnroot}/wsgi/xmlrpc.py*
 %{rhnroot}/wsgi/xmlrpc_redirect.py*
 %endif
@@ -312,9 +312,9 @@ fi
 %files package-manager
 %defattr(-,root,root)
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %config %{rhnconf}/default/rhn_proxy_package_manager.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(755,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %config %{rhnconf}/default/rhn_proxy_package_manager.conf
 %{_bindir}/rhn_package_manager
 %{rhnroot}/PackageManager/rhn_package_manager.py*
 %{rhnroot}/PackageManager/uploadLib.py*
