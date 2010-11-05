@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.2.8
+Version:	1.2.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.9-1
+- 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
+  satellite-prep (msuchy@redhat.com)
+
 * Mon Nov 01 2010 Jan Pazdziora 1.2.8-1
 - As the table rhnPaidErrataTempCache is no more, we do not need to have check
   for temporary tables.
