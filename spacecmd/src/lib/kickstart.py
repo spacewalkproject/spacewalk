@@ -103,7 +103,7 @@ def do_kickstart_create(self, args):
             password2 = getpass('Repeat Password: ')
 
             if password1 == password2:
-                root_options.password = password1
+                options.root_password = password1
             elif password1 == '':
                 logging.warning('Password must be at least 5 characters')
             else:
