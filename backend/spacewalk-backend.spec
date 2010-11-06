@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.59
+Version: 1.2.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,61 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sat Nov 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.60-1
+- merged duplicated code in kickstart_guest.py
+- merged "attempt to avoid giving out the compat-* packages" blocks
+- merged packages to list translation blocks into function
+- merged duplicated file checking code into procedure
+- merged action code into a single function
+- reused code for simple dump_* functions
+- merged the same query originaly defined in two places
+- merged duplicated code from _add_dists() and _update_dists()
+- merged duplicated code in list_packages_sql() and list_all_packages_sql()
+- merged duplicated code from list_channel_families() and list_channels()
+- SourcePackageContainer can now also reuse diskImportLibContainer
+- set ignoreUploaded = 1 in SourcePackageImport by default
+- PackageContainer can now also reuse diskImportLibContainer
+- set ignoreUploaded = 1 in PackageImport by default
+- merged endContainerCallback() definiton into superclass
+- merged get_*_handler() code
+- redefined SourcePackageContainer via SyncHandlerContainer
+- redefined PackageContainer via SyncHandlerContainer
+- redefined ShortPackageContainer via SyncHandlerContainer
+- redefined KickstartableTreesContainer via SyncHandlerContainer
+- redefined ErrataContainer via SyncHandlerContainer
+- created general SyncHandlerContainer and redefined ChannelContainer using the
+  general one
+- removed duplicated _send_headers_rpm()
+- fixed XML_Dumper namespace
+- reused BaseQueryDumper() fore some more classes
+- merged trivial set_iterator() classes into BaseQueryDumper()
+- merged checksum handling into BaseChecksumRowDumper()
+- reused BaseSubelementDumper() for some more classes
+- merged a lot of classes which had differed only in dump_sublement() method
+- _get_kickstartable_trees() rewritten via _get_ids()
+- merged _get_package_ids() and _get_errata_ids()
+- merged rhnSQL.prepare() and h.execute() calls which differs only in query and
+  args
+- merged duplicated code for writing dumps
+- merged id verification code
+- fixed typo
+- merged _get_key()
+- call original dump_subelement() instead of creating _dump_subelement() in
+  every subclass
+- DatabaseStatement() does exactly what rhnSQL does; removing
+- fixed typos
+- merged NonAuthenticatedDumper.dump_kickstartable_trees() back to
+  XML_Dumper.dump_kickstartable_trees()
+- h is used only in verify_errata=True branch
+- merged NonAuthenticatedDumper.dump_errata() back to XML_Dumper.dump_errata()
+- h is used only in verify_packages=True branch
+- merged NonAuthenticatedDumper._packages() back to XML_Dumper._packages()
+- added method stubs to main XML_Dumper class
+- removed code already commented out
+- merged NonAuthenticatedDumper.dump_channel_packages_short() back to
+  XML_Dumper.dump_channel_packages_short()
+- merged dumper._ChannelsDumper changes back to exportLib._ChannelDumper
+
 * Thu Nov 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.59-1
 - merged import / download loop code into procedure
 - merged several Traceback blocks
