@@ -25,6 +25,7 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
@@ -2153,5 +2154,36 @@ public class ChannelSoftwareHandler extends BaseHandler {
             return "";
         }
         return repoLastBuild;
+    }
+
+   /** Returns a list of ContentSource (repos) that the user can see
+     * @param sessionKey WebSession containing User information.
+     * @return Lists the repos visible to the user
+     * @xmlrpc.doc Returns a list of ContentSource (repos) that the user can see
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("map")
+     *              #prop_desc("long","id", "ID of the repo")
+     *              #prop_desc("string","label", "label of the repo")
+     *              #prop_desc("string","sourceUrl", "URL of the repo")
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *          #struct_end()
+     *      #array_end()
+     **/
+    public List listUserRepos(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        List<ContentSource> result = ChannelFactory.lookupContentSources(user.getOrg());
+
+        List list = new ArrayList();
+        for (Iterator itr = result.iterator(); itr.hasNext();) {
+            ContentSource cs = (ContentSource) itr.next();
+            Map map = new HashMap();
+            map.put("id", cs.getId());
+            map.put("label", cs.getLabel());
+            map.put("sourceUrl", cs.getSourceUrl());
+            list.add(map);
+        }
+        return list;
     }
 }
