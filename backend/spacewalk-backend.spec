@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.60
+Version: 1.2.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Nov 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.61-1
+- modified satsync to use uniform interface for disk and wire dumps
+
 * Sat Nov 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.60-1
 - merged duplicated code in kickstart_guest.py
 - merged "attempt to avoid giving out the compat-* packages" blocks
