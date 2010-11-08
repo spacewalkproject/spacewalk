@@ -262,6 +262,57 @@ class KickstartFileDiskSource(KickstartDataDiskSource):
             createPath(dirname, logging=0)
         return path
 
+class MetadataDiskSource:
+    def __init__(self, mountpoint):
+        self.mountpoint = mountpoint
+
+    def is_disk_loader(self):
+        return True
+
+    def getArchesXmlStream(self):
+        return ArchesDiskSource(self.mountpoint).load()
+
+    def getArchesExtraXmlStream(self):
+        return ArchesExtraDiskSource(self.mountpoint).load()
+
+    def getChannelFamilyXmlStream(self):
+        return ChannelFamilyDiskSource(self.mountpoint).load()
+
+    def getBlacklistsXmlStream(self):
+        return BlacklistsDiskSource(self.mountpoint).load()
+
+    def getProductNamesXmlStream(self):
+        return ProductnamesDiskSource(self.mountpoint).load()
+
+    def getComps(self, label):
+        sourcer = ChannelCompsDiskSource(self.mountpoint)
+        sourcer.setChannel(label)
+        return sourcer.load()
+
+    def getChannelXmlStream(self, labels):
+        sourcer = ChannelDiskSource(self.mountpoint)
+        channels = sourcer.list()
+        stream_list = []
+        for c in channels:
+            sourcer.setChannel(c)
+            stream_list.append(sourcer.load())
+        return stream_list
+
+    def getChannelShortPackagesXmlStream(self):
+        return ShortPackageDiskSource(self.mountpoint)
+
+    def getPackageXmlStream(self):
+        return PackageDiskSource(self.mountpoint)
+
+    def getSourcePackageXmlStream(self):
+        return SourcePackageDiskSource(self.mountpoint)
+
+    def getKickstartsXmlStream(self):
+        return KickstartDataDiskSource(self.mountpoint)
+
+    def getErrataXmlStream(self):
+        return ErrataDiskSource(self.mountpoint)
+
 if __name__ == '__main__':
     # TEST CODE
     s = ChannelDiskSource("/tmp")
