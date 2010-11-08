@@ -44,15 +44,12 @@ public class ChannelRepodataDriver implements QueueDriver {
      * {@inheritDoc}
      */
     public void initialize() {
-        logger.info("resetting orphanned rhnRepoRegenQueue entries");
         WriteMode resetChannelRepodata = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS);
         try {
             int eqReset = resetChannelRepodata.executeUpdate(new HashMap());
-            if (logger.isDebugEnabled()) {
-                logger.debug("Reset " + eqReset +
-                        " rows from the rhnRepoRegenQueue table in progress by " +
-                        "setting next_action to sysdate");
+            if (eqReset > 0) {
+                logger.info("Resetting " + eqReset + " unfinished channel repodata tasks");
             }
             HibernateFactory.commitTransaction();
         }
