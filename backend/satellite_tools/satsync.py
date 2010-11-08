@@ -1874,14 +1874,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 class StreamProducer:
     def __init__(self, handler, data_source_class, source_func):
         self.handler = handler
-        self.disk_loader = None
-        self.wire_loader = None
+        self.loader = getattr(data_source_class, source_func)
+        self.is_disk_loader = data_source_class.is_disk_loader()
         self._args = ()
-        s = getattr(data_source_class, source_func)
-        if data_source_class.is_disk_loader():
-		self.disk_loader = s
-	else:
-		self.wire_loader = s
 
     def set_args(self, *args):
         self._args = args
@@ -1890,19 +1885,17 @@ class StreamProducer:
 	self.handler.close()
 
     def process(self, batch):
-        if self.disk_loader:
+        if self.is_disk_loader:
+            self.loader = self.loader()
             for oid in batch:
-                self.disk_loader.setID(oid)
-                stream = self.disk_loader.load()
+                self.loader.setID(oid)
+                stream = self.loader.load()
                 self.handler.process(stream)
-            return
-        if self.wire_loader:
+        else:
             # Only use the extra arguments if needed, for now
             args = self._args or (batch, )
-            stream = apply(self.wire_loader, args)
+            stream = self.loader(*args)
             self.handler.process(stream)
-            return
-        raise Exception(_("No action for this stream producer"))
 
 def _verifyPkgRepMountPoint():
     """ Checks the base package repository directory tree for
