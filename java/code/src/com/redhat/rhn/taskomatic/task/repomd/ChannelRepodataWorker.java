@@ -101,8 +101,6 @@ public class ChannelRepodataWorker implements QueueWorker {
                             repoWriter.isChannelRepodataStale(channelToProcess)) {
                         if (queueContainsBypass("bypass_filters") ||
                                 channelToProcess.isChannelRepodataRequired()) {
-                            logger.info("Generating repo files for channel " +
-                                    channelLabelToProcess);
                             repoWriter.writeRepomdFiles(channelToProcess);
                         }
                     }
