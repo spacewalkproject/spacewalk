@@ -59,6 +59,7 @@ public class KickstartFileSyncTask extends RhnJavaJob {
                 if (p != null) {
                     String file = p.getKickstart();
                     if (file != null && !(new File(file)).exists()) {
+                        log.info("Syncing " + ks.getLabel());
                         KickstartFactory.saveKickstartData(ks);
                     }
                 }
