@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.94
+Version: 1.2.95
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 08 2010 Tomas Lestach <tlestach@redhat.com> 1.2.95-1
+- fix creating of groups(PG) (tlestach@redhat.com)
+- do not pass string params, when numeric are expected(PG)
+  (tlestach@redhat.com)
+- reduced logging of RpmRepositoryWriter (tlestach@redhat.com)
+- create setters with byte[] param(PG) for repo generation code
+  (tlestach@redhat.com)
+- updating logging of ChannelRepodataWorker (tlestach@redhat.com)
+- updated logging of ChannelRepodataDriver (tlestach@redhat.com)
+- adding extra logging to KickstartFileSyncTask (tlestach@redhat.com)
+- removing unused code from KickstartFileSyncTask (tlestach@redhat.com)
+
 * Fri Nov 05 2010 Tomas Lestach <tlestach@redhat.com> 1.2.94-1
 - removing insert of NULL value(PG) (tlestach@redhat.com)
 
