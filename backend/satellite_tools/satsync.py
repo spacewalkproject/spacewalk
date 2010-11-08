@@ -400,7 +400,7 @@ class Syncer:
         self.containerHandler = sync_handlers.ContainerHandler()
 
         # instantiated in self.initialize()
-        self.xmlWireServer = None
+        self.xmlDataServer = None
         self.systemid = None
 
         self._channel_packages = {}
@@ -426,9 +426,10 @@ class Syncer:
         if self.mountpoint:
             log(1, [_('Red Hat Network Satellite - file-system synchronization'),
                     '   mp:  %s' % self.mountpoint])
+            self.xmlDataServer = xmlDiskSource.MetadataDiskSource(self.mountpoint)
         # Sync across the wire:
         else:
-            self.xmlWireServer = xmlWireSource.MetadataWireSource(self.systemid,
+            self.xmlDataServer = xmlWireSource.MetadataWireSource(self.systemid,
                                                     self.sslYN, self.xml_dump_version)
             if CFG.ISS_PARENT:
                 sync_parent = CFG.ISS_PARENT
@@ -438,11 +439,11 @@ class Syncer:
                 sync_parent = CFG.RHN_PARENT
                 is_iss = 0
 
-            url = self.xmlWireServer.schemeAndUrl(sync_parent)
+            url = self.xmlDataServer.schemeAndUrl(sync_parent)
             log(1, [_('Red Hat Network Satellite - live synchronization'),
                     _('   url: %s') % url,
                     _('   debug/output level: %s') % CFG.DEBUG])
-            self.xmlWireServer.setServerHandler(isIss=is_iss)
+            self.xmlDataServer.setServerHandler(isIss=is_iss)
 
             if not self.systemid:
                 # check and fetch systemid (NOTE: systemid kept in memory... may or may not
@@ -460,7 +461,7 @@ class Syncer:
     def __del__(self):
         self.containerHandler.close()
 
-    def _process_simple(self, remote_function_name, disk_class, step_name):
+    def _process_simple(self, remote_function_name, step_name):
         """ Wrapper function that can process metadata that is relatively
             simple. This does the decoding of data (over the wire or from
             disk).
@@ -475,14 +476,8 @@ class Syncer:
         log(1, ["", _("Retrieving / parsing %s data") % step_name])
         # get XML stream
         stream = None
-        if self.mountpoint:
-            # snag from the filesystem
-            dataServer = disk_class(self.mountpoint)
-            stream = dataServer.load()
-        else:
-            # snag from the wire
-            method = getattr(self.xmlWireServer, remote_function_name)
-            stream = method()
+        method = getattr(self.xmlDataServer, remote_function_name)
+        stream = method()
 
         # parse/process XML stream
         try:
@@ -516,10 +511,8 @@ class Syncer:
         log(1, _("%s data complete") % step_name)
 
     def processArches(self):
-        self._process_simple("getArchesXmlStream",
-            xmlDiskSource.ArchesDiskSource, "arches")
-        self._process_simple("getArchesExtraXmlStream",
-            xmlDiskSource.ArchesExtraDiskSource, "additional arches")
+        self._process_simple("getArchesXmlStream", "arches")
+        self._process_simple("getArchesExtraXmlStream", "additional arches")
 
     def syncCert(self):
         "sync the RHN satellite cert if applicable (to local DB & filesystem)"
@@ -598,9 +591,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log2(1, 3, _("RHN Entitlement Certificate sync complete"))
 
     def processChannelFamilies(self):
-        self._process_simple("getChannelFamilyXmlStream",
-                             xmlDiskSource.ChannelFamilyDiskSource,
-                             "channel-families")
+        self._process_simple("getChannelFamilyXmlStream", "channel-families")
 
     def _set_comps_for_channel(self, backend, channel_id, path, timestamp):
         sth = backend.dbmodule.prepare("""
@@ -628,12 +619,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
         full_path = os.path.join(CFG.MOUNT_POINT, comps_path)
         if not os.path.exists(full_path):
-            if self.mountpoint:
-                sourcer = xmlDiskSource.ChannelCompsDiskSource(self.mountpoint)
-                sourcer.setChannel(label)
-                stream = sourcer.load()
-            elif CFG.ISS_PARENT:
-                stream  = self.xmlWireServer.getComps(label)
+            if self.mountpoint or CFG.ISS_PARENT:
+                stream  = self.xmlDataServer.getComps(label)
             else:
                 rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version)
                 stream = rpmServer.getCompsFileStream(label)
@@ -652,18 +639,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         h = sync_handlers.get_channel_handler()
 
         # get channel XML stream
-        dataServer = None
+        stream = self.xmlDataServer.getChannelXmlStream([])
         if self.mountpoint:
-            dataServer = xmlDiskSource.ChannelDiskSource(self.mountpoint)
-            channels = dataServer.list()
-            for c in channels:
-                dataServer.setChannel(c)
-                stream = dataServer.load()
-                h.process(stream)
+            for substream in stream:
+                h.process(substream)
             doEOSYN=0
         else:
-            dataServer = self.xmlWireServer.getChannelXmlStream
-            stream = dataServer([])
             h.process(stream)
             doEOSYN=1
 
@@ -843,11 +824,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         return rc
 
     def processBlacklists(self):
-        self._process_simple("getBlacklistsXmlStream",
-          xmlDiskSource.BlacklistsDiskSource, "blacklists")
+        self._process_simple("getBlacklistsXmlStream", "blacklists")
         try:
-            self._process_simple("getProductNamesXmlStream",
-	            xmlDiskSource.ProductnamesDiskSource, "product names")
+            self._process_simple("getProductNamesXmlStream", "product names")
         except Exception:
             None
 
@@ -881,9 +860,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         stream_loader = StreamProducer(
                 sync_handlers.get_short_package_handler(),
-		self.mountpoint,
-                xmlDiskSource.ShortPackageDiskSource,
-                self.xmlWireServer.getChannelShortPackagesXmlStream)
+                self.xmlDataServer, 'getChannelShortPackagesXmlStream')
 
         # OK, now uq_channel_packages only has the unique packages
         for channel_label, package_ids in self._channel_packages.items():
@@ -1103,9 +1080,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         stream_loader = StreamProducer(
                 sync_handlers.get_package_handler(),
-		self.mountpoint,
-                xmlDiskSource.PackageDiskSource,
-                self.xmlWireServer.getPackageXmlStream)
+                self.xmlDataServer, 'getPackageXmlStream')
 
         for channel, pids in missing_packages.items():
             self._proces_batch(channel, pids[:], messages.package_parsing,
@@ -1237,9 +1212,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         stream_loader = StreamProducer(
                 sync_handlers.get_source_package_handler(),
-		self.mountpoint,
-                xmlDiskSource.SourcePackageDiskSource,
-                self.xmlWireServer.getSourcePackageXmlStream)
+                self.xmlDataServer, 'getSourcePackageXmlStream')
 
         for channel, pids in missing_packages.items():
             self._proces_batch(channel, pids[:], messages.package_parsing,
@@ -1347,9 +1320,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         stream_loader = StreamProducer(
                 sync_handlers.get_kickstarts_handler(),
-		self.mountpoint,
-                xmlDiskSource.KickstartDataDiskSource,
-                self.xmlWireServer.getKickstartsXmlStream)
+                self.xmlDataServer, 'getKickstartsXmlStream')
 
         for channel, ktids in self._channel_kickstarts.items():
             self._proces_batch(channel, ktids[:], messages.kickstart_parsing,
@@ -1372,7 +1343,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             return s.load()
 
         if CFG.ISS_PARENT:
-            return self.xmlWireServer.getKickstartFile(kstree_label, relative_path)
+            return self.xmlDataServer.getKickstartFile(kstree_label, relative_path)
         else:
             srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN,
                                                  self.xml_dump_version)
@@ -1549,9 +1520,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         not_cached_errata = self._compute_not_cached_errata()
         stream_loader = StreamProducer(
                 sync_handlers.get_errata_handler(),
-		self.mountpoint,
-                xmlDiskSource.ErrataDiskSource,
-                self.xmlWireServer.getErrataXmlStream)
+                self.xmlDataServer, 'getErrataXmlStream')
 
         for channel, erratum_ids in not_cached_errata.items():
             self._proces_batch(channel, erratum_ids[:], messages.erratum_parsing,
@@ -1893,7 +1862,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         # Wire stream
         if CFG.ISS_PARENT:
-            stream  = self.xmlWireServer.getRpm(nvrea, channel)
+            stream  = self.xmlDataServer.getRpm(nvrea, channel)
         else:
             rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN,
                                                        self.xml_dump_version)
@@ -1903,23 +1872,16 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
 
 class StreamProducer:
-    def __init__(self, handler, mountpoint, disk_source_class, wire_server_class):
+    def __init__(self, handler, data_source_class, source_func):
         self.handler = handler
         self.disk_loader = None
         self.wire_loader = None
         self._args = ()
-	if mountpoint:
-		s = disk_source_class(mountpoint)
-		self.set_disk_loader(s)
+        s = getattr(data_source_class, source_func)
+        if data_source_class.is_disk_loader():
+		self.disk_loader = s
 	else:
-		s = wire_server_class
-		self.set_wire_loader(s)
-
-    def set_disk_loader(self, disk_loader):
-        self.disk_loader = disk_loader
-
-    def set_wire_loader(self, wire_loader):
-        self.wire_loader = wire_loader
+		self.wire_loader = s
 
     def set_args(self, *args):
         self._args = args

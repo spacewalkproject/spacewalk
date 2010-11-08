@@ -186,6 +186,9 @@ class MetadataWireSource(BaseWireSource):
     
     """retrieve specific xml stream through xmlrpc interface."""
 
+    def is_disk_loader(self):
+        return False
+
     def _prepare(self):
         self.setServer(self.server_handler)
 
