@@ -659,17 +659,16 @@ SELECT  DISTINCT SP.server_id id,
 	<query name="system_set_remove_package_query" />
    <elaborator params="user_id, package_set_label" multiple="t">
 SELECT  DISTINCT SP.server_id id,
-        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' || PA.label NVRE,
         PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO
   FROM  rhnPackageEVR PE,
         rhnPackageName PN,
-        rhnServerPackage SP,
-        rhnPackageArch PA
+        rhnServerPackage SP RIGHT OUTER JOIN rhnPackageArch PA
+        ON SP.package_arch_id = PA.id
  WHERE  SP.server_id IN (%s)
    AND  SP.name_id = PN.id
    AND  PN.id || '|' || PE.id || '|' || PA.id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
-   AND  SP.package_arch_id = PA.id (+)
    </elaborator>
 </mode>
 
