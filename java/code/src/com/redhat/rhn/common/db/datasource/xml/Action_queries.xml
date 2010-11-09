@@ -274,14 +274,14 @@ END;
 <write-mode name="schedule_action">
   <query params="action_id, name_id, evr_id, arch_id">
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id, package_arch_id)
-VALUES (rhn_act_p_id_seq.nextval, :action_id, :name_id, :evr_id, :arch_id)
+VALUES (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, :evr_id, :arch_id)
   </query>
 </write-mode>
 
 <write-mode name="schedule_action_no_arch">
   <query params="action_id, name_id, evr_id">
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-VALUES (rhn_act_p_id_seq.nextval, :action_id, :name_id, :evr_id)
+VALUES (sequence_nextval('rhn_act_p_id_seq', :action_id, :name_id, :evr_id)
   </query>
 </write-mode>
 

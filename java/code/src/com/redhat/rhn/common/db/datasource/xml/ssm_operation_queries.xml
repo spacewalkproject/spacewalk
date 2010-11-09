@@ -63,7 +63,7 @@
 <!-- Returns the next value in the operation sequence. -->
 <mode name="get_seq_nextval">
    <query>
-      SELECT sequence_nextval('rhn_ss_op_seq')
+      SELECT sequence_nextval('rhn_ss_op_seq') AS nextval
         FROM dual
    </query>
 </mode>
@@ -82,8 +82,8 @@
              :user_id,
              :description,
              :status,
-             sysdate,
-             sysdate
+             current_timestamp,
+             current_timestamp
              )
    </query>
 </write-mode>
@@ -116,7 +116,7 @@
    <query params="user_id, op_id, status">
       UPDATE rhnSsmOperation
          SET status = :status,
-             modified = sysdate
+             modified = current_timestamp
        WHERE id = :op_id
          AND user_id = :user_id
    </query>
