@@ -220,20 +220,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     _cleanse_channels = staticmethod(_cleanse_channels)
 
-    def _lookup_last_modified(channel_data):
-        for channel_label, data in channel_data.items():
-            packages = data['packages']
-            packages = _lookup_last_modified_packages(packages)
-            data['packages'] = packages
-
-            ks_trees = data['ks_trees']
-            ks_trees = _lookup_last_modified_ks_trees(channel_label, ks_trees)
-            data['ks_trees'] = ks_trees
-
-        return channel_data
-
-    _lookup_last_modified = staticmethod(_lookup_last_modified)
-
     # Dumper functions here
     def dump_channel_families(self, virt_filter=0):
         log_debug(2)
