@@ -473,7 +473,7 @@ SELECT   PN.ID || '|' || PE.ID || '|' || X.package_arch_id AS id_combo,
          X.num_systems AS num_systems
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
-         rhnPackageArch PA,
+         rhnPackageArch PA LEFT OUTER JOIN
          (SELECT   SP.name_id,
                    SP.evr_id,
                    SP.package_arch_id,
@@ -486,9 +486,9 @@ SELECT   PN.ID || '|' || PE.ID || '|' || X.package_arch_id AS id_combo,
           GROUP BY SP.name_id,
                    SP.evr_id,
                    SP.package_arch_id) X
+         ON PA.ID = X.package_arch_id
    WHERE PE.ID = X.evr_id
      AND PN.ID = X.name_id
-     AND PA.ID (+) = X.package_arch_id
 ORDER BY UPPER (PN.NAME)
   </query>
 </mode>
