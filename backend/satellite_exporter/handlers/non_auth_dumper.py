@@ -234,31 +234,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     _lookup_last_modified = staticmethod(_lookup_last_modified)
 
-    def _generate_executemany_data(label, channels, channel_data):
-        """
-        Convenience function to reduce duplication
-        returns two arrays snapshot_channel_ids, label_ids
-        where label can be source_package_ids or package_ids or errata_ids
-        """
-        snapshot_channel_ids = []
-        obj_ids = []
-        channel_ids = []
-        last_modifieds = []
-        for channel_label, data in channel_data.items():
-            # Get the snapshot channel id
-            chan = channels[channel_label]
-            snapshot_channel_id = chan['snapshot_channel_id']
-            channel_id = chan['channel_id']
-            ids = data[label]
-            for i, last_modified in ids:
-                obj_ids.append(i)
-                last_modifieds.append(last_modified)
-                snapshot_channel_ids.append(snapshot_channel_id)
-                channel_ids.append(channel_id)
-        return snapshot_channel_ids, channel_ids, obj_ids, last_modifieds
-
-    _generate_executemany_data = staticmethod(_generate_executemany_data)
-
     # Dumper functions here
     def dump_channel_families(self, virt_filter=0):
         log_debug(2)
