@@ -524,7 +524,7 @@ class Dumper(dumper.XML_Dumper):
         self._dump_simple(self.fm.getChannelFamiliesFile(),
                           dumper.XML_Dumper.dump_channel_families,
                           "Exporting channel families...",
-                          "Channel Families exported to %s"
+                          "Channel Families exported to %s",
                           "%s caught in dump_channel_families.")
 
     def dump_channels(self):
