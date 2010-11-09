@@ -198,22 +198,6 @@ class SatelliteDumper(BaseDumper):
     def set_iterator(self):
         return ArrayIterator(self._dumpers)
 
-class ChannelsDumper(BaseSubelementDumper):
-    tag_name = 'rhn-channels'
-    subelement_dumper_class = _ChannelDumper
-    
-    def __init__(self, writer, channels=[]):
-        BaseDumper.__init__(self, writer)
-        self._channels = channels
-
-    def set_iterator(self):
-        if not self._channels:
-            # Nothing to do
-            return
-
-        raise NotImplementedError, "To be overridden in a child class"
-
-
 class _ChannelDumper(BaseRowDumper):
     tag_name = 'rhn-channel'
 
@@ -456,6 +440,22 @@ class _ChannelDumper(BaseRowDumper):
         h.execute(channel_id=channel_id)
         return h.fetchone()
 
+class ChannelsDumper(BaseSubelementDumper):
+    tag_name = 'rhn-channels'
+    subelement_dumper_class = _ChannelDumper
+
+    def __init__(self, writer, channels=[]):
+        BaseDumper.__init__(self, writer)
+        self._channels = channels
+
+    def set_iterator(self):
+        if not self._channels:
+            # Nothing to do
+            return
+
+        raise NotImplementedError, "To be overridden in a child class"
+
+
 class ChannelDumper(_ChannelDumper):
 
     def __init__(self, writer, row):
@@ -506,12 +506,6 @@ class ChannelDumper(_ChannelDumper):
 #            'is-default'  : self._row['is_default'],
 #        }
 
-class ChannelSourcePackagesDumper(BaseSubelementDumper):
-    # Dumps the erratum id and the last modified for an erratum in this
-    # channel
-    tag_name = 'source-packages'
-    subelement_dumper_class = _ChannelSourcePackageDumper
-
 class _ChannelSourcePackageDumper(BaseRowDumper):
     tag_name = 'source-package'
     def set_attributes(self):
@@ -521,11 +515,11 @@ class _ChannelSourcePackageDumper(BaseRowDumper):
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
 
-class ChannelErrataDumper(BaseSubelementDumper):
+class ChannelSourcePackagesDumper(BaseSubelementDumper):
     # Dumps the erratum id and the last modified for an erratum in this
     # channel
-    tag_name = 'rhn-channel-errata'
-    subelement_dumper_class = _ChannelErratumDumper
+    tag_name = 'source-packages'
+    subelement_dumper_class = _ChannelSourcePackageDumper
 
 class _ChannelErratumDumper(BaseRowDumper):
     tag_name = 'erratum'
@@ -536,9 +530,11 @@ class _ChannelErratumDumper(BaseRowDumper):
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
 
-class DistsDumper(BaseSubelementDumper):
-    tag_name = 'rhn-dists'
-    subelement_dumper_class = _DistDumper
+class ChannelErrataDumper(BaseSubelementDumper):
+    # Dumps the erratum id and the last modified for an erratum in this
+    # channel
+    tag_name = 'rhn-channel-errata'
+    subelement_dumper_class = _ChannelErratumDumper
 
 class _DistDumper(BaseRowDumper):
     tag_name = 'rhn-dist'
@@ -549,6 +545,10 @@ class _DistDumper(BaseRowDumper):
             'release'       : self._row['release'],
             'channel-arch'  : self._row['channel_arch'],
         }
+
+class DistsDumper(BaseSubelementDumper):
+    tag_name = 'rhn-dists'
+    subelement_dumper_class = _DistDumper
 
 class ChannelFamiliesDumper(BaseQueryDumper):
     tag_name = 'rhn-channel-families'
@@ -645,54 +645,6 @@ class _ChannelFamilyDumper(BaseRowDumper):
         return attributes
 
 ##
-class PackagesDumper(BaseSubelementDumper, BaseQueryDumper):
-    tag_name = 'rhn-packages'
-    subelement_dumper_class = _PackageDumper
-    iterator_query = """
-            select 
-                p.id,
-                p.org_id, 
-                pn.name, 
-                pe.evr.version version, 
-                pe.evr.release release, 
-                pe.evr.epoch epoch, 
-                pa.label package_arch,
-                pg.name package_group, 
-                p.rpm_version, 
-                p.description,
-                p.summary,
-                p.package_size,
-                p.payload_size,
-                p.build_host, 
-                TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
-                sr.name source_rpm, 
-                c.checksum_type,
-                c.checksum,
-                p.vendor,
-                p.payload_format, 
-                p.compat, 
-                p.header_sig,
-                p.copyright,
-                p.cookie,
-                p.header_start,
-                p.header_end,
-                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
-                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
-                rhnChecksumView c
-            where p.name_id = pn.id
-            and p.evr_id = pe.id
-            and p.package_arch_id = pa.id
-            and p.package_group = pg.id
-            and p.source_rpm_id = sr.id
-            and p.path is not null
-            and p.checksum_id = c.id
-            and rownum < 3
-        """
-
-    def set_iterator(self):
-        return BaseQueryDumper.set_iterator(self)
-
 class _PackageDumper(BaseRowDumper):
     tag_name = 'rhn-package'
 
@@ -786,27 +738,46 @@ class _PackageDumper(BaseRowDumper):
         arr.append(_PackageFilesDumper(self._writer, data_iterator=h))
         return ArrayIterator(arr)
 
-##
-class ShortPackagesDumper(BaseSubelementDumper, BaseQueryDumper):
-    tag_name = 'rhn-packages-short'
-    subelement_dumper_class = ShortPackageEntryDumper
+class PackagesDumper(BaseSubelementDumper, BaseQueryDumper):
+    tag_name = 'rhn-packages'
+    subelement_dumper_class = _PackageDumper
     iterator_query = """
             select 
-                p.id, 
+                p.id,
+                p.org_id,
                 pn.name, 
                 pe.evr.version version, 
                 pe.evr.release release, 
                 pe.evr.epoch epoch, 
                 pa.label package_arch,
+                pg.name package_group,
+                p.rpm_version,
+                p.description,
+                p.summary,
+                p.package_size,
+                p.payload_size,
+                p.build_host,
+                TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
+                sr.name source_rpm,
                 c.checksum_type,
                 c.checksum,
-                p.org_id,
+                p.vendor,
+                p.payload_format,
+                p.compat,
+                p.header_sig,
+                p.copyright,
+                p.cookie,
+                p.header_start,
+                p.header_end,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
-                rhnPackageArch pa, rhnChecksumView c
+                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
+                rhnChecksumView c
             where p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
+            and p.package_group = pg.id
+            and p.source_rpm_id = sr.id
             and p.path is not null
             and p.checksum_id = c.id
             and rownum < 3
@@ -815,6 +786,7 @@ class ShortPackagesDumper(BaseSubelementDumper, BaseQueryDumper):
     def set_iterator(self):
         return BaseQueryDumper.set_iterator(self)
 
+##
 class ShortPackageEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-package-short'
 
@@ -834,6 +806,34 @@ class ShortPackageEntryDumper(BaseChecksumRowDumper):
             # compatibility with older satellite
             attr['md5sum'] = self._row['checksum']
         return attr
+
+class ShortPackagesDumper(BaseSubelementDumper, BaseQueryDumper):
+    tag_name = 'rhn-packages-short'
+    subelement_dumper_class = ShortPackageEntryDumper
+    iterator_query = """
+            select
+                p.id,
+                pn.name,
+                pe.evr.version version,
+                pe.evr.release release,
+                pe.evr.epoch epoch,
+                pa.label package_arch,
+                c.checksum_type,
+                c.checksum,
+                p.org_id,
+                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
+            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
+                rhnPackageArch pa, rhnChecksumView c
+            where p.name_id = pn.id
+            and p.evr_id = pe.id
+            and p.package_arch_id = pa.id
+            and p.path is not null
+            and p.checksum_id = c.id
+            and rownum < 3
+        """
+
+    def set_iterator(self):
+        return BaseQueryDumper.set_iterator(self)
 
 ##
 class SourcePackagesDumper(BaseQueryDumper):
@@ -893,10 +893,6 @@ class _ChecksumDumper(BaseDumper):
         c.dump()
 
 ##
-class _ChangelogDumper(BaseSubelementDumper):
-    tag_name = 'rhn-package-changelog'
-    subelement_dumper_class = _ChangelogEntryDumper
-
 class _ChangelogEntryDumper(BaseRowDumper):
     tag_name = 'rhn-package-changelog-entry'
 
@@ -913,6 +909,10 @@ class _ChangelogEntryDumper(BaseRowDumper):
             _dbtime2timestamp(self._row['time'])))
 
         return ArrayIterator(arr)
+
+class _ChangelogDumper(BaseSubelementDumper):
+    tag_name = 'rhn-package-changelog'
+    subelement_dumper_class = _ChangelogEntryDumper
 
 ##
 class _DependencyDumper(BaseDumper):
@@ -948,15 +948,6 @@ class _PackageFilesDumper(BaseDumper):
         d.dump()
 
 ## Errata
-class ErrataDumper(BaseSubelementDumper):
-    tag_name = 'rhn-errata'
-    subelement_dumper_class = _ErratumDumper
-
-    def set_iterator(self):
-        if self._iterator:
-            return self._iterator
-        raise NotImplementedError, "To be overridden in a child class"
-
 class _ErratumDumper(BaseRowDumper):
     tag_name = 'rhn-erratum'
 
@@ -1056,16 +1047,21 @@ class _ErratumDumper(BaseRowDumper):
 
         return ArrayIterator(arr)
 
+class ErrataDumper(BaseSubelementDumper):
+    tag_name = 'rhn-errata'
+    subelement_dumper_class = _ErratumDumper
+
+    def set_iterator(self):
+        if self._iterator:
+            return self._iterator
+        raise NotImplementedError, "To be overridden in a child class"
+
 class _ErratumKeywordDumper(BaseDumper):
     tag_name = 'rhn-erratum-keywords'
 
     def dump_subelement(self, data):
         d = SimpleDumper(self._writer, 'rhn-erratum-keyword', data['keyword'])
         d.dump()
-
-class _ErratumBuglistDumper(BaseSubelementDumper):
-    tag_name = 'rhn-erratum-bugs'
-    subelement_dumper_class = _ErratumBugDumper
 
 class _ErratumBugDumper(BaseRowDumper):
     tag_name = 'rhn-erratum-bug'
@@ -1078,9 +1074,9 @@ class _ErratumBugDumper(BaseRowDumper):
         ]
         return ArrayIterator(arr)
 
-class _ErratumFilesDumper(BaseSubelementDumper):
-    tag_name = 'rhn-erratum-files'
-    subelement_dumper_class = _ErratumFileEntryDumper
+class _ErratumBuglistDumper(BaseSubelementDumper):
+    tag_name = 'rhn-erratum-bugs'
+    subelement_dumper_class = _ErratumBugDumper
 
 class _ErratumFileEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-erratum-file'
@@ -1117,6 +1113,10 @@ class _ErratumFileEntryDumper(BaseChecksumRowDumper):
             if package_id is not None:
                 attributes['source-package'] = 'rhn-package-source-%s' % package_id
         return attributes
+
+class _ErratumFilesDumper(BaseSubelementDumper):
+    tag_name = 'rhn-erratum-files'
+    subelement_dumper_class = _ErratumFileEntryDumper
 
 # Arches
 class BaseArchesDumper(BaseDumper):
@@ -1383,32 +1383,6 @@ class BlacklistObsoletesDumper(BaseQueryDumper):
         EmptyDumper(self._writer, 'rhn-blacklist-obsolete', data).dump()
 
 
-class KickstartableTreesDumper(BaseSubelementDumper, BaseQueryDumper):
-    tag_name = 'rhn-kickstartable-trees'
-    subelement_dumper_class = _KickstartableTreeDumper
-    iterator_query = """
-            select kt.id, 
-                   c.label channel, 
-                   kt.base_path "base-path", 
-                   kt.label, 
-                   kt.boot_image "boot-image",
-                   ktt.name "kstree-type-name",
-                   ktt.label "kstree-type-label",
-                   kit.name "install-type-name",
-                   kit.label "install-type-label",
-                   TO_CHAR(kt.last_modified, 'YYYYMMDDHH24MISS') "last-modified"
-              from rhnKickstartableTree kt,
-                   rhnKSTreeType ktt,
-                   rhnKSInstallType kit,
-                   rhnChannel c
-             where kt.channel_id = c.id
-               and ktt.id = kt.kstree_type
-               and kit.id = kt.install_type
-               and kt.org_id is NULL
-        """
-    def set_iterator(self):
-        return BaseQueryDumper.set_iterator(self)
-
 class _KickstartableTreeDumper(BaseRowDumper):
     tag_name = 'rhn-kickstartable-tree'
 
@@ -1436,9 +1410,31 @@ class _KickstartableTreeDumper(BaseRowDumper):
         h.execute(kstree_id=kstree_id)
         return ArrayIterator([_KickstartFilesDumper(self._writer, h)])
 
-class _KickstartFilesDumper(BaseSubelementDumper):
-    tag_name = 'rhn-kickstart-files'
-    subelement_dumper_class = _KickstartFileEntryDumper
+class KickstartableTreesDumper(BaseSubelementDumper, BaseQueryDumper):
+    tag_name = 'rhn-kickstartable-trees'
+    subelement_dumper_class = _KickstartableTreeDumper
+    iterator_query = """
+            select kt.id,
+                   c.label channel,
+                   kt.base_path "base-path",
+                   kt.label,
+                   kt.boot_image "boot-image",
+                   ktt.name "kstree-type-name",
+                   ktt.label "kstree-type-label",
+                   kit.name "install-type-name",
+                   kit.label "install-type-label",
+                   TO_CHAR(kt.last_modified, 'YYYYMMDDHH24MISS') "last-modified"
+              from rhnKickstartableTree kt,
+                   rhnKSTreeType ktt,
+                   rhnKSInstallType kit,
+                   rhnChannel c
+             where kt.channel_id = c.id
+               and ktt.id = kt.kstree_type
+               and kit.id = kt.install_type
+               and kt.org_id is NULL
+        """
+    def set_iterator(self):
+        return BaseQueryDumper.set_iterator(self)
 
 class _KickstartFileEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-kickstart-file'
@@ -1452,6 +1448,10 @@ class _KickstartFileEntryDumper(BaseChecksumRowDumper):
         if self._row['checksum_type'] == 'md5':
             attr['md5sum'] = self._row['checksum']
         return attr
+
+class _KickstartFilesDumper(BaseSubelementDumper):
+    tag_name = 'rhn-kickstart-files'
+    subelement_dumper_class = _KickstartFileEntryDumper
 
 def _dbtime2timestamp(val):
     return int(rhnLib.timestamp(val))
