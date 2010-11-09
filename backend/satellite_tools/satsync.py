@@ -1874,8 +1874,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 class StreamProducer:
     def __init__(self, handler, data_source_class, source_func):
         self.handler = handler
-        self.loader = getattr(data_source_class, source_func)
         self.is_disk_loader = data_source_class.is_disk_loader()
+        if self.is_disk_loader:
+            self.loader = getattr(data_source_class, source_func)()
+        else:
+            self.loader = getattr(data_source_class, source_func)
         self._args = ()
 
     def set_args(self, *args):
@@ -1886,7 +1889,6 @@ class StreamProducer:
 
     def process(self, batch):
         if self.is_disk_loader:
-            self.loader = self.loader()
             for oid in batch:
                 self.loader.setID(oid)
                 stream = self.loader.load()
