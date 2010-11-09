@@ -146,7 +146,7 @@ class BaseQueryDumper(BaseDumper):
         if self._iterator:
             return self._iterator
         h = rhnSQL.prepare(self.iterator_query)
-        h.execute
+        h.execute()
         return h
 
 class BaseSubelementDumper(BaseDumper):
