@@ -647,7 +647,7 @@ class CachedDumper(exportLib.BaseDumper):
 
         start = time.time()
         # call dump_subelement() from original (non-cached) class
-        self.non_cached_class.dump_subelement(row)
+        self.non_cached_class.dump_subelement(self, row)
         log_debug(5, 
             "Timer for _dump_subelement: %.2f" % (time.time() - start))
 
