@@ -175,7 +175,7 @@ class XML_Dumper:
     def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
             virt_filter=0):
         log_debug(2)
-        self._write_dump(ServerGroupTypeServerArchCompatDumper,
+        self._write_dump(exportLib.ServerGroupTypeServerArchCompatDumper,
                 rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter)
         return 0
 
