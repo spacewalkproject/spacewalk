@@ -1247,7 +1247,7 @@ ORDER BY  SERVER_ID
    rhnServerGroupMembers sgm,
          rhnVirtualInstance VI
    WHERE VI.id IN (%s)
-     AND sgm.server_id = NVL(VI.virtual_system_id, VI.host_system_id)
+     AND sgm.server_id = COALESCE(VI.virtual_system_id, VI.host_system_id)
      AND sg.id = sgm.server_group_id
      and sg.group_type = sgt.id
 
