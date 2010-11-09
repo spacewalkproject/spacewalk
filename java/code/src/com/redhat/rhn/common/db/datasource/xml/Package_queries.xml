@@ -703,12 +703,12 @@ SELECT  P.id AS ID,
         E.advisory,
         E.id AS ADVISORY_ID,
         COUNT(DISTINCT SNPC.server_id) NUM_SYSTEMS
-  FROM  rhnErrata E,
+  FROM  rhnErrata E LEFT OUTER JOIN rhnServerNeededPackageCache SNPC
+        ON SNPC.errata_id = E.id,
         rhnPackageEVR PE,
         rhnPackageName PN,
         rhnPackage P,
         rhnPackageArch PA,
-        rhnServerNeededPackageCache SNPC,
         rhnSet S
  WHERE  S.user_id = :user_id
    AND  S.label = 'system_list'
@@ -717,7 +717,6 @@ SELECT  P.id AS ID,
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
-   AND  SNPC.errata_id = E.id (+)
 GROUP BY P.id,
          PN.name,
          PE.version,
