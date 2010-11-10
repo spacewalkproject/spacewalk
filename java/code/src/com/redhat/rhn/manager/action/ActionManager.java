@@ -1726,6 +1726,9 @@ public class ActionManager extends BaseManager {
                  type.equals(ActionFactory.TYPE_SOLARISPKGS_INSTALL)) {
             name = "Package Install";
         }
+        else if (type.equals(ActionFactory.TYPE_PACKAGES_VERIFY)) {
+           name = "Package Verify";
+       }
         else if (type.equals(ActionFactory.TYPE_PACKAGES_REFRESH_LIST)) {
             name = "Package List Refresh";
         }
