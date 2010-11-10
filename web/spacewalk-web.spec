@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.23
+Version: 1.2.24
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Nov 10 2010 Lukas Zapletal 1.2.24-1
+- Fixing table aliases for DISTINCT queries (PG)
+
 * Wed Nov 10 2010 Jan Pazdziora 1.2.23-1
 - use ansi syntax in outer join (mzazrivec@redhat.com)
 - fixing queries, where rhnServer was unexpectedly joined to the query
