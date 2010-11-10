@@ -5,7 +5,7 @@
 Summary: Python interface to Oracle
 Name: %{name}
 Version: %{version}
-Release: %{release}
+Release: %{release}%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Group: Development/Libraries
