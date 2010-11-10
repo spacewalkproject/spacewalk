@@ -1037,7 +1037,7 @@ SELECT  DISTINCT CP.channel_id as id
 
 <mode name="children_in_set" class="com.redhat.rhn.frontend.dto.ChildChannelDto">
   <query params="user_id">
-select distinct id, name, label, 1 subscribable, parent_id  from (
+select distinct id, name, label, 1 subscribed, parent_id  from (
 select 	c.id,
 		c.name,
 		c.label,
