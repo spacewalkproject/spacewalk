@@ -663,7 +663,7 @@ SELECT  DISTINCT SP.server_id id,
         PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO
   FROM  rhnPackageEVR PE,
         rhnPackageName PN,
-        rhnServerPackage SP RIGHT OUTER JOIN rhnPackageArch PA
+        rhnServerPackage SP LEFT OUTER JOIN rhnPackageArch PA
         ON SP.package_arch_id = PA.id
  WHERE  SP.server_id IN (%s)
    AND  SP.name_id = PN.id
