@@ -147,7 +147,7 @@ SELECT  DISTINCT
    AND  CP.package_id = P.id
    AND  P.package_arch_id = PA.id
 ) X
-ORDER BY UPPER(X.name)
+ORDER BY UPPER(X.server_name)
 </query>
 
 <mode name="ssm_package_upgrades_conf">
@@ -189,7 +189,7 @@ SELECT  DISTINCT
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
 ) X
-ORDER BY UPPER(X.name), UPPER(X.NVRE)
+ORDER BY UPPER(X.server_name), UPPER(X.NVRE)
   </elaborator>
 </mode>
 
@@ -636,7 +636,7 @@ select * from (
 	   AND  (SP.package_arch_id  = ST2.element_three  OR (SP.package_arch_id is null and ST2.element_three is null))
 	   AND  SP.server_id = S.id
 ) X, rhnServer S
-	ORDER BY UPPER(S.name), S.id
+	ORDER BY UPPER(X.system_name), X.id
    </query>
 
 
