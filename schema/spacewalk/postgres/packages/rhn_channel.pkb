@@ -1111,5 +1111,22 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
       end loop;
    end$$ language plpgsql;
 
+   create or replace function update_needed_cache(channel_id_in in numeric) returns void
+   as $$
+   declare
+   server record;
+   begin
+      -- we intentionaly do a loop here instead of one huge select
+      -- b/c we want to break update into smaller transaction to unblock other sessions
+      -- querying rhnServerNeededCache
+      for server in (
+                select sc.server_id as id
+                  from rhnServerChannel sc
+                 where sc.channel_id = channel_id_in
+      ) loop
+         perform rhn_server.update_needed_cache(server.id);
+      end loop;
+   end$$ language plpgsql;
+
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_channel')+1) ) where name = 'search_path';
