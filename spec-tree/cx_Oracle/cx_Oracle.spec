@@ -25,7 +25,7 @@ Prefix: %{_prefix}
 Vendor: Anthony Tuininga <anthony.tuininga@gmail.com>
 Url: http://cx-oracle.sourceforge.net
 AutoReq: 0
-
+BuildRequires: python-devel
 BuildRequires: oracle-instantclient-devel
 
 %description
