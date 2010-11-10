@@ -23,10 +23,10 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 %setup
 
 %build
-env CFLAGS="$RPM_OPT_FLAGS" python2.4 setup.py build
+env CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 %install
-python2.4 setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+%{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
 
 %clean
 rm -rf $RPM_BUILD_ROOT
