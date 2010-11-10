@@ -30,20 +30,19 @@ __rhnexport__ = ['update',
                  'verify']
 
 _query_action_verify_packages = rhnSQL.Statement("""
-    select distinct
-           pn.name name,
-           pe.version version,
-           pe.release release,
-           pe.epoch epoch,
-           pa.label arch
-      from rhnActionPackage ap,
+  select distinct
+           pn.name as name,
+           pe.version as version,
+           pe.release as release,
+           pe.epoch as epoch,
+           pa.label as arch
+ left join rhnPackageArch pa
+        on ap.package_arch_id = pa.id,
            rhnPackageName pn,
-           rhnPackageEVR pe,
-           rhnPackageArch pa
+           rhnPackageEVR pe
      where ap.action_id = :actionid
        and ap.evr_id = pe.id
        and ap.name_id = pn.id
-       and ap.package_arch_id = pa.id (+)
 """)
 def verify(serverId, actionId, dry_run=0):
     log_debug(3, dry_run)
