@@ -59,7 +59,7 @@ from diskImportLib import rpmsPath
 from syncLib import log, log2, log2disk, log2stderr, log2email, unique
 from syncLib import RhnSyncException, RpmManip, ReprocessingNeeded
 from syncLib import initEMAIL_LOG, dumpEMAIL_LOG
-from syncLib import FileCreationError, FileManip, intersection
+from syncLib import FileCreationError, FileManip
 
 from SequenceServer import SequenceServer
 from spacewalk.server.importlib.errataCache import schedule_errata_cache_update

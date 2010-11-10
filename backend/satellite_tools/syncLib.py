@@ -253,36 +253,6 @@ class RpmManip(FileManip):
         return tuple(map(lambda x, s=self: s.pdict[x], 
             ['name', 'version', 'release', 'epoch', 'arch']))
 
-def intersection(seq0, seq1):
-    """return the intersection of two sequences
-    returns three lists (common, unique in first seq, unique in second seq)
-    """
-
-    # let's handle the "passed in None" possibility
-    seq0 = seq0 or []
-    seq1 = seq1 or []
-
-    common = []
-    uniq0 = []
-
-    # dictionaries are faster
-    d = {}
-    for k in seq1:
-        d[k] = 1
-    for item in seq0:
-        if d.has_key(item):
-            common.append(item)
-            del d[item]
-        else:
-            uniq0.append(item)
-    uniq1 = d.keys()
-
-    common.sort()
-    uniq0.sort()
-    uniq1.sort()
-    return (common, uniq0, uniq1)
-    
-
 def unique(s):
     """Return a list of the elements in s, but without duplicates.
 
