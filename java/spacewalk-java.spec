@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.96
+Version: 1.2.97
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -442,6 +442,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 10 2010 Lukas Zapletal 1.2.97-1
+- Correcting spec for spacewalk-java (JAR symlinks)
+
 * Tue Nov 09 2010 Tomas Lestach <tlestach@redhat.com> 1.2.96-1
 - enable SSM Package remove process(PG) (tlestach@redhat.com)
 - enable SSM Package install process(PG) (tlestach@redhat.com)
