@@ -157,7 +157,7 @@ select * from (
 SELECT  DISTINCT
         S.id AS ID,
         S.name AS SERVER_NAME,
-        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' || PA.label NVRE,
         PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         P.name_id AS NAME_ID,
         P.evr_id AS EVR_ID,
