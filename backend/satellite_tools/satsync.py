@@ -1691,7 +1691,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def _fix_erratum(self, erratum):
         """ Replace the list of packages with references to short packages"""
         sp_coll = sync_handlers.ShortPackageCollection()
-        pids = unique(erratum['packages'])
+        pids = set(erratum['packages'] or [])
         # map all the pkgs objects to the erratum
         packages = []
         # remove packages which are not in the export (e.g. archs we are not syncing)
