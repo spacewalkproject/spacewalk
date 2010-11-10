@@ -127,7 +127,6 @@ ORDER BY UPPER(PACKAGE)
 
 <mode name="packages_in_errata">
   <query params="eid">
-select * from (
 SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
        || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
        || '-' || PA.label package_nvre
@@ -141,15 +140,13 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-) X, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA, rhnPackage P, rhnErrataPackage EP
-ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
+ORDER BY UPPER(package_nvre)
   </query>
   <elaborator name="package_channels" />
 </mode>
 
 <mode name="packages_in_tmp_errata">
   <query params="eid">
-select * from (
 SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
        || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
        || '-' || PA.label package_nvre
@@ -163,8 +160,7 @@ WHERE EP.errata_id = :eid
   AND PN.id = P.name_id
   AND PE.id = P.evr_id
   AND PA.id = P.package_arch_id
-) X, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA, rhnPackage P, rhnErrataPackage EP
-ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
+ORDER BY UPPER(package_nvre)
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -807,7 +803,6 @@ ORDER BY  UPPER(NVREA)
 
 <mode name="packages_owned_by_org">
   <query params="org_id">
-select * from (
   SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
            || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
            || '-' || PA.label package_nvre
@@ -819,8 +814,7 @@ select * from (
      AND PN.id = P.name_id
      AND PE.id = P.evr_id
      AND PA.id = P.package_arch_id
-) X, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA, rhnPackage P
-ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
+ORDER BY UPPER(package_nvre)
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -930,7 +924,6 @@ SELECT CP.package_id id, C.name package_channels
 
 <mode name="managed_packages_in_channel">
   <query params="channel_id, org_id">
-select * from (
   SELECT DISTINCT CP.package_id id, PN.name || '-' || PE.version ||
     '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':'
     || PE.epoch END) || '-' || PA.label package_nvre
@@ -945,15 +938,13 @@ select * from (
      AND PE.id = P.evr_id
      AND PA.id = P.package_arch_id
      AND P.org_id = :org_id
-) X, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA, rhnPackage P, rhnErrataPackage EP
-ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, CP.package_id
+ORDER BY UPPER(package_nvre)
   </query>
   <elaborator name="package_channels" />
 </mode>
 
 <mode name="packages_in_no_channels_owned_by_org">
   <query params="org_id">
-select * from (
   SELECT DISTINCT P.id, PN.name || '-' || PE.version || '-' ||
     PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' ||
     PE.epoch END) || '-' || PA.label package_nvre
@@ -968,8 +959,7 @@ select * from (
      AND NOT EXISTS (SELECT 1
                        FROM rhnChannelPackage CP
                       WHERE P.id = CP.package_id)
-) X, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA, rhnPackage P
-ORDER BY UPPER(PN.name), PE.version, PE.release, PE.epoch, PA.label, P.id
+ORDER BY UPPER(package_nvre)
   </query>
 </mode>
 

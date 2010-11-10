@@ -487,7 +487,7 @@ where a.user_id = :some_user_id
 
 <mode name="affected_by_errata">
   <query params="eid, user_id">
-  SELECT * FROM (
+  select * from (
   SELECT  DISTINCT S.id, S.name
     FROM  rhnServerNeededErrataCache SNEC,
           rhnEntitledServers S,
@@ -496,8 +496,8 @@ where a.user_id = :some_user_id
      AND  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = SNEC.server_id
-  ) X, rhnEntitledServers S
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  ) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
   </query>
   <elaborator params="eid" multiple="t">
 SELECT SA.server_id as id, 
