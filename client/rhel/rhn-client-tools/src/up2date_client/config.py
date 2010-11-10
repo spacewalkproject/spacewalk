@@ -74,8 +74,8 @@ class ConfigFile:
 
         for line in f.readlines():
             # strip comments
-            if '#' in line:
-                line = line[:line.find('#')]
+            if line.find('#') == 0:
+                continue
             line = line.strip()            
             if not line:
                 continue
