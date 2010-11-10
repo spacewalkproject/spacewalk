@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Nov 10 2010 Jan Pazdziora 1.2.3-1
+- remove escaping (msuchy@redhat.com)
+
 * Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.2-1
 - install cobbler-proxy.conf (msuchy@redhat.com)
 
