@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.63
+Version: 1.2.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 10 2010 Jan Pazdziora 1.2.64-1
+- removed dead _lookup_last_modified() (michael.mraka@redhat.com)
+- removed dead _generate_executemany_data() (michael.mraka@redhat.com)
+
 * Wed Nov 10 2010 Jan Pazdziora 1.2.63-1
 - fixed Exception exceptions.AssertionError: <exceptions.AssertionError
   instance at 0x2b4a22e18368> in <bound method Syncer.__del__ of
