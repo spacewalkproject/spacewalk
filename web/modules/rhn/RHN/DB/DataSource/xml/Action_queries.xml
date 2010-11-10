@@ -82,14 +82,14 @@ SELECT SA.action_id AS ID,
 	       A.name AS action_name
           FROM rhnActionType AType,
                rhnActionStatus AStat,
-               rhnUser U,
-               rhnAction A,
+               rhnAction A LEFT OUTER JOIN
+               rhnUser U
+            ON U.id = A.scheduler,
                rhnServerAction SA
          WHERE SA.server_id = :sid
            AND SA.action_id = A.id
            AND AType.id = A.action_type
            AND AStat.id = SA.status
-           AND U.id(+) = A.scheduler
            AND AStat.id = 0
 ORDER BY SCHEDULED_FOR DESC, ID DESC
   </query>
