@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.14
+Version: 1.2.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -332,6 +332,19 @@ fi
 
 
 %changelog
+* Wed Nov 10 2010 Jan Pazdziora 1.2.15-1
+- addressing rpmlint error non-standard-dir-perm (msuchy@redhat.com)
+- fix spelling error (msuchy@redhat.com)
+- update Makefile to reflect logrotate files rename (msuchy@redhat.com)
+- rename logrotate/rhn_proxy_redirect to logrotate/rhn-proxy-redirect
+  (msuchy@redhat.com)
+- rename logrotate/rhn_proxy_broker to logrotate/rhn-proxy-broker
+  (msuchy@redhat.com)
+- mark logrotate.d files as %config(noreplace) (msuchy@redhat.com)
+- correct description (msuchy@redhat.com)
+- bumping up epoch in provides - do not self-obsolete (msuchy@redhat.com)
+- escape entry in changelog (msuchy@redhat.com)
+
 * Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.14-1
 - 514253 - file cobbler-proxy.conf should have owner, winner is spacewalk-
   proxy-common (msuchy@redhat.com)
