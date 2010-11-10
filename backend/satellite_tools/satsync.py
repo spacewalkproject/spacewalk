@@ -945,8 +945,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 		avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
 	    else:
 		avail_pids = self._avail_channel_packages[channel_label]
-            comm, ul, ur = intersection(pids, avail_pids)
-            if ul:
+
+            if set(pids or []) <= set(avail_pids or []):
                 raise RhnSyncException, _('ERROR: incremental dump skipped')
 
     def _get_rel_package_path(self, nevra, org_id, source, checksum_type, checksum):
