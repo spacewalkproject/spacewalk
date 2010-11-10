@@ -635,7 +635,7 @@ select * from (
 	   AND  SP.evr_id = ST2.element_two
 	   AND  (SP.package_arch_id  = ST2.element_three  OR (SP.package_arch_id is null and ST2.element_three is null))
 	   AND  SP.server_id = S.id
-) X, rhnServer S
+) X
 	ORDER BY UPPER(X.system_name), X.id
    </query>
 
@@ -689,8 +689,8 @@ select * from (
            AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM    rhnServer S, rhnUserServerPerms USP, rhnServerNeededPackageCache SNPC
   WHERE    S.ORG_ID = :org_id AND S.ID = USP.server_id AND USP.user_id = :user_id AND S.id = SNPC.server_id
-) X, rhnServer S
-ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+) X
+ORDER BY  UPPER(NVL(X.NAME, '(none)')), X.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements" />
@@ -1311,8 +1311,8 @@ SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, PN.name || '-' || PE.evr.as
    AND  PN.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
    AND  SP.server_id = S.id
-) X, rhnServer S
-ORDER BY UPPER(S.name)
+) X
+ORDER BY UPPER(X.name)
 </query>
 
 <mode name="system_installed_packages">

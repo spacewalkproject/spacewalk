@@ -1061,8 +1061,8 @@ ORDER BY CASE SEV.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
      AND  ST.element = S.id
-  ) X, rhnServer S
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  ) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
 </query>
 
 <query name="system_package_data_from_set" params="user_id, package_set_label">
