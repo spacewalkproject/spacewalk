@@ -702,7 +702,7 @@ SELECT  P.id AS ID,
         E.advisory,
         E.id AS ADVISORY_ID,
         COUNT(DISTINCT SNPC.server_id) NUM_SYSTEMS
-  FROM  rhnErrata E LEFT OUTER JOIN rhnServerNeededPackageCache SNPC
+  FROM  rhnServerNeededPackageCache SNPC LEFT OUTER JOIN rhnErrata E
         ON SNPC.errata_id = E.id,
         rhnPackageEVR PE,
         rhnPackageName PN,
