@@ -13,8 +13,6 @@
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
 %endif
 
-%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
-
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
@@ -311,7 +309,93 @@ fi
 
 %files
 %defattr(644,tomcat,tomcat,775)
-%dir %{appdir}
+%dir %{appdir}/rhn/
+%dir %{appdir}/rhn/apidoc/
+%dir %{appdir}/rhn/css/
+%dir %{appdir}/rhn/errata/
+%dir %{appdir}/rhn/help/
+%dir %{appdir}/rhn/img/
+%dir %{appdir}/rhn/META-INF/
+%dir %{appdir}/rhn/schedule/
+%dir %{appdir}/rhn/systems/
+%dir %{appdir}/rhn/users/
+%{appdir}/rhn/index.jsp
+%dir %{appdir}/rhn/WEB-INF/classes
+%dir %{appdir}/rhn/WEB-INF/decorators
+%dir %{appdir}/rhn/WEB-INF/includes
+%dir %{appdir}/rhn/WEB-INF/nav
+%dir %{appdir}/rhn/WEB-INF/pages
+%{appdir}/rhn/WEB-INF/decorators.xml
+%{appdir}/rhn/WEB-INF/dwr.xml
+%{appdir}/rhn/WEB-INF/sitemesh.xml
+%{appdir}/rhn/WEB-INF/struts-config.xml
+%{appdir}/rhn/WEB-INF/web.xml
+# jars for all distributions
+%{appdir}/rhn/WEB-INF/lib/antlr.jar
+%{appdir}/rhn/WEB-INF/lib/bcel.jar
+%{appdir}/rhn/WEB-INF/lib/c3p0.jar
+%{appdir}/rhn/WEB-INF/lib/cglib.jar
+%{appdir}/rhn/WEB-INF/lib/commons-beanutils.jar
+%{appdir}/rhn/WEB-INF/lib/commons-cli.jar
+%{appdir}/rhn/WEB-INF/lib/commons-codec.jar
+%{appdir}/rhn/WEB-INF/lib/commons-collections.jar
+%{appdir}/rhn/WEB-INF/lib/commons-digester.jar
+%{appdir}/rhn/WEB-INF/lib/commons-discovery.jar
+%{appdir}/rhn/WEB-INF/lib/commons-el.jar
+%{appdir}/rhn/WEB-INF/lib/commons-fileupload.jar
+%{appdir}/rhn/WEB-INF/lib/commons-io.jar
+%{appdir}/rhn/WEB-INF/lib/commons-lang.jar
+%{appdir}/rhn/WEB-INF/lib/commons-logging.jar
+%{appdir}/rhn/WEB-INF/lib/commons-validator.jar
+%{appdir}/rhn/WEB-INF/lib/concurrent.jar
+%{appdir}/rhn/WEB-INF/lib/dom4j.jar
+%{appdir}/rhn/WEB-INF/lib/hibernate3.jar
+%{appdir}/rhn/WEB-INF/lib/jaf.jar
+%{appdir}/rhn/WEB-INF/lib/jasper5-compiler.jar
+%{appdir}/rhn/WEB-INF/lib/jasper5-runtime.jar
+%{appdir}/rhn/WEB-INF/lib/javamail.jar
+%{appdir}/rhn/WEB-INF/lib/jcommon.jar
+%{appdir}/rhn/WEB-INF/lib/jdom.jar
+%{appdir}/rhn/WEB-INF/lib/jfreechart*.jar
+%{appdir}/rhn/WEB-INF/lib/jpam.jar
+%{appdir}/rhn/WEB-INF/lib/jspapi.jar
+%{appdir}/rhn/WEB-INF/lib/jta.jar
+%{appdir}/rhn/WEB-INF/lib/log4j.jar
+%{appdir}/rhn/WEB-INF/lib/oro.jar
+%{appdir}/rhn/WEB-INF/lib/oscache.jar
+%{appdir}/rhn/WEB-INF/lib/quartz.jar
+%{appdir}/rhn/WEB-INF/lib/redstone-xmlrpc-client.jar
+%{appdir}/rhn/WEB-INF/lib/redstone-xmlrpc.jar
+%{appdir}/rhn/WEB-INF/lib/rhn.jar
+%{appdir}/rhn/WEB-INF/lib/simple-core.jar
+%{appdir}/rhn/WEB-INF/lib/sitemesh.jar
+%{appdir}/rhn/WEB-INF/lib/stringtree-json.jar
+%{appdir}/rhn/WEB-INF/lib/struts.jar
+%{appdir}/rhn/WEB-INF/lib/taglibs-core.jar
+%{appdir}/rhn/WEB-INF/lib/taglibs-standard.jar
+%{appdir}/rhn/WEB-INF/lib/tanukiwrapper.jar
+%{appdir}/rhn/WEB-INF/lib/xalan-j2.jar
+%{appdir}/rhn/WEB-INF/lib/xerces-j2.jar
+%{appdir}/rhn/WEB-INF/lib/xml-commons-apis.jar
+# jars for particular versions
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+%{appdir}/rhn/WEB-INF/lib/asmasm-1.5.3.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-analysis-1.5.3.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-analysis.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-attrs-1.5.3.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-attrs.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-tree-1.5.3.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-tree.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-util-1.5.3.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-util.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-xml-1.5.3.jar
+%{appdir}/rhn/WEB-INF/lib/asmasm-xml.jar
+%{appdir}/rhn/WEB-INF/lib/asmkasm-1.5.3.jar
+%{appdir}/rhn/WEB-INF/lib/asmkasm.jar
+%else
+%{appdir}/rhn/WEB-INF/lib/objectweb-asm_asm.jar
+%endif
 %dir %{cobprofdir}
 %dir %{cobprofdirup}
 %dir %{cobprofdirwiz}
