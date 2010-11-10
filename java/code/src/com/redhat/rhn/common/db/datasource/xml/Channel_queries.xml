@@ -1088,7 +1088,7 @@ where	st.user_id = :user_id
 	and rhn_channel.user_role_check(cfm.channel_id,:user_id,'subscribe')=1
 	and usp.user_id = :user_id
 	and st.element = usp.server_id
-)
+) U
   </query>
 </mode>
 
