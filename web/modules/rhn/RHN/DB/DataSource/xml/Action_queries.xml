@@ -38,8 +38,8 @@ SELECT EVENT_ID,
        HISTORY_STATUS
   FROM (SELECT SH.id EVENT_ID,
                SH.summary SUMMARY,
-               TO_DATE(NULL) AS created,
-               TO_DATE(NULL) AS picked_up,
+               TO_DATE(NULL, NULL) AS created,
+               TO_DATE(NULL, NULL) AS picked_up,
                SH.created as completed,  -- view this as the "completed" date for sorting reasons
                NULL AS history_status,
                NULL AS history_type,
@@ -57,14 +57,14 @@ SELECT EVENT_ID,
                AType.name AS history_type_name
           FROM rhnActionType AType,
                rhnActionStatus AStat,
-               rhnUser U,
-               rhnAction A,
+               rhnAction A
+     LEFT JOIN rhnUser U
+            ON U.id = A.scheduler,
                rhnServerAction SA
          WHERE SA.server_id = :sid
            AND SA.action_id = A.id
            AND ATYPE.id = A.action_type
            AND AStat.id = SA.status
-           AND U.id(+) = A.scheduler
            AND AStat.id IN (1, 2, 3)
        ) X
 ORDER BY COMPLETED DESC, PICKED_UP DESC, CREATED DESC, EVENT_ID DESC
