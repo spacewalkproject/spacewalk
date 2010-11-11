@@ -18,11 +18,13 @@ BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 %define icdir %{icversion}
 Requires:       oracle-instantclient-basic = %{icversion}
 Requires:       oracle-instantclient-sqlplus = %{icversion}
+%define soversion 10
 %else
 %define icversion 11.2.0.2.0
 %define icdir 11.2
 Requires:       oracle-instantclient11.2-basic = %{icversion}
 Requires:       oracle-instantclient11.2-sqlplus = %{icversion}
+%define soversion 11
 %endif
 
 Requires(post): ldconfig
@@ -33,10 +35,10 @@ Requires(post): /usr/bin/xargs
 %ifarch x86_64
 %define lib64 ()(64bit)
 %endif
-Provides:       libocci.so.10.1%{?lib64}   = %{icversion}
-Provides:       libnnz10.so%{?lib64}       = %{icversion}
-Provides:       libocijdbc10.so%{?lib64}   = %{icversion}
-Provides:       libclntsh.so.10.1%{?lib64} = %{icversion}
+Provides:       libocci.so.%{soversion}.1%{?lib64}   = %{icversion}
+Provides:       libnnz%{soversion}.so%{?lib64}       = %{icversion}
+Provides:       libocijdbc%{soversion}.so%{?lib64}   = %{icversion}
+Provides:       libclntsh.so.%{soversion}.1%{?lib64} = %{icversion}
 Provides:       libociei.so%{?lib64}       = %{icversion}
 Provides:       ojdbc14                    = %{icversion}
 Obsoletes:      rhn-oracle-jdbc           <= 1.0
