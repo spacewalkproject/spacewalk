@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.102
+Version: 1.2.103
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -428,6 +428,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 11 2010 Lukas Zapletal 1.2.103-1
+- Replacing one more NVL with COALESCE function 
+- Replacing NVL with COALESCE function 
+
 * Thu Nov 11 2010 Lukas Zapletal 1.2.102-1
 - Correcting one more ANSI JOIN syntax in channel queries (PG)
 - Correcting ANSI JOIN syntax in channel queries 
