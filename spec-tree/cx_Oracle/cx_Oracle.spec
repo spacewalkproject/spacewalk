@@ -3,13 +3,18 @@
 %define release 1
 
 # different arches have differnet oracle versions
+%define oracleicname instantclient
 %ifarch ppc ppc64
 %define oraclever 10.2.0.2
+%define oracleicver %{oraclever}
 %else
 %ifarch ia64
 %define oraclever 10.2.0.3
+%define oracleicver %{oraclever}
 %else
-%define oraclever 10.2.0.4
+%define oraclever 11.2
+%define oracleicname instantclient%{oraclever}
+%define oracleicver 11.2.0.2.0
 %endif
 %endif
 
@@ -27,8 +32,8 @@ Url: http://cx-oracle.sourceforge.net
 AutoReq: 0
 Provides: python(:DBAPI:oracle) = 2.0
 BuildRequires: python-devel
-BuildRequires: oracle-instantclient-devel
-Requires: oracle-instantclient-basic = %{oraclever}
+BuildRequires: oracle-%{oracleicname}-devel
+Requires: oracle-%{oracleicname}-basic = %{oracleicver}
 
 %description
 Python interface to Oracle conforming to the Python DB API 2.0 specification.
