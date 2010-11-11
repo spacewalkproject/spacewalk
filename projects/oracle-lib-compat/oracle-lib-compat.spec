@@ -71,7 +71,7 @@ ln -s ../../../lib/oracle/%{icdir}/client64 $RPM_BUILD_ROOT%{_libdir}/oracle/%{i
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
-ln -s ../../%{_lib}/oracle/%{icdir}/client/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
+ln -s ../../%{_lib}/oracle/%{icdir}/client/lib/ojdbc6.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
 %if 0%{?rhel} && 0%{?rhel} < 6
 %define tomcatname tomcat5
