@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.65
+Version:        1.2.66
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Nov 11 2010 Lukas Zapletal 1.2.66-1
+- Putting packages/rhn_org.pkb in sync with ORA (PG)
+
 * Wed Nov 10 2010 Lukas Zapletal 1.2.65-1
 - Adding missing PLSQL function update_needed_cache (PG)
 
