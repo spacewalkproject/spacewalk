@@ -48,9 +48,9 @@ MKFILE=$(find /usr/share/oracle/ -name demo.mk)
 MKFILE=demo.mk
 %endif
 %ifarch x86_64 s390x
-ORACLE_HOME=$(find /usr/lib/oracle/ -name client64)
+ORACLE_HOME=$(find /usr/lib/oracle/ -name client64 | tail -1)
 %else
-ORACLE_HOME=$(find /usr/lib/oracle/ -name client)
+ORACLE_HOME=$(find /usr/lib/oracle/ -name client | tail -1)
 %endif
 export ORACLE_HOME
 perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix}
