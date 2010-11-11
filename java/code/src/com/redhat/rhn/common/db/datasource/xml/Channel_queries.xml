@@ -98,15 +98,14 @@ VALUES (null,			-- the id is set by trigger on rhnRepoRegenQueue
 SELECT C.label AS label,
        C.name AS name,
        NVL(C2.label, ' ') AS parent_label
-  FROM rhnChannel C2,
-       rhnChannel C,
+  FROM rhnChannel C
+       LEFT OUTER JOIN rhnChannel C2 ON C.parent_channel = C2.id,
        rhnAvailableChannels AC,
        rhnChannelPackage CP
  WHERE AC.org_id = :org_id
    AND CP.package_id = :pid
    AND AC.channel_id = CP.channel_id
    AND CP.channel_id = C.id
-   AND C.parent_channel = C2.id (+)
 ORDER BY UPPER(C.name)
   </query>
 </mode>
