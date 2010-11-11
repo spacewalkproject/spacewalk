@@ -1371,7 +1371,7 @@ SELECT CC.id,
        CC.description,
        CC.created,
        CC.modified,
-       NVL( (
+       COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
               WHERE CF.config_channel_id = CC.id
