@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.66
+Version: 1.2.67
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Nov 11 2010 Lukas Zapletal 1.2.67-1
+- Fixing space in SQL bind parameter 
+- Keyword MINUS is not recognized by PostgreSQL 
+- Fixing indentation in spacewalk-remove-channel 
+- l10n: Updates to German 
+- Revert "l10n: Updates to Swedish 
+- l10n: Updates to Swedish 
+
 * Thu Nov 11 2010 Jan Pazdziora 1.2.66-1
 - Update copyright years in backend.
 
