@@ -314,7 +314,7 @@ class User:
         user_id = self.getid()
 
         h = rhnSQL.prepare("""
-            select ugt.label role
+            select ugt.label as role
               from rhnUserGroup ug,
                    rhnUserGroupType ugt,
                    rhnUserGroupMembers ugm
