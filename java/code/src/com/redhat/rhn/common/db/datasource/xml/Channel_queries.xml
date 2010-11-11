@@ -850,15 +850,14 @@ SELECT C.id as channel_id,
        C.label as label,
        C.name as name,
        NVL(C2.label, ' ') as parent_channel_label
-  FROM rhnChannel C2,
-       rhnChannel C,
+  FROM rhnChannel C
+       LEFT OUTER JOIN rhnChannel C2 ON C.parent_channel = C2.id,
        rhnAvailableChannels AC,
        rhnChannelErrata EC
  WHERE EC.errata_id = :eid
    AND AC.org_id = :org_id
    AND AC.channel_id = EC.channel_id
    AND EC.channel_id = C.id
-   AND C.parent_channel = C2.id (+)
 ORDER BY UPPER(C.name)
   </query>
 </mode>
