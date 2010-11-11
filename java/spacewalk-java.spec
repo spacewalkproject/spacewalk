@@ -290,6 +290,9 @@ ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-
 ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
 %endif
 
+# delete JARs which must not be deployed
+rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -356,7 +359,6 @@ fi
 %{jardir}/jdom.jar
 %{jardir}/jfreechart*.jar
 %{jardir}/jpam.jar
-%{jardir}/jspapi.jar
 %{jardir}/jta.jar
 %{jardir}/log4j.jar
 %{jardir}/oro.jar
