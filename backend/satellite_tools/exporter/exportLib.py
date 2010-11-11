@@ -582,7 +582,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         select vsl.label, vsl.name
           from rhnChannelFamilyVirtSubLevel cfvsl,
                rhnVirtSubLevel vsl
-         where cfvsl.channel_family_id =: channel_family_id
+         where cfvsl.channel_family_id = :channel_family_id
            and cfvsl.virt_sub_level_id = vsl.id
     """
     def set_iterator(self):
