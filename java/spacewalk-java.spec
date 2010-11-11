@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.101
+Version: 1.2.102
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -428,6 +428,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 11 2010 Lukas Zapletal 1.2.102-1
+- Correcting one more ANSI JOIN syntax in channel queries (PG)
+- Correcting ANSI JOIN syntax in channel queries 
+- Correcting spaces in channel queries xml file 
+- Making two server group portable 
+- Correcting NULL values in channel manager repo gen 
+
 * Thu Nov 11 2010 Lukas Zapletal 1.2.101-1
 - Correcting spacewalk-java.spec - removing doubled files
 
