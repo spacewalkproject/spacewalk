@@ -814,7 +814,7 @@ ORDER BY update_date DESC, E.id
                   WHERE C.org_id = :org_id
                     AND CC.id = C.id
                     AND CC.original_id = CE.channel_id
-                    AND                            NVL(((SELECT 1
+                    AND                            COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
