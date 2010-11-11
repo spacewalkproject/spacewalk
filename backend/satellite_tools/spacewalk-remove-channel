@@ -34,19 +34,19 @@ from spacewalk.server import rhnSQL
 
 options_table = [
     Option("-v", "--verbose",       action="count", 
-        help="Increase verbosity"),
+           help="Increase verbosity"),
     Option("-l", "--list",          action="store_true",
-        help="List defined channels and exit"),
+           help="List defined channels and exit"),
     Option("-c", "--channel",       action="append", 
-        help="Delete this channel (can be present multiple times)"),
+           help="Delete this channel (can be present multiple times)"),
     Option("-u", "--unsubscribe",   action="store_true",
-        help="Unsubscribe systems registered to the specified channels"),
+           help="Unsubscribe systems registered to the specified channels"),
     Option(      "--justdb",        action="store_true",
-        help="Delete only from the database, do not remove files from disk"),
+                 help="Delete only from the database, do not remove files from disk"),
     Option(      "--force",         action="store_true",
-        help="Remove the channel packages from any other channels too (Not Recommended)"),
+                 help="Remove the channel packages from any other channels too (Not Recommended)"),
     Option("-p", "--skip-packages", action="store_true",
-        help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
+           help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
 ]
 
 LOCK = None
@@ -69,7 +69,7 @@ def main():
     parser = OptionParser(option_list=options_table)
 
     (options, args) = parser.parse_args()
-        
+
     if args:
         for arg in args:
             sys.stderr.write("Not a valid option ('%s'), try --help\n" % arg)
@@ -78,7 +78,7 @@ def main():
     if not (options.channel or options.list):
         sys.stderr.write("Nothing to do\n")
         sys.exit(0)
-    
+
     initCFG('server')
     initLOG("stdout", options.verbose or 0)
 
@@ -89,9 +89,9 @@ def main():
         keys = dict_parents.keys()
         keys.sort()
         for c in keys:
-           print c
-           for sub in dict_parents[c]:
-               print "\t" + sub
+            print c
+            for sub in dict_parents[c]:
+                print "\t" + sub
         return
 
 
@@ -120,10 +120,10 @@ def main():
                 channel)
             for child in children:
                 print "\t\t\t" + child
-               
+
     if child_test_fail:
         return -1
- 
+
     if __serverCheck(channels.keys(), options.unsubscribe):
         return -1
 
@@ -133,7 +133,7 @@ def main():
 
     try:
         delete_channels(channels.keys(), force=options.force,
-            justdb=options.justdb, skip_packages=options.skip_packages)
+                        justdb=options.justdb, skip_packages=options.skip_packages)
     except:
         rhnSQL.rollback()
         raise
@@ -202,9 +202,9 @@ def __unsubscribeServers(labels):
     for i in channel_list:
         print(i.ljust(40)),
         print(str(channel_counts[i]).ljust(8))
-    
+
     pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete',
-                finalSize=len(list), finalBarLength=40, stream=sys.stdout)
+                     finalSize=len(list), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
     for i in list:
@@ -213,14 +213,14 @@ def __unsubscribeServers(labels):
         pb.printIncrement()
     pb.printComplete()
 
-  
+
 def __unbsubscribeServer(server_id, channel_id):
     sql = """
          call rhn_channel.unsubscribe_server(:server_id, :channel_id)
     """
     h = rhnSQL.prepare(sql)
     h.execute(server_id=server_id, channel_id=channel_id)
- 
+
 
 def __kickstartCheck(labels):
     sql = """
@@ -236,12 +236,12 @@ def __kickstartCheck(labels):
     h = rhnSQL.prepare(sql % (bind_params))
     apply(h.execute, (), params)
     list = h.fetchall_dict()
-   
+
     if not list:
         return 0
- 
+
     print("The following kickstarts are associated with one of the specified channels. " +
-               "Please remove these or change their associated base channel.\n")
+          "Please remove these or change their associated base channel.\n")
     print('org_id'.ljust(8)),
     print('label')
     print("-"*20) 
@@ -274,7 +274,7 @@ def __listChannels():
 
         if parent_channel:
             parents[parent_channel].append(row['label'])
-        
+
     return labels, parents
 
 
@@ -350,7 +350,7 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0):
         ['rhnReleaseChannelMap', 'channel_id'],
         ['rhnChannel', 'id'],
     ]
-    
+
     query = "delete from %s where %s = :channel_id"
     for table, field in tables:
         log_debug(3, "Processing table %s" % table)
@@ -393,9 +393,9 @@ def list_packages(channelLabels, sources=0, force=0):
             MINUS
             %s
         """ % (
-            templ % ("", bind_params),
-            templ % ("not", bind_params),
-        )
+                templ % ("", bind_params),
+                templ % ("not", bind_params),
+            )
     h = rhnSQL.prepare(query)
     apply(h.execute, (), params)
     return map(lambda x: x['id'], h.fetchall_dict() or [])
@@ -424,7 +424,7 @@ def _templ_srpms():
             and p.source_rpm_id = ps.source_rpm_id
             and ((p.org_id is null and ps.org_id is null) or
                 p.org_id = ps.org_id)"""
-        
+
 def _delete_srpms(srcPackageIds):
     """Blow away rhnPackageSource and rhnFile entries.
     """
@@ -449,7 +449,7 @@ def _delete_rpms(packageIds):
     toDel = packageIds[:]
     print "Deleting package metadata (" + str(len(toDel)) + "):"
     pb = ProgressBar(prompt='Removing:         ', endTag=' - complete',
-                finalSize=len(packageIds), finalBarLength=40, stream=sys.stdout)
+                     finalSize=len(packageIds), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
     while len(toDel) > 0:
