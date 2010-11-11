@@ -2032,7 +2032,7 @@ ORDER BY UPPER(CC.name)
 
 <query name="ssm_channel_elab" params="system_set_label, user_id">
 SELECT  CC.id,
-        NVL( (
+        COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
                INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
@@ -2041,7 +2041,7 @@ SELECT  CC.id,
                 AND CF.latest_config_revision_id IS NOT NULL
                 AND CFT.LABEL = 'file'
             ), 0) AS files_only_count,
-        NVL( (
+        COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
                INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
@@ -2050,7 +2050,7 @@ SELECT  CC.id,
                 AND CF.latest_config_revision_id IS NOT NULL
                 AND CFT.LABEL = 'directory'
             ), 0) AS dirs_only_count,
-        NVL( (
+        COALESCE( (
              SELECT COUNT(SCC.server_id)
                FROM rhnServerConfigChannel SCC,
                     rhnSet ST, rhnUserServerPerms USP
@@ -2151,7 +2151,7 @@ ORDER BY ST.element_two
 
 <query name="ssm_channel_elab" params="system_set_label, user_id">
 SELECT  CC.id,
-        NVL( (
+        COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
                INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
@@ -2160,7 +2160,7 @@ SELECT  CC.id,
                 AND CF.latest_config_revision_id IS NOT NULL
                 AND CFT.LABEL = 'file'
             ), 0) AS files_only_count,
-        NVL( (
+        COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
                INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
@@ -2169,7 +2169,7 @@ SELECT  CC.id,
                 AND CF.latest_config_revision_id IS NOT NULL
                 AND CFT.LABEL = 'directory'
             ), 0) AS dirs_only_count,
-        NVL( (
+        COALESCE( (
              SELECT COUNT(SCC.server_id)
                FROM rhnServerConfigChannel SCC,
                     rhnSet ST, rhnUserServerPerms USP
