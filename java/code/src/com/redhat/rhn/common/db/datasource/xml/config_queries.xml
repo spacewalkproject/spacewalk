@@ -985,16 +985,15 @@ SELECT COUNT(CF.id) AS num_files
 <mode name="files_by_date"  class="com.redhat.rhn.frontend.dto.ConfigFileDto">
   <query params="ccid, user_id">
 SELECT CR.id, CFN.path, coalesce(CCon.modified, CR.modified) as modified
-  FROM rhnConfigContent CCon,
-       rhnConfigFileName CFN,
+  FROM rhnConfigFileName CFN,
        rhnConfigFile CF,
-       rhnConfigRevision CR,
+       rhnConfigRevision CR LEFT OUTER JOIN rhnConfigContent CCon
+       ON CR.config_content_id = CCon.id,
        rhnConfigChannel CC
  WHERE CC.id = :ccid
    AND CF.config_channel_id = CC.id
    AND CFN.id = CF.config_file_name_id
    AND CR.config_file_id = CF.id
-   AND CR.config_content_id = CCon.id(+)
    AND CF.latest_config_revision_id = CR.id
    AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1
 ORDER BY modified DESC
