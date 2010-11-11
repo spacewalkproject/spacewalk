@@ -2465,6 +2465,7 @@ public class ChannelManager extends BaseManager {
     public static List<String> getSyncdChannelArches() {
         return ChannelFactory.findChannelArchLabelsSyncdChannels();
     }
+
     /**
      *
      * @param channelLabel channel label
@@ -2473,12 +2474,12 @@ public class ChannelManager extends BaseManager {
      */
     public static void queueChannelChange(String channelLabel, String client,
             String reason) {
-        if (client == null) {
-            client = "";
+        if ("".equals(client)) {
+            client = null;
         }
 
-        if (reason == null) {
-            reason = "";
+        if ("".equals(reason)) {
+            reason = null;
         }
 
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "request_repo_regen");
