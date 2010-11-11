@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.67
+Version: 1.2.68
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Nov 11 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.68-1
+- removed dead unique() and intersection()
+- replaced own intersection() and unique() with faster builtin set operations
+
 * Thu Nov 11 2010 Lukas Zapletal 1.2.67-1
 - Fixing space in SQL bind parameter 
 - Keyword MINUS is not recognized by PostgreSQL 
