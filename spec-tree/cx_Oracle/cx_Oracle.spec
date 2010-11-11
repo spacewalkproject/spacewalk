@@ -28,6 +28,7 @@ AutoReq: 0
 Provides: python(:DBAPI:oracle) = 2.0
 BuildRequires: python-devel
 BuildRequires: oracle-instantclient-devel
+Requires: oracle-instantclient-basic = %{oraclever}
 
 %description
 Python interface to Oracle conforming to the Python DB API 2.0 specification.
