@@ -240,54 +240,54 @@ xargs checkstyle -c buildconf/checkstyle.xml
 rm -rf $RPM_BUILD_ROOT
 %if  0%{?rhel} && 0%{?rhel} < 6
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
+install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %else
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/
-install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
+install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 
 # check spelling errors in all resources for English
 scripts/spelling/check_java.sh . en_US
 
-install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
-install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/lib
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes
-install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
-install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
-install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
-install -d -m 755 $RPM_BUILD_ROOT/%{cobdirsnippets}
-install -d -m 755 $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs
+install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
+install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/lib
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/classes
+install -d -m 755 $RPM_BUILD_ROOT%{cobprofdir}
+install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirup}
+install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirwiz}
+install -d -m 755 $RPM_BUILD_ROOT%{cobdirsnippets}
+install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
-install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
-install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
-install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
-install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/rhn_web_api
-install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_initrddir}
-install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datadir}/rhn/lib
-install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
+install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_hibernate.conf
+install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
+install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
+install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
+install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
+install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT%{_datadir}/rhn/classes/log4j.properties
 
-install -m 644 conf/cobbler/snippets/keep_system_id  $RPM_BUILD_ROOT/%{cobdirsnippets}/keep_system_id
-install -m 644 conf/cobbler/snippets/post_reactivation_key  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_reactivation_key
-install -m 644 conf/cobbler/snippets/post_delete_system  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_delete_system
-install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT/%{cobdirsnippets}/redhat_register
+install -m 644 conf/cobbler/snippets/keep_system_id  $RPM_BUILD_ROOT%{cobdirsnippets}/keep_system_id
+install -m 644 conf/cobbler/snippets/post_reactivation_key  $RPM_BUILD_ROOT%{cobdirsnippets}/post_reactivation_key
+install -m 644 conf/cobbler/snippets/post_delete_system  $RPM_BUILD_ROOT%{cobdirsnippets}/post_delete_system
+install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT%{cobdirsnippets}/redhat_register
 
-ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
+ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
-install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
-ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
-touch $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs/audit-review.log
+install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
+ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
+touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
-ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
+ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
-ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
+ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %endif
 
 # delete JARs which must not be deployed
