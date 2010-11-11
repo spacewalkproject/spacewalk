@@ -2123,12 +2123,11 @@ SELECT  CC.id, CC.name
    AND  CC.id IN ( SELECT XXX.config_channel_id
                          FROM rhnServerConfigChannel XXX
                         WHERE NOT EXISTS ( SELECT RS.element
-                                            FROM rhnSet RS
+                                            FROM rhnSet RS LEFT OUTER JOIN rhnServerConfigChannel SCC
+                                            ON RS.element = SCC.server_id
                                            WHERE RS.label = 'system_list'
-                                                 MINUS
-                                          SELECT SCC.server_id
-                                            FROM rhnServerConfigChannel SCC
-                                           WHERE SCC.config_channel_id = XXX.config_channel_id ) )
+                                           AND SCC.config_channel_id = XXX.config_channel_id
+                                           AND SCC.server_id is null) )
 ORDER BY UPPER(CC.name)
   </query>
   <elaborator name="ssm_channel_elab" />
