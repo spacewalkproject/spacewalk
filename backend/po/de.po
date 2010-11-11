@@ -4,19 +4,20 @@
 # german translation of spacewalk-server
 #
 # Gerd Koenig <gkoenig@fedoraproject.org>, 2010.
+# Luc de Louw <luc@delouw.ch>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.spacewalk-server.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-02 11:19+0100\n"
-"PO-Revision-Date: 2010-08-09 17:03+1000\n"
-"Last-Translator: \n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2010-11-11 09:50+0100\n"
+"Last-Translator: Luc de Louw <luc@delouw.ch>\n"
+"Language-Team: German <trans-de@lists.fedoraproject.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../server/handlers/xmlrpc/queue.py:400
@@ -528,15 +529,16 @@ msgstr "Datei nicht gefunden."
 
 #: ../common/rhnException.py:62
 msgid "Invalid Architecture and OS release combination."
-msgstr ""
+msgstr "Ungültige Kombination aus Architektur und OS Version. "
 
 #: ../common/rhnException.py:63
 msgid "Architecture and OS version combination is not supported."
 msgstr ""
+"Diese Kombination aus Architektur und OS Version wird nicht unterstützt."
 
 #: ../common/rhnException.py:64
 msgid "Could not retrieve system data from database."
-msgstr ""
+msgstr "Systemdaten konnten in dern Datenbank nicht gefunden werden."
 
 #: ../common/rhnException.py:65
 msgid "Invalid arguments passed to function."
@@ -548,19 +550,19 @@ msgstr ""
 
 #: ../common/rhnException.py:67
 msgid "Could not update database entry."
-msgstr ""
+msgstr "Datenbankeintrag konnte nicht aktualisiert werden."
 
 #: ../common/rhnException.py:68
 msgid "Unsupported server architecture."
-msgstr ""
+msgstr "Serverarchitektur wird nicht unterstützt."
 
 #: ../common/rhnException.py:69
 msgid "LDAP operation failed."
-msgstr ""
+msgstr "LDAP-Vorgang fehlgeschlagen."
 
 #: ../common/rhnException.py:70
 msgid "Backend RPM database failure: can not retrieve requested information."
-msgstr ""
+msgstr "Abfrage der RPM Datenbank fehlgeschlagen."
 
 #: ../common/rhnException.py:72
 msgid "Server Entry is busy."
@@ -583,11 +585,11 @@ msgstr ""
 
 #: ../common/rhnException.py:82
 msgid "Record not available in the database."
-msgstr ""
+msgstr "Kein Eintrag in der Datenbank."
 
 #: ../common/rhnException.py:83
 msgid "Invalid value for entry."
-msgstr ""
+msgstr "Ungültiger Wert."
 
 #: ../common/rhnException.py:84
 #, python-format
@@ -643,7 +645,7 @@ msgstr ""
 
 #: ../common/rhnException.py:101
 msgid "Invalid ORG_ID requested"
-msgstr ""
+msgstr "Ungültige ORG_ID"
 
 #: ../common/rhnException.py:102
 msgid ""
@@ -836,11 +838,11 @@ msgstr ""
 #. 100-109: e-mail and uuid related faults
 #: ../common/rhnException.py:205
 msgid "Maximum e-mail length violation."
-msgstr ""
+msgstr "Maximale Länge der Email überschritten."
 
 #: ../common/rhnException.py:206
 msgid "Changing e-mail address is not supported."
-msgstr ""
+msgstr "Ändern der Email-Adresse ist nicht unterstützt."
 
 #: ../common/rhnException.py:207
 msgid "This system has been previously registered."
@@ -848,7 +850,7 @@ msgstr ""
 
 #: ../common/rhnException.py:208
 msgid "Invalid username"
-msgstr ""
+msgstr "Benutzername ungültig"
 
 #. 110-129: disabled org errors
 #: ../common/rhnException.py:211
@@ -897,11 +899,11 @@ msgstr ""
 
 #: ../common/rhnException.py:229
 msgid "Not an RPM package"
-msgstr ""
+msgstr "Kein RPM Paket"
 
 #: ../common/rhnException.py:230
 msgid "Unsigned RPM package"
-msgstr ""
+msgstr "Unsigniertes RPM Paket"
 
 #: ../common/rhnException.py:231
 msgid "Incompatible package and channel architectures"
@@ -909,7 +911,7 @@ msgstr ""
 
 #: ../common/rhnException.py:232
 msgid "Incompatible checksum type"
-msgstr ""
+msgstr "Typ der Prüfsumme nicht kompatibel"
 
 #. 600-699: RHEL5+ EN errors
 #: ../common/rhnException.py:235
@@ -927,17 +929,17 @@ msgstr ""
 #. 700-799: Additional user input verification errors.
 #: ../common/rhnException.py:240
 msgid "Maximum username length violation"
-msgstr ""
+msgstr "Maximale Länge des Benutzernamen überschritten"
 
 #: ../common/rhnException.py:241
 msgid "Maximum password length violation"
-msgstr ""
+msgstr "Maximale Passwortlänge überschritten"
 
 #. 1000-1999: RHN Proxy specific errors:
 #. issued by an RHN Proxy to the client
 #: ../common/rhnException.py:245
 msgid "RHN Proxy error."
-msgstr ""
+msgstr "RHN Proxy Fehler."
 
 #: ../common/rhnException.py:246
 msgid "RHN Proxy unable to login."
@@ -1034,7 +1036,7 @@ msgstr ""
 
 #: ../common/rhnException.py:293
 msgid "Invalid package name"
-msgstr ""
+msgstr "Ungültiger Paketname"
 
 #: ../common/rhnException.py:294
 msgid "Unable to retrieve package"
@@ -1050,11 +1052,11 @@ msgstr ""
 
 #: ../common/rhnException.py:297
 msgid "Invalid satellite certificate"
-msgstr ""
+msgstr "Satellite-Zertifikat ungültig"
 
 #: ../common/rhnException.py:298
 msgid "File is missing"
-msgstr ""
+msgstr "Datei nicht vorhanden"
 
 #: ../common/rhnException.py:299
 msgid "Function retrieval error"
