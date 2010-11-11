@@ -388,12 +388,17 @@ def list_packages(channelLabels, sources=0, force=0):
     if force:
         query = templ % ("", bind_params)
     else:
+        if CFG.DB_BACKEND == 'oracle':
+            minus_op = 'MINUS' # ORA syntax
+        else:
+            minus_op = 'EXCEPT' # ANSI syntax
         query = """
             %s
-            MINUS
+            %s
             %s
         """ % (
                 templ % ("", bind_params),
+                minus_op,
                 templ % ("not", bind_params),
             )
     h = rhnSQL.prepare(query)
