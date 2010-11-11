@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.103
+Version: 1.2.104
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -430,6 +430,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 11 2010 Lukas Zapletal 1.2.104-1
+- Removing extra slash after RPM_BUILD_ROOT 
+- We do not distribute jspapi.jar now - according to Servlet Spec 2.3
+- Add missing ssm.migrate.systems.notrust to StringResource
+- Implement channel.software.listUserRepos API call 
+
 * Thu Nov 11 2010 Lukas Zapletal 1.2.103-1
 - Replacing one more NVL with COALESCE function 
 - Replacing NVL with COALESCE function 
