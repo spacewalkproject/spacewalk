@@ -309,7 +309,6 @@ fi
 
 %files
 %defattr(644,tomcat,tomcat,775)
-%dir %{appdir}/rhn/
 %dir %{appdir}/rhn/apidoc/
 %dir %{appdir}/rhn/css/
 %dir %{appdir}/rhn/errata/
