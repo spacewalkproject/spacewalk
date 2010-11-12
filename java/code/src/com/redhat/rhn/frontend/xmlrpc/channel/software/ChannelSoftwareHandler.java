@@ -2398,4 +2398,36 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return repo;
     }
 
+    /**
+     * Returns the details of the given repo
+     * @param sessionKey WebSession containing User information.
+     * @param repoLabel Label of repo whose details are sought.
+     * @return the repo requested.
+     *
+     * @xmlrpc.doc Returns details of the given repo
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "repoLabel", "repo to query")
+     * @xmlrpc.returntype
+     *     $ContentSourceSerializer
+     */
+    public ContentSource getRepoDetails(String sessionKey, String repoLabel) {
+        return ChannelFactory.lookupContentSource(repoLabel);
+    }
+
+    /**
+     * Returns the details of the given repo
+     * @param sessionKey WebSession containing User information.
+     * @param id ID of repo whose details are sought.
+     * @return the repo requested.
+     *
+     * @xmlrpc.doc Returns details of the given repo
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "repoLabel", "repo to query")
+     * @xmlrpc.returntype
+     *     $ContentSourceSerializer
+     */
+    public ContentSource getRepoDetails(String sessionKey, Integer id) {
+        return ChannelFactory.lookupContentSource(new Long(id.longValue()));
+    }
+
 }
