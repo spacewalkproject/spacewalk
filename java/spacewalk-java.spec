@@ -34,6 +34,7 @@ Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
+Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-io
