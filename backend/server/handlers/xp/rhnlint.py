@@ -201,10 +201,10 @@ def testDependencies(info, results):
             -- files
             select 
                 pn.name package_name,
-                pe.evr.version version,
-                pe.evr.release release,
-                pe.evr.epoch epoch,
-                3 preference
+                pe.evr.version as version,
+                pe.evr.release as release,
+                pe.evr.epoch as epoch,
+                3 as preference
             from rhnChannel c1,
                 rhnChannel c2,
                 rhnChannelPackage cp,
