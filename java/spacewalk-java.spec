@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.107
+Version: 1.2.108
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -431,6 +431,28 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.108-1
+- replace the rest of (+)s in config_queries.xml (tlestach@redhat.com)
+- replace the rest of NVL functions in config_queries.xml (tlestach@redhat.com)
+- enable comparism of sandbox other files(PG) (tlestach@redhat.com)
+- enable config file deployment(PG) (tlestach@redhat.com)
+- enable config target systems page (tlestach@redhat.com)
+- enable config subscribed systems page (tlestach@redhat.com)
+- enable deply file page(PG) (tlestach@redhat.com)
+- enable "Manage Revisions" page (tlestach@redhat.com)
+- store NULL if selinuxCtx is empty (tlestach@redhat.com)
+- enable listing of config managed systems(PG) (tlestach@redhat.com)
+- list centrally managed congif files(PG) (tlestach@redhat.com)
+- enable listing of config files(PG) (tlestach@redhat.com)
+- enable upload of config files(PG) (tlestach@redhat.com)
+- do not set null value of type Types.VARCHAR for prepared statements
+  (tlestach@redhat.com)
+- enable (un)subscription to config channels via SSM(PG) (tlestach@redhat.com)
+- replacing another MINUS by OUTER JOIN(PG) (tlestach@redhat.com)
+- replacing NVL by COALESCE(PG) (tlestach@redhat.com)
+- rewriting MINUS to OUTER JOIN(PG) (tlestach@redhat.com)
+- enable creation of config channels(PG) (tlestach@redhat.com)
+
 * Fri Nov 12 2010 Lukas Zapletal 1.2.107-1
 - Revert "Removing commons-discovery jar from spacewalk-java.spec"
 - Add missing file from previous commit 
