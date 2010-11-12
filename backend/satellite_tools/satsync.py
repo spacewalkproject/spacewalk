@@ -56,7 +56,7 @@ from progress_bar import ProgressBar
 from xmlSource import FatalParseException, ParseException
 from diskImportLib import rpmsPath
 
-from syncLib import log, log2, log2disk, log2stderr, log2email, unique
+from syncLib import log, log2, log2disk, log2stderr, log2email
 from syncLib import RhnSyncException, RpmManip, ReprocessingNeeded
 from syncLib import initEMAIL_LOG, dumpEMAIL_LOG
 from syncLib import FileCreationError, FileManip
@@ -946,7 +946,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 	    else:
 		avail_pids = self._avail_channel_packages[channel_label]
 
-            if set(pids or []) <= set(avail_pids or []):
+            if set(pids or []) > set(avail_pids or []):
                 raise RhnSyncException, _('ERROR: incremental dump skipped')
 
     def _get_rel_package_path(self, nevra, org_id, source, checksum_type, checksum):
