@@ -34,6 +34,7 @@ Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
+Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-io
@@ -292,7 +293,6 @@ ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/s
 
 # delete JARs which must not be deployed
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
-rm -rf $RPM_BUILD_ROOT%{jardir}/commons-discovery.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
 
 
@@ -342,6 +342,7 @@ fi
 %{jardir}/commons-codec.jar
 %{jardir}/commons-collections.jar
 %{jardir}/commons-digester.jar
+%{jardir}/commons-discovery.jar
 %{jardir}/commons-el.jar
 %{jardir}/commons-fileupload.jar
 %{jardir}/commons-io.jar
