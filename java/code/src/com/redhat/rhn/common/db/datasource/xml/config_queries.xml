@@ -661,10 +661,10 @@ ORDER BY UPPER(CFN.path)
 SELECT CF.id, CFT.label AS type,
        CC.name AS config_channel_name,
        CC.id AS config_channel_id,
-       NVL( (SELECT count(SCC.server_id)
+       COALESCE( (SELECT count(SCC.server_id)
                FROM rhnServerConfigChannel SCC
               WHERE CC.id = SCC.config_channel_id), 0) system_count,
-       NVL( (SELECT count(SCC.server_id)
+       COALESCE( (SELECT count(SCC.server_id)
               FROM rhnServerConfigChannel SCC, rhnServerConfigChannel SCC2,
                    rhnConfigFile CF, rhnConfigChannel CC2,
                    rhnConfigChannelType CCT
