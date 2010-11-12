@@ -522,10 +522,10 @@ SELECT CF.id,
        CR.revision AS latest_config_revision,
        coalesce(CCon.modified, CR.modified) as modified,
 	   CFT.label as type
-       FROM rhnConfigContent CCon,
-       rhnConfigFileName CFN,
+       FROM rhnConfigFileName CFN,
        rhnConfigFile CF,
-       rhnConfigRevision CR,
+       rhnConfigRevision CR LEFT OUTER JOIN rhnConfigContent CCon
+       ON CR.config_content_id = CCon.id,
 	   rhnSet ST,
 	   rhnConfigFileType CFT
  WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
@@ -535,7 +535,6 @@ SELECT CF.id,
    AND CF.config_channel_id = :ccid
    AND CFN.id = CF.config_file_name_id
    AND CR.config_file_id = CF.id
-   AND CR.config_content_id = CCon.id (+)
    AND CF.latest_config_revision_id = CR.id
    AND CFT.id = CR.config_file_type_id
 ORDER BY CFN.path
@@ -1180,7 +1179,7 @@ SELECT  DISTINCT S.id, CR.revision AS config_revision,
 
 <mode name="deployable_revision_for_system">
   <query params="sid, cfnid">
-SELECT  NVL( ( SELECT  CR.id
+SELECT  COALESCE( ( SELECT  CR.id
                  FROM  rhnConfigChannel CC, rhnConfigChannelType CCT,
                        rhnConfigRevision CR, rhnServerConfigChannel SCC, rhnConfigFile CF
                 WHERE  SCC.server_id = :sid
@@ -1585,8 +1584,8 @@ WHERE CCT.id = CC.confchan_type_id
 		 ORDER BY S.NAME
 	</query>
 	<elaborator params="ccid">
-		SELECT S.ID,
-			COALESCE((
+        SELECT S.ID,
+            COALESCE((
 				SELECT COUNT(DISTINCT CFN2.id)
 				FROM rhnConfigChannel CC2, rhnConfigChannelType CCT2, rhnServerConfigChannel SCC2,
 					 rhnConfigFile cf2, rhnConfigFileName cfn2,
@@ -1655,7 +1654,7 @@ WHERE CCT.id = CC.confchan_type_id
 	</query>
 	<elaborator params="ccid">
 		SELECT S.ID,
-        	   NVL((
+               COALESCE((
 				SELECT COUNT(DISTINCT CFN2.id)
 				  FROM rhnConfigChannel CC2, rhnConfigChannelType CCT2, rhnServerConfigChannel SCC2,
 			 		   rhnConfigFile cf2, rhnConfigFileName cfn2,
@@ -1673,7 +1672,7 @@ WHERE CCT.id = CC.confchan_type_id
 				   AND CFN2.id = CF2.config_file_name_id
 				   AND cfn.id = cfn2.id
          	   ), 0) overridden_count,
-			   NVL((
+			   COALESCE((
 				SELECT COUNT(DISTINCT CFN.id)
 				  FROM rhnConfigChannel CC,
 					   rhnConfigFile cf,
