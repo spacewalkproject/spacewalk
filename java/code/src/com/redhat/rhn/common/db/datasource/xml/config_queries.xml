@@ -497,16 +497,15 @@ SELECT CF.id,
 	   CR.revision AS latest_config_revision,
        coalesce(CCon.modified, CR.modified) as modified,
        CFT.label as type
-  FROM rhnConfigContent CCon,
-       rhnConfigFileName CFN,
+  FROM rhnConfigFileName CFN,
        rhnConfigFile CF,
-       rhnConfigRevision CR,
+       rhnConfigRevision CR LEFT OUTER JOIN rhnConfigContent CCon
+       ON CR.config_content_id = CCon.id,
        rhnConfigFileType CFT
  WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
    AND CF.config_channel_id = :ccid
    AND CFN.id = CF.config_file_name_id
    AND CR.config_file_id = CF.id
-   AND CR.config_content_id = CCon.id (+)
    AND CF.latest_config_revision_id = CR.id
    AND CR.config_file_type_id = CFT.id
 ORDER BY CFN.path
