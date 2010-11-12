@@ -103,11 +103,11 @@ and pe.evr = (
 __packages_all_sql = """
 select distinct
     pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    1 preference
+    pe.evr.version as version,
+    pe.evr.release as release,
+    pe.evr.epoch as epoch,
+    pa.label as arch,
+    1 as preference
 from
     rhnPackageEvr pe,
     rhnChannelPackage cp,
