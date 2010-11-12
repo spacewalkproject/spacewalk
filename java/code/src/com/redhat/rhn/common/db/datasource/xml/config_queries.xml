@@ -559,11 +559,10 @@ ORDER BY CR.revision DESC
 <mode name="configfile_revisions_size">
 	<query params="cfid, user_id">
 SELECT SUM(coalesce(CCon.file_size, 0)) AS total_file_size
-FROM rhnConfigContent CCon,
-	 rhnConfigRevision CR
+FROM rhnConfigRevision CR LEFT OUTER JOIN rhnConfigContent CCon
+ON CR.config_content_id = CCon.id
 WHERE rhn_config_channel.get_user_file_access(:cfid, :user_id) = 1
    AND CR.config_file_id = :cfid
-   AND CR.config_content_id = CCon.id(+)
 	</query>
 </mode>
 
