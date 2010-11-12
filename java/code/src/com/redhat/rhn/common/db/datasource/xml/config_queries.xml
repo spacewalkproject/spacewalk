@@ -1814,6 +1814,7 @@ WHERE CCT.id = CC.confchan_type_id
 	-->
 <mode name="managed_systems_not_in_channel" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
   	<query params="ccid,user_id">
+SELECT * FROM (
 SELECT  DISTINCT S.id,
                  S.name
     FROM  rhnServer S
@@ -1831,7 +1832,8 @@ SELECT  DISTINCT S.id,
 		   WHERE SCC.server_id = S.id
 		     AND SCC.config_channel_id =:ccid
 		  )
-ORDER BY  UPPER(NVL(S.name, '(none)'))
+) X
+ORDER BY UPPER(COALESCE(X.name, '(none)'))
 	</query>
 </mode>
 
