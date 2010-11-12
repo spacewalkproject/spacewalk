@@ -289,7 +289,7 @@ INNER JOIN rhnServerFeaturesView SFV on SFV.server_id = s.id
        AND CCN.name LIKE 'configfiles%'
        AND SFV.label = 'ftr_config'
 ) X
-ORDER BY UPPER(NVL(X.name, '(none)')), X.id
+ORDER BY UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
   <elaborator>
 SELECT S.id,
@@ -1228,7 +1228,7 @@ SELECT  S.id, CR.id AS config_revision_id, CR.revision AS config_revision,
   FROM  rhnServer S, rhnConfigRevision CR, rhnConfigFile CF,
         rhnConfigChannel CC, rhnConfigChannelType CCT
  WHERE  S.id IN (%s)
-   AND  CR.id = ( SELECT  NVL( ( SELECT  CR.id
+   AND  CR.id = ( SELECT  COALESCE( ( SELECT  CR.id
                                    FROM  rhnConfigChannel CC, rhnConfigChannelType CCT,
                                          rhnConfigRevision CR, rhnServerConfigChannel SCC, rhnConfigFile CF
                                   WHERE  SCC.server_id = SX.id
@@ -1460,7 +1460,7 @@ SELECT  SCC.server_id AS id,
             FROM  rhnConfigFileName CFN, rhnConfigFile CF
            WHERE  CF.config_file_name_id = CFN.id
              AND  CF.config_channel_id = SCC.config_channel_id
-             AND  SCC.config_channel_id = ( SELECT  NVL( ( SELECT  CC.id
+             AND  SCC.config_channel_id = ( SELECT  COALESCE( ( SELECT  CC.id
                                                              FROM  rhnConfigChannel CC, rhnConfigChannelType CCT,
                                                                    rhnServerConfigChannel SCCX, rhnConfigFile CF
                                                             WHERE  SCCX.server_id = SCC.server_id
@@ -1509,7 +1509,7 @@ SELECT  SCC.config_channel_id AS id,
             FROM  rhnConfigFileName CFN, rhnConfigFile CF
            WHERE  CF.config_file_name_id = CFN.id
              AND  CF.config_channel_id = SCC.config_channel_id
-             AND  SCC.config_channel_id = ( SELECT  NVL( ( SELECT  CC.id
+             AND  SCC.config_channel_id = ( SELECT  COALESCE( ( SELECT  CC.id
                                                              FROM  rhnConfigChannel CC, rhnConfigChannelType CCT,
                                                                    rhnServerConfigChannel SCCX, rhnConfigFile CF
                                                             WHERE  SCCX.server_id = SCC.server_id
