@@ -723,14 +723,14 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
                 p.id,
                 p.org_id,
                 pn.name,    
-                pe.evr.version version, 
-                pe.evr.release release, 
-                pe.evr.epoch epoch, 
-                pa.label package_arch,
+                pe.evr.version as version,
+                pe.evr.release as release,
+                pe.evr.epoch as epoch,
+                pa.label as package_arch,
                 c.checksum_type,
                 c.checksum,
                 p.package_size,
-                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
+                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') as last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
                 rhnPackageArch pa, rhnChecksumView c
             where p.id = :package_id 
