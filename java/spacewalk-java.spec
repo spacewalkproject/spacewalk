@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.104
+Version: 1.2.105
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -431,6 +431,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 12 2010 Lukas Zapletal 1.2.105-1
+- Adding missing jakarta-commons-discovery require for RHEL6+/FC13+
+
 * Thu Nov 11 2010 Lukas Zapletal 1.2.104-1
 - Removing extra slash after RPM_BUILD_ROOT 
 - We do not distribute jspapi.jar now - according to Servlet Spec 2.3
