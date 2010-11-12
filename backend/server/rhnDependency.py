@@ -26,11 +26,11 @@ __packages_with_arch_and_id_sql = """
 select distinct
     p.id id,
     pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    1 preference
+    pe.evr.version as version,
+    pe.evr.release as release,
+    pe.evr.epoch as epoch,
+    pa.label as arch,
+    1 as preference
 from
     rhnPackageEvr pe,
     rhnChannelPackage cp,
