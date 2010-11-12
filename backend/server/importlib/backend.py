@@ -1809,9 +1809,9 @@ class Backend:
             select
                  pn.name, 
                  pe.evr.epoch epoch,
-                 pe.evr.version version, 
-                 pe.evr.release release,
-                 pa.label arch,
+                 pe.evr.version as version,
+                 pe.evr.release as release,
+                 pa.label as arch,
                  p.org_id,
                  cc.checksum_type,
                  cc.checksum
