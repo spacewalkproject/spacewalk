@@ -814,14 +814,14 @@ class ShortPackagesDumper(BaseSubelementDumper, BaseQueryDumper):
             select
                 p.id,
                 pn.name,
-                pe.evr.version version,
-                pe.evr.release release,
-                pe.evr.epoch epoch,
-                pa.label package_arch,
+                pe.evr.version as version,
+                pe.evr.release as release,
+                pe.evr.epoch as epoch,
+                pa.label as package_arch,
                 c.checksum_type,
                 c.checksum,
                 p.org_id,
-                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
+                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') as last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
                 rhnPackageArch pa, rhnChecksumView c
             where p.name_id = pn.id
