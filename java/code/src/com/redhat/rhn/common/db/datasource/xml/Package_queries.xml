@@ -162,7 +162,7 @@ WHERE id IN
 <write-mode name="cleanup_package_changelogs">
   <query params="pid">
     DELETE from
-    rhnPackageChangelog
+    rhnPackageChangelogRec
     where package_id = :pid
   </query>
 </write-mode>
