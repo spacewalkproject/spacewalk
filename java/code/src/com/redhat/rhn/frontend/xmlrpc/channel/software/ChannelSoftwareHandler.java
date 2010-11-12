@@ -2321,7 +2321,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * xmlrpc.param #session_key()
     * xmlrpc.param #param_desc("Long", "id", "of the repo to use")
     * xmlrpc.param #param_desc("string", "url", "new URL to use")
-    * @xmlrpc.returntype Channel
+    * @xmlrpc.returntype ContentSource
    **/
     public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
         User user = getLoggedInUser(sessionKey);
@@ -2342,7 +2342,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * xmlrpc.param #session_key()
     * xmlrpc.param #param_desc("string", "label", "of the repo to use")
     * xmlrpc.param #param_desc("string", "url", "new URL to use")
-    * @xmlrpc.returntype Channel
+    * @xmlrpc.returntype ContentSource
    **/
     public ContentSource updateRepoUrl(String sessionKey, String label, String url) {
         User user = getLoggedInUser(sessionKey);
@@ -2363,7 +2363,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * xmlrpc.param #session_key()
     * xmlrpc.param #param_desc("Long", "id", "of the repo to use")
     * xmlrpc.param #param_desc("string", "label", "new label to use")
-    * @xmlrpc.returntype Channel
+    * @xmlrpc.returntype ContentSource
    **/
     public ContentSource updateRepoLabel(String sessionKey, Integer id, String label) {
         User user = getLoggedInUser(sessionKey);
@@ -2386,7 +2386,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * xmlrpc.param #param_desc("Long", "id", "of the repo to use")
     * xmlrpc.param #param_desc("string", "label", "new label to use")
     * xmlrpc.param #param_desc("string", "url", "new URL to use")
-    * @xmlrpc.returntype Channel
+    * @xmlrpc.returntype ContentSource
    **/
     public ContentSource updateRepo(String sessionKey, Integer id, String label,
             String url) {
