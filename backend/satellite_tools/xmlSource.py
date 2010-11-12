@@ -541,6 +541,9 @@ class PackageItem(IncompletePackageItem):
         'rhn-package-provides'      : 'provides',
         'rhn-package-conflicts'     : 'conflicts',
         'rhn-package-obsoletes'     : 'obsoletes',
+        'rhn-package-recommends'    : 'recommends',
+        'rhn-package-suggests'      : 'suggests',
+        'rhn-package-supplements'   : 'supplements',
         'rhn-package-changelog'     : 'changelog',
     }
     tagMap.update(IncompletePackageItem.tagMap)
@@ -611,6 +614,30 @@ addItem(ConflictsItem)
 class ObsoletesItem(DependencyItem):
     item_name = 'rhn-package-obsoletes-entry'
 addItem(ObsoletesItem)
+
+class RecommendsItem(BaseItem):
+    item_name = 'rhn-package-recommends-entry'
+    item_class = importLib.Dependency
+    tagMap = {
+        'sense'                     : 'flags',
+    }
+addItem(RecommendsItem)
+
+class SuggestsItem(BaseItem):
+    item_name = 'rhn-package-suggests-entry'
+    item_class = importLib.Dependency
+    tagMap = {
+        'sense'                     : 'flags',
+    }
+addItem(SuggestsItem)
+
+class SupplementsItem(BaseItem):
+    item_name = 'rhn-package-supplements-entry'
+    item_class = importLib.Dependency
+    tagMap = {
+        'sense'                     : 'flags',
+    }
+addItem(SupplementsItem)
 
 class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'

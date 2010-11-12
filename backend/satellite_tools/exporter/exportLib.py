@@ -725,7 +725,13 @@ class _PackageDumper(BaseRowDumper):
                 'rhn-package-conflicts-entry'],
             ['rhnPackageObsoletes',   'rhn-package-obsoletes',
                 'rhn-package-obsoletes-entry'],
-        ]
+            ['rhnPackageRecommends',  'rhn-package-recommends',
+                'rhn-package-recommends-entry'],
+            ['rhnPackageSuggests',  'rhn-package-suggests',
+                'rhn-package-suggests-entry'],
+            ['rhnPackageSupplements',  'rhn-package-supplements',
+                'rhn-package-supplements-entry'],
+       ]
         for table_name, container_name, entry_name in mappings:
             h = rhnSQL.prepare("""
                 select pc.name, pc.version, pd.sense
