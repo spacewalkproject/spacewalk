@@ -165,10 +165,10 @@ def testDependencies(info, results):
             -- provides
             select 
                 pn.name package_name,
-                pe.evr.version version,
-                pe.evr.release release,
-                pe.evr.epoch epoch,
-                2 preference
+                pe.evr.version as version,
+                pe.evr.release as release,
+                pe.evr.epoch as epoch,
+                2 as preference
             from
                 rhnChannel c1,
                 rhnChannel c2,
