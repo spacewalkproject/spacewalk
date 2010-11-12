@@ -218,7 +218,7 @@ revision record;
 				and cr.config_file_id = cf.id
 		
                 loop
-			perform rh_config.delete_revision(revision.id, revision.org_id);
+			perform rhn_config.delete_revision(revision.id, revision.org_id);
 			org_id := revision.org_id;
 		end loop;
 		perform rhn_quota.update_org_quota(org_id);
