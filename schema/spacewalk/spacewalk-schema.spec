@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.66
+Version:        1.2.67
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Nov 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.67-1
+- remove 2 extra params from the stored proc and include oracle equivalent sha1
+  (tlestach@redhat.com)
+- fix typo: rh_config -> rhn_config (tlestach@redhat.com)
+- change filemode_in type in stored proc to match the DB type
+  (tlestach@redhat.com)
+
 * Thu Nov 11 2010 Lukas Zapletal 1.2.66-1
 - Putting packages/rhn_org.pkb in sync with ORA (PG)
 
