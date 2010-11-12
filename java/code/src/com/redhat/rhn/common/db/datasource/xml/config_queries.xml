@@ -1586,7 +1586,7 @@ WHERE CCT.id = CC.confchan_type_id
 	</query>
 	<elaborator params="ccid">
 		SELECT S.ID,
-			NVL((
+			COALESCE((
 				SELECT COUNT(DISTINCT CFN2.id)
 				FROM rhnConfigChannel CC2, rhnConfigChannelType CCT2, rhnServerConfigChannel SCC2,
 					 rhnConfigFile cf2, rhnConfigFileName cfn2,
@@ -1604,7 +1604,7 @@ WHERE CCT.id = CC.confchan_type_id
 				  AND CFN2.id = CF2.config_file_name_id
 				  AND cfn.id = cfn2.id
 			 ), 0) overridden_count,
-			NVL((
+			COALESCE((
 				SELECT COUNT(DISTINCT CFN.id)
 				  FROM rhnConfigChannel CC,
 					   rhnConfigFile cf,
