@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.108
+Version: 1.2.109
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -431,6 +431,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 12 2010 Lukas Zapletal 1.2.109-1
+- Deletion from base table and not from view (PG)
+
 * Fri Nov 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.108-1
 - replace the rest of (+)s in config_queries.xml (tlestach@redhat.com)
 - replace the rest of NVL functions in config_queries.xml (tlestach@redhat.com)
