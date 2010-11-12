@@ -277,6 +277,7 @@ to the SDC View/Modify files page -->
 
 <mode name="config_managed_systems" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
   <query name="available_to_user_and_config_managed" params="user_id">
+SELECT * FROM (
 SELECT DISTINCT S.id,
                 S.name
       FROM rhnServer S
@@ -287,11 +288,12 @@ INNER JOIN rhnServerFeaturesView SFV on SFV.server_id = s.id
      WHERE USP.user_id = :user_id
        AND CCN.name LIKE 'configfiles%'
        AND SFV.label = 'ftr_config'
-  ORDER BY UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY UPPER(NVL(X.name, '(none)')), X.id
   </query>
   <elaborator>
 SELECT S.id,
-       NVL((SELECT SCC.config_channel_id
+       COALESCE((SELECT SCC.config_channel_id
               FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
              WHERE SCC.server_id = S.id
                AND SCC.config_channel_id = CC.id
@@ -304,20 +306,20 @@ SELECT S.id,
            AND CC.confchan_type_id = CCT.id
            AND CF.config_channel_id = CC.id
            AND CCT.label = 'local_override') LOCAL_FILE_COUNT,
-       NVL((SELECT COUNT(SCC.config_channel_id)
+       COALESCE((SELECT COUNT(SCC.config_channel_id)
               FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
              WHERE SCC.server_id = S.id
                AND SCC.config_channel_id = CC.id
                AND CC.confchan_type_id = CCT.id
                AND CCT.label = 'normal'), 0) CONFIG_CHANNEL_COUNT,
-       NVL((SELECT COUNT(CF.id)
+       COALESCE((SELECT COUNT(CF.id)
               FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC, rhnConfigFile CF
              WHERE SCC.server_id = S.id
                AND SCC.config_channel_id = CC.id
                AND CC.confchan_type_id = CCT.id
                AND CCT.label = 'normal'
                AND CF.config_channel_id = CC.id), 0) GLOBAL_FILE_COUNT,
-       NVL((SELECT COUNT(CF.config_file_name_id)
+       COALESCE((SELECT COUNT(CF.config_file_name_id)
               FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC, rhnConfigFile CF,
                    rhnConfigChannelType CCT2, rhnConfigChannel CC2, rhnServerConfigChannel SCC2, rhnConfigFile CF2
              WHERE SCC.server_id = S.id
