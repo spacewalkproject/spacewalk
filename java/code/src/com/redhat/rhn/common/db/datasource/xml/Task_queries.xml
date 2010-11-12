@@ -71,11 +71,12 @@ SELECT AT.name as type,
         COUNT(SA.server_id) as count,
         E.advisory_name AS ADVISORY,
         E.synopsis AS SYNOPSIS
-   FROM rhnErrata E,
-        rhnActionErrataUpdate AEU,
-        rhnActionStatus AStat,
+   FROM rhnActionStatus AStat,
         rhnActionType AT,
-        rhnAction A,
+        rhnAction A LEFT OUTER JOIN rhnActionErrataUpdate AEU
+        ON A.id = AEU.action_id
+            LEFT OUTER JOIN rhnErrata E
+            ON AEU.errata_id = E.id,
         rhnServerAction SA,
         rhnUserServerPerms USP
   WHERE USP.user_id = :user_id
@@ -96,8 +97,6 @@ SELECT AT.name as type,
     AND SA.status = AStat.id
     AND SA.action_id = A.id
     AND A.action_type = AT.id
-    AND A.id = AEU.action_id (+)
-    AND AEU.errata_id = E.id (+)
 GROUP BY AT.name, AStat.name, E.advisory_name, E.synopsis
   </query>
 </mode>
