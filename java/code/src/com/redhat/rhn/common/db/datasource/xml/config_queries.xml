@@ -725,9 +725,9 @@ SELECT DISTINCT CF.id AS id,
        CCT.label AS config_channel_type,
        CC.name AS CONFIG_CHANNEL_NAME,
        SUM(Coalesce(CCon.file_size,0)) AS total_file_size
-  FROM rhnConfigContent CCon,
+  FROM rhnConfigContent CCon LEFT OUTER JOIN rhnConfigRevision CR
+       ON CCon.id = CR.config_content_id,
        rhnConfigChannelType CCT,
-       rhnConfigRevision CR,
        rhnConfigRevision LCR,
        rhnConfigFileName CFN,
        rhnConfigFile CF,
@@ -740,7 +740,6 @@ SELECT DISTINCT CF.id AS id,
    AND LCR.id = CF.latest_config_revision_id
    AND LCR.config_file_type_id = CFT.id
    AND CR.config_file_id = CF.id
-   AND CCon.id = CR.config_content_id(+)
    AND CC.confchan_type_id = CCT.id
 GROUP BY CF.id, CFN.path, CC.name, CC.label, CFT.label, CCT.label, CC.id, CF.latest_config_revision_id, LCR.revision
 ORDER BY total_file_size DESC
@@ -2227,12 +2226,11 @@ SELECT  CC.id, CR.revision AS config_revision,
   <query params="aid">
 SELECT CFN.path,
        CFF.name AS FAILURE_REASON
-  FROM rhnConfigFileFailure CFF,
-       rhnConfigFileName CFN,
-       rhnActionConfigFileName ACFN
+  FROM rhnConfigFileName CFN,
+       rhnActionConfigFileName ACFN LEFT OUTER JOIN rhnConfigFileFailure CFF
+       ON ACFN.failure_id = CFF.id
  WHERE ACFN.action_id = :aid
    AND ACFN.config_file_name_id = CFN.id
-   AND ACFN.failure_id = CFF.id (+)
 ORDER BY CFN.path
   </query>
 </mode>
@@ -2244,16 +2242,15 @@ SELECT CFN.path,
        CR.revision,
        ACR.id AS ACTION_REVISION_ID,
        CFF.name AS FAILURE_REASON
-  FROM rhnConfigFileFailure CFF,
-       rhnConfigFileName CFN,
+  FROM rhnConfigFileName CFN,
        rhnConfigFile CF,
        rhnConfigRevision CR,
-       rhnActionConfigRevision ACR
+       rhnActionConfigRevision ACR LEFT OUTER JOIN rhnConfigFileFailure CFF
+       ON ACR.failure_id = CFF.id
  WHERE ACR.action_id = :aid
    AND ACR.config_revision_id = CR.id
    AND CR.config_file_id = CF.id
    AND CF.config_file_name_id = CFN.id
-   AND ACR.failure_id = CFF.id (+)
 ORDER BY UPPER(CFN.path)
   </query>
 </mode>
@@ -2268,18 +2265,17 @@ SELECT CFN.path,
        CFF.name AS FAILURE_REASON,
        ACRR.result AS DIFF,
        rhn_config_channel.action_diff_revision_status(ACR.id) AS STATUS
-  FROM rhnConfigFileFailure CFF,
-       rhnConfigFileName CFN,
+  FROM rhnConfigFileName CFN,
        rhnConfigFile CF,
        rhnConfigRevision CR,
-       rhnActionConfigRevision ACR,
+       rhnActionConfigRevision ACR LEFT OUTER JOIN rhnConfigFileFailure CFF
+       ON ACR.failure_id = CFF.id,
        rhnActionConfigRevisionResult ACRR
  WHERE ACR.action_id = :aid
    AND ACR.config_revision_id = CR.id
    AND CR.config_file_id = CF.id
    AND CF.config_file_name_id = CFN.id
    AND ACRR.action_config_revision_id = ACR.id
-   AND ACR.failure_id = CFF.id (+)
 ORDER BY UPPER(CFN.path)
   </query>
 </mode>
