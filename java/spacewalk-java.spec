@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.106
+Version: 1.2.107
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -431,6 +431,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 12 2010 Lukas Zapletal 1.2.107-1
+- Revert "Removing commons-discovery jar from spacewalk-java.spec"
+- Add missing file from previous commit 
+- Implement getRepoDetails API calls 
+- Correct the xmlrpc.doc 
+- 647806 - Implement API calls for external repos 
+- 652626 - correct typo in named query 
+
 * Fri Nov 12 2010 Lukas Zapletal 1.2.106-1
 - Removing jasper5-compiler jar from spacewalk-java.spec 
 - Removing commons-discovery jar from spacewalk-java.spec 
