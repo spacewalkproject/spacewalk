@@ -184,7 +184,7 @@ class Runner:
             initEMAIL_LOG()
 
         # init the synchronization processor
-        self.syncer = Syncer(channels, actionDict['list-channels'],
+        self.syncer = Syncer(channels, actionDict['list-channels'], actionDict['rpms'],
                 forceAllErrata=actionDict['force-all-errata'])
         try:
             self.syncer.initialize()
@@ -378,7 +378,7 @@ class Syncer:
         NOTE: there should *ONLY* be one instance of this.
     """
 
-    def __init__(self, channels, listChannelsYN, forceAllErrata=False):
+    def __init__(self, channels, listChannelsYN, check_rpms, forceAllErrata=False):
         """ Base initialization. Most work done in self.initialize() which
             needs to be called soon after instantiation.
         """
@@ -392,6 +392,7 @@ class Syncer:
         self._systemidPath = OPTIONS.systemid or _DEFAULT_SYSTEMID_PATH
         self._batch_size = OPTIONS.batch_size
         self.xml_dump_version = OPTIONS.dump_version or str(constants.PROTOCOL_VERSION)
+        self.check_rpms = check_rpms
 
         # Object to help with channel math
         self._channel_req = None
@@ -920,7 +921,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 self._process_package(pid, package, l_timestamp, row,
                     self._missing_channel_packages[channel_label],
                     self._missing_fs_packages[channel_label],
-                    source=0)
+                    source=0, check_rpms=self.check_rpms)
 
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
@@ -992,7 +993,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         return 0
 
     def _process_package(self, package_id, package, l_timestamp, row,
-            m_channel_packages, m_fs_packages, source=0):
+            m_channel_packages, m_fs_packages, source=0, check_rpms=1):
         path = None
         channel_package = None
         fs_package      = None
@@ -1014,19 +1015,20 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                         # package doesn't match
                         channel_package = package_id
 
-                if db_path:
-                    # check the filesystem
-                    errcode = self._verify_file(db_path, l_timestamp,
-                            package_size, checksum_type, checksum)
-                    if errcode:
-                        # file doesn't match
-                        fs_package = package_id
+                if check_rpms:
+                    if db_path:
+                        # check the filesystem
+                        errcode = self._verify_file(db_path, l_timestamp,
+                                package_size, checksum_type, checksum)
+                        if errcode:
+                            # file doesn't match
+                            fs_package = package_id
+                            channel_package = package_id
+                        path = db_path
+                    else:
+                        # upload package and reimport metadata
                         channel_package = package_id
-                    path = db_path
-                else:
-                    # upload package and reimport metadata
-                    channel_package = package_id
-                    fs_package = package_id
+                        fs_package = package_id
         else:
             # package is missing from the DB
             channel_package = package_id
