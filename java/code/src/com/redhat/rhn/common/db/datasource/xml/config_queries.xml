@@ -1066,7 +1066,7 @@ ORDER BY  name
   </query>
   <elaborator>
 SELECT  CCT.label AS type, CC.id,
-        NVL((SELECT  COUNT(CF.id)
+        COALESCE((SELECT  COUNT(CF.id)
                  FROM  rhnConfigFile CF
                 WHERE  CF.config_channel_id = CC.id), 0) FILE_COUNT
   FROM  rhnConfigChannel CC, rhnConfigChannelType CCT
@@ -1091,13 +1091,14 @@ SELECT  CF.id, CR.modified,
         CR.id AS latest_config_revision_id,
         coalesce(CCon.file_size,0) AS latest_revision_size,
         CFT.label AS type
-  FROM  rhnConfigFile CF, rhnConfigRevision CR,
-        rhnConfigContent CCon, rhnConfigFileName CFN,
+  FROM  rhnConfigFile CF,
+        rhnConfigRevision CR LEFT OUTER JOIN rhnConfigContent CCon
+        ON CR.config_content_id = CCon.id,
+        rhnConfigFileName CFN,
         rhnConfigFileType CFT
  WHERE  CF.id IN (%s)
    AND  CF.config_file_name_id = CFN.id
    AND  CF.latest_config_revision_id = CR.id
-   AND  CR.config_content_id = CCon.id(+)
    AND  CR.config_file_type_id = CFT.id
   </elaborator>
 </mode>
@@ -1331,7 +1332,7 @@ SELECT  CFN.id, CR.id AS config_revision_id, CR.revision AS config_revision,
         rhnConfigChannel CC, rhnConfigFileName CFN,
         rhnConfigChannelType CCT, rhnConfigFileType CFT
  WHERE  CFN.id IN (%s)
-   AND  CR.id = ( SELECT  NVL( ( SELECT  CR.id
+   AND  CR.id = ( SELECT  COALESCE( ( SELECT  CR.id
                                    FROM  rhnConfigChannel CC, rhnConfigChannelType CCT,
                                          rhnConfigRevision CR, rhnServerConfigChannel SCC, rhnConfigFile CF
                                   WHERE  SCC.server_id = :sid
