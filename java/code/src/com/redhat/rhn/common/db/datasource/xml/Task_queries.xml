@@ -57,7 +57,7 @@ SELECT DISTINCT S.id, S.name, SI.checkin
    WHERE user_id = :user_id
      AND server_id = S.id
      AND name = 'include_in_daily_summary'
-     AND value = 0
+     AND value = '0'
 )
    AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_daily_summary')
 ORDER BY CHECKIN DESC
@@ -85,7 +85,7 @@ SELECT AT.name as type,
    WHERE user_id = :user_id
      AND server_id = USP.server_id
      AND name = 'include_in_daily_summary'
-     AND value = 0
+     AND value = '0'
 )
     AND EXISTS ( select 1 from rhnServerFeaturesView sfv
                  where sfv.server_id = usp.server_id
