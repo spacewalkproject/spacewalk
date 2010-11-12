@@ -293,6 +293,7 @@ ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/s
 # delete JARs which must not be deployed
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/commons-discovery.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
 
 
 %clean
@@ -352,7 +353,6 @@ fi
 %{jardir}/dwr-*.jar
 %{jardir}/hibernate3.jar
 %{jardir}/jaf.jar
-%{jardir}/jasper5-compiler.jar
 %{jardir}/jasper5-runtime.jar
 %{jardir}/javamail.jar
 %{jardir}/jcommon.jar
