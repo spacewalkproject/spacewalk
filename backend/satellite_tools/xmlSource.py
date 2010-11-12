@@ -127,7 +127,8 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             raise
         except Exception, e:
             Traceback(ostream=sys.stderr, with_locals=1)
-            stream.close()
+            if stream is not None:
+                stream.close()
             sys.exit(1)
 
     def reset(self):
