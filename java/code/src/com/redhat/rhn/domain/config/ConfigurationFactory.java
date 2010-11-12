@@ -525,7 +525,12 @@ public class ConfigurationFactory extends HibernateFactory {
         inParams.put("username_in", user);
         inParams.put("groupname_in", group);
         inParams.put("filemode_in", filemode);
-        inParams.put("selinuxCtx_in", selinuxCtx);
+        if ((selinuxCtx == null) || (selinuxCtx.isEmpty())) {
+            inParams.put("selinuxCtx_in", null);
+        }
+        else {
+            inParams.put("selinuxCtx_in", selinuxCtx);
+        }
         if (!StringUtils.isBlank(symlinkTargetPath)) {
             ConfigFileName fn = lookupOrInsertConfigFileName(symlinkTargetPath);
             inParams.put("symlink_target_file_in", fn.getId());
