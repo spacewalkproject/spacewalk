@@ -1731,7 +1731,7 @@ WHERE CCT.id = CC.confchan_type_id
 					  AND CC2.id =:ccid
 					  AND CCT2.label = 'normal'
                  AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT,
-            NVL((select 1 from rhnClientCapability CCap
+            COALESCE((select 1 from rhnClientCapability CCap
             				inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
             		where  CCN.name = 'configfiles.deploy'
             			AND  CCap.server_id = S.id
