@@ -298,14 +298,14 @@ ORDER BY KTZ.name
     UPDATE rhn_current_alerts
        SET date_completed = current_timestamp, in_progress = '0'
      WHERE date_completed is null
-       AND date_diff_in_days(current_timestamp, date_submitted) > 1
+       AND date_diff_in_days(date_submitted, current_timestamp) > 1
   </query>
 </write-mode>
 
 <write-mode name="delete_old_current_alerts">
   <query>
     DELETE from rhn_current_alerts
-     WHERE date_diff_in_days(current_timestamp, date_completed) > 1
+     WHERE date_diff_in_days(date_completed, current_timestamp) > 1
   </query>
 </write-mode>
 

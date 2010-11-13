@@ -97,7 +97,7 @@ select
          and ACR.failure_id is null
          and ACRR.result is not null
         ),
-    ( select date_diff_in_days(current_timestamp, checkin) from rhnServerInfo where server_id = S.id ),
+    ( select date_diff_in_days(checkin, current_timestamp) from rhnServerInfo where server_id = S.id ),
     ( select TO_CHAR(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnServerInfo where server_id = S.id ),
     ( select count(1) 
         from rhnServerAction

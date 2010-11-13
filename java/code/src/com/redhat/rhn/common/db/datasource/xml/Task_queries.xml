@@ -49,7 +49,7 @@ SELECT DISTINCT S.id, S.name, SI.checkin
        rhnUserServerPerms USP
  WHERE USP.user_id = :user_id
    AND USP.server_id = SI.server_id
-   AND date_diff_in_days(current_timestamp, SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold)
+   AND date_diff_in_days(SI.checkin, current_timestamp) BETWEEN 1 AND (1 + :checkin_threshold)
    AND SI.server_id = S.id
    AND NOT EXISTS (
   SELECT *
@@ -92,8 +92,8 @@ SELECT AT.name as type,
                  where sfv.server_id = usp.server_id
                    and sfv.label = 'ftr_daily_summary')
     AND USP.server_id = SA.server_id
-    AND date_diff_in_days(current_timestamp, SA.modified) &gt; 0
-    AND date_diff_in_days(current_timestamp, SA.modified) &lt; 1
+    AND date_diff_in_days(SA.modified, current_timestamp) &gt; 0
+    AND date_diff_in_days(SA.modified, current_timestamp) &lt; 1
     AND SA.status = AStat.id
     AND SA.action_id = A.id
     AND A.action_type = AT.id
@@ -296,7 +296,7 @@ select distinct sg.org_id as id
        select s.org_id
          from rhnServer s, rhnServerINfo si
         where s.id = si.SERVER_ID
-          AND date_diff_in_days(current_timestamp, SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold))
+          AND date_diff_in_days(SI.checkin, current_timestamp) BETWEEN 1 AND (1 + :checkin_threshold))
    </query>
 </mode>
 
