@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.67
+Version:        1.2.68
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Sat Nov 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.68-1
+- better call stored functions with correct parameter order
+  (tlestach@redhat.com)
+
 * Fri Nov 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.67-1
 - remove 2 extra params from the stored proc and include oracle equivalent sha1
   (tlestach@redhat.com)
