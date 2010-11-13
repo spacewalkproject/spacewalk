@@ -862,17 +862,21 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 sync_handlers.get_short_package_handler(),
                 self.xmlDataServer, 'getChannelShortPackagesXmlStream')
 
-        # OK, now uq_channel_packages only has the unique packages
-        for channel_label, package_ids in self._channel_packages.items():
-            # Pretend we fetch all packages
+        already_processed_pids = set()
+        for channel_label, ch_package_ids in self._channel_packages.items():
+            # skip packages we already processed
+            package_ids = set(ch_package_ids) - already_processed_pids
+
             log(1, _("   Retrieving / parsing short package metadata: %s (%s)") %
                 (channel_label, len(package_ids)))
 
-            lm = self._channel_collection.get_channel_timestamp(channel_label)
-            channel_last_modified = int(rhnLib.timestamp(lm))
+            if package_ids:
+                lm = self._channel_collection.get_channel_timestamp(channel_label)
+                channel_last_modified = int(rhnLib.timestamp(lm))
 
-            stream_loader.set_args(channel_label, channel_last_modified)
-            stream_loader.process(package_ids)
+                stream_loader.set_args(channel_label, channel_last_modified)
+                stream_loader.process(package_ids)
+                already_processed_pids.update(package_ids)
 
         stream_loader.close()
 
