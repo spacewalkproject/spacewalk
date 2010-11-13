@@ -21,6 +21,7 @@ import os
 from xml.sax import SAXParseException
 
 from spacewalk.common import Traceback, CFG
+from spacewalk.common.rhnLib import hash_object_id
 from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
 import xmlSource
@@ -133,8 +134,7 @@ def rpmsPath(obj_id, mountPoint, sources=0):
         template = "%s/rpms/%s/%s.rpm"
     else:
         template = "%s/srpms/%s/%s.rpm"
-    return os.path.normpath(template % (
-        mountPoint, xmlDiskSource.hashPackageId(obj_id, mod=100, padding=2), obj_id))
+    return os.path.normpath(template % (mountPoint, hash_object_id(obj_id, 2), obj_id))
 
 
 class diskImportLibContainer:
