@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.109
+Version: 1.2.110
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -431,6 +431,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Nov 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.110-1
+- better call stored functions with correct parameter order
+  (tlestach@redhat.com)
+- fix daily-summary task(PG) (tlestach@redhat.com)
+- comapre chars with chars(PG) (tlestach@redhat.com)
+- Restore 'yumrepo_last_sync' (colin.coe@gmail.com)
+- Update the ChannelSerializer to show all associated repos
+  (colin.coe@gmail.com)
+- removing old changelog hibernate stuff that no longer works now that things
+  are stored differently (jsherril@redhat.com)
+
 * Fri Nov 12 2010 Lukas Zapletal 1.2.109-1
 - Deletion from base table and not from view (PG)
 
