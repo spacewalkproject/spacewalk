@@ -1333,6 +1333,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         for channel, files in missing_ks_files.items():
             self._proces_batch(channel, files[:], messages.kickstart_downloading,
                                self._download_kickstarts_file,
+                               nevermorethan=1,
                                process_function_args=[channel])
 
     def _get_ks_file_stream(self, channel, kstree_label, relative_path):
@@ -1535,6 +1536,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def _processWithProgressBar(self, batch, size,
                                 process_function,
                                 prompt=_('Downloading:'),
+                                nevermorethan=None,
                                 process_function_args=[]):
         pb = ProgressBar(prompt=prompt, endTag=_(' - complete'),
                 finalSize=size, finalBarLength=40, stream=sys.stdout)
@@ -1542,7 +1544,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             pb.redrawYN = 0
         pb.printAll(1)
 
-        ss = SequenceServer(batch, nevermorethan=self._batch_size)
+        ss = SequenceServer(batch, nevermorethan=(nevermorethan or self._batch_size))
         while not ss.doneYN():
             chunk = ss.getChunk()
             item_count = len(chunk)
@@ -1556,6 +1558,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                       process_function,
                       prompt=_('Downloading:'),
                       process_function_args=[],
+                      nevermorethan=None,
                       is_slow=False):
         count = len(batch)
         if log_msg:
@@ -1565,7 +1568,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         if is_slow:
             log(1, messages.warning_slow)
         self._processWithProgressBar(batch, count, process_function,
-                        prompt, process_function_args)
+                        prompt, nevermorethan, process_function_args)
 
     def _import_packages_process(self, chunk, sources):
         batch = self._get_cached_package_batch(chunk, sources)
