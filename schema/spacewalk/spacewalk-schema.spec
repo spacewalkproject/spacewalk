@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.68
+Version:        1.2.69
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Sun Nov 14 2010 Tomas Lestach <tlestach@redhat.com> 1.2.69-1
+- create oracle compatible set of 'instr' functions for postgres(PG)
+  (tlestach@redhat.com)
+
 * Sat Nov 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.68-1
 - better call stored functions with correct parameter order
   (tlestach@redhat.com)
