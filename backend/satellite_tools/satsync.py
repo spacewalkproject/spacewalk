@@ -1057,7 +1057,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # First, determine what has to be downloaded
         short_package_collection = sync_handlers.ShortPackageCollection()
         package_collection = sync_handlers.PackageCollection()
-        for channel, pids in self._channel_packages.items():
+        for channel, pids in self._missing_channel_packages.items():
             missing_packages[channel] = mp = []
 
             if not pids:
@@ -1622,7 +1622,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         short_package_collection = sync_handlers.ShortPackageCollection()
         package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
-        for chn, package_ids in self._channel_packages.items():
+        for chn, package_ids in self._missing_channel_packages.items():
             for pid in package_ids:
                 timestamp = short_package_collection.get_package_timestamp(pid)
                 package = short_package_collection.get_package(pid, timestamp)
