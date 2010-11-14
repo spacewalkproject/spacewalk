@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.71
+Version: 1.2.72
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sun Nov 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.72-1
+- speed up satellite-sync - skip packages we already processed
+- speed up satellite-sync - download and parse only missing packages
+- kickstart files should be processed one by one
+- replaced hashPackageId() with hash_object_id()
+
 * Fri Nov 12 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.71-1
 - fixed import of removed function, fixed inversed set operator
 - removed unnecessary double assigning
