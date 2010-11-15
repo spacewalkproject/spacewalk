@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: spacewalk.spacewalk-server.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-02 11:19+0100\n"
-"PO-Revision-Date: 2010-11-15 23:07+0100\n"
+"PO-Revision-Date: 2010-11-15 23:36+0100\n"
 "Last-Translator: Luc de Louw <luc@delouw.ch>\n"
-"Language-Team: German <trans-de@lists.fedoraproject.org" ">\n"
+"Language-Team: German <trans-de@lists.fedoraproject.org\" \">\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -605,43 +605,43 @@ msgstr ""
 
 #: ../common/rhnException.py:90
 msgid "Channel error"
-msgstr ""
+msgstr "Channel Fehler"
 
 #: ../common/rhnException.py:91
 msgid "Client session token is invalid."
-msgstr ""
+msgstr "Client Session Token ist ungültig."
 
 #: ../common/rhnException.py:92
 msgid "Client session token has expired."
-msgstr ""
+msgstr "Client Session ist abgelaufen."
 
 #: ../common/rhnException.py:93
 msgid "You are not authorized to retrieve the requested object."
-msgstr ""
+msgstr "Sie sind  nicht berechtigt dieses Objekt abzurufen."
 
 #: ../common/rhnException.py:94
 msgid "Invalid action"
-msgstr ""
+msgstr "Ungültige Aktion"
 
 #: ../common/rhnException.py:95
 msgid "You are not allowed to perform administrative tasks on this system."
-msgstr ""
+msgstr "Sie sind für diese Administative Tätigkeit nicht freigegeben."
 
 #: ../common/rhnException.py:97
 msgid "The system is already subscribed to the specified channel."
-msgstr ""
+msgstr "Dieses System ist bereits in diesem Channel registriert."
 
 #: ../common/rhnException.py:98
 msgid "The system is not currently subscribed to the specified channel."
-msgstr ""
+msgstr "Dieses System ist bei diesem Channel nicht registriert."
 
 #: ../common/rhnException.py:99
 msgid "The specified channel does not exist."
-msgstr ""
+msgstr "Der angegebene Channel existiert nicht."
 
 #: ../common/rhnException.py:100
 msgid "Invalid channel version."
-msgstr ""
+msgstr "Ungültige Channel-Version."
 
 #: ../common/rhnException.py:101
 msgid "Invalid ORG_ID requested"
@@ -787,15 +787,17 @@ msgstr ""
 
 #: ../common/rhnException.py:180
 msgid "Too many systems registered using this registration token"
-msgstr ""
+msgstr "Zuviele Sysme sind bereits dieser Registration zugeordnet"
 
 #: ../common/rhnException.py:181
 msgid "Token contains invalid, obsoleted or insufficient settings"
 msgstr ""
+"Dieser Token enthält ungültige, obsolete oder nicht ausreichende "
+"Einstellungen"
 
 #: ../common/rhnException.py:182
 msgid "Conflicting activation tokens"
-msgstr ""
+msgstr "Aktivierungs-Tokens mit Konflikten"
 
 #. 70-80: channel subscription errors
 #: ../common/rhnException.py:185
@@ -818,7 +820,7 @@ msgstr ""
 
 #: ../common/rhnException.py:194
 msgid "You can not unsubscribe from base channel."
-msgstr ""
+msgstr "Sie können sich von diesem Base-Channel nicht abmelden."
 
 #. 80-90: server group errors
 #: ../common/rhnException.py:197
@@ -1159,6 +1161,7 @@ msgstr "Ungültiger Sitzungsschlüssel"
 #: ../common/rhnException.py:325
 msgid "Cannot compare files of different file type"
 msgstr ""
+"Ein Vergeich zwischen verschiedenen Datei-Typen kann nicht erstellt werden"
 
 #. 5000 - 5099: entitlement mapper errors
 #: ../common/rhnException.py:328
