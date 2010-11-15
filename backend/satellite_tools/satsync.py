@@ -404,7 +404,10 @@ class Syncer:
         self.xmlDataServer = None
         self.systemid = None
 
+        # self._*_full hold list of all ids for appropriate channel while
+        # non-full self._* contain every id only once (in first channel it appeared)
         self._channel_packages = {}
+        self._channel_packages_full = {}
         self._avail_channel_packages = {}
 
         self._missing_channel_packages = None
@@ -417,6 +420,7 @@ class Syncer:
         self._missing_channel_errata = {}
 
         self._channel_source_packages = {}
+        self._channel_source_packages_full = {}
 
         self._channel_kickstarts = {}
 
@@ -843,15 +847,21 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         """ process package metadata for one channel at a time """
         relevant = self._channel_req.get_requested_channels()
         self._channel_packages = {}
+        self._channel_packages_full = {}
         self._avail_channel_packages = {}
+        already_seen_ids = set()
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             avail_package_ids = sorted(set(channel_obj['packages'] or []))
-            package_ids = sorted(set(channel_obj['all-packages'] or [])) or avail_package_ids
+            package_full_ids = sorted(set(channel_obj['all-packages'] or [])) or avail_package_ids
+            package_ids = sorted(set(package_ids) - already_seen_ids)
+
             self._channel_packages[chn] = package_ids
+            self._channel_packages_full[chn] = package_full_ids
             self._avail_channel_packages[chn] = avail_package_ids
+            already_seen_ids.update(package_ids)
 
     def processShortPackages(self):
         log(1, ["", "Retrieving short package metadata (used for indexing)"])
@@ -1124,7 +1134,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         self._channel_source_packages = {}
+        self._channel_source_packages_full = {}
         self._avail_channel_source_packages = {}
+
+        already_seen_ids = set()
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
@@ -1142,8 +1155,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     ret_sps.append((sp['id'], sp['last_modified']))
             del sps
             ret_sps.sort()
-            self._channel_source_packages[chn] = ret_sps
+            self._channel_source_packages[chn] = sorted(set(ret_sps)-already_seen_ids)
+            self._channel_source_packages_full[chn] = ret_sps
             self._avail_channel_source_packages[chn] = ret_sps
+            already_seen_ids.update(ret_sps)
 
     def _compute_not_cached_source_packages(self):
         missing_sps = {}
