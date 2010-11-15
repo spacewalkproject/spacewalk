@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.111
+Version: 1.2.112
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -431,6 +431,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 15 2010 Jan Pazdziora 1.2.112-1
+- checkstyle fix (cherry picked from commit
+  b0210169bca60041e2a09d0c3323f8fdf6f84320) (tlestach@redhat.com)
+
 * Mon Nov 15 2010 Jan Pazdziora 1.2.111-1
 - 653305 - do not access the login information, if the user is null
   (tlestach@redhat.com)
