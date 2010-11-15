@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.26
+Version: 1.2.27
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Nov 15 2010 Jan Pazdziora 1.2.27-1
+- bumping api version (jsherril@redhat.com)
+
 * Thu Nov 11 2010 Jan Pazdziora 1.2.26-1
 - make event.pxt work with both Oracle and PostgreSQL (mzazrivec@redhat.com)
 - use ansi syntax in outer join (mzazrivec@redhat.com)
