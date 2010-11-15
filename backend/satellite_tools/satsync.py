@@ -856,7 +856,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             avail_package_ids = sorted(set(channel_obj['packages'] or []))
             package_full_ids = sorted(set(channel_obj['all-packages'] or [])) or avail_package_ids
-            package_ids = sorted(set(package_ids) - already_seen_ids)
+            package_ids = sorted(set(package_full_ids) - already_seen_ids)
 
             self._channel_packages[chn] = package_ids
             self._channel_packages_full[chn] = package_full_ids
@@ -873,11 +873,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 sync_handlers.get_short_package_handler(),
                 self.xmlDataServer, 'getChannelShortPackagesXmlStream')
 
-        already_processed_pids = set()
-        for channel_label, ch_package_ids in self._channel_packages.items():
-            # skip packages we already processed
-            package_ids = set(ch_package_ids) - already_processed_pids
-
+        for channel_label, package_ids in self._channel_packages.items():
             log(1, _("   Retrieving / parsing short package metadata: %s (%s)") %
                 (channel_label, len(package_ids)))
 
@@ -887,7 +883,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
                 stream_loader.set_args(channel_label, channel_last_modified)
                 stream_loader.process(package_ids)
-                already_processed_pids.update(package_ids)
 
         stream_loader.close()
 
@@ -1252,12 +1247,15 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         self._channel_kickstarts = {}
+        already_seen_kickstarts = set()
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             self._channel_kickstarts[chn] = \
-			sorted(set(channel_obj['kickstartable_trees'] or []))
+			sorted(set(channel_obj['kickstartable_trees'])
+                               - already_seen_kickstarts)
+            already_seen_kickstarts.update(self._channel_kickstarts[chn])
 
     _query_get_kickstarts = rhnSQL.Statement("""
         select TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
@@ -1507,8 +1505,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             channel_errata[chn] = errata
 
         # Uniquify the errata
+        already_seen_errata = set()
         for channel, errata in channel_errata.items():
-            self._channel_errata[channel] = sorted(list(set(errata)))
+            uq_errata = set(errata) - already_seen_errata
+            self._channel_errata[channel] = sorted(uq_errata)
+            already_seen_errata.update(uq_errata)
 
     def _diff_db_errata(self):
         """ Compute errata that are missing from the satellite
@@ -1646,7 +1647,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         short_package_collection = sync_handlers.ShortPackageCollection()
         package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
-        for chn, package_ids in self._missing_channel_packages.items():
+        for chn, package_ids in self._channel_packages_full.items():
             for pid in package_ids:
                 timestamp = short_package_collection.get_package_timestamp(pid)
                 package = short_package_collection.get_package(pid, timestamp)
