@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.110
+Version: 1.2.111
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -431,6 +431,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 15 2010 Jan Pazdziora 1.2.111-1
+- 653305 - do not access the login information, if the user is null
+  (tlestach@redhat.com)
+
 * Sat Nov 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.110-1
 - better call stored functions with correct parameter order
   (tlestach@redhat.com)
