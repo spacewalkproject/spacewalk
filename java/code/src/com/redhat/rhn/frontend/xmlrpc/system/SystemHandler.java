@@ -1850,7 +1850,8 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("string", "earliest_action", "Earliest date this action
      *                     will occur.")
      *          #prop_desc("int", "archived", "If this action is archived. (1 or 0)")
-     *          #prop_desc("string", "scheduler_user", "available only if concrete user has scheduled the action")
+     *          #prop_desc("string", "scheduler_user", "available only if concrete user
+     *                     has scheduled the action")
      *          #prop_desc("string", "prerequisite", "Pre-requisite action. (optional)")
      *          #prop_desc("string", "name", "Name of this action.")
      *          #prop_desc("int", "id", "Id of this action.")
