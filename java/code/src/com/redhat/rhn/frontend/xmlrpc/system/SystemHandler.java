@@ -1850,7 +1850,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("string", "earliest_action", "Earliest date this action
      *                     will occur.")
      *          #prop_desc("int", "archived", "If this action is archived. (1 or 0)")
-     *          #prop("string", "scheduler_user")
+     *          #prop_desc("string", "scheduler_user", "available only if concrete user has scheduled the action")
      *          #prop_desc("string", "prerequisite", "Pre-requisite action. (optional)")
      *          #prop_desc("string", "name", "Name of this action.")
      *          #prop_desc("int", "id", "Id of this action.")
@@ -1927,7 +1927,8 @@ public class SystemHandler extends BaseHandler {
             if (action.getArchived() != null) {
                 result.put("archived", action.getArchived());
             }
-            if (action.getSchedulerUser().getLogin() != null) {
+            if ((action.getSchedulerUser() != null) &&
+                    (action.getSchedulerUser().getLogin() != null)) {
                 result.put("scheduler_user", action.getSchedulerUser().getLogin());
             }
             if (action.getPrerequisite() != null) {
