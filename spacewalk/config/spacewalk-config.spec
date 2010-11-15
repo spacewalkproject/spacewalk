@@ -56,7 +56,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
@@ -79,6 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/lib/rhn
 %dir %{_prefix}/share/rhn
 %attr(0755,root,root) %{_prefix}/share/rhn/satidmap.pl
+%attr(0755,root,root) %{_prefix}/share/rhn/startup.pl
 %doc LICENSE
 
 %pre

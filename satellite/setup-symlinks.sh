@@ -105,12 +105,12 @@ symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/rhnweb.conf
 symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/ssl.conf
 symlink /etc/httpd/conf/ssl.crt
 symlink /etc/httpd/conf/ssl.key
-symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/startup.pl
+symlink $SVNDIR/eng/satellite/config/usr/share/rhn/startup.pl
 symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/workers.properties
 
 chdir /etc/httpd/conf
 symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/httpd.conf
-symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/startup.pl
+symlink $SVNDIR/eng/satellite/config/usr/share/rhn/startup.pl
 symlink $SVNDIR/eng/java/conf/workers.properties
 
 chdir /etc/init.d
