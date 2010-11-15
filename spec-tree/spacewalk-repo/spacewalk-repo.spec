@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
+* Mon Nov 15 2010 Jan Pazdziora 1.3-0
+- Bumping up version for 1.3.
+
 * Wed Aug 18 2010 Jan Pazdziora 1.2-0
 - point the repos to new spacewalk gpg key
 
