@@ -87,7 +87,7 @@ def get_package_path(server_id, pkg_spec, channel):
             max_row = each
 
     # Set the flag for the proxy download accelerator
-    rhnFlags.set("Download-Accelerator-Path", rel_path)
+    rhnFlags.set("Download-Accelerator-Path", max_row['path'])
     return check_package_file(max_row['path'], max_row['id'], pkg_spec), max_row['id']
 
 def check_package_file(rel_path, logpkg, raisepkg):
