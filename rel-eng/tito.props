@@ -7,11 +7,12 @@ autobuild_tags = dist-5E-sw-1.3-candidate dist-f13-sw-1.3-candidate dist-f14-sw-
 
 [dist-5E-sw-1.3-candidate]
 disttag = .el5
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm
 
 [dist-f13-sw-1.3-candidate]
 disttag = .fc13
-blacklist=jabberd-selinux
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm
 
 [dist-f14-sw-1.3-candidate]
 disttag = .fc14
-blacklist=jabberd-selinux
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm
