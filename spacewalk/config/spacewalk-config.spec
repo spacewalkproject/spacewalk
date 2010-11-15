@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.6
+Version: 1.2.7
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -95,6 +95,10 @@ fi
 
 
 %changelog
+* Mon Nov 15 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.7-1
+- 491331 - move /etc/rhn/satellite-httpd/conf/startup.pl
+  to /usr/share/rhn/startup.pl
+
 * Thu Nov 04 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.6-1
 - 491331 move /etc/rhn/satellite-httpd/conf/satidmap.pl to
   /usr/share/rhn/satidmap.pl
