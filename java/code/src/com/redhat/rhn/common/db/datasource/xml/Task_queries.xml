@@ -243,6 +243,13 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </write-mode>
 
+<write-mode name="taskomatic_package_changelog_cleanup">
+   <query params="">
+    DELETE FROM rhnPackageChangeLogData
+        WHERE id NOT IN ( SELECT changelog_data_id FROM rhnPackageChangeLogRec )
+   </query>
+</write-mode>
+
 <callable-mode name="synchprobestate_synch_proc">
    <query params="">
       { call rhn_synch_probe_state() }
