@@ -264,7 +264,7 @@ def makedirs(path,  mode=0755, user=None, group=None):
             # Changing permissions failed; ignore the error
             sys.stderr.write("Changing owner for %s failed\n" % dirname)
 
-def createPath(path, user='apache', group='root', chmod=0755, logging=1):
+def createPath(path, user='apache', group='apache', chmod=0755, logging=1):
     """advanced makedirs
 
     Will create the path if necessary.
