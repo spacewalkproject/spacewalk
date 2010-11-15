@@ -61,11 +61,11 @@ public class TaskManager {
      * Gets the current db time
      * @return the date
      */
-    public static Date getCurrentDBTime() {
+    public static Object getCurrentDBTime() {
         SelectMode m = ModeFactory.getMode("Task_queries", "get_current_time");
         DataResult<Map> list = m.execute();
         if (!list.isEmpty()) {
-            return (Date) list.get(0).get("sysdate");
+            return list.get(0).get("current_timestamp");
         }
         return null;
     }
