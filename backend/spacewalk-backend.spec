@@ -458,7 +458,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/wsgi/config.py*
 %{rhnroot}/wsgi/config_tool.py*
 %{rhnroot}/wsgi/package_push.py*
-%{rhnroot}/wsgi/package_upload.py*
 %{rhnroot}/wsgi/sat.py*
 %{rhnroot}/wsgi/sat_dump.py*
 %{rhnroot}/wsgi/xmlrpc.py*
