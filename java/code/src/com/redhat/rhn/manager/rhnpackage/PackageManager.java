@@ -297,15 +297,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Finds a package by using the path column of rhnPackage
-     * @param path The package path
-     * @return A Package object
-     */
-    public static Package lookupByPath(String path) {
-        return PackageFactory.lookupByPath(path);
-    }
-
-    /**
      * Returns a dataResult containing all of the packages available to an
      * errata. Picks the right query depending on whether or not the errata
      * is published.

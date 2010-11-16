@@ -185,10 +185,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p where p.packageName = :packageName]]>
     </query>
 
-    <query name="Package.findByPackagePath">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p where p.path = :path]]>
-    </query>
-
     <query name="Package.searchByIdAndArches">
             <![CDATA[select distinct p.packageName.id, p.packageName.name, p.summary,
                         p.packageArch.label, p.description, p.packageEvr.epoch,
