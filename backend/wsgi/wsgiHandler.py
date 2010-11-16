@@ -54,7 +54,7 @@ def handle(environ, start_response, server, component_type, type="spacewalk.serv
         req.send_http_header(status=ret)
 
     #exporter doesn't have a logHandler
-    if type != 'satellite_exporter.satexport':
+    if type != 'spacewalk.satellite_exporter.satexport':
         logServ = get_handle(type, "LogHandler")
         logServ(req)
     cleanServ = get_handle(type, "CleanupHandler")
