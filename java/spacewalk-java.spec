@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.2
+Version: 1.3.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 16 2010 Lukas Zapletal 1.3.3-1
+- Adding one jar ignore to spacewalk-java.spec for F14 
+- Turning off checkstyle in the java spec for F14 
+- Adding requires for F14 in spacewalk-java.spec 
+
 * Tue Nov 16 2010 Lukas Zapletal 1.3.2-1
 - No longer distributing jar symlinks with version numbers
 - use an existing column name in ORDER BY statements 
