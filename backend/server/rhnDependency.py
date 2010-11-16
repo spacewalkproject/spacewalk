@@ -26,9 +26,9 @@ __packages_with_arch_and_id_sql = """
 select distinct
     p.id id,
     pn.name name,
-    pe.evr.version as version,
-    pe.evr.release as release,
-    pe.evr.epoch as epoch,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
     pa.label as arch,
     1 as preference
 from
@@ -64,9 +64,9 @@ and pe.evr = (
 __packages_sql = """
 select distinct
     pn.name name,
-    pe.evr.version as version,
-    pe.evr.release as release,
-    pe.evr.epoch as epoch,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
     pa.label as arch,
     1 as preference
 from
@@ -103,9 +103,9 @@ and pe.evr = (
 __packages_all_sql = """
 select distinct
     pn.name name,
-    pe.evr.version as version,
-    pe.evr.release as release,
-    pe.evr.epoch as epoch,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
     pa.label as arch,
     1 as preference
 from
@@ -129,9 +129,9 @@ and p.package_arch_id = pa.id
 __provides_sql  = """
 select  distinct
     pn.name,
-    pe.evr.version as version,
-    pe.evr.release as release,
-    pe.evr.epoch as epoch,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
     pa.label as arch,
     2 as preference
 from
@@ -175,9 +175,9 @@ and pe.evr = (
 __provides_all_sql  = """
 select  distinct
     pn.name,
-    pe.evr.version as version,
-    pe.evr.release as release,
-    pe.evr.epoch as epoch,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
     pa.label as arch,
     2 as preference
 from
@@ -206,9 +206,9 @@ and p.package_arch_id = pa.id
 __files_sql = """
 select distinct
     pn.name,
-    pe.evr.version as version,
-    pe.evr.release as release,
-    pe.evr.epoch as epoch,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
     pa.label as arch,
     3 as preference
 from
@@ -252,9 +252,9 @@ and pe.evr = (
 __files_all_sql = """
 select distinct
     pn.name,
-    pe.evr.version as version,
-    pe.evr.release as release,
-    pe.evr.epoch as epoch,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
     pa.label as arch,
     3 as preference
 from
