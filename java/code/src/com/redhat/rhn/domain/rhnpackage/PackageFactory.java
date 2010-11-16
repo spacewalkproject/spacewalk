@@ -80,6 +80,18 @@ public class PackageFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup a Package by its path
+     * @param path to search for
+     * @return the Package found
+     */
+    public static Package lookupByPath(String path) {
+        Map params = new HashMap();
+        params.put("path", path);
+        return (Package) singleton.lookupObjectByNamedQuery("Package.findByPackagePath",
+                params);
+    }
+
+    /**
      * Returns true if the Package with the given name and evr ids exists in the
      * Channel whose id is cid.
      * @param cid Channel id to look in

@@ -105,6 +105,29 @@ public class PackagesHandler extends BaseHandler {
     }
 
     /**
+     * Gets the ID of a package with the specified path
+     * @param sessionKey The sessionKey for the logged in user
+     * @param path The path of the package you're looking for (minus the default of
+     * /var/satellite)
+     * @return Package ID
+     * @throws FaultException A FaultException is thrown if the package corresponding to
+     * path cannot be found.
+     *
+     * @xmlrpc.doc Retrieve the ID of a package with the specified path
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "path")
+     * @xmlrpc.return The ID of the package
+     */
+    public Long getPackageIdFromPath(String sessionKey, String path) throws FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Package pkg = PackageManager.lookupByPath(path);
+
+        Map returnMap = PackageHelper.packageToMap(pkg, loggedInUser);
+
+        return (Long)returnMap.get("id");
+    }
+
+    /**
      * List of Channels that provide a given package
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The id of the package in question
