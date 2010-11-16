@@ -38,7 +38,6 @@ Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-io
-Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
 Requires: jcommon
@@ -66,6 +65,12 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
+%if  0%{?fedora} && 0%{?fedora} >= 14
+Requires: apache-commons-beanutils
+Requires: apache-commons-logging
+%else
+Requires: jakarta-commons-logging
+%endif
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
