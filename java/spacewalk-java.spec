@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.1
+Version: 1.3.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -438,6 +438,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 16 2010 Lukas Zapletal 1.3.2-1
+- No longer distributing jar symlinks with version numbers
+- use an existing column name in ORDER BY statements 
+- Revert "Implement new API call packages.getPackageIdFromPath"
+- Implement new API call packages.getPackageIdFromPath 
+- allow setting null value as paramter 
+- fix TaskManagerTest.testGetCurrentDBTime test 
+- 645694 - introducing cleanup-packagechangelog-data task 
+
 * Mon Nov 15 2010 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
 - checkstyle fix (tlestach@redhat.com)
 - Bumping package versions for 1.3. (jpazdziora@redhat.com)
