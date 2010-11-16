@@ -88,3 +88,5 @@ optional_policy(`
 	')
 allow osa_dispatcher_t oracle_port_t:tcp_socket name_connect;
 ')
+
+postgresql_stream_connect(osa_dispatcher_t)
