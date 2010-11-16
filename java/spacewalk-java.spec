@@ -222,6 +222,8 @@ This package contains the Java version of taskomatic.
 %build
 # compile only java sources (no packing here)
 ant -Dprefix=$RPM_BUILD_ROOT init-install compile
+# checkstyle is broken on Fedora 14 se we skip for now
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 echo "Running checkstyle on java main sources"
 export CLASSPATH="build/classes"
 export BASE_OPTIONS="-Djavadoc.method.scope=public \
@@ -241,6 +243,7 @@ export BASE_OPTIONS="-Djavadoc.method.scope=nothing \
 -Dcheckstyle.header.file=buildconf/LICENSE.txt"
 find . -name *.java | grep -E '/test/' | grep -vE '(/jsp/|/playpen/)' | \
 xargs checkstyle -c buildconf/checkstyle.xml
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
