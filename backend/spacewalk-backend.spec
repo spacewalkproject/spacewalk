@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.1
+Version: 1.3.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -668,6 +668,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Nov 16 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
+- fixed iss
+- fixed mod_wsgi configuration
+- removed /PKG_UPLOAD leftovers
+- l10n: Updates to German (de) translation
+- 652613 - set ownership to apache:apache by default
+- 652625 - fixed file path
+
 * Mon Nov 15 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
 - 652815 - satellite-sync speed up
 - 652815 - don't resync packages with wrong path when called with --no-rpms
