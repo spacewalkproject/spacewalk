@@ -883,6 +883,8 @@ delete from rhnChannel where label like 'ChannelLabel%';
         <include name="**/asmasm-xml-*.jar" />
         <include name="**/asmasm-?.?.?.jar" />
         <include name="**/asmkasm-*.jar" />
+        <include name="**/jfreechartjfreechart-*.jar" />
+        <include name="**/jfreechart-*.jar" />
     </fileset>
     </delete>
   </target>
