@@ -93,7 +93,7 @@ SELECT DISTINCT S.id,
    AND CCN.name = 'script.run'
    AND USP.server_id = S.id
 ) X
-ORDER BY UPPER(NVL(X.name, '(none)')), X.id
+ORDER BY UPPER(NVL(X.server_name, '(none)')), X.id
   </query>
   <elaborator name="system_overview" />
 </mode>
@@ -490,7 +490,7 @@ select * from (
    WHERE  USP.user_id = :formvar_uid
      AND  S.id = USP.server_id
 ) X
-ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
+ORDER BY  UPPER(NVL(X.server_name, '(none)')), X.id
 </query>
 
 
@@ -1312,7 +1312,7 @@ SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, PN.name || '-' || PE.evr.as
    AND  SP.evr_id = PE.id
    AND  SP.server_id = S.id
 ) X
-ORDER BY UPPER(X.name)
+ORDER BY UPPER(X.system_name)
 </query>
 
 <mode name="system_installed_packages">
