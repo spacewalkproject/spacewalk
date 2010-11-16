@@ -691,6 +691,8 @@ delete from rhnChannel where label like 'ChannelLabel%';
         <exclude name="**/ojdbc*" />
         <exclude name="**/oracle-jdbc*" />
         <exclude name="**/servlet*" />
+        <exclude name="**/jspapi*" />
+        <exclude name="**/jasper5-compiler*" />
       </lib>
     </war>
   </target>
@@ -862,16 +864,26 @@ delete from rhnChannel where label like 'ChannelLabel%';
     </copy>
 
     <!--
-     - delete the symlinks for the jars that break the webapp.  Basically
-     - these are the oracle jars and the servlet jar.
-     -->
-    <delete>
-      <fileset dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib">
+      - delete the symlinks for the jars that break the webapp.  Basically
+      - these are the oracle jars and the servlet jar and jars that
+      - are symlinked twice (once without version, once with version.
+      -->
+     <delete verbose="true">
+       <fileset dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib">
         <include name="**/ojdbc*" />
         <include name="**/oracle-jdbc*" />
         <include name="**/servlet*" />
         <include name="**/logdriver*" />
-      </fileset>
+        <include name="**/jspapi*" />
+        <include name="**/jasper5-compiler*" />
+        <include name="**/asmasm-analysis-*.jar" />
+        <include name="**/asmasm-attrs-*.jar" />
+        <include name="**/asmasm-tree-*.jar" />
+        <include name="**/asmasm-util-*.jar" />
+        <include name="**/asmasm-xml-*.jar" />
+        <include name="**/asmasm-?.?.?.jar" />
+        <include name="**/asmkasm-*.jar" />
+    </fileset>
     </delete>
   </target>
 

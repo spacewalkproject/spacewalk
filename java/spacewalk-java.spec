@@ -332,7 +332,8 @@ fi
 %{appdir}/rhn/WEB-INF/nav
 %{appdir}/rhn/WEB-INF/pages
 %{appdir}/rhn/WEB-INF/*.xml
-# jars for all distributions
+# list of all jar symlinks without any version numbers
+# and wildcards (except non-symlinks dwr and velocity)
 %{jardir}/antlr.jar
 %{jardir}/bcel.jar
 %{jardir}/c3p0.jar
@@ -358,7 +359,6 @@ fi
 %{jardir}/javamail.jar
 %{jardir}/jcommon.jar
 %{jardir}/jdom.jar
-%{jardir}/jfreechart*.jar
 %{jardir}/jpam.jar
 %{jardir}/jta.jar
 %{jardir}/log4j.jar
@@ -381,10 +381,17 @@ fi
 %{jardir}/xml-commons-apis.jar
 # jars for particular versions
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
-%{jardir}/asmasm*.jar
-%{jardir}/asmkasm*.jar
+%{jardir}/asmasm-analysis.jar
+%{jardir}/asmasm-attrs.jar
+%{jardir}/asmasm-tree.jar
+%{jardir}/asmasm-util.jar
+%{jardir}/asmasm-xml.jar
+%{jardir}/asmasm.jar
+%{jardir}/asmkasm.jar
+%{jardir}/jfreechart.jar
 %else
 %{jardir}/objectweb-asm_asm.jar
+%{jardir}/jfreechartjfreechart.jar
 %endif
 %dir %{cobprofdir}
 %dir %{cobprofdirup}
