@@ -1808,9 +1808,9 @@ class Backend:
         query = """
             select
                  pn.name, 
-                 pe.evr.epoch epoch,
-                 pe.evr.version as version,
-                 pe.evr.release as release,
+                 (pe.evr).epoch epoch,
+                 (pe.evr).version as version,
+                 (pe.evr).release as release,
                  pa.label as arch,
                  p.org_id,
                  cc.checksum_type,
