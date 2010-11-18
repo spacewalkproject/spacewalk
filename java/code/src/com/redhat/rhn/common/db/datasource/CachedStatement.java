@@ -416,6 +416,10 @@ public class CachedStatement {
         Iterator i = params.iterator();
         while (i.hasNext()) {
             String curr = (String)i.next();
+            if (!parameters.containsKey(curr)) {
+                throw new ParameterValueNotFoundException("Parameter '" + curr +
+                        "' not given for query: " + query);
+            }
             intersection.put(curr, parameters.get(curr));
         }
         return intersection;
