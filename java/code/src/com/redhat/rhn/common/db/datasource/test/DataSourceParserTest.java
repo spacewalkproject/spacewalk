@@ -271,7 +271,8 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             fail("Should have received an exception");
         }
         catch (ParameterValueNotFoundException e) {
-            assertTrue(e.getMessage().startsWith("Parameter 'username' not given for query:"));
+            assertTrue(e.getMessage().startsWith(
+                        "Parameter 'username' not given for query:"));
         }
     }
 
