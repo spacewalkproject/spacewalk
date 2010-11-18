@@ -739,7 +739,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         if doTyposYN and ch_typos:
             log(1, _('   ? = channel label invalid --- typo?'))
 
-        pc_labels = self._channel_collection.get_parent_channel_labels()
+        pc_labels = sorted(self._channel_collection.get_parent_channel_labels())
 
         t_format = _('   %s:')
         p_format = _('      %s %-40s %4s %s')
@@ -845,7 +845,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
     def _compute_unique_packages(self):
         """ process package metadata for one channel at a time """
-        relevant = self._channel_req.get_requested_channels()
+        relevant = relevant(self._channel_req.get_requested_channels())
         self._channel_packages = {}
         self._channel_packages_full = {}
         self._avail_channel_packages = {}
@@ -873,7 +873,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 sync_handlers.get_short_package_handler(),
                 self.xmlDataServer, 'getChannelShortPackagesXmlStream')
 
-        for channel_label, package_ids in self._channel_packages.items():
+        sorted_channels = sorted(self._channel_packages.items(), key=lambda x: x[0]) # sort by channel_label
+        for channel_label, package_ids in sorted_channels:
             log(1, _("   Retrieving / parsing short package metadata: %s (%s)") %
                 (channel_label, len(package_ids)))
 
@@ -933,7 +934,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         self._missing_channel_packages = {}
         self._missing_fs_packages = {}
 
-        for channel_label, upids in self._channel_packages.items():
+        sorted_channels = sorted(self._channel_packages.items(), key=lambda x: x[0]) # sort by channel_label
+        for channel_label, upids in sorted_channels:
             log(1, _("Diffing package metadata (what's missing locally?): %s") %
                 channel_label)
             self._missing_channel_packages[channel_label] = []
@@ -1048,7 +1050,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def download_rpms(self):
         log(1, ["", _("Downloading rpm packages")])
         # Lets go fetch the packages and push them to their proper location:
-        for channel, missing_fs_packages in self._missing_fs_packages.items():
+        sorted_channels = sorted(self._missing_fs_packages.items(), key=lambda x: x[0]) # sort by channel
+        for channel, missing_fs_packages in sorted_channels:
             missing_packages_count = len(missing_fs_packages)
             log(1, _("   Fetching any missing RPMs: %s (%s)") %
                 (channel, missing_packages_count or _('NONE MISSING')))
@@ -1093,7 +1096,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 sync_handlers.get_package_handler(),
                 self.xmlDataServer, 'getPackageXmlStream')
 
-        for channel, pids in missing_packages.items():
+        sorted_channels = sorted(missing_packages.items(), key=lambda x: x[0]) # sort by channel
+        for channel, pids in sorted_channels:
             self._proces_batch(channel, pids[:], messages.package_parsing,
                                stream_loader.process, is_slow=True)
         stream_loader.close()
@@ -1111,7 +1115,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         self._diff_source_packages()
         log(1, ["", _("Downloading srpm packages")])
         # Lets go fetch the source packages and push them to their proper location:
-        for channel, missing_fs_source_packages in self._missing_fs_source_packages.items():
+        sorted_channels = sorted(self._missing_fs_source_packages.items(), key=lambda x: x[0]) # sort by channel_label
+        for channel, missing_fs_source_packages in sorted_channels:
             missing_source_packages_count = len(missing_fs_source_packages)
             log(1, _("   Fetching any missing SRPMs: %s (%s)") %
                 (channel, missing_source_packages_count or _('NONE MISSING')))
@@ -1349,7 +1354,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         missing_ks_files = self._compute_missing_ks_files()
 
         log(1, ["", _("Downloading kickstartable trees files")])
-        for channel, files in missing_ks_files.items():
+        sorted_channels = sorted(missing_ks_files.items(), key=lambda x: x[0]) # sort by channel
+        for channel, files in sorted_channels:
             self._proces_batch(channel, files[:], messages.kickstart_downloading,
                                self._download_kickstarts_file,
                                nevermorethan=1,
@@ -1545,7 +1551,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 sync_handlers.get_errata_handler(),
                 self.xmlDataServer, 'getErrataXmlStream')
 
-        for channel, erratum_ids in not_cached_errata.items():
+        sorted_channels = sorted(not_cached_errata.items(), key=lambda x: x[0]) # sort by channel
+        for channel, erratum_ids in sorted_channels:
             self._proces_batch(channel, erratum_ids[:], messages.erratum_parsing,
                                stream_loader.process)
         stream_loader.close()
@@ -1610,7 +1617,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             log(1, ["", _("Importing package metadata")])
             missing_channel_items = self._missing_channel_packages
 
-        for channel, packages in missing_channel_items.items():
+        sorted_channels = sorted(missing_channel_items.items(), key=lambda x: x[0]) # sort by channel
+        for channel, packages in sorted_channels:
             self._proces_batch(channel, packages[:],
                         messages.package_importing,
                         self._import_packages_process,
@@ -1699,7 +1707,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def import_errata(self):
         log(1, ["", _("Importing channel errata")])
         errata_collection = sync_handlers.ErrataCollection()
-        for chn, errata in self._missing_channel_errata.items():
+        sorted_channels = sorted(self._missing_channel_errata.items(), key=lambda x: x[0]) # sort by channel_label
+        for chn, errata in sorted_channels:
             log(2, _("Importing %s errata for channel %s.") % (len(errata), chn))
             batch = []
             for eid, timestamp, advisory_name in errata:
