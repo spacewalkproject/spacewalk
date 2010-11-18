@@ -170,7 +170,7 @@ create or replace function delete_user(user_id_in in numeric, deleting_org in nu
             where    1=1
                 and org_id = our_org_id
                 and id != user_id_in
-                and rownum = 1;
+                limit 1;
         exception
             when no_data_found then
                 other_users := 0;
@@ -202,7 +202,7 @@ create or replace function delete_user(user_id_in in numeric, deleting_org in nu
                         and ugt.label = 'org_admin'
                         and ug.id = new_ugm.user_group_id
                         and new_ugm.user_id != user_id_in
-                        and rownum = 1;
+                        limit 1;
                 exception
                     when no_data_found then
                         -- If we're deleting the org, we don't want to raise
