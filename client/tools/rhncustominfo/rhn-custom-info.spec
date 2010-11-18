@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.3
+Version: 5.4.4
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -49,6 +49,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Thu Nov 18 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.4-1
+- 553649 - Requires correct, justified where necessary
+- 553649 - fix changelog format
+
 * Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.3-1
 - replaced local copy of compile.py with standard compileall module
 
