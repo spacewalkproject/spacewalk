@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.44
+Version: 5.9.45
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -247,6 +247,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Thu Nov 18 2010 Lukas Zapletal 5.9.45-1
+- 630867 - Allow osa-dispatcher to connect to the PostgreSQL database with
+  PostgreSQL backend.
+
 * Tue Nov 02 2010 Jan Pazdziora 5.9.44-1
 - Update copyright years in the rest of the repo.
 
