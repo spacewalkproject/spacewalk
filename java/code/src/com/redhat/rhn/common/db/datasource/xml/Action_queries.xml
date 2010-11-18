@@ -95,7 +95,7 @@ order by id desc
 SELECT  DISTINCT UAO.id as ID,
         A.prerequisite AS PREREQUISITE,
         UAO.type_name,
-        (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
+        (CASE UAO.action_name WHEN NULL THEN UAO.type_name ELSE UAO.action_name END) AS ACTION_NAME,
         UAO.scheduler,
         WC.login AS SCHEDULER_NAME,
       	 UAO.action_status,
