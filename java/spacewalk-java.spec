@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.112
+Version: 1.2.113
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -434,6 +434,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 18 2010 Jan Pazdziora 1.2.113-1
+- Turning off checkstyle in the java spec for F14 (cherry picked from commit
+  2e31f06f5cbb580cc5c82ab6421d315139c1a72a) (lzap+git@redhat.com)
+
 * Mon Nov 15 2010 Jan Pazdziora 1.2.112-1
 - checkstyle fix (cherry picked from commit
   b0210169bca60041e2a09d0c3323f8fdf6f84320) (tlestach@redhat.com)
