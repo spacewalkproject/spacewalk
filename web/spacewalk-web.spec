@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Nov 18 2010 Lukas Zapletal 1.3.1-1
+- Replacing DECODE function with CASE-SWITCH (4x)
+- Marking the master as nightly. 
+- Bumping package versions for 1.3. 
+
 * Mon Nov 15 2010 Jan Pazdziora 1.2.27-1
 - bumping api version (jsherril@redhat.com)
 
