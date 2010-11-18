@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.72
+Version: 1.2.73
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Nov 18 2010 Jan Pazdziora 1.2.73-1
+- fixed iss (michael.mraka@redhat.com)
+- fixed mod_wsgi configuration (michael.mraka@redhat.com)
+- 652625 - fixed file path (michael.mraka@redhat.com)
+
 * Sun Nov 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.72-1
 - speed up satellite-sync - skip packages we already processed
 - speed up satellite-sync - download and parse only missing packages
