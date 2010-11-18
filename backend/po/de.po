@@ -61,7 +61,7 @@ msgstr "Ungültiger Wert %s (Typ %s)"
 #: ../server/handlers/xmlrpc/up2date.py:258
 #, python-format
 msgid "Unable to retrieve package header %s"
-msgstr "Konnte Paket-Kopf %s nicht abrufen"
+msgstr "Konnte Paket-Header %s nicht abrufen"
 
 #: ../server/handlers/xmlrpc/up2date.py:405
 #, python-format
@@ -108,7 +108,7 @@ msgstr "Red Hat Network Willkommensmitteilung"
 
 #: ../server/handlers/xmlrpc/registration.py:1073
 msgid "Red Hat Network Privacy Statement"
-msgstr ""
+msgstr "Red Hat Network Privatsphäre"
 
 #: ../server/handlers/xmlrpc/registration.py:1094
 msgid "Expected a dictionary as a product argument"
@@ -170,7 +170,7 @@ msgstr ""
 #: ../server/rhnChannel.py:2073 ../server/rhnChannel.py:2084
 #: ../server/rhnChannel.py:2099 ../server/rhnChannel.py:2107
 msgid "System Registered but Inactive"
-msgstr "System registriert aber inaktiv"
+msgstr "System registriert, aber inaktiv"
 
 #: ../server/rhnChannel.py:2074
 #, python-format
@@ -292,7 +292,7 @@ msgstr "Fehler beim Hinzufügen des Servers zur Gruppe %s"
 #: ../server/rhnServer/server_token.py:511
 #, python-format
 msgid "Maximum usage count of %s reached"
-msgstr ""
+msgstr "Maximale Nutzung von %s erreicht"
 
 #: ../server/rhnServer/server_token.py:642
 msgid ""
@@ -396,7 +396,7 @@ msgstr "der Benutzername '%s' wurde nicht reserviert"
 #. New accounts have to specify an e-mail address
 #: ../server/rhnUser.py:542
 msgid "E-mail address not specified"
-msgstr "die EMail Adresse wurde nicht angegeben"
+msgstr "die Emailadresse wurde nicht angegeben"
 
 #. wrong organization
 #. Invalid org password
@@ -407,7 +407,7 @@ msgstr "Ungültige Organisations-Zugangsdaten"
 #: ../server/rhnUser.py:607
 #, python-format
 msgid "User `%s' not a member of organization %s"
-msgstr "der Benutzer '%s' ist nicht Mitglied des Unternehmens %s"
+msgstr "der Benutzer '%s' ist nicht Mitglied der Organisation %s"
 
 #: ../server/rhnUser.py:635
 #, python-format
@@ -427,7 +427,7 @@ msgstr "Benutzername = '%s', ungültiges Zeichen '%s'"
 #: ../server/rhnUser.py:667
 #, python-format
 msgid "Please limit your e-mail address to %s chars"
-msgstr "Bitte beschränken Sie Ihre EMail Adresse auf %s Zeichen"
+msgstr "Bitte beschränken Sie Ihre Emailadresse auf %s Zeichen"
 
 #: ../server/rhnUser.py:738
 #, python-format
@@ -509,11 +509,11 @@ msgstr "Gültiges Passwort erforderlich."
 
 #: ../common/rhnException.py:57
 msgid "Minimum username length violation."
-msgstr "Überschreiten der minimalen Benutzernamenlänge."
+msgstr "Minimale Länge des Benutzernamen nicht erfüllt."
 
 #: ../common/rhnException.py:58
 msgid "Minimum password length violation."
-msgstr "Überschreiten der minimalen Passwortlänge."
+msgstr "Minimale Länge des Passworts nicht erfüllt."
 
 #: ../common/rhnException.py:59
 msgid "The username contains invalid characters."
@@ -617,7 +617,7 @@ msgstr "Client Session ist abgelaufen."
 
 #: ../common/rhnException.py:93
 msgid "You are not authorized to retrieve the requested object."
-msgstr "Sie sind  nicht berechtigt dieses Objekt abzurufen."
+msgstr "Sie sind nicht berechtigt dieses Objekt abzurufen."
 
 #: ../common/rhnException.py:94
 msgid "Invalid action"
@@ -696,7 +696,7 @@ msgstr ""
 
 #: ../common/rhnException.py:129
 msgid "Invalid RPM header"
-msgstr ""
+msgstr "Ungültiger RPM Header"
 
 #: ../common/rhnException.py:130
 msgid ""
@@ -730,7 +730,7 @@ msgstr ""
 #. For the uploading tools
 #: ../common/rhnException.py:151
 msgid "Invalid information uploaded to the server"
-msgstr ""
+msgstr "Es wurden ungültige Informationen hochgeladen"
 
 #: ../common/rhnException.py:152
 #, python-format
@@ -757,7 +757,7 @@ msgstr ""
 
 #: ../common/rhnException.py:164
 msgid "Error uploading network interfaces configuration."
-msgstr ""
+msgstr "Fehler beim Hochladen der Konfiguration der Netzwerk-Schnittstellen."
 
 #: ../common/rhnException.py:165
 msgid ""
@@ -787,7 +787,7 @@ msgstr ""
 
 #: ../common/rhnException.py:180
 msgid "Too many systems registered using this registration token"
-msgstr "Zuviele Sysme sind bereits dieser Registration zugeordnet"
+msgstr "Zuviele Systeme sind dieser Registration zugeordnet"
 
 #: ../common/rhnException.py:181
 msgid "Token contains invalid, obsoleted or insufficient settings"
@@ -844,11 +844,11 @@ msgstr "Maximale Länge der Email überschritten."
 
 #: ../common/rhnException.py:206
 msgid "Changing e-mail address is not supported."
-msgstr "Ändern der Email-Adresse ist nicht unterstützt."
+msgstr "Ändern der Emailadresse ist nicht unterstützt."
 
 #: ../common/rhnException.py:207
 msgid "This system has been previously registered."
-msgstr ""
+msgstr "Dieses System wurde bereits registriert."
 
 #: ../common/rhnException.py:208
 msgid "Invalid username"
@@ -861,16 +861,16 @@ msgstr ""
 
 #: ../common/rhnException.py:212
 msgid "Email address not validated; service disabled"
-msgstr ""
+msgstr "Emailadresse wurde nicht überprüft, Service nicht verfügbar"
 
 #: ../common/rhnException.py:213
 msgid "Survey not filled out; service disabled"
-msgstr ""
+msgstr "Umfrage nicht ausgefüllt, Service nicht verfügbar"
 
 #. 130-140: bugzilla errata import errors
 #: ../common/rhnException.py:216
 msgid "Bugzilla erratum import error"
-msgstr ""
+msgstr "Fehler beim Import eines Bugzilla Erratum"
 
 #. 140-159 applet errors
 #: ../common/rhnException.py:219
@@ -885,7 +885,7 @@ msgstr ""
 #. 500-599: Package Uploader errors
 #: ../common/rhnException.py:225
 msgid "Missing HTTP header information"
-msgstr ""
+msgstr "Benötigte HTTP Header Informationen konnten nicht gefunden werden"
 
 #: ../common/rhnException.py:226
 msgid "The package's checksum signature does not match the header one"
@@ -897,7 +897,7 @@ msgstr ""
 
 #: ../common/rhnException.py:228
 msgid "Package with a different signature already uploaded"
-msgstr ""
+msgstr "Paket mit unterschiedlicher Signatur bereits hochgeladen"
 
 #: ../common/rhnException.py:229
 msgid "Not an RPM package"
@@ -945,7 +945,7 @@ msgstr "RHN Proxy Fehler."
 
 #: ../common/rhnException.py:246
 msgid "RHN Proxy unable to login."
-msgstr ""
+msgstr "Login zum RHN Proxy nicht möglich."
 
 #. issued by an RHN Server/Satellite to the proxy
 #: ../common/rhnException.py:248
@@ -1013,11 +1013,11 @@ msgstr ""
 #. Kickstart errors
 #: ../common/rhnException.py:283
 msgid "Access denied to kickstart tree"
-msgstr ""
+msgstr "Zugriff zum Kickstart-Tree verweigert"
 
 #: ../common/rhnException.py:284
 msgid "Could not find kickstart file"
-msgstr ""
+msgstr "Kickstart-Datei nicht gefunden"
 
 #: ../common/rhnException.py:285
 msgid ""
@@ -1030,11 +1030,11 @@ msgstr ""
 #. 3000-3999: XML dumper errors:
 #: ../common/rhnException.py:291
 msgid "Invalid datatype passed"
-msgstr ""
+msgstr "Es wurde ein ungültiger Datentyp übergeben"
 
 #: ../common/rhnException.py:292
 msgid "Unable to retrieve channel"
-msgstr ""
+msgstr "Channels konnten nicht abgerufen werden"
 
 #: ../common/rhnException.py:293
 msgid "Invalid package name"
@@ -1042,15 +1042,15 @@ msgstr "Ungültiger Paketname"
 
 #: ../common/rhnException.py:294
 msgid "Unable to retrieve package"
-msgstr ""
+msgstr "Pakete konnten nicht abgerufen werden"
 
 #: ../common/rhnException.py:295
 msgid "Invalid erratum name"
-msgstr ""
+msgstr "Ungültiger Name des Erratum"
 
 #: ../common/rhnException.py:296
 msgid "Unable to retrieve erratum"
-msgstr ""
+msgstr "Erratum konnte nicht abgerufen werden"
 
 #: ../common/rhnException.py:297
 msgid "Invalid satellite certificate"
@@ -1070,7 +1070,7 @@ msgstr ""
 
 #: ../common/rhnException.py:301
 msgid "Missing version string"
-msgstr ""
+msgstr "Es wurde keine Version angegeben"
 
 #: ../common/rhnException.py:302
 msgid "Invalid version string"
@@ -1078,7 +1078,7 @@ msgstr "Ungültige Version"
 
 #: ../common/rhnException.py:303
 msgid "Mismatching versions"
-msgstr ""
+msgstr "Versionen stimmen nicht überein"
 
 #: ../common/rhnException.py:304
 msgid "Invalid channel version"
@@ -1139,7 +1139,7 @@ msgstr ""
 
 #: ../common/rhnException.py:320
 msgid "Different revision of this file is uploaded"
-msgstr "Andere Version dieser Datei wurde breits hochgeladen"
+msgstr "Eine andere Version dieser Datei wurde breits hochgeladen"
 
 #: ../common/rhnException.py:321
 msgid "File already uploaded to configuration channel"
@@ -1170,15 +1170,15 @@ msgstr "Das angegebene Feld existiert nicht in der Eingabe"
 
 #: ../common/rhnException.py:329
 msgid "Invalid item code"
-msgstr "Ungültiger Feld-Code"
+msgstr "Ungültiger Feldcode"
 
 #: ../common/rhnException.py:330
 msgid "Invalid user role"
-msgstr "Ungültige Benutzer-Rolle"
+msgstr "Ungültige Benutzerrolle"
 
 #: ../common/rhnException.py:331
 msgid "Invalid server group"
-msgstr "Ungültige Server-Gruppe"
+msgstr "Ungültige Servergruppe"
 
 #: ../common/rhnException.py:332
 msgid "Invalid channel family"
@@ -1216,12 +1216,12 @@ msgstr ""
 #: ../common/rhnException.py:432
 #, python-format
 msgid "Error Class Code: %s\n"
-msgstr "Fehler-Klasse-Code: %s\n"
+msgstr "Fehlerklasse-Code: %s\n"
 
 #: ../common/rhnException.py:434
 #, python-format
 msgid "Error Class Info: %s\n"
-msgstr "Fehler-Klasse-Information: %s\n"
+msgstr "Fehlerklasse-Information: %s\n"
 
 #: ../common/rhnException.py:437
 #, python-format
