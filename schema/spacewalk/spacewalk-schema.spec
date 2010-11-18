@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Nov 18 2010 Lukas Zapletal 1.3.1-1
+- Replacing rownum with limit-offset syntax 
+- 645694 - introducing cleanup-packagechangelog-data task 
+- Bumping package versions for 1.3. 
+
 * Sun Nov 14 2010 Tomas Lestach <tlestach@redhat.com> 1.2.69-1
 - create oracle compatible set of 'instr' functions for postgres(PG)
   (tlestach@redhat.com)
