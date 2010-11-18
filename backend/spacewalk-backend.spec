@@ -531,6 +531,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %dir %{rhnroot}/satellite_exporter
 %dir %{rhnroot}/satellite_exporter/handlers
+%{rhnroot}/satellite_exporter/__init__.py*
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
 # config files
