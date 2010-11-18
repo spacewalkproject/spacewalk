@@ -74,7 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 - clean up handling of requires for up2date or yum-rhn-plugin
 
 * Wed Jan 14 2009 Pradeep Kilambi <pkilambi@redhat.com> - 0.4.2-1
-Resolves - #251060
+- Resolves - #251060
 
 * Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.2.2-1
 - adding dist tag
