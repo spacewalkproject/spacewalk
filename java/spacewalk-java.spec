@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.4
+Version: 1.3.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 18 2010 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
+- 654275 - make repo generation faster in the RHN way (tlestach@redhat.com)
+- checkstyle fix (tlestach@redhat.com)
+- fix CreateProfileWizardTest.testSuccess test (tlestach@redhat.com)
+- store null as empty argumets (instead of empty string) (tlestach@redhat.com)
+- fix DataSourceParserTest.testNullParam (tlestach@redhat.com)
+- check for parameter presence in the CachedStatement (tlestach@redhat.com)
+
 * Tue Nov 16 2010 Lukas Zapletal 1.3.4-1
 - Replacing sysdate in SQL INSERT with current_timestamp
 
