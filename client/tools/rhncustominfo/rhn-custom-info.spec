@@ -9,7 +9,9 @@ Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
-Requires: python
+%if 0%{?rhel} <= 5
+Requires: python2
+%endif
 Requires: rhnlib
 
 %if 0%{?rhel} >= 5 || 0%{?fedora} >= 1
