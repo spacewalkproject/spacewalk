@@ -728,11 +728,12 @@ class _PackageDumper(BaseRowDumper):
                 pf.groupname, pf.rdev, pf.file_size,
                 TO_CHAR(mtime, 'YYYYMMDDHH24MISS') mtime,
                 c.checksum_type, c.checksum, pf.linkto, pf.flags, pf.verifyflags, pf.lang
-            from rhnPackageFile pf, rhnPackageCapability pc,
-                 rhnChecksumView c
+            from rhnPackageFile pf
+            left join rhnChecksumView c
+              on pf.checksum_id = c.id,
+                rhnPackageCapability pc
             where pf.capability_id = pc.id
             and pf.package_id = :package_id
-            and pf.checksum_id = c.id
         """)
         h.execute(package_id=self._row['id'])
         arr.append(_PackageFilesDumper(self._writer, data_iterator=h))
