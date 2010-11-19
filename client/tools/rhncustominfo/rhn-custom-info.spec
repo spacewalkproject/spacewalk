@@ -9,8 +9,8 @@ Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
-%if 0%{?rhel} <= 5
-Requires: python2
+%if 0%{?rhel} <= 4
+Requires: python-abi = %(%{__python} -c "import sys; print sys.version[:3]")
 %endif
 Requires: rhnlib
 
