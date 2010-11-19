@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.7-1
+- fixed outer joins
+
 * Thu Nov 18 2010 Lukas Zapletal 1.3.6-1
 - Replacing DECODE function with CASE-SWITCH (multiple times)
 - 642599 use redhat_management_server insted of http_server in reactivation
