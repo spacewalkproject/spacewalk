@@ -742,48 +742,6 @@ class _PackageDumper(BaseRowDumper):
 class PackagesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-packages'
     subelement_dumper_class = _PackageDumper
-    iterator_query = """
-            select 
-                p.id,
-                p.org_id,
-                pn.name, 
-                (pe.evr).version as version,
-                (pe.evr).release as release,
-                (pe.evr).epoch as epoch,
-                pa.label as package_arch,
-                pg.name as package_group,
-                p.rpm_version,
-                p.description,
-                p.summary,
-                p.package_size,
-                p.payload_size,
-                p.build_host,
-                TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') as build_time,
-                sr.name source_rpm,
-                c.checksum_type,
-                c.checksum,
-                p.vendor,
-                p.payload_format,
-                p.compat,
-                p.header_sig,
-                p.copyright,
-                p.cookie,
-                p.header_start,
-                p.header_end,
-                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') as last_modified
-            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
-                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
-                rhnChecksumView c
-            where p.name_id = pn.id
-            and p.evr_id = pe.id
-            and p.package_arch_id = pa.id
-            and p.package_group = pg.id
-            and p.source_rpm_id = sr.id
-            and p.path is not null
-            and p.checksum_id = c.id
-            and rownum < 3
-        """
-
     def set_iterator(self):
         return BaseQueryDumper.set_iterator(self)
 
@@ -811,61 +769,12 @@ class ShortPackageEntryDumper(BaseChecksumRowDumper):
 class ShortPackagesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-packages-short'
     subelement_dumper_class = ShortPackageEntryDumper
-    iterator_query = """
-            select
-                p.id,
-                pn.name,
-                (pe.evr).version as version,
-                (pe.evr).release as release,
-                (pe.evr).epoch as epoch,
-                pa.label as package_arch,
-                c.checksum_type,
-                c.checksum,
-                p.org_id,
-                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') as last_modified
-            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa, rhnChecksumView c
-            where p.name_id = pn.id
-            and p.evr_id = pe.id
-            and p.package_arch_id = pa.id
-            and p.path is not null
-            and p.checksum_id = c.id
-            and rownum < 3
-        """
-
     def set_iterator(self):
         return BaseQueryDumper.set_iterator(self)
 
 ##
 class SourcePackagesDumper(BaseQueryDumper):
     tag_name = 'rhn-source-packages'
-    iterator_query = """
-            select 
-                ps.id, 
-                sr.name source_rpm, 
-                pg.name package_group, 
-                ps.rpm_version, 
-                ps.payload_size,
-                ps.build_host, 
-                TO_CHAR(ps.build_time, 'YYYYMMDDHH24MISS') build_time,
-                sig.checksum sigchecksum,
-                sig.checksum_type sigchecksum_type,
-                ps.vendor,
-                ps.cookie,
-                ps.package_size,
-                c.checksum_type,
-                c.checksum,
-                TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
-            from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
-                 rhnChecksumView c, rhnChecksumView sig
-            where ps.package_group = pg.id
-            and ps.source_rpm_id = sr.id
-            and ps.path is not null
-            and ps.checksum_id = c.id
-            and ps.sigchecksum_id = sig.id
-            and rownum < 3
-        """
-
     def dump_subelement(self, data):
         attributes = {}
         attrs = [
