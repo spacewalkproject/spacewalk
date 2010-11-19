@@ -295,8 +295,8 @@ SELECT p.recid id, p.description,
        ps.state, ps.output, csp.check_suite_id as probe_suite_id,
        spo.origin_probe_id as template_probe_id
 FROM rhn_probe p
-RIGHT OUTER JOIN rhn_service_probe_origins spo ON spo.service_probe_id = p.recid
-RIGHT OUTER JOIN rhn_check_suite_probe csp ON csp.probe_id = spo.origin_probe_id,
+LEFT OUTER JOIN rhn_service_probe_origins spo ON spo.service_probe_id = p.recid
+LEFT OUTER JOIN rhn_check_suite_probe csp ON csp.probe_id = spo.origin_probe_id,
 rhn_check_probe cp, rhnServer s, rhn_probe_state ps
 WHERE s.id = :sid
   and cp.probe_id = p.recid
