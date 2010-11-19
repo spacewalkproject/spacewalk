@@ -69,7 +69,7 @@ def connect(user, password, server):
 def add_channels(channels, section, arch):
     base_channels = ['']
     optional  = ['activationkey', 'base_channel_activationkey', 'gpgkey_url',
-                 'gpgkey_id', 'gpgkey_fingerprint', 'yumrepo_url']
+                 'gpgkey_id', 'gpgkey_fingerprint', 'yumrepo_url', 'yum_repo_label']
     mandatory = ['label', 'name', 'summary', 'checksum', 'arch']
 
     if config.has_option(section, 'base_channels'):
@@ -229,6 +229,10 @@ Create everything as well as unlimited activation key for every channel:
                         { 'url': base_info['gpgkey_url'],
                           'id' : base_info['gpgkey_id'],
                           'fingerprint': base_info['gpgkey_fingerprint']})
+                    client.channel.software.createRepo(key,
+                         base_info['yum_repo_label'], 'yum', base_info['yumrepo_url'])
+                    client.channel.software.associateRepo(key,
+                         base_info['label'], base_info['yum_repo_label'])
                 except xmlrpclib.Fault, e:
                     if e.faultCode != 1200: # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
@@ -285,6 +289,10 @@ Create everything as well as unlimited activation key for every channel:
                             { 'url': child_info['gpgkey_url'],
                               'id' : child_info['gpgkey_id'],
                               'fingerprint': child_info['gpgkey_fingerprint']})
+                    client.channel.software.createRepo(key,
+                         child_info['yum_repo_label'], 'yum', child_info['yumrepo_url'])
+                    client.channel.software.associateRepo(key,
+                         child_info['label'], child_info['yum_repo_label'])
                 except xmlrpclib.Fault, e:
                     if e.faultCode != 1200: # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
