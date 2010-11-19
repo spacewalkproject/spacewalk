@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.4
+Version: 5.4.5
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Fri Nov 19 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.5-1
+- 553649 - we need to require X.Y version due to search path
+
 * Thu Nov 18 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.4-1
 - 553649 - Requires correct, justified where necessary
 - 553649 - fix changelog format
