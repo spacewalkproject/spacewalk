@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.2
+Version: 1.3.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Nov 19 2010 Lukas Zapletal 1.3.3-1
+- Removing from SQL clause (System_queries) causing bugs in monitoring
+
 * Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
 - fixed outer joins
 
