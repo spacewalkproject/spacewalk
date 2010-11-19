@@ -151,7 +151,7 @@ class FileMapper:
 """
 class Dumper(dumper.XML_Dumper): 
     def __init__(self, outputdir, channel_labels, hardlinks, start_date, \
-                  end_date):
+                  end_date, use_rhn_date):
         dumper.XML_Dumper.__init__(self)
         self.fm = FileMapper(outputdir)
         self.mp = outputdir
@@ -163,6 +163,7 @@ class Dumper(dumper.XML_Dumper):
 
 	self.start_date = start_date
 	self.end_date   = end_date
+        self.use_rhn_date = use_rhn_date
 
 	if self.start_date:
             dates = { 'start_date' : self.start_date,
@@ -949,7 +950,7 @@ class ExporterMain:
         #verify mountpoint
         if os.access(self.outputdir, os.F_OK|os.R_OK|os.W_OK):
             if os.path.isdir(self.outputdir):
-                self.dumper = Dumper(self.outputdir, self.options.channel, self.options.hard_links, start_date=self.start_date, end_date=self.end_date)
+                self.dumper = Dumper(self.outputdir, self.options.channel, self.options.hard_links, start_date=self.start_date, end_date=self.end_date, use_rhn_date=self.options.use_rhn_date)
                 self.actionmap = {
                                     'arches'                :   {'dump' : self.dumper.dump_arches},
                                     'arches-extra'          :   {'dump' : self.dumper.dump_server_group_type_server_arches},
