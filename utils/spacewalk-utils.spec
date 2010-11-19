@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.3.0
+Version:	1.3.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
+- re-added automatic external yum repo creation based on new API
+- Bumping package versions for 1.3
+
 * Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.9-1
 - 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
   satellite-prep (msuchy@redhat.com)
