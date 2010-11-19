@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.9
+Version: 1.3.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.10-1
+- fixed wrongly rendered API doc
+
 * Fri Nov 19 2010 Lukas Zapletal 1.3.9-1
 - Fixing JOIN in monitoring status query (System_queries.xml)
 
