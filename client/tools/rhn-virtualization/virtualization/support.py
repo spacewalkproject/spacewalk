@@ -194,7 +194,10 @@ def _is_host_domain():
     if not libvirt:
         # No libvirt, dont bother with the rest
         return False
-    conn = libvirt.open(None)
+    try:
+        conn = libvirt.open(None)
+    except libvirt.libvirtError: # libvirtd is not running
+        return False
     if conn and conn.getType() in ['Xen', 'QEMU']:
         return True
     return False
