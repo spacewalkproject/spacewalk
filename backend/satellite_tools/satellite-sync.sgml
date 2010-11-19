@@ -28,7 +28,6 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
    <cmdsynopsis>
         <arg>--rhn-cert</arg>
     </cmdsynopsis>
-    <cmdsynopsis> 
     <cmdsynopsis>
          <arg>-l</arg> <arg>--list-channels</arg>
     </cmdsynopsis>
@@ -124,7 +123,6 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     <cmdsynopsis>
         <arg>--usage</arg>
     </cmdsynopsis>
-    <cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
