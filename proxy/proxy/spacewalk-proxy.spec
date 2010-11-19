@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -332,6 +332,10 @@ fi
 
 
 %changelog
+* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
+- 629552 - Proxy should allow all header from rfc2616 (msuchy@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
 * Wed Nov 10 2010 Jan Pazdziora 1.2.15-1
 - addressing rpmlint error non-standard-dir-perm (msuchy@redhat.com)
 - fix spelling error (msuchy@redhat.com)
