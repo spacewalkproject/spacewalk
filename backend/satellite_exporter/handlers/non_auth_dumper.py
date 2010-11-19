@@ -162,7 +162,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     def _get_channel_data(self, channels):
         writer = ContainerWriter()
-        d = ChannelsDumper(writer, channels=channels.values())
+        d = ChannelsDumper(writer, params=channels.values())
         d.dump()
         data = writer.get_data()
         # We don't care about <rhn-channels> here
@@ -243,7 +243,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
         writer = self._get_xml_writer()
         d = dumper.SatelliteDumper(writer, dumper.ChannelsDumperEx(writer,
-            channels=channels.values()))
+            params=channels.values()))
         d.dump()
         writer.flush()
         log_debug(4, "OK")
