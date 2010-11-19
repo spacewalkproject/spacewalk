@@ -1154,7 +1154,7 @@ ORDER BY S.ID
        ( SELECT  CASE
                    MAX(CASE PS.state WHEN 'OK' THEN 1 WHEN 'PENDING' THEN 2 WHEN 'UNKNOWN' THEN 3 WHEN 'WARNING' THEN 4 WHEN 'CRITICAL' THEN 5 END)
                          WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
-                         FROM  rhn_probe_state PS, rhnServerOverview OV
+                         FROM  rhn_probe_state PS
                          LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
           WHERE  PS.probe_id = CP.probe_id
          GROUP BY OV.server_id ) MONITORING_STATUS
@@ -1195,7 +1195,7 @@ select distinct sgm.server_id as ID, 1 as virtual_host
            WHEN 3 THEN 'UNKNOWN'
            WHEN 4 THEN 'WARNING'
            WHEN 5 THEN 'CRITICAL' END ST
-           FROM  rhn_probe_state PS, rhnServerOverview OV
+           FROM  rhn_probe_state PS
            LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
           WHERE  PS.probe_id = CP.probe_id
          GROUP BY OV.server_id ) MONITORING_STATUS
@@ -1221,7 +1221,7 @@ ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
            WHEN 3 THEN 'UNKNOWN'
            WHEN 4 THEN 'WARNING'
            WHEN 5 THEN 'CRITICAL' END ST
-           FROM  rhn_probe_state PS, rhnServerOverview OV
+           FROM  rhn_probe_state PS
            LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
           WHERE  PS.probe_id = CP.probe_id
          GROUP BY OV.server_id ) MONITORING_STATUS
