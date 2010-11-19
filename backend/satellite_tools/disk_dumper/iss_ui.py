@@ -40,7 +40,7 @@ class UI:
 	        help="Limit exported packages according to the date when they appeared at Red Hat Network.",
                 dest="use_rhn_date", default=True),
 	    option(         "--use-sync-date",            action="store_false",
-	        help="Limit exported packages according to the date htey where pulled into satellite.",
+	        help="Limit exported packages according to the date they where pulled into satellite.",
                 dest="use_rhn_date"),
 	    option(         "--make-isos",               action="store",
 	        help="Create channel dump isos a directory called satellite-isos. Usage: --make-isos=cd or dvd"),
