@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.16
+Version:      1.126.17
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -135,6 +135,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.126.17-1
+- 474591 - move web data to /usr/share/nocpulse (msuchy@redhat.com)
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.126.16-1
 - 636211 - include man page for queue_remote_check.pl
 - 636211 - include man page for monitor-queue
