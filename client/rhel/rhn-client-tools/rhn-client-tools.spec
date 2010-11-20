@@ -15,7 +15,7 @@ BuildRequires: update-desktop-files
 Requires: rhnlib >= 2.5.20
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
-Requires: python-ethtool
+Requires: python-ethtool >= 0.4
 Requires: gnupg
 Requires: sh-utils
 Requires: dbus-python

@@ -528,11 +528,23 @@ def read_network_interfaces():
         except:
             broadcast = ""
             
+        ip6_list = []
+        try:
+            # one interface may have more IPv6 addresses
+            for ip6 in dev.get_ipv6_addresses():
+                ip6_list.append({
+                    'scope':   ip6.scope,
+                    'addr':    ip6.address, 
+                    'netmask': ip6.netmask
+                })
+        except:
+            pass
         intDict[interface] = {'hwaddr':hwaddr,
                               'ipaddr':ipaddr,
                               'netmask':netmask,
                               'broadcast':broadcast,
-                              'module': module}
+                              'module': module,
+                              'ipv6': ip6_list}
 
     return intDict
 
