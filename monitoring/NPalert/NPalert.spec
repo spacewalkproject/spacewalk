@@ -1,6 +1,6 @@
 %define install_prefix     %{_var}/lib/notification
 %define log_dir            %{_var}/log/notification
-%define httpd_prefix       %{_var}/www
+%define httpd_prefix       %{_datadir}/nocpulse
 %define notif_user         nocpulse
 %define log_rotate_prefix  %{_sysconfdir}/logrotate.d/
 

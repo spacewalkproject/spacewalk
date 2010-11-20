@@ -1,6 +1,6 @@
-%define cgi_bin        /var/www/cgi-bin
-%define cgi_mod_perl   /var/www/cgi-mod-perl
-%define templatedir    /var/www/templates
+%define cgi_bin        %{_datadir}/nocpulse/cgi-bin
+%define cgi_mod_perl   %{_datadir}/nocpulse/cgi-mod-perl
+%define templatedir    %{_datadir}/nocpulse/templates
 %define bin            %{_bindir}
 %define vardir         /var/lib/nocpulse
 Name:         SputLite

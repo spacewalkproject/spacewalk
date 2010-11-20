@@ -77,7 +77,7 @@ NotifEscalator-error.log -- stderr captured by gogo.pl while babysitting notif-e
 
 NotifLauncher-error.log -- stderr captured by gogo.pl while babysitting notif-launcher.  This file should be empty, but often contains Oracle errors when connectivity to Oracle has been severed.
 
-enqueue.log -- log file from cgi-script /var/www/cgi-mod-perl/enqueue.cgi.  This log contains the url including query parameters used to call enqueue.cgi and the ticket id, e.g. 01_1051746931_14006_027, assigned that can be matched with entries in notifserver.log.
+enqueue.log -- log file from cgi-script /usr/share/nocpulse/cgi-mod-perl/enqueue.cgi.  This log contains the url including query parameters used to call enqueue.cgi and the ticket id, e.g. 01_1051746931_14006_027, assigned that can be matched with entries in notifserver.log.
 
 generate_config.log -- log file from /usr/bin/generate-config.  Contains high level run summaries and any errors if occurred.
 
@@ -96,21 +96,21 @@ Apache  -- "SysVStep" style init script for starting the Apache daemon.  Stop th
 
 Notifier  -- "SysVStep" style init script for starting the notifserver.pl daemon.  Stop this daemon to prevent notifications from being sent.  Notifications will continue to enqueue as long as Apache is running.
 
-/var/www/cgi-bin
+/usr/share/nocpulse/cgi-bin
 
 alertmgr.cgi -- Internal-use tool that allows one to acknowledge and clear alerts, start and stop the system, view system logs.  -- NOT FULLY FUNCTIONAL
 
 redirmgr.cgi -- Internal-use tool that allows one to configure a redirect (advaned notification).
 
-/var/www/cgi-mod-perl
+/usr/share/nocpulse/cgi-mod-perl
 enqueue.cgi -- This script enqueues notification requests from satellites sent via http by the event receiver box.  It does some basic screening and will reject notifications missing complete information.  Enqueued alerts (notifications) are placed in Storable format and put in $NOTIFICATION_HOME/queue/alert_queue.  Log file is /var/log/nocpulse/enqueue.log.
 
 notifserver-test.cgi
 
-/var/www/htdocs
+/usr/share/nocpulse/htdocs
 This directory is the document root.  It contains templates and index page for the internal-use notification tools.
 
-/var/www/templates
+/usr/share/nocpulse/templates
 This directory contains html templates used be the internal-use notification tools.
 
 /var/tmp
