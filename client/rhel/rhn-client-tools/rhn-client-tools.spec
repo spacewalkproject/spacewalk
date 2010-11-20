@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -286,6 +286,14 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
+- 655310 - replace gethostbyname by getaddrinfo (msuchy@redhat.com)
+- 655310 - send IPv6 addresses to server (msuchy@redhat.com)
+- 481721 - _ts report epoch as int, but satelite and rhn use string, this does
+  not work for comparement like pkg in [['name', 'version', 'release', 'epoch',
+  'arch']..] (msuchy@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
 * Wed Nov 10 2010 Jan Pazdziora 1.2.15-1
 - rebuild
 
