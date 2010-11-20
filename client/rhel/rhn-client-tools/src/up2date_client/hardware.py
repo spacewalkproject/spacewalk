@@ -15,8 +15,7 @@
 
 # This thing gets the hardware configuraion out of a system
 """Used to read hardware info from kudzu, /proc, etc"""
-from socket import gethostname
-from socket import gethostbyname
+from socket import gethostname, AF_INET, AF_INET6
 import socket
 
 import os
@@ -469,7 +468,10 @@ def read_network():
 
     netdict['hostname'] = gethostname()
     try:
-        netdict['ipaddr'] = gethostbyname(gethostname())
+        list_of_addrs = getaddrinfo(gethostname(),None)
+        ipv4_addrs = filter(lambda x:x[0]==socket.AF_INET, list_of_addrs)
+        # take first ipv4 addr
+        netdict['ipaddr'] = ipv4_addrs[0][4][0]
     except:
         netdict['ipaddr'] = "127.0.0.1"
 
