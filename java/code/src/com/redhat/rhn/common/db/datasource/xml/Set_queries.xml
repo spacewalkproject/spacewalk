@@ -237,12 +237,12 @@ DELETE
 <write-mode name="remove_unowned_packages">
   <query params="user_id, label">
 DELETE
-  FROM rhnSet
- WHERE rowid IN(SELECT s.rowid
-                  FROM rhnSet S, web_contact WC, rhnPackage P
-                 WHERE S.user_id = :user_id
-                   AND S.user_id = WC.id
-                   AND S.label = :label
+  FROM rhnSet S
+ WHERE S.user_id = :user_id
+   AND S.label = :label
+   AND EXISTS ( SELECT 1
+                  FROM web_contact WC, rhnPackage P
+                 WHERE S.user_id = WC.id
                    AND S.element = P.id
                    AND (P.org_id != WC.org_id
                            AND  P.id NOT IN (SELECT CP.package_id
@@ -252,7 +252,6 @@ DELETE
                                                     AND AC.channel_id = CP.channel_id
                                  ))
                    )
-
   </query>
 </write-mode>
 
