@@ -1354,7 +1354,7 @@ WHERE EP.errata_id = :eid
 SELECT P.id,
        PN.name,
        NULL AS current_nvrea,
-       PE1.evr.as_vre_simple() || '.' || PA.label AS new_nvrea
+       evr_t_as_vre_simple(PE1.evr) || '.' || PA.label AS new_nvrea
 FROM rhnPackage P,
   rhnErrataPackage EP,
   rhnPackageEVR PE1,
