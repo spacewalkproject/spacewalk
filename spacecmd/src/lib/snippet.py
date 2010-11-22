@@ -95,6 +95,8 @@ def do_snippet_create(self, args, update_name = ''):
 
     (args, options) = parse_arguments(args, options)
 
+    contents = ''
+
     if is_interactive(options):
         # if update_name was passed, we're trying to update an existing snippet
         if update_name:
@@ -103,7 +105,7 @@ def do_snippet_create(self, args, update_name = ''):
             snippets = self.client.kickstart.snippet.listCustom(self.session)
             for s in snippets:
                 if s.get('name') == update_name:
-                    options.contents = s.get('contents')
+                    contents = s.get('contents')
                     break
 
         if not options.name:
@@ -113,9 +115,7 @@ def do_snippet_create(self, args, update_name = ''):
                              nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
         else:
-            if not options.contents: options.contents = ''
-
-            (options.contents, ignore) = editor(template = options.contents,
+            (contents, ignore) = editor(template = contents,
                                                 delete=True)
     else:
         if not options.name:
@@ -127,17 +127,17 @@ def do_snippet_create(self, args, update_name = ''):
             return
 
     if options.file:
-        options.contents = read_file(options.file)
+        contents = read_file(options.file)
 
     print
     print 'Contents'
     print '--------'
-    print options.contents
+    print contents
 
     if self.user_confirm():
         self.client.kickstart.snippet.createOrUpdate(self.session,
                                                      options.name,
-                                                     options.contents)
+                                                     contents)
 
 ####################
 
