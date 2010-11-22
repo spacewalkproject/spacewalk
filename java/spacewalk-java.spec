@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.10
+Version: 1.3.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.11-1
+- 655519 - PE2.evr.as_vre_simple() -> evr_t_as_vre_simple(PE2.evr) (PG)
+- 655515 - changed DECODE to ANSI CASE (PG)
+- fixing several issues in system_overview query
+
 * Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.10-1
 - fixed wrongly rendered API doc
 
