@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.1
+Version:        1.3.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Nov 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
+- 655509 - fixed namespace
+
 * Thu Nov 18 2010 Lukas Zapletal 1.3.1-1
 - Replacing rownum with limit-offset syntax 
 - 645694 - introducing cleanup-packagechangelog-data task 
