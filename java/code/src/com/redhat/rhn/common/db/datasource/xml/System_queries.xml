@@ -1153,9 +1153,17 @@ ORDER BY S.ID
           config_files_with_differences,
           MONITORING_STATUS.ST AS MONITORING_STATUS
   FROM  rhnServerOverview OV LEFT OUTER JOIN
-    ( SELECT  CP.host_id, DECODE(
-        MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-        1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+     ( SELECT CP.host_id, CASE MAX(CASE PS.state
+               WHEN 'OK' THEN 1
+               WHEN 'PENDING' THEN 2
+               WHEN 'UNKNOWN' THEN 3
+               WHEN 'WARNING' THEN 4
+               WHEN 'CRITICAL' THEN 5 END)
+           WHEN 1 THEN 'OK'
+           WHEN 2 THEN 'PENDING'
+           WHEN 3 THEN 'UNKNOWN'
+           WHEN 4 THEN 'WARNING'
+           WHEN 5 THEN 'CRITICAL' END ST
       FROM  rhn_check_probe CP, rhn_probe_state PS
       WHERE  PS.probe_id = CP.probe_id
       GROUP BY CP.host_id ) MONITORING_STATUS
