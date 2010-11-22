@@ -423,8 +423,9 @@ def generate_errata_cache(self, force=False):
     if not force and datetime.now() < self.errata_cache_expire:
         return
 
-    # tell the user what's going on
-    self.replace_line_buffer('** Generating errata cache **')
+    if not self.options.quiet:
+        # tell the user what's going on
+        self.replace_line_buffer('** Generating errata cache **')
 
     channels = self.client.channel.listSoftwareChannels(self.session)
     channels = [c.get('label') for c in channels]
@@ -446,8 +447,9 @@ def generate_errata_cache(self, force=False):
 
     self.save_errata_cache()
 
-    # restore the original line buffer
-    self.replace_line_buffer()
+    if not self.options.quiet:
+        # restore the original line buffer
+        self.replace_line_buffer()
 
 
 def save_errata_cache(self):
@@ -468,8 +470,9 @@ def generate_package_cache(self, force=False):
     if not force and datetime.now() < self.package_cache_expire:
         return
 
-    # tell the user what's going on
-    self.replace_line_buffer('** Generating package cache **')
+    if not self.options.quiet:
+        # tell the user what's going on
+        self.replace_line_buffer('** Generating package cache **')
 
     channels = self.client.channel.listSoftwareChannels(self.session)
     channels = [c.get('label') for c in channels]
@@ -496,8 +499,9 @@ def generate_package_cache(self, force=False):
 
     self.save_package_caches()
 
-    # restore the original line buffer
-    self.replace_line_buffer()
+    if not self.options.quiet:
+        # restore the original line buffer
+        self.replace_line_buffer()
 
 
 def save_package_caches(self):
@@ -553,8 +557,9 @@ def generate_system_cache(self, force=False):
     if not force and datetime.now() < self.system_cache_expire:
         return
 
-    # tell the user what's going on
-    self.replace_line_buffer('** Generating system cache **')
+    if not self.options.quiet:
+        # tell the user what's going on
+        self.replace_line_buffer('** Generating system cache **')
 
     systems = self.client.system.listSystems(self.session)
 
@@ -567,8 +572,9 @@ def generate_system_cache(self, force=False):
 
     self.save_system_cache()
 
-    # restore the original line buffer
-    self.replace_line_buffer()
+    if not self.options.quiet:
+        # restore the original line buffer
+        self.replace_line_buffer()
 
 
 def save_system_cache(self):
