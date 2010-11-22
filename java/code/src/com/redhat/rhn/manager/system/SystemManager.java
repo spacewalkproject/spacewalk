@@ -1551,9 +1551,19 @@ public class SystemManager extends BaseManager {
         User user = UserFactory.findRandomOrgAdmin(orgIn);
         ValidatorResult result = new ValidatorResult();
 
-        // If this is a Satellite, subscribe to the virt channel if possible:
+        // If this is a Satellite
         if (!ConfigDefaults.get().isSpacewalk()) {
-            subscribeToVirtChannel(server, user, result);
+            // just install libvirt for RHEL6 base channel
+            Channel base = server.getBaseChannel();
+            if ((base != null) &&
+                 base.isRhelChannel() &&
+                 base.isReleaseXChannel(6)) {
+                // do some actions for RHEL6
+            }
+            else {
+                // otherwise subscribe to the virt channel if possible
+                subscribeToVirtChannel(server, user, result);
+            }
         }
 
         // Before we start looking to subscribe to a 'tools' channel for

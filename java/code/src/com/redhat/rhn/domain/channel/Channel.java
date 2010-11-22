@@ -134,6 +134,30 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
+     * Returns true if this Channel is a Rhel channel.
+     * @return true if this Channel is a Rhel channel.
+     */
+    public boolean isRhelChannel() {
+        return org == null;
+    }
+
+    /**
+     * Returns true if this channel is of specified release (f.e. RHEL6)
+     * @param ver release version
+     * @return true if this channel is of specified release
+     */
+    public boolean isReleaseXChannel(Integer ver) {
+        if (getDistChannelMaps() != null) {
+            for (DistChannelMap map : getDistChannelMaps()) {
+                if (map.getRelease().contains(ver.toString())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * @return Returns the baseDir.
      */
     public String getBaseDir() {
