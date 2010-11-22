@@ -478,11 +478,11 @@ class Packages(RPC_Base):
                rhnChecksumView c
          where
                pn.name     = :pkg_name
-          and  ( pe.epoch  = :pkg_epoch or
+          and  ( pe.epoch  = cast(:pkg_epoch as varchar(16)) or
                 ( pe.epoch is null and :pkg_epoch is null )
                )
-          and  pe.version  = :pkg_version
-          and  pe.release  = :pkg_rel
+          and  pe.version  = cast(:pkg_version as varchar(512))
+          and  pe.release  = cast(:pkg_rel as varchar(512))
           and  ( p.org_id  = :orgid or
                 ( p.org_id is null and :orgid is null )
                )
