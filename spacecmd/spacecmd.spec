@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.3.0
+Version:     1.3.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Nov 22 2010 Aron Parsons <aparsons@redhat.com> 1.3.1-1
+- fix uninitialized variable in snippet_create
+- 655055 - honor the quiet flag when generating caches in spacecmd
 * Fri Nov 05 2010 Aron Parsons <aparsons@redhat.com> 1.2.2-1
 - spacecmd: fixed exception in kickstart_create due to typo
   (aparsons@redhat.com)
