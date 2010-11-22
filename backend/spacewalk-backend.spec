@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.9
+Version: 1.3.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -669,6 +669,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Nov 22 2010 Lukas Zapletal 1.3.10-1
+- Reverting two commits on packages.py
+- Revert "Changing time to timestamp in SQL select (PG)"
+
 * Mon Nov 22 2010 Lukas Zapletal 1.3.9-1
 - Solving nonexisting Numeric->Varchar case in packages.py (PG)
 - Package data are being deleted from view rather than from table (PG)
