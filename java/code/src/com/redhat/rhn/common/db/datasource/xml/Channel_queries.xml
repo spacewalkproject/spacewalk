@@ -248,12 +248,7 @@ SELECT FL.file_id id, L.label LOCATIONS
 SELECT AC.channel_id AS ID,
        AC.channel_name AS NAME,
        rhn_channel.user_role_check(AC.channel_id, :user_id, 'subscribe') AS HAS_PERM,
-       DECODE(
-rhn_channel.org_channel_setting(AC.channel_id, :org_id,'not_globally_subscribable'),
-0,
-1,
-NULL
-       ) AS GLOBALLY_SUBSCRIBABLE
+       CASE rhn_channel.org_channel_setting(AC.channel_id, :org_id,'not_globally_subscribable') WHEN 0 THEN 1 ELSE NULL END AS GLOBALLY_SUBSCRIBABLE
   FROM rhnAvailableChannels AC
  WHERE AC.org_id = :org_id
 ORDER BY UPPER(AC.channel_name)
