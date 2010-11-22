@@ -1189,11 +1189,12 @@ select distinct sgm.server_id as ID, 1 as virtual_host
 </query>
 
 <query name="system_overview_most_critical" params="">
-  SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
+ SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences,
-       ( SELECT CASE MAX(CASE PS.state
+          config_files_with_differences, MONITORING_STATUS.ST AS MONITORING_STATUS
+    FROM  rhnServerOverview OV LEFT OUTER JOIN
+     ( SELECT CP.host_id, CASE MAX(CASE PS.state
                WHEN 'OK' THEN 1
                WHEN 'PENDING' THEN 2
                WHEN 'UNKNOWN' THEN 3
@@ -1204,22 +1205,21 @@ select distinct sgm.server_id as ID, 1 as virtual_host
            WHEN 3 THEN 'UNKNOWN'
            WHEN 4 THEN 'WARNING'
            WHEN 5 THEN 'CRITICAL' END ST
-           FROM  rhn_probe_state PS
-           LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
+           FROM  rhn_check_probe CP, rhn_probe_state PS
           WHERE  PS.probe_id = CP.probe_id
-         GROUP BY OV.server_id ) MONITORING_STATUS
-    FROM  rhnServerOverview OV
+         GROUP BY CP.host_id ) MONITORING_STATUS ON OV.server_id = MONITORING_STATUS.host_id
    WHERE  server_id IN (%s)
 ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
 </query>
 
 <query name="virtual_system_overview" params="">
-  SELECT  VI.id,
+ SELECT  VI.id,
           SERVER_ID as system_id, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, OV.MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences,
-       ( SELECT CASE MAX(CASE PS.state
+          config_files_with_differences, MONITORING_STATUS.ST AS MONITORING_STATUS
+    FROM  rhnVirtualInstance VI, rhnServerOverview OV LEFT OUTER JOIN
+       ( SELECT CP.host_id, CASE MAX(CASE PS.state
                WHEN 'OK' THEN 1
                WHEN 'PENDING' THEN 2
                WHEN 'UNKNOWN' THEN 3
@@ -1230,11 +1230,9 @@ ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
            WHEN 3 THEN 'UNKNOWN'
            WHEN 4 THEN 'WARNING'
            WHEN 5 THEN 'CRITICAL' END ST
-           FROM  rhn_probe_state PS
-           LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
+           FROM  rhn_check_probe CP, rhn_probe_state PS
           WHERE  PS.probe_id = CP.probe_id
-         GROUP BY OV.server_id ) MONITORING_STATUS
-    FROM  rhnServerOverview OV, rhnVirtualInstance VI
+         GROUP BY CP.host_id ) MONITORING_STATUS ON OV.server_id = MONITORING_STATUS.host_id
    WHERE  VI.id IN (%s)
      AND  (   (    VI.uuid IS NULL
                AND OV.server_id = VI.host_system_id)
