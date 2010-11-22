@@ -1324,8 +1324,8 @@ ORDER BY last_modified
   <query params="cid, eid">
 SELECT P1.id,
        PN.name,
-       PE2.evr.as_vre_simple() || '.' || PA2.label AS current_nvrea,
-       PE1.evr.as_vre_simple() || '.' || PA1.label AS new_nvrea
+       evr_t_as_vre_simple(PE2.evr) || '.' || PA2.label AS current_nvrea,
+       evr_t_as_vre_simple(PE1.evr) || '.' || PA1.label AS new_nvrea
 FROM rhnPackage P1,
      rhnPackageEVR PE1,
      rhnPackageArch PA1,
