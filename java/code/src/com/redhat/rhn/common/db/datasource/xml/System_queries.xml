@@ -1293,7 +1293,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 	<query name="monitoring_status" params="sid">
         SELECT  CASE
                    MAX(CASE PS.state WHEN 'OK' THEN 1 WHEN 'PENDING' THEN 2 WHEN 'UNKNOWN' THEN 3 WHEN 'WARNING' THEN 4 WHEN 'CRITICAL' THEN 5 END)
-                         WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
+                         WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 3 THEN 'UNKNOWN' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
 	           FROM  rhn_check_probe CP, rhn_probe_state PS
 	          WHERE  PS.probe_id = CP.probe_id
 		            AND CP.host_id = :sid
