@@ -873,7 +873,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'enterprise', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'enterprise', 'Y');
     end$$
 language plpgsql;
 
@@ -882,7 +882,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'provisioning', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'provisioning', 'Y');
     end$$
 language plpgsql;
 
@@ -891,7 +891,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'monitoring', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'monitoring', 'Y');
     end$$
 language plpgsql;
 
@@ -900,7 +900,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'nonlinux', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'nonlinux', 'Y');
     end$$
 language plpgsql;
 
@@ -909,7 +909,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'enterprise', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'enterprise', 'N');
     end$$
 language plpgsql;
 
@@ -918,7 +918,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'provisioning', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'provisioning', 'N');
     end$$
 language plpgsql;
 
@@ -927,7 +927,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'monitoring', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'monitoring', 'N');
     end$$
 language plpgsql;
 
@@ -936,7 +936,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'nonlinux', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'nonlinux', 'N');
     end$$
 language plpgsql;
 
