@@ -691,7 +691,7 @@ class _PackageDumper(BaseRowDumper):
         h = rhnSQL.prepare("""
             select 
                 name, text,
-                TO_CHAR(time, 'YYYYMMDDHH24MISS') time
+                TO_CHAR(current_timestamp, 'YYYYMMDDHH24MISS') time
             from rhnPackageChangeLog
             where package_id = :package_id
         """)
