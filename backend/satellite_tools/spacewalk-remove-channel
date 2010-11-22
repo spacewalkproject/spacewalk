@@ -470,7 +470,7 @@ def _delete_rpm_group(packageIds):
         'rhnChannelPackage', 
         'rhnErrataPackage', 
         'rhnErrataPackageTMP', 
-        'rhnPackageChangelog', 
+        'rhnPackageChangelogRec', 
         'rhnPackageConflicts', 
         'rhnPackageFile', 
         'rhnPackageObsoletes', 
