@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.3.1
+Version:	1.3.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Nov 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
+- fixed pylint errors
+- added spacewalk 1.2 channels and repos
+
 * Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
 - re-added automatic external yum repo creation based on new API
 - Bumping package versions for 1.3
