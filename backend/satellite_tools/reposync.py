@@ -223,8 +223,6 @@ class RepoSync:
         rel_package_path = rhnPackageUpload.relative_path_from_header(
                 header, self.channel['org_id'],
                 package.checksum_type, package.checksum)
-        package_path = os.path.join(CFG.MOUNT_POINT,
-                rel_package_path)
         package_dict, diff_level = rhnPackageUpload.push_package(header,
                 payload_stream, package.checksum_type, package.checksum,
                 force=False,
