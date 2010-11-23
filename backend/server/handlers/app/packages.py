@@ -501,9 +501,14 @@ class Packages(RPC_Base):
         for pkg in pkg_infos.keys():
 
             pkg_info = pkg_infos[pkg] 
-            pkg_epoch = None
-            if pkg_info['epoch'] != '':
-                pkg_epoch = pkg_info['epoch']
+            pkg_epoch = pkg_info['epoch']
+            if pkg_epoch is not None:
+                # Force empty strings to None (NULLs in database)
+                if pkg_epoch == '':
+                    pkg_epoch = None
+                # and force numbers to strings
+                else:
+                    pkg_epoch = str(pkg_epoch)
            
             query_args = {
                 'pkg_name':     pkg_info['name'],
