@@ -699,21 +699,21 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         if 'export-type' not in channel or channel['export-type'] is None:
             return ''
         else:
-             export_type = channel['export-type']
+            export_type = channel['export-type']
         if 'export-start-date' in channel and channel['export-start-date'] is not None:
-             start_date = channel['export-start-date']
+            start_date = channel['export-start-date']
         else:
-             start_date = ''
+            start_date = ''
         if 'export-end-date' in channel and channel['export-end-date'] is not None:
-             end_date = channel['export-end-date']
+            end_date = channel['export-end-date']
         else:
-             end_date = ''
+            end_date = ''
         if end_date and not start_date:
-             return _("%10s import from %s") % (export_type, self._formatDateTime(end_date))
+            return _("%10s import from %s") % (export_type, self._formatDateTime(end_date))
         elif end_date and start_date:
-             return _("%10s import from %s - %s") % (export_type, self._formatDateTime(start_date), self._formatDateTime(end_date))
+            return _("%10s import from %s - %s") % (export_type, self._formatDateTime(start_date), self._formatDateTime(end_date))
         else:
-             return _("%10s") % export_type
+            return _("%10s") % export_type
 
     def _printChannel(self, label, channel_object, format, is_imported):
         assert channel_object is not None
@@ -906,28 +906,28 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         h = rhnSQL.prepare(self._query_compare_packages)
         for pid in chunk:
-                p_timestamp = package_collection.get_package_timestamp(pid)
-                l_timestamp = rhnLib.timestamp(p_timestamp)
-                package = package_collection.get_package(pid, p_timestamp)
-                assert package is not None
+            p_timestamp = package_collection.get_package_timestamp(pid)
+            l_timestamp = rhnLib.timestamp(p_timestamp)
+            package = package_collection.get_package(pid, p_timestamp)
+            assert package is not None
 
-                if package['org_id'] is not None:
-                    package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
-                nevra = get_nevra_dict(package)
-                nevra['org_id'] = package['org_id']
+            if package['org_id'] is not None:
+                package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
+            nevra = get_nevra_dict(package)
+            nevra['org_id'] = package['org_id']
 
-                h.execute(**nevra)
-                row = None
-                for r in (h.fetchall_dict() or []):
-                    # let's check which checksum we have in database
-                    if package['checksums'][r['checksum_type']] == r['checksum']:
-                       row = r
-                       break
+            h.execute(**nevra)
+            row = None
+            for r in (h.fetchall_dict() or []):
+                # let's check which checksum we have in database
+                if package['checksums'][r['checksum_type']] == r['checksum']:
+                    row = r
+                    break
 
-                self._process_package(pid, package, l_timestamp, row,
-                    self._missing_channel_packages[channel_label],
-                    self._missing_fs_packages[channel_label],
-                    source=0, check_rpms=self.check_rpms)
+            self._process_package(pid, package, l_timestamp, row,
+                self._missing_channel_packages[channel_label],
+                self._missing_fs_packages[channel_label],
+                source=0, check_rpms=self.check_rpms)
 
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
@@ -953,10 +953,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         not available in the current dump, probably because of applying an
         incremental to the wrong base"""
         for channel_label, pids in missing_channel_packages.items():
-	    if sources:
-		avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
-	    else:
-		avail_pids = self._avail_channel_packages[channel_label]
+            if sources:
+                avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
+            else:
+                avail_pids = self._avail_channel_packages[channel_label]
 
             if set(pids or []) > set(avail_pids or []):
                 raise RhnSyncException, _('ERROR: incremental dump skipped')
@@ -1017,10 +1017,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 db_path = row['path']
 
                 if not (l_timestamp <= db_timestamp and
-                        checksum == db_checksum and
-                        package_size == db_package_size):
-                        # package doesn't match
-                        channel_package = package_id
+                    checksum == db_checksum and
+                    package_size == db_package_size):
+                    # package doesn't match
+                    channel_package = package_id
 
                 if check_rpms:
                     if db_path:
@@ -1190,25 +1190,25 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         sql_params = ['package_id', 'checksum', 'checksum_type']
         h = rhnSQL.prepare(self._query_compare_source_packages)
         for pid, timestamp in chunk:
-                package = package_collection.get_package(pid, timestamp)
-                assert package is not None
+            package = package_collection.get_package(pid, timestamp)
+            assert package is not None
 
-                params = {}
-                for t in sql_params:
-                    params[t] = package[t] or ""
+            params = {}
+            for t in sql_params:
+                params[t] = package[t] or ""
 
-                if package['org_id'] is not None:
-                    params['org_id'] = OPTIONS.orgid or DEFAULT_ORG
-                    package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
-                else:
-                    params['org_id'] = package['org_id']
+            if package['org_id'] is not None:
+                params['org_id'] = OPTIONS.orgid or DEFAULT_ORG
+                package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
+            else:
+                params['org_id'] = package['org_id']
 
-                apply(h.execute, (), params)
-                row = h.fetchone_dict()
-                self._process_package(pid, package, None, row,
-                    self._missing_channel_source_packages[channel_label],
-                    self._missing_fs_source_packages[channel_label],
-                    source=1)
+            apply(h.execute, (), params)
+            row = h.fetchone_dict()
+            self._process_package(pid, package, None, row,
+                self._missing_channel_source_packages[channel_label],
+                self._missing_fs_source_packages[channel_label],
+                source=1)
 
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_source_packages(self):
@@ -1617,15 +1617,13 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                                      pkgd['checksum_type'], pkgd['checksum'])
 
     def _lookup_pkgs_by_path(self, path):
-       h = rhnSQL.prepare("""select P.id, P.path, CV.checksum, CV.checksum_type
+        h = rhnSQL.prepare("""select P.id, P.path, CV.checksum, CV.checksum_type
                                from rhnPackage P left join
                                     rhnPackageKeyAssociation PA on  PA.package_id = P.id inner join
                                     rhnChecksumView CV on CV.id = P.checksum_id
                               where p.path = :path and PA.key_id is null""")
-       h.execute(path=path)
-       return h.fetchall_dict()
-
-
+        h.execute(path=path)
+        return h.fetchall_dict()
 
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])
@@ -1896,7 +1894,7 @@ class StreamProducer:
         self._args = args
 
     def close(self):
-	self.handler.close()
+        self.handler.close()
 
     def process(self, batch):
         if self.is_disk_loader:
