@@ -25,7 +25,6 @@ import string
 import time
 import types
 import exceptions
-import cStringIO
 import locale
 from optparse import Option, OptionParser
 
