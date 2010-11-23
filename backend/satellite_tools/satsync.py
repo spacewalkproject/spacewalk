@@ -1290,22 +1290,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 # Once we add it, we should be able to do more meaningful
                 # diffs
                 missing_kickstarts[kt_label] = None
-                continue
-
-                timestamp = int(rhnLib.timestamp(kt['last_modified']))
-
-                h.execute(label=kt_label)
-                row = h.fetchone_dict()
-                if not row:
-                    # Missing
-                    missing_kickstarts[kt_label] = timestamp
-                    continue
-
-                db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-                if timestamp != db_timestamp:
-                    # Different timestamp
-                    missing_kickstarts[kt_label] = timestamp
-                    continue
 
         ret = missing_kickstarts.items()
         ret.sort()
