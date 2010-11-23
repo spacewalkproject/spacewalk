@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.13
+Version: 1.3.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 23 2010 Lukas Zapletal 1.3.14-1
+- 646817 - System health indicator in "Systems" related pages not displayed
+
 * Mon Nov 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.13-1
 - PE2.evr.as_vre_simple() -> evr_t_as_vre_simple(PE2.evr) (PG)
 - removed rowid from query (PG)
