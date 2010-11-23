@@ -8,9 +8,9 @@
   <query params="user_id">
 SELECT  CM.recid recid,
         CM.method_name method_name,
-        DECODE( MT.method_type_name,
-          'Email', CM.email_address,
-          'Pager', CM.pager_email) method_target
+        CASE MT.method_type_name
+          WHEN 'Email' THEN CM.email_address
+          WHEN 'Pager' THEN CM.pager_email END method_target
   FROM  rhn_contact_methods CM, rhn_method_types MT
  WHERE  CM.method_type_id = MT.recid
    AND  CM.contact_id = :user_id
