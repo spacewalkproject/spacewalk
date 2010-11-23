@@ -1262,18 +1262,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                                - already_seen_kickstarts)
             already_seen_kickstarts.update(self._channel_kickstarts[chn])
 
-    _query_get_kickstarts = rhnSQL.Statement("""
-        select TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnKickstartableTree
-         where label = :label
-    """)
-
     def _compute_missing_kickstarts(self):
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         coll = sync_handlers.KickstartableTreesCollection()
         missing_kickstarts = {}
-        h = rhnSQL.Statement(self._query_get_kickstarts)
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
