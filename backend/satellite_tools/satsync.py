@@ -314,7 +314,7 @@ class Runner:
         try:
             return self.syncer.processShortPackages()
         except xmlDiskSource.MissingXmlDiskSourceFileError, e:
-            msg= _("ERROR: The dump is missing package data, use --no-rpms to skip this step or fix the content to include package data.")
+            msg = _("ERROR: The dump is missing package data, use --no-rpms to skip this step or fix the content to include package data.")
             log2disk(-1, msg)
             log2stderr(-1, msg, cleanYN=1)
             sys.exit(25)
@@ -540,7 +540,7 @@ class Syncer:
                 cert = row['cert']
                 return self._process_cert(cert, store_cert=0)
         else:
-            log2(1, 3, ["",_("RHN Entitlement Certificate sync")])
+            log2(1, 3, ["", _("RHN Entitlement Certificate sync")])
             certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN,
                                                       self.xml_dump_version)
             cert = string.strip(certSource.download())
@@ -648,10 +648,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         if self.mountpoint:
             for substream in stream:
                 h.process(substream)
-            doEOSYN=0
+            doEOSYN = 0
         else:
             h.process(stream)
-            doEOSYN=1
+            doEOSYN = 1
 
         h.close()
 
@@ -2089,7 +2089,7 @@ def processCommandline():
     # we take extra commandline arguments that are not linked to an option
     if args:
         msg = _("ERROR: these arguments make no sense in this context (try --help): %s") % repr(args)
-        log2stderr(-1, msg, 1,1)
+        log2stderr(-1, msg, 1, 1)
         sys.exit(19)
 
     #
@@ -2135,7 +2135,7 @@ def processCommandline():
                    _("  2  - normal level of logging/messaging."),
                    _("  3  - lots of logging/messaging."),
                    _("  4+ - excessive logging/messaging.")]
-            log(-1, msg, 1,1,sys.stderr)
+            log(-1, msg, 1, 1, sys.stderr)
             sys.exit(21)
         else:
             CFG.set('DEBUG', debugLevel)
@@ -2176,7 +2176,7 @@ def processCommandline():
         OPTIONS.step = stepHierarchy[-1]
 
     if OPTIONS.step not in stepHierarchy:
-        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") % OPTIONS.step, 1,1)
+        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") % OPTIONS.step, 1, 1)
         sys.exit(22)
 
     #XXX: --source is deferred for the time being
@@ -2315,7 +2315,7 @@ def processCommandline():
               _("  25 - no such directory"),
               _("  26 - mount_point does not exist"),
               _("  27 - No such org"),]
-        log(-1, msg, 1,1,sys.stderr)
+        log(-1, msg, 1, 1, sys.stderr)
         sys.exit(0) 
 
     if OPTIONS.dump_version:
