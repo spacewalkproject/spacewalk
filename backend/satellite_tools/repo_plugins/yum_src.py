@@ -15,7 +15,6 @@
 import yum
 import shutil
 import sys
-from yum import config
 from spacewalk.satellite_tools.reposync import ContentPackage
 
 class YumWarnings:

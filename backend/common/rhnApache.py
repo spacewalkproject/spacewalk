@@ -19,7 +19,6 @@
 # system module imports
 import time
 import string
-import os.path
 
 
 # global module imports

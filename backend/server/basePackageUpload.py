@@ -14,8 +14,6 @@
 #
 # $Id$
 
-import os
-import tempfile
 from spacewalk.common import apache
 
 from spacewalk.common import log_debug, rhnFault, UserDictCase

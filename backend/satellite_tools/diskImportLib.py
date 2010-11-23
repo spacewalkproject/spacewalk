@@ -18,9 +18,7 @@
 
 import os
 
-from xml.sax import SAXParseException
-
-from spacewalk.common import Traceback, CFG
+from spacewalk.common import CFG
 from spacewalk.common.rhnLib import hash_object_id
 from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 

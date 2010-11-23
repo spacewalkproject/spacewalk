@@ -15,13 +15,11 @@
 
 import time
 import gzip
-import string
 import tempfile
-import re
 from types import ListType
 from cStringIO import StringIO
 
-from spacewalk.common import log_debug, log_error, rhnFault, UserDictCase, rhnCache, \
+from spacewalk.common import log_debug, log_error, rhnFault, rhnCache, \
     CFG, rhnLib, rhnFlags
 from spacewalk.server import rhnSQL, rhnDatabaseCache
 from spacewalk.satellite_tools import constants

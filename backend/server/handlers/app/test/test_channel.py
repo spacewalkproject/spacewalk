@@ -14,7 +14,6 @@
 # in this software or its documentation. 
 #
 
-import sys
 import unittest
 from spacewalk.server import rhnSQL
 from spacewalk.common import rhnFault

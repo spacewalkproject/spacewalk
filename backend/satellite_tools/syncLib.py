@@ -16,8 +16,6 @@
 # system imports:
 import os
 import sys
-import grp
-import pwd
 import time
 
 from cStringIO import StringIO

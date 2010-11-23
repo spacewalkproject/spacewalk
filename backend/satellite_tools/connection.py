@@ -16,7 +16,6 @@
 #
 #
 
-import string
 import gzipstream
 
 from rhn import rpclib

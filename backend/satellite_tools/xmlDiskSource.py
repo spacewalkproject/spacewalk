@@ -17,7 +17,6 @@
 
 import os
 import gzip
-import string
 from spacewalk.common.fileutils import createPath
 from spacewalk.common.rhnLib import hash_object_id
 

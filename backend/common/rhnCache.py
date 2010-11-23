@@ -19,7 +19,6 @@
 import os
 import gzip
 import cPickle
-import cStringIO
 import fcntl
 from struct import pack
 from stat import ST_MTIME

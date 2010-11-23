@@ -14,7 +14,6 @@
 #
 
 # system modules
-import types
 import string
 
 from spacewalk.common import CFG, rhnFault, rhnFlags, log_debug, log_error, rhnMail
@@ -25,9 +24,7 @@ from spacewalk.server.rhnServer import server_route, server_lib
 from spacewalk.server.rhnMapping import real_version
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server import rhnUser, rhnServer, rhnSQL, rhnCapability, \
-        rhnChannel, rhnAction, rhnVirtualization
-from spacewalk.server.rhnSQL import procedure
-from spacewalk.server.action.utils import ChannelPackage
+        rhnChannel, rhnVirtualization
 
 
 def hash_validate(data, *keylist):

@@ -18,8 +18,6 @@
 
 # system imports:
 import os
-import math
-import string
 
 # rhn imports:
 from spacewalk.common import CFG, rhnCache

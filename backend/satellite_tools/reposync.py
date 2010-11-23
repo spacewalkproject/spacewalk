@@ -12,13 +12,12 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-import sys, os, time, grp
+import sys, os, time
 import hashlib
 from optparse import OptionParser
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from spacewalk.common import CFG, initCFG, rhnLog, fetchTraceback, rhn_rpm
+from spacewalk.common import CFG, initCFG, rhnLog
 from spacewalk.common.checksum import getFileChecksum
-from spacewalk.common.rhn_mpm import InvalidPackageError
 from spacewalk.server.importlib.importLib import IncompletePackage
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server import taskomatic

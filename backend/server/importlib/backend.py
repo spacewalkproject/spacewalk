@@ -18,8 +18,6 @@
 
 import copy
 import string
-import re
-import sys
 
 from spacewalk.common import rhnFault, CFG, rhn_rpm
 from spacewalk.server import rhnSQL, rhnChannel, taskomatic

@@ -17,7 +17,6 @@
 #
 
 from spacewalk.common import log_debug, log_error
-from spacewalk.server import rhnSQL
 from spacewalk.server.rhnLib import InvalidAction
 
 # the "exposed" functions

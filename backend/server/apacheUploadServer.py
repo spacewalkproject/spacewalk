@@ -21,7 +21,7 @@ import rhnSession
 
 from spacewalk.common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnFlags
-from spacewalk.server import apacheServer, rhnImport
+from spacewalk.server import rhnImport
 
 class UploadHandler:
     def __init__(self):
