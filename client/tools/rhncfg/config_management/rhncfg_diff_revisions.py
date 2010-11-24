@@ -15,7 +15,7 @@
 
 import sys
 
-from config_common import handler_base, utils, cfg_exceptions
+from config_common import handler_base, cfg_exceptions
 from config_common.rhn_log import log_debug, die
 
 class Handler(handler_base.HandlerBase):

@@ -14,9 +14,7 @@
 # in this software or its documentation. 
 #
 
-import os
 import sys
-import string
 import ModeControllerCreator
 from optparse import Option, OptionParser
 

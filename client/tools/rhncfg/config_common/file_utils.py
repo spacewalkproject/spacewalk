@@ -18,7 +18,6 @@ import os.path
 import time
 import tempfile
 import base64
-from config_common.rhn_log import log_debug
 try:
     from selinux import lgetfilecon
 except:

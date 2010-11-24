@@ -25,8 +25,8 @@ import local_config
 import base64
 import utils
 
-from rhn_log import log_debug, die
-#from rhn_rpc import rpclib
+from rhn_log import log_debug
+
 try:
     from selinux import lgetfilecon
 except:

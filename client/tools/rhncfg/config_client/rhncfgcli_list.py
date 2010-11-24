@@ -13,7 +13,6 @@
 # in this software or its documentation. 
 #
 
-from config_common import utils
 from config_common.rhn_log import log_debug, die
 
 import handler_base

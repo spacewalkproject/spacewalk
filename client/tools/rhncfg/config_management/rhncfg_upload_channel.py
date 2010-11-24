@@ -14,7 +14,6 @@
 #
 
 import os
-import sys
 import string
 
 from config_common import handler_base, utils, cfg_exceptions

@@ -15,7 +15,6 @@
 
 import os
 import tempfile
-import base64
 
 from config_common import cfg_exceptions, repository, utils, file_utils
 from config_common.rhn_log import log_debug

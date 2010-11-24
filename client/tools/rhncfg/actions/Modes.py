@@ -14,9 +14,6 @@
 #
 
 import os
-import os.path
-import sys
-import string
 
 #Forgot about AS 2.1.
 True = 1

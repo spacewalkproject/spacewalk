@@ -13,7 +13,6 @@
 # in this software or its documentation. 
 #
 
-import os
 import sys
 import string
 import ModeController

@@ -20,7 +20,6 @@ import grp
 import sys
 import errno
 import shutil
-import traceback
 import string
 
 from config_common import file_utils, utils, cfg_exceptions

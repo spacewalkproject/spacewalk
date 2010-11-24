@@ -15,7 +15,6 @@
 
 import os
 import fnmatch
-import sys
 
 from actions import configfiles
 from config_common import local_config, rhn_log

@@ -13,10 +13,8 @@
 # in this software or its documentation. 
 #
 
-import os
 import sys
 import string
-import utils
 from rhn_rpc import rpclib
 try:
     from socket import error, sslerror, herror, gaierror, timeout

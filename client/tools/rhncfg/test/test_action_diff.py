@@ -14,7 +14,6 @@
 #
 
 from actions import configfiles
-from config_common import local_config
 
 print configfiles.diff([
     {

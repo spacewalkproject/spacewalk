@@ -15,8 +15,7 @@
 
 import os
 
-from config_common import utils, cfg_exceptions
-from config_common.rhn_log import log_debug
+from config_common import cfg_exceptions
 from config_common.transactions import DeployTransaction, FailedRollback
 
 import handler_base

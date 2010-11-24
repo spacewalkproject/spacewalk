@@ -15,9 +15,6 @@
 
 import sys
 import os
-import os.path
-from config_common import utils
-from config_common.rhn_log import log_debug
 
 import handler_base
 
