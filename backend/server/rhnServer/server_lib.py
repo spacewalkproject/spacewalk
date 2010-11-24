@@ -21,8 +21,7 @@ import time
 import string
 
 from spacewalk.common import rhnFault, rhnException, log_error, log_debug
-from spacewalk.common import CFG, rhnFlags
-from spacewalk.common.rhnTranslate import _
+from spacewalk.common import CFG
 
 from spacewalk.server import rhnSQL
 

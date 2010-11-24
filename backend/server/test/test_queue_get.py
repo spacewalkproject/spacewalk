@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 from spacewalk.server import rhnSQL
-from spacewalk.common import initCFG, rhnFlags, initLOG
+from spacewalk.common import initCFG, initLOG
 from spacewalk.server.xmlrpc import queue
 
 initLOG("stderr", 4)

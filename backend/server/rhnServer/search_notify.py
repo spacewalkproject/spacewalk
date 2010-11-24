@@ -15,7 +15,6 @@
 # Sends notification to search-server that it should update server index
 #
 
-import sys
 import xmlrpclib
 from spacewalk.common import log_error
 

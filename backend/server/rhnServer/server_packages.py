@@ -19,10 +19,10 @@
 
 import string
 import time
-from types import DictType, TupleType
+from types import DictType
 
 from spacewalk.common import log_debug, rhnFault, rhn_rpm
-from spacewalk.server import rhnSQL, rhnLib
+from spacewalk.server import rhnSQL
 from server_lib import snapshot_server, check_entitlement
 
 UNCHANGED = 0

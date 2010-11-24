@@ -20,7 +20,7 @@ import time
 import string
 
 from spacewalk.common import rhnException, rhnFault, log_debug, log_error, \
-    CFG, rhnFlags, rhn_rpm
+    CFG, rhnFlags
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \
                    rhnVirtualization
@@ -32,7 +32,6 @@ import server_lib
 import server_token
 from server_certificate import Certificate, gen_secret
 from server_wrapper import ServerWrapper
-from satellite_cert import SatelliteCert
 
 class Server(ServerWrapper):
     """ Main Server class """

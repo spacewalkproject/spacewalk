@@ -14,8 +14,6 @@
 #
 import unittest
 
-import common.byterange
-
 class ByteRangeTests(unittest.TestCase):
 
     def testEmptyRange(self):
