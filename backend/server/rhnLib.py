@@ -16,7 +16,6 @@
 import os
 import re
 import hashlib
-import time
 import string
 import base64
 

@@ -15,10 +15,8 @@
 #
 
 # system module imports
-import cStringIO
 import os
 import stat
-import types
 
 from rhn import rpclib
 

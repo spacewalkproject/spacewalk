@@ -14,8 +14,6 @@
 #
 #
 
-import sys
-
 from const import ORACLE, POSTGRESQL
 
 # Map supported backend constants to a specific Python driver:

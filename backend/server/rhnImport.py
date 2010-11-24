@@ -18,7 +18,6 @@ import os
 import sys
 
 from spacewalk.common import log_debug, log_error
-from distutils.sysconfig import get_python_lib
 
 class Loader:
     # Class that saves the state of imported objects
