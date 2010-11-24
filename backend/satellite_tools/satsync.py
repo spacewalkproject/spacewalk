@@ -844,7 +844,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
     def _compute_unique_packages(self):
         """ process package metadata for one channel at a time """
-        relevant = relevant(self._channel_req.get_requested_channels())
+        relevant = sorted(self._channel_req.get_requested_channels())
         self._channel_packages = {}
         self._channel_packages_full = {}
         self._avail_channel_packages = {}
