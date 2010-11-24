@@ -44,6 +44,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("string", "summary")
  *      #prop("string", "description")
  *      #prop("string", "checksum_label")
+ *      #prop("dateTime.iso8601", "last_modified")
  *      #prop("string", "maintainer_name")
  *      #prop("string", "maintainer_email")
  *      #prop("string", "maintainer_phone")
@@ -86,6 +87,7 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("description",
                 StringUtils.defaultString(c.getDescription()));
         helper.add("checksum_label", c.getChecksumTypeLabel());
+        helper.add("last_modified", c.getLastModified());
         helper.add("maintainer_name", c.getMaintainerName());
         helper.add("maintainer_email", c.getMaintainerEmail());
         helper.add("maintainer_phone", c.getMaintainerPhone());
