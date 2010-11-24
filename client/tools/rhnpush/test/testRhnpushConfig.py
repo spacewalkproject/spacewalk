@@ -15,7 +15,6 @@
 
 import rhnpush_config
 import unittest
-import time
 
 
 class RhnConfigTestCase(unittest.TestCase):

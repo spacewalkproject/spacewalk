@@ -19,10 +19,8 @@ import optparse
 import os
 import re
 import socket
-import StringIO
 import string
 import sys
-import traceback
 import time
 
 try:

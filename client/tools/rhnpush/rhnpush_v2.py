@@ -18,10 +18,8 @@
 #
 # $Id$
 
-import sys
 import string
 import base64
-from cStringIO import StringIO
 
 import connection
 

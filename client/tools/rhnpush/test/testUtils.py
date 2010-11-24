@@ -14,7 +14,6 @@
 #
 
 import unittest
-import time
 import utils
 
 True = 1

@@ -14,9 +14,6 @@
 #
 
 import os
-import sys
-import string
-import time
 import pwd
 
 def get_home_dir():

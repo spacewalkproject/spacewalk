@@ -19,10 +19,8 @@
 # 11/11/2004 John Wregglesworth
 #
 
-import os
 import sys
 import ConfigParser
-import utils
 
 True = 1
 False = 0

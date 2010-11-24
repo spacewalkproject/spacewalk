@@ -17,13 +17,7 @@ import rhnpush_config
 import utils
 import string
 import sys
-import os, os.path
-
-
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optik import Option, OptionParser
+import os
 
 
 True = 1

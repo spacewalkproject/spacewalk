@@ -15,10 +15,7 @@
 
 import sys
 import time
-import xmlrpclib
-from types import ListType, TupleType, DictType
-import gzip
-import cStringIO
+from types import ListType, TupleType
 
 from spacewalk.common import rhn_rpm, rhn_mpm
 

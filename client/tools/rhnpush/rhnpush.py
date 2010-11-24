@@ -35,10 +35,8 @@ import sys
 import string
 import time
 import urlparse
-import rhnpush_cache
 import rhnpush_confmanager
 
-from types import IntType, StringType
 try:
     from optparse import Option, OptionParser
 except ImportError:

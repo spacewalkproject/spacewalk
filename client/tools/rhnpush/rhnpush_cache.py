@@ -22,11 +22,7 @@
 #
 # CacheManager - Controls access to the cache. 
 
-import time
-import string
-import pickle
 import utils
-import sys
 import os
 
 True = 1
