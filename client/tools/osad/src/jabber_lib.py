@@ -17,7 +17,6 @@ import os
 import hashlib
 import sys
 import time
-import types
 import select
 import socket
 import jabber

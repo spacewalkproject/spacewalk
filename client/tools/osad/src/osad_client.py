@@ -18,7 +18,7 @@ import time
 import string
 
 import jabber_lib
-from rhn_log import log_debug, log_error, die
+from rhn_log import log_debug
 
 class Client(jabber_lib.JabberClient):
     def __init__(self, *args, **kwargs):

@@ -15,7 +15,6 @@
 
 import sys
 import select
-import time
 import socket
 import SocketServer
 from spacewalk.common import initCFG, CFG, initLOG, log_debug, log_error

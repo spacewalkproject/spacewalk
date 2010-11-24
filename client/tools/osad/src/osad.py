@@ -23,7 +23,7 @@ import random
 
 from up2date_client.config import initUp2dateConfig
 
-from rhn_log import set_debug_level, log_debug, log_error, die, set_logfile
+from rhn_log import set_debug_level, log_debug, die, set_logfile
 
 import jabber_lib
 import osad_config

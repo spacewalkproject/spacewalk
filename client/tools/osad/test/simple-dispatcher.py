@@ -14,7 +14,6 @@
 #
 
 import sys
-import time
 
 import test_lib
     

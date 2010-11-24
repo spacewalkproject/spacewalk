@@ -14,7 +14,6 @@
 #
 
 import sys
-import time
 import jabber_lib
 
 import test_lib
