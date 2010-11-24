@@ -22,7 +22,6 @@
 import xmlrpclib
 from optparse import OptionParser
 import sys
-import os
 
 class RHNServer:
     def __init__(self,servername,user,passwd): 
