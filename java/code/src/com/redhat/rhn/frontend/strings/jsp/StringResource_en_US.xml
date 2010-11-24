@@ -22813,35 +22813,65 @@ given channel.</source>
          <source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      </trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     </trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      </trans-unit>
-     <trans-unit id="task.status.last.completed">
-         <source>Last Completed Action</source>
+     <trans-unit id="task.status.taskomatic.on">
+         <source>Scheduling Service</source>
      </trans-unit>
-     <trans-unit id="task.status.session.cleanup">
+     <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      </trans-unit>
-     <trans-unit id="task.status.errata.queue.notif">
+     <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      </trans-unit>
-     <trans-unit id="task.status.errata.mail">
+     <trans-unit id="task.status.errata-mailer">
          <source>Errata Notification Mail</source>
      </trans-unit>
-     <trans-unit id="task.status.daily.summary">
+     <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      </trans-unit>
-     <trans-unit id="task.status.daily.summary.mail">
+     <trans-unit id="task.status.daily-summary">
          <source>Daily Summary Mail</source>
      </trans-unit>
-     <trans-unit id="task.status.clean.alerts">
+     <trans-unit id="task.status.clean-current-alerts">
          <source>Clean Current Alerts</source>
      </trans-unit>
-     <trans-unit id="task.status.sync.probe">
+     <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
+     </trans-unit>
+     <trans-unit id="task.status.clear-log-history">
+         <source>Clean Log History</source>
+     </trans-unit>
+     <trans-unit id="task.status.cobbler-sync">
+         <source>Cobbler Sync</source>
+     </trans-unit>
+     <trans-unit id="task.status.compare-config-files">
+         <source>Compare Config Files</source>
+     </trans-unit>
+     <trans-unit id="task.status.sandbox-cleanup">
+         <source>Sandbox Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.package-cleanup">
+         <source>Package Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.kickstartfile-sync">
+         <source>Kickstart Sync</source>
+     </trans-unit>
+     <trans-unit id="task.status.kickstart-cleanup">
+         <source>Kickstart Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.errata-cache">
+         <source>Errata Cache</source>
+     </trans-unit>
+     <trans-unit id="task.status.channel-repodata">
+         <source>Channel Repodata</source>
+     </trans-unit>
+     <trans-unit id="task.status.sat-cert-check">
+         <source>Certificate Check</source>
+     </trans-unit>
+     <trans-unit id="task.status.cleanup-timeseries-data">
+         <source>TimeSeries Cleanup</source>
      </trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>

@@ -262,6 +262,30 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </callable-mode>
 
+<mode name="taskomatic_task_status">
+   <query params="">
+   SELECT t.name, r.id, r.start_time, r.status
+   FROM
+     (SELECT ta.id as task_id, max(ru.start_time) as st
+     FROM rhnTaskoTask ta,
+      rhnTaskoTemplate te,
+      rhnTaskoRun ru
+     WHERE ru.org_id is null
+      AND ru.status != 'SKIPPED'
+      AND ru.template_id = te.id
+      AND ta.id = te.task_id
+     GROUP BY ta.id) se,
+     rhnTaskoRun r,
+     rhnTaskoTask t,
+     rhnTaskoTemplate e
+   WHERE r.start_time = se.st
+	AND t.id = se.task_id
+    AND r.template_id = e.id
+    AND t.id = e.task_id
+   ORDER BY t.name
+   </query>
+</mode>
+
 <mode name="pkgcleanup_find_deleted_pkgs">
    <query params="">
      SELECT PFDQ.path FROM rhnPackageFileDeleteQueue PFDQ

@@ -61,6 +61,20 @@ public class TaskomaticApi {
     }
 
     /**
+     * Returns whether taskomatic is running
+     * @return True if taskomatic is running
+     */
+    public boolean isRunning() {
+        try {
+            invoke("tasko.one", new Integer(0));
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
      * Schedule a single reposync
      * @param chan the channel
      * @param user the user

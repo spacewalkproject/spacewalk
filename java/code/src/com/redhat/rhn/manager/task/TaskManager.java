@@ -83,5 +83,12 @@ public class TaskManager {
         return m.execute(params);
     }
 
-
+    /**
+     * Return task status info
+     * @return task status info
+     */
+    public static DataResult getTaskStatusInfo() {
+        SelectMode m = ModeFactory.getMode("Task_queries", "taskomatic_task_status");
+        return m.execute(new HashMap());
+    }
 }
