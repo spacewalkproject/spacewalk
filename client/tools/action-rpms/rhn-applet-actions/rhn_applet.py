@@ -18,12 +18,9 @@ import os
 import sys
 import string
 import re
-import shutil
 
 sys.path.append("/usr/share/rhn")
-from up2date_client import up2date
 from up2date_client import config
-from up2date_client import configUtils
 from up2date_client import up2dateAuth
 
 from rhn import rpclib
