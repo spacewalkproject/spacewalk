@@ -18,8 +18,6 @@ import sys
 import rpm
 import struct
 
-import exceptions
-
 # Expose a bunch of useful constants from rpm
 error = rpm.error
 for sym, val in rpm.__dict__.items():

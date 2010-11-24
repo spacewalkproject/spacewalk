@@ -21,14 +21,8 @@
 
 import os
 import gzip
-import cStringIO
-import tempfile
-from rhn.rpclib import xmlrpclib
 
 from debian import debfile
-import struct
-
-from types import ListType, TupleType, DictType
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
