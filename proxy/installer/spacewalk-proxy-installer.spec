@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
+- removed unused imports
+
 * Wed Nov 10 2010 Jan Pazdziora 1.2.3-1
 - remove escaping (msuchy@redhat.com)
 
