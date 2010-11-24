@@ -22,7 +22,6 @@
 ## language imports
 import os
 import sys
-import string
 
 ## utitily imports
 from optparse import Option, OptionParser, make_option

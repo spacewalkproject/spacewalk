@@ -17,7 +17,6 @@
 #
 # $Id$
 
-import string
 import os.path
 
 

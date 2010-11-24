@@ -64,7 +64,6 @@ mapped as well:
 
 import os
 import sys
-import time
 import string
 import tempfile
 
