@@ -30,7 +30,6 @@ from up2date_client import up2dateLog
 from up2date_client import config
 from up2date_client import rpmUtils
 from up2date_client import rhnPackageInfo
-from up2date_client import rhncli
 
 from rpm import RPMPROB_FILTER_OLDPACKAGE
 
