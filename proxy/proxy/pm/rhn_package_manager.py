@@ -36,7 +36,6 @@ import os
 import sys
 import string
 import shutil
-from types import IntType, StringType
 from operator import truth
 from rhnpush.uploadLib import UploadError
 try:

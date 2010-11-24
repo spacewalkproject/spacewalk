@@ -16,9 +16,6 @@
 #-------------------------------------------------------------------------------
 # $Id: apacheServer.py,v 1.81 2005/07/05 17:39:03 wregglej Exp $
 
-# system module imports
-import os
-
 # common module imports
 from spacewalk.common import CFG, initCFG, initLOG, log_setreq, Traceback, \
     log_debug, apache

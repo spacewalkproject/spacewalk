@@ -18,11 +18,9 @@
 
 ## system imports
 import os
-import sys
 import time
 import string
 import socket
-import urlparse
 
 ## local imports
 import rhnAuthCacheClient

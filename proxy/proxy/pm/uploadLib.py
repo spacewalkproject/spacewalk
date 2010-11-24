@@ -14,13 +14,6 @@
 # in this software or its documentation.
 #
 
-# system imports
-import os
-import sys
-import string
-import fnmatch
-import getpass
-
 # RHN imports
 from spacewalk.common import rhn_mpm
 from rhnpush import uploadLib

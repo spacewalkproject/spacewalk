@@ -21,7 +21,6 @@ import socket
 import re
 
 # common module imports
-from spacewalk.common.rhnLib import parseUrl
 from spacewalk.common import log_debug, log_error, CFG, rhnFlags, rhnFault, rhnLib, \
     Traceback, apache
 from spacewalk.common.rhnTranslate import _

@@ -24,7 +24,7 @@ import re
 # common module imports
 from spacewalk.common.rhnLib import parseUrl
 from spacewalk.common import UserDictCase, rhnFlags, log_debug, log_error, CFG, \
-    rhnFault, rhnException, apache
+    rhnFault, apache
 from spacewalk.common.rhnTranslate import _
 
 # local module imports

@@ -27,11 +27,9 @@
 import os
 import re
 import sys
-import pwd
 import string
 import socket
 import urlparse
-import xmlrpclib
 
 ## lib imports
 from rhn import rpclib, SSL
