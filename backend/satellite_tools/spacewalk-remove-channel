@@ -47,6 +47,8 @@ options_table = [
                  help="Remove the channel packages from any other channels too (Not Recommended)"),
     Option("-p", "--skip-packages", action="store_true",
            help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
+    Option(      "--skip-channels", action="store_true",
+           help="Remove only packages from channel not the channel itself."),
 ]
 
 LOCK = None
@@ -133,7 +135,8 @@ def main():
 
     try:
         delete_channels(channels.keys(), force=options.force,
-                        justdb=options.justdb, skip_packages=options.skip_packages)
+                        justdb=options.justdb, skip_packages=options.skip_packages,
+                        skip_channels=options.skip_channels)
     except:
         rhnSQL.rollback()
         raise
@@ -278,7 +281,7 @@ def __listChannels():
     return labels, parents
 
 
-def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0):
+def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_channels=0):
     # Get the package ids
     if not channelLabels:
         return 
@@ -341,15 +344,19 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0):
         ['rhnErrataFileChannel', 'channel_id'],
         ['rhnErrataNotificationQueue', 'channel_id'],
         ['rhnChannelErrata', 'channel_id'],
-        ['rhnChannelFamilyMembers', 'channel_id'],
         ['rhnChannelPackage', 'channel_id'],
-        ['rhnDistChannelMap', 'channel_id'],
         ['rhnRegTokenChannels', 'channel_id'],
         ['rhnServerProfile', 'base_channel'],
         ['rhnKickstartableTree', 'channel_id'],
-        ['rhnReleaseChannelMap', 'channel_id'],
-        ['rhnChannel', 'id'],
     ]
+
+    if not skip_channels:
+        tables.extend([
+            ['rhnChannelFamilyMembers', 'channel_id'],
+            ['rhnDistChannelMap', 'channel_id'],
+            ['rhnReleaseChannelMap', 'channel_id'],
+            ['rhnChannel', 'id'],
+        ])
 
     query = "delete from %s where %s = :channel_id"
     for table, field in tables:
