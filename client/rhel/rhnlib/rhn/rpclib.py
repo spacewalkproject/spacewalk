@@ -27,9 +27,6 @@ from types import ListType, TupleType, StringType, UnicodeType, DictType, Dictio
 from UserDictCase import UserDictCase
 
 import xmlrpclib
-from xmlrpclib import Fault, ResponseError, ProtocolError, getparser
-
-from transports import File
 
 # Redirection handling
 

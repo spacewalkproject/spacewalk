@@ -11,9 +11,8 @@
 rhn.SSL builds an abstraction on top of the objects provided by pyOpenSSL
 """
 
-from OpenSSL import SSL, crypto
+from OpenSSL import SSL
 import os
-import time
 
 import socket
 import select

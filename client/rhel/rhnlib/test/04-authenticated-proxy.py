@@ -10,7 +10,6 @@ import sys
 import httplib
 sys.path.append('..')
 from rhn.rpclib import Server
-from rhn.connections import HTTPProxyConnection, HTTPSProxyConnection
 
 SERVER = "xmlrpc.rhn.redhat.com"
 HANDLER = "/XMLRPC"

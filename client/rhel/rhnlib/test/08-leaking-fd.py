@@ -8,7 +8,6 @@
 
 import os
 import sys
-import httplib
 sys.path.append('..')
 from rhn.rpclib import Server, GETServer
 from threading import Thread
