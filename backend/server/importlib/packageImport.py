@@ -17,12 +17,11 @@
 #
 
 import sys
-from importLib import GenericPackageImport, IncompletePackage, Package, \
+from importLib import GenericPackageImport, IncompletePackage, \
     Import, InvalidArchError, InvalidChannelError, \
     IncompatibleArchError
 from spacewalk.server import taskomatic
 from spacewalk.common import CFG
-from types import StringType
 
 class ChannelPackageSubscription(GenericPackageImport):
     def __init__(self, batch, backend, caller=None, strict=0, repogen=True):

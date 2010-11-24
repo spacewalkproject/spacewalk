@@ -21,8 +21,6 @@ from types import IntType, StringType, InstanceType
 from UserDict import UserDict
 from UserList import UserList
 
-from spacewalk.server.rhnLib import get_package_path
-from spacewalk.common import rhn_mpm, log_debug
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.fileutils import createPath, setPermsPath
 

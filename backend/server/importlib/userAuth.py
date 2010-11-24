@@ -16,7 +16,7 @@
 # Authentication
 #
 
-from spacewalk.common import CFG, rhnFault, log_debug, add_to_seclist
+from spacewalk.common import rhnFault, log_debug, add_to_seclist
 from spacewalk.common.rhnTranslate import _
 
 from spacewalk.server import rhnSQL, rhnUser

@@ -13,8 +13,6 @@
 # in this software or its documentation. 
 #
 
-import sys
-
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import OracleBackend
 from spacewalk.server.importlib.packageImport import PackageImport
