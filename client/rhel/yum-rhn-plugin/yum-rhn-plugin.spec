@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
+- removed unused imports
+
 * Mon Nov 15 2010 Jan Pazdziora 1.2.7-1
 - l10n: Updates to Italian (it) translation (tombo@fedoraproject.org)
 
