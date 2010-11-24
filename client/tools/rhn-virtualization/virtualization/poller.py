@@ -29,8 +29,7 @@ from optparse import OptionParser
 
 from virtualization.state              import State
 from virtualization.errors             import VirtualizationException
-from virtualization.constants          import StateType,           \
-                                              PropertyType,        \
+from virtualization.constants          import PropertyType,        \
                                               VirtualizationType,  \
                                               IdentityType,        \
                                               VIRT_STATE_NAME_MAP, \

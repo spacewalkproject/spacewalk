@@ -16,21 +16,15 @@
 import sys
 sys.path.append("/usr/share/rhn/")
 
-import os
-
 from virtualization import domain_control, poller, schedule_poller
 
-from virtualization.errors           import VirtualizationException, \
-                                            UUIDError
-from virtualization.constants        import StateType,               \
-                                            IdentityType,            \
+from virtualization.constants        import IdentityType,            \
                                             PropertyType
 from virtualization.notification     import Plan,                    \
                                             EventType,               \
                                             TargetType
 from virtualization.domain_config    import DomainConfig
 from virtualization.domain_directory import DomainDirectory
-from virtualization.util             import dehyphenize_uuid
 
 try:
     import libvirt

@@ -9,9 +9,7 @@
 import sys
 sys.path.append("/usr/share/rhn/")
 
-import os
-
-from virtualization import poller, start_domain, state
+from virtualization import poller, start_domain
 
 from virtualization.errors import VirtualizationException
 from virtualization.util   import hyphenize_uuid

@@ -13,12 +13,10 @@
 # in this software or its documentation. 
 #
 
-import os
 import sys
 sys.path.append("/usr/share/rhn")
 import string
 import types
-import tempfile
 import commands
 
 def create_crontab_line(minute  =   None,\
