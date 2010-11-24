@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.33
+Version: 5.9.34
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.34-1
+- removed unused imports
+
 * Tue Nov 02 2010 Jan Pazdziora 5.9.33-1
 - Update copyright years in the rest of the repo.
 
