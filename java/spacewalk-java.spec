@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.114
+Version: 1.2.115
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -434,6 +434,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 25 2010 Lukas Zapletal 1.2.115-1
+- Bug 657259 - Enable Spacewalk Configuration Management fails
+
 * Thu Nov 25 2010 Lukas Zapletal 1.2.114-1
 - Fixing two queries in system overview (monitoring)
 - Replacing DECODE with ANSI compatible CASE-WHEN
