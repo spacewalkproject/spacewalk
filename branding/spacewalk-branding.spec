@@ -11,6 +11,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
 BuildRequires: java-devel >= 1.5.0
+Requires:   httpd
 
 %description
 Spacewalk specific branding, CSS, and images.
@@ -26,6 +27,8 @@ jar -cf java-branding.jar -C java/code/src com
 
 %install
 rm -rf %{buildroot}
+install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf.d
+install -p zz-spacewalk-branding.conf %{buildroot}%{_sysconfdir}/httpd/conf.d
 install -d -m 755 %{buildroot}/%{_var}/www/html
 install -d -m 755 %{buildroot}/%{_var}/www/html/nav
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk
@@ -59,6 +62,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-branding.conf
 %dir /%{_var}/www/html/css
 /%{_var}/www/html/css/*
 %dir /%{_var}/www/html/img
@@ -66,7 +70,6 @@ rm -rf %{buildroot}
 /%{_var}/www/html/favicon.ico
 %dir /%{_var}/www/html/templates
 /%{_var}/www/html/templates/*
-/%{_var}/www/html/templates/.htaccess
 %dir /%{_var}/www/html/nav/styles
 /%{_var}/www/html/nav/styles/*
 %{_datadir}/spacewalk/
