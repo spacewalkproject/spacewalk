@@ -28,7 +28,7 @@ jar -cf java-branding.jar -C java/code/src com
 %install
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf.d
-install -p zz-spacewalk-branding.conf %{buildroot}%{_sysconfdir}/httpd/conf.d
+install -p -m 644 zz-spacewalk-branding.conf %{buildroot}%{_sysconfdir}/httpd/conf.d
 install -d -m 755 %{buildroot}/%{_var}/www/html
 install -d -m 755 %{buildroot}/%{_var}/www/html/nav
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk
@@ -40,21 +40,21 @@ install -d -m 755 %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/
 %endif
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn/default
-cp -R css %{buildroot}/%{_var}/www/html/
-cp -R img %{buildroot}/%{_var}/www/html/
+cp -pR css %{buildroot}/%{_var}/www/html/
+cp -pR img %{buildroot}/%{_var}/www/html/
 # Appplication expects two favicon's for some reason, copy it so there's just
 # one in source:
-cp img/favicon.ico %{buildroot}/%{_var}/www/html/
-cp -R templates %{buildroot}/%{_var}/www/html/
-cp -R styles %{buildroot}/%{_var}/www/html/nav/
-cp -R setup  %{buildroot}%{_datadir}/spacewalk/
-cp -R java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
+cp -p img/favicon.ico %{buildroot}/%{_var}/www/html/
+cp -pR templates %{buildroot}/%{_var}/www/html/
+cp -pR styles %{buildroot}/%{_var}/www/html/nav/
+cp -pR setup  %{buildroot}%{_datadir}/spacewalk/
+cp -pR java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
 %if  0%{?rhel} && 0%{?rhel} < 6
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
 %else
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
 %endif
-cp conf/rhn_docs.conf %{buildroot}/%{_sysconfdir}/rhn/default/rhn_docs.conf
+cp -p conf/rhn_docs.conf %{buildroot}/%{_sysconfdir}/rhn/default/rhn_docs.conf
 
 %clean
 rm -rf %{buildroot}
@@ -63,15 +63,15 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-branding.conf
-%dir /%{_var}/www/html/css
-/%{_var}/www/html/css/*
+%dir %{_var}/www/html/css
+%{_var}/www/html/css/*
 %dir /%{_var}/www/html/img
-/%{_var}/www/html/img/*
-/%{_var}/www/html/favicon.ico
+%{_var}/www/html/img/*
+%{_var}/www/html/favicon.ico
 %dir /%{_var}/www/html/templates
-/%{_var}/www/html/templates/*
+%{_var}/www/html/templates/*
 %dir /%{_var}/www/html/nav/styles
-/%{_var}/www/html/nav/styles/*
+%{_var}/www/html/nav/styles/*
 %{_datadir}/spacewalk/
 %{_datadir}/rhn/lib/java-branding.jar
 %if  0%{?rhel} && 0%{?rhel} < 6
