@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.5
+Version: 5.4.6
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Thu Nov 25 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.6-1
+- fix failing build in F13 (msuchy@redhat.com)
+
 * Fri Nov 19 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.5-1
 - 553649 - we need to require X.Y version due to search path
 
