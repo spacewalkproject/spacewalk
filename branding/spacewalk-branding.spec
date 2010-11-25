@@ -80,7 +80,7 @@ rm -rf %{buildroot}
 %{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
 %endif
 %{_sysconfdir}/rhn/default/rhn_docs.conf
-
+%doc LICENSE
 
 %changelog
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.2-1
