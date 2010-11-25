@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.113
+Version: 1.2.114
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -434,6 +434,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 25 2010 Lukas Zapletal 1.2.114-1
+- Fixing two queries in system overview (monitoring)
+- Replacing DECODE with ANSI compatible CASE-WHEN
+- Adding missing monitoring state (UNKNOWN)
+
 * Thu Nov 18 2010 Jan Pazdziora 1.2.113-1
 - Turning off checkstyle in the java spec for F14 (cherry picked from commit
   2e31f06f5cbb580cc5c82ab6421d315139c1a72a) (lzap+git@redhat.com)
