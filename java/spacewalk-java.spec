@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.15
+Version: 1.3.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 25 2010 Lukas Zapletal 1.3.16-1
+- Bug 657259 - Enable Spacewalk Configuration Management fails
+
 * Wed Nov 24 2010 Lukas Zapletal 1.3.15-1
 - 615026 - [Multi-Org] Grants for channel permission edits throws ISE
 - 642226 - do not look for the VT channel in case of RHEL6 base channels
