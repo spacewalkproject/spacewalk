@@ -281,7 +281,7 @@ VALUES (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, :evr_id, :ar
 <write-mode name="schedule_action_no_arch">
   <query params="action_id, name_id, evr_id">
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-VALUES (sequence_nextval('rhn_act_p_id_seq', :action_id, :name_id, :evr_id)
+VALUES (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, :evr_id)
   </query>
 </write-mode>
 
