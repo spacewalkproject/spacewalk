@@ -55,13 +55,13 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
          order by cc.label, cc.name
     """)
 
-    def _get_and_validate_session(self):
+    def _get_and_validate_session(self, dict):
         session = dict.get('session')
         self._validate_session(session)
 
     def management_list_channels(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
         return map(lambda x: x['label'],
                   rhnSQL.fetchall_dict(self._query_list_config_channels,
                                        org_id=self.org_id) or [])
@@ -75,7 +75,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_create_channel(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -109,7 +109,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     """)
     def management_remove_channel(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -152,7 +152,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_list_files(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the config channel
@@ -180,7 +180,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         
     def management_get_file(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -209,7 +209,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_list_file_revisions(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -226,7 +226,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_has_file(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -343,7 +343,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_remove_file(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -373,7 +373,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_disable_file(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -395,7 +395,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_put_file(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         row = self.lookup_org_config_channel_by_name(config_channel)
@@ -414,20 +414,20 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         
     def management_get_delimiters(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         return self._get_delimiters()
     
     def management_get_maximum_file_size(self, dict={}):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         return self._get_maximum_file_size()
                 
 
     def management_diff(self, dict):
         log_debug(1)
-        self._get_and_validate_session()
+        self._get_and_validate_session(dict)
 
         param_names = [ 'config_channel_src', 'revision_src', 'path', ]
         for p in param_names:
