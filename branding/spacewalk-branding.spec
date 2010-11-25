@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.3.0
+Version:    1.3.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,13 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Nov 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
+- add GPLv2 license (msuchy@redhat.com)
+- cleanup spec (msuchy@redhat.com)
+- remove .htaccess file (msuchy@redhat.com)
+- point to url where we store tar.gz (msuchy@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.2-1
 - 627920 - Added a larger config file icon for symlinks. Thanks to Joshua Roys
   (paji@redhat.com)
