@@ -127,7 +127,7 @@ def main():
     if child_test_fail:
         return -1
 
-    if not options.skip_channels
+    if not options.skip_channels:
        if __serverCheck(channels.keys(), options.unsubscribe):
            return -1
 
