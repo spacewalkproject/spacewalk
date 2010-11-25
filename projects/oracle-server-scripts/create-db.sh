@@ -286,6 +286,7 @@ db_domain 		= world
 db_name                 = $db
 
 ifile			=  $Oracle/admin/$OracleVersionShort/init-params.ora
+$($TOPDIR/oracle-compute-sga.sh)
 EOF
 }
 
