@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.16
+Version: 1.3.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 25 2010 Tomas Lestach <tlestach@redhat.com> 1.3.17-1
+- 642285 - introducing disabled TaskStatus page (tlestach@redhat.com)
+
 * Thu Nov 25 2010 Lukas Zapletal 1.3.16-1
 - Bug 657259 - Enable Spacewalk Configuration Management fails
 
