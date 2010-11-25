@@ -107,30 +107,32 @@ def main():
         if not dict_label.has_key(channel):
             print "Unknown channel %s" % channel
             return -1
-        # Sanity check: verify subchannels are deleted as well if base 
-        # channels are selected
-        if not dict_parents.has_key(channel):
-            continue
-        # this channel is a parent channel?
-        children = []
-        for subch in dict_parents[channel]:
-            if not channels.has_key(subch):
-                child_test_fail = True
-                children.append(subch)
-        if children:
-            print "Error: cannot remove channel %s: subchannel(s) exist: " %(
-                channel)
-            for child in children:
-                print "\t\t\t" + child
+        if not options.skip_channels:
+            # Sanity check: verify subchannels are deleted as well if base
+            # channels are selected
+            if not dict_parents.has_key(channel):
+                continue
+            # this channel is a parent channel?
+            children = []
+            for subch in dict_parents[channel]:
+                if not channels.has_key(subch):
+                    child_test_fail = True
+                    children.append(subch)
+            if children:
+                print "Error: cannot remove channel %s: subchannel(s) exist: " %(
+                    channel)
+                for child in children:
+                    print "\t\t\t" + child
 
     if child_test_fail:
         return -1
 
-    if __serverCheck(channels.keys(), options.unsubscribe):
-        return -1
+    if not options.skip_channels
+       if __serverCheck(channels.keys(), options.unsubscribe):
+           return -1
 
-    if __kickstartCheck(channels.keys()):
-        return -1
+       if __kickstartCheck(channels.keys()):
+           return -1
 
 
     try:
