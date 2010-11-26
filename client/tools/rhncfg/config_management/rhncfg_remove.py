@@ -55,7 +55,7 @@ class Handler(handler_base.HandlerBase):
                 die(8, "--topdir specified, but `%s' not a directory" %
                     self.options.topdir)
             for f in files:
-                if not utils.startswith(f, self.options.topdir):
+                if not f.startswith(self.options.topdir):
                     die(8, "--topdir %s specified, but file `%s' doesn't comply"
                         % (self.options.topdir, f))
                 files_to_remove.append((f, f[len(self.options.topdir):]))

@@ -96,7 +96,7 @@ class Handler(handler_base.HandlerBase):
         flist = list_files_recursive(channel_dir)
 
         for (dirname, filenames) in flist:
-            assert utils.startswith(dirname, channel_dir)
+            assert dirname.startswith(channel_dir)
             remote_dirname = dirname[len(channel_dir):]
 
             for f in filenames:

@@ -83,7 +83,7 @@ class Handler(handler_base.HandlerBase):
             topdir = utils.rm_trailing_slash(topdir)
 
             for f in files:
-                if not utils.startswith(f, topdir):
+                if not f.startswith(topdir):
                     die(8, "--topdir %s specified, but file `%s' doesn't comply"
                         % (topdir, f))
                 if os.path.isdir(f) and not os.path.islink(f):
@@ -132,11 +132,11 @@ class Handler(handler_base.HandlerBase):
         first_row = pipe.readline()
         if not first_row:
             return ""
-        elif utils.startswith(first_row, "---"):
+        elif first_row.startswith("---"):
             first_row = "--- %s\tconfig_channel: %s\trevision: %s\n" % (
                 path, channel, info['revision']
             )
-        elif utils.startswith(first_row, "***"):
+        elif first_row.startswith("***"):
             # This happens when we drop back to "diff -c"
             first_row = "*** %s\tconfig_channel: %s\trevision: %s\n" % (
                 path, channel, info['revision']
