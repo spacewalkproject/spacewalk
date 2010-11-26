@@ -8,7 +8,7 @@ URL:        https://fedorahosted.org/spacewalk
 Source0:    https://fedorahosted.org/releases/s/p/spacewalk/python-gzipstream-%{version}.tar.gz
 License: Python and GPLv2
 Group: Development/Libraries
-BuildRoot: %{_tmppath}/%{name}-buildroot
+BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
 
