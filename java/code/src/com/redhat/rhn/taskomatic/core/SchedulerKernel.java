@@ -122,7 +122,6 @@ public class SchedulerKernel {
             // Setup TriggerListener chain
             this.chainedTriggerListener = new ChainedListener();
             this.chainedTriggerListener.addListener(new TaskEnvironmentListener());
-            this.chainedTriggerListener.addListener(new LoggingListener());
 
             try {
                 SchedulerKernel.scheduler.addTriggerListener(this.chainedTriggerListener);

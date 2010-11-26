@@ -558,44 +558,6 @@ ORDER BY next_action DESC
    </query>
 </mode>
 
-<mode name="find_task_stats">
-  <query params="display_name">
-    SELECT COUNT(LABEL) as stat_exists
-    FROM rhnDaemonState
-    WHERE LABEL = :display_name
-  </query>
-</mode>
-
-<write-mode name="create_task_stats">
-  <query params="display_name">
-    INSERT INTO rhnDaemonState (LABEL, LAST_POLL)
-    VALUES (:display_name, current_timestamp)
-  </query>
-</write-mode>
-
-<write-mode name="update_task_stats">
-  <query params="display_name">
-    UPDATE rhnDaemonState
-      SET LAST_POLL = current_timestamp
-      WHERE LABEL = :display_name
-  </query>
-</write-mode>
-
-<mode name="get_task_stats">
-	<query params="label">
-		SELECT LAST_POLL
-		FROM rhnDaemonState
-		WHERE label = :label
-	</query>
-</mode>
-
-<mode name="get_current_time">
-	<query params="">
-		SELECT current_timestamp
-		FROM dual
-	</query>
-</mode>
-
 <mode name="find_channel_in_task_queue">
 	<query params="cid">
 		SELECT task_data

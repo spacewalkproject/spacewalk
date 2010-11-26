@@ -22,7 +22,6 @@ import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,38 +35,6 @@ public class TaskManager {
 
     private TaskManager() {
 
-    }
-
-    /**
-     * gets the last time a certain task was exectued
-     * @param label the label of the task
-     * @return the date
-     */
-    public static Date getTaskExecutionTime(String label) {
-
-        SelectMode m = ModeFactory.getMode("Task_queries", "get_task_stats");
-        Map in = new HashMap();
-        in.put("label", label);
-        DataResult<Map> list = m.execute(in);
-
-        if (!list.isEmpty()) {
-            return (Date) list.get(0).get("last_poll");
-        }
-        return null;
-    }
-
-
-    /**
-     * Gets the current db time
-     * @return the date
-     */
-    public static Object getCurrentDBTime() {
-        SelectMode m = ModeFactory.getMode("Task_queries", "get_current_time");
-        DataResult<Map> list = m.execute();
-        if (!list.isEmpty()) {
-            return list.get(0).get("current_timestamp");
-        }
-        return null;
     }
 
     /**

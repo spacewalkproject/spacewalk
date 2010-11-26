@@ -18,7 +18,6 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.Mail;
 import com.redhat.rhn.common.messaging.SmtpMail;
@@ -48,24 +47,6 @@ public class TaskHelper {
      * private constructor
      */
     private TaskHelper() {
-    }
-
-    /**
-     * Logs the daemon state
-     * @param label The label of the daeomon we're logging.
-     */
-    public static void logDaemonState(String label) {
-        Map params = new HashMap();
-        params.put("label", label);
-
-        //Remove any entries from rhnDaemonState if they exist
-        WriteMode m = ModeFactory.getWriteMode("General_queries",
-                                               "remove_daemon_state");
-        m.executeUpdate(params);
-
-        //Add new entry
-        m = ModeFactory.getWriteMode("General_queries", "add_daemon_state");
-        m.executeUpdate(params);
     }
 
     /**

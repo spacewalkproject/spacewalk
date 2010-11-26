@@ -43,14 +43,6 @@ public class CleanCurrentAlertsTest extends RhnBaseTestCase {
         int success = m.executeUpdate(params);
         assertEquals(1, success);
 
-        //remove from rhnDaemonState
-        //This ensures there are no entries for clean_current_alerts there and should be
-        //exactly one after our execute method runs
-        m = ModeFactory.getWriteMode("General_queries", "remove_daemon_state");
-        params = new HashMap();
-        params.put("label", "clean_current_alerts");
-        m.executeUpdate(params);
-
         //Run CleanCurrentAlerts.execute()
         CleanCurrentAlerts cca = new CleanCurrentAlerts();
         cca.execute(null);
