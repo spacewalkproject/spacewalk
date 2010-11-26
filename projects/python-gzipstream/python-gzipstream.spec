@@ -2,8 +2,8 @@
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Version: 1.4.0
-Release: 18%{?dist}
+Version: 1.4.1
+Release: 1%{?dist}
 Source0: gzipstream-%{version}.tar.gz
 License: Python and GPLv2
 Group: Development/Libraries
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Fri Nov 26 2010 Miroslav Suchý <msuchy@redhat.com> 1.4.1-1
+- new package built with tito
+
 * Tue Jun 02 2009 Dennis Gilmore <dgilmore@redhat.com> 1.4.0-18
 - bump release to 18 to ensure its highest nvr wise
 
