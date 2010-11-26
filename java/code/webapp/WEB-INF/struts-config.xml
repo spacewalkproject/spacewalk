@@ -4032,11 +4032,6 @@
                   path="/WEB-INF/pages/systems/probes/details.jsp"/>
     </action>
 
-    <action path="/SetItemSelected"
-         scope="request"
-         type="com.redhat.rhn.frontend.action.rhnset.SetItemSelectionAction">
-    </action>
-
     <action path="/systems/details/probes/ProbeDelete"
          name="probeDeleteForm"
          scope="request"
