@@ -5,7 +5,7 @@ Name: python-gzipstream
 Version: 1.4.0
 Release: 18%{?dist}
 Source0: gzipstream-%{version}.tar.gz
-License: PSF
+License: Python and GPLv2
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildArch: noarch
