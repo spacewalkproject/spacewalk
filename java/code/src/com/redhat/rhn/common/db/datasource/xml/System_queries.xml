@@ -672,13 +672,6 @@ SELECT  DISTINCT SP.server_id id,
    </elaborator>
 </mode>
 
-<write-mode name="insert_ssm_remove_server_package">
-   <query params="user_id, name_id, evr_id, arch_id">
-      INSERT INTO rhnSsmSystemPackages (user_id, name_id, evr_id, arch_id)
-      VALUES (:user_id, :name_id, :evr_id, :arch_id)
-   </query>
-</write-mode>
-
 <mode name="out_of_date" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, user_id">
 select * from (
@@ -1527,19 +1520,6 @@ SELECT 1
   </query>
 </mode>
 
-<write-mode name="delete_proxy_info">
-  <query params="server_id">
-delete from rhnProxyInfo where server_id = :server_id
-  </query>
-</write-mode>
-
-<write-mode name="insert_proxy_info">
-  <query params="server_id, version">
-INSERT INTO  rhnProxyInfo (server_id, proxy_evr_id)
-     VALUES  (:server_id, lookup_evr(NULL, :version, '1'))
-  </query>
-</write-mode>
-
 <callable-mode name="entitle_server">
   <query params="sid, entitlement">
 {call rhn_entitlements.entitle_server(:sid, :entitlement)}
@@ -1557,19 +1537,6 @@ INSERT INTO  rhnProxyInfo (server_id, proxy_evr_id)
 {call rhn_entitlements.remove_server_entitlement(:sid, :entitlement, :repoll)}
   </query>
 </callable-mode>
-
-<write-mode name="insert_satellite_info">
-  <query params="sid, product, owner, issued_string, expiration_string,version">
-INSERT INTO  rhnSatelliteInfo (server_id, cert, product, owner, issued_string, expiration_string, evr_id)
-     VALUES  (:sid, EMPTY_BLOB(), :product, :owner, :issued_string, :expiration_string, lookup_evr(NULL, :version, '1'))
-  </query>
-</write-mode>
-
-<write-mode name="delete_satellite_info">
-  <query params="sid">
-DELETE FROM  rhnSatelliteInfo WHERE  server_id = :sid
-  </query>
-</write-mode>
 
 <callable-mode name="remove_from_action">
   <query params="server_id, action_id">
