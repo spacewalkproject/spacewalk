@@ -299,6 +299,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
 </write-mode>
 
 <!-- timings: webdev: 6m (2 records), webqa: 1m 58s (3), prod: 3m 32s (697) -->
+<!--
 <mode name="summarypop_awol_server_in_orgs"
       class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
    <query params="checkin_threshold">
@@ -313,8 +314,9 @@ where sgt.label in ('enterprise_entitled', 'provisioning_entitled')
   and (current_timestamp + numtodsinterval(1 + :checkin_threshold, 'day')
    </query>
 </mode>
-
+-->
 <!-- timings: webdev: 3m 36s (2), webqa: 11s (3), prod: 3m 21s(697) -->
+
 <mode name="summarypop_awol_server_in_orgs2"
       class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
    <query params="checkin_threshold">
