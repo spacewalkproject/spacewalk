@@ -115,7 +115,7 @@ class BaseMain:
         try:
             module = __import__(full_module_name)
         except ImportError, e:
-             rhn_log.die(1, "Unable to load plugin for mode '%s': %s" % (mode, e))
+            rhn_log.die(1, "Unable to load plugin for mode '%s': %s" % (mode, e))
 
         module = getattr(module, module_name)
 
