@@ -64,7 +64,7 @@ class BaseMain:
                 show_help = 1
                 continue
 
-            if utils.startswith(arg, server_name_opt):
+            if arg.startswith(server_name_opt):
                 rarg = arg[len(server_name_opt):]
                 if not rarg:
                     needs_server_name = 1
