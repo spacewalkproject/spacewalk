@@ -298,17 +298,6 @@ SELECT system_group_id
 </callable-mode>
 
 <!-- The Following two procedures are managed by the web team, we simply call them -->
-<callable-mode name="disable_user">
-  <query params="victim_id, admin_id">
-    { call web_disable_user_pkg.disable_user(:victim_id, :admin_id) }
-  </query>
-</callable-mode>
-
-<callable-mode name="enable_user">
-  <query params="victim_id, admin_id">
-    { call web_disable_user_pkg.reenable_user(:victim_id, :admin_id) }
-  </query>
-</callable-mode>
 
 <mode name="user_count">
   <query params="">
