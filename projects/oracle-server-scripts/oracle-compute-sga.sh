@@ -36,5 +36,5 @@ if [ $pga_target -gt $pgamax ] ; then
         pga_target=$pgamax
 fi
 
-echo sga_target=$sga_target
-echo pga_aggregate_target=$pga_target
+echo sga_target=${sga_target}M
+echo pga_aggregate_target=${pga_target}M
