@@ -65,7 +65,7 @@ public class TaskoQuartzHelper {
     public static Date createJob(TaskoSchedule schedule) throws InvalidParamException {
         // create trigger
         Trigger trigger = null;
-        if ((schedule.getCronExpr() == null) || (schedule.getCronExpr().isEmpty())) {
+        if (isCronExpressionEmpty(schedule.getCronExpr())) {
             trigger = new SimpleTrigger(schedule.getJobLabel(),
                     getGroupName(schedule.getOrgId()), 1, 1);
             trigger.setEndTime(new Date());
@@ -133,5 +133,27 @@ public class TaskoQuartzHelper {
             return null;
         }
         return orgId.toString();
+    }
+
+    private static boolean isCronExpressionEmpty(String cronExpr) {
+        return (cronExpr == null || cronExpr.isEmpty());
+    }
+
+    /**
+     * returns, whether cron expression is valid
+     * @param cronExpression cron expression
+     * @return true, if expression is valid
+     */
+    public static boolean isValidCronExpression(String cronExpression) {
+        if (isCronExpressionEmpty(cronExpression)) {
+            return true;
+        }
+        try {
+            new CronTrigger().setCronExpression(cronExpression);
+        }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
