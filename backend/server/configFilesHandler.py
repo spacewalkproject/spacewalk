@@ -51,7 +51,7 @@ class ConfigFileMissingDelimError(ConfigFileError):
 
 class ConfigFileMissingInfoError(ConfigFileError):
     pass
-    
+
 class ConfigFileMissingContentError(ConfigFileError):
     pass
 
@@ -68,7 +68,7 @@ class ConfigFilePathIncomplete(ConfigFileError):
 class ConfigFilesHandler(rhnHandler):
     def __init__(self):
         log_debug(3)
-	rhnHandler.__init__(self)        
+        rhnHandler.__init__(self)
         self.functions = {
             'rhn_login'         : 'login',
             'test_session'      : 'test_session',
@@ -97,7 +97,7 @@ class ConfigFilesHandler(rhnHandler):
         self.user = rhnUser.search(username)
         if not self.user or not (self.user.check_password(password)):
             raise rhnFault(2)
-        
+
         # Good to go
         session = self.user.create_session()
         return session.get_session()
@@ -145,14 +145,14 @@ class ConfigFilesHandler(rhnHandler):
         # Check for full path on the file
         path = file.get('path')
         if not (path[0] == os.sep):
-	        raise ConfigFilePathIncomplete(file)
+            raise ConfigFilePathIncomplete(file)
 
         if not file.has_key('config_file_type_id'):
-           log_debug(4, "Client does not support config directories, so set file_type_id to 1")
-           file['config_file_type_id'] = '1'
+            log_debug(4, "Client does not support config directories, so set file_type_id to 1")
+            file['config_file_type_id'] = '1'
         # Check if delimiters are present
         if self._is_file(file) and \
-                    not (file.get('delim_start') and file.get('delim_end')):
+           not (file.get('delim_start') and file.get('delim_end')):
             # Need delimiters
             raise ConfigFileMissingDelimError(file)
 
@@ -166,7 +166,7 @@ class ConfigFilesHandler(rhnHandler):
         file['file_mode'] = file.get('mode','')
         file['selinux_ctx'] = file.get('selinux_ctx','')
         result = {}
-        
+
         try:
 
             if self._is_file(file):
@@ -193,30 +193,30 @@ class ConfigFilesHandler(rhnHandler):
                 # for the specified action
                 raise ConfigFileExceedsQuota(file)
             raise
-        
+
         return {}
-    
+
     # A wrapper around _push_file, that also catches exceptions
     def push_file(self, config_channel_id, file):
         try:
             result = self._push_file(config_channel_id, file) 
-	except ConfigFilePathIncomplete, e:
-	    raise rhnFault(4015, 
-		"Full path of file '%s' must be specified" % e.file.get('path'),
-		explain=0)
+        except ConfigFilePathIncomplete, e:
+            raise rhnFault(4015,
+                           "Full path of file '%s' must be specified" % e.file.get('path'),
+                           explain=0)
         except ConfigFileExistsError, e:
             raise rhnFault(4013, 
-                "File %s already uploaded" % e.file.get('path'), 
-                explain=0)
+                           "File %s already uploaded" % e.file.get('path'),
+                           explain=0)
         except ConfigFileVersionMismatchError, e:
             raise rhnFault(4012, "File %s uploaded with a different "
-                "version" % e.file.get('path'), explain=0)
+                           "version" % e.file.get('path'), explain=0)
         except ConfigFileMissingDelimError, e:
             raise rhnFault(4008, "Delimiter not specified for file %s" %
-                e.file.get('path'), explain=0)
+                           e.file.get('path'), explain=0)
         except ConfigFileMissingContentError, e:
             raise rhnFault(4007, "No content sent for file %s" % 
-                e.file.get('path'), explain=0)
+                           e.file.get('path'), explain=0)
         except ConfigFileExceedsQuota, e:
             raise rhnFault(4014, "File size of %s exceeds free quota space" %
                            e.file.get('path'), explain=0)
@@ -265,15 +265,15 @@ class ConfigFilesHandler(rhnHandler):
 
         file['file_size'] = 0
         file['is_binary'] = 'N'
-        
+
         file_path = file.get('path')
         file_contents = file.get('file_contents') or ''
 
         if file.has_key('enc64') and file_contents:
             file_contents = base64.decodestring(file_contents)
 
-	if not file.has_key('config_file_type_id'):
-	    log_debug(4, "Client does not support config directories, so set file_type_id to 1")
+        if not file.has_key('config_file_type_id'):
+            log_debug(4, "Client does not support config directories, so set file_type_id to 1")
             file['config_file_type_id'] = '1'
 
         file['checksum_type'] = checksum_type
@@ -316,13 +316,13 @@ class ConfigFilesHandler(rhnHandler):
             h = rhnSQL.prepare(self._query_insert_content)
         else:
             h = rhnSQL.prepare(self._query_insert_null_content)
-            
+
         apply(h.execute, (), file)
 
         # Row should be there now
         h = rhnSQL.prepare(self._query_get_content_row)
         apply(h.execute, (), file)
-        
+
         row = h.fetchone_dict()
         if not row:
             # Ouch
@@ -381,7 +381,7 @@ class ConfigFilesHandler(rhnHandler):
         #h = rhnSQL.prepare(self._query_insert_config_file)
         #apply(h.execute, (), file)
         insert_call = rhnSQL.Function("rhn_config.insert_file",
-            rhnSQL.types.NUMBER())
+                                      rhnSQL.types.NUMBER())
         file['config_file_id'] = insert_call(file['config_channel_id'], file['path'])
 
     _query_lookup_revision = rhnSQL.Statement("""
@@ -391,7 +391,7 @@ class ConfigFilesHandler(rhnHandler):
          where config_file_id = :config_file_id
          order by revision desc
     """)
-    
+
     def _push_revision(self, file):
         # Assume we don't have any revision for now
         file['revision'] = 1
@@ -402,10 +402,10 @@ class ConfigFilesHandler(rhnHandler):
             # Is it the same revision as this one?
 
             fields = ['config_content_id', 'config_info_id', 'config_file_type_id']
-	    
-	    if not file.has_key('config_file_type_id'):
-	        log_debug(4, "Client does not support config directories, so set file_type_id to 1")
-		file['config_file_type_id'] = '1'
+
+            if not file.has_key('config_file_type_id'):
+                log_debug(4, "Client does not support config directories, so set file_type_id to 1")
+                file['config_file_type_id'] = '1'
 
             for f in fields:
                 if file.get(f) != row.get(f):
@@ -429,8 +429,8 @@ class ConfigFilesHandler(rhnHandler):
         if self.user and hasattr(self.user, 'getid'):
             self._add_author(file, self.user)
         self._update_config_file(file)
-                
-    
+
+
     _query_update_revision = rhnSQL.Statement("""
         update rhnConfigRevision 
            set modified = sysdate 
@@ -441,15 +441,15 @@ class ConfigFilesHandler(rhnHandler):
         h = rhnSQL.prepare(self._query_update_revision)
         apply(h.execute, (), file)
 
-                    
+
     def _insert_revision(self, file):
         insert_call = rhnSQL.Function("rhn_config.insert_revision", 
-            rhnSQL.types.NUMBER())
+                                      rhnSQL.types.NUMBER())
         file['config_revision_id'] = insert_call(file['revision'],
                                                  file['config_file_id'],
                                                  file.get('config_content_id',''),
                                                  file['config_info_id'],
-       						 file['config_file_type_id']) 
+                                                 file['config_file_type_id'])
 
     _query_update_revision_add_author = rhnSQL.Statement("""
         update rhnConfigRevision
@@ -480,7 +480,7 @@ class ConfigFilesHandler(rhnHandler):
             server = var_interp_prep(self.server)
 
         return format_file_results(row, server=server)
-        
+
     def _get_maximum_file_size(self):
         return CFG.maximum_config_file_size
 
@@ -505,7 +505,7 @@ def format_file_results(row, server=None):
         if client_caps and client_caps.has_key('configfiles.base64_enc'):
             encoding = 'base64'
             contents = base64.encodestring(contents)
-        
+
     return {
         'path'          : row['path'],
         'config_channel': row['config_channel'],
