@@ -20,7 +20,7 @@ to allow the processing of streaming data.
 
 
 %prep
-%setup
+%setup -q
 
 %build
 %{__python} setup.py build
