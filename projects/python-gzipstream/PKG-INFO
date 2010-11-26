@@ -1,0 +1,13 @@
+Metadata-Version: 1.0
+Name: gzipstream
+Version: 1.4.0
+Summary: Streaming zlib (gzip) support for python
+Home-page: http://rhn.redhat.com
+Author: Todd Warner
+Author-email: taw@redhat.com
+License: PSF
+Description: A streaming gzip handler.
+        gzipstream.GzipStream extends the functionality of the gzip.GzipFile class
+        to allow the processing of streaming data.
+
+Platform: UNKNOWN
