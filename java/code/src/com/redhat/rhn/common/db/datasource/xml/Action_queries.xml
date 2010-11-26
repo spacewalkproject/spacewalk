@@ -263,14 +263,6 @@ UPDATE rhnAction
   </query>
 </write-mode>
 
-<write-mode name="cancel_actions">
-  <query params="server_id, action_id">
-BEGIN
-  rhn_server.remove_action(:server_id, :action_id);
-END;
-  </query>
-</write-mode>
-
 <write-mode name="schedule_action">
   <query params="action_id, name_id, evr_id, arch_id">
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id, package_arch_id)
