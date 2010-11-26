@@ -35,6 +35,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %{python_sitelib}/*
+%doc LICENSE
 
 %changelog
 * Fri Nov 26 2010 Miroslav Suchý <msuchy@redhat.com> 1.4.1-1
