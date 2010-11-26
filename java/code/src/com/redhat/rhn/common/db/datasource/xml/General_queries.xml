@@ -275,24 +275,6 @@ ORDER BY KTZ.name
   </query>
 </mode>
 
-<write-mode name="insert_set_for_label">
-  <query params="user_id, label, element, element_two">
-    INSERT
-      INTO rhnSet
-           (user_id, label, element, element_two)
-    VALUES (:user_id, :label, :element, :element_two)
-  </query>
-</write-mode>
-
-<write-mode name="delete_set_for_label">
-  <query params="user_id, label">
-    DELETE
-      FROM rhnSet
-     WHERE user_id = :user_id
-       AND label = :label
-  </query>
-</write-mode>
-
 <write-mode name="update_current_alerts_date_completed">
   <query>
     UPDATE rhn_current_alerts
