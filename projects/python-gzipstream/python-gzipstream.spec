@@ -4,13 +4,13 @@ Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
 Version: 1.4.1
 Release: 1%{?dist}
-Source0: gzipstream-%{version}.tar.gz
+URL:        https://fedorahosted.org/spacewalk
+Source0:    https://fedorahosted.org/releases/s/p/spacewalk/python-gzipstream-%{version}.tar.gz
 License: Python and GPLv2
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildArch: noarch
 BuildRequires: python-devel
-Url: http://rhn.redhat.com
 
 
 %description
@@ -20,7 +20,7 @@ to allow the processing of streaming data.
 
 
 %prep
-%setup -q -n gzipstream-%{version}
+%setup
 
 %build
 %{__python} setup.py build
