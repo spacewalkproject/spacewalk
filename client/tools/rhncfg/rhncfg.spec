@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.34
+Version: 5.9.35
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Nov 26 2010 Jan Pazdziora 5.9.35-1
+- 656895 - fixing other instances of two-parameter utils.startswith.
+- 656895 - Need to call startswith on string.
+
 * Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.34-1
 - removed unused imports
 
