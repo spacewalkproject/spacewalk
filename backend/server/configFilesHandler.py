@@ -137,6 +137,17 @@ class ConfigFilesHandler(rhnHandler):
     def _is_link(self, file):
         return str(file['config_file_type_id']) == '3'
 
+    _query_current_selinux_lookup = rhnSQL.Statement("""
+       select ci.selinux_ctx from rhnConfigInfo ci, rhnConfigRevision cr, rhnConfigFile cf
+       where ci.id = cr.config_info_id
+         and cf.id = cr.config_file_id
+         and cf.config_file_name_id = lookup_config_filename(:path)
+         and cr.revision = (
+           select max(mcr.revision) from rhnConfigRevision mcr, rhnConfigFile mcf
+           where mcf.id = mcr.config_file_id
+             and mcf.config_file_name_id = cf.config_file_name_id
+      )
+    """)
     def _push_file(self, config_channel_id, file):
         if not file:
             # Nothing to do
@@ -164,7 +175,22 @@ class ConfigFilesHandler(rhnHandler):
         file['username'] = file.get('user','')
         file['groupname'] = file.get('group','')
         file['file_mode'] = file.get('mode','')
-        file['selinux_ctx'] = file.get('selinux_ctx','')
+        # if the selinux flag is not sent by the client it is set to the last file revision  
+        # (or to the empty string in case of first revision) - see the bug  
+        # 644985 - SELinux context cleared from RHEL4 rhncfg-client
+        selinux_ctx_or_none = file.get('selinux_ctx', None)
+        if selinux_ctx_or_none is None:
+            # RHEL4 or RHEL5+ with disabled selinux - set from the last revision
+            h = rhnSQL.prepare(self._query_current_selinux_lookup)
+            apply(h.execute, (), file)
+            row = h.fetchone_dict()
+            if row:
+                file['selinux_ctx'] = row['selinux_ctx']
+            else:
+                file['selinux_ctx'] = ''
+        else:
+            # RHEL5+ with enabled selinux - set from the incoming request
+            file['selinux_ctx'] = selinux_ctx_or_none
         result = {}
 
         try:

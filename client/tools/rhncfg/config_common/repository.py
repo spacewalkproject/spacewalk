@@ -28,12 +28,13 @@ import utils
 from rhn_log import log_debug
 
 try:
-    from selinux import lgetfilecon
+    from selinux import lgetfilecon, is_selinux_enabled
 except:
     # on rhel4 we do not support selinux
     def lgetfilecon(path):
-        return [0, ''];
-
+        return [0, '']
+    def is_selinux_enabled():
+        return 0
 
 #6/29/05 rpc_wrapper implements the failover logic.
 import rpc_wrapper
@@ -132,9 +133,12 @@ class Repository:
             ret['group'] = gr_name
             self._gid_cache[gid] = gr_name
 
-        ret['selinux_ctx'] = lgetfilecon(path)[1]
-        if ret['selinux_ctx'] == None:
-            ret['selinux_ctx'] = ''
+        # if selinux is disabled or on RHEL4 we do not send the selinux_ctx
+        # flag at all - see bug 644985 - SELinux context cleared from
+        # RHEL4 rhncfg-client
+        selinux_ctx = lgetfilecon(path)[1]
+        if is_selinux_enabled():
+            ret['selinux_ctx'] = selinux_ctx
 
         return ret
 
