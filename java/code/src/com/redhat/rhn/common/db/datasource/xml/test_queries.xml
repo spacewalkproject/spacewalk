@@ -175,14 +175,6 @@ update rhnServerGroup set group_type = :type_id where id = :sgid
   </query>
 </callable-mode>
 
-<mode name="date_test">
-  <query>
-SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
-  FROM all_users u
- WHERE u.username='SYS'
-  </query>
-</mode>
-
 <mode name="date_dto_test" class="com.redhat.rhn.common.db.datasource.test.TestDateDto">
   <query>
 SELECT u.created as CREATED
@@ -373,22 +365,6 @@ SELECT *
   </query>
 </mode>
 
-<write-mode name="insert_into_notifications">
-  <query params="id, org_id, contact_email_address">
-INSERT
-  INTO web_customer_notification
-VALUES (:id, :org_id, :contact_email_address, sysdate)
-  </query>
-</write-mode>
-
-<mode name="get_user_notification">
-  <query params="id">
-SELECT *
-  FROM web_customer_notification
- WHERE id = :id
-  </query>
-</mode>
-
 <mode name="get_daily_summary_queue">
     <query params="">
 SELECT * FROM rhnSummaryQueue
@@ -429,13 +405,6 @@ SELECT * from rhntransactionpackage where
     </query>
 </mode>
 	
-<mode name="select_virtual_instance">
-    <query params="sid">
-SELECT * FROM rhnVirtualInstance WHERE virtual_system_id = :sid OR
-	 host_system_id = :sid
-    </query>
-</mode>
-
 <mode name="select_virtual_instance_by_id">
     <query params="id">
 SELECT * FROM rhnVirtualInstance WHERE id = :id
