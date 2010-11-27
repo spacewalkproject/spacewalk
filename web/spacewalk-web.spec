@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Sat Nov 27 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.7-1
+- 649706 - execute all recomendations from segment advisor
+
 * Fri Nov 26 2010 Jan Pazdziora 1.3.6-1
 - Fix handling of eval (DBD::Oracle).
 - 642285 - introducing disabled TaskStatus page (tlestach@redhat.com)
