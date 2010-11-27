@@ -210,19 +210,11 @@ sub shrink_segment {
 
   my $query;
 
-  if ($seg->{SEGMENT_TYPE} eq 'TABLE') {
-    $query = sprintf("alter table %s.%s shrink space",
-                     @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
-  } elsif ($seg->{SEGMENT_TYPE} eq 'INDEX') {
-    $query = sprintf("alter index %s.%s shrink space",
-                     @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
-  } else {
-    printf "ERROR: do not know how to shrink %s %s.%s\n",
-            @$seg{qw/SEGMENT_TYPE SEGMENT_OWNER SEGMENT_NAME/};
-    return -1;
-  }
   my $dbh = $self->connect;
-  $dbh->do($query);
+  for $rec ('C3', 'C2', 'C1') {
+        next if not defined($seg->{$rec});
+        $dbh->do($seg->{$rec});
+  }
 }
 
 sub listener_startup {
