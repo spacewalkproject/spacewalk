@@ -85,8 +85,8 @@ class i18n:
         self._set_catalog()
 
 
-def N_(str):
-    return str
+def N_(msg):
+    return msg
 
 cat = i18n()
 _ = cat.gettext
