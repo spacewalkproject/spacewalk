@@ -246,7 +246,7 @@ class Cache:
 
         return s
 
-    def set(self, name, value, modified = None, user='root', group='root',\
+    def set(self, name, value, modified = None, user='root', group='root', \
             mode=0755):
         fd = self.set_file(name, modified, user, group, mode)
 
@@ -355,7 +355,7 @@ class ObjectCache:
         except cPickle.UnpicklingError:
             raise KeyError(name)
     
-    def set(self, name, value, modified = None, user='root', group='root',\
+    def set(self, name, value, modified = None, user='root', group='root', \
             mode=0755):
         pickled = cPickle.dumps(value, -1)
         self.cache.set(name, pickled, modified, user, group, mode)
