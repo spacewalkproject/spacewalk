@@ -18,7 +18,6 @@
 
 # system module imports
 import time
-import string
 
 
 # global module imports
@@ -140,7 +139,7 @@ class rhnApache:
         """ determine what language the client prefers """
         if req.headers_in.has_key("Accept-Language"):
             # RFC 2616 #3.10: case insensitive
-            lang = string.lower(req.headers_in["Accept-Language"])
+            lang = req.headers_in["Accept-Language"].lower()
         else:
             lang = "C"
         self.setlang(lang, self._lang_catalog)
@@ -226,7 +225,7 @@ class rhnApache:
         And another lang function to produce the list of languages we're
         handling
         """
-        return string.join(cat.getlangs(), "; ")
+        return "; ".join(cat.getlangs())
 
     def _setSessionToken(self, headers):
         """ Pushes token into rhnFlags. If doesn't exist, returns None.
@@ -241,7 +240,7 @@ class rhnApache:
             return None
         prefix = "x-rhn-auth"
         tokenKeys = filter(
-            lambda x, prefix=prefix: string.lower(x[:len(prefix)]) == prefix,
+            lambda x, prefix=prefix: x[:len(prefix)].lower() == prefix,
                 headers.keys())
         for k in tokenKeys:
             token[k] = headers[k]
