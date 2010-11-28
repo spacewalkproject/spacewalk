@@ -26,7 +26,6 @@ from errno import EEXIST
 
 from rhnLib import timestamp
 import rhn_posix
-import fcntl
 
 from spacewalk.common.fileutils import makedirs, setPermsPath
 
