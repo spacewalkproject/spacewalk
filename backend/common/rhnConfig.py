@@ -691,28 +691,28 @@ def runTest():
     print "Component tree of all installed components:"
     pprint.pprint(getAllComponents_tree())
     print
-    cfg = RHNOptions(sys.argv[1])
-#    cfg = RHNOptions('server.app')
-#    cfg = RHNOptions('proxy.broker')
-#    cfg = RHNOptions('proxy.redirect', _CONFIG_ROOT)
-#    cfg = RHNOptions('proxy.redirect', '/tmp')
-#    cfg.filename = 'empty.conf'
-    cfg.parse()
+    test_cfg = RHNOptions(sys.argv[1])
+#    test_cfg = RHNOptions('server.app')
+#    test_cfg = RHNOptions('proxy.broker')
+#    test_cfg = RHNOptions('proxy.redirect', _CONFIG_ROOT)
+#    test_cfg = RHNOptions('proxy.redirect', '/tmp')
+#    test_cfg.filename = 'empty.conf'
+    test_cfg.parse()
     print "=============== the object's repr ================================"
-    print cfg
+    print test_cfg
     print "=============== the object's defaults ============================"
-    pprint.pprint(cfg._getDefaults())
+    pprint.pprint(test_cfg._getDefaults())
     print "=============== an erronous lookup example ======================="
     print "testing __getattr__"
     try:
-        print cfg.lkasjdfxxxxxxxxxxxxxx
+        print test_cfg.lkasjdfxxxxxxxxxxxxxx
     except AttributeError, e:
         print 'Testing: "AttributeError: %s"' % e
     print
     print "=============== the object's merged settings ======================"
-    cfg.show()
+    test_cfg.show()
     print "=============== dump of all relevant dictionaries ================="
-    cfg._showall()
+    test_cfg._showall()
     print "==================================================================="
 #    confDict = {
 #        'traceback_mail': 'testing@here.com, test2@here.com',
@@ -750,7 +750,7 @@ def runTest():
         'server.satellite.rhn_parent': "RHN 'parent' server of this satellite",
         'server.BLAH': "TESTING... SHOULD NEVER WRITE THIS COMMENT!",
         }
-    cfg.writeConfig(confDict, commentDict, stream=sys.stdout)
+    test_cfg.writeConfig(confDict, commentDict, stream=sys.stdout)
 
 
 #------------------------------------------------------------------------------
