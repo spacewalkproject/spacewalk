@@ -758,21 +758,21 @@ def runTest():
 
 if __name__ == "__main__":
     do_list = 0
-    comp = None
+    comp_arg = None
     key = None
 
     if len(sys.argv) == 4 and sys.argv[1] == "get":
-        comp = sys.argv[2]
+        comp_arg = sys.argv[2]
         key = sys.argv[3]
     elif len(sys.argv) == 3 and sys.argv[1] == "list":
-        comp = sys.argv[2]
+        comp_arg = sys.argv[2]
         do_list = 1
     else:
         # Assume test mode.
         runTest()
         sys.exit(1)
 
-    cfg = RHNOptions(comp)
+    cfg = RHNOptions(comp_arg)
     cfg.parse()
 
     if do_list:
