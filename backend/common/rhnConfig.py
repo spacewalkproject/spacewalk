@@ -17,7 +17,6 @@ import os
 import sys
 import glob
 import stat
-import string
 
 from UserDictCase import UserDictCase
 
@@ -30,8 +29,7 @@ def warn(*args):
     """
     Function used for debugging purposes
     """
-    sys.stderr.write("CONFIG PARSE WARNING: %s\n" % \
-                     string.join(map(str, args)))
+    sys.stderr.write("CONFIG PARSE WARNING: %s\n" % " ".join(map(str, args)))
 
 
 class ConfigParserError(Exception):
@@ -156,7 +154,7 @@ class RHNOptions:
             conffile = "%s/default/rhn.conf" % (self.root)
             if comp:
                 conffile = "%s/default/rhn_%s.conf" % (self.root,
-                                                       string.join(comp, '_'))
+                                                       '_'.join(comp))
             # if the file is not there (or can't be read), skip
             if not os.access(conffile, os.R_OK):
                 warn("File not found or can't be read", conffile)
@@ -248,7 +246,7 @@ class RHNOptions:
                 comment = ""
                 if comp:
                     # just for the comment lookup
-                    k = string.join(comp+(k, ), '.')
+                    k = '.'.join(comp+(k, ))
                 if commentDict.has_key(k):
                     comment = '# %s\n' % commentDict[k]
                 # write it
@@ -272,18 +270,18 @@ class RHNOptions:
         for comp in configDict.keys():
             if comp not in unique:
                 unique.append(comp)
-            possible = parse_comps(string.join(comp, '.'))
+            possible = parse_comps('.'.join(comp))
             for c in possible:
                 if not diffDict.has_key(c):
                     diffDict[c] = {}
 
         # examine all the components and keys
         for comp in unique:
-            self.__component = string.join(comp, '.')
+            self.__component = '.'.join(comp)
             self._parseDefaults(allCompsYN=0)
             if self.__defaults.has_key(comp):
                 for k in configDict[comp].keys():
-                    possible = parse_comps(string.join(comp, '.'))
+                    possible = parse_comps('.'.join(comp))
                     keyFoundYN = 0
                     # is the key at least in the component tree?
                     for c in possible:
@@ -454,7 +452,7 @@ def parse_comps(component):
     # Split the component name on '.'
     if not component:
         return [()]
-    comps = map(string.lower, string.split(component, '.'))
+    comps = [c.lower() for c in component.split('.')]
     # Now generate the prefixes for this component
     return map(lambda i, a=comps: tuple(a[:i]), range(len(comps)+1))
 
@@ -479,7 +477,7 @@ def parse_line(line):
                        'server.satellite.http_proxy_username': str,
                        'server.satellite.http_proxy_password': str,
                        'server.satellite.rhn_parent': str}
-        val = string.strip(val)
+        val = val.strip()
 
         if converTable.get(key):
             try:
@@ -499,33 +497,33 @@ def parse_line(line):
         return val
 
     # Strip out any comments.
-    i = string.find(line, '#')
+    i = line.find('#')
     if i >= 0:
         line = line[:i]
-    line = string.strip(line)
+    line = line.strip()
     if not line:
         return (None, None)
 
     # now split it into keys and values. We allow for max one
     # split/cut (the first one)
-    (keys, vals) = map(string.strip, string.split(line, '=', 1))
+    (keys, vals) = [c.strip() for c in line.split('=', 1)]
 
     # extract the keys, convert to lowercase
-    keys = string.lower(keys)
+    keys = keys.lower()
     if not keys:
         raise ConfigParserError("Missing Key = expression")
 
     # extract the values, preserving case
     if not vals:
-        keys = string.split(keys, varSeparator)
+        keys = keys.split(varSeparator)
         return (keys, None)
     # split and sanitize
-    vals = map(sanitize_value, [keys]*len(string.split(vals, optSeparator)),
-               string.split(vals, optSeparator))
+    vals = map(sanitize_value, [keys]*len(vals.split(optSeparator)),
+               vals.split(optSeparator))
     if len(vals) == 1:
         # Single value
         vals = vals[0]
-    keys = string.split(keys, varSeparator)
+    keys = keys.split(varSeparator)
     # and now return our findings
     return (keys, vals)
 
@@ -542,13 +540,13 @@ def unparse_line(component, key, value):
 
     k = key
     if component:
-        k = string.join(component+(k, ), varSeparator)
+        k = varSeparator.join(component+(k, ))
     if type(value) == type(()):
         # ignore the line number
         value = value[0]
     v = value
     if type(value) == type([]):
-        v = string.join(map(str, value), optSeparator + " ")
+        v = (optSeparator + " ").join(map(str, value))
     if v is None:
         v = ''
     v = str(v)
@@ -634,13 +632,13 @@ def getAllComponents_tree(defaultDir=None):
     compTree = {}
     for comp in comps:
         comp = os.path.basename(comp)
-        comp = comp[:string.find(comp, '.')]       # left of .conf
-        parts = string.split(comp, '_')[1:]        # strip off that rhn_
+        comp = comp[:comp.find('.')]       # left of .conf
+        parts = comp.split('_')[1:]        # strip off that rhn_
         if not parts:
             continue
         d = compTree
         for i in range(len(parts)):
-            key = string.join(parts[:i+1], '.')
+            key = '.'.join(parts[:i+1])
             if not d.has_key(key):
                 d[key]={}
             d = d[key]
