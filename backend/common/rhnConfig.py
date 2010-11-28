@@ -52,7 +52,7 @@ class RHNOptions:
         component and the configuration tree - across all instances of this
         class.
     """
-    def __init__(self, component=None, root=None, file=None):
+    def __init__(self, component=None, root=None, filename=None):
         self.__component = None
         # Defaults for each option, keyed on tuples
         self.__defaults = {}
@@ -64,18 +64,18 @@ class RHNOptions:
         # Last modification date for the config file
         self.__timestamp = 0
         # NOTE: root: root directory location of config files.
-        self._init(component, root, file)
+        self._init(component, root, filename)
 
-    def _init(self, component, root=None, file=None):
+    def _init(self, component, root=None, filename=None):
         """
         Visible function, so that we can re-init the object without
         losing the reference to it
         """
         if root is None:
             root = _CONFIG_ROOT
-        self.file = file
-        if self.file is None:
-            self.file = _CONFIG_FILE
+        self.filename = filename
+        if self.filename is None:
+            self.filename = _CONFIG_FILE
         self.setComponent(component)
         self.root = root
 
@@ -95,10 +95,10 @@ class RHNOptions:
         """returns last modified time diff if rhn.conf has changed."""
 
         try:
-            si = os.stat(self.file)
+            si = os.stat(self.filename)
         except OSError, e:
             raise ConfigParserError("config file read error",
-                                    self.file, e.args[1])
+                                    self.filename, e.args[1])
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
@@ -131,8 +131,8 @@ class RHNOptions:
         self._parseDefaults(allCompsYN=0)
 
         # Now that we parsed the defaults, we parse the multi-key
-        # self.file configuration (ie, /etc/rhn/rhn.conf)
-        self.__parsedConfig = parse_file(self.file)
+        # self.filename configuration (ie, /etc/rhn/rhn.conf)
+        self.__parsedConfig = parse_file(self.filename)
 
         # And now generate and cache the current component
         self.__merge()
@@ -210,7 +210,7 @@ class RHNOptions:
         NOTE: *DESTRUCTIVE* will overwrite file always.
         """
         if stream is None:
-            stream = open(self.file, 'wb')
+            stream = open(self.filename, 'wb')
         _dict = {}
         # convert to a dict of the sort understood by the object if not
         # already converted
@@ -403,7 +403,7 @@ class RHNOptions:
                 ## uncomment this section
                 #if not opts.has_key(key): # Unknown keyword
                 #    warn("Warning: in file %s, line %s: unknown "
-                #        "option name `%s'" % (self.file, lineno, key))
+                #        "option name `%s'" % (self.filename, lineno, key))
                 #    continue
                 opts[key] = values
         # and now save it
@@ -553,11 +553,11 @@ def unparse_line(component, key, value):
     return '%s = %s' % (k, v)
 
 
-def parse_file(file, single_key = 0):
+def parse_file(filename, single_key = 0):
     """
     parse a config file (read it in, parse its lines)
     """
-    lines = read_file(file)
+    lines = read_file(filename)
     # the base case, an empty tuple component, is always present.
     ret = {(): {}}
     lineno = 0
@@ -569,7 +569,7 @@ def parse_file(file, single_key = 0):
             (keys, values) = parse_line(line)
         except:
             raise ConfigParserError("Parse Error: <%s:%s>: '%s'" % (
-                file, lineno, line))
+                filename, lineno, line))
         if keys is None: # We don't care about this line
             continue
         # now process the parsed line
@@ -577,7 +577,7 @@ def parse_file(file, single_key = 0):
             # Error, we should not have more than one key in the this
             # config file
 #            raise ConfigParserError("Parse Error: <%s:%s>: too many keys"
-#              % (file, lineno))
+#              % (filename, lineno))
             # let's fix the faulty config=file setup...
             # XXX: needs more testing!!! (2003-04-17)
             del keys[:-1]
@@ -592,12 +592,12 @@ def parse_file(file, single_key = 0):
     return ret
 
 
-def read_file(file):
+def read_file(filename):
     """
     reads a text config file and returns its lines in a list
     """
     try:
-        lines = open(file, 'rb').readlines()
+        lines = open(filename, 'rb').readlines()
         new_lines = []
         combined = ''
         for line in lines:
@@ -610,7 +610,7 @@ def read_file(file):
                 combined = combined + line.replace('\\\n', ' ') 
         return new_lines
     except (IOError, OSError), e:
-        raise ConfigParserError("Can not read config file", file, e.args[1])
+        raise ConfigParserError("Can not read config file", filename, e.args[1])
 
 
 def getAllComponents_tree(defaultDir=None):
@@ -673,13 +673,13 @@ def getAllComponents_tuples(defaultDir=None):
 CFG = RHNOptions()
 
 
-def initCFG(component=None, root=None, file=None):
+def initCFG(component=None, root=None, filename=None):
     """
     Main entry point here
     """
     # NOTE: root: root directory location of config files.
     global CFG
-    CFG._init(component, root, file)
+    CFG._init(component, root, filename)
     CFG.parse()
 
 
@@ -694,7 +694,7 @@ def runTest():
 #    cfg = RHNOptions('proxy.broker')
 #    cfg = RHNOptions('proxy.redirect', _CONFIG_ROOT)
 #    cfg = RHNOptions('proxy.redirect', '/tmp')
-#    cfg.file = 'empty.conf'
+#    cfg.filename = 'empty.conf'
     cfg.parse()
     print "=============== the object's repr ================================"
     print cfg
