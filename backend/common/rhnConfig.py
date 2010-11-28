@@ -759,7 +759,7 @@ def runTest():
 
 
 if __name__ == "__main__":
-    list = 0
+    do_list = 0
     comp = None
     key = None
 
@@ -768,7 +768,7 @@ if __name__ == "__main__":
         key = sys.argv[3]
     elif len(sys.argv) == 3 and sys.argv[1] == "list":
         comp = sys.argv[2]
-        list = 1
+        do_list = 1
     else:
         # Assume test mode.
         runTest()
@@ -777,7 +777,7 @@ if __name__ == "__main__":
     cfg = RHNOptions(comp)
     cfg.parse()
 
-    if list:
+    if do_list:
         cfg.show()
     else:
         print cfg.get(key)
