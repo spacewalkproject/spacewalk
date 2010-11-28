@@ -759,11 +759,11 @@ def runTest():
 if __name__ == "__main__":
     do_list = 0
     comp_arg = None
-    key = None
+    key_arg = None
 
     if len(sys.argv) == 4 and sys.argv[1] == "get":
         comp_arg = sys.argv[2]
-        key = sys.argv[3]
+        key_arg = sys.argv[3]
     elif len(sys.argv) == 3 and sys.argv[1] == "list":
         comp_arg = sys.argv[2]
         do_list = 1
@@ -778,4 +778,4 @@ if __name__ == "__main__":
     if do_list:
         cfg.show()
     else:
-        print cfg.get(key)
+        print cfg.get(key_arg)
