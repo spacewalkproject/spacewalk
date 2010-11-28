@@ -66,8 +66,8 @@ class UserDictCase(UserDict):
     # get a dictionary out of this instance ({}.update doesn't get instances)
     def dict(self):
         return self.get_hash()
-    def update(self, dict):
-        for (k, v) in dict.items():
+    def update(self, updict):
+        for (k, v) in updict.items():
             lk = k
             if isinstance(k, StringType):
                 lk = k.lower()
