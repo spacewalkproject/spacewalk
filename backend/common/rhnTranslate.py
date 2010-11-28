@@ -16,7 +16,6 @@
 import os
 import types
 import gettext
-import string
 
 class RHN_Translations(gettext.GNUTranslations):
     # Defining our own class, since we'd like to save the language we use
@@ -28,7 +27,7 @@ class RHN_Translations(gettext.GNUTranslations):
         filename = fp.name
         filename = os.path.normpath(filename)
         # Extract the language
-        self.lang = string.split(filename, '/')[-3]
+        self.lang = filename.split('/')[-3]
 
     def getlangs(self):
         # Return all languages
