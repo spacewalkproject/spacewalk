@@ -77,8 +77,10 @@ class i18n:
 
     # reinitialize this catalog
     def set(self, domain=None, localedir=None):
-        if domain: self.domain = domain
-        if localedir: self.localedir = localedir
+        if domain:
+            self.domain = domain
+        if localedir:
+            self.localedir = localedir
         self._set_catalog()
 
 
