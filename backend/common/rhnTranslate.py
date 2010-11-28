@@ -50,6 +50,7 @@ class i18n:
         self.domain = domain
         self.localedir = localedir
         self.langs = self._default_langs[:]
+        self.cat = None
         self._set_catalog()
 
     def _set_catalog(self):
