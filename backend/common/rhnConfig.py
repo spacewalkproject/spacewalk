@@ -413,7 +413,7 @@ class RHNOptions:
 
     ### protected/test methods
 
-    def _getDefaults(self):
+    def getDefaults(self):
         """returns the __defaults dict (dictionary of parsed defaults).
         """
         self.__check()
@@ -433,7 +433,7 @@ class RHNOptions:
         self.__check()
         return self.__configs
 
-    def _showall(self):
+    def showall(self):
         from pprint import pprint
         print "__defaults: dictionary of parsed defaults."
         pprint(self.__defaults)
@@ -701,7 +701,7 @@ def runTest():
     print "=============== the object's repr ================================"
     print test_cfg
     print "=============== the object's defaults ============================"
-    pprint.pprint(test_cfg._getDefaults())
+    pprint.pprint(test_cfg.getDefaults())
     print "=============== an erronous lookup example ======================="
     print "testing __getattr__"
     try:
@@ -712,7 +712,7 @@ def runTest():
     print "=============== the object's merged settings ======================"
     test_cfg.show()
     print "=============== dump of all relevant dictionaries ================="
-    test_cfg._showall()
+    test_cfg.showall()
     print "==================================================================="
 #    confDict = {
 #        'traceback_mail': 'testing@here.com, test2@here.com',
