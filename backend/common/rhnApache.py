@@ -43,6 +43,7 @@ class rhnApache:
 
     def __init__(self):
         self.lang = "C"
+        self.domain = None
         self.clientVersion = 0
         self.proxyVersion = None
         self.start_time = 0
