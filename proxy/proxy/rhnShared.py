@@ -80,7 +80,7 @@ class SharedHandler:
         # Just to be on the safe side
         if self.req.main:
             # A subrequest
-            return apache.DECLINE
+            return apache.DECLINED
         log_debug(4, rhnFlags.all())
 
         if not self.rhnParent:

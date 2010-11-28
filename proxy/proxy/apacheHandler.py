@@ -180,7 +180,7 @@ class apacheHandler(rhnApache):
         if not req.headers_in or not req.headers_in.has_key(HEADER_ACTUAL_URI):
             log_error("Kickstart request header did not include '%s'" \
                       % HEADER_ACTUAL_URI)
-            return apache.DECLINE
+            return apache.DECLINED
 
         # The original URI is embedded in the headers under X-RHN-ActualURI.
         # Remove it, and place it in the X-RHN-EffectiveURI header.

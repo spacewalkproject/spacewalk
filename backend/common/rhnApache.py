@@ -62,7 +62,7 @@ class rhnApache:
         self.start_time = time.time()
         # Decline if this is a subrequest:
         if req.main:
-            return apache.DECLINE
+            return apache.DECLINED
         log_debug(4, req.method, req.path_info, req.headers_in)
 
         # Clear the global flags.
