@@ -310,7 +310,7 @@ class CompressedCache:
             value = fd.read()
         except (ValueError, IOError, gzip.zlib.error), e:
             # Some gzip error
-            # XXX poking at gzip.zlib may not be such a good idea
+            # poking at gzip.zlib may not be such a good idea
             fd.close()
             raise KeyError(name)
         fd.close()
