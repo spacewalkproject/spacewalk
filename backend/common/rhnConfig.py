@@ -66,9 +66,9 @@ class RHNOptions:
         # NOTE: root: root directory location of config files.
         self.root = None
         self.filename = None
-        self._init(component, root, filename)
+        self.init(component, root, filename)
 
-    def _init(self, component, root=None, filename=None):
+    def init(self, component, root=None, filename=None):
         """
         Visible function, so that we can re-init the object without
         losing the reference to it
@@ -681,7 +681,7 @@ def initCFG(component=None, root=None, filename=None):
     """
     # NOTE: root: root directory location of config files.
     global CFG
-    CFG._init(component, root, filename)
+    CFG.init(component, root, filename)
     CFG.parse()
 
 
