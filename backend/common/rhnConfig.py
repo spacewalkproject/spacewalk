@@ -397,8 +397,8 @@ class RHNOptions:
             if not self.__parsedConfig.has_key(comp):
                 # No such entry in the config file
                 continue
-            for key, (values, lineno) in self.__parsedConfig[comp].items():
-                ## XXX: we don't really want to force every item in the
+            for key, (values, _lineno_) in self.__parsedConfig[comp].items():
+                ## we don't really want to force every item in the
                 ## config file to have a default value first. If we do,
                 ## uncomment this section
                 #if not opts.has_key(key): # Unknown keyword
