@@ -61,7 +61,7 @@ def rfc822time(arg):
     # Now, the arg must be a float.
 
     (tm_year, tm_mon, tm_mday, tm_hour, tm_min, \
-         tm_sec, tm_wday, tm_yday, tm_isdst) = time.gmtime(arg)
+         tm_sec, tm_wday, _tm_yday_, _tm_isdst_) = time.gmtime(arg)
 
     return \
         "%s, %02d %s %04d %02d:%02d:%02d %s" % \
