@@ -22,6 +22,10 @@ class RHN_Translations(gettext.GNUTranslations):
     # Determining the language is not very pretty - we parse the file name
     # which is supposed to be something like
     # .../<lang>/LC_MESSAGES/<domain>.po
+    def __init__(self, fp=None):
+        self.lang = None
+        gettext.GNUTranslations.__init__(self, fp)
+
     def _parse(self, fp):
         gettext.GNUTranslations._parse(self, fp)
         filename = fp.name
