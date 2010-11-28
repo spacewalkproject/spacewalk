@@ -642,7 +642,7 @@ def getAllComponents_tree(defaultDir=None):
         for i in range(len(parts)):
             key = '.'.join(parts[:i+1])
             if not d.has_key(key):
-                d[key]={}
+                d[key] = {}
             d = d[key]
     return compTree
 
