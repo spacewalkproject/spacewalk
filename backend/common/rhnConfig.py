@@ -64,6 +64,8 @@ class RHNOptions:
         # Last modification date for the config file
         self.__timestamp = 0
         # NOTE: root: root directory location of config files.
+        self.root = None
+        self.filename = None
         self._init(component, root, filename)
 
     def _init(self, component, root=None, filename=None):
