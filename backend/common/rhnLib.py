@@ -15,7 +15,6 @@
 
 import time
 import types
-import string
 import urlparse
 
 def setHeaderValue(mp_table, name, values):
@@ -149,7 +148,7 @@ def hash_object_id(object_id, factor):
     last few digits for the number. For instance, (812345, 3) should
     return 345"""
     # Grab the digits after -
-    num_id = string.split(object_id, '-')[-1]
+    num_id = object_id.split('-')[-1]
     # get last 'factor' numbers
     num_id = num_id[-factor:]
     return num_id.rjust(factor,'0')
