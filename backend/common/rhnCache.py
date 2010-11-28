@@ -309,7 +309,7 @@ class CompressedCache:
         fd = self.get_file(name, modified) 
         try:
             value = fd.read()
-        except (ValueError, IOError, gzip.zlib.error), e:
+        except (ValueError, IOError, gzip.zlib.error):
             # Some gzip error
             # poking at gzip.zlib may not be such a good idea
             fd.close()
