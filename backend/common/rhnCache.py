@@ -235,6 +235,8 @@ class WriteLockedFile(LockedFile):
 
 
 class Cache:
+    def __init__(self):
+        pass
 
     def get(self, name, modified = None):
         fd = self.get_file(name, modified)
