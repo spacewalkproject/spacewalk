@@ -340,7 +340,7 @@ class rhnException(Exception):
     """
 
     def __init__(self, *args):
-        apply(Exception.__init__, (self, ) + args)
+        Exception.__init__(self, *args)
         self.args = args
 
     def __repr__(self):
