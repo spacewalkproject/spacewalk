@@ -61,7 +61,7 @@ def load_deb(stream, filename):
         #header = rhn_deb.get_package_header(file=stream)
         header = deb_Header(filename)
     except:
-        raise InvalidPackageError(e)
+        raise InvalidPackageError
     stream.seek(0, 0)
 
     return header, stream
