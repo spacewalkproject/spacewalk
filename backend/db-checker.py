@@ -17,7 +17,6 @@
 import os
 import sys
 import types
-import string
 from optparse import OptionParser, Option
 
 _topdir = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -61,7 +60,7 @@ def main():
             print "Unable to import module %s: %s" % (module_name, e)
             continue
 
-        comps = string.split(pmn, '.')
+        comps = pmn.split('.')
         for c in comps[1:]:
             m = getattr(m, c)
 
@@ -76,7 +75,7 @@ def proper_module_name(module_name):
     if module_name.endswith(suffix):
         module_name = module_name[:-len(suffix)]
 
-    return string.replace(os.path.normpath(module_name), '/', '.')
+    return os.path.normpath(module_name).replace('/', '.')
 
 _objs_seen = {}
 
