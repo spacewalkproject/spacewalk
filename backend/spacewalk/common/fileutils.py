@@ -290,7 +290,7 @@ def createPath(path, user='apache', group='apache', chmod=0755, logging=1):
 def setPermsPath(path, user='apache', group='root', chmod=0750):
     """chown user.group and set permissions to chmod"""
     if not os.path.exists(path):
-        log_error("*** ERROR: Path doesn't exist (can't set permissions): %s" % path)
+        raise OSError, "*** ERROR: Path doesn't exist (can't set permissions): %s" % path
         sys.exit(-1)
 
     # If non-root, don't bother to change owners
@@ -300,12 +300,12 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     gc = GecosCache()
     uid = gc.getuid(user)
     if uid is None:
-        log_error(messages.missing_user % user)
+        raise OSError, messages.missing_user % user
         sys.exit(-1)
 
     gid = gc.getgid(group)
     if gid is None:
-        log_error(messages.missing_group % group)
+        raise OSError, messages.missing_group % group
         sys.exit(-1)
 
     uid_, gid_ = os.stat(path)[4:6]
