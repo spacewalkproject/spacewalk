@@ -22,6 +22,8 @@ import traceback
 from cStringIO import StringIO
 
 from rhnConfig import CFG
+from rhnLog import log_error
+from rhnTranslate import _
 import rhnMail
 import rhnFlags
 
@@ -186,10 +188,9 @@ def fetchTraceback(method=None, req=None, extra=None, with_locals=0):
 def exitWithTraceback(e, msg, exitnum, mail=0):
     tbOut = StringIO()
     Traceback(mail, ostream=tbOut, with_locals=1)
-    log(-1, _('ERROR: %s %s: %s') %
-        (e.__class__.__name__, msg, e), stream=sys.stderr)
-    log(-1, _('TRACEBACK: %s') % tbOut.getvalue(),
-        stream=sys.stderr)
+    log_error(-1, _('ERROR: %s %s: %s') %
+        (e.__class__.__name__, msg, e))
+    log_error(-1, _('TRACEBACK: %s') % tbOut.getvalue())
     sys.exit(exitnum)
 
 class SecurityList:
