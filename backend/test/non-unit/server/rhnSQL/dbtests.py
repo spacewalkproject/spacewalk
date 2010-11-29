@@ -36,6 +36,9 @@ class RhnSQLDatabaseTests(unittest.TestCase):
     Database connection tests that can be run against any supported database.
     """
 
+    def set_temp_table(self):
+        self.temp_table = "testtable%s" % randint(1, 10000000)
+
     def setUp(self):
         # Expect self.temp_table to have been created by subclass by now:
 
@@ -212,7 +215,7 @@ $$ LANGUAGE 'plpgsql';
     """
 
     def setUp(self):
-        self.temp_table = "testtable%s" % randint(1, 10000000)
+        self.set_temp_table()
         create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
         cursor = rhnSQL.prepare(create_table_query)
         cursor.execute()
@@ -248,7 +251,7 @@ END;
     """
 
     def setUp(self):
-        self.temp_table = "testtable%s" % randint(1, 10000000)
+        self.set_temp_table()
         create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
         cursor = rhnSQL.prepare(create_table_query)
         cursor.execute()
