@@ -18,7 +18,7 @@ import os
 import sys
 import types
 import string
-from optik import OptionParser, Option
+from optparse import OptionParser, Option
 
 _topdir = os.path.abspath(os.path.dirname(sys.argv[0]))
 if _topdir not in sys.path:
