@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.14
+Version: 1.3.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -672,6 +672,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Nov 29 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.15-1
+- fixed unit tests
+- run backend unit test in rpm build time
+
 * Thu Nov 25 2010 Lukas Zapletal 1.3.14-1
 - Fixing missing method parameter in rhn_config_management
 - fixed typo
