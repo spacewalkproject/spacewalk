@@ -49,6 +49,7 @@ class Tests(unittest.TestCase):
 
     def _test(self, key, content, **modifiers):
         # Blow it away
+        rhnCache.CACHEDIR = '/tmp/rhn'
         self._cleanup(key)
         apply(rhnCache.set, (key, content), modifiers)
         self.failUnless(rhnCache.has_key(key))
