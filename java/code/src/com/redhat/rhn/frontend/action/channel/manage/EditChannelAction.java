@@ -587,7 +587,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 String lastSync = LocalizationService.getInstance().getMessage(
                         "channel.edit.repo.neversynced");
                 if (c.getLastSynced() != null) {
-                    lastSync = LocalizationService.getInstance().formatDate(
+                    lastSync = LocalizationService.getInstance().formatCustomDate(
                             c.getLastSynced());
                 }
                 request.setAttribute("last_sync", lastSync);
