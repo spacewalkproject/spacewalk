@@ -327,11 +327,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         log_debug(1, package, channel)
         return self._send_package_stream(package, channel)
 
-    def get_source_rpm(self, package):
-        log_debug(1, package)
-        return self._send_package_stream(package, "rhn-source-package-",
-            "rhnPackageSource")
-
     def get_comps_file(self, channel):
         comps_query = """
             select relative_filename
