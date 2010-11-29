@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.3.2
+Version: 1.3.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -332,6 +332,9 @@ fi
 
 
 %changelog
+* Mon Nov 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.3-1
+- 657956 - fix condrestart option (msuchy@redhat.com)
+
 * Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
 - removed unused imports
 
