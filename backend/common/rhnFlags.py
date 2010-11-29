@@ -16,9 +16,6 @@
 #
 
 
-import string
-
-
 def set(name, value = 1):
     """
     set value
@@ -27,7 +24,7 @@ def set(name, value = 1):
     global __F
     if not name:
         return None
-    name = string.lower(name)
+    name = name.lower()
     try:
         __F[name] = value
     except NameError:
@@ -42,7 +39,7 @@ def get(name):
     global __F
     if not name:
         return None
-    name = string.lower(name)
+    name = name.lower()
     try:
         return __F.get(name)
     except NameError:
@@ -57,7 +54,7 @@ def test(name):
     global __F
     if not name:
         return 0
-    name = string.lower(name)
+    name = name.lower()
     try:
         return __F.has_key(name) and __F[name]
     except NameError:
