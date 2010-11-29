@@ -72,24 +72,6 @@ class Tests(unittest.TestCase):
         self.failIf(rhnCache.has_key(self.key, modified='20001122112233'))
         self._cleanup(self.key)
         
-    def no_test_as_streams_1(self):
-        "Tests storing and retrieval as streams"
-        t = tempfile.TemporaryFile()
-        content = self.content * 100
-        t.write(content)
-        t.seek(0, 0)
-
-        self._cleanup(self.key)
-        rhnCache.set(self.key, None, raw=1, stream=t)
-        self.failUnless(rhnCache.has_key(self.key))
-
-        ss = rhnCache.get(self.key, as_stream=1)
-        self.failUnless(hasattr(ss, "read"))
-        content2 = ss.read()
-
-        self.assertEquals(content, content2)
-        self._cleanup(self.key)
-
     def test_missing_1(self):
         "Tests exceptions raised by the code"
         self._cleanup(self.key)
