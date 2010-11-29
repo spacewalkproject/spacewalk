@@ -19,7 +19,10 @@
 import sys
 import locale
 import unittest
+import time
 from spacewalk.common import rhnLib
+
+TIMEZONE_SHIFT = time.timezone / 3600
 
 class Tests(unittest.TestCase):
 
@@ -29,14 +32,14 @@ class Tests(unittest.TestCase):
 
     def test_rfc822time_normal_tuple_arg(self):
         "rfc822time: Simple call using a valid tuple argument."
-        test_arg = (2006, 1, 27, 9, 12, 5, 4, 27, -1)
+        test_arg = (2006, 1, 27, (14 - TIMEZONE_SHIFT), 12, 5, 4, 27, -1)
         target = "Fri, 27 Jan 2006 14:12:05 GMT"
         result = rhnLib.rfc822time(test_arg)
         self.assertEqual(result, target, result + " != " + target)
         
     def test_rfc822time_normal_list_arg(self):
         "rfc822time: Simple call using a valid list argument."
-        test_arg = [2006, 1, 27, 9, 12, 5, 4, 27, -1]
+        test_arg = [2006, 1, 27, (14 - TIMEZONE_SHIFT), 12, 5, 4, 27, -1]
         target = "Fri, 27 Jan 2006 14:12:05 GMT"
         result = rhnLib.rfc822time(test_arg)
         self.assertEqual(result, target, result + " != " + target)
