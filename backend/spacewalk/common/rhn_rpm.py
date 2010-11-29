@@ -288,12 +288,11 @@ class MatchIterator:
         # rpm 4.1 or later
         self.ts = rpm.TransactionSet()
         self.ts.setVSFlags(8)
-        method = self.ts.dbMatch
 
+        m_args = (tag_name,)
         if value:
-            self.mi = method(tag_name, value)
-        else:
-            self.mi = method(tag_name)
+            m_args += (value,)
+        self.mi = self.ts.dbMatch(*m_args)
 
     def pattern(self, tag_name, mode, pattern):
         self.mi.pattern(tag_name, mode, pattern)
