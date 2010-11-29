@@ -57,10 +57,6 @@ ERROR: you are not entitled to sync a channel in this set of channels.
 Please contact your sales rep or RHN contact
 %s"""
 
-missing_user = "*** ERROR: user '%s' doesn't exist. Cannot set permissions properly."
-
-missing_group = "*** ERROR: group '%s' doesn't exist. Cannot set permissions properly."
-
 not_enough_diskspace = "  ERROR: not enough free space (%s KB) on device."
 
 package_fetch_successful = "    %3d/%s Fetch successful: %s (%s bytes)" 

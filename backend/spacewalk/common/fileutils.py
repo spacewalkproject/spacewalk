@@ -300,12 +300,12 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     gc = GecosCache()
     uid = gc.getuid(user)
     if uid is None:
-        raise OSError, messages.missing_user % user
+        raise OSError, "*** ERROR: user '%s' doesn't exist. Cannot set permissions properly." % user
         sys.exit(-1)
 
     gid = gc.getgid(group)
     if gid is None:
-        raise OSError, messages.missing_group % group
+        raise OSError, "*** ERROR: group '%s' doesn't exist. Cannot set permissions properly." % group
         sys.exit(-1)
 
     uid_, gid_ = os.stat(path)[4:6]
