@@ -163,7 +163,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         e.addPackage(p);
 
         Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
-        Errata publish = ErrataFactory.publishToChannel(e, baseChannel, user);
+        Errata publish = ErrataFactory.publishToChannel(e, baseChannel, user, false);
         assertTrue(publish instanceof PublishedErrata);
 
         List eids = new ArrayList();

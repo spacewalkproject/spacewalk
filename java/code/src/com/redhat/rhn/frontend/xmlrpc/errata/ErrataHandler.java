@@ -17,9 +17,11 @@ package com.redhat.rhn.frontend.xmlrpc.errata;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Cve;
@@ -37,6 +39,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryTypeException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
@@ -878,7 +881,7 @@ public class ErrataHandler extends BaseHandler {
             Errata publishedClone = ErrataManager.publish(cloned);
 
             publishedClone = ErrataFactory.publishToChannel(publishedClone, channel,
-                    loggedInUser);
+                    loggedInUser, false);
             ErrataFactory.save(publishedClone);
 
             toReturn.add(publishedClone);
@@ -1070,7 +1073,7 @@ public class ErrataHandler extends BaseHandler {
 
         //if true, channels will not be null, but will be a List of channel objects
         if (publish) {
-            return publish(newErrata, channels, loggedInUser);
+            return publish(newErrata, channels, loggedInUser, false);
         }
         else {
             return newErrata;
@@ -1126,7 +1129,62 @@ public class ErrataHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         List channels = verifyChannelList(channelLabels, loggedInUser);
         Errata toPublish = lookupErrata(advisory, loggedInUser.getOrg());
-        return publish(toPublish, channels, loggedInUser);
+        return publish(toPublish, channels, loggedInUser, false);
+    }
+
+    /**
+     * Publishes an existing (unpublished) cloned errata to a set of cloned channels
+     * according to its original erratum
+     * @param sessionKey session of the logged in user
+     * @param advisory The advisory Name of the errata to publish
+     * @param channelLabels List of channels to publish the errata to
+     * @throws InvalidChannelRoleException if the user perms are incorrect
+     * @return the published errata
+     *
+     * @xmlrpc.doc Publishes an existing (unpublished) cloned errata to a set of cloned
+     * channels according to its original erratum
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.param
+     *      #array_single("string", "channelLabel - list of channel labels to publish to")
+     * @xmlrpc.returntype
+     *          $ErrataSerializer
+     */
+    public Errata publishAsOriginal(String sessionKey, String advisory,
+            List channelLabels) throws InvalidChannelRoleException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<Channel> channels = verifyChannelList(channelLabels, loggedInUser);
+        for (Channel c : channels) {
+            ClonedChannel cc = null;
+            try {
+                cc = (ClonedChannel) c;
+            }
+            catch (Exception e) {
+                throw new InvalidChannelException("Cloned channel " +
+                        "expected: " + c.getLabel());
+            }
+            finally {
+                if (cc == null || !cc.isCloned()) {
+                    throw new InvalidChannelException("Cloned channel " +
+                            "expected: " + c.getLabel());
+                }
+            }
+            Channel original = ChannelFactory.lookupOriginalChannel(c);
+            if (original == null) {
+                throw new InvalidChannelException("Cannot access original " +
+                        "of the channel: " + c.getLabel());
+            }
+            // check access to the original
+            if (ChannelFactory.lookupByIdAndUser(original.getId(), loggedInUser) == null) {
+                throw new LookupException("User " + loggedInUser.getLogin() +
+                        " does not have access to channel " + original.getLabel());
+            }
+        }
+        Errata toPublish = lookupErrata(advisory, loggedInUser.getOrg());
+        if (!toPublish.isCloned()) {
+            throw new InvalidErrataException("Cloned errata expected.");
+        }
+        return publish(toPublish, channels, loggedInUser, true);
     }
 
     /**
@@ -1137,12 +1195,12 @@ public class ErrataHandler extends BaseHandler {
      * @param org the org of the user
      * @return a List of channel objects
      */
-    private List verifyChannelList(List channelsLabels, User user) {
+    private List<Channel> verifyChannelList(List channelsLabels, User user) {
         if (channelsLabels.size() == 0) {
             throw new NoChannelsSelectedException();
         }
 
-        List resolvedList = new ArrayList();
+        List<Channel> resolvedList = new ArrayList<Channel>();
         for (Iterator itr = channelsLabels.iterator(); itr.hasNext();) {
             String  channelLabel = (String) itr.next();
             Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel, user);
@@ -1163,10 +1221,12 @@ public class ErrataHandler extends BaseHandler {
      * @param channels A list of channel objects
      * @return The published Errata
      */
-    private Errata publish(Errata errata, List<Channel> channels, User user) {
+    private Errata publish(Errata errata, List<Channel> channels, User user,
+            boolean inheritPackages) {
         Errata published = ErrataFactory.publish(errata);
         for (Channel chan : channels) {
-            published = ErrataFactory.publishToChannel(published, chan, user);
+            published = ErrataFactory.publishToChannel(published, chan, user,
+                    inheritPackages);
         }
         return published;
     }

@@ -126,7 +126,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         channel.addPackage(chanPack);
         e.addPackage(errataPack);
 
-        Errata published = ErrataFactory.publishToChannel(e, channel, user);
+        Errata published = ErrataFactory.publishToChannel(e, channel, user, false);
         assertTrue(channel.getPackages().contains(errataPack));
         List<PublishedErrataFile> errataFile =
             ErrataFactory.lookupErrataFilesByErrataAndFileType(published.getId(), "RPM");

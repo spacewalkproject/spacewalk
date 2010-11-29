@@ -1127,6 +1127,24 @@ public class ErrataManager extends BaseManager {
 
    }
 
+   /**
+    * Lists the packages contained in an errata associated to a channel
+    * @param customChan the channel to look in
+    * @param errata the errata to look for packs with
+    * @param user the user doing the request.
+    * @return collection of PackageOverview objects
+    */
+   public static DataResult<PackageOverview> listErrataChannelPacks(
+               Channel customChan, Errata errata, User user) {
+       Map params = new HashMap();
+       params.put("eid" , errata.getId());
+       params.put("org_id" , user.getOrg().getId());
+       params.put("custom_cid", customChan.getId());
+       SelectMode m = ModeFactory.getMode(
+               "Errata_queries",  "find_errata_channel_packages");
+       return m.execute(params);
+
+   }
 
    /**
     * Finds the errata ids issued between start and end dates.
