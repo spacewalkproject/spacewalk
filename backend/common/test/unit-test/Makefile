@@ -8,4 +8,4 @@ all:	$(addprefix test-,$(TESTS))
 
 test-%:
 	@echo Running $*
-	@PYTHONPATH=../../.. python $*
+	@PYTHONPATH=$(PYTHONPATH):../../.. python $*

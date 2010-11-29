@@ -1,3 +1,4 @@
+
 TESTS       = \
         test_capabilities.py \
         test_misc_functions.py \
@@ -10,4 +11,4 @@ all:	$(addprefix test-,$(TESTS))
 
 test-%:
 	@echo Running $*
-	@PYTHONPATH=../../.. python $*
+	PYTHONPATH=$(PYTHONPATH):../../../ python $*

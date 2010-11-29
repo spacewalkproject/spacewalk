@@ -295,7 +295,7 @@ rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
 rm -rf $RPM_BUILD_ROOT
 
 %check
-make -f Makefile.backend test
+make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT/%{python_sitelib} test
 
 %pre server
 OLD_SECRET_FILE=%{_var}/www/rhns/server/secret/rhnSecret.py
