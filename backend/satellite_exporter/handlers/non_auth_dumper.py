@@ -576,17 +576,7 @@ def _get_path_from_cursor(h):
     if not rs:
         raise InvalidPackageError
 
-    # It is unlikely for this query to return more than one row,
-    # but it is possible
-    # (having two packages with the same n, v, r, a and different epoch in
-    # the same channel is prohibited by the RPM naming scheme; but extra
-    # care won't hurt)
     max_row = rs[0]
-    for each in rs[1:]:
-        # Compare the epoch as string
-        if _none2emptyString(each['epoch']) > _none2emptyString(
-                max_row['epoch']):
-            max_row = each
 
     if max_row['path'] is None:
 
