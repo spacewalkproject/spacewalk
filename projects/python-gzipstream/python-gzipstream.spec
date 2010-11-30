@@ -1,4 +1,6 @@
+%if ! (0%{?fedora} > 12 || 0%{?rhel} > 5)
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%endif
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
