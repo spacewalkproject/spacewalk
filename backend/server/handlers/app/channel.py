@@ -129,7 +129,7 @@ class Channel(RPC_Base):
         log_debug(3)
         self._auth(username, password)
 
-        kstree = rhnKickstart.lookup_tree(ks_label)
+        kstree = rhnKickstart.lookup_tree(ks_label, None)
 
         if not isinstance(kstree, rhnKickstart.Kickstart):
             message = 'Kickstart tree not found'
