@@ -22,12 +22,12 @@ from spacewalk.common import CFG, log_debug, rhnFault, rhn_mpm, \
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
 from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib import importLib, userAuth, mpmSource, \
     packageImport, errataCache
 from spacewalk.server.rhnLib import get_package_path, \
     get_package_path_without_package_name
 from spacewalk.server.rhnServer import server_packages
-from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
 
 def write_temp_file(req, buffer_size, packaging=None):
@@ -152,12 +152,7 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
     batch = importLib.Collection()
     batch.append(pkg)
 
-    if CFG.DB_BACKEND == ORACLE:
-        from spacewalk.server.importlib.backendOracle import OracleBackend
-        backend = OracleBackend()
-    elif CFG.DB_BACKEND == POSTGRESQL:
-        from spacewalk.server.importlib.backendOracle import PostgresqlBackend
-        backend = PostgresqlBackend()
+    backend = SQLBackend()
     backend.init()
 
     if force:

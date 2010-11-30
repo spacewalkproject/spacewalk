@@ -22,6 +22,8 @@ from backend import Backend
 from backendLib import DBint, DBstring, DBdateTime, DBblob, Table, \
         TableCollection
 from spacewalk.server import rhnSQL
+from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
+from spacewalk.common import CFG
 
 class OracleBackend(Backend):
     tables = TableCollection(
@@ -592,3 +594,9 @@ class PostgresqlBackend(OracleBackend):
         """
         return Backend.init(self)
 
+def SQLBackend():
+    if CFG.DB_BACKEND == ORACLE:
+        backend = OracleBackend()
+    elif CFG.DB_BACKEND == POSTGRESQL:
+        backend = PostgresqlBackend()
+    return backend

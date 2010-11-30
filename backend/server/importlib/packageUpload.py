@@ -19,6 +19,7 @@
 from spacewalk.common import rhnFault, log_debug, rhn_rpm, CFG
 
 from spacewalk.server import rhnChannel, taskomatic, rhnSQL
+from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.headerSource import createPackage
 from spacewalk.server.importlib.importLib import Collection
 from spacewalk.server.importlib.packageImport import packageImporter
@@ -44,13 +45,7 @@ def uploadPackages(info, source=0, force=0, caller=None):
         p = __processPackage(package, org_id, channelList, source)
         batch.append(p)
 
-    if CFG.DB_BACKEND == ORACLE:
-        from spacewalk.server.importlib.backendOracle import OracleBackend
-        backend = OracleBackend()
-    elif CFG.DB_BACKEND == POSTGRESQL:
-        from spacewalk.server.importlib.backendOracle import PostgresqlBackend
-        backend = PostgresqlBackend()
-
+    backend = SQLBackend()
     backend.init()
     importer = packageImporter(batch, backend, source, caller=caller)
 

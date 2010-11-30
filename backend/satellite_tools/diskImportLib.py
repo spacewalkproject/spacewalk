@@ -18,12 +18,11 @@
 
 import os
 
-from spacewalk.common import CFG
 from spacewalk.common.rhnLib import hash_object_id
-from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 
 import xmlSource
 import xmlDiskSource
+from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelImport, ChannelFamilyImport
 from spacewalk.server.importlib.packageImport import PackageImport, SourcePackageImport
 from spacewalk.server.importlib import archImport
@@ -37,13 +36,7 @@ class Backend:
         if self.__backend:
             return self.__backend
 
-
-        if CFG.DB_BACKEND == ORACLE:
-            from spacewalk.server.importlib.backendOracle import OracleBackend
-            Backend.__backend = OracleBackend()
-        elif CFG.DB_BACKEND == POSTGRESQL:
-            from spacewalk.server.importlib.backendOracle import PostgresqlBackend
-            Backend.__backend = PostgresqlBackend()
+        Backend.__backend = SQLBackend()
         Backend.__backend.init()
         return Backend.__backend
         
