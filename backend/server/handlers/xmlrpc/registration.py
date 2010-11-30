@@ -468,50 +468,6 @@ class Registration(rhnHandler):
         profile_name = data['profile_name']
         architecture = data['architecture']
 
-        # Activate a registration number if we recieved one, and we have a
-        # valid user.
-        if data.has_key('registrationNumber') and user:
-            log_debug(3, "registrationNumber:" + data["registrationNumber"]);
-
-            # probably need to keep the code below for satellite
-
-            # Cleanse the registrationNumber.
-            data["registrationNumber"] = RegistrationNumber(
-                                             data["registrationNumber"])
-
-            try:
-                server_lib.use_registration_number(user, 
-                                                   data['registrationNumber'],
-                                                   commit = 0)
-
-            # Catch the exception if the registration failed.
-            except rhnFault, reg_except:
-
-                # Check for remaining subscriptions
-                try:
-                    subscriptions = self.remaining_subscriptions(
-                                                        data["username"],
-                                                        data["password"],
-                                                        architecture,
-                                                        release_version)
-                except rhnFault, sub_except:
-                    # Catch the 2 known faults that we want to ignore...they
-                    # just mean subscriptions = 0.
-                    if sub_except.code == 71 or \
-                       sub_except.code == 19: 
-                        subscriptions = 0
-                                                            
-                subscriptions = int(subscriptions)
-
-                if subscriptions > 0:
-                    # Even though the number activation failed, 
-                    # they have enough valid subs to coninue.
-                    pass
-                else:
-                    # For whatever reason, the number didn't activate
-                    # subscriptions, so re-raise the original exception.
-                    raise reg_except
-
         # Create the system and get back the rhnServer object.
         #
         # bretm 02/19/2007 -- the following things get thrown underneath,
