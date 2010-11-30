@@ -109,7 +109,6 @@ def help_get_apiversion(self):
     print 'get_apiversion: Display the API version of the server'
     print 'usage: get_apiversion'
 
-
 def do_get_apiversion(self, args):
     print self.client.api.getVersion()
 
@@ -132,6 +131,18 @@ def help_get_certificateexpiration(self):
 def do_get_certificateexpiration(self, args):
     date = self.client.satellite.getCertificateExpirationDate(self.session)
     print date
+
+####################
+
+def help_get_session(self):
+    print 'get_session: Show the current session string'
+    print 'usage: get_session'
+
+def do_get_session(self, args):
+    if self.session:
+        print self.session
+    else:
+        logging.error('No session found')
 
 ####################
 
