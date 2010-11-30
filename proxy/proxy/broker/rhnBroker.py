@@ -29,6 +29,7 @@ from spacewalk.common.rhnTranslate import _
 
 # local module imports
 from proxy.rhnShared import SharedHandler
+from rhnConstants import URI_PREFIX_KS_CHECKSUM
 import rhnRepository
 import proxy.rhnProxyAuth
 
@@ -101,7 +102,7 @@ class BrokerHandler(SharedHandler):
             scheme = 'http'
             self.httpProxy = CFG.SQUID
             self.caChain = self.httpProxyUsername = self.httpProxyPassword = ''
-            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^/ty-cksm/', self._getEffectiveURI()):
+            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^'+URI_PREFIX_KS_CHECKSUM, self._getEffectiveURI()):
                 # o if we need to go through an outside HTTP proxy, use the
                 #   redirect
                 # o if an SSL request, use the redirect
