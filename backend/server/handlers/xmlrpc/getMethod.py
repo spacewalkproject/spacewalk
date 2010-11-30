@@ -137,7 +137,7 @@ if __name__ == '__main__':
     for m in methods:
         print "----Running method %s: " % m
         try:
-            method = getMethod(m, '.', 'Actions')
+            method = getMethod(m, 'Actions')
         except GetMethodException, e:
             print "Error getting the method %s: %s" % (m, 
                 string.join(map(str, e.args)))
