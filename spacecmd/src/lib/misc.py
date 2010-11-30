@@ -227,11 +227,14 @@ def do_login(self, args):
     session_file = os.path.join(self.conf_dir, server, 'session')
 
     # retrieve a cached session
-    if os.path.isfile(session_file):
+    # (skip this if username and password are provided)
+    if os.path.isfile(session_file) \
+       and not self.options.username \
+       and not self.options.password:
         try:
             sessionfile = open(session_file, 'r')
            
-            # read the session (format = server:username:session)
+            # read the session (format = username:session)
             for line in sessionfile:
                 parts = line.split(':')
 
@@ -263,7 +266,7 @@ def do_login(self, args):
     # attempt to login if we don't have a valid session yet
     if not len(self.session):
         if len(username):
-            print 'Spacewalk Username: %s' % username
+            logging.info('Spacewalk Username: %s' % username)
         else:
             if self.options.username:
                 username = self.options.username
@@ -305,7 +308,7 @@ def do_login(self, args):
             sessionfile.write(line)
             sessionfile.close()
         except IOError:
-            logging.error('Could not write cache file')
+            logging.error('Could not write session file')
 
     # load the system/package/errata caches
     self.load_caches(server)
