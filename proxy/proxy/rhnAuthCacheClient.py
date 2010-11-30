@@ -25,7 +25,8 @@ import socket
 ## local imports
 from spacewalk.common import log_debug, log_error, Traceback, rhnFault
 from spacewalk.common.rhnTranslate import _
-from rhnAuthProtocol import CommunicationError, Fault, send, recv
+from rhnAuthProtocol import CommunicationError, send, recv
+from xxmlrpclib import Fault
 
 #
 # Protocol description:
