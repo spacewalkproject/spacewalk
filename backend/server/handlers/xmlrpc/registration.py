@@ -39,27 +39,6 @@ def hash_validate(data, *keylist):
             return 0
     return 1
 
-def RegistrationNumber(nr):
-    """ process a registration number for sanitization purposes """
-    if not nr:      
-        return None     
-    if not type(nr) == type(""):    
-        log_debug(3, "Got unparseable registration Number: %s" % nr)    
-        return None     
-    mynr = string.lower(nr)     
-    # prepare the translation table     
-    t = string.maketrans("los", "105")      
-    # and strip out unwanted chars      
-    mynr = string.translate(mynr, t, "_- ")     
-    # keep only hexdigits   
-    ret = ""    
-    for r in mynr:      
-        if r in string.hexdigits:   
-            ret = ret + r   
-    if not ret:     
-        return None     
-    return ret
-
 def parse_smbios(smbios):
     vendor = smbios.get('smbios.bios.vendor')
     serial = smbios.get('smbios.system.serial', '')
