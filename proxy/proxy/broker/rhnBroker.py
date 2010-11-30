@@ -257,6 +257,17 @@ class BrokerHandler(SharedHandler):
         """ prep handler and check PROXY_AUTH's expiration. """
         SharedHandler._prepHandler(self)
 
+    def _split_url(self, req):
+        """ read url from incoming url and return (req_type, channel, action, params)
+            URI should look something like:
+            /GET-REQ/rhel-i386-server-5/getPackage/autofs-5.0.1-0.rc2.143.el5_5.6.i386.rpm
+        """
+        args = req.path_info.split('/')
+        if len(args) < 5:
+            return (None, None, None, None)
+        else:
+            return (args[1], args[2], args[3], args[4:])
+            
     # --- PRIVATE METHODS ---
 
     def __handleAction(self, headers):
@@ -287,18 +298,11 @@ class BrokerHandler(SharedHandler):
             # Don't know how to handle this
             return None
 
-        # Split the URI to find out if we should take care of this.
-        # URI should look something like:
-        # /$RHN/redhat-linux-i386-7.1/getPackage/abiword-0.7.13.2.i386.rpm
-        # NOTE: it splits to ['', '$RHN', label, channel, ...]
-        args = string.split(req.path_info, '/')
-        if not args or len(args) < 2 or (args[1] != '$RHN' and args[1] != 'GET-REQ'):
+        (req_type, reqchannel, reqaction, reqparams) = self._split_url(req)
+        if req_type is None or (req_type not in ['$RHN', 'GET-REQ']):
             # not a traditional RHN GET (i.e., it is an arbitrary get)
             # XXX: there has to be a more elegant way to do this
             return None
-        reqchannel = args[2]
-        reqaction = args[3]
-        reqparams = args[4:]
 
         # --- AUTH. CHECK:
         # Check client authentication. If not authenticated, throw
