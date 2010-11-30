@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.15
+Version: 1.3.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -672,6 +672,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Nov 30 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.16-1
+- moved db backend selection into a single place
+- removed dead RegistrationNumber()
+- removed dead code together with its invalid comment
+- python 2.4+ (RHEL5+) has hasattr(gettext, 'GNUTranslations') == True
+
 * Mon Nov 29 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.15-1
 - fixed unit tests
 - run backend unit test in rpm build time
