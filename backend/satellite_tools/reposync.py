@@ -232,7 +232,6 @@ class RepoSync:
     def associate_package(self, pack):
         caller = "server.app.yumreposync"
         backend = SQLBackend()
-        backend.init()
         package = {}
         package['name'] = pack.name
         package['version'] = pack.version

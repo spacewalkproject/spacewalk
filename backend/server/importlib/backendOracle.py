@@ -599,4 +599,5 @@ def SQLBackend():
         backend = OracleBackend()
     elif CFG.DB_BACKEND == POSTGRESQL:
         backend = PostgresqlBackend()
+    backend.init()
     return backend

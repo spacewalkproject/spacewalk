@@ -383,7 +383,6 @@ class Packages(RPC_Base):
         caller = "server.app.channelPackageSubscription"
 
         backend = SQLBackend()
-        backend.init()
         importer = ChannelPackageSubscription(batch, backend, caller=caller)
         try:
             importer.run()

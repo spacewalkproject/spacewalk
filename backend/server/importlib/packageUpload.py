@@ -46,7 +46,6 @@ def uploadPackages(info, source=0, force=0, caller=None):
         batch.append(p)
 
     backend = SQLBackend()
-    backend.init()
     importer = packageImporter(batch, backend, source, caller=caller)
 
     importer.setUploadForce(force)

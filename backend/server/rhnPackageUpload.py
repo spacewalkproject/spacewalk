@@ -153,7 +153,6 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
     batch.append(pkg)
 
     backend = SQLBackend()
-    backend.init()
 
     if force:
         upload_force = 4
