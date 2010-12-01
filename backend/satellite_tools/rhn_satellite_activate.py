@@ -626,7 +626,7 @@ def main():
                 return 89
 
         # channel family stuff
-        if not options.disconnected:
+        if not options.disconnected and CFG.RHN_PARENT and not CFG.ISS_PARENT:
             try:
                 populateChannelFamilies(options)
             except PopulateChannelFamiliesException, e:
