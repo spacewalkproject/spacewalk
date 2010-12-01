@@ -15,7 +15,7 @@
 
 import sys
 import string
-from rhn.rpclib import xmlrpclib
+import xmlrpclib
 
 
 from cStringIO import StringIO
