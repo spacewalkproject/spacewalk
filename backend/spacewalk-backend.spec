@@ -182,7 +182,13 @@ This package contains listener for the Server XML dumper.
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
 BuildRequires: python2-devel
+%if 0%{?rhel} && 0%{?rhel} < 5
+Requires: python-crypto
+BuildRequires: python-crypto
+%else
 Requires: python-hashlib
+BuildRequires: python-hashlib
+%endif
 
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
