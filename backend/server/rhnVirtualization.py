@@ -336,11 +336,11 @@ class VirtualizationEventHandler:
 
         select_sql = """
             SELECT
-                vi.id                id,
-                vi.host_system_id    host_system_id,
-                vi.virtual_system_id virtual_system_id,
-                vi.uuid              uuid,
-                vi.confirmed         confirmed
+                vi.id                as id,
+                vi.host_system_id    as host_system_id,
+                vi.virtual_system_id as virtual_system_id,
+                vi.uuid              as uuid,
+                vi.confirmed         as confirmed
             FROM
                 rhnVirtualInstance vi
             WHERE
@@ -485,16 +485,16 @@ class VirtualizationEventHandler:
     def __db_get_domain(self, host_id, uuid):
         select_sql = """
             SELECT
-                rvi.id                rvi_id,
-                rvi.host_system_id    host_system_id,
-                rvi.virtual_system_id virtual_system_id,
-                rvi.confirmed         confirmed,
-                rvii.name             name,
-                rvit.label            instance_type,
-                rvii.memory_size_k    memory_size_k,
-                rvii.instance_id      instance_id,
-                rvii.vcpus            vcpus,
-                rvis.label            state
+                rvi.id                as rvi_id,
+                rvi.host_system_id    as host_system_id,
+                rvi.virtual_system_id as virtual_system_id,
+                rvi.confirmed         as confirmed,
+                rvii.name             as name,
+                rvit.label            as instance_type,
+                rvii.memory_size_k    as memory_size_k,
+                rvii.instance_id      as instance_id,
+                rvii.vcpus            as vcpus,
+                rvis.label            as state
             FROM
                 rhnVirtualInstanceInfo rvii,
                 rhnVirtualInstanceType rvit,
