@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.28
+Version: 1.2.29
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 01 2010 Lukas Zapletal 1.2.29-1
+- 658256 - Error 500 - ISE - when scheduling remote commands
+
 * Thu Nov 25 2010 Lukas Zapletal 1.2.28-1
 - Adding missing monitoring state (UNKNOWN)
 
