@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.17
+Version: 1.3.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -678,6 +678,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Dec 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.18-1
+- add BuildRequires: python-hashlib (msuchy@redhat.com)
+
 * Wed Dec 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.17-1
 - fix import of xmlrpclib (msuchy@redhat.com)
 
