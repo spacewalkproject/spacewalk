@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.2
+Version:        1.3.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Dec 01 2010 Jan Pazdziora 1.3.3-1
+- 650129 - don't change last_modified values during schema upgrade
+  (mzazrivec@redhat.com)
+- drop unused rhnDaemonState table (tlestach@redhat.com)
+
 * Mon Nov 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
 - 655509 - fixed namespace
 
