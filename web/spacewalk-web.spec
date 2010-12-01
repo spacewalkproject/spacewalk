@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.8
+Version: 1.3.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 01 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
+- Reverted "658256 - Error 500 - ISE - when scheduling remote commands"
+
 * Wed Dec 01 2010 Lukas Zapletal 1.3.8-1
 - 658256 - Error 500 - ISE - when scheduling remote commands
 
