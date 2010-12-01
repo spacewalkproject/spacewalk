@@ -1,3 +1,7 @@
+-- 650129: we need to disable the trigger here to prevent it from
+-- automatically updating rhnKSTreeFile.last_modified values
+alter trigger rhn_kstreefile_mod_trig disable;
+
 declare
  md5_id number;
 begin
@@ -24,3 +28,5 @@ begin
 end;
 /
 
+-- we need to enable the trigger again
+alter trigger rhn_kstreefile_mod_trig enable;

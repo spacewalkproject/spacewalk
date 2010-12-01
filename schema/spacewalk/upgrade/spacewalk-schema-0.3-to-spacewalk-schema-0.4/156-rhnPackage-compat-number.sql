@@ -16,8 +16,10 @@
 -- $Id$
 --
 
+alter trigger rhn_package_mod_trig disable;
 alter TABLE rhnPackage add (compat_new number(1) default 0);
 update rhnPackage set compat_new = compat;
+alter trigger rhn_package_mod_trig enable;
 alter TABLE rhnPackage drop column compat;
 alter TABLE rhnPackage rename column compat_new to compat;
 show errors

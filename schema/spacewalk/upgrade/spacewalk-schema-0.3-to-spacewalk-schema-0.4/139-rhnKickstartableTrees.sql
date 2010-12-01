@@ -16,7 +16,9 @@
 -- $Id$
 --
 
+alter trigger rhn_kstree_mod_trig disable;
 update rhnKickstartableTree set boot_image='spacewalk-koan';
+alter trigger rhn_kstree_mod_trig enable;
 
 ALTER TABLE rhnKickstartableTree 
     MODIFY( boot_image  varchar2(128) default('spacewalk-koan')); 
