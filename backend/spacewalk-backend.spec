@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.19
+Version: 1.3.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -678,6 +678,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Dec 01 2010 Jan Pazdziora 1.3.20-1
+- Ignore the %check results for now.
+
 * Wed Dec 01 2010 Lukas Zapletal 1.3.19-1
 - 644985 - SELinux context cleared from RHEL4 rhncfg-client
 - Correcting indentation for configFilesHandler.py
