@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.17
+Version: 1.3.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,21 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 01 2010 Jan Pazdziora 1.3.18-1
+- 658167 - fix cases, when quartz triggers a job earlier, than the job info
+  lands in the DB (tlestach@redhat.com)
+- 516570 - just unify channel dates format (tlestach@redhat.com)
+- comment unused query in Task_queries (tlestach@redhat.com)
+- remove dead queries from User_queries (tlestach@redhat.com)
+- remove dead queries from test_queries (tlestach@redhat.com)
+- remove dead queries from System_queries (tlestach@redhat.com)
+- remove dead query from Org_queries (tlestach@redhat.com)
+- remove dead queries from General_queries (tlestach@redhat.com)
+- remove dead queries from Channel_queries (tlestach@redhat.com)
+- remove dead query from Action_queries (tlestach@redhat.com)
+- 642285 - remove old TaskStatus related code (tlestach@redhat.com)
+- removing unused SetItemSelected action (tlestach@redhat.com)
+
 * Thu Nov 25 2010 Tomas Lestach <tlestach@redhat.com> 1.3.17-1
 - 642285 - introducing disabled TaskStatus page (tlestach@redhat.com)
 
