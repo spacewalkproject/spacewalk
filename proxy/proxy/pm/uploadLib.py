@@ -35,7 +35,7 @@ class UploadClass(uploadLib.UploadClass):
             self.die(1, "Listing source rpms not supported")
         else:
             # List the channel's contents
-            list = listChannel(self.server, self.username, self.password,
+            list = uploadLib.listChannel(self.server, self.username, self.password,
                 self.channels)
         for p in list:
             print p[:6]
