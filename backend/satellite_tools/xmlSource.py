@@ -612,9 +612,12 @@ addItem(ObsoletesItem)
 class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'
     item_class = importLib.File
+    tagMap = {
+        'checksum-type' : 'checksum_type',
+    }
     def populate(self, attributes, elements):
-        if 'md5' in attributes:
-            attributes['checksum_type'] = 'md5'
+        if 'md5' in attributes and 'checksum-type' not in attributes:
+            attributes['checksum-type'] = 'md5'
             attributes['checksum'] = attributes['md5']
         item = BaseChecksummedItem.populate(self, attributes, elements)
         return item
