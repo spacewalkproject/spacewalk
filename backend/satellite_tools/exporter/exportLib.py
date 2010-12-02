@@ -727,7 +727,8 @@ class _PackageDumper(BaseRowDumper):
                 pc.name, pf.device, pf.inode, pf.file_mode, pf.username,
                 pf.groupname, pf.rdev, pf.file_size,
                 TO_CHAR(mtime, 'YYYYMMDDHH24MISS') mtime,
-                c.checksum_type, c.checksum, pf.linkto, pf.flags, pf.verifyflags, pf.lang
+                c.checksum_type as "checksum-type",
+                c.checksum, pf.linkto, pf.flags, pf.verifyflags, pf.lang
             from rhnPackageFile pf
             left join rhnChecksumView c
               on pf.checksum_id = c.id,
@@ -845,9 +846,9 @@ class _PackageFilesDumper(BaseDumper):
 
     def dump_subelement(self, data):
         data['mtime'] = _dbtime2timestamp(data['mtime'])
-        data['checksum_type'] = data['checksum_type'] or ""
+        data['checksum-type'] = data['checksum-type'] or ""
         data['checksum'] = data['checksum'] or ""
-        if data['checksum_type'] == 'md5':
+        if data['checksum-type'] == 'md5':
             # generate md5="..." attribute
             # for compatibility with older satellites
             data['md5'] = data['checksum']
