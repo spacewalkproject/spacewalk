@@ -76,7 +76,7 @@ class UploadClass(uploadLib.UploadClass):
         #self.setServer()
         
         for filename in self.files:
-            fileinfo = _processFile(filename,\
+            fileinfo = uploadLib._processFile(filename,\
                                     relativeDir=self.relativeDir, source=self.options.source,\
                                     nosig=self.options.nosig)
             self.processPackage(fileinfo['nvrea'], filename) 
@@ -125,9 +125,9 @@ class UploadClass(uploadLib.UploadClass):
 
             # Some feedback
             if self.options.verbose:
-                ReportError("Uploading batch:")
+                uploadLib.ReportError("Uploading batch:")
                 for p in uploadedPackages.values():
-                    ReportError("\t\t%s" % p)
+                    uploadLib.ReportError("\t\t%s" % p)
 
             if source:
                 method = self.server.packages.uploadSourcePackageInfo
