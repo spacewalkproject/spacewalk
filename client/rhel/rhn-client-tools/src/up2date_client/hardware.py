@@ -532,14 +532,15 @@ def read_network_interfaces():
             
         ip6_list = []
         try:
+            dev_info = ethtool.get_interfaces_info(interface)
             # one interface may have more IPv6 addresses
-            for ip6 in dev.get_ipv6_addresses():
+            for ip6 in dev_info.get_ipv6_addresses():
                 ip6_list.append({
                     'scope':   ip6.scope,
                     'addr':    ip6.address, 
                     'netmask': ip6.netmask
                 })
-        except:
+        except:  #this will does not work on el5, ignore it
             pass
         intDict[interface] = {'hwaddr':hwaddr,
                               'ipaddr':ipaddr,
