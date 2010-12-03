@@ -39,7 +39,10 @@ Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-io
 Requires: jakarta-taglibs-standard
+%if  0%{?rhel} && 0%{?rhel} < 6
+# jasper was merged into tomcat-lib
 Requires: jasper5
+%endif
 Requires: jcommon
 Requires: jfreechart >= 1.0.9
 Requires: jpam
@@ -107,7 +110,10 @@ BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
+%if  0%{?rhel} && 0%{?rhel} < 6
+# jasper was merged into tomcat-lib
 BuildRequires: jasper5
+%endif
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jfreechart >= 0:1.0.9
