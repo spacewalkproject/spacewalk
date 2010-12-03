@@ -76,7 +76,7 @@ class UploadClass(uploadLib.UploadClass):
         #self.setServer()
         
         for filename in self.files:
-            fileinfo = uploadLib._processFile(filename,\
+            fileinfo = self._processFile(filename,\
                                     relativeDir=self.relativeDir, source=self.options.source,\
                                     nosig=self.options.nosig)
             self.processPackage(fileinfo['nvrea'], filename) 
@@ -104,7 +104,7 @@ class UploadClass(uploadLib.UploadClass):
         while self.files:
             chunk = self.files[:self.count]
             del self.files[:self.count]
-            uploadedPackages, headersList = uploadLib._processBatch(chunk,
+            uploadedPackages, headersList = self._processBatch(chunk,
                 relativeDir=self.relativeDir, source=self.options.source, 
                 verbose=self.options.verbose, nosig=self.options.nosig)
 
