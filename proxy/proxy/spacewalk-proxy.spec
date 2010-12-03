@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.3.4
+Version: 1.3.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -332,6 +332,16 @@ fi
 
 
 %changelog
+* Fri Dec 03 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.5-1
+- 656746 - send to hosted md5 checksum of package (msuchy@redhat.com)
+- 656746 - make _processFile and _processBatch method of UploadClass class
+  (msuchy@redhat.com)
+- 656753 - add namespace prefix to merged functions (msuchy@redhat.com)
+- 656753 - fix TB during rhn_package_manager -v -l (msuchy@redhat.com)
+- 658527 - create _split_url function (msuchy@redhat.com)
+- use constant instead of hardcoded string (msuchy@redhat.com)
+- import Fault from different class (msuchy@redhat.com)
+
 * Tue Nov 30 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.4-1
 - 658303 - do not forward Host header, it will confuse target Satellite
 
