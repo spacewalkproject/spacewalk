@@ -9,13 +9,13 @@
 	<c:when test="${not empty requestScope.selectable}">
 		<c:set var="headerkey" value="eligible.flexguest.jsp.header"/>
 		<c:set var="messagekey" value="eligible.flexguest.jsp.message"/>
-		<c:set var="namestyle" value="first-column"/>
+		<c:set var="namestyle" value=""/>
 		<c:set var="empty_msg" value="eligible.flexguest.jsp.no-systems"/>
 	</c:when>
 	<c:otherwise>
 		<c:set var="headerkey" value="flexguest.jsp.header"/>
 		<c:set var="messagekey" value="flexguest.jsp.message"/>
-		<c:set var="namestyle" value=""/>
+		<c:set var="namestyle" value="first-column"/>
 		<c:set var="empty_msg" value="flexguest.jsp.no-systems"/>
 	</c:otherwise>
 </c:choose>
@@ -41,38 +41,51 @@
 		</p>
 
 <rl:listset name="FlexSet">
+
+
+<input type="hidden" name="selected_family" value="${selected_family}" />
+
+	<br/>
+	<select name="channel_family">
+		<option value="all"><bean:message key="All"/></option>
+		<c:forEach items="${family_list}" var="item">
+			<option value="${item.id}"
+				<c:if test="${selected_family eq item.idString}"> selected</c:if>
+				>  ${item.name}
+			</option>
+		</c:forEach>
+	</select>
+	<html:submit property="show">
+		<bean:message key="system.errata.show"/>
+	</html:submit>
+	<br/>
+
+
 <rl:list
+	styleclass="list"
 	emptykey="${empty_msg}"
-	parentiselement = "false"
-	searchparent="false"
-	searchchild="true"
+
 	>
-
-	<rl:rowrenderer name="ExpandableRowRenderer" />
-	<rl:decorator name="ExpansionDecorator"/>
-
-	<c:if test="${not empty requestScope.selectable}">
+			<rl:decorator name="PageSizeDecorator"/>
+	<c:if test="${not empty requestScope.selectable && not empty requestScope.dataset}">
 		<rl:decorator name="SelectableDecorator"/>
-		<c:choose>
-			<c:when test = "${rl:expandable(current)}">
-			<rl:selectablecolumn value="${current.id}"
+		<rl:selectablecolumn value="${current.id}"
+								selected="${current.selected}"
 		 						styleclass="first-column"/>
-			</c:when>
-			<c:otherwise>
-			<rl:selectablecolumn value="${current.selectionKey}"
-		 						styleclass="first-column"/>
-			
-			</c:otherwise>
-		</c:choose>
 	</c:if>
 
 
-	<!-- Name Column -->
-	<rl:column headerkey="systemlist.jsp.system" filterattr="name" filtermessage="${filtermessage}" styleclass="${namestyle}">
-	    <rl:expandable rendericon="true"> <a href="/rhn/software/channels/ChannelFamilyTree.do?cfid=${current.id}">${current.name} <em>(${current.entitlementCountMessage})</em>  </a>
-	    </rl:expandable>
 
-	    <rl:non-expandable rendericon="true">
+
+	<!-- Name Column -->
+	<rl:column headerkey="systemlist.jsp.system"
+		filterattr="name" filtermessage="${filtermessage}"
+		styleclass="${namestyle}"
+		sortattr="name"
+		defaultsort="asc"
+		>
+
+
 			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 			<c:choose>
 				<c:when test="${empty current.name}">
@@ -82,12 +95,10 @@
 					<c:out value="${current.name}</a>" escapeXml="false" />
 				</c:otherwise>
 			</c:choose>
-	    </rl:non-expandable>
+
 	</rl:column>
 
 	<rl:column headerkey="Status">
-		<rl:expandable></rl:expandable>
-		<rl:non-expandable>
 			<c:choose>
 				<c:when test="${current.active}">
 					<bean:message key="Active"/>
@@ -96,14 +107,12 @@
 					<bean:message key="Inactive"/>
 				</c:otherwise>
 			</c:choose>
-			
-		</rl:non-expandable>						
+
 	</rl:column>	
 	
 	<rl:column headerkey="Registered"
 				styleclass="last-column">
-		<rl:expandable></rl:expandable>
-		<rl:non-expandable>${current.registeredString}</rl:non-expandable>						
+			${current.registeredString}
 	</rl:column>
 
 </rl:list>

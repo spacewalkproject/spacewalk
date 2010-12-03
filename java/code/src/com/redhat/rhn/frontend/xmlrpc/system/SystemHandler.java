@@ -4683,7 +4683,7 @@ public class SystemHandler extends BaseHandler {
             throw new InvalidEntitlementException();
         }
         return VirtualizationEntitlementsManager.getInstance().
-                            convertToFlex(serverIds, cf.getId(), user);
+                            convertToFlex(serverIds, cf.getId(), user).size();
     }
 
     /**
