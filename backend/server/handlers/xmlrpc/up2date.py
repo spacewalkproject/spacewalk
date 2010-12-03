@@ -287,7 +287,7 @@ class Up2date(rhnHandler):
 
         filePath = rhnPackage.get_package_path_compat_arches(self.server_id,
             package, server.archname)
-        return rpclib.File(open(filePath, "r"), name=filePath)
+        return rpclib.transports.File(open(filePath, "r"), name=filePath)
 
 
     def source_package(self, system_id, package):
@@ -309,7 +309,7 @@ class Up2date(rhnHandler):
 
         filePath = rhnPackage.get_source_package_path_by_nvre(self.server_id,
             package)
-        return rpclib.File(open(filePath, "r"), name=filePath)
+        return rpclib.transports.File(open(filePath, "r"), name=filePath)
 
 
     def source_package_by_name(self, system_id, filename):
@@ -329,7 +329,7 @@ class Up2date(rhnHandler):
 
         filePath = rhnPackage.get_source_package_path_by_name(self.server_id,
             filename)
-        return rpclib.File(open(filePath, "r"), name=filePath)
+        return rpclib.transports.File(open(filePath, "r"), name=filePath)
 
 
     def solvedep(self, system_id, deps):

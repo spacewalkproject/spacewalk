@@ -143,7 +143,7 @@ class Repository(RPC_Base):
         data = self._getHeaderFromFile(filePath)
         # XXX: Interesting. Found that if returned just data, this
         #      function works fine. Investigate later.
-        return rpclib.File(cStringIO.StringIO(data), len(data))
+        return rpclib.transports.File(cStringIO.StringIO(data), len(data))
 
     # The real workhorse for all flavors of listall
     # It tries to pull data out of a file; if it doesn't work,
@@ -163,7 +163,7 @@ class Repository(RPC_Base):
         length = features['length']
         lastModified = features['lastModified']
         self._set_last_modified(lastModified)
-        return rpclib.File(open(filePath, "rb"), length, name=filePath)
+        return rpclib.transports.File(open(filePath, "rb"), length, name=filePath)
 
     def _getHeaderFromFile(self, filePath, stat_info=None):
         """ Utility function to extract a header from an rpm.

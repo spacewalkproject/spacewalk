@@ -240,7 +240,7 @@ class apacheRequest:
         self.req.headers_out["Content-Length"] = str(response_size)
 
         # if we loaded this from a real fd, set it as the X-Replace-Content
-        # check for "name" since sometimes we get xmlrpclib.File's that have
+        # check for "name" since sometimes we get xmlrpclib.transports.File's that have
         # a stringIO as the file_obj, and they dont have a .name (ie,
         # fileLists...)
         if response.name:
@@ -290,7 +290,7 @@ class apacheRequest:
         compress_response = rhnFlags.test("compress_response")
         # Init an output object; we'll use it for sending data in various
         # formats
-        if isinstance(response, rpclib.File):
+        if isinstance(response, rpclib.transports.File):
             if not hasattr(response.file_obj, 'fileno') and compress_response:
                 # This is a StringIO that has to be compressed, so read it in
                 # memory; mark that we don't have to do any xmlrpc encoding

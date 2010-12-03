@@ -56,7 +56,7 @@ class Transport(rpclib.transports.Transport):
         # XXX application/octet-stream should go away
         if content_type in ('application/xml', 'application/octet-stream', 
                 'application/x-rpm'):
-            f = rpclib.File(fd)
+            f = rpclib.transports.File(fd)
             # Explanation copied from the base class' method (rhn.transports):
             # Set the File's close method to the connection's
             # Note that calling the HTTPResponse's close() is not enough,

@@ -195,7 +195,7 @@ class Repository(rhnRepository.Repository):
             log_debug(2, "Unknown repomd file requested: %s" % file_name)
             raise rhnFault(6)
 
-        output = rpclib.File(output, name=file_name)
+        output = rpclib.transports.File(output, name=file_name)
 
         rhnFlags.set('Content-Type', content_type)
 
