@@ -16,6 +16,7 @@
 
 # RHN imports
 from spacewalk.common import rhn_mpm
+from spacewalk.common.checksum import getFileChecksum
 from rhnpush import uploadLib
 
 class UploadClass(uploadLib.UploadClass):
@@ -159,6 +160,12 @@ class UploadClass(uploadLib.UploadClass):
                     # Per-package post actions
                     self.processPackage(p, filename)
 
+    def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
+        """ call parent _processFile and add to returned has md5sum """
+        hash = uploadLib.UploadClass._processFile(self, filename, relativeDir, source, nosig)
+        checksum = getFileChecksum('md5', filename=filename)
+        hash['md5sum'] = checksum
+        return hash
 
 
 # returns a header from a package file on disk.
