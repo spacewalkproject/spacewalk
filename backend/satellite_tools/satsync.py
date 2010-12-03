@@ -189,7 +189,7 @@ class Runner:
             self.syncer.initialize()
         except (KeyboardInterrupt, SystemExit):
             raise
-        except xmlWireSource.rpclib.Fault, e:
+        except xmlWireSource.rpclib.xmlrpclib.Fault, e:
             if CFG.ISS_PARENT:  
                 # we met old satellite who do not know ISS
                 log(-1, ['', messages.iss_not_available ], )
@@ -279,7 +279,7 @@ class Runner:
             return 1
         except (KeyboardInterrupt, SystemExit):
             raise
-        except xmlWireSource.rpclib.Fault, e:
+        except xmlWireSource.rpclib.xmlrpclib.Fault, e:
             log(-1, messages.failed_step % (step_name, e.faultString))
             return 1
         except Exception, e:

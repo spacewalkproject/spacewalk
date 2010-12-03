@@ -122,7 +122,7 @@ class Dumper:
         while 1:
             try:
                 stream = self._getInputStream()
-            except rpclib.ProtocolError:
+            except rpclib.xmlrpclib.ProtocolError:
                 if tries == 0:
                     # No more tries
                     raise
@@ -342,7 +342,7 @@ class BinaryRPMDumper(ShortPackageDumper):
         filename = self._getFile()
         try:
             ShortPackageDumper.dump(self, force=force)
-        except rpclib.Fault, e:
+        except rpclib.xmlrpclib.Fault, e:
             if e.faultCode in (-3003, -3007):
                 # Missing file
                 print "Missing package", self._mixin.id
@@ -399,7 +399,7 @@ class KickstartFilesDumper(KickstartDataDumper):
         self.compression = 0
         try:
             return Dumper.dump(self, force=force)
-        except rpclib.Fault, e:
+        except rpclib.xmlrpclib.Fault, e:
             if e.faultCode in (-3003, -3007):
                 # Missing file
                 print "Missing file", self._mixin.relative_path

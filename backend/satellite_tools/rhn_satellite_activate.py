@@ -79,7 +79,8 @@ def openGzippedFile(filename):
 def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
                     sslCertPath, sslYN=1):
     """ Return an XML-RPC Server connection object; no ssl if sslCertPath==None.
-        May return rpclib.Fault, rpclib.ProtocolError, or socket.error.
+        May return rpclib.xmlrpclib.Fault, rpclib.xmlrpclib.ProtocolError,
+        or socket.error.
     """
 
     _uri = server + handler
@@ -287,7 +288,7 @@ def activateSatellite_remote(options):
             if options.verbose:
                 print "Executing: remote XMLRPC deactivation (if necessary)."
             ret = s.satellite.deactivate_satellite(systemid, rhn_cert)
-        except rpclib.Fault, f:
+        except rpclib.xmlrpclib.Fault, f:
             # 1025 results in "satellite_not_activated"
             if abs(f.faultCode) != 1025:
                 sys.stderr.write('ERROR: unhandled XMLRPC fault upon '
@@ -303,7 +304,7 @@ def activateSatellite_remote(options):
         if options.verbose:
             print "Executing: remote XMLRPC activation call."
         ret = s.satellite.activate_satellite(systemid, rhn_cert)
-    except rpclib.Fault, f:
+    except rpclib.xmlrpclib.Fault, f:
         sys.stderr.write("Error reported from RHN: %s\n" % f)
 	# NOTE: we support the old (pre-cactus) web-handler API and the new.
 	# The old web handler used faultCodes of 1|-1 and the new API uses

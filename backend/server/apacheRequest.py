@@ -99,7 +99,7 @@ class apacheRequest:
             msg = open(CFG.MESSAGE_TO_ALL).read()
             log_debug(3, "Sending message to all clients: %s" % msg)
             # Send the message as a fault.
-            response = rpclib.Fault(
+            response = rpclib.xmlrpclib.Fault(
                 -1, _("IMPORTANT MESSAGE FOLLOWS:\n%s") % msg)
             # and now send everything back
             ret = self.response(response)
@@ -124,7 +124,7 @@ class apacheRequest:
             if sys.exc_type == UnknownXML:
                 fault = -1
             e_type, e_value = sys.exc_info()[:2]
-            response = rpclib.Fault(fault, _(
+            response = rpclib.xmlrpclib.Fault(fault, _(
                 "While running '%s': caught\n%s : %s\n") % (
                 method, e_type, e_value))
             Traceback(method, self.req,
@@ -186,7 +186,7 @@ class apacheRequest:
     # convert a response to the right type for passing back to
     # rpclib.xmlrpclib.dumps
     def normalize(self, response):
-        if isinstance(response, rpclib.Fault):
+        if isinstance(response, rpclib.xmlrpclib.Fault):
             return response
         return (response,)
 
@@ -307,7 +307,7 @@ class apacheRequest:
             transfer=transports.lookupTransfer(self.input.transfer), 
             encoding=transports.lookupEncoding(self.input.encoding))
 
-        if isinstance(response, rpclib.Fault):
+        if isinstance(response, rpclib.xmlrpclib.Fault):
             log_debug(4, "Return FAULT",
                       response.faultCode, response.faultString)
             # No compression for faults because we'd like them to pop
@@ -387,7 +387,7 @@ class apachePOST(apacheRequest):
             self.parser.feed(data)
         except IndexError:
             # malformed XML data
-            raise rpclib.ResponseError
+            raise rpclib.xmlrpclib.ResponseError
 
         self.parser.close()
         # extract the method and arguments; we pass the exceptions through
@@ -461,7 +461,7 @@ class apachePOST(apacheRequest):
         # Decode the request; avoid logging crappy responses
         try:
             params, method = self.decode(_body)
-        except rpclib.ResponseError:
+        except rpclib.xmlrpclib.ResponseError:
             log_error("Got bad XML-RPC blob of len = %d" % len(_body))
             return apache.HTTP_BAD_REQUEST
         else:
@@ -569,7 +569,7 @@ class GetHandler(apacheRequest):
         # since we have to stick the error message in the HTTP header,
         # and to return an Apache error code
                 
-        if isinstance(response, rpclib.Fault):
+        if isinstance(response, rpclib.xmlrpclib.Fault):
             log_debug(4, "Return FAULT",
                       response.faultCode, response.faultString)
             retcode = apache.HTTP_NOT_FOUND
