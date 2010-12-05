@@ -28,6 +28,7 @@ from spacewalk.server import rhnSQL, rhnPackageUpload
 from spacewalk.server.rhnServer import server_packages
 from spacewalk.satellite_tools.progress_bar import ProgressBar
 from spacewalk.spacewalk.common.checksum import getFileChecksum
+from spacewalk.server.importlib import mpmSource
 
 initCFG('server.satellite')
 initLOG(CFG.LOG_FILE, CFG.DEBUG)
@@ -37,6 +38,8 @@ debug = 0
 verbose = 0
 
 options_table = [
+    Option("--update-package-files", action="store_true",
+        help="Update package files (bugs #659348, #652852)"),
     Option("--update-sha256", action="store_true",
         help="Update SHA-256 capable packages"),
     Option("--update-filer", action="store_true",
@@ -83,6 +86,9 @@ def main():
 
     if options.update_kstrees:
         process_kickstart_trees()
+
+    if options.update_package_files:
+        process_package_files()
 
 _get_path_query = """
 	select id, checksum_type, checksum, path, epoch, new_path
@@ -381,6 +387,158 @@ def process_sha256_packages():
             sys.exit(1)
 
     pb.printComplete()
+
+package_query = """
+    select p.id as id,
+           p.path as path,
+           count(pf.capability_id) as filecount,
+           count(pf.checksum_id) as nonnullcsums
+      from rhnPackage p left outer join rhnPackageFile pf
+        on p.id = pf.package_id
+     where path is not null
+  group by id, path
+"""
+
+package_capabilities = """
+    select PC.name,
+           PF.package_id,
+           PF.capability_id,
+           C.checksum,
+           C.checksum_type
+      from rhnPackageFile PF left outer join rhnChecksumView C
+        on PF.checksum_id = C.id,
+           rhnPackageCapability PC
+     where PC.id = PF.capability_id and
+           PF.package_id = :pid
+"""
+
+update_packagefile_checksum = """
+    update rhnPackageFile
+       set checksum_id = lookup_checksum(:ctype, :csum)
+     where package_id = :pid and
+           capability_id = :cid
+"""
+
+insert_packagefile = """
+    insert into rhnPackageFile (
+            package_id, capability_id, device, inode, file_mode, username,
+            groupname, rdev, file_size, mtime, linkto, flags, verifyflags,
+            lang, checksum_id
+           )
+    values (
+            :pid, lookup_package_capability(:name, null),
+            :device, :inode, :file_mode, :username, :groupname,
+            :rdev, :file_size, to_date(:mtime, 'YYYY-MM-DD HH24:MI:SS'), :linkto,
+            :flags, :verifyflags, :lang, lookup_checksum(:ctype, :csum)
+           )
+"""
+
+package_name_query = """
+    select pn.name as name,
+           evr_t_as_vre_simple(pevr.evr) as vre,
+           pa.label as arch
+      from rhnPackage p,
+           rhnPackageName pn,
+           rhnPackageEVR pevr,
+           rhnPackageArch pa
+     where p.id = :pid and
+           p.name_id = pn.id and
+           p.evr_id = pevr.id and
+           p.package_arch_id = pa.id
+"""
+
+def process_package_files():
+    def parse_header(header):
+        checksum_type = rhn_rpm.RPM_Header(header).checksum_type()
+        return mpmSource.create_package(header, size=0,
+            checksum_type=checksum_type, checksum=None, relpath=None,
+            org_id=None, header_start=None, header_end=None, channels=[])
+
+    package_name_h = rhnSQL.prepare(package_name_query)
+
+    def package_name(id):
+        package_name_h.execute(pid=id)
+        r = package_name_h.fetchall_dict()[0]
+        return "%s-%s.%s" % (r['name'], r['vre'], r['arch'])
+
+    Log = rhnLog.rhnLog('/var/log/rhn/update-packages.log', 5)
+
+    package_query_h = rhnSQL.prepare(package_query)
+    package_query_h.execute()
+
+    package_capabilities_h = rhnSQL.prepare(package_capabilities)
+    update_packagefile_checksum_h = rhnSQL.prepare(update_packagefile_checksum)
+    insert_packagefile_h = rhnSQL.prepare(insert_packagefile)
+
+    while (True):
+        row = package_query_h.fetchone_dict()
+        if not row: # No more packages in DB to process
+            break
+
+        package_path = os.path.join(CFG.MOUNT_POINT, row['path'])
+
+        if not os.path.exists(package_path):
+            if debug:
+                Log.writeMessage("Package path '%s' does not exist." % package_path)
+            continue
+
+        try:
+            hdr = rhn_rpm.get_package_header(filename=package_path)
+        except Exception, e:
+            message = "Error when reading package %s header: %s" % (package_path, e)
+            if debug:
+                Log.writeMessage(message)
+            continue
+
+        pkg_updates = 0
+        if row['filecount'] != len(hdr['filenames']):
+            # Number of package files on disk and in the DB do not match
+            # (possibly a bug #652852). We have to correct them one by one.
+            package_capabilities_h.execute(pid=row['id'])
+            pkg_caps = {} # file-name : capabilities dictionary
+            for cap in package_capabilities_h.fetchall_dict() or []:
+                pkg_caps[cap['name']] = cap
+
+            for f in parse_header(hdr)['files']:
+                if pkg_caps.has_key(f['name']):
+                    continue # The package files exists in the DB
+
+                # Insert the missing package file into DB
+                insert_packagefile_h.execute(pid=row['id'], name=f['name'],
+                    ctype=f['checksum_type'], csum=f['checksum'], device=f['device'],
+                    inode=f['inode'], file_mode=f['file_mode'], username=f['username'],
+                    groupname=f['groupname'], rdev=f['rdev'], file_size=f['file_size'],
+                    mtime=f['mtime'], linkto=f['linkto'], flags=f['flags'],
+                    verifyflags=f['verifyflags'], lang=f['lang'])
+                pkg_updates += 1
+
+            if debug and pkg_updates:
+                Log.writeMessage("Package id: %s, name: %s, %s files inserted" % \
+                    (row['id'], package_name(row['id']), pkg_updates))
+        elif row['nonnullcsums'] == 0:
+            # All package files in the DB have null checksum (possibly a bug #659348)
+            package_capabilities_h.execute(pid=row['id'])
+            pkg_caps = {} # file-name : capabilities dictionary
+            for cap in package_capabilities_h.fetchall_dict() or []:
+                pkg_caps[cap['name']] = cap
+
+            for f in parse_header(hdr)['files']:
+                if f['checksum'] == '': # Convert empty string (symlinks) to None to match w/ Oracle returns
+                    f['checksum'] = None
+
+                caps = pkg_caps[f['name']]
+
+                if not caps['checksum'] == f['checksum']:
+                    # Package file exists, but its checksum in the DB is incorrect
+                    update_packagefile_checksum_h.execute(ctype=f['checksum_type'], csum=f['checksum'],
+                        pid=caps['package_id'], cid=caps['capability_id'])
+                    pkg_updates += 1
+
+            if debug and pkg_updates:
+                Log.writeMessage("Package id: %s, name: %s, %s checksums updated" % \
+                    (row['id'], package_name(row['id']), pkg_updates))
+
+        rhnSQL.commit() # End of a package
 
 if __name__ == '__main__':
     main()
