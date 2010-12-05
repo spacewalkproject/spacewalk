@@ -101,7 +101,7 @@ SELECT C.name,
        TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
   FROM rhnPackageFile F left outer join rhnChecksumView CS
     ON F.checksum_id = CS.id,
-       rhnPackageCapability C,
+       rhnPackageCapability C
  WHERE F.package_id = :pid
    AND F.capability_id = C.id
 ORDER BY UPPER(C.name)
