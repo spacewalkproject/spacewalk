@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.8
+Version:       5.5.9
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -50,6 +50,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Mon Dec 06 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.9-1
+- 656746 - make _processFile and _processBatch method of UploadClass class
+  (msuchy@redhat.com)
+
 * Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.5.8-1
 - removed unused imports
 
