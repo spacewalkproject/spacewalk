@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.18
+Version: 1.3.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -452,6 +452,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 06 2010 Tomas Lestach <tlestach@redhat.com> 1.3.19-1
+- 581832 - return correct package info according to the comparism result
+  (tlestach@redhat.com)
+- 658653 - fixing dupliclates from showing up on eligible flex guests page
+  (jsherril@redhat.com)
+- 620578 - just fix the exception handling (tlestach@redhat.com)
+- 620578 - introduce errata.publishAccordingToParents API (tlestach@redhat.com)
+- fixing VirtualizationEntitlementsManagerTest.testConvertToFlex
+  (tlestach@redhat.com)
+- spacewalk-java.spec change - jasper was merged into tomcat-lib
+  (lzap+git@redhat.com)
+- 659364 - fix syntax error (mzazrivec@redhat.com)
+- 659364 - allow files without checksums in the file list
+  (mzazrivec@redhat.com)
+- 658653 - converting flex entitlement pages under "Virt Entitlements" to use
+  the normal list tag instead of the fancy new tree tag,  This enables the page
+  to be usable where there are hundreds of children for each channel family
+  (jsherril@redhat.com)
+
 * Wed Dec 01 2010 Jan Pazdziora 1.3.18-1
 - 658167 - fix cases, when quartz triggers a job earlier, than the job info
   lands in the DB (tlestach@redhat.com)
