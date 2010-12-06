@@ -167,7 +167,7 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
             sids.add(cfs.getId());
         }
         assertEquals(1, VirtualizationEntitlementsManager.getInstance().
-                convertToFlex(sids, group.getId(), user));
+                convertToFlex(sids, group.getId(), user).size());
         HibernateFactory.getSession().clear();
         l = VirtualizationEntitlementsManager.getInstance().listFlexGuests(user);
         assertTrue(!l.isEmpty());
