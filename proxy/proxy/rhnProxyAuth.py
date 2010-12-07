@@ -21,10 +21,11 @@ import os
 import time
 import string
 import socket
+import xmlrpclib
 
 ## local imports
 import rhnAuthCacheClient
-from xxmlrpclib import rpclib, Fault, loads
+from xxmlrpclib import rpclib
 from rhn import SSL
 
 ## common imports
@@ -98,7 +99,7 @@ class ProxyAuth:
                         "Please contact your system administrator."))
 
         # get serverid
-        sysid, cruft = loads(ProxyAuth.__systemid)
+        sysid, cruft = xmlrpclib.loads(ProxyAuth.__systemid)
         ProxyAuth.__serverid = sysid[0]['system_id'][3:]
 
         log_debug(7, 'SystemId: "%s[...snip  snip...]%s"' \
@@ -267,12 +268,12 @@ problems, isn't running, or the token is somehow corrupt.
                 Traceback(mail=0)
                 time.sleep(.25)
                 continue
-            except rpclib.ProtocolError, e:
+            except xmlrpclib.ProtocolError, e:
                 token = None
-                log_error('rpclib.ProtocolError', e)
+                log_error('xmlrpclib.ProtocolError', e)
                 time.sleep(.25)
                 continue
-            except Fault, e:
+            except xmlrpclib.Fault, e:
                 # Report it through the mail
                 # Traceback will try to walk over all the values
                 # in each stack frame, and eventually will try to stringify
@@ -303,7 +304,7 @@ problems, isn't running, or the token is somehow corrupt.
 
         if not token:
             if error:
-                if error[0] in ('rpclib.ProtocolError', 'socket.error', 'socket'):
+                if error[0] in ('xmlrpclib.ProtocolError', 'socket.error', 'socket'):
                     raise rhnFault(1000,
                                 _("RHN Proxy error (error: %s). "
                                   "Please contact your system administrator.") % error[0])

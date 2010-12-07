@@ -27,6 +27,7 @@ import string
 import cPickle
 import types
 from operator import truth
+import xmlrpclib
 
 ## common imports
 from spacewalk.common import rhnRepository, log_debug, log_error, CFG, rhnFault
@@ -123,7 +124,7 @@ class Repository(rhnRepository.Repository):
         try:
             retval = server.proxy.package_source_in_channel(
                         pkgFilename, self.channelName, self.clientInfo)
-        except rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             raise rhnFault(1000,
                     _("Error retrieving source package: %s") % str(e))
         if not retval:
@@ -235,9 +236,9 @@ def listPackages(function, channel, version):
 
     try:
         return function(channel, version)
-    except rpclib.ProtocolError, e:
+    except xmlrpclib.ProtocolError, e:
         errcode, errmsg = rpclib.reportError(e.headers)
-        raise rhnFault(1000, "RHN Proxy error (rpclib.ProtocolError): "
+        raise rhnFault(1000, "RHN Proxy error (xmlrpclib.ProtocolError): "
                              "errode=%s; errmsg=%s" % (errcode, errmsg))
 
 

@@ -30,6 +30,7 @@ import sys
 import string
 import socket
 import urlparse
+import xmlrpclib
 
 ## lib imports
 from rhn import rpclib, SSL
@@ -212,13 +213,13 @@ def _errorHandler(pre='', post=''):
         errorString = pre
         try:
             raise
-        except rpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError, e:
             errorCode, s = _getProtocolError(e)
             errorString = errorString + s
         except socket.error, e:
             errorCode, s = _getSocketError(e)
             errorString = errorString + s
-        except rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             errorCode, errorString = _getActivationError(e)
         except SSL.SSL.Error, e:
             errorCode = 13
@@ -277,14 +278,14 @@ def getAPIVersion(options):
         version = s.api.system_version()    # 3.1+ API
     except (SystemExit, KeyboardInterrupt):
         raise
-    except rpclib.Fault:
+    except xmlrpclib.Fault:
         sys.stderr.write("warning: can't check API version. Assuming at least API version 3.0.0\n")
         version = '3.0.0'
     except SSL.SSL.Error:
         errorCode, errorString = _errorHandler()
         sys.stderr.write(errorString + '\n')
         sys.exit(errorCode)
-    except (rpclib.ProtocolError, socket.error):
+    except (xmlrpclib.ProtocolError, socket.error):
         errorCode, errorString = _errorHandler()
         sys.stderr.write(errorString + '\n')
         sys.exit(errorCode)
@@ -330,7 +331,7 @@ def _deactivateProxy_api_v3_x(options, apiVersion):
         errorCode, errorString = _errorHandler()
         try:
             raise
-        except rpclib.Fault:
+        except xmlrpclib.Fault:
             if errorCode == 8:
                 # fine. We weren't activated yet.
                 # noop and look like a success
@@ -341,7 +342,7 @@ def _deactivateProxy_api_v3_x(options, apiVersion):
         except SSL.SSL.Error:
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (rpclib.ProtocolError, socket.error):
+        except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
         except:
@@ -375,10 +376,10 @@ def _activateProxy_api_v3_x(options, apiVersion):
             # let's force a system exit for this one.
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (rpclib.Fault, Exception):
+        except (xmlrpclib.Fault, Exception):
             # let's force a slight change in messaging for this one.
             errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
-        except (rpclib.ProtocolError, socket.error):
+        except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
         except:
@@ -411,10 +412,10 @@ def createMonitoringScout(options):
             # let's force a system exit for this one.
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (rpclib.Fault, Exception):
+        except (xmlrpclib.Fault, Exception):
             # let's force a slight change in messaging for this one.
             errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
-        except (rpclib.ProtocolError, socket.error):
+        except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
         except:

@@ -19,7 +19,7 @@
 import struct
 
 ## local imports
-from xxmlrpclib import dumps, loads
+from xmlrpclib import dumps, loads
 
 
 class CommunicationError(Exception):
