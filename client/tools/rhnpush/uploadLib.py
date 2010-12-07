@@ -21,6 +21,7 @@ import fnmatch
 import getpass
 import rhnpush_cache
 import struct
+import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
 
@@ -30,7 +31,6 @@ try:
     Output = rpclib.transports.Output
 except ImportError:
     # old-style xmlrpclib library
-    import xmlrpclib
     rpclib = xmlrpclib
     Binary = rpclib.Binary
     import cgiwrap
@@ -634,14 +634,14 @@ def call(function, *params):
     # Wrapper function
     try:
         ret = apply(function, params)
-    except rpclib.Fault, e:
+    except xmlrpclib.Fault, e:
         x = parseXMLRPCfault(e)
         if x.faultString:
             print x.faultString
         if x.faultExplanation:
             print x.faultExplanation
         sys.exit(-1)
-    except rpclib.ProtocolError, e:
+    except xmlrpclib.ProtocolError, e:
         print e.errmsg
         sys.exit(-1)
 
@@ -652,7 +652,7 @@ def raw_call(function, *params):
 
 
 def parseXMLRPCfault(fault):
-    if not isinstance(fault, rpclib.Fault):
+    if not isinstance(fault, xmlrpclib.Fault):
         return None
     faultCode = fault.faultCode
     if faultCode and isinstance(faultCode, type(1)):
@@ -714,7 +714,7 @@ def exists_getPackageChecksumBySession(server):
     ret = True
     try:
         raw_call(server.packages.getPackageChecksumBySession, '', {})
-    except rpclib.Fault, e:
+    except xmlrpclib.Fault, e:
         if e.faultCode in [-2, -33]:
             # Fault -33: session token is invalid
             # i.e. function exists but we supplied wrong data
