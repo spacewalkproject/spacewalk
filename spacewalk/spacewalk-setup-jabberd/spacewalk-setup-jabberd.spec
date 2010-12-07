@@ -53,6 +53,7 @@ rm -rf %{buildroot}
 %doc LICENSE
 %{_bindir}/spacewalk-setup-jabberd
 %{_mandir}/man1/*
+%dir %{_datadir}/spacewalk
 %{_datadir}/spacewalk/*
 %dir %{_sysconfdir}/pki/spacewalk
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
