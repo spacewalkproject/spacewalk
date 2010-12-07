@@ -22873,6 +22873,9 @@ given channel.</source>
      <trans-unit id="task.status.cleanup-timeseries-data">
          <source>TimeSeries Cleanup</source>
      </trans-unit>
+     <trans-unit id="task.status.cleanup-packagechangelog-data">
+         <source>Changelog Cleanup</source>
+     </trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
      </trans-unit>
