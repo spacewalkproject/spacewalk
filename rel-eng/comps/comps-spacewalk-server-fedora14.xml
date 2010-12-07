@@ -231,6 +231,7 @@
        <packagereq type="default">spacewalk-ssl-cert-check</packagereq>
        <packagereq type="default">spacewalk-taskomatic</packagereq>
        <packagereq type="default">spacewalk-utils</packagereq>
+       <packagereq type="default">spacewalk-remote-utils</packagereq>
        <packagereq type="default">spacewalk-web</packagereq>
        <packagereq type="default">SputLite</packagereq>
        <packagereq type="default">SputLite-client</packagereq>
