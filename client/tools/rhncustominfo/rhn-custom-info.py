@@ -19,6 +19,7 @@ import sys
 import os
 import string
 import getpass
+import xmlrpclib
 
 from re import search
 from optparse import OptionParser
@@ -229,7 +230,7 @@ def main():
         else:
             ret = s.system.set_custom_values(session, int(sid), values)
 
-    except rpclib.Fault, e:
+    except xmlrpclib.Fault, e:
         if e.faultCode == -1:
             system_exit(1, "Error code:  %s\nInvalid login information.\n" % e.faultCode)
         else:
