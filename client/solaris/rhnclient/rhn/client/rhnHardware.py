@@ -5,11 +5,6 @@ import xmlrpclib
 import rpcServer
 import hardware
 
-try:
-    from rhn import rpclib
-except ImportError:
-    rpclib = __import__("xmlrpclib")
-
 
 
 def updateHardware():
@@ -20,7 +15,7 @@ def updateHardware():
 
     try:
         rhnAuth.updateLoginInfo()
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         faultError(f.faultString)
         sys.exit(1)
     except rhnErrors.ServerCapabilityError, e:

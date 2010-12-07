@@ -17,7 +17,7 @@ import config
 
 from translate import _
 
-from rhn import rpclib
+import xmlrpclib
 
 # global variables
 SYSID_DIR = config.RHN_SYSCONFIG_DIR
@@ -160,7 +160,7 @@ def welcomeText():
 
     try:
         return rpcServer.doCall(s.registration.welcome_message)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -172,7 +172,7 @@ def privacyText():
 
     try:
         return rpcServer.doCall(s.registration.privacy_statement)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -187,7 +187,7 @@ def finishMessage(systemId):
     try:
         ret =  rpcServer.doCall(s.registration.finish_message, systemId)
         return ret
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -199,7 +199,7 @@ def getCaps():
     
     try:
         rpcServer.doCall(s.registration.welcome_message)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -217,7 +217,7 @@ def termsAndConditions():
 
     try:
         return rpcServer.doCall(s.registration.terms_and_conditions)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -228,7 +228,7 @@ def reserveUser(username, password):
     
     try:
         ret = rpcServer.doCall(s.registration.reserve_user, username, password)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == -3:
             # account already in use
             raise rhnErrors.ValidationError(f.faultString)
@@ -250,7 +250,7 @@ def validateRegNum(regNum):
 
     try:
         rpcServer.doCall(s.registration.validate_reg_num,regNum)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == -16:
             # invalid
             raise rhnErrors.ValidationError(f.faultString)
@@ -274,7 +274,7 @@ def registerUser(username, password,
                                  username, password, email)
         else:
                 rpcServer.doCall(s.registration.new_user, username, password)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -315,7 +315,7 @@ def registerSystem(username = None, password = None,
             ret = rpcServer.doCall(s.registration.new_system,
                          auth_dict,
                          packages)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if abs(f.faultCode) == 99:
             raise rhnErrors.DelayError(f.faultString)
         elif abs(f.faultCode) == 60:
@@ -334,7 +334,7 @@ def registerProduct(systemId, productInfo, oemInfo={}):
     try:
         rpcServer.doCall(s.registration.register_product,
                          systemId, productInfo)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -350,7 +350,7 @@ def sendSerialNumber(systemId, num):
                                        cfg["oemId"])
         else:
             rpcServer.doCall(s.registration.send_serial, systemId, num)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -362,7 +362,7 @@ def sendHardware(systemId, hardwareList):
 
     try:
         rpcServer.doCall(s.registration.add_hw_profile, systemId, hardwareList)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -373,7 +373,7 @@ def sendPackages(systemId, packageList):
 
     try:
         rpcServer.doCall(s.registration.add_packages, systemId, packageList)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -384,7 +384,7 @@ def updatePackages(systemId, packageList):
 
     try:
         rpcServer.doCall(s.registration.update_packages, systemId, packageList)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -395,7 +395,7 @@ def listPackages(systemId):
 
     try:
         rpcServer.doCall(s.registration.list_packages,systemId)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise rhnErrors.DelayError(f.faultString)
         else:
@@ -412,7 +412,7 @@ def up2datePackages(systemId):
 #    try:
 #        rpcServer.doCall(s.registration.add_packages,
 #                         systemId, rpmUtils.getInstalledPackageList())
-#    except rpclib.Fault, f:
+#    except xmlrpclib.Fault, f:
 #        if f.faultCode == 99:
 #            raise up2dateErrors.DelayError(f.faultString)
 #        else:
