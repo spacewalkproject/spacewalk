@@ -21,7 +21,7 @@ gtk.glade.bindtextdomain("rhn-client-tools", "/usr/share/locale")
 import gnome.ui
 
 import signal
-from rhn import rpclib
+import xmlrpclib
 
 import gettext
 _ = gettext.gettext
@@ -337,7 +337,7 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except rpclib.ResponseError, e:
+    except xmlrpclib.ResponseError, e:
         print e
     except IOError, e:
         print _("There was some sort of I/O error: %s") % e.errmsg

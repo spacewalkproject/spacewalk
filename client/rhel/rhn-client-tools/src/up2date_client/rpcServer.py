@@ -15,6 +15,7 @@ import up2dateErrors
 import up2dateUtils
 import up2dateAuth
 
+import xmlrpclib
 from rhn import rpclib
 
 import gettext
@@ -39,7 +40,7 @@ class RetryServer(rpclib.Server):
                 ret = self._request(methodname, params)
             except rpclib.InvalidRedirectionError:
                 raise
-            except rpclib.Fault:
+            except xmlrpclib.Fault:
                 raise
             except httplib.BadStatusLine:
                 self.log.log_me("Error: Server Unavailable. Please try later.") 
@@ -226,7 +227,7 @@ def doCall(method, *args, **kwargs):
             log.log_me(msg)
             raise up2dateErrors.CommunicationError(msg)
         
-        except rpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError, e:
             
             log.log_me("A protocol error occurred: %s , attempt #%s," % (
                 e.errmsg, attempt_count))
@@ -276,7 +277,7 @@ def doCall(method, *args, **kwargs):
                 else:
                     failure = 1
             
-        except rpclib.ResponseError:
+        except xmlrpclib.ResponseError:
             raise up2dateErrors.CommunicationError(
                 "Broken response from the server.")
 

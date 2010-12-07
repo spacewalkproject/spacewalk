@@ -21,10 +21,7 @@ import hardware
 from rhnPackageInfo import convertPackagesFromHashToList
 from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
 
-try:
-    from rhn import rpclib
-except ImportError:
-    rpclib = __import__("xmlrpclib")
+import xmlrpclib
 
 try:
     from virtualization import support
@@ -353,7 +350,7 @@ def getAvailableChannels(username, password):
                                                  username, password,
                                                  server_arch, server_version, 
                                                  server_release)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise up2dateErrors.DelayError(f.faultString)
         else:

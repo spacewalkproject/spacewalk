@@ -35,7 +35,7 @@ from up2date_client import capabilities
 from up2date_client import rhncli, rhnserver
 
 from rhn import rhnLockfile
-from rhn import rpclib
+import xmlrpclib
 
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
@@ -83,7 +83,7 @@ class CheckCli(rhncli.RhnCli):
                 ACTION_VERSION, status_report)
 
             return action
-        except rpclib.Fault, f:
+        except xmlrpclib.Fault, f:
             if f.faultCode == -31:
                 raise up2dateErrors.InsuffMgmntEntsError(f.faultString)
             else:
@@ -116,7 +116,7 @@ class CheckCli(rhncli.RhnCli):
             actions = self.server.queue.get_future_actions(up2dateAuth.getSystemId(),
                 time_window)
             return actions
-        except rpclib.Fault, f:
+        except xmlrpclib.Fault, f:
             if f.faultCode == -31:
                 raise up2dateErrors.InsuffMgmntEntsError(f.faultString)
             else:
@@ -189,7 +189,7 @@ class CheckCli(rhncli.RhnCli):
     def __parse_action_data(self, action):
         """ Parse action data and returns (method, params) """
         data = action['action']
-        parser, decoder = rpclib.getparser()
+        parser, decoder = xmlrpclib.getparser()
         parser.feed(data)
         parser.close()
         params = decoder.close()
@@ -205,7 +205,7 @@ class CheckCli(rhncli.RhnCli):
         try:
             ret = self.server.queue.submit(up2dateAuth.getSystemId(),
                                       action_id, status, message, data)
-        except rpclib.Fault, f:
+        except xmlrpclib.Fault, f:
             print "Could not submit results to server %s" % self.server
             print "Error code: %d%s" % (f.faultCode, f.faultString)
             sys.exit(-1)
@@ -260,7 +260,7 @@ class CheckCli(rhncli.RhnCli):
             print action
             # the -99 here is kind of magic
             self.submit_response(action["id"],
-                            rpclib.Fault(-99, "Can not handle this version"))
+                            xmlrpclib.Fault(-99, "Can not handle this version"))
             return False
         return True
  
