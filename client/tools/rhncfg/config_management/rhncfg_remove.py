@@ -14,8 +14,9 @@
 #
 
 import os
-from config_common import handler_base, utils, repository
+from config_common import handler_base, utils
 from config_common.rhn_log import log_debug, die
+import xmlrpclib
 
 class Handler(handler_base.HandlerBase):
     _usage_options = "[options] file [ file ... ]"
@@ -67,7 +68,7 @@ class Handler(handler_base.HandlerBase):
         for (local_file, remote_file) in files_to_remove:
             try:
                 r.remove_file(channel, remote_file)
-            except repository.rpclib.Fault, e:
+            except xmlrpclib.Fault, e:
                 if e.faultCode == -4011:
                     print "%s does not exist" % remote_file
                     continue

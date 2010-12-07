@@ -24,6 +24,7 @@ import cfg_exceptions
 import local_config
 import base64
 import utils
+import xmlrpclib
 
 from rhn_log import log_debug
 
@@ -292,7 +293,7 @@ class RPC_Repository(Repository):
             # without setting any state on the server side
             try:
                 x_server.registration.welcome_message()
-            except rpclib.Fault, e:
+            except xmlrpclib.Fault, e:
                 sys.stderr.write("XML-RPC error while talking to %s:\n %s\n" % (self.__server_url, e))
                 sys.exit(2)
 
@@ -363,10 +364,10 @@ class RPC_Repository(Repository):
         method = getattr(self.server, method_name)
         try:
             result = apply(method, params)
-        except rpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError, e:
             sys.stderr.write("XML-RPC call error: %s\n" % e)
             sys.exit(1)
-        except rpclib.Fault:
+        except xmlrpclib.Fault:
             # Re-raise them
             raise
         except Exception, e:

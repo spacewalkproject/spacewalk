@@ -24,4 +24,3 @@ except ImportError:
     import xmlrpclib
     rpclib = xmlrpclib
 
-Fault = rpclib.Fault

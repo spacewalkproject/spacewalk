@@ -15,6 +15,7 @@
 
 import os
 import tempfile
+import xmlrpclib
 
 from config_common import cfg_exceptions, repository, utils, file_utils
 from config_common.rhn_log import log_debug
@@ -54,7 +55,7 @@ class Repository(repository.RPC_Repository):
                     'username' : self.username,
                     'password' : self.password,
                     })
-            except repository.rpclib.Fault, e:
+            except xmlrpclib.Fault, e:
                 fault_code, fault_string = e.faultCode, e.faultString
                 if fault_code == -2:
                     raise cfg_exceptions.AuthenticationError(
@@ -90,7 +91,7 @@ class Repository(repository.RPC_Repository):
             params['revision'] = revision
         try:
             result = self.rpc_call('config.management.get_file', params)
-        except repository.rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             if e.faultCode == -4011:
                 # File not present
                 raise cfg_exceptions.RepositoryFileMissingError(config_channel,
@@ -156,7 +157,7 @@ class Repository(repository.RPC_Repository):
         try:
             result = self.rpc_call('config.management.put_file', params)
             
-        except repository.rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             fault_code, fault_string = e.faultCode, e.faultString
             
             if is_first_revision and fault_code == -4013:
@@ -204,7 +205,7 @@ class Repository(repository.RPC_Repository):
         try:
             revisions = self.rpc_call('config.management.list_file_revisions',
                 params)
-        except repository.rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             if e.faultCode == -4011:
                 # File not present
                 raise cfg_exceptions.RepositoryFileMissingError(
@@ -230,7 +231,7 @@ class Repository(repository.RPC_Repository):
         try:
             return self.rpc_call('config.management.create_config_channel', 
                 {'session' : self.session, 'config_channel' : config_channel})
-        except repository.rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             if e.faultCode == -4010:
                 raise cfg_exceptions.ConfigChannelAlreadyExistsError(config_channel)
             raise
@@ -241,7 +242,7 @@ class Repository(repository.RPC_Repository):
         try:
             return self.rpc_call('config.management.remove_config_channel', 
                 {'session' : self.session, 'config_channel' : config_channel})
-        except repository.rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             if e.faultCode == -4009:
                 raise cfg_exceptions.ConfigChannelNotInRepo(config_channel)
             if e.faultCode == -4005:
@@ -281,7 +282,7 @@ class Repository(repository.RPC_Repository):
             params['revision_dst'] = revision_dst
         try:
             ret = self.rpc_call('config.management.diff', params)
-        except repository.rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             if e.faultCode == -4011:
                 # File not present
                 raise cfg_exceptions.RepositoryFileMissingError(e.faultString)

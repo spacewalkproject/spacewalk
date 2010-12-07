@@ -15,10 +15,10 @@
 
 import os
 import sys
+import xmlrpclib
 
 from config_common import local_config, cfg_exceptions, file_utils, \
     repository
-from config_common.rhn_rpc import rpclib
 from config_common.rhn_log import log_debug
 
 import traceback
@@ -49,7 +49,7 @@ class ClientRepository(repository.RPC_Repository):
         try:
             result = apply(repository.RPC_Repository.rpc_call, 
                 (self, method_name) + params)
-        except rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             if e.faultCode == -9:
                 # System not subscribed
                 raise cfg_exceptions.AuthenticationError(
@@ -118,7 +118,7 @@ class ClientRepository(repository.RPC_Repository):
             try:
                 self.rpc_call('config.client.upload_file',
                     self.system_id, action_id, params)
-            except repository.rpclib.Fault, e:
+            except xmlrpclib.Fault, e:
                 fault_code, fault_string = e.faultCode, e.faultString
                 # deal with particular faults
                 if fault_code == -4003:

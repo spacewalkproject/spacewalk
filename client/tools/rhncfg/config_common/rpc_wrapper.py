@@ -16,6 +16,7 @@
 import sys
 import string
 from rhn_rpc import rpclib
+import xmlrpclib
 try:
     from socket import error, sslerror, herror, gaierror, timeout
 except ImportError:
@@ -24,11 +25,6 @@ except ImportError:
     herror = error
     gaierror = error
     timeout = error
-
-#Expose the rpclib Exceptions so they can be accessed as if they're implemented here.
-Fault = rpclib.Fault
-ResponseError = rpclib.ResponseError
-ProtocolError = rpclib.ProtocolError
 
 #This is raised when the failover stuff has gone through every server in the server list
 #and the error is still occurring.
@@ -165,7 +161,7 @@ class Server(rpclib.Server):
                 ret = apply(function, arglist, kwargs)
             except rpclib.InvalidRedirectionError:
                 raise
-            except rpclib.Fault, e:
+            except xmlrpclib.Fault, e:
                 try:
                     self._failover()
                 except NoMoreServers, f:
