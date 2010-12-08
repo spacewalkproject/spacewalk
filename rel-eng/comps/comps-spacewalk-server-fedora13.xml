@@ -135,7 +135,6 @@
        <packagereq type="default">perl-Tie-EncryptedHash</packagereq>
        <packagereq type="default">perl-XML-Generator</packagereq>
        <packagereq type="default">ProgAGoGo</packagereq>
-       <packagereq type="default">PyPAM</packagereq>
        <packagereq type="default">python-ethtool</packagereq>
        <packagereq type="default">python-gzipstream</packagereq>
        <packagereq type="default">python-debian</packagereq>
