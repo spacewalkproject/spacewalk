@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.21
+Version: 1.3.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 08 2010 Lukas Zapletal 1.3.22-1
+- Revert "spacewalk-java.spec change - jasper was merged into tomcat-lib"
+
 * Tue Dec 07 2010 Tomas Lestach <tlestach@redhat.com> 1.3.21-1
 - adding cleanup-packagechangelog-data translation key (tlestach@redhat.com)
 - add example of usage of DateTime in python API scripts (msuchy@redhat.com)
