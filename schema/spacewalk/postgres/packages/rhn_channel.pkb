@@ -233,10 +233,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         vi_entries cursor for
             SELECT 1
               FROM rhnVirtualInstance vi
-             WHERE vi.virtual_system_id = server_id_in
-             and not exists(select server_id from rhnServerChannel sc where
-                            sc.server_id = vi.virtual_system_id
-                            and  sc.is_fve='Y');
+             WHERE vi.virtual_system_id = server_id_in;
         vi_count numeric;
 
     begin
