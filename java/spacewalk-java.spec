@@ -438,11 +438,11 @@ fi
 %{_datadir}/rhn/lib/rhn.jar
 
 %files oracle
-%defattr(644, root, root)
+%defattr(644, tomcat, tomcat)
 %{jardir}/ojdbc14.jar
 
 %files postgresql
-%defattr(644, root, root)
+%defattr(644, tomcat, tomcat)
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
