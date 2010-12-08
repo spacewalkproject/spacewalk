@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -169,6 +169,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Wed Dec 08 2010 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
+- remove jabberd-selinux dependency for rhel6+ (tlestach@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.3-1
 - Move the oracle-instantclient*-selinux dependency to spacewalk-oracle, to
   make it posible to install Spacewalk without Oracle SELinux modules.
