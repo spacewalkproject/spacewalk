@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/sbin
-mkdir -p $RPM_BUILD_ROOT/%{_usr}/share/rhn/installer
+mkdir -p $RPM_BUILD_ROOT/%{_usr}/share/rhn/installer/jabberd
 install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cluster.ini $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
@@ -64,6 +64,7 @@ install -m 644 get_system_id.xslt $RPM_BUILD_ROOT%{_usr}/share/rhn/
 install -m 644 __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
 install -m 644 rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 644 configure-proxy.sh.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
+install -m 640 jabberd/sm.xml jabberd/c2s.xml $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/jabberd
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -80,6 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_usr}/share/rhn/installer
 %{_usr}/share/rhn/installer/__init__.py*
 %{_usr}/share/rhn/installer/rhn_proxy_activate.py*
+%{_usr}/share/rhn/installer/jabberd/*.xml
 %{_usr}/share/rhn/get_system_id.xslt
 %{_bindir}/rhn-proxy-activate
 %doc LICENSE answers.txt
