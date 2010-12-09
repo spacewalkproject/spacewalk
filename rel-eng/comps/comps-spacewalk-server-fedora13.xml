@@ -93,7 +93,6 @@
        <packagereq type="default">perl-FreezeThaw</packagereq>
        <packagereq type="default">perl-IO-stringy</packagereq>
        <packagereq type="default">perl-Mail-RFC822-Address</packagereq>
-       <packagereq type="default">perl-Network-IPv4Addr</packagereq>
        <packagereq type="default">perl-NOCpulse-CLAC</packagereq>
        <packagereq type="default">perl-NOCpulse-Debug</packagereq>
        <packagereq type="default">perl-NOCpulse-Gritch</packagereq>
