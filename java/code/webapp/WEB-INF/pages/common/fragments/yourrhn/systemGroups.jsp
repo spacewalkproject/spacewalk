@@ -16,12 +16,12 @@
         	<rl:column headerkey="grouplist.jsp.status" styleclass="first-column">
             	<a href="/network/systems/groups/errata_list.pxt?sgid=${current.id}">
 		      		<c:choose>
-		        		<c:when test="${current.securityErrata > 0}">
+                                        <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
 				<img src="/img/icon_crit_update.gif" border="0"
 						alt="<bean:message key="grouplist.jsp.security"/>"
            					title="<bean:message key="grouplist.jsp.security"/>" />
 	        			</c:when>
-	        			<c:when test="${current.bugErrata > 0 or current.enhancementErrata > 0}">
+                                        <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
 					<img src="/img/icon_reg_update.gif" border="0"
 						alt="<bean:message key="grouplist.jsp.updates"/>"
     	       				title="<bean:message key="grouplist.jsp.updates"/>" />
