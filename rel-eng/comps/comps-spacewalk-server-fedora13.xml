@@ -142,8 +142,6 @@
        <packagereq type="default">redstone-xmlrpc</packagereq>
        <packagereq type="default">relaxngDatatype</packagereq>
        <packagereq type="default">relaxngDatatype-javadoc</packagereq>
-       <packagereq type="default">rhn-oracle-jdbc</packagereq>
-       <packagereq type="default">rhn-oracle-jdbc-tomcat5</packagereq>
        <packagereq type="default">rhnlib</packagereq>
        <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">SatConfig-bootstrap</packagereq>
