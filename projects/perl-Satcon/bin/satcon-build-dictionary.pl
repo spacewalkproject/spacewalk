@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,7 +28,7 @@ my $close = '@@';
 my $help = '';
 
 GetOptions("tree=s" => \$sourcedir, "target:s" => \$target,
-	   "start-delim:s" => \$open, "end-delim:s" => \$close);
+	   "start-delim:s" => \$open, "end-delim:s" => \$close) or die $usage;
 
 die $usage unless $sourcedir;
 

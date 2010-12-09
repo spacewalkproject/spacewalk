@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,9 +34,16 @@ my $substitute;
 my $conf;
 my $sourcedir;
 
-GetOptions('name=s' => \$name, 'version=s' => \$version, 'release=s' => \$release, 'destdir=s' => \$basedir, 'conf=s' => \$conf, 'sourcedir=s' => \$sourcedir, 'prerender=s' => \$substitute);
+my $usage = "Usage: $0 -n name -v version -r release -c masterconf -s sourcetree [ -d destdir ]";
+GetOptions('name=s' => \$name,
+	'version=s' => \$version,
+	'release=s' => \$release,
+	'destdir=s' => \$basedir,
+	'conf=s' => \$conf,
+	'sourcedir=s' => \$sourcedir,
+	'prerender=s' => \$substitute) or die $usage;
 
-die "Usage: $0 -n name -v version -r release -c masterconf -s sourcetree [ -d destdir ]"
+die $usage
   unless defined $conf and defined $sourcedir and defined $name and defined $version and defined $release;
 
 $basedir ||= '/';
