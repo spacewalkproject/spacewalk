@@ -91,7 +91,6 @@
        <packagereq type="default">perl-NOCpulse-Scheduler</packagereq>
        <packagereq type="default">perl-NOCpulse-SetID</packagereq>
        <packagereq type="default">perl-NOCpulse-Utils</packagereq>
-       <packagereq type="default">perl-RPM2</packagereq>
        <packagereq type="default">perl-Satcon</packagereq>
        <packagereq type="default">perl-Sort-Versions</packagereq>
        <packagereq type="default">perl-XML-Generator</packagereq>
