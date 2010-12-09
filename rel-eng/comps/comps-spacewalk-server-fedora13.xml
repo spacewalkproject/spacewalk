@@ -82,7 +82,6 @@
        <packagereq type="default">perl-Convert-ASCII-Armour</packagereq>
        <packagereq type="default">perl-Convert-PEM</packagereq>
        <packagereq type="default">perl-Crypt-Blowfish</packagereq>
-       <packagereq type="default">perl-Crypt-CAST5_PP</packagereq>
        <packagereq type="default">perl-Crypt-CBC</packagereq>
        <packagereq type="default">perl-Crypt-DES</packagereq>
        <packagereq type="default">perl-Data-Buffer</packagereq>
