@@ -41,7 +41,7 @@ my $org_id;
 my $help;
 
 GetOptions("ssl-dir=s" => \$ssl_dir, "hostname=s" => \$hostname,
-	   "channel=s" => \$channel, "org-id=i" => \$org_id, "version=s" => \$version, "help" => \$help);
+	   "channel=s" => \$channel, "org-id=i" => \$org_id, "version=s" => \$version, "help" => \$help) or die $usage;
 
 if ($help or not ($ssl_dir and $hostname and $channel and $org_id)) {
   die $usage;

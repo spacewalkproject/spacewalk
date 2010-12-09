@@ -49,7 +49,7 @@ GetOptions("host=s" => \$host, "port=s" => \$port,
     "user=s" => \$user, "password=s" => \$password,
     "database=s" => \$database, "schema-deploy-file=s" => \$schema_deploy_file,
     "log=s" => \$log_file, "help" => \$help, "clear-db" => \$clear_db, 
-    "postgresql" => \$postgresql);
+    "postgresql" => \$postgresql) or die $usage;
 
 if ($help
     or not ($user and $password and $database and $schema_deploy_file)) {

@@ -33,7 +33,7 @@ my $tablespace_name = '';
 my $help = '';
 
 GetOptions("source=s" => \$source, "target=s" => \$target,
-		 "tablespace-name=s" => \$tablespace_name, "help" => \$help);
+		 "tablespace-name=s" => \$tablespace_name, "help" => \$help) or die $usage;
 
 if ($help or not ($source and $target and $tablespace_name)) {
 	die $usage;

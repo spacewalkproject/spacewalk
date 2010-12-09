@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,7 +32,7 @@ my $source_dir = '';
 my $target_dir = '';
 my $help = '';
 
-GetOptions("source-dir=s" => \$source_dir, "target-dir=s" => \$target_dir, "help" => \$help);
+GetOptions("source-dir=s" => \$source_dir, "target-dir=s" => \$target_dir, "help" => \$help) or die $usage;
 
 if ($help or not ($source_dir and $target_dir)) {
   die $usage;

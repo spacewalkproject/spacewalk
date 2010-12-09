@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,7 +32,7 @@ my $ssl_dir = '';
 my $out_file = '';
 my $help = '';
 
-GetOptions("ssl-dir=s" => \$ssl_dir, "out-file:s" => \$out_file, "help" => \$help);
+GetOptions("ssl-dir=s" => \$ssl_dir, "out-file:s" => \$out_file, "help" => \$help) or die $usage;
 
 if ($help or not $ssl_dir) {
   die $usage;
