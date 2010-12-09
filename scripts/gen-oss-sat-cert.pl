@@ -38,17 +38,18 @@ sub passphrase_prompt {
   return $passphrase;
 }
 
+my $usage = "Usage: $0 --orgid <org_id> --owner <owner_name> --signer <signer> --no-passphrase --output <dest> --expires <when> --slots <num> [ --provisioning-slots <num> ] [ --channel-family label=n ] [ --satellite-version X.Y ]";
 GetOptions("output=s" => \$filename, "orgid=n" => \$org_id, 
 	   "owner=s" => \$owner, "signer=s" => \$signer, 
            "no-passphrase" => \$no_passphrase,
 	   "expires=s" => \$expires, "slots=n" => \$slots, "provisioning-slots=n" => \$provisioning_slots,
 	   "channel-family=n" => \%channel_families,
 	   "generation=s" => \$generation,
-	   "resign=s" => \$resign, "satellite-version=s" => \$sat_version);
+	   "resign=s" => \$resign, "satellite-version=s" => \$sat_version) or die $usage;
 
 $filename = $resign if $resign and not $filename;
 
-die "Usage: $0 --orgid <org_id> --owner <owner_name> --signer <signer> --no-passphrase --output <dest> --expires <when> --slots <num> [ --provisioning-slots <num> ] [ --channel-family label=n ] [ --satellite-version X.Y ]"
+die $usage
   unless $filename && $signer && ($resign || ($expires && $slots && $owner));
 
 my $passphrase = $no_passphrase ? undef : passphrase_prompt();
