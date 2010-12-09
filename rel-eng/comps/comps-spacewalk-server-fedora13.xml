@@ -20,7 +20,6 @@
        <packagereq type="default">cglib-demo</packagereq>
        <packagereq type="default">cglib-nohook</packagereq>
        <packagereq type="default">cglib-repolib</packagereq>
-       <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">concurrent</packagereq>
        <packagereq type="default">concurrent-javadoc</packagereq>
        <packagereq type="default">concurrent-repolib</packagereq>
