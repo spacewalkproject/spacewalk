@@ -167,7 +167,6 @@
        <packagereq type="default">spacewalk-backend-sql-oracle</packagereq>
        <packagereq type="default">spacewalk-backend-sql-postgresql</packagereq>
        <packagereq type="default">spacewalk-backend-tools</packagereq>
-       <packagereq type="default">spacewalk-backend-upload-server</packagereq>
        <packagereq type="default">spacewalk-backend-xml-export-libs</packagereq>
        <packagereq type="default">spacewalk-backend-xmlrpc</packagereq>
        <packagereq type="default">spacewalk-backend-xp</packagereq>
