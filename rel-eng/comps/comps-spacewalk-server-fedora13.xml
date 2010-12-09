@@ -184,7 +184,6 @@
        <packagereq type="default">spacewalk-client-repo</packagereq>
        <packagereq type="default">spacewalk-common</packagereq>
        <packagereq type="default">spacewalk-config</packagereq>
-       <packagereq type="default">spacewalk-cypress</packagereq>
        <packagereq type="default">spacewalk-dobby</packagereq>
        <packagereq type="default">spacewalk-doc-indexes</packagereq>
        <packagereq type="default">spacewalk-grail</packagereq>
