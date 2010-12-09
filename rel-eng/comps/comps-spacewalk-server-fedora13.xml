@@ -39,7 +39,6 @@
        <packagereq type="default">jaxen-demo</packagereq>
        <packagereq type="default">jaxen-manual</packagereq>
        <packagereq type="default">jaxen-repolib</packagereq>
-       <packagereq type="default">jcommon</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">jpam-javadoc</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
