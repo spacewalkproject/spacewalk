@@ -24,9 +24,6 @@ public class SystemGroupOverview extends BaseDto {
 
     private Long id;
     private String name;
-    private Long securityErrata;
-    private Long bugErrata;
-    private Long enhancementErrata;
     private Long groupAdmins;
     private Long serverCount;
     private Long noteCount;
@@ -60,30 +57,6 @@ public class SystemGroupOverview extends BaseDto {
            setSelected(selectedIn.intValue() != 0);
     }
 
-    /**
-     * @return Returns the bugErrata.
-     */
-    public Long getBugErrata() {
-        return bugErrata;
-    }
-    /**
-     * @param bugErrataIn The bugErrata to set.
-     */
-    public void setBugErrata(Long bugErrataIn) {
-        this.bugErrata = bugErrataIn;
-    }
-    /**
-     * @return Returns the enhancementErrata.
-     */
-    public Long getEnhancementErrata() {
-        return enhancementErrata;
-    }
-    /**
-     * @param enhancementErrataIn The enhancementErrata to set.
-     */
-    public void setEnhancementErrata(Long enhancementErrataIn) {
-        this.enhancementErrata = enhancementErrataIn;
-    }
     /**
      * @return Returns the groupAdmins.
      */
@@ -155,18 +128,6 @@ public class SystemGroupOverview extends BaseDto {
      */
     public void setNoteCount(Long noteCountIn) {
         this.noteCount = noteCountIn;
-    }
-    /**
-     * @return Returns the securityErrata.
-     */
-    public Long getSecurityErrata() {
-        return securityErrata;
-    }
-    /**
-     * @param securityErrataIn The securityErrata to set.
-     */
-    public void setSecurityErrata(Long securityErrataIn) {
-        this.securityErrata = securityErrataIn;
     }
     /**
      * @return Returns the serverCount.
