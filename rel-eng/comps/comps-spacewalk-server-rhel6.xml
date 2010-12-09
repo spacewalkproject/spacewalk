@@ -225,7 +225,6 @@
        <packagereq type="default">spacewalk-utils</packagereq>
        <packagereq type="default">spacewalk-remote-utils</packagereq>
        <packagereq type="default">spacewalk-web</packagereq>
-       <packagereq type="default">SputLite</packagereq>
        <packagereq type="default">SputLite-client</packagereq>
        <packagereq type="default">SputLite-server</packagereq>
        <packagereq type="default">ssl_bridge</packagereq>
