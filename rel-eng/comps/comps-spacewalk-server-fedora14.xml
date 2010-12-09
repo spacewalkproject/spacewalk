@@ -12,15 +12,12 @@
     <uservisible>true</uservisible>
     <packagelist>
        <packagereq type="default">asm</packagereq>
-       <packagereq type="default">asm-javadoc</packagereq>
        <packagereq type="default">bea-stax</packagereq>
        <packagereq type="default">bea-stax-api</packagereq>
-       <packagereq type="default">bea-stax-javadoc</packagereq>
        <packagereq type="default">c3p0</packagereq>
        <packagereq type="default">c3p0-javadoc</packagereq>
        <packagereq type="default">cglib</packagereq>
        <packagereq type="default">cglib-demo</packagereq>
-       <packagereq type="default">cglib-javadoc</packagereq>
        <packagereq type="default">cglib-nohook</packagereq>
        <packagereq type="default">cglib-repolib</packagereq>
        <packagereq type="default">chameleon</packagereq>
@@ -30,7 +27,6 @@
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dom4j</packagereq>
        <packagereq type="default">dom4j-demo</packagereq>
-       <packagereq type="default">dom4j-javadoc</packagereq>
        <packagereq type="default">dom4j-manual</packagereq>
        <packagereq type="default">dom4j-repolib</packagereq>
        <packagereq type="default">ehcache</packagereq>
@@ -39,26 +35,19 @@
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">hibernate3</packagereq>
-       <packagereq type="default">hibernate3-javadoc</packagereq>
        <packagereq type="default">hibernate3-manual</packagereq>
        <packagereq type="default">hibernate3-repolib</packagereq>
        <packagereq type="default">icu4j</packagereq>
-       <packagereq type="default">icu4j-javadoc</packagereq>
        <packagereq type="default">isorelax</packagereq>
-       <packagereq type="default">isorelax-javadoc</packagereq>
        <packagereq type="default">jabberd-selinux</packagereq>
        <packagereq type="default">jakarta-commons-cli</packagereq>
-       <packagereq type="default">jakarta-commons-cli-javadoc</packagereq>
        <packagereq type="default">jakarta-commons-configuration</packagereq>
-       <packagereq type="default">jakarta-commons-configuration-javadoc</packagereq>
        <packagereq type="default">jakarta-commons-io</packagereq>
        <packagereq type="default">jaxen</packagereq>
        <packagereq type="default">jaxen-demo</packagereq>
-       <packagereq type="default">jaxen-javadoc</packagereq>
        <packagereq type="default">jaxen-manual</packagereq>
        <packagereq type="default">jaxen-repolib</packagereq>
        <packagereq type="default">jcommon</packagereq>
-       <packagereq type="default">jcommon-javadoc</packagereq>
        <packagereq type="default">jcommon-repolib</packagereq>
        <packagereq type="default">jcommon-test</packagereq>
        <packagereq type="default">jpam</packagereq>
@@ -66,15 +55,11 @@
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">msv</packagereq>
        <packagereq type="default">msv-demo</packagereq>
-       <packagereq type="default">msv-javadoc</packagereq>
        <packagereq type="default">msv-manual</packagereq>
        <packagereq type="default">msv-relames</packagereq>
-       <packagereq type="default">msv-relames-javadoc</packagereq>
        <packagereq type="default">msv-rngconv</packagereq>
        <packagereq type="default">msv-xmlgen</packagereq>
-       <packagereq type="default">msv-xmlgen-javadoc</packagereq>
        <packagereq type="default">msv-xsdlib</packagereq>
-       <packagereq type="default">msv-xsdlib-javadoc</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
        <packagereq type="default">nocpulse-db-perl</packagereq>
        <packagereq type="default">NOCpulsePlugins</packagereq>
@@ -136,7 +121,6 @@
        <packagereq type="default">quartz-oracle</packagereq>
        <packagereq type="default">redstone-xmlrpc</packagereq>
        <packagereq type="default">relaxngDatatype</packagereq>
-       <packagereq type="default">relaxngDatatype-javadoc</packagereq>
        <packagereq type="default">rhnlib</packagereq>
        <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">SatConfig-bootstrap</packagereq>
@@ -149,7 +133,6 @@
        <packagereq type="default">SatConfig-spread</packagereq>
        <packagereq type="default">scdb</packagereq>
        <packagereq type="default">servletapi4</packagereq>
-       <packagereq type="default">servletapi4-javadoc</packagereq>
        <packagereq type="default">simple-core</packagereq>
        <packagereq type="default">sitemesh</packagereq>
        <packagereq type="default">sitemesh-javadoc</packagereq>
@@ -224,21 +207,16 @@
        <packagereq type="default">status_log_acceptor</packagereq>
        <packagereq type="default">stringtree-json</packagereq>
        <packagereq type="default">tanukiwrapper</packagereq>
-       <packagereq type="default">tanukiwrapper-javadoc</packagereq>
        <packagereq type="default">tanukiwrapper-manual</packagereq>
        <packagereq type="default">tsdb</packagereq>
        <packagereq type="default">ws-jaxme</packagereq>
-       <packagereq type="default">ws-jaxme-javadoc</packagereq>
        <packagereq type="default">ws-jaxme-manual</packagereq>
        <packagereq type="default">xom</packagereq>
        <packagereq type="default">xom-demo</packagereq>
-       <packagereq type="default">xom-javadoc</packagereq>
        <packagereq type="default">xpp2</packagereq>
        <packagereq type="default">xpp2-demo</packagereq>
-       <packagereq type="default">xpp2-javadoc</packagereq>
        <packagereq type="default">xpp2-manual</packagereq>
        <packagereq type="default">xpp3</packagereq>
-       <packagereq type="default">xpp3-javadoc</packagereq>
        <packagereq type="default">xpp3-minimal</packagereq>
     </packagelist>
   </group>
