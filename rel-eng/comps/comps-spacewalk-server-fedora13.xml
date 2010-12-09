@@ -196,7 +196,6 @@
        <packagereq type="default">spacewalk-java-postgresql</packagereq>
        <packagereq type="default">spacewalk-monitoring</packagereq>
        <packagereq type="default">spacewalk-monitoring-selinux</packagereq>
-       <packagereq type="default">spacewalk-moon</packagereq>
        <packagereq type="default">spacewalk-oracle</packagereq>
        <packagereq type="default">spacewalk-postgresql</packagereq>
        <packagereq type="default">spacewalk-proxy</packagereq>
