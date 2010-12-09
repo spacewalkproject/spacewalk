@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.23
+Version: 1.3.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -446,6 +446,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 09 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.24-1
+- 646488 - fixed systemGroups.jsp according to new query
+- removed unused code
+- removed unused overview query
+
 * Wed Dec 08 2010 Tomas Lestach <tlestach@redhat.com> 1.3.23-1
 - change default owner:group of ojdbc14.jar and postgresql-jdbc.jar
   (tlestach@redhat.com)
