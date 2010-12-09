@@ -102,7 +102,6 @@
        <packagereq type="default">perl-Crypt-CAST5_PP</packagereq>
        <packagereq type="default">perl-Crypt-CBC</packagereq>
        <packagereq type="default">perl-Crypt-DES</packagereq>
-       <packagereq type="default">perl-Crypt-DES_EDE3</packagereq>
        <packagereq type="default">perl-Data-Buffer</packagereq>
        <packagereq type="default">perl-DateTime-Locale</packagereq>
        <packagereq type="default">perl-DateTime-TimeZone</packagereq>
