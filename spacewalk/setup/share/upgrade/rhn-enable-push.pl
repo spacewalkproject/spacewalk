@@ -30,7 +30,7 @@ my $usage = "usage: $0 [ --hostname=<override_hostname> ] [ --ssl-dir=<ssl_build
   . " [ --pub-ssl-cert=<public_ssl_certificate> ] [ --force ]"
   . " [ --help ]\n";
 
-GetOptions(\%opts, @valid_opts);
+GetOptions(\%opts, @valid_opts) or die $usage;
 
 if ($opts{help}) {
   die $usage;

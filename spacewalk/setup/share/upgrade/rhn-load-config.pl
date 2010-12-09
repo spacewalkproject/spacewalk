@@ -32,7 +32,7 @@ my $usage = "usage: $0 [ --force ]"
   . " [ --disable-solaris ]"
   . " [ --help ]\n";
 
-GetOptions(\%opts, @valid_opts);
+GetOptions(\%opts, @valid_opts) or die $usage;
 
 if ($opts{help}) {
   die $usage;

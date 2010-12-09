@@ -35,7 +35,7 @@ my $usage = "usage: $0 [ --enable-scout ] [ --admin-email=<email_address> ] [ --
   . " [ --mail-domain=<mail_domain> ] [ --hostname=<override_hostname> ]"
   . " [ --help ]\n";
 
-GetOptions(\%opts, @valid_opts);
+GetOptions(\%opts, @valid_opts) or die $usage;
 
 if ($opts{help}) {
   die $usage;
