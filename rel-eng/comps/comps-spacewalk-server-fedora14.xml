@@ -17,7 +17,6 @@
        <packagereq type="default">c3p0</packagereq>
        <packagereq type="default">c3p0-javadoc</packagereq>
        <packagereq type="default">cglib</packagereq>
-       <packagereq type="default">cglib-demo</packagereq>
        <packagereq type="default">cglib-nohook</packagereq>
        <packagereq type="default">cglib-repolib</packagereq>
        <packagereq type="default">concurrent</packagereq>
