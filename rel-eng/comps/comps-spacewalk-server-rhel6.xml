@@ -199,7 +199,6 @@
        <packagereq type="default">spacewalk-monitoring-selinux</packagereq>
        <packagereq type="default">spacewalk-oracle</packagereq>
        <packagereq type="default">spacewalk-postgresql</packagereq>
-       <packagereq type="default">spacewalk-proxy</packagereq>
        <packagereq type="default">spacewalk-proxy-broker</packagereq>
        <packagereq type="default">spacewalk-proxy-common</packagereq>
        <packagereq type="default">spacewalk-proxy-docs</packagereq>
