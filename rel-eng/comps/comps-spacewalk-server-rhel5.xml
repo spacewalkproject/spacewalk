@@ -154,7 +154,6 @@
        <packagereq type="default">sitemesh-javadoc</packagereq>
        <packagereq type="default">SNMPAlerts</packagereq>
        <packagereq type="default">spacecmd</packagereq>
-       <packagereq type="default">spacewalk</packagereq>
        <packagereq type="default">spacewalk-admin</packagereq>
        <packagereq type="default">spacewalk-backend</packagereq>
        <packagereq type="default">spacewalk-backend-app</packagereq>
