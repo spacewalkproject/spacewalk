@@ -22,7 +22,6 @@
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dom4j</packagereq>
        <packagereq type="default">dom4j-demo</packagereq>
-       <packagereq type="default">dom4j-manual</packagereq>
        <packagereq type="default">ehcache</packagereq>
        <packagereq type="default">ehcache-hibernate</packagereq>
        <packagereq type="default">ehcache-javadoc</packagereq>
