@@ -16,11 +16,9 @@
 
 __all__ = []
 
-import auth, cert, get_handler
+import auth, cert
 
 rpcClasses = {
         'authentication'    :   auth.Authentication,
         'certificate'       :   cert.Certificate,
     }
-
-getHandler = get_handler.GetHandler
