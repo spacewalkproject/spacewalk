@@ -21,7 +21,6 @@
        <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">hibernate3-repolib</packagereq>
        <packagereq type="default">isorelax</packagereq>
-       <packagereq type="default">jakarta-commons-io</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">jpam-javadoc</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
