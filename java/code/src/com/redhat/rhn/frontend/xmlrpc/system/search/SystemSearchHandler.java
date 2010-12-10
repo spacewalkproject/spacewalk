@@ -236,4 +236,25 @@ public class SystemSearchHandler extends BaseHandler {
         return result.toArray();
     }
 
+    /**
+     * List the systems which match this UUID
+     * @param sessionKey the session of the user
+     * @param searchTerm the search term to match
+     * @return list of systems
+     * @throws FaultException A FaultException is thrown on error.
+     *
+     * @xmlrpc.doc List the systems which match this UUID
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
+     */
+    public Object[] uuid(String sessionKey, String searchTerm)
+        throws FaultException {
+        List result = performSearch(sessionKey, searchTerm,
+                SystemSearchHelper.UUID);
+        return result.toArray();
+    }
 }
