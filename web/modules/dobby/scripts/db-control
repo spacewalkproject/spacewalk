@@ -59,6 +59,7 @@ B<db-control>
 [B<start>]
 [B<status>]
 [B<stop>]
+[B<tablesizes>]
 [B<verify DIRNAME>]
 
 =head1 OPTIONS
