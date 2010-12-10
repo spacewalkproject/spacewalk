@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.3.2
+Version:     1.3.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.3-1
+- add support for server UUIDs
+
 * Tue Nov 30 2010 Aron Parsons <aparsons@redhat.com> 1.3.2-1
 - don't use a cached session if username and password are passed as arguments
 - added get_session function
