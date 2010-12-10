@@ -160,6 +160,11 @@ and taskomatic process.
 Summary: Oracle database backend support files for Spacewalk Java
 Group: Applications/Internet
 Requires: ojdbc14
+%if  0%{?rhel} && 0%{?rhel} < 6
+Requires: tomcat5
+%else
+Requires: tomcat6
+%endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
 %description oracle
@@ -169,6 +174,11 @@ This package contains Oracle database backend files for the Spacewalk Java.
 Summary: PostgreSQL database backend support files for Spacewalk Java
 Group: Applications/Internet
 Requires: postgresql-jdbc
+%if  0%{?rhel} && 0%{?rhel} < 6
+Requires: tomcat5
+%else
+Requires: tomcat6
+%endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
 %description postgresql
