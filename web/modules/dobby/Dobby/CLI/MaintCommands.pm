@@ -84,6 +84,7 @@ sub command_extend {
   $d->tablespace_extend($ts, $ftype, $fn, "$size K");
   print "done.\n";
 
+  return 0;
 }
 
 sub next_filename {
@@ -128,6 +129,7 @@ sub gather_stats {
   $d->gather_database_stats($pct);
   print "done.\n";
 
+  return 0;
 }
 
 sub shrink_segments {
@@ -165,6 +167,7 @@ sub shrink_segments {
   }
 
   print "done.\n";
+  return 0;
 }
 
 1;
