@@ -27,7 +27,7 @@ from spacewalk.server.rhnLib import parseRPMFilename, get_package_path
 from spacewalk.server import rhnSQL, rhnPackageUpload
 from spacewalk.server.rhnServer import server_packages
 from spacewalk.satellite_tools.progress_bar import ProgressBar
-from spacewalk.spacewalk.common.checksum import getFileChecksum
+from spacewalk.common.checksum import getFileChecksum
 from spacewalk.server.importlib import mpmSource
 
 initCFG('server.satellite')
