@@ -450,6 +450,12 @@ package_name_query = """
            p.package_arch_id = pa.id
 """
 
+package_repodata_delete = """
+    delete
+	  from rhnPackageRepoData
+	 where package_id = :pid
+"""
+
 def process_package_files():
     def parse_header(header):
         checksum_type = rhn_rpm.RPM_Header(header).checksum_type()
@@ -463,6 +469,11 @@ def process_package_files():
         package_name_h.execute(pid=id)
         r = package_name_h.fetchall_dict()[0]
         return "%s-%s.%s" % (r['name'], r['vre'], r['arch'])
+
+    package_repodata_h = rhnSQL.prepare(package_repodata_delete)
+
+    def delete_package_repodata(id):
+        package_repodata_h.execute(pid=id)
 
     Log = rhnLog.rhnLog('/var/log/rhn/update-packages.log', 5)
 
@@ -540,6 +551,10 @@ def process_package_files():
             if debug and pkg_updates:
                 Log.writeMessage("Package id: %s, name: %s, %s checksums updated" % \
                     (row['id'], package_name(row['id']), pkg_updates))
+
+        if pkg_updates:
+            Log.writeMessage("Package id: %s, purging rhnPackageRepoData" % row['id'])
+            delete_package_repodata(row['id'])
 
         rhnSQL.commit() # End of a package
 
