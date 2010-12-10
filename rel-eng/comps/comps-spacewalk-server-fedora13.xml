@@ -165,7 +165,6 @@
        <packagereq type="default">tanukiwrapper</packagereq>
        <packagereq type="default">tsdb</packagereq>
        <packagereq type="default">ws-jaxme</packagereq>
-       <packagereq type="default">ws-jaxme-manual</packagereq>
        <packagereq type="default">xom</packagereq>
     </packagelist>
   </group>
