@@ -3102,6 +3102,13 @@ available for this kickstart profile to function properly.
         </context-group>
      </trans-unit>
 
+     <trans-unit id="systemsearch_uuid">
+		<source>UUID</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
+
      <trans-unit id="systemsearch.errors.numeric">
 		<source>Search queries for this field must be numeric</source>
         <context-group name="ctx">

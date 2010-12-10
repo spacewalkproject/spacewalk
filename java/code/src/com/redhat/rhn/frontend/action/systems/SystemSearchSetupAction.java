@@ -77,7 +77,8 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                                         SystemSearchHelper.ID,
                                         SystemSearchHelper.CUSTOM_INFO,
                                         SystemSearchHelper.SNAPSHOT_TAG,
-                                        SystemSearchHelper.RUNNING_KERNEL
+                                        SystemSearchHelper.RUNNING_KERNEL,
+                                        SystemSearchHelper.UUID
                                      },
                                      /* activity group */
                                      {  SystemSearchHelper.CHECKIN,
