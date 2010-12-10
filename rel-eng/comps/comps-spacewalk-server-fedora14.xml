@@ -15,7 +15,6 @@
        <packagereq type="default">c3p0-javadoc</packagereq>
        <packagereq type="default">cglib-repolib</packagereq>
        <packagereq type="default">concurrent</packagereq>
-       <packagereq type="default">concurrent-javadoc</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dom4j</packagereq>
        <packagereq type="default">dom4j-demo</packagereq>
