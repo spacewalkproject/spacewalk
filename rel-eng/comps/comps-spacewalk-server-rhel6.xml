@@ -39,7 +39,6 @@
        <packagereq type="default">hibernate3-repolib</packagereq>
        <packagereq type="default">icu4j</packagereq>
        <packagereq type="default">isorelax</packagereq>
-       <packagereq type="default">jabberd-selinux</packagereq>
        <packagereq type="default">jakarta-commons-cli</packagereq>
        <packagereq type="default">jakarta-commons-configuration</packagereq>
        <packagereq type="default">jakarta-commons-io</packagereq>
