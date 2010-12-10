@@ -4754,4 +4754,26 @@ public class SystemHandler extends BaseHandler {
 
         return l;
     }
+
+    /**
+     * Get the UUID for the given system ID.
+     * @param sessionKey of user making call
+     * @param serverId of the server
+     * @return UUID string
+     *
+     * @xmlrpc.doc Get the UUID from the given system ID.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "serverId")
+     * @xmlrpc.returntype string
+     */
+    public String getUuid(String sessionKey, Integer serverId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        if (server.isVirtualGuest()) {
+            return server.getVirtualInstance().getUuid();
+        } else {
+            return "";
+        }
+    }
 }
