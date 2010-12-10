@@ -86,6 +86,7 @@ public class SystemSearchHelper {
     public static final String LOC_BUILDING = "systemsearch_location_building";
     public static final String LOC_ROOM = "systemsearch_location_room";
     public static final String LOC_RACK = "systemsearch_location_rack";
+    public static final String UUID = "systemsearch_uuid";
 
     /**
      * These vars store the name of a lucene index on the search server
@@ -367,6 +368,10 @@ public class SystemSearchHelper {
             query = "rack:(" + terms + ")";
             index = SERVER_INDEX;
         }
+        else if (UUID.equals(mode)) {
+            query = "uuid:(" + terms + ")";
+            index = SERVER_INDEX;
+        }
         else {
             throw new ValidatorException("Mode: " + mode + " not supported.");
         }
@@ -626,6 +631,9 @@ public class SystemSearchHelper {
                 // we want the matching field to call into the HardwareDeviceDto
                 // to return back the value of what matched
                 sr.setMatchingField("hw." + field);
+            }
+            if (details.containsKey("uuid")) {
+                sr.setUuid((String)details.get("uuid"));
             }
             if (details.containsKey("rank")) {
                 sr.setRank((Integer)details.get("rank"));

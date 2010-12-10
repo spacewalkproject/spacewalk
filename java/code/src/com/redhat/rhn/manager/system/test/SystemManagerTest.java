@@ -59,6 +59,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
+import com.redhat.rhn.domain.server.ServerUuid;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.CustomDataValueTest;
@@ -68,6 +69,7 @@ import com.redhat.rhn.domain.server.test.LocationTest;
 import com.redhat.rhn.domain.server.test.NetworkTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
+import com.redhat.rhn.domain.server.test.ServerUuidTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
@@ -722,6 +724,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
         loc.setServer(s);
         s.setLocation(loc);
 
+        /* UUID setup */
+        ServerUuid uuid = ServerUuidTest.createTestServerUuid();
+        uuid.setServer(s);
+        s.setServerUuid(uuid);
+
         /* custom data value */
         CustomDataValue value = CustomDataValueTest.createTestCustomDataValue(user,
                                 CustomDataKeyTest.createTestCustomDataKey(user),
@@ -761,6 +768,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         map.put("systemsearch_location_building", loc.getBuilding());
         map.put("systemsearch_location_room", loc.getRoom());
         map.put("systemsearch_location_rack", loc.getRack());
+        map.put("systemsearch_uuid", uuid.getUuid());
 
         Iterator i = map.keySet().iterator();
 
