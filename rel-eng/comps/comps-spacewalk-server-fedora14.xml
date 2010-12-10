@@ -65,7 +65,6 @@
        <packagereq type="default">perl-NOCpulse-SetID</packagereq>
        <packagereq type="default">perl-NOCpulse-Utils</packagereq>
        <packagereq type="default">perl-Satcon</packagereq>
-       <packagereq type="default">perl-Sort-Versions</packagereq>
        <packagereq type="default">ProgAGoGo</packagereq>
        <packagereq type="default">PyPAM</packagereq>
        <packagereq type="default">python-gzipstream</packagereq>
