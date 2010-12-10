@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.0
+Version: 1.3.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -114,6 +114,12 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.2-1
+- add UUID to the server index in the search server (aparsons@redhat.com)
+
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com>
+- add UUID to the server index in the search server (aparsons@redhat.com)
+
 * Mon Nov 15 2010 Jan Pazdziora 1.2.4-1
 - Adding PostgreSQL JDBC driver on the search daemon classpath
   (lzap+git@redhat.com)
