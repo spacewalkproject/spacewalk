@@ -175,7 +175,6 @@
        <packagereq type="default">status_log_acceptor</packagereq>
        <packagereq type="default">stringtree-json</packagereq>
        <packagereq type="default">tanukiwrapper</packagereq>
-       <packagereq type="default">tanukiwrapper-manual</packagereq>
        <packagereq type="default">tsdb</packagereq>
        <packagereq type="default">ws-jaxme</packagereq>
        <packagereq type="default">ws-jaxme-manual</packagereq>
