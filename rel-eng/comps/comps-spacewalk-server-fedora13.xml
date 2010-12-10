@@ -26,7 +26,6 @@
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">jpam-javadoc</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
-       <packagereq type="default">msv-demo</packagereq>
        <packagereq type="default">msv-manual</packagereq>
        <packagereq type="default">msv-relames</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
