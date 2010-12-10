@@ -13,7 +13,6 @@
     <packagelist>
        <packagereq type="default">c3p0</packagereq>
        <packagereq type="default">c3p0-javadoc</packagereq>
-       <packagereq type="default">concurrent</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">ehcache</packagereq>
        <packagereq type="default">ehcache-hibernate</packagereq>
