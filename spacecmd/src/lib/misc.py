@@ -72,7 +72,7 @@ ENTITLEMENTS = ['provisioning_entitled',
                 'virtualization_host_platform']
 
 SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname',
-                        'device', 'vendor', 'driver']
+                        'device', 'vendor', 'driver', 'uuid']
 
 ####################
 

@@ -242,6 +242,9 @@ def do_system_search(self, args, doreturn=False):
         results = self.client.system.search.deviceDriver(self.session,
                                                          value)
         key = 'hw_driver'
+    elif field == 'uuid':
+        results = self.client.system.search.uuid(self.session, value)
+        key = 'uuid'
     else:
         logging.warning('Invalid search field')
         return []
@@ -1858,6 +1861,8 @@ def do_system_details(self, args, short=False):
 
         details = self.client.system.getDetails(self.session, system_id)
 
+        uuid = self.client.system.getUuid(self.session, system_id)
+
         registered = self.client.system.getRegistrationDate(self.session,
                                                             system_id)
 
@@ -1866,6 +1871,10 @@ def do_system_details(self, args, short=False):
 
         print 'Name:          %s' % system
         print 'System ID:     %i' % system_id
+
+        if uuid:
+            print 'UUID:          %s' % uuid
+
         print 'Locked:        %s' % details.get('lock_status')
         print 'Registered:    %s' % registered
         print 'Last Checkin:  %s' % last_checkin
