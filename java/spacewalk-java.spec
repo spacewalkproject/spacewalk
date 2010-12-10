@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.25
+Version: 1.3.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.26-1
+- added API call system.getUuid (aparsons@redhat.com)
+- added API call system.search.uuid (aparsons@redhat.com)
+- add support for searching by system UUID to the web interface
+  (aparsons@redhat.com)
+- add support for searching for systems by UUID (aparsons@redhat.com)
+
 * Fri Dec 10 2010 Tomas Lestach <tlestach@redhat.com> 1.3.25-1
 - add tomcat require for spacewalk-java-oracle and -postgres
   (tlestach@redhat.com)
