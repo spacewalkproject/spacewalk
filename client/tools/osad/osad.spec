@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.46
+Version: 5.9.47
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -246,6 +246,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Fri Dec 10 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.47-1
+- 661998 - removed looping symlink
+- fixed symlink creation
+
 * Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.46-1
 - removed unused imports
 
