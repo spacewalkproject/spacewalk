@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -332,6 +332,9 @@ fi
 
 
 %changelog
+* Mon Dec 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.7-1
+- fixed number of errors reported by pylint
+
 * Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.6-1
 - import Fault, ResponseError and ProtocolError directly from xmlrpclib
 
