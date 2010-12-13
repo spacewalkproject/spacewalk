@@ -35,7 +35,7 @@ make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_bindir}/pod2man validate-sat-cert.pod | gzip -c - > $RPM_BUILD_ROOT%{_mandir}/man8/validate-sat-cert.8.gz
 install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
-chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/validate-sat-cert.8.gz
+chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
 ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
 
 %clean
