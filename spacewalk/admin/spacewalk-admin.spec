@@ -33,7 +33,7 @@ make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 (cd $RPM_BUILD_ROOT/%{_bindir} && ln -s validate-sat-cert.pl validate-sat-cert)
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
-%{_bindir}/pod2man validate-sat-cert.pod | gzip -c - > $RPM_BUILD_ROOT%{_mandir}/man8/validate-sat-cert.8.gz
+%{_bindir}/pod2man validate-sat-cert.pod > $RPM_BUILD_ROOT%{_mandir}/man8/validate-sat-cert.8
 %{_bindir}/pod2man --section 8 rhn-config-schema.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-schema.pl.8
 install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
