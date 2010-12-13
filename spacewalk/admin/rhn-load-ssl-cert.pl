@@ -96,3 +96,29 @@ sub extract_system_name {
   return $system_name;
 }
 
+=pod
+
+=head1 NAME
+
+rhn-load-ssl-cert.pl - utility load ssl certificates.
+
+=head2 SYNOPSIS
+
+B<rhn-load-ssl-cert.pl> B<--ssl-dir=DIR> B<--hostname=NAME> B<--channel=CHANNEL> B<--orgid=ID> B<--version>
+
+B<rhn-load-ssl-cert.pl> [B<--help>]
+
+=head1 DESCRIPTION
+
+This script is intended to run from WebUI installer of RHN Proxy. You do not want to run
+it directly unless you really knows what are you doing.
+
+=head1 OPTIONS
+
+You either knows what this options do, or you should stop reading immediately.
+
+=head1 SEE ALSO
+
+B<satellite-debug>(8), B<send-satellite-debug>(8)
+
+=cut
