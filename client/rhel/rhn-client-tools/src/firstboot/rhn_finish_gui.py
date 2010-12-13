@@ -51,7 +51,8 @@ class moduleClass(Module):
 
         up2DateConfig = config.initUp2dateConfig()
         up2DateConfig.save()
-        return RESULT_SUCCESS
+        interface.moveToPage(pageNum = len(interface.moduleList))
+        return RESULT_JUMP
 
     def createScreen(self):
         self.finishPage = rhnregGui.FinishPage()
