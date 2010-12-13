@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,11 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Dec 13 2010 Jan Pazdziora 1.3.1-1
+- 640971 - when waiting for tomcat, try to connect directly to 8009.
+- We need to check the return value of GetOptions and die if the parameters
+  were not correct.
+
 * Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.16-1
 - 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
   satellite-prep (msuchy@redhat.com)
