@@ -33,7 +33,9 @@ make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 (cd $RPM_BUILD_ROOT/%{_bindir} && ln -s validate-sat-cert.pl validate-sat-cert)
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_bindir}/pod2man validate-sat-cert.pod | gzip -c - > $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
+install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
 ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
 
@@ -60,6 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sbindir}/rhn-sat-restart-silent
 %{rhnroot}/RHN-GPG-KEY
 %{_mandir}/man3/validate-sat-cert.3.gz
+%{_mandir}/man8/rhn-satellite.8*
 
 %changelog
 * Tue Dec 14 2010 Jan Pazdziora 1.3.1-1
