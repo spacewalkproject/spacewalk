@@ -122,3 +122,49 @@ for (sort keys %exception_files) {
 	}
 }
 exit $error;
+
+=pod
+
+=head1 NAME
+
+rhn-config-schema.pl - utility to populate Spacewalk database tablespacee.
+
+=head2 SYNOPSIS
+
+B<rhn-config-schema.pl> B<--source=SOURCE> B<--target=TARGET> B<--tablespace-name=TABLESPACE>
+
+B<rhn-config-schema.pl> [B<--help>]
+
+=head1 DESCRIPTION
+
+This script is intended to run from inside of B<spacewalk-setup>. You do not want to run
+it directly unless you really knows what are you doing.
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--source=SOURCE>
+
+Full path to main.sql file. Usually /etc/sysconfig/rhn/I<backend>/main.sql
+
+=item B<--target=TARGET>
+
+Full path to deploy.sql. Usually /etc/sysconfig/rhn/universe.deploy.sql
+
+=item B<--tablespace-name=TABLESPACE>
+
+Which tablespace will be populated. This does nothing with database itself,
+this script just substitute template variables with given value of I<TABLESPACE>.
+
+=item B<--help>
+
+Display allowed parameters.
+
+=back
+
+=head1 SEE ALSO
+
+B<rhn-schema-version>(8), B<satellite-debug>(8), B<send-satellite-debug>(8)
+
+=cut
