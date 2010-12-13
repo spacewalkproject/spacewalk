@@ -15,6 +15,7 @@ Requires: /sbin/restorecon
 Obsoletes: satellite-utils < 5.3.0
 Provides: satellite-utils = 5.3.0
 Obsoletes: rhn-satellite-admin < 5.3.0
+Provides: rhn-satellite-admin = 5.3.0
 BuildArch: noarch
 
 %description
