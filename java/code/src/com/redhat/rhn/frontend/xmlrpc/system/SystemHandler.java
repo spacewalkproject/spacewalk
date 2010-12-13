@@ -4772,7 +4772,8 @@ public class SystemHandler extends BaseHandler {
 
         if (server.isVirtualGuest()) {
             return server.getVirtualInstance().getUuid();
-        } else {
+        }
+        else {
             return "";
         }
     }
