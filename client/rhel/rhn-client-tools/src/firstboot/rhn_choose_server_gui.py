@@ -50,6 +50,12 @@ class moduleClass(Module):
         if testing:
             return RESULT_SUCCESS
 
+        if self.support_sm \
+            and self.chooseServerPage.hostedButton.get_active() \
+            and not self.chooseServerPage.chooseServerXml.get_widget("hostedClassicButton").get_active():
+                interface.moveToPage(moduleTitle=_("Entitlement Platform Registration"))
+                return RESULT_JUMP
+
         try:
             if self.chooseServerPage.chooseServerPageApply() is False:
                 interface.moveToPage(moduleTitle=_("Red Hat Login"))
