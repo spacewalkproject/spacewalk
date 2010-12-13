@@ -13,6 +13,7 @@ Requires: perl-URI, perl(MIME::Base64)
 Requires: sudo
 Requires: /sbin/restorecon
 Obsoletes: satellite-utils < 5.3.0
+Provides: satellite-utils = 5.3.0
 Obsoletes: rhn-satellite-admin < 5.3.0
 BuildArch: noarch
 
