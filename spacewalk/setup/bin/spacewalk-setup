@@ -29,6 +29,7 @@ use DateTime ();
 use Sys::Hostname ();
 use Spacewalk::Setup ();
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
+use IO::Socket ();
 
 use RHN::DB ();
 
@@ -1385,6 +1386,15 @@ sub valid_multiple_email {
 
 sub wait_for_tomcat {
     my $hostname = shift;
+
+    for (my $i = 0; $i < 20; $i++) {
+        IO::Socket::INET->new(
+            PeerAddr => 'localhost',
+            PeerPort => '8009',
+            Proto    => 'tcp'
+        ) or last;
+        sleep 5;
+    }
 
     for (my $i = 0; $i < 20; $i++) {
         my $retval = system("HEAD http://$hostname/ 2>&1 > /dev/null");
