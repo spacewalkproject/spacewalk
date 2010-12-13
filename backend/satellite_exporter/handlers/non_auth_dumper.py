@@ -411,7 +411,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         try:
             return _get_path_from_cursor(h)
         except InvalidPackageError:
-            log_debug(4, "Error", "Non-existant package requested", fileName)
+            log_debug(4, "Error", "Non-existent package requested", fileName)
             raise rhnFault(17, _("Invalid RPM package %s requested") % fileName)
         except NullPathPackageError, e:
             package_id = e[0]
