@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.11
+Version: 1.3.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Dec 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.12-1
+- 517455 - adding tablesizes to SYNOPSIS section of db-control man page.
+- 617305 - exit value 0 is returned by all db-control commands by default.
+- removed unused overview query
+- 656963 - create jabberd config via spacewalk-setup-jabberd
+
 * Tue Dec 07 2010 Lukas Zapletal 1.3.11-1
 - 642988 - ISE when setting Software Channel Entitlements
 
