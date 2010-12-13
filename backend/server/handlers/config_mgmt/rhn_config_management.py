@@ -449,8 +449,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         fdst = self._get_file_revision(config_channel_dst, revision_dst, path)
         
         if fsrc['label'] != fdst['label']:
-            raise rhnFault(4017, "Path %s  is a %s"+ \
-                                " in channel %s while it is a %s in channel %s"\
+            raise rhnFault(4017,
+                  "Path %s  is a %s in channel %s while it is a %s in channel %s" \
                                 % (path, fsrc['label'], \
                                     config_channel_src, fdst['label'], config_channel_dst),
                 explain=0)
