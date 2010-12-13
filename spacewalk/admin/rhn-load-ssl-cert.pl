@@ -102,6 +102,8 @@ sub extract_system_name {
 
 rhn-load-ssl-cert.pl - utility load ssl certificates.
 
+rhn-sudo-load-ssl-cert - run I<sudo rhn-load-ssl-cert.pl>
+
 =head2 SYNOPSIS
 
 B<rhn-load-ssl-cert.pl> B<--ssl-dir=DIR> B<--hostname=NAME> B<--channel=CHANNEL> B<--orgid=ID> B<--version>
