@@ -65,6 +65,10 @@ class moduleClass(Module):
         self.chooseServerPage = rhnregGui.ChooseServerPage()
         self.vbox = gtk.VBox(spacing=5)
         self.vbox.pack_start(self.chooseServerPage.chooseServerPageVbox(), True, True)
+        if sys.modules.has_key('rhsm_login'):
+            classicMode = self.chooseServerPage.chooseServerXml.get_widget("hostedClassicAlignment")
+            classicMode.set_no_show_all(False)
+            classicMode.show_all()
 
     def initializeUI(self):
         self.chooseServerPage.chooseServerPagePrepare()
