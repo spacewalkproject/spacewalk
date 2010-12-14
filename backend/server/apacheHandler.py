@@ -113,14 +113,6 @@ class apacheHandler(apacheSession):
                 log_error("Unable to handle GET request for server %s" %
                     (e.args[0], ))
                 return apache.HTTP_METHOD_NOT_ALLOWED
-            # We want to give the request processor the ability to override
-            # the default behaviour of calling _setSessionToken
-            # XXX This is a but kludgy - misa 20040827
-            if hasattr(self._req_processor, 'init_request'):
-                if not self._req_processor.init_request():
-                    return apache.HTTP_METHOD_NOT_ALLOWED
-                # Request initialized
-                return apache.OK
             token = self._setSessionToken(req.headers_in)
             if token is None:
                 return apache.HTTP_METHOD_NOT_ALLOWED
@@ -131,8 +123,6 @@ class apacheHandler(apacheSession):
     
     def _cleanup_request_processor(self):
         """ Clean up the request processor """
-        if hasattr(self._req_processor, 'cleanup_request'):
-            self._req_processor.cleanup_request()
         self._req_processor = None
         return apache.OK
 
