@@ -568,12 +568,14 @@ Would you like to enable Monitoring Proxy functionality on this system?
 			    template="httpd/ssl.conf" mode="644" username="root" groupname="root"/>
     </activity>
 
+    <activity description="Generate jabberd config file">
     <run-script acl="global_config(ssl_available);session_data_true(enable_osad)">
       <action-name>Generate jabberd config file</action-name>
       <script>
 /usr/bin/spacewalk-setup-jabberd --macros "hostname:${session.hostname}"
       </script>
       </run-script>
+    </activity>
 
     <activity description="Activate the ${app.name}">
       <method-call class="RHN::ProxyInstall" method="activate_proxy">
