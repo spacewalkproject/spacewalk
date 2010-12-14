@@ -211,7 +211,7 @@ sub shrink_segment {
   my $query;
 
   my $dbh = $self->connect;
-  for $rec ('C3', 'C2', 'C1') {
+  for my $rec ('C3', 'C2', 'C1') {
         next if not defined($seg->{$rec});
         $dbh->do($seg->{$rec});
   }
