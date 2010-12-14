@@ -30,6 +30,11 @@ my $show_help;
 my $nosig;
 my $allow_old;
 
+my $usage = <<<"EOF";
+Usage: $0 [--keyring /path/to/keyring.gpg] [--quiet] [--nosig] [--allow-old] [--required-version VERSION CERTFILE]
+       $0 --help
+EOF
+
 GetOptions("keyring=s", \$keyring, "quiet" => \$quiet, "nosig" => \$nosig, "allow-old" => \$allow_old,
            "required-version=s" => \$required_version, "help" => \$show_help) or die $usage;
 
