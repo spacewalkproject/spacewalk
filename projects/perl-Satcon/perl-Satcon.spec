@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.11
+Version:        1.12
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,6 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Tue Dec 14 2010 Jan Pazdziora 1.12-1
+- We need to check the return value of GetOptions and die if the parameters
+  were not correct.
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 1.11-1
 - 520441 - don't apply ExtUtils::MY->fixin(shift) to perl executables
 
