@@ -15,7 +15,7 @@
 #
 
 from spacewalk.common import log_debug, log_error
-from spacewalk.common import rhnException
+from spacewalk.common.rhnException import rhnFault
 import rhnSQL
 import rpm
 import string
@@ -332,7 +332,7 @@ def make_evr(nvre):
             }
             return ret
         else:
-            raise rhnException.rhnFault(err_code = 21, 
+            raise rhnFault(err_code = 21,
                                          err_text = "NVRE is missing name, version, or release.")
     elif string.find(nvre, '-') != -1:
         nvre = string.split(nvre, '-')
@@ -697,7 +697,7 @@ def test_evr(evr, operator, limit):
     good_operators = ['<', '<=', '==', '>=', '>']
 
     if not operator in good_operators:
-        raise rhnException.rhnFault(err_code = 21, 
+        raise rhnFault(err_code = 21,
                                      err_text = "Bad operator passed into test_evr.")
 
     evr_epoch = evr['epoch']
