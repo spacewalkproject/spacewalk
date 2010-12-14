@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.12
+Version: 1.3.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Dec 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.13-1
+- fixed undefined variable
+
 * Mon Dec 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.12-1
 - 517455 - adding tablesizes to SYNOPSIS section of db-control man page.
 - 617305 - exit value 0 is returned by all db-control commands by default.
