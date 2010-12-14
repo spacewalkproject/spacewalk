@@ -1054,6 +1054,13 @@ sub oracle_setup_db_connection {
 
         eval {
             $dbh = get_dbh($answers);
+            my ($version) = $dbh->selectrow_array(q! select version from v$instance !);
+            if (not defined $version) {
+                die "Failed to verify database version (in v\$instance)\n";
+            }
+            if (not $version =~ /^10\.|^11\./) {
+                die "Version [$version] is not supported (does not match 10 or 11).\n";
+            }
             $dbh->disconnect();
         };
         if ($@) {
