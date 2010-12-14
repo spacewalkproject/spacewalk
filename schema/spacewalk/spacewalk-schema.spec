@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.4
+Version:        1.3.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Dec 14 2010 Jan Pazdziora 1.3.5-1
+- 661109 - the schema upgrade script has to have extension .sql.
+
 * Tue Dec 14 2010 Jan Pazdziora 1.3.4-1
 - 661109 - fixing issue where channel subscription would not use a flex guest
   subscription if the system already was using  a flex guest subscription for a
