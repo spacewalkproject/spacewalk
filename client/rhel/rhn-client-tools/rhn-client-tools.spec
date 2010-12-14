@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.3.3
+Version: 1.3.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -290,6 +290,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Dec 14 2010 Jan Pazdziora 1.3.4-1
+- l10n: Updates to Malayalam (ml) translation (anipeter@fedoraproject.org)
+
 * Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.3-1
 - import Fault, ResponseError and ProtocolError directly from xmlrpclib
 
