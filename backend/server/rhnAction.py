@@ -161,4 +161,4 @@ def schedule_server_packages_update_by_arch(server_id, package_arch_ids, org_id 
 
     for name_id, arch_id in package_arch_ids:
         h.execute(action_id=action_id, name_id=name_id, arch_id=arch_id)
-
+    return action_id
