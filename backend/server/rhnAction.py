@@ -144,6 +144,7 @@ def schedule_server_packages_update(server_id, package_ids, org_id = None,
         'action_id' : [action_id] * len(package_ids),
         'name_id'   : package_ids,
     })
+    return action_id
 
 _query_schedule_server_packages_update_by_arch = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, package_arch_id, \
