@@ -197,6 +197,10 @@ class XML_Dumper:
                 channels=channel_labels, start_date=start_date, end_date=end_date)
         return 0
 
+    def _send_headers(self, error=0, init_compressed_stream=1):
+        """to be overwritten in subclass"""
+        pass
+
     def dump_channel_packages_short(self, channel_label, last_modified, filepath=None,
                                     validate_channels=False, send_headers=False,
                                     open_stream=True):
