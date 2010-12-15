@@ -1471,7 +1471,7 @@ class Backend:
         brokenTransaction = 0
 
         # Lookup object
-        lookup = TableLookup(self.tables[parentTable], self.dbmodule)
+        lookup = TableLookup(parentTableObj, self.dbmodule)
         # XXX
         childTableLookups = self.__buildQueries(childTables)
         # For each valid object in the collection, look it up
