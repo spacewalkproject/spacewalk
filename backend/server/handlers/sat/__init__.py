@@ -22,3 +22,5 @@ rpcClasses = {
         'authentication'    :   auth.Authentication,
         'certificate'       :   cert.Certificate,
     }
+
+getHandler = None
