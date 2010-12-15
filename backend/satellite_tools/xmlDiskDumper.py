@@ -310,15 +310,6 @@ class BlacklistsDumper(Dumper):
     def _getMethod(self):
         return self.server.dump.blacklist_obsoletes
 
-class ProductNamesDumper(Dumper):
-    
-    def setMixin(self):
-        self._mixin = xmlDiskSource.ProductNamesDiskSource(self.mountPoint)
-
-    def _getMethod(self):
-        return self.server.dump.product_names
-
-
 class BinaryRPMDumper(ShortPackageDumper):
     _loader_class = None
 
