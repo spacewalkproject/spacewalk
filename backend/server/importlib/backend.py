@@ -1969,10 +1969,10 @@ class Backend:
     def validate_pks(self):
         # If nevra is enabled use checksum as primary key
         tbs = self.tables['rhnPackage']
-        if CFG.ENABLE_NVREA:
-            # Add checksum as a primarykey if nevra is enabled
-            if 'checksum_id' not in tbs.pk:
-                tbs.pk.append('checksum_id')
+        if not CFG.ENABLE_NVREA:
+            # remove checksum from a primary key if nevra is disabled.
+            if 'checksum_id' in tbs.pk:
+                tbs.pk.remove('checksum_id')
             
 # Returns a tuple for the hash's values
 def build_key(hash, fields):
