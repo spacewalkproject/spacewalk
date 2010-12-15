@@ -203,28 +203,28 @@ def main(arglist):
         errata.sort()
             
         errata_source = xmlDiskSource.ErrataDiskSource(mountPoint)
-        dumper = xmlDiskDumper.ErrataDumper(destMountPoint, compression=9)
-        dumper.prune(errata)
+        edumper = xmlDiskDumper.ErrataDumper(destMountPoint, compression=9)
+        edumper.prune(errata)
         for err in errata:
             errata_source.setID(err)
             stream = errata_source.load()
-            dumper.setID(err)
-            dumper.setInputStream(stream)
-            dumper.dump(force=force)
+            edumper.setID(err)
+            edumper.setInputStream(stream)
+            edumper.dump(force=force)
     
     if "ksdata" in actions:
         print "Copying kickstart data: %s" % (channels, )
         ksdata_source = xmlDiskSource.KickstartDataDiskSource(mountPoint)
-        dumper = xmlDiskDumper.KickstartDataDumper(destMountPoint, compression=9)
+        ksdumper = xmlDiskDumper.KickstartDataDumper(destMountPoint, compression=9)
 
         ks_tree_labels = get_kickstart_labels(mountPoint, channels)
 
         for ks_tree_label in ks_tree_labels:
             ksdata_source.setID(ks_tree_label)
             stream = ksdata_source.load()
-            dumper.setID(ks_tree_label)
-            dumper.setInputStream(stream)
-            dumper.dump(force=force)
+            ksdumper.setID(ks_tree_label)
+            ksdumper.setInputStream(stream)
+            ksdumper.dump(force=force)
 
     if "ksfiles" in actions:
         print "Copying kickstart files: %s" % (channels, )
