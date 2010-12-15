@@ -127,25 +127,6 @@ def invalidate_action(server_id, action_id):
 
     return a_ids
 
-_query_schedule_server_packages_update = rhnSQL.Statement("""
-    insert into rhnActionPackage (id, action_id, name_id, parameter)
-    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, 'upgrade')
-""")
-
-def schedule_server_packages_update(server_id, package_ids, org_id = None,
-        prerequisite = None, action_name = "Package update"):
-    action_id = schedule_server_action(server_id, 
-            action_type = 'packages.update', action_name = action_name,
-            org_id = org_id, prerequisite = prerequisite)
-
-    h = rhnSQL.prepare(_query_schedule_server_packages_update)
-
-    h.execute_bulk({
-        'action_id' : [action_id] * len(package_ids),
-        'name_id'   : package_ids,
-    })
-    return action_id
-
 _query_schedule_server_packages_update_by_arch = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, package_arch_id, \
            parameter)
