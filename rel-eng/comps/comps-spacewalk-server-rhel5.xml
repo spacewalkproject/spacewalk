@@ -213,4 +213,34 @@
        <packagereq type="default">xpp3-minimal</packagereq>
     </packagelist>
   </group>
+  <group>
+    <id>spacewalk-server-docs</id>
+    <name>Spacewalk Server Documentation</name>
+    <description>Spacewalk Server Documentation Packages</description>
+    <uservisible>false</uservisible>
+    <packagelist>
+       <packagereq type="optional">asm-javadoc</packagereq>
+       <packagereq type="optional">bea-stax-javadoc</packagereq>
+       <packagereq type="optional">cglib-javadoc</packagereq>
+       <packagereq type="optional">dom4j-javadoc</packagereq>
+       <packagereq type="optional">hibernate3-javadoc</packagereq>
+       <packagereq type="optional">icu4j-javadoc</packagereq>
+       <packagereq type="optional">isorelax-javadoc</packagereq>
+       <packagereq type="optional">jakarta-commons-cli-javadoc</packagereq>
+       <packagereq type="optional">jakarta-commons-configuration-javadoc</packagereq>
+       <packagereq type="optional">jaxen-javadoc</packagereq>
+       <packagereq type="optional">jcommon-javadoc</packagereq>
+       <packagereq type="optional">msv-javadoc</packagereq>
+       <packagereq type="optional">msv-relames-javadoc</packagereq>
+       <packagereq type="optional">msv-xmlgen-javadoc</packagereq>
+       <packagereq type="optional">msv-xsdlib-javadoc</packagereq>
+       <packagereq type="optional">relaxngDatatype-javadoc</packagereq>
+       <packagereq type="optional">servletapi4-javadoc</packagereq>
+       <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
+       <packagereq type="optional">ws-jaxme-javadoc</packagereq>
+       <packagereq type="optional">xom-javadoc</packagereq>
+       <packagereq type="optional">xpp2-javadoc</packagereq>
+       <packagereq type="optional">xpp3-javadoc</packagereq>
+    </packagelist>
+  </group>
 </comps>
