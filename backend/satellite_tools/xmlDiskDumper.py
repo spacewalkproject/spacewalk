@@ -220,9 +220,7 @@ class ChannelDumper(Dumper):
 
     def _getArgs(self):
         # Virtual
-        snapshot = self.snapshot
-        flags = self.flags
-        return ([self._mixin.channel], snapshot, flags)
+        return ([self._mixin.channel], )
         
 class ShortPackageDumper(Dumper):
     _loader_class = xmlSource.IncompletePackageContainer
