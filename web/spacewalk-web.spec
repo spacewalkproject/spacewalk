@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.13
+Version: 1.3.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 15 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.14-1
+- 663304 - we do not put alias in INSERTs since commit b950aa91
+- 656963 - wrap up run-script using activity
+
 * Tue Dec 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.13-1
 - fixed undefined variable
 
