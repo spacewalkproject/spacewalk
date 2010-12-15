@@ -1,0 +1,71 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings FATAL => 'all';
+
+use Spacewalk::Setup ();
+use IPC::Open3 ();
+
+if (@ARGV != 1) {
+	die "Usage: $0 sql-file-to-use.sql\n";
+}
+
+my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
+
+if (not -e $config_file) {
+	die "The config file [$config_file] does not seem to exist. Was Spacewalk configured yet?\n";
+}
+
+my %options;
+Spacewalk::Setup::read_config($config_file, \%options);
+
+my @missing;
+for my $n (qw( db_backend db_name db_user db_password )) {
+	if (not defined $options{$n}) {
+		push @missing, "Config file [$config_file] does not seem to have $n set.\n";
+	}
+}
+if (@missing) {
+	die join '', @missing;
+}
+
+chdir '/';
+
+my ($pid, $wfh, $rfh);
+if ($options{db_backend} eq 'oracle') {
+	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR',
+		'sqlplus', "$options{db_user}/$options{db_password}\@$options{db_name}") or return 2;
+	print $wfh "whenever oserror exit failure\n";
+	print $wfh "whenever sqlerror exit sql.sqlcode\n";
+	print $wfh "\@$ARGV[0]\n";
+	close $wfh;
+} elsif ($options{db_backend} eq 'postgresql') {
+        my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $ARGV[0] );
+        if (defined $options{db_host}) {
+                push @command, '-h', $options{db_host};
+                if (defined $options{db_port}) {
+                        push @command, '-p', $options{db_port};
+                }
+        }
+        $ENV{PGPASSWORD} = $options{db_password};
+	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
+	close $wfh;
+} else {
+	die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
+}
+
+
+my $out;
+{
+local $/ = undef;
+$out = <$rfh>;
+}
+close $rfh;
+waitpid $pid, 0;
+if ($?) {
+	my $ret = $? >> 8;
+	print STDERR $out;
+	exit $ret;
+}
+exit;
+
