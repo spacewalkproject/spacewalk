@@ -64,3 +64,17 @@ def add_to_repodata_queue_for_channel_package_subscription(affected_channels,
             # don't want to cause an error for the db
             add_to_repodata_queue(channel, caller, reason[:128])
 
+def add_to_erratacache_queue(channel, priority=0):
+    h = rhnSQL.prepare("""
+    insert into rhnTaskQueue
+           (org_id, task_name, task_data, priority, earliest)
+           select coalesce(c.org_id, 1),
+                  'update_errata_cache_by_channel',
+                  c.id,
+                  :priority,
+                  sysdate
+             from rhnChannel c
+            where c.label = :label
+    """)
+    h.execute(label=channel, priority=priority)
+    rhnSQL.commit()
