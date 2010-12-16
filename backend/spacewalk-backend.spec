@@ -550,7 +550,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files libs
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
-%{python_sitelib}/spacewalk*
+%{python_sitelib}/spacewalk/__init__.py*
+%dir %{python_sitelib}/spacewalk/common
+%{python_sitelib}/spacewalk/common/checksum.py*
+%{python_sitelib}/spacewalk/common/fileutils.py*
+%{python_sitelib}/spacewalk/common/rhn_deb.py*
+%{python_sitelib}/spacewalk/common/rhn_mpm.py*
+%{python_sitelib}/spacewalk/common/rhn_rpm.py*
 
 %files config-files-common
 %defattr(-,root,root)
