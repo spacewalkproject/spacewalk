@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.27
+Version: 1.3.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 16 2010 Aron Parsons <aparsons@redhat.com> 1.3.28-1
+- fix testSystemSearch JUnit test (aparsons@redhat.com)
+
 * Tue Dec 14 2010 Jan Pazdziora 1.3.27-1
 - Checkstyle: bumping up the max method length to 180 lines.
 - checkstyle fix (aparsons@redhat.com)
