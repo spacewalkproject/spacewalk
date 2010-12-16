@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.27
+Version: 1.3.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -683,6 +683,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Dec 16 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.28-1
+- fixed %%files for spacewalk-backend-libs
+
 * Thu Dec 16 2010 Jan Pazdziora 1.3.27-1
 - Dropping satellite_tools/exporter/exporter.py from the Makefile and %files.
 
