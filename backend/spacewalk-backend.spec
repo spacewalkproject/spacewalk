@@ -672,7 +672,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/xmlSource.py*
 %dir %{pythonrhnroot}/satellite_tools/exporter
 %{pythonrhnroot}/satellite_tools/exporter/__init__.py*
-%{pythonrhnroot}/satellite_tools/exporter/exporter.py*
 %{pythonrhnroot}/satellite_tools/exporter/exportLib.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 

@@ -6,6 +6,6 @@ TOP	= ../..
 
 # Specific stuff
 SUBDIR	= satellite_tools/exporter
-SPACEWALK_FILES	= __init__ exporter exportLib xmlWriter
+SPACEWALK_FILES	= __init__ exportLib xmlWriter
 
 include $(TOP)/Makefile.defs
