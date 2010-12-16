@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.1
+Version:        1.3.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Dec 16 2010 Jan Pazdziora 1.3.2-1
+- 636458 - check that the Oracle database instance is version 10 or 11.
+
 * Mon Dec 13 2010 Jan Pazdziora 1.3.1-1
 - 640971 - when waiting for tomcat, try to connect directly to 8009.
 - We need to check the return value of GetOptions and die if the parameters
