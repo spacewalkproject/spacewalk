@@ -1052,29 +1052,3 @@ class ProductNamesContainer(ContainerHandler):
 class KickstartableTreesContainer(ContainerHandler):
     container_name = 'rhn-kickstartable-trees'
 
-#
-# Handler generator
-#
-def getHandler():
-    handler = SatelliteDispatchHandler()
-#    handler.set_container(ErrorContainer())
-    handler.set_container(ChannelFamilyContainer())
-    handler.set_container(ChannelContainer())
-    handler.set_container(IncompletePackageContainer())
-    handler.set_container(PackageContainer())
-    handler.set_container(SourcePackageContainer())
-    handler.set_container(ErrataContainer())
-    # arch containers
-    handler.set_container(ServerArchContainer())
-    handler.set_container(PackageArchContainer())
-    handler.set_container(ChannelArchContainer())
-    handler.set_container(CPUArchContainer())
-    handler.set_container(ServerPackageArchCompatContainer())
-    handler.set_container(ServerChannelArchCompatContainer())
-    handler.set_container(ChannelPackageArchCompatContainer())
-    handler.set_container(ServerGroupServerArchCompatContainer())
-    handler.set_container(BlacklistObsoletesContainer())
-    handler.set_container(KickstartableTreesContainer())
-    handler.set_conatiner(ProductNamesContainer())
-    return handler
-
