@@ -605,6 +605,7 @@ fi
       <run-script acl="global_config(ssl_available);session_data_true(enable_osad)">
         <action-name>Generate jabberd config file</action-name>
           <script>
+#!/bin/sh
 /usr/bin/spacewalk-setup-jabberd --macros "hostname:${session.hostname}"
           </script>
         </run-script>
