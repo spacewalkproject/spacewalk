@@ -71,4 +71,3 @@ $(CA_DBSTORE).inst : $(CA_DBSTORE) $(CA_DBSTORE).new $(PREFIX)/$(BINDIR)
 clean ::
 	@rm -fv $(MANS) manpage.* *.new
 
-include Makefile.dump
