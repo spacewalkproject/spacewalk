@@ -10,7 +10,7 @@ SUBDIRS = exporter disk_dumper accounts repo_plugins
 SPACEWALK_FILES	= __init__ connection constants diskImportLib messages \
             progress_bar req_channels satCerts satsync syncCache \
             sync_handlers \
-            syncLib SequenceServer xmlDiskDumper xmlDiskSource \
+            syncLib SequenceServer xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
             satComputePkgHeaders updatePackages reposync \
 	    geniso gentree

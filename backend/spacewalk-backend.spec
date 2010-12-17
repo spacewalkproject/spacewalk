@@ -671,8 +671,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{pythonrhnroot}/satellite_tools
 %{pythonrhnroot}/satellite_tools/__init__.py*
 %{pythonrhnroot}/satellite_tools/geniso.py*
-%{pythonrhnroot}/satellite_tools/gentree.py*
-%{pythonrhnroot}/satellite_tools/xmlDiskDumper.py*
 # A bunch of modules shared with satellite-tools
 %{pythonrhnroot}/satellite_tools/connection.py*
 %{pythonrhnroot}/satellite_tools/diskImportLib.py*
