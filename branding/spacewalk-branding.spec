@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.3.1
+Version:    1.3.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Dec 17 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
+- let import PXT modules on fly
+
 * Thu Nov 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
 - add GPLv2 license (msuchy@redhat.com)
 - cleanup spec (msuchy@redhat.com)
