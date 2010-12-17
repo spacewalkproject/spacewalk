@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.14
+Version: 1.3.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Dec 17 2010 Jan Pazdziora 1.3.15-1
+- 656963 - the script has to start with #!/bin/sh.
+- 656963 - move "Generate jabberd config file" script to correct activity
+  (msuchy@redhat.com)
+- 663304 - we do not put alias in INSERTs since commit b950aa91
+  (msuchy@redhat.com)
+
 * Wed Dec 15 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.14-1
 - 663304 - we do not put alias in INSERTs since commit b950aa91
 - 656963 - wrap up run-script using activity
