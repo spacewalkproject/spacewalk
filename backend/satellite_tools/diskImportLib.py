@@ -186,21 +186,3 @@ class PackageContainer(diskImportLibContainer, xmlSource.PackageContainer):
 class SourcePackageContainer(diskImportLibContainer, xmlSource.SourcePackageContainer):
     importer_class = SourcePackageImport
 
-# Handy function that returns a new handler object (so we can parse XML
-# streams)
-def getHandler():
-    handler = xmlSource.getHandler()
-    handler.set_container(ChannelArchContainer())
-    handler.set_container(PackageArchContainer())
-    handler.set_container(ServerArchContainer())
-    handler.set_container(ServerPackageArchCompatContainer())
-    handler.set_container(ServerChannelArchCompatContainer())
-    handler.set_container(ChannelPackageArchCompatContainer())
-    handler.set_container(CPUArchContainer())
-    handler.set_container(ChannelFamilyContainer())
-    handler.set_container(ChannelContainer())
-    handler.set_container(PackageContainer())
-    handler.set_container(BlacklistObsoletesContainer())
-    handler.set_container(ProductNamesContainer())
-    return handler
-
