@@ -24,6 +24,7 @@ import struct
 import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
+from up2date_client import rhnserver
 
 try:
     from rhn import rpclib
@@ -709,24 +710,13 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
         s.add_trusted_cert(ca_chain)
     return s
 
-def exists_getPackageChecksumBySession(server):
+def exists_getPackageChecksumBySession():
     """ check whether server supports getPackageChecksumBySession function"""
-    ret = True
-    try:
-        raw_call(server.packages.getPackageChecksumBySession, '', {})
-    except xmlrpclib.Fault, e:
-        if e.faultCode in [-2, -33]:
-            # Fault -33: session token is invalid
-            # i.e. function exists but we supplied wrong data
-            # Fault -2 session is unknown - expected when empty
-            pass
-        elif e.faultCode == -1:
-            # Fault -1: function invalid
-            ret = False
-        else:
-            # pass through anything else
-            raise
-    return ret
+    # unfortunatelly we do not have capability for getPackageChecksumBySession function,
+    # but extended_profile in version 2 has been created just 2 months before getPackageChecksumBySession
+    # lets use it instead
+    server = rhnserver.RhnServer() 
+    return server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
 
 # compare two package [n,v,r,e] tuples
 def packageCompare(pkg1, pkg2, is_mpm=None):
