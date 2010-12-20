@@ -12,6 +12,8 @@ rhn.SSL builds an abstraction on top of the objects provided by pyOpenSSL
 """
 
 from OpenSSL import SSL
+# SSL.crypto is provided to other modules
+from OpenSSL import crypto
 import os
 
 import socket
