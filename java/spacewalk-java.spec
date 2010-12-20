@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.29
+Version: 1.3.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 20 2010 Tomas Lestach <tlestach@redhat.com> 1.3.30-1
+- 662981 - change warnings to errors, if required channels not found when
+  adding virt entitlement (tlestach@redhat.com)
+- 662981 - fix ISE, when adding virt entitlement and current org has no access
+  to the VT channel (tlestach@redhat.com)
+
 * Mon Dec 20 2010 Tomas Lestach <tlestach@redhat.com> 1.3.29-1
 - 640958 - do not zero (non)flex entitlements, when updating the others
   (tlestach@redhat.com)
