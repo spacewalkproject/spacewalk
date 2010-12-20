@@ -25,6 +25,10 @@ from virtualization.notification     import Plan,                    \
                                             TargetType
 from virtualization.domain_config    import DomainConfig
 from virtualization.domain_directory import DomainDirectory
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-virtualization")
+
 
 try:
     import libvirt
@@ -191,6 +195,7 @@ def _is_host_domain():
     try:
         conn = libvirt.open(None)
     except libvirt.libvirtError: # libvirtd is not running
+        sys.stderr.write(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"))
         return False
     if conn and conn.getType() in ['Xen', 'QEMU']:
         return True

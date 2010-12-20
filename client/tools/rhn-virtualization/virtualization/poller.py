@@ -18,6 +18,9 @@ sys.path.append("/usr/share/rhn/")
 
 import binascii
 import traceback
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-virtualization")
 
 try:
     import libvirt
@@ -72,6 +75,7 @@ def poll_hypervisor():
         conn = libvirt.open(None)
     except libvirt.libvirtError, lve:
         # virConnectOpen() failed
+        sys.stderr.write(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"))
         conn = None
 
     if not conn:
