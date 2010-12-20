@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.28
+Version: 1.3.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 20 2010 Tomas Lestach <tlestach@redhat.com> 1.3.29-1
+- 640958 - do not zero (non)flex entitlements, when updating the others
+  (tlestach@redhat.com)
+
 * Thu Dec 16 2010 Aron Parsons <aparsons@redhat.com> 1.3.28-1
 - fix testSystemSearch JUnit test (aparsons@redhat.com)
 
