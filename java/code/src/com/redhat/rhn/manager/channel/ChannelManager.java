@@ -1528,7 +1528,15 @@ public class ChannelManager extends BaseManager {
             return null;
         }
 
-        Channel channel = ChannelManager.lookupByIdAndUser(cid, user);
+        Channel channel = null;
+        try {
+            channel = ChannelManager.lookupByIdAndUser(cid, user);
+        }
+        catch (LookupException e) {
+            log.warn("User " + user.getLogin() + " does not have access to channel " +
+                    cid + ".");
+        }
+
         boolean canSubscribe = false;
 
         // check to make sure we *can* sub to this channel
