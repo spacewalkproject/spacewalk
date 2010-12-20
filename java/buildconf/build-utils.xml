@@ -9,6 +9,7 @@
     <attribute name="dir" />
  
     <sequential>
+      <echo message="Symlinking @{jars}" />
       <exec executable="build-jar-repository" failonerror="true" >
         <arg value="--preserve-naming" />
         <arg value="-s @{dir}" />

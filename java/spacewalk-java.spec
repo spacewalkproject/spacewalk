@@ -27,6 +27,18 @@ ExcludeArch: ia64
 
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
+
+# for RHEL6 we need to filter out several package versions
+%if  0%{?rhel} && 0%{?rhel} >= 6
+# cglib is not compatible with hibernate and asm from RHEL6
+Requires: cglib < 0:2.2
+# we dont want jfreechart from EPEL because it has different symlinks
+Requires: jfreechart < 1.0.13
+%else
+Requires: cglib
+Requires: jfreechart >= 1.0.9
+%endif
+
 Requires: bcel
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
@@ -41,18 +53,19 @@ Requires: jakarta-commons-io
 Requires: jakarta-taglibs-standard
 Requires: jasper5
 Requires: jcommon
-Requires: jfreechart >= 1.0.9
 Requires: jpam
 Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
 Requires: servletapi5
-Requires: struts >= 0:1.2.9
-%if  0%{?rhel} && 0%{?rhel} < 6
+# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 Requires: tomcat5
+Requires: struts >= 0:1.2.9
 %else
 Requires: tomcat6
+Requires: struts >= 0:1.3.0
 %endif
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
@@ -65,6 +78,7 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
+# Name change in F14+
 %if  0%{?fedora} && 0%{?fedora} >= 14
 Requires: apache-commons-beanutils
 Requires: apache-commons-logging
@@ -86,7 +100,6 @@ BuildRequires: javamail
 Requires: classpathx-mail
 BuildRequires: classpathx-mail
 %endif
-BuildRequires: jsp
 BuildRequires: checkstyle
 
 # Sadly I need these to symlink the jars properly.
@@ -117,11 +130,20 @@ BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: simple-core
 BuildRequires: stringtree-json
-BuildRequires: struts
+# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+BuildRequires: struts >= 0:1.2.9
+BuildRequires: jsp
+%else
+BuildRequires: struts >= 0:1.3.0
+BuildRequires: tomcat6
+%endif
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
-# the following line is for spell checking script
+%if 0%{?fedora} && 0%{?fedora} >= 13
+# spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
+%endif
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
 Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
@@ -187,9 +209,20 @@ This package contains PostgreSQL database backend files for the Spacewalk Java.
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
 Group: Applications/Internet
+
+# for RHEL6 we need to filter out several package versions
+%if  0%{?rhel} && 0%{?rhel} >= 6
+# cglib is not compatible with hibernate and asm from RHEL6
+Requires: cglib < 0:2.2
+# we dont want jfreechart from EPEL because it has different symlinks
+Requires: jfreechart < 1.0.13
+%else
+Requires: cglib
+Requires: jfreechart >= 1.0.9
+%endif
+
 Requires: bcel
 Requires: c3p0
-Requires: cglib
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.6.0
 Requires: java-devel >= 0:1.6.0
@@ -200,7 +233,6 @@ Requires: jakarta-commons-dbcp
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jcommon
-Requires: jfreechart >= 0:1.0.9
 Requires: jpam
 Requires: log4j
 Requires: oscache
@@ -229,10 +261,23 @@ This package contains the Java version of taskomatic.
 %prep
 %setup -q
 
+# missing tomcat juli JAR (needed for JSP precompilation) - bug 661244
+if test -d /usr/share/tomcat6 -a ! -h /usr/share/java/tomcat6/tomcat-juli.jar; then
+    mkdir -p build/build-lib
+    ln -s /usr/share/tomcat6/bin/tomcat-juli.jar \
+        build/build-lib/tomcat-juli.jar
+fi
+
+
 %build
 # compile only java sources (no packing here)
-ant -Dprefix=$RPM_BUILD_ROOT init-install compile
-# checkstyle is broken on Fedora 14 se we skip for now
+%if  0%{?rhel} && 0%{?rhel} < 6
+    ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat5 init-install compile
+%else
+    ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat6 init-install compile
+%endif
+
+# checkstyle is broken on Fedora 14 - we skip for now
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 echo "Running checkstyle on java main sources"
 export CLASSPATH="build/classes"
@@ -244,6 +289,7 @@ export BASE_OPTIONS="-Djavadoc.method.scope=public \
 -Dcheckstyle.header.file=buildconf/LICENSE.txt"
 find . -name *.java | grep -vE '(/test/|/jsp/|/playpen/)' | \
 xargs checkstyle -c buildconf/checkstyle.xml
+
 echo "Running checkstyle on java test sources"
 export BASE_OPTIONS="-Djavadoc.method.scope=nothing \
 -Djavadoc.type.scope=nothing \
@@ -258,17 +304,17 @@ xargs checkstyle -c buildconf/checkstyle.xml
 %install
 rm -rf $RPM_BUILD_ROOT
 %if  0%{?rhel} && 0%{?rhel} < 6
-ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
+ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat5 install-tomcat5
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %else
-ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
+ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat6 install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
 install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 
-# check spelling errors in all resources for English
-scripts/spelling/check_java.sh . en_US
+# check spelling errors in all resources for English if aspell installed
+[ -x "$(which aspell)" ] && scripts/spelling/check_java.sh . en_US
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
@@ -312,6 +358,8 @@ ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/s
 # delete JARs which must not be deployed
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat6*.jar
 
 
 %clean
@@ -373,7 +421,6 @@ fi
 %{jardir}/dwr-*.jar
 %{jardir}/hibernate3.jar
 %{jardir}/jaf.jar
-%{jardir}/jasper5-runtime.jar
 %{jardir}/javamail.jar
 %{jardir}/jcommon.jar
 %{jardir}/jdom.jar
@@ -389,7 +436,6 @@ fi
 %{jardir}/simple-core.jar
 %{jardir}/sitemesh.jar
 %{jardir}/stringtree-json.jar
-%{jardir}/struts.jar
 %{jardir}/taglibs-core.jar
 %{jardir}/taglibs-standard.jar
 %{jardir}/tanukiwrapper.jar
@@ -397,8 +443,7 @@ fi
 %{jardir}/xalan-j2.jar
 %{jardir}/xerces-j2.jar
 %{jardir}/xml-commons-apis.jar
-# jars for particular versions
-%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+
 %{jardir}/asmasm-analysis.jar
 %{jardir}/asmasm-attrs.jar
 %{jardir}/asmasm-tree.jar
@@ -407,10 +452,17 @@ fi
 %{jardir}/asmasm.jar
 %{jardir}/asmkasm.jar
 %{jardir}/jfreechart.jar
+
+# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+%{jardir}/struts.jar
 %else
-%{jardir}/objectweb-asm_asm.jar
-%{jardir}/jfreechartjfreechart.jar
+%{jardir}/struts.jar
+%{jardir}/struts-taglib.jar
+%{jardir}/struts-extras.jar
+%{jardir}/commons-chain.jar
 %endif
+
 %dir %{cobprofdir}
 %dir %{cobprofdirup}
 %dir %{cobprofdirwiz}

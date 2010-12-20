@@ -1,0 +1,6 @@
+<project name="build-props-tomcat5">
+  <property name="tomcat-jars" value="jspapi servletapi5" />
+  <property name="jasper-jars" value="jasper5-compiler jasper5-runtime" />
+  <property name="struts-jars" value="struts" />
+  <property name="other-jars" value="" />
+</project>

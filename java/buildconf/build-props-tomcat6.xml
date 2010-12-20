@@ -1,0 +1,6 @@
+<project name="build-props-tomcat6">
+    <property name="tomcat-jars" value="tomcat6-jsp-2.1-api tomcat6-servlet-2.5-api tomcat6-el-2.1-api" />
+    <property name="jasper-jars" value="tomcat6/jasper tomcat6/jasper-el tomcat6/jasper-jdt" />
+    <property name="struts-jars" value="struts struts-extras struts-taglib" />
+    <property name="other-jars" value="commons-chain" />
+</project>
