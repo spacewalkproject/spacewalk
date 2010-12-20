@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.37
+Version: 5.9.38
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Dec 20 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.38-1
+- 628846 - fixed symlink info
+
 * Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.37-1
 - import Fault, ResponseError and ProtocolError directly from xmlrpclib
 
