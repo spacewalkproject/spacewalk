@@ -46,10 +46,9 @@ class FileProcessor:
             if not file_struct.has_key('symlink'):
                 raise Exception, "Missing key symlink"
 
-            (dirname, filename) = os.path.split(file_struct['path'])
-            temppath = ".rhn-cfg-tmp_%s_%s_%.8f" % (filename, os.getpid(), time.time())
-            os.symlink(file_struct['symlink'], temppath)
-            return temppath, []
+            (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
+                                  directory=directory, symlink=file_struct['symlink'])
+            return fullpath, dirs_created
 
         for k in self.file_struct_fields.keys():
             if not file_struct.has_key(k):
@@ -128,7 +127,7 @@ class FileProcessor:
                 raise Exception, "Missing key %s" % k
         
 
-def maketemp(prefix=None, directory=None):
+def maketemp(prefix=None, directory=None, symlink=None):
     """Creates a temporary file (guaranteed to be new), using the
        specified prefix.
 
@@ -148,4 +147,11 @@ def maketemp(prefix=None, directory=None):
     file_prefix = "%s-%s-" % (prefix, os.getpid())
     (fd, filename) = tempfile.mkstemp(prefix=file_prefix, dir=directory)
 
-    return filename, dirs_created, os.fdopen(fd, "w+")
+    if symlink:
+        os.unlink(filename)
+        os.symlink(symlink, filename)
+        open_file = None
+    else:
+        open_file = os.fdopen(fd, "w+")
+
+    return filename, dirs_created, open_file

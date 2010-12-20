@@ -186,8 +186,6 @@ class DeployTransaction:
         # assume file
 	if file_info.get('filetype') == 'directory':
 		self.dirs.append(file_info)
-	elif file_info.get('filetype') == 'symlink':
-		self.files.append(file_info)
 	else:
         	self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 
