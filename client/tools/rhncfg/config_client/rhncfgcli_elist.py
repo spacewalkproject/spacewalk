@@ -1,14 +1,19 @@
 from config_common.rhn_log import log_debug, die
 import handler_base, base64, stat
 
+FILETYPE2CHAR = {
+    'file'      : '-',
+    'directory' : 'd',
+    'symlink'   : 'l',
+    'chardev'   : 'c',
+    'blockdev'  : 'b',
+}
+
 class Handler(handler_base.HandlerBase):
     def ostr_to_sym(self, octstr, ftype):
         mode = int(str(octstr), 8)
 
-        if ftype == 'directory':
-            symstr = 'd'
-        else:
-            symstr = '-'
+        symstr = FILETYPE2CHAR.get(ftype, '?')
 
         if mode & stat.S_IRUSR:
             symstr += 'r'
@@ -100,7 +105,14 @@ class Handler(handler_base.HandlerBase):
                 # * indicates raw 'unencoded' size
                 fsize = '*' + str(len(finfo['file_contents']))
 
-            permstr = finfo['filetype'] != 'symlink' and self.ostr_to_sym(finfo['filemode'], finfo['filetype']) or ''
-            dest = finfo['filetype'] != 'symlink' and file[1] or "%s -> %s" % (file[1], finfo['symlink']) 
+            if finfo['filetype'] == 'symlink':
+                permstr = self.ostr_to_sym('777', finfo['filetype'])
+                dest = "%s -> %s" % (file[1], finfo['symlink'])
+                fsize = str(len(finfo['symlink']))
+                finfo['username'] = 'root'
+                finfo['groupname'] = 'root'
+            else:
+                permstr = self.ostr_to_sym(finfo['filemode'], finfo['filetype']) or ''
+                dest = file[1]
             print "%10s %8s %-8s %10s %+3s    %*s    %s" % (permstr, finfo['username'], finfo['groupname'], fsize, finfo['revision'], maxlen, file[0], dest)
 
