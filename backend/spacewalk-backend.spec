@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.29
+Version: 1.3.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Dec 20 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.30-1
+- removed obsoleted ISO generator code
+- 653163 - sort child channels
+
 * Fri Dec 17 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.29-1
 - fixed egg-info packaging
 - 658422 - rebuild errata cache after reposync finishes
