@@ -770,7 +770,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 # No child channels, skip
                 continue
             log(1, t_format % plabel)
-            for clabel, ctimestamp in chns:
+            for clabel, ctimestamp in sorted(chns):
                 channel_object = self._channel_collection.get_channel(clabel,
                     ctimestamp)
                 self._printChannel(clabel, channel_object, p_format, (clabel in ch_requested_imported))
