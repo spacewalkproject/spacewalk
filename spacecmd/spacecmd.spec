@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.3.3
+Version:     1.3.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,11 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Dec 21 2010 Aron Parsons <aparsons@redhat.com> 1.3.4-1
+- support server-specific configuration sections in the configuration file
+- added support for a system-wide configuration file
+- added support for server-specific sections in the configuration file
+
 * Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.3-1
 - add support for server UUIDs
 
