@@ -87,16 +87,8 @@ if __name__ == '__main__':
     else:
         shell.config['server'] = 'localhost'
 
-    # load options from a configuration file
-    if os.path.isfile(user_conf_file):
-        files_read = config.read( [ _SYSTEM_CONF_FILE, user_conf_file ] )
-
-        for item in files_read:
-            logging.debug('Read configuration from %s' % item)
-
-        # load the default configuration section
-        shell.load_config_section('spacecmd')
-    else:
+    # create an empty configuration file if one's not present
+    if not os.path.isfile(user_conf_file):
         try:
             # create ~/.spacecmd
             if not os.path.isdir(conf_dir):
@@ -104,11 +96,21 @@ if __name__ == '__main__':
                 os.mkdir(conf_dir, 0700)
            
             # create a template configuration file 
+            logging.debug('Creating configuration file: %s' % user_conf_file)
             handle = open(user_conf_file, 'w')
             handle.write('[spacecmd]\n')
             handle.close()
         except IOError:
             logging.error('Could not create %s' % user_conf_file)
+
+    # load options from configuration files
+    files_read = config.read( [ _SYSTEM_CONF_FILE, user_conf_file ] )
+
+    for item in files_read:
+        logging.debug('Read configuration from %s' % item)
+
+    # load the default configuration section
+    shell.load_config_section('spacecmd')
 
     # run a single command from the command line
     if len(args):
