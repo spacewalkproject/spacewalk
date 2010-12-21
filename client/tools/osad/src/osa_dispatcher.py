@@ -336,7 +336,7 @@ class UpstreamServer(SocketServer.TCPServer):
     # smaller than rhnAction
     _query_get_pending_clients = rhnSQL.Statement("""
         select a.id, sa.server_id, pc.jabber_id,
-               (earliest_action - sysdate) * 86400 delta
+               date_diff_in_days(current_timestamp, earliest_action) * 86400 delta
           from
                rhnServerAction sa,
                rhnAction a,
