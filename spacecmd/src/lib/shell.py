@@ -48,11 +48,12 @@ class SpacewalkShell(Cmd):
     # do nothing on an empty line
     emptyline = lambda self: None
 
-    def __init__(self, options, conf_dir, config):
+    def __init__(self, options, conf_dir, config_parser):
         self.session = ''
         self.username = ''
         self.server = ''
         self.ssm = {}
+        self.config = {}
 
         self.postcmd(False, '')
 
@@ -60,7 +61,7 @@ class SpacewalkShell(Cmd):
         self.options = options
 
         # make the configuration file available everywhere
-        self.config = config
+        self.config_parser = config_parser
 
         # this is used when loading and saving caches
         self.conf_dir = conf_dir

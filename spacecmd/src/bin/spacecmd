@@ -81,6 +81,12 @@ if __name__ == '__main__':
     # create an instance of the shell
     shell = SpacewalkShell(options, conf_dir, config)
 
+    # set the default server to localhost
+    if shell.options.server:
+        shell.config['server'] = shell.options.server
+    else:
+        shell.config['server'] = 'localhost'
+
     # load options from a configuration file
     if os.path.isfile(user_conf_file):
         files_read = config.read( [ _SYSTEM_CONF_FILE, user_conf_file ] )
@@ -103,10 +109,6 @@ if __name__ == '__main__':
             handle.close()
         except IOError:
             logging.error('Could not create %s' % user_conf_file)
-
-    # set the default server to localhost
-    if not shell.options.server:
-        shell.options.server = 'localhost'
 
     # run a single command from the command line
     if len(args):

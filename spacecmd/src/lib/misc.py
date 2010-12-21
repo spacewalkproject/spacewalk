@@ -189,34 +189,40 @@ def do_login(self, args):
         logging.warning('You are already logged in')
         return True
 
-    # read the server from the arguments passed
+    # an argument passed to the function get precedence
     if len(args) == 2:
         server = args[1]
-    elif self.options.server:
-        server = self.options.server
     else:
+        # use the server we were already using
+        server = self.config['server']
+
+    # bail out if not server was given
+    if not server:
         logging.warning('No server specified')
         return False
 
-    # load the server-specific configuration from disk
-    if self.config.has_section(server):
+    # load the server-specific configuration
+    if self.config_parser.has_section(server):
         self.load_config_section(server)
 
-    # read the username from the arguments passed
+    # an argument passed to the function get precedence
     if len(args):
         username = args[0]
-    elif self.options.username:
-        username = self.options.username
+    elif self.config.has_key('username'):
+        # use the username from before
+        username = self.config['username']
     else:
         username = ''
 
-    if self.options.nossl:
+    # set the protocol
+    if self.config.has_key('nossl') and self.config['nossl']:
         proto = 'http'
     else:
         proto = 'https'
 
     server_url = '%s://%s/rpc/api' % (proto, server)
 
+    # this will enable spewing out all client/server traffic
     verbose_xmlrpc = False
     if self.options.debug > 1:
         verbose_xmlrpc = True
@@ -245,7 +251,7 @@ def do_login(self, args):
     session_file = os.path.join(self.conf_dir, server, 'session')
 
     # retrieve a cached session
-    # (skip this if username and password are provided)
+    # (skip this if username and password are provided on the command line)
     if os.path.isfile(session_file) \
        and not self.options.username \
        and not self.options.password:
@@ -286,14 +292,7 @@ def do_login(self, args):
         if len(username):
             logging.info('Spacewalk Username: %s' % username)
         else:
-            if self.options.username:
-                username = self.options.username
-
-                # remove this from the options so that if 'login' is called
-                # again, the user is prompted for the information
-                self.options.username = None
-            else:
-                username = prompt_user('Spacewalk Username:', noblank = True)
+            username = prompt_user('Spacewalk Username:', noblank = True)
 
         if self.options.password:
             password = self.options.password
@@ -301,6 +300,8 @@ def do_login(self, args):
             # remove this from the options so that if 'login' is called
             # again, the user is prompted for the information
             self.options.password = None
+        elif self.config.has_key('password'):
+            password = self.config['password']
         else:
             password = getpass('Spacewalk Password: ')
 
@@ -879,13 +880,23 @@ def load_config_section(self, section):
     logging.debug('Loading configuration section [%s]' % section)
 
     for key in config_opts:
-        # command-line arguments take precedence over the config file
-        if not self.options.__dict__[key]:
+        # don't override command-line options
+        if self.options.__dict__[key]:
+            # set the config value to the command-line argument
+            self.config[key] = self.options.__dict__[key]
+        else:
             try:
-                self.options.__dict__[key] = self.config.get(section, key)
+                self.config[key] = self.config_parser.get(section, key)
             except NoOptionError:
                 pass
 
-    logging.debug('Current Configuration: %s' % self.options)
+    # handle the nossl boolean
+    if self.config.has_key('nossl'):
+        if re.match('^1|y|true$', self.config['nossl'], re.I):
+            self.config['nossl'] = True
+        else:
+            self.config['nossl'] = False
+
+    logging.debug('Current Configuration: %s' % self.config)
 
 # vim:ts=4:expandtab:
