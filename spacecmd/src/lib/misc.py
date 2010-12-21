@@ -20,8 +20,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-import readline
+import logging, readline
 from getpass import getpass
+from ConfigParser import NoOptionError
 from spacecmd.utils import *
 
 # list of system selection options for the help output
@@ -188,17 +189,6 @@ def do_login(self, args):
         logging.warning('You are already logged in')
         return True
 
-    if self.options.nossl:
-        proto = 'http'
-    else:
-        proto = 'https'
-
-    # read the username from the arguments passed
-    if len(args):
-        username = args[0]
-    else:
-        username = ''
-
     # read the server from the arguments passed
     if len(args) == 2:
         server = args[1]
@@ -207,6 +197,23 @@ def do_login(self, args):
     else:
         logging.warning('No server specified')
         return False
+
+    # load the server-specific configuration from disk
+    if self.config.has_section(server):
+        self.load_config_section(server)
+
+    # read the username from the arguments passed
+    if len(args):
+        username = args[0]
+    elif self.options.username:
+        username = self.options.username
+    else:
+        username = ''
+
+    if self.options.nossl:
+        proto = 'http'
+    else:
+        proto = 'https'
 
     server_url = '%s://%s/rpc/api' % (proto, server)
 
@@ -864,5 +871,21 @@ def replace_line_buffer(self, msg = None):
 
     # keep track of what is displayed so we can clear it later
     self.current_line = new_line
+
+
+def load_config_section(self, section):
+    config_opts = [ 'server', 'username', 'password', 'nossl' ]
+
+    logging.debug('Loading configuration section [%s]' % section)
+
+    for key in config_opts:
+        # command-line arguments take precedence over the config file
+        if not self.options.__dict__[key]:
+            try:
+                self.options.__dict__[key] = self.config.get(section, key)
+            except NoOptionError:
+                pass
+
+    logging.debug('Current Configuration: %s' % self.options)
 
 # vim:ts=4:expandtab:
