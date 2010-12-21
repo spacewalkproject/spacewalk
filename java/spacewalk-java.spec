@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.30
+Version: 1.3.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Dec 21 2010 Jan Pazdziora 1.3.31-1
+- Rewrite remove_unowned_errata and remove_nonrhn_unowned_errata not to use
+  rowid.
+- No need to subselect from dual.
+- 642926 - offer correct Channel and Channel Version for child channel errata
+  listings (tlestach@redhat.com)
+- 664717 - removing unused ks install type translations (tlestach@redhat.com)
+- 664717 - adding RHEL6 dist channel map translations (tlestach@redhat.com)
+
 * Mon Dec 20 2010 Tomas Lestach <tlestach@redhat.com> 1.3.30-1
 - 662981 - change warnings to errors, if required channels not found when
   adding virt entitlement (tlestach@redhat.com)
