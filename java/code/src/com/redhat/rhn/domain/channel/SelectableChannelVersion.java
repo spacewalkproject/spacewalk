@@ -102,6 +102,7 @@ public class SelectableChannelVersion  implements Selectable {
      */
     public static List<SelectableChannelVersion> getCurrentChannelVersionList() {
         List currentList = new ArrayList<ChannelVersion>();
+        currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL6));
         currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL5));
         currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL4));
         currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL3));

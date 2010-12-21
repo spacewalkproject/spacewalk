@@ -50,6 +50,10 @@ public class ChannelVersion {
     public static final Map DIST_CHANNEL_MAP_TO_CHANNEL_VERSION = new HashMap();
 
     static {
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Client", ChannelVersion.RHEL6);
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Server", ChannelVersion.RHEL6);
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Workstation", ChannelVersion.RHEL6);
+
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("5Client", ChannelVersion.RHEL5);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("5Server", ChannelVersion.RHEL5);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4.92Client", ChannelVersion.RHEL5);
@@ -96,6 +100,8 @@ public class ChannelVersion {
                 ChannelVersion.RHEL4);
         KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_5,
                 ChannelVersion.RHEL5);
+        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_6,
+                ChannelVersion.RHEL6);
     }
 
     /**
