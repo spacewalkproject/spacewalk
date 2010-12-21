@@ -13,7 +13,7 @@ SPACEWALK_FILES	= __init__ connection constants diskImportLib messages \
             syncLib SequenceServer xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
             satComputePkgHeaders updatePackages reposync \
-	    geniso gentree
+	    geniso
 
 SCRIPTS = satellite-sync spacewalk-debug rhn-entitlement-report \
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
