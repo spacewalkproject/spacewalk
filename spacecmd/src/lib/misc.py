@@ -307,6 +307,9 @@ def do_login(self, args):
         # login to the server
         try:
             self.session = self.client.auth.login(username, password)
+
+            # don't keep the password around
+            password = None
         except:
             logging.error('Invalid credentials')
             return False
