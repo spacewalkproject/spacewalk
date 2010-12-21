@@ -4682,8 +4682,13 @@ public class SystemHandler extends BaseHandler {
         if (cf == null) {
             throw new InvalidEntitlementException();
         }
+        // we need long values to pass
+        List<Long> longServerIds = new ArrayList();
+        for (Iterator it = serverIds.iterator(); it.hasNext();) {
+            longServerIds.add(new Long((Integer) it.next()));
+        }
         return VirtualizationEntitlementsManager.getInstance().
-                            convertToFlex(serverIds, cf.getId(), user).size();
+                            convertToFlex(longServerIds, cf.getId(), user).size();
     }
 
     /**
