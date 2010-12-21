@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.3.4
+Version:     1.3.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,12 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Dec 21 2010 Aron Parsons <aparsons@redhat.com> 1.3.5-1
+- discard the password variable once we use it
+- attempt to re-login as the same user if the cached credentials are invalid
+- fix logic regarding which configuration files to load
+- don't try to load non-existent config sections
+
 * Tue Dec 21 2010 Aron Parsons <aparsons@redhat.com> 1.3.4-1
 - support server-specific configuration sections in the configuration file
 - added support for a system-wide configuration file
