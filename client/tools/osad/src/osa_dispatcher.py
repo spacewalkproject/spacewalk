@@ -174,7 +174,7 @@ class Runner(jabber_lib.Runner):
            set state_id = :offline_id
          where state_id = :online_id
            and last_ping_time is not null
-           and sysdate > next_action_time
+           and current_timestamp > next_action_time
     """)
     def reap_pinged_clients(self):
         # Get the online and offline ids
