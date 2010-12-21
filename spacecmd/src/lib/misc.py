@@ -283,7 +283,7 @@ def do_login(self, args):
             self.client.user.listUsers(self.session)
         except:
             logging.warning('Cached credentials are invalid')
-            self.username = ''
+            self.current_user = ''
             self.session = ''
 
     # attempt to login if we don't have a valid session yet
@@ -335,7 +335,7 @@ def do_login(self, args):
     self.load_caches(server)
 
     # keep track of who we are and who we're connected to
-    self.username = username
+    self.current_user = username
     self.server = server
 
     logging.info('Connected to %s as %s' % (server_url, username))
@@ -353,7 +353,7 @@ def do_logout(self, args):
         self.client.auth.logout(self.session)
 
     self.session = ''
-    self.username = ''
+    self.current_user = ''
     self.server = ''
     self.do_clear_caches('')
 
@@ -364,8 +364,8 @@ def help_whoami(self):
     print 'usage: whoami'
 
 def do_whoami(self, args):
-    if len(self.username):
-        print self.username
+    if len(self.current_user):
+        print self.current_user
     else:
         logging.warning("You are not logged in")
 

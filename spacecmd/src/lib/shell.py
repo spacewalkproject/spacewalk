@@ -50,7 +50,7 @@ class SpacewalkShell(Cmd):
 
     def __init__(self, options, conf_dir, config_parser):
         self.session = ''
-        self.username = ''
+        self.current_user = ''
         self.server = ''
         self.ssm = {}
         self.config = {}
