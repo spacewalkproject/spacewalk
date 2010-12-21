@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.15
+Version: 1.3.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Dec 21 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.16-1
+- 664487 - fixed space report query
+- fixed prototype-*.js reference
+
 * Fri Dec 17 2010 Jan Pazdziora 1.3.15-1
 - 656963 - the script has to start with #!/bin/sh.
 - 656963 - move "Generate jabberd config file" script to correct activity
