@@ -24,7 +24,6 @@
 import logging, os, re, sys, xmlrpclib
 from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import Option, OptionParser
-from pwd import getpwuid
 from spacecmd.shell import SpacewalkShell
     
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
@@ -64,8 +63,7 @@ if __name__ == '__main__':
         level = logging.DEBUG
 
     # files are loaded from ~/.spacecmd/
-    userinfo = getpwuid(os.getuid())
-    conf_dir = os.path.join(userinfo[5], '.spacecmd')
+    conf_dir = os.path.expanduser('~/.spacecmd')
     conf_file = os.path.join(conf_dir, 'config')
 
     # load options from a configuration file
@@ -114,7 +112,7 @@ if __name__ == '__main__':
     logging.debug('Configuration: %s' % options)
 
     # create an instance of the shell
-    shell = SpacewalkShell(options)
+    shell = SpacewalkShell(options, conf_dir, config)
 
     # run a single command from the command line
     if len(args):
