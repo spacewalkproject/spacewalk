@@ -283,7 +283,7 @@ def do_login(self, args):
             self.client.user.listUsers(self.session)
         except:
             logging.warning('Cached credentials are invalid')
-            username = ''
+            self.username = ''
             self.session = ''
 
     # attempt to login if we don't have a valid session yet
