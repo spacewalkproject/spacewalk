@@ -180,18 +180,15 @@ DELETE
                    AND S.user_id = WC.id
                    AND S.label = :label
                    AND NOT EXISTS(SELECT 1
-                                    FROM dual
-                                   WHERE EXISTS (SELECT 1
                                                    FROM rhnErrata E
                                                   WHERE E.id = S.element
                                                     AND E.org_id = WC.org_id
                                                 )
-                                      OR EXISTS (SELECT 1
+                   AND NOT EXISTS(SELECT 1
                                                    FROM rhnErrataTmp ET
                                                   WHERE ET.id = S.element
                                                     AND ET.org_id = WC.org_id
                                                 )
-                                 )
                )
   </query>
 </write-mode>
@@ -206,18 +203,15 @@ DELETE
                    AND S.user_id = WC.id
                    AND S.label = :label
                    AND NOT EXISTS(SELECT 1
-                                    FROM dual
-                                   WHERE EXISTS (SELECT 1
                                                    FROM rhnErrata E
                                                   WHERE E.id = S.element
                                                     AND (E.org_id = WC.org_id OR E.org_id IS NULL)
                                                 )
-                                      OR EXISTS (SELECT 1
+                   AND NOT EXISTS(SELECT 1
                                                    FROM rhnErrataTmp ET
                                                   WHERE ET.id = S.element
                                                     AND ET.org_id = WC.org_id
                                                 )
-                                 )
                )
   </query>
 </write-mode>
