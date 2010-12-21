@@ -21,9 +21,7 @@ import os
 from spacewalk.common import rhnFault, log_debug
 import tempfile
 from spacewalk.server import rhnSQL, configFilesHandler
-import sys
-sys.path.append("/usr/share/rhn")
-from config_common.file_utils import ostr_to_sym
+from spacewalk.common.fileutils import ostr_to_sym
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):

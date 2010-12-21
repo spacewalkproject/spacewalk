@@ -1,5 +1,5 @@
 from config_common.rhn_log import log_debug, die
-from config_common.file_utils import ostr_to_sym
+from spacewalk.common.fileutils import ostr_to_sym
 import handler_base, base64
 
 class Handler(handler_base.HandlerBase):
