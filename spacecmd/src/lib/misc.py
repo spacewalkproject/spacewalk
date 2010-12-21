@@ -202,8 +202,7 @@ def do_login(self, args):
         return False
 
     # load the server-specific configuration
-    if self.config_parser.has_section(server):
-        self.load_config_section(server)
+    self.load_config_section(server)
 
     # an argument passed to the function get precedence
     if len(args):
@@ -876,6 +875,10 @@ def replace_line_buffer(self, msg = None):
 
 def load_config_section(self, section):
     config_opts = [ 'server', 'username', 'password', 'nossl' ]
+
+    if not self.config_parser.has_section(section):
+        logging.debug('Configuration section [%s] does not exist' % section)
+        return
 
     logging.debug('Loading configuration section [%s]' % section)
 
