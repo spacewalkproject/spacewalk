@@ -73,17 +73,10 @@ if __name__ == '__main__':
         config = SafeConfigParser()
         config.read(conf_file)    
 
-        boolean_opts = [ 'nossl' ]
-        string_opts = [ 'server', 'username', 'password' ]
+        config_opts = [ 'server', 'username', 'password', 'nossl' ]
 
-        for key in boolean_opts:
-            if not options.__dict__[key]:
-                try:
-                    options.__dict__[key] = config.getboolean('spacecmd', key)
-                except NoOptionError:
-                    pass
-
-        for key in string_opts:
+        for key in config_opts:
+            # command-line arguments take precedence over the config file
             if not options.__dict__[key]:
                 try:
                     options.__dict__[key] = config.get('spacecmd', key)
@@ -116,6 +109,9 @@ if __name__ == '__main__':
         level = logging.INFO
 
     logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
+
+    # print the configuration that we loaded
+    logging.debug('Configuration: %s' % options)
 
     # create an instance of the shell
     shell = SpacewalkShell(options)
