@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.31
+Version: 1.3.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Dec 21 2010 Jan Pazdziora 1.3.32-1
+- Need to alias column with AS for PostgreSQL.
+- use difflib instead of external "diff -u" (msuchy@redhat.com)
+- move function ostr_to_sym from config_common/file_utils to spacewalk-backend-
+  libs (msuchy@redhat.com)
+- 634963 - print diffs for "rhncfg-manager diff-revisions" if we differ in
+  selinux context, ownership or attributes (msuchy@redhat.com)
+
 * Tue Dec 21 2010 Jan Pazdziora 1.3.31-1
 - Need to remove gentree from Makefile as well.
 
