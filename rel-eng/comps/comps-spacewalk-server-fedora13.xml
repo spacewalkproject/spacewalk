@@ -60,6 +60,7 @@
        <packagereq type="default">quartz</packagereq>
        <packagereq type="default">quartz-oracle</packagereq>
        <packagereq type="default">redstone-xmlrpc</packagereq>
+       <packagereq type="default">rhnlib</packagereq>
        <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">SatConfig-bootstrap</packagereq>
        <packagereq type="default">SatConfig-bootstrap-server</packagereq>
