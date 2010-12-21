@@ -17,9 +17,8 @@
 #
 # $Id$
 
-import os
+import difflib
 from spacewalk.common import rhnFault, log_debug
-import tempfile
 from spacewalk.server import rhnSQL, configFilesHandler
 from spacewalk.common.fileutils import ostr_to_sym
 
@@ -482,23 +481,22 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 return first_row + "\n" +  second_row + "\n"
             return ""
 
-        pipe = os.popen("/usr/bin/diff -u %s %s" % (fsrc['filename'],
-            fdst['filename']))
-        first_row = pipe.readline()
+        diff = difflib.unified_diff(src_content, dst_content, path, path, fsrc['modified'], fdst['modified'], lineterm='')
+        first_row = diff.next()
         if not first_row:
             return ""
 
         if not first_row.startswith('---'):
             # Hmm, weird
-            return first_row + pipe.read()
+            return first_row + '\n'.join(list(diff))
 
-        second_row = pipe.readline()
+        second_row = diff.next()
         if not second_row.startswith('+++'):
             # Hmm, weird
-            return second_row + pipe.read()
+            return second_row + '\n'.join(list(diff))
 
         (first_row, second_row) = self.__header(path, fsrc, config_channel_src, fdst, config_channel_dst)
-        return first_row + "\n" + second_row + '\n' + pipe.read()
+        return first_row + "\n" + second_row + '\n' + '\n'.join(list(diff))
 
     def _get_file_revision(self, config_channel, revision, path):
         if revision and not revision.isdigit():
@@ -521,13 +519,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # seems to be invalid (bug 151220)
 
         # Empty files or directories may have NULL instead of lobs
-        fd, f['filename'] = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
         fc_lob = f.get('file_contents')
         if fc_lob:
-            os.write(fd, rhnSQL.read_lob(fc_lob))
-        os.close(fd)
-        del fc_lob
-        return f
+            content = rhnSQL.read_lob(fc_lob).split('\n')
+        else:
+            content = ''
+        return content
 
     # Helper functions
     _query_org_config_channels = rhnSQL.Statement("""
