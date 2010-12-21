@@ -1,86 +1,8 @@
 from config_common.rhn_log import log_debug, die
-import handler_base, base64, stat
-
-FILETYPE2CHAR = {
-    'file'      : '-',
-    'directory' : 'd',
-    'symlink'   : 'l',
-    'chardev'   : 'c',
-    'blockdev'  : 'b',
-}
+from config_common.file_utils import ostr_to_sym
+import handler_base, base64
 
 class Handler(handler_base.HandlerBase):
-    def ostr_to_sym(self, octstr, ftype):
-        mode = int(str(octstr), 8)
-
-        symstr = FILETYPE2CHAR.get(ftype, '?')
-
-        if mode & stat.S_IRUSR:
-            symstr += 'r'
-        else:
-            symstr += '-'
-
-        if mode & stat.S_IWUSR:
-            symstr += 'w'
-        else:
-            symstr += '-'
-
-        if mode & stat.S_IXUSR:
-            if mode & stat.S_ISUID:
-                symstr += 's'
-            else:
-                symstr += 'x'
-        else:
-            if mode & stat.S_ISUID:
-                symstr += 'S'
-            else:
-                symstr += '-'
-
-        if mode & stat.S_IRGRP:
-            symstr += 'r'
-        else:
-            symstr += '-'
-
-        if mode & stat.S_IWGRP:
-            symstr += 'w'
-        else:
-            symstr += '-'
-
-        if mode & stat.S_IXGRP:
-            if mode & stat.S_ISGID:
-                symstr += 's'
-            else:
-                symstr += 'x'
-        else:
-            if mode & stat.S_ISGID:
-                symstr += 'S'
-            else:
-                symstr += '-'
-
-        if mode & stat.S_IROTH:
-            symstr += 'r'
-        else:
-            symstr += '-'
-
-        if mode & stat.S_IWOTH:
-            symstr += 'w'
-        else:
-            symstr += '-'
-
-        if mode & stat.S_IXOTH:
-            if mode & stat.S_ISVTX:
-                symstr += 't'
-            else:
-                symstr += 'x'
-        else:
-            if mode & stat.S_ISVTX:
-                symstr += 'T'
-            else:
-                symstr += '-'
-
-        return symstr
-
-
     def run(self):
         log_debug(2)
         r = self.repository
@@ -106,13 +28,13 @@ class Handler(handler_base.HandlerBase):
                 fsize = '*' + str(len(finfo['file_contents']))
 
             if finfo['filetype'] == 'symlink':
-                permstr = self.ostr_to_sym('777', finfo['filetype'])
+                permstr = ostr_to_sym('777', finfo['filetype'])
                 dest = "%s -> %s" % (file[1], finfo['symlink'])
                 fsize = str(len(finfo['symlink']))
                 finfo['username'] = 'root'
                 finfo['groupname'] = 'root'
             else:
-                permstr = self.ostr_to_sym(finfo['filemode'], finfo['filetype']) or ''
+                permstr = ostr_to_sym(finfo['filemode'], finfo['filetype']) or ''
                 dest = file[1]
             print "%10s %8s %-8s %10s %+3s    %*s    %s" % (permstr, finfo['username'], finfo['groupname'], fsize, finfo['revision'], maxlen, file[0], dest)
 

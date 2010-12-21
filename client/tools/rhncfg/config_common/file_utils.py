@@ -18,6 +18,7 @@ import os.path
 import time
 import tempfile
 import base64
+import stat
 try:
     from selinux import lgetfilecon
 except:
@@ -150,3 +151,84 @@ def maketemp(prefix=None, directory=None):
 
     return filename, dirs_created, os.fdopen(fd, "w+")
 
+
+FILETYPE2CHAR = {
+    'file'      : '-',
+    'directory' : 'd',
+    'symlink'   : 'l',
+    'chardev'   : 'c',
+    'blockdev'  : 'b',
+}
+
+def ostr_to_sym(octstr, ftype):
+    """ Convert filemode in octets (like '644') to string like "ls -l" ("-rwxrw-rw-")
+        ftype is one of: file, directory, symlink, chardev, blockdev.
+    """
+    mode = int(str(octstr), 8)
+
+    symstr = FILETYPE2CHAR.get(ftype, '?')
+
+    if mode & stat.S_IRUSR:
+        symstr += 'r'
+    else:
+        symstr += '-'
+
+    if mode & stat.S_IWUSR:
+        symstr += 'w'
+    else:
+        symstr += '-'
+
+    if mode & stat.S_IXUSR:
+        if mode & stat.S_ISUID:
+            symstr += 's'
+        else:
+            symstr += 'x'
+    else:
+        if mode & stat.S_ISUID:
+            symstr += 'S'
+        else:
+            symstr += '-'
+
+    if mode & stat.S_IRGRP:
+        symstr += 'r'
+    else:
+        symstr += '-'
+
+    if mode & stat.S_IWGRP:
+        symstr += 'w'
+    else:
+        symstr += '-'
+
+    if mode & stat.S_IXGRP:
+        if mode & stat.S_ISGID:
+            symstr += 's'
+        else:
+            symstr += 'x'
+    else:
+        if mode & stat.S_ISGID:
+            symstr += 'S'
+        else:
+            symstr += '-'
+
+    if mode & stat.S_IROTH:
+        symstr += 'r'
+    else:
+        symstr += '-'
+
+    if mode & stat.S_IWOTH:
+        symstr += 'w'
+    else:
+        symstr += '-'
+
+    if mode & stat.S_IXOTH:
+        if mode & stat.S_ISVTX:
+            symstr += 't'
+        else:
+            symstr += 'x'
+    else:
+        if mode & stat.S_ISVTX:
+            symstr += 'T'
+        else:
+            symstr += '-'
+
+    return symstr
