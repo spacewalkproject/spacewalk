@@ -33,6 +33,8 @@ Type: 'help' for a list of commands
       'quit' to quit
 '''
 
+_SYSTEM_CONF_FILE = '/etc/spacecmd.conf'
+
 if __name__ == '__main__':
     optionsTable = [
         Option('-u', '--username', action='store',
@@ -71,7 +73,7 @@ if __name__ == '__main__':
 
     # files are loaded from ~/.spacecmd/
     conf_dir = os.path.expanduser('~/.spacecmd')
-    conf_file = os.path.join(conf_dir, 'config')
+    user_conf_file = os.path.join(conf_dir, 'config')
 
     # server-specifics will be loaded from the configuration file later
     config = SafeConfigParser()
@@ -80,8 +82,11 @@ if __name__ == '__main__':
     shell = SpacewalkShell(options, conf_dir, config)
 
     # load options from a configuration file
-    if os.path.isfile(conf_file):
-        config.read(conf_file)    
+    if os.path.isfile(user_conf_file):
+        files_read = config.read( [ _SYSTEM_CONF_FILE, user_conf_file ] )
+
+        for item in files_read:
+            logging.debug('Read configuration from %s' % item)
 
         # load the default configuration section
         shell.load_config_section('spacecmd')
@@ -93,11 +98,11 @@ if __name__ == '__main__':
                 os.mkdir(conf_dir, 0700)
            
             # create a template configuration file 
-            handle = open(conf_file, 'w')
+            handle = open(user_conf_file, 'w')
             handle.write('[spacecmd]\n')
             handle.close()
         except IOError:
-            logging.error('Could not create %s' % conf_file)
+            logging.error('Could not create %s' % user_conf_file)
 
     # set the default server to localhost
     if not shell.options.server:

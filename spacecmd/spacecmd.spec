@@ -32,6 +32,9 @@ spacecmd is a command-line interface to Spacewalk and Satellite servers
 %{__mkdir_p} %{buildroot}/%{_bindir}
 %{__install} -p -m0755 src/bin/spacecmd %{buildroot}/%{_bindir}/
 
+%{__mkdir_p} %{buildroot}/%{_sysconfdir}
+touch %{buildroot}/%{_sysconfdir}/spacecmd.conf
+
 %{__mkdir_p} %{buildroot}/%{_sysconfdir}/bash_completion.d
 %{__install} -p -m0644 src/misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
@@ -51,6 +54,7 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %defattr(-,root,root,-)
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
+%ghost %config %{_sysconfdir}/spacecmd.conf
 %dir %{_sysconfdir}/bash_completion.d
 %{_sysconfdir}/bash_completion.d/spacecmd
 %doc src/doc/README src/doc/COPYING
