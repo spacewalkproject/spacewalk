@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import com.redhat.rhn.domain.kickstart.KickstartInstallType;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,17 +89,6 @@ public class ChannelVersion {
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1WS", ChannelVersion.RHEL21);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1AW", ChannelVersion.RHEL21);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1ASDE", ChannelVersion.RHEL21);
-
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_21,
-                ChannelVersion.RHEL21);
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_3,
-                ChannelVersion.RHEL3);
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_4,
-                ChannelVersion.RHEL4);
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_5,
-                ChannelVersion.RHEL5);
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_6,
-                ChannelVersion.RHEL6);
     }
 
     /**
@@ -111,18 +98,6 @@ public class ChannelVersion {
     protected ChannelVersion(String nameIn, String versionIn) {
         name = nameIn;
         version = versionIn;
-    }
-
-    /**
-     * Returns the channel version constant for the given kickstart install
-     * type, based on it's label and the contents of a static mapping.
-     * @param type KickstartInstallType to lookup channel version for.
-     * @return ChannelVersion for this KickstartInstallType.
-     */
-    public static ChannelVersion getChannelVersionForKickstartInstallType(
-            KickstartInstallType type) {
-        return (ChannelVersion)KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.get(
-                type.getLabel());
     }
 
     /**
