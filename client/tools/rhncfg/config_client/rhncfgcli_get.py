@@ -67,67 +67,25 @@ class Handler(handler_base.TopdirHandlerBase):
             dep_trans.deploy()
         #5/3/05 wregglej - 136415 added missing user exception stuff.
         except cfg_exceptions.UserNotFound, e:
-            try:
-                dep_trans.rollback()
-            except FailedRollback:
-                pass
-            #5/3/05 wregglej - 136415 Added exception handling for missing user.
-            except cfg_exceptions.UserNotFound, f:
-                pass
-            #5/5/05 wregglej - 136415 Added exception handling for unknown group
-            except cfg_exceptions.GroupNotFound, f:
-                pass
-            print "Error: unable to deploy file %s, information on user '%s' could not be found." % (e[0], f[0])
-
+            self.try_rollback(dep_trans, "Error unable to deploy file, information on user '%s' could not be found" % e[0])
         except cfg_exceptions.GroupNotFound, e:
-            try:
-                dep_trans.rollback()
-            except FailedRollback:
-                pass
-            #5/3/05 wregglej - 136415 Added exception handling for missing user.
-            except cfg_exceptions.UserNotFound, f:
-                pass
-            #5/5/05 wregglej - 136415 Added exception handling for unknown group
-            except cfg_exceptions.GroupNotFound, f:
-                pass
-            print "Error: unable to deploy file %s, information on group '%s' could not be found." % (e[0], f[0])
-
+            self.try_rollback(dep_trans, "Error: unable to deploy file, information on group '%s' could not be found" % e[0])
         except cfg_exceptions.FileEntryIsDirectory, e:
-            try:
-                dep_trans.rollback()
-            except FailedRollback:
-                pass
-            #5/3/05 wregglej - 136415 Added exception handling for missing user.
-            except cfg_exceptions.UserNotFound, f:
-                pass
-            #5/5/05 wregglej - 136415 Added exception handling for missing group
-            except cfg_exceptions.GroupNotFound, f:
-                pass
-
-            print "Error: unable to deploy file %s, as it is already a directory on disk" % (e[0],)
+            self.try_rollback(dep_trans, "Error: unable to deploy file %s, as it is already a directory on disk" % e[0])
         except cfg_exceptions.DirectoryEntryIsFile, e:
-            try:
-                dep_trans.rollback()
-            except FailedRollback:
-                pass
-            #5/3/05 wregglej - 136415 Added exception handling for missin user
-            except cfg_exceptions.UserNotFound, f:
-                pass
-            #5/5/05 wregglej - 136415 Added exception handling for unknown group
-            except cfg_exceptions.GroupNotFound, f:
-                pass
-            print "Error: unable to deploy directory %s, as it is already a file on disk" % (e[0],)
+            self.try_rollback(dep_trans, "Error: unable to deploy directory %s, as it is already a file on disk" % e[0])
         except Exception:
             try:
-                dep_trans.rollback()
-            except FailedRollback:
+                self.try_rollback(dep_trans, "Deploy failed, rollback successful")
+            except:
                 print "Failed rollback"
-            except cfg_exceptions.UserNotFound, f:
-                print "Failed rollback due to missing user info"
-            #5/5/05 wregglej - 136415 Added exception handling for unknown group
-            except cfg_exceptions.GroupNotFound, f:
-                pass
                 raise
-            else:
-                print "Deploy failed, rollback successful"
-                raise
+
+    def try_rollback(self, dep_trans, msg):
+        try:
+            dep_trans.rollback()
+        except (FailedRollback,
+                cfg_exceptions.UserNotFound,
+                cfg_exceptions.GroupNotFound), f:
+            pass
+        print msg
