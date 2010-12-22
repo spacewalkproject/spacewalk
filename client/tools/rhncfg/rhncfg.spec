@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.39
+Version: 5.9.40
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Dec 23 2010 Jan Pazdziora 5.9.40-1
+- make _make_stat_info public method (msuchy@redhat.com)
+- create new function get_raw_file_info for case, when we do not need file on
+  disk (msuchy@redhat.com)
+
 * Wed Dec 22 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.39-1
 - if file is excluded skip also deploy preparation
 - use difflib instead of external diff command
