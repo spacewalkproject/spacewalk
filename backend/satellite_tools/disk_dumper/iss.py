@@ -197,7 +197,6 @@ class Dumper(dumper.XML_Dumper):
             
             #self.channel_ids contains the list of dictionaries that hold the channel information
             #The keys are 'channel_id', 'label', and 'last_modified'.
-            self.channel_ids = []
             self.channel_comps = {}
 
             #Channel_labels should be the list of channels passed into rhn-satellite-exporter by the user.
@@ -221,7 +220,6 @@ class Dumper(dumper.XML_Dumper):
             # that are already on disk, so that we do not lose those families with
             # "incremental" dumps. So we will gather list of channel ids for channels already
             # in dump.
-            self.channel_ids_for_families = []
             channel_labels_for_families = self.fm.filemap['channels'].list()
             print "Appending channels %s" % ( channel_labels_for_families )
             for ids in channel_labels_for_families:

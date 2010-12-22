@@ -36,6 +36,9 @@ class XML_Dumper:
              select cf.id channel_family_id, to_number(null, null) quantity
              from rhnChannelFamily cf
         """
+        self.channel_ids = []
+        self.channel_ids_for_families = []
+
     def send(self, data):
         # to be overwritten in subclass
         pass
