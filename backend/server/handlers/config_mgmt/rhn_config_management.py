@@ -20,7 +20,7 @@
 import difflib
 from spacewalk.common import rhnFault, log_debug
 from spacewalk.server import rhnSQL, configFilesHandler
-from spacewalk.common.fileutils import ostr_to_sym
+from spacewalk.common.fileutils import f_date, ostr_to_sym
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
@@ -551,7 +551,3 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         raise rhnFault(4006, 
             "User is not a allowed to manage config files")
-
-def f_date(dbiDate):
-    return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month, 
-        dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)

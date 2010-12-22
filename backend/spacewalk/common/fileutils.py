@@ -457,3 +457,6 @@ def ostr_to_sym(octstr, ftype):
 
     return symstr
 
+def f_date(dbiDate):
+    return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month,
+        dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)
