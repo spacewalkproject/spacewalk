@@ -17,6 +17,7 @@ import os
 import time
 import tempfile
 import base64
+import difflib
 try:
     from selinux import lgetfilecon
 except:
@@ -116,8 +117,7 @@ class FileProcessor:
                 else:
                     raise e
         else:
-            pipe = os.popen("/usr/bin/diff -u %s %s" % (path, temp_file))
-            result = pipe.read()
+            result = ''.join(diff(path, temp_file))
 
         os.unlink(temp_file)
         return sectx_result + result
@@ -128,6 +128,32 @@ class FileProcessor:
                 # XXX
                 raise Exception, "Missing key %s" % k
         
+
+def diff(src, dst, srcname=None, dstname=None):
+    def f_content(path, name):
+        if os.access(path, os.R_OK):
+            f = open(path, 'U')
+            content = f.readlines()
+            f.close()
+            f_time = time.ctime(os.stat(path).st_mtime)
+            if content and content[-1] and content[-1][-1] != "\n":
+                content[-1] += "\n"
+        else:
+            content = []
+            f_time = time.ctime(0)
+        if not name:
+            name = path
+        return (content, name, f_time)
+
+    (src_content, src_name, src_time) = f_content(src, srcname)
+    (dst_content, dst_name, dst_time) = f_content(dst, dstname)
+
+    diff_u = difflib.unified_diff(src_content, dst_content,
+                                  src_name, dst_name,
+                                  src_time, dst_time)
+    return list(diff_u)
+
+
 
 def maketemp(prefix=None, directory=None, symlink=None):
     """Creates a temporary file (guaranteed to be new), using the
