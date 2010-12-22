@@ -607,8 +607,6 @@ class CachedDumper(exportLib.BaseDumper):
         iterator = CachedQueryIterator(statement, params,
             cache_get=self.cache_get)
         exportLib.BaseDumper.__init__(self, writer, data_iterator=iterator)
-        self.use_database_cache = CFG.USE_DATABASE_CACHE
-        log_debug(1, "Use database cache", self.use_database_cache)
         self.non_cached_class = self.__class__.__bases__[1]
 
     def _get_last_modified(self, params):
