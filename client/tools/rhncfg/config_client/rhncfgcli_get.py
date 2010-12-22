@@ -39,11 +39,8 @@ class Handler(handler_base.TopdirHandlerBase):
 
         for path in self.get_valid_files():
 
-            (directory, filename) = os.path.split(path)
-            directory = os.path.normpath("%s%s%s" % (topdir, os.sep, directory))
-
             try:
-                finfo = self.repository.get_file_info(path, auto_delete=0, dest_directory=directory)
+                finfo = self.repository.get_file_info(path, auto_delete=0, dest_directory=topdir)
             except cfg_exceptions.DirectoryEntryIsFile, e:
                 print "Error: unable to deploy directory %s, as it is already a file on disk" % (e[0], )
                 continue
