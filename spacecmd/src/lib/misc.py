@@ -703,6 +703,11 @@ def get_system_name(self, system_id):
         return
 
 
+def get_org_id(self, name):
+    details = self.client.org.getDetails(self.session, name)
+    return details.get('id')
+
+
 def expand_errata(self, args):
     if not isinstance(args, list):
         args = args.split()
