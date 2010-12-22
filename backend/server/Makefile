@@ -13,7 +13,7 @@ SPACEWALK_FILES		= __init__ \
 		  apacheServer apacheHandler apacheAuth apacheRequest \
                   apacheUploadServer \
 		  configFilesHandler \
-		  rhnAuthPAM rhnCapability rhnChannel rhnDatabaseCache \
+		  rhnAuthPAM rhnCapability rhnChannel \
                   rhnDependency \
                   rhnAction \
                   rhnHandler rhnImport rhnMapping rhnLib rhnPackage \
