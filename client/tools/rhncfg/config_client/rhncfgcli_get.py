@@ -39,21 +39,21 @@ class Handler(handler_base.TopdirHandlerBase):
 
         for path in self.get_valid_files():
 
-            try:
-                finfo = self.repository.get_file_info(path, auto_delete=0, dest_directory=topdir)
-            except cfg_exceptions.DirectoryEntryIsFile, e:
-                print "Error: unable to deploy directory %s, as it is already a file on disk" % (e[0], )
-                continue
-
-            if finfo is None:
-                # File disappeared since we called the function
-                continue
-
-            (processed_path, file_info, dirs_created) = finfo
-
             if excludes.has_key(path):
                 print "Excluding %s" % path
             else:
+                try:
+                    finfo = self.repository.get_file_info(path, auto_delete=0, dest_directory=topdir)
+                except cfg_exceptions.DirectoryEntryIsFile, e:
+                    print "Error: unable to deploy directory %s, as it is already a file on disk" % (e[0], )
+                    continue
+
+                if finfo is None:
+                    # File disappeared since we called the function
+                    continue
+
+                (processed_path, file_info, dirs_created) = finfo
+
                 try:
                     dep_trans.add_preprocessed(path, processed_path, file_info, dirs_created)
                 except cfg_exceptions.UserNotFound, e:
