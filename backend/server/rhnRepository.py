@@ -209,7 +209,7 @@ class Repository(rhnRepository.Repository):
         if file_name in ["repomd.xml", "comps.xml"]:
             content_type = "text/xml"
         elif file_name not in ["primary.xml.gz", "other.xml.gz",
-                "filelists.xml.gz", "updateinfo.xml.gz"]:
+                "filelists.xml.gz", "updateinfo.xml.gz", "Packages.gz"]:
             log_debug(2, "Unknown repomd file requested: %s" % file_name)
             raise rhnFault(6)
 
