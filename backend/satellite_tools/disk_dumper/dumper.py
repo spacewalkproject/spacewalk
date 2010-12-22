@@ -21,7 +21,7 @@ from cStringIO import StringIO
 
 from spacewalk.common import log_debug, log_error, rhnFault, rhnCache, \
     CFG, rhnLib, rhnFlags
-from spacewalk.server import rhnSQL, rhnDatabaseCache
+from spacewalk.server import rhnSQL
 from spacewalk.satellite_tools import constants
 from spacewalk.satellite_tools.exporter import exportLib, xmlWriter
 from string_buffer import StringBuffer
@@ -624,21 +624,14 @@ class CachedDumper(exportLib.BaseDumper):
         log_debug(4, params)
         key = self._get_key(params)
         last_modified = self._get_last_modified(params)
-        if not self.use_database_cache:
-            return rhnCache.get(key, modified=last_modified, raw=1)
-        return rhnDatabaseCache.get(key, modified=last_modified, raw=1,
-            compressed=1)
+        return rhnCache.get(key, modified=last_modified, raw=1)
 
     def cache_set(self, params, value):
         log_debug(4, params)
         last_modified = self._get_last_modified(params)
         key = self._get_key(params)
-        if not self.use_database_cache:
-            set_cache = rhnCache.set(key, value, modified=last_modified, \
+        return rhnCache.set(key, value, modified=last_modified, \
                         raw=1, user='apache', group='apache', mode=0755)
-            return set_cache
-        return rhnDatabaseCache.set(key, value, modified=last_modified, raw=1,
-            compressed=1)
 
     def dump_subelement(self, data):
         log_debug(2)
