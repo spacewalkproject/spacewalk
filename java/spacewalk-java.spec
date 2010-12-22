@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.31
+Version: 1.3.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 22 2010 Tomas Lestach <tlestach@redhat.com> 1.3.32-1
+- 640928 - convert List<Integer> serverIds to List<Long> (tlestach@redhat.com)
+
 * Tue Dec 21 2010 Jan Pazdziora 1.3.31-1
 - Rewrite remove_unowned_errata and remove_nonrhn_unowned_errata not to use
   rowid.
