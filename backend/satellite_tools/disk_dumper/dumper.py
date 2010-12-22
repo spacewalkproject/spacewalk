@@ -599,6 +599,9 @@ class CachedQueryIterator:
 
 class CachedDumper(exportLib.BaseDumper):
     iterator_query = None
+    item_id_key = 'id'
+    hash_factor = 1
+    key_template = 'dump/%s/dump-%s.xml'
     def __init__(self, writer, params):
 	statement = rhnSQL.prepare(self.iterator_query)
         iterator = CachedQueryIterator(statement, params,
