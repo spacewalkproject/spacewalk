@@ -87,7 +87,7 @@ class Repository:
         "To be overwritten in subclasses"
         return 1024
 
-    def _make_stat_info(self, path, file_stat):
+    def make_stat_info(self, path, file_stat):
         # Returns the stat information as required by the API
         ret = {}
         fields = {
@@ -191,7 +191,7 @@ class Repository:
 
             self._add_content(file_contents, params)
 
-        params.update(self._make_stat_info(local_path, file_stat))
+        params.update(self.make_stat_info(local_path, file_stat))
         return params
 
     def _add_content(self, file_contents, params):
