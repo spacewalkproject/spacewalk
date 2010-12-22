@@ -18,6 +18,7 @@ import sys
 
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
+from config_common.file_utils import diff
 
 class Handler(handler_base.HandlerBase):
     _usage_options = "[options] file [ file ... ]"
@@ -118,27 +119,13 @@ class Handler(handler_base.HandlerBase):
             if src_link != os.readlink(local_file):
                 return "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' \n " % (path,src_link, path, dest_link) 
             return ""    
-        # Test -u option to diff
-        diffcmd = "/usr/bin/diff -u"
-        pipe = os.popen("%s %s %s 2>/dev/null" % (diffcmd, temp_file, local_file))
-        pipe.read()  # Read the output so GNU diff is happy
-        ret = pipe.close()
-        if ret == None: ret = 0
-        ret = ret/256  # Return code in upper byte
-        if ret == 2:  # error in diff call
-            diffcmd = "/usr/bin/diff -c"
+        diff_u = diff(temp_file, local_file)
 
-        pipe = os.popen("%s %s %s" % (diffcmd, temp_file, local_file))
-        first_row = pipe.readline()
-        if not first_row:
+        diff_len = len(diff_u)
+        if diff_len == 0:
             return ""
-        elif first_row.startswith("---"):
-            first_row = "--- %s\tconfig_channel: %s\trevision: %s\n" % (
+        elif diff_u[0].startswith("---"):
+            diff_u[0] = "--- %s\tconfig_channel: %s\trevision: %s\n" % (
                 path, channel, info['revision']
             )
-        elif first_row.startswith("***"):
-            # This happens when we drop back to "diff -c"
-            first_row = "*** %s\tconfig_channel: %s\trevision: %s\n" % (
-                path, channel, info['revision']
-            )
-        return first_row + pipe.read()
+        return ''.join(diff_u)
