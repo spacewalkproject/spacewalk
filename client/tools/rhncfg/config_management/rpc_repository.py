@@ -76,12 +76,9 @@ class Repository(repository.RPC_Repository):
             if not os.path.isdir(file):
                 os.unlink(file)
 
-    def get_file_info(self, config_channel, repopath, revision=None, auto_delete=1, directory=tempfile.gettempdir()):
-        """
-        given a namepath, return the filename and the rest of the info passed
-        by the server
-        """
-        log_debug(4)
+    def get_raw_file_info(self, config_channel, repopath, revision=None):
+        """ given a namepath, return the raw data  passed by the server """
+        log_debug(5)
         params =  {
             'session'           : self.session,
             'config_channel'    : config_channel,
@@ -97,6 +94,14 @@ class Repository(repository.RPC_Repository):
                 raise cfg_exceptions.RepositoryFileMissingError(config_channel,
                     repopath)
             raise e
+        return result
+
+    def get_file_info(self, config_channel, repopath, revision=None, auto_delete=1, directory=tempfile.gettempdir()):
+        """
+        given a namepath, return the filename and the rest of the info passed
+        by the server
+        """
+        result = self.get_raw_file_info(config_channel, repopath, revision)
 
         fp = file_utils.FileProcessor()
         fullpath, dirs_created = fp.process(result, directory=directory, strict_ownership=0)
