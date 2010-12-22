@@ -17,16 +17,13 @@ import sys
 import os
 
 import handler_base
+from config_common.file_utils import diff
 
 class Handler(handler_base.HandlerBase):
     _usage_options = handler_base.HandlerBase._usage_options + " [ files ... ]"
     def _process_file(self, *args):
         src, dst= args [:2]
         type = args[3]
-        # label for diff output.  this lets 'patch -R' properly apply
-        # a patch to update to known version and have proper lsdiff
-        # output.  also gets rid of /tmp/@blah in diff output.        
-        label = dst
     
         if type == 'symlink':
             #dst is a symlink, so just tell the user we're skipping the entry
@@ -35,21 +32,4 @@ class Handler(handler_base.HandlerBase):
             if srclink != destlink:
                 print "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink) 
     	elif type == 'file':
-            # if file isn't present, compare to /dev/null so we see the
-            # whole thing in the diff        
-            if not os.access(dst, os.R_OK):
-            	dst = "/dev/null"
-    
-    	     # Test -L and -u options to diff
-            diffcmd = "/usr/bin/diff -L %s -u" % (label,)
-            dst = '"' + dst + '"'
-            pipe = os.popen("%s %s %s 2>/dev/null" % (diffcmd, src, dst))
-            pipe.read()  # Read the output so GNU diff is happy
-            ret = pipe.close()
-            if ret == None: ret = 0
-            ret = ret/256  # Return code in upper byte
-            if ret == 2:  # error in diff call
-                diffcmd = "/usr/bin/diff -c"
-    
-            pipe = os.popen("%s %s %s" % (diffcmd, src, dst))
-            sys.stdout.write(pipe.read())
+            sys.stdout.write(''.join(diff(src, dst, srcname=dst, dstname=dst)))
