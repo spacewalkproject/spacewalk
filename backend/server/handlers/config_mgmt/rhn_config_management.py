@@ -481,7 +481,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 return first_row + "\n" +  second_row + "\n"
             return ""
 
-        diff = difflib.unified_diff(src_content, dst_content, path, path, fsrc['modified'], fdst['modified'], lineterm='')
+        diff = difflib.unified_diff(fsrc['file_content'], fdst['file_content'], path, path, fsrc['modified'], fdst['modified'], lineterm='')
         first_row = diff.next()
         if not first_row:
             return ""
@@ -521,10 +521,10 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # Empty files or directories may have NULL instead of lobs
         fc_lob = f.get('file_contents')
         if fc_lob:
-            content = rhnSQL.read_lob(fc_lob).split('\n')
+            f['file_content'] = rhnSQL.read_lob(fc_lob).splitlines()
         else:
-            content = ''
-        return content
+            f['file_content'] = ''
+        return f
 
     # Helper functions
     _query_org_config_channels = rhnSQL.Statement("""
