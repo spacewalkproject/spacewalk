@@ -354,8 +354,8 @@ class Packages(RPC_Base):
             h = rhnSQL.prepare(self._get_pkg_info_query % \
                                 _checksum_sql_filter)
             pkg_epoch =  None
-            if package['epoch'] != '':
-                pkg_epoch = package['epoch']
+            if package['epoch'] is not None and package['epoch'] != '':
+                pkg_epoch = str(package['epoch'])
 
             if checksum_exists:
                 h.execute(pkg_name=package['name'], \
