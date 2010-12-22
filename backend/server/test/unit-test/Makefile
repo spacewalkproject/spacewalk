@@ -4,7 +4,6 @@ DB_TESTS       = \
         test_misc_functions.py \
         test_rhnActivationKey.py \
         test_rhnChannel.py \
-	test_rhnDatabaseCache.py \
         test_rhnServerGroup.py \
         test_server_registration.py
 
