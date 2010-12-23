@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.17
+Version: 1.3.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.18-1
+- bump API version number for recent API changes (aparsons@redhat.com)
+
 * Thu Dec 23 2010 Jan Pazdziora 1.3.17-1
 - Since ssm_channel_change_conf is gone, ssm_channel_change_conf_provider is
   not used anymore, removing.
