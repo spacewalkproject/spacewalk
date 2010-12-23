@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.7
+Version:        1.3.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Dec 23 2010 Jan Pazdziora 1.3.8-1
+- Mark PostgreSQL rhn_user schema as equivalent to the Oracle package.
+- Dropping rhn_user.add_users_to_usergroups as it is now used anymore.
+- Dropping rhn_user.remove_users_from_servergroups as it is not used anywhere.
+
 * Thu Dec 23 2010 Jan Pazdziora 1.3.7-1
 - Marking PostgreSQL rpm schema equivalent to the Oracle package.
 - Fix PostgreSQL rpm.vercmp to handle empty string epoch gracefully.
