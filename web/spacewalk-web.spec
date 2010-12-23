@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.18
+Version: 1.3.19
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.19-1
+- remove symlink that accidentily got added (aparsons@redhat.com)
+
 * Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.18-1
 - bump API version number for recent API changes (aparsons@redhat.com)
 
