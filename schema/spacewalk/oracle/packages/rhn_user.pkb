@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,9 +11,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
 --
 
 create or replace
@@ -262,47 +259,6 @@ is
 		end loop;
 	end remove_from_usergroup;
 
-	procedure remove_users_from_servergroups(
-		user_id_in in number
-	) is
-		cursor ugms is
-			select	element user_id,
-					element_two user_group_id
-			from	rhnSet
-			where	user_id = user_id_in
-				and label = 'user_group_list';
-	begin
-		for ugm in ugms loop
-			rhn_user.remove_from_usergroup(ugm.user_id, ugm.user_group_id);
-		end loop;
-	end remove_users_from_servergroups;
 end rhn_user;
 /
 SHOW ERRORS
-
--- select rhn_user.get_org_id(502474) from dual;
--- 1271287
--- select rhn_user.check_role(502474, 'org_admin') from dual;
--- 1
--- select rhn_user.check_role(502474, 'org_admin_nope') from dual;
--- 0, but should later raise an exception
-
---
---
--- Revision 1.8  2004/07/12 19:35:51  pjones
--- bugzilla: 125937 -- we _always_ delete, but only rebuild cache on org_admin.
---
--- Revision 1.7  2004/07/02 22:29:36  pjones
--- bugzilla: none -- typos and spelling errors.
---
--- Revision 1.6  2004/07/02 19:16:54  pjones
--- bugzilla: 125937 -- tools to manipulate rhnServerGroupMembers and
--- rhnUserGroupMembers
---
--- Revision 1.5  2004/03/31 21:09:47  pjones
--- bugzilla: none -- if the user truly doesn't have any email address, compensate.
---
--- Revision 1.4  2004/02/12 20:53:30  pjones
--- bugzilla: 108212 -- s/get_email_address/find_mailable_address/ and make it
--- do the same as web's version
---

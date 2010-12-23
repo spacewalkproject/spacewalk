@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,7 +11,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
 --
 
 create schema rhn_user;
@@ -100,14 +99,6 @@ end;
 $$ language plpgsql;
 
 create or replace function remove_from_usergroup(user_id_in in numeric, user_group_id_in in numeric)
-returns void
-as $$
-begin
-  raise exception 'Stub called, must be replace by .pkb';
-end;
-$$ language plpgsql;
-
-create or replace function remove_users_from_servergroups(user_id_in in numeric)
 returns void
 as $$
 begin
