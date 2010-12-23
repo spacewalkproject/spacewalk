@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.11
+Version:       5.5.12
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Dec 23 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.12-1
+- 648403 - use server given on command line rather than rhnParent
+
 * Mon Dec 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.11-1
 - 648403 - do not call getPackageChecksumBySession directly
 
