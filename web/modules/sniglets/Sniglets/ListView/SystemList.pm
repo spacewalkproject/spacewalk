@@ -641,23 +641,6 @@ sub system_set_verify_packages_conf_provider {
   return (%ret);
 }
 
-sub ssm_channel_change_conf_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  my $data = $ret{data};
-
-  foreach my $row (@{$data}) {
-    $row->{SERVER_NAME} = $row->{__data__}->[0]->{SERVER_NAME};
-    $row->{CHANNELS_TO_UNSUBSCRIBE} = join("<br />\n", map {$_->{CHANNEL_NAME}} grep { $_->{ACTION} eq 'unsubscribe' } @{$row->{__data__}});
-    $row->{CHANNELS_TO_SUBSCRIBE} = join("<br />\n", map {$_->{CHANNEL_NAME}} grep { $_->{ACTION} eq 'subscribe' } @{$row->{__data__}});
-  }
-
-  return %ret;
-}
-
 sub row_callback {
   my $self = shift;
   my $row = shift;
