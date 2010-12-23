@@ -710,12 +710,13 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
         s.add_trusted_cert(ca_chain)
     return s
 
-def exists_getPackageChecksumBySession():
+def exists_getPackageChecksumBySession(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
     # unfortunatelly we do not have capability for getPackageChecksumBySession function,
     # but extended_profile in version 2 has been created just 2 months before getPackageChecksumBySession
     # lets use it instead
-    server = rhnserver.RhnServer() 
+    server = rhnserver.RhnServer()
+    server._server = rpc_server
     return server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
 
 # compare two package [n,v,r,e] tuples
