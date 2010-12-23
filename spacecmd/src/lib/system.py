@@ -33,7 +33,7 @@ __PKG_COMPARISONS = { 0 : 'Same',
                       4 : 'Newer there' }
 
 def print_package_comparison(self, results):
-        max_name  = max_length( map(itemgetter('package_name'), results) )
+        max_name  = max_length(map(itemgetter('package_name'), results), min=7)
 
         # sometimes 'this_system' or 'other_system' can be None
         tmp_this = []
@@ -42,10 +42,10 @@ def print_package_comparison(self, results):
             tmp_this.append(str(item.get('this_system')))
             tmp_other.append(str(item.get('other_system')))
 
-        max_this  = max_length(tmp_this)
-        max_other = max_length(tmp_other)
+        max_this  = max_length(tmp_this, min=11)
+        max_other = max_length(tmp_other, min=12)
 
-        max_comparison = 11
+        max_comparison = 10
 
         # print headers
         print '%s  %s  %s  %s' % (
@@ -2365,10 +2365,7 @@ def help_system_comparepackages(self):
     print 'usage: system_comparepackages SOME_SYSTEM ANOTHER_SYSTEM'
 
 def complete_system_comparepackages(self, text, line, beg, end):
-    parts = line.split(' ')
-
-    if len(parts) < 3:
-        return self.tab_complete_systems(text)
+    return tab_completer(self.get_system_names(), text)
 
 def do_system_comparepackages(self, args):
     (args, options) = parse_arguments(args)
@@ -2385,5 +2382,60 @@ def do_system_comparepackages(self, args):
                                                  other_system)
 
     self.print_package_comparison(results)
+
+####################
+
+def help_system_syncpackages(self):
+    print 'system_syncpackages: Sync packages between two systems'
+    print 'usage: system_syncpackages SOURCE TARGET'
+
+def complete_system_syncpackages(self, text, line, beg, end):
+    return tab_completer(self.get_system_names(), text)
+
+def do_system_syncpackages(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_system_syncpackages()
+        return
+
+    (source, target) = args
+
+    source_id = self.get_system_id(source)
+    target_id = self.get_system_id(target)
+
+    if not source_id or not target_id:
+        return
+
+    # show a comparison and ask for confirmation
+    self.do_system_comparepackages('%s %s' % (source_id, target_id))
+
+    if not self.user_confirm('Sync packages [y/N]:'):
+        return
+
+    start_time = parse_time_input('now')
+
+    # get package IDs
+    packages = self.client.system.listPackages(self.session, source_id)
+
+    if self.check_api_version('10.16'):
+        package_ids = [p.get('id') for p in packages]
+    else:
+        package_names = build_package_names(packages)
+
+        package_ids = []
+
+        for name in package_names:
+            pkg_id = self.get_package_id(name)
+
+            # filter out invalid package IDs
+            if pkg_id:
+                package_ids.append(pkg_id)
+
+    self.client.system.scheduleSyncPackagesWithSystem(self.session,
+                                                      target_id,
+                                                      source_id,
+                                                      package_ids,
+                                                      start_time)
 
 # vim:ts=4:expandtab:
