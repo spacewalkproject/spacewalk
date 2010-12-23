@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.2
+Version:        1.3.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Dec 23 2010 Jan Pazdziora 1.3.3-1
+- The rhn_package package (schema in PostgreSQL) is now gone.
+
 * Thu Dec 16 2010 Jan Pazdziora 1.3.2-1
 - 636458 - check that the Oracle database instance is version 10 or 11.
 
