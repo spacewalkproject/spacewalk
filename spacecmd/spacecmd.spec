@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.3.6
+Version:     1.3.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.7-1
+- added system_syncpackages function
+
 * Wed Dec 22 2010 Aron Parsons <aparsons@redhat.com> 1.3.6-1
 - added organization functions
 
