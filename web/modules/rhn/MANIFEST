@@ -26,7 +26,6 @@ RHN/DB/Server.pm
 RHN/DB/Server/StorageDevice.pm
 RHN/DB/Set.pm
 RHN/DB/TableClass.pm
-RHN/DB/UserActions.pm
 RHN/DB/UserGroup.pm
 RHN/DB/User.pm
 RHN/Errata.pm
@@ -45,6 +44,5 @@ RHN/Server.pm
 RHN/Session.pm
 RHN/SessionSwap.pm
 RHN/Set.pm
-RHN/UserActions.pm
 RHN/UserGroup.pm
 RHN/User.pm

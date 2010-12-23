@@ -200,7 +200,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/TinyURL.pm
 %{perl_vendorlib}/RHN/Token.pm
 %{perl_vendorlib}/RHN/User.pm
-%{perl_vendorlib}/RHN/UserActions.pm
 %{perl_vendorlib}/RHN/Utils.pm
 %{_mandir}/man3/RHN::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::ContactMethod.3pm.gz
