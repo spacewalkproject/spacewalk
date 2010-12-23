@@ -442,11 +442,14 @@ def list_locales():
 
 
 # find the longest string in a list
-def max_length(items):
+def max_length(items, min=0):
     max_size = 1
     for item in items:
         if len(item) > max_size:
             max_size = len(item)
+
+    if max_size < min:
+        max_size = min
 
     return max_size
 
