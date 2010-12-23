@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.32
+Version: 1.3.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.33-1
+- add package ID to array returned by system.listPackages API call
+
 * Wed Dec 22 2010 Tomas Lestach <tlestach@redhat.com> 1.3.32-1
 - 640928 - convert List<Integer> serverIds to List<Long> (tlestach@redhat.com)
 
