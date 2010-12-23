@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.6
+Version:        1.3.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Dec 23 2010 Jan Pazdziora 1.3.7-1
+- Marking PostgreSQL rpm schema equivalent to the Oracle package.
+- Fix PostgreSQL rpm.vercmp to handle empty string epoch gracefully.
+- Removing vercmpCounter and vercmpResetCounter from rpm package as they are
+  not used anywhere.
+- Procedure channel_name_join not used anywhere, removing (together with the
+  channel_name_t type).
+- View rhnUsersInOrgOverview does not use web_user_site_info, fixing the deps.
+- Mark postgres/end.sql as equivalent to the oracle variant (even if they do
+  different things).
+- Function rhn_org.find_server_group_by_type not used anywhere, removing.
+- The rhn_package database package is not used, removing.
+
 * Wed Dec 22 2010 Jan Pazdziora 1.3.6-1
 - Fixed the rhnPackage.build_time type on PostgreSQL to
   address rhnpush error.
