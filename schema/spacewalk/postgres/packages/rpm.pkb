@@ -1,3 +1,4 @@
+-- oracle equivalent source sha1 625d2c9b448240a736f369e7b53a386ce9c1f28a
 -- create schema rpm;
 
 --update pg_setting
@@ -153,12 +154,12 @@ $$ language 'plpgsql';
           ep1 INTEGER;
           ep2 INTEGER;
           BEGIN
-            if e1 is null then
+            if e1 is null or e1 = '' then
               ep1 := 0;
             else
               ep1 := e1::integer;
             end if;
-            if e2 is null then
+            if e2 is null or e2 = '' then
               ep2 := 0;
             else
               ep2 := e2::integer;
