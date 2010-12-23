@@ -79,7 +79,7 @@ rhnUserTypeBase                  :: rhnUserGroupMembers rhnUserGroupType \
 rhnUsersInOrgOverview            :: rhnUserServerPerms web_contact \
                                     rhnUserManagedServerGroups \
                                     rhnVisibleServerGroup rhnUserTypeCommaView \
-                                    web_user_site_info web_user_personal_info
+                                    web_user_personal_info
 rhnVisServerGroupMembership      :: rhnServerGroupType rhnServerGroupMembers \
                                     rhnVisibleServerGroup
 rhnVisibleServerGroup            :: rhnServerGroup
