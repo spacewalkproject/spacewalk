@@ -55,8 +55,6 @@ rhn_org.pkb             :: rhn_entitlements.pks \
                            rhn_probe rhn_redirects rhn_sat_cluster \
                            web_contact web_customer
 rhn_org.pks             :: rhnServerGroupType rhnServerGroup
-rhn_package.pkb         :: rhnChannel rhnChannelPackage
-rhn_package.pks         :: rhnChannel rhnChannelPackage
 rhn_quota.pkb           :: rhnConfigContent rhnConfigRevision rhnConfigFile \
                            rhnConfigChannel rhnOrgQuota rhn_config.pks
 rhn_server.pkb          :: rhnServerChannel rhnConfigFileName \
