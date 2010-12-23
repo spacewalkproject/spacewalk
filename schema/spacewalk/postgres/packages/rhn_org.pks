@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 f19b747e0d9e2f2db3745679cdb0397e2be64650
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,14 +18,6 @@ create schema rhn_org;
 
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_org,' || setting where name = 'search_path';
-
-CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_label_in VARCHAR) 
-RETURNS NUMERIC
-AS $$
-BEGIN
-  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
-END;
-$$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION delete_org (org_id_in in numeric)
 RETURNS VOID
