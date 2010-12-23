@@ -867,7 +867,6 @@ my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
 	drop schema rhn_channel cascade ;
 	drop schema rhn_config_channel cascade ;
 	drop schema rhn_org cascade ;
-	drop schema rhn_package cascade ;
 	drop schema rhn_user cascade ;
 	drop schema public cascade ;
 	create schema public authorization postgres ;
