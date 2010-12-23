@@ -44,10 +44,6 @@ is
 		user_group_id_in in number
 	);
 
-	procedure add_users_to_usergroups(
-		user_id_in in number
-	);
-
 	procedure remove_from_usergroup(
 		user_id_in in number,
 		user_group_id_in in number

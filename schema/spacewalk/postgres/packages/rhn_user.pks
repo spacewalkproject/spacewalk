@@ -90,14 +90,6 @@ begin
 end;
 $$ language plpgsql;
 
-create or replace function add_users_to_usergroups(user_id_in in numeric)
-returns void
-as $$
-begin
-  raise exception 'Stub called, must be replace by .pkb';
-end;
-$$ language plpgsql;
-
 create or replace function remove_from_usergroup(user_id_in in numeric, user_group_id_in in numeric)
 returns void
 as $$

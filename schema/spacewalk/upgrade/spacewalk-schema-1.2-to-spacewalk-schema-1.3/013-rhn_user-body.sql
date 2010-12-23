@@ -219,21 +219,6 @@ is
 		end loop;
 	end add_to_usergroup;
 
-	procedure add_users_to_usergroups(
-		user_id_in in number
-	) is
-		cursor ugms is
-			select	element user_id,
-					element_two user_group_id
-			from	rhnSet
-			where	user_id = user_id_in
-				and label = 'user_group_list';
-	begin
-		for ugm in ugms loop
-			rhn_user.add_to_usergroup(ugm.user_id, ugm.user_group_id);
-		end loop;
-	end add_users_to_usergroups;
-
 	procedure remove_from_usergroup(
 		user_id_in in number,
 		user_group_id_in in number
