@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.16
+Version: 1.3.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Dec 23 2010 Jan Pazdziora 1.3.17-1
+- Since ssm_channel_change_conf is gone, ssm_channel_change_conf_provider is
+  not used anymore, removing.
+- Package RHN::Access::Errata not used, removing.
+- RHN::UserActions not used anywhere, removing.
+
 * Tue Dec 21 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.16-1
 - 664487 - fixed space report query
 - fixed prototype-*.js reference
