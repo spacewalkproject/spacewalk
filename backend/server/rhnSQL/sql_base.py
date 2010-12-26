@@ -30,9 +30,6 @@ import types
 
 def adjust_type(val):
     """ Adjust data types prior to calling execute(). """
-    if type(val) in [types.IntType, types.FloatType]:
-        # Convert it to strings to be uniform
-        return str(val)
     if isinstance(val, types.UnicodeType):
         # Represent it as UTF8
         return val.encode("UTF8")
