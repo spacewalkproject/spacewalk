@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.3
+Version:        1.3.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Sun Dec 26 2010 Jan Pazdziora 1.3.4-1
+- 665693: convert sysdate to current_timestamp (colin.coe@gmail.com)
+
 * Thu Dec 23 2010 Jan Pazdziora 1.3.3-1
 - The rhn_package package (schema in PostgreSQL) is now gone.
 
