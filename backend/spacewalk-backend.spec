@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.34
+Version: 1.3.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sun Dec 26 2010 Jan Pazdziora 1.3.35-1
+- 619083 - we will try not to stringify the types.IntType and types.FloatType.
+
 * Thu Dec 23 2010 Jan Pazdziora 1.3.34-1
 - Need to stringify the epoch.
 - fix error from 3fcd9f7cf736e8e85994e45d8cd96943ab5a2832 (msuchy@redhat.com)
