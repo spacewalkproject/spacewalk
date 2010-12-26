@@ -1540,7 +1540,7 @@ sub update_monitoring_scout {
 		update rhn_sat_node
 			set ip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where ip = '127.0.0.1' and
 			recid = 2};
 
@@ -1548,7 +1548,7 @@ sub update_monitoring_scout {
 		update rhn_sat_cluster
 			set vip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where vip = '127.0.0.1' and
 			recid = 1};
 
@@ -1557,7 +1557,7 @@ sub update_monitoring_scout {
 		update rhn_sat_node
 			set ip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where ip is null and
 			recid = 2};
 
@@ -1565,7 +1565,7 @@ sub update_monitoring_scout {
 		update rhn_sat_cluster
 			set vip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where vip is null and
 			recid = 1};
 
