@@ -64,14 +64,17 @@ tunable_policy(`spacewalk_nfs_mountpoint',`
 ')
 
 type spacewalk_db_install_log_t;
-logging_log_file(spacewalk_db_install_log_t);
+files_type(spacewalk_db_install_log_t);
 optional_policy(`
+	type spacewalk_sqlplus_spool_log_t;
+	logging_log_file(spacewalk_sqlplus_spool_log_t);
 	gen_require(`
 		type oracle_port_t;
 		type oracle_sqlplus_t;
 	')
 	allow httpd_t oracle_port_t:tcp_socket name_connect;
-	append_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_db_install_log_t);
+	rw_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_sqlplus_spool_log_t);
 	read_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_db_install_log_t);
-	create_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_db_install_log_t);
+	create_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_sqlplus_spool_log_t);
+	filetrans_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_sqlplus_spool_log_t, file)
 ')
