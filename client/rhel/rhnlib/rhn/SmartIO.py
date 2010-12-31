@@ -1,7 +1,7 @@
 #
 # Smart IO class
 #
-# Copyright (c) 2002-2005 Red Hat, Inc.
+# Copyright (c) 2002--2010 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 

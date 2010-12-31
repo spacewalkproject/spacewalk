@@ -3,7 +3,7 @@
 # Python client for checking periodically for posted actions
 # on the Red Hat Network servers.
 #
-# Copyright (C) 2000-2002, Red Hat, Inc. Distributed under GPL.
+# Copyright (c) 2000--2010 Red Hat, Inc. Distributed under GPL.
 # Authors: Cristian Gafton <gafton@redhat.com>,
 #          Preston Brown <pbrown@redhat.com>
 #          Adrian Likins <alikins@redhat.com>
