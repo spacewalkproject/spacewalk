@@ -103,6 +103,13 @@ class Handler(handler_base.HandlerBase):
             sys.stdout.write(
                 self.diff_file(channel, remote_file, local_file, revision))
 
+    def __attributes_differ(self, fsrc, fdst):
+        """ Returns true if acl, ownership, type or selinux context differ.
+            fsrc is config file retrieved from xmlrpc, fdst is output of make_stat_info()
+        """
+        return (fsrc['filemode'] != fdst['mode']) or \
+               (fsrc['username'] != fdst['user']) or (fsrc['groupname'] != fdst['group']) or \
+               (fsrc['selinux_ctx'] != fdst['selinux_ctx'])
 
     def diff_file(self, channel, path, local_file, revision):
         r = self.repository
@@ -137,7 +144,7 @@ class Handler(handler_base.HandlerBase):
             pass
         file_stat = os.lstat(local_file)
         local_info = r.make_stat_info(local_file, file_stat)
-        if not first_row:
+        if not first_row and not self.__attributes_differ(info, local_info)
              return ""
         else:
             template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
