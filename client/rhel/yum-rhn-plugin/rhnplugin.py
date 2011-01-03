@@ -151,6 +151,7 @@ def init_hook(conduit):
     gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     enablegroups = conduit.getConf().enablegroups
+    metadata_expire = conduit.getConf().metadata_expire
 
     for channel in svrChannels:
         if channel['version']:
@@ -160,6 +161,7 @@ def init_hook(conduit):
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
+            repo.metadata_expire = metadata_expire
             repoOptions = getRHNRepoOptions(conduit, repo.id)
             if repoOptions:
                 for o in repoOptions:
@@ -268,6 +270,7 @@ class RhnRepo(YumRepository):
         self.retries = 1
         self.throttle = 0
         self.timeout = 60.0
+        self.metadata_expire = 21700
 
         self.http_caching = True
 
