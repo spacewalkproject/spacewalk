@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.3.1
+Version: 1.3.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jan 03 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.2-1
+- 666876 - respect metadata_expire setting from yum config
+
 * Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
 - removed unused imports
 
