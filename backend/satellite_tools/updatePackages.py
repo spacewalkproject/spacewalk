@@ -186,11 +186,12 @@ def process_package_data():
         try:
             hdr = rhn_rpm.get_package_header(filename=old_abs_path)
         except Exception, e:
+            msg = "Exception occurred when reading package header %s: %s" % \
+                (old_abs_path, str(e))
+            print msg
             if debug:
-                Log.writeMessage("Exception occurred when reading package header %s: %s" % \
-                    (old_abs_path, str(e)))
+                Log.writeMessage(msg)
             rhnSQL.commit()
-            raise
 
         if old_abs_path != new_abs_path:
             new_abs_dir = os.path.dirname(new_abs_path)
