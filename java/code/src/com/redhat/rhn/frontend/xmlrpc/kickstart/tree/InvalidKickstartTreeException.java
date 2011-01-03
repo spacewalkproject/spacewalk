@@ -32,4 +32,14 @@ public class InvalidKickstartTreeException extends FaultException {
         super(2757, "invalidKickstartLabel" , LocalizationService.getInstance().
                 getMessage(msgKey));
     }
+
+    /**
+     * Constructor
+     * @param msgKey of error message
+     * @param msgValues of error message
+     */
+    public InvalidKickstartTreeException(String msgKey, Object[] msgValues) {
+        super(2757, "invalidKickstartLabel" , LocalizationService.getInstance().
+                getMessage(msgKey, msgValues));
+    }
 }

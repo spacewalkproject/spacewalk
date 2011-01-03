@@ -138,7 +138,7 @@ public class KickstartTreeHandler extends BaseHandler {
         create.setLabel(treeLabel);
         ValidatorError ve = create.store();
         if (ve != null) {
-            throw new InvalidKickstartTreeException(ve.getKey());
+            throw new InvalidKickstartTreeException(ve.getKey(), ve.getValues());
         }
         return 1;
     }
