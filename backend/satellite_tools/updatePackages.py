@@ -192,6 +192,7 @@ def process_package_data():
             if debug:
                 Log.writeMessage(msg)
             rhnSQL.commit()
+            sys.exit(1)
 
         if old_abs_path != new_abs_path:
             new_abs_dir = os.path.dirname(new_abs_path)
