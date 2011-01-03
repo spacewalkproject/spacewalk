@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@ package PXT::Debug;
 use strict;
 
 use PXT::Config ();
-use Data::Dumper ();
 
 sub log {
   my $class = shift;
@@ -30,19 +29,6 @@ sub log {
     my @frame = caller(1);
 
     warn "$frame[3] ($file:$line): " . join(" ", @msg) . "\n";
-  }
-}
-
-sub log_dump {
-  my $class = shift;
-  my $level = shift;
-  my @structs = @_;
-
-  if ($level < PXT::Config->get('debug')) {
-    my (undef, $file, $line) = caller;
-    my @frame = caller(1);
-
-    warn sprintf("$frame[3] ($file:$line): %s\n", Data::Dumper->Dump(\@structs));
   }
 }
 
