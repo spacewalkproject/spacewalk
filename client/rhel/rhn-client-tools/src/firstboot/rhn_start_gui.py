@@ -42,10 +42,15 @@ class moduleClass(Module):
         self.priority = 106
         self.sidebarTitle = _("Set Up Software Updates")
         self.title = _("Set Up Software Updates")
+        self.skip_registration = False
 
     def apply(self, interface, testing=False):
         if testing:
             return RESULT_SUCCESS
+
+        if self.skip_registration:
+            interface.moveToPage(pageNum = len(interface.moduleList))
+            return RESULT_JUMP
 
         if not self.start_page.startPageRegisterNow():
             dlg = rhnregGui.ConfirmQuitDialog()
@@ -82,11 +87,13 @@ class moduleClass(Module):
     def _getVbox(self):
         if self._system_is_registered():
             self.start_page = KsRegisteredPage()
+            self.skip_registration = True
             return self.start_page.startPageVbox()
         if _haveNetwork():
             self.start_page = rhnregGui.StartPage(firstboot=True)
         else:
             self.start_page = NoNetworkPage()
+            self.skip_registration = True
         return self.start_page.startPageVbox()
     
 class KsRegisteredPage:
