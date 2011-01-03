@@ -139,10 +139,6 @@ def parseUrl(url):
     return tuple(parsed)
 
 
-class InvalidUrlError(Exception):
-    pass
-
-
 def hash_object_id(object_id, factor):
     """Given an object id (assumed to be <label>-<number>), returns the
     last few digits for the number. For instance, (812345, 3) should
