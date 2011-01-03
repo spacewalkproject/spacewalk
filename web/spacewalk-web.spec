@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.19
+Version: 1.3.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,18 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 03 2011 Jan Pazdziora 1.3.20-1
+- token_channel_select.js not referenced, removing.
+- As RHN::DB::Search is gone, system_search_setbuilder.xml is not used,
+  removing.
+- subscribe_confirm.pxt not referenced, removing.
+- The RHL9 and RHEL 3 release notes are not referenced, removing.
+- countdown.js does not seem to be used, removing.
+- Since RHN::DataSource::ContactGroup is gone, contact_group_queries.xml is
+  unused, removing.
+- PXT::Debug::log_dump not used anywhere, removing.
+- RHN::Access::User not used anywhere, removing.
+
 * Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.19-1
 - remove symlink that accidentily got added (aparsons@redhat.com)
 
