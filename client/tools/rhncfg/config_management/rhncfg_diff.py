@@ -129,8 +129,12 @@ class Handler(handler_base.HandlerBase):
         fromlines = info['file_contents'].splitlines(1)
         tolines = open(local_file, 'r').readlines()
         diff_output = difflib.unified_diff(fromlines, tolines, info['path'], local_file)
-        first_row = diff_output.next()
-        second_row = diff_output.next()
+        first_row = second_row = ''
+        try:
+            first_row = diff_output.next()
+            second_row = diff_output.next()
+        except StopIteration:
+            pass
         file_stat = os.lstat(local_file)
         local_info = r.make_stat_info(local_file, file_stat)
         if not first_row:
