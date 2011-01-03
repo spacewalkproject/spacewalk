@@ -63,8 +63,24 @@ class moduleClass(Module):
     def initializeUI(self):
         pass
 
-    def _getVbox(self):
+    def _system_is_registered(self):
         if rhnreg.registered():
+            return True
+        try:
+            _rhsm_path = "/usr/share/rhsm"
+            _rhsm_path_added = False
+            if _rhsm_path not in sys.path:
+                sys.path.append(_rhsm_path)
+                _rhsm_path_added = True
+            import certlib
+            if _rhsm_path_added:
+                sys.path.remove("/usr/share/rhsm")
+            return certlib.ConsumerIdentity.existsAndValid()
+        except:
+            return False
+
+    def _getVbox(self):
+        if self._system_is_registered():
             self.start_page = KsRegisteredPage()
             return self.start_page.startPageVbox()
         if _haveNetwork():
