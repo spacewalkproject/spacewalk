@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.36
+Version: 1.3.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -683,6 +683,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jan 03 2011 Jan Pazdziora 1.3.37-1
+- With fix_url gone, exception InvalidUrlError gets unused, removing.
+- 655207 - exit after unsuccessful rpm header read (mzazrivec@redhat.com)
+- send with config file, its modified time (msuchy@redhat.com)
+- 655207 - print the exception details into stdout (mzazrivec@redhat.com)
+- hide cleartext password from traceback (michael.mraka@redhat.com)
+- added overall usage summary and flex guest entitlement details to rhn-
+  entitlement-report (michael.mraka@redhat.com)
+
 * Thu Dec 30 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.36-1
 - fixed a lot of pylint woarnings and errors
 - removed dead rhnDatabaseCache
