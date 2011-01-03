@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.41
+Version: 5.9.42
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 03 2011 Tomas Lestach <tlestach@redhat.com> 5.9.42-1
+- 634963 - adding extra colon (tlestach@redhat.com)
+
 * Mon Jan 03 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.41-1
 - 634963 - indicate change in selinux, ownership or file mode (even if diff is
   empty)
