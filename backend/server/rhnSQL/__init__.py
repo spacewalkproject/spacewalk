@@ -94,6 +94,7 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
             # the code in a uniform fashion for all database backends:
             (username, temp) = dsn.split("/")
             (password, database) = temp.split("@")
+            del temp
 
     if backend == POSTGRESQL:
         host = None
@@ -101,6 +102,7 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
         dsn = CFG.DEFAULT_DB
         (username, temp) = dsn.split("/")
         (password, dsn) = temp.split("@")
+        del temp
         for i in dsn.split(';'):
             (k, v) = i.split('=')
             if k == 'dbname':
@@ -114,6 +116,7 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
 
     # Hide the password
     add_to_seclist(dsn)
+    add_to_seclist(password)
     try:
         __init__DB(backend, host, port, username, password, database)
 #    except (rhnException, SQLError):
