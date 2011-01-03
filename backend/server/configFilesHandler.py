@@ -18,6 +18,7 @@
 
 import base64
 import os
+import xmlrpclib
 
 from spacewalk.common import rhnFault, rhnException, log_debug, CFG, rhnFlags
 from spacewalk.common.checksum import getStringChecksum
@@ -531,6 +532,10 @@ def format_file_results(row, server=None):
         if client_caps and client_caps.has_key('configfiles.base64_enc'):
             encoding = 'base64'
             contents = base64.encodestring(contents)
+    if row['modified']:
+        m_date = xmlrpclib.DateTime(str(row['modified']))
+    else:
+        m_date = ''
 
     return {
         'path'          : row['path'],
@@ -548,4 +553,5 @@ def format_file_results(row, server=None):
         'encoding'      : encoding or '',
         'filetype'      : row['label'],
         'selinux_ctx'   : row['selinux_ctx'] or '',
+        'modified'      : m_date,
     }
