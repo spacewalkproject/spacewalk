@@ -13,12 +13,15 @@
 # in this software or its documentation. 
 #
 
+import base64
+from datetime import datetime
+import difflib
 import os
 import sys
 
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
-from config_common.file_utils import diff
+from config_common.file_utils import diff, f_date, ostr_to_sym
 
 class Handler(handler_base.HandlerBase):
     _usage_options = "[options] file [ file ... ]"
@@ -104,8 +107,12 @@ class Handler(handler_base.HandlerBase):
     def diff_file(self, channel, path, local_file, revision):
         r = self.repository
         try:
-            #5/11/05 wregglej - 157066 dirs_created is returned by get_file_info, now.
-            temp_file, info, dirs_created = r.get_file_info(channel, path, revision=revision)
+            info = r.get_raw_file_info(channel, path, revision)
+            if info.has_key('encoding') and info['file_contents']:
+                if info['encoding'] == 'base64':
+                    info['file_contents'] = base64.decodestring(info['file_contents'])
+                else:
+                    die(9, 'Error: unknow encoding %s' % info['encoding'])
         except cfg_exceptions.RepositoryFileMissingError:
             die(2, "Error: no such file %s (revision %s) in config channel %s"
                 % (path, revision, channel))
@@ -118,14 +125,23 @@ class Handler(handler_base.HandlerBase):
             dest_link = os.readlink(local_file)
             if src_link != os.readlink(local_file):
                 return "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' \n " % (path,src_link, path, dest_link) 
-            return ""    
-        diff_u = diff(temp_file, local_file)
-
-        diff_len = len(diff_u)
-        if diff_len == 0:
             return ""
-        elif diff_u[0].startswith("---"):
-            diff_u[0] = "--- %s\tconfig_channel: %s\trevision: %s\n" % (
-                path, channel, info['revision']
+        fromlines = info['file_contents'].splitlines(1)
+        tolines = open(local_file, 'r').readlines()
+        diff_output = difflib.unified_diff(fromlines, tolines, info['path'], local_file)
+        first_row = diff_output.next()
+        second_row = diff_output.next()
+        file_stat = os.lstat(local_file)
+        local_info = r.make_stat_info(local_file, file_stat)
+        if not first_row:
+             return ""
+        else:
+            template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
+            first_row = template % (path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
+                        info['username'], info['groupname'], info['selinux_ctx'], channel,
+                        info['revision'],
             )
-        return ''.join(diff_u)
+            second_row = template % (local_file, f_date(datetime.fromtimestamp(local_info['mtime'])), ostr_to_sym(local_info['mode'], 'file'),
+                        local_info['user'], local_info['group'], local_info['selinux_ctx'], 'local file', None
+            )
+        return first_row + '\n' + second_row + '\n' + ''.join(list(diff_output))
