@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.40
+Version: 5.9.41
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 03 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.41-1
+- 634963 - indicate change in selinux, ownership or file mode (even if diff is
+  empty)
+- do not fail if diff do not differ
+- do diff directly in memory
+- Updating the copyright years to include 2010. (jpazdziora@redhat.com)
+
 * Thu Dec 23 2010 Jan Pazdziora 5.9.40-1
 - make _make_stat_info public method (msuchy@redhat.com)
 - create new function get_raw_file_info for case, when we do not need file on
