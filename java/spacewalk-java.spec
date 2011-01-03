@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.33
+Version: 1.3.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 03 2011 Jan Pazdziora 1.3.34-1
+- display also error parameters when throwing InvalidKickstartTreeException
+  (tlestach@redhat.com)
+- Correct the Filename tag in Packages.gz (slukasik@redhat.com)
+
 * Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.33-1
 - add package ID to array returned by system.listPackages API call
 
