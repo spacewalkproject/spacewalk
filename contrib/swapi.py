@@ -53,13 +53,9 @@ import xmlrpclib
 
 
 try:
-    import hashlib # python 2.5+
-    def hexdigest(s):
-        return hashlib.md5(s).hexdigest()
+    from hashlib import md5 # python 2.5+
 except ImportError:
-    import md5
-    def hexdigest(s):
-        return md5.md5(s).hexdigest()
+    from md5 import md5
 
 
 
@@ -183,8 +179,7 @@ CACHE_EXPIRING_DATES = 1  # [days]
 
 
 def str_to_id(s):
-    return hexdigest(s)
-
+    return md5(s).hexdigest()
 
 def object_to_id(obj):
     """Object -> id.
