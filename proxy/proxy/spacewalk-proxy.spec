@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.3.8
+Version: 1.3.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
+- fixed pylint errors
+
 * Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.8-1
 - removed xxmlrpclib
 - Updating the copyright years to include 2010.
