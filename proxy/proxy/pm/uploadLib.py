@@ -175,10 +175,10 @@ def get_header(file, fildes=None, source=None):
     try:
         h = rhn_mpm.get_package_header(filename=file, fd=fildes)
     except rhn_mpm.InvalidPackageError:
-        raise UploadError("Package is invalid")
+        raise uploadLib.UploadError("Package is invalid")
     # Verify that this is indeed a binary/source. xor magic
     # xor doesn't work with None values, so compare the negated values - the
     # results are identical
     if (not source) ^ (not h.is_source):
-        raise UploadError("Unexpected RPM package type")
+        raise uploadLib.UploadError("Unexpected RPM package type")
     return h
