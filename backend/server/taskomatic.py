@@ -72,7 +72,7 @@ def add_to_erratacache_queue(channel, priority=0):
                   'update_errata_cache_by_channel',
                   c.id,
                   :priority,
-                  sysdate
+                  current_timestamp
              from rhnChannel c
             where c.label = :label
     """)
