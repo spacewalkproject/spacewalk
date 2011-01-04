@@ -41,6 +41,7 @@ class moduleClass(Module):
         self.priority = 106.5
         self.sidebarTitle = _("Choose Server")
         self.title = _("Choose Server")
+        self.support_sm = False
 
     def needsNetwork(self):
         return True
@@ -66,6 +67,7 @@ class moduleClass(Module):
         self.vbox = gtk.VBox(spacing=5)
         self.vbox.pack_start(self.chooseServerPage.chooseServerPageVbox(), True, True)
         if sys.modules.has_key('rhsm_login'):
+            self.support_sm = True
             classicMode = self.chooseServerPage.chooseServerXml.get_widget("hostedClassicAlignment")
             classicMode.set_no_show_all(False)
             classicMode.show_all()
