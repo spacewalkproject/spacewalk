@@ -25,7 +25,7 @@ import xmlrpclib
 
 ## local imports
 import rhnAuthCacheClient
-from xxmlrpclib import rpclib
+from rhn import rpclib
 from rhn import SSL
 
 ## common imports
