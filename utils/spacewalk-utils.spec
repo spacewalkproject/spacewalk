@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.3.3
+Version:	1.3.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.4-1
+- fixed pylint errors
+
 * Tue Dec 14 2010 Jan Pazdziora 1.3.3-1
 - We need to check the return value of GetOptions and die if the parameters
   were not correct.
