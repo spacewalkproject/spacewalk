@@ -60,7 +60,7 @@ class RHNServer:
         self.server = xmlrpclib.Server(self.rhnUrl)
         self.rhnSession = self.rhnLogin(self.login,self.password,0)
 
-    def rhnLogin(self, login, password, retry): 
+    def rhnLogin(self, login, password, retry=0): 
         try:
             rhnSession=self.server.auth.login(login,password)
         except  xmlrpclib.Fault, f:
