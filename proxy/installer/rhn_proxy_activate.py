@@ -376,12 +376,12 @@ def _activateProxy_api_v3_x(options, apiVersion):
             # let's force a system exit for this one.
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (xmlrpclib.Fault, Exception):
-            # let's force a slight change in messaging for this one.
-            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
+        except (xmlrpclib.Fault, Exception):
+            # let's force a slight change in messaging for this one.
+            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except:
             errorString = "ERROR: upon activation attempt (something unexpected): %s" % errorString
             return errorCode, errorString
@@ -412,12 +412,12 @@ def createMonitoringScout(options):
             # let's force a system exit for this one.
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (xmlrpclib.Fault, Exception):
-            # let's force a slight change in messaging for this one.
-            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
+        except (xmlrpclib.Fault, Exception):
+            # let's force a slight change in messaging for this one.
+            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except:
             errorString = "ERROR: upon activation attempt (something unexpected): %s" % errorString
             return errorCode, errorString
