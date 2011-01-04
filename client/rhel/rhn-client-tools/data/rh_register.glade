@@ -261,7 +261,7 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 
 	      <child>
 		<widget class="GtkAlignment" id="hostedClassicAlignment">
-		  <property name="visible">True</property>
+		  <property name="visible">False</property>
 		  <property name="xalign">0.5</property>
 		  <property name="yalign">0.5</property>
 		  <property name="xscale">1</property>
@@ -270,6 +270,7 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		  <property name="bottom_padding">0</property>
 		  <property name="left_padding">30</property>
 		  <property name="right_padding">1</property>
+		  <property name="no_show_all">True</property>
 		  <child>
 		    <widget class="GtkCheckButton" id="hostedClassicButton">
 		      <property name="visible">True</property>
