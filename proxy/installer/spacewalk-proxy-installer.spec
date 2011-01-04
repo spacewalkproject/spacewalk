@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.3.3
+Version: 1.3.4
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -87,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.4-1
+- fixed pylint errors
+- Updating the copyright years to include 2010.
+
 * Wed Dec 08 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.3-1
 - 660344 - do not use spacwalk-setup-jabberd in RHN Proxy 5.3 and older
 
