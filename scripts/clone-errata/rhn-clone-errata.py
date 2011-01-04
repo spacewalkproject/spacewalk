@@ -277,7 +277,7 @@ class RHNServer:
             if retry > 3:
                 raise
             else:
-                return self.server.packages.findPackageChannels(pkgid, (retrun + 1))
+                return self.server.packages.findPackageChannels(pkgid, (retry + 1))
         return channels
 
     def cloneErrata(self,dest_chan,errata,retry):
@@ -289,7 +289,7 @@ class RHNServer:
             print "Fault Code: %d\tFault String: %s" % (f.faultCode,f.faultString)
             if f.faultCode == -20 or f.faultCode == -1:
                 self.rhnLogin(self.login,self.password,0)
-                return self.self.server.errata.clone(self.rhnSession,dest_chan,errata)
+                return self.server.errata.clone(self.rhnSession,dest_chan,errata)
             else:
                 raise
         except xmlrpclib.ProtocolError, err:
