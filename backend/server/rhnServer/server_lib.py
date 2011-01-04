@@ -345,20 +345,16 @@ def update_push_client_registration(server_id):
     return timestamp, client_name, shared_key
         
 _query_update_push_client_jid = rhnSQL.Statement("""
-declare
-    pragma autonomous_transaction;
-begin
     update rhnPushClient
        set jabber_id = :jid,
            next_action_time = NULL,
            last_ping_time = NULL
      where server_id = :server_id;
-    commit;
-end;
 """)
 def update_push_client_jid(server_id, jid):
     h = rhnSQL.prepare(_query_update_push_client_jid)
     h.execute(server_id=server_id, jid=jid)
+    rhnSQL.commit()
     return jid
 
 def generate_random_string(length=20):
