@@ -206,8 +206,8 @@ class apacheHandler(rhnApache):
         # we're just making a connection to localhost, it's not the end of the 
         # world if we get it wrong.
 
-	scheme = SCHEME_HTTP
-	if req.server.is_virtual and req.server.port == 443:
+        scheme = SCHEME_HTTP
+        if req.server.is_virtual and req.server.port == 443:
             scheme = SCHEME_HTTPS
         log_debug(6, "Using scheme: %s" % scheme)
 
