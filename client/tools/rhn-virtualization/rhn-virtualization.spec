@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.18
+Version:        5.4.19
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -147,6 +147,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Jan 05 2011 Miroslav Suchý <msuchy@redhat.com> 5.4.19-1
+- 656241 - require libvirt
+- Updating the copyright years to include 2010. (jpazdziora@redhat.com)
+
 * Mon Dec 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.18-1
 - 657516 - print nice warning if libvirtd is not running
 
