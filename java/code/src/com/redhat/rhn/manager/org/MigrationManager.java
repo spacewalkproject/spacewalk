@@ -136,11 +136,6 @@ public class MigrationManager extends BaseManager {
         // Remove custom data values (aka System->CustomInfo)
         ServerFactory.removeCustomDataValues(server);
 
-        // Server relationships with guests:
-        for (VirtualInstance guest : server.getGuests()) {
-            server.removeGuest(guest);
-        }
-
         // Remove existing channels
         server.getChannels().clear();
 
