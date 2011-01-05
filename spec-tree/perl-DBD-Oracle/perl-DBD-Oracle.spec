@@ -31,10 +31,7 @@ ora_explain script
 %define perl_vendorlib %(eval "`%{__perl} -V:installvendorlib`"; echo $installvendorlib)
 %define perl_vendorarch %(eval "`%{__perl} -V:installvendorarch`"; echo $installvendorarch)
 
-# Just for 1.24a - it is packed as 1.24
-%define treeversion %(echo %{version} | sed 's/a$//')
-
-%setup -q -n %{modname}-%{treeversion}
+%setup -q -n %{modname}-%{version}
 %patch2 -p1
 
 cp %{SOURCE1} .
