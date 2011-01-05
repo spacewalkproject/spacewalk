@@ -18,7 +18,6 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -28,6 +27,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageArchException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
+import com.redhat.rhn.frontend.xmlrpc.PackageDownloadException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.manager.download.DownloadManager;
@@ -56,6 +56,7 @@ import java.util.Map;
 public class PackagesHandler extends BaseHandler {
 
     private static Logger logger = Logger.getLogger(PackagesHandler.class);
+    private static float freeMemCoeff = 0.9f;
 
     /**
      * Get Details - Retrieves the details for a given package
@@ -554,15 +555,14 @@ public class PackagesHandler extends BaseHandler {
             pkg.getPath();
         File file = new File(path);
 
-        if (file.length() > Integer.MAX_VALUE) {
-            throw new IOException(LocalizationService.getInstance().getMessage(
-                    "api.package.download.toolarge"));
+        if (file.length() > freeMemCoeff * Runtime.getRuntime().freeMemory()) {
+            throw new PackageDownloadException("api.package.download.toolarge");
         }
 
         byte[] toReturn = new byte[(int) file.length()];
         BufferedInputStream br = new BufferedInputStream(new FileInputStream(file));
         if (br.read(toReturn) != file.length()) {
-            throw new IOException("api.package.download.ioerror");
+            throw new PackageDownloadException("api.package.download.ioerror");
         }
         return toReturn;
     }
