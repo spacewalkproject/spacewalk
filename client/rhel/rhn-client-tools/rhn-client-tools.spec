@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.3.5
+Version: 1.3.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -290,6 +290,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Jan 05 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.6-1
+- 665013 - do not send None for ipaddr in IPv6 only system
+
 * Tue Jan 04 2011 Jan Pazdziora 1.3.5-1
 - 666860 - Add support for subscription-manager in firstboot.
 
