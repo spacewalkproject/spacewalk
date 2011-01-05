@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
-Version: 1.24a
-Release: 3%{?dist}
+Version: 1.27
+Release: 1%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
+* Wed Jan 05 2011 Jan Pazdziora 1.27-1
+- upgrading to 1.27
+
 * Tue Jun 08 2010 Jan Pazdziora 1.24a-3
 - rebuild to fix dist-cvs issue.
 
