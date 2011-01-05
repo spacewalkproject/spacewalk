@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.34
+Version: 1.3.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -456,6 +456,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 05 2011 Tomas Lestach <tlestach@redhat.com> 1.3.35-1
+- 663490 - identify, when package is too large to download via API
+  (tlestach@redhat.com)
+- temporary allow 2010 and 2011 headers (tlestach@redhat.com)
+- 667432 - don't untie host from guests during host migration
+  (mzazrivec@redhat.com)
+- 661212 - setting probe suite name for ProbeSuiteListProbes.do
+  (tlestach@redhat.com)
+
 * Mon Jan 03 2011 Jan Pazdziora 1.3.34-1
 - display also error parameters when throwing InvalidKickstartTreeException
   (tlestach@redhat.com)
