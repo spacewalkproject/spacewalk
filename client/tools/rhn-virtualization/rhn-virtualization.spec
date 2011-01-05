@@ -36,6 +36,13 @@ Group: System Environment/Base
 Requires: libvirt-python
 Requires: rhn-virtualization-common = %{version}-%{release}
 Requires: /usr/sbin/crond
+%if 0%{?rhel} && 0%{?rhel} < 6
+# in RHEL5 we need libvirt, but in RHEV@RHEL5 there should not be libvirt
+# as there is vdsm and bunch of other packages, but we have no clue how to
+# distinguish those two scenarios
+%else
+Requires: libvirt
+%endif
 
 %description host
 This package contains code for RHN's and Spacewalk's Virtualization support 
