@@ -485,6 +485,8 @@ def read_network():
         if netdict['ipaddr'] == "127.0.0.1":
             netdict['ipaddr'] = ipaddr
 
+    if netdict['ipaddr'] is None:
+        netdict['ipaddr'] = ''
     return netdict
 
 def read_network_interfaces():
