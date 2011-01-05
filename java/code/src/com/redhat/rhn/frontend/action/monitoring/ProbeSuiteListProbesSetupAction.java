@@ -60,6 +60,7 @@ public class ProbeSuiteListProbesSetupAction extends RhnAction implements Listab
         helper.execute();
 
         request.setAttribute("suite_id", suite.getId());
+        request.setAttribute("probeSuite", suite);
 
         if (helper.isDispatched()) {
             int updatedCount = 0;
