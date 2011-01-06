@@ -29,7 +29,7 @@ from spacewalk.common.rhnTranslate import _
 
 # local module imports
 from proxy.rhnShared import SharedHandler
-from rhnConstants import URI_PREFIX_KS_CHECKSUM
+from proxy.rhnConstants import URI_PREFIX_KS_CHECKSUM
 import rhnRepository
 import proxy.rhnProxyAuth
 
