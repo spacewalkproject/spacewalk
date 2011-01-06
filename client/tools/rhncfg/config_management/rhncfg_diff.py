@@ -148,6 +148,8 @@ class Handler(handler_base.HandlerBase):
              return ""
         else:
             template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
+            if not info.has_key('modified'):
+                info['modified'] = ''
             first_row = template % (path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
                         info['username'], info['groupname'], info['selinux_ctx'], channel,
                         info['revision'],
