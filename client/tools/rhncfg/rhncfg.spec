@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.42
+Version: 5.9.43
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 06 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.43-1
+- 637833 - reused shared file deploy code
+- 637833 - moved file deploy code into shared module
+
 * Mon Jan 03 2011 Tomas Lestach <tlestach@redhat.com> 5.9.42-1
 - 634963 - adding extra colon (tlestach@redhat.com)
 
