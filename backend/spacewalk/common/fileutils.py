@@ -384,6 +384,12 @@ FILETYPE2CHAR = {
     'blockdev'  : 'b',
 }
 
+def _ifelse(cond, thenval, elseval):
+    if cond:
+        return thenval
+    else:
+        return elseval
+
 def ostr_to_sym(octstr, ftype):
     """ Convert filemode in octets (like '644') to string like "ls -l" ("-rwxrw-rw-")
         ftype is one of: file, directory, symlink, chardev, blockdev.
@@ -392,69 +398,21 @@ def ostr_to_sym(octstr, ftype):
 
     symstr = FILETYPE2CHAR.get(ftype, '?')
 
-    if mode & stat.S_IRUSR:
-        symstr += 'r'
-    else:
-        symstr += '-'
-
-    if mode & stat.S_IWUSR:
-        symstr += 'w'
-    else:
-        symstr += '-'
-
-    if mode & stat.S_IXUSR:
-        if mode & stat.S_ISUID:
-            symstr += 's'
-        else:
-            symstr += 'x'
-    else:
-        if mode & stat.S_ISUID:
-            symstr += 'S'
-        else:
-            symstr += '-'
-
-    if mode & stat.S_IRGRP:
-        symstr += 'r'
-    else:
-        symstr += '-'
-
-    if mode & stat.S_IWGRP:
-        symstr += 'w'
-    else:
-        symstr += '-'
-
-    if mode & stat.S_IXGRP:
-        if mode & stat.S_ISGID:
-            symstr += 's'
-        else:
-            symstr += 'x'
-    else:
-        if mode & stat.S_ISGID:
-            symstr += 'S'
-        else:
-            symstr += '-'
-
-    if mode & stat.S_IROTH:
-        symstr += 'r'
-    else:
-        symstr += '-'
-
-    if mode & stat.S_IWOTH:
-        symstr += 'w'
-    else:
-        symstr += '-'
-
-    if mode & stat.S_IXOTH:
-        if mode & stat.S_ISVTX:
-            symstr += 't'
-        else:
-            symstr += 'x'
-    else:
-        if mode & stat.S_ISVTX:
-            symstr += 'T'
-        else:
-            symstr += '-'
-
+    symstr += _ifelse(mode & stat.S_IRUSR, 'r', '-')
+    symstr += _ifelse(mode & stat.S_IWUSR, 'w', '-')
+    symstr += _ifelse(mode & stat.S_IXUSR,
+                      _ifelse(mode & stat.S_ISUID, 's', 'x'),
+                      _ifelse(mode & stat.S_ISUID, 'S', '-'))
+    symstr += _ifelse(mode & stat.S_IRGRP, 'r', '-')
+    symstr += _ifelse(mode & stat.S_IWGRP, 'w', '-')
+    symstr += _ifelse(mode & stat.S_IXGRP,
+                      _ifelse(mode & stat.S_ISGID, 's', 'x'),
+                      _ifelse(mode & stat.S_ISGID, 'S', '-'))
+    symstr += _ifelse(mode & stat.S_IROTH, 'r', '-')
+    symstr += _ifelse(mode & stat.S_IWOTH, 'w', '-')
+    symstr += _ifelse(mode & stat.S_IXOTH,
+                      _ifelse(mode & stat.S_ISVTX, 't', 'x'),
+                      _ifelse(mode & stat.S_ISVTX, 'T', '-'))
     return symstr
 
 def f_date(dbiDate):
