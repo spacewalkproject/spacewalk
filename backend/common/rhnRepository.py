@@ -87,16 +87,7 @@ class Repository(RPC_Base):
         # supports redirects.
         proxyVersionString = rhnFlags.get('x-rhn-proxy-version')
         if proxyVersionString:
-            # Convert the version string to a number format that we can compare.
-            versionParts = proxyVersionString.split('.')
-            proxyVersionStringBaked = \
-                "%s.%s" % (versionParts[0], string.join(versionParts[1:], ''))
-
-            # Check the proxy version.  To maintain backward compatibility, we 
-            # won't redirect to proxies < v4.1.0.
-            log_debug(3, "Detected proxy version " + proxyVersionStringBaked)
-            if float(proxyVersionStringBaked) >= 4.1:
-                redirectsSupported = 1
+            redirectsSupported = 1
         else:
             # Must be a client.  We'll determine the redirect capability via
             # the x-rhn-transport-capability header instead.
