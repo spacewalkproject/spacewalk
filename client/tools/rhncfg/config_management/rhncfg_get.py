@@ -79,7 +79,7 @@ class Handler(handler_base.HandlerBase):
 
                 #5/11/05 wregglej - 157066 dirs_created is returned from get_file_info.
                 (temp_file, info, dirs_created) = r.get_file_info(channel, f, revision=revision,
-                                                    auto_delete=0, directory=dest_dir)
+                                                    auto_delete=0, dest_directory=dest_dir)
                 
             except cfg_exceptions.RepositoryFileMissingError:
                 if revision is not None:

@@ -96,7 +96,7 @@ class Repository(repository.RPC_Repository):
             raise e
         return result
 
-    def get_file_info(self, config_channel, repopath, revision=None, auto_delete=1, directory=tempfile.gettempdir()):
+    def get_file_info(self, config_channel, repopath, revision=None, auto_delete=1, dest_directory=tempfile.gettempdir()):
         """
         given a namepath, return the filename and the rest of the info passed
         by the server
@@ -104,7 +104,7 @@ class Repository(repository.RPC_Repository):
         result = self.get_raw_file_info(config_channel, repopath, revision)
 
         fp = file_utils.FileProcessor()
-        fullpath, dirs_created = fp.process(result, directory=directory, strict_ownership=0)
+        fullpath, dirs_created = fp.process(result, directory=dest_directory, strict_ownership=0)
 
         if auto_delete:
             self.files_to_delete.append(fullpath)

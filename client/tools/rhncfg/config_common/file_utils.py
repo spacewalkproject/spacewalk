@@ -39,12 +39,13 @@ class FileProcessor:
     def process(self, file_struct, directory=None, strict_ownership=1):
         # Older servers will not return directories; if filetype is missing,
         # assume file
-        if directory:
-            directory += os.path.split(file_struct['path'])[0]
 
     	if file_struct.get('filetype') == 'directory':
-                return directory, []
+                file_struct['path'] = directory + file_struct['path']
+                return file_struct['path'], []
 
+        if directory:
+            directory += os.path.split(file_struct['path'])[0]
         if file_struct.get('filetype') == 'symlink':
             if not file_struct.has_key('symlink'):
                 raise Exception, "Missing key symlink"

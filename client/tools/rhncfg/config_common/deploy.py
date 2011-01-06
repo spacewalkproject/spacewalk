@@ -20,7 +20,7 @@ import cfg_exceptions
 def deploy_msg_callback(path):
     print "Deploying %s" % path
 
-def deploy_files(topdir, repository, files, excludes = None):
+def deploy_files(topdir, repository, files, excludes = None, config_channel = None):
     topdir = topdir or os.sep
     if not excludes:
         excludes = []
@@ -32,7 +32,12 @@ def deploy_files(topdir, repository, files, excludes = None):
             print "Excluding %s" % path
         else:
             try:
-                finfo = repository.get_file_info(path, auto_delete=0, dest_directory=topdir)
+                if config_channel:
+                    args = (config_channel, path)
+                else:
+                    args = (path, )
+                kwargs = {'auto_delete': 0, 'dest_directory': topdir}
+                finfo = repository.get_file_info(*args, **kwargs)
             except cfg_exceptions.DirectoryEntryIsFile, e:
                 print "Error: unable to deploy directory %s, as it is already a file on disk" % e[0]
                 continue
