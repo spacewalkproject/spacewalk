@@ -159,15 +159,6 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         assertEquals(0, server2.getConfigChannelCount());
     }
 
-    public void testRemoveVirtualGuestAssociations() throws Exception {
-        assertTrue(server.getGuests().size() > 0);
-
-        MigrationManager.removeOrgRelationships(origOrgAdmins.iterator().next(), server);
-        server = (Server) reload(server);
-
-        assertEquals(0, server.getGuests().size());
-    }
-
     public void testRemoveMonitoringProbeSuites() throws Exception {
 
         User origOrgAdmin = origOrgAdmins.iterator().next();
