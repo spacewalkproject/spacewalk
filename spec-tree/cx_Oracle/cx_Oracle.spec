@@ -63,3 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f INSTALLED_FILES
 %defattr(-,root,root)
 %doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
+
+%changelog
+* Fri Jan 07 2011 Jan Pazdziora <jpazdziora@redhat.com> 5.0.4-1
+- cx_Oracle 5.0.4 with Oracle InstantClient 11g
+
