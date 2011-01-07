@@ -50,7 +50,7 @@ ORACLE_HOME=$(find /usr/lib/oracle/ -name client64 | tail -1)
 ORACLE_HOME=$(find /usr/lib/oracle/ -name client | tail -1)
 %endif
 export ORACLE_HOME
-perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix}
+perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix} -V 11.2.0.2.0
 make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
 %clean
