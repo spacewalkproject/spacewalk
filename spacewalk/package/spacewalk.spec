@@ -99,8 +99,8 @@ Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
 Conflicts: spacewalk-postgresql
 
-Requires: oracle-instantclient-basic >= 10.2.0
-Requires: oracle-instantclient-sqlplus >= 10.2.0
+Requires: oracle-instantclient11.2-basic
+Requires: oracle-instantclient11.2-sqlplus
 Requires: spacewalk-java-oracle
 Requires: perl(DBD::Oracle)
 Requires: cx_Oracle
