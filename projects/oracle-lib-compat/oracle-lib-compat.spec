@@ -57,10 +57,11 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
-echo %{_libdir}/oracle/%{icdir}/client/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo %{_libdir}/oracle/%{icdir}/client/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/oracle-instantclient-%{icdir}.conf
+
 # do not replace /usr/lib with _libdir macro here
 # XE server is 32bit even on 64bit platforms
-echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/oracle-xe.conf
 
 %ifarch x86_64 s390x
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
@@ -90,7 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/sqlplus
 %{_libdir}/oracle
 %endif
-%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%config(noreplace) %{_sysconfdir}/ld.so.conf.d/oracle-instantclient-%{icdir}.conf
+%config(noreplace) %{_sysconfdir}/ld.so.conf.d/oracle-xe.conf
 %{_javadir}/ojdbc14.jar
 %{_datadir}/%{tomcatname}/bin/setenv.sh
 
