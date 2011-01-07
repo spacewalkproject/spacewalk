@@ -1,6 +1,6 @@
 
 Name:		oracle-instantclient-selinux
-Version:	11.2.0.0
+Version:	11.2.0.1
 Release:	1%{?dist}
 Summary:	SELinux support for Oracle Instant Client 11g
 Group:		System Environment/Base
@@ -112,6 +112,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Fri Jan 07 2011 Jan Pazdziora 11.2.0.1-1
+- Updating oracle-instantclient-selinux for 11g.
+
 * Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0.19-1
 - switched to default VersionTagger
 
