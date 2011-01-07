@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.4
+Version:        1.3.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Jan 07 2011 Jan Pazdziora 1.3.5-1
+- Setup InstantClient 11 path for tomcat.
+
 * Sun Dec 26 2010 Jan Pazdziora 1.3.4-1
 - 665693: convert sysdate to current_timestamp (colin.coe@gmail.com)
 
