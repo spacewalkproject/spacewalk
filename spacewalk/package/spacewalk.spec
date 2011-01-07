@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.3.1
+Version:        1.3.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -171,6 +171,12 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Jan 07 2011 Jan Pazdziora 1.3.2-1
+- Conflict with the InstantClient 10 to remind that they need to be removed
+  upon upgrade.
+- Switch to Oracle InstantClient 11 in spacewalk-oracle.
+- add build.py.props to allow building using tito (msuchy@redhat.com)
+
 * Wed Dec 08 2010 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
 - remove jabberd-selinux dependency for rhel6+ (tlestach@redhat.com)
 - Bumping package versions for 1.3. (jpazdziora@redhat.com)
