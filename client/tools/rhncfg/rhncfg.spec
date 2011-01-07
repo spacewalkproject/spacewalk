@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.44
+Version: 5.9.45
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.45-1
+- fixed TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+
 * Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.44-1
 - fixed NameError: global name 'os' is not defined
 - 634963 - satellites <= 5.4 do not send modified value
