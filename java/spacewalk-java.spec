@@ -66,6 +66,7 @@ Requires: struts >= 0:1.2.9
 %else
 Requires: tomcat6
 Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
 %endif
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
@@ -136,6 +137,7 @@ BuildRequires: struts >= 0:1.2.9
 BuildRequires: jsp
 %else
 BuildRequires: struts >= 0:1.3.0
+BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
 %endif
 BuildRequires: sitemesh
@@ -361,6 +363,11 @@ rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat6*.jar
 
+# show all JAR symlinks
+echo "#### SYMLINKS START ####"
+find $RPM_BUILD_ROOT%{jardir} -name *.jar
+echo "#### SYMLINKS END ####"
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -444,14 +451,28 @@ fi
 %{jardir}/xerces-j2.jar
 %{jardir}/xml-commons-apis.jar
 
-%{jardir}/asmasm-analysis.jar
-%{jardir}/asmasm-attrs.jar
-%{jardir}/asmasm-tree.jar
-%{jardir}/asmasm-util.jar
-%{jardir}/asmasm-xml.jar
-%{jardir}/asmasm.jar
-%{jardir}/asmkasm.jar
+# asm-1.5.3-7.jpp5.noarch (F14, F13, EL6)
+# asm-1.5.3-1jpp.ep1.1.el5.2.noarch (EL5)
+%{jardir}/asm_asm.jar
+#%{jardir}/asmasm.jar
+#%{jardir}/asmasm-analysis.jar
+#%{jardir}/asmasm-attrs.jar
+#%{jardir}/asmasm-tree.jar
+#%{jardir}/asmasm-util.jar
+#%{jardir}/asmasm-xml.jar
+#%{jardir}/asmkasm.jar
+
+%if 0%{?fedora} && 0%{?fedora} >= 13
+# jfreechart-1.0.10-4.fc13.noarch (F13)
+# jfreechart-1.0.13-1.fc14.noarch (F14)
+%{jardir}/jfreechartjfreechart.jar
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} >= 5
+# jfreechart-1.0.10-1.el5.noarch (EL5)
+# jfreechart-1.0.9-4.jpp5.noarch (EL6)
 %{jardir}/jfreechart.jar
+%endif
 
 # EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
