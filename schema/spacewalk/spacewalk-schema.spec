@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.8
+Version:        1.3.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
+- 662563 - rhn_sndpb_pid_ptype_idx was used for rhn_sndpb_probe_id_pk enforcement
+- 662563 - rhn_efilectmp_cid_efid_idx was used for rhn_efilectmp_efid_cid_uq enforcement
+- 662563 - web_contact_id_oid_cust_luc was used for web_contact_pk enforcement
+- 662563 - rhn_package_path_idx was used for rhn_package_id_pk enforcement
+- 653510 - deleting a virt host had a virtual entitlement that would not properly
+  move its guests to flex entitled if it was available
+- 667232 - fixing issue where balancing of guests between flex an regular
+  entitlements did would not work correctly, making certificates very difficult
+  to activate
+
 * Thu Dec 23 2010 Jan Pazdziora 1.3.8-1
 - Mark PostgreSQL rhn_user schema as equivalent to the Oracle package.
 - Dropping rhn_user.add_users_to_usergroups as it is now used anymore.
