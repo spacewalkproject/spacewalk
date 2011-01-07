@@ -1,8 +1,8 @@
 
 Name:		oracle-instantclient-selinux
-Version:	10.2.0.19
+Version:	11.2.0.0
 Release:	1%{?dist}
-Summary:	SELinux support for Oracle Instant Client
+Summary:	SELinux support for Oracle Instant Client 11g
 Group:		System Environment/Base
 License:	GPLv2+
 # This src.rpm is canonical upstream.
@@ -16,7 +16,7 @@ BuildArch:	noarch
 
 Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
-Requires:	oracle-instantclient-basic
+Requires:	oracle-instantclient11.2-basic
 Requires:	oracle-nofcontext-selinux
 
 %description
@@ -25,7 +25,7 @@ SELinux support for Oracle Instant Client.
 %package -n oracle-instantclient-sqlplus-selinux
 Summary:	SELinux support for Oracle Instant Client sqlplus
 Group:		System Environment/Base
-Requires:	oracle-instantclient-sqlplus
+Requires:	oracle-instantclient11.2-sqlplus
 Requires:	oracle-nofcontext-selinux
 Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
@@ -37,7 +37,7 @@ SELinux support for Oracle Instant Client sqlplus.
 
 %build
 
-%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so libocijdbc10.so
+%define used_libs libocci.so.11.1 libclntsh.so.11.1 libnnz11.so libociei.so libocijdbc11.so
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -48,19 +48,19 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-enable
 #!/bin/bash
 
 for i in %used_libs ; do
-	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
+	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/'${i//./\\.}
 done
-/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 
 EOS
 
 cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 #!/bin/bash
 
-/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplusic\.so'
-/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/11\.2/client.*/bin/sqlplus'
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplus\.so'
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplusic\.so'
+/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 
 EOS
 
@@ -75,15 +75,15 @@ fi
 %posttrans
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %postun
 if [ $1 -eq 0 ]; then
 	for i in %used_libs ; do
-		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
+		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/'${i//./\\.}
 	done
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %post -n oracle-instantclient-sqlplus-selinux
@@ -94,14 +94,15 @@ fi
 %posttrans -n oracle-instantclient-sqlplus-selinux
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %postun -n oracle-instantclient-sqlplus-selinux
 if [ $1 -eq 0 ]; then
-	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/11\.2/client.*/bin/sqlplus'
+	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplus\.so'
+	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplusic\.so'
+	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %files
