@@ -15,12 +15,16 @@ BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 
 %ifarch s390 s390x
 %define icversion 10.2.0.4
-%else
-%define icversion 10.2.0.4
-%endif
-
+%define icdir %{icversion}
 Requires:       oracle-instantclient-basic = %{icversion}
 Requires:       oracle-instantclient-sqlplus = %{icversion}
+%else
+%define icversion 11.2.0.2.0
+%define icdir 11.2
+Requires:       oracle-instantclient11.2-basic = %{icversion}
+Requires:       oracle-instantclient11.2-sqlplus = %{icversion}
+%endif
+
 Requires(post): ldconfig
 Requires(post): /usr/bin/execstack
 Requires(post): /usr/bin/file
@@ -51,21 +55,21 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
-echo %{_libdir}/oracle/%{icversion}/client/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo %{_libdir}/oracle/%{icdir}/client/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 # do not replace /usr/lib with _libdir macro here
 # XE server is 32bit even on 64bit platforms
 echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 %ifarch x86_64 s390x
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-ln -s ../%{_lib}/oracle/%{icversion}/client/bin/sqlplus $RPM_BUILD_ROOT%{_bindir}/sqlplus
+ln -s ../%{_lib}/oracle/%{icdir}/client/bin/sqlplus $RPM_BUILD_ROOT%{_bindir}/sqlplus
 
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/oracle/%{icversion}
-ln -s ../../../lib/oracle/%{icversion}/client64 $RPM_BUILD_ROOT%{_libdir}/oracle/%{icversion}/client
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/oracle/%{icdir}
+ln -s ../../../lib/oracle/%{icdir}/client64 $RPM_BUILD_ROOT%{_libdir}/oracle/%{icdir}/client
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
-ln -s ../../%{_lib}/oracle/%{icversion}/client/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
+ln -s ../../%{_lib}/oracle/%{icdir}/client/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
 %if 0%{?rhel} && 0%{?rhel} < 6
 %define tomcatname tomcat5
@@ -92,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 ldconfig
 
 # clear execstack on libs in oracle's provided instantclient rpm
-find %{_prefix}/lib/oracle/%{icversion} \
+find %{_prefix}/lib/oracle/%{icdir} \
         | xargs file | awk -F: '/ELF.*(executable|shared object)/ {print $1}' \
         | xargs execstack -c
 
