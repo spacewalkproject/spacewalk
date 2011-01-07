@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.37
+Version: 1.3.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -508,6 +508,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 07 2011 Lukas Zapletal 1.3.38-1
+- Building spacewalk-java.spec on RHEL6
+
 * Thu Jan 06 2011 Tomas Lestach <tlestach@redhat.com> 1.3.37-1
 - 628755 - fix searching for the primary network interface
   (tlestach@redhat.com)
