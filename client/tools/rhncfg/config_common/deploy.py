@@ -13,6 +13,8 @@
 # in this software or its documentation.
 #
 
+import os
+
 from transactions import DeployTransaction, FailedRollback
 import file_utils
 import cfg_exceptions
