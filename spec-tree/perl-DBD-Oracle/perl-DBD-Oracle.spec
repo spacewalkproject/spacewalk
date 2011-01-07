@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.27
-Release: 1%{?dist}
+Release: 2%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
@@ -76,6 +76,10 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
+* Fri Jan 07 2011 Jan Pazdziora 1.27-2
+- We shall hardcode the 11g version.
+- Revert "Specify the InstantClient version with -V."
+
 * Fri Jan 07 2011 Jan Pazdziora 1.27-1
 - upgrading to 1.27
 
