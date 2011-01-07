@@ -46,6 +46,14 @@ forward_services() {
 	if [ -e /etc/init.d/$service ]; then
 	    /sbin/service $service $ACTION
             E_STAT=$?
+            if [ "$service" == "$TOMCAT" \
+                -a "$ACTION" == "start" \
+                -a "$WAIT_FOR_TOMCAT" == "1" ] ; then
+                echo "Waiting for tomcat to be ready ..."
+                while true ; do
+                    lsof -t -i @localhost:8009 && break
+                done
+            fi
 	fi
         if [ $E_STAT -ne 0 ]; then
             RET=$E_STAT
@@ -144,12 +152,13 @@ ensure_httpd_down() {
     return 0
 }
 
-OPTS=$(getopt --longoptions=exclude:,level: -n ${0##*/} -- e:l: "$@")
+OPTS=$(getopt --longoptions=exclude:,level:,no-wait-for-tomcat -n ${0##*/} -- e:l:T "$@")
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
 eval set -- "$OPTS"
 
+WAIT_FOR_TOMCAT=1
 while true ; do
     case "$1" in
         -e|--exclude)
@@ -162,12 +171,16 @@ while true ; do
             LEVEL="--level $2"
             shift
             ;;
+        -T|--no-wait-for-tomcat)
+            WAIT_FOR_TOMCAT=0
+            shift
+            ;;
         --)
             shift
             break
             ;;
         *)
-            echo "Internal error!" >&2
+            echo "Internal error [$1]!" >&2
             exit 1
             ;;
     esac
