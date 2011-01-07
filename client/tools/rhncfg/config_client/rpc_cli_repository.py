@@ -79,7 +79,8 @@ class ClientRepository(repository.RPC_Repository):
         # Older servers will not return directories; if filetype is missing,
         # assume file
         if result.get('filetype') == 'directory':
-            result['path'] = dest_directory + result['path']
+            if dest_directory:
+                result['path'] = dest_directory + result['path']
             if os.path.isfile(result['path']):
                 raise cfg_exceptions.DirectoryEntryIsFile(result['path'])
             else:
