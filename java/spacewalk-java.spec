@@ -465,7 +465,7 @@ fi
 %if 0%{?fedora} && 0%{?fedora} >= 13
 # jfreechart-1.0.10-4.fc13.noarch (F13)
 # jfreechart-1.0.13-1.fc14.noarch (F14)
-%{jardir}/jfreechartjfreechart.jar
+%{jardir}/jfreechart_jfreechart.jar
 %endif
 
 %if 0%{?rhel} && 0%{?rhel} >= 5
