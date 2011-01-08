@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.39
+Version: 1.3.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -529,6 +529,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Jan 08 2011 Lukas Zapletal 1.3.40-1
+- Adding missing struts-taglib require into the spec file and asm/jfreechart
+
 * Fri Jan 07 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.39-1
 - do not cast to string, when db expect number (msuchy@redhat.com)
 
