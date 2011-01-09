@@ -86,8 +86,8 @@ public class PackageEvrFactory {
      */
     public static PackageEvr lookupPackageEvrById(Long id) {
         Session session = HibernateFactory.getSession();
-        return (PackageEvr) session.getNamedQuery("PackageEvr.findById").setString(
-                "id", id.toString()).uniqueResult();
+        return (PackageEvr) session.getNamedQuery("PackageEvr.findById").setLong(
+                "id", id).uniqueResult();
     }
 
 }

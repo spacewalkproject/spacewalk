@@ -866,8 +866,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
 
     <!--
       - delete the symlinks for the jars that break the webapp.  Basically
-      - these are the oracle jars and the servlet jar and jars that
-      - are symlinked twice (once without version, once with version.
+      - these are the oracle jars and the servlet jars
       -->
      <delete verbose="true">
        <fileset dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib">
@@ -877,15 +876,6 @@ delete from rhnChannel where label like 'ChannelLabel%';
         <include name="**/logdriver*" />
         <include name="**/jspapi*" />
         <include name="**/jasper5-compiler*" />
-        <include name="**/asmasm-analysis-*.jar" />
-        <include name="**/asmasm-attrs-*.jar" />
-        <include name="**/asmasm-tree-*.jar" />
-        <include name="**/asmasm-util-*.jar" />
-        <include name="**/asmasm-xml-*.jar" />
-        <include name="**/asmasm-?.?.?.jar" />
-        <include name="**/asmkasm-*.jar" />
-        <include name="**/jfreechartjfreechart-*.jar" />
-        <include name="**/jfreechart-*.jar" />
     </fileset>
     </delete>
   </target>
