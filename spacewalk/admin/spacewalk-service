@@ -49,10 +49,15 @@ forward_services() {
             if [ "$service" == "$TOMCAT" \
                 -a "$ACTION" == "start" \
                 -a "$WAIT_FOR_TOMCAT" == "1" ] ; then
-                echo "Waiting for tomcat to be ready ..."
-                while true ; do
-                    lsof -t -i @localhost:8009 && break
-                done
+                if lsof /proc > /dev/null ; then
+                    echo "Waiting for tomcat to be ready ..."
+                    while [ -f "/var/run/$TOMCAT.pid" ] ; do
+                        lsof -t -i @localhost:8009 -p $(cat /var/run/$TOMCAT.pid) > /dev/null && break
+                        sleep 1
+                    done
+                else
+                    echo "No lsof found, not waiting for tomcat."
+                fi
             fi
 	fi
         if [ $E_STAT -ne 0 ]; then
@@ -156,7 +161,7 @@ OPTS=$(getopt --longoptions=exclude:,level:,no-wait-for-tomcat -n ${0##*/} -- e:
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
-eval set -- "$OPTS"
+echo "[$OPTS]"
 
 WAIT_FOR_TOMCAT=1
 while true ; do
