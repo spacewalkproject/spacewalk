@@ -48,7 +48,9 @@
 
   <!-- =================== jar dependencies ======================= -->
 
-  <property name="asm" value="asm/asm"/>
+  <condition property="asm" value="asm/asm" else="asm">
+    <available file="/usr/share/java/asm/asm.jar" />
+  </condition>
 
   <condition property="jfreechart" value="jfreechart/jfreechart" else="jfreechart">
     <available file="/usr/share/java/jfreechart/jfreechart.jar" />
