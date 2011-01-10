@@ -52,6 +52,9 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy-base >= 2.4.6-267
 %endif
+%if 0%{?fedora} == 13
+Requires:        selinux-policy-targeted >= 3.7.19-76
+%endif
 Requires(post):   /usr/sbin/semanage, /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semanage, /usr/sbin/semodule, /sbin/restorecon
 Conflicts:       oracle-selinux
