@@ -34,6 +34,7 @@ Requires(post): /usr/bin/xargs
 
 %ifarch x86_64
 %define lib64 ()(64bit)
+Requires:       libaio.so.1%{lib64}
 %endif
 Provides:       libocci.so.%{soversion}.1%{?lib64}   = %{icversion}
 Provides:       libnnz%{soversion}.so%{?lib64}       = %{icversion}
