@@ -200,3 +200,11 @@ tunable_policy(`oracle_11g_support',`
 ')
 
 role unconfined_r types oracle_sqlplus_t;
+
+require {
+	type user_devpts_t;
+	class chr_file { read append };
+}
+
+dontaudit oracle_db_t user_devpts_t:chr_file { read append };
+dontaudit oracle_tnslsnr_t user_devpts_t:chr_file { read append };
