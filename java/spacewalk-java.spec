@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.42
+Version: 1.3.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -529,6 +529,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 10 2011 Tomas Lestach <tlestach@redhat.com> 1.3.43-1
+- 668539 - make possible to clone Red Hat errata even if you specify the
+  "Channel Version" (tlestach@redhat.com)
+- 663403 - correctly escape updateinfo.xml (tlestach@redhat.com)
+
 * Mon Jan 10 2011 Lukas Zapletal 1.3.42-1
 - Solving asm CNF exception in Hudson
 
