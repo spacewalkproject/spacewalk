@@ -19,7 +19,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.20
+Version:         0.1.23.21
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -211,6 +211,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Jan 10 2011 Jan Pazdziora 0.1.23.21-1
+- The netlink_route_socket is now needed with InstantClient 11g sqlplus.
+- More devpts AVC denials on Fedora 13 dontaudited.
+
 * Mon Jan 10 2011 Jan Pazdziora 0.1.23.20-1
 - Stop AVCs about /dev/pts.
 - Require reasonably new selinux-policy-targeted on Fedora 13.
