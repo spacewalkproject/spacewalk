@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.1
+Version:        11.2.0.2
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -106,6 +106,9 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Mon Jan 10 2011 Jan Pazdziora 11.2.0.2-1
+- On x86_64, require 64bit version of libaio for InstantClient 11g.
+
 * Fri Jan 07 2011 Jan Pazdziora 11.2.0.1-1
 - Have separate ld.so.conf.d for InstantClient and for XE server.
 - InstantClient 11 contains ojdbc5 and ojdbc6, we will change the target of the
