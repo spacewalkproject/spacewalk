@@ -19,7 +19,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.21
+Version:         0.1.23.22
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -211,6 +211,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Jan 10 2011 Jan Pazdziora 0.1.23.22-1
+- Make the user_devpts_t dontaudit part optional.
+
 * Mon Jan 10 2011 Jan Pazdziora 0.1.23.21-1
 - The netlink_route_socket is now needed with InstantClient 11g sqlplus.
 - More devpts AVC denials on Fedora 13 dontaudited.
