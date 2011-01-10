@@ -210,3 +210,9 @@ require {
 dontaudit oracle_db_t user_devpts_t:chr_file { read append getattr };
 dontaudit oracle_db_t devpts_t:dir search;
 dontaudit oracle_tnslsnr_t user_devpts_t:chr_file { read append };
+
+require {
+	class netlink_route_socket { write getattr read bind create nlmsg_read };
+}
+
+allow oracle_sqlplus_t self:netlink_route_socket { write getattr read bind create nlmsg_read };
