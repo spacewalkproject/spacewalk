@@ -218,3 +218,4 @@ require {
 }
 
 allow oracle_sqlplus_t self:netlink_route_socket { write getattr read bind create nlmsg_read };
+dev_list_sysfs(oracle_sqlplus_t)
