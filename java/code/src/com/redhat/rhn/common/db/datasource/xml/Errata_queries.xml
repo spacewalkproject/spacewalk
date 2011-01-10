@@ -626,13 +626,12 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
         rhnPackage P on P.id = EP.package_id inner join
         rhnPackageArch PA on PA.id = P.package_arch_id inner join
         rhnPackageEvr EVR on Evr.id = P.evr_id inner join
-        rhnPackage P2 on P2.name_id = P.name_id inner join
-        rhnChannelPackage CP on CP.package_id = P2.id inner join
+        rhnChannelPackageArchCompat COMPAT on P.package_arch_id = COMPAT.package_arch_id inner join
+        rhnChannel C on C.channel_arch_id = COMPAT.channel_arch_id inner join
         rhnPackageName PN on  PN.id = P.name_id
     where S.label = :set
 		 and S.user_id = :uid
-         and CP.channel_id = :dest_cid
-         and P2.Package_arch_id = P.package_arch_id
+         and C.id = :dest_cid
   </query>
 </mode>
 
