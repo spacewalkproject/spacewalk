@@ -173,7 +173,6 @@ while true ; do
             ;;
         -T|--no-wait-for-tomcat)
             WAIT_FOR_TOMCAT=0
-            shift
             ;;
         --)
             shift
