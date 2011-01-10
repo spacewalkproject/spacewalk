@@ -52,15 +52,23 @@ public abstract class RepomdWriter {
     /**
      * Constructor takes in a writer
      * @param writer content writer
+     * @param shouldEscape says whether write output shall be escaped
      */
-    public RepomdWriter(Writer writer) {
+    public RepomdWriter(Writer writer, boolean shouldEscape) {
 
         OutputFormat of = new OutputFormat();
         of.setPreserveSpace(true);
+        XMLSerializer serializer = null;
 
-        //We use an unescaping serializer because we'll be appending xml
-        XMLSerializer serializer = new UnescapingXmlSerializer(writer, of);
-
+        if (shouldEscape) {
+            // XMLSerializer used to escape chars like < >
+            serializer = new XMLSerializer(writer, of);
+        }
+        else {
+            // UnescapingXmlSerializer doesn't escape anything,
+            // input shall already be escaped
+            serializer = new UnescapingXmlSerializer(writer, of);
+        }
 
         try {
             handler = new SimpleContentHandler(serializer.asContentHandler());

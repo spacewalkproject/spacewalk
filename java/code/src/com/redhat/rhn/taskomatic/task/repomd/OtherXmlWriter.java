@@ -44,7 +44,7 @@ public class OtherXmlWriter extends RepomdWriter {
      * @param writer The writer object for other.xml
      */
     public OtherXmlWriter(Writer writer) {
-        super(writer);
+        super(writer, false);
     }
 
     /**
