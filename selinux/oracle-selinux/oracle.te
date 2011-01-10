@@ -201,15 +201,17 @@ tunable_policy(`oracle_11g_support',`
 
 role unconfined_r types oracle_sqlplus_t;
 
-require {
-	type user_devpts_t;
-	type devpts_t;
-	class chr_file { read append getattr };
-}
+optional_policy(`
+	gen_require(`
+		type user_devpts_t;
+		type devpts_t;
+		class chr_file { read append getattr };
+	')
 
-dontaudit oracle_db_t user_devpts_t:chr_file { read append getattr };
-dontaudit oracle_db_t devpts_t:dir search;
-dontaudit oracle_tnslsnr_t user_devpts_t:chr_file { read append };
+	dontaudit oracle_db_t user_devpts_t:chr_file { read append getattr };
+	dontaudit oracle_db_t devpts_t:dir search;
+	dontaudit oracle_tnslsnr_t user_devpts_t:chr_file { read append };
+')
 
 require {
 	class netlink_route_socket { write getattr read bind create nlmsg_read };
