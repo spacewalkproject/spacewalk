@@ -7,8 +7,11 @@ use Spacewalk::Setup ();
 use IPC::Open3 ();
 use Getopt::Long ();
 
-my $select_mode;
-if (not Getopt::Long::GetOptions('select-mode' => \$select_mode)) {
+my ($verbose, $select_mode);
+if (not Getopt::Long::GetOptions(
+	'verbose' => \$verbose,
+	'select-mode' => \$select_mode,
+	)) {
 	exit 1
 }
 
@@ -39,8 +42,11 @@ chdir '/';
 
 my ($pid, $wfh, $rfh);
 if ($options{db_backend} eq 'oracle') {
-	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR',
-		'sqlplus', "$options{db_user}/$options{db_password}\@$options{db_name}") or return 2;
+	my @command = ( 'sqlplus', "$options{db_user}/$options{db_password}\@$options{db_name}");
+	if ($verbose) {
+		print STDERR "Running: @command\n";
+	}
+	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
 	print $wfh "whenever oserror exit failure\n";
 	print $wfh "whenever sqlerror exit sql.sqlcode\n";
 	print $wfh "\@$ARGV[0]\n";
@@ -54,6 +60,9 @@ if ($options{db_backend} eq 'oracle') {
                 }
         }
         $ENV{PGPASSWORD} = $options{db_password};
+	if ($verbose) {
+		print STDERR "Running: @command\n";
+	}
 	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
 	close $wfh;
 } else {
@@ -85,7 +94,7 @@ spacewalk-sql - utility for feeding SQL to Spacewalk's database
 
 =head1 SYNOPSIS
 
-B<spacewalk-sql> [ --select-mode ] sql-file-to-use.sql
+B<spacewalk-sql> [ --select-mode ] [ --verbose ] sql-file-to-use.sql
 
 =head1 OPTIONS
 
@@ -98,6 +107,13 @@ B<spacewalk-sql> is primarily intended to feed DDL/DML to the
 database, not do queries. With this option, upon successful
 completion, the output will be printed to standard output. Note that
 it will be in the native format.
+
+=item --verbose
+
+If this option is used, the command which will be invoked including
+any parameter is printed to standard error output, prior to it
+execution. No quoting is done however, so it can only be used to get
+rough idea about what is being called.
 
 =back
 
