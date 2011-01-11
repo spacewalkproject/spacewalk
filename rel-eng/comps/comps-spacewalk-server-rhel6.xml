@@ -20,8 +20,6 @@
        <packagereq type="default">cglib-nohook</packagereq>
        <packagereq type="default">cglib-repolib</packagereq>
        <packagereq type="default">chameleon</packagereq>
-       <packagereq type="default">concurrent</packagereq>
-       <packagereq type="default">concurrent-repolib</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dom4j</packagereq>
        <packagereq type="default">dom4j-demo</packagereq>
@@ -193,7 +191,6 @@
     <uservisible>false</uservisible>
     <packagelist>
        <packagereq type="default">c3p0-javadoc</packagereq>
-       <packagereq type="default">concurrent-javadoc</packagereq>
        <packagereq type="default">ehcache-javadoc</packagereq>
        <packagereq type="default">jpam-javadoc</packagereq>
        <packagereq type="default">sitemesh-javadoc</packagereq>
