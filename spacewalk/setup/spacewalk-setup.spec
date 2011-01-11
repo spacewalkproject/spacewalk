@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.5
+Version:        1.3.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,14 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Tue Jan 11 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
+- replace any LD_LIBRARY_PATH by given content (tlestach@redhat.com)
+- Removing Oracle-ism from postgresql_populate_db. (jpazdziora@redhat.com)
+- The installation on PostgreSQL is now supported. (jpazdziora@redhat.com)
+- Removing code which was commented out since 2009. (jpazdziora@redhat.com)
+- All three invocations of write_config in spacewalk-setup specify the target,
+  no need to have the default. (jpazdziora@redhat.com)
+
 * Fri Jan 07 2011 Jan Pazdziora 1.3.5-1
 - Setup InstantClient 11 path for tomcat.
 
