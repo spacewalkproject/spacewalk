@@ -85,7 +85,6 @@
        <packagereq type="default">scdb</packagereq>
        <packagereq type="default">servletapi4</packagereq>
        <packagereq type="default">simple-core</packagereq>
-       <packagereq type="default">sitemesh</packagereq>
        <packagereq type="default">SNMPAlerts</packagereq>
        <packagereq type="default">spacecmd</packagereq>
        <packagereq type="default">spacewalk-admin</packagereq>
@@ -172,7 +171,6 @@
        <packagereq type="default">c3p0-javadoc</packagereq>
        <packagereq type="default">ehcache-javadoc</packagereq>
        <packagereq type="default">jpam-javadoc</packagereq>
-       <packagereq type="default">sitemesh-javadoc</packagereq>
        <packagereq type="default">tanukiwrapper-javadoc</packagereq>
     </packagelist>
   </group>
