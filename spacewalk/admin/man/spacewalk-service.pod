@@ -4,7 +4,7 @@ spacewalk-service - Script to control Spacewalk server.
 
 =head2 SYNOPSIS
 
-B<spacewalk-service> {B<start>|B<stop>|B<status>|B<reload>|B<restart>|B<enable>|B<disable>}
+B<spacewalk-service> {B<start>|B<stop>|B<status>|B<reload>|B<restart>|B<enable>|B<disable>|B<list>}
 
 =head2 DESCRIPTION
 
@@ -18,25 +18,28 @@ This script does exactly this.
 
 =item B<start>|B<stop>|B<status>|B<reload>|B<restart>
 
-Specify the keyring to use for GPG signature validation.
+Behave exactly as B<service> for every Spacewalk service.
 
-=item B<--quiet>
+=item B<list>
 
-Suppress some messages; meant for scripted operation.
+List all Spacewalk services and if it is enabled or disabled.
 
-=item B<--nosig>
+=item B<--no-wait-for-tomcat>
 
-GPG signature not checked.
+By default, spacewalk-service wait until tomcat is able to answer requests.
+If you specify this option, spacewalk-service will continue immediately when
+tomcat service will start.
 
-=item B<--required-version>
+=item B<--exclude> SERVICE
 
-VERSION will enforce that the RHN certificate's version matches.
+It will not start/stop SERVICE.
 
-=item B<--help>
+=item B<--level> LEVEL
 
-Display reference to this man page. :)
+Pass LEVEL to chkconfig when you specify option B<enable>.
 
 =head1 SEE ALSO
 
 B<rhn-schema-version>(8), B<rmchannel>(8), B<satellite-debug>(8), B<send-satellite-debug>(8), B<rhnpush>(8), B<satellite-sync>(8), B<db-control>(1) (embedded satellite only),
-B<rhn-ssl-tool>(1), B<rhn-charsets>(8), B<rhn-satellite-activate>(8)
+B<rhn-ssl-tool>(1), B<rhn-charsets>(8), B<rhn-satellite-activate>(8),
+B<service>(8)
