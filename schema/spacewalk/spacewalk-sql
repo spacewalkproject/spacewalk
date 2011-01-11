@@ -69,3 +69,48 @@ if ($?) {
 }
 exit;
 
+__END__
+
+=head1 NAME
+
+spacewalk-sql - utility for feeding SQL to Spacewalk's database
+
+=head1 SYNOPSIS
+
+B<spacewalk-sql> sql-file-to-use.sql
+
+=head1 DESCRIPTION
+
+Depending on the database backend of Spacewalk, PostgreSQL or
+Oracle RDBMS, different client tools have to be used when feeding
+native SQL to the databases -- B<psql> or B<sqlplus>. They have
+different invocation options.
+
+The B<spacewalk-sql> does the right thing for both database backends.
+It fetches the database backend type and the connect information from
+Spacewalk config files, selects the correct command line tool, runs it
+and feeds it the SQL from file specified as parameter.
+
+No output is printed upon successful operation. If any error is
+reported, the error message and all output generated is printed on the
+standard output.
+
+The exit value is the exit value of the B<psql> or B<sqlplus>.
+
+=head1 FILES
+
+=over 5
+
+=item F</etc/rhn/rhn.conf>
+
+File which holds connect information for the Spacewalk database backend.
+
+=back
+
+=head1 AUTHORS
+
+Jan Pazdziora
+
+=cut
+
+

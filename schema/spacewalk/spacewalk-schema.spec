@@ -32,6 +32,7 @@ Oracle tablespace name conversions have NOT been applied.
 %build
 make -f Makefile.schema SCHEMA=%{name} VERSION=%{version} RELEASE=%{release}
 pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
+pod2man spacewalk-sql spacewalk-sql.1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -47,6 +48,7 @@ install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 cp -r upgrade/* $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -59,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 %{_bindir}/spacewalk-sql
 %{_mandir}/man1/spacewalk-schema-upgrade*
+%{_mandir}/man1/spacewalk-sql*
 
 %changelog
 * Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
