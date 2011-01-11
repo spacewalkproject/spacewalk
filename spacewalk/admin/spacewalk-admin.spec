@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -72,6 +72,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-service.8*
 
 %changelog
+* Tue Jan 11 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.7-1
+- more update of spacewalk-service man page (msuchy@redhat.com)
+- Change to root directory for PostgreSQL, just like we do for sqlplus.
+  (jpazdziora@redhat.com)
+
 * Tue Jan 11 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.6-1
 - add man page for spacewalk-service
 
