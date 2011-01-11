@@ -49,7 +49,11 @@ if ($options{db_backend} eq 'oracle') {
 	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
 	print $wfh "whenever oserror exit failure\n";
 	print $wfh "whenever sqlerror exit sql.sqlcode\n";
-	print $wfh "\@$ARGV[0]\n";
+	if ($ARGV[0] eq '-') {
+		print { $wfh } <>;
+	} else {
+		print $wfh "\@$ARGV[0]\n";
+	}
 	close $wfh;
 } elsif ($options{db_backend} eq 'postgresql') {
         my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $ARGV[0] );
@@ -62,6 +66,9 @@ if ($options{db_backend} eq 'oracle') {
         $ENV{PGPASSWORD} = $options{db_password};
 	if ($verbose) {
 		print STDERR "Running: @command\n";
+	}
+	if ($ARGV[0] eq '-') {
+		$wfh = '<&STDIN';
 	}
 	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
 	close $wfh;
@@ -127,7 +134,9 @@ different invocation options.
 The B<spacewalk-sql> does the right thing for both database backends.
 It fetches the database backend type and the connect information from
 Spacewalk config files, selects the correct command line tool, runs it
-and feeds it the SQL from file specified as parameter.
+and feeds it the SQL from file specified as parameter. If single
+hyphen sign (B<->) is used for the SQL file parameter, standard input
+is used.
 
 No output is printed upon successful operation unless B<--select-mode>.
 If any error is reported, the error message and all output generated
