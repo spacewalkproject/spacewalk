@@ -20,6 +20,10 @@ This script does exactly this.
 
 Behave exactly as B<service> for every Spacewalk service.
 
+=item B<enable>|B<disable>
+
+Behave exactly as B<chkconfig> on/off for every Spacewalk service.
+
 =item B<list>
 
 List all Spacewalk services and if it is enabled or disabled.
@@ -38,8 +42,8 @@ It will not start/stop SERVICE.
 
 Pass LEVEL to chkconfig when you specify option B<enable>.
 
+=back
+
 =head1 SEE ALSO
 
-B<rhn-schema-version>(8), B<rmchannel>(8), B<satellite-debug>(8), B<send-satellite-debug>(8), B<rhnpush>(8), B<satellite-sync>(8), B<db-control>(1) (embedded satellite only),
-B<rhn-ssl-tool>(1), B<rhn-charsets>(8), B<rhn-satellite-activate>(8),
-B<service>(8)
+B<service>(8) B<chkconfig>(8)
