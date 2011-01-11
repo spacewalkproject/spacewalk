@@ -785,9 +785,6 @@ sub postgresql_populate_db {
         return 1;
     }
 
-    #my $tablespace_name = oracle_get_default_tablespace_name($answers);
-    #oracle_populate_tablespace_name($tablespace_name);
-
     if ($opts->{"clear-db"}) {
         print Spacewalk::Setup::loc("** Database: --clear-db option used.  Clearing database.\n");
         postgresql_clear_db($answers);
