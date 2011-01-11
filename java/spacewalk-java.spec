@@ -79,13 +79,7 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
-# Name change in F14+
-%if  0%{?fedora} && 0%{?fedora} >= 14
-Requires: apache-commons-beanutils
-Requires: apache-commons-logging
-%else
 Requires: jakarta-commons-logging
-%endif
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
