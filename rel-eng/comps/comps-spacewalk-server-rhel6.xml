@@ -12,7 +12,6 @@
     <uservisible>true</uservisible>
     <packagelist>
        <packagereq type="default">asm</packagereq>
-       <packagereq type="default">c3p0</packagereq>
        <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">ehcache</packagereq>
@@ -162,7 +161,6 @@
     <description>Spacewalk Server Documentation Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
-       <packagereq type="default">c3p0-javadoc</packagereq>
        <packagereq type="default">ehcache-javadoc</packagereq>
        <packagereq type="default">jpam-javadoc</packagereq>
        <packagereq type="default">tanukiwrapper-javadoc</packagereq>
