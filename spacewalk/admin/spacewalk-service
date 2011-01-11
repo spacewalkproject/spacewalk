@@ -161,7 +161,7 @@ OPTS=$(getopt --longoptions=exclude:,level:,no-wait-for-tomcat -n ${0##*/} -- e:
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
-echo "[$OPTS]"
+eval set -- "$OPTS"
 
 WAIT_FOR_TOMCAT=1
 while true ; do
