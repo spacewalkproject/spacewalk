@@ -163,11 +163,6 @@
        <packagereq type="default">ws-jaxme-manual</packagereq>
        <packagereq type="default">xom</packagereq>
        <packagereq type="default">xom-demo</packagereq>
-       <packagereq type="default">xpp2</packagereq>
-       <packagereq type="default">xpp2-demo</packagereq>
-       <packagereq type="default">xpp2-manual</packagereq>
-       <packagereq type="default">xpp3</packagereq>
-       <packagereq type="default">xpp3-minimal</packagereq>
     </packagelist>
   </group>
   <group>
