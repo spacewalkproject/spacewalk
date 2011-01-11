@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.3.4
+Version: 1.3.5
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-sudo-load-ssl-cert.8*
 
 %changelog
+* Tue Jan 11 2011 Jan Pazdziora 1.3.5-1
+- Fixing typo -- we want to eval, not echo.
+
 * Mon Jan 10 2011 Jan Pazdziora 1.3.4-1
 - Wait for tomcat by default, use --no-wait-for-tomcat to skip.
 
