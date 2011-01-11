@@ -1293,11 +1293,6 @@ sub oracle_populate_db {
         File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
     my $logfile = DB_POP_LOG_FILE;
 
-#    my @opts = ('/usr/bin/rhn-populate-database.pl',
-#        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-name/}),
-#        "--schema-deploy-file=$sat_schema_deploy",
-#        '--nofork',
-#    );
     my @opts = ('/usr/bin/rhn-populate-database.pl',
         sprintf('--user=%s', @{$answers}{'db-user'}),
         sprintf('--password=%s', @{$answers}{'db-password'}),
