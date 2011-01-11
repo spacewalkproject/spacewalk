@@ -345,12 +345,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 
-%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
-ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
-%else
-ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
-%endif
-
 # delete JARs which must not be deployed
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
@@ -498,7 +492,6 @@ fi
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic
 %attr(755, root, root) %{_bindir}/taskomaticd
-%attr(755, root, root) %{_datadir}/rhn/lib/spacewalk-asm.jar
 
 
 %files config
