@@ -163,8 +163,6 @@ sub choose_database_schema {
 
     my %is_valid_schema = (
 	'oracle' => 1,
-	# Uncomment this to enable installation of postgresql schema:
-	# NOTE: useful for development ONLY at this time.
 	'postgresql' => 1,
 	);
 
