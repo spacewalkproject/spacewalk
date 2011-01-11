@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.44
+Version: 1.3.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -516,6 +516,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 11 2011 Tomas Lestach <tlestach@redhat.com> 1.3.45-1
+- change taskomatic library path to use oracle-instantclient11.x
+  (tlestach@redhat.com)
+- removing spacewalk-asm.jar symlink (tlestach@redhat.com)
+
 * Tue Jan 11 2011 Lukas Zapletal 1.3.44-1
 - Removed unnecessary require in spw-java
 
