@@ -160,6 +160,7 @@
     <uservisible>false</uservisible>
     <packagelist>
        <packagereq type="default">jpam-javadoc</packagereq>
+       <packagereq type="default">relaxngDatatype-javadoc</packagereq>
        <packagereq type="default">tanukiwrapper-javadoc</packagereq>
     </packagelist>
   </group>
