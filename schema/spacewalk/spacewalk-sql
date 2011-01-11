@@ -5,6 +5,12 @@ use warnings FATAL => 'all';
 
 use Spacewalk::Setup ();
 use IPC::Open3 ();
+use Getopt::Long ();
+
+my $select_mode;
+if (not Getopt::Long::GetOptions('select-mode' => \$select_mode)) {
+	exit 1
+}
 
 if (@ARGV != 1) {
 	die "Usage: $0 sql-file-to-use.sql\n";
@@ -66,6 +72,8 @@ if ($?) {
 	my $ret = $? >> 8;
 	print STDERR $out;
 	exit $ret;
+} elsif ($select_mode) {
+	print $out;
 }
 exit;
 
@@ -77,7 +85,21 @@ spacewalk-sql - utility for feeding SQL to Spacewalk's database
 
 =head1 SYNOPSIS
 
-B<spacewalk-sql> sql-file-to-use.sql
+B<spacewalk-sql> [ --select-mode ] sql-file-to-use.sql
+
+=head1 OPTIONS
+
+=over 5
+
+=item --select-mode
+
+By default, no output is printed to standard output because
+B<spacewalk-sql> is primarily intended to feed DDL/DML to the
+database, not do queries. With this option, upon successful
+completion, the output will be printed to standard output. Note that
+it will be in the native format.
+
+=back
 
 =head1 DESCRIPTION
 
@@ -91,9 +113,9 @@ It fetches the database backend type and the connect information from
 Spacewalk config files, selects the correct command line tool, runs it
 and feeds it the SQL from file specified as parameter.
 
-No output is printed upon successful operation. If any error is
-reported, the error message and all output generated is printed on the
-standard output.
+No output is printed upon successful operation unless B<--select-mode>.
+If any error is reported, the error message and all output generated
+is printed on the standard output.
 
 The exit value is the exit value of the B<psql> or B<sqlplus>.
 
