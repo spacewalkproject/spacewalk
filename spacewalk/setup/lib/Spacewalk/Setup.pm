@@ -33,8 +33,6 @@ Version 1.1
 
 our $VERSION = '1.1';
 
-use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
-
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
 use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile("/etc", "sysconfig", 
@@ -942,13 +940,6 @@ sub oracle_setup_embedded_db {
         $answers->{'db-host'} = 'localhost';
         $answers->{'db-port'} = 1521;
         $answers->{'db-protocol'} = 'TCP';
-    }
-
-    # create DB_SERVICE entry in /etc/sysconfig/rhn-satellite
-    if (! -e SATELLITE_SYSCONFIG) {
-            open(S, '>>', SATELLITE_SYSCONFIG)
-                or die loc("Could not open '%s' file: %s\n", SATELLITE_SYSCONFIG, $!);
-            close(S);
     }
 
 
