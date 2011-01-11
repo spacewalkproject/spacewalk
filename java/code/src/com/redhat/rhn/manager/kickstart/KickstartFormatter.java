@@ -682,7 +682,11 @@ public class KickstartFormatter {
         retval.append(RHNCHECK + NEWLINE);
 
         retval.append(NEWLINE);
-        addCobblerSnippet(retval, "post_install_network_config");
+        // Work around for bug #522251
+        if (!this.ksdata.getKickstartDefaults().getKstree().getChannel().
+             getChannelArch().getName().startsWith("s390")) {
+            addCobblerSnippet(retval, "post_install_network_config");
+        }
         addEnd(retval);
         return retval.toString();
     }
