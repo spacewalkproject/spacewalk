@@ -12,8 +12,6 @@
     <uservisible>true</uservisible>
     <packagelist>
        <packagereq type="default">asm</packagereq>
-       <packagereq type="default">bea-stax</packagereq>
-       <packagereq type="default">bea-stax-api</packagereq>
        <packagereq type="default">c3p0</packagereq>
        <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
