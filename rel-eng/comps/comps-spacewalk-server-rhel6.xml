@@ -14,8 +14,6 @@
        <packagereq type="default">asm</packagereq>
        <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
-       <packagereq type="default">ehcache</packagereq>
-       <packagereq type="default">ehcache-hibernate</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">icu4j</packagereq>
@@ -161,7 +159,6 @@
     <description>Spacewalk Server Documentation Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
-       <packagereq type="default">ehcache-javadoc</packagereq>
        <packagereq type="default">jpam-javadoc</packagereq>
        <packagereq type="default">tanukiwrapper-javadoc</packagereq>
     </packagelist>
