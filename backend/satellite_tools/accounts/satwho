@@ -6,7 +6,7 @@
 # date:		2006-01-31, 2011-01-11
 
 BLOCK=0
-echo "select login from rhnuser;"| spacewalk-sql --select-mode - | grep -v "^$" |\
+echo "select login from web_contact;"| spacewalk-sql --select-mode - | grep -v "^$" |\
 while read line
 do
   if [ $BLOCK -eq 0 ]
