@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.9
+Version:        1.3.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jan 11 2011 Jan Pazdziora 1.3.10-1
+- Add spacewalk-sql which unifies sqlplus and psql invocation.
+
 * Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
 - 662563 - rhn_sndpb_pid_ptype_idx was used for rhn_sndpb_probe_id_pk enforcement
 - 662563 - rhn_efilectmp_cid_efid_idx was used for rhn_efilectmp_efid_cid_uq enforcement
