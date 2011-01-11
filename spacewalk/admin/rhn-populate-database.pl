@@ -94,7 +94,7 @@ my @command;
 
 if ($postgresql) {
 	print "*** Installing PostgreSQL schema from [$schema_deploy_file].\n";
-	chdir("/usr/share/spacewalk/schema/postgresql/");
+	chdir('/');
 	@command = ( 'psql', '-U', $user, '-d', $database, '-v', 'ON_ERROR_STOP=', '-f', $schema_deploy_file );
 	if (defined $host) {
 		push @command, '-h', $host;
