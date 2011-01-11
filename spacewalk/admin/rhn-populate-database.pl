@@ -73,7 +73,11 @@ END {
 	clean_lockfile();
 }
 
-system('/bin/touch', $lockfile);
+local * LOCK;
+if (not(open(LOCK, '>', $lockfile) and print LOCK "$$\n" and close LOCK)) {
+  warn "Failed to create lock file [$lockfile]: $!\n";
+  exit 101;
+}
 
 # Move the old log file out of the way - prefork to avoid race
 # condition
