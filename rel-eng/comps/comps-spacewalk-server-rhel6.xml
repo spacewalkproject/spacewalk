@@ -14,7 +14,6 @@
        <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
-       <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">isorelax</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
