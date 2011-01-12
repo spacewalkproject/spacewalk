@@ -16,9 +16,6 @@
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">isorelax</packagereq>
-       <packagereq type="default">jakarta-commons-cli</packagereq>
-       <packagereq type="default">jakarta-commons-configuration</packagereq>
-       <packagereq type="default">jakarta-commons-io</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
