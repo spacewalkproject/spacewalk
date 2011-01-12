@@ -33,7 +33,6 @@
        <packagereq type="default">oracle-xe-selinux</packagereq>
        <packagereq type="default">osa-dispatcher</packagereq>
        <packagereq type="default">osa-dispatcher-selinux</packagereq>
-       <packagereq type="default">perl-Crypt-CBC</packagereq>
        <packagereq type="default">perl-DBD-Oracle</packagereq>
        <packagereq type="default">perl-DBD-Oracle-explain</packagereq>
        <packagereq type="default">perl-Mail-RFC822-Address</packagereq>
