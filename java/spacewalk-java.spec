@@ -356,8 +356,11 @@ touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 # Fedoras have cglib version that is not compatible with asm and need objectweb-asm
 # Unfortunately both libraries must be installed for dependencies so we override
 # the asm symlink with objectweb-asm here
-%if (0%{?fedora} && 0%{?fedora} >= 13)
-  ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.jar
+%if 0%{?fedora} >= 13
+ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.jar
+ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
+%else
+ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %endif
 
 # delete JARs which must not be deployed
@@ -507,6 +510,7 @@ fi
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic
 %attr(755, root, root) %{_bindir}/taskomaticd
+%attr(755, root, root) %{_datadir}/rhn/lib/spacewalk-asm.jar
 
 
 %files config
