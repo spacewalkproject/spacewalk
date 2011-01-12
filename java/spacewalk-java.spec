@@ -79,7 +79,11 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
+%if 0%{?fedora} >= 14
+Requires: apache-commons-logging
+%else
 Requires: jakarta-commons-logging
+%endif
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
@@ -226,7 +230,11 @@ Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-dbcp
+%if 0%{?fedora} >= 14
+Requires: apache-commons-logging
+%else
 Requires: jakarta-commons-logging
+%endif
 Requires: jakarta-taglibs-standard
 Requires: jcommon
 Requires: jpam

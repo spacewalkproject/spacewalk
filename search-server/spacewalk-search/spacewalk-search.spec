@@ -22,7 +22,11 @@ Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-httpclient
 Requires: jakarta-commons-lang >= 0:2.1
+%if 0%{?fedora} >= 14
+Requires: apache-commons-logging
+%else
 Requires: jakarta-commons-logging
+%endif
 Requires: jpackage-utils >= 0:1.5
 Requires: log4j
 Requires: oro
@@ -39,10 +43,10 @@ BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-commons-lang >= 0:2.1
-%if 0%{?fedora} < 14
-BuildRequires: jakarta-commons-logging
-%else
+%if 0%{?fedora} >= 14
 BuildRequires: apache-commons-logging
+%else
+BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
 BuildRequires: log4j
