@@ -11,7 +11,6 @@
     <description>Spacewalk Server Packages</description>
     <uservisible>true</uservisible>
     <packagelist>
-       <packagereq type="default">asm</packagereq>
        <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
