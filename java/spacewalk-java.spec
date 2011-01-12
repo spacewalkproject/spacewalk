@@ -345,6 +345,13 @@ install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 
+# Fedoras have cglib version that is not compatible with asm and need objectweb-asm
+# Unfortunately both libraries must be installed for dependencies so we override
+# the asm symlink with objectweb-asm here
+%if (0%{?fedora} && 0%{?fedora} >= 13)
+  ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.jar
+%endif
+
 # delete JARs which must not be deployed
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
