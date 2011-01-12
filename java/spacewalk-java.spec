@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.46
+Version: 1.3.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -535,6 +535,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.47-1
+- asm requires different handling on fedoras and rhels (tlestach@redhat.com)
+- replace jakarta-commons-logging with apache-commons-logging on F14
+  (tlestach@redhat.com)
+
 * Wed Jan 12 2011 Lukas Zapletal 1.3.46-1
 - Using objectweb-asm symlink on Fedoras
 - 522251 - no post_install_network_config snippet on s390(x)
