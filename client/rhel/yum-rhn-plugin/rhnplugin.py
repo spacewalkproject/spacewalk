@@ -96,23 +96,6 @@ def init_hook(conduit):
         conduit.error(0, PROXY_ERROR + "\n" + RHN_DISABLED)
         return 
 
-    # We might not have an opt parser (ie in pirut)
-    opt_parser = conduit.getOptParser()
-    if opt_parser:
-        (opts, commands) = opt_parser.parse_args()
-
-        if len(commands) > 0 and commands[0] == 'clean':
-            formReposForClean(conduit)
-            conduit.info(10, _("Cleaning") +
-                "\n" + RHN_DISABLED)
-            return
-
-        if  (hasattr(opts,'version') and opts.version) or (len(commands) == 0):
-            rhn_enabled = False
-            conduit.info(10, _("Either --version, or no commands entered") +
-                "\n" + RHN_DISABLED)
-            return
-
     try:
         login_info = up2dateAuth.getLoginInfo()
     except up2dateErrors.RhnServerException, e:
