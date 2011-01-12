@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.3
+Version: 1.3.4
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -118,6 +118,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.4-1
+- f14 build requires apache-commons-logging instead of jakarta-commons-logging
+  (tlestach@redhat.com)
+
 * Tue Jan 11 2011 Tomas Lestach <tlestach@redhat.com> 1.3.3-1
 - change rhn-search library path to use oracle-instantclient11.x
   (tlestach@redhat.com)
