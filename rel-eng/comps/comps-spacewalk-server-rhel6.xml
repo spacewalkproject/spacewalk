@@ -15,7 +15,6 @@
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">heirloom-pkgtools</packagereq>
-       <packagereq type="default">icu4j</packagereq>
        <packagereq type="default">isorelax</packagereq>
        <packagereq type="default">jakarta-commons-cli</packagereq>
        <packagereq type="default">jakarta-commons-configuration</packagereq>
