@@ -259,6 +259,7 @@ class RhnRepo(YumRepository):
 
         self.gpgkey = []
         self.gpgcheck = False
+        self.up2date_cfg = config.initUp2dateConfig()
     
         try:
             self.gpgkey = get_gpg_key_urls(channel['gpg_key_url'])
@@ -286,8 +287,8 @@ class RhnRepo(YumRepository):
                 raise yum.Errors.RepoError(error)
             
             self.http_headers[header] = li[header]
-        # Set the redirect flag
-        self.http_headers['X-RHN-Transport-Capability'] = "follow-redirects=3"
+        if not self.up2date_cfg['useNoSSLForPackages']:
+            self.http_headers['X-RHN-Transport-Capability'] = "follow-redirects=3"
 
     # Override the 'private' __get method so we can do our auth stuff.
     def _getFile(self, url=None, relative=None, local=None,
