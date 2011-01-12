@@ -383,8 +383,7 @@ class RhnRepo(YumRepository):
         urlException = None
         for server in self.baseurl:
             #force to http if configured
-            up2date_cfg = config.initUp2dateConfig()
-            if up2date_cfg['useNoSSLForPackages'] == 1:
+            if self.up2date_cfg['useNoSSLForPackages'] == 1:
                 server = force_http(server)
             #Sanity check the url
             check_url(server)
