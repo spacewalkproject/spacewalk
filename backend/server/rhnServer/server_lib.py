@@ -256,16 +256,16 @@ def set_qos(server_id):
 
 def throttle(server):
     """ throttle - limits access to free users if a throttle file exists
-        NOTE: current check allows for a x-hour long grace-period.
+        NOTE: We don't throttle anybody. Just stub.
     """
-    server_id = server['id']
-    log_debug(3, server_id)
-
-    # Are we throttling?
-    throttlefile = "/usr/share/rhn/throttle"
-    if not os.path.exists(throttlefile):
-        # We don't throttle anybody
-        return
+    #server_id = server['id']
+    #log_debug(3, server_id)
+    #
+    ## Are we throttling?
+    #throttlefile = "/usr/share/rhn/throttle"
+    #if not os.path.exists(throttlefile):
+    #    # We don't throttle anybody
+    #    return
     return 
 
 def join_rhn(org_id):
