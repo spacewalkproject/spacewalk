@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.3.9
+Version: 1.3.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,11 @@ fi
 
 
 %changelog
+* Thu Jan 13 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.10-1
+- do not traceback if redirected location do not contain '?'
+- fix module name during import
+- replace tabs with space to fix indentation
+
 * Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
 - fixed pylint errors
 
