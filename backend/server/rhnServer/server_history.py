@@ -26,8 +26,8 @@ class History:
     def __init__(self):
         self.__h = []
         
-    # Add a history event to the server.
     def add_history(self, summary, details = ""):
+        """ Add a history event to the server. """
         log_debug(4, summary)
         self.__h.append((summary[:MAX_SUMMARY], details[:MAX_DETAILS]))
         
