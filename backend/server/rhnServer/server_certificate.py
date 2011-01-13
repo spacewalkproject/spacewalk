@@ -28,8 +28,8 @@ from rhn.rpclib import xmlrpclib
 from spacewalk.common import rhnFault, log_debug, log_error
 from server_lib import getServerSecret
 
-# Generate a secret
 def gen_secret():
+    """ Generate a secret """
     seed = repr(time.time())
     sum = hashlib.new('md5', seed)
     # feed some random numbers
@@ -42,8 +42,8 @@ def gen_secret():
     del sum
     return ret
 
-# Functions for handling system_id strings
 class Checksum:
+    """ Functions for handling system_id strings """
     def __init__(self, secret, *args):
         self.sum = hashlib.new('md5', secret)
         if len(args) > 0:
@@ -64,8 +64,8 @@ class Checksum:
         return t
     __str__ = __repr__
 
-# Main certificate class
 class Certificate:
+    """ Main certificate class """
     CheckSumFields = [ "username", "os_release", "operating_system",
                        "architecture", "system_id", "type" ]
     
