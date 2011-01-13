@@ -292,7 +292,6 @@ class SharedHandler:
             hdrs[k] = req.headers_in[k]
         return hdrs
 
-    # Forward the server response to the client.
     def _forwardServer2Client(self):
         """ Forward headers, and bodyfd from server to the calling client.
             For most XMLRPC code, this function is called.
