@@ -300,9 +300,9 @@ class Repository(rhnRepository.Repository):
         return rhnPackage.get_all_package_paths(self.server_id, pkgFilename,
             self.channelName)
 
-    # Retrieves package source path
     def getSourcePackagePath(self, pkgFilename):
-        """Overloads getSourcePackagePath in common/rhnRepository.
+        """ Retrieves package source path
+            Overloads getSourcePackagePath in common/rhnRepository.
         """
         return rhnPackage.get_source_package_path(self.server_id, pkgFilename,
             self.channelName)
