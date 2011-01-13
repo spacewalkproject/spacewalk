@@ -112,8 +112,8 @@ def getServerID(server, fields = []):
     return row
 
 
-# retrieve the server secret using the great getServerID function
 def getServerSecret(server):
+    """ retrieve the server secret using the great getServerID function """
     row = getServerID(server, ["secret"])
     if row is None:
         return None
