@@ -392,7 +392,6 @@ class BrokerHandler(SharedHandler):
         _writeToCache(self.clientServerId, token)
         return token
 
-    # To service items from local repository.
     def __callLocalRepository(self, channelName, funct, params):
         """ Contacts the local repository and retrieves files
         
