@@ -36,8 +36,8 @@ def labelCompare(l1, l2):
 def get_package_header(filename=None, file=None, fd=None):
     return load(filename=filename, file=file, fd=fd)[0]
 
-# Loads an MPM and returns its header and its payload
 def load(filename=None, file=None, fd=None):
+    """ Loads an MPM and returns its header and its payload """
     if (filename is None and file is None and fd is None):
         raise ValueError, "No parameters passed"
     
