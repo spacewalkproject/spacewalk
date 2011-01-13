@@ -463,7 +463,6 @@ def listAvailableProxyChannels(options):
         if not options.quiet and list:
             sys.stdout.write("\n".join(list)+"\n")
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def processCommandline():
     # FIXME: we should populate this keys from /etc/sysconfig/rhn/up2date
     rhn_parent = ''
