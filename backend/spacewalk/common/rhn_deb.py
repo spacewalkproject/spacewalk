@@ -29,8 +29,8 @@ DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 def get_package_header(filename=None, file=None, fd=None):
     return load(filename=filename, file=file, fd=fd)[0]
 
-# Loads DEB and returns its header and its payload
 def load(filename=None, file=None, fd=None):
+    """ Loads DEB and returns its header and its payload """
     if (filename is None):
         raise ValueError, "filename has to be passed"
     if (filename is None and file is None and fd is None):
