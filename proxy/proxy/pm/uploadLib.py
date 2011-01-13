@@ -168,8 +168,8 @@ class UploadClass(uploadLib.UploadClass):
         return hash
 
 
-# returns a header from a package file on disk.
 def get_header(file, fildes=None, source=None):
+    """ returns a header from a package file on disk """
     # rhn_mpm.get_package_header will choose the right thing to do - open the
     # file or use the provided open file descriptor)
     try:
