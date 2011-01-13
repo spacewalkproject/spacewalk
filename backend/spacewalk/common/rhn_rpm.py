@@ -55,9 +55,8 @@ PGPHASHALGO = {
 class InvalidPackageError(Exception):
     pass
 
-# wrapper/proxy class for rpm.Transaction so we can
-# instrument it, etc easily
 class RPMTransaction:
+    """ wrapper/proxy class for rpm.Transaction so we can instrument it, etc easily """
     read_only = 0
     def __init__(self):
         self.ts = rpm.TransactionSet()
@@ -68,14 +67,13 @@ class RPMTransaction:
         # profile/etc info
         return getattr(self.ts, method)
 
-    # push/pop methods so we don't lose the previous
-    # set value, and we can potentially debug a bit
-    # easier
     def pushVSFlags(self, flags):
+        """ push method, so we don't lose the previous set value, and we can potentially debug a bit easier """
         self.tsflags.append(flags)
         self.ts.setVSFlags(self.tsflags[-1])
 
     def popVSFlags(self):
+        """ pop method, so we don't lose the previous set value, and we can potentially debug a bit easier """
         del self.tsflags[-1]
         self.ts.setVSFlags(self.tsflags[-1])
 
@@ -232,11 +230,12 @@ def get_header_struct_size(package_file):
 
     return header_size
 
-# Loads the package header from a file / stream / file descriptor
-# Raises rpm.error if an error is found, or InvalidPacageError if package is
-# busted
-# XXX Deal with exceptions better
 def get_package_header(filename=None, file=None, fd=None):
+    """ Loads the package header from a file / stream / file descriptor
+        Raises rpm.error if an error is found, or InvalidPacageError if package is
+        busted
+    """
+    # XXX Deal with exceptions better
     if (filename is None and file is None and fd is None):
         raise ValueError, "No parameters passed"
 
