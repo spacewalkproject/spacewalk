@@ -30,10 +30,11 @@ ADDED     = 1
 DELETED   = 2
 UPDATED   = 3
 
-# A small class that helps us represent things about a
-# database package. In this structure "real" means that we have an
-# entry in the database for it.
 class dbPackage:
+    """ A small class that helps us represent things about a
+        database package. In this structure "real" means that we have an
+        entry in the database for it.
+    """
     def __init__(self, pdict, real = 0, name_id=None, evr_id=None,
             package_arch_id=None): 
         if type(pdict) != DictType:
@@ -96,7 +97,6 @@ class dbPackage:
         }
     __repr__ = __str__
 
-##### PACKAGES Routines
 class Packages:
     def __init__(self):
         self.__p = {}
@@ -124,8 +124,8 @@ class Packages:
         self.__changed = 1
         return 0
 
-    # delete a package from the list
     def delete_package(self, sysid, entry):
+        """ delete a package from the list """
         log_debug(4, sysid, entry)
         p = dbPackage(entry)
         if p is None:
@@ -140,8 +140,8 @@ class Packages:
         # deletion is always successfull
         return 0
 
-    # delete all packages and get an empty package list
     def dispose_packages(self, sysid):
+        """ delete all packages and get an empty package list """
         log_debug(4, sysid)
         if not self.__loaded:
             self.reload_packages_byid(sysid)        
@@ -150,8 +150,8 @@ class Packages:
             self.__changed = 1
         return 0
 
-    # produce a list of packages
     def get_packages(self):
+        """ produce a list of packages """
         return map(lambda a: a.nvrea, filter(lambda a: a.status != DELETED, self.__p.values()))
 
     def __expand_installtime(self, installtime):
@@ -161,8 +161,8 @@ class Packages:
         else:
             return None
 
-    # save the package list
     def save_packages_byid(self, sysid, schedule=1):
+        """ save the package list """
         log_debug(3, sysid, "Errata cache to run:", schedule, 
             "Changed:", self.__changed, "%d total packages" % len(self.__p))
 
@@ -260,8 +260,8 @@ class Packages:
             package_arches_hash[row['id']] = row['label']
         return package_arches_hash
 
-    # reload the packages list from the database
     def reload_packages_byid(self, sysid):
+        """ reload the packages list from the database """
         log_debug(3, sysid)
         # First, get the package arches
         package_arches_hash = self.get_package_arches()
@@ -304,12 +304,13 @@ class Packages:
         self.__changed = 0
         return 0
 
-# Function that updates rhnServerNeededPackageCache by deltas (as opposed to
-# calling queue_server which removes the old entries and inserts new ones).
-# It now also updates rhnServerNeededErrataCache, but as the entries there
-# are a subset of rhnServerNeededPackageCache's entries, it still gives
-# statistics regarding only rhnServerNeededPackageCache.
 def update_errata_cache(server_id):
+    """ Function that updates rhnServerNeededPackageCache by deltas (as opposed to
+        calling queue_server which removes the old entries and inserts new ones).
+        It now also updates rhnServerNeededErrataCache, but as the entries there
+        are a subset of rhnServerNeededPackageCache's entries, it still gives
+        statistics regarding only rhnServerNeededPackageCache.
+    """
     log_debug(2, "Updating the errata cache", server_id)
     update_needed_cache = rhnSQL.Procedure("rhn_server.update_needed_cache")
     update_needed_cache(server_id)
@@ -390,11 +391,12 @@ def processPackageKeyAssociations(header, checksum_type, checksum):
         provider_sql.execute(key_id=keyid[0]['id'], package_id=pkg_id[0]['id'])
 
 
-# Compares list1 and list2 (each list is a tuple (n, v, r, e)
-# returns two lists
-# (install, remove)
-# XXX upgrades and downgrades are simulated by a removal and an install
 def package_delta(list1, list2):
+    """ Compares list1 and list2 (each list is a tuple (n, v, r, e)
+        returns two lists
+        (install, remove)
+        XXX upgrades and downgrades are simulated by a removal and an install
+    """
     # Package registry - canonical versions for all packages
     package_registry = {}
     hash1 = _package_list_to_hash(list1, package_registry)
@@ -429,15 +431,16 @@ def package_delta(list1, list2):
     removes.sort()
     return installs, removes
         
-            
-# Converts package_list into a hash keyed by name
-# package_registry contains the canonical version of the package
-# for instance, version 51 and 0051 are indentical, but that would break the
-# list comparison in Python. package_registry is storing representatives for
-# each equivalence class (where the equivalence relationship is rpm's version
-# comparison algorigthm
-# Side effect: Modifies second argument!
-def _package_list_to_hash(package_list, package_registry):
+
+def _package_list_to_hash(package_list, package_registry):        
+    """ Converts package_list into a hash keyed by name
+        package_registry contains the canonical version of the package
+        for instance, version 51 and 0051 are indentical, but that would break the
+        list comparison in Python. package_registry is storing representatives for
+        each equivalence class (where the equivalence relationship is rpm's version
+        comparison algorigthm
+        Side effect: Modifies second argument!
+    """
     hash = {}
     for e in package_list:
         e = tuple(e)
