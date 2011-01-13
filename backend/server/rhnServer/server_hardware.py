@@ -22,8 +22,8 @@ import string
 from spacewalk.common import UserDictCase, log_debug, log_error, rhnFault, Traceback
 from spacewalk.server import rhnSQL
 
-# this is a class we use to get the mapping for a kudzu entry
 def kudzu_mapping(dict = None):
+    """ this is a class we use to get the mapping for a kudzu entry """
     # This is the generic mapping we need    
     mapping = {
         'desc'        : 'description',
@@ -154,7 +154,7 @@ def kudzu_mapping(dict = None):
     return mapping
 
 def cleanse_ip_addr(ip_addr):
-    # Cleans up things like 127.00.00.01
+    """ Cleans up things like 127.00.00.01 """
     if ip_addr is None:
         return None
     # Make sure it's a string
@@ -167,8 +167,8 @@ def cleanse_ip_addr(ip_addr):
     # would remove too much, hence the or '0' here.
     return '.'.join([ x.lstrip('0') or '0' for x in arr ])
     
-# A generic device class
 class GenericDevice:
+    """ A generic device class """
     def __init__(self, table):
         self.id = 0
         self.status = 1 # just added
@@ -187,13 +187,13 @@ class GenericDevice:
         if self.status == 0: # original item, unchanged            
             return 0
         return 1
-    # empty string fields mapped to varchar must be saved as NULL values
     def unsetEmptyFields(self):
+        """ empty string fields mapped to varchar must be saved as NULL values """
         for field_name in self.__varchar_fields:
             if field_name in self.data and self.data[field_name] == '':
                 self.data[field_name] = None
-    # save data in the rhnDevice
     def save(self, sysid):
+        """ save data in the rhnDevice table """
         log_debug(4, self.__table, self.status, self.data)
         if not self.must_save():
             return 0
@@ -214,8 +214,8 @@ class GenericDevice:
         t[devid] = self.data
         self.status = 0 # now it is saved        
         return 0
-    # reload from rhnDevice based on devid
     def reload(self, devid):
+        """ reload from rhnDevice table based on devid """
         if not devid:
             return -1
         self.__init__(self.__table)
@@ -228,30 +228,30 @@ class GenericDevice:
         self.id = devid
         self.status = 0
         return 0
-    """
-    Method searches for empty string in params dict with names
-    defined in names list and replaces them with None value which
-    is translated to NULL in SQL.
-
-    We do not allow empty strings in database for compatibility
-    reasons between Oracle and PostgreSQL.
-    """
     def _null_columns(self, params, names = ()):
+        """ Method searches for empty string in params dict with names
+            defined in names list and replaces them with None value which
+            is translated to NULL in SQL.
+
+            We do not allow empty strings in database for compatibility
+            reasons between Oracle and PostgreSQL.
+        """
         # list of dicts
         for param in params:
             for name in names:
                 if param.has_key(name) and param[name] == '':
                     param[name] = None
 
-# This is the base Device class that supports instantiation from a
-# dictionarry. the __init__ takes the dictionary as its argument,
-# together with a list of valid fields to recognize and with a mapping
-# for dictionary keys into valid field names for self.data
-#
-# The fields are required to know what fields we have in the
-# table. The mapping allows transformation from whatever comes in to
-# valid fields in the table Looks complicated but it isn't -- gafton
 class Device(GenericDevice):
+    """ This is the base Device class that supports instantiation from a
+        dictionarry. the __init__ takes the dictionary as its argument,
+        together with a list of valid fields to recognize and with a mapping
+        for dictionary keys into valid field names for self.data
+
+        The fields are required to know what fields we have in the
+        table. The mapping allows transformation from whatever comes in to
+        valid fields in the table Looks complicated but it isn't -- gafton
+    """
     def __init__(self, table, fields, dict = None, mapping = None):
         GenericDevice.__init__(self, table)
         x = {}
@@ -304,8 +304,8 @@ class Device(GenericDevice):
                 repr(self.data), k)
                 
                                 
-# A more specific device based on the Device class
 class HardwareDevice(Device):
+    """ A more specific device based on the Device class """
     def __init__(self, dict = None):
         fields = ['class', 'bus', 'device', 'driver', 'detached',
                   'description', 'pcitype', 'prop1', 'prop2',
@@ -317,8 +317,8 @@ class HardwareDevice(Device):
         # use the hardware id sequencer
         self.sequence = "rhn_hw_dev_id_seq"
         
-# A class for handling CPU - mirrors the rhnCPU structure
 class CPUDevice(Device):
+    """ A class for handling CPU - mirrors the rhnCPU structure """
     def __init__(self, dict = {}):
         fields = ['cpu_arch_id',  'architecture', 'bogomips', 'cache',
                   'family', 'mhz', 'stepping', 'flags', 'model',
@@ -366,8 +366,8 @@ class CPUDevice(Device):
             if self.data["nrcpu"] == 0:
                 self.data["nrcpu"] = 1
                 
-# This is a wrapper class for the Network Information (rhnServerNetwork)
 class NetworkInformation(Device):
+    """ This is a wrapper class for the Network Information (rhnServerNetwork) """
     def __init__(self, dict = None):
         fields = ["hostname", "ipaddr"]
         mapping = { 'class' : None }
@@ -528,8 +528,8 @@ class NetIfaceInformation(Device):
         self.status = 0
         return 0
 
-# Compares two hashes and return 1 if the first is a subset of the second
 def _hash_eq(h1, h2):
+    """ Compares two hashes and return 1 if the first is a subset of the second """
     log_debug(5, h1, h2)
     for k, v in h1.items():
         if not h2.has_key(k):
@@ -538,8 +538,8 @@ def _hash_eq(h1, h2):
             return 0
     return 1
 
-# Transpose the array of hashes into a hash of arrays
 def _transpose(hasharr):
+    """ Transpose the array of hashes into a hash of arrays """
     if not hasharr:
         return {}
     keys = hasharr[0].keys()
@@ -553,8 +553,8 @@ def _transpose(hasharr):
 
     return result
 
-# Memory information
 class MemoryInformation(Device):
+    """ Memory information """
     def __init__(self, dict = None):
         fields = ["ram", "swap"]
         mapping = { "class" : None }
@@ -571,8 +571,8 @@ class MemoryInformation(Device):
             if self.data[k][-1] == 'L':
                 self.data[k] = self.data[k][:-1]
 
-# DMI information
 class DMIInformation(Device):
+    """ DMI information """
     def __init__(self, dict = None):
         fields = ["vendor", "system", "product", "asset", "board",
                   "bios_vendor", "bios_version", "bios_release"]
@@ -587,8 +587,8 @@ class DMIInformation(Device):
             if value and isinstance(value, type("")):
                 self.data[key] = value[:256]
 
-# Install information
 class InstallInformation(Device):
+    """ Install information """
     def __init__(self, dict = None):
         fields = ['install_method', 'iso_status', 'mediasum']
         mapping = { 
@@ -600,8 +600,8 @@ class InstallInformation(Device):
         Device.__init__(self, "rhnServerInstallInfo", fields, dict, mapping)
         self.sequence = 'rhn_server_install_info_id_seq'
 
-#### Support for the hardware items
 class Hardware:
+    """ Support for the hardware items """
     def __init__(self):
         self.__hardware = {}
         self.__loaded = 0
@@ -610,8 +610,8 @@ class Hardware:
     def hardware_by_class(self, device_class):
         return self.__hardware[device_class]
     
-    # add new hardware
     def add_hardware(self, hardware):
+        """ add new hardware """
         log_debug(4, hardware)
         if not hardware:
             return -1
@@ -667,8 +667,8 @@ class Hardware:
         self.__changed = 1
         return 0
     
-    # This function deletes all hardware
-    def delete_hardware(self, sysid = None):        
+    def delete_hardware(self, sysid = None):
+        """ This function deletes all hardware. """
         log_debug(4, sysid)
         if not self.__loaded:
             self.reload_hardware_byid(sysid)            
@@ -689,8 +689,8 @@ class Hardware:
                 hardware[device_type])
         return 0
 
-    # save the hardware list
     def save_hardware_byid(self, sysid):
+        """ ave the hardware list """
         log_debug(3, sysid, "changed = %s" % self.__changed)
         hardware = self.__hardware
         if hardware == {}: # nothing loaded
@@ -703,8 +703,8 @@ class Hardware:
         self.__changed = 0
         return 0
 
-    # Load a certain hardware class from the database
     def __load_from_db(self, db, DevClass, sysid):
+        """ Load a certain hardware class from the database """
         if not self.__hardware.has_key(DevClass):
             self.__hardware[DevClass] = []
         
@@ -727,8 +727,8 @@ class Hardware:
             self.__hardware[DevClass].append(dev)
         return 0
     
-    # load all hardware devices for a server
     def reload_hardware_byid(self, sysid):
+        """ load all hardware devices for a server """
         log_debug(4, sysid)
         if not sysid:
             return -1
