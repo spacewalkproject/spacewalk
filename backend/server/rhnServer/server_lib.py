@@ -36,16 +36,17 @@ class rhnSystemEntitlementException(rhnException):
 class rhnNoSystemEntitlementsException(rhnSystemEntitlementException):
     pass
 
-# Given a textual digitalid (old style or new style) or simply an ID
-# try to search in the database and return the numeric id (thus doing
-# validation in case you pass a numeric ID already)
-#
-# If found, it will return a dictionary with at least an "id" member
-#
-# Additional fields can be requested by passing an array of strings
-# with field names from rhnServer
-# check if all chars of a string are in a set
 def getServerID(server, fields = []):
+    """ Given a textual digitalid (old style or new style) or simply an ID
+        try to search in the database and return the numeric id (thus doing
+        validation in case you pass a numeric ID already)
+
+        If found, it will return a dictionary with at least an "id" member
+
+        Additional fields can be requested by passing an array of strings
+        with field names from rhnServer
+        check if all chars of a string are in a set
+    """
     def check_chars(s):
         return reduce(lambda a, b: a and b in "0123456789", s, 1)
 
@@ -122,8 +123,9 @@ def getServerSecret(server):
 ###############################
 # Server Class Helper functions
 ###############################
-# create the initial server groups for a new server
+
 def __create_server_group(group_label, org_id, maxnum = ''):
+    """ create the initial server groups for a new server """
     # Add this new server to the pending group
     h = rhnSQL.prepare("""
     select sg.id, sg.current_members
@@ -158,8 +160,8 @@ def __create_server_group(group_label, org_id, maxnum = ''):
     return ret_id
 
 
-# Adds a server to a server group
 def join_server_group(server_id, server_group_id):
+    """ Adds a server to a server group """
     # avoid useless reparses caused by different arg types
     server_id = str(server_id)
     server_group_id = str(server_group_id)
@@ -171,10 +173,11 @@ def join_server_group(server_id, server_group_id):
     return ret
 
 
-# This function makes sure the necessary server groups are in place
-# for a new server entry and also adds a new server to the required
-# groups and channels
 def create_server_setup(server_id, org_id):
+    """ This function makes sure the necessary server groups are in place
+        for a new server entry and also adds a new server to the required
+        groups and channels.
+    """
     # create the rhnServerInfo record
     h = rhnSQL.prepare("""
     insert into rhnServerInfo (server_id, checkin, checkin_counter)
@@ -191,9 +194,10 @@ def create_server_setup(server_id, org_id):
     return 1
 
 
-# checks if this server is a special kind so that we don't raise an
-# abuse error for it
 def __special_server(server_id):
+    """ checks if this server is a special kind so that we don't raise an
+        abuse error for it
+    """
     # if a proxy or a satellite we don't enforce this. thanks chip.
     h = rhnSQL.prepare("""
     select 1 from rhnProxyInfo where server_id = :server_id
@@ -207,9 +211,10 @@ def __special_server(server_id):
     return 0
 
 
-# checkin - update the last checkin time
-#         - check for abuse of service.
 def checkin(server_id, commit=1, check_for_abuse=1):
+    """ checkin - update the last checkin time
+                - check for abuse of service.
+    """
     log_debug(3, server_id)
     h = rhnSQL.prepare("""
     update rhnServerInfo
@@ -249,9 +254,10 @@ def checkin(server_id, commit=1, check_for_abuse=1):
 def set_qos(server_id):
     pass
 
-# throttle - limits access to free users if a throttle file exists
-#            NOTE: current check allows for a x-hour long grace-period.
 def throttle(server):
+    """ throttle - limits access to free users if a throttle file exists
+        NOTE: current check allows for a x-hour long grace-period.
+    """
     server_id = server['id']
     log_debug(3, server_id)
 
@@ -263,12 +269,11 @@ def throttle(server):
     return 
 
 def join_rhn(org_id):
-    # Stub
+    """ Stub """
     return
 
-# Given a dbiDate object, returns the UNIX representation (seconds since
-# epoch)
 def dbiDate2timestamp(dateobj):
+    """ Given a dbiDate object, returns the UNIX representation (seconds since epoch) """
     timeString = '%s %s %s %s %s %s' % (dateobj.year, dateobj.month, 
         dateobj.day, dateobj.hour, dateobj.minute, dateobj.second)
     return time.mktime(time.strptime(timeString, '%Y %m %d %H %M %S'))
