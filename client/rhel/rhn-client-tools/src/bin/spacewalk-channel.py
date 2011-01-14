@@ -20,6 +20,10 @@ import getpass
 
 from optparse import Option, OptionParser
 
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-client-tools")
+
 def systemExit(code, msgs=None):
      "Exit with a code and optional message(s). Saved a few lines of code."
      if msgs:
@@ -31,7 +35,7 @@ def systemExit(code, msgs=None):
 
 # quick check to see if you are a super-user.
 if os.getuid() != 0:
-    systemExit(8, 'ERROR: must be root to execute\n')
+    systemExit(8, _('ERROR: must be root to execute\n'))
 
 _LIBPATH = "/usr/share/rhn"
 # add to the path if need be
@@ -45,19 +49,19 @@ def processCommandline():
     "process the commandline, setting the OPTIONS object"
     optionsTable = [
         Option('-c', '--channel',         action='append',
-            help='name of channel you want to (un)subscribe'),
+            help=_('name of channel you want to (un)subscribe')),
         Option('-a', '--add',             action='store_true',
-            help='subscribe to channel'),
+            help=_('subscribe to channel')),
         Option('-r', '--remove',          action='store_true',
-            help='unsubscribe from channel'),
+            help=_('unsubscribe from channel')),
         Option('-l', '--list',            action='store_true',
-            help='list channels'),
+            help=_('list channels')),
         Option('-v', '--verbose',         action='store_true',
-            help='verbose output'),
+            help=_('verbose output')),
         Option('-u', '--user',            action='store',
-            help='your user name'),
+            help=_('your user name')),
         Option('-p', '--password',        action='store',
-            help='your password'),
+            help=_('your password')),
     ]
     optionParser = OptionParser(option_list=optionsTable)
     global OPTIONS
@@ -65,9 +69,9 @@ def processCommandline():
 
     # we take no extra commandline arguments that are not linked to an option
     if args:
-        systemExit(1, "ERROR: these arguments make no sense in this context (try --help)")
+        systemExit(1, _("ERROR: these arguments make no sense in this context (try --help)"))
     if not OPTIONS.user and not OPTIONS.list:
-        print "Username: ",
+        print _("Username: "),
         OPTIONS.user = sys.stdin.readline().rstrip('\n')
     if not OPTIONS.password and not OPTIONS.list:
         OPTIONS.password = getpass.getpass()
@@ -75,34 +79,34 @@ def processCommandline():
 def need_channel(channel):
     """ die gracefuly if channel is empty """
     if not channel:
-        systemExit(4, "ERROR: you have to specify at least one channel")
+        systemExit(4, _("ERROR: you have to specify at least one channel"))
 
 def main():
     if OPTIONS.add:
         need_channel(OPTIONS.channel)
         subscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
         if OPTIONS.verbose:
-            print "Channel(s): %s successfully added" % ', '.join(OPTIONS.channel)
+            print _("Channel(s): %s successfully added") % ', '.join(OPTIONS.channel)
     elif OPTIONS.remove:
         need_channel(OPTIONS.channel)
         unsubscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
         if OPTIONS.verbose:
-            print "Channel(s): %s successfully removed" % ', '.join(OPTIONS.channel)
+            print _("Channel(s): %s successfully removed") % ', '.join(OPTIONS.channel)
     elif OPTIONS.list:
         try:
             channels = map(lambda x: x['label'], getChannels().channels())
         except up2dateErrors.NoChannelsError:
-            systemExit(1, 'This system is not associated with any channel.')
+            systemExit(1, _('This system is not associated with any channel.'))
         channels.sort()
         print '\n'.join(channels)
     else:
-        systemExit(3, "ERROR: you may want to specify --add, --remove or --list")
+        systemExit(3, _("ERROR: you may want to specify --add, --remove or --list"))
 
 try:
     processCommandline()
     main()
 except KeyboardInterrupt:
-    systemExit(0, "\nUser interrupted process.")
+    systemExit(0, "\n" + _("User interrupted process."))
 except up2dateErrors.RhnServerException, e:
     # do not print traceback, it will scare people
     systemExit(1, e)
