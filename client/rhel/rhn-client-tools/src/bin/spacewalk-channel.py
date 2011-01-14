@@ -13,10 +13,14 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
+import getpass
 import os
+import re
 import socket
 import sys
-import getpass
+import urlparse
+import xmlrpclib
+from rhn import rpclib
 
 from optparse import Option, OptionParser
 
@@ -56,6 +60,8 @@ def processCommandline():
             help=_('unsubscribe from channel')),
         Option('-l', '--list',            action='store_true',
             help=_('list channels')),
+        Option('-L', '--available-channels', action='store_true',
+            help=_('list all available child channels')),
         Option('-v', '--verbose',         action='store_true',
             help=_('verbose output')),
         Option('-u', '--user',            action='store',
@@ -75,6 +81,22 @@ def processCommandline():
         OPTIONS.user = sys.stdin.readline().rstrip('\n')
     if not OPTIONS.password and not OPTIONS.list:
         OPTIONS.password = getpass.getpass()
+
+def get_available_channels(user, password):
+    """ return list of available child channels """
+    cfg = config.initUp2dateConfig()
+    satellite_url = config.getServerlURL()[0]
+    parts = urlparse.urlsplit(satellite_url)
+    satellite_url = urlparse.SplitResult(parts.scheme, parts.netloc, '/rpc/api',
+        parts.query, parts.fragment).geturl()
+
+    client = xmlrpclib.Server(satellite_url, verbose=0)
+    key = client.auth.login(user, password)
+    system_id = re.sub('^ID-', '', rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())[0][0]['system_id'])
+    result = []
+    for channel in client.system.listChildChannels(key, int(system_id)):
+        result.extend([channel['LABEL']])
+    return result
 
 def need_channel(channel):
     """ die gracefuly if channel is empty """
@@ -97,6 +119,10 @@ def main():
             channels = map(lambda x: x['label'], getChannels().channels())
         except up2dateErrors.NoChannelsError:
             systemExit(1, _('This system is not associated with any channel.'))
+        channels.sort()
+        print '\n'.join(channels)
+    elif OPTIONS.available-channels:
+        channels = get_available_channels(OPTIONS.user, OPTIONS.password)
         channels.sort()
         print '\n'.join(channels)
     else:
