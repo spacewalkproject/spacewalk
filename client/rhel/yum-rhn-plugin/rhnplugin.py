@@ -48,7 +48,7 @@ COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
 from M2Crypto.SSL import SSLError
 
-def init_hook(conduit):
+def prereposetup_hook(conduit):
     """ 
     Plugin initialization hook. We setup the RHN channels here. 
     
