@@ -89,8 +89,6 @@ def main():
         channels.sort()
         print '\n'.join(channels)
     else:
-        s = rhnserver.RhnServer()
-        print s.up2date.listall(up2dateAuth.getSystemId())
         systemExit(3, "ERROR: you may want to specify --add, --remove or --list")
 
 try:
