@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.3.2
+Version: 1.3.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 14 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.3-1
+- switch off network communication in cache only mode
+- cache list of rhn channels so we can correctly clean our stuff
+- 627525 - moved communication with satellite server from init_hook to
+- 656380 - do not disable SSL server name check for XMLRPC communication
+- 652424 - code optimalization: use up2date_cfg as class atribute
+- 652424 - do not enable Akamai if you set useNoSSLForPackages option
+- 627525 - do not parse command line, leave it to yum itself
+
 * Mon Jan 03 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.2-1
 - 666876 - respect metadata_expire setting from yum config
 
