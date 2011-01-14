@@ -388,7 +388,7 @@ def _run_yum_action(command, cache_only=None):
                 for msg in resultmsgs:
                     log.log_debug('Error: %s' % msg)
                 raise yum.Errors.DepError, resultmsgs 
-            elif result == 0 or 2:
+            elif result == 0 or result == 2:
                 # Continue on
                 pass
             else:
