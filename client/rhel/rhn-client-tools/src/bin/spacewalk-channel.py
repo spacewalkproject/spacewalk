@@ -72,12 +72,19 @@ def processCommandline():
     if not OPTIONS.password and not OPTIONS.list:
         OPTIONS.password = getpass.getpass()
 
+def need_channel(channel):
+    """ die gracefuly if channel is empty """
+    if not channel:
+        systemExit(4, "ERROR: you have to specify at least one channel")
+
 def main():
     if OPTIONS.add:
+        need_channel(OPTIONS.channel)
         subscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
         if OPTIONS.verbose:
             print "Channel(s): %s successfully added" % ', '.join(OPTIONS.channel)
     elif OPTIONS.remove:
+        need_channel(OPTIONS.channel)
         unsubscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
         if OPTIONS.verbose:
             print "Channel(s): %s successfully removed" % ', '.join(OPTIONS.channel)
