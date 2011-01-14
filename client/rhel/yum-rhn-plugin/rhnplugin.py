@@ -41,6 +41,7 @@ __revision__ = "$Rev$"
 requires_api_version = '2.5'
 plugin_type = TYPE_CORE
 pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"
+cachedRHNReposFile = 'rhnplugin.repos'
 
 rhn_enabled = True
 
@@ -48,10 +49,32 @@ COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
 from M2Crypto.SSL import SSLError
 
-def prereposetup_hook(conduit):
+def init_hook(conduit):
     """ 
     Plugin initialization hook. We setup the RHN channels here. 
-    
+
+    Read list of repos we've seen last time (from cache file)
+    """
+    cachedir = conduit.getConf().cachedir
+    repos = conduit.getRepos()
+    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
+    if os.access(cachefilename, os.R_OK):
+       cachefile = open(cachefilename, 'r')
+       repolist = [ line.rstrip() for line in cachefile.readlines()]
+       cachefile.close()
+       for reponame in repolist:
+           repodir = os.path.join(cachedir, reponame)
+           if os.path.isdir(repodir):
+               repo = YumRepository(reponame)
+               repo.basecachedir = cachedir
+               repo.baseurl = ['file:///' + repodir ]
+               repo.urls = repo.baseurl
+               repo.enable()
+               if not repos.findRepos(repo.id):
+                   repos.add(repo)
+
+def prereposetup_hook(conduit):
+    """
     We get a list of RHN channels from the server, then make a repo object for
     each one. This list of repos is then added to yum's list of repos via the 
     conduit.
@@ -121,6 +144,11 @@ def prereposetup_hook(conduit):
     enablegroups = conduit.getConf().enablegroups
     metadata_expire = conduit.getConf().metadata_expire
 
+    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
+    try:
+        cachefile = open(cachefilename, 'w')
+    except:
+        cachefile = None
     for channel in svrChannels:
         if channel['version']:
             repo = RhnRepo(channel)
@@ -136,36 +164,13 @@ def prereposetup_hook(conduit):
                     setattr(repo, o[0], o[1])
                     conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
                             (repo.id, o[0], o[1]))
+            if repos.findRepos(repo.id):
+                repos.delete(repo.id)
             repos.add(repo)
-
-
-#bz226151,441265
-#Allows a "yum clean all" to succeed without communicating
-#to backend.  Creating a set of dummy repos which mimic the dirs stored locally
-#This gives yum the dir info it needs to peform a clean
-#
-def formReposForClean(conduit):
-    repos = conduit.getRepos()
-    cachedir = conduit.getConf().cachedir
-    try:
-        dir_list = os.listdir(cachedir)
-    except Exception, e:
-        raise yum.Errors.RepoError(str(e))
-    urls = ["http://dummyvalue"]
-    for dir in dir_list:
-        if dir[0] == ".":
-            continue
-        if os.path.isdir(os.path.join(cachedir,dir)):
-            repo = YumRepository(dir)
-            repo.basecachedir = cachedir
-            repo.baseurl = urls 
-            repo.urls = repo.baseurl
-            repo.enable()
-            if not repos.findRepos(repo.id):
-                repos.add(repo)
-   # cleanup cached login info
-    if os.path.exists(pcklAuthFileName):
-        os.unlink(pcklAuthFileName)
+            if cachefile:
+                cachefile.write(repo.id + "\n")
+    if cachefile:
+        cachefile.close()
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
