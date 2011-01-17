@@ -106,14 +106,24 @@ def need_channel(channel):
 def main():
     if OPTIONS.add:
         need_channel(OPTIONS.channel)
-        subscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
+        result = subscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
         if OPTIONS.verbose:
-            print _("Channel(s): %s successfully added") % ', '.join(OPTIONS.channel)
+            if result == 0:
+                print _("Channel(s): %s successfully added") % ', '.join(OPTIONS.channel)
+            else:
+                sys.stderr.write(_("Error during adding channel(s) %s") % ', '.join(OPTIONS.channel))
+        if result != 0:
+            sys.exit(result)
     elif OPTIONS.remove:
         need_channel(OPTIONS.channel)
-        unsubscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
+        result = unsubscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
         if OPTIONS.verbose:
-            print _("Channel(s): %s successfully removed") % ', '.join(OPTIONS.channel)
+            if result == 0:
+                print _("Channel(s): %s successfully removed") % ', '.join(OPTIONS.channel)
+            else:
+                sys.stderr.write(_("Error during removal of channel(s) %s") % ', '.join(OPTIONS.channel))
+        if result != 0:
+            sys.exit(result)
     elif OPTIONS.list:
         try:
             channels = map(lambda x: x['label'], getChannels().channels())

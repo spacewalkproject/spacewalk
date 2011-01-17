@@ -126,10 +126,10 @@ def setChannels(tempchannels):
 
 def subscribeChannels(channels,username,passwd):
     s = rhnserver.RhnServer()
-    s.up2date.subscribeChannels(up2dateAuth.getSystemId(), channels, username,
+    return s.up2date.subscribeChannels(up2dateAuth.getSystemId(), channels, username,
         passwd)
 
 def unsubscribeChannels(channels,username,passwd):
     s = rhnserver.RhnServer()
-    s.up2date.unsubscribeChannels(up2dateAuth.getSystemId(), channels,
+    return s.up2date.unsubscribeChannels(up2dateAuth.getSystemId(), channels,
         username, passwd)
