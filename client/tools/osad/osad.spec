@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.48
+Version: 5.9.49
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -246,6 +246,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Mon Jan 17 2011 Jan Pazdziora 5.9.49-1
+- Silence InstantClient 11g-related AVCs in osa-dispatcher.
+- Silence diagnostics which was causing AVC denials.
+
 * Tue Dec 21 2010 Jan Pazdziora 5.9.48-1
 - SQL changes for PostgreSQL support.
 
