@@ -66,8 +66,6 @@
        <packagereq type="default">SatConfig-spread</packagereq>
        <packagereq type="default">scdb</packagereq>
        <packagereq type="default">simple-core</packagereq>
-       <packagereq type="default">sitemesh</packagereq>
-       <packagereq type="default">sitemesh-javadoc</packagereq>
        <packagereq type="default">SNMPAlerts</packagereq>
        <packagereq type="default">spacecmd</packagereq>
        <packagereq type="default">spacewalk-admin</packagereq>
