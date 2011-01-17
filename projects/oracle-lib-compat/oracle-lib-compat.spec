@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.2
+Version:        11.2.0.3
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -115,6 +115,9 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Mon Jan 17 2011 Jan Pazdziora 11.2.0.3-1
+- Set diag_adr_enabled to off.
+
 * Mon Jan 10 2011 Jan Pazdziora 11.2.0.2-1
 - On x86_64, require 64bit version of libaio for InstantClient 11g.
 
