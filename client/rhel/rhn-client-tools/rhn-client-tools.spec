@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -290,6 +290,17 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Jan 17 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.7-1
+- update .po and .pot files for rhn-client-tools
+- 651789 - fail if adding/removal of channels fail
+- 651792 - list all available child channels related to system
+- localize spacewalk-channel script
+- 651857 - print error if you specify --add or --remove, but you do not specify
+  any channel
+- 651857 - removing forgotten lines, which makes no sense and cause TB
+- 652424 - return back useNoSSLForPackages option
+- 668809 - mention the requirement to use FQDN
+
 * Wed Jan 05 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.6-1
 - 665013 - do not send None for ipaddr in IPv6 only system
 
