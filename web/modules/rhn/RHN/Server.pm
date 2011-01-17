@@ -126,7 +126,7 @@ sub render {
       $ret->{server_event_details} .= qq{Client execution returned "$self->{RESULT_MSG}" (code $self->{RESULT_CODE})<br />\n};
     }
     else {
-      $ret->{server_event_details} .= qq{This action has not yet completed this action.<br />\n};
+      $ret->{server_event_details} .= qq{The client has not yet completed this action.<br />\n};
     }
   }
   else {
