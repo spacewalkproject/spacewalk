@@ -549,7 +549,7 @@ class Dumper(dumper.XML_Dumper):
             pb.printAll(1) 
             for channel in self.channel_ids:
                 self.set_filename(self.fm.getChannelsFile(channel['label']))
-                dumper.XML_Dumper.dump_channels(self, [channel], self.start_date, self.end_date)
+                dumper.XML_Dumper.dump_channels(self, [channel], self.start_date, self.end_date, self.use_rhn_date)
     
                 log2email(4, "Channel: %s" % channel['label'])
                 log2email(5, "Channel exported to %s" % self.fm.getChannelsFile(channel['label']))

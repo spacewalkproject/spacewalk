@@ -201,10 +201,11 @@ class SatelliteDumper(BaseDumper):
 class _ChannelDumper(BaseRowDumper):
     tag_name = 'rhn-channel'
 
-    def __init__(self, writer, row, start_date=None, end_date=None):
+    def __init__(self, writer, row, start_date=None, end_date=None, use_rhn_date=True):
         BaseRowDumper.__init__(self, writer, row)
         self.start_date = start_date
         self.end_date = end_date
+        self.use_rhn_date = use_rhn_date
 
     def set_attributes(self):
         channel_id = self._row['id']
@@ -307,27 +308,35 @@ class _ChannelDumper(BaseRowDumper):
 
     _query_get_package_ids_by_date_limits = rhnSQL.Statement("""
         select package_id as id
+          from rhnChannelPackage rcp
+         where rcp.channel_id = :channel_id
+           and rcp.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+           and rcp.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+     """)
+
+    _query_get_package_ids_by_rhndate_limits = rhnSQL.Statement("""
+        select package_id as id
           from rhnPackage rp, rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
-         and rcp.package_id = rp.id
-         and (rcp.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-              or rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-             )
-         and (rcp.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
-              or rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
-             )
+           and rcp.package_id = rp.id
+           and rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+           and rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
      """)
 
 
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
         return self._get_ids(self._query_get_package_ids_by_date_limits,
+                             self._query_get_package_ids_by_rhndate_limits,
                              self._query_get_package_ids)
 
-    def _get_ids(self, query_with_limit, query_no_limits):
+    def _get_ids(self, query_with_limit, query_with_rhnlimit, query_no_limits):
         query_args = {'channel_id': self._row['id']}
         if self.start_date:
-            query = query_with_limit
+            if self.use_rhn_date:
+                query = query_with_rhnlimit
+            else:
+                query = query_with_limit
             query_args.update({'lower_limit': self.start_date,
                                'upper_limit': self.end_date})
         else:
@@ -365,17 +374,19 @@ class _ChannelDumper(BaseRowDumper):
 
     _query__get_errata_ids_by_limits = rhnSQL.Statement("""
          %s
-           and (ce.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-                or e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-               )
-           and (ce.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
-                or e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
-               )
+           and ce.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+           and ce.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
     """ % _query__get_errata_ids)
 
+    _query__get_errata_ids_by_rhnlimits = rhnSQL.Statement("""
+         %s
+           and e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+           and e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+    """ % _query__get_errata_ids)
     
     def _get_errata_ids(self):
         return self._get_ids(self._query__get_errata_ids_by_limits,
+                             self._query__get_errata_ids_by_rhnlimits
                              self._query__get_errata_ids)
 
     _query_get_kickstartable_trees = rhnSQL.Statement("""
