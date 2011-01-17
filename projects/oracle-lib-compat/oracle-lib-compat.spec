@@ -70,6 +70,12 @@ ln -s ../%{_lib}/oracle/%{icdir}/client/bin/sqlplus $RPM_BUILD_ROOT%{_bindir}/sq
 
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/oracle/%{icdir}
 ln -s ../../../lib/oracle/%{icdir}/client64 $RPM_BUILD_ROOT%{_libdir}/oracle/%{icdir}/client
+
+mkdir -p $RPM_BUILD_ROOT/usr/lib/oracle/11.2/client64/lib/network/admin
+echo 'diag_adr_enabled = off' > $RPM_BUILD_ROOT/usr/lib/oracle/11.2/client64/lib/network/admin/sqlnet.ora
+%else
+mkdir -p $RPM_BUILD_ROOT/usr/lib/oracle/11.2/client/lib/network/admin
+echo 'diag_adr_enabled = off' > $RPM_BUILD_ROOT/usr/lib/oracle/11.2/client/lib/network/admin/sqlnet.ora
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
@@ -91,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 %ifarch x86_64 s390x
 %{_bindir}/sqlplus
 %{_libdir}/oracle
+/usr/lib/oracle/11.2/client64/lib/network/admin/sqlnet.ora
+%else
+/usr/lib/oracle/11.2/client/lib/network/admin/sqlnet.ora
 %endif
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/oracle-instantclient-%{icdir}.conf
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/oracle-xe.conf
