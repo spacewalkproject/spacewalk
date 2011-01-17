@@ -386,7 +386,7 @@ class _ChannelDumper(BaseRowDumper):
     
     def _get_errata_ids(self):
         return self._get_ids(self._query__get_errata_ids_by_limits,
-                             self._query__get_errata_ids_by_rhnlimits
+                             self._query__get_errata_ids_by_rhnlimits,
                              self._query__get_errata_ids)
 
     _query_get_kickstartable_trees = rhnSQL.Statement("""
