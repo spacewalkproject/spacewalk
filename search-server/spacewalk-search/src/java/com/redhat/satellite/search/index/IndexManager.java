@@ -186,7 +186,14 @@ public class IndexManager {
             }
         }
         catch (IOException e) {
-            throw new IndexingException(e);
+            // this exception is thrown, when there're no packages or errata on the system
+            // and the user performs a search
+            // if this is the case, just return 0 results, otherwise rethrow the exception
+            if (!e.getMessage().contains("no segments* file found in org.apache.lucene.store.FSDirectory@/usr/share/rhn/search/indexes")) {
+                throw new IndexingException(e);
+            }
+            log.error(e.getMessage());
+            retval = new ArrayList<Result>();
         }
         catch (ParseException e) {
             throw new QueryParseException("Could not parse query: '" + query + "'");
