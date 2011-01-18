@@ -646,51 +646,191 @@ sub set_progress_callback {
 	alarm 1;
 }
 
-sub oracle_get_database_answers {
-    my $opts = shift;
-    my $answers = shift;
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB User",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-user'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB Password",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-password'},
-        -password => 1);
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB SID",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-name'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB hostname",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-host'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB port",
-        -test => qr/\d+/,
-        -default => 1521,
-        -answer => \$answers->{'db-port'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB protocol",
-        -test => qr/\S+/,
-        -default => 'TCP',
-        -answer => \$answers->{'db-protocol'});
-
-    return;
+# Format connect data to connect string.
+sub _oracle_make_dsn_string {
+	my $data = shift;
+	if (not (defined $data->{'db-host'} and defined $data->{'db-name'})) {
+		return;
+	}
+	my $dsn = "//$data->{'db-host'}";
+	if (defined $data->{'db-port'}) {
+		$dsn .= ':' . $data->{'db-port'};
+	}
+	$dsn .= "/$data->{'db-name'}";
+	return $dsn;
 }
+
+# We attempt to connect to the database using the current db-* values.
+# Returns 0 if could not even connect, 1 if could connect but
+# login/password was wrong, and 2 if the connect was fully successful.
+sub _oracle_check_connect_info {
+	my $data = shift;
+	eval {
+		my $dbh = get_dbh($data);
+		$dbh->disconnect();
+	};
+	if (not $@) {
+		# We were able to connect to the database. Good.
+		return 2;
+	}
+	if (DBI->err() == 1017 or DBI->err() == 1005) {
+		# We at least knew the connect string, so we
+		# were able to communicate with the database.
+		return 1;
+	}
+	return 0;
+}
+
+# Called from oracle_get_database_answers, here we focus on
+# at least reaching some instance, not worrying about username
+# and password for now.
+sub oracle_get_connect_answers {
+	my $opts = shift;
+	my $answers = shift;
+
+	my $ret;
+
+	my %data;
+	$data{'db-backend'} = 'oracle';
+	$data{'db-user'} = $answers->{'db-user'};
+	$data{'db-password'} = $answers->{'db-password'};
+
+REDO_CONNECT:
+	# If the answers hold data that make it possible
+	# to create DSN, try it without asking first.
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (defined $data{'db-name'}) {
+		# Try the direct //host:port/name format.
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	if (defined $answers->{'db-name'}) {
+		# Try just the db-name directly, ignore db-host.
+		# This would work if tnsnames.ora already existed.
+		if ($ret = _oracle_check_connect_info($answers)) {
+			return $ret;
+		}
+	}
+
+	ask(
+		-noninteractive => $opts->{"non-interactive"},
+		-question => "Database service name (SID)",
+		-test => qr/\S+/,
+		-answer => \$answers->{'db-name'}
+	);
+
+	# Try the db-name as full connect (ignore host).
+	if ($ret = _oracle_check_connect_info($answers)) {
+		return $ret;
+	}
+
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (not defined $data{'db-name'}) {
+		$data{'db-name'} = $answers->{'db-name'};
+		$data{'db-host'} = 'localhost';
+		$data{'db-name'} = _oracle_make_dsn_string(\%data);
+	}
+	if (defined $data{'db-name'}) {
+		# Try db-name as SID for host (//host:port/name).
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	ask(
+		-noninteractive => $opts->{"non-interactive"},
+		-question => "Database hostname",
+		-test => qr/\S+/,
+		-default => 'localhost',
+		-answer => \$answers->{'db-host'});
+
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (defined $data{'db-name'}) {
+		# Try db-name as SID for host (//host:port/name).
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	ask(
+		-noninteractive => $opts->{"non-interactive"},
+		-question => "Database (listener) port",
+		-test => qr/\d+/,
+		-default => '1521',
+		-answer => \$answers->{'db-port'});
+
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (defined $data{'db-name'}) {
+		# Try db-name as SID for host (//host:port/name).
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	print $@;
+	if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
+		exit 19;
+	}
+
+	delete @{$answers}{qw/db-host db-port db-name/};
+	goto REDO_CONNECT;
+}
+
+sub oracle_get_database_answers {
+	my $opts = shift;
+	my $answers = shift;
+
+	while (1) {
+		my $ret = oracle_get_connect_answers($opts, $answers);
+		if ($ret > 1) {
+			# Connect info was good, and even username and password were OK.
+			return;
+		}
+
+		while (1) {
+			ask(
+				-noninteractive => $opts->{"non-interactive"},
+				-question => "Username",
+				-test => qr/\S+/,
+				-answer => \$answers->{'db-user'});
+
+			ask(
+				-noninteractive => $opts->{"non-interactive"},
+				-question => "Password",
+				-test => qr/\S+/,
+				-answer => \$answers->{'db-password'},
+				-password => 1);
+
+			$ret = _oracle_check_connect_info($answers);
+			if ($ret > 1) {
+				return;
+			}
+			print $@;
+			if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
+				exit 19;
+			}
+
+			if (not $ret) {
+				# We won't try username/password, need to go
+				# back to connect check loop.
+				last;
+			}
+			delete @{$answers}{qw/db-user db-password/};
+		}
+		delete @{$answers}{qw/db-host db-port db-name/};
+	}
+}
+
 
 sub postgresql_get_database_answers {
     my $opts = shift;
@@ -939,7 +1079,6 @@ sub oracle_setup_embedded_db {
         $answers->{'db-name'} = 'rhnsat' if not defined $answers->{'db-name'};
         $answers->{'db-host'} = 'localhost';
         $answers->{'db-port'} = 1521;
-        $answers->{'db-protocol'} = 'TCP';
     }
 
 
@@ -1028,15 +1167,6 @@ sub oracle_setup_db_connection {
     while (not $connected) {
         oracle_get_database_answers($opts, $answers);
 
-        my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
-
-        system_or_exit([ "/usr/bin/rhn-config-tnsnames.pl",
-            "--target=/etc/tnsnames.ora",
-            "--sid=" . $answers->{'db-name'},
-            "--address=$address" ],
-            18,
-            "Could not update tnsnames.ora");
-
         my $dbh;
 
         eval {
@@ -1056,7 +1186,7 @@ sub oracle_setup_db_connection {
                 exit 19;
             }
 
-            delete @{$answers}{qw/db-protocol db-host db-port db-user db-name db-password/};
+            delete @{$answers}{qw/db-host db-port db-user db-name db-password/};
         }
         else {
             $connected = 1;
