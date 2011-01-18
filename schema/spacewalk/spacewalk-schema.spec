@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.10
+Version:        1.3.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -64,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jan 18 2011 Jan Pazdziora 1.3.11-1
+- The table rhnPackageChangelog is dropped in 103-rhnPackageChangeLog-
+  refactoring.sql, no need to alter it here.
+
 * Tue Jan 11 2011 Jan Pazdziora 1.3.10-1
 - Add spacewalk-sql which unifies sqlplus and psql invocation.
 
