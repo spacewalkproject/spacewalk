@@ -144,6 +144,9 @@ class Handler(handler_base.HandlerBase):
             pass
         file_stat = os.lstat(local_file)
         local_info = r.make_stat_info(local_file, file_stat)
+        # rhel4 do not support selinux
+        if not 'selinux_ctx' in local_info:
+            local_info['selinux_ctx'] = ''
         if not first_row and not self.__attributes_differ(info, local_info):
              return ""
         else:
