@@ -55,7 +55,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/validate-sat-cert
 %{_bindir}/rhn-config-satellite.pl
 %{_bindir}/rhn-config-schema.pl
-%{_bindir}/rhn-config-tnsnames.pl
 %{_bindir}/rhn-populate-database.pl
 %{_bindir}/rhn-generate-pem.pl
 %{_bindir}/rhn-sudo-load-ssl-cert

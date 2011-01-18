@@ -31,7 +31,6 @@ GPGKEY_DEST = $(PREFIX)/$(GPGKEYDIR)
 
 PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-config-schema.pl \
-               rhn-config-tnsnames.pl \
                rhn-deploy-ca-cert.pl \
                rhn-install-ssl-cert.pl \
                rhn-populate-database.pl \
