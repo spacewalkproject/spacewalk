@@ -123,14 +123,14 @@ class Registration(rhnHandler):
         """
         Get an username and a password and create a record for this user.
         Eventually mark it as such.
+        Additionaly this method is used to verify login and password in early
+        stage of rhn_register.
 
         Returns true value if user is reserved, otherwise fault is raised.
         """
-
         log_debug(1, username)
-        # validate the arguments
-        username, password  = rhnUser.check_user_password(username, password)
-        # now try to reserve the user
+        # check user login/password and if not CFG.disallow_user_creation
+        # then reserver the user
         ret = rhnUser.reserve_user(username, password)
         log_debug(3, "rhnUser.reserve_user returned: " + str(ret))
         if ret < 0:

@@ -472,6 +472,7 @@ def __reserve_user_db(user, password):
     # user doesn't exist.  now we fail, instead of reserving user.
     if CFG.disallow_user_creation:
         raise rhnFault(2001)
+    user, password = check_user_password(user, password)
 
     # now check the reserved table
     h = rhnSQL.prepare("""
