@@ -45,12 +45,13 @@ public abstract class UserEditActionHelper extends RhnAction {
                 form.get(UserActionHelper.DESIRED_PASS))) {
             String pw = (String)form.get(UserActionHelper.DESIRED_PASS);
             String conf = (String)form.get(UserActionHelper.DESIRED_PASS_CONFIRM);
-            if (pw.equals(conf)) {
-                targetUser.setPassword(pw);
-            }
-            else {
+            if (!pw.equals(conf)) {
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("error.password_mismatch"));
+                        new ActionMessage("error.password_mismatch"));
+            }
+            else if (errors.isEmpty()) {
+                //Set the password only if there are no errors at all
+                targetUser.setPassword(pw);
             }
         }
 
