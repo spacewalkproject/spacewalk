@@ -92,7 +92,7 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
         if dsn:
             # split the dsn up into username/pass/sid so we can call the rest of
             # the code in a uniform fashion for all database backends:
-            (username, temp) = dsn.split("/")
+            (username, temp) = dsn.split("/", 1)
             (password, database) = temp.split("@")
             del temp
 
