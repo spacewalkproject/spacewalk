@@ -27,9 +27,6 @@ def stdoutMsgCallback(msg):
 
 
 class RetryServer(rpclib.Server):
-    def foobar(self):
-        pass
-
     def addServerList(self, serverList):
         self.serverList = serverList
 
