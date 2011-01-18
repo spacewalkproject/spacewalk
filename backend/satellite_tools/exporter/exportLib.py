@@ -396,16 +396,21 @@ class _ChannelDumper(BaseRowDumper):
            and kt.org_id is null
     """)
 
+    _query_get_kickstartable_trees_by_rhnlimits = rhnSQL.Statement("""
+         %s
+           and kt.last_modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
+           and kt.last_modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
+    """ % _query_get_kickstartable_trees)
+
     _query_get_kickstartable_trees_by_limits = rhnSQL.Statement("""
          %s
-           and  (kt.last_modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
-                 or kt.modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS'))
-           and  (kt.last_modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
-                 or kt.modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS'))
+           and kt.modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
+           and kt.modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
     """ % _query_get_kickstartable_trees)
 
     def _get_kickstartable_trees(self):
         ks_trees = self._get_ids(self._query_get_kickstartable_trees_by_limits,
+                                 self._query_get_kickstartable_trees_by_rhnlimits,
                                  self._query_get_kickstartable_trees)
         ks_trees.sort()
         return ks_trees
