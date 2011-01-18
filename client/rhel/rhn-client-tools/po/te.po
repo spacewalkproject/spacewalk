@@ -1678,12 +1678,12 @@ msgstr "<b>సంస్థాపనా సమయమందు మీ సిస్
 msgid ""
 "<b>_All available updates</b> will be provided to this system.  This system, "
 "if kept updated, will always be equivalent to the latest available minor "
-"release of Red Hat Enterprise Linux 5.  It will be registered to the main "
-"'Red Hat Enterprise Linux 5' software channel."
+"release of Red Hat Enterprise Linux 6.  It will be registered to the main "
+"'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
 "<b>(_A) అన్ని అందుబాటులోని నవీకరణలు</b> ఈ సిస్టమ్‌కు అందివ్వబడును.  ఈ సిస్టమ్, నవీకరించుటకు "
-"వుంచబడితే, అది యెల్లప్పుడు Red Hat Enterprise Linux 5 యొక్క యిటీవలి అందుబాటులోని చిన్న "
-"విడుదలకు సమానంగా వుంచబడును.  అది ముఖ్య 'Red Hat Enterprise Linux 5' సాఫ్టువేర్ చానల్‌కు "
+"వుంచబడితే, అది యెల్లప్పుడు Red Hat Enterprise Linux 6 యొక్క యిటీవలి అందుబాటులోని చిన్న "
+"విడుదలకు సమానంగా వుంచబడును.  అది ముఖ్య 'Red Hat Enterprise Linux 6' సాఫ్టువేర్ చానల్‌కు "
 "నమోదు కాబడును."
 
 #: ../data/rh_register.glade.h:18

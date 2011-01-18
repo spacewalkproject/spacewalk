@@ -1688,8 +1688,8 @@ msgstr ""
 msgid ""
 "<b>_All available updates</b> will be provided to this system.  This system, "
 "if kept updated, will always be equivalent to the latest available minor "
-"release of Red Hat Enterprise Linux 5.  It will be registered to the main "
-"'Red Hat Enterprise Linux 5' software channel."
+"release of Red Hat Enterprise Linux 6.  It will be registered to the main "
+"'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
