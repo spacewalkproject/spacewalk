@@ -1301,6 +1301,7 @@ def unexpectedError(message, exc_info=None):
         unexpectedError(_("Your error here."), sys.exc_info())
     
     """
+    setArrowCursor()
     logFile = cfg['logFile'] or '/var/log/up2date'
     message = message + "\n" + (_("This error shouldn't have happened. If you'd "
                                  "like to help us improve this program, please "
