@@ -380,7 +380,10 @@ def _run_yum_action(command, cache_only=None):
         try:
             yum_base.doLock(YUM_PID_FILE)
             # Accumulate transaction data
+            oldcount = len(yum_base.tsInfo)
             command.execute(yum_base)
+            if not len(yum_base.tsInfo) > oldcount:
+                raise yum.Errors.YumBaseError, 'empty transaction'
             # depSolving stage
             (result, resultmsgs) = yum_base.buildTransaction()
             if result == 1:
