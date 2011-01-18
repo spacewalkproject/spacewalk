@@ -80,7 +80,6 @@ ssl-password =
 # db-host =
 # db-sid =
 # db-port = 1521
-# db-protocol = TCP
 
 
 ## The location (absolute path) of the satellite certificate file.

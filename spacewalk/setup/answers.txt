@@ -14,5 +14,4 @@ db-password=bar
 db-sid=oracle_sid
 db-host=hostname.of.your.db
 db-port=1521
-db-protocol=TCP
 enable-tftp=N
