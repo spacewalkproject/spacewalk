@@ -138,10 +138,10 @@ def get_virt_info():
 
        1.  Check /proc/xen/xsd_port.  If exists, we know the system is a
            host; exit.
-       2.  Check /sys/hypervisor/uuid.  If exists and is non-zero, we know
-           the system is a para-virt guest; exit.
-       3.  Check SMBIOS.  If vendor='Xen' and UUID is non-zero, we know the
+       2.  Check SMBIOS.  If vendor='Xen' and UUID is non-zero, we know the
            system is a fully-virt guest; exit.
+       3.  Check /sys/hypervisor/uuid.  If exists and is non-zero, we know
+           the system is a para-virt guest; exit.
        4.  If non of the above checks worked; we know we have a
            non-xen-enabled system; exit. 
     """
@@ -160,13 +160,13 @@ def get_virt_info():
         # Failed.  Move on to next strategy.
         pass
 
-    # This is not a virt host system.  Check if it's a para-virt guest.
-    (uuid, virt_type) = get_para_virt_info()
+    # This is not a virt host system. Check if it's a fully-virt guest.
+    (uuid, virt_type) = get_fully_virt_info()
     if uuid is not None:
         return (uuid, virt_type)
-        
-    # This is not a para-virt guest.  Check if it's a fully-virt guest.
-    (uuid, virt_type) = get_fully_virt_info()
+
+    # This is not a fully virt guest system. Check if it's a para-virt guest.
+    (uuid, virt_type) = get_para_virt_info()
     if uuid is not None:
         return (uuid, virt_type)
 
