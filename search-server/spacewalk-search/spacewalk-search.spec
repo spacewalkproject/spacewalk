@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.5
+Version: 1.3.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -122,6 +122,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue Jan 18 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
+- no traceback, when searching on a server with no packages or errata
+  (tlestach@redhat.com)
+
 * Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
 - replace jakarta-commons-logging with apache-commons-logging on F14
   (tlestach@redhat.com)
