@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.20
+Version: 1.3.21
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan 19 2011 Tomas Lestach <tlestach@redhat.com> 1.3.21-1
+- adding tomcat require to spacewalk-base-minimal (tlestach@redhat.com)
+- 670185 - rephrasing the status information to be more clear
+  (tlestach@redhat.com)
+
 * Mon Jan 03 2011 Jan Pazdziora 1.3.20-1
 - token_channel_select.js not referenced, removing.
 - As RHN::DB::Search is gone, system_search_setbuilder.xml is not used,
