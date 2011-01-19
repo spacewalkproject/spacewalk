@@ -907,6 +907,7 @@ sub postgresql_setup_db {
         }
     }
 
+    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password');
     postgresql_populate_db($opts, $answers);
 
     return 1;
@@ -951,15 +952,7 @@ sub postgresql_populate_db {
     my $sat_schema_deploy = POSTGRESQL_SCHEMA_FILE;
     my $logfile = DB_POP_LOG_FILE;
 
-    my @opts = ('/usr/bin/rhn-populate-database.pl',
-        sprintf('--user=%s', @{$answers}{'db-user'}),
-        sprintf('--password=%s', @{$answers}{'db-password'}),
-        sprintf('--database=%s', @{$answers}{'db-name'}),
-        sprintf('--host=%s', @{$answers}{'db-host'}),
-        sprintf('--port=%s', @{$answers}{'db-port'}),
-        sprintf("--schema-deploy-file=$sat_schema_deploy"),
-        sprintf('--postgresql'),
-    );
+    my @opts = ('spacewalk-sql', '--select-mode-direct', $sat_schema_deploy);
 
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => Spacewalk::Setup::DB_POP_LOG_FILE,
@@ -1041,6 +1034,7 @@ sub oracle_setup_db {
     oracle_setup_embedded_db($opts, $answers);
     oracle_setup_db_connection($opts, $answers);
     oracle_test_db_settings($opts, $answers);
+    write_rhn_conf($answers, 'db-backend', 'db-name', 'db-user', 'db-password');
     oracle_populate_db($opts, $answers);
 }
 
@@ -1411,14 +1405,7 @@ sub oracle_populate_db {
         File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
     my $logfile = DB_POP_LOG_FILE;
 
-    my @opts = ('/usr/bin/rhn-populate-database.pl',
-        sprintf('--user=%s', @{$answers}{'db-user'}),
-        sprintf('--password=%s', @{$answers}{'db-password'}),
-        sprintf('--database=%s', @{$answers}{'db-name'}),
-        sprintf('--host=%s', @{$answers}{'db-host'}),
-        sprintf("--schema-deploy-file=$sat_schema_deploy"),
-    );
-
+    my @opts = ('spacewalk-sql', '--select-mode-direct', $sat_schema_deploy);
 
     if (have_selinux()) {
       local *X; open X, '> ' . DB_POP_LOG_FILE and close X;
@@ -1706,6 +1693,23 @@ sub update_monitoring_ack_enqueuer {
 		unlink($l);
 		symlink($t, $l);
 	}
+}
+
+# Write subset of $answers to /etc/rhn/rhn.conf.
+sub write_rhn_conf {
+	my $answers = shift;
+
+	my $rhnconf = DEFAULT_RHN_CONF_LOCATION;
+	local *RHNCONF;
+	open RHNCONF, '>', $rhnconf or die "Error writing [$rhnconf]: $!\n";
+	for my $n (@_) {
+		if (defined $answers->{$n}) {
+			my $name = $n;
+			$name =~ s!-!_!g;
+			print RHNCONF "$name = $answers->{$n}\n";
+		}
+	}
+	close RHNCONF;
 }
 
 =head1 DESCRIPTION
