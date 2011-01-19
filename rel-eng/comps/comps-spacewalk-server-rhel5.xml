@@ -75,7 +75,6 @@
        <packagereq type="default">oscache-manual</packagereq>
        <packagereq type="default">perl-Apache-Admin-Config</packagereq>
        <packagereq type="default">perl-Class-Loader</packagereq>
-       <packagereq type="default">perl-Crypt-CAST5_PP</packagereq>
        <packagereq type="default">perl-Crypt-CBC</packagereq>
        <packagereq type="default">perl-Data-Buffer</packagereq>
        <packagereq type="default">perl-DateTime-Locale</packagereq>
