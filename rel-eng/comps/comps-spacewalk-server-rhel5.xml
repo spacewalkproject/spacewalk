@@ -29,9 +29,6 @@
        <packagereq type="default">dom4j-demo</packagereq>
        <packagereq type="default">dom4j-manual</packagereq>
        <packagereq type="default">dom4j-repolib</packagereq>
-       <packagereq type="default">ehcache</packagereq>
-       <packagereq type="default">ehcache-hibernate</packagereq>
-       <packagereq type="default">ehcache-javadoc</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">hibernate3</packagereq>
