@@ -8,13 +8,20 @@ use IPC::Open3 ();
 use Getopt::Long ();
 
 sub usage {
-	die "Usage: $0 [--verbose] [--select-mode] sql-file-to-use.sql\n";
+	die "Usage: $0 [ OPTIONS ] sql-file-to-use.sql\n    where possible OPTIONS are\n        --verbose\n        --select-mode or --select-mode-direct\n";
 }
-my ($verbose, $select_mode);
+
+my ($verbose, $select_mode, $select_direct);
 if (not Getopt::Long::GetOptions(
 	'verbose' => \$verbose,
 	'select-mode' => \$select_mode,
+	'select-mode-direct' => \$select_direct,
 	)) {
+	usage();
+}
+
+if ($select_mode and $select_direct) {
+	warn "Options --select-mode and --select-mode-direct are exclusive.\n";
 	usage();
 }
 
@@ -79,11 +86,12 @@ if ($options{db_backend} eq 'oracle') {
 	die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
 }
 
-
-my $out;
-{
-local $/ = undef;
-$out = <$rfh>;
+my $out = '';
+while (<$rfh>) {
+	if ($select_direct) {
+		print;
+	}
+	$out .= $_;
 }
 close $rfh;
 waitpid $pid, 0;
@@ -104,7 +112,13 @@ spacewalk-sql - utility for feeding SQL to Spacewalk's database
 
 =head1 SYNOPSIS
 
-B<spacewalk-sql> [ --select-mode ] [ --verbose ] sql-file-to-use.sql
+    B<spacewalk-sql> sql-file-to-use.sql
+    B<spacewalk-sql> - < sql-file-to-use.sql
+
+    B<spacewalk-sql> --verbose sql-file-to-use.sql
+    B<spacewalk-sql> --select-mode - < sql-file-to-use.sql
+    B<spacewalk-sql> --verbose --select-mode sql-file-to-use.sql
+    B<spacewalk-sql> --select-mode-direct sql-file-to-use.sql
 
 =head1 OPTIONS
 
@@ -117,6 +131,16 @@ B<spacewalk-sql> is primarily intended to feed DDL/DML to the
 database, not do queries. With this option, upon successful
 completion, the output will be printed to standard output. Note that
 it will be in the native format.
+
+=item --select-mode-direct
+
+Variant of B<--select-mode> when the output is printed out
+immediatelly, without waiting for successful result. This is useful
+when you want to log the output and be able to watch it while
+the command runs, for example with C<tail -f>.
+
+Note that only one of B<--select-mode> and B<--select-mode-direct>
+can be specified.
 
 =item --verbose
 
