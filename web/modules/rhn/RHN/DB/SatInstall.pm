@@ -71,39 +71,6 @@ EOQ
   return %nls_database_parameters;
 }
 
-sub clear_db {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  if (grep { $dbh->{Name} eq $_ } qw/webdev webqa web phx live prod/) {
-    throw "No!  Attempt to clear db: '" . $dbh->{Name} . "'\n";
-  }
-
-  my $select_sth = $dbh->prepare(<<EOQ);
-  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name AS DROP_STMT
-    FROM user_objects UO
-   WHERE UO.object_type NOT IN ('TABLE', 'INDEX', 'TRIGGER', 'LOB')
-UNION
-  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name
-         || ' cascade constraints' AS DROP_STMT
-    FROM user_objects UO
-   WHERE UO.object_type = 'TABLE'
-     AND UO.object_name NOT LIKE '%$%'
-EOQ
-
-  $select_sth->execute();
-
-  while (my ($drop_stmt) = $select_sth->fetchrow()) {
-    my $drop_sth = $dbh->prepare($drop_stmt);
-    $drop_sth->execute();
-  }
-
-  $dbh->commit;
-
-  return;
-}
-
 sub update_monitoring_config {
   my $class = shift;
   my $mon_config = shift;
