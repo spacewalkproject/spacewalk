@@ -86,21 +86,21 @@ if ($options{db_backend} eq 'oracle') {
 	die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
 }
 
-my $out = '';
+my @out;
 while (<$rfh>) {
 	if ($select_direct) {
 		print;
 	}
-	$out .= $_;
+	push @out, $_;
 }
 close $rfh;
 waitpid $pid, 0;
 if ($?) {
 	my $ret = $? >> 8;
-	print STDERR $out;
+	print STDERR @out;
 	exit $ret;
 } elsif ($select_mode) {
-	print $out;
+	print @out;
 }
 exit;
 
