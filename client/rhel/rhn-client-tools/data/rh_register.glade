@@ -2712,7 +2712,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
 	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	  <property name="width_chars">-1</property>
+	  <property name="width_request">600</property>
 	  <property name="single_line_mode">False</property>
 	  <property name="angle">0</property>
 	</widget>
@@ -2854,7 +2854,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -2948,7 +2948,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -3042,7 +3042,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -3136,7 +3136,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -4273,7 +4273,7 @@ Are you sure you would like to continue?</property>
 	      <property name="xpad">0</property>
 	      <property name="ypad">0</property>
 	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	      <property name="width_chars">-1</property>
+	      <property name="width_request">600</property>
 	      <property name="single_line_mode">False</property>
 	      <property name="angle">0</property>
 	    </widget>
@@ -4376,7 +4376,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
@@ -4470,7 +4470,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
@@ -4564,7 +4564,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
@@ -4659,7 +4659,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
