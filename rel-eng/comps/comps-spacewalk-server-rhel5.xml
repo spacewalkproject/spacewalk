@@ -120,7 +120,6 @@
        <packagereq type="default">SatConfig-installer</packagereq>
        <packagereq type="default">SatConfig-spread</packagereq>
        <packagereq type="default">scdb</packagereq>
-       <packagereq type="default">servletapi4</packagereq>
        <packagereq type="default">simple-core</packagereq>
        <packagereq type="default">sitemesh</packagereq>
        <packagereq type="default">sitemesh-javadoc</packagereq>
@@ -229,7 +228,6 @@
        <packagereq type="optional">msv-xmlgen-javadoc</packagereq>
        <packagereq type="optional">msv-xsdlib-javadoc</packagereq>
        <packagereq type="optional">relaxngDatatype-javadoc</packagereq>
-       <packagereq type="optional">servletapi4-javadoc</packagereq>
        <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
        <packagereq type="optional">ws-jaxme-javadoc</packagereq>
        <packagereq type="optional">xom-javadoc</packagereq>
