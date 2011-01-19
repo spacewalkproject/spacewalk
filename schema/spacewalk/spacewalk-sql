@@ -7,16 +7,19 @@ use Spacewalk::Setup ();
 use IPC::Open3 ();
 use Getopt::Long ();
 
+sub usage {
+	die "Usage: $0 [--verbose] [--select-mode] sql-file-to-use.sql\n";
+}
 my ($verbose, $select_mode);
 if (not Getopt::Long::GetOptions(
 	'verbose' => \$verbose,
 	'select-mode' => \$select_mode,
 	)) {
-	exit 1
+	usage();
 }
 
 if (@ARGV != 1) {
-	die "Usage: $0 sql-file-to-use.sql\n";
+	usage();
 }
 
 my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
