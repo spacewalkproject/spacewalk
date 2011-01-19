@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.7
+Version:        1.3.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Wed Jan 19 2011 Jan Pazdziora 1.3.8-1
+- Call spacewalk-sql instead of rhn-populate-database.pl.
+
 * Tue Jan 18 2011 Jan Pazdziora 1.3.7-1
 - The db-sid is long gone, using db-name now.
 - As db-protocol is no longer processed (supported), removing.
