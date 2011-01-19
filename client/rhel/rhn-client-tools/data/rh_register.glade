@@ -128,6 +128,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="clicked" handler="on_whyRegisterButton_clicked"/>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Why Should I Connect to RHN? ...</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -410,6 +413,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			  <property name="activates_default">False</property>
 			  <signal name="changed" handler="onSatelliteServerEntryChanged"/>
 			  <signal name="focus_in_event" handler="onSatelliteServerEntryFocused"/>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">satellite server location</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -509,6 +515,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="clicked" handler="onAdvancedNetworkConfigurationButtonClicked"/>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Advanced Network Configuration button</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -676,6 +685,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
 		  <signal name="activate" handler="onLoginUserEntryActivate"/>
+		  <accessibility>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">RHN login field</atkproperty>
+		  </accessibility>
 		</widget>
 		<packing>
 		  <property name="left_attach">1</property>
@@ -698,6 +710,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 		  <property name="invisible_char">•</property>
 		  <property name="activates_default">False</property>
 		  <signal name="activate" handler="onLoginPasswordEntryActivate"/>
+		  <accessibility>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">RHN password field</atkproperty>
+		  </accessibility>
 		</widget>
 		<packing>
 		  <property name="left_attach">1</property>
@@ -2039,6 +2054,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="invisible_char">•</property>
 			  <property name="activates_default">False</property>
 			  <signal name="changed" handler="registrationNumberEntryChanged"/>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">installation number field</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -2416,6 +2434,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="has_frame">True</property>
 			  <property name="invisible_char">•</property>
 			  <property name="activates_default">False</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">system name</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -2539,6 +2560,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
 			  <signal name="clicked" handler="onViewHardwareButtonClicked"/>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">View Hardware Profile</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -2558,6 +2582,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">View Package Profile</atkproperty>
+			  </accessibility>
 			  <signal name="clicked" handler="onViewPackageListButtonClicked"/>
 			</widget>
 			<packing>
@@ -2581,6 +2608,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="active">True</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Send hardware profile checkbox</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">0</property>
@@ -2603,6 +2633,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="active">True</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Send package profile checkbox</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">0</property>
@@ -2709,6 +2742,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="clicked" handler="onBackToRegistrationButtonClicked"/>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Take me back to the registration</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -3562,6 +3598,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Close</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -3633,6 +3672,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
+		      <accessibility>
+			<atkproperty name="AtkObject::accessible_name" translatable="yes">I would like to connect to Red Hat Network via an _HTTP proxy.</atkproperty>
+		      </accessibility>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -3760,6 +3802,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char">*</property>
 			      <property name="activates_default">False</property>
+			      <accessibility>
+				<atkproperty name="AtkObject::accessible_name" translatable="yes">proxy location</atkproperty>
+			      </accessibility>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -3790,6 +3835,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
+		      <accessibility>
+			<atkproperty name="AtkObject::accessible_name" translatable="yes">Use Authentication with HTTP Proxy</atkproperty>
+		      </accessibility>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -3890,6 +3938,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char">*</property>
 			      <property name="activates_default">False</property>
+			      <accessibility>
+				<atkproperty name="AtkObject::accessible_name" translatable="yes">proxy user field</atkproperty>
+			      </accessibility>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -3912,6 +3963,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char">•</property>
 			      <property name="activates_default">False</property>
+			      <accessibility>
+				<atkproperty name="AtkObject::accessible_name" translatable="yes">proxy password field</atkproperty>
+			      </accessibility>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -3985,6 +4039,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">No, Cancel</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 
@@ -3996,6 +4053,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">1</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Yes, Continue</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -4164,6 +4224,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Take me back to the setup process.</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 
@@ -4175,6 +4238,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">1</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">No thanks, I'll connect later.</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -4692,6 +4758,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">No, Cancel</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 
@@ -4703,6 +4772,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">1</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Yes, Continue</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -5079,6 +5151,9 @@ You'll know when software updates are available when a package icon appears in t
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
+	  <accessibility>
+	    <atkproperty name="AtkObject::accessible_name" translatable="yes">Aplet screenshot</atkproperty>
+	  </accessibility>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
@@ -5155,6 +5230,9 @@ You'll know when software updates are available when a package icon appears in t
 	      <property name="active">False</property>
 	      <property name="inconsistent">False</property>
 	      <property name="draw_indicator">True</property>
+	      <accessibility>
+	        <atkproperty name="AtkObject::accessible_name" translatable="yes">Limited updates</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -5232,6 +5310,9 @@ You'll know when software updates are available when a package icon appears in t
 	      <property name="items" translatable="yes"></property>
 	      <property name="add_tearoffs">False</property>
 	      <property name="focus_on_click">True</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Choose minor release</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -5345,6 +5426,9 @@ You'll know when software updates are available when a package icon appears in t
 	      <property name="inconsistent">False</property>
 	      <property name="draw_indicator">True</property>
 	      <property name="group">limited_updates_button</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">All available updates</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -5589,6 +5673,9 @@ You'll know when software updates are available when a package icon appears in t
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
+	  <accessibility>
+	    <atkproperty name="AtkObject::accessible_name" translatable="yes">icon of aplet</atkproperty>
+	  </accessibility>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
