@@ -275,11 +275,7 @@ fi
 
 %build
 # compile only java sources (no packing here)
-%if  0%{?rhel} && 0%{?rhel} < 6
-    ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat5 init-install compile
-%else
-    ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat6 init-install compile
-%endif
+ant -Dprefix=$RPM_BUILD_ROOT init-install compile
 
 # checkstyle is broken on Fedora 14 - we skip for now
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
@@ -308,11 +304,11 @@ xargs checkstyle -c buildconf/checkstyle.xml
 %install
 rm -rf $RPM_BUILD_ROOT
 %if  0%{?rhel} && 0%{?rhel} < 6
-ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat5 install-tomcat5
+ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %else
-ant -Dprefix=$RPM_BUILD_ROOT -Dtomcat=tomcat6 install-tomcat6
+ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
 install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
