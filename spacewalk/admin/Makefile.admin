@@ -33,7 +33,6 @@ PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-config-schema.pl \
                rhn-deploy-ca-cert.pl \
                rhn-install-ssl-cert.pl \
-               rhn-populate-database.pl \
                rhn-generate-pem.pl \
                rhn-load-ssl-cert.pl \
                rhn-sudo-load-ssl-cert \
