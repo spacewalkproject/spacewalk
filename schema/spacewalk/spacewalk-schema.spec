@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.11
+Version:        1.3.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jan 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.12-1
+- fixed failed 1.1 -> 1.3 upgrade test
+
 * Tue Jan 18 2011 Jan Pazdziora 1.3.11-1
 - The table rhnPackageChangelog is dropped in 103-rhnPackageChangeLog-
   refactoring.sql, no need to alter it here.
