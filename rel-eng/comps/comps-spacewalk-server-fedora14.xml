@@ -56,7 +56,6 @@
        <packagereq type="default">SatConfig-bootstrap</packagereq>
        <packagereq type="default">SatConfig-bootstrap-server</packagereq>
        <packagereq type="default">SatConfig-cluster</packagereq>
-       <packagereq type="default">SatConfig-dbsynch</packagereq>
        <packagereq type="default">SatConfig-general</packagereq>
        <packagereq type="default">SatConfig-generator</packagereq>
        <packagereq type="default">SatConfig-installer</packagereq>
