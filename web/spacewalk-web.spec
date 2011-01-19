@@ -50,6 +50,11 @@ database.  This includes RHN::* and RHN::DB::*
 Summary: Minimal .pm's for %{name} package
 Group: Applications/Internet 
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
+%if (0%{?rhel} < 6) || (0%{?fedora} < 13)
+Requires: tomcat5
+%else
+Requires: tomcat6
+%endif
 Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 
