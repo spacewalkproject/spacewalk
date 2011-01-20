@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.3.8
+Version: 1.3.9
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -70,6 +70,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-service.8*
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.9-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- Removing rhn-populate-database.pl, we now use the generic spacewalk-sql.
+  (jpazdziora@redhat.com)
+
 * Tue Jan 18 2011 Jan Pazdziora 1.3.8-1
 - The rhn-config-tnsnames.pl is no longer used, removing.
 - Do not call external /bin/touch to create a lockfile.
