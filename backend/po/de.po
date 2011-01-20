@@ -13,10 +13,10 @@ msgstr ""
 "PO-Revision-Date: 2010-11-15 23:36+0100\n"
 "Last-Translator: Luc de Louw <luc@delouw.ch>\n"
 "Language-Team: German <trans-de@lists.fedoraproject.org\" \">\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
@@ -146,8 +146,8 @@ msgstr "Ihr System wurde in der RHN Datenbank nicht gefunden"
 #: ../server/rhnChannel.py:1781
 #, python-format
 msgid ""
-"Your account does not have access to any channels matching "
-"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
+"Your account does not have access to any channels matching (release='%"
+"(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
 
 #: ../server/rhnChannel.py:1791

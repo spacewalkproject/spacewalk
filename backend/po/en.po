@@ -10,10 +10,10 @@ msgstr ""
 "PO-Revision-Date: 2000-08-08 16:51-0400\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: English <rhns-i18n@redhat.com>\n"
-"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
 
 #: ../server/handlers/xmlrpc/queue.py:400
 #, python-format
@@ -375,8 +375,8 @@ msgstr ""
 #: ../server/rhnChannel.py:1781
 #, python-format
 msgid ""
-"Your account does not have access to any channels matching "
-"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
+"Your account does not have access to any channels matching (release='%"
+"(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
 
 #: ../server/rhnChannel.py:1791

@@ -12,10 +12,10 @@ msgstr ""
 "PO-Revision-Date: 2010-08-07 10:56+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 
 #: ../server/handlers/xmlrpc/queue.py:400
 #, python-format
@@ -147,11 +147,11 @@ msgstr "Ditt system fanns inte i RHN-databasen"
 #: ../server/rhnChannel.py:1781
 #, python-format
 msgid ""
-"Your account does not have access to any channels matching "
-"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
+"Your account does not have access to any channels matching (release='%"
+"(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
-"Ditt konto har inte tillgång till några kanaler som stämmer "
-"(utgåva='%(release)s', ark='%(arch)s')%(www_activation)s"
+"Ditt konto har inte tillgång till några kanaler som stämmer (utgåva='%"
+"(release)s', ark='%(arch)s')%(www_activation)s"
 
 #: ../server/rhnChannel.py:1791
 msgid ""
