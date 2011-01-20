@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:01 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:28 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_ORGCSETTINGS_OID_CID_UQ" ON "SPACEWALK"."RHNORGCHANNELSETTINGS" ("ORG_ID", "CHANNEL_ID", "SETTING_ID") 

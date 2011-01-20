@@ -1,4 +1,4 @@
---missed index on QRTZ_TRIGGERS table for SYS_C009189 constraint 
+--missed index on QRTZ_TRIGGERS table for SYS_C006582 constraint
 create index fk_no_index_0 on QRTZ_TRIGGERS (JOB_NAME, JOB_GROUP);
 
 --missed index on RHNACTION table for RHN_ACTION_AT_FK constraint 
@@ -334,7 +334,7 @@ create index fk_no_index_110 on RHNPACKAGEUPGRADEARCHCOMPAT (PACKAGE_UPGRADE_ARC
 --missed index on RHNPROXYINFO table for RHN_PROXY_INFO_PEID_FK constraint 
 create index fk_no_index_111 on RHNPROXYINFO (PROXY_EVR_ID);
 
---missed index on RHNPUSHCLIENT table for SYS_C008044 constraint 
+--missed index on RHNPUSHCLIENT table for SYS_C005437 constraint
 create index fk_no_index_112 on RHNPUSHCLIENT (STATE_ID);
 
 --missed index on RHNREGTOKENCHANNELS table for RHN_REG_TOK_CHN_SGS_FK constraint 
@@ -415,13 +415,13 @@ create index fk_no_index_137 on RHNSERVERCUSTOMDATAVALUE (LAST_MODIFIED_BY);
 --missed index on RHNSERVERGROUPTYPEFEATURE table for RHN_SGT_FID_FK constraint 
 create index fk_no_index_138 on RHNSERVERGROUPTYPEFEATURE (FEATURE_ID);
 
---missed index on RHNSERVERPACKAGE table for SYS_C008318 constraint 
+--missed index on RHNSERVERPACKAGE table for SYS_C005711 constraint
 create index fk_no_index_139 on RHNSERVERPACKAGE (NAME_ID);
 
---missed index on RHNSERVERPACKAGE table for SYS_C008319 constraint 
+--missed index on RHNSERVERPACKAGE table for SYS_C005712 constraint
 create index fk_no_index_140 on RHNSERVERPACKAGE (EVR_ID);
 
---missed index on RHNSERVERPACKAGE table for SYS_C008320 constraint 
+--missed index on RHNSERVERPACKAGE table for SYS_C005713 constraint
 create index fk_no_index_141 on RHNSERVERPACKAGE (PACKAGE_ARCH_ID);
 
 --missed index on RHNSERVERPROFILE table for RHN_SERVER_PROFILE_PTYPE_FK constraint 

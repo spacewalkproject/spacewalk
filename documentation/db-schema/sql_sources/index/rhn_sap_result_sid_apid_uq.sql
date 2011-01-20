@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:34 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SAP_RESULT_SID_APID_UQ" ON "SPACEWALK"."RHNSERVERACTIONPACKAGERESULT" ("SERVER_ID", "ACTION_PACKAGE_ID") 

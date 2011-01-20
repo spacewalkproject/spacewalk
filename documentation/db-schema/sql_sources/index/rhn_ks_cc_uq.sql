@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:00 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:12 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_KS_CC_UQ" ON "SPACEWALK"."RHNKICKSTARTCHILDCHANNEL" ("CHANNEL_ID", "KSDATA_ID") 

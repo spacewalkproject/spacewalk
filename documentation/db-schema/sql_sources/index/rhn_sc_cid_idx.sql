@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:05 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:48 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_SC_CID_IDX" ON "SPACEWALK"."RHNSERVERCHANNEL" ("CHANNEL_ID") 

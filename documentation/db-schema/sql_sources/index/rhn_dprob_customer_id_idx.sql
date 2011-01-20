@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:57 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:17 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_DPROB_CUSTOMER_ID_IDX" ON "SPACEWALK"."RHN_DEPLOYED_PROBE" ("CUSTOMER_ID") 

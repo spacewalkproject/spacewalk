@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:02 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:01 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_PPVAL_P_ID_CMD_ID_PARM_PK" ON "SPACEWALK"."RHN_PROBE_PARAM_VALUE" ("PROBE_ID", "COMMAND_ID", "PARAM_NAME") 

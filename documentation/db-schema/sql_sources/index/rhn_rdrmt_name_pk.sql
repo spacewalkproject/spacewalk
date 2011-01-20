@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:03 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:23 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_RDRMT_NAME_PK" ON "SPACEWALK"."RHN_REDIRECT_MATCH_TYPES" ("NAME") 

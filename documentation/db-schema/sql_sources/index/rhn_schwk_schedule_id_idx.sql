@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:45 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_SCHWK_SCHEDULE_ID_IDX" ON "SPACEWALK"."RHN_SCHEDULE_WEEKS" ("SCHEDULE_ID") 

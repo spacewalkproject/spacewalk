@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:09 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:30 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_WCON_DISABLED_WCON_ID_IDX" ON "SPACEWALK"."RHNWEBCONTACTCHANGELOG" ("WEB_CONTACT_ID") 

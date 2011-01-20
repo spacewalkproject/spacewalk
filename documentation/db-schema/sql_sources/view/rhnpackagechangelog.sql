@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:13 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:21 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNPACKAGECHANGELOG" ("ID", "PACKAGE_ID", "CHANGELOG_DATA_ID", "NAME", "TEXT", "TIME", "CREATED", "MODIFIED") AS 

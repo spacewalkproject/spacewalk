@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:58 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:30 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_EQUEUE_NA_EID_IDX" ON "SPACEWALK"."RHNERRATAQUEUE" ("NEXT_ACTION", "ERRATA_ID") 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:57 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:10 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_CURRENT_STATE_SUMMARIES_PK" ON "SPACEWALK"."RHN_CURRENT_STATE_SUMMARIES" ("CUSTOMER_ID", "TEMPLATE_ID", "STATE") 

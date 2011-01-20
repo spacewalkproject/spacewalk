@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:02 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:59 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_PKG_PROV_CID_PID_S_UQ" ON "SPACEWALK"."RHNPACKAGEPROVIDES" ("CAPABILITY_ID", "PACKAGE_ID", "SENSE") 

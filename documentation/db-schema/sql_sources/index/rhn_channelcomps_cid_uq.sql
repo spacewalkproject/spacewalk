@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:54 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:10 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_CHANNELCOMPS_CID_UQ" ON "SPACEWALK"."RHNCHANNELCOMPS" ("CHANNEL_ID") 

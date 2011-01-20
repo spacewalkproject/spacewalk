@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:07 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:39 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_SP_AC_SAID_PAID_PREF" ON "SPACEWALK"."RHNSERVERPACKAGEARCHCOMPAT" ("SERVER_ARCH_ID", "PACKAGE_ARCH_ID", "PREFERENCE") 

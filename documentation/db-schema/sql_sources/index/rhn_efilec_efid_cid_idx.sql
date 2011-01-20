@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:58 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:25 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_EFILEC_EFID_CID_IDX" ON "SPACEWALK"."RHNERRATAFILECHANNEL" ("ERRATA_FILE_ID", "CHANNEL_ID") 

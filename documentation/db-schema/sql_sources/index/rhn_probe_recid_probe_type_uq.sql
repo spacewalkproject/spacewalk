@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:03 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:07 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_PROBE_RECID_PROBE_TYPE_UQ" ON "SPACEWALK"."RHN_PROBE" ("RECID", "PROBE_TYPE") 

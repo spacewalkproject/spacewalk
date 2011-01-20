@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:54 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:05 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_CFPERM_CFID_IDX" ON "SPACEWALK"."RHNPRIVATECHANNELFAMILY" ("CHANNEL_FAMILY_ID") 

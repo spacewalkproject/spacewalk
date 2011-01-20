@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:54 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:21 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_CHKPB_SAT_CLUSTER_ID_IDX" ON "SPACEWALK"."RHN_CHECK_PROBE" ("SAT_CLUSTER_ID") 

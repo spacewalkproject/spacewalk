@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:58 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:31 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_ERRATACLONE_ID_PK" ON "SPACEWALK"."RHNERRATACLONED" ("ID") 

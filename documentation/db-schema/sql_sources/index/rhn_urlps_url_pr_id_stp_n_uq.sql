@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:09 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:12 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_URLPS_URL_PR_ID_STP_N_UQ" ON "SPACEWALK"."RHN_URL_PROBE_STEP" ("URL_PROBE_ID", "STEP_NUMBER") 

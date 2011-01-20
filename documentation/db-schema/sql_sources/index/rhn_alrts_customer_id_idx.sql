@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:52 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:40 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_ALRTS_CUSTOMER_ID_IDX" ON "SPACEWALK"."RHN_CURRENT_ALERTS" ("CUSTOMER_ID") 

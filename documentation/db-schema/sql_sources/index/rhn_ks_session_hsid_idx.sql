@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:00 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:15 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_KS_SESSION_HSID_IDX" ON "SPACEWALK"."RHNKICKSTARTSESSION" ("HOST_SERVER_ID") 

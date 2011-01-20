@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:11 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:03 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."WEB_USER_SITE_INFO_WUID" ON "SPACEWALK"."WEB_USER_SITE_INFO" ("WEB_USER_ID") 

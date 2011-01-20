@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:51 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:21 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_ACTIONCR_AID_SID_CRID_UQ" ON "SPACEWALK"."RHNACTIONCONFIGREVISION" ("ACTION_ID", "SERVER_ID", "CONFIG_REVISION_ID") 

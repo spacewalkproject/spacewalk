@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:06 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:14 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SET_USER_LABEL_ELEM_UNQ" ON "SPACEWALK"."RHNSET" ("USER_ID", "LABEL", "ELEMENT", "ELEMENT_TWO", "ELEMENT_THREE") 

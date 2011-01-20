@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:53 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:58 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_BL_OBS_NEPI_IDX" ON "SPACEWALK"."RHNBLACKLISTOBSOLETES" ("NAME_ID", "EVR_ID", "PACKAGE_ARCH_ID", "IGNORE_NAME_ID") 

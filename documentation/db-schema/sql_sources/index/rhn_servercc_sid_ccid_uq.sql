@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:05 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:52 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SERVERCC_SID_CCID_UQ" ON "SPACEWALK"."RHNSERVERCONFIGCHANNEL" ("SERVER_ID", "CONFIG_CHANNEL_ID") 

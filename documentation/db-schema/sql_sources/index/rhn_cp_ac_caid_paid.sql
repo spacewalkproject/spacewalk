@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:56 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:58 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_CP_AC_CAID_PAID" ON "SPACEWALK"."RHNCHANNELPACKAGEARCHCOMPAT" ("CHANNEL_ARCH_ID", "PACKAGE_ARCH_ID") 

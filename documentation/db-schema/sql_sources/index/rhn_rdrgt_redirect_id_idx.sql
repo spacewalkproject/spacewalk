@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:03 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:21 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_RDRGT_REDIRECT_ID_IDX" ON "SPACEWALK"."RHN_REDIRECT_GROUP_TARGETS" ("REDIRECT_ID") 

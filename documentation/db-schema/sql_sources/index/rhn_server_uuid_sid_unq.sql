@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:06 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:12 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SERVER_UUID_SID_UNQ" ON "SPACEWALK"."RHNSERVERUUID" ("SERVER_ID") 

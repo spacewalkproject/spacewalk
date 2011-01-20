@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:41 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SCDV_SID_KID_UQ" ON "SPACEWALK"."RHNSERVERCUSTOMDATAVALUE" ("SERVER_ID", "KEY_ID") 

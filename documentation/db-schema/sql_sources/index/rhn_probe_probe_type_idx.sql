@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:03 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:05 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_PROBE_PROBE_TYPE_IDX" ON "SPACEWALK"."RHN_PROBE" ("PROBE_TYPE") 

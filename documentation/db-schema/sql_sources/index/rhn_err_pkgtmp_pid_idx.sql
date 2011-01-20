@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:59 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:45 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_ERR_PKGTMP_PID_IDX" ON "SPACEWALK"."RHNERRATAPACKAGETMP" ("PACKAGE_ID") 

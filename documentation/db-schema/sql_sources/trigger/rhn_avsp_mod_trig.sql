@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:16 2010
+-- created by Oraschemadoc Thu Jan 20 13:57:01 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_AVSP_MOD_TRIG" 

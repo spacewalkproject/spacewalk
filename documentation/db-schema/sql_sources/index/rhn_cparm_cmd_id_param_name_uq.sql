@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:56 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:53 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_CPARM_CMD_ID_PARAM_NAME_UQ" ON "SPACEWALK"."RHN_COMMAND_PARAMETER" ("COMMAND_ID", "PARAM_NAME") 

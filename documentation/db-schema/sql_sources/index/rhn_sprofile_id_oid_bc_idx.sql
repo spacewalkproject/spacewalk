@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:07 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:35 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_SPROFILE_ID_OID_BC_IDX" ON "SPACEWALK"."RHNSERVERPROFILE" ("ID", "ORG_ID", "BASE_CHANNEL") 

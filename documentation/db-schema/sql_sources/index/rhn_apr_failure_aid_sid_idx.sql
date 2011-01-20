@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:53 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:50 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_APR_FAILURE_AID_SID_IDX" ON "SPACEWALK"."RHNACTIONPACKAGEREMOVALFAILURE" ("ACTION_ID", "SERVER_ID") 

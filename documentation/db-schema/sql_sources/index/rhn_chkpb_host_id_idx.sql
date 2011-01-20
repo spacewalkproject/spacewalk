@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:54 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:20 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_CHKPB_HOST_ID_IDX" ON "SPACEWALK"."RHN_CHECK_PROBE" ("HOST_ID") 

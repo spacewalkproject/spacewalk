@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:19 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:09 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."SEQUENCE_NEXTVAL" ( seq_name varchar2 ) return number as

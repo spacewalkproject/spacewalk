@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:51 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:17 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHNUSRINFOPANE_UID_PID_UQ" ON "SPACEWALK"."RHNUSERINFOPANE" ("USER_ID", "PANE_ID") 

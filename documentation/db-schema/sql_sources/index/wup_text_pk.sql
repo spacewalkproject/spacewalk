@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:11 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:04 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."WUP_TEXT_PK" ON "SPACEWALK"."WEB_USER_PREFIX" ("TEXT") 

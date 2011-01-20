@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:09 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:32 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."STATE_CHANGE_OID_ENTRY_IDX" ON "SPACEWALK"."STATE_CHANGE" ("O_ID", "ENTRY_TIME") 

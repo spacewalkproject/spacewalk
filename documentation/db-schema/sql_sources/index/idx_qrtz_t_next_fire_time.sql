@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:51 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:11 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."IDX_QRTZ_T_NEXT_FIRE_TIME" ON "SPACEWALK"."QRTZ_TRIGGERS" ("NEXT_FIRE_TIME") 

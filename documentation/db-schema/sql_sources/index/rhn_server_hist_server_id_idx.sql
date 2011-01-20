@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:05 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:06 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_SERVER_HIST_SERVER_ID_IDX" ON "SPACEWALK"."RHNSERVERHISTORY" ("SERVER_ID") 

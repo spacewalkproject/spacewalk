@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:03 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:10 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_PROXY_INFO_SID_UNQ" ON "SPACEWALK"."RHNPROXYINFO" ("SERVER_ID") 

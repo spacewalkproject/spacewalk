@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:09 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:22 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_VII_VIID_UQ" ON "SPACEWALK"."RHNVIRTUALINSTANCEINFO" ("INSTANCE_ID") 

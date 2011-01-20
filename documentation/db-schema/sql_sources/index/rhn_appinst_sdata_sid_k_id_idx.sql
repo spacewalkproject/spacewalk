@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:53 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:47 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_APPINST_SDATA_SID_K_ID_IDX" ON "SPACEWALK"."RHNAPPINSTALLSESSIONDATA" ("SESSION_ID", "KEY", "ID") 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:57 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:21 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_EASTATE_LABEL_UQ" ON "SPACEWALK"."RHNEMAILADDRESSSTATE" ("LABEL") 

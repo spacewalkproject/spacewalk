@@ -1,42 +1,14 @@
--- created by Oraschemadoc Tue Nov  2 08:33:19 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:16 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_ORG" 
 IS
-	version varchar2(100) := '';
-
-    CURSOR server_group_by_label(org_id_in NUMBER, group_label_in VARCHAR2) IS
-    	   SELECT SG.*
-	     FROM rhnServerGroupType SGT,
-	     	  rhnServerGroup SG
-	    WHERE SG.group_type = SGT.id
-	      AND SGT.label = group_label_in
-	      AND SG.org_id = org_id_in;
-
-    FUNCTION find_server_group_by_type(org_id_in NUMBER,
-                                       group_label_in VARCHAR2)
-    RETURN NUMBER;
-
     procedure delete_org(org_id_in in number);
     procedure delete_user(user_id_in in number, deleting_org in number := 0);
 
 END rhn_org;
 CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_ORG" 
 IS
-    body_version varchar2(100) := '';
-
-    FUNCTION find_server_group_by_type(org_id_in NUMBER, group_label_in VARCHAR2)
-    RETURN NUMBER
-    IS
-    server_group       server_group_by_label%ROWTYPE;
-    BEGIN
-        OPEN server_group_by_label(org_id_in, group_label_in);
-    FETCH server_group_by_label INTO server_group;
-    CLOSE server_group_by_label;
-
-    RETURN server_group.id;
-    END find_server_group_by_type;
-
     procedure delete_org (
         org_id_in in number
     )

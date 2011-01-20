@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:56 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:49 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_CONFM_NAME_PK" ON "SPACEWALK"."RHN_CONFIG_MACRO" ("NAME") 

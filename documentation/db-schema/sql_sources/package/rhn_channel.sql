@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:19 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:11 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CHANNEL" 
@@ -394,10 +394,7 @@ IS
         CURSOR vi_entries IS
             SELECT 1
               FROM rhnVirtualInstance vi
-             WHERE vi.virtual_system_id = server_id_in
-             and not exists(select server_id from rhnServerChannel sc where
-                            sc.server_id = vi.virtual_system_id
-                            and  sc.is_fve='Y');
+             WHERE vi.virtual_system_id = server_id_in;
         vi_count NUMBER;
 
     BEGIN

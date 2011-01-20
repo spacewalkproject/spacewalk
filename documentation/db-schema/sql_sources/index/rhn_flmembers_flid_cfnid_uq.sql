@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:59 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:54 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_FLMEMBERS_FLID_CFNID_UQ" ON "SPACEWALK"."RHNFILELISTMEMBERS" ("FILE_LIST_ID", "CONFIG_FILE_NAME_ID") 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:01 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:32 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_PACKAGEDELTA_ID_PK" ON "SPACEWALK"."RHNPACKAGEDELTA" ("ID") 

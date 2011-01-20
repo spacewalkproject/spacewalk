@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:58 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:28 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_ENQUEUE_EOID_UQ" ON "SPACEWALK"."RHNERRATANOTIFICATIONQUEUE" ("ERRATA_ID", "CHANNEL_ID", "ORG_ID") 

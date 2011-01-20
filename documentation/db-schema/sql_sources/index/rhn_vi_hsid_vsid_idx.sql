@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:09 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:26 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_VI_HSID_VSID_IDX" ON "SPACEWALK"."RHNVIRTUALINSTANCE" ("HOST_SYSTEM_ID", "VIRTUAL_SYSTEM_ID") 

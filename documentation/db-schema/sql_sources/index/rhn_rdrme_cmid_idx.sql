@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:03 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:21 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_RDRME_CMID_IDX" ON "SPACEWALK"."RHN_REDIRECT_METHOD_TARGETS" ("CONTACT_METHOD_ID") 

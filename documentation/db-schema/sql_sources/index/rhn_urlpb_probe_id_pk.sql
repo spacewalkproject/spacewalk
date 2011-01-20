@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:08 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:11 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_URLPB_PROBE_ID_PK" ON "SPACEWALK"."RHN_URL_PROBE" ("PROBE_ID") 

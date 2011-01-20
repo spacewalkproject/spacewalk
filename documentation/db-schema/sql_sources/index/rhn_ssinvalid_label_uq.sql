@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:07 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:46 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SSINVALID_LABEL_UQ" ON "SPACEWALK"."RHNSNAPSHOTINVALIDREASON" ("LABEL") 

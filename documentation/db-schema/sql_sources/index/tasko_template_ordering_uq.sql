@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:11 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:56 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."TASKO_TEMPLATE_ORDERING_UQ" ON "SPACEWALK"."RHNTASKOTEMPLATE" ("BUNCH_ID", "ORDERING") 

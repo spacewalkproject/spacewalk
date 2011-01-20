@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:58 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:30 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_ERRATACLONE_FEID_TEID_IDX" ON "SPACEWALK"."RHNERRATACLONED" ("ORIGINAL_ID", "ID") 

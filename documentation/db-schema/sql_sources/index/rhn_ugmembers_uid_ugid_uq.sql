@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:08 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:07 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_UGMEMBERS_UID_UGID_UQ" ON "SPACEWALK"."RHNUSERGROUPMEMBERS" ("USER_ID", "USER_GROUP_ID") 

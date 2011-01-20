@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:02 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:52 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_PKG_CLR_CLD_UQ" ON "SPACEWALK"."RHNPACKAGECHANGELOGREC" ("CHANGELOG_DATA_ID") 

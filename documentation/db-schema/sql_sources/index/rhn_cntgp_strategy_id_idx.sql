@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:55 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:38 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_CNTGP_STRATEGY_ID_IDX" ON "SPACEWALK"."RHN_CONTACT_GROUPS" ("STRATEGY_ID") 

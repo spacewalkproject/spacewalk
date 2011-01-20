@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:54 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:09 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_CHANNELCLONE_FCID_TCID_IDX" ON "SPACEWALK"."RHNCHANNELCLONED" ("ORIGINAL_ID", "ID") 

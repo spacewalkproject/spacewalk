@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:19 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:00 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_NAME" (name_in IN VARCHAR2, ignore_null in number := 0)

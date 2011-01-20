@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:49 2010
+-- created by Oraschemadoc Thu Jan 20 13:48:55 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHN_UNITS" 

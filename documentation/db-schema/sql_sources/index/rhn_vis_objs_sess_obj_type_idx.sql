@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:09 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:24 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_VIS_OBJS_SESS_OBJ_TYPE_IDX" ON "SPACEWALK"."RHNVISIBLEOBJECTS" ("PXT_SESSION_ID", "OBJECT_ID", "OBJECT_TYPE") 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:38 2010
+-- created by Oraschemadoc Thu Jan 20 13:47:12 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHNSATELLITECERT" 

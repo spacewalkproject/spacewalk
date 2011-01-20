@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:02 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:54 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_PKG_CONFLICTS_CID_IDX" ON "SPACEWALK"."RHNPACKAGECONFLICTS" ("CAPABILITY_ID") 

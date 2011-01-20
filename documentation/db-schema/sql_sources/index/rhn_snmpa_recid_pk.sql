@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:06 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:28 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SNMPA_RECID_PK" ON "SPACEWALK"."RHN_SNMP_ALERT" ("RECID") 

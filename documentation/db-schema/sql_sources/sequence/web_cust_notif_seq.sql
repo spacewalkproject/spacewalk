@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:21 2010
+-- created by Oraschemadoc Thu Jan 20 14:00:44 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
    CREATE SEQUENCE  "SPACEWALK"."WEB_CUST_NOTIF_SEQ"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1000000 CACHE 20 NOORDER  NOCYCLE 

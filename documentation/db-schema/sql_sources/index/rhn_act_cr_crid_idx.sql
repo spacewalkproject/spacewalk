@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:52 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:34 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_ACT_CR_CRID_IDX" ON "SPACEWALK"."RHNACTIONCONFIGREVISION" ("CONFIG_REVISION_ID") 

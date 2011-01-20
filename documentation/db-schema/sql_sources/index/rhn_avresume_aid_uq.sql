@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:53 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:55 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_AVRESUME_AID_UQ" ON "SPACEWALK"."RHNACTIONVIRTRESUME" ("ACTION_ID") 

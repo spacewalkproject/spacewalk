@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:01 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:38 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_PARCH_ID_L_N_IDX" ON "SPACEWALK"."RHNPACKAGEARCH" ("ID", "LABEL", "NAME") 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:56 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:52 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_COPTR_ID_P_NAME_P_TYPE_PK" ON "SPACEWALK"."RHN_COMMAND_PARAM_THRESHOLD" ("COMMAND_ID", "PARAM_NAME", "PARAM_TYPE") 

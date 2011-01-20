@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:15 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:45 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHN_CUSTOMER_MONITORING" ("RECID", "DESCRIPTION", "SCHEDULE_ID", "DEF_ACK_WAIT", "DEF_STRATEGY", "PREFERRED_TIME_ZONE", "AUTO_UPDATE") AS 

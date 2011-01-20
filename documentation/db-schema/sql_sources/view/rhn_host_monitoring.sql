@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:15 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:45 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHN_HOST_MONITORING" ("RECID", "IP", "NAME", "DESCRIPTION", "CUSTOMER_ID", "OS_ID", "ASSET_ID", "LAST_UPDATE_USER", "LAST_UPDATE_DATE") AS 

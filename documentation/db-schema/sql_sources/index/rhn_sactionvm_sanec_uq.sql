@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:32 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SACTIONVM_SANEC_UQ" ON "SPACEWALK"."RHNSERVERACTIONVERIFYMISSING" ("SERVER_ID", "ACTION_ID", "PACKAGE_NAME_ID", "PACKAGE_EVR_ID", "PACKAGE_ARCH_ID", "PACKAGE_CAPABILITY_ID") 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:35 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_SARCH_LABEL_UQ" ON "SPACEWALK"."RHNSERVERARCH" ("LABEL") 

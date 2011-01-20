@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:53:29 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_REG_TOK_GRP_UQ" ON "SPACEWALK"."RHNREGTOKENGROUPS" ("TOKEN_ID", "SERVER_GROUP_ID") 

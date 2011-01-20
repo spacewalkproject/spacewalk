@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:13 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:24 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERFVECAPABLE" ("SERVER_ID", "SERVER_ORG_ID", "CHANNEL_FAMILY_ID", "CURRENT_MEMBERS", "MAX_MEMBERS", "CHANNEL_FAMILY_NAME") AS 
@@ -17,7 +17,7 @@ from
      inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
 where sc.is_fve = 'N'
      AND (vi.host_system_id is null OR
-     exists (
+     not exists (
           select sg.id
             from rhnServerGroupMembers sgm
                  inner join rhnServerGroup sg on sgm.server_group_id = sg.id
@@ -25,7 +25,7 @@ where sc.is_fve = 'N'
                  inner join rhnServer s2 on s2.id = sgm.server_id
              where
                  s2.id = vi.host_system_id
-                 and sgt.label not in ('virtualization_host' ,'virtualization_host_platform') )
+                 and sgt.label in ('virtualization_host' ,'virtualization_host_platform') )
       )
  
 /

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:00 2010
+-- created by Oraschemadoc Thu Jan 20 13:52:07 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_KSPRESERVEFL_KSID_FLID_UQ" ON "SPACEWALK"."RHNKICKSTARTPRESERVEFILELIST" ("KICKSTART_ID", "FILE_LIST_ID") 

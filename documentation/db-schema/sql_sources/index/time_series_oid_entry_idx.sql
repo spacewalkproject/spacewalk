@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:11 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:57 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."TIME_SERIES_OID_ENTRY_IDX" ON "SPACEWALK"."TIME_SERIES" ("O_ID", "ENTRY_TIME") 

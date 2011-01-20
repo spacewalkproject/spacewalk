@@ -1,10 +1,10 @@
--- created by Oraschemadoc Tue Nov  2 08:33:19 2010
+-- created by Oraschemadoc Thu Jan 20 13:58:55 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CONFIG_INFO" (
     username_in     in varchar2,
     groupname_in    in varchar2,
-    filemode_in     in varchar2,
+    filemode_in     in number,
     selinux_ctx_in  in varchar2,
     symlink_target_id in number
 ) return number

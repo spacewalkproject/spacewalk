@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:55 2010
+-- created by Oraschemadoc Thu Jan 20 13:50:42 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_CONFCHAN_OID_LABEL_TYPE_UQ" ON "SPACEWALK"."RHNCONFIGCHANNEL" ("ORG_ID", "LABEL", "CONFCHAN_TYPE_ID") 

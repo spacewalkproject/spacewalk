@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:11 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:05 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."WUSI_EMAIL_UC_IDX" ON "SPACEWALK"."WEB_USER_SITE_INFO" ("EMAIL_UC") 

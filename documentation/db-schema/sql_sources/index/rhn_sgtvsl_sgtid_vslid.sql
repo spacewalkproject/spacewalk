@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:06 2010
+-- created by Oraschemadoc Thu Jan 20 13:54:17 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_SGTVSL_SGTID_VSLID" ON "SPACEWALK"."RHNSGTYPEVIRTSUBLEVEL" ("SERVER_GROUP_TYPE_ID", "VIRT_SUB_LEVEL_ID") 

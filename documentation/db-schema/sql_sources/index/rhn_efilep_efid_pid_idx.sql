@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:58 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:27 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_EFILEP_EFID_PID_IDX" ON "SPACEWALK"."RHNERRATAFILEPACKAGE" ("ERRATA_FILE_ID", "PACKAGE_ID") 

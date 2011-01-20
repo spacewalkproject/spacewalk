@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:56 2010
+-- created by Oraschemadoc Thu Jan 20 13:51:03 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."RHN_CQPRM_INSTANCE_ID_ORD_PK" ON "SPACEWALK"."RHN_COMMAND_QUEUE_PARAMS" ("INSTANCE_ID", "ORD") 

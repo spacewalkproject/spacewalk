@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:33:11 2010
+-- created by Oraschemadoc Thu Jan 20 13:55:59 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."WEB_CONTACT_LOGIN_UC_UNQ" ON "SPACEWALK"."WEB_CONTACT" ("LOGIN_UC") 

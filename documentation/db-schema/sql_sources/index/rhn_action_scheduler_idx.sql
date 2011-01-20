@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Nov  2 08:32:52 2010
+-- created by Oraschemadoc Thu Jan 20 13:49:29 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE INDEX "SPACEWALK"."RHN_ACTION_SCHEDULER_IDX" ON "SPACEWALK"."RHNACTION" ("SCHEDULER") 
