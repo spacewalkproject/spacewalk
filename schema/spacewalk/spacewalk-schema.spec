@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.13
+Version:        1.3.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -64,6 +64,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.14-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- The maximum pagesize is 50000 -- this will prevent the headings to be
+  repeated. (jpazdziora@redhat.com)
+- Add linesize 4000 to allow long enough lines to be returned.
+  (jpazdziora@redhat.com)
+
 * Wed Jan 19 2011 Jan Pazdziora 1.3.13-1
 - Using array should be faster than appending string.
 - Added --select-mode-direct option to print out the sqlplus/psql output right
