@@ -61,6 +61,7 @@ if ($options{db_backend} eq 'oracle') {
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 set linesize 4000
+set pagesize 50000
 EOF
 	if ($ARGV[0] eq '-') {
 		print { $wfh } <>;
