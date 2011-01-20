@@ -25,34 +25,29 @@ if (not defined $options{default_db}) {
 	}
 }
 
-my $test = run_query(\%options, "select 1, 2 from dual;");
+my $test = run_query(\%options, "select 1 || 2 || 3 as testing from dual;");
 if (not defined $test) {
 	die "Connect to [$options{default_db}] was not successful.\n";
 }
-if (@$test != 1
-	|| @{ $test->[0] } != 2
-	|| $test->[0][0] ne '1'
-	|| $test->[0][1] ne '2') {
+if ($test ne '123') {
 	die "Test select from [$options{default_db}] did not give expected results.\n";
 }
 
-my $schema_versions = run_query(\%options, <<EOF);
-	select rhnPackageName.name, PE.evr.as_vre_simple()
+my $schema_version = run_query(\%options, <<EOF);
+	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
 		and rhnVersionInfo.name_id = rhnPackageName.id
 		and rhnVersionInfo.evr_id = PE.id;
 EOF
-if (not @$schema_versions) {
+if (not defined $schema_version) {
 	die "No existing schema version info found in rhnVersionInfo.\n";
 }
-if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
-	and $schema_versions->[0][0] ne 'spacewalk-schema'
-	and $schema_versions->[0][0] ne 'satellite-schema') {
-	die "Unknown schema name [$schema_versions->[0][0]] found.\n";
+if (not $schema_version =~ /^rhn-satellite-schema-|^spacewalk-schema-|^satellite-schema0/) {
+	die "Unknown schema name [$schema_version] found.\n";
 }
 
-my $start_schema = join '-', @{ $schema_versions->[0] };
+my $start_schema = $schema_version;
 (my $start_schema_norm = $start_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
 my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/oracle/schema-override 2> /dev/null`;
@@ -123,17 +118,14 @@ if (not exists $upgrade_path{$start_schema_norm}) {
 my @path = get_shortest_path($upgrade_path{$start_schema_norm}, $target_schema_norm);
 print "The path: ", (join " -> ", map "[$_]", $start_schema_norm, @path), "\n";
 
-my $default_tablespace_data = run_query(\%options, <<EOF);
+my $default_tablespace = run_query(\%options, <<EOF);
 	select default_tablespace
 	from user_users
 	where username = sys_context('userenv', 'session_user');
 EOF
-if (not defined $default_tablespace_data
-	or not defined $default_tablespace_data->[0]
-	or not defined $default_tablespace_data->[0][0]) {
+if (not defined $default_tablespace) {
 	die "Failed to retrieve default_tablespace from database.\n";
 }
-my $default_tablespace = $default_tablespace_data->[0][0];
 
 mkdir "/var/log/spacewalk", 0755;
 mkdir $SCHEMA_UPGRADE_LOGDIR, 0755;
@@ -271,20 +263,20 @@ if (not run_query({ default_db => $options{default_db}, no_query => 1 },
 	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
 }
 
-my $new_schema_versions = run_query(\%options, <<EOF);
+my $new_schema_version = run_query(\%options, <<EOF);
 	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
 		and rhnVersionInfo.name_id = rhnPackageName.id
 		and rhnVersionInfo.evr_id = PE.id;
 EOF
-if (not @$new_schema_versions) {
+if (not defined $new_schema_version) {
 	die "Upgrade seems to have run OK yet new schema version is not in rhnVersionInfo.\n";
 }
-if ($new_schema_versions->[0][0] ne $target_schema) {
+if ($new_schema_version ne $target_schema) {
 	die <<EOF;
 Upgrade seems to have run OK yet new schema version is
-[$new_schema_versions->[0][0]], not [$target_schema].
+    [$new_schema_version], not [$target_schema].
 EOF
 }
 
@@ -313,11 +305,7 @@ EOF
 	print $wfh "\n";
 	close $wfh;
 
-	my $out;
-	{
-	local $/ = undef;
-	$out = <$rfh>;
-	}
+	my $out = <$rfh>;
 	close $rfh;
 	waitpid $pid, 0;
 	if ($?) {
@@ -325,17 +313,8 @@ EOF
 		return;
 	}
 
-	my @data;
-	for (split /\n/, $out) {
-		next if /^\s*$/;
-		my @values = split /:/;
-		for (@values) {
-			s/^\s+//;
-			s/\s+$//;
-		}
-		push @data, \@values;
-	}
-	return \@data;
+	$out =~ s/^\s+|\s+$//g if defined $out;
+	return $out;
 }
 
 sub get_shortest_path {
