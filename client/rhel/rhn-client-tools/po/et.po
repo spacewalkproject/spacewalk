@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Up2date\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-03 04:35-0400\n"
+"POT-Creation-Date: 2011-01-20 05:57-0500\n"
 "PO-Revision-Date: 2005-11-04 09:27+0200\n"
 "Last-Translator: Allan Sims <allan.sims@eau.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
@@ -61,31 +61,31 @@ msgstr "Uuendaja tuleb käivitada juurkasutajana."
 msgid "There was some sort of I/O error: %s"
 msgstr "Juhtus mingi sisend/väljund viga: %s"
 
-#: ../src/up2date_client/hardware.py:677
+#: ../src/up2date_client/hardware.py:694
 msgid "Error reading cpu information:"
 msgstr "Viga protsessori informatsiooni lugemisel:"
 
-#: ../src/up2date_client/hardware.py:684
+#: ../src/up2date_client/hardware.py:701
 msgid "Error reading system memory information:"
 msgstr "Viga süsteemi mälu informatsiooni lugemisel:"
 
-#: ../src/up2date_client/hardware.py:694
+#: ../src/up2date_client/hardware.py:711
 msgid "Error reading networking information:"
 msgstr "Viga võrgu informatsiooni lugemisel:"
 
-#: ../src/up2date_client/hardware.py:715
+#: ../src/up2date_client/hardware.py:732
 msgid "Error reading install method information:"
 msgstr "Viga installeerimise meetodi informatsiooni lugemisel:"
 
-#: ../src/up2date_client/hardware.py:723
+#: ../src/up2date_client/hardware.py:740
 msgid "Error reading network interface information:"
 msgstr "Viga võrguliidese informatsiooni lugemisel:"
 
-#: ../src/up2date_client/messageWindow.py:94
+#: ../src/up2date_client/messageWindow.py:97
 msgid "Error:"
 msgstr "Viga:"
 
-#: ../src/up2date_client/messageWindow.py:101
+#: ../src/up2date_client/messageWindow.py:104
 msgid "Yes/No dialog:"
 msgstr "Jah/Ei dialoog:"
 
@@ -227,7 +227,8 @@ msgid ""
 msgstr ""
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:94
+#: ../src/up2date_client/rhnreg_constants.py:36
+#: ../data/rh_register.glade.h:112
 msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
@@ -236,7 +237,7 @@ msgstr ""
 msgid "Why connect to Red Hat Network?"
 msgstr "Red Hat Network-iga ühendamine"
 
-#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:45
+#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:50
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
@@ -265,7 +266,7 @@ msgid ""
 "this Red Hat Enterprise Linux system updated and secure."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:46 ../data/rh_register.glade.h:47
+#: ../src/up2date_client/rhnreg_constants.py:46 ../data/rh_register.glade.h:52
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
@@ -277,7 +278,7 @@ msgid ""
 "help with any issues you might encounter with this system."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:81
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:94
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
@@ -290,7 +291,7 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
-#: ../src/up2date_client/rhnreg_constants.py:64
+#: ../src/up2date_client/rhnreg_constants.py:64 ../data/rh_register.glade.h:98
 msgid "Take me back to the setup process."
 msgstr ""
 
@@ -375,7 +376,7 @@ msgstr "Väljalase"
 msgid "Limited Updates Only"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:84
+#: ../src/up2date_client/rhnreg_constants.py:84 ../data/rh_register.glade.h:38
 #, fuzzy
 msgid "All available updates"
 msgstr "Kättesaadavate pakettide uuendamine"
@@ -469,17 +470,17 @@ msgid "*Email Address:"
 msgstr "E-posti aadress:"
 
 #: ../src/up2date_client/rhnreg_constants.py:120
-#: ../data/rh_register.glade.h:83
+#: ../data/rh_register.glade.h:96
 msgid "System software updates already set up"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
-#: ../data/rh_register.glade.h:61
+#: ../data/rh_register.glade.h:66
 msgid "It appears this system has already been set up for software updates:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:122
-#: ../data/rh_register.glade.h:38
+#: ../data/rh_register.glade.h:41
 msgid "Are you sure you would like to continue?"
 msgstr ""
 
@@ -525,7 +526,7 @@ msgid "Review system subscription details"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:149
-#: ../data/rh_register.glade.h:67
+#: ../data/rh_register.glade.h:75
 msgid "Please review the subscription details below:"
 msgstr ""
 
@@ -806,11 +807,13 @@ msgid "Cancel"
 msgstr "Loobu"
 
 #: ../src/up2date_client/rhnreg_constants.py:318
+#: ../data/rh_register.glade.h:72
 #, fuzzy
 msgid "No, Cancel"
 msgstr "Loobu"
 
 #: ../src/up2date_client/rhnreg_constants.py:319
+#: ../data/rh_register.glade.h:114
 msgid "Yes, Continue"
 msgstr ""
 
@@ -1090,7 +1093,7 @@ msgstr ""
 "Seadistuse salvestamisel esines viga. Kontrolli, et %s kuulub\n"
 "sulle."
 
-#: ../src/up2date_client/rhnregGui.py:1305
+#: ../src/up2date_client/rhnregGui.py:1306
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
@@ -1098,24 +1101,24 @@ msgid ""
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg.py:56
+#: ../src/up2date_client/rhnreg.py:53
 msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "Hoiatus: ei suudeta lubada rhnsd chkconfig-iga"
 
-#: ../src/up2date_client/rpcServer.py:47
+#: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
-#: ../src/up2date_client/rpcServer.py:167
+#: ../src/up2date_client/rpcServer.py:165
 #, fuzzy
 msgid "ERROR: can not find RHNS CA file"
 msgstr "Viga: RHNS CA faili pole võimalik leida:"
 
-#: ../src/up2date_client/rpcServer.py:205
+#: ../src/up2date_client/rpcServer.py:203
 msgid "Connection aborted by the user"
 msgstr "Ühendus katkestati kasutaja poolt"
 
-#: ../src/up2date_client/rpcServer.py:250
+#: ../src/up2date_client/rpcServer.py:248
 msgid "Server has refused connection due to high load"
 msgstr "Server keeldus ühendusest suure kasutuse tõttu"
 
@@ -1280,16 +1283,20 @@ msgid ""
 msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
-#: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:43
+#: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:46
 msgid "Choose Server"
 msgstr ""
 
-#: ../src/firstboot/rhn_choose_server_gui.py:54
+#: ../src/firstboot/rhn_choose_server_gui.py:56
+msgid "Entitlement Platform Registration"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:61
 #: ../src/firstboot/rhn_login_gui.py:42 ../src/firstboot/rhn_login_gui.py:43
 msgid "Red Hat Login"
 msgstr "Red Hat kasutajanimi"
 
-#: ../src/firstboot/rhn_choose_server_gui.py:59
+#: ../src/firstboot/rhn_choose_server_gui.py:66
 #: ../src/firstboot/rhn_provide_certificate_gui.py:41
 #: ../src/firstboot/rhn_provide_certificate_gui.py:42
 msgid "Provide Certificate"
@@ -1308,7 +1315,7 @@ msgstr "Riistvara profiil"
 #: ../src/firstboot/rhn_finish_gui.py:42 ../src/firstboot/rhn_finish_gui.py:43
 #: ../src/firstboot/rhn_login_gui.py:57
 #: ../src/firstboot/rhn_provide_certificate_gui.py:57
-#: ../src/firstboot/rhn_start_gui.py:55
+#: ../src/firstboot/rhn_start_gui.py:60
 msgid "Finish Updates Setup"
 msgstr ""
 
@@ -1469,6 +1476,92 @@ msgstr ""
 "Profiilinimi on määramata ning arvuti nime ja IP aadressi ei ole võimalik "
 "kasutada profiilinimena, palun määra see nimi."
 
+#: ../src/bin/spacewalk-channel.py:42
+msgid "ERROR: must be root to execute\n"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:56
+msgid "name of channel you want to (un)subscribe"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:58
+msgid "subscribe to channel"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:60
+msgid "unsubscribe from channel"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:62
+#, fuzzy
+msgid "list channels"
+msgstr "Ühenduskanalid"
+
+#: ../src/bin/spacewalk-channel.py:64
+#, fuzzy
+msgid "list all available child channels"
+msgstr "Installeeritakse kõik saadaolevad paketid. Kasutatakse koos --channel"
+
+#: ../src/bin/spacewalk-channel.py:66
+msgid "verbose output"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:68
+#, fuzzy
+msgid "your user name"
+msgstr "Kasutajanimi:"
+
+#: ../src/bin/spacewalk-channel.py:70
+#, fuzzy
+msgid "your password"
+msgstr "* _Kinnita parool:"
+
+#: ../src/bin/spacewalk-channel.py:78
+msgid "ERROR: these arguments make no sense in this context (try --help)"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:80
+#, fuzzy
+msgid "Username: "
+msgstr "Kasutajanimi:"
+
+#: ../src/bin/spacewalk-channel.py:104
+msgid "ERROR: you have to specify at least one channel"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:112
+#, python-format
+msgid "Channel(s): %s successfully added"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:114
+#, fuzzy, python-format
+msgid "Error during adding channel(s) %s"
+msgstr "Viga päise lugemisel"
+
+#: ../src/bin/spacewalk-channel.py:122
+#, python-format
+msgid "Channel(s): %s successfully removed"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:124
+#, python-format
+msgid "Error during removal of channel(s) %s"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:131
+#, fuzzy
+msgid "This system is not associated with any channel."
+msgstr "Kuni ühenduskanali määramiseni seda süsteemi ei uuendata."
+
+#: ../src/bin/spacewalk-channel.py:139
+msgid "ERROR: you may want to specify --add, --remove or --list"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:145
+msgid "User interrupted process."
+msgstr ""
+
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
@@ -1500,6 +1593,15 @@ msgstr ""
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Kulgemise dialoog"
+
+#: ../data/progress.glade.h:2
+#, fuzzy
+msgid "progress bar"
+msgstr "Kulgemise dialoog"
+
+#: ../data/progress.glade.h:3
+msgid "progress status"
+msgstr ""
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1662,201 +1764,256 @@ msgstr "Red Hat Network seaded"
 
 #: ../data/rh_register.glade.h:36
 #, fuzzy
-msgid "Advanced _Network Configuration ..."
+msgid "Advanced Network Configuration button"
 msgstr "Red Hat Network seaded"
 
 #: ../data/rh_register.glade.h:37
+#, fuzzy
+msgid "Advanced _Network Configuration ..."
+msgstr "Red Hat Network seaded"
+
+#: ../data/rh_register.glade.h:39
+msgid "Aplet screenshot"
+msgstr ""
+
+#: ../data/rh_register.glade.h:40
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:39
+#: ../data/rh_register.glade.h:42
 msgid "CPU Model:"
 msgstr "Protsessori mudel:"
 
-#: ../data/rh_register.glade.h:40
+#: ../data/rh_register.glade.h:43
 msgid "CPU Speed:"
 msgstr "Protsessori kiirus:"
 
-#: ../data/rh_register.glade.h:41
+#: ../data/rh_register.glade.h:44
 msgid "Certificate _Location:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:42
+#: ../data/rh_register.glade.h:45
 #, fuzzy
 msgid "Choose Channel"
 msgstr "Ühenduskanal"
 
-#: ../data/rh_register.glade.h:44
+#: ../data/rh_register.glade.h:47
+#, fuzzy
+msgid "Choose minor release"
+msgstr "Väljalase"
+
+#: ../data/rh_register.glade.h:48
+msgid "Close"
+msgstr ""
+
+#: ../data/rh_register.glade.h:49
 msgid "Confirm operation system release selection"
 msgstr ""
 
-#: ../data/rh_register.glade.h:46
+#: ../data/rh_register.glade.h:51
 #, fuzzy
 msgid "Create profile"
 msgstr "Riistvara profiil"
 
-#: ../data/rh_register.glade.h:48
+#: ../data/rh_register.glade.h:53
 msgid "ERROR"
 msgstr "viga"
 
-#: ../data/rh_register.glade.h:49
+#: ../data/rh_register.glade.h:54
 #, fuzzy
 msgid "Enter Your Account Information"
 msgstr "Pakettide informatsioon"
 
-#: ../data/rh_register.glade.h:50
+#: ../data/rh_register.glade.h:55
 msgid "Enter in the format hostname(:port)"
 msgstr "Sisestatakse kujul arvutinimi(:port)"
 
-#: ../data/rh_register.glade.h:51
+#: ../data/rh_register.glade.h:56
 msgid "Hardware Info"
 msgstr "Riistvara info"
 
-#: ../data/rh_register.glade.h:52
+#: ../data/rh_register.glade.h:57
 msgid "Hardware Profile"
 msgstr "Riistvara profiil"
 
-#: ../data/rh_register.glade.h:53
+#: ../data/rh_register.glade.h:58
 msgid "Hostname:"
 msgstr "Arvuti nimi:"
 
-#: ../data/rh_register.glade.h:54
+#: ../data/rh_register.glade.h:59
 msgid ""
 "I <b>_don't</b> have an SSL certificate. I will contact my system "
 "administrator for assistance and will register at a later time."
 msgstr ""
 
-#: ../data/rh_register.glade.h:55
+#: ../data/rh_register.glade.h:60
 msgid ""
 "I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
 "Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
 "below:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:56
+#: ../data/rh_register.glade.h:61
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:57
+#: ../data/rh_register.glade.h:62
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
-#: ../data/rh_register.glade.h:58
+#: ../data/rh_register.glade.h:63
 msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
 msgstr ""
 
-#: ../data/rh_register.glade.h:59
+#: ../data/rh_register.glade.h:64
 msgid "IP Address:"
 msgstr "IP aadress:"
 
-#: ../data/rh_register.glade.h:60
+#: ../data/rh_register.glade.h:65
 #, fuzzy
 msgid "Installation _Number:"
 msgstr "registrationNumber"
 
-#: ../data/rh_register.glade.h:62
+#: ../data/rh_register.glade.h:67
+#, fuzzy
+msgid "Limited updates"
+msgstr "Ühendriigid"
+
+#: ../data/rh_register.glade.h:68
 #, fuzzy
 msgid "Link To Subscription"
 msgstr "Kirjeldus"
 
-#: ../data/rh_register.glade.h:63
+#: ../data/rh_register.glade.h:69
 msgid ""
 "Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
 "RHN > Subscription Management > System Entitlements."
 msgstr ""
 
-#: ../data/rh_register.glade.h:64
+#: ../data/rh_register.glade.h:70
 msgid "Memory:"
 msgstr "Mälu:"
 
-#: ../data/rh_register.glade.h:65
+#: ../data/rh_register.glade.h:71
+msgid "No thanks, I'll connect later."
+msgstr ""
+
+#: ../data/rh_register.glade.h:73
 msgid "Package Information"
 msgstr "Pakettide informatsioon"
 
-#: ../data/rh_register.glade.h:66
+#: ../data/rh_register.glade.h:74
 #, fuzzy
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
 msgstr "https://rhn.redhat.com"
 
-#: ../data/rh_register.glade.h:68
+#: ../data/rh_register.glade.h:76
 msgid "Provide a Security Certificate"
 msgstr ""
 
-#: ../data/rh_register.glade.h:69
+#: ../data/rh_register.glade.h:77
 #, fuzzy
 msgid "Proxy P_assword:"
 msgstr "Parool:"
 
-#: ../data/rh_register.glade.h:70
+#: ../data/rh_register.glade.h:78
 #, fuzzy
 msgid "Proxy _Username:"
 msgstr "Kasutajanimi:"
 
-#: ../data/rh_register.glade.h:71
+#: ../data/rh_register.glade.h:79
 msgid ""
 "Purchase an additional Red Hat Enterprise Linux subscription at http://www."
 "redhat.com/store/."
 msgstr ""
 
-#: ../data/rh_register.glade.h:72
+#: ../data/rh_register.glade.h:80
+msgid "RHN Classic Mode"
+msgstr ""
+
+#: ../data/rh_register.glade.h:81
+#, fuzzy
+msgid "RHN login field"
+msgstr "Red Hat kasutajanimi"
+
+#: ../data/rh_register.glade.h:82
+msgid "RHN password field"
+msgstr ""
+
+#: ../data/rh_register.glade.h:83
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
 msgstr ""
 
-#: ../data/rh_register.glade.h:73
+#: ../data/rh_register.glade.h:84
 msgid "Red Hat Linux Version:"
 msgstr "Red Hat Linuxi versioon:"
 
-#: ../data/rh_register.glade.h:74
+#: ../data/rh_register.glade.h:85
 #, fuzzy
 msgid "Red Hat Network _Location:"
 msgstr "Red Hat Network kasutajanimi"
 
-#: ../data/rh_register.glade.h:75
+#: ../data/rh_register.glade.h:86
 msgid "Review system..."
 msgstr ""
 
-#: ../data/rh_register.glade.h:76
+#: ../data/rh_register.glade.h:87
 msgid "Select A File"
 msgstr ""
 
-#: ../data/rh_register.glade.h:77
+#: ../data/rh_register.glade.h:88
 #, fuzzy
 msgid "Send _hardware profile"
 msgstr "Riistvara profiil"
 
-#: ../data/rh_register.glade.h:78
+#: ../data/rh_register.glade.h:89
 #, fuzzy
 msgid "Send _package profile"
 msgstr "_Pakettide loend saatmine"
 
-#: ../data/rh_register.glade.h:79
+#: ../data/rh_register.glade.h:90
+#, fuzzy
+msgid "Send hardware profile checkbox"
+msgstr "Riistvara profiil"
+
+#: ../data/rh_register.glade.h:91
+#, fuzzy
+msgid "Send package profile checkbox"
+msgstr "_Pakettide loend saatmine"
+
+#: ../data/rh_register.glade.h:92
 msgid "Software update setup has been completed for this system."
 msgstr ""
 
-#: ../data/rh_register.glade.h:80
+#: ../data/rh_register.glade.h:93
 msgid "Start Window"
 msgstr ""
 
-#: ../data/rh_register.glade.h:82
+#: ../data/rh_register.glade.h:95
 #, fuzzy
 msgid "System _Name:"
 msgstr "Perekonnanimi:"
 
-#: ../data/rh_register.glade.h:84
+#: ../data/rh_register.glade.h:97
+#, fuzzy
+msgid "Take me back to the registration"
+msgstr "Up2date - Pakettide loend (registreerimine)"
+
+#: ../data/rh_register.glade.h:99
 msgid ""
 "This assistant will guide you through connecting your system  to Red Hat "
 "Network (RHN) for software updates, such as:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:85
+#: ../data/rh_register.glade.h:100
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1871,41 +2028,56 @@ msgid ""
 "the <b>System > Administration</b> menu."
 msgstr ""
 
-#: ../data/rh_register.glade.h:91
+#: ../data/rh_register.glade.h:106
 #, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "Tuvastamise kasutamine"
 
-#: ../data/rh_register.glade.h:92
+#: ../data/rh_register.glade.h:107
+#, fuzzy
+msgid "Use Authentication with HTTP Proxy"
+msgstr "Tuvastamise kasutamine"
+
+#: ../data/rh_register.glade.h:108
 #, fuzzy
 msgid "V_iew Package Profile ..."
 msgstr "Uuendatakse pakettide kirjeldusi..."
 
-#: ../data/rh_register.glade.h:93
+#: ../data/rh_register.glade.h:109
+#, fuzzy
+msgid "View Hardware Profile"
+msgstr "Riistvara profiil"
+
+#: ../data/rh_register.glade.h:110
+#, fuzzy
+msgid "View Package Profile"
+msgstr "Uuendatakse pakettide kirjeldusi..."
+
+#: ../data/rh_register.glade.h:111
 #, fuzzy
 msgid "Why Register"
 msgstr "Juba registreeritud"
 
-#: ../data/rh_register.glade.h:95
+#: ../data/rh_register.glade.h:113
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:96
+#: ../data/rh_register.glade.h:115
 msgid ""
 "You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
 "b> in order to receive software updates."
 msgstr ""
 
-#: ../data/rh_register.glade.h:97
+#: ../data/rh_register.glade.h:116
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
 msgstr ""
 
-#: ../data/rh_register.glade.h:98
+#: ../data/rh_register.glade.h:117
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -1916,24 +2088,24 @@ msgid ""
 "the <b>System > Administration</b> menu."
 msgstr ""
 
-#: ../data/rh_register.glade.h:102
+#: ../data/rh_register.glade.h:121
 msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
 msgstr ""
 
-#: ../data/rh_register.glade.h:103
+#: ../data/rh_register.glade.h:122
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
 msgstr ""
 
-#: ../data/rh_register.glade.h:104
+#: ../data/rh_register.glade.h:123
 #, fuzzy
 msgid "Your system is not setup for software updates."
 msgstr "Up2date taaskäivitamine"
 
-#: ../data/rh_register.glade.h:105
+#: ../data/rh_register.glade.h:124
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -1944,7 +2116,7 @@ msgid ""
 "through applying any updates that are available:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:108
+#: ../data/rh_register.glade.h:127
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -1955,107 +2127,138 @@ msgid ""
 "through applying any updates that are available:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:111
+#: ../data/rh_register.glade.h:130
 msgid ""
 "Your system will be subscribed to the base software channel.  You will not "
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
 msgstr ""
 
-#: ../data/rh_register.glade.h:112
+#: ../data/rh_register.glade.h:131
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
 msgstr ""
 
-#: ../data/rh_register.glade.h:113
+#: ../data/rh_register.glade.h:132
 #, fuzzy
 msgid "_Activate a subscription now..."
 msgstr "Oma tellimus aktiveerimine"
 
-#: ../data/rh_register.glade.h:114
+#: ../data/rh_register.glade.h:133
 msgid "_Close"
 msgstr ""
 
-#: ../data/rh_register.glade.h:115
+#: ../data/rh_register.glade.h:134
 #, fuzzy
 msgid "_Login:"
 msgstr "_Kasutajanimi:"
 
-#: ../data/rh_register.glade.h:116
+#: ../data/rh_register.glade.h:135
 msgid "_Minor release:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:117
+#: ../data/rh_register.glade.h:136
 msgid "_No thanks, I'll connect later."
 msgstr ""
 
-#: ../data/rh_register.glade.h:118
+#: ../data/rh_register.glade.h:137
 #, fuzzy
 msgid "_No, Cancel"
 msgstr "Loobu"
 
-#: ../data/rh_register.glade.h:119
+#: ../data/rh_register.glade.h:138
 msgid "_No, I prefer to register at a later time."
 msgstr ""
 
-#: ../data/rh_register.glade.h:120
+#: ../data/rh_register.glade.h:139
 msgid "_Operating system version:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:121
+#: ../data/rh_register.glade.h:140
 #, fuzzy
 msgid "_Password:"
 msgstr "Parool:"
 
-#: ../data/rh_register.glade.h:122
+#: ../data/rh_register.glade.h:141
 msgid "_Proxy Location:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:123
+#: ../data/rh_register.glade.h:142
 #, fuzzy
 msgid "_Take me back to the registration"
 msgstr "Up2date - Pakettide loend (registreerimine)"
 
-#: ../data/rh_register.glade.h:124
+#: ../data/rh_register.glade.h:143
 msgid "_Take me back to the setup process."
 msgstr ""
 
-#: ../data/rh_register.glade.h:125
+#: ../data/rh_register.glade.h:144
 #, fuzzy
 msgid "_View Hardware Profile ..."
 msgstr "Riistvara profiil"
 
-#: ../data/rh_register.glade.h:126
+#: ../data/rh_register.glade.h:145
 #, fuzzy
 msgid "_Why Should I Connect to RHN? ..."
 msgstr "Miks registreerida?"
 
-#: ../data/rh_register.glade.h:127
+#: ../data/rh_register.glade.h:146
 msgid "_Yes, Continue"
 msgstr ""
 
-#: ../data/rh_register.glade.h:128
+#: ../data/rh_register.glade.h:147
 msgid "_Yes, I'd like to register now."
 msgstr ""
 
-#: ../data/rh_register.glade.h:129
+#: ../data/rh_register.glade.h:148
+msgid "icon of aplet"
+msgstr ""
+
+#: ../data/rh_register.glade.h:149
+#, fuzzy
+msgid "installation number field"
+msgstr "Tellimuse number on vigane"
+
+#: ../data/rh_register.glade.h:150
 msgid "label"
 msgstr ""
 
-#: ../data/rh_register.glade.h:130
+#: ../data/rh_register.glade.h:151
+msgid "proxy location"
+msgstr ""
+
+#: ../data/rh_register.glade.h:152
+#, fuzzy
+msgid "proxy password field"
+msgstr "Parool:"
+
+#: ../data/rh_register.glade.h:153
+msgid "proxy user field"
+msgstr ""
+
+#: ../data/rh_register.glade.h:154
+msgid "satellite server location"
+msgstr ""
+
+#: ../data/rh_register.glade.h:155
+#, fuzzy
+msgid "system name"
+msgstr "Perekonnanimi:"
+
+#: ../data/rh_register.glade.h:156
 msgid "•"
 msgstr ""
 
-#: ../data/rh_register.glade.h:131
+#: ../data/rh_register.glade.h:157
 msgid "• A name for your system's Red Hat Network profile"
 msgstr ""
 
-#: ../data/rh_register.glade.h:132
+#: ../data/rh_register.glade.h:158
 msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
-#: ../data/rh_register.glade.h:133
+#: ../data/rh_register.glade.h:159
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
@@ -2190,10 +2393,6 @@ msgstr "Red Hat Network-i registreerimine"
 #~ msgstr "* _Parool"
 
 #, fuzzy
-#~ msgid "*Confirm Password:"
-#~ msgstr "* _Kinnita parool:"
-
-#, fuzzy
 #~ msgid ""
 #~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
 #~ msgstr "Me hindame sinu privaatsust:"
@@ -2292,12 +2491,6 @@ msgstr "Red Hat Network-i registreerimine"
 #~ msgstr "Red Hat Network kasutajanimi"
 
 #, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Login: "
-#~ msgstr "Red Hat kasutajanimi"
-
-#, fuzzy
 #~ msgid "Access Subscription"
 #~ msgstr "Oma tellimus aktiveerimine"
 
@@ -2358,9 +2551,6 @@ msgstr "Red Hat Network-i registreerimine"
 #, fuzzy
 #~ msgid "Problem registering login."
 #~ msgstr "Kasutajanime registreerimise probleem."
-
-#~ msgid "United States"
-#~ msgstr "Ühendriigid"
 
 #~ msgid "Canada"
 #~ msgstr "Kanada"
@@ -3542,10 +3732,6 @@ msgstr "Red Hat Network-i registreerimine"
 #~ msgid "_Cancel"
 #~ msgstr "Loobu"
 
-#, fuzzy
-#~ msgid "_Username:"
-#~ msgstr "Kasutajanimi:"
-
 #~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
 #~ msgstr "Red Hat Network Registreerimine (c) 2000-2001 Red Hat, Inc."
 
@@ -4036,9 +4222,6 @@ msgstr "Red Hat Network-i registreerimine"
 #~ msgid "cannot remove %s"
 #~ msgstr "%s-i ei suudeta eemaldada"
 
-#~ msgid "Error reading header"
-#~ msgstr "Viga päise lugemisel"
-
 #~ msgid "Error parsing %s"
 #~ msgstr "Viga %s avamisel"
 
@@ -4060,9 +4243,6 @@ msgstr "Red Hat Network-i registreerimine"
 
 #~ msgid "No: Choose a new user and password and enter it below."
 #~ msgstr "Ei: Vali uus kasutajanimi ja parool ning sisesta need allpool."
-
-#~ msgid "User name:"
-#~ msgstr "Kasutajanimi:"
 
 #~ msgid "Again, for verification:"
 #~ msgstr "Veelkord, kinnitamiseks:"
@@ -4397,10 +4577,6 @@ msgstr "Red Hat Network-i registreerimine"
 #~ msgstr ""
 #~ "Näidatakse pakette, millised lahendavad komaga eraldatud sõltuvuste "
 #~ "loendeid"
-
-#~ msgid "Install all available packages. Used with --channel"
-#~ msgstr ""
-#~ "Installeeritakse kõik saadaolevad paketid. Kasutatakse koos --channel"
 
 #~ msgid "List of packages to exlude from being installed or updated"
 #~ msgstr "Pakettide loend, mida ei installeerita või uuendata"
@@ -4874,9 +5050,6 @@ msgstr "Red Hat Network-i registreerimine"
 
 #~ msgid "California"
 #~ msgstr "Kalifornia"
-
-#~ msgid "Channels"
-#~ msgstr "Ühenduskanalid"
 
 #~ msgid ""
 #~ "Clicking \"Forward\" indicates understanding and acceptance of these "
