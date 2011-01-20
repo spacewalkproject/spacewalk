@@ -287,29 +287,30 @@ sub run_query {
 	my @silent = ( '-S' ) unless $options->{no_query};
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
 		'sqlplus', @silent, $options->{default_db}) or return;
-	if (not $options->{no_query}) {
-		print $wfh <<EOF;
-set linesize 4000
-set pagesize 0
-set colsep ":"
-set trimout on
-set heading off
-set wrap off
-EOF
-	}
 	print $wfh <<EOF;
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
+set linesize 4000
+set pagesize 50000
 EOF
 	print $wfh $command;
 	print $wfh "\n";
 	close $wfh;
 
-	my $out = <$rfh>;
+	my $out;
+	my $seen_dashes = 0;
+	while (<$rfh>) {
+		if (not defined $out and $seen_dashes) {
+			$out = $_;
+			last;
+		}
+		if (/---/) {
+			$seen_dashes = 1;
+		}
+	}
 	close $rfh;
 	waitpid $pid, 0;
 	if ($?) {
-		print STDERR $out;
 		return;
 	}
 
