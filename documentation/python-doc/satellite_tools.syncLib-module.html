@@ -326,7 +326,7 @@
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cleanYN</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">notimeYN</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdin</span>)</span><br />
       Log to disk and some stream --- differing log levels.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log2">source&nbsp;code</a></span>
@@ -347,46 +347,10 @@
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cleanYN</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">notimeYN</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdin</span>)</span><br />
       Log to disk and some stream --- share same log level.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="intersection"></a><span class="summary-sig-name">intersection</span>(<span class="summary-sig-arg">seq0</span>,
-        <span class="summary-sig-arg">seq1</span>)</span><br />
-      return the intersection of two sequences returns three lists (common,
-      unique in first seq, unique in second seq)</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#intersection">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.syncLib-module.html#unique" class="summary-sig-name">unique</a>(<span class="summary-sig-arg">s</span>)</span><br />
-      Return a list of the elements in s, but without duplicates.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#unique">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -416,7 +380,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="EMAIL_LOG"></a><span class="summary-name">EMAIL_LOG</span> = <code title="None">None</code>
+        <a name="EMAIL_LOG"></a><span class="summary-name">EMAIL_LOG</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_tools'"><code class="variable-quote">'</code><code class="variable-string">satellite_tools</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -542,7 +514,7 @@
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cleanYN</span>=<span class="sig-default">0</span>,
         <span class="sig-arg">notimeYN</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdin</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log2">source&nbsp;code</a></span>&nbsp;
@@ -566,7 +538,7 @@
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cleanYN</span>=<span class="sig-default">0</span>,
         <span class="sig-arg">notimeYN</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdin</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log">source&nbsp;code</a></span>&nbsp;
@@ -575,38 +547,6 @@
   
   <p>Log to disk and some stream --- share same log level. Arguments: see 
   def _prepLogMsg(...) above.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="unique"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">unique</span>(<span class="sig-arg">s</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#unique">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Return a list of the elements in s, but without duplicates.</p>
-  <p>NOTE: straight from ASPN's python cookbook</p>
-  <p>For example, unique([1,2,3,1,2,3]) is some permutation of [1,2,3], 
-  unique(&quot;abcabc&quot;) some permutation of [&quot;a&quot;, 
-  &quot;b&quot;, &quot;c&quot;], and unique(([1, 2], [2, 3], [1, 2])) some 
-  permutation of [[2, 3], [1, 2]].</p>
-  <p>For best speed, all sequence elements should be hashable.  Then 
-  unique() will usually work in linear time.</p>
-  <p>If not possible, the sequence elements should enjoy a total ordering, 
-  and if list(s).sort() doesn't raise TypeError it's assumed that they do 
-  enjoy a total ordering.  Then unique() will usually work in O(N*log2(N)) 
-  time.</p>
-  <p>If that's not possible either, the sequence elements must support 
-  equality-testing.  Then unique() will usually work in quadratic time.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -635,7 +575,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:44 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:37 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

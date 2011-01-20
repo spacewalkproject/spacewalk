@@ -84,13 +84,13 @@ server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="retur
 <a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-string">    from rhnRedHatCanonVersion rhcv</tt> </tt>
 <a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-string">    where rhcv.version = :version</tt> </tt>
 <a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
-server.rhnSQL.driver_cx_Oracle.Database.execute
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="server.rhnSQL.driver_cx_Oracle.Database.execute
 server.rhnSQL.execute
 server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-7', 'execute', 'link-7');">execute</a></tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-8', 'version', 'link-3');">version</a></tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-9', 'version', 'link-3');">version</a></tt><tt class="py-op">)</tt> </tt>
-<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Function server.rhnSQL.fetchone_dict()=server.rhnSQL-module.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
 satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
 satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.fetchone_dict
 server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-10', 'fetchone_dict', 'link-10');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">ret</tt><tt class="py-op">:</tt> </tt>
 <a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-11" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-11', 'version', 'link-3');">version</a></tt> </tt>
@@ -106,13 +106,13 @@ server.rhnSQL.driver_postgresql.Database.prepare
 server.rhnSQL.prepare
 server.rhnSQL.sql_base.Cursor.prepare
 server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-17', 'prepare', 'link-6');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"select id from rhnPackageArch where label = :label"</tt><tt class="py-op">)</tt> </tt>
-<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
-server.rhnSQL.driver_cx_Oracle.Database.execute
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.execute
 server.rhnSQL.execute
 server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-18', 'execute', 'link-7');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">label</tt><tt class="py-op">=</tt><tt id="link-19" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-19', 'name', 'link-12');">name</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">    <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
 satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
 satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.fetchone_dict
 server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-20', 'fetchone_dict', 'link-10');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">ret</tt><tt class="py-op">:</tt> </tt>
 <a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
@@ -154,7 +154,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:03:17 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:11 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

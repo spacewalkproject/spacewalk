@@ -134,6 +134,22 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="process_package_files"></a><span class="summary-sig-name">process_package_files</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.updatePackages-pysrc.html#process_package_files">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -156,7 +172,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="OPTIONS"></a><span class="summary-name">OPTIONS</span> = <code title="None">None</code>
+        <a name="OPTIONS"></a><span class="summary-name">OPTIONS</span> = <code title="None">None</code><br />
+      hash(x)
     </td>
   </tr>
 <tr>
@@ -177,47 +194,46 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#options_table" class="summary-name">options_table</a> = <code title="[Option(&quot;--update-sha256&quot;, action= &quot;store_true&quot;, help= &quot;Update SHA-256\
- capable packages&quot;), Option(&quot;--update-filer&quot;, action= &quot;store_true&quot;, he\
-lp= &quot;Convert filer structure&quot;), Option(&quot;--update-kstrees&quot;, action= &quot;st\
-ore_true&quot;, help= &quot;Fix kickstart trees permissions&quot;), Option(&quot;-d&quot;, &quot;--d\
-b&quot;, action= &quot;store&quot;, help= &quot;DB string to connect to&quot;), Option(&quot;-v&quot;, &quot;-\
--verbose&quot;, action= &quot;count&quot;, help= &quot;Increase verbosity&quot;), Option(&quot;--deb\
-ug&quot;, action= &quot;store_true&quot;, help= &quot;Log the debug information to a log f\
-ile&quot;),]">[Option(&quot;--update-sha256&quot;, action= &quot;store_true<code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.updatePackages-module.html#options_table" class="summary-name">options_table</a> = <code title="[&lt;Option at 0x26f0758: --update-package-files&gt;,
+ &lt;Option at 0x26f06c8: --update-sha256&gt;,
+ &lt;Option at 0x26f07a0: --update-filer&gt;,
+ &lt;Option at 0x26f0680: --update-kstrees&gt;,
+ &lt;Option at 0x26f07e8: -d/--db&gt;,
+ &lt;Option at 0x26f0830: -v/--verbose&gt;,
+ &lt;Option at 0x26f0878: --debug&gt;]"><code class="variable-group">[</code>&lt;Option at 0x26f0758: --update-package-files&gt;<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#_get_path_query" class="summary-name" onclick="show_private();">_get_path_query</a> = <code title="&quot;&quot;&quot;
-	select id, checksum_type, checksum, path, epoch, new_path
-	from (
-		select rhnPackage.id,
+        <a href="satellite_tools.updatePackages-module.html#_get_path_query" class="summary-name" onclick="show_private();">_get_path_query</a> = <code title="'''
+\tselect id, checksum_type, checksum, path, epoch, new_path
+\tfrom (
+\t\tselect rhnPackage.id,
                        rhnChecksumView.checksum_type,
                        rhnChecksumView.checksum,
                        rhnPackage.path,
                        rhnPackageEvr.epoch,
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\n\tselect id, checksum_type, checksum, pat</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#_update_pkg_path_query" class="summary-name" onclick="show_private();">_update_pkg_path_query</a> = <code title="&quot;&quot;&quot;
+        <a href="satellite_tools.updatePackages-module.html#_update_pkg_path_query" class="summary-name" onclick="show_private();">_update_pkg_path_query</a> = <code title="'''
     update rhnPackage
        set path =: new_path
     where id = :the_id
-&quot;&quot;&quot;"><code class="variable-ellipsis">...</code></code>
+'''"><code class="variable-quote">'</code><code class="variable-string">\n    update rhnPackage\n       set </code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#_get_sha256_packages_query" class="summary-name" onclick="show_private();">_get_sha256_packages_query</a> = <code title="&quot;&quot;&quot;
+        <a href="satellite_tools.updatePackages-module.html#_get_sha256_packages_query" class="summary-name" onclick="show_private();">_get_sha256_packages_query</a> = <code title="'''
 select p.id, p.path
 from rhnPackage p,
      rhnPackageRequires pr,
@@ -225,35 +241,35 @@ from rhnPackage p,
      rhnChecksumView cv
 where pr.package_id = p.id and
       pr.capability_id = pc.id and
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect p.id, p.path\nfrom rhnP</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#_update_sha256_package" class="summary-name" onclick="show_private();">_update_sha256_package</a> = <code title="&quot;&quot;&quot;
+        <a href="satellite_tools.updatePackages-module.html#_update_sha256_package" class="summary-name" onclick="show_private();">_update_sha256_package</a> = <code title="'''
 update rhnPackage
 set checksum_id = lookup_checksum(:ctype, :csum),
     path = :path
 where id = :id
-&quot;&quot;&quot;"><code class="variable-ellipsis">...</code></code>
+'''"><code class="variable-quote">'</code><code class="variable-string">\nupdate rhnPackage\nset checksum_id</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#_select_checksum_type_id" class="summary-name" onclick="show_private();">_select_checksum_type_id</a> = <code title="&quot;&quot;&quot;
+        <a href="satellite_tools.updatePackages-module.html#_select_checksum_type_id" class="summary-name" onclick="show_private();">_select_checksum_type_id</a> = <code title="'''
 select id from rhnChecksumType where label = :ctype
-&quot;&quot;&quot;"><code class="variable-ellipsis">...</code></code>
+'''"><code class="variable-quote">'</code><code class="variable-string">\nselect id from rhnChecksumType w</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.updatePackages-module.html#_update_package_files" class="summary-name" onclick="show_private();">_update_package_files</a> = <code title="&quot;&quot;&quot;
+        <a href="satellite_tools.updatePackages-module.html#_update_package_files" class="summary-name" onclick="show_private();">_update_package_files</a> = <code title="'''
 declare
     checksum_id number;
 begin
@@ -261,7 +277,97 @@ begin
         insert into rhnChecksum values (
             rhnChecksum_seq.nextval,
             :ctype_id,
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\ndeclare\n    checksum_id number;\nb</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#package_query" class="summary-name">package_query</a> = <code title="'''
+    select p.id as id,
+           p.path as path,
+           count(pf.capability_id) as filecount,
+           count(pf.checksum_id) as nonnullcsums
+      from rhnPackage p left outer join rhnPackageFile pf
+        on p.id = pf.package_id
+     where path is not null
+..."><code class="variable-quote">'</code><code class="variable-string">\n    select p.id as id,\n           p.path a</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#package_capabilities" class="summary-name">package_capabilities</a> = <code title="'''
+    select PC.name,
+           PF.package_id,
+           PF.capability_id,
+           C.checksum,
+           C.checksum_type
+      from rhnPackageFile PF left outer join rhnChecksumView C
+        on PF.checksum_id = C.id,
+..."><code class="variable-quote">'</code><code class="variable-string">\n    select PC.name,\n           PF.p</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#update_packagefile_checksum" class="summary-name">update_packagefile_checksum</a> = <code title="'''
+    update rhnPackageFile
+       set checksum_id = lookup_checksum(:ctype, :csum)
+     where package_id = :pid and
+           capability_id = :cid
+'''"><code class="variable-quote">'</code><code class="variable-string">\n    update rhnPackageFile\n  </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#insert_packagefile" class="summary-name">insert_packagefile</a> = <code title="'''
+    insert into rhnPackageFile (
+            package_id, capability_id, device, inode, file_mode, usern\
+ame,
+            groupname, rdev, file_size, mtime, linkto, flags, verifyfl\
+ags,
+            lang, checksum_id
+           )
+..."><code class="variable-quote">'</code><code class="variable-string">\n    insert into rhnPackageFile (\n    </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#package_name_query" class="summary-name">package_name_query</a> = <code title="'''
+    select pn.name as name,
+           evr_t_as_vre_simple(pevr.evr) as vre,
+           pa.label as arch
+      from rhnPackage p,
+           rhnPackageName pn,
+           rhnPackageEVR pevr,
+           rhnPackageArch pa
+..."><code class="variable-quote">'</code><code class="variable-string">\n    select pn.name as name,\n         </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.updatePackages-module.html#package_repodata_delete" class="summary-name">package_repodata_delete</a> = <code title="'''
+    delete
+\t  from rhnPackageRepoData
+\t where package_id = :pid
+'''"><code class="variable-quote">'</code><code class="variable-string">\n    delete\n\t  from rhnPackageRe</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_tools'"><code class="variable-quote">'</code><code class="variable-string">satellite_tools</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -295,14 +401,13 @@ begin
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-[Option(&quot;--update-sha256&quot;, action= &quot;store_true&quot;, help= &quot;Update SHA-256<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
- capable packages&quot;), Option(&quot;--update-filer&quot;, action= &quot;store_true&quot;, he<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-lp= &quot;Convert filer structure&quot;), Option(&quot;--update-kstrees&quot;, action= &quot;st<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ore_true&quot;, help= &quot;Fix kickstart trees permissions&quot;), Option(&quot;-d&quot;, &quot;--d<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-b&quot;, action= &quot;store&quot;, help= &quot;DB string to connect to&quot;), Option(&quot;-v&quot;, &quot;-<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
--verbose&quot;, action= &quot;count&quot;, help= &quot;Increase verbosity&quot;), Option(&quot;--deb<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ug&quot;, action= &quot;store_true&quot;, help= &quot;Log the debug information to a log f<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ile&quot;),]
+<code class="variable-group">[</code>&lt;Option at 0x26f0758: --update-package-files&gt;<code class="variable-op">,</code>
+ &lt;Option at 0x26f06c8: --update-sha256&gt;<code class="variable-op">,</code>
+ &lt;Option at 0x26f07a0: --update-filer&gt;<code class="variable-op">,</code>
+ &lt;Option at 0x26f0680: --update-kstrees&gt;<code class="variable-op">,</code>
+ &lt;Option at 0x26f07e8: -d/--db&gt;<code class="variable-op">,</code>
+ &lt;Option at 0x26f0830: -v/--verbose&gt;<code class="variable-op">,</code>
+ &lt;Option at 0x26f0878: --debug&gt;<code class="variable-group">]</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -320,14 +425,14 @@ ile&quot;),]
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-	select id, checksum_type, checksum, path, epoch, new_path
-	from (
-		select rhnPackage.id,
-                       rhnChecksumView.checksum_type,
-                       rhnChecksumView.checksum,
-                       rhnPackage.path,
-                       rhnPackageEvr.epoch,
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">\tselect id, checksum_type, checksum, path, epoch, new_path</code>
+<code class="variable-string">\tfrom (</code>
+<code class="variable-string">\t\tselect rhnPackage.id,</code>
+<code class="variable-string">                       rhnChecksumView.checksum_type,</code>
+<code class="variable-string">                       rhnChecksumView.checksum,</code>
+<code class="variable-string">                       rhnPackage.path,</code>
+<code class="variable-string">                       rhnPackageEvr.epoch,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -346,11 +451,11 @@ ile&quot;),]
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-    update rhnPackage
-       set path =: new_path
-    where id = :the_id
-&quot;&quot;&quot;
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    update rhnPackage</code>
+<code class="variable-string">       set path =: new_path</code>
+<code class="variable-string">    where id = :the_id</code>
+<code class="variable-string"></code><code class="variable-quote">'''</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -368,14 +473,14 @@ ile&quot;),]
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select p.id, p.path
-from rhnPackage p,
-     rhnPackageRequires pr,
-     rhnPackageCapability pc,
-     rhnChecksumView cv
-where pr.package_id = p.id and
-      pr.capability_id = pc.id and
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select p.id, p.path</code>
+<code class="variable-string">from rhnPackage p,</code>
+<code class="variable-string">     rhnPackageRequires pr,</code>
+<code class="variable-string">     rhnPackageCapability pc,</code>
+<code class="variable-string">     rhnChecksumView cv</code>
+<code class="variable-string">where pr.package_id = p.id and</code>
+<code class="variable-string">      pr.capability_id = pc.id and</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -394,12 +499,12 @@ where pr.package_id = p.id and
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-update rhnPackage
-set checksum_id = lookup_checksum(:ctype, :csum),
-    path = :path
-where id = :id
-&quot;&quot;&quot;
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">update rhnPackage</code>
+<code class="variable-string">set checksum_id = lookup_checksum(:ctype, :csum),</code>
+<code class="variable-string">    path = :path</code>
+<code class="variable-string">where id = :id</code>
+<code class="variable-string"></code><code class="variable-quote">'''</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -417,9 +522,9 @@ where id = :id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select id from rhnChecksumType where label = :ctype
-&quot;&quot;&quot;
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select id from rhnChecksumType where label = :ctype</code>
+<code class="variable-string"></code><code class="variable-quote">'''</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -437,15 +542,164 @@ select id from rhnChecksumType where label = :ctype
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-declare
-    checksum_id number;
-begin
-    begin
-        insert into rhnChecksum values (
-            rhnChecksum_seq.nextval,
-            :ctype_id,
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">declare</code>
+<code class="variable-string">    checksum_id number;</code>
+<code class="variable-string">begin</code>
+<code class="variable-string">    begin</code>
+<code class="variable-string">        insert into rhnChecksum values (</code>
+<code class="variable-string">            rhnChecksum_seq.nextval,</code>
+<code class="variable-string">            :ctype_id,</code>
 <code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="package_query"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">package_query</h3>
+
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    select p.id as id,</code>
+<code class="variable-string">           p.path as path,</code>
+<code class="variable-string">           count(pf.capability_id) as filecount,</code>
+<code class="variable-string">           count(pf.checksum_id) as nonnullcsums</code>
+<code class="variable-string">      from rhnPackage p left outer join rhnPackageFile pf</code>
+<code class="variable-string">        on p.id = pf.package_id</code>
+<code class="variable-string">     where path is not null</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="package_capabilities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">package_capabilities</h3>
+
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    select PC.name,</code>
+<code class="variable-string">           PF.package_id,</code>
+<code class="variable-string">           PF.capability_id,</code>
+<code class="variable-string">           C.checksum,</code>
+<code class="variable-string">           C.checksum_type</code>
+<code class="variable-string">      from rhnPackageFile PF left outer join rhnChecksumView C</code>
+<code class="variable-string">        on PF.checksum_id = C.id,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="update_packagefile_checksum"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">update_packagefile_checksum</h3>
+
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    update rhnPackageFile</code>
+<code class="variable-string">       set checksum_id = lookup_checksum(:ctype, :csum)</code>
+<code class="variable-string">     where package_id = :pid and</code>
+<code class="variable-string">           capability_id = :cid</code>
+<code class="variable-string"></code><code class="variable-quote">'''</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="insert_packagefile"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">insert_packagefile</h3>
+
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    insert into rhnPackageFile (</code>
+<code class="variable-string">            package_id, capability_id, device, inode, file_mode, usern</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">ame,</code>
+<code class="variable-string">            groupname, rdev, file_size, mtime, linkto, flags, verifyfl</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">ags,</code>
+<code class="variable-string">            lang, checksum_id</code>
+<code class="variable-string">           )</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="package_name_query"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">package_name_query</h3>
+
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    select pn.name as name,</code>
+<code class="variable-string">           evr_t_as_vre_simple(pevr.evr) as vre,</code>
+<code class="variable-string">           pa.label as arch</code>
+<code class="variable-string">      from rhnPackage p,</code>
+<code class="variable-string">           rhnPackageName pn,</code>
+<code class="variable-string">           rhnPackageEVR pevr,</code>
+<code class="variable-string">           rhnPackageArch pa</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="package_repodata_delete"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">package_repodata_delete</h3>
+
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    delete</code>
+<code class="variable-string">\t  from rhnPackageRepoData</code>
+<code class="variable-string">\t where package_id = :pid</code>
+<code class="variable-string"></code><code class="variable-quote">'''</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -475,7 +729,7 @@ begin
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:45 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:37 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

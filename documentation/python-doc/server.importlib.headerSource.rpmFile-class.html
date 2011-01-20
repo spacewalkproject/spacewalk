@@ -56,7 +56,35 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class rpmFile</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.headerSource-pysrc.html#rpmFile">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_38" name="uml_class_diagram_for_server_i_38">
+<area shape="rect" id="node1402" href="server.importlib.headerSource.rpmFile-class.html#tagMap" title="server.importlib.headerSource.rpmFile.tagMap" alt="" coords="81,551,203,569"/>
+<area shape="rect" id="node1402" href="server.importlib.headerSource.rpmFile-class.html#populate" title="server.importlib.headerSource.rpmFile.populate" alt="" coords="81,572,203,591"/>
+<area shape="rect" id="node1" href="server.importlib.headerSource.rpmFile-class.html" title="server.importlib.headerSource.rpmFile" alt="" coords="69,526,213,597"/>
+<area shape="rect" id="node1403" href="server.importlib.importLib.File-class.html#attributeTypes" title="server.importlib.importLib.File.attributeTypes" alt="" coords="17,460,108,479"/>
+<area shape="rect" id="node1403" href="server.importlib.importLib.File-class.html#__init__" title="server.importlib.importLib.File.__init__" alt="" coords="17,481,108,500"/>
+<area shape="rect" id="node2" href="server.importlib.importLib.File-class.html" title="server.importlib.importLib.File" alt="" coords="5,435,120,506"/>
+<area shape="rect" id="node1404" href="server.importlib.importLib.Item-class.html#__repr__" title="server.importlib.importLib.Item.__repr__" alt="" coords="99,391,185,409"/>
+<area shape="rect" id="node3" href="server.importlib.importLib.Item-class.html" title="First level object, that stores information in a hash&#45;like structure" alt="" coords="87,358,196,415"/>
+<area shape="rect" id="node5" href="server.importlib.importLib.ChangeLog-class.html" title="server.importlib.importLib.ChangeLog" alt="" coords="149,449,299,493"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="hash(x)" alt="" coords="35,31,249,49"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.__cmp__" alt="" coords="35,52,249,71"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.__len__" alt="" coords="35,71,249,89"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.__getitem__" alt="" coords="35,89,249,108"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.__setitem__" alt="" coords="35,108,249,127"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.__delitem__" alt="" coords="35,127,249,145"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.clear" alt="" coords="35,145,249,164"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.copy" alt="" coords="35,164,249,183"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.keys" alt="" coords="35,183,249,201"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.items" alt="" coords="35,201,249,220"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.iteritems" alt="" coords="35,220,249,239"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.iterkeys" alt="" coords="35,239,249,257"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.itervalues" alt="" coords="35,257,249,276"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.values" alt="" coords="35,276,249,295"/>
+<area shape="rect" id="node1405" href="javascript:void(0);" title="UserDict.UserDict.fromkeys" alt="" coords="35,313,249,332"/>
+<area shape="rect" id="node4" href="javascript:void(0);" title="UserDict.UserDict" alt="" coords="23,6,260,338"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_38.png" alt='' usemap="#uml_class_diagram_for_server_i_38" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -172,18 +200,24 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.importlib.headerSource.rpmFile-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'name': 'filenames', 'device': 'filedevices', 'inode': 'fileinodes', \
-'file_mode': 'filemodes', 'username': 'fileusername', 'groupname': 'fi\
-legroupname', 'rdev': 'filerdevs', 'file_size': 'filesizes', 'mtime': \
-'filemtimes', 'filedigest': 'filemd5s', 'linkto': 'filelinktos', 'flag\
-s': 'fileflags', 'verifyflags': 'fileverifyflags', 'lang': 'filelangs'\
-,}">{'name': 'filenames', 'device': 'filedevices', 'inode<code class="variable-ellipsis">...</code></code>
+        <a href="server.importlib.headerSource.rpmFile-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'device': 'filedevices',
+ 'file_mode': 'filemodes',
+ 'file_size': 'filesizes',
+ 'filedigest': 'filemd5s',
+ 'flags': 'fileflags',
+ 'groupname': 'filegroupname',
+ 'inode': 'fileinodes',
+ 'lang': 'filelangs',
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">device</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filedevices</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">file_mode</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filemodes</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.importLib.File-class.html">importLib.File</a></code></b>:
       <code><a href="server.importlib.importLib.File-class.html#attributeTypes">attributeTypes</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>UserDict.UserDict</code></b>:
+      <code>__hash__</code>
       </p>
     </td>
   </tr>
@@ -260,12 +294,15 @@ s': 'fileflags', 'verifyflags': 'fileverifyflags', 'lang': 'filelangs'\
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{'name': 'filenames', 'device': 'filedevices', 'inode': 'fileinodes', <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-'file_mode': 'filemodes', 'username': 'fileusername', 'groupname': 'fi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-legroupname', 'rdev': 'filerdevs', 'file_size': 'filesizes', 'mtime': <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-'filemtimes', 'filedigest': 'filemd5s', 'linkto': 'filelinktos', 'flag<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-s': 'fileflags', 'verifyflags': 'fileverifyflags', 'lang': 'filelangs'<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-,}
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">device</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filedevices</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">file_mode</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filemodes</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">file_size</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filesizes</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">filedigest</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filemd5s</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">flags</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">fileflags</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">groupname</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filegroupname</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">inode</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">fileinodes</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">lang</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">filelangs</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -295,7 +332,7 @@ s': 'fileflags', 'verifyflags': 'fileverifyflags', 'lang': 'filelangs'<span clas
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:54 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:57 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

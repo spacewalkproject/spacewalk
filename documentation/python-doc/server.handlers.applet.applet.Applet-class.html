@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        applet ::
-        applet ::
-        Applet ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.applet-module.html">Package&nbsp;applet</a> ::
+        <a href="server.handlers.applet.applet-module.html" onclick="show_private();">Module&nbsp;applet</a> ::
         Class&nbsp;Applet
       </span>
     </td>
@@ -58,7 +57,20 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Applet</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.applet.applet-pysrc.html#Applet">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_4" name="uml_class_diagram_for_server_h_4">
+<area shape="rect" id="node1220" href="server.handlers.applet.applet.Applet-class.html#__init__" title="server.handlers.applet.applet.Applet.__init__" alt="" coords="17,193,417,212"/>
+<area shape="rect" id="node1220" href="server.handlers.applet.applet.Applet-class.html#has_base_channel" title="server.handlers.applet.applet.Applet.has_base_channel" alt="" coords="17,212,417,231"/>
+<area shape="rect" id="node1220" href="server.handlers.applet.applet.Applet-class.html#tie_uuid" title="server.handlers.applet.applet.Applet.tie_uuid" alt="" coords="17,231,417,249"/>
+<area shape="rect" id="node1220" href="server.handlers.applet.applet.Applet-class.html#poll_status" title="server.handlers.applet.applet.Applet.poll_status" alt="" coords="17,249,417,268"/>
+<area shape="rect" id="node1220" href="server.handlers.applet.applet.Applet-class.html#poll_packages" title="server.handlers.applet.applet.Applet.poll_packages" alt="" coords="17,268,417,287"/>
+<area shape="rect" id="node1" href="server.handlers.applet.applet.Applet-class.html" title="server.handlers.applet.applet.Applet" alt="" coords="5,161,429,293"/>
+<area shape="rect" id="node1221" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler.auth_system" alt="" coords="97,116,336,135"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler" alt="" coords="85,83,347,141"/>
+<area shape="rect" id="node1222" href="javascript:void(0);" title="??.RPC_Base&#45;1.get_function" alt="" coords="136,39,297,57"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="??.RPC_Base&#45;1" alt="" coords="124,6,308,63"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_4.png" alt='' usemap="#uml_class_diagram_for_server_h_4" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -84,7 +96,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.applet.applet.Applet-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.applet.applet-pysrc.html#Applet.__init__">source&nbsp;code</a></span>
             
@@ -165,6 +177,16 @@
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.server.rhnHandler.rhnHandler</code></b>:
+      <code>auth_system</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>.RPC_Base</code></b>:
+      <code>get_function</code>
+      </p>
+    </td>
+  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -187,31 +209,75 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_server" class="summary-name" onclick="show_private();">_query_lookup_server</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_server" class="summary-name" onclick="show_private();">_query_lookup_server</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66769408; stat\
+ement=
         select s.id
           from rhnServer s,
                rhnServerUuid su
          where su.uuid = :uuid
            and su.server_id = s.id
          order by modified desc
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_base_channel" class="summary-name" onclick="show_private();">_query_lookup_base_channel</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_base_channel" class="summary-name" onclick="show_private();">_query_lookup_base_channel</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66043848; stat\
+ement=
         select c.label
           from rhnChannel c,
                rhnServerChannel sc
          where sc.server_id = :server_id
            and sc.channel_id = c.id
            and c.parent_channel is null
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.applet.applet-pysrc.html#Applet.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+
+  <dl class="fields">
+    <dt>Overrides:
+        spacewalk.common.RPC_Base.RPC_Base.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -242,14 +308,15 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66769408; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         select s.id
           from rhnServer s,
                rhnServerUuid su
          where su.uuid = :uuid
            and su.server_id = s.id
          order by modified desc
-    &quot;&quot;&quot;)
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -267,14 +334,15 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66043848; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         select c.label
           from rhnChannel c,
                rhnServerChannel sc
          where sc.server_id = :server_id
            and sc.channel_id = c.id
            and c.parent_channel is null
-    &quot;&quot;&quot;)
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -304,7 +372,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:53 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:54 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -56,7 +56,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ChannelDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#ChannelDumper">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_56" name="uml_class_diagram_for_satellit_56">
+<area shape="rect" id="node500" href="satellite_tools.exporter.exportLib.ChannelDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.ChannelDumper.__init__" alt="" coords="120,345,271,364"/>
+<area shape="rect" id="node500" href="satellite_tools.exporter.exportLib.ChannelDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.ChannelDumper.set_iterator" alt="" coords="120,364,271,383"/>
+<area shape="rect" id="node1" href="satellite_tools.exporter.exportLib.ChannelDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelDumper" alt="" coords="108,313,281,389"/>
+<area shape="rect" id="node501" href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib._ChannelDumper.tag_name" alt="" coords="137,247,253,265"/>
+<area shape="rect" id="node501" href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib._ChannelDumper.set_attributes" alt="" coords="137,268,253,287"/>
+<area shape="rect" id="node2" href="satellite_tools.exporter.exportLib._ChannelDumper-class.html" title="hash(x)" alt="" coords="125,222,264,293"/>
+<area shape="rect" id="node503" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="17,39,373,57"/>
+<area shape="rect" id="node503" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="17,57,373,76"/>
+<area shape="rect" id="node503" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.BaseDumper.dump_subelement" alt="" coords="17,76,373,95"/>
+<area shape="rect" id="node503" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="17,95,373,113"/>
+<area shape="rect" id="node503" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="17,113,373,132"/>
+<area shape="rect" id="node3" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="5,6,384,138"/>
+<area shape="rect" id="node4" href="satellite_tools.exporter.exportLib.BaseRowDumper-class.html" title="satellite_tools.exporter.exportLib.BaseRowDumper" alt="" coords="131,158,259,202"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_56.png" alt='' usemap="#uml_class_diagram_for_satellit_56" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -120,6 +136,7 @@
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_get_channel_product_details" onclick="show_private();">_get_channel_product_details</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_get_cursor_source_packages" onclick="show_private();">_get_cursor_source_packages</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_get_errata_ids" onclick="show_private();">_get_errata_ids</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_get_ids" onclick="show_private();">_get_ids</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_get_kickstartable_trees" onclick="show_private();">_get_kickstartable_trees</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_get_package_ids" onclick="show_private();">_get_package_ids</a></code>
       </p></div>
@@ -157,12 +174,18 @@
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html" onclick="show_private();">_ChannelDumper</a></code></b> (private):
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query__get_errata_ids" onclick="show_private();">_query__get_errata_ids</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query__get_errata_ids_by_limits" onclick="show_private();">_query__get_errata_ids_by_limits</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query__get_errata_ids_by_rhnlimits" onclick="show_private();">_query__get_errata_ids_by_rhnlimits</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_channel_comps_last_modified" onclick="show_private();">_query_channel_comps_last_modified</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_channel_families" onclick="show_private();">_query_channel_families</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_dist_channel_map" onclick="show_private();">_query_dist_channel_map</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_channel_product_details" onclick="show_private();">_query_get_channel_product_details</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_kickstartable_trees" onclick="show_private();">_query_get_kickstartable_trees</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_kickstartable_trees_by_limits" onclick="show_private();">_query_get_kickstartable_trees_by_limits</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_kickstartable_trees_by_rhnlimits" onclick="show_private();">_query_get_kickstartable_trees_by_rhnlimits</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_package_ids" onclick="show_private();">_query_get_package_ids</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_package_ids_by_date_limits" onclick="show_private();">_query_get_package_ids_by_date_limits</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_package_ids_by_rhndate_limits" onclick="show_private();">_query_get_package_ids_by_rhndate_limits</a></code>,
       <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_source_package_ids" onclick="show_private();">_query_get_source_package_ids</a></code>
       </p></div>
     </td>
@@ -257,7 +280,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:48 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:45 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

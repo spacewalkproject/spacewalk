@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.importLib-module.html">Module&nbsp;importLib</a> ::
+        <a href="server.importlib.importLib-module.html" onclick="show_private();">Module&nbsp;importLib</a> ::
         Class&nbsp;Package
       </span>
     </td>
@@ -56,7 +56,39 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Package</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.importLib-pysrc.html#Package">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_85" name="uml_class_diagram_for_server_i_85">
+<area shape="rect" id="node1812" href="server.importlib.importLib.Package-class.html#attributeTypes" title="server.importlib.importLib.Package.attributeTypes" alt="" coords="197,639,288,657"/>
+<area shape="rect" id="node1812" href="server.importlib.importLib.Package-class.html#__init__" title="server.importlib.importLib.Package.__init__" alt="" coords="197,660,288,679"/>
+<area shape="rect" id="node1" href="server.importlib.importLib.Package-class.html" title="A package is a hash of attributes" alt="" coords="185,614,300,685"/>
+<area shape="rect" id="node4" href="server.importlib.headerSource.rpmBinaryPackage-class.html" title="server.importlib.headerSource.rpmBinaryPackage" alt="" coords="128,705,357,743"/>
+<area shape="rect" id="node1813" href="server.importlib.importLib.IncompletePackage-class.html#toDict" title="server.importlib.importLib.IncompletePackage.toDict" alt="" coords="184,551,301,569"/>
+<area shape="rect" id="node1813" href="server.importlib.importLib.IncompletePackage-class.html#short_str" title="server.importlib.importLib.IncompletePackage.short_str" alt="" coords="184,569,301,588"/>
+<area shape="rect" id="node2" href="server.importlib.importLib.IncompletePackage-class.html" title="server.importlib.importLib.IncompletePackage" alt="" coords="172,518,313,594"/>
+<area shape="rect" id="node3" href="server.importlib.debPackage.debBinaryPackage-class.html" title="server.importlib.debPackage.debBinaryPackage" alt="" coords="5,763,227,802"/>
+<area shape="rect" id="node8" href="server.importlib.mpmSource.mpmBinaryPackage-class.html" title="server.importlib.mpmSource.mpmBinaryPackage" alt="" coords="256,763,483,802"/>
+<area shape="rect" id="node5" href="server.importlib.importLib.BaseInformation-class.html" title="Second level object." alt="" coords="181,454,301,498"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="hash(x)" alt="" coords="135,31,349,49"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.__cmp__" alt="" coords="135,52,349,71"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.__len__" alt="" coords="135,71,349,89"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.__getitem__" alt="" coords="135,89,349,108"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.__setitem__" alt="" coords="135,108,349,127"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.__delitem__" alt="" coords="135,127,349,145"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.clear" alt="" coords="135,145,349,164"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.copy" alt="" coords="135,164,349,183"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.keys" alt="" coords="135,183,349,201"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.items" alt="" coords="135,201,349,220"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.iteritems" alt="" coords="135,220,349,239"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.iterkeys" alt="" coords="135,239,349,257"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.itervalues" alt="" coords="135,257,349,276"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.values" alt="" coords="135,276,349,295"/>
+<area shape="rect" id="node1816" href="javascript:void(0);" title="UserDict.UserDict.fromkeys" alt="" coords="135,313,349,332"/>
+<area shape="rect" id="node6" href="javascript:void(0);" title="UserDict.UserDict" alt="" coords="123,6,360,338"/>
+<area shape="rect" id="node1815" href="server.importlib.importLib.Item-class.html#populate" title="server.importlib.importLib.Item.populate" alt="" coords="181,391,303,409"/>
+<area shape="rect" id="node1815" href="server.importlib.importLib.Item-class.html#__repr__" title="server.importlib.importLib.Item.__repr__" alt="" coords="181,409,303,428"/>
+<area shape="rect" id="node7" href="server.importlib.importLib.Item-class.html" title="First level object, that stores information in a hash&#45;like structure" alt="" coords="169,358,313,434"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_85.png" alt='' usemap="#uml_class_diagram_for_server_i_85" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>A package is a hash of attributes</p>
@@ -183,7 +215,14 @@ source_rpm': StringType, 'package_size': IntType, 'last_modified': Dat\
 eType, 'sigpgp': StringType, 'siggpg': StringType, 'sigsize': IntType,\
  'header_start': IntType, 'header_end': IntType, 'path': StringType, '\
 md5sum': StringType, 'sigmd5': StringType, 'files': [File], 'requires'\
-...">{'description': StringType, 'summary': String<code class="variable-ellipsis">...</code></code>
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">build_host</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;type 'str'&gt;<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">build_time</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;c<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>UserDict.UserDict</code></b>:
+      <code>__hash__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -297,7 +336,7 @@ md5sum': StringType, 'sigmd5': StringType, 'files': [File], 'requires'<span clas
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:56 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:00 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

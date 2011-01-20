@@ -139,7 +139,7 @@ wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doc
 <a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">         </tt>
 <a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-comment">#This will set the rest of the steps to 0.</tt> </tt>
 <a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">step</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="satellite_tools.satsync.Runner.step_hierarchy" class="py-name" href="#" onclick="return doclink('link-7', 'step_hierarchy', 'link-1');">step_hierarchy</a></tt><tt class="py-op">:</tt> </tt>
-<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">[</tt><tt class="py-name">step</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method common.UserDictCase.UserDictCase.has_key()=common.UserDictCase.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key,Method wsgi.wsgiRequest.WsgiMPtable.has_key()=wsgi.wsgiRequest.WsgiMPtable-class.html#has_key"><a title="common.UserDictCase.UserDictCase.has_key
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">[</tt><tt class="py-name">step</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key,Method wsgi.wsgiRequest.WsgiMPtable.has_key()=wsgi.wsgiRequest.WsgiMPtable-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
 common.rhnCache.Cache.has_key
 common.rhnCache.CompressedCache.has_key
 common.rhnCache.NullCache.has_key
@@ -149,7 +149,6 @@ common.rhnConfig.RHNOptions.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnDatabaseCache.has_key
 server.rhnSQL.sql_table.Table.has_key
 wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-8', 'has_key', 'link-8');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">step</tt><tt class="py-op">)</tt> </tt>
 </div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
@@ -181,7 +180,7 @@ server.rhnChannel.list_channels" class="py-name" href="#" onclick="return doclin
 <a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt class="py-comment">#This method uses self.step_precendence to figure out if a step needs to be turned off.</tt> </tt>
 <a name="ActionDeps.turn_off_dep_steps"></a><div id="ActionDeps.turn_off_dep_steps-def"><a name="L105"></a><tt class="py-lineno">105</tt> <a class="py-toggle" href="#" id="ActionDeps.turn_off_dep_steps-toggle" onclick="return toggle('ActionDeps.turn_off_dep_steps');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.disk_dumper.iss_actions.ActionDeps-class.html#turn_off_dep_steps">turn_off_dep_steps</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">step</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="ActionDeps.turn_off_dep_steps-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ActionDeps.turn_off_dep_steps-expanded"><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">dependent</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="satellite_tools.satsync.Runner.step_precedence" class="py-name" href="#" onclick="return doclink('link-12', 'step_precedence', 'link-0');">step_precedence</a></tt><tt class="py-op">[</tt><tt class="py-name">step</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
-<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
 common.rhnCache.Cache.has_key
 common.rhnCache.CompressedCache.has_key
 common.rhnCache.NullCache.has_key
@@ -191,7 +190,6 @@ common.rhnConfig.RHNOptions.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnDatabaseCache.has_key
 server.rhnSQL.sql_table.Table.has_key
 wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-13', 'has_key', 'link-8');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">dependent</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">[</tt><tt class="py-name">dependent</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
@@ -199,7 +197,7 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-comment">#This method will call turn_off_dep_steps if the step is off or not present in self.action_dict.</tt> </tt>
 <a name="ActionDeps.handle_step_dependents"></a><div id="ActionDeps.handle_step_dependents-def"><a name="L111"></a><tt class="py-lineno">111</tt> <a class="py-toggle" href="#" id="ActionDeps.handle_step_dependents-toggle" onclick="return toggle('ActionDeps.handle_step_dependents');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.disk_dumper.iss_actions.ActionDeps-class.html#handle_step_dependents">handle_step_dependents</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="ActionDeps.handle_step_dependents-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ActionDeps.handle_step_dependents-expanded"><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">step</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="satellite_tools.satsync.Runner.step_hierarchy" class="py-name" href="#" onclick="return doclink('link-14', 'step_hierarchy', 'link-1');">step_hierarchy</a></tt><tt class="py-op">:</tt> </tt>
-<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
 common.rhnCache.Cache.has_key
 common.rhnCache.CompressedCache.has_key
 common.rhnCache.NullCache.has_key
@@ -209,7 +207,6 @@ common.rhnConfig.RHNOptions.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnDatabaseCache.has_key
 server.rhnSQL.sql_table.Table.has_key
 wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-15', 'has_key', 'link-8');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">step</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">action_dict</tt><tt class="py-op">[</tt><tt class="py-name">step</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
@@ -259,7 +256,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:03:18 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

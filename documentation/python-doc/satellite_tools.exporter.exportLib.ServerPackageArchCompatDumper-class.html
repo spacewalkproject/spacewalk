@@ -56,7 +56,25 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ServerPackageArchCompatDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#ServerPackageArchCompatDumper">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_76" name="uml_class_diagram_for_satellit_76">
+<area shape="rect" id="node571" href="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper.tag_name" alt="" coords="139,393,349,412"/>
+<area shape="rect" id="node1" href="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper-class.html" title="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper" alt="" coords="127,369,361,426"/>
+<area shape="rect" id="node572" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__" alt="" coords="17,287,471,305"/>
+<area shape="rect" id="node572" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.set_iterator" alt="" coords="17,305,471,324"/>
+<area shape="rect" id="node572" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.dump_subelement" alt="" coords="17,324,471,343"/>
+<area shape="rect" id="node2" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper" alt="" coords="5,254,483,349"/>
+<area shape="rect" id="node573" href="satellite_tools.exporter.exportLib.BaseArchesDumper-class.html#table_name" title="satellite_tools.exporter.exportLib.BaseArchesDumper.table_name" alt="" coords="184,183,303,201"/>
+<area shape="rect" id="node573" href="satellite_tools.exporter.exportLib.BaseArchesDumper-class.html#subelement_tag" title="satellite_tools.exporter.exportLib.BaseArchesDumper.subelement_tag" alt="" coords="184,201,303,220"/>
+<area shape="rect" id="node3" href="satellite_tools.exporter.exportLib.BaseArchesDumper-class.html" title="satellite_tools.exporter.exportLib.BaseArchesDumper" alt="" coords="172,158,313,234"/>
+<area shape="rect" id="node574" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="65,39,421,57"/>
+<area shape="rect" id="node574" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="65,57,421,76"/>
+<area shape="rect" id="node574" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="65,76,421,95"/>
+<area shape="rect" id="node574" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="65,95,421,113"/>
+<area shape="rect" id="node574" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="65,113,421,132"/>
+<area shape="rect" id="node4" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="53,6,432,138"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_76.png" alt='' usemap="#uml_class_diagram_for_satellit_76" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -114,44 +132,44 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-server-package-arch-compatibility-map'">'rhn-server-package-arch-compatibility-map'</code>
+        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-server-package-arch-compatibility-map'"><code class="variable-quote">'</code><code class="variable-string">rhn-server-package-arch-compatibility-map</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_subelement_tag"></a><span class="summary-name">_subelement_tag</span> = <code title="'rhn-server-package-arch-compat'">'rhn-server-package-arch-compat'</code>
+        <a name="_subelement_tag"></a><span class="summary-name">_subelement_tag</span> = <code title="'rhn-server-package-arch-compat'"><code class="variable-quote">'</code><code class="variable-string">rhn-server-package-arch-compat</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper-class.html#_query_rpm_arch_type_only" class="summary-name" onclick="show_private();">_query_rpm_arch_type_only</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper-class.html#_query_rpm_arch_type_only" class="summary-name" onclick="show_private();">_query_rpm_arch_type_only</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 30637448; stat\
+ement=
         select sa.label &quot;server-arch&quot;, 
             pa.label &quot;package-arch&quot;,
             spac.preference
         from rhnServerPackageArchCompat spac, 
             rhnServerArch sa,
             rhnPackageArch pa,
-            rhnArchType aas,
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper-class.html#_query_arch_type_all" class="summary-name" onclick="show_private();">_query_arch_type_all</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper-class.html#_query_arch_type_all" class="summary-name" onclick="show_private();">_query_arch_type_all</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 30637592; stat\
+ement=
         select sa.label &quot;server-arch&quot;, 
             pa.label &quot;package-arch&quot;,
             spac.preference
         from rhnServerPackageArchCompat spac, 
             rhnServerArch sa,
             rhnPackageArch pa
-        where spac.server_arch_id = sa.id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
   <tr>
@@ -193,14 +211,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 30637448; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         select sa.label &quot;server-arch&quot;, 
             pa.label &quot;package-arch&quot;,
             spac.preference
         from rhnServerPackageArchCompat spac, 
             rhnServerArch sa,
             rhnPackageArch pa,
-            rhnArchType aas,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -219,14 +237,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 30637592; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         select sa.label &quot;server-arch&quot;, 
             pa.label &quot;package-arch&quot;,
             spac.preference
         from rhnServerPackageArchCompat spac, 
             rhnServerArch sa,
             rhnPackageArch pa
-        where spac.server_arch_id = sa.id
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -257,7 +275,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:48 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:46 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

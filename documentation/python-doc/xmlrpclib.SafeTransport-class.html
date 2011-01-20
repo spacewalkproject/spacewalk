@@ -55,7 +55,27 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class SafeTransport</h1><p class="nomargin-top"><span class="codelink"><a href="xmlrpclib-pysrc.html#SafeTransport">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_xmlrpcli_6" name="uml_class_diagram_for_xmlrpcli_6">
+<area shape="rect" id="node2454" href="xmlrpclib.SafeTransport-class.html#make_connection" title="xmlrpclib.SafeTransport.make_connection" alt="" coords="111,353,283,372"/>
+<area shape="rect" id="node1" href="xmlrpclib.SafeTransport-class.html" title="Handles an HTTPS transaction to an XML&#45;RPC server." alt="" coords="99,321,293,378"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#user_agent" title="xmlrpclib.Transport.user_agent" alt="" coords="17,31,376,49"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#accept_gzip_encoding" title="xmlrpclib.Transport.accept_gzip_encoding" alt="" coords="17,49,376,68"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#encode_threshold" title="hash(x)" alt="" coords="17,68,376,87"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#__init__" title="xmlrpclib.Transport.__init__" alt="" coords="17,89,376,108"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#request" title="xmlrpclib.Transport.request" alt="" coords="17,108,376,127"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#single_request" title="xmlrpclib.Transport.single_request" alt="" coords="17,127,376,145"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#getparser" title="xmlrpclib.Transport.getparser" alt="" coords="17,145,376,164"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#get_host_info" title="xmlrpclib.Transport.get_host_info" alt="" coords="17,164,376,183"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#close" title="xmlrpclib.Transport.close" alt="" coords="17,183,376,201"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#send_request" title="xmlrpclib.Transport.send_request" alt="" coords="17,201,376,220"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#send_host" title="xmlrpclib.Transport.send_host" alt="" coords="17,220,376,239"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#send_user_agent" title="xmlrpclib.Transport.send_user_agent" alt="" coords="17,239,376,257"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#send_content" title="xmlrpclib.Transport.send_content" alt="" coords="17,257,376,276"/>
+<area shape="rect" id="node2455" href="xmlrpclib.Transport-class.html#parse_response" title="xmlrpclib.Transport.parse_response" alt="" coords="17,276,376,295"/>
+<area shape="rect" id="node2" href="xmlrpclib.Transport-class.html" title="Handles an HTTP transaction to an XML&#45;RPC server." alt="" coords="5,6,387,301"/>
+</map>
+  <img src="uml_class_diagram_for_xmlrpcli_6.png" alt='' usemap="#uml_class_diagram_for_xmlrpcli_6" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>Handles an HTTPS transaction to an XML-RPC server.</p>
@@ -98,6 +118,7 @@
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">Transport</a></code></b>:
       <code><a href="xmlrpclib.Transport-class.html#__init__">__init__</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#close">close</a></code>,
       <code><a href="xmlrpclib.Transport-class.html#get_host_info">get_host_info</a></code>,
       <code><a href="xmlrpclib.Transport-class.html#getparser">getparser</a></code>,
       <code><a href="xmlrpclib.Transport-class.html#parse_response">parse_response</a></code>,
@@ -105,11 +126,9 @@
       <code><a href="xmlrpclib.Transport-class.html#send_content">send_content</a></code>,
       <code><a href="xmlrpclib.Transport-class.html#send_host">send_host</a></code>,
       <code><a href="xmlrpclib.Transport-class.html#send_request">send_request</a></code>,
-      <code><a href="xmlrpclib.Transport-class.html#send_user_agent">send_user_agent</a></code>
+      <code><a href="xmlrpclib.Transport-class.html#send_user_agent">send_user_agent</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#single_request">single_request</a></code>
       </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">Transport</a></code></b> (private):
-      <code><a href="xmlrpclib.Transport-class.html#_parse_response" onclick="show_private();">_parse_response</a></code>
-      </p></div>
     </td>
   </tr>
 </table>
@@ -133,6 +152,8 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">Transport</a></code></b>:
+      <code><a href="xmlrpclib.Transport-class.html#accept_gzip_encoding">accept_gzip_encoding</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#encode_threshold">encode_threshold</a></code>,
       <code><a href="xmlrpclib.Transport-class.html#user_agent">user_agent</a></code>
       </p>
     </td>
@@ -203,7 +224,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:59 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

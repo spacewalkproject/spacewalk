@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        xmlrpc ::
-        up2date ::
-        Up2date ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
+        <a href="server.handlers.xmlrpc.up2date-module.html" onclick="show_private();">Module&nbsp;up2date</a> ::
         Class&nbsp;Up2date
       </span>
     </td>
@@ -58,7 +57,28 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Up2date</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_17" name="uml_class_diagram_for_server_h_17">
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#__init__" title="Up2date Class Constructor" alt="" coords="17,180,460,199"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#auth_system" title="server.handlers.xmlrpc.up2date.Up2date.auth_system" alt="" coords="17,199,460,217"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#login" title="Clients v2+ Log in routine." alt="" coords="17,217,460,236"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#listChannels" title="Clients v2+" alt="" coords="17,236,460,255"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#subscribeChannels" title="Clients v2+" alt="" coords="17,255,460,273"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#unsubscribeChannels" title="Clients v2+" alt="" coords="17,273,460,292"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#listall" title="Clients v1&#45; Package listing in [[n,v,r,e],...] format." alt="" coords="17,292,460,311"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#listall_size" title="Clients v1&#45; Package listing in [[n,v,r,e,s],...] format." alt="" coords="17,311,460,329"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#header" title="Clients v1&#45;" alt="" coords="17,329,460,348"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#package" title="Clients v1&#45; Get rpm package." alt="" coords="17,348,460,367"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#source_package" title="Clients v1&#45; Get a source rpm package." alt="" coords="17,367,460,385"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#source_package_by_name" title="Clients v1&#45; Get a source rpm package by its human readable filename." alt="" coords="17,385,460,404"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#solvedep" title="Clients v1&#45; Solve dependencies for a given dependency problem list." alt="" coords="17,404,460,423"/>
+<area shape="rect" id="node1265" href="server.handlers.xmlrpc.up2date.Up2date-class.html#history" title="Clients v2+ Add a history log for a performed action" alt="" coords="17,441,460,460"/>
+<area shape="rect" id="node1" href="server.handlers.xmlrpc.up2date.Up2date-class.html" title="xml&#45;rpc Server Functions that we will provide for the outside world." alt="" coords="5,147,472,466"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler" alt="" coords="107,83,368,127"/>
+<area shape="rect" id="node1267" href="javascript:void(0);" title="??.RPC_Base&#45;1.get_function" alt="" coords="157,39,319,57"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="??.RPC_Base&#45;1" alt="" coords="145,6,329,63"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_17.png" alt='' usemap="#uml_class_diagram_for_server_h_17" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>xml-rpc Server Functions that we will provide for the outside 
@@ -104,7 +124,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="auth_system"></a><span class="summary-sig-name">auth_system</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#auth_system" class="summary-sig-name">auth_system</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">action</span>,
         <span class="summary-sig-arg">system_id</span>)</span></td>
           <td align="right" valign="top">
@@ -124,7 +144,7 @@
         <tr>
           <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#login" class="summary-sig-name">login</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">extra_data</span>=<span class="summary-sig-default">{}</span>)</span><br />
+        <span class="summary-sig-arg">extra_data</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
       Clients v2+ Log in routine.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.login">source&nbsp;code</a></span>
@@ -403,7 +423,7 @@ Solve dependencies for a given dependency problem list.</td>
           <td><span class="summary-sig"><a name="history"></a><span class="summary-sig-name">history</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">summary</span>,
-        <span class="summary-sig-arg">body</span>=<span class="summary-sig-default">&quot;&quot;</span>)</span><br />
+        <span class="summary-sig-arg">body</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
       Clients v2+ Add a history log for a performed action</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.history">source&nbsp;code</a></span>
@@ -501,6 +521,13 @@ Solve dependencies for a given dependency problem list.</td>
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>.RPC_Base</code></b>:
+      <code>get_function</code>
+      </p>
+    </td>
+  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -544,6 +571,33 @@ o Appends the functions available to the outside world in the
 
 </pre>
   <dl class="fields">
+    <dt>Overrides:
+        spacewalk.common.RPC_Base.RPC_Base.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="auth_system"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">auth_system</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">action</span>,
+        <span class="sig-arg">system_id</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.auth_system">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+
+  <dl class="fields">
+    <dt>Overrides:
+        spacewalk.server.rhnHandler.rhnHandler.auth_system
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -556,7 +610,7 @@ o Appends the functions available to the outside world in the
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">login</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">system_id</span>,
-        <span class="sig-arg">extra_data</span>=<span class="sig-default">{}</span>)</span>
+        <span class="sig-arg">extra_data</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.login">source&nbsp;code</a></span>&nbsp;
@@ -802,7 +856,7 @@ RET: a package list: [[n,v,r,e],[n,v,r,e],...] That solves the
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:53 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:55 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

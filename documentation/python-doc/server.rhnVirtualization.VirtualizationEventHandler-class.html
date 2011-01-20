@@ -149,10 +149,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_handle_domain_removed"></a><span class="summary-sig-name">_handle_domain_removed</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#_handle_domain_removed" class="summary-sig-name" onclick="show_private();">_handle_domain_removed</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">timestamp</span>,
-        <span class="summary-sig-arg">properties</span>)</span></td>
+        <span class="summary-sig-arg">properties</span>)</span><br />
+      Handle a domain removal.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler._handle_domain_removed">source&nbsp;code</a></span>
             
@@ -225,10 +226,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__db_get_system"></a><span class="summary-sig-name">__db_get_system</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#__db_get_system" class="summary-sig-name" onclick="show_private();">__db_get_system</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">identity</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">uuid</span>)</span></td>
+        <span class="summary-sig-arg">uuid</span>)</span><br />
+      This returns a row from the database that represents a virtual
+      system.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_get_system">source&nbsp;code</a></span>
             
@@ -248,7 +251,8 @@
         <span class="summary-sig-arg">identity</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">uuid</span>,
-        <span class="summary-sig-arg">virt_type</span>)</span></td>
+        <span class="summary-sig-arg">virt_type</span>)</span><br />
+      Inserts a new system into the database.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_insert_system">source&nbsp;code</a></span>
             
@@ -267,7 +271,8 @@
           <td><span class="summary-sig"><a name="__db_update_system"></a><span class="summary-sig-name">__db_update_system</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">identity</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">existing_row</span>)</span></td>
+        <span class="summary-sig-arg">existing_row</span>)</span><br />
+      Updates a system in the database.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_update_system">source&nbsp;code</a></span>
             
@@ -304,7 +309,9 @@
           <td><span class="summary-sig"><a name="__db_insert_domain"></a><span class="summary-sig-name">__db_insert_domain</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">host_id</span>,
         <span class="summary-sig-arg">uuid</span>,
-        <span class="summary-sig-arg">properties</span>)</span></td>
+        <span class="summary-sig-arg">properties</span>)</span><br />
+      To create a new domain, we must modify both the rhnVirtualInstance
+      and the rhnVirtualInstanceInfo tables.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_insert_domain">source&nbsp;code</a></span>
             
@@ -375,7 +382,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__remove_unconfirmed_domains"></a><span class="summary-sig-name">__remove_unconfirmed_domains</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">system_id</span>)</span></td>
+        <span class="summary-sig-arg">system_id</span>)</span><br />
+      Mark the unconfirmed entries in the RVII table as stopped, since it
+      appears they are no longer running.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__remove_unconfirmed_domains">source&nbsp;code</a></span>
             
@@ -411,7 +420,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__convert_properties"></a><span class="summary-sig-name">__convert_properties</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">properties</span>)</span></td>
+        <span class="summary-sig-arg">properties</span>)</span><br />
+      This function normalizes and converts the values of some properties
+      to format consumable by the server.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__convert_properties">source&nbsp;code</a></span>
             
@@ -460,25 +471,90 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#HANDLERS" class="summary-name">HANDLERS</a> = <code title="{(EventType.EXISTS, TargetType.SYSTEM): '_handle_system_exists', (Even\
-tType.EXISTS, TargetType.DOMAIN): '_handle_domain_exists', (EventType.\
-REMOVED, TargetType.DOMAIN): '_handle_domain_removed', (EventType.CRAW\
-L_BEGAN, TargetType.SYSTEM): '_handle_system_crawl_began', (EventType.\
-CRAWL_ENDED, TargetType.SYSTEM): '_handle_system_crawl_ended', (EventT\
-ype.EXISTS, TargetType.LOG_MSG): '_handle_log_msg_exists'}">{(EventType.EXISTS, TargetType.SYSTEM): '_handle_sy<code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#HANDLERS" class="summary-name">HANDLERS</a> = <code title="{('crawl_began', 'system'): '_handle_system_crawl_began',
+ ('crawl_ended', 'system'): '_handle_system_crawl_ended',
+ ('exists', 'domain'): '_handle_domain_exists',
+ ('exists', 'log_message'): '_handle_log_msg_exists',
+ ('exists', 'system'): '_handle_system_exists',
+ ('removed', 'domain'): '_handle_domain_removed'}"><code class="variable-group">{</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">crawl_began</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">system</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_handle_system_crawl_b</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#REQUIRED_PROPERTIES" class="summary-name">REQUIRED_PROPERTIES</a> = <code title="{(EventType.EXISTS, TargetType.SYSTEM):(PropertyType.IDENTITY, Propert\
-yType.UUID,), (EventType.EXISTS, TargetType.DOMAIN):(PropertyType.UUID\
-,), (EventType.EXISTS, TargetType.LOG_MSG):(PropertyType.MESSAGE, Prop\
-ertyType.ID,)}">{(EventType.EXISTS, TargetType.SYSTEM):(<code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#REQUIRED_PROPERTIES" class="summary-name">REQUIRED_PROPERTIES</a> = <code title="{('exists', 'domain'): ('uuid'),
+ ('exists', 'log_message'): ('message', 'id'),
+ ('exists', 'system'): ('identity', 'uuid')}"><code class="variable-group">{</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exists</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">domain</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">uuid</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exist</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_handle_domain_removed"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_handle_domain_removed</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">timestamp</span>,
+        <span class="sig-arg">properties</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler._handle_domain_removed">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+  <p>Handle a domain removal.  Since we are dealing with virtual domains,
+  we can't really tell whether physical removal took place, so we'll just
+  mark the domain as 'stopped'.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__db_get_system"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__db_get_system</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">identity</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">uuid</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_get_system">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+  <p>This returns a row from the database that represents a virtual system.
+  If no system could be found, None is returned.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -509,12 +585,12 @@ ertyType.ID,)}">{(EventType.EXISTS, TargetType.SYSTEM):(<code class="variable-el
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{(EventType.EXISTS, TargetType.SYSTEM): '_handle_system_exists', (Even<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-tType.EXISTS, TargetType.DOMAIN): '_handle_domain_exists', (EventType.<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-REMOVED, TargetType.DOMAIN): '_handle_domain_removed', (EventType.CRAW<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-L_BEGAN, TargetType.SYSTEM): '_handle_system_crawl_began', (EventType.<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-CRAWL_ENDED, TargetType.SYSTEM): '_handle_system_crawl_ended', (EventT<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ype.EXISTS, TargetType.LOG_MSG): '_handle_log_msg_exists'}
+<code class="variable-group">{</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">crawl_began</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">system</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_handle_system_crawl_began</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">crawl_ended</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">system</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_handle_system_crawl_ended</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exists</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">domain</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_handle_domain_exists</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exists</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">log_message</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_handle_log_msg_exists</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exists</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">system</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_handle_system_exists</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">removed</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">domain</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_handle_domain_removed</code><code class="variable-quote">'</code><code class="variable-group">}</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -532,10 +608,9 @@ ype.EXISTS, TargetType.LOG_MSG): '_handle_log_msg_exists'}
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{(EventType.EXISTS, TargetType.SYSTEM):(PropertyType.IDENTITY, Propert<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-yType.UUID,), (EventType.EXISTS, TargetType.DOMAIN):(PropertyType.UUID<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-,), (EventType.EXISTS, TargetType.LOG_MSG):(PropertyType.MESSAGE, Prop<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ertyType.ID,)}
+<code class="variable-group">{</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exists</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">domain</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">uuid</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exists</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">log_message</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">message</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">id</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exists</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">system</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">identity</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">uuid</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-group">}</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -565,7 +640,7 @@ ertyType.ID,)}
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:59 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:06 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

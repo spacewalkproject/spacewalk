@@ -55,7 +55,32 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class GETServer</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.connection-pysrc.html#GETServer">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_9" name="uml_class_diagram_for_satellit_9">
+<area shape="rect" id="node182" href="satellite_tools.connection.GETServer-class.html#__init__" title="satellite_tools.connection.GETServer.__init__" alt="" coords="17,511,1107,529"/>
+<area shape="rect" id="node1" href="satellite_tools.connection.GETServer-class.html" title="class rpclib.GETServer with overriden default transports classes" alt="" coords="5,478,1117,535"/>
+<area shape="rect" id="node183" href="rhn.rpclib.GETServer-class.html#set_range" title="rhn.rpclib.GETServer.set_range" alt="" coords="336,377,788,396"/>
+<area shape="rect" id="node183" href="rhn.rpclib.GETServer-class.html#reset_transport_flags" title="rhn.rpclib.GETServer.reset_transport_flags" alt="" coords="336,396,788,415"/>
+<area shape="rect" id="node183" href="rhn.rpclib.GETServer-class.html#__getattr__" title="rhn.rpclib.GETServer.__getattr__" alt="" coords="336,415,788,433"/>
+<area shape="rect" id="node183" href="rhn.rpclib.GETServer-class.html#default_transport" title="rhn.rpclib.GETServer.default_transport" alt="" coords="336,433,788,452"/>
+<area shape="rect" id="node2" href="rhn.rpclib.GETServer-class.html" title="rhn.rpclib.GETServer" alt="" coords="324,345,799,458"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#allow_redirect" title="rhn.rpclib.Server.allow_redirect" alt="" coords="369,39,755,57"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#redirected" title="rhn.rpclib.Server.redirected" alt="" coords="369,57,755,76"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#set_refresh_callback" title="rhn.rpclib.Server.set_refresh_callback" alt="" coords="369,76,755,95"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#set_buffer_size" title="rhn.rpclib.Server.set_buffer_size" alt="" coords="369,95,755,113"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#set_progress_callback" title="rhn.rpclib.Server.set_progress_callback" alt="" coords="369,113,755,132"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#get_response_headers" title="rhn.rpclib.Server.get_response_headers" alt="" coords="369,132,755,151"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#get_response_status" title="rhn.rpclib.Server.get_response_status" alt="" coords="369,151,755,169"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#get_response_reason" title="rhn.rpclib.Server.get_response_reason" alt="" coords="369,169,755,188"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#get_content_range" title="Returns a dictionary with three values:..." alt="" coords="369,188,755,207"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#accept_ranges" title="rhn.rpclib.Server.accept_ranges" alt="" coords="369,207,755,225"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#__repr__" title="rhn.rpclib.Server.__repr__" alt="" coords="369,225,755,244"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#__str__" title="rhn.rpclib.Server.__str__" alt="" coords="369,244,755,263"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#set_transport_flags" title="rhn.rpclib.Server.set_transport_flags" alt="" coords="369,263,755,281"/>
+<area shape="rect" id="node184" href="rhn.rpclib.Server-class.html#close" title="rhn.rpclib.Server.close" alt="" coords="369,300,755,319"/>
+<area shape="rect" id="node3" href="rhn.rpclib.Server-class.html" title="uri [,options] &#45;&gt; a logical connection to an XML&#45;RPC server" alt="" coords="357,6,765,325"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_9.png" alt='' usemap="#uml_class_diagram_for_satellit_9" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>class rpclib.GETServer with overriden default transports classes</p>
@@ -123,11 +148,36 @@
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.connection.GETServer-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">uri</span>,
+        <span class="summary-sig-arg">transport</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">proxy</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">username</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">password</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">client_version</span>=<span class="summary-sig-default">2</span>,
+        <span class="summary-sig-arg">headers</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">refreshCallback</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">progressCallback</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">xml_dump_version</span>=<span class="summary-sig-default">3.6</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.connection-pysrc.html#GETServer.__init__">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="rhn.rpclib.GETServer-class.html">rhn.rpclib.GETServer</a></code></b>:
       <code><a href="rhn.rpclib.GETServer-class.html#__getattr__">__getattr__</a></code>,
-      <code><a href="rhn.rpclib.GETServer-class.html#__init__">__init__</a></code>,
       <code><a href="rhn.rpclib.GETServer-class.html#default_transport">default_transport</a></code>,
       <code><a href="rhn.rpclib.GETServer-class.html#reset_transport_flags">reset_transport_flags</a></code>,
       <code><a href="rhn.rpclib.GETServer-class.html#set_range">set_range</a></code>
@@ -166,6 +216,58 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">uri</span>,
+        <span class="sig-arg">transport</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">proxy</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">username</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">password</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">client_version</span>=<span class="sig-default">2</span>,
+        <span class="sig-arg">headers</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">refreshCallback</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">progressCallback</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">xml_dump_version</span>=<span class="sig-default">3.6</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.connection-pysrc.html#GETServer.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="rhn.rpclib.Server-class.html#__init__">rhn.rpclib.Server.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -189,7 +291,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:47 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:42 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

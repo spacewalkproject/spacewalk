@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.exporter.exportLib.BaseSubelementDumper</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        <a href="satellite_tools.exporter-module.html">Package&nbsp;exporter</a> ::
+        <a href="satellite_tools.exporter.exportLib-module.html">Module&nbsp;exportLib</a> ::
+        Class&nbsp;BaseSubelementDumper
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class BaseSubelementDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#BaseSubelementDumper">source&nbsp;code</a></span></p>
+<center>
+  <div class="private"><center>  <map id="uml_class_diagram_for_satellit_51" name="uml_class_diagram_for_satellit_51">
+<area shape="rect" id="node1" href="satellite_tools.exporter.exportLib.ChannelErrataDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelErrataDumper" alt="" coords="5,286,171,325"/>
+<area shape="rect" id="node467" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.BaseDumper.__init__" alt="" coords="904,39,1260,57"/>
+<area shape="rect" id="node467" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="904,57,1260,76"/>
+<area shape="rect" id="node467" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="904,76,1260,95"/>
+<area shape="rect" id="node467" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.BaseDumper.set_iterator" alt="" coords="904,95,1260,113"/>
+<area shape="rect" id="node467" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="904,113,1260,132"/>
+<area shape="rect" id="node467" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="904,132,1260,151"/>
+<area shape="rect" id="node467" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="904,151,1260,169"/>
+<area shape="rect" id="node2" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="892,6,1271,175"/>
+<area shape="rect" id="node466" href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html#subelement_dumper_class" title="hash(x)" alt="" coords="995,220,1171,239"/>
+<area shape="rect" id="node466" href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.BaseSubelementDumper.dump_subelement" alt="" coords="995,241,1171,260"/>
+<area shape="rect" id="node7" href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html" title="satellite_tools.exporter.exportLib.BaseSubelementDumper" alt="" coords="983,195,1183,266"/>
+<area shape="rect" id="node3" href="satellite_tools.exporter.exportLib.ChannelsDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelsDumper" alt="" coords="200,286,336,325"/>
+<area shape="rect" id="node4" href="satellite_tools.exporter.exportLib.DistsDumper-class.html" title="satellite_tools.exporter.exportLib.DistsDumper" alt="" coords="365,286,477,325"/>
+<area shape="rect" id="node5" href="satellite_tools.exporter.exportLib.ErrataDumper-class.html" title="satellite_tools.exporter.exportLib.ErrataDumper" alt="" coords="507,286,624,325"/>
+<area shape="rect" id="node6" href="satellite_tools.exporter.exportLib.ChannelSourcePackagesDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelSourcePackagesDumper" alt="" coords="653,286,883,325"/>
+<area shape="rect" id="node8" href="satellite_tools.exporter.exportLib._ChangelogDumper-class.html" title="satellite_tools.exporter.exportLib._ChangelogDumper" alt="" coords="912,286,1064,325"/>
+<area shape="rect" id="node9" href="satellite_tools.exporter.exportLib.ShortPackagesDumper-class.html" title="satellite_tools.exporter.exportLib.ShortPackagesDumper" alt="" coords="1093,286,1264,325"/>
+<area shape="rect" id="node10" href="satellite_tools.exporter.exportLib.KickstartableTreesDumper-class.html" title="satellite_tools.exporter.exportLib.KickstartableTreesDumper" alt="" coords="1293,286,1485,325"/>
+<area shape="rect" id="node11" href="satellite_tools.exporter.exportLib._KickstartFilesDumper-class.html" title="satellite_tools.exporter.exportLib._KickstartFilesDumper" alt="" coords="1515,286,1683,325"/>
+<area shape="rect" id="node12" href="satellite_tools.exporter.exportLib.PackagesDumper-class.html" title="satellite_tools.exporter.exportLib.PackagesDumper" alt="" coords="1712,286,1853,325"/>
+<area shape="rect" id="node13" href="satellite_tools.exporter.exportLib._ErratumFilesDumper-class.html" title="satellite_tools.exporter.exportLib._ErratumFilesDumper" alt="" coords="1883,286,2045,325"/>
+<area shape="rect" id="node14" href="satellite_tools.exporter.exportLib._ErratumBuglistDumper-class.html" title="satellite_tools.exporter.exportLib._ErratumBuglistDumper" alt="" coords="2075,286,2251,325"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_51.png" alt='' usemap="#uml_class_diagram_for_satellit_51" ismap="ismap" class="graph-without-title" />
+</center></div>
+  <div class="public" style="display:none"><center>  <map id="uml_class_diagram_for_satellit_52" name="uml_class_diagram_for_satellit_52">
+<area shape="rect" id="node1" href="satellite_tools.exporter.exportLib.ChannelErrataDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelErrataDumper" alt="" coords="5,286,171,325"/>
+<area shape="rect" id="node481" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.BaseDumper.__init__" alt="" coords="488,39,844,57"/>
+<area shape="rect" id="node481" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="488,57,844,76"/>
+<area shape="rect" id="node481" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="488,76,844,95"/>
+<area shape="rect" id="node481" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.BaseDumper.set_iterator" alt="" coords="488,95,844,113"/>
+<area shape="rect" id="node481" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="488,113,844,132"/>
+<area shape="rect" id="node481" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="488,132,844,151"/>
+<area shape="rect" id="node481" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="488,151,844,169"/>
+<area shape="rect" id="node2" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="476,6,855,175"/>
+<area shape="rect" id="node480" href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html#subelement_dumper_class" title="hash(x)" alt="" coords="579,220,755,239"/>
+<area shape="rect" id="node480" href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.BaseSubelementDumper.dump_subelement" alt="" coords="579,241,755,260"/>
+<area shape="rect" id="node7" href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html" title="satellite_tools.exporter.exportLib.BaseSubelementDumper" alt="" coords="567,195,767,266"/>
+<area shape="rect" id="node3" href="satellite_tools.exporter.exportLib.ChannelsDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelsDumper" alt="" coords="200,286,336,325"/>
+<area shape="rect" id="node4" href="satellite_tools.exporter.exportLib.DistsDumper-class.html" title="satellite_tools.exporter.exportLib.DistsDumper" alt="" coords="365,286,477,325"/>
+<area shape="rect" id="node5" href="satellite_tools.exporter.exportLib.ErrataDumper-class.html" title="satellite_tools.exporter.exportLib.ErrataDumper" alt="" coords="507,286,624,325"/>
+<area shape="rect" id="node6" href="satellite_tools.exporter.exportLib.ChannelSourcePackagesDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelSourcePackagesDumper" alt="" coords="653,286,883,325"/>
+<area shape="rect" id="node8" href="satellite_tools.exporter.exportLib.ShortPackagesDumper-class.html" title="satellite_tools.exporter.exportLib.ShortPackagesDumper" alt="" coords="912,286,1083,325"/>
+<area shape="rect" id="node9" href="satellite_tools.exporter.exportLib.KickstartableTreesDumper-class.html" title="satellite_tools.exporter.exportLib.KickstartableTreesDumper" alt="" coords="1112,286,1304,325"/>
+<area shape="rect" id="node10" href="satellite_tools.exporter.exportLib.PackagesDumper-class.html" title="satellite_tools.exporter.exportLib.PackagesDumper" alt="" coords="1333,286,1475,325"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_52.png" alt='' usemap="#uml_class_diagram_for_satellit_52" ismap="ismap" class="graph-without-title" />
+</center></div>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.exporter.exportLib.BaseSubelementDumper-class.html#dump_subelement" class="summary-sig-name">dump_subelement</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#BaseSubelementDumper.dump_subelement">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html">BaseDumper</a></code></b>:
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__">__init__</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump">dump</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer">get_writer</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes">set_attributes</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_iterator">set_iterator</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer">set_writer</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer">timer</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="subelement_dumper_class"></a><span class="summary-name">subelement_dumper_class</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="dump_subelement"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_subelement</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#BaseSubelementDumper.dump_subelement">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump_subelement">BaseDumper.dump_subelement</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:45 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

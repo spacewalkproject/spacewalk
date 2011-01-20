@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="common-module.html">Package&nbsp;common</a> ::
-        <a href="common.rhnConfig-module.html">Module&nbsp;rhnConfig</a> ::
+        <a href="common.rhnConfig-module.html" onclick="show_private();">Module&nbsp;rhnConfig</a> ::
         Class&nbsp;RHNOptions
       </span>
     </td>
@@ -84,7 +84,7 @@
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">component</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#RHNOptions.__init__">source&nbsp;code</a></span>
             
@@ -94,20 +94,20 @@
       
     </td>
   </tr>
-<tr class="private">
+<tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_init"></a><span class="summary-sig-name">_init</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="init"></a><span class="summary-sig-name">init</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">component</span>,
         <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
       Visible function, so that we can re-init the object without losing 
       the reference to it</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnConfig-pysrc.html#RHNOptions._init">source&nbsp;code</a></span>
+            <span class="codelink"><a href="common.rhnConfig-pysrc.html#RHNOptions.init">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -346,7 +346,7 @@
         <tr>
           <td><span class="summary-sig"><a href="common.rhnConfig.RHNOptions-class.html#writeConfig" class="summary-sig-name">writeConfig</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">userConfigDict</span>,
-        <span class="summary-sig-arg">commentDict</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">commentDict</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">None</span>)</span><br />
       given dictionaries in these formats:
      config dictionary:
@@ -522,16 +522,16 @@ that are truly different (removing the ones that == the defaults).</td>
       
     </td>
   </tr>
-<tr class="private">
+<tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_getDefaults"></a><span class="summary-sig-name">_getDefaults</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a name="getDefaults"></a><span class="summary-sig-name">getDefaults</span>(<span class="summary-sig-arg">self</span>)</span><br />
       returns the __defaults dict (dictionary of parsed defaults).</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnConfig-pysrc.html#RHNOptions._getDefaults">source&nbsp;code</a></span>
+            <span class="codelink"><a href="common.rhnConfig-pysrc.html#RHNOptions.getDefaults">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -575,15 +575,15 @@ that are truly different (removing the ones that == the defaults).</td>
       
     </td>
   </tr>
-<tr class="private">
+<tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_showall"></a><span class="summary-sig-name">_showall</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="showall"></a><span class="summary-sig-name">showall</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnConfig-pysrc.html#RHNOptions._showall">source&nbsp;code</a></span>
+            <span class="codelink"><a href="common.rhnConfig-pysrc.html#RHNOptions.showall">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -619,7 +619,7 @@ that are truly different (removing the ones that == the defaults).</td>
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">writeConfig</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">userConfigDict</span>,
-        <span class="sig-arg">commentDict</span>=<span class="sig-default">{}</span>,
+        <span class="sig-arg">commentDict</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="sig-arg">stream</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -735,7 +735,7 @@ e.g.: say for example we have an option proxy.debug = 5
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:46 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:39 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -56,7 +56,30 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class OracleBackend</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.backendOracle-pysrc.html#OracleBackend">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_26" name="uml_class_diagram_for_server_i_26">
+<area shape="rect" id="node1358" href="server.importlib.backendOracle.OracleBackend-class.html#tables" title="server.importlib.backendOracle.OracleBackend.tables" alt="" coords="212,369,303,388"/>
+<area shape="rect" id="node1358" href="server.importlib.backendOracle.OracleBackend-class.html#__init__" title="server.importlib.backendOracle.OracleBackend.__init__" alt="" coords="212,391,303,409"/>
+<area shape="rect" id="node1358" href="server.importlib.backendOracle.OracleBackend-class.html#init" title="Override parent to do explicit setting of the date format." alt="" coords="212,409,303,428"/>
+<area shape="rect" id="node1" href="server.importlib.backendOracle.OracleBackend-class.html" title="server.importlib.backendOracle.OracleBackend" alt="" coords="200,345,315,434"/>
+<area shape="rect" id="node3" href="server.importlib.backendOracle.PostgresqlBackend-class.html" title="PostgresqlBackend specific implementation." alt="" coords="183,454,332,493"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#__processObjectCollection__" title="server.importlib.backend.Backend.__processObjectCollection__" alt="" coords="17,39,497,57"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#commit" title="server.importlib.backend.Backend.commit" alt="" coords="17,57,497,76"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#createChannelProduct" title="server.importlib.backend.Backend.createChannelProduct" alt="" coords="17,76,497,95"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#listChannel" title="server.importlib.backend.Backend.listChannel" alt="" coords="17,95,497,113"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupArchTypes" title="server.importlib.backend.Backend.lookupArchTypes" alt="" coords="17,113,497,132"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChannelArches" title="server.importlib.backend.Backend.lookupChannelArches" alt="" coords="17,132,497,151"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChannelFamilies" title="server.importlib.backend.Backend.lookupChannelFamilies" alt="" coords="17,151,497,169"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChannelOrg" title="For given label of channel return its org_id." alt="" coords="17,169,497,188"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChannelPackageArchCompat" title="server.importlib.backend.Backend.lookupChannelPackageArchCompat" alt="" coords="17,188,497,207"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChannelProduct" title="server.importlib.backend.Backend.lookupChannelProduct" alt="" coords="17,207,497,225"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChannels" title="server.importlib.backend.Backend.lookupChannels" alt="" coords="17,225,497,244"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChecksumTypes" title="server.importlib.backend.Backend.lookupChecksumTypes" alt="" coords="17,244,497,263"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#lookupChecksums" title="server.importlib.backend.Backend.lookupChecksums" alt="" coords="17,263,497,281"/>
+<area shape="rect" id="node1359" href="server.importlib.backend.Backend-class.html#validate_pks" title="server.importlib.backend.Backend.validate_pks" alt="" coords="17,300,497,319"/>
+<area shape="rect" id="node2" href="server.importlib.backend.Backend-class.html" title="server.importlib.backend.Backend" alt="" coords="5,6,509,325"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_26.png" alt='' usemap="#uml_class_diagram_for_server_i_26" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -208,15 +231,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.importlib.backendOracle.OracleBackend-class.html#tables" class="summary-name">tables</a> = <code title="TableCollection(Table('rhnPackageProvides', fields= {'package_id': DBi\
-nt(), 'capability_id': DBint(), 'sense': DBint(),}, pk= ['package_id',\
- 'capability_id', 'sense'], attribute= 'provides', map= {'sense': 'fla\
-gs',},), Table('rhnPackageRequires', fields= {'package_id': DBint(), '\
-capability_id': DBint(), 'sense': DBint(),}, pk= ['package_id', 'capab\
-ility_id', 'sense'], attribute= 'requires', map= {'sense': 'flags',},)\
-, Table('rhnPackageConflicts', fields= {'package_id': DBint(), 'capabi\
-lity_id': DBint(), 'sense': DBint(),}, pk= ['package_id', 'capability_\
-...">TableCollection(Table('rhnPackageProvides', fields= {<code class="variable-ellipsis">...</code></code>
+        <a href="server.importlib.backendOracle.OracleBackend-class.html#tables" class="summary-name">tables</a> = <code title="{'rhnErrataPackage': Instance of class server.importlib.backendLib.Tab\
+le: PK: ['errata_id', 'package_id'], Fields: {'package_id': &lt;server.im\
+portlib.backendLib.DBint instance at 0x36fdea8&gt;, 'errata_id': &lt;server.\
+importlib.backendLib.DBint instance at 0x36fde60&gt;}, 'rhnCVE': Instance\
+ of class server.importlib.backendLib.Table: PK: ['name'], Fields: {'i\
+d': &lt;server.importlib.backendLib.DBint instance at 0x36fd5a8&gt;, 'name':\
+ &lt;server.importlib.backendLib.DBstring instance at 0x36fd5f0&gt;}, 'rhnCh\
+annelPackage': Instance of class server.importlib.backendLib.Table: PK\
+...">{'rhnErrataPackage': Instance of class server.importl<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -315,14 +338,14 @@ lity_id': DBint(), 'sense': DBint(),}, pk= ['package_id', 'capability_\
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-TableCollection(Table('rhnPackageProvides', fields= {'package_id': DBi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-nt(), 'capability_id': DBint(), 'sense': DBint(),}, pk= ['package_id',<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
- 'capability_id', 'sense'], attribute= 'provides', map= {'sense': 'fla<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-gs',},), Table('rhnPackageRequires', fields= {'package_id': DBint(), '<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-capability_id': DBint(), 'sense': DBint(),}, pk= ['package_id', 'capab<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ility_id', 'sense'], attribute= 'requires', map= {'sense': 'flags',},)<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-, Table('rhnPackageConflicts', fields= {'package_id': DBint(), 'capabi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-lity_id': DBint(), 'sense': DBint(),}, pk= ['package_id', 'capability_<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+{'rhnErrataPackage': Instance of class server.importlib.backendLib.Tab<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+le: PK: ['errata_id', 'package_id'], Fields: {'package_id': &lt;server.im<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+portlib.backendLib.DBint instance at 0x36fdea8&gt;, 'errata_id': &lt;server.<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+importlib.backendLib.DBint instance at 0x36fde60&gt;}, 'rhnCVE': Instance<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ of class server.importlib.backendLib.Table: PK: ['name'], Fields: {'i<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+d': &lt;server.importlib.backendLib.DBint instance at 0x36fd5a8&gt;, 'name':<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ &lt;server.importlib.backendLib.DBstring instance at 0x36fd5f0&gt;}, 'rhnCh<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+annelPackage': Instance of class server.importlib.backendLib.Table: PK<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -353,7 +376,7 @@ lity_id': DBint(), 'sense': DBint(),}, pk= ['package_id', 'capability_<span clas
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:54 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:56 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

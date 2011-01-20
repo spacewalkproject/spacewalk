@@ -51,7 +51,7 @@
     </td>
   </tr>
 </table>
-<h1 class="epydoc">Source Code for <a href="common.rhnMail-module.html">Module common.rhnMail</a></h1>
+<h1 class="epydoc">Source Code for <a href="common.rhnMail-module.html" onclick="show_private();">Module common.rhnMail</a></h1>
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
@@ -74,10 +74,10 @@
 <a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
 <a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
 <a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
-<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module common.rhnConfig=common.rhnConfig-module.html"><a title="common.rhnConfig" class="py-name" href="#" onclick="return doclink('link-0', 'rhnConfig', 'link-0');">rhnConfig</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Variable common.rhnConfig.CFG=common.rhnConfig-module.html#CFG"><a title="common.rhnConfig.CFG" class="py-name" href="#" onclick="return doclink('link-1', 'CFG', 'link-1');">CFG</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module common.rhnConfig=common.rhnConfig-module.html"><a title="common.rhnConfig" class="py-name" href="#" onclick="return doclink('link-0', 'rhnConfig', 'link-0');">rhnConfig</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Variable common.rhnConfig.CFG=common.rhnConfig-module.html#CFG,Variable spacewalk.common.CFG=spacewalk.common-module.html#CFG"><a title="common.rhnConfig.CFG
+spacewalk.common.CFG" class="py-name" href="#" onclick="return doclink('link-1', 'CFG', 'link-1');">CFG</a></tt> </tt>
 <a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module common.rhnLog=common.rhnLog-module.html,Class common.rhnLog.rhnLog=common.rhnLog.rhnLog-class.html"><a title="common.rhnLog
-common.rhnLog.rhnLog" class="py-name" href="#" onclick="return doclink('link-2', 'rhnLog', 'link-2');">rhnLog</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
-common.rhnLog.log_error
+common.rhnLog.rhnLog" class="py-name" href="#" onclick="return doclink('link-2', 'rhnLog', 'link-2');">rhnLog</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="common.rhnLog.log_error
 satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-3', 'log_error', 'link-3');">log_error</a></tt> </tt>
 <a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"> </tt>
 <a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-comment"># check if the headers have the minimum required fields</tt> </tt>
@@ -85,7 +85,7 @@ satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick
 </div><div id="__check_headers-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="__check_headers-expanded"><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-4" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-4', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt id="link-5" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-5', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-keyword">not</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">,</tt> <tt class="py-string">"has_key"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-comment"># does not look like a dictionary</tt> </tt>
 <a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
-<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method common.UserDictCase.UserDictCase.has_key()=common.UserDictCase.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key,Method wsgi.wsgiRequest.WsgiMPtable.has_key()=wsgi.wsgiRequest.WsgiMPtable-class.html#has_key"><a title="common.UserDictCase.UserDictCase.has_key
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key,Method wsgi.wsgiRequest.WsgiMPtable.has_key()=wsgi.wsgiRequest.WsgiMPtable-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
 common.rhnCache.Cache.has_key
 common.rhnCache.CompressedCache.has_key
 common.rhnCache.NullCache.has_key
@@ -95,11 +95,10 @@ common.rhnConfig.RHNOptions.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnDatabaseCache.has_key
 server.rhnSQL.sql_table.Table.has_key
 wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-6', 'has_key', 'link-6');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">"Subject"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">[</tt><tt class="py-string">"Subject"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"RHN System Mail From %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">uname</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
-<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
 common.rhnCache.Cache.has_key
 common.rhnCache.CompressedCache.has_key
 common.rhnCache.NullCache.has_key
@@ -109,10 +108,10 @@ common.rhnConfig.RHNOptions.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnDatabaseCache.has_key
 server.rhnSQL.sql_table.Table.has_key
 wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-7', 'has_key', 'link-6');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">"To"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">to</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="common.rhnConfig.CFG" class="py-name" href="#" onclick="return doclink('link-8', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">TRACEBACK_MAIL</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">to</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="common.rhnConfig.CFG
+spacewalk.common.CFG" class="py-name" href="#" onclick="return doclink('link-8', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">TRACEBACK_MAIL</tt> </tt>
 <a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
 <a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-name">to</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">[</tt><tt class="py-string">"To"</tt><tt class="py-op">]</tt> </tt>
 <a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-9" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-9', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">to</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt id="link-10" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-10', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-11" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-11', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
@@ -147,8 +146,7 @@ spacewalk.common.rhn_mpm.MPM_Package.write
 wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-16', 'write', 'link-16');">write</a></tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">pipe</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt class="py-name">childpid</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">fork</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">childpid</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> <tt class="py-comment"># fork failed</tt> </tt>
-<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt id="link-17" class="py-name"><a title="_apache.log_error
-common.rhnLog.log_error
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt id="link-17" class="py-name"><a title="common.rhnLog.log_error
 satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-17', 'log_error', 'link-3');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"ERROR: fork of sendmail process failed.\nAlert being sent:\n%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">body</tt><tt class="py-op">)</tt> </tt>
 <a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
 <a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">childpid</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
@@ -159,7 +157,7 @@ rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
 rhn.transports.Input.read
 wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-18', 'read', 'link-15');">read</a></tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
-<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_Dumper.close()=satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.satsync.StreamProducer.close()=satellite_tools.satsync.StreamProducer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
 common.rhnCache.LockedFile.close
 proxy.responseContext.ResponseContext.close
 rhn.SSL.SSLSocket.close
@@ -168,8 +166,10 @@ rhn.transports.BaseOutput.close
 satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
 satellite_tools.connection.CompressedStream.close
 satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
 satellite_tools.disk_dumper.iss.Dumper.close
 satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
 satellite_tools.sync_handlers.ContainerHandler.close
 satellite_tools.xmlSource.BaseDispatchHandler.close
 server.rhnSQL.driver_cx_Oracle.Database.close
@@ -195,8 +195,10 @@ rhn.transports.BaseOutput.close
 satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
 satellite_tools.connection.CompressedStream.close
 satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
 satellite_tools.disk_dumper.iss.Dumper.close
 satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
 satellite_tools.sync_handlers.ContainerHandler.close
 satellite_tools.xmlSource.BaseDispatchHandler.close
 server.rhnSQL.driver_cx_Oracle.Database.close
@@ -207,21 +209,21 @@ rhn.transports.File.read
 rhn.transports.Input.read
 wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-22', 'read', 'link-15');">read</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">    <tt class="py-comment"># Now write the message out</tt> </tt>
-<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">    <tt id="link-23" class="py-name" targets="Method common.UserDictCase.UserDictCase.keys()=common.UserDictCase.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys,Method wsgi.wsgiRequest.WsgiMPtable.keys()=wsgi.wsgiRequest.WsgiMPtable-class.html#keys"><a title="common.UserDictCase.UserDictCase.keys
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">    <tt id="link-23" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys,Method wsgi.wsgiRequest.WsgiMPtable.keys()=wsgi.wsgiRequest.WsgiMPtable-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
 common.rhnConfig.RHNOptions.keys
 rhn.UserDictCase.UserDictCase.keys
 server.rhnSQL.sql_table.Table.keys
-wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-23', 'keys', 'link-23');">keys</a></tt> <tt class="py-op">=</tt> <tt class="py-name">headers</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-23', 'keys', 'link-23');">keys</a></tt> <tt class="py-op">=</tt> <tt class="py-name">headers</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
 common.rhnConfig.RHNOptions.keys
 rhn.UserDictCase.UserDictCase.keys
 server.rhnSQL.sql_table.Table.keys
 wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-24', 'keys', 'link-23');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">    <tt id="link-25" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">    <tt id="link-25" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
 common.rhnConfig.RHNOptions.keys
 rhn.UserDictCase.UserDictCase.keys
 server.rhnSQL.sql_table.Table.keys
 wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-25', 'keys', 'link-23');">keys</a></tt><tt class="py-op">.</tt><tt class="py-name">sort</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">h</tt> <tt class="py-keyword">in</tt> <tt id="link-26" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">h</tt> <tt class="py-keyword">in</tt> <tt id="link-26" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
 common.rhnConfig.RHNOptions.keys
 rhn.UserDictCase.UserDictCase.keys
 server.rhnSQL.sql_table.Table.keys
@@ -269,8 +271,10 @@ rhn.transports.BaseOutput.close
 satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
 satellite_tools.connection.CompressedStream.close
 satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
 satellite_tools.disk_dumper.iss.Dumper.close
 satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
 satellite_tools.sync_handlers.ContainerHandler.close
 satellite_tools.xmlSource.BaseDispatchHandler.close
 server.rhnSQL.driver_cx_Oracle.Database.close
@@ -284,11 +288,9 @@ satellite_tools.repo_plugins.yum_src.YumWarnings.write
 spacewalk.common.rhn_mpm.MPM_Package.write
 wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-32', 'write', 'link-16');">write</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">    <tt class="py-comment"># clean up</tt> </tt>
-<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">    <tt class="py-op">(</tt><tt class="py-name">pid</tt><tt class="py-op">,</tt> <tt id="link-33" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
-satellite_tools.satComputePkgHeaders.status
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">    <tt class="py-op">(</tt><tt class="py-name">pid</tt><tt class="py-op">,</tt> <tt id="link-33" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="satellite_tools.satComputePkgHeaders.status
 server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-33', 'status', 'link-33');">status</a></tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">waitpid</tt><tt class="py-op">(</tt><tt class="py-name">childpid</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt>     </tt>
-<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-34" class="py-name"><a title="_apache.status
-satellite_tools.satComputePkgHeaders.status
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-34" class="py-name"><a title="satellite_tools.satComputePkgHeaders.status
 server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-34', 'status', 'link-33');">status</a></tt> </tt>
 </div><a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
@@ -320,7 +322,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:03:08 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:16 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

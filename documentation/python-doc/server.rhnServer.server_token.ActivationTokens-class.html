@@ -55,6 +55,30 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ActivationTokens</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ActivationTokens">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_server_r_88" name="uml_class_diagram_for_server_r_88">
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#is_rereg_token" title="server.rhnServer.server_token.ActivationTokens.is_rereg_token" alt="" coords="17,31,712,49"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#forget_rereg_token" title="server.rhnServer.server_token.ActivationTokens.forget_rereg_token" alt="" coords="17,49,712,68"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#__init__" title="server.rhnServer.server_token.ActivationTokens.__init__" alt="" coords="17,71,712,89"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#__nonzero__" title="server.rhnServer.server_token.ActivationTokens.__nonzero__" alt="" coords="17,89,712,108"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_server_id" title="server.rhnServer.server_token.ActivationTokens.get_server_id" alt="" coords="17,108,712,127"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_user_id" title="server.rhnServer.server_token.ActivationTokens.get_user_id" alt="" coords="17,127,712,145"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_org_id" title="server.rhnServer.server_token.ActivationTokens.get_org_id" alt="" coords="17,145,712,164"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_kickstart_session_id" title="server.rhnServer.server_token.ActivationTokens.get_kickstart_session_id" alt="" coords="17,164,712,183"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_entitlements" title="server.rhnServer.server_token.ActivationTokens.get_entitlements" alt="" coords="17,183,712,201"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#has_entitlement_label" title="server.rhnServer.server_token.ActivationTokens.has_entitlement_label" alt="" coords="17,201,712,220"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_deploy_configs" title="server.rhnServer.server_token.ActivationTokens.get_deploy_configs" alt="" coords="17,220,712,239"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_names" title="Returns a string of the entitlement names that the token grants." alt="" coords="17,239,712,257"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#get_tokens" title="server.rhnServer.server_token.ActivationTokens.get_tokens" alt="" coords="17,257,712,276"/>
+<area shape="rect" id="node2216" href="server.rhnServer.server_token.ActivationTokens-class.html#entitle" title="Entitle a server according to the entitlements we have configured." alt="" coords="17,276,712,295"/>
+<area shape="rect" id="node1" href="server.rhnServer.server_token.ActivationTokens-class.html" title="An aggregation of activation tokens, exposing important information like org_id, user_id etc in a unified manner." alt="" coords="5,6,723,301"/>
+<area shape="rect" id="node2" href="server.rhnServer.server_token.ReRegistrationToken-class.html" title="Subclass for re&#45;registration keys." alt="" coords="285,321,445,359"/>
+<area shape="rect" id="node3" href="server.rhnServer.server_token.ReRegistrationActivationToken-class.html" title="Subclass for re&#45;registration keys and activation keys used together." alt="" coords="257,379,473,418"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_88.png" alt='' usemap="#uml_class_diagram_for_server_r_88" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
 <p>An aggregation of activation tokens, exposing important information 
   like org_id, user_id etc in a unified manner.</p>
 
@@ -86,7 +110,7 @@
         <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">kickstart_session_id</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">entitlements</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">entitlements</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">deploy_configs</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ActivationTokens.__init__">source&nbsp;code</a></span>
@@ -232,7 +256,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_names"></a><span class="summary-sig-name">get_names</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.rhnServer.server_token.ActivationTokens-class.html#get_names" class="summary-sig-name">get_names</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns a string of the entitlement names that the token grants.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ActivationTokens.get_names">source&nbsp;code</a></span>
             
@@ -311,6 +336,45 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="get_names"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_names</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ActivationTokens.get_names">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+  <p>Returns a string of the entitlement names that the token grants. This
+  function is poorly named.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -334,7 +398,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Nov  2 13:02:59 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:06 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
