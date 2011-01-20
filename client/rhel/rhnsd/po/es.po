@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2006-10-26 14:40+1000\n"
 "Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "X-Generator: KBabel 1.9.1\n"
 
 #: rhnsd.c:116

@@ -10,10 +10,10 @@ msgstr ""
 "PO-Revision-Date: 2006-11-12 16:34+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: rhnsd.c:116
