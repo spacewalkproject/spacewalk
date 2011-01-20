@@ -30,7 +30,7 @@ if ($test ne '123') {
 }
 
 my $schema_version = run_query(<<EOF);
-	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
+	select rhnPackageName.name || '-' || evr_t_as_vre_simple(PE.evr)
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
 		and rhnVersionInfo.name_id = rhnPackageName.id
@@ -258,7 +258,7 @@ if ($?) {
 }
 
 my $new_schema_version = run_query(<<EOF);
-	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
+	select rhnPackageName.name || '-' || evr_t_as_vre_simple(PE.evr)
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
 		and rhnVersionInfo.name_id = rhnPackageName.id
