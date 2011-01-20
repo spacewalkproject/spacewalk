@@ -8,28 +8,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-02 11:20+0100\n"
+"POT-Creation-Date: 2011-01-20 05:57-0500\n"
 "PO-Revision-Date: 2010-05-14 09:01\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../rhnplugin.py:47
+#: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "Ошибка при обращении к RHN."
 
-#: ../rhnplugin.py:69
+#: ../rhnplugin.py:90
 msgid "RHN support will be disabled."
 msgstr "Поддержка RHN будет отключена."
 
 #. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:81
+#: ../rhnplugin.py:94
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
@@ -37,53 +37,51 @@ msgstr ""
 "*Примечание* Этот список не содержит репозитории Red Hat Network. Чтобы "
 "получить к ним доступ, выполните эту команду в режиме root."
 
-#: ../rhnplugin.py:95
+#: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "Ошибка при обработке настроек RHN proxy."
 
-#: ../rhnplugin.py:106
-msgid "Cleaning"
-msgstr "Очистка"
-
-#: ../rhnplugin.py:112
-msgid "Either --version, or no commands entered"
-msgstr "Не указан ключ --version или не заданы команды"
-
-#: ../rhnplugin.py:126
+#: ../rhnplugin.py:122
 msgid "This system is not registered with RHN."
 msgstr "Эта система не зарегистрирована в RHN."
 
-#: ../rhnplugin.py:131
+#: ../rhnplugin.py:127
 msgid "RHN channel support will be disabled."
 msgstr "Поддержка каналов RHN будет отключена."
 
-#: ../rhnplugin.py:135
+#: ../rhnplugin.py:131
 msgid "This system is not subscribed to any channels."
 msgstr "Эта система не подписана на каналы."
 
-#: ../rhnplugin.py:139
+#: ../rhnplugin.py:135
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
 "Возможно, эта система не зарегистрирована в RHN. Не удалось получить "
 "SystemID.\n"
 
-#: ../rhnplugin.py:213
+#: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
 msgstr "Не удалось отправить информацию о профиле пакета."
 
 #. This is compensating for hosted/satellite returning back an error
 #. message instructing RHEL5 clients to run "up2date --register"
 #. bz: 438175
-#: ../rhnplugin.py:220
+#: ../rhnplugin.py:200
 msgid "Error Message:"
 msgstr "Сообщение:"
 
-#: ../rhnplugin.py:221
+#: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
 msgstr "Выполните rhn_register в режиме root на этом клиенте"
 
-#: ../rhnplugin.py:298
+#: ../rhnplugin.py:280
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Отсутствует необходимая информация для входа в RHN: %s"
+
+#~ msgid "Cleaning"
+#~ msgstr "Очистка"
+
+#~ msgid "Either --version, or no commands entered"
+#~ msgstr "Не указан ключ --version или не заданы команды"
