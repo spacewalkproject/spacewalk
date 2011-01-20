@@ -17,20 +17,16 @@ if (not -e $config_file) {
 
 my %options;
 Spacewalk::Setup::read_config($config_file, \%options);
-if (not defined $options{default_db}) {
-	if (defined $options{'db_name'} and defined $options{'db_user'} and defined $options{'db_password'}) {
-		$options{default_db} = "$options{'db_user'}/$options{'db_password'}\@$options{'db_name'}";
-	} else {
-		die "Config file [$config_file] does not seem to have database connection string (default_db) set.\n";
-	}
+if (not defined $options{db_backend}) {
+	die "Config file [$config_file] does not seem to have database backend info (db_backend) set.\n";
 }
 
 my $test = run_query("select 1 || 2 || 3 as testing from dual;");
 if (not defined $test) {
-	die "Connect to [$options{default_db}] was not successful.\n";
+	die "Connect to database was not successful.\n";
 }
 if ($test ne '123') {
-	die "Test select from [$options{default_db}] did not give expected results.\n";
+	die "Test select from database did not give expected results.\n";
 }
 
 my $schema_version = run_query(<<EOF);
@@ -232,7 +228,7 @@ print SQL $in;
 close SQL;
 
 if (not @ARGV or $ARGV[0] ne '-y') {
-	print "Planning to run sqlplus with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
+	print "Planning to run spacewalk-sql with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
 	local $| = 1;
 	READ_ENTER:
 	print "Hit Enter to continue or Ctrl+C to interrupt: ";
@@ -250,10 +246,10 @@ open LOG, '>>', $logfile or die "Error writing logfile [$logfile]: $!\n";
 
 system("/sbin/restorecon $logfile 2>&1 > /dev/null");
 
-print "Executing sqlplus, the log is in [$logfile].\n";
+print "Executing spacewalk-sql, the log is in [$logfile].\n";
 
 my $pid = IPC::Open3::open3(my $wfh, '>&LOG', '>&LOG',
-	'sqlplus', '-S', $options{default_db}, "\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql") or die "Error running sqlplus: $!\n";
+	'spacewalk-sql', '--select-mode', "$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql") or die "Error running spacewalk-sql: $!\n";
 close $wfh;
 
 waitpid $pid, 0;
@@ -285,7 +281,7 @@ exit;
 sub run_query {
 	my ($command) = @_;
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
-		'sqlplus', '-S', $options{default_db}) or return;
+		'spacewalk-sql', '--select-mode', '-') or return;
 	print $wfh <<EOF;
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
@@ -397,7 +393,7 @@ with B<-y> switch).
 Proceed with the schema upgrade following the upgrade path found, putting
 the output from executed sql scripts (including errors if any)
 into F</var/log/spacewalk/schema-upgrade>. For this step it is important
-that you have sqlplus command in your PATH.
+that you have spacewalk-sql command in your PATH.
 
 =back
 
@@ -412,8 +408,7 @@ every major upgrade step).
 
 =item F</etc/rhn/rhn.conf>
 
-Default configuration file containing database connection string
-(default_db option).
+Default configuration file containing database connection information.
 
 =item F</var/log/spacewalk/schema-upgrade>
 
