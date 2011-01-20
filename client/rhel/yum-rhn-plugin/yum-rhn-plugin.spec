@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.3.3
+Version: 1.3.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.4-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- update .po and .pot files for yum-rhn-plugin (tlestach@redhat.com)
+- 666545 - don't report empty transactions as a successful action
+  (mzazrivec@redhat.com)
+- fix expression semantics (mzazrivec@redhat.com)
+
 * Fri Jan 14 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.3-1
 - switch off network communication in cache only mode
 - cache list of rhn channels so we can correctly clean our stuff
