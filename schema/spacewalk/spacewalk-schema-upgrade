@@ -282,6 +282,8 @@ EOF
 
 print "The database schema was upgraded to version [$target_schema].\n";
 
+exit;
+
 sub run_query {
 	my ($options, $command) = @_;
 	my @silent = ( '-S' ) unless $options->{no_query};
