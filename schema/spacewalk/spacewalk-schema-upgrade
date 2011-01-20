@@ -141,7 +141,7 @@ my $start = $start_schema_norm;
 my $in = <<EOF;
 update rhnVersionInfo
        set label = 'schema-from-' || to_char(created, 'YYYYMMDD-HH24MISS'),
-           modified = sysdate
+           modified = current_timestamp
        where label = 'schema';
 commit;
 EOF
@@ -211,7 +211,7 @@ insert into rhnVersionInfo
        ( label, name_id, evr_id, created, modified )
        values ('schema', lookup_package_name('$my_schema_name'),
                lookup_evr(null, '$my_schema_version' , '$my_schema_release' ),
-               sysdate, sysdate );
+               current_timestamp, current_timestamp );
 commit;
 EOF
 
