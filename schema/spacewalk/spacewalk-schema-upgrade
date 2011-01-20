@@ -196,7 +196,8 @@ EOF
 	$start = $t;
 }
 
-my $endfile = "/etc/sysconfig/rhn/$options{db_backend}/upgrade-end.sql";
+my $backend_dir = ( $options{db_backend} eq 'postgresql' ? 'postgres' : $options{db_backend} );
+my $endfile = "/etc/sysconfig/rhn/$backend_dir/upgrade-end.sql";
 local * END;
 open END, '<', $endfile or die "Error reading [$endfile]: $!\n";
 {
