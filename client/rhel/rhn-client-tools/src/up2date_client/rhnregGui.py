@@ -255,7 +255,6 @@ class ChooseServerPage:
                               'https://xmlrpc.rhn.redhat.com/XMLRPC')
             if not cfg['sslCACert']:
                 up2dateConfig.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
-            serverType = 'hosted'
         else:
             customServer = self.customServerEntry.get_text()
             try:
@@ -271,8 +270,8 @@ class ChooseServerPage:
             if not cfg['sslCACert']:
                 up2dateConfig.set('sslCACert', 
                                   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
-            serverType = 'satellite'    
-            
+
+        serverType = rhnreg.getServerType()
         
         NEED_SERVER_MESSAGE = _("You will not be able to successfully register "
                                 "this system without contacting a Red Hat Network server.")
