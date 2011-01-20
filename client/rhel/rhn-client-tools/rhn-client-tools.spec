@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.3.9
+Version: 1.3.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -290,6 +290,20 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.10-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- update .po and .pot files for rhn-client-tools (tlestach@redhat.com)
+- 602609 - fix DeprecationWarning when using gtk.MessageDialog()
+  (mzazrivec@redhat.com)
+- 617066 - fix "Why register" dialog size (msuchy@redhat.com)
+- 667739 - use accessibility tags (msuchy@redhat.com)
+- 626752 - correct virt. type detection for RHEL-6 FV Xen guests
+  (mzazrivec@redhat.com)
+- 651403 - reference to RHEL6 as actuall system (msuchy@redhat.com)
+- dead code: removal of function foobar() (msuchy@redhat.com)
+- 649233 - reset busy mouse cursor back to arrow after unexpected error
+  (msuchy@redhat.com)
+
 * Mon Jan 17 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.9-1
 - Revert "update .po and .pot files for rhn-client-tools"
 - Revert "removing msgctxt which rhel5 could not handle"
