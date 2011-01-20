@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.3.10
+Version: 1.3.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,12 @@ fi
 
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.11-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- remove redundant comment (msuchy@redhat.com)
+- convert comment to docstring (msuchy@redhat.com)
+- remove redundant comment (msuchy@redhat.com)
+
 * Thu Jan 13 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.10-1
 - do not traceback if redirected location do not contain '?'
 - fix module name during import
