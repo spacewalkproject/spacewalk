@@ -1,7 +1,7 @@
 # translation of fr.po to 
 # translation of fr.po to French
 # translation of fr.po to Français
-# Copyright (c) 2001--2010 Red Hat, Inc.
+# Copyright (c) 2001--2011 Red Hat, Inc.
 # Copyright (C) 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Jean-Paul Aubry <jpaubry@redhat.com>, 2003, 2004.
