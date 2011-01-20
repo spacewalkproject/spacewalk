@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.45
+Version: 5.9.46
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 5.9.46-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- 628920 - rhel4 does not support selinux (msuchy@redhat.com)
+
 * Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.45-1
 - fixed TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
 
