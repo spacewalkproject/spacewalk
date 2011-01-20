@@ -21,7 +21,7 @@ if (not defined $options{db_backend}) {
 	die "Config file [$config_file] does not seem to have database backend info (db_backend) set.\n";
 }
 
-my $test = run_query("select 1 || 2 || 3 as testing from dual;");
+my $test = run_query("select '1' || '2' || '3' as testing from dual;");
 if (not defined $test) {
 	die "Connect to database was not successful.\n";
 }
