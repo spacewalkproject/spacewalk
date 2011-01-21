@@ -39,7 +39,7 @@ EOF
 if (not defined $schema_version) {
 	die "No existing schema version info found in rhnVersionInfo.\n";
 }
-if (not $schema_version =~ /^rhn-satellite-schema-|^spacewalk-schema-|^satellite-schema0/) {
+if (not $schema_version =~ /^rhn-satellite-schema-|^spacewalk-schema-|^satellite-schema-/) {
 	die "Unknown schema name [$schema_version] found.\n";
 }
 
