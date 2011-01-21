@@ -114,13 +114,16 @@ if (not exists $upgrade_path{$start_schema_norm}) {
 my @path = get_shortest_path($upgrade_path{$start_schema_norm}, $target_schema_norm);
 print "The path: ", (join " -> ", map "[$_]", $start_schema_norm, @path), "\n";
 
-my $default_tablespace = run_query(<<EOF);
-	select default_tablespace
-	from user_users
-	where username = sys_context('userenv', 'session_user');
+my $default_tablespace;
+if ($options{db_backend} eq 'oracle') {
+	$default_tablespace = run_query(<<EOF);
+		select default_tablespace
+		from user_users
+		where username = sys_context('userenv', 'session_user');
 EOF
-if (not defined $default_tablespace) {
-	die "Failed to retrieve default_tablespace from database.\n";
+	if (not defined $default_tablespace) {
+		die "Failed to retrieve default_tablespace from database.\n";
+	}
 }
 
 mkdir "/var/log/spacewalk", 0755;
@@ -182,7 +185,7 @@ while (@path) {
 		}
 		close FILE;
 		$f_in =~ s!^--.*\n!!gm;
-		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g;
+		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g if defined $default_tablespace;
 		$in .= <<EOF;
 select '$dir/$name' from dual;
 EOF
