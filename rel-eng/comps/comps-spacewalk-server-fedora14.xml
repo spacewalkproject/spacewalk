@@ -15,7 +15,6 @@
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
-       <packagereq type="default">jpam-javadoc</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
        <packagereq type="default">nocpulse-db-perl</packagereq>
@@ -27,13 +26,11 @@
        <packagereq type="default">oracle-instantclient-sqlplus-selinux</packagereq>
        <packagereq type="default">oracle-lib-compat</packagereq>
        <packagereq type="default">oracle-nofcontext-selinux</packagereq>
-       <packagereq type="default">oracle-rhnsat-selinux</packagereq>
        <packagereq type="default">oracle-selinux</packagereq>
        <packagereq type="default">oracle-xe-selinux</packagereq>
        <packagereq type="default">osa-dispatcher</packagereq>
        <packagereq type="default">osa-dispatcher-selinux</packagereq>
        <packagereq type="default">perl-DBD-Oracle</packagereq>
-       <packagereq type="default">perl-DBD-Oracle-explain</packagereq>
        <packagereq type="default">perl-NOCpulse-CLAC</packagereq>
        <packagereq type="default">perl-NOCpulse-Debug</packagereq>
        <packagereq type="default">perl-NOCpulse-Gritch</packagereq>
@@ -134,6 +131,25 @@
        <packagereq type="default">stringtree-json</packagereq>
        <packagereq type="default">tanukiwrapper</packagereq>
        <packagereq type="default">tsdb</packagereq>
+    </packagelist>
+  </group>
+  <group>
+    <id>spacewalk-server-docs</id>
+    <name>Spacewalk Server Documentation</name>
+    <description>Spacewalk Server Documentation Packages</description>
+    <uservisible>false</uservisible>
+    <packagelist>
+       <packagereq type="optional">jpam-javadoc</packagereq>
+    </packagelist>
+  </group>
+  <group>
+    <id>spacewalk-server-no-install</id>
+    <name>Spacewalk Server Junk</name>
+    <description>Spacewalk Server Non-installatble Packages</description>
+    <uservisible>false</uservisible>
+    <packagelist>
+       <packagereq type="optional">oracle-rhnsat-selinux</packagereq>
+       <packagereq type="optional">perl-DBD-Oracle-explain</packagereq>
     </packagelist>
   </group>
 </comps>
