@@ -140,9 +140,6 @@ my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
 
 my $start = $start_schema_norm;
 my $in = <<EOF;
-spool $SCHEMA_UPGRADE_LOGDIR/$stamp-begin.log append
-whenever sqlerror exit sql.sqlcode
-
 update rhnVersionInfo
        set label = 'schema-from-' || to_char(created, 'YYYYMMDD-HH24MISS'),
            modified = sysdate
@@ -177,11 +174,6 @@ while (@path) {
 			$i--;
 		}
 	}
-	my $logfile = $SCHEMA_UPGRADE_LOGDIR . "/$stamp-to-$t.log";
-
-	$in .= <<EOF;
-
-EOF
 
 	for my $fullname (@files) {
 		(my $name = $fullname) =~ s!^.*/!!;
@@ -196,9 +188,6 @@ EOF
 		$f_in =~ s!^--.*\n!!gm;
 		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g;
 		$in .= <<EOF;
-set echo on
-spool $logfile append
-whenever sqlerror exit sql.sqlcode
 select '$dir/$name' from dual;
 EOF
 		$in .= $f_in;
@@ -209,8 +198,6 @@ EOF
 }
 
 $in .= <<EOF;
-spool $SCHEMA_UPGRADE_LOGDIR/$stamp-end.log append
-whenever sqlerror exit sql.sqlcode
 
 exec dbms_utility.compile_schema(user);
 
@@ -256,15 +243,22 @@ if (not @ARGV or $ARGV[0] ne '-y') {
 	}
 }
 
-print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
+my $logfile = $SCHEMA_UPGRADE_LOGDIR . "/$stamp-to-$target_schema_norm.log";
 
-my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
+local * LOG;
+open LOG, '>>', $logfile or die "Error writing logfile [$logfile]: $!\n";
+
+system("/sbin/restorecon $logfile 2>&1 > /dev/null");
+
+print "Executing sqlplus, the log is in [$logfile].\n";
+
+my $pid = IPC::Open3::open3(my $wfh, '>&LOG', '>&LOG',
 	'sqlplus', '-S', $options{default_db}, "\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql") or die "Error running sqlplus: $!\n";
 close $wfh;
 
 waitpid $pid, 0;
 if ($?) {
-	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
+	die "Upgrade failed, please see log [$logfile].\n";
 }
 
 my $new_schema_version = run_query(<<EOF);
