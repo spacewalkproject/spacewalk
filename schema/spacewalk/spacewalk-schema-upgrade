@@ -223,8 +223,6 @@ insert into rhnVersionInfo
 commit;
 EOF
 
-$in .= "quit;\n";
-
 local *SQL;
 open SQL, "> $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql" or die "Error writing [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]: $!.\n";
 print SQL $in;
