@@ -282,12 +282,6 @@ sub run_query {
 	my ($command) = @_;
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
 		'spacewalk-sql', '--select-mode', '-') or return;
-	print $wfh <<EOF;
-whenever oserror exit failure
-whenever sqlerror exit sql.sqlcode
-set linesize 4000
-set pagesize 50000
-EOF
 	print $wfh $command;
 	print $wfh "\n";
 	close $wfh;
