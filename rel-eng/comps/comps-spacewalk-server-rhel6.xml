@@ -51,7 +51,6 @@
        <packagereq type="default">quartz</packagereq>
        <packagereq type="default">quartz-oracle</packagereq>
        <packagereq type="default">redstone-xmlrpc</packagereq>
-       <packagereq type="default">relaxngDatatype</packagereq>
        <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">SatConfig-bootstrap</packagereq>
        <packagereq type="default">SatConfig-bootstrap-server</packagereq>
@@ -144,7 +143,6 @@
     <uservisible>false</uservisible>
     <packagelist>
        <packagereq type="optional">jpam-javadoc</packagereq>
-       <packagereq type="optional">relaxngDatatype-javadoc</packagereq>
        <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
     </packagelist>
   </group>
