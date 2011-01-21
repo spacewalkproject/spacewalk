@@ -153,16 +153,16 @@ while (@path) {
 		die "Directory [$SCHEMA_UPGRADE_DIR/$dir] was seen but is lost now.\n";
 	}
 
-	my @files = match_overrides("$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}");
+	my @files = match_overrides("$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}", "$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}.$options{db_backend}");
 	for (my $i = 0; $i < @files; $i++) {
-		if ($files[$i] =~ /\.ref$/) {
+		if ($files[$i] =~ /\.ref(\.$options{db_backend})?$/) {
 			my @subfiles;
 			local *REF;
 			open REF, $files[$i] or die "Error reading [$files[$i]]: $!\n";
 			while (<REF>) {
 				chomp;
 				next if /^\s*(#|$)/;
-				my @newsubfiles = match_overrides("$SCHEMA_UPGRADE_DIR/$_");
+				my @newsubfiles = match_overrides("$SCHEMA_UPGRADE_DIR/$_", "$SCHEMA_UPGRADE_DIR/$_.$options{db_backend}");
 				if (not @newsubfiles) {
 					die "Could not find any files matching [$_] from [$files[$i]]\n";
 				}
@@ -316,7 +316,7 @@ sub get_shortest_path {
 }
 
 sub match_overrides {
-	return map {-e "$_.override" ? "$_.override" : $_} sort glob shift;
+	return sort map {-e "$_.override" ? "$_.override" : $_} map { glob } @_;
 }
 
 1;
