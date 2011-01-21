@@ -220,4 +220,14 @@
        <packagereq type="optional">xpp3-javadoc</packagereq>
     </packagelist>
   </group>
+  <group>
+    <id>spacewalk-server-no-install</id>
+    <name>Spacewalk Server Junk</name>
+    <description>Spacewalk Server Non-installatble Packages</description>
+    <uservisible>false</uservisible>
+    <packagelist>
+       <packagereq type="optional">oracle-rhnsat-selinux</packagereq>
+       <packagereq type="optional">perl-DBD-Oracle-explain</packagereq>
+    </packagelist>
+  </group>
 </comps>
