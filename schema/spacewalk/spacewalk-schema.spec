@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.15
+Version:        1.3.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 21 2011 Jan Pazdziora 1.3.16-1
+- The evr_t_as_vre_simple is not available on old Spacewalks, fixed.
+
 * Fri Jan 21 2011 Jan Pazdziora 1.3.15-1
 - Changed spacewalk-schema-upgrade to use spacewalk-sql, to run on PostgreSQL.
 
