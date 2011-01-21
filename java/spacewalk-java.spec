@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.47
+Version: 1.3.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -535,6 +535,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 21 2011 Tomas Lestach <tlestach@redhat.com> 1.3.48-1
+- fixing ISE when deleting software channel from the
+  rhn/channels/manage/Repositories.do page (tlestach@redhat.com)
+- unschedule eventual repo sync schedules, when deleting channel
+  (tlestach@redhat.com)
+
 * Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.47-1
 - asm requires different handling on fedoras and rhels (tlestach@redhat.com)
 - replace jakarta-commons-logging with apache-commons-logging on F14
