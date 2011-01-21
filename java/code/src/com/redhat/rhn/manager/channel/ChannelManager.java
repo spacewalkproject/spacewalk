@@ -72,6 +72,7 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -878,9 +879,30 @@ public class ChannelManager extends BaseManager {
                         "message.channel.cannot-be-deleted.has-distros");
 
             }
+            ChannelManager.unscheduleEventualRepoSync(toRemove, user);
             ChannelManager.queueChannelChange(label,
                     user.getLogin(), "java::deleteChannel");
             ChannelFactory.remove(toRemove);
+        }
+    }
+
+    /**
+     * Unschedule eventual repo sync schedule
+     * @param channel relevant channel
+     * @param user executive
+     */
+    public static void unscheduleEventualRepoSync(Channel channel, User user) {
+        TaskomaticApi tapi = new TaskomaticApi();
+        try {
+            String cronExpr = tapi.getRepoSyncSchedule(channel, user);
+            if (!StringUtils.isEmpty(cronExpr)) {
+                log.info("Unscheduling repo sync schedule with " + cronExpr +
+                        " for channel " + channel.getLabel());
+                tapi.unscheduleRepoSync(channel, user);
+            }
+        }
+        catch (Exception e) {
+            log.warn("Failed to unschedule repo sync for channel " + channel.getLabel());
         }
     }
 
