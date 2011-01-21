@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.45
+Version: 1.3.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jan 21 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.46-1
+- 671466 - use ansi syntax in left join
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.45-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - update .po and .pot files for spacewalk-backend (tlestach@redhat.com)
