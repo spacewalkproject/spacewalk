@@ -32,5 +32,3 @@ begin
 end;
 /
 
-EXIT
-
