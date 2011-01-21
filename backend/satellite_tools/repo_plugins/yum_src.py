@@ -16,6 +16,7 @@ import yum
 import shutil
 import sys
 from spacewalk.satellite_tools.reposync import ContentPackage
+from spacewalk.common import CFG, initCFG
 
 class YumWarnings:
     def write(self, s):
@@ -36,6 +37,19 @@ class ContentSource:
         self.name = name
         self._clean_cache(self.cache_dir + name)
 
+        # read the proxy configuration in /etc/rhn/rhn.conf
+        initCFG('server.satellite')
+        self.proxy_addr = CFG.http_proxy
+        self.proxy_user = CFG.http_proxy_username
+        self.proxy_pass = CFG.http_proxy_password
+
+        if (self.proxy_user is not None and self.proxy_pass is not None and self.proxy_addr is not None):
+            self.proxy_url = "http://%s:%s@%s" %(self.proxy_user, self.proxy_pass, self.proxy_addr)
+        elif (self.proxy_addr is not None):
+            self.proxy_url = "http://%s" %(self.proxy_addr)
+        else:
+            self.proxy_url = None
+
     def list_packages(self):
         """ list packages"""
         repo = yum.yumRepo.YumRepository(self.name)
@@ -45,6 +59,8 @@ class ContentSource:
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = self.cache_dir
+        if self.proxy is not None:
+            repo.proxy = self.proxy_url
 
         warnings = YumWarnings()
         warnings.disable()
