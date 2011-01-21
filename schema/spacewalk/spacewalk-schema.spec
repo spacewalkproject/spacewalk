@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.14
+Version:        1.3.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 21 2011 Jan Pazdziora 1.3.15-1
+- Changed spacewalk-schema-upgrade to use spacewalk-sql, to run on PostgreSQL.
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.14-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - The maximum pagesize is 50000 -- this will prevent the headings to be
