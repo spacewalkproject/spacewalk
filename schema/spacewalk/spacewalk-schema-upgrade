@@ -25,7 +25,7 @@ if (not defined $options{default_db}) {
 	}
 }
 
-my $test = run_query(\%options, "select 1 || 2 || 3 as testing from dual;");
+my $test = run_query("select 1 || 2 || 3 as testing from dual;");
 if (not defined $test) {
 	die "Connect to [$options{default_db}] was not successful.\n";
 }
@@ -33,7 +33,7 @@ if ($test ne '123') {
 	die "Test select from [$options{default_db}] did not give expected results.\n";
 }
 
-my $schema_version = run_query(\%options, <<EOF);
+my $schema_version = run_query(<<EOF);
 	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
@@ -118,7 +118,7 @@ if (not exists $upgrade_path{$start_schema_norm}) {
 my @path = get_shortest_path($upgrade_path{$start_schema_norm}, $target_schema_norm);
 print "The path: ", (join " -> ", map "[$_]", $start_schema_norm, @path), "\n";
 
-my $default_tablespace = run_query(\%options, <<EOF);
+my $default_tablespace = run_query(<<EOF);
 	select default_tablespace
 	from user_users
 	where username = sys_context('userenv', 'session_user');
@@ -258,12 +258,16 @@ if (not @ARGV or $ARGV[0] ne '-y') {
 
 print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
 
-if (not run_query({ default_db => $options{default_db}, no_query => 1 },
-		"\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql")) {
+my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
+	'sqlplus', '-S', $options{default_db}, "\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql") or die "Error running sqlplus: $!\n";
+close $wfh;
+
+waitpid $pid, 0;
+if ($?) {
 	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
 }
 
-my $new_schema_version = run_query(\%options, <<EOF);
+my $new_schema_version = run_query(<<EOF);
 	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
@@ -285,10 +289,9 @@ print "The database schema was upgraded to version [$target_schema].\n";
 exit;
 
 sub run_query {
-	my ($options, $command) = @_;
-	my @silent = ( '-S' ) unless $options->{no_query};
+	my ($command) = @_;
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
-		'sqlplus', @silent, $options->{default_db}) or return;
+		'sqlplus', '-S', $options{default_db}) or return;
 	print $wfh <<EOF;
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
