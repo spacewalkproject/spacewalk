@@ -53,6 +53,9 @@ class RepoSync:
         #os.fchown isn't in 2.4 :/
         os.system("chgrp apache " + default_log_location + log_filename)
 
+        if options.type not in ["yum"]:
+            print "Error: Unknown type %s" % options.type
+            sys.exit(2)
 
         quit = False
         if not options.url:
