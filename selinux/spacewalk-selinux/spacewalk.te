@@ -77,4 +77,5 @@ optional_policy(`
 	read_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_db_install_log_t);
 	create_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_sqlplus_spool_log_t);
 	filetrans_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_sqlplus_spool_log_t, file)
+	allow oracle_sqlplus_t spacewalk_db_install_log_t:file append;
 ')
