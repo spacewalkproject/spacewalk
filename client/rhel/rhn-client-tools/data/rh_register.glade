@@ -176,7 +176,6 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	  <child>
 	    <widget class="GtkLabel" id="chooseServerLabel">
 	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
 	      <property name="label" translatable="yes" context="yes">You may connect your system to &lt;b&gt;Red Hat Network&lt;/b&gt; (https://rhn.redhat.com/) or to a &lt;b&gt;Red Hat Network Satellite&lt;/b&gt; or &lt;b&gt;Red Hat Network Proxy&lt;/b&gt; in order to receive software updates.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
