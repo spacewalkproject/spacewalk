@@ -43,6 +43,7 @@ class moduleClass(Module):
         self.sidebarTitle = _("Set Up Software Updates")
         self.title = _("Set Up Software Updates")
         self.skip_registration = False
+        self.start_page_vbox = None
 
     def apply(self, interface, testing=False):
         if testing:
@@ -63,10 +64,13 @@ class moduleClass(Module):
 
     def createScreen(self):
         self.vbox = gtk.VBox(spacing=5)
-        self.vbox.pack_start(self._getVbox(), True, True)
 
     def initializeUI(self):
-        pass
+        if self.start_page_vbox:
+            self.start_page_vbox.destroy()
+
+        self.start_page_vbox = self._getVbox()
+        self.vbox.pack_start(self.start_page_vbox, True, True)
 
     def _system_is_registered(self):
         if rhnreg.registered():
