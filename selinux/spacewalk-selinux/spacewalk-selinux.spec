@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.3.1
+Version:        1.3.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jan 24 2011 Jan Pazdziora 1.3.2-1
+- Adding explicit append allow for sqlplus.
+
 * Wed Dec 29 2010 Jan Pazdziora 1.3.1-1
 - Create sqlplus spool files with different type than the directories, to allow
   write.
