@@ -129,7 +129,7 @@ def process_package_data():
 
         # Process gpg key ids
         server_packages.processPackageKeyAssociations(hdr, checksum_type, checksum)
-        if debug: Log.writeMessage("gpg key info updated from %s" % new_abs_path )
+        if debug: Log.writeMessage("gpg key info updated from %s" % full_path )
         i = i + 1
         # we need to break the transaction to smaller pieces
         if i % 1000 == 0:
