@@ -90,7 +90,7 @@ if __name__ == '__main__':
 
     try:
         h = rhnSQL.prepare("""
-                SELECT PE.evr.as_vre_simple()
+                SELECT evr_t_as_vre_simple(PE.evr) as evrsimple
                   FROM rhnPackageEVR PE, rhnVersionInfo RVI, rhnPackageName PN
                  WHERE RVI.label = 'schema'
                    AND RVI.name_id = PN.id
@@ -99,7 +99,7 @@ if __name__ == '__main__':
         h.execute()
         row = h.fetchone_dict()
         if row:
-            print row['pe.evr.as_vre_simple()']
+            print row['evrsimple']
     except KeyboardInterrupt:
         sys.stderr.write("\nUser interrupted process.\n")
         sys.exit(0)
