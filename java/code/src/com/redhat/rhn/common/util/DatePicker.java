@@ -95,6 +95,7 @@ public class DatePicker {
     private DateFormatSymbols dateFormatSymbols;
     private int      currentYear;
     private int yearRangeDirection;
+    private boolean disableTime;
 
     /**
      * Create a new date picker that extracts fields prefixed with
@@ -118,6 +119,30 @@ public class DatePicker {
         currentYear = cal.get(Calendar.YEAR);
         analyzeDateFormat();
         yearRangeDirection = yearRangeDirection0;
+        disableTime = false;
+    }
+
+    /**
+     * Create a new date picker that extracts fields prefixed with
+     * <code>name0 + "_"</code> and works with the given locale.
+     *
+     * @param name0 the prefix for the subfields for the date picker
+     * @param locale0 the locale to use
+     * @param yearRangeDirection0 direction of the year range to use.
+     * YEAR_RANGE_POSATIVE means the year selection will go from now
+     * until YEAR_RANGE_SIZE in the future (2005-2010). YEAR_RANGE_NEGATIVE
+     * will include a range from now until YEAR_RANGE_SIZE in the
+     * past (2000 - 2005)
+     */
+    public DatePicker(String name0, Locale locale0, int yearRangeDirection0) {
+        name = name0;
+        locale = locale0;
+        cal = new GregorianCalendar(locale0);
+        cal.setLenient(false);
+        currentYear = cal.get(Calendar.YEAR);
+        analyzeDateFormat();
+        yearRangeDirection = yearRangeDirection0;
+        disableTime = true;
     }
 
     /**
@@ -533,4 +558,18 @@ public class DatePicker {
         return result;
     }
 
+    /**
+     * Set disableTime property (Picker doesn't offer to set time)
+     */
+    public void setDisableTime() {
+        this.disableTime = true;
+    }
+
+    /**
+     * Returns disableTime property
+     * @return disableTime property
+     */
+    public boolean getDisableTime() {
+        return this.disableTime;
+    }
 }

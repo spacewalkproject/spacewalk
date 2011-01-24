@@ -99,7 +99,7 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
                 DatePicker.YEAR_RANGE_NEGATIVE,
                 "probedetails.jsp.start_date",
                 "probedetails.jsp.end_date");
-        DatePickerResults dates = picker.processDatePickers(isSubmitted(form));
+        DatePickerResults dates = picker.processDatePickers(isSubmitted(form), false);
         ActionMessages errors = dates.getErrors();
 
         // Setup the Metrics array

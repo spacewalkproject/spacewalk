@@ -36,7 +36,9 @@
 <c:forEach var="yearLabel" items="${picker.yearRange}">
   <option <c:if test="${yearLabel eq picker.year}">selected="selected"</c:if> value='${yearLabel}'>${yearLabel}</option>
 </c:forEach>
-</select>&#160;<select name='${picker.name}_hour' size="1">
+</select>&nbsp;
+<c:if test="${! picker.disableTime}">
+<select name='${picker.name}_hour' size="1">
 <c:forEach var="hourLabel" items="${picker.hourRange}">
   <option <c:if test="${hourLabel eq picker.hour}">selected="selected"</c:if> value='${hourLabel}'>${hourLabel}</option>
 </c:forEach>
@@ -56,4 +58,10 @@
    <option <c:if test="${s.index eq picker.amPm}">selected="selected"</c:if> value='${s.index}'>${ampmLabel}</option>
 </c:forEach>
 </select></c:if>&nbsp;<fmt:formatDate value="${picker.date}" pattern="z" timeZone="${picker.calendar.timeZone}"/>
+</c:if>
+<c:if test="${picker.disableTime}">
+<input type="hidden" name='${picker.name}_hour' value="12" />
+<input type="hidden" name='${picker.name}_minute' value="0" />
+<input type="hidden" name='${picker.name}_am_pm' value="0" />
+</c:if>
 </span>

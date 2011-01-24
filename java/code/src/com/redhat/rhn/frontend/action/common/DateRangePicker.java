@@ -40,6 +40,7 @@ public class DateRangePicker {
     private int yearRangeDirection;
     private String startKey;
     private String endKey;
+
     /**
      * Construct a new DateRangePicker
      *
@@ -72,16 +73,26 @@ public class DateRangePicker {
      * of your execute() method.
      *
      * @param isSubmitted if the form was submitted or not
+     * @param justDateRelevant indicates, whether just date is relevant
      * @return DatePickerResults instance that contains the results of processing the form
      * against the DatePickers.
      */
-    public DatePickerResults processDatePickers(boolean isSubmitted) {
+    public DatePickerResults processDatePickers(boolean isSubmitted,
+            boolean justDateRelevant) {
         // Setup the date pickers
         Context ctx = Context.getCurrentContext();
-        DatePicker start = new DatePicker("start", ctx.getTimezone(), ctx.getLocale(),
-                yearRangeDirection);
-        DatePicker end = new DatePicker("end", ctx.getTimezone(), ctx.getLocale(),
-                yearRangeDirection);
+        DatePicker start = null;
+        DatePicker end = null;
+        if (justDateRelevant) {
+            start = new DatePicker("start", ctx.getLocale(), yearRangeDirection);
+            end = new DatePicker("end", ctx.getLocale(), yearRangeDirection);
+        }
+        else {
+            start = new DatePicker("start", ctx.getTimezone(), ctx.getLocale(),
+                    yearRangeDirection);
+            end = new DatePicker("end", ctx.getTimezone(), ctx.getLocale(),
+                    yearRangeDirection);
+        }
         ActionMessages errors = new ActionMessages();
         DatePickerResults retval = new DatePickerResults();
         retval.setStart(start);
@@ -100,7 +111,6 @@ public class DateRangePicker {
             end.getCalendar().setTime(defaultEndOffset);
             end.writeToMap(form.getMap());
         }
-
         req.setAttribute("start", start);
         req.setAttribute("end", end);
         assert (start.getDate() != null);
@@ -193,6 +203,5 @@ public class DateRangePicker {
         public void setStart(DatePicker startIn) {
             this.start = startIn;
         }
-
     }
 }
