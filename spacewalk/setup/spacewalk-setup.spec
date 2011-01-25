@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.3.8
+Version:        1.3.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Tue Jan 25 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
+- 636458 - reuse db version check via dbms_utility.db_version()
+- updating Copyright years for year 2011
+
 * Wed Jan 19 2011 Jan Pazdziora 1.3.8-1
 - Call spacewalk-sql instead of rhn-populate-database.pl.
 
