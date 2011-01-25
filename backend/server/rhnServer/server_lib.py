@@ -354,7 +354,7 @@ _query_update_push_client_jid = rhnSQL.Statement("""
        set jabber_id = :jid,
            next_action_time = NULL,
            last_ping_time = NULL
-     where server_id = :server_id;
+     where server_id = :server_id
 """)
 def update_push_client_jid(server_id, jid):
     h = rhnSQL.prepare(_query_update_push_client_jid)
