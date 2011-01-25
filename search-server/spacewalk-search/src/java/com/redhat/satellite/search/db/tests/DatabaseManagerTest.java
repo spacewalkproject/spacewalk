@@ -20,7 +20,7 @@ public class DatabaseManagerTest extends BaseTestCase {
             container.getComponentInstance(DatabaseManager.class);
     }
 
-    public void testObjectQuery() throws IOException, SQLException {
+    public void testObjectQuery() throws SQLException {
         Query<Long> maxidquery = dm.getQuery("maxPackageId");
         Long maxid = maxidquery.load();
         Query<RhnPackage> query = dm.getQuery("getPackageById");
@@ -28,8 +28,8 @@ public class DatabaseManagerTest extends BaseTestCase {
         assertNotNull(p);
         assertEquals(p.getId(), maxid.longValue());
     }
- 
-    public void testListQuery() throws IOException, SQLException {
+
+    public void testListQuery() throws SQLException {
         Query<RhnPackage> query = dm.getQuery("listPackagesFromId");
         List<RhnPackage> results = query.loadList((long) 0);
         assertNotNull(results);

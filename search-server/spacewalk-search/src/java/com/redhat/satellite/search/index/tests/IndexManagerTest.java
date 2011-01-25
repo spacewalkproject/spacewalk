@@ -19,16 +19,16 @@ import java.util.List;
 import java.util.Map;
 
 public class IndexManagerTest extends BaseTestCase {
-    
+
     private IndexManager indexManager;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         indexManager = (IndexManager)
             container.getComponentInstance(IndexManager.class);
     }
 
-    public void testIndexing() throws IOException, IndexingException {
+    public void testIndexing() throws IndexingException {
         String index = "foo";
         Long objectId = new Long(123);
         Map<String, String> meta = new HashMap<String, String>();
@@ -42,8 +42,8 @@ public class IndexManagerTest extends BaseTestCase {
     }
 
     public void testQuerying()
-        throws IOException, IndexingException, QueryParseException {
-        
+        throws IndexingException, QueryParseException {
+
         String index = "foo";
         Long objectId = new Long(123);
         Map<String, String> meta = new HashMap<String, String>();
@@ -60,34 +60,34 @@ public class IndexManagerTest extends BaseTestCase {
         assertTrue(results.size() >= 1);
     }
 
-    
+
     public void StillNeedsWork_testQueryDocs()
     	throws IOException, IndexingException, QueryParseException {
-    	
+
     	Configuration config = TestUtil.makeConfiguration();
     	config.setString("search.index_work_dir", "/usr/share/rhn/search/indexes/");
     	IndexManager indexMgr = new IndexManager(config);
     	//
-    	// TODO: Revisit how docs data gets injected for testing. 
+	// TODO: Revisit how docs data gets injected for testing.
     	// Currently relying on docs data to already exist for now.
     	//
     	System.out.println("We are expecting nutch to have been run previously, " +
     			"and the index files to be copied to "+ config.getString("search.index_work_dir") +
 			BuilderFactory.DOCS_TYPE);
-    	
+
 	String index = BuilderFactory.DOCS_TYPE;
     	String query = new String("redhat");
 	List<Result> results = indexMgr.search(index, query, "en");
     	System.out.println("Number of results returned is " + results.size());
     	assertTrue(results.size() >= 1);
-    	
+
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     protected Class[] getComponentClasses() {
         return TestUtil.buildComponentsList(IndexManager.class);
     }
-    
-    
+
+
 }
