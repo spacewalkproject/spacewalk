@@ -710,6 +710,21 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
         s.add_trusted_cert(ca_chain)
     return s
 
+def __hasCapability(self, capability, version=None):
+    """Checks if the server supports a capability and optionally a version.
+    Returns True or False.
+    Copy from client/rhel/rhn-client-tools/src/up2date_client/capabilities.py
+    """
+    assert version is None or str(version).isdigit()
+
+    if not self.data.has_key(capability):
+        return False
+    if version:
+        data = self.data[capability]
+        if int(version) not in self.parseCapVersion(data['version']):
+            return False
+    return True
+
 def exists_getPackageChecksumBySession(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
     # unfortunatelly we do not have capability for getPackageChecksumBySession function,
@@ -717,7 +732,11 @@ def exists_getPackageChecksumBySession(rpc_server):
     # lets use it instead
     server = rhnserver.RhnServer()
     server._server = rpc_server
-    return server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
+    try:
+        result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
+    except AttributeError: # workaround for rhel4
+        result = __hasCapability(server.capabilities, 'xmlrpc.packages.extended_profile', 2)
+    return result
 
 # compare two package [n,v,r,e] tuples
 def packageCompare(pkg1, pkg2, is_mpm=None):
