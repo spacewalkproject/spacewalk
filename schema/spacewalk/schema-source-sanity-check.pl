@@ -52,8 +52,13 @@ for my $c (sort keys %{ $files{common} }) {
 for my $c (sort keys %{ $files{oracle} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
 	if (not exists $files{postgres}{$c}) {
-		print "Oracle file [$c] is not in postgres (ignoring for now)\n" if $show_ignored;
-		# $error = 1;
+		if ($c =~ /^upgrade/) {
+			print "Oracle file [$c] is not in PostgreSQL variant\n";
+			$error = 1;
+		} else {
+			print "Oracle file [$c] is not in postgres (ignoring for now)\n" if $show_ignored;
+			# $error = 1;
+		}
 	}
 }
 
