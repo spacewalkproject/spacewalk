@@ -30,8 +30,8 @@ for my $dir (qw( common oracle postgres )) {
 
 my $error = 0;
 for my $c (sort keys %{ $files{common} }) {
+	next unless $c =~ /\.(sql|pks|pkb)$/;
 	for my $o (qw( oracle postgres )) {
-		next unless $o =~ /\.(sql|pks|pkb)$/;
 		if (exists $files{$o}{$c}) {
 			print "Common file [$c] is also in $o\n";
 			$error = 1;
