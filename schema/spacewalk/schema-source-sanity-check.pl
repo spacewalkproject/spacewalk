@@ -25,11 +25,12 @@ for my $dir (qw( common oracle postgres upgrade )) {
 		}
 		if ($dir eq 'upgrade') {
 			my $generic = $name;
+			my $db = 'common';
 			if ($generic =~ s/\.(oracle|postgresql)$//) {
-				my $db = $1;
+				$db = $1;
 				$db = 'postgres' if $db eq 'postgresql';
-				$files{$db}{$generic} = $name;
 			}
+			$files{$db}{$generic} = $name;
 		} else {
 			my $rname = substr($name, length($dir) + 1);
 			$files{$dir}{$rname} = $name;
