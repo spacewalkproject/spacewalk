@@ -6,14 +6,13 @@ import com.redhat.satellite.search.db.models.RhnPackage;
 import com.redhat.satellite.search.tests.BaseTestCase;
 import com.redhat.satellite.search.tests.TestUtil;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class DatabaseManagerTest extends BaseTestCase {
-    
+
     private DatabaseManager dm;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
