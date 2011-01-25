@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.17
+Version:      1.126.18
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -135,6 +135,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jan 25 2011 Jan Pazdziora 1.126.18-1
+- 493028 - simplified email check regexp (michael.mraka@redhat.com)
+
 * Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.126.17-1
 - 474591 - move web data to /usr/share/nocpulse (msuchy@redhat.com)
 
