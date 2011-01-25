@@ -19,7 +19,7 @@ CONNECT_WINDOW_TEXT   = _("We are attempting to contact the Red Hat "
 CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")                          
 
 # Start Window
-START_REGISTER_WINDOW = _("Setting up Software updates")
+START_REGISTER_WINDOW = _("Registering for software updates")
 START_REGISTER_TEXT   = _("This assistant will guide you through " 
                           "connecting your system to "
                           "Red Hat Network (RHN) to receive software "
@@ -34,7 +34,7 @@ START_REGISTER_TEXT   = _("This assistant will guide you through "
 
 # Why Register Window
 WHY_REGISTER          = _("Why Should I Connect to RHN? ...")                  
-WHY_REGISTER_WINDOW   = _("Why connect to Red Hat Network?")
+WHY_REGISTER_WINDOW   = _("Why Register")
 WHY_REGISTER_TEXT     = _("Connecting your system to Red Hat Network allows you to take full "
                           "advantage of the benefits of a paid subscription, including:")
 WHY_REGISTER_SEC      = _("Security & Updates:")
@@ -53,7 +53,7 @@ WHY_REGISTER_COMP_TXT = _("Stay in compliance with your subscription agreement "
                           "http://rhn.redhat.com/.")
 WHY_REGISTER_TIP      = _("Tip: Red Hat values your privacy: "
                           "http://www.redhat.com/legal/privacy_statement.html")
-BACK_REGISTER         = _("Take me back to the setup process.")
+BACK_REGISTER         = _("Take me back to the registration")
 
 # Confirm Quit Window
 CONFIRM_QUIT           = _("Software update setup unsuccessful")
@@ -65,7 +65,7 @@ CONTINUE_REGISTERING   = _("Take me back to the setup process.")
 REGISTER_LATER2        = _("I'll register later.")
 
 # Info Window
-REGISTER_WINDOW   = _("Setting up software updates")
+REGISTER_WINDOW   = _("Enter you account information")
 LOGIN_PROMPT      = _("Please enter your login information for the %s Red "
                     "Hat Network Satellite:\n\n")
 HOSTED_LOGIN      = _("Red Hat Login:")
@@ -77,7 +77,7 @@ USER_REQUIRED     = _("Please enter a desired login.")
 PASSWORD_REQUIRED = _("Please enter and verify a password.")
 
 # OS Release Window
-SELECT_OSRELEASE             = _("Select Operating System Release")
+SELECT_OSRELEASE             = _("Select operating system release")
 OS_VERSION                   = _("Operating System version:")
 MINOR_RELEASE                = _(" Minor Release: ")
 LIMITED_UPDATES              = _("Limited Updates Only")
@@ -88,7 +88,7 @@ CONFIRM_OS_ALL               = _("Your system will be subscribed to the base"
                                  " updates.")
 
 # Hardware Window
-HARDWARE_WINDOW = _("Register a System Profile - Hardware")
+HARDWARE_WINDOW = _("Create your system profile - Hardware")
 HARDWARE_WINDOW_DESC1 = _("A Profile Name is a descriptive name that"
                           " you choose to identify this System Profile"
                           " on the Red Hat Network web pages. Optionally,"
@@ -100,13 +100,13 @@ HARDWARE_WINDOW_CHECKBOX = _("Include the following information about hardware"
                              " and network:")
 
 # Packages Window
-PACKAGES_WINDOW         = _("Register a System Profile - Packages")
+PACKAGES_WINDOW         = _("Create your system profile - Packages")
 PACKAGES_WINDOW_DESC1   = _("RPM information is important to determine what"
                           " updated software packages are relevant to this"
                           " system.")
 PACKAGES_WINDOW_DESC2   = _("Include RPM packages installed on this system"
                           " in my System Profile")
-PACKAGES_WINDOW_UNCHECK = _("You may deselect individual packages by"
+PACKAGES_WINDOW_UNCHECK = _("You may deselect individua	l packages by"
                             " unchecking them below.")
 PACKAGES_WINDOW_PKGLIST = _("Building Package List")
 
