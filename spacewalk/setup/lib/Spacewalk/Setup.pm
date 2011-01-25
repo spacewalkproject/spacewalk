@@ -1164,15 +1164,7 @@ sub oracle_setup_db_connection {
         my $dbh;
 
         eval {
-            $dbh = get_dbh($answers);
-            my ($version) = $dbh->selectrow_array(q! select version from v$instance !);
-            if (not defined $version) {
-                die "Failed to verify database version (in v\$instance)\n";
-            }
-            if (not $version =~ /^10\.|^11\./) {
-                die "Version [$version] is not supported (does not match 10 or 11).\n";
-            }
-            $dbh->disconnect();
+            oracle_check_db_version($answers);
         };
         if ($@) {
             print loc("Could not connect to the database.  Your connection information may be incorrect.  Error: %s\n", $@);
@@ -1211,12 +1203,12 @@ EOQ
     $sth->finish();
     $dbh->disconnect();
 
-    my $version = join('', (split(/\./, $v))[0 .. 2]);
-    my @allowed_db_versions = qw/1120 1110 1020 920/;
+    my $version = join('.', (split(/\./, $v))[0 .. 2]);
+    my @allowed_db_versions = qw/11.2.0 11.1.0 10.2.0/;
 
-    unless (grep { $version == $_ } @allowed_db_versions) {
-        print loc("Invalid db version: (%s, %s)\n", $v, $c);
-        exit 20;
+    unless (grep { $version eq $_ } @allowed_db_versions) {
+        die "Version [$version] is not supported (does not match "
+                . join(', ', @allowed_db_versions) . ").\n";
     }
 
     return 1;
@@ -1228,7 +1220,6 @@ sub oracle_test_db_settings {
 
   print loc("** Database: Testing database connection.\n");
 
-  oracle_check_db_version($answers);
   oracle_check_db_privs($answers);
   oracle_check_db_tablespace_settings($answers);
   oracle_check_db_charsets($answers);
