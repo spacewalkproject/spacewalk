@@ -1301,7 +1301,7 @@ sub setup_gpg {
     Spacewalk::Setup::system_or_exit(['mkdir', '-m', '700', '/root/.gnupg'], 12, 'Could not create /root/.gnupg');
   }
 
-  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg --list-keys'], 12, 'Could not run gpg.');
+  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg', '--list-keys'], 12, 'Could not run gpg.');
 
   my $key_path = '/usr/share/rhn/RHN-GPG-KEY';
   if ( ! (-e $key_path) ) {

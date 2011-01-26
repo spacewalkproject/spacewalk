@@ -210,10 +210,7 @@ sub system_debug {
   else {
     local $SIG{'ALRM'};
     if (@args == 1) {
-      set_spinning_callback();
-      my $ret = system("$args[0] 1>> $logfile 2>&1");
-      alarm 0;
-      return $ret;
+      die "Single parameter system_debug [@args] not supported.\n";
     } else {
       local *LOGFILE;
       open(LOGFILE, ">>", $logfile) or do {
@@ -433,7 +430,7 @@ sub clear_db {
 
     print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
 
-    system_debug('/usr/sbin/spacewalk-service --exclude=oracle* --exclude=postgresql stop');
+    system_debug('/usr/sbin/spacewalk-service', '--exclude=oracle*', '--exclude=postgresql', 'stop');
 
     print loc("** Database: Services stopped.  Clearing DB.\n");
 
