@@ -59,7 +59,7 @@ class ContentSource:
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = self.cache_dir
-        if self.proxy is not None:
+        if self.proxy_url is not None:
             repo.proxy = self.proxy_url
 
         warnings = YumWarnings()
