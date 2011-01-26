@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.48
+Version: 1.3.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -535,6 +535,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 26 2011 Tomas Lestach <tlestach@redhat.com> 1.3.49-1
+- 460356 - time not needed on errata search (tlestach@redhat.com)
+- fixed channel list in create kickstart profile (PG)
+  (michael.mraka@redhat.com)
+
 * Fri Jan 21 2011 Tomas Lestach <tlestach@redhat.com> 1.3.48-1
 - fixing ISE when deleting software channel from the
   rhn/channels/manage/Repositories.do page (tlestach@redhat.com)
