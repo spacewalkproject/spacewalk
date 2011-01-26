@@ -929,7 +929,7 @@ class ExporterMain:
             self.options.use_rhn_date=True
 
         if self.options.end_date and not self.options.start_date:
-            sys.stderr.write("--end-date must be used with --start-date.")
+            sys.stderr.write("--end-date must be used with --start-date.\n")
             sys.exit(1)
 
         if self.options.end_date and len(self.options.end_date) < 8:
