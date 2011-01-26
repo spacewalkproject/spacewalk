@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -122,6 +122,11 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Wed Jan 26 2011 Tomas Lestach <tlestach@redhat.com> 1.3.7-1
+- remove exceptions from method declarations that aren't thrown
+  (tlestach@redhat.com)
+- remove unused imports in rhn-search (tlestach@redhat.com)
+
 * Tue Jan 18 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
 - no traceback, when searching on a server with no packages or errata
   (tlestach@redhat.com)
