@@ -920,6 +920,14 @@ class ExporterMain:
             sys.stdout.write("--dir not included!\n")
             sys.exit(0)
 
+        if self.options.use_sync_date and self.options.use_rhn_date:
+            sys.stderr.write("--use-rhn-date and --use-sync-date are mutually exclusive.\n")
+            sys.exit(1)
+        elif self.options.use_sync_date:
+            self.options.use_rhn_date=False
+        else:
+            self.options.use_rhn_date=True
+
         if self.options.end_date and not self.options.start_date:
             sys.stderr.write("--end-date must be used with --start-date.")
             sys.exit(1)
