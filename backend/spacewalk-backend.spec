@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.49
+Version: 1.3.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jan 26 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.50-1
+- fixed error message
+- 672277 - made --use-rhn-date and --use-sync-date mutually exclusive
+- Report errors even when not -v was specified.
+
 * Wed Jan 26 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.49-1
 - fixed AttributeError: ContentSource instance has no attribute 'proxy'
 - make osa ping work properly again
