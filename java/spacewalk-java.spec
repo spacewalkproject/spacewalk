@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.49
+Version: 1.3.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -531,6 +531,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 27 2011 Tomas Lestach <tlestach@redhat.com> 1.3.50-1
+- removing remains of RhnDaemonState table (tlestach@redhat.com)
+- Improving spelling script and adding few ignore words (lzap+git@redhat.com)
+- Automatic detection of tomcat Ant property (lzap+git@redhat.com)
+- 671450 - do not set null for maxFlex and maxMembers ChannelOverview
+  attributes (tlestach@redhat.com)
+
 * Wed Jan 26 2011 Tomas Lestach <tlestach@redhat.com> 1.3.49-1
 - 460356 - time not needed on errata search (tlestach@redhat.com)
 - fixed channel list in create kickstart profile (PG)
