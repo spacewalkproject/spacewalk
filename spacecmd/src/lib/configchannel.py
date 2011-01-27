@@ -21,6 +21,8 @@
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
 from optparse import Option
+from datetime import datetime
+from time import strftime
 from spacecmd.utils import *
 
 def help_configchannel_list(self):
@@ -175,6 +177,97 @@ def do_configchannel_filedetails(self, args):
             print 'Contents'
             print '--------'
             print details.get('contents')
+
+####################
+
+def help_configchannel_backup(self):
+    print 'configchannel_backup: backup a config channel'
+    print '''usage: configchannel_backup CHANNEL [OUTDIR]
+
+OUTDIR defaults to $HOME/spacecmd-backup/configchannel/YYYY-MM-DD/CHANNEL
+'''
+
+def complete_configchannel_backup(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_configchannel_list('', True), text)
+
+def do_configchannel_backup(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) < 1:
+        self.help_configchannel_backup()
+        return
+
+    channel = args[0]
+    revision = None
+
+    # use an output base from the user if it was passed
+    if len(args) == 2:
+        outputpath_base = datetime.now().strftime(os.path.expanduser(args[1]))
+    else:
+        outputpath_base = os.path.expanduser('~/spacecmd-backup/configchannel')
+
+        # make the final output path be <base>/date/channel
+        outputpath_base = os.path.join( outputpath_base,
+                                        datetime.now().strftime("%Y-%m-%d"),
+                                        channel )
+
+    try:
+        if not os.path.isdir( outputpath_base ):
+            os.makedirs( outputpath_base )
+    except:
+        logging.error('Could not create output directory')
+        return
+
+    # the server return a null exception if an invalid file is passed
+    valid_files = self.do_configchannel_listfiles(channel, True)
+    results = self.client.configchannel.lookupFileInfo(self.session,
+                                                           channel,
+                                                           valid_files )
+
+    try:
+        fh = open( outputpath_base + "/.metainfo", 'w' )
+    except:
+        logging.error('Could not create metainfo file')
+        return
+
+    for details in results:
+        dumpfile = outputpath_base + details.get('path')
+        dumpdir = dumpfile
+        print 'Output Path:   %s' % dumpfile
+        fh.write( '[%s]\n' % details.get('path') )
+        fh.write( 'type = %s\n' % details.get('type') )
+        fh.write( 'revision = %s\n' % details.get('revision') )
+        fh.write( 'creation = %s\n' % details.get('creation') )
+        fh.write( 'modified = %s\n' % details.get('modified') )
+
+        if details.get('type') == 'symlink':
+            fh.write( 'target_path = %s\n' % details.get('target_path'))
+        else:
+            fh.write( 'owner = %s\n' % details.get('owner') )
+            fh.write( 'group = %s\n' % details.get('group') )
+            fh.write( 'permissions_mode = %s\n' % details.get('permissions_mode') )
+
+        fh.write( 'selinux_ctx = %s\n' % details.get('selinux_ctx') )
+
+        if details.get('type') == 'file':
+            dumpdir = os.path.dirname(dumpfile)
+
+        if not os.path.isdir( dumpdir ):
+            os.makedirs(dumpdir)
+
+        if details.get('type') == 'file':
+            fh.write( 'md5 = %s\n' % details.get('md5') )
+            fh.write( 'binary = %s\n' % details.get('binary') )
+            of = open( dumpfile, 'w' )
+            of.write( details.get('contents') )
+            of.close()
+
+        fh.write( '\n' )
+
+    fh.close()
 
 ####################
 
