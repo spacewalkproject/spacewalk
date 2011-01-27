@@ -167,10 +167,12 @@ class RPM_Header:
             if not ret or ret_len < 17:
                 continue
             # Get the key id - hopefully we get it right
-            elif ret_len <= 65:
+            elif ret_len <= 65: # V3 DSA signature
                 key_id = ret[9:17]
-            else:
+            elif ret_len <= 72: # V4 DSA signature
                 key_id = ret[18:26]
+            else: # ret_len <= 536 # V3 RSA/SHA256 signature
+                key_id = ret[10:18]
 
             key_id_len = len(key_id)
             format = "%dB" % key_id_len
