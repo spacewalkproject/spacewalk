@@ -25,7 +25,6 @@ from up2date_client import rhnregGui, rhnserver
 from up2date_client import messageWindow
 
 import gtk
-from gtk import glade
 
 import gettext
 _ = lambda x: gettext.ldgettext("rhn-client-tools", x)
