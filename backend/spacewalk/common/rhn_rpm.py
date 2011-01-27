@@ -163,10 +163,15 @@ class RPM_Header:
         ]
         for ht, sig_type in header_tags:
             ret = self.hdr[ht]
-            if not ret or len(ret) < 17:
+            ret_len = len(ret)
+            if not ret or ret_len < 17:
                 continue
             # Get the key id - hopefully we get it right
-            key_id = ret[9:17]
+            elif ret_len <= 65:
+                key_id = ret[9:17]
+            else:
+                key_id = ret[18:26]
+
             key_id_len = len(key_id)
             format = "%dB" % key_id_len
             t = struct.unpack(format, key_id)
