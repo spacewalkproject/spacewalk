@@ -29,6 +29,7 @@ Source1:         %{modulename}.if
 Source2:         %{modulename}.te
 Source3:         %{modulename}.fc
 Source4:         oracle-nofcontext-selinux-enable
+Source5:         %{modulename}-port.te
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
@@ -66,7 +67,7 @@ Oracle RDBMS, without specifying any file contexts.
 %prep
 rm -rf SELinux
 mkdir -p SELinux
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} SELinux
+cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} SELinux
 
 # Make file contexts relative to oracle_base
 perl -pi -e 's#%{default_oracle_base}#%{oracle_base}#g' SELinux/%{modulename}.fc
@@ -84,6 +85,7 @@ do
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
     mv %{modulename}.pp %{modulename}.pp.${selinuxvariant}
     mv %{modulename}-nofcontext.pp %{modulename}-nofcontext.pp.${selinuxvariant}
+    mv %{modulename}-port.pp %{modulename}-port.pp.${selinuxvariant}
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
 cd -
@@ -100,6 +102,8 @@ for selinuxvariant in %{selinux_variants}
            %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp
     install -p -m 644 %{modulename}-nofcontext.pp.${selinuxvariant} \
            %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}-nofcontext.pp
+    install -p -m 644 %{modulename}-port.pp.${selinuxvariant} \
+           %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}-port.pp
   done
 cd -
 
@@ -124,9 +128,13 @@ rm -rf %{buildroot}
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
   do
-    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
-      && /usr/sbin/semodule -s ${selinuxvariant} -i \
-        %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
+    if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+      /usr/sbin/semodule -s ${selinuxvariant} \
+        -i %{_datadir}/selinux/${selinuxvariant}/%{modulename}-port.pp \
+        -i %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp > /dev/null 2>&1 \
+      || /usr/sbin/semodule -s ${selinuxvariant} \
+        -i %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
+    fi
   done
 
 # add an oracle port if it does not already exist
@@ -171,8 +179,10 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
-        && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
+      if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+        /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
+        /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-port || :
+      fi
     done
   # Clean up any remaining file contexts (shouldn't be any really)
   [ -d %{oracle_base} ] && \
@@ -192,8 +202,10 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
-        && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-nofcontext || :
+      if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+        /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-nofcontext || :
+        /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-port || :
+      fi
     done
 fi
 
@@ -201,12 +213,14 @@ fi
 %defattr(-,root,root,0755)
 %doc SELinux/%{modulename}.fc SELinux/%{modulename}.if SELinux/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
+%{_datadir}/selinux/*/%{modulename}-port.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %files -n oracle-nofcontext-selinux
 %defattr(-,root,root,0755)
 %doc SELinux/%{modulename}-nofcontext.fc SELinux/%{modulename}-nofcontext.if SELinux/%{modulename}-nofcontext.te
 %{_datadir}/selinux/*/%{modulename}-nofcontext.pp
+%{_datadir}/selinux/*/%{modulename}-port.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 

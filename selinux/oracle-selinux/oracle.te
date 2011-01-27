@@ -1,9 +1,4 @@
-policy_module(oracle,1.1.1)
-
-########################################
-#
-# $Id: oracle.te 1558 2008-04-16 21:25:05Z rm153 $
-#
+policy_module(oracle,1.1.2)
 
 ########################################
 #
@@ -78,8 +73,12 @@ oracle_management_role(sysadm_r)
 #
 
 # define oracle ports
-type oracle_port_t;
-corenet_port(oracle_port_t)
+# The following two lines are not in oracle-port.te.
+# type oracle_port_t;
+# corenet_port(oracle_port_t)
+gen_require(`
+	type oracle_port_t;
+')
 # for RHEL5.0 policy
 #corenet_port_type(oracle_port_t)
 

@@ -1,0 +1,4 @@
+policy_module(oracle-port,1.1.2)
+
+type oracle_port_t;
+corenet_port(oracle_port_t)
