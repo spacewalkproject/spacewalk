@@ -6,7 +6,7 @@ TOPMODULE	= rhn_register
 MODULES		= rhn_login_gui \
 		  rhn_start_gui rhn_choose_server_gui \
 		  rhn_provide_certificate_gui rhn_create_profile_gui \
-		  rhn_review_gui rhn_finish_gui
+		  rhn_review_gui rhn_finish_gui rhn_choose_channel
 TOPPYFILE	= $(addsuffix .py, $(TOPMODULE))
 PYFILES		= $(addsuffix .py, $(MODULES))
 TOPOBJECT	= $(TOPPYFILE) $(addsuffix .pyc, $(TOPMODULE))
