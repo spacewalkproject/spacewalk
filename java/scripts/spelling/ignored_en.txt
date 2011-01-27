@@ -279,3 +279,7 @@ PackageVerify
 sysprefs
 customdata
 CustomDataList
+changelog
+Changelog
+Repodata
+TimeSeries

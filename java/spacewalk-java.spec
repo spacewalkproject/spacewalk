@@ -314,7 +314,7 @@ install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/loca
 %endif
 
 # check spelling errors in all resources for English if aspell installed
-[ -x "$(which aspell)" ] && scripts/spelling/check_java.sh . en_US
+[ -x "$(which aspell)" ] && scripts/spelling/check_java.sh .. en_US
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
