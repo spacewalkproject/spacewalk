@@ -25,9 +25,6 @@ import org.apache.log4j.Logger;
  */
 public class ErrataQueue extends RhnQueueJob {
 
-    /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
     public static final String DISPLAY_NAME = "errata_queue";
     private static Logger log = null;
 

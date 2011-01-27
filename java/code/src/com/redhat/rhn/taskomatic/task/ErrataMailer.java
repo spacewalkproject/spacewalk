@@ -49,11 +49,6 @@ import java.util.Map;
 public class ErrataMailer extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "errata_engine";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context)

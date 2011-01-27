@@ -40,11 +40,6 @@ import java.util.Set;
 public class CompareConfigFilesTask extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "compare_config_files";
-
-    /**
      * Default constructor
      */
     public CompareConfigFilesTask() {

@@ -32,11 +32,6 @@ import java.util.HashMap;
 public class SynchProbeState extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "synch_probe_state";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context)  throws JobExecutionException {

@@ -38,11 +38,6 @@ import java.util.Map;
 public class PackageCleanup extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "package_cleanup";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext ctx) throws JobExecutionException {

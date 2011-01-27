@@ -34,11 +34,6 @@ import java.util.Map;
 public class SessionCleanup extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "session_cleanup";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context)

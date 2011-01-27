@@ -40,11 +40,6 @@ import java.util.Set;
 public class SummaryPopulation extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "summary_populator";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext ctx) throws JobExecutionException {

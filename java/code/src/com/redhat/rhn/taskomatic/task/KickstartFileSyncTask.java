@@ -39,11 +39,6 @@ import java.util.List;
 public class KickstartFileSyncTask extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "sync_from_cobbler";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext ctxIn) throws JobExecutionException {
