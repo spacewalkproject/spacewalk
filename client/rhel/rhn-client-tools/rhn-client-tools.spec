@@ -271,6 +271,7 @@ make -f Makefile.rhn-client-tools test
 
 %if 0%{?rhel} > 0 && 0%{?rhel} < 6
 %{_datadir}/firstboot/modules/rhn_login_gui.*
+%{_datadir}/firstboot/modules/rhn_choose_channel.*
 %{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
 %{_datadir}/firstboot/modules/rhn_start_gui.*
 %{_datadir}/firstboot/modules/rhn_choose_server_gui.*
@@ -283,6 +284,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/firstboot/rhn_login_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_start_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_choose_server_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/rhn_choose_channel.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_provide_certificate_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_create_profile_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_review_gui.*
