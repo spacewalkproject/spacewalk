@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.51
+Version: 1.3.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -531,6 +531,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 27 2011 Tomas Lestach <tlestach@redhat.com> 1.3.52-1
+- Password with less than minlength characters accepted (jrenner@suse.de)
+
 * Thu Jan 27 2011 Tomas Lestach <tlestach@redhat.com> 1.3.51-1
 - Revert "671450 - do not set null for maxFlex and maxMembers ChannelOverview
   attributes" (tlestach@redhat.com)
