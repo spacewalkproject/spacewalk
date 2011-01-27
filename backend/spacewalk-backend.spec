@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.3.50
+Version: 1.3.51
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan 27 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.51-1
+- 671464 - get right keyid for new Fedora keys
+- 671464 - get right keyid for new RHEL6 rpms
+- 671464 - although RHEL6 signature is SHA256 gpg it's marked as pgp in rpm
+- 671462 - fixed path in debug output
+
 * Wed Jan 26 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.50-1
 - fixed error message
 - 672277 - made --use-rhn-date and --use-sync-date mutually exclusive
