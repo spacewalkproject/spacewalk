@@ -90,7 +90,12 @@ public class ChannelOverview extends BaseDto implements Comparable {
      * @param maxFlexIn The maxFlex to set.
      */
     public void setMaxFlex(Long maxFlexIn) {
-        this.maxFlex = maxFlexIn;
+        if (maxFlexIn == null) {
+            this.maxFlex = 0L;
+        }
+        else {
+            this.maxFlex = maxFlexIn;
+        }
     }
 
     /**
@@ -224,7 +229,12 @@ public class ChannelOverview extends BaseDto implements Comparable {
      * @param maxMembersIn The maxMembers to set.
      */
     public void setMaxMembers(Long maxMembersIn) {
-        this.maxMembers = maxMembersIn;
+        if (maxMembersIn == null) {
+            this.maxMembers = 0L;
+        }
+        else {
+            this.maxMembers = maxMembersIn;
+        }
     }
 
     /**
