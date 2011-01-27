@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.3.17
+Version:        1.3.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jan 27 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.18-1
+- 671464 - added schema upgrade for new keys 
+- added Fedora 14 key
+- added Fedora 13 key
+- added new Spacewalk key
+- 671464 - added RHEL6 key
+- For upgrades, missing PostgreSQL equivalent is an error.
+- Catch situation when both .sql and .sql.oracle or .sql.postgresql schema
+  upgrade scripts exist.
+
 * Tue Jan 25 2011 Jan Pazdziora 1.3.17-1
 - Add PostgreSQL schema upgrade scripts for 1.2 -> 1.3 upgrade.
 
