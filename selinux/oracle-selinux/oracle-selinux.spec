@@ -19,7 +19,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.23
+Version:         0.1.23.24
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -225,6 +225,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Fri Jan 28 2011 Jan Pazdziora 0.1.23.24-1
+- Move the oracle_port_t to separate SELinux policy module.
+
 * Mon Jan 10 2011 Jan Pazdziora 0.1.23.23-1
 - Allow sqlplus 11g to read /sys/devices/system/node and /sys/devices/system/cpu.
 
