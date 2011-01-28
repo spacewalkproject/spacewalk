@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.3.10
+Version: 1.3.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -292,6 +292,15 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.11-1
+- break circular import
+- 580479 - put new submodule into package
+- W: 28: Unused import glade
+- 580479 - Graphical firstboot should offer EUS channel selection
+- 581482 - make tui consistent with gui
+- 596108 - firstboot: don't allow multiple system registrations
+- 606222 - label could not have focus
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.10-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - update .po and .pot files for rhn-client-tools (tlestach@redhat.com)
