@@ -276,7 +276,7 @@ def my_popen(cmd):
 
     subproc = 1
     try:
-        import subproccess
+        import subprocess
     except ImportError:
         #RHEL 4 (python 2.3) doesn't have subprocess
         import popen2
