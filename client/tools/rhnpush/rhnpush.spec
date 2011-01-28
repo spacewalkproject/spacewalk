@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.12
+Version:       5.5.13
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 5.5.13-1
+- get_server_capability() is defined twice in osad and rhncfg, merge and move
+  to rhnlib and make it member of rpclib.Server
+- 648403 - do not create TB even on Red Hat Enterprise Linux 4
+- 648403 - workaround missing hasCapability() on RHEL4
+- Updating the copyright years to include 2010.
+
 * Thu Dec 23 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.12-1
 - 648403 - use server given on command line rather than rhnParent
 
