@@ -1600,29 +1600,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                         self._import_packages_process,
                         _('Importing:  '),
                         [sources])
-            self._import_package_signatures(packages, channel)
         return self._link_channel_packages()
-
-    def _import_package_signatures(self, packages, channel):
-        for pkg in packages:
-            pkg_dicts = self._lookup_pkgs_by_path(pkg[1])
-            if not pkg_dicts:
-                continue
-            for pkgd in pkg_dicts:
-                full_path = os.path.join(CFG.MOUNT_POINT, pkgd['path'])
-                if os.path.exists(full_path):
-                    header = rhn_rpm.get_package_header(filename=full_path)
-                    server_packages.processPackageKeyAssociations(header,
-                                     pkgd['checksum_type'], pkgd['checksum'])
-
-    def _lookup_pkgs_by_path(self, path):
-        h = rhnSQL.prepare("""select P.id, P.path, CV.checksum, CV.checksum_type
-                               from rhnPackage P left join
-                                    rhnPackageKeyAssociation PA on  PA.package_id = P.id inner join
-                                    rhnChecksumView CV on CV.id = P.checksum_id
-                              where p.path = :path and PA.key_id is null""")
-        h.execute(path=path)
-        return h.fetchall_dict()
 
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])

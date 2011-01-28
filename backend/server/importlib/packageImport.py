@@ -17,11 +17,13 @@
 #
 
 import sys
+import os.path
 from importLib import GenericPackageImport, IncompletePackage, \
     Import, InvalidArchError, InvalidChannelError, \
     IncompatibleArchError
+from spacewalk.common import CFG, rhn_rpm
 from spacewalk.server import taskomatic
-from spacewalk.common import CFG
+from spacewalk.server.rhnServer import server_packages
 
 class ChannelPackageSubscription(GenericPackageImport):
     def __init__(self, batch, backend, caller=None, strict=0, repogen=True):
@@ -292,6 +294,7 @@ class PackageImport(ChannelPackageSubscription):
                 forceVerify=self.forceVerify, 
                 ignoreUploaded=self.ignoreUploaded,
                 transactional=self.transactional)
+            self._import_signatures()
         except:
             # Oops
             self.backend.rollback()
@@ -474,6 +477,14 @@ class PackageImport(ChannelPackageSubscription):
         ChannelPackageSubscription._cleanup_object(self, object)
         if object.ignored:
             object.id = object.first_package.id
+
+    def _import_signatures(self):
+       for package in self.batch:
+           full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
+           if os.path.exists(full_path):
+               header = rhn_rpm.get_package_header(filename=full_path)
+               server_packages.processPackageKeyAssociations(header,
+                               package['checksum_type'], package['checksum'])
 
 class SourcePackageImport(Import):
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
