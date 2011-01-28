@@ -15,6 +15,7 @@
 
 # system imports
 import os
+import re
 import sys
 import string
 import fnmatch
@@ -24,6 +25,8 @@ import struct
 import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
+from config_common.repository import get_server_capability
+
 try:
     from up2date_client import rhnserver
     rhnserver_available = True
@@ -724,21 +727,13 @@ def exists_getPackageChecksumBySession(rpc_server):
         server._server = rpc_server
         result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
     else: # rhel4 has no rhnserver
-        result = True
-        try: # if server do not have this function we will create TB :(
-            raw_call(rpc_server.packages.getPackageChecksumBySession, '', {})
-        except xmlrpclib.Fault, e:
-            if e.faultCode in [-2, -33]:
-                # Fault -33: session token is invalid
-                # i.e. function exists but we supplied wrong data
-                # Fault -2 session is unknown - expected when empty
-                pass
-            elif e.faultCode == -1:
-                # Fault -1: function invalid
-                result = False
-            else:
-                # pass through anything else
-                raise
+        server_capabilities = get_server_capability(rpc_server)
+        if 'xmlrpc.packages.extended_profile' in server_capabilities:
+            # that capability can be '1' or '1-2', this is hackish
+            result = server_capabilities['xmlrpc.packages.extended_profile']['version'] > '1' and \
+                server_capabilities['xmlrpc.packages.extended_profile']['value']  # usually '1'
+        else:
+            result = False
     return result
 
 # compare two package [n,v,r,e] tuples
