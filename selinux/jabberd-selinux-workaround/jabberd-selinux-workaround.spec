@@ -6,7 +6,7 @@
 %global modulename jabberworkaround
 
 Name:           jabberd-selinux-workaround
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd on RHEL-6.0
 
@@ -89,3 +89,6 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jan 31 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.0.2-1
+- initial packaging
+
