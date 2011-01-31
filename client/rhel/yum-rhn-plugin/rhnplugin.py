@@ -186,12 +186,13 @@ def posttrans_hook(conduit):
             ts_info = conduit.getTsInfo()
             delta = make_package_delta(ts_info)
             rhnPackageInfo.logDeltaPackages(delta)
-        try:
-            rhnPackageInfo.updatePackageProfile()
-        except up2dateErrors.RhnServerException, e:
-            conduit.error(0, COMMUNICATION_ERROR + "\n" +
-                _("Package profile information could not be sent.") + "\n" + 
-                str(e))
+        if up2dateAuth.getSystemId(): # are we registred?
+            try:
+                rhnPackageInfo.updatePackageProfile()
+            except up2dateErrors.RhnServerException, e:
+                conduit.error(0, COMMUNICATION_ERROR + "\n" +
+                    _("Package profile information could not be sent.") + "\n" + 
+                    str(e))
 
 def rewordError(e):
     #This is compensating for hosted/satellite returning back an error
