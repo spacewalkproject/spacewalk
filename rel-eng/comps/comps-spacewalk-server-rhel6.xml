@@ -14,6 +14,7 @@
        <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
+       <packagereq type="default">jabberd-selinux-workaround</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
