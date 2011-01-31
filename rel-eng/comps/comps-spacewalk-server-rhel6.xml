@@ -47,6 +47,7 @@
        <packagereq type="default">perl-NOCpulse-Utils</packagereq>
        <packagereq type="default">perl-RPM2</packagereq>
        <packagereq type="default">perl-Satcon</packagereq>
+       <packagereq type="default">python-ethtool</packagereq>
        <packagereq type="default">ProgAGoGo</packagereq>
        <packagereq type="default">python-gzipstream</packagereq>
        <packagereq type="default">quartz</packagereq>
