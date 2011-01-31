@@ -77,11 +77,14 @@ Requires:       osa-dispatcher-selinux
 Requires:       spacewalk-monitoring-selinux
 Requires:       spacewalk-selinux
 
-%if 0%{?fedora} >= 11 || 0%{?rhel} >= 6
-%else
-# Fedoras 11+ have their own selinux policy for jabberd:
+%if 0%{?rhel} == 5
 Requires:       jabberd-selinux
 %endif
+# Work around for jabberd to work with stock RHEL-6.0 SELinux policy
+%if 0%{?rhel} == 6
+Requires:       jabberd-selinux-workaround
+%endif
+
 
 Requires:       editarea >= 0.8.2-2
 
