@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.3.4
+Version: 1.3.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jan 31 2011 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
+- 672471 - do not send info to rhnParent about removing packages if plugin is
+  enabled, but machine is not registred - i.e. getSystemId() returns None
+  (msuchy@redhat.com)
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.4-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - update .po and .pot files for yum-rhn-plugin (tlestach@redhat.com)
