@@ -32,7 +32,7 @@ mkdir -p $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 # some sane default value
-%define reposubdir      RHEL/5
+%define reposubdir      RHEL/%{rhel}
 # redefine on fedora
 %{?fedora: %define reposubdir      Fedora/%{fedora}}
 
