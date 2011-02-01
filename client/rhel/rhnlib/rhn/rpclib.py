@@ -524,40 +524,6 @@ class Server:
             self._transport.close()
             self._transport = None
 
-    def get_server_capability(self):
-        """ Return dictionary of server capabilities. 
-
-        It is in form of:
-        {{'registration.finish_message': {'version': '1', 'name': 'registration.finish_message', 'value': '1'}, ...}
-        """
-        headers = self.get_response_headers()
-        if headers is None:
-            # No request done yet
-            return {}
-        cap_headers = headers.getallmatchingheaders("X-RHN-Server-Capability")
-        if not cap_headers:
-            return {}
-        regexp = re.compile(
-                r"^(?P<name>[^(]*)\((?P<version>[^)]*)\)\s*=\s*(?P<value>.*)$")
-        vals = {}
-        for h in cap_headers:
-            arr = string.split(h, ':', 1)
-            assert len(arr) == 2
-            val = string.strip(arr[1])
-            if not val:
-                continue
-
-            mo = regexp.match(val)
-            if not mo:
-                # XXX Just ignoring it, for now
-                continue
-            vdict = mo.groupdict()
-            for k, v in vdict.items():
-                vdict[k] = string.strip(v)
-
-            vals[vdict['name']] = vdict
-        return vals
-
 # RHN GET server
 class GETServer(Server):
     def __init__(self, uri, transport=None, proxy=None, username=None,

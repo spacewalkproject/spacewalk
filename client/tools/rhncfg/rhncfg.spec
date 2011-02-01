@@ -15,7 +15,7 @@ BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
 Requires: python
-Requires: rhnlib >= 2.5.32
+Requires: rhnlib
 # If this is rhel 4 or less we need up2date.
 %if 0%{?rhel} && "%rhel" < "5"
 Requires: up2date

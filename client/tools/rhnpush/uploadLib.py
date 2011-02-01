@@ -25,6 +25,8 @@ import struct
 import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
+from config_common.repository import get_server_capability
+
 try:
     from up2date_client import rhnserver
     rhnserver_available = True
@@ -725,7 +727,7 @@ def exists_getPackageChecksumBySession(rpc_server):
         server._server = rpc_server
         result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
     else: # rhel4 has no rhnserver
-        server_capabilities = rpc_server.get_server_capability()
+        server_capabilities = get_server_capability(rpc_server)
         if 'xmlrpc.packages.extended_profile' in server_capabilities:
             # that capability can be '1' or '1-2', this is hackish
             result = server_capabilities['xmlrpc.packages.extended_profile']['version'] > '1' and \

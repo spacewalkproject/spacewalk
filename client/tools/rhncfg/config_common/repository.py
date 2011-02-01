@@ -297,7 +297,7 @@ class RPC_Repository(Repository):
                 sys.stderr.write("XML-RPC error while talking to %s:\n %s\n" % (self.__server_url, e))
                 sys.exit(2)
 
-            self._server_capabilities = x_server.get_server_capability()
+            self._server_capabilities = get_server_capability(x_server)
             del x_server
 
         # 6/29/05 wregglej 152388
@@ -392,3 +392,32 @@ class RPC_Repository(Repository):
             params['file_contents'] = file_contents
 
         return params
+
+def get_server_capability(s):
+    headers = s.get_response_headers()
+    if headers is None:
+        # No request done yet
+        return {}
+    cap_headers = headers.getallmatchingheaders("X-RHN-Server-Capability")
+    if not cap_headers:
+        return {}
+    regexp = re.compile(
+            r"^(?P<name>[^(]*)\((?P<version>[^)]*)\)\s*=\s*(?P<value>.*)$")
+    vals = {}
+    for h in cap_headers:
+        arr = string.split(h, ':', 1)
+        assert len(arr) == 2
+        val = string.strip(arr[1])
+        if not val:
+            continue
+
+        mo = regexp.match(val)
+        if not mo:
+            # XXX Just ignoring it, for now
+            continue
+        vdict = mo.groupdict()
+        for k, v in vdict.items():
+            vdict[k] = string.strip(v)
+
+        vals[vdict['name']] = vdict
+    return vals
