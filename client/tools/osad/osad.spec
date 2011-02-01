@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.50
+Version: 5.9.51
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -246,6 +246,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.9.51-1
+- Revert "get_server_capability() is defined twice in osad and rhncfg, merge
+  and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
+
 * Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.50-1
 - get_server_capability() is defined twice in osad and rhncfg, merge and move
   to rhnlib and make it member of rpclib.Server
