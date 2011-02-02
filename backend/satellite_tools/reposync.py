@@ -133,69 +133,62 @@ class RepoSync:
         
     def import_packages(self, plug, url):
         packages = plug.list_packages()
-        to_link = []
-        to_download = []
+        to_process = []
         self.print_msg("Repo " + url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
-            # we have a few scenarios here:
-            # 1.  package is not on the server (link and download)
-            # 2.  package is in the server, but not in the channel (just link if we can)
-            # 3.  package is in the server and channel, but not on the file system (just download)
             path, package_channel = rhnPackage.get_path_for_package(
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
                    self.channel_label)
 
-            if path:
+            to_download = False
+            to_link     = False
+            if not path:
+                # package is not on disk
+                to_download = True
+            else:
+                # a different package is on disk
                 pack.path = os.path.join(CFG.MOUNT_POINT, path)
                 if not self.match_package_checksum(pack.path,
-                                pack.checksum_type, pack.checksum)):
-                    to_download.append(pack)
-            else:
-                to_download.append(pack)
+                                pack.checksum_type, pack.checksum):
+                    to_download = True
 
             if package_channel != self.channel_label:
-                to_link.append(pack)
+                # package is not in the channel
+                to_link = True
 
-        if len(to_download) == 0:
-            self.print_msg("No new packages to download.")
-        else:
-            self.regen=True
+            if to_download or to_link:
+                to_process.append((pack, to_download, to_link))
+
+        num_to_process = len(to_process)
+        if num_to_process == 0:
+            self.print_msg("No new packages to sync.")
+            return
+
+        self.regen=True
         is_non_local_repo = (url.find("file://") < 0)
-        for (index, pack) in enumerate(to_download):
-            """download each package"""
-            # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
-            try:
-                try:
-                    self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
-                          pack.getNVREA())
-                    pack.path = localpath = plug.get_package(pack)
-                    pack.load_checksum_from_header()
-                    self.upload_package(pack)
-                    if pack in to_link:
-                        self.associate_package(pack)
-                except KeyboardInterrupt:
-                    raise
-                except Exception, e:
-                   self.error_msg(e)
-                   if self.fail:
-                       raise
-                   continue
-            finally:
-                if is_non_local_repo:
-                    os.remove(localpath)
+        # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
+        def finally_remove(path):
+            if is_non_local_repo:
+                os.remove(path)
 
-        if len(to_link) != 0:
-            self.regen=True
-        for (index, pack) in enumerate(to_link):
-            """Link each package that wasn't already linked in the previous step"""
+        for (index, what) in enumerate(to_process):
+            pack, to_download, to_link = what
             try:
-                if pack not in to_download:
-                    pack.load_checksum_from_header()
+                self.print_msg("%d/%d : %s" % (index+1, num_to_process, pack.getNVREA()))
+                if to_download:
+                    pack.path = localpath = plug.get_package(pack)
+                pack.load_checksum_from_header()
+                if to_download:
+                    self.upload_package(pack)
+                    finally_remove(localpath)
+                if to_link:
                     self.associate_package(pack)
             except KeyboardInterrupt:
+                finally_remove(localpath)
                 raise
             except Exception, e:
                 self.error_msg(e)
+                finally_remove(localpath)
                 if self.fail:
                     raise
                 continue
@@ -305,7 +298,7 @@ class ContentPackage:
             return self.name + '-' + self.version + '-' + self.release + '.' + self.arch
 
     def load_checksum_from_header(self):
-       if self.path is None:
+        if self.path is None:
            raise rhnFault(50, "Unable to load package", explain=0)
         self.file = open(self.path, 'rb')
         self.header, self.payload_stream, self.header_start, self.header_end = \
