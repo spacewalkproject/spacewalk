@@ -277,33 +277,13 @@ def get_source_package_path_by_name(server_id, packageName):
     rhnFlags.set("Download-Accelerator-Path", rs['path'])
     return filePath
 
-def get_path_for_checksum(org_id, checksum_type, checksum):
-     statement = """
-     select
-         p.path
-     from
-         rhnPackage p,
-         rhnChecksumView c
-     where p.org_id = :org_id
-         and p.checksum_id = c.id
-         and c.checksum = :checksum
-         and c.checksum_type = :checksumtype
-     """
-     h = rhnSQL.prepare(statement)
-     h.execute(org_id=org_id, checksum=checksum, checksumtype=checksum_type)
-     ret = h.fetchone_dict()
-     if not ret:
-         return None
-     return ret['path']
-
-
 def get_path_for_package(pkg, channel_label):
     log_debug(3, pkg)
     pkg = map(str, pkg)
     params = {'name': pkg[0],
               'ver': pkg[1],
               'rel': pkg[2],
-              'arch': pkg[4]
+              'arch': pkg[4],
               'label': channel_label}
     if pkg[3] == "":
         epochStatement = "is null"
@@ -312,14 +292,18 @@ def get_path_for_package(pkg, channel_label):
         params.update({'epoch': pkg[3]})
     statement = """
     select
-            P.path
+            p.path, c.label as channel_label
     from
-            rhnChannel c,
-            rhnPackage p,
+            rhnPackage p
+    left join rhnChannelPackage cp
+           on p.id = cp.package_id
+    left join rhnChannel c
+           on cp.channel_id = c.id
+          and p.org_id = c.org_id
+          and c.label = :label,
             rhnPackageName pn,
             rhnPackageEVR pe,
-            rhnPackageArch pa,
-            rhnChannelPackage cp
+            rhnPackageArch pa
     where
                 p.name_id = pn.id
             and pn.name = :name
@@ -329,17 +313,15 @@ def get_path_for_package(pkg, channel_label):
             and pe.epoch %s
             and p.package_arch_id = pa.id
             and pa.label = :arch
-            and p.id = cp.package_id
-            and cp.channel_id = c.id
-            and C.label = :label
+    order by c.label nulls last
     """ % epochStatement
     h = rhnSQL.prepare(statement)
     h.execute(**params)
 
     ret = h.fetchone_dict()
     if not ret:
-        return None
-    return ret['path']
+        return None, None
+    return ret['path'], ret['channel_label']
 
 
 def _none2emptyString(foo):

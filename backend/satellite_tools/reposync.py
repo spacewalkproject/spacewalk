@@ -141,38 +141,15 @@ class RepoSync:
                  # 1.  package is not on the server (link and download)
                  # 2.  package is in the server, but not in the channel (just link if we can)
                  # 3.  package is in the server and channel, but not on the file system (just download)
-                 path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release,\
-                        pack.epoch, pack.arch], self.channel_label)
-                 if not path:
-                     path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release,\
-                        '', pack.arch], self.channel_label)
+                 path, package_channel = rhnPackage.get_path_for_package(
+                        [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
+                        self.channel_label)
 
-                 if path:
-                     if os.path.exists(os.path.join(CFG.MOUNT_POINT, path)):
-                         continue
-                     else:
-                         to_download.append(pack)
-                         continue
-
-                 # we know that it's not in the channel, lets try to check the server by checksum!
-                 #for some repos (sha256), we can check to see if we have them by
-                 #  checksum and not bother downloading.  For older repos, we only
-                 #  have sha1, which satellite doesn't track
-                 # regardless we have to link the package
-                 to_link.append(pack)
-
-                 found = False
-                 for type,sum  in pack.checksums.items():
-                     if type == 'sha': #we use sha1 (instead of sha)
-                         type = 'sha1'
-                     path = rhnPackage.get_path_for_checksum(self.channel['org_id'],\
-                                type, sum)
-                     if path and os.path.exists(os.path.join(CFG.MOUNT_POINT, path)):
-                             found = True
-                             break
-                 if not found:
+                 if not (path and
+                    self.match_package_checksum(path, pack.checksum_type, pack.pkgId)):
                      to_download.append(pack)
-
+                 if package_channel != self.channel_label:
+                     to_link.append(pack)
 
         if len(to_download) == 0:
             self.print_msg("No new packages to download.")
@@ -201,6 +178,8 @@ class RepoSync:
                 if is_non_local_repo:
                     os.remove(path)
 
+        if len(to_link) != 0:
+            self.regen=True
         for (index, pack) in enumerate(to_link):
             """Link each package that wasn't already linked in the previous step"""
             try:
@@ -214,6 +193,12 @@ class RepoSync:
                     raise
                 continue
 
+    def match_package_checksum(self, path, checksum_type, checksum):
+        abspath = os.path.join(CFG.MOUNT_POINT, path)
+        if (os.path.exists(abspath) and
+            getFileChecksum(checksum_type, filename=abspath) == checksum):
+            return 1
+        return 0
     
     def upload_package(self, package, path):
         temp_file = open(path, 'rb')
