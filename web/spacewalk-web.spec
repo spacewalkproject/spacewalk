@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.23
+Version: 1.3.24
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.3.24-1
+- removing nightly from web.version (tlestach@redhat.com)
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.23-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - Removing RHN::DB::SatInstall::clear_db, it was last referenced by rhn-
