@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.51
+Version: 5.9.52
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -246,6 +246,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 5.9.52-1
+- pospone osa-dispatcher start, until jabberd is ready (tlestach@redhat.com)
+
 * Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.9.51-1
 - Revert "get_server_capability() is defined twice in osad and rhncfg, merge
   and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
