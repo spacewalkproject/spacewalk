@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.4.1-1
+- bumping web.version to 1.4 nightly (tlestach@redhat.com)
+- Bumping package versions for 1.4 (tlestach@redhat.com)
+
 * Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.3.24-1
 - removing nightly from web.version (tlestach@redhat.com)
 
