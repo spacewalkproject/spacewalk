@@ -137,19 +137,19 @@ class RepoSync:
         to_download = []
         self.print_msg("Repo " + url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
-                 # we have a few scenarios here:
-                 # 1.  package is not on the server (link and download)
-                 # 2.  package is in the server, but not in the channel (just link if we can)
-                 # 3.  package is in the server and channel, but not on the file system (just download)
-                 path, package_channel = rhnPackage.get_path_for_package(
-                        [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                        self.channel_label)
+            # we have a few scenarios here:
+            # 1.  package is not on the server (link and download)
+            # 2.  package is in the server, but not in the channel (just link if we can)
+            # 3.  package is in the server and channel, but not on the file system (just download)
+            path, package_channel = rhnPackage.get_path_for_package(
+                   [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
+                   self.channel_label)
 
-                 if not (path and
-                    self.match_package_checksum(path, pack.checksum_type, pack.pkgId)):
-                     to_download.append(pack)
-                 if package_channel != self.channel_label:
-                     to_link.append(pack)
+            if not (path and
+               self.match_package_checksum(path, pack.checksum_type, pack.pkgId)):
+                to_download.append(pack)
+            if package_channel != self.channel_label:
+                to_link.append(pack)
 
         if len(to_download) == 0:
             self.print_msg("No new packages to download.")
