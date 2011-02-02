@@ -1,5 +1,5 @@
 Name:         SatConfig-spread
-Version:      1.3.0
+Version:      1.4.0
 Release:      1%{?dist}
 Summary:      Spread configuration for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
