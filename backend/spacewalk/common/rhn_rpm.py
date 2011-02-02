@@ -163,8 +163,10 @@ class RPM_Header:
         ]
         for ht, sig_type in header_tags:
             ret = self.hdr[ht]
+            if not ret:
+                continue
             ret_len = len(ret)
-            if not ret or ret_len < 17:
+            if ret_len < 17:
                 continue
             # Get the key id - hopefully we get it right
             elif ret_len <= 65: # V3 DSA signature
