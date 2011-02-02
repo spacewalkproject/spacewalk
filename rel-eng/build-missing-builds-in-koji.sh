@@ -6,7 +6,7 @@ if [ "$(basename $0)" == "build-missing-builds-in-brew.sh" ] ; then
     KOJI_MISSING_BUILD_BREW_ARG="--brew"
     TITO_BUILD_ARG="--cvs-release"
 else
-    TAGS="dist-5E-sw-1.3-candidate dist-6E-sw-1.3-candidate dist-f13-sw-1.3-candidate dist-f14-sw-1.3-candidate"
+    TAGS="dist-5E-sw-1.4-candidate dist-6E-sw-1.4-candidate dist-f13-sw-1.4-candidate dist-f14-sw-1.4-candidate"
     TITO_BUILD_ARG="--koji-release"
     FEDORA_UPLOAD=1
 fi
