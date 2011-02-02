@@ -283,13 +283,14 @@ def get_path_for_package(pkg, channel_label):
     params = {'name': pkg[0],
               'ver': pkg[1],
               'rel': pkg[2],
+              'epoch': pkg[3],
               'arch': pkg[4],
               'label': channel_label}
-    if pkg[3] == "":
-        epochStatement = "is null"
+    # yum repo has epoch="0" not only when epoch is "0" but also if it's NULL
+    if pkg[3] == '0' or pkg[3] == '':
+        epochStatement = "(epoch is null or epoch = :epoch)"
     else:
-        epochStatement = "= :epoch"
-        params.update({'epoch': pkg[3]})
+        epochStatement = "epoch = :epoch"
     statement = """
     select p.path, c.label as channel_label
       from rhnPackage p
@@ -308,7 +309,7 @@ def get_path_for_package(pkg, channel_label):
      where pn.name = :name
        and pe.version = :ver
        and pe.release = :rel
-       and pe.epoch %s
+       and %s
        and pa.label = :arch
      order by c.label nulls last
     """ % epochStatement
