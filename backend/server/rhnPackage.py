@@ -291,29 +291,26 @@ def get_path_for_package(pkg, channel_label):
         epochStatement = "= :epoch"
         params.update({'epoch': pkg[3]})
     statement = """
-    select
-            p.path, c.label as channel_label
-    from
-            rhnPackage p
-    left join rhnChannelPackage cp
-           on p.id = cp.package_id
-    left join rhnChannel c
-           on cp.channel_id = c.id
-          and p.org_id = c.org_id
-          and c.label = :label,
-            rhnPackageName pn,
-            rhnPackageEVR pe,
-            rhnPackageArch pa
-    where
-                p.name_id = pn.id
-            and pn.name = :name
-            and p.evr_id = pe.id
-            and pe.version = :ver
-            and pe.release = :rel
-            and pe.epoch %s
-            and p.package_arch_id = pa.id
-            and pa.label = :arch
-    order by c.label nulls last
+    select p.path, c.label as channel_label
+      from rhnPackage p
+      join rhnPackageName pn
+        on p.name_id = pn.id
+      join rhnPackageEVR pe
+        on p.evr_id = pe.id
+      join rhnPackageArch pa
+        on p.package_arch_id = pa.id
+      left join rhnChannelPackage cp
+        on p.id = cp.package_id
+      left join rhnChannel c
+        on cp.channel_id = c.id
+       and p.org_id = c.org_id
+       and c.label = :label
+     where pn.name = :name
+       and pe.version = :ver
+       and pe.release = :rel
+       and pe.epoch %s
+       and pa.label = :arch
+     order by c.label nulls last
     """ % epochStatement
     h = rhnSQL.prepare(statement)
     h.execute(**params)
