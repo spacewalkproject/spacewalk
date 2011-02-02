@@ -16,7 +16,7 @@ import sys, os, time
 import hashlib
 from optparse import OptionParser
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from spacewalk.common import CFG, initCFG, rhnLog
+from spacewalk.common import CFG, initCFG, rhnLog, rhnFault
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.server.importlib.importLib import IncompletePackage
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
@@ -145,9 +145,14 @@ class RepoSync:
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
                    self.channel_label)
 
-            if not (path and
-               self.match_package_checksum(path, pack.checksum_type, pack.pkgId)):
+            if path:
+                pack.path = os.path.join(CFG.MOUNT_POINT, path)
+                if not self.match_package_checksum(pack.path,
+                                pack.checksum_type, pack.checksum)):
+                    to_download.append(pack)
+            else:
                 to_download.append(pack)
+
             if package_channel != self.channel_label:
                 to_link.append(pack)
 
@@ -163,8 +168,9 @@ class RepoSync:
                 try:
                     self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
                           pack.getNVREA())
-                    path = plug.get_package(pack)
-                    self.upload_package(pack, path)
+                    pack.path = localpath = plug.get_package(pack)
+                    pack.load_checksum_from_header()
+                    self.upload_package(pack)
                     if pack in to_link:
                         self.associate_package(pack)
                 except KeyboardInterrupt:
@@ -176,7 +182,7 @@ class RepoSync:
                    continue
             finally:
                 if is_non_local_repo:
-                    os.remove(path)
+                    os.remove(localpath)
 
         if len(to_link) != 0:
             self.regen=True
@@ -184,6 +190,7 @@ class RepoSync:
             """Link each package that wasn't already linked in the previous step"""
             try:
                 if pack not in to_download:
+                    pack.load_checksum_from_header()
                     self.associate_package(pack)
             except KeyboardInterrupt:
                 raise
@@ -193,30 +200,23 @@ class RepoSync:
                     raise
                 continue
 
-    def match_package_checksum(self, path, checksum_type, checksum):
-        abspath = os.path.join(CFG.MOUNT_POINT, path)
+    def match_package_checksum(self, abspath, checksum_type, checksum):
         if (os.path.exists(abspath) and
             getFileChecksum(checksum_type, filename=abspath) == checksum):
             return 1
         return 0
     
-    def upload_package(self, package, path):
-        temp_file = open(path, 'rb')
-        header, payload_stream, header_start, header_end = \
-                rhnPackageUpload.load_package(temp_file)
-        package.checksum_type = header.checksum_type()
-        package.checksum = getFileChecksum(package.checksum_type, file=temp_file)
-
+    def upload_package(self, package):
         rel_package_path = rhnPackageUpload.relative_path_from_header(
-                header, self.channel['org_id'],
+                package.header, self.channel['org_id'],
                 package.checksum_type, package.checksum)
-        package_dict, diff_level = rhnPackageUpload.push_package(header,
-                payload_stream, package.checksum_type, package.checksum,
+        package_dict, diff_level = rhnPackageUpload.push_package(package.header,
+                package.payload_stream, package.checksum_type, package.checksum,
                 force=False,
-                header_start=header_start, header_end=header_end,
+                header_start=package.header_start, header_end=package.header_end,
                 relative_path=rel_package_path,
                 org_id=self.channel['org_id'])
-        temp_file.close()
+        package.file.close()
 
     def associate_package(self, pack):
         caller = "server.app.yumreposync"
@@ -272,7 +272,6 @@ class ContentPackage:
 
     def __init__(self):
         # map of checksums
-        self.checksums = {}
         self.checksum_type = None
         self.checksum = None
 
@@ -284,6 +283,13 @@ class ContentPackage:
         self.release = None
         self.epoch = None
         self.arch = None
+
+        self.path = None
+        self.file = None
+        self.header = None
+        self.payload_stream = None
+        self.header_start = None
+        self.header_end = None
 
     def setNVREA(self, name, version, release, epoch, arch):
         self.name = name
@@ -298,3 +304,11 @@ class ContentPackage:
         else:
             return self.name + '-' + self.version + '-' + self.release + '.' + self.arch
 
+    def load_checksum_from_header(self):
+       if self.path is None:
+           raise rhnFault(50, "Unable to load package", explain=0)
+        self.file = open(self.path, 'rb')
+        self.header, self.payload_stream, self.header_start, self.header_end = \
+                rhnPackageUpload.load_package(self.file)
+        self.checksum_type = self.header.checksum_type()
+        self.checksum = getFileChecksum(self.checksum_type, file=self.file)

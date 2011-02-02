@@ -79,8 +79,10 @@ class ContentSource:
             new_pack.setNVREA(pack.name, pack.version, pack.release, 
                               pack.epoch, pack.arch)
             new_pack.unique_id = pack
-            for cs in pack.checksums:
-                new_pack.checksums[cs[0]] = cs[1]
+            new_pack.checksum_type = pack.checksums[0][0]
+            if new_pack.checksum_type == 'sha':
+                new_pack.checksum_type = 'sha1'
+            new_pack.checksum      = pack.checksums[0][1]
             to_return.append(new_pack)
         return to_return
 
