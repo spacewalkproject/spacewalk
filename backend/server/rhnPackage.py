@@ -300,10 +300,16 @@ def get_path_for_checksum(org_id, checksum_type, checksum):
 def get_path_for_package(pkg, channel_label):
     log_debug(3, pkg)
     pkg = map(str, pkg)
+    params = {'name': pkg[0],
+              'ver': pkg[1],
+              'rel': pkg[2],
+              'arch': pkg[4]
+              'label': channel_label}
     if pkg[3] == "":
         epochStatement = "is null"
     else:
         epochStatement = "= :epoch"
+        params.update({'epoch': pkg[3]})
     statement = """
     select
             P.path
@@ -328,10 +334,7 @@ def get_path_for_package(pkg, channel_label):
             and C.label = :label
     """ % epochStatement
     h = rhnSQL.prepare(statement)
-    if pkg[3] == '':
-        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4], label = channel_label)
-    else:
-        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4], epoch=pkg[3], label = channel_label)
+    h.execute(**params)
 
     ret = h.fetchone_dict()
     if not ret:
