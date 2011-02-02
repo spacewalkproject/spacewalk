@@ -18,9 +18,6 @@
        <packagereq type="default">rhn-custom-info</packagereq>
        <packagereq type="default">osad</packagereq>
        <packagereq type="default">rhn-client-tools</packagereq>
-       <packagereq type="default">rhn-kickstart</packagereq>
-       <packagereq type="default">rhn-kickstart-common</packagereq>
-       <packagereq type="default">rhn-kickstart-virtualization</packagereq>
        <packagereq type="default">rhn-virtualization-common</packagereq>
        <packagereq type="default">rhn-virtualization-host</packagereq>
        <packagereq type="default">spacewalk-koan</packagereq>
