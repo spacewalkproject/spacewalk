@@ -1,6 +1,5 @@
 #!/bin/bash
 
-exit 0
 
 if [ "$(basename $0)" == "build-missing-builds-in-brew.sh" ] ; then
     TAGS="satellite-5.4-rhel-5-candidate"
