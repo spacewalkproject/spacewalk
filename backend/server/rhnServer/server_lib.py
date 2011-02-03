@@ -349,6 +349,13 @@ def update_push_client_registration(server_id):
     # Autonomous transaction, so no need to commit
     return timestamp, client_name, shared_key
         
+_query_delete_duplicate_client_jids = rhnSQL.Statement("""
+    update rhnPushClient
+       set jabber_id = null
+     where jabber_id = :jid and
+           server_id <> :server_id
+""")
+
 _query_update_push_client_jid = rhnSQL.Statement("""
     update rhnPushClient
        set jabber_id = :jid,
@@ -356,9 +363,12 @@ _query_update_push_client_jid = rhnSQL.Statement("""
            last_ping_time = NULL
      where server_id = :server_id
 """)
+
 def update_push_client_jid(server_id, jid):
-    h = rhnSQL.prepare(_query_update_push_client_jid)
-    h.execute(server_id=server_id, jid=jid)
+    h1 = rhnSQL.prepare(_query_delete_duplicate_client_jids)
+    h1.execute(server_id=server_id, jid=jid)
+    h2 = rhnSQL.prepare(_query_update_push_client_jid)
+    h2.execute(server_id=server_id, jid=jid)
     rhnSQL.commit()
     return jid
 
