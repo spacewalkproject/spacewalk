@@ -73,9 +73,6 @@ allow osa_dispatcher_t self:capability { sys_nice chown fowner sys_tty_config };
 allow osa_dispatcher_t osa_dispatcher_upstream_notif_server_port_t:tcp_socket name_bind;
 allow osa_dispatcher_t inaddr_any_node_t:tcp_socket node_bind;
 allow osa_dispatcher_t osa_dispatcher_t:tcp_socket listen;
-allow osa_dispatcher_t lib_t:dir write;
-allow osa_dispatcher_t lib_t:dir { remove_name add_name };
-allow osa_dispatcher_t lib_t:file { write create unlink };
 
 files_list_tmp(osa_dispatcher_t)
 
