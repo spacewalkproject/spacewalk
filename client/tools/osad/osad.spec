@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.52
+Version: 5.9.53
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -246,6 +246,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Thu Feb 03 2011 Tomas Lestach <tlestach@redhat.com> 5.9.53-1
+- reverting osa-dispatcher selinux policy rules (tlestach@redhat.com)
+
 * Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 5.9.52-1
 - pospone osa-dispatcher start, until jabberd is ready (tlestach@redhat.com)
 
