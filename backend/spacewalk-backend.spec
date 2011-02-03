@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 03 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
+- shortened and narrowed package sync logic
+- moved checksum logic into ContentPackage
+- yum repo metadata says epoch="0" even if it's NULL
+- reformated sql query
+- spacewalk-repo-sync should not download package which is already on disk
+- fixed duplicated code
+- Bumping package versions for 1.4
+
 * Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.3.53-1
 - 671464 - prevent unsigned rpms not to be recognized as rpms
   (tlestach@redhat.com)
