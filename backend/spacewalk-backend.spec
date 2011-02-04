@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.2
+Version: 1.4.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Feb 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.3-1
+- 674510 - fixed procedure call (PG)
+- 674528 - don't read signatures when there is no rpm (--no-rpms)
+- With previous removals, getChannelAttribute is not used anymore, removing.
+- The listChannelErrata is dead code by now (after the ISO dumper removal).
+- The listChannelPackages is dead code by now (after the ISO dumper removal).
+- The getKickstartTree is dead code by now (after the ISO dumper removal).
+- With _lookup_last_modified gone, _lookup_last_modified_packages and
+  _lookup_last_modified_ks_trees are dead code, removing.
+
 * Fri Feb 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
 - fixed postgresql failure on RHEL6
 - 590608 - nullify jabber_ids from previous registrations
