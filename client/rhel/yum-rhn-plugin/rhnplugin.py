@@ -87,7 +87,7 @@ def prereposetup_hook(conduit):
         rhn_enabled = False
         return
    
-    RHN_DISABLED = _("RHN support will be disabled.")
+    RHN_DISABLED = _("RHN Satellite or RHN Classic support will be disabled.")
     
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
