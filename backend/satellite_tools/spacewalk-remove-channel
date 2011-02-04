@@ -221,9 +221,11 @@ def __unsubscribeServers(labels):
 
 def __unbsubscribeServer(server_id, channel_id):
     sql = """
-         call rhn_channel.unsubscribe_server(:server_id, :channel_id)
+         begin
+         /*pg perform*/ rhn_channel.unsubscribe_server(:server_id, :channel_id);
+         end;
     """
-    h = rhnSQL.prepare(sql)
+    h = rhnSQL.prepare(sql, params=('server_id numeric', 'channel_id numeric'))
     h.execute(server_id=server_id, channel_id=channel_id)
 
 
