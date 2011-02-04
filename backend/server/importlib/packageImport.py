@@ -480,11 +480,12 @@ class PackageImport(ChannelPackageSubscription):
 
     def _import_signatures(self):
        for package in self.batch:
-           full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
-           if os.path.exists(full_path):
-               header = rhn_rpm.get_package_header(filename=full_path)
-               server_packages.processPackageKeyAssociations(header,
-                               package['checksum_type'], package['checksum'])
+           if package['path']:
+               full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
+               if os.path.exists(full_path):
+                   header = rhn_rpm.get_package_header(filename=full_path)
+                   server_packages.processPackageKeyAssociations(header,
+                                   package['checksum_type'], package['checksum'])
 
 class SourcePackageImport(Import):
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
