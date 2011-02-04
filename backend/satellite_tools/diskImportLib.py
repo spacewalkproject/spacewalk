@@ -43,32 +43,6 @@ class Backend:
 def get_backend():
     return Backend().get_backend()
 
-# Retrieves an attribute for a channel dumped in XML
-def getChannelAttribute(mountPoint, channel, attribute, handler):
-    dumper = xmlDiskSource.ChannelDiskSource(mountPoint=mountPoint)
-    dumper.setChannel(channel)
-    f = dumper.load()
-
-    # save the previous container
-    oldContainer = handler.get_container(xmlSource.ChannelContainer.container_name)
-    # And replace it with the default one - only saves stuff in the batch
-    newContainer = xmlSource.ChannelContainer()
-    handler.set_container(newContainer)
-
-    # Process the information
-    handler.process(f)
-
-    channel = newContainer.batch[0]
-
-    # Cleanup
-    handler.reset()
-
-    # Restore the old container
-    handler.set_container(oldContainer)
-
-    return channel.get(attribute)
-
-
 # Functions for dumping packages
 def rpmsPath(obj_id, mountPoint, sources=0):
     # returns the package path (for exporter/importer only)
