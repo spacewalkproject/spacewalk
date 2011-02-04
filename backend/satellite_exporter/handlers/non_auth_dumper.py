@@ -530,40 +530,6 @@ class ChannelsDumper(dumper.ChannelsDumper):
         c = exportLib.ChannelDumper(self._writer, data)
         c.dump()
 
-_query_lookup_last_modified_packages = rhnSQL.Statement("""
-    select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-      from rhnPackage
-     where id = :id
-""")
-def _lookup_last_modified_packages(package_ids):
-    h = rhnSQL.prepare(_query_lookup_last_modified_packages)
-    ret = []
-    for pid in package_ids:
-        h.execute(id=pid)
-        row = h.fetchone_dict()
-        assert row, "Invalid package id %s" % pid
-        ret.append((pid, row['last_modified']))
-    return ret
-
-_query_lookup_last_modified_ks_trees = rhnSQL.Statement("""
-    select TO_CHAR(kt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-      from rhnKickstartableTree kt, rhnChannel c
-     where kt.channel_id = c.id
-       and c.label = :channel_label
-       and kt.label = :ks_label
-       and kt.org_id is null
-""")
-def _lookup_last_modified_ks_trees(channel_label, ks_trees):
-    h = rhnSQL.prepare(_query_lookup_last_modified_ks_trees)
-    ret = []
-    for klabel in ks_trees:
-        h.execute(channel_label=channel_label, ks_label=klabel)
-        row = h.fetchone_dict()
-        assert row, "Invalid kickstart label %s for channel %s" % (
-            klabel, channel_label)
-        ret.append((klabel, row['last_modified']))
-    return ret
-
 def _get_path_from_cursor(h):
     # Function shared between other retrieval functions
     rs = h.fetchall_dict()
