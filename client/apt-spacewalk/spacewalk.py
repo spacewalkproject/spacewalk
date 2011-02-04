@@ -9,6 +9,7 @@
 #
 
 import sys
+import re
 import hashlib
 
 import warnings
@@ -144,7 +145,6 @@ class spacewalk_method(pkg_acquire_method):
     def __init_channels(self):
         if self.svr_channels == None:
             self.svr_channels = rhnChannel.getChannelDetails() # TODO: catch exceptions
-            # TODO: some conduit magic here (or rather not)
             # TODO CHANNELS
             # sslcacert = get_ssl_ca_cert(self.up2date_cfg) # TODO: to remove or not to remove
             for channel in self.svr_channels:
@@ -179,7 +179,7 @@ class spacewalk_method(pkg_acquire_method):
         """Transform url given by apt to real spacewalk url"""
         document = document.replace('dists/channels:/main/', 
                 'dists/channels:/' + self.base_channel  + '/', 1)
-        document = document.replace('binary-i386', 'repodata', 1) # TODO
+        document = re.sub('/binary-[\d\w]*/', '/repodata/', document, 1)
         document = document.replace('dists/channels:/', '/XMLRPC/GET-REQ/', 1)
         return document
 
