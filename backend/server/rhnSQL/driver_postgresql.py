@@ -22,6 +22,11 @@ import re
 import psycopg2
 import hashlib
 
+# workaround for python-psycopg2 = 2.0.13 (RHEL6)
+# which does not import extensions by default
+if not hasattr(psycopg2, 'extensions'):
+    import psycopg2.extensions
+
 import sql_base
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import sql_types
