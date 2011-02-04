@@ -69,11 +69,6 @@ def getChannelAttribute(mountPoint, channel, attribute, handler):
     return channel.get(attribute)
 
 
-# Lists the errata linked to a specific channel
-def listChannelErrata(mountPoint, channel, handler):
-    return getChannelAttribute(mountPoint, channel, 'errata', handler)
-
-
 # Functions for dumping packages
 def rpmsPath(obj_id, mountPoint, sources=0):
     # returns the package path (for exporter/importer only)
