@@ -69,19 +69,6 @@ def getChannelAttribute(mountPoint, channel, attribute, handler):
     return channel.get(attribute)
 
 
-# Lists the packages linked to a specific channel
-def listChannelPackages(mountPoint, channel, handler, sources=0, all=0):
-    if sources:
-        return getChannelAttribute(mountPoint, channel, 'source-packages', 
-            handler)
-    if all:
-        # All packages requested
-        ret = getChannelAttribute(mountPoint, channel, 'all-packages', handler)
-        if ret:
-            return ret
-    return getChannelAttribute(mountPoint, channel, 'packages', handler)
-
-
 # Lists the errata linked to a specific channel
 def listChannelErrata(mountPoint, channel, handler):
     return getChannelAttribute(mountPoint, channel, 'errata', handler)
