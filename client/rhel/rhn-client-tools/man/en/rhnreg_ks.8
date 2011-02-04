@@ -14,10 +14,11 @@
 .\" along with this man page; if not, write to the Free Software
 .\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 .\"
-.TH RHNREG_KS 8 "2010 August 30" "Linux" "Red Hat, Inc."
+.TH RHNREG_KS 8 "2011 February 4" "Linux" "Red Hat, Inc."
 
 .SH NAME
-rhnreg_ks \- A program for non interactively registering systems to Red Hat Network.
+rhnreg_ks \- A program for non interactively registering systems to RHN Satellite
+or Red Hat Network Classic.
 
 .SH SYNOPSIS
 
@@ -25,8 +26,8 @@ rhnreg_ks [\fIoptions\fP]
 
 .SH DESCRIPTION
 .PP
-\fVrhnreg_ks\fR is a utility for registering a system with the Red Hat
-Network. It is designed to be used in a non-interactive environment 
+\fVrhnreg_ks\fR is a utility for registering a system with the RHN Satellite or Red Hat
+Network Classic. It is designed to be used in a non-interactive environment 
 (a kickstart style install, for example). All the information can
 be specified on the command line or stdin. 
 
@@ -34,11 +35,11 @@ be specified on the command line or stdin.
 
 .IP "\fB--profilename\fP"
 Specify the profile name that should be used as an identifier for
-the system in Red Hat Network
+the system in RHN Satellite, Red Hat Network Classic
 .br
 .IP "\fB--username\fP"
-The username to register the system with under Red Hat Network. This
-can be an existing Red Hat Network username, or a new username.
+The username to register the system with under RHN Satellite or Red Hat Network Classic. This
+can be an existing RHN Satellite or Red Hat Network Classic username, or a new username.
 .br
 .IP "\fB--password\fP"
 The password associated with the username specified with the \fB--username\fR
@@ -96,7 +97,9 @@ Show a help message and exit.
 
 .IP \fI/etc/sysconfig/rhn/systemid\fP
 The digital server ID for this machine if the system has been registered onto
-.B Red Hat Network.
+.B RHN Satellite
+or
+.B Red Hat Network Classic.
 This file does not exist otherwise.
 .br
 .IP \fI/etc/sysconfig/rhn/up2date\fP
@@ -104,7 +107,7 @@ The common configuration file used by RHN client programs.
 
 .SH "EXAMPLES"
 
-Register a new system to Red Hat Network:
+Register a new system to Red Hat Network Classic:
 
 .RS
 .nf
@@ -112,7 +115,7 @@ rhnreg_ks --profilename "example_profile_name" --username "someexampleuser" --pa
 .fi
 .RE
 
-Register a new system to Red Hat Network with contact info:
+Register a new system to Red Hat Network Classic with contact info:
 
 .RS
 .nf
@@ -149,7 +152,7 @@ Report bugs to <http://bugzilla.redhat.com>.
 .SH COPYRIGHT
 
 .PP
-Copyright \(co 1999\-2010 Red Hat, Inc.
+Copyright \(co 1999\-2011 Red Hat, Inc.
 
 .PP
 This is free software; see the source for copying conditions.  There is 
