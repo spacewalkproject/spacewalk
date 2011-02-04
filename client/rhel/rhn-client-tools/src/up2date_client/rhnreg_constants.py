@@ -176,6 +176,12 @@ CHANNELS_HOSTED_WARNING = _("Warning: If an installed product on this system "
                             "product. See Kbase article 11313 "
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
+YUM_PLUGIN_WARNING		= _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
+							"Automatic updates will not work.")
+YUM_PLUGIN_CONF_CHANGED = _("Note: yum-rhn-plugin has been enabled.")
+YUM_PLUGIN_CONF_ERROR	= _("Warning: An error occurred during enabling yum-rhn-plugin.\n"
+							"yum-rhn-plugin is not enabled.\n"
+							"Automatic updates will not work.")
 FAILED_CHANNELS         = _("You were unable to be subscribed to the following "
                             "software channels because there were insufficient "
                             "subscriptions available in your account:")

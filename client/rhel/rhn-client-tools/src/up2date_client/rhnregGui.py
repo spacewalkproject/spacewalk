@@ -82,7 +82,18 @@ class ReviewLog:
     def __init__(self):
         self._text = gtk.TextBuffer()
         self._boldTag = self._text.create_tag(weight=700)
-    
+
+    def prependBoldText(self, text):
+        """Adds a blob of bolded text to the beggining specified section. Adds a newline 
+        after the text.
+        """
+        self.prependText(text)
+        # Make it bold
+        startOfText = self._text.get_start_iter()
+        endOfText = self._text.get_start_iter()
+        endOfText.forward_chars(len(text) +1 )
+        self._text.apply_tag(self._boldTag, startOfText, endOfText)
+
     def addBoldText(self, text):
         """Adds a blob of bolded text to the specified section. Adds a newline 
         after the text.
@@ -94,7 +105,14 @@ class ReviewLog:
         startOfText.backward_chars(len(text) +1 )
         end = self._text.get_end_iter()
         self._text.apply_tag(self._boldTag, startOfText, end)
-    
+
+    def prependText(self, text):
+        """ Insert a blob of text at the beggining of section. Adds a newline
+            after the text.
+        """
+        start = self._text.get_start_iter()
+        self._text.insert(start, text + '\n')
+
     def addText(self, text):
         """Adds a blob of text to the specified section. Adds a newline after
         the text.
@@ -114,7 +132,28 @@ class ReviewLog:
         keys = ', '.join(keyName)
         self.addText(rhnreg_constants.ACTIVATION_KEY % (keys))
         self.addText('') # adds newline
-    
+
+    def yum_plugin_warning(self):
+        """ Add to review screen warning that yum-rhn-plugin is not installed """
+        # prepending -> reverse order
+        self.prependText('') # adds newline
+        self.prependText(rhnreg_constants.YUM_PLUGIN_WARNING)
+        self.prependBoldText(_("Warning"))
+
+    def yum_plugin_conf_changed(self):
+        """ Add to review screen warning that yum-rhn-plugin config file has been changed """
+        # prepending -> reverse order
+        self.prependText('') # adds newline
+        self.prependText(rhnreg_constants.YUM_PLUGIN_CONF_CHANGED)
+        self.prependBoldText(_("Notice"))
+
+    def yum_plugin_conf_error(self):
+        """ Add to review screen warning that yum-rhn-plugin config file can not be open """
+        # prepending -> reverse order
+        self.prependText('') # adds newline
+        self.prependText(rhnreg_constants.YUM_PLUGIN_CONF_ERROR)
+        self.prependBoldText(_("Warning"))
+
     def channels(self, subscribedChannels, failedChannels):
         self.addBoldText(rhnreg_constants.CHANNELS_TITLE)
         if len(subscribedChannels) > 0:
@@ -836,6 +875,21 @@ class CreateProfilePage:
                 # no channels subscribe
                 self.noChannels = 1
 
+        # enable yum-rhn-plugin
+        try:
+            if rhnreg.YumRHNPluginPackagePresent():
+                if rhnreg.YumRHNPluginConfPresent():
+                    if not rhnreg.YumRhnPluginEnabled():
+                        rhnreg.enableYumRhnPlugin()
+                        reviewLog.yum_plugin_conf_changed()
+                else:
+                    rhnreg.createDefaultYumRHNPluginConf()
+                    reviewLog.yum_plugin_conf_changed()
+            else:
+                reviewLog.yum_plugin_warning()
+        except IOError, e:
+            errorWindow(_("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enable.\n") + e.errmsg)
+            reviewLog.yum_plugin_conf_error()
         rhnreg.spawnRhnCheckForUI()
         pwin.setProgress(6,6)
         pwin.hide()

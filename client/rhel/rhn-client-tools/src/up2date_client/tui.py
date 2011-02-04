@@ -45,6 +45,12 @@ def FatalErrorWindow(screen, errmsg):
                              [OK])
     screen.finish()
     sys.exit(1)
+
+def WarningWindow(screen, errmsg):
+    snack.ButtonChoiceWindow(screen, WARNING, "%s" % errmsg,
+                             [OK])
+    screen.finish()
+
     
 def ConfirmQuitWindow(screen):
     button = snack.ButtonChoiceWindow(screen, CONFIRM_QUIT,
@@ -905,7 +911,23 @@ class SendingWindow:
         except up2dateErrors.InsuffMgmntEntsError, e:
             FatalErrorWindow(self.screen, e)
 
-        rhnreg.spawnRhnCheckForUI() 
+        # enable yum-rhn-plugin
+        try:
+            if rhnreg.YumRHNPluginPackagePresent():
+                if rhnreg.YumRHNPluginConfPresent():
+                    if not rhnreg.YumRhnPluginEnabled():
+                        rhnreg.enableYumRhnPlugin()
+                        self.tui.yum_plugin_conf_changed = 1
+                else:
+                    rhnreg.createDefaultYumRHNPluginConf()
+                    self.tui.yum_plugin_conf_changed = 1
+            else:
+                self.tui.yum_plugin_present = 0
+        except IOError, e:
+            WarningWindow(self.screen, _("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
+            self.tui.yum_plugin_conf_error = 1
+
+        rhnreg.spawnRhnCheckForUI()
         self.setScale(4, 4)
 
         # Pop the pwin (Progress bar window)
@@ -969,9 +991,17 @@ class ReviewWindow:
         size = snack._snack.size()
         
         toplevel = snack.GridForm(screen, REVIEW_WINDOW, 1, 2)
-    
+        review_window_text = ''
+
+        if not self.tui.yum_plugin_present:
+            review_window_text += YUM_PLUGIN_WARNING + "\n\n"
+        if self.tui.yum_plugin_conf_error:
+            review_window_text += YUM_PLUGIN_CONF_ERROR + "\n\n"
+        if self.tui.yum_plugin_conf_changed:
+            review_window_text += YUM_PLUGIN_CONF_CHANGED + "\n\n"
+
         # Build up the review_window_text based on the data in self.reg_info
-        review_window_text = REVIEW_WINDOW_PROMPT + "\n\n"
+        review_window_text += REVIEW_WINDOW_PROMPT + "\n\n"
 
         # Create and add the text for what channels the system was
         # subscribed to.
@@ -1039,7 +1069,11 @@ class ReviewWindow:
         button = self.bb.buttonPressed(result)
 
         if result == "F12":
-            return "next"
+            button = "next"
+        if not self.tui.yum_plugin_present:
+            button = "exit"
+        if self.tui.yum_plugin_conf_error:
+            button = "exit"
             
         return button    
     
@@ -1125,6 +1159,9 @@ class Tui:
         self.includePackages = 0
         self.packageList = []
         self.selectedPackages = []
+        self.yum_plugin_present = 1
+        self.yum_plugin_conf_error = 0
+        self.yum_plugin_conf_changed = 0
 
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
