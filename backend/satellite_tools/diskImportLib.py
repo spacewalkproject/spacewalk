@@ -87,35 +87,6 @@ def listChannelErrata(mountPoint, channel, handler):
     return getChannelAttribute(mountPoint, channel, 'errata', handler)
 
 
-# Retrieves an attribute for a channel dumped in XML
-def getKickstartTree(mountPoint, ks_label, handler):
-    ds = xmlDiskSource.KickstartDataDiskSource(mountPoint=mountPoint)
-    ds.setID(ks_label)
-    f = ds.load()
-
-    # save the previous container
-    oldContainer = handler.get_container(xmlSource.KickstartableTreesContainer.container_name)
-    # And replace it with the default one - only saves stuff in the batch
-    newContainer = xmlSource.KickstartableTreesContainer()
-    handler.set_container(newContainer)
-
-    # Process the information
-    handler.process(f)
-
-    if not newContainer.batch:
-        return None
-
-    kstree = newContainer.batch[0]
-
-    # Cleanup
-    handler.reset()
-
-    # Restore the old container
-    handler.set_container(oldContainer)
-
-    return kstree
-
-
 # Functions for dumping packages
 def rpmsPath(obj_id, mountPoint, sources=0):
     # returns the package path (for exporter/importer only)
