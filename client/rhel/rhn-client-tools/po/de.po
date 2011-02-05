@@ -5,18 +5,20 @@
 # Bernd Groh <bgroh@redhat.com>, 2003.
 # Verena <vfuehrer@redhat.com>, 2004, 2005.
 # sknirT omiT <moc.tahder@sknirtt>, 2010.
+# Luc de Louw <luc@delouw.ch>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2010-08-31 09:51+1000\n"
-"Last-Translator: T²\n"
-"Language-Team:  <de@li.org>\n"
+"PO-Revision-Date: 2011-02-05 15:39+0100\n"
+"Last-Translator: Luc de Louw <luc@delouw.ch>\n"
+"Language-Team: German <trans-de@lists.fedoraproject.org"
+">\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/up2date_client/capabilities.py:88
@@ -95,7 +97,7 @@ msgstr "SystemId kann nicht lokalisiert werden"
 #: ../src/up2date_client/rhnChannel.py:114
 msgid "This system may not be updated until it is associated with a channel."
 msgstr ""
-"Das System kann nicht aktualisiert werden, wenn es keinem Kanal zugeordnet "
+"Das System kann nicht aktualisiert werden, wenn es keinem Channel zugeordnet "
 "ist."
 
 #: ../src/up2date_client/rhncli.py:47
@@ -159,7 +161,7 @@ msgid ""
 "the time on this system is correct.\n"
 msgstr ""
 "Eine häufige Ursache dieses Fehlers ist es, dass die Systemzeit falsch "
-"eingestellt ist. Überprüfen Sie, dass die Zeit auf diesem System richtig "
+"eingestellt ist. Überprüfen Sie dass die Zeit auf diesem System richtig "
 "ist.\n"
 
 #: ../src/up2date_client/rhncli.py:98
@@ -208,12 +210,12 @@ msgstr "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Versuche, den Red Hat Network Server zu kontaktieren."
+msgstr "Versuche den Red Hat Network Server zu kontaktieren."
 
 #: ../src/up2date_client/rhnreg_constants.py:17
 #, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Versuche, den Red Hat Network Server unter %s zu kontaktieren."
+msgstr "Versuche den Red Hat Network Server unter %s zu kontaktieren."
 
 #: ../src/up2date_client/rhnreg_constants.py:19
 #, python-format
@@ -267,11 +269,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:40
 msgid "Security & Updates:"
-msgstr "Sicherheit & Updates:"
+msgstr "Sicherheit und Updates:"
 
 #: ../src/up2date_client/rhnreg_constants.py:41
 msgid "Downloads & Upgrades:"
-msgstr "Downloads & Upgrades:"
+msgstr "Downloads und Upgrades:"
 
 #: ../src/up2date_client/rhnreg_constants.py:42
 msgid "Support:"
@@ -648,7 +650,7 @@ msgid ""
 "there were insufficient subscriptions available in your account:"
 msgstr ""
 "Folgende Software-Kanäle konnten nicht abonniert werden, da zu wenig "
-"Abonnements für Ihren Account zur Verfügung standen:"
+"Abonnements für Ihren Account zur Verfügung stehen:"
 
 #: ../src/up2date_client/rhnreg_constants.py:183
 msgid ""
@@ -811,7 +813,7 @@ msgstr ""
 "Universeller Standard-Aktivierungsschlüssel gefunden\n"
 "Ein universeller Standard-Aktivierungsschlüssel wurde in Ihrer RHN-"
 "Organisation gefunden. Dies bedeutet, dass eine Reihe von Einstellungen "
-"(Software-Kanal-Abonnements, Red Hat Network Dienst, Paketinstallationen, "
+"(Software-Channel-Abonnements, Red Hat Network Dienst, Paketinstallationen, "
 "Systemgruppen-Mitgliedschaften, etc.) für die Verbindung Ihres Systems mit "
 "Red Hat Network anhand des Aktivierungsschlüssels und nicht der "
 "Installationsnummer bestimmt wurde.  Siehe auch RHN Referenzhandbuch, "
@@ -1391,11 +1393,10 @@ msgid "You specified an invalid protocol."
 msgstr "Sie haben ein ungültiges Protokoll angegeben."
 
 #: ../src/up2date_client/tui.py:1058
-#, fuzzy
 msgid "Only https and http are allowed."
 msgstr ""
-"Sie haben ein ungültiges Protokoll angegeben. Lediglich https und http sind "
-"erlaubt."
+"Sie haben ein ungültiges Protokoll angegeben. Es sind lediglich https und "
+"http erlaubt."
 
 #: ../src/up2date_client/tui.py:1096
 msgid ""
@@ -1671,92 +1672,84 @@ msgstr ""
 "die entsprechenden Angaben."
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "Sie müssen Root sein, um %s auszuführen"
+msgstr "FEHLER: Sie müssen Root sein um auszuführen\n"
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
-msgstr ""
+msgstr "Name des Channels den Sie abonnieren oder entfernen wollen"
 
 #: ../src/bin/spacewalk-channel.py:58
 msgid "subscribe to channel"
-msgstr ""
+msgstr "Channel abonnieren"
 
 #: ../src/bin/spacewalk-channel.py:60
 msgid "unsubscribe from channel"
-msgstr ""
+msgstr "Channel entfernen"
 
 #: ../src/bin/spacewalk-channel.py:62
 msgid "list channels"
-msgstr ""
+msgstr "Channels anzeigen"
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Alle verfügbaren Updates"
+msgstr "Alle verfügbaren Sub-Channels anzeigen"
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Einen Benutzernamen angeben"
+msgstr "Ihr Benutzernamen"
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "Geben Sie ein Passwort an"
+msgstr "Ihr Passwort"
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Rechnername: "
+msgstr "Benutzername: "
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
-msgstr ""
+msgstr "FEHLER: Sie müssen mindestens einen Channel angeben"
 
 #: ../src/bin/spacewalk-channel.py:112
 #, python-format
 msgid "Channel(s): %s successfully added"
-msgstr ""
+msgstr "Channel(s): %s Erfolgreich hinzugefügt"
 
 #: ../src/bin/spacewalk-channel.py:114
 #, python-format
 msgid "Error during adding channel(s) %s"
-msgstr ""
+msgstr "Fehler beim Hinzufügen des/der Channel(s) %s"
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
 msgid "Channel(s): %s successfully removed"
-msgstr ""
+msgstr "Channel(s): %s erfolgreich entfernt"
 
 #: ../src/bin/spacewalk-channel.py:124
 #, python-format
 msgid "Error during removal of channel(s) %s"
-msgstr ""
+msgstr "Fehler beim Entfernen des/der Channel(s) %s"
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr ""
-"Das System kann nicht aktualisiert werden, wenn es keinem Kanal zugeordnet "
-"ist."
+msgstr "Dieses System ist keinem Channel zugeordnet."
 
 #: ../src/bin/spacewalk-channel.py:139
 msgid "ERROR: you may want to specify --add, --remove or --list"
-msgstr ""
+msgstr "FEHLER: Sie müssen --add, --remove oder --list angeben"
 
 #: ../src/bin/spacewalk-channel.py:145
 msgid "User interrupted process."
-msgstr ""
+msgstr "Vorgang durch Benutzer abgebrochen."
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
@@ -1787,13 +1780,12 @@ msgid "Progress Dialog"
 msgstr "Fortschritts-Dialog"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Fortschritts-Dialog"
+msgstr "Fortschrittsanzeige"
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
-msgstr ""
+msgstr "Fortschritts-Status"
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1982,9 +1974,8 @@ msgid "Advanced Network Configuration"
 msgstr "Erweiterte Netzwerkkonfiguration"
 
 #: ../data/rh_register.glade.h:36
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Erweiterte Netzwerkkonfiguration"
+msgstr "Knopf für Erweiterte Netzwerkkonfiguration"
 
 #: ../data/rh_register.glade.h:37
 msgid "Advanced _Network Configuration ..."
@@ -2020,14 +2011,12 @@ msgid "Choose Channel"
 msgstr "Channel auswählen"
 
 #: ../data/rh_register.glade.h:47
-#, fuzzy
 msgid "Choose minor release"
-msgstr "_Zwischen-Release:"
+msgstr "Wählen Sie ein Minor-Release"
 
 #: ../data/rh_register.glade.h:48
-#, fuzzy
 msgid "Close"
-msgstr "S_chliessen"
+msgstr "Schliessen"
 
 #: ../data/rh_register.glade.h:49
 msgid "Confirm operation system release selection"
@@ -2107,9 +2096,8 @@ msgid "Installation _Number:"
 msgstr "Installations_nummer:"
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgid "Limited updates"
-msgstr "Nur eingeschränkte Updates"
+msgstr "Eingeschränkte Updates"
 
 #: ../data/rh_register.glade.h:68
 msgid "Link To Subscription"
@@ -2129,9 +2117,8 @@ msgid "Memory:"
 msgstr "Speicher:"
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgid "No thanks, I'll connect later."
-msgstr "_Nein danke.  Später registrieren."
+msgstr "Nein danke.  Später registrieren."
 
 #: ../data/rh_register.glade.h:73
 msgid "Package Information"
@@ -2171,11 +2158,11 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgid "RHN login field"
-msgstr ""
+msgstr "RHN Loginfeld"
 
 #: ../data/rh_register.glade.h:82
 msgid "RHN password field"
-msgstr ""
+msgstr "RHN Passwortfeld"
 
 #: ../data/rh_register.glade.h:83
 msgid ""
@@ -2234,9 +2221,8 @@ msgid "System _Name:"
 msgstr "System_name:"
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Zurück zur Regis_trierung"
+msgstr "Zurück zur Registrierung"
 
 #: ../data/rh_register.glade.h:99
 msgid ""
@@ -2276,23 +2262,20 @@ msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "Benutze Au_thentifizierung mit HTTP-Proxy:"
 
 #: ../data/rh_register.glade.h:107
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Benutze Au_thentifizierung mit HTTP-Proxy:"
+msgstr "Benutze Authentifizierung mit HTTP-Proxy:"
 
 #: ../data/rh_register.glade.h:108
 msgid "V_iew Package Profile ..."
 msgstr "Paket-Prof_il betrachten ..."
 
 #: ../data/rh_register.glade.h:109
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Hardware-Profil _betrachten ..."
+msgstr "Hardware-Profil ansehen"
 
 #: ../data/rh_register.glade.h:110
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Paket-Prof_il betrachten ..."
+msgstr "Paket-Profil ansehen"
 
 #: ../data/rh_register.glade.h:111
 msgid "Why Register"
@@ -2487,9 +2470,8 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgid "installation number field"
-msgstr "Die Installationsnummer ist ungültig"
+msgstr "Installationsnummer-Feld"
 
 #: ../data/rh_register.glade.h:150
 msgid "label"
@@ -2498,12 +2480,12 @@ msgstr "Kennung"
 #: ../data/rh_register.glade.h:151
 #, fuzzy
 msgid "proxy location"
-msgstr "_Proxy Ort:"
+msgstr "Proxy Ort:"
 
 #: ../data/rh_register.glade.h:152
 #, fuzzy
 msgid "proxy password field"
-msgstr "Proxy-P_asswort:"
+msgstr "Proxy-Passwort"
 
 #: ../data/rh_register.glade.h:153
 msgid "proxy user field"
@@ -2514,9 +2496,8 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "system name"
-msgstr "System_name:"
+msgstr "Systemname"
 
 #: ../data/rh_register.glade.h:156
 msgid "•"
