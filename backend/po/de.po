@@ -4,13 +4,13 @@
 # german translation of spacewalk-server
 #
 # Gerd Koenig <gkoenig@fedoraproject.org>, 2010.
-# Luc de Louw <luc@delouw.ch>, 2010.
+# Luc de Louw <luc@delouw.ch>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.spacewalk-server.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-02 11:19+0100\n"
-"PO-Revision-Date: 2010-11-15 23:36+0100\n"
+"PO-Revision-Date: 2011-02-05 14:47+0100\n"
 "Last-Translator: Luc de Louw <luc@delouw.ch>\n"
 "Language-Team: German <trans-de@lists.fedoraproject.org\" \">\n"
 "MIME-Version: 1.0\n"
@@ -97,6 +97,9 @@ msgid ""
 "                   %s Account has been deactivated on this server.\n"
 "                   Please contact your Org administrator for more help."
 msgstr ""
+"\n"
+"                   %s Benutzer wurde auf diesem Server deaktiviert.\n"
+"                   Bitte kontaktieren Sie Ihren Org-Administrator für Hilfe."
 
 #: ../server/handlers/xmlrpc/registration.py:875
 msgid "Invalid system release version requested"
@@ -123,7 +126,7 @@ msgstr "Kein gültiges Land: %s"
 #: ../server/handlers/xmlrpc/registration.py:1407
 #, python-format
 msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-msgstr ""
+msgstr "Ungenügende Berechtigung für Release, Arch (%s, %s)"
 
 #: ../server/handlers/xmlrpc/registration.py:1424
 #, python-format
@@ -161,7 +164,7 @@ msgstr ""
 #: ../server/rhnChannel.py:1801
 #, python-format
 msgid "Insufficient subscription permissions for release (%s, %s"
-msgstr ""
+msgstr "Ungenügende Berechtigung für Release (%s, %s"
 
 #. Various messages that can be reused
 #.
@@ -189,7 +192,7 @@ msgstr ""
 "Ungültige Kombination aus Architektur und Betriebssystemversion (%s, %s).\n"
 "Ihr System wurde registriert, wird aber keine Updates erhalten, da es "
 "keinen\n"
-"Kanal abonniert hat. Falls Sie Ihr System bislang nicht aktiviert haben,\n"
+"Channel abonniert hat. Falls Sie Ihr System bislang nicht aktiviert haben,\n"
 "besuchen Sie bitte unsere Webseite unter:\n"
 "  \n"
 "     http://www.redhat.com/apps/activate/\n"
@@ -207,10 +210,9 @@ msgid ""
 msgstr ""
 "\n"
 "Ungültige Kombination aus Architektur und Betriebssystemversion (%s, %s).\n"
-"Ihr System wurde registriert wird aber keine Updates erhalten, da es keinen\n"
-"Basiskanal abonnieren konnte.\n"
-"Bitte kontaktieren Sie zwecks Unterstützung den Administrator\n"
-"Ihres Unternehmens.\n"
+"Ihr System wurde registriert, wird aber keine Updates erhalten da es keinen\n"
+"Basis-Channel abonnieren konnte.\n"
+"Bitte kontaktieren Sie zwecks Unterstützung den Org-Administrator.\n"
 
 #: ../server/rhnChannel.py:2092
 #, python-format
@@ -278,11 +280,11 @@ msgstr "abgewiesene Proxyauthentisierung"
 #: ../server/rhnServer/server_token.py:78
 #, python-format
 msgid "Token `%s' has more than one base channel assigned"
-msgstr "Kennung '%s' hat mehr als einen zugewiesenen Kanal"
+msgstr "Kennung '%s' hat mehr als einen zugewiesenen Channel"
 
 #: ../server/rhnServer/server_token.py:80
 msgid "Conflicting base channels"
-msgstr "Konflikt zwischen Basiskanälen"
+msgstr "Konflikt zwischen Basis-Channels"
 
 #: ../server/rhnServer/server_token.py:204
 #, python-format
@@ -345,7 +347,7 @@ msgstr "Paket nicht gefunden"
 #: ../server/apacheRequest.py:46
 #, python-format
 msgid "Invalid request received (%s)."
-msgstr "ungültige Anfrage erhalten (%s)."
+msgstr "Ungültige Anfrage erhalten (%s)."
 
 #: ../server/apacheRequest.py:104
 #, python-format
@@ -366,7 +368,7 @@ msgstr ""
 #: ../server/apacheRequest.py:555
 #, python-format
 msgid "Invalid URI %s"
-msgstr "ungültige URI %s"
+msgstr "Ungültige URI %s"
 
 #: ../server/rhnHandler.py:58
 msgid ""
@@ -385,7 +387,7 @@ msgstr "Der Dienst ist für das Systemprofil: \"%s\" nicht aktiviert"
 
 #: ../server/rhnUser.py:381 ../server/rhnUser.py:384
 msgid "Invalid username/password combination"
-msgstr "ungültige Benutzername/Passwort Kombination"
+msgstr "Ungültige Kombination von Benutzername und Passwort"
 
 #. nope, not reserved either
 #: ../server/rhnUser.py:536
@@ -465,7 +467,7 @@ msgstr "Dies scheint kein gültiger Benutzername zu sein."
 
 #: ../common/rhnException.py:46
 msgid "Invalid username and password combination."
-msgstr "Ungültige Benutzername-/Passwort-Kombination."
+msgstr "Ungültige Kombination von Benutzername und Passwort"
 
 #: ../common/rhnException.py:47
 msgid "This login is already taken, or the password is incorrect."
@@ -497,7 +499,7 @@ msgstr "Ungültige System-Berechtigungsnachweise."
 
 #: ../common/rhnException.py:54
 msgid "Could not retrieve user data from database."
-msgstr "Konnte Benutzerdaten nicht von Datenbank abrufen."
+msgstr "Benutzerdaten konnten nicht von Datenbank abrufen werden."
 
 #: ../common/rhnException.py:55
 msgid "Valid username required."
@@ -509,11 +511,11 @@ msgstr "Gültiges Passwort erforderlich."
 
 #: ../common/rhnException.py:57
 msgid "Minimum username length violation."
-msgstr "Minimale Länge des Benutzernamen nicht erfüllt."
+msgstr "Minimallänge des Benutzernamen nicht erfüllt."
 
 #: ../common/rhnException.py:58
 msgid "Minimum password length violation."
-msgstr "Minimale Länge des Passworts nicht erfüllt."
+msgstr "Minimallänge des Passworts nicht erfüllt."
 
 #: ../common/rhnException.py:59
 msgid "The username contains invalid characters."
@@ -538,7 +540,7 @@ msgstr ""
 
 #: ../common/rhnException.py:64
 msgid "Could not retrieve system data from database."
-msgstr "Systemdaten konnten in dern Datenbank nicht gefunden werden."
+msgstr "Systemdaten konnten in der Datenbank nicht gefunden werden."
 
 #: ../common/rhnException.py:65
 msgid "Invalid arguments passed to function."
@@ -546,7 +548,7 @@ msgstr ""
 
 #: ../common/rhnException.py:66
 msgid "Unable to retrieve requested entry."
-msgstr ""
+msgstr "Eintrag konnte nicht abgerufen werden."
 
 #: ../common/rhnException.py:67
 msgid "Could not update database entry."
@@ -625,11 +627,11 @@ msgstr "Ungültige Aktion"
 
 #: ../common/rhnException.py:95
 msgid "You are not allowed to perform administrative tasks on this system."
-msgstr "Sie sind für diese Administative Tätigkeit nicht freigegeben."
+msgstr "Sie sind für Administative Tätigkeiten nicht freigegeben."
 
 #: ../common/rhnException.py:97
 msgid "The system is already subscribed to the specified channel."
-msgstr "Dieses System ist bereits in diesem Channel registriert."
+msgstr "Dieses System ist bereits bei diesem Channel registriert."
 
 #: ../common/rhnException.py:98
 msgid "The system is not currently subscribed to the specified channel."
@@ -683,6 +685,12 @@ msgid ""
 "     The architecture of the package is not supported by Red Hat Network\n"
 "     "
 msgstr ""
+"\n"
+"     Ungültige Architektur.\n"
+"\n"
+"     Die Architektur dieses Paketes ist vom Red Hat Network nicht "
+"unterstützt\n"
+"     "
 
 #: ../common/rhnException.py:123
 msgid ""
@@ -693,6 +701,12 @@ msgid ""
 "     compatible with the channel architecture.\n"
 "     "
 msgstr ""
+"\n"
+"     Inkompatible Architekturen.\n"
+"\n"
+"     Die Architektur des Paketes welches Sie hochladen wollten ist nicht\n"
+"     kompatibel mit der Architektur des Channels.\n"
+"     "
 
 #: ../common/rhnException.py:129
 msgid "Invalid RPM header"
@@ -706,6 +720,11 @@ msgid ""
 "     The channel you have specified does not exist.\n"
 "     "
 msgstr ""
+"\n"
+"     Ungültiger Channel.\n"
+"\n"
+"     Der angegebene Channel existiert nicht.\n"
+"     "
 
 #: ../common/rhnException.py:135
 #, python-format
@@ -767,6 +786,11 @@ msgid ""
 "     does not already exists on the server\n"
 "     "
 msgstr ""
+"\n"
+"     Hochladen des Paketes fehlgeschlagen. \n"
+"     Bitte prüfen Sie ob das Paket keine doppelten Abhängigkeiten besitzt\n"
+"      und nicht schon bereits auf dem Server vorhanden ist\n"
+"     "
 
 #: ../common/rhnException.py:170
 msgid ""
@@ -775,6 +799,10 @@ msgid ""
 "     Please contact your Satellite administrator for more help.\n"
 "     "
 msgstr ""
+"\n"
+"     Die Option --force für rhnpush wurde auf diesem Server deaktiviert. \n"
+"     Bitte kontaktieren Sie den Satellite Administrator für Hilfestellung.\n"
+"     "
 
 #. 60-70: token errors
 #: ../common/rhnException.py:176
@@ -825,12 +853,12 @@ msgstr "Sie können sich von diesem Base-Channel nicht abmelden."
 #. 80-90: server group errors
 #: ../common/rhnException.py:197
 msgid "There was an error while trying to join the system to its groups"
-msgstr ""
+msgstr "Fehler beim Hinzufügen des Systems in die entsprechenden Gruppen"
 
 #. 90-100: entitlement errors
 #: ../common/rhnException.py:200
 msgid "Unable to entitle system"
-msgstr ""
+msgstr "System kann nicht berechtigt werden"
 
 #: ../common/rhnException.py:201
 msgid ""
@@ -880,7 +908,7 @@ msgstr ""
 #. 160-179: OSAD errors
 #: ../common/rhnException.py:222
 msgid "Required argument is missing"
-msgstr ""
+msgstr "Benötigte Angabe fehlt"
 
 #. 500-599: Package Uploader errors
 #: ../common/rhnException.py:225
@@ -890,10 +918,12 @@ msgstr "Benötigte HTTP Header Informationen konnten nicht gefunden werden"
 #: ../common/rhnException.py:226
 msgid "The package's checksum signature does not match the header one"
 msgstr ""
+"Die Prüfsumme der Signatur des Paketes stimmt nicht mir derjenigen aus dem "
+"Header überein"
 
 #: ../common/rhnException.py:227
 msgid "Header information does not match package metainformation"
-msgstr ""
+msgstr "Header-Information stimmen nicht mit den Metadaten überein"
 
 #: ../common/rhnException.py:228
 msgid "Package with a different signature already uploaded"
@@ -909,7 +939,7 @@ msgstr "Unsigniertes RPM Paket"
 
 #: ../common/rhnException.py:231
 msgid "Incompatible package and channel architectures"
-msgstr ""
+msgstr "Paket und Channel Architekturen sind nicht kompatibel"
 
 #: ../common/rhnException.py:232
 msgid "Incompatible checksum type"
@@ -918,7 +948,7 @@ msgstr "Typ der Prüfsumme nicht kompatibel"
 #. 600-699: RHEL5+ EN errors
 #: ../common/rhnException.py:235
 msgid "Invalid Entitlement Number"
-msgstr ""
+msgstr "Falsche Berechtigungsnummer"
 
 #: ../common/rhnException.py:236
 msgid "No entitlement information tied to hardware"
@@ -961,11 +991,11 @@ msgstr ""
 
 #: ../common/rhnException.py:255
 msgid "RHN Proxy session token is invalid."
-msgstr ""
+msgstr "RHN Proxy Session-Token ist ungültig."
 
 #: ../common/rhnException.py:256
 msgid "RHN Proxy session token has expired."
-msgstr ""
+msgstr "RHN Proxy Session Token abgelaufen."
 
 #. 2000-2999: RHN Satellite specific errors:
 #: ../common/rhnException.py:260
@@ -1002,6 +1032,10 @@ msgid ""
 "this satellite\n"
 "     "
 msgstr ""
+"\n"
+"     Diesem Satellite Server fehlt die Berechtigung für Inter Satellite Sync "
+"auf diesem Satellite\n"
+"     "
 
 #: ../common/rhnException.py:278
 msgid ""
@@ -1009,6 +1043,9 @@ msgid ""
 "     Inter Satellite Sync is disabled on this satellite.\n"
 "     "
 msgstr ""
+"\n"
+"     Inter Satellite Sync ist auf diesem Satellite deaktiviert.\n"
+"     "
 
 #. Kickstart errors
 #: ../common/rhnException.py:283
@@ -1119,7 +1156,7 @@ msgstr "Zugriff nicht erlaubt"
 
 #: ../common/rhnException.py:315
 msgid "Content missing for configuration file"
-msgstr ""
+msgstr "Kein Inhalt für Konfigurationsdatei"
 
 #: ../common/rhnException.py:316
 msgid "Template delimiters not specified"
@@ -1154,9 +1191,8 @@ msgid "Full path of file must be specified"
 msgstr "Der vollständige Datei-Pfad muss angegeben werden"
 
 #: ../common/rhnException.py:324
-#, fuzzy
 msgid "Invalid revision number"
-msgstr "Ungültiger Sitzungsschlüssel"
+msgstr "Ungültige Revisionsnummer"
 
 #: ../common/rhnException.py:325
 msgid "Cannot compare files of different file type"
