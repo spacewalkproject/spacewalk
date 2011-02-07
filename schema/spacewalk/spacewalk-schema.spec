@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.0
+Version:        1.4.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 07 2011 Jan Pazdziora 1.4.1-1
+- Fixed rhn_ugm_applicant_fix_fun trigger function.
+
 * Thu Jan 27 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.18-1
 - 671464 - added schema upgrade for new keys 
 - added Fedora 14 key
