@@ -15,17 +15,17 @@ Provides:	msv-msv
 This package fulfills jpackage missing msv-msv dependecy
 
 %prep
-%setup -q
+#%setup -q
 
 
 %build
-%configure
-make %{?_smp_mflags}
+#%configure
+#make %{?_smp_mflags}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+#make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %clean
