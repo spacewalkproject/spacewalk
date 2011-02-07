@@ -174,9 +174,9 @@ public class IndexHandler {
             }
             return Collections.EMPTY_LIST;
         }
-        List<String> ids = new ArrayList<String>();
+        List<Long> ids = new ArrayList<Long>();
         for (Result pr : hits) {
-            ids.add(pr.getId());
+            ids.add(new Long(pr.getId()));
         }
         
         Query<String> query = null;
