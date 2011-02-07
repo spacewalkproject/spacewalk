@@ -147,6 +147,8 @@ class Handler(handler_base.HandlerBase):
         # rhel4 do not support selinux
         if not 'selinux_ctx' in local_info:
             local_info['selinux_ctx'] = ''
+        if 'selinux_ctx' not in info:
+            info['selinux_ctx'] = ''
         if not first_row and not self.__attributes_differ(info, local_info):
              return ""
         else:
