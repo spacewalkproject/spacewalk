@@ -1,5 +1,5 @@
 Name:		msv-workaround
-Version:	1.0.0
+Version:	1.0.1
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpacakge broken dependencies
 
@@ -39,5 +39,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 07 2011 Tomas Lestach <tlestach@redhat.com> 1.0.1-1
+- Introducing msv-workaround package
+
 * Mon Feb 07 2011 Tomas Lestach <tlestach@redhat.com> 1.0.0-1
 - introducing msv-workaround package
