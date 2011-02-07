@@ -21,7 +21,7 @@
 <h2><bean:message key="treecreate.jsp.header2"/></h2>
 
 <div>
-    <html:form method="post" action="/kickstart/TreeCreate.do" styleId="dist-tree-form">
+    <html:form method="post" action="/kickstart/TreeCreate.do">
       <%@ include file="tree-form.jspf" %>
       <hr/><table align="right">
           <c:if test="${requestScope.hidesubmit != 'true'}">
