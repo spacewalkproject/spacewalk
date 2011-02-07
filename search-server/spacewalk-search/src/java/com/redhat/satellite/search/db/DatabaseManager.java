@@ -60,10 +60,12 @@ public class DatabaseManager {
         }
         Properties overrides = config.getNamespaceProperties("search");
 
-        String[] options = {"db_name", "db_password", "db_user",
-        							"db_host", "db_port", "db_name"};
+        String[] options = {"db_name", "db_password", "db_user"};
         for (String option : options) {
             overrides.setProperty(option, config.getString(option));
+        }
+        if (config.getString("db_backend").equals("oracle")) {
+            overrides.setProperty("db_name", "@" + overrides.getProperty("db_name"));
         }
 
         client = SqlMapClientBuilder.buildSqlMapClient(reader, overrides);
