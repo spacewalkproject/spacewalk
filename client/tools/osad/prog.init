@@ -37,13 +37,15 @@ script="/usr/sbin/@@PROG@@"
 start() {
     # Start daemon
     echo -n "Starting $prog: "
-    RETRIES=10
-    while [ $RETRIES -gt 0 ]
-    do
-        lsof -t -i :5222 > /dev/null && break
-        RETRIES=$((RETRIES-1))
-        sleep 0.5
-    done
+    if [ "$prog" == "osa-dispatcher" ]; then
+        RETRIES=10
+        while [ $RETRIES -gt 0 ]
+        do
+            lsof -t -i :5222 > /dev/null && break
+            RETRIES=$((RETRIES-1))
+            sleep 0.5
+        done
+    fi
     daemon $script --pid-file /var/run/$prog.pid
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then echo_success; else echo_failure; fi
