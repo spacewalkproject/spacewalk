@@ -241,7 +241,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
  UNION
  SELECT {c.*}
  FROM    rhnChannel c,
-         rhnSharedChannelView sc,
+         rhnSharedChannelView sc
  LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
  WHERE   sc.parent_channel = :cid
  AND     sc.org_trust_id = :org_id
