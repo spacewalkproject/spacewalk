@@ -29,7 +29,7 @@
          ORDER by e.id ASC
    </select>
    <delete id="deleteLastErrata">
-   		DELETE rhnIndexerWork where object_type = 'errata'
+                DELETE FROM rhnIndexerWork where object_type = 'errata'
    </delete>
    <insert id="createLastErrata"
 		   parameterClass="java.util.Map">
