@@ -1,5 +1,5 @@
 Name:		msv-workaround
-Version:	1.0.1
+Version:	1.0.2
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -39,6 +39,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 07 2011 Tomas Lestach <tlestach@redhat.com> 1.0.2-1
+- fixing typo (tlestach@redhat.com)
+- When you are createing spec without tar.gz, you could not run configure
+  (msuchy@redhat.com)
+
 * Mon Feb 07 2011 Tomas Lestach <tlestach@redhat.com> 1.0.1-1
 - Introducing msv-workaround package
 
