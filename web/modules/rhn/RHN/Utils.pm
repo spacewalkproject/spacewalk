@@ -27,36 +27,6 @@ use Socket;
 
 # similar to PXT::Utils, but for RHN specific stuff...
 
-#takes an ref to an array of arrayrefs, and a list of parameters -
-#traverses the array, and assigns elements of each array to named
-#parameters in a hashref... - example -
-
-# my @channels = ( [1, 'Red Hat Linux 7.0'], [2, 'Red Hat Linux 7.1'], [3, 'Red Hat Linux 7.3'] );
-# my @p_channels = parameterize(\@channels, 'id', 'name');
-
-# foreach my $chan (@p_channels) {
-#   $html =~ s/\{channel_name\}/$chan->{name}/ge;
-#   $html =~ s/\{channel_id\}/$chan->{id}/ge;
-# }
-
-sub parameterize {
-  my $class = shift;
-  my $data = shift;
-  my @params = @_;
-
-  my @return;
-
-  foreach my $datum (@{$data}) {
-
-    my $x = { };
-    @{$x}{@params} = @{$datum}[0 .. $#params]; #slice. allows $x->{name}, etc
-
-    push @return, $x;
-  }
-
-  return @return;
-}
-
 sub sets_differ {
   my ($first, $second) = @_;
 
