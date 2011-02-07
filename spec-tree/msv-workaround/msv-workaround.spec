@@ -1,7 +1,7 @@
 Name:		msv-workaround
 Version:	1.0.1
 Release:	1%{?dist}
-Summary:	Workaround package to fulfill jpacakge broken dependencies
+Summary:	Workaround package to fulfill jpackage broken dependencies
 
 Group:		Applications/Internet
 License:	GPLv2
