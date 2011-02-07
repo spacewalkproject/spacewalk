@@ -16,13 +16,13 @@ function swapValues(fromCtlId, toCtlId) {
 }
 
 function moveNext() {
-   var form = document.getElementById("wizard-form");
+   var form = document.getElementById("kickstartCreateWizardForm");
    swapValues("wizard-nextstep", "wizard-curstep");
    form.submit();
 }
 
 function refresh() {
-   var form = document.getElementById("wizard-form");
+   var form = document.getElementById("kickstartCreateWizardForm");
    form.submit();
 }
 </script>
@@ -31,7 +31,7 @@ function refresh() {
 <body>
 <br />
 <div>
-  <html:form styleId="wizard-form" method="post" action="/kickstart/CreateProfileWizard.do">
+  <html:form method="post" action="/kickstart/CreateProfileWizard.do">
     <html:hidden property="wizardStep" styleId="wizard-curstep" />
     <html:hidden property="nextStep" styleId="wizard-nextstep" />
     <html:hidden property="previousChannelId" />

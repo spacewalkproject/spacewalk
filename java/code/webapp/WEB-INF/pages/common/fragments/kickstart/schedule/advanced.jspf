@@ -11,7 +11,7 @@
 
     <script language="javascript">
 function moveNext() {
-   var form = document.getElementById("wizard-form");
+   var form = document.getElementById("kickstartScheduleWizardForm");
    form.submit();
 }
 
@@ -26,7 +26,7 @@ function setStep(stepName) {
 
 <h2><img src="/img/icon_kickstart_session-medium.gif" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
-<html:form method="POST" action="${actionUrl}" styleId="wizard-form">
+<html:form method="POST" action="${actionUrl}">
 <c:if test="${empty regularKS}">
 	<c:set var="noStatic" value="true"/>
 </c:if>
