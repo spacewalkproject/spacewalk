@@ -15,7 +15,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python-devel
 Requires: python
-Requires: rhnlib >= 1.8-3
+Requires: rhnlib >= 2.5.31
 Requires: jabberpy
 %if 0%{?rhel} <= 5
 Requires: python-hashlib
