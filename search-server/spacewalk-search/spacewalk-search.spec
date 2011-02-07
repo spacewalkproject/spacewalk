@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -117,6 +117,14 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Mon Feb 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
+- don't duplicate files from spacewalk-search.jar on filesystem
+- move config.xml back to jar
+- add @ to db_name only for oracle (PG)
+- fixed package and errata search in PG
+- made service rhn-search cleanindex queries work on PG
+- added potgresql jdbc to rhn-search path
+
 * Wed Jan 26 2011 Tomas Lestach <tlestach@redhat.com> 1.3.7-1
 - remove exceptions from method declarations that aren't thrown
   (tlestach@redhat.com)
