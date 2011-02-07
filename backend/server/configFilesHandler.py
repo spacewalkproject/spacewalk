@@ -532,7 +532,7 @@ def format_file_results(row, server=None):
         if client_caps and client_caps.has_key('configfiles.base64_enc'):
             encoding = 'base64'
             contents = base64.encodestring(contents)
-    if row['modified']:
+    if row.has_key('modified') and row['modified']:
         m_date = xmlrpclib.DateTime(str(row['modified']))
     else:
         m_date = ''
