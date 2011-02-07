@@ -44,6 +44,7 @@ Summary: OSA dispatcher
 Group:    System Environment/Daemons
 Requires: spacewalk-backend-server >= 1.2.32
 Requires: jabberpy
+Requires: lsof
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
 Requires(post): chkconfig
