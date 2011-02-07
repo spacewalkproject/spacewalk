@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.1
+Version: 5.10.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -247,6 +247,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Mon Feb 07 2011 Tomas Lestach <tlestach@redhat.com> 5.10.2-1
+- do not check port 5222 on the client (tlestach@redhat.com)
+
 * Thu Feb 03 2011 Tomas Lestach <tlestach@redhat.com> 5.10.1-1
 - Bumping version to 5.10
 
