@@ -69,7 +69,7 @@
     </select>
 
    <delete id="deleteLastServer">
-   		DELETE rhnIndexerWork where object_type = 'server'
+                DELETE FROM rhnIndexerWork where object_type = 'server'
    </delete>
    <insert id="createLastServer"
 		   parameterClass="java.util.Map">

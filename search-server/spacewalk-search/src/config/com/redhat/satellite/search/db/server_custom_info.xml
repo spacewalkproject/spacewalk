@@ -24,7 +24,7 @@
     </select>
 
    <delete id="deleteLastServerCustomInfo">
-		DELETE rhnIndexerWork where object_type = 'server_custom_info'
+                DELETE FROM rhnIndexerWork where object_type = 'server_custom_info'
    </delete>
    <insert id="createLastServerCustomInfo"
 		   parameterClass="java.util.Map">
