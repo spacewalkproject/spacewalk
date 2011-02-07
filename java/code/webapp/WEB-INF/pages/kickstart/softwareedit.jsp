@@ -12,7 +12,7 @@ function reloadForm(ctl) {
   submittedFlag.value = "false";
   var changedField = document.getElementById("fieldChanged");
   changedField.value = ctl.id;
-  var form = document.getElementById("editForm");
+  var form = document.getElementById("kickstartSoftwareForm");
   form.submit();
 }
 //-->
@@ -32,7 +32,7 @@ function reloadForm(ctl) {
     <bean:message key="softwareedit.jsp.summary1"/>
   </p>
 
-    <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do" styleId="editForm">
+    <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do">
       <table class="details">
           <tr>
             <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
