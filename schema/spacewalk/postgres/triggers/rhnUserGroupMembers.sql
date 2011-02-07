@@ -134,7 +134,6 @@ begin
                 UPDATE web_contact SET password = old_password WHERE id = old.user_id;
             END IF;
         END IF;
-	return new;
 end;
 $$ LANGUAGE PLPGSQL;
 
