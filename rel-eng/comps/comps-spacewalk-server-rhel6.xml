@@ -17,6 +17,7 @@
        <packagereq type="default">jabberd-selinux-workaround</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
+       <packagereq type="default">msv-workaround</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
        <packagereq type="default">nocpulse-db-perl</packagereq>
        <packagereq type="default">NOCpulsePlugins</packagereq>
