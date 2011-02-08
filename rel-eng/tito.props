@@ -1,6 +1,8 @@
 [globalconfig]
 default_builder = spacewalk.releng.builder.Builder
 default_tagger = spacewalk.releng.tagger.VersionTagger
+changelog_with_email = 0
+changelog_do_not_remove_cherrypick = 0
 
 [koji]
 autobuild_tags = dist-5E-sw-1.4-candidate dist-6E-sw-1.4-candidate dist-f13-sw-1.4-candidate dist-f14-sw-1.4-candidate
