@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -292,6 +292,16 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Feb 08 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.1-1
+- fix typo
+- 671039 - add warning about subsription manager to TUI part of rhn_register
+- 671039 - add warning about subsription manager to GUI part of rhn_register
+- l10n: Updates to German (de) translation (delouw@fedoraproject.org)
+- 671041 - substitute RHN with "RHN Satellite or RHN Classic"
+- 671032 - disable rhnplugin by default and enable it only after successful
+  registration
+- Bumping package versions for 1.4 (tlestach@redhat.com)
+
 * Mon Jan 31 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.12-1
 - cp firstboot/rhn_choose_channel.py firstboot-legacy-rhel5/
 
