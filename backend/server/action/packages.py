@@ -36,7 +36,7 @@ _query_action_verify_packages = rhnSQL.Statement("""
            pe.release as release,
            pe.epoch as epoch,
            pa.label as arch
-      from rhnActionPackage ap,
+      from rhnActionPackage ap
  left join rhnPackageArch pa
         on ap.package_arch_id = pa.id,
            rhnPackageName pn,
