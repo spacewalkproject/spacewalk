@@ -21,7 +21,7 @@ import os.path
 from importLib import GenericPackageImport, IncompletePackage, \
     Import, InvalidArchError, InvalidChannelError, \
     IncompatibleArchError
-from spacewalk.common import CFG, rhn_rpm
+from spacewalk.common import CFG, rhn_pkg
 from spacewalk.server import taskomatic
 from spacewalk.server.rhnServer import server_packages
 
@@ -483,7 +483,7 @@ class PackageImport(ChannelPackageSubscription):
            if package['path']:
                full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
                if os.path.exists(full_path):
-                   header = rhn_rpm.get_package_header(filename=full_path)
+                   header = rhn_pkg.get_package_header(filename=full_path)
                    server_packages.processPackageKeyAssociations(header,
                                    package['checksum_type'], package['checksum'])
 
