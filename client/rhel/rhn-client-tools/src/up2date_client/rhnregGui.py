@@ -1116,6 +1116,23 @@ class AlreadyRegisteredDialog:
             self.rc = 0
         self.dialog.destroy()
 
+class AlreadyRegisteredSubscriptionManagerDialog:
+    """ Window with text:
+        You are already subscribed using subscription manager. Exit. Continue
+    """
+
+    def __init__(self):
+        """Returns when dialog closes. Dialog.rc will be set to 1 if the user
+           clicked continue, or 0 if they clicked cancel or close the dialog.
+        """
+        self.xml = gtk.glade.XML(gladefile, "alreadyRegisteredSubscriptionManagerDialog",
+                                 domain="rhn-client-tools")
+        self.dialog = self.xml.get_widget("alreadyRegisteredSubscriptionManagerDialog")
+
+        self.rc = self.dialog.run()
+        if self.rc != 1:
+            self.rc = 0
+        self.dialog.destroy()
 
 class ConfirmQuitDialog:
     def __init__(self):

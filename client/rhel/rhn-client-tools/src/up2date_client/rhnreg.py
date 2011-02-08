@@ -41,6 +41,7 @@ SYSID_DIR = "/etc/sysconfig/rhn"
 REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
 
 HW_CODE_FILE = "%s/hw-activation-code" % SYSID_DIR
+RHSM_FILE = "/etc/pki/consumer/cert.pem"
 
 import config
 cfg = config.initUp2dateConfig()
@@ -82,6 +83,13 @@ def getOemInfo():
 
     return info
 
+def rhsm_registered():
+    """ Returns true if system is registred using subscription manager """
+    if os.access(RHSM_FILE, os.R_OK):
+        statinfo = os.stat(RHSM_FILE)
+        return statinfo.st_size > 0
+    else:
+        return False
 
 def registered():
     return os.access(cfg['systemIdPath'], os.R_OK)
