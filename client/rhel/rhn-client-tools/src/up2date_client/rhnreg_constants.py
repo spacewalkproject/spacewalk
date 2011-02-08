@@ -121,6 +121,14 @@ SYSTEM_ALREADY_SETUP = _("System software updates already set up")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
+RHSM_SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been registered with RHN using RHN"
+				" Certificate-Based Entitlement technology. This tool requires registration using"
+				" RHN Classic technology.\n\n"
+				"Except for a few cases, Red Hat recommends customers only register with RHN"
+				" once.\n\n"
+				"For more information, including alternate tools, consult this Knowledge Base"
+				" Article: https://access.redhat.com/kb/docs/DOC-45563")
+
 # Send Window
 SEND_WINDOW      = _("Send Profile Information to Red Hat Network")
 SEND_WINDOW_DESC = _("We are finished collecting information for the System Profile.\n\n"

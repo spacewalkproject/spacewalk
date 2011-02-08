@@ -146,6 +146,51 @@ class AlreadyRegisteredWindow:
 
         return button
 
+class AlreadyRegisteredSubscriptionManagerWindow:
+
+    def __init__(self, screen, tui):
+
+        if not rhnreg.rhsm_registered() or tui.test:
+            raise WindowSkipException()
+
+        self.name = "AlreadyRegisteredSubscriptionManagerWindow"
+        self.screen = screen
+        self.tui = tui
+        size = snack._snack.size()
+
+        systemIdXml = rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())
+        oldUsername = systemIdXml[0][0]['username']
+        oldsystemId = systemIdXml[0][0]['system_id']
+
+        toplevel = snack.GridForm(self.screen, SYSTEM_ALREADY_SETUP, 1, 2)
+        self.bb = snack.ButtonBar(self.screen,
+                                  [(YES_CONT, "next"),
+                                   (NO_CANCEL, "exit")])
+        toplevel.add(self.bb, 0, 1, growx = 1)
+
+        tb = snack.Textbox(size[0]-30, size[1]-20,
+                            WARNING + "\n\n"
+                            + RHSM_SYSTEM_ALREADY_REGISTERED + "\n\n"
+                            + SYSTEM_ALREADY_REGISTERED_CONT + "\n",
+                            1, 1)
+        toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
+
+        self.g = toplevel
+
+    def saveResults(self):
+            pass
+
+    def run(self):
+        log.log_debug("Running %s" % self.__class__.__name__)
+
+        result = self.g.runOnce()
+        button = self.bb.buttonPressed(result)
+
+        if result == "F12":
+            return "next"
+
+        return button
+
 class ConnectWindow:
 
     def __init__(self, screen, tui):
@@ -1092,6 +1137,7 @@ class Tui:
                                      "Only https and http are allowed."))
 
         self.windows = [
+            AlreadyRegisteredSubscriptionManagerWindow,
             AlreadyRegisteredWindow,
             ConnectWindow,
             StartWindow,
