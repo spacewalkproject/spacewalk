@@ -10,23 +10,20 @@ BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 
 Requires:	relaxngDataType
-Provides:	msv-msv
+Provides:	msv-msv = 1.0
 
 %description
-This package fulfills jpackage missing msv-msv dependecy
+This package fulfills jpackage missing msv-msv dependency.
 
 %prep
-#%setup -q
-
+# nothing to do here
 
 %build
-#%configure
-#make %{?_smp_mflags}
+# nothing to do here
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %clean
@@ -35,8 +32,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc
-
 
 
 %changelog
