@@ -106,7 +106,7 @@ PACKAGES_WINDOW_DESC1   = _("RPM information is important to determine what"
                           " system.")
 PACKAGES_WINDOW_DESC2   = _("Include RPM packages installed on this system"
                           " in my System Profile")
-PACKAGES_WINDOW_UNCHECK = _("You may deselect individua	l packages by"
+PACKAGES_WINDOW_UNCHECK = _("You may deselect individual packages by"
                             " unchecking them below.")
 PACKAGES_WINDOW_PKGLIST = _("Building Package List")
 
