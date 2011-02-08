@@ -1283,33 +1283,46 @@ class Backend:
             'package_id'    : [],
             'channel_id'    : [],
         }
-        # Now get the extra packages from the DB
         if strict:
+            # if strict remove the extra packages from the DB
             sql = """
                 select package_id
                   from rhnChannelPackage
                  where channel_id = :channel_id
             """
-            statement = self.dbmodule.prepare(sql)
-            for channel_id, pid_hash in channel_packages.items():
-                statement.execute(channel_id=channel_id)
-                while 1:
-                    row = statement.fetchone_dict()
-                    if not row:
-                        break
-                    package_id = row['package_id']
-                    if not pid_hash.has_key(package_id):
-                        # Have to remove it
-                        extra_cp['package_id'].append(package_id)
-                        extra_cp['channel_id'].append(channel_id)
-                        # And mark this channel as being affected
-                        if not affected_channels.has_key(channel_id):
-                            modified_packages = ([], [])
-                            affected_channels[channel_id] = modified_packages 
-                        else:
-                            modified_packages = affected_channels[channel_id]
-                        # Package was deletef from this channel
-                        modified_packages[1].append(package_id)
+        else:
+            # or at least we should delete packages from different org
+            sql = """
+                select package_id
+                  from rhnChannelPackage cp
+                  join rhnPackage p
+                    on p.id = cp.package_id
+                  join rhnChannel c
+                    on c.id = cp.channel_id
+                 where cp.channel_id = :channel_id
+                   and c.org_id != p.org_id
+            """
+
+        statement = self.dbmodule.prepare(sql)
+        for channel_id, pid_hash in channel_packages.items():
+            statement.execute(channel_id=channel_id)
+            while 1:
+                row = statement.fetchone_dict()
+                if not row:
+                    break
+                package_id = row['package_id']
+                if not pid_hash.has_key(package_id):
+                    # Have to remove it
+                    extra_cp['package_id'].append(package_id)
+                    extra_cp['channel_id'].append(channel_id)
+                    # And mark this channel as being affected
+                    if not affected_channels.has_key(channel_id):
+                        modified_packages = ([], [])
+                        affected_channels[channel_id] = modified_packages
+                    else:
+                        modified_packages = affected_channels[channel_id]
+                    # Package was deletef from this channel
+                    modified_packages[1].append(package_id)
 
         self.__doDeleteTable('rhnChannelPackage', extra_cp)
         self.__doInsertTable('rhnChannelPackage', hash)
