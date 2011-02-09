@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.3.52
+Version: 1.3.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -531,6 +531,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.53-1
+- more fixes for javax.servlet.ServletException: Cannot specify "styleId"
+- fixed javax.servlet.ServletException: Cannot specify "styleId"
+- fix outer join syntax in Channel.accessibleChildChannelIds
+
 * Thu Jan 27 2011 Tomas Lestach <tlestach@redhat.com> 1.3.52-1
 - Password with less than minlength characters accepted (jrenner@suse.de)
 
