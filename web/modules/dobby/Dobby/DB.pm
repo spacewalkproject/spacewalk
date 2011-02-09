@@ -238,7 +238,6 @@ sub database_startup {
   my $self = shift;
   my $mode = shift;
 
-  $self->assert_local;
   if ($mode) {
     $mode = uc $mode;
   }
@@ -253,7 +252,6 @@ sub database_shutdown {
   my $self = shift;
   my $mode = shift;
 
-  $self->assert_local;
   if ($mode) {
     $mode = uc $mode;
   }
@@ -267,8 +265,6 @@ sub database_shutdown {
 sub sqlplus_nolog {
   my $self = shift;
   my @commands = @_;
-
-  $self->assert_local;
 
   Dobby::Log->log("Connecting via sqlplus as sysdba...");
 
@@ -327,7 +323,6 @@ sub connect {
   $ENV{ORACLE_SID} = $self->config->get("sid");
   $ENV{ORACLE_HOME} = $self->config->get("oracle_home");
   my $dbi_str = "dbi:Oracle:";
-  $dbi_str .= $self->config->get("remote_dsn") if $self->config->get("remote_dsn");
 
   my $dbh = RHN::DB->direct_connect($dbi_str,
 				    PXT::Config->get("db_user"),
@@ -376,10 +371,6 @@ sub sysdba_connect {
 		ora_session_mode => 2);  # ora_session_mode: OCI_SYSDBA
 
   my $dbi_str = "dbi:Oracle:";
-  if ($self->config->get("remote_dsn")) {
-    $dbi_str .= $self->config->get("remote_dsn");
-    delete $params{ora_session_mode};
-  }
 
   # this is a terrible workaround for a bug in DBI.  When doing
   # ora_session_mode commits with DBI 1.37 and DBD-Oracle 1.14, there
@@ -405,13 +396,6 @@ sub sysdba_connect {
 
   $self->{sysdbh} = $dbh;
   return $dbh;
-}
-
-sub assert_local {
-  my $self = shift;
-
-  croak"attempt to perform local-only operation on remote dobby db"
-    if $self->config->get("remote_dsn");
 }
 
 1;

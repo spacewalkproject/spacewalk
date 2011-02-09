@@ -66,7 +66,6 @@ sub command_backup {
   $cli->usage("TARGET_DIR") unless $backup_dir;
 
   my $d = new Dobby::DB;
-  $d->assert_local;
 
   $cli->fatal("Error: $backup_dir is not a writable directory.") unless -d $backup_dir and -w $backup_dir;
   $cli->fatal("Database is running; please stop before running a cold backup.") if $d->instance_state ne 'OFFLINE';
@@ -113,7 +112,6 @@ sub command_restore {
   $cli->fatal("Error: restoration failed, unable to locate $restore_log") unless -r $restore_log;
 
   my $d = new Dobby::DB;
-  $d->assert_local;
   my $log = Dobby::BackupLog->parse($restore_log);
 
   if ($log->type ne 'cold') {
