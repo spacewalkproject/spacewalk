@@ -304,6 +304,38 @@ def update(package_list, cache_only=None):
 
     log.log_debug("Called update", package_list)
   
+    # Remove already installed packages from the list
+    for package in package_list:
+        pkgkeys = {
+                    'name' : package[0],
+                    'epoch' : package[3],
+                    'version' : package[1],
+                    'release' : package[2],
+                    }
+
+        if len(package) > 4:
+            pkgkeys['arch'] = package[4]
+        else:
+            package.append('')
+            pkgkeys['arch'] = None
+
+        if pkgkeys['epoch'] == '':
+            pkgkeys['epoch'] = '0'
+
+        pkgs = yum_base.rpmdb.searchNevra(name=pkgkeys['name'],
+                    epoch=pkgkeys['epoch'], arch=pkgkeys['arch'],
+                    ver=pkgkeys['version'], rel=pkgkeys['release'])
+
+        if pkgs:
+            log.log_debug('Package %s already installed and latest version'
+                % _yum_package_tup(package))
+            package_list.remove(package)
+
+    # Don't proceed further with empty list,
+    # since this would result into an empty yum transaction
+    if not package_list:
+        return (0, "Requested packages already installed", {})
+
     transaction_data = __make_transaction(package_list, 'i')
    
     return _runTransaction(transaction_data, cache_only)
