@@ -330,8 +330,8 @@ sub connect {
   $dbi_str .= $self->config->get("remote_dsn") if $self->config->get("remote_dsn");
 
   my $dbh = RHN::DB->direct_connect($dbi_str,
-				    $self->config->get("normal_username"),
-				    $self->config->get("normal_password"),
+				    PXT::Config->get("db_user"),
+				    PXT::Config->get("db_password"),
 				    \%params);
 
   $self->{dbh} = $dbh;
