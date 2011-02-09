@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Feb 09 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.3.7-1
+- 675780 - remove installed packages from transaction
+
 * Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
 - this was accidentaly commited in previous commit - reverting
   (msuchy@redhat.com)
