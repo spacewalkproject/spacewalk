@@ -34,6 +34,8 @@ Group: Applications/Internet
 Requires: cglib < 0:2.2
 # we dont want jfreechart from EPEL because it has different symlinks
 Requires: jfreechart < 1.0.13
+# workaround jpackage5 repo issue with missing msv-msv dependency
+Requires: msv-workaround
 %else
 Requires: cglib
 Requires: jfreechart >= 1.0.9
