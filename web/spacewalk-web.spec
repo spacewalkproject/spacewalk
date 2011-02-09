@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
+- 552628 - implemented db-control reset-password
+- removed remote_dsn - it's always empty
+- 552628 - use database credentials from rhn.conf
+- The RHN::Utils::parametrize is not used anywhere, removing.
+
 * Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.4.1-1
 - bumping web.version to 1.4 nightly (tlestach@redhat.com)
 - Bumping package versions for 1.4 (tlestach@redhat.com)
