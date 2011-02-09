@@ -1446,6 +1446,25 @@ public class ChannelManager extends BaseManager {
     public static Long findChildChannelWithPackage(Org org, Long parent, String
             packageName) {
 
+        List<Long> cids = findChildChannelsWithPackage(org, parent, packageName, true);
+        if (cids.isEmpty()) {
+            return null;
+        }
+        return cids.get(0);
+    }
+
+    /**
+     * Finds the id of a child channel with the given parent channel id that contains
+     * a package with the given name.  Returns all child channel unless expectOne is True
+     * @param org Organization of the current user.
+     * @param parent The id of the parent channel
+     * @param packageName The exact name of the package sought for.
+     * @param expectOne if true, throws exception, if more child channels are returned
+     * @return List of child channel ids
+     */
+    public static List<Long> findChildChannelsWithPackage(Org org, Long parent, String
+            packageName, boolean expectOne) {
+
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_with_package");
         Map params = new HashMap();
         params.put("parent", parent);
@@ -1453,24 +1472,19 @@ public class ChannelManager extends BaseManager {
         params.put("org_id", org.getId());
 
         DataResult dr = m.execute(params);
-        if (dr.size() == 0) {
-            return null;
+        List<Long> channelIds = new LinkedList<Long>();
+        for (Iterator it = dr.iterator(); it.hasNext();) {
+            channelIds.add((Long)((Map)it.next()).get("id"));
         }
-        if (dr.size() > 1) {
-            List<Long> channelIds = new LinkedList<Long>();
-            for (Iterator it = dr.iterator(); it.hasNext();) {
-                channelIds.add((Long)((Map)it.next()).get("id"));
-            }
+        if (expectOne && channelIds.size() > 1) {
             // Multiple channels have this package, highly unlikely we can guess which
             // one is the right one so we'll raise an exception and let the caller
             // decide what to do.
             throw new MultipleChannelsWithPackageException(channelIds);
         }
 
-        Map dm = (Map)dr.get(0);
-        return (Long) dm.get("id");
+        return channelIds;
     }
-
 
     /**
      * Finds the ids of all child channels that contain
