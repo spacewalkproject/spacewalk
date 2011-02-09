@@ -398,4 +398,15 @@ sub sysdba_connect {
   return $dbh;
 }
 
+sub password_reset {
+  my $self = shift;
+  my $user = PXT::Config->get("db_user");
+  my $password = PXT::Config->get("db_password");
+  my $dbh = $self->sysdba_connect;
+  if ($dbh->do(qq{ALTER USER $user IDENTIFIED BY "$password" ACCOUNT UNLOCK})) {
+    return $user;
+  }
+  return 0;
+}
+
 1;

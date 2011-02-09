@@ -44,6 +44,9 @@ sub register_dobby_commands {
   $cli->register_mode(-command => "report-stats",
 		      -description => "Show tables with stale or empty statistics",
 		      -handler => \&command_reportstats);
+  $cli->register_mode(-command => "reset-password",
+                      -description => "Reset the user password and unlock account",
+                      -handler => \&command_resetpassword);
 }
 
 sub command_startstop {
@@ -185,6 +188,25 @@ sub command_reportstats {
   my $stats = $d->report_database_stats();
   for my $i (sort keys %$stats) {
     print "Tables with $i statistics: $stats->{$i}\n";
+  }
+  return 0;
+}
+
+sub command_resetpassword {
+  my $cli = shift;
+
+  my $d = new Dobby::DB;
+  if (not $d->database_started) {
+    print "Error: The database must be running to reset the user password.\n";
+    return 1;
+  }
+
+  my $result = $d->password_reset();
+  if ($result) {
+    print "Password reset for database user $result\n";
+  } else {
+    print "Failed to reset password\n";
+    return 1;
   }
   return 0;
 }
