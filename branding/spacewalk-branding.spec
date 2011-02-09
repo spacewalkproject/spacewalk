@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.4.0
+Version:    1.4.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
+- made system legend of the same width as side navigation
+
 * Fri Dec 17 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
 - let import PXT modules on fly
 
