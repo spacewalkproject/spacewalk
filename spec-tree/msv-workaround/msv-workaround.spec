@@ -1,5 +1,5 @@
 Name:		msv-workaround
-Version:	1.0.3
+Version:	1.0.4
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -35,6 +35,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 09 2011 Tomas Lestach <tlestach@redhat.com> 1.0.4-1
+- fixed typo (tlestach@redhat.com)
+
 * Tue Feb 08 2011 Tomas Lestach <tlestach@redhat.com> 1.0.3-1
 - remove comments with %% (tlestach@redhat.com)
 - let's become a noarch package (tlestach@redhat.com)
