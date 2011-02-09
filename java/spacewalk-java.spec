@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -531,6 +531,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
+- fix outer join syntax in Channel.accessibleChildChannelIds
+
 * Mon Feb 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
 - fixed javax.servlet.ServletException: Cannot specify "styleId" when in XHTML
   mode as the HTML "id" attribute is already used to store the bean name
