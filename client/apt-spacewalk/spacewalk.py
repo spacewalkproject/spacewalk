@@ -89,8 +89,12 @@ class pkg_acquire_method:
             if msg == None:
                 return 0
             if msg['_number'] == 600:
-                # TODO: catch exceptions
-                self.fetch(msg)
+                try:
+                    self.fetch(msg)
+                except Exception, e:
+                    self.fail(e.__class__.__name__ + ": " + str(e))
+                except up2dateErrors.Error, e:
+                    self.fail(e.__class__.__name__ + ": " + str(e))
             else:
                 return 100
 
@@ -118,11 +122,11 @@ class spacewalk_method(pkg_acquire_method):
     http_headers = None
     base_channel = None
     conn = None
+    not_registered_msg = 'This system is not registered with the spacewalk server'
 
-    def fail(self, message = 'This system is not registered with the spacewalk server'):
+    def fail(self, message = not_registered_msg):
         self.uri_failure({'URI': self.uri,
                           'Message': message})
-        return False
 
 
     def __load_config(self):
@@ -135,22 +139,18 @@ class spacewalk_method(pkg_acquire_method):
     def __login(self):
         if self.login_info == None:
             self.status(URI = self.uri, Message = 'Logging into the spacewalk server')
-            self.login_info = up2dateAuth.getLoginInfo() # TODO: catch exceptions
+            self.login_info = up2dateAuth.getLoginInfo()
             if not self.login_info:
-                return self.fail()
+                raise up2date_client.AuthenticationError(self.not_registered_msg)
             self.status(URI = self.uri, Message = 'Logged in')
-        return True
 
 
     def __init_channels(self):
         if self.svr_channels == None:
-            self.svr_channels = rhnChannel.getChannelDetails() # TODO: catch exceptions
-            # TODO CHANNELS
-            # sslcacert = get_ssl_ca_cert(self.up2date_cfg) # TODO: to remove or not to remove
+            self.svr_channels = rhnChannel.getChannelDetails()
             for channel in self.svr_channels:
                 if channel['parent_channel'] == '':
                     self.base_channel = channel['label']
-                # TODO: Full RhnRepo
 
 
     def __init_headers(self):
@@ -163,10 +163,10 @@ class spacewalk_method(pkg_acquire_method):
             self.http_headers = {};
             for header in rhn_needed_headers:
                 if not self.login_info.has_key(header):
-                    return self.fail("Missing required login information %s" % (header))
+                    raise up2date_client.AuthenticationError(
+                        "Missing required login information %s" % (header))
                 self.http_headers[header] = self.login_info[header]
             self.http_headers['X-RHN-Transport-Capability'] = 'follow-redirects=3'
-        return True
 
 
     def __make_conn(self):
@@ -202,17 +202,12 @@ class spacewalk_method(pkg_acquire_method):
         self.__load_config()
         if self.uri_parsed.netloc != self.up2date_server.netloc:
             return self.fail()
-
-        if not self.__login():
-            return
-
+        self.__login()
         self.__init_channels()
 
         document = self.__transform_document(self.uri_parsed.path)
 
-        if not self.__init_headers():
-            return
-
+        self.__init_headers()
         self.__make_conn()
 
         self.conn.request("GET", "/" + document, headers = self.http_headers)
