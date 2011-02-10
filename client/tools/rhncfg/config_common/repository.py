@@ -137,7 +137,11 @@ class Repository:
         # if selinux is disabled or on RHEL4 we do not send the selinux_ctx
         # flag at all - see bug 644985 - SELinux context cleared from
         # RHEL4 rhncfg-client
-        selinux_ctx = lgetfilecon(path)[1]
+        try:
+            selinux_ctx = lgetfilecon(path)[1]
+        except OSError:
+            selinux_ctx = None
+
         if is_selinux_enabled():
             ret['selinux_ctx'] = selinux_ctx
 
