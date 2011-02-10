@@ -1206,7 +1206,7 @@
         validate="false"
         input="/WEB-INF/pages/common/login.jsp"
         type="com.redhat.rhn.frontend.action.LoginAction">
-      <forward name="failure" path="/WEB-INF/pages/common/login.jsp" />
+      <forward name="failure" path="/WEB-INF/pages/common/relogin.jsp" />
       <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
       <forward name="error" path="/WEB-INF/pages/common/errors/loginerror.jsp" />
     </action>
