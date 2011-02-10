@@ -209,7 +209,7 @@ class RepoSync:
                 header_start=package.header_start, header_end=package.header_end,
                 relative_path=rel_package_path,
                 org_id=self.channel['org_id'])
-        package.file.close()
+        package.payload_stream.close()
 
     def associate_package(self, pack):
         caller = "server.app.yumreposync"
@@ -305,3 +305,4 @@ class ContentPackage:
                 rhnPackageUpload.load_package(self.file)
         self.checksum_type = self.header.checksum_type()
         self.checksum = getFileChecksum(self.checksum_type, file=self.file)
+        self.file.close()
