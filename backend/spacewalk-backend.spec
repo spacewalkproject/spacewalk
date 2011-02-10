@@ -558,6 +558,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python_sitelib}/spacewalk/common/fileutils.py*
 %{python_sitelib}/spacewalk/common/rhn_deb.py*
 %{python_sitelib}/spacewalk/common/rhn_mpm.py*
+%{python_sitelib}/spacewalk/common/rhn_pkg.py*
 %{python_sitelib}/spacewalk/common/rhn_rpm.py*
 
 %files config-files-common
