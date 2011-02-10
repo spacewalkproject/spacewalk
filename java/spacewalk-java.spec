@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.2
+Version: 1.4.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -533,6 +533,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 10 2011 Tomas Lestach <tlestach@redhat.com> 1.4.3-1
+- let spacewalk-java require msv-workaround on RHEL6 (tlestach@redhat.com)
+
 * Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
 - fix outer join syntax in Channel.accessibleChildChannelIds
 
