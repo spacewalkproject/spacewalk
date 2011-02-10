@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore", message="the md5 module is deprecated; use has
 sys.path.append("/usr/share/rhn/")
 
 from urlparse import urlparse
-from httplib import HTTPConnection, HTTPSConnection
+from rhn.connections import HTTPConnection, HTTPSConnection
 from up2date_client import config
 from up2date_client import rhnChannel
 from up2date_client import up2dateAuth
@@ -96,7 +96,6 @@ class pkg_acquire_method:
 
 
 
-
 def get_ssl_ca_cert(up2date_cfg):
     if not (up2date_cfg.has_key('sslCACert') and up2date_cfg['sslCACert']):
        raise BadSslCaCertConfig
@@ -104,6 +103,7 @@ def get_ssl_ca_cert(up2date_cfg):
     ca_certs = up2date_cfg['sslCACert']
     if type(ca_certs) == list:
         return ca_certs
+    return [ca_certs]
 
 
 
@@ -170,9 +170,13 @@ class spacewalk_method(pkg_acquire_method):
 
 
     def __make_conn(self):
-        # TODO: HTTPS + certificate verification
         if self.conn == None:
-            self.conn = HTTPConnection(self.up2date_server.netloc)
+            if self.up2date_server.scheme == 'http' \
+                or self.up2date_cfg['useNoSSLForPackages'] == 1:
+                self.conn = HTTPConnection(self.up2date_server.netloc)
+            else:
+                self.conn = HTTPSConnection(self.up2date_server.netloc,
+                    trusted_certs=get_ssl_ca_cert(self.up2date_cfg))
 
 
     def __transform_document(self, document):
@@ -222,6 +226,7 @@ class spacewalk_method(pkg_acquire_method):
             while True:
                 data = res.read(4096)
                 if not len(data): break
+            res.close()
             return
 
         self.uri_start({'URI': self.uri,
@@ -238,6 +243,7 @@ class spacewalk_method(pkg_acquire_method):
             hash_sha256.update(data)
             hash_md5.update(data)
             f.write(data)
+        res.close()
         f.close()
 
         self.uri_done({'URI': self.uri,
