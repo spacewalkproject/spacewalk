@@ -16,6 +16,7 @@ import warnings
 warnings.filterwarnings("ignore", message="the md5 module is deprecated; use hashlib instead")
 sys.path.append("/usr/share/rhn/")
 
+from urlparse import urlparse
 from httplib import HTTPConnection, HTTPSConnection
 from up2date_client import config
 from up2date_client import rhnChannel
@@ -111,7 +112,6 @@ class spacewalk_method(pkg_acquire_method):
     Spacewalk acquire method
     """
     up2date_cfg = None
-    server_fqdn = None
     login_info = None
     current_url = None
     svr_channels = None
@@ -128,7 +128,7 @@ class spacewalk_method(pkg_acquire_method):
     def __load_config(self):
         if self.up2date_cfg == None:
             self.up2date_cfg = config.initUp2dateConfig()
-            self.server_fqdn = self.up2date_cfg['serverURL'].split("/",3)[2]
+            self.up2date_server = urlparse(self.up2date_cfg['serverURL'])
         # TODO: proxy settings
 
 
@@ -172,7 +172,7 @@ class spacewalk_method(pkg_acquire_method):
     def __make_conn(self):
         # TODO: HTTPS + certificate verification
         if self.conn == None:
-            self.conn = HTTPConnection(self.server_fqdn)
+            self.conn = HTTPConnection(self.up2date_server.netloc)
 
 
     def __transform_document(self, document):
@@ -192,11 +192,11 @@ class spacewalk_method(pkg_acquire_method):
         Other possible keys are: 'Last-Modified', 'Index-File', 'Fail-Ignore'
         """
         self.uri = msg['URI']
+        self.uri_parsed = urlparse(msg['URI'])
         self.filename = msg['Filename']
 
         self.__load_config()
-        server_fqdn, document = self.uri.split("/",3)[2:]
-        if server_fqdn != self.server_fqdn:
+        if self.uri_parsed.netloc != self.up2date_server.netloc:
             return self.fail()
 
         if not self.__login():
@@ -204,7 +204,7 @@ class spacewalk_method(pkg_acquire_method):
 
         self.__init_channels()
 
-        document = self.__transform_document(document)
+        document = self.__transform_document(self.uri_parsed.path)
 
         if not self.__init_headers():
             return
