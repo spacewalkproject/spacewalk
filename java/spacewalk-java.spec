@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.3
+Version: 1.4.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -533,6 +533,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 11 2011 Tomas Lestach <tlestach@redhat.com> 1.4.4-1
+- 645391 - fixing improper actions, when adding virtualization entitlement to
+  the activation key (tlestach@redhat.com)
+- 676581 - navigate to a different jsp, when logging in with a wrong
+  username/password (cherry picked from commit
+  0405f53a84f2acc9b1dd5d189706e689f2f45809) (tlestach@redhat.com)
+
 * Thu Feb 10 2011 Tomas Lestach <tlestach@redhat.com> 1.4.3-1
 - let spacewalk-java require msv-workaround on RHEL6 (tlestach@redhat.com)
 
