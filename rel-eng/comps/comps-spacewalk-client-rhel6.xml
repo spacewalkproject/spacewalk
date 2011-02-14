@@ -31,6 +31,7 @@
        <packagereq type="default">spacewalk-certs-tools</packagereq>
        <packagereq type="default">spacewalk-client-repo</packagereq>
        <packagereq type="default">spacewalk-backend-libs</packagereq>
+       <packagereq type="default">python-ethtool</packagereq>
        <packagereq type="default">python-hwdata</packagereq>
     </packagelist>
   </group>
