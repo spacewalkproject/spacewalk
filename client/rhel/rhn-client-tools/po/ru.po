@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2011-02-14 12:19+1100\n"
+"PO-Revision-Date: 2011-02-14 14:55+1100\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid ""
 "This client requires the server to support %s, which the current server does "
 "not support"
-msgstr "Данный клиент требует от сервера поддержки %s, которую сервер не осуществляет"
+msgstr "Клиент требует от сервера поддержки %s, которую сервер не осуществляет"
 
 #: ../src/up2date_client/config.py:139
 #, python-format
@@ -192,7 +192,6 @@ msgid "See /var/log/up2date for more information"
 msgstr "Дополнительную информацию можно найти в /var/log/up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-#, fuzzy
 msgid "Copyright Â© 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "© 2006-2010 Red Hat, Inc. Все права защищены."
 
@@ -584,7 +583,6 @@ msgid ""
 msgstr "Система будет получать обновление через следующие каналы ПО Red Hat Network:"
 
 #: ../src/up2date_client/rhnreg_constants.py:157
-#, fuzzy
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -593,11 +591,9 @@ msgid ""
 "get updates for that product. See Kbase article 11313 for more details. "
 "(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"Предупреждение: если установленный продукт не указан в списке, вы не будете "
-"получать его обновления. Если вы хотите получать обновления для этого "
-"продукта, выполните вход в веб-интерфейс вашего Satellite и подпишите "
-"систему к необходимым каналам ПО для получения обновлений. Подробности в "
-"статье 6227 Kbase (http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+"Предупреждение. Если установленный продукт не указан в списке, вы не будете "
+"получать его обновления. Чтобы начать получать его обновления, в веб-интерфейсе вашего Satellite  подпишите систему к необходимым программным каналам. Подробности в "
+"статье 11313 базы знаний (http://kbase.redhat.com/faq/docs/DOC-11313)."
 
 #: ../src/up2date_client/rhnreg_constants.py:168
 #, fuzzy
@@ -911,7 +907,7 @@ msgstr ""
 "вспомогательным выпуском, версия которого старше версии последнего выпуска.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system will be subscribed to %s \n"
 "base software channel. You will not be\n"
@@ -919,13 +915,12 @@ msgid ""
 "(you will be able to move to a newer release).\n"
 "Are you sure you would like to continue?"
 msgstr ""
-"Ваша система будет подписана на\n"
+"Система будет подписана на\n"
 "основной программный канал %s.\n"
 "Вы не сможете переназначить систему\n"
-"предыдущему выпуску\n"
-"(но можно переназначить более\n"
-"позднему выпуску).\n"
-"Вы действительно хотите продолжить?"
+"предыдущему выпуску (но можно переназначить\n"
+"более позднему выпуску).\n"
+"Продолжить?"
 
 #. Navigation
 #: ../src/up2date_client/rhnreg_constants.py:313
@@ -1336,9 +1331,8 @@ msgid "You specified an invalid protocol."
 msgstr "Указан неверный протокол."
 
 #: ../src/up2date_client/tui.py:1058
-#, fuzzy
 msgid "Only https and http are allowed."
-msgstr "Указан неверный протокол. Допускаются только https и http."
+msgstr "Допускаются только https и http."
 
 #: ../src/up2date_client/tui.py:1096
 msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
@@ -1428,7 +1422,7 @@ msgstr "Выбрать сервер"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:56
 msgid "Entitlement Platform Registration"
-msgstr ""
+msgstr "Регистрация платформы полномочий"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:61
 #: ../src/firstboot/rhn_login_gui.py:42 ../src/firstboot/rhn_login_gui.py:43
@@ -1459,15 +1453,13 @@ msgstr "Завершение настройки обновлений"
 
 #: ../src/firstboot/rhn_create_profile_gui.py:87
 #: ../src/firstboot/rhn_login_gui.py:92
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Произошла ошибка соединения с сервером: %s"
+msgstr "Произошла ошибка соединения с сервером:"
 
 #: ../src/firstboot/rhn_create_profile_gui.py:89
 #: ../src/firstboot/rhn_login_gui.py:94
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Изменить сетевую конфигурацию и повторить попытку?"
+msgstr "Вернуться и повторить попытку?"
 
 #: ../src/firstboot/rhn_register.py:29 ../src/firstboot/rhn_register.py:30
 #: ../src/firstboot/rhn_start_gui.py:43 ../src/firstboot/rhn_start_gui.py:44
@@ -1597,30 +1589,28 @@ msgstr ""
 "для использования в качестве названия. Пожалуйста, задайте название профиля."
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "Для выполнения %s необходимо перейти в режим root"
+msgstr "ОШИБКА. Необходимо перейти в режим root\n"
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
-msgstr ""
+msgstr "имя канала"
 
 #: ../src/bin/spacewalk-channel.py:58
 msgid "subscribe to channel"
-msgstr ""
+msgstr "подписаться на канал"
 
 #: ../src/bin/spacewalk-channel.py:60
 msgid "unsubscribe from channel"
-msgstr ""
+msgstr "отписаться от канала"
 
 #: ../src/bin/spacewalk-channel.py:62
 msgid "list channels"
-msgstr ""
+msgstr "список каналов"
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Все доступные обновления"
+msgstr "список доступных дочерних каналов"
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
