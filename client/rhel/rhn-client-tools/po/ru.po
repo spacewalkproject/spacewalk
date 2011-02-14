@@ -11,23 +11,21 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2010-09-20 17:17\n"
-"Last-Translator: Yulia <ypoyarko@redhat.com>\n"
+"PO-Revision-Date: 2011-02-14 12:19+1100\n"
+"Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
 "not support"
-msgstr ""
-"Данный клиент требует от сервера поддержки %s, которую сервер не осуществляет"
+msgstr "Данный клиент требует от сервера поддержки %s, которую сервер не осуществляет"
 
 #: ../src/up2date_client/config.py:139
 #, python-format
@@ -502,8 +500,7 @@ msgstr "Программные обновления системы уже нас
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:66
 msgid "It appears this system has already been set up for software updates:"
-msgstr ""
-"Возможно, эта система уже настроена на получение программных обновлений:"
+msgstr "Возможно, эта система уже настроена на получение программных обновлений:"
 
 #: ../src/up2date_client/rhnreg_constants.py:122
 #: ../data/rh_register.glade.h:41
@@ -525,9 +522,9 @@ msgid ""
 msgstr ""
 "Сбор информации для системного профиля завершён.\n"
 "\n"
-"Нажмите «Далее», чтобы отправить профиль в Red Hat Network. Нажмите "
-"«Отменить» для отмены. Программу регистрации можно также запустить в любое "
-"время, выполнив команду «rhn_register»."
+"Нажмите «Далее», чтобы отправить профиль в Red Hat Network. Нажмите «Отменить» "
+"для отмены. Программу регистрации можно также запустить в любое время, "
+"выполнив команду «rhn_register»."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -584,8 +581,7 @@ msgstr "Подписки канала ПО:"
 msgid ""
 "This system will receive updates from the following Red Hat Network software "
 "channels:"
-msgstr ""
-"Система будет получать обновление через следующие каналы ПО Red Hat Network:"
+msgstr "Система будет получать обновление через следующие каналы ПО Red Hat Network:"
 
 #: ../src/up2date_client/rhnreg_constants.py:157
 #, fuzzy
@@ -1079,8 +1075,7 @@ msgstr "Ошибка при создании профиля."
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "Sending your profile information to Red Hat Network.  Please wait."
-msgstr ""
-"Информация профиля передаётся в Red Hat Network.  Пожалуйста, подождите."
+msgstr "Информация профиля передаётся в Red Hat Network.  Пожалуйста, подождите."
 
 #: ../src/up2date_client/rhnregGui.py:722
 msgid "Registering System"
@@ -1346,16 +1341,14 @@ msgid "Only https and http are allowed."
 msgstr "Указан неверный протокол. Допускаются только https и http."
 
 #: ../src/up2date_client/tui.py:1096
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> между элементами  |  <Space> выбор    |  <F12> следующий "
 "экран"
 
 #: ../src/up2date_client/tui.py:1190
 msgid "You must run the RHN registration program as root."
-msgstr ""
-"Программу регистрации RHN необходимо запускать в режиме пользователя root."
+msgstr "Программу регистрации RHN необходимо запускать в режиме пользователя root."
 
 #: ../src/up2date_client/up2dateErrors.py:29
 msgid "RPM error.  The message was:\n"
@@ -1490,8 +1483,8 @@ msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"Необходимо зарегистрировать систему, запустив «rhn_register» до "
-"использования этой опции"
+"Необходимо зарегистрировать систему, запустив «rhn_register» до использования "
+"этой опции"
 
 #: ../src/bin/rhn-profile-sync.py:42
 msgid "Updating package profile..."
@@ -1538,10 +1531,8 @@ msgid "Specify an activation key"
 msgstr "Укажите ключ активации"
 
 #: ../src/bin/rhnreg_ks.py:58
-msgid ""
-"Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr ""
-"Подпишите систему к каналу EUS, соответствующему выпуску Red Hat системы"
+msgid "Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgstr "Подпишите систему к каналу EUS, соответствующему выпуску Red Hat системы"
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid "[Deprecated] Read contact info from stdin"
@@ -1587,8 +1578,7 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:122
 msgid "The server you are registering against does not support EUS."
-msgstr ""
-"Сервер, на котором вы пытаетесь зарегистрироваться, не поддерживает EUS."
+msgstr "Сервер, на котором вы пытаетесь зарегистрироваться, не поддерживает EUS."
 
 #: ../src/bin/rhnreg_ks.py:152
 msgid ""
@@ -1902,8 +1892,7 @@ msgstr ""
 "пароль)."
 
 #: ../data/rh_register.glade.h:34
-msgid ""
-"Activate a previously purchased subscription you have not yet activated."
+msgid "Activate a previously purchased subscription you have not yet activated."
 msgstr "Активируйте ранее приобретённую, но неактивную подписку."
 
 #: ../data/rh_register.glade.h:35
@@ -2065,8 +2054,7 @@ msgstr "Сведения о пакете"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr ""
-"Введите данные учётной записи <b>Red Hat Network</b> (http://rhn.redhat.com)"
+msgstr "Введите данные учётной записи <b>Red Hat Network</b> (http://rhn.redhat.com)"
 
 #: ../data/rh_register.glade.h:76
 msgid "Provide a Security Certificate"
@@ -2169,7 +2157,6 @@ msgstr ""
 "получения обновлений ПО:"
 
 #: ../data/rh_register.glade.h:100
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -2183,12 +2170,13 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"Без подключения к серверу Red Hat Network получение программных обновлений "
-"(в том числе обновлений безопасности Red Hat) будет <b>невозможно</b>.\n"
+"Без подключения к серверу Red Hat Network получение программных обновлений (в том числе обновлений безопасности Red Hat) будет <b>невозможно</b>.\n"
 "\n"
-"Для поддержки системы в обновлённом и защищённом состоянии рекомендуется её "
-"зарегистрировать. Для запуска программы регистрации в меню <b>Приложения > "
-"Система</b> выберите <b>Обновление пакетов</b>."
+"Для поддержки системы в обновлённом и защищённом состоянии "
+"рекомендуется её зарегистрировать.\n"
+"\n"
+"Для запуска программы регистрации в меню <b>Система > Администрирование</b> выберите <b>Регистрация в RHN</b>.\n"
+"Для запуска программы обновления в меню <b>Система > Администрирование</b> выберите <b>Обновление программ</b>."
 
 #: ../data/rh_register.glade.h:106
 msgid "Use Au_thentication with HTTP Proxy:"
@@ -2242,7 +2230,6 @@ msgstr ""
 "подключения вашей системы к Red Hat Network."
 
 #: ../data/rh_register.glade.h:117
-#, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2255,9 +2242,8 @@ msgstr ""
 "Получение программных обновлений для этой системы (в том числе обновлений "
 "безопасности) будет невозможно.\n"
 "\n"
-"Для поддержания системы в обновлённом и защищённом состоянии зарегистрируйте "
-"её в RHN. Доступ к программе регистрации возможен через запуск «Обновление "
-"программ» в меню «Приложения > Система»."
+"Для запуска программы регистрации в меню <b>Система > Администрирование</b> выберите <b>Регистрация в RHN</b>.\n"
+"Для запуска программы обновления в меню <b>Система > Администрирование</b> выберите <b>Обновление программ</b>."
 
 #: ../data/rh_register.glade.h:121
 msgid ""
@@ -2271,8 +2257,7 @@ msgstr ""
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
-msgstr ""
-"Можно выбрать имя системы для её идентификации в интерфейсе Red Hat Network."
+msgstr "Можно выбрать имя системы для её идентификации в интерфейсе Red Hat Network."
 
 #: ../data/rh_register.glade.h:123
 msgid "Your system is not setup for software updates."
@@ -2399,9 +2384,8 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgid "installation number field"
-msgstr "Неверный код установки"
+msgstr "поле кода установки"
 
 #: ../data/rh_register.glade.h:150
 msgid "label"
@@ -2460,86 +2444,3 @@ msgstr ""
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Регистрация в Spacewalk/Satellite/Red Hat Network."
 
-#~ msgid "Warning:"
-#~ msgstr "Предупреждение:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Диалог «OK»:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Диалог вопроса:"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "Автоматическая активация подписки"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "Активация подписки"
-
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Предупреждение: не удалось выполнить rhn_check"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Ошибка диска. Сообщение:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Критическая ошибка при установке пакета:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "Конфликт RPM-пакета. Сообщение:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "Конфликт файлов RPM. Сообщение:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "Ошибка RPM.  Сообщение:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Ошибка зависимостей RPM.  Сообщение:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Ошибка списка пропускаемых пакетов.  Сообщение:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Ошибка перезаписи списка пропускаемых файлов или файла конфигурации. "
-#~ "Сообщение:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "Не удалось удалить пакет «%s». Он был в составе RemoveSkipList"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG не установлен корректно."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "Доступные ключи GPG не включают открытого ключа Red Hat Inc. для подписи "
-#~ "пакетов"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Пакет %s не прошёл проверку GPG-подписи. Это означает, что пакет "
-#~ "повреждён."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Пакет %s не имеет подписи GPG.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Пакет %s подписан ненадёжной подписью GPG.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Пакет %s подписан неизвестной подписью GPG.\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Выберите сервер Red Hat Network"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Подключение к Red Hat Network"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Регистрация в Red Hat Network"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "Предоставьте сертификат для данного сервера Red Hat Network"
