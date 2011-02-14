@@ -65,6 +65,7 @@ class YumAction(yum.YumBase):
         self.doRpmDBSetup()
         self.doRepoSetup()
         self.doSackSetup()
+        self.repos.populateSack(mdtype='all')
 
     # Copied from yum/cli.py, more or less
     def doTransaction(self):
