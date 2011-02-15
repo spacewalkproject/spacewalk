@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2011-02-14 14:55+1100\n"
+"PO-Revision-Date: 2011-02-15 16:11+1100\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -596,7 +596,6 @@ msgstr ""
 "статье 11313 базы знаний (http://kbase.redhat.com/faq/docs/DOC-11313)."
 
 #: ../src/up2date_client/rhnreg_constants.py:168
-#, fuzzy
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -605,11 +604,11 @@ msgid ""
 "for that product. See Kbase article 11313 for more details. (http://kbase."
 "redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"Предупреждение: если установленный продукт не указан в списке, вы не будете "
+"Предупреждение. Если установленный продукт отсутствует в списке, вы не будете "
 "получать его обновления. Если вы хотите получать обновления для этого "
-"продукта, перейдите на http://rhn.redhat.com/ и подпишите систему к "
-"необходимым каналам ПО для получения обновлений. Подробности в статье 6227 "
-"Kbase (http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+"продукта, перейдите к http://rhn.redhat.com/ и подпишите систему к "
+"необходимым каналам ПО для получения обновлений продукта. Подробности в "
+"статье 11313 Kbase (http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:179
 msgid ""
@@ -1614,57 +1613,51 @@ msgstr "список доступных дочерних каналов"
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
-msgstr ""
+msgstr "подробный вывод"
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Укажите имя пользователя"
+msgstr "ваше имя пользователя"
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "Укажите пароль"
+msgstr "ваш пароль"
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Имя узла: "
+msgstr "Имя пользователя: "
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
-msgstr ""
+msgstr "ОШИБКА: необходимо указать как минимум один канал"
 
 #: ../src/bin/spacewalk-channel.py:112
 #, python-format
 msgid "Channel(s): %s successfully added"
-msgstr ""
+msgstr "Успешно добавлены каналы: %s"
 
 #: ../src/bin/spacewalk-channel.py:114
 #, python-format
 msgid "Error during adding channel(s) %s"
-msgstr ""
+msgstr "Ошибка при добавлении каналов: %s"
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
 msgid "Channel(s): %s successfully removed"
-msgstr ""
+msgstr "Успешно удалены каналы: %s"
 
 #: ../src/bin/spacewalk-channel.py:124
 #, python-format
 msgid "Error during removal of channel(s) %s"
-msgstr ""
+msgstr "Ошибка при удалении каналов: %s"
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr ""
-"Данная система не может быть обновлена до тех пор, пока не будет связана с "
-"каким-либо каналом."
+msgstr "Эта система не связана с каналами."
 
 #: ../src/bin/spacewalk-channel.py:139
 msgid "ERROR: you may want to specify --add, --remove or --list"
@@ -1703,13 +1696,12 @@ msgid "Progress Dialog"
 msgstr "Степень выполнения"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Степень выполнения"
+msgstr "индикатор прогресса"
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
-msgstr ""
+msgstr "статус"
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1890,9 +1882,8 @@ msgid "Advanced Network Configuration"
 msgstr "Расширенная настройка сети"
 
 #: ../data/rh_register.glade.h:36
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Расширенная настройка сети"
+msgstr "кнопка расширенной настройки сети"
 
 #: ../data/rh_register.glade.h:37
 msgid "Advanced _Network Configuration ..."
@@ -1900,7 +1891,7 @@ msgstr "Расширенная настройка _сети.."
 
 #: ../data/rh_register.glade.h:39
 msgid "Aplet screenshot"
-msgstr ""
+msgstr "снимок экрана апплета"
 
 #: ../data/rh_register.glade.h:40
 msgid ""
@@ -1927,14 +1918,12 @@ msgid "Choose Channel"
 msgstr "Выберите канал"
 
 #: ../data/rh_register.glade.h:47
-#, fuzzy
 msgid "Choose minor release"
-msgstr "_Вспомогательный выпуск:"
+msgstr "Промежуточный выпуск"
 
 #: ../data/rh_register.glade.h:48
-#, fuzzy
 msgid "Close"
-msgstr "_Закрыть"
+msgstr "Закрыть"
 
 #: ../data/rh_register.glade.h:49
 msgid "Confirm operation system release selection"
@@ -2010,9 +1999,8 @@ msgid "Installation _Number:"
 msgstr "Код _установки:"
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgid "Limited updates"
-msgstr "Только ограниченные обновления"
+msgstr "Ограниченные обновления"
 
 #: ../data/rh_register.glade.h:68
 msgid "Link To Subscription"
@@ -2032,9 +2020,8 @@ msgid "Memory:"
 msgstr "Память:"
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgid "No thanks, I'll connect later."
-msgstr "_Нет, спасибо. Я зарегистрируюсь позже."
+msgstr "Нет, спасибо. Я зарегистрируюсь позже."
 
 #: ../data/rh_register.glade.h:73
 msgid "Package Information"
@@ -2072,11 +2059,11 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgid "RHN login field"
-msgstr ""
+msgstr "Поле имени входа RHN"
 
 #: ../data/rh_register.glade.h:82
 msgid "RHN password field"
-msgstr ""
+msgstr "Поле пароля RHN"
 
 #: ../data/rh_register.glade.h:83
 msgid ""
@@ -2112,14 +2099,12 @@ msgid "Send _package profile"
 msgstr "Передать профиль п_акетов"
 
 #: ../data/rh_register.glade.h:90
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Передать профиль _оборудования"
+msgstr "Флажок передачи профиля оборудования"
 
 #: ../data/rh_register.glade.h:91
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Передать профиль п_акетов"
+msgstr "Флажок передачи профиля пакетов"
 
 #: ../data/rh_register.glade.h:92
 msgid "Software update setup has been completed for this system."
@@ -2134,9 +2119,8 @@ msgid "System _Name:"
 msgstr "Имя _системы:"
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "_Вернуться к регистрации"
+msgstr "Вернуться к регистрации"
 
 #: ../data/rh_register.glade.h:99
 msgid ""
@@ -2173,23 +2157,20 @@ msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "А_утентификация на HTTP Proxy:"
 
 #: ../data/rh_register.glade.h:107
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "А_утентификация на HTTP Proxy:"
+msgstr "Включить аутентификацию прокси HTTP:"
 
 #: ../data/rh_register.glade.h:108
 msgid "V_iew Package Profile ..."
 msgstr "П_росмотр профиля пакетов..."
 
 #: ../data/rh_register.glade.h:109
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "_Просмотр профиля оборудования..."
+msgstr "Просмотр профиля оборудования"
 
 #: ../data/rh_register.glade.h:110
-#, fuzzy
 msgid "View Package Profile"
-msgstr "П_росмотр профиля пакетов..."
+msgstr "Просмотр профиля пакетов"
 
 #: ../data/rh_register.glade.h:111
 msgid "Why Register"
@@ -2371,7 +2352,7 @@ msgstr "_Да, зарегистрироваться сейчас"
 
 #: ../data/rh_register.glade.h:148
 msgid "icon of aplet"
-msgstr ""
+msgstr "значок апплета"
 
 #: ../data/rh_register.glade.h:149
 msgid "installation number field"
@@ -2382,27 +2363,24 @@ msgid "label"
 msgstr "метка"
 
 #: ../data/rh_register.glade.h:151
-#, fuzzy
 msgid "proxy location"
-msgstr "Расположение _Proxy:"
+msgstr "расположение прокси"
 
 #: ../data/rh_register.glade.h:152
-#, fuzzy
 msgid "proxy password field"
-msgstr "_Пароль Proxy:"
+msgstr "поле пароля прокси"
 
 #: ../data/rh_register.glade.h:153
 msgid "proxy user field"
-msgstr ""
+msgstr "поле пользователя прокси"
 
 #: ../data/rh_register.glade.h:154
 msgid "satellite server location"
-msgstr ""
+msgstr "расположение сервера Satellite"
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "system name"
-msgstr "Имя _системы:"
+msgstr "имя системы"
 
 #: ../data/rh_register.glade.h:156
 msgid "•"
