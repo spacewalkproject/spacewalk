@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.48
+Version: 5.9.49
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,16 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Feb 15 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.49-1
+- 675164 - do not traceback if file do not differ (msuchy@redhat.com)
+- 676317 - handle fs objects without selinux context correctly
+  (mzazrivec@redhat.com)
+- 628920 - older Satellites do not send selinux_ctx (msuchy@redhat.com)
+- 675164 - do not traceback if file do not differ (msuchy@redhat.com)
+- Revert "Revert "get_server_capability() is defined twice in osad and rhncfg,
+  merge and move to rhnlib and make it member of rpclib.Server""
+  (msuchy@redhat.com)
+
 * Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.9.48-1
 - Revert "get_server_capability() is defined twice in osad and rhncfg, merge
   and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
