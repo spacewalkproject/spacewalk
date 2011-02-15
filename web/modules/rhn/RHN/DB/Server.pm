@@ -1230,11 +1230,6 @@ sub server_event_config_diff {
 }
 
 
-sub server_event_config_deploy {
-  my $class = shift;
-  return $class->server_event_config_revisions(@_);
-}
-
 sub server_event_details {
   my $class = shift;
   my $sid = shift;
@@ -1275,7 +1270,7 @@ EOS
     return ($label, $class->server_event_config_upload($sid, $aid, $label));
   }
   elsif ($label eq 'configfiles.deploy') {
-    return ($label, $class->server_event_config_deploy($sid, $aid, $label));
+    return ($label, $class->server_event_config_revisions($sid, $aid, $label));
   }
   elsif ($label eq 'configfiles.diff') {
     return ($label, $class->server_event_config_diff($sid, $aid, $label));
