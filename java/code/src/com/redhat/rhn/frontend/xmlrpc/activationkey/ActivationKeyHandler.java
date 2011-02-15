@@ -276,13 +276,12 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #struct("activation key")
-     *   #prop("string", "description")
-     *   #prop("string", "base_channel_label")
-     *   #prop("int", "usage_limit")
-     *   #prop("boolean", "unlimited_usage_limit", "If set to true,
-     *     usage_limit will be ignored and the key will receive
-     *     unlimited usage.")
-     *   #prop("boolean", "universal_default")
+     *   #prop_desc("string", "description", "optional")
+     *   #prop_desc("string", "base_channel_label", "optional")
+     *   #prop_desc("int", "usage_limit", "optional")
+     *   #prop_desc("boolean", "unlimited_usage_limit", "Set true
+     *   for unlimited usage and to override usage_limit")
+     *   #prop_desc("boolean", "universal_default", "optional")
      * #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
