@@ -156,7 +156,7 @@ class Handler(handler_base.HandlerBase):
         #Not verbose, so give the simple output for each file...
         else:
             outstring = "%*s %s"
-            maxlen = max(0, map(lambda x: len(x['status']), ret)) + 1
+            maxlen = max([0] + map(lambda x: len(x['status']), ret)) + 1
             for fdict in ret:
                 if self.options.only and len(fdict['status']) == 0:
                     continue
