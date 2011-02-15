@@ -2,12 +2,11 @@ HOW TO BUILD DEBIAN PACKAGES
 
 python-rhnlib in client/rhel/rhnlib
 -----------------------------------
-git checkout master
 cd client/rhel/rhnlib
 tito build --tgz
 copy rhnlib-2.5.27.tar.gz /tmp/python-rhnlib_2.5.27.orig.tar.gz
-git checkout debian
-cd ..
+cd -
+cd client/debian
 cp -a rhnlib /tmp/python-rhnlib-2.5.27
 cd /tmp/python-rhnlib-2.5.27
 debuild -i -S
@@ -22,8 +21,8 @@ python-ethtool-0.5 in spec-tree/python-ethtool-0.5
 apt-spacewalk
 
 
-apt-spacewalk is not in master, so the instructions is little differen:
-cd client/apt-spacewalk
+apt-spacewalk - instructions are little different:
+cd client/debian/apt-spacewalk
 tar zcvf /tmp/apt-spacewalk_1.0.0.orig.tar.gz spacewalk.py
 cd ..
 cp -a apt-spacewalk /tmp/apt-spacewalk-1.0.0
