@@ -93,6 +93,7 @@ public class AffectedSystemsSetupAction extends RhnListAction {
         }
 
         TagHelper.bindElaboratorTo("systemAffectedList", dr.getElaborator(), request);
+        ListTagHelper.bindSetDeclTo(LIST_NAME, RhnSetDecl.SYSTEMS_AFFECTED, request);
 
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);

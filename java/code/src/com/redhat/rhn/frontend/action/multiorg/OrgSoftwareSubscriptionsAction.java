@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -60,6 +59,7 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
     }
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
@@ -134,10 +134,9 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
         Map <String, String> subsMap = (Map <String, String>)
                                 request.getAttribute(SUBSCRIPTIONS);
 
-        List <ChannelOverview> entitlements = ChannelManager.entitlements(
-                OrgFactory.getSatelliteOrg().getId(), null);
+        List<OrgChannelFamily> entitlements = getResult(new RequestContext(request));
 
-        for (ChannelOverview co : entitlements) {
+        for (OrgChannelFamily co : entitlements) {
             ChannelFamily cfm = ChannelFamilyFactory.lookupById(co.getId().longValue());
 
             String regCountKey = OrgChannelFamily.makeKey(co.getId());
@@ -187,7 +186,7 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
     /**
      * {@inheritDoc}
      */
-    public List getResult(RequestContext contextIn) {
+    public List<OrgChannelFamily> getResult(RequestContext contextIn) {
         Org org = (Org)contextIn.getRequest().getAttribute("org");
         List<OrgChannelFamily> subs =  ChannelManager.
                 listChannelFamilySubscriptionsFor(org);

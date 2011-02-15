@@ -2,17 +2,12 @@
 # name:         satpasswd
 # description:  Change the password of a satellite user
 # author:	G.R.Keech <rkeech@redhat.com>
-# date:		2006-01-31
-#
-# NOTICE: The use of this code/script is only for the use with RHN
-# Satellite and an external database.  It is not permitted to use this
-# script within RHN Satellite and an embedded database.
+#		Jan Pazdziora
+# date:		2006-01-31, 2011-01-11
 
-SQLPLUS=/usr/bin/sqlplus
 SATWHO=/usr/bin/satwho
 MD5=/usr/bin/openssl
 MD5ARGS="passwd -1 -stdin"
-CREDENTIALS=$(spacewalk-cfg-get default_db)
 PROG=satpasswd
 myuser=""
 
@@ -26,7 +21,7 @@ EOF
 }
 #==================================================================
 
-for P in $SQLPLUS $SATWHO $MD5
+for P in $SATWHO $MD5
 do
   if [ ! -x "$P" ]
   then
@@ -136,4 +131,5 @@ md5password="$( echo "$password" | $MD5 $MD5ARGS )"
 # the password for the user.
 
 
-echo "update rhnuser set password = '"$md5password"' where login = '"$myuser"';"| $SQLPLUS -S $CREDENTIALS &> /dev/null
+echo "update web_contact set password = '"$md5password"' where login = '"$myuser"';"| spacewalk-sql -
+exit $?

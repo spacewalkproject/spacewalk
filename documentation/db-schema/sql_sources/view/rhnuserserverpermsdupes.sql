@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:47 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:37 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERSERVERPERMSDUPES" ("USER_ID", "SERVER_ID") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERSERVERPERMSDUPES" ("USER_ID", "SERVER_ID") AS 
   select	usg.user_id,
 	sgm.server_id
 from	rhnServerGroupMembers sgm,

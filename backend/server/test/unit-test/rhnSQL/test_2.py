@@ -1,12 +1,12 @@
 #!/usr/bin/python
-#Copyright (c) 2005, Red Hat Inc.
+# Copyright (c) 2005--2010 Red Hat, Inc.
 #
 #
 #
 # $Id$
 
 import unittest
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 class ExceptionsTest(unittest.TestCase):
     def test_failed_connection(self):

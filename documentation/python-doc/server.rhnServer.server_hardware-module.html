@@ -75,35 +75,42 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.GenericDevice-class.html" class="summary-name">GenericDevice</a>
+        <a href="server.rhnServer.server_hardware.GenericDevice-class.html" class="summary-name">GenericDevice</a><br />
+      A generic device class
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.Device-class.html" class="summary-name">Device</a>
+        <a href="server.rhnServer.server_hardware.Device-class.html" class="summary-name">Device</a><br />
+      This is the base Device class that supports instantiation from a
+        dictionarry.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.HardwareDevice-class.html" class="summary-name">HardwareDevice</a>
+        <a href="server.rhnServer.server_hardware.HardwareDevice-class.html" class="summary-name">HardwareDevice</a><br />
+      A more specific device based on the Device class
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.CPUDevice-class.html" class="summary-name">CPUDevice</a>
+        <a href="server.rhnServer.server_hardware.CPUDevice-class.html" class="summary-name">CPUDevice</a><br />
+      A class for handling CPU - mirrors the rhnCPU structure
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.NetworkInformation-class.html" class="summary-name">NetworkInformation</a>
+        <a href="server.rhnServer.server_hardware.NetworkInformation-class.html" class="summary-name">NetworkInformation</a><br />
+      This is a wrapper class for the Network Information
+        (rhnServerNetwork)
     </td>
   </tr>
 <tr>
@@ -117,28 +124,32 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.MemoryInformation-class.html" class="summary-name">MemoryInformation</a>
+        <a href="server.rhnServer.server_hardware.MemoryInformation-class.html" class="summary-name">MemoryInformation</a><br />
+      Memory information
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.DMIInformation-class.html" class="summary-name">DMIInformation</a>
+        <a href="server.rhnServer.server_hardware.DMIInformation-class.html" class="summary-name">DMIInformation</a><br />
+      DMI information
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.InstallInformation-class.html" class="summary-name">InstallInformation</a>
+        <a href="server.rhnServer.server_hardware.InstallInformation-class.html" class="summary-name">InstallInformation</a><br />
+      Install information
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_hardware.Hardware-class.html" class="summary-name">Hardware</a>
+        <a href="server.rhnServer.server_hardware.Hardware-class.html" class="summary-name">Hardware</a><br />
+      Support for the hardware items
     </td>
   </tr>
 </table>
@@ -165,7 +176,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="kudzu_mapping"></a><span class="summary-sig-name">kudzu_mapping</span>(<span class="summary-sig-arg">dict</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td><span class="summary-sig"><a name="kudzu_mapping"></a><span class="summary-sig-name">kudzu_mapping</span>(<span class="summary-sig-arg">dict</span>=<span class="summary-sig-default">None</span>)</span><br />
+      this is a class we use to get the mapping for a kudzu entry</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#kudzu_mapping">source&nbsp;code</a></span>
             
@@ -181,7 +193,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="cleanse_ip_addr"></a><span class="summary-sig-name">cleanse_ip_addr</span>(<span class="summary-sig-arg">ip_addr</span>)</span></td>
+          <td><span class="summary-sig"><a name="cleanse_ip_addr"></a><span class="summary-sig-name">cleanse_ip_addr</span>(<span class="summary-sig-arg">ip_addr</span>)</span><br />
+      Cleans up things like 127.00.00.01</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#cleanse_ip_addr">source&nbsp;code</a></span>
             
@@ -198,7 +211,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_hash_eq"></a><span class="summary-sig-name">_hash_eq</span>(<span class="summary-sig-arg">h1</span>,
-        <span class="summary-sig-arg">h2</span>)</span></td>
+        <span class="summary-sig-arg">h2</span>)</span><br />
+      Compares two hashes and return 1 if the first is a subset of the
+      second</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#_hash_eq">source&nbsp;code</a></span>
             
@@ -214,7 +229,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_transpose"></a><span class="summary-sig-name">_transpose</span>(<span class="summary-sig-arg">hasharr</span>)</span></td>
+          <td><span class="summary-sig"><a name="_transpose"></a><span class="summary-sig-name">_transpose</span>(<span class="summary-sig-arg">hasharr</span>)</span><br />
+      Transpose the array of hashes into a hash of arrays</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#_transpose">source&nbsp;code</a></span>
             
@@ -273,7 +289,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

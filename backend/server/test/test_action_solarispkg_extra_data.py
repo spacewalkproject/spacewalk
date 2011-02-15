@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,10 +12,9 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server import rhnSQL
-from common import rhnLog
-
-from server.action_extra_data import solarispkgs
+from spacewalk.server import rhnSQL
+from spacewalk.common import rhnLog
+from spacewalk.server.action_extra_data import solarispkgs
 
 if __name__ == '__main__':
     rhnSQL.initDB('satdev/satdev@citisat')

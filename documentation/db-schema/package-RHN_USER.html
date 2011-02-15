@@ -60,19 +60,12 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     28<span class="operator">:</span> 		user_group_id_in <span class="reserved">in</span> number
     29<span class="operator">:</span> 	<span class="operator">)</span>;
     30<span class="operator">:</span> 
-    31<span class="operator">:</span> 	<span class="reserved">procedure</span> add_users_to_usergroups<span class="operator">(</span>
-    32<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number
-    33<span class="operator">:</span> 	<span class="operator">)</span>;
-    34<span class="operator">:</span> 
-    35<span class="operator">:</span> 	<span class="reserved">procedure</span> remove_from_usergroup<span class="operator">(</span>
-    36<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
-    37<span class="operator">:</span> 		user_group_id_in <span class="reserved">in</span> number
-    38<span class="operator">:</span> 	<span class="operator">)</span>;
-    39<span class="operator">:</span> 
-    40<span class="operator">:</span> 	<span class="reserved">procedure</span> remove_users_from_servergroups<span class="operator">(</span>
-    41<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number
-    42<span class="operator">:</span> 	<span class="operator">)</span>;
-    43<span class="operator">:</span> <span class="reserved">end</span> rhn_user;
+    31<span class="operator">:</span> 	<span class="reserved">procedure</span> remove_from_usergroup<span class="operator">(</span>
+    32<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    33<span class="operator">:</span> 		user_group_id_in <span class="reserved">in</span> number
+    34<span class="operator">:</span> 	<span class="operator">)</span>;
+    35<span class="operator">:</span>
+    36<span class="operator">:</span> <span class="reserved">end</span> rhn_user;
 </pre>
 <h2>Package body source</h2>
 <a name="p-bsrc"></a><pre>
@@ -280,66 +273,37 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    200<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
    201<span class="operator">:</span> 	<span class="reserved">end</span> add_to_usergroup;
    202<span class="operator">:</span> 
-   203<span class="operator">:</span> 	<span class="reserved">procedure</span> add_users_to_usergroups<span class="operator">(</span>
-   204<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number
-   205<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
-   206<span class="operator">:</span> 		<span class="keyword">cursor</span> ugms <span class="reserved">is</span>
-   207<span class="operator">:</span> 			<span class="reserved">select</span>	<span class="keyword">element</span> user_id<span class="operator">,</span>
-   208<span class="operator">:</span> 					element_two user_group_id
-   209<span class="operator">:</span> 			<span class="reserved">from</span>	rhnSet
-   210<span class="operator">:</span> 			<span class="reserved">where</span>	user_id <span class="operator">=</span> user_id_in
-   211<span class="operator">:</span> 				<span class="reserved">and</span> label <span class="operator">=</span> <span class="string">'user_group_list'</span>;
-   212<span class="operator">:</span> 	<span class="reserved">begin</span>
-   213<span class="operator">:</span> 		<span class="reserved">for</span> ugm <span class="reserved">in</span> ugms <span class="keyword">loop</span>
-   214<span class="operator">:</span> 			rhn_user<span class="operator">.</span>add_to_usergroup<span class="operator">(</span>ugm<span class="operator">.</span>user_id<span class="operator">,</span> ugm<span class="operator">.</span>user_group_id<span class="operator">)</span>;
-   215<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
-   216<span class="operator">:</span> 	<span class="reserved">end</span> add_users_to_usergroups;
-   217<span class="operator">:</span> 
-   218<span class="operator">:</span> 	<span class="reserved">procedure</span> remove_from_usergroup<span class="operator">(</span>
-   219<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
-   220<span class="operator">:</span> 		user_group_id_in <span class="reserved">in</span> number
-   221<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
-   222<span class="operator">:</span> 		<span class="keyword">cursor</span> perm_granting_usergroups <span class="reserved">is</span>
-   223<span class="operator">:</span> 			<span class="reserved">select</span>	label
-   224<span class="operator">:</span> 			<span class="reserved">from</span>	rhnUserGroupType	ugt<span class="operator">,</span>
-   225<span class="operator">:</span> 					rhnUserGroupMembers	ugm<span class="operator">,</span>
-   226<span class="operator">:</span> 					rhnUserGroup		ug
-   227<span class="operator">:</span> 			<span class="reserved">where</span>	1<span class="operator">=</span>1
-   228<span class="operator">:</span> 				<span class="reserved">and</span> ug<span class="operator">.</span>id <span class="operator">=</span> user_group_id_in
-   229<span class="operator">:</span> 				<span class="reserved">and</span> ugm<span class="operator">.</span>user_group_id <span class="operator">=</span> user_group_id_in
-   230<span class="operator">:</span> 				<span class="reserved">and</span> ug<span class="operator">.</span>group_type <span class="operator">=</span> ugt<span class="operator">.</span>id
-   231<span class="operator">:</span> 				<span class="reserved">and</span> ugm<span class="operator">.</span>user_id <span class="operator">=</span> user_id_in;
-   232<span class="operator">:</span> 	<span class="reserved">begin</span>
-   233<span class="operator">:</span> 		<span class="comment">-- we only do anything if you're really in the group, because</span>
-   234<span class="operator">:</span> 		<span class="comment">-- testing is significantly cheaper than rebuilding the user's</span>
-   235<span class="operator">:</span> 		<span class="comment">-- cache for no reason.</span>
-   236<span class="operator">:</span> 		<span class="reserved">for</span> ug <span class="reserved">in</span> perm_granting_usergroups <span class="keyword">loop</span>
-   237<span class="operator">:</span> 			<span class="reserved">delete</span> <span class="reserved">from</span> rhnUserGroupMembers
-   238<span class="operator">:</span> 				<span class="reserved">where</span>	user_id <span class="operator">=</span> user_id_in
-   239<span class="operator">:</span> 					<span class="reserved">and</span> user_group_id <span class="operator">=</span> user_group_id_in;
-   240<span class="operator">:</span> 			<span class="reserved">if</span> ug<span class="operator">.</span>label <span class="reserved">in</span> <span class="operator">(</span><span class="string">'org_admin'</span><span class="operator">)</span> <span class="reserved">then</span>
-   241<span class="operator">:</span> 				rhn_cache<span class="operator">.</span>update_perms_for_user<span class="operator">(</span>user_id_in<span class="operator">)</span>;
-   242<span class="operator">:</span> 			<span class="reserved">end</span> <span class="reserved">if</span>;
-   243<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
-   244<span class="operator">:</span> 	<span class="reserved">end</span> remove_from_usergroup;
-   245<span class="operator">:</span> 
-   246<span class="operator">:</span> 	<span class="reserved">procedure</span> remove_users_from_servergroups<span class="operator">(</span>
-   247<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number
-   248<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
-   249<span class="operator">:</span> 		<span class="keyword">cursor</span> ugms <span class="reserved">is</span>
-   250<span class="operator">:</span> 			<span class="reserved">select</span>	<span class="keyword">element</span> user_id<span class="operator">,</span>
-   251<span class="operator">:</span> 					element_two user_group_id
-   252<span class="operator">:</span> 			<span class="reserved">from</span>	rhnSet
-   253<span class="operator">:</span> 			<span class="reserved">where</span>	user_id <span class="operator">=</span> user_id_in
-   254<span class="operator">:</span> 				<span class="reserved">and</span> label <span class="operator">=</span> <span class="string">'user_group_list'</span>;
-   255<span class="operator">:</span> 	<span class="reserved">begin</span>
-   256<span class="operator">:</span> 		<span class="reserved">for</span> ugm <span class="reserved">in</span> ugms <span class="keyword">loop</span>
-   257<span class="operator">:</span> 			rhn_user<span class="operator">.</span>remove_from_usergroup<span class="operator">(</span>ugm<span class="operator">.</span>user_id<span class="operator">,</span> ugm<span class="operator">.</span>user_group_id<span class="operator">)</span>;
-   258<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
-   259<span class="operator">:</span> 	<span class="reserved">end</span> remove_users_from_servergroups;
-   260<span class="operator">:</span> <span class="reserved">end</span> rhn_user;
+   203<span class="operator">:</span> 	<span class="reserved">procedure</span> remove_from_usergroup<span class="operator">(</span>
+   204<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   205<span class="operator">:</span> 		user_group_id_in <span class="reserved">in</span> number
+   206<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
+   207<span class="operator">:</span> 		<span class="keyword">cursor</span> perm_granting_usergroups <span class="reserved">is</span>
+   208<span class="operator">:</span> 			<span class="reserved">select</span>	label
+   209<span class="operator">:</span> 			<span class="reserved">from</span>	rhnUserGroupType	ugt<span class="operator">,</span>
+   210<span class="operator">:</span> 					rhnUserGroupMembers	ugm<span class="operator">,</span>
+   211<span class="operator">:</span> 					rhnUserGroup		ug
+   212<span class="operator">:</span> 			<span class="reserved">where</span>	1<span class="operator">=</span>1
+   213<span class="operator">:</span> 				<span class="reserved">and</span> ug<span class="operator">.</span>id <span class="operator">=</span> user_group_id_in
+   214<span class="operator">:</span> 				<span class="reserved">and</span> ugm<span class="operator">.</span>user_group_id <span class="operator">=</span> user_group_id_in
+   215<span class="operator">:</span> 				<span class="reserved">and</span> ug<span class="operator">.</span>group_type <span class="operator">=</span> ugt<span class="operator">.</span>id
+   216<span class="operator">:</span> 				<span class="reserved">and</span> ugm<span class="operator">.</span>user_id <span class="operator">=</span> user_id_in;
+   217<span class="operator">:</span> 	<span class="reserved">begin</span>
+   218<span class="operator">:</span> 		<span class="comment">-- we only do anything if you're really in the group, because</span>
+   219<span class="operator">:</span> 		<span class="comment">-- testing is significantly cheaper than rebuilding the user's</span>
+   220<span class="operator">:</span> 		<span class="comment">-- cache for no reason.</span>
+   221<span class="operator">:</span> 		<span class="reserved">for</span> ug <span class="reserved">in</span> perm_granting_usergroups <span class="keyword">loop</span>
+   222<span class="operator">:</span> 			<span class="reserved">delete</span> <span class="reserved">from</span> rhnUserGroupMembers
+   223<span class="operator">:</span> 				<span class="reserved">where</span>	user_id <span class="operator">=</span> user_id_in
+   224<span class="operator">:</span> 					<span class="reserved">and</span> user_group_id <span class="operator">=</span> user_group_id_in;
+   225<span class="operator">:</span> 			<span class="reserved">if</span> ug<span class="operator">.</span>label <span class="reserved">in</span> <span class="operator">(</span><span class="string">'org_admin'</span><span class="operator">)</span> <span class="reserved">then</span>
+   226<span class="operator">:</span> 				rhn_cache<span class="operator">.</span>update_perms_for_user<span class="operator">(</span>user_id_in<span class="operator">)</span>;
+   227<span class="operator">:</span> 			<span class="reserved">end</span> <span class="reserved">if</span>;
+   228<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   229<span class="operator">:</span> 	<span class="reserved">end</span> remove_from_usergroup;
+   230<span class="operator">:</span>
+   231<span class="operator">:</span> <span class="reserved">end</span> rhn_user;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:16 2010</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:01:00 2011</div>
 </body></html>

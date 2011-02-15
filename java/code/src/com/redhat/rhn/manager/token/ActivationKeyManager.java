@@ -40,7 +40,6 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.Scrubber;
 import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -51,10 +50,12 @@ import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 import org.hibernate.Session;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -490,37 +491,99 @@ public class ActivationKeyManager {
          * so we have to subscribe all the child channels
          * with the package name
          */
-        List <Long> cids;
+        List <Channel> channels = new ArrayList<Channel>();
         if (key.getBaseChannel() == null) {
-            cids = ChannelManager.findChildChannelsWithPackage(packageName, key.getOrg());
+            List <Long> cids = ChannelManager.findChildChannelsWithPackage(packageName,
+                    key.getOrg());
+            for (Long cid : cids) {
+                channels.add(ChannelFactory.lookupById(cid));
+            }
         }
         else {
-            //we know its the channel we want if it has the rhncfg package in it.
             Long bcid = key.getBaseChannel().getId();
             log.debug("found basechannel: " + bcid);
-            Long cid;
-            try {
-              cid = ChannelManager.findChildChannelWithPackage(key.getOrg(), bcid,
-                    packageName);
+            // check, whether the package is available in the base channel already
+            // f.e. libvirt available in RHEL5VT (child channel),
+            // but in RHEL6Server (base channel)
+            if (ChannelManager.getLatestPackageEqual(bcid, packageName) == null) {
+                List <Long> cids = ChannelManager.findChildChannelsWithPackage(key.getOrg(),
+                        bcid, packageName, false);
+                Collections.sort(cids);
+                log.warn("sorted cids: " + cids.toString());
+                if (cids.isEmpty()) {
+                    // nothing to do
+                    log.warn("No child channel of " + bcid + " contains " + packageName);
+                }
+                else if (cids.size() > 1) {
+                    // if there're more channels, just do some harakiri to pick one
+                    List<Channel> chs = new ArrayList<Channel>();
+                    for (Long cid : cids) {
+                        chs.add(ChannelFactory.lookupById(cid));
+                    }
+                    Class[] args = {List.class};
+                    List<Method> removeMethods = new ArrayList<Method>();
+                    try {
+                        removeMethods.add(this.getClass().getDeclaredMethod("removeCloned",
+                                args));
+                        removeMethods.add(this.getClass().getDeclaredMethod("removeCustom",
+                                args));
+                        for (Method m : removeMethods) {
+                            Channel last = (Channel) m.invoke(this, chs);
+                            if (chs.isEmpty()) {
+                                channels.add(last);
+                                break;
+                            }
+                            else if (chs.size() == 1) {
+                                channels.addAll(chs);
+                                break;
+                            }
+                        }
+                    }
+                    // catch NoSuchMethodException, IllegalAccessException,
+                    // InvocationTargetException
+                    catch (Exception e) {
+                        // nothing bad happened, we'll just pick the first one
+                    }
+                    if (chs.size() > 1) {
+                        // just pick the first one
+                        channels.add(chs.get(0));
+                    }
+                }
+                else {
+                    channels.add(ChannelFactory.lookupById(cids.get(0)));
+                }
             }
-            catch (MultipleChannelsWithPackageException mcwpe) {
-                log.debug("can not subscribe due to multiple channels have package " +
-                        packageName);
-                return false;
-            }
-            if (cid == null) { // Didnt find it ..
-                log.debug("didnt find a child channel with the package.");
-                return false;
-            }
-            cids = new LinkedList<Long>();
-            cids.add(cid);
+        }
+        for (Channel c : channels) {
+            key.addChannel(c);
+        }
+        return !channels.isEmpty();
+    }
 
+    // called dynamically by subscribeToChildChannelWithPackageName
+    private Channel removeCloned(List<Channel> channels) {
+        Channel lastRemoved = null;
+        for (Iterator<Channel> i = channels.iterator(); i.hasNext();) {
+            Channel c = i.next();
+            if (c.isCloned()) {
+                lastRemoved = c;
+                i.remove();
+            }
         }
-        for (Long cid : cids) {
-            Channel channel = ChannelFactory.lookupById(cid);
-            key.addChannel(channel);
+        return lastRemoved;
+    }
+
+    // called dynamically by subscribeToChildChannelWithPackageName
+    private Channel removeCustom(List<Channel> channels) {
+        Channel lastRemoved = null;
+        for (Iterator<Channel> i = channels.iterator(); i.hasNext();) {
+            Channel c = i.next();
+            if (c.isCustom()) {
+                lastRemoved = c;
+                i.remove();
+            }
         }
-        return !cids.isEmpty();
+        return lastRemoved;
     }
 
     private void addConfigMgmtPackages(ActivationKey key) {
@@ -553,7 +616,7 @@ public class ActivationKeyManager {
      */
     public void setupVirtEntitlement(ActivationKey key) {
         if (subscribeToChildChannelWithPackageName(key,
-                ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME)) {
+                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME)) {
             key.addPackage(PackageManager.lookupPackageName(ChannelManager.
                     RHN_VIRT_HOST_PACKAGE_NAME), null);
         }

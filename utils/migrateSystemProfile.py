@@ -182,10 +182,10 @@ def lookup_server(key, from_org_id):
     # TODO: replace with an api call
     rows = client.org.listServerByOrg(key, from_org_id)
     if not rows:
-        sys.stderr.write("No Systems registered for Org-ID %s \n" % org_id)
+        sys.stderr.write("No Systems registered for Org-ID %s \n" % from_org_id)
         sys.exit(1)
     print "                                    "
-    print "Available Systems for Org-ID: %s " % org_id
+    print "Available Systems for Org-ID: %s " % from_org_id
     print "------------------------------------"
     print " Server-ID      Server-Name         "
     print "------------------------------------"

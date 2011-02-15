@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:02 2010
+-- created by Oraschemadoc Thu Jan 20 13:58:31 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_USER_GROUP_ORG_MAPPING"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_USER_GROUP_ORG_MAPPING" 
 BEFORE INSERT OR UPDATE ON rhnUserGroupMembers
 FOR EACH ROW
 DECLARE

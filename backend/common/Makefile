@@ -7,11 +7,10 @@ TOP     = ..
 
 # Specific stuff
 SUBDIR  = common
-FILES	=   __init__ \
+SPACEWALK_FILES	=   __init__ \
 	    apache \
             byterange \
             rhn_posix \
-            rhn_timer \
             rhnApache \
             rhnCache \
             rhnConfig \

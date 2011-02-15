@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,14 +17,14 @@
 --
 
 insert into rhnVirtSubLevel(id, label, name, created, modified)
-values(rhn_virt_sl_seq.nextval, 'virtualization_free',
+values(sequence_nextval('rhn_virt_sl_seq'), 'virtualization_free',
        'Virtualization free content group',
-       sysdate, sysdate);
+       current_timestamp, current_timestamp);
 
 insert into rhnVirtSubLevel(id, label, name, created, modified)
-values(rhn_virt_sl_seq.nextval, 'virtualization_platform_free',
+values(sequence_nextval('rhn_virt_sl_seq'), 'virtualization_platform_free',
        'Virtualization Platform free content group',
-       sysdate, sysdate);
+       current_timestamp, current_timestamp);
 
 
 commit;

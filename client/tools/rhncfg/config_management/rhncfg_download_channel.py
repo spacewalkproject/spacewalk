@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,8 @@
 
 import os
 
-from config_common import handler_base, utils, cfg_exceptions
+from config_common import handler_base, utils
+from config_common.deploy import deploy_files
 from config_common.rhn_log import log_debug, die
 
 class Handler(handler_base.HandlerBase):
@@ -47,11 +48,5 @@ class Handler(handler_base.HandlerBase):
             if not r.config_channel_exists(ns):
                 die(6, "Error: config channel %s does not exist" % ns)
 
-            for file_path in r.list_files(ns):
-                #5/11/05 wregglej - 157066 dirs_created now gets returned by get_file_info.
-                (temp_file, info, dirs_created) = r.get_file_info(ns, file_path)
-                dest_file = utils.join_path(topdir, ns, file_path)
-                print "Deploying %s -> %s" % (file_path, dest_file)
-                utils.copyfile_p(temp_file, dest_file)
-                if info['filetype'] != 'symlink':
-                    utils.set_file_info(dest_file, info)
+            deploy_files(utils.join_path(topdir, ns), r, r.list_files(ns),
+                         config_channel=ns)

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,8 +38,8 @@ CREATE UNIQUE INDEX rhn_sc_sid_cid_uq
     ON rhnServerChannel (server_id, channel_id)
     TABLESPACE [[8m_tbs]];
 
-CREATE INDEX rhn_sc_cid_sid_idx
-    ON rhnServerChannel (channel_id, server_id)
+CREATE INDEX rhn_sc_cid_idx
+    ON rhnServerChannel (channel_id)
     TABLESPACE [[8m_tbs]]
     NOLOGGING;
 

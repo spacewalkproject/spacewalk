@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,10 +18,10 @@
 
 from base_templated_document import TemplatedDocument
 
-from common import log_debug
+from spacewalk.common import log_debug
 
-from server.rhnServer.server_hardware import NetworkInformation
-from server.rhnServer.server_hardware import NetIfaceInformation
+from spacewalk.server.rhnServer.server_hardware import NetworkInformation
+from spacewalk.server.rhnServer.server_hardware import NetIfaceInformation
 
 RHN_PREFIX = 'rhn.system.'
 
@@ -75,17 +75,16 @@ class ServerTemplatedDocument(TemplatedDocument):
         return self.server.server['description']
 
     def hostname(self):
-        network_infos = self.server.hardware_by_class(NetworkInformation)
-        if network_infos:
-            return network_infos[0].data['hostname']
-        else:
-            return None
+        return self._get_network_info_attr('hostname')
 
     def ipaddr(self):
+        return self._get_network_info_attr('ipaddr')
+
+    def _get_network_info_attr(self, attr):
         network_infos = self.server.hardware_by_class(NetworkInformation)
 
         if network_infos:
-            return network_infos[0].data['ipaddr']
+            return network_infos[0].data[attr]
         else:
             return None
 
@@ -115,43 +114,24 @@ class ServerTemplatedDocument(TemplatedDocument):
 
 
     def net_intf_ipaddr(self, interface_name):
-        iface = self._interface_info(interface_name)
-
-        if not iface:
-            return None
-        return iface['ip_addr']
-
+        return self._get_interface_info_attr(interface_name, 'ip_addr')
 
     def net_intf_netmask(self, interface_name):
-        iface = self._interface_info(interface_name)
-
-        if not iface:
-            return None
-
-        return iface['netmask']
-
+        return self._get_interface_info_attr(interface_name, 'netmask')
 
     def net_intf_broadcast(self, interface_name):
-        iface = self._interface_info(interface_name)
-
-        if not iface:
-            return None
-
-        return iface['broadcast']
+        return self._get_interface_info_attr(interface_name, 'broadcast')
 
     def net_intf_hwaddr(self, interface_name):
-        iface = self._interface_info(interface_name)
-
-        if not iface:
-            return None
-
-        return iface['hw_addr']
-
+        return self._get_interface_info_attr(interface_name, 'hw_addr')
 
     def net_intf_module(self, interface_name):
+        return self._get_interface_info_attr(interface_name, 'module')
+
+    def _get_interface_info_attr(self, interface_name, attr):
         iface = self._interface_info(interface_name)
 
         if not iface:
             return None
 
-        return iface['module']
+        return iface[attr]

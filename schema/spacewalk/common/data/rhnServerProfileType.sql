@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,11 +17,11 @@
 --
 
 insert into rhnServerProfileType(id, label, name) values (
-	rhn_sproftype_id_seq.nextval, 'normal',
+	sequence_nextval('rhn_sproftype_id_seq'), 'normal',
 	'A normal server profile');
 
 insert into rhnServerProfileType(id, label, name) values (
-	rhn_sproftype_id_seq.nextval, 'sync_profile',
+	sequence_nextval('rhn_sproftype_id_seq'), 'sync_profile',
 	'A server profile associated with a package sync');
 
 commit;

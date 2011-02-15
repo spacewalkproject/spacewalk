@@ -34,11 +34,6 @@ import java.util.Map;
 public class SandboxCleanup extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "sandbox_cleanup";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext arg0In)

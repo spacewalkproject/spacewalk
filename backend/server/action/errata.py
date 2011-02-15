@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,9 +14,9 @@
 #
 #
 
-from common import log_debug
-from server import rhnSQL
-from server.rhnLib import InvalidAction
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnLib import InvalidAction
 
 # the "exposed" functions
 __rhnexport__ = ['update']

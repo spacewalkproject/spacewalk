@@ -79,6 +79,8 @@ public class Server extends GenericRecord {
 
     private String runningKernel;
 
+    private String uuid;
+
     /**
      * @return the name
      */
@@ -693,6 +695,25 @@ public class Server extends GenericRecord {
         }
         else {
             this.runningKernel = null;
+        }
+    }
+
+    /**
+     * @return the UUID
+     */
+    public String getUuid() {
+        return uuid;
+    }
+
+    /**
+     * @param uuidIn the uuid to set
+     */
+    public void setUuid(String uuidIn) {
+        if (uuidIn != null) {
+            this.uuid = uuidIn;
+        }
+        else {
+            this.uuid = null;
         }
     }
 }

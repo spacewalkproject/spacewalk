@@ -17,10 +17,10 @@
 
 import time
 
-from common import log_debug
-from server import rhnSQL, rhnServer
-from server.configFilesHandler import format_file_results
-from server.config_common.templated_document import var_interp_prep
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL, rhnServer
+from spacewalk.server.configFilesHandler import format_file_results
+from spacewalk.server.config_common.templated_document import var_interp_prep
 
 # the "exposed" functions
 __rhnexport__ = ['upload', 'deploy', 'verify', 'diff', 'mtime_upload']

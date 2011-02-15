@@ -346,18 +346,6 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
                 getServerNeededUpdatePackageByName(s.getId(), "some-test-package"));
     }
 
-    public void testPackagesAvailableToErrata() throws Exception {
-        Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
-        PageControl pc = new PageControl();
-
-        DataResult dr = PackageManager.packagesAvailableToErrata(errata, user, pc);
-        assertNotNull(dr);
-
-        Channel c = ChannelFactoryTest.createTestChannel();
-        dr = PackageManager.packagesAvailableToErrataInChannel(errata, c.getId(), user, pc);
-        assertNotNull(dr);
-    }
-
     public void testPackageIdsInSet() throws Exception {
 
         DataResult dr = PackageManager.packageIdsInSet(user, "packages_to_add",

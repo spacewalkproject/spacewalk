@@ -15,19 +15,18 @@
 #
 
 import string
-from common import apache
+from spacewalk.common import apache
 
 import rhnSession
 
-from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
+from spacewalk.common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnFlags
-from server import apacheServer, rhnImport
+from spacewalk.server import rhnImport
 
 class UploadHandler:
     def __init__(self):
         self.servers = {}
         self.server = None
-        self.root_dir = None
 
     def headerParserHandler(self, req):
         log_setreq(req)
@@ -40,15 +39,11 @@ class UploadHandler:
             return apache.OK
         initCFG(options["RHNComponentType"])
         initLOG(CFG.LOG_FILE, CFG.DEBUG)
-        if not options.has_key('RootDir'):
-            log_error("RootDir not set in the apache config files!")
-            return apache.HTTP_INTERNAL_SERVER_ERROR
         if req.method == 'GET':
             # This is the ping method
             return apache.OK
-        root_dir = options['RootDir']
         self.servers = rhnImport.load("upload_server/handlers",
-            root_dir=root_dir, interface_signature='upload_class')
+            interface_signature='upload_class')
         if not options.has_key('SERVER'):
             log_error("SERVER not set in the apache config files!")
             return apache.HTTP_INTERNAL_SERVER_ERROR

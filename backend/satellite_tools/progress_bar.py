@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -100,16 +100,6 @@ class ProgressBar:
     def addTo(self, additionalSize):
         "Update the object's status to an additional bar size."
         self.update(self.size + additionalSize)
-
-    def addToAndPrint(self, additionalSize):
-        "shorthand for addTo() and printIncrement()"
-        self.addTo(additionalSize)
-        self.printIncrement()
-
-    def updateAndPrint(self, newSize):
-        "shorthand for update() and printIncrement()"
-        self.update(newSize)
-        self.printIncrement()
 
     def complete(self):
         self.update(self.finalSize)

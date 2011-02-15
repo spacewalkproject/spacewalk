@@ -1,6 +1,6 @@
 #!/usr/bin/python -u
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -544,7 +544,7 @@ def writeClientConfigOverrides(options):
     if _isRpmYN:
         hdr = rhn_rpm.get_package_header(options.ssl_cert)
         # Grab the first file out of the rpm
-        d[up2dateConfMap['ssl_cert']] = hdr[rhn_rpm.RPMTAG_FILENAMES][0] # UGLY!
+        d[up2dateConfMap['ssl_cert']] = hdr[rhn_rpm.rpm.RPMTAG_FILENAMES][0] # UGLY!
     else:
         d[up2dateConfMap['ssl_cert']] = os.path.join(_certdir, _certname)
     d[up2dateConfMap['no_gpg']] = int(operator.truth(not options.no_gpg))

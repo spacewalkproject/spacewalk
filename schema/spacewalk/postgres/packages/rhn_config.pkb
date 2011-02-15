@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 c9b519752b694fa39fd8685a8b86ae05b2131f64
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,8 +38,6 @@ $$ LANGUAGE 'plpgsql';
 		config_file_id_in in numeric,
 		config_content_id_in in numeric,
 		config_info_id_in in numeric,
-		delim_start_in in varchar default '{@',
-		delim_end_in in varchar default '@}',
 		config_file_type_id_in in numeric default 1
 	) returns numeric as $$
                declare
@@ -51,12 +50,10 @@ $$ LANGUAGE 'plpgsql';
 	begin
       
 		insert into rhnConfigRevision(id, revision, config_file_id,
-				config_content_id, config_info_id, delim_start, delim_end, 
-            config_file_type_id
+				config_content_id, config_info_id, config_file_type_id
 			) values (
 				nextval('rhn_confrevision_id_seq'), revision_in, config_file_id_in,
-				config_content_id_in, config_info_id_in, delim_start_in,
-				delim_end_in, config_file_type_id_in
+				config_content_id_in, config_info_id_in, config_file_type_id_in
 			)
 			returning id into retval;
 
@@ -218,7 +215,7 @@ revision record;
 				and cr.config_file_id = cf.id
 		
                 loop
-			perform rh_config.delete_revision(revision.id, revision.org_id);
+			perform rhn_config.delete_revision(revision.id, revision.org_id);
 			org_id := revision.org_id;
 		end loop;
 		perform rhn_quota.update_org_quota(org_id);

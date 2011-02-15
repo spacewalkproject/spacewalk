@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,6 +42,6 @@ ENABLE ROW MOVEMENT
 CREATE UNIQUE INDEX rhn_scdv_sid_kid_uq
     ON rhnServerCustomDataValue (server_id, key_id);
 
-CREATE INDEX rhn_scdv_kid_sid_idx
-    ON rhnServerCustomDataValue (key_id, server_id);
+CREATE INDEX rhn_scdv_kid_idx
+    ON rhnServerCustomDataValue (key_id);
 

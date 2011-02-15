@@ -587,7 +587,7 @@ public class KickstartBuilder {
             cmd.createCommand("zerombr", "yes", ksdata);
         }
         else {
-            cmd.createCommand("zerombr", "", ksdata);
+            cmd.createCommand("zerombr", null, ksdata);
         }
         cmd.createCommand("reboot", null, ksdata);
         cmd.createCommand("skipx", null, ksdata);

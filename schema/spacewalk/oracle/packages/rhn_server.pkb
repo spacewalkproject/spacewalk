@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -733,56 +733,14 @@ is
 
         procedure update_needed_cache(server_id_in in number)
         is
-            type package_id_hash_t is table of number index by pls_integer;
-            old_packages package_id_hash_t;
-            old_package_id number;
-            new_packages package_id_hash_t;
-            new_package_id number;
         begin
-            -- old packages to be deleted
-            for i in (
-                select errata_id, package_id
-                  from rhnServerNeededCache
-                 where server_id = server_id_in
-            ) loop
-                old_packages(i.package_id) := i.errata_id;
-            end loop;
-
-            -- new packages to be added
-            for i in (
-                select errata_id, package_id
-                  from rhnServerNeededView
-                 where server_id = server_id_in
-            ) loop
-                if old_packages.exists(i.package_id)
-                   and (old_packages(i.package_id) = i.errata_id
-                        or old_packages(i.package_id) is null and i.errata_id is null)
-                then
-                    -- package is both old and new, so simply do nothing
-                    old_packages.delete(i.package_id);
-                else
-                    new_packages(i.package_id) := i.errata_id;
-                end if;
-            end loop;
-
-            -- delete old packages
-            old_package_id := old_packages.first;
-            while old_package_id is not null loop
-                delete from rhnServerNeededCache
-                 where server_id = server_id_in
-                   and package_id = old_package_id
-                   and (errata_id = old_packages(old_package_id)
-                        or errata_id is null and old_packages(old_package_id) is null);
-                old_package_id := old_packages.next(old_package_id);
-            end loop;
-
-            -- insert new packages
-            new_package_id := new_packages.first;
-            while new_package_id is not null loop
-                insert into rhnServerNeededCache (server_id, errata_id, package_id)
-                     values (server_id_in, new_packages(new_package_id), new_package_id);
-                new_package_id := new_packages.next(new_package_id);
-            end loop;
+            delete from rhnServerNeededCache
+             where server_id = server_id_in;
+            insert into rhnServerNeededCache
+                   (server_id, errata_id, package_id)
+                   (select distinct server_id, errata_id, package_id
+                      from rhnServerNeededView
+                     where server_id = server_id_in);
         end update_needed_cache;
 
 end rhn_server;

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,19 +17,20 @@
 
 import string
 
-from common import UserDictCase, rhnException
+from spacewalk.common import UserDictCase, rhnException
 
 import sql_base
 import sql_lib
 
-# This class allows one to work with the columns of a particular row in a more
-# convenient manner (ie, using a disctionary interface). It allows for the row
-# data to be loaded and saved and is generally easier to use than the Table
-# class which is really designed for bulk updates and stuff like that.
-#
-# The easiest way to separate what these things are for is to remember that
-# the Table class indexes by KEY, while the Row class indexes by column
 class Row(UserDictCase):
+    """ This class allows one to work with the columns of a particular row in a more
+        convenient manner (ie, using a disctionary interface). It allows for the row
+        data to be loaded and saved and is generally easier to use than the Table
+        class which is really designed for bulk updates and stuff like that.
+
+        The easiest way to separate what these things are for is to remember that
+        the Table class indexes by KEY, while the Row class indexes by column
+    """
     def __init__(self, db, table, hashname, hashval = None):
         UserDictCase.__init__(self)
         if not isinstance(db, sql_base.Database):
@@ -37,13 +38,6 @@ class Row(UserDictCase):
         self.db = db              
         self.table = table
         self.hashname = string.lower(hashname)
-        # see if the table exists
-	sql = "select %s from %s where rownum = 0" % (self.hashname, self.table)
-	try:
-	    h = self.db.prepare(sql)
-	except:
-	    raise ValueError, "Invalid table or column"
-	del h
 
         # and the data dictionary
         self.data = {}
@@ -58,8 +52,8 @@ class Row(UserDictCase):
             self.table, self.hashname, self.get(self.hashname))
     __str__ = __repr__
     
-    # make it work like a dictionary
     def __setitem__(self, name, value):
+        """ make it work like a dictionary """
         x = string.lower(name)
         # forbid setting the value of the hash column because of the
         # ambiguity of the operation (is it a "save as new id" or
@@ -80,34 +74,24 @@ class Row(UserDictCase):
             return self.data[x][0]
         return None
 
-    # reset the changed status for these entries
     def reset(self, val = 0):
+        """ reset the changed status for these entries """
         for k in self.data.keys():
             # tuples do not support item assignement
             self.data[k] = (self.data[k][0], val)
     
-    # create it as a new entry
     def create(self, hashval):
+        """ create it as a new entry """
         self.data[self.hashname] = (hashval, 0)
         self.real = 0
         self.save()
 
-    # load an entry
     def load(self, hashval):
-        h = self.db.prepare("select * from %s where %s = :hashval" % (self.table, self.hashname))
-        h.execute(hashval = hashval)
-        ret = h.fetchone_dict()
-        self.data = {}
-        if not ret:
-            self.real = 0
-            return 0
-        for k in ret.keys():
-            self.data[k] = (ret[k], 0)
-        self.real = 1
-        return 1
+        """ load an entry """
+        return self.load_sql("%s = :hashval" % self.hashname, {'hashval': hashval})
     
-    # kind of the same as load, but we load it from a sql clause instead
     def load_sql(self, sql, pdict = {}):
+        """ load from a sql clause """
         h = self.db.prepare("select * from %s where %s" % (self.table, sql))
         apply(h.execute, (), pdict)
         ret = h.fetchone_dict()
@@ -120,8 +104,8 @@ class Row(UserDictCase):
         self.real = 1
         return 1
     
-    # now save an entry
     def save(self, with_updates=1):
+        """ now save an entry """
         if not self.data.has_key(self.hashname):
             raise AttributeError, "Table does not have a hash `%s' key" % self.hashname
         # get a list of fields to be set

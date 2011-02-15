@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,8 +29,8 @@ create table test_blob_update
 """
 
 import sys
-from server import rhnSQL
-from server.importlib.backendLib import Table, DBblob, DBint, TableUpdate, \
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendLib import Table, DBblob, DBint, TableUpdate, \
     TableInsert
 
 def main():
@@ -125,37 +125,6 @@ def setup(table, blob_values, fields):
             h.append(blob_values[i][j])
     t = TableInsert(table, rhnSQL)
     t.query(hash_values)
-    rhnSQL.commit()
-
-def setup_old(blob_values):
-    h = rhnSQL.prepare("delete from test_blob_update")
-    h.execute()
-    
-    h = rhnSQL.prepare("""
-        insert into test_blob_update (id1, id2, val1, val2)
-        values (:id1, :id2, empty_blob(), empty_blob())
-    """)
-    for v in blob_values:
-        h.execute(id1=v[0], id2=v[1])
-    
-    q = "select val1, val2 from test_blob_update where id1 = :id1 and %s for update"
-    for v in blob_values:
-        i1 = v[0]
-        i2 = v[1]
-        hval = {'id1' : i1}
-        if i2 is None:  
-            s = "id2 is null"
-        else:
-            s = "id2 = :id2"
-            hval['id2'] = i2
-        h = rhnSQL.prepare(q % s)
-        apply(h.execute, (), hval)
-        row = h.fetchone_dict()
-        val1 = row['val1']
-        val2 = row['val2']
-        val1.write(v[2])
-        val2.write(v[3])
-
     rhnSQL.commit()
 
 def verify(blob_values):

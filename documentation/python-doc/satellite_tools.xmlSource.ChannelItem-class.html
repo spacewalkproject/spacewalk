@@ -55,17 +55,17 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ChannelItem</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#ChannelItem">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_satellit_203" name="uml_class_diagram_for_satellit_203">
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populate" title="satellite_tools.xmlSource.BaseItem.populate" alt="" coords="17,36,295,55"/>
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes" title="satellite_tools.xmlSource.BaseItem.populateFromAttributes" alt="" coords="17,55,295,73"/>
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements" title="satellite_tools.xmlSource.BaseItem.populateFromElements" alt="" coords="17,73,295,92"/>
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html" title="satellite_tools.xmlSource.BaseItem" alt="" coords="16,11,296,93"/>
-<area shape="rect" href="satellite_tools.xmlSource.ChannelItem-class.html#item_name" title="hash(x)" alt="" coords="117,140,195,159"/>
-<area shape="rect" href="server.importlib.importLib.Channel-class.html" title="hash(x)" alt="" coords="117,159,195,177"/>
-<area shape="rect" href="satellite_tools.xmlSource.ChannelItem-class.html#tagMap" title="satellite_tools.xmlSource.ChannelItem.tagMap" alt="" coords="117,177,195,196"/>
-<area shape="rect" href="satellite_tools.xmlSource.ChannelItem-class.html" title="satellite_tools.xmlSource.ChannelItem" alt="" coords="116,123,196,205"/>
+<center>  <map id="uml_class_diagram_for_satellit_181" name="uml_class_diagram_for_satellit_181">
+<area shape="rect" id="node939" href="satellite_tools.xmlSource.ChannelItem-class.html#item_name" title="hash(x)" alt="" coords="24,127,280,145"/>
+<area shape="rect" id="node939" href="spacewalk.server.importlib.importLib.Channel-class.html" title="hash(x)" alt="" coords="24,145,280,164"/>
+<area shape="rect" id="node939" href="satellite_tools.xmlSource.ChannelItem-class.html#tagMap" title="satellite_tools.xmlSource.ChannelItem.tagMap" alt="" coords="24,164,280,183"/>
+<area shape="rect" id="node939" href="satellite_tools.xmlSource.ChannelItem-class.html#populateFromElements" title="satellite_tools.xmlSource.ChannelItem.populateFromElements" alt="" coords="24,185,280,204"/>
+<area shape="rect" id="node1" href="satellite_tools.xmlSource.ChannelItem-class.html" title="satellite_tools.xmlSource.ChannelItem" alt="" coords="12,102,292,210"/>
+<area shape="rect" id="node940" href="satellite_tools.xmlSource.BaseItem-class.html#populate" title="satellite_tools.xmlSource.BaseItem.populate" alt="" coords="17,39,285,57"/>
+<area shape="rect" id="node940" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes" title="satellite_tools.xmlSource.BaseItem.populateFromAttributes" alt="" coords="17,57,285,76"/>
+<area shape="rect" id="node2" href="satellite_tools.xmlSource.BaseItem-class.html" title="satellite_tools.xmlSource.BaseItem" alt="" coords="5,6,296,82"/>
 </map>
-  <img src="uml_class_diagram_for_satellit_203.png" alt='' usemap="#uml_class_diagram_for_satellit_203" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_satellit_181.png" alt='' usemap="#uml_class_diagram_for_satellit_181" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -90,7 +90,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.importlib.importLib.Channel-class.html" class="summary-name">item_class</a><br />
+        <a href="spacewalk.server.importlib.importLib.Channel-class.html" class="summary-name">item_class</a><br />
       hash(x)
     </td>
   </tr>
@@ -112,12 +112,29 @@
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.xmlSource.ChannelItem-class.html#populateFromElements" class="summary-sig-name">populateFromElements</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">obj</span>,
+        <span class="summary-sig-arg">elements</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#ChannelItem.populateFromElements">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.xmlSource.BaseItem-class.html">BaseItem</a></code></b>:
       <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populate">populate</a></code>,
-      <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes">populateFromAttributes</a></code>,
-      <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements">populateFromElements</a></code>
+      <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes">populateFromAttributes</a></code>
       </p>
     </td>
   </tr>
@@ -158,11 +175,54 @@
  'org-id': 'org_id',
  'rhn-channel-basedir': 'basedir',
  'rhn-channel-checksum-type': 'checksum_type',
- 'rhn-channel-description': 'description',
+ 'rhn-channel-comps-last-modified': 'comps_last_modified',
 ..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">channel-arch</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">channel_arch</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">channel-errata</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">e</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="populateFromElements"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">populateFromElements</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">obj</span>,
+        <span class="sig-arg">elements</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#ChannelItem.populateFromElements">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements">BaseItem.populateFromElements</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -200,7 +260,7 @@
  <code class="variable-quote">'</code><code class="variable-string">org-id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">org_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">rhn-channel-basedir</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">basedir</code><code class="variable-quote">'</code><code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">rhn-channel-checksum-type</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">checksum_type</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">rhn-channel-description</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">description</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">rhn-channel-comps-last-modified</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">comps_last_modified</code><code class="variable-quote">'</code><code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -231,7 +291,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:39 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:50 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

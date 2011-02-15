@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,10 +21,10 @@
 import string
 import time
 
-from common import log_debug, log_error
-from server import rhnSQL
-from server.rhnServer import server_lib
-from server.rhnSQL import procedure
+from spacewalk.common import log_debug, log_error
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import server_lib
+from spacewalk.server.rhnSQL import procedure
 
 ###############################################################################
 # Constants
@@ -106,15 +106,14 @@ CLIENT_SERVER_STATE_MAP = {
 # VirtualizationEventError Class
 ###############################################################################
 
-class VirtualizationListenerError(Exception): pass
 class VirtualizationEventError(Exception): pass
 
 ###############################################################################
 # Listener Interface
 ###############################################################################
 
-# Abusing python to get a singleton behavior.
 class Listeners:
+    """ Abusing python to get a singleton behavior. """
     listeners = []
 
 def add_listener(listener):
@@ -127,15 +126,6 @@ def add_listener(listener):
     # Don't add the listener if it's already there.
     if not listener in Listeners.listeners:
         Listeners.listeners.append(listener)
-
-def remove_listener(listener):
-    """
-    Removes a virt event listener.
-    """
-    log_debug(3, "Virt listener removed: %s" % str(listener))
-    
-    if listener in Listeners.listeners:
-        Listeners.listeners.remove(listener)
 
 
 ###############################################################################
@@ -269,12 +259,11 @@ class VirtualizationEventHandler:
                                         row['virtual_system_id'],
                                         uuid)
                                        
-    ##
-    # Handle a domain removal.  Since we are dealing with virtual domains, we
-    # can't really tell whether physical removal took place, so we'll just mark
-    # the domain as 'stopped'.
-    #
     def _handle_domain_removed(self, system_id, timestamp, properties):
+        """ Handle a domain removal.  Since we are dealing with virtual domains, we
+            can't really tell whether physical removal took place, so we'll just mark
+            the domain as 'stopped'.
+        """
         uuid = properties[PropertyType.UUID]
 
         row = self.__db_get_domain(system_id, uuid)
@@ -301,11 +290,10 @@ class VirtualizationEventHandler:
     # Helper Methods
     ###########################################################################
 
-    ##
-    # This returns a row from the database that represents a virtual system.
-    # If no system could be found, None is returned
-    #
     def __db_get_system(self, identity, system_id, uuid):
+        """ This returns a row from the database that represents a virtual system.
+            If no system could be found, None is returned.
+        """
 
         condition = None
 
@@ -346,11 +334,11 @@ class VirtualizationEventHandler:
 
         select_sql = """
             SELECT
-                vi.id                id,
-                vi.host_system_id    host_system_id,
-                vi.virtual_system_id virtual_system_id,
-                vi.uuid              uuid,
-                vi.confirmed         confirmed
+                vi.id                as id,
+                vi.host_system_id    as host_system_id,
+                vi.virtual_system_id as virtual_system_id,
+                vi.uuid              as uuid,
+                vi.confirmed         as confirmed
             FROM
                 rhnVirtualInstance vi
             WHERE
@@ -364,10 +352,8 @@ class VirtualizationEventHandler:
 
         return row
 
-    ##
-    # Inserts a new system into the database.
-    #
     def __db_insert_system(self, identity, system_id, uuid, virt_type):
+        """ Inserts a new system into the database. """
 
         # If this system is a host, it's sysid goes into the host_system_id
         # column.  Otherwise, it's sysid goes into the virtual_system_id
@@ -452,10 +438,8 @@ class VirtualizationEventHandler:
                       state = ServerStateType.UNKNOWN, 
                       virt_type = virt_type)
 
-    ##
-    # Updates a system in the database.
-    #
     def __db_update_system(self, identity, system_id, existing_row):
+        """ Updates a system in the database. """
 
         # since __db_get_system protects us against crossing the org
         # boundary, we really don't need to worry much about existing_row's
@@ -495,16 +479,16 @@ class VirtualizationEventHandler:
     def __db_get_domain(self, host_id, uuid):
         select_sql = """
             SELECT
-                rvi.id                rvi_id,
-                rvi.host_system_id    host_system_id,
-                rvi.virtual_system_id virtual_system_id,
-                rvi.confirmed         confirmed,
-                rvii.name             name,
-                rvit.label            instance_type,
-                rvii.memory_size_k    memory_size_k,
-                rvii.instance_id      instance_id,
-                rvii.vcpus            vcpus,
-                rvis.label            state
+                rvi.id                as rvi_id,
+                rvi.host_system_id    as host_system_id,
+                rvi.virtual_system_id as virtual_system_id,
+                rvi.confirmed         as confirmed,
+                rvii.name             as name,
+                rvit.label            as instance_type,
+                rvii.memory_size_k    as memory_size_k,
+                rvii.instance_id      as instance_id,
+                rvii.vcpus            as vcpus,
+                rvis.label            as state
             FROM
                 rhnVirtualInstanceInfo rvii,
                 rhnVirtualInstanceType rvit,
@@ -533,11 +517,10 @@ class VirtualizationEventHandler:
         return row
 
     def __db_insert_domain(self, host_id, uuid, properties):
-
-        # To create a new domain, we must modify both the rhnVirtualInstance 
-        # and the rhnVirtualInstanceInfo tables.  We'll do rhnVirtualInstance
-        # first.
-
+        """ To create a new domain, we must modify both the rhnVirtualInstance 
+            and the rhnVirtualInstanceInfo tables.
+        """
+        # We'll do rhnVirtualInstance first.
         get_id_sql = "SELECT sequence_nextval('rhn_vi_id_seq') as id FROM dual"
         query = rhnSQL.prepare(get_id_sql)
         query.execute()
@@ -702,8 +685,9 @@ class VirtualizationEventHandler:
         query.execute(sysid=system_id)
 
     def __remove_unconfirmed_domains(self, system_id):
-        # Mark the unconfirmed entries in the RVII table as stopped, since it 
-        # appears they are no longer running.
+        """ Mark the unconfirmed entries in the RVII table as stopped, since it 
+            appears they are no longer running.
+        """
      
         update_sql = """
             UPDATE rhnVirtualInstanceInfo rvii
@@ -739,12 +723,10 @@ class VirtualizationEventHandler:
         query.execute(log_message          = log_message, 
                       kickstart_session_id = kickstart_session_id)
 
-    ##
-    # This function normalizes and converts the values of some properties to 
-    # format consumable by the server.
-    #
     def __convert_properties(self, properties):
-
+        """ This function normalizes and converts the values of some properties to 
+            format consumable by the server.
+        """
         # Attempt to normalize the UUID.
         if properties.has_key(PropertyType.UUID):
             uuid = properties[PropertyType.UUID]
@@ -783,40 +765,21 @@ class VirtualizationEventHandler:
 ###############################################################################
 # Module level functions
 ###############################################################################
-def _handle_virt_guest_params(system_certificate, params):
-    # Get the uuid, if there is one.
-    if params.has_key('virt_uuid'):
-        virt_uuid = params['virt_uuid']
-        if virt_uuid is not None and not is_host_uuid(virt_uuid):
-            # If we don't have a virt_type key, we'll assume PARA.
-            virt_type = None
-            if params.has_key('virt_type'):
-                virt_type = params['virt_type']
-                if virt_type == 'para':
-                    virt_type = VirtualizationType.PARA
-                elif virt_type == 'fully':
-                    virt_type = VirtualizationType.FULLY
-                else:
-                    raise Exception(
-                        "Unknown virtualization type: %s" % virt_type)
-            else:
-                raise Exception("Virtualization type not provided")
 
-            _notify_guest(system_certificate, virt_uuid, virt_type)
-
-# Notifies the virtualization backend that there is a guest with a
-# specific
-# uuid and type, then associates it with the provided system id.
-#
-# New for RHEL 5.
-#
-# Args are:
-# * system_id   - a string representation of the system's system id.
-# * uuid        - a string representation of the system's uuid.
-# * virt_type   - a string representation of the system's virt type
-# 
-# No return value.
 def _notify_guest(server_id, uuid, virt_type):
+    """ Notifies the virtualization backend that there is a guest with a
+        specific
+        uuid and type, then associates it with the provided system id.
+
+        New for RHEL 5.
+
+        Args are:
+         * system_id   - a string representation of the system's system id.
+         * uuid        - a string representation of the system's uuid.
+         * virt_type   - a string representation of the system's virt type
+ 
+         No return value.
+    """
     identity = IdentityType.GUEST
     event = EventType.EXISTS
     target = TargetType.SYSTEM

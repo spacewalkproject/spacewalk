@@ -22,11 +22,9 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, ListType, DictType
 
 # common module
-from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG
-from common.rhnTranslate import _
-from spacewalk.common import rhn_rpm
-from rhnServer import server_lib
-from rhnDependency import MakeEvrError
+from spacewalk.common import log_debug, log_error, rhnFault, rhnException, \
+    rhnCache, rhnFlags, CFG, rhn_rpm
+from spacewalk.common.rhnTranslate import _
 
 # local module
 import rhnUser, rhnSQL, rhnLib
@@ -59,9 +57,6 @@ class InvalidEntryError(Exception):
     pass
 
 class InvalidDataError(Exception):
-    pass
-
-class ForceNotSpecified(Exception):
     pass
 
 class ChannelNotFoundError(Exception):
@@ -466,15 +461,21 @@ class Channel(BaseChannelObject):
         values (:channel_id, :channel_arch_id, :release, :os)
         """)
     def _add_dists(self, releases, oses):
+        self._modify_dists(self._query_add_dists, releases, oses)
+
+    def _modify_dists(self, query, releases, oses):
         if not releases:
             return
         count = len(releases)
         channel_ids = [self._row['id']] * count
-        channel_arch_ids = [self._row['channel_arch_id']] * count
-        h = rhnSQL.prepare(self._query_add_dists)
-        h.executemany(channel_id=channel_ids, channel_arch_id=channel_arch_ids,
-            release=releases, os=oses)
-    
+        query_args = {'channel_id': channel_ids, 'release': releases}
+        if oses:
+            channel_arch_ids = [self._row['channel_arch_id']] * count
+            query_args.update({'channel_arch_id': channel_arch_ids,
+                               'os': oses})
+        h = rhnSQL.prepare(query)
+        h.executemany(**query_args)
+
     _query_update_dists = rhnSQL.Statement("""
         update rhnDistChannelMap
            set channel_arch_id = :channel_arch_id,
@@ -483,14 +484,7 @@ class Channel(BaseChannelObject):
            and release = :release
     """)
     def _update_dists(self, releases, oses):
-        if not releases:
-            return
-        count = len(releases)
-        channel_ids = [self._row['id']] * count
-        channel_arch_ids = [self._row['channel_arch_id']] * count
-        h = rhnSQL.prepare(self._query_update_dists)
-        h.executemany(channel_id=channel_ids, channel_arch_id=channel_arch_ids,
-            release=releases, os=oses)
+        self._modify_dists(self._query_update_dists, releases, oses)
 
     _query_remove_dists = rhnSQL.Statement("""
         delete from rhnDistChannelMap
@@ -498,12 +492,7 @@ class Channel(BaseChannelObject):
            and release = :release
     """)
     def _remove_dists(self, releases):
-        if not releases:
-            return
-        count = len(releases)
-        channel_ids = [self._row['id']] * count
-        h = rhnSQL.prepare(self._query_remove_dists)
-        h.executemany(channel_id=channel_ids, release=releases)
+        self._modify_dists(self._query_remove_dists, releases, None)
 
     def _compatible_channel_arches(self, parent_channel_arch, channel_arch):
         # This could get more complicated later
@@ -558,136 +547,36 @@ def create_channel_families(entries, update=0):
         c.load_from_dict(e)
         c.save(with_updates=update)
 
-def delete_channels(entries):
-    if not isinstance(entries, ListType):
-        raise InvalidEntryError(entries, "Not a list")
-    ret = []
-    for e in entries:
-        if not isinstance(e, DictType):
-            raise InvalidEntryError(e, "Entry is not a dictionary")
 
-        label = e.get('label')
-        if not label:
-            raise InvalidEntryError(e, "Missing required field label")
-
-        c = Channel()
-        c.load_by_label(label)
-        if not c.exists():
-            ret.append(label)
-            continue
-        msg = _delete_channel(c)
-        if msg is not None:
-            ret.append(msg)
-    return ret
-
-def delete_channel_families(entries):
-    if not isinstance(entries, ListType):
-        raise InvalidEntryError(entries, "Not a list")
-    ret = []
-    for e in entries:
-        if not isinstance(e, DictType):
-            raise InvalidEntryError(e, "Entry is not a dictionary")
-
-        label = e.get('label')
-        if not label:
-            raise InvalidEntryError(e, "Missing required field label")
-
-        c = ChannelFamily()
-        c.load_by_label(label)
-        if not c.exists():
-            ret.append(label)
-            continue
-        msg = _delete_channel_family(c)
-        if msg is not None:
-            ret.append(msg)
-    return ret
-
-def _delete_channel(channel):
-    channel_id = channel.get_id()
-    tables = [
-        ['rhnDistChannelMap', 'channel_id'],
-        ['rhnChannelFamilyMembers', 'channel_id'],
-        ['rhnServerChannel', 'channel_id'],
-        ['rhnChannelNewestPackage', 'channel_id'],
-        ['rhnChannelPackage', 'channel_id'],
-        ['rhnChannel', 'id']
-    ]
-    for table_name, col in tables:
-        h = rhnSQL.prepare("delete from %s where %s = :channel_id" % 
-            (table_name, col))
-        try:
-            h.execute(channel_id=channel_id)
-        except rhnSQL.SQLError, e:
-            if e.args[0] != 2292:
-                raise
-            label = channel.get_label()
-            return("Unable to delete channel %s: child records found for "
-                "table %s, column %s" % (label, table_name, col))
-    return None
-
-
-_query_delete_channel_family = rhnSQL.Statement("""
-    delete from rhnChannelFamily where id = :channel_family_id
-""")
-def _delete_channel_family(channel_family):
-    channel_family_id = channel_family.get_id()
-    h = rhnSQL.prepare(_query_delete_channel_family)
-    try:
-        h.execute(channel_family_id=channel_family_id)
-    except rhnSQL.SQLError, e:
-        if e.args[0] != 2292:
-            raise
-        label = channel_family.get_label()
-        return "Unable to delete channel family %s: child records found" % label
-
-    return None
-
-def list_channel_families(pattern=None):
+def _load_by_id(query, item_object, pattern=None):
     if pattern:
-        query = """
-            select id 
-              from rhnChannelFamily 
-             where org_id is null
-               and label like :pattern
-        """
-        h = rhnSQL.prepare(query)
-        h.execute(pattern=pattern)
-    else:
-        query = "select id from rhnChannelFamily where org_id is null"
-        h = rhnSQL.prepare(query)
-        h.execute()
+        query += "and label like :pattern"
+    h = rhnSQL.prepare(query)
+    h.execute()
     ret = []
     while 1:
         row = h.fetchone_dict()
         if not row:
             break
-        channel_family_id = row['id']
-        c = ChannelFamily().load_by_id(channel_family_id)
+        c = item_object.load_by_id(row['id'])
         ret.append(c.as_dict()) 
     return ret
     
+def list_channel_families(pattern=None):
+    query = """
+            select id
+              from rhnChannelFamily
+             where org_id is null
+        """
+    return _load_by_id(query, ChannelFamily(), pattern)
+
 def list_channels(pattern=None):
-    if pattern:
-        query = """
+    query = """
             select id 
               from rhnChannel
-             where label like :pattern
+             where 1=1
         """
-        h = rhnSQL.prepare(query)
-        h.execute(pattern=pattern)
-    else:
-        query = "select id from rhnChannel"
-        h = rhnSQL.prepare(query)
-        h.execute()
-    ret = []
-    while 1:
-        row = h.fetchone_dict()
-        if not row:
-            break
-        channel_id = row['id']
-        c = Channel().load_by_id(channel_id)
-        ret.append(c.as_dict()) 
-    return ret
+    return _load_by_id(query, Channel(), pattern)
 
 # makes sure there are no None values in dictionaries, etc.
 def __stringify(object):
@@ -763,44 +652,6 @@ def get_base_channel(server_id, none_ok = 0):
         return None
     return __stringify(ret)
     
-# list the available channels for an org_id
-# We DO NOT want to cache this one because we depend on getting
-# accurate information and the caching would only introduce more
-# overhead on an otherwise very fast query
-def channels_for_org(org_id):
-    if not org_id:
-        org_id = ''
-    org_id = string.strip(str(org_id))
-    log_debug(3, org_id)
-
-    # select channels this org can access
-    h = rhnSQL.prepare("""
-    select
-        ca.label arch,
-        c.id,
-        c.parent_channel,
-        c.org_id,
-        c.label,
-        c.name,
-        c.summary,
-        c.description,
-        to_char(c.last_modified, 'YYYYMMDDHH24MISS') last_modified      
-    from
-        rhnChannelArch ca
-        rhnChannel c,
-        rhnChannelPermissions cp
-    where
-      cp.org_id = :org_id
-      and cp.channel_id = c.id
-      and c.channel_arch_id = ca.id
-    """)
-    h.execute(org_id = org_id)
-    ret = h.fetchall_dict()
-    if not ret:
-        return []
-    # stringify for xmlrpc return
-    return __stringify(ret)
-
 def channels_for_server(server_id):
     """channel info list for all channels accessible by this server.
 
@@ -831,7 +682,7 @@ def channels_for_server(server_id):
         c.summary,
         c.description,
         c.gpg_key_url,
-        decode(s.org_id, c.org_id, 1, 0) local_channel,
+        case s.org_id when c.org_id then 1 else 0 end local_channel,
         TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
     from
         rhnChannelArch ca,
@@ -1170,10 +1021,22 @@ def list_packages_source(channel_id):
     return ret
 
 # This function executes the SQL call for listing packages
+def _list_packages_sql(query, channel_id):
+    h = rhnSQL.prepare(query)
+    h.execute(channel_id = str(channel_id))
+    ret = h.fetchall_dict()
+    if not ret:
+        return []
+    # process the results
+    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
+                         a["arch"], a["package_size"]),
+              __stringify(ret))
+    return ret
+
 def list_packages_sql(channel_id):
     log_debug(3, channel_id)
     # return the latest packages from the specified channel
-    h = rhnSQL.prepare("""
+    query = """
     select
         pn.name,  
         pevr.version,  
@@ -1227,68 +1090,11 @@ def list_packages_sql(channel_id):
     and pa.id = full_channel.package_arch_id
     and pa.id = arch_rank.package_arch_id
     order by pn.name, arch_rank.rank desc
-    """)
-    h.execute(channel_id = str(channel_id))
-    # XXX This query has to order the architectures somehow; the 7.2 up2date
-    # client was broken and was selecting the wrong architecture if athlons
-    # are passed first. The rank ordering here should make sure that i386
-    # kernels appear before athlons.
-    ret = h.fetchall_dict()
-    if not ret:
-        return []
-    # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
-                         a["arch"], a["package_size"]),
-              __stringify(ret))
-    return ret
+    """
+    return _list_packages_sql(query, channel_id)
 
-# This function executes the SQL call for listing packages
-def list_all_packages_sql(channel_id):
-    log_debug(3, channel_id)
-    # return the latest packages from the specified channel
-    h = rhnSQL.prepare("""
-    select
-        pn.name,  
-        pevr.version,  
-        pevr.release,  
-        pevr.epoch,  
-        pa.label arch,  
-        p.package_size 
-    from  
-        rhnChannelPackage cp,
-        rhnPackage p,
-        rhnPackageName pn,
-        rhnPackageEVR pevr,
-        rhnPackageArch pa
-    where
-        cp.channel_id = :channel_id
-    and cp.package_id = p.id
-    and p.name_id = pn.id
-    and p.evr_id = pevr.id
-    and p.package_arch_id = pa.id
-    order by pn.name, pevr.evr desc, pa.label
-    """)
-    h.execute(channel_id = str(channel_id))
-    # XXX This query has to order the architectures somehow; the 7.2 up2date
-    # client was broken and was selecting the wrong architecture if athlons
-    # are passed first. The rank ordering here should make sure that i386
-    # kernels appear before athlons.
-    ret = h.fetchall_dict()
-    if not ret:
-        return []
-    # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
-                         a["arch"], a["package_size"]),
-              __stringify(ret))
-    return ret
-
-
-# This function executes the SQL call for listing packages with all the 
-# dep information for each package also
-def list_all_packages_complete_sql(channel_id):
-    log_debug(3, channel_id)
-    # return the latest packages from the specified channel
-    h = rhnSQL.prepare("""
+# the latest packages from the specified channel
+_query_latest_packages_from_channel = """
     select
         p.id,
         pn.name,  
@@ -1310,7 +1116,19 @@ def list_all_packages_complete_sql(channel_id):
     and p.evr_id = pevr.id
     and p.package_arch_id = pa.id
     order by pn.name, pevr.evr desc, pa.label
-    """)
+    """
+
+# This function executes the SQL call for listing packages
+def list_all_packages_sql(channel_id):
+    log_debug(3, channel_id)
+    return _list_packages_sql(_query_latest_packages_from_channel, channel_id)
+
+# This function executes the SQL call for listing packages with all the 
+# dep information for each package also
+def list_all_packages_complete_sql(channel_id):
+    log_debug(3, channel_id)
+    # return the latest packages from the specified channel
+    h = rhnSQL.prepare(_query_latest_packages_from_channel)
     # This gathers the provides, requires, conflicts, obsoletes info  
     g = rhnSQL.prepare("""
     select
@@ -2102,6 +1920,7 @@ def system_reg_message(server):
 
 
     # System does have a base channel; check entitlements
+    from rhnServer import server_lib   #having this on top, cause TB due circular imports
     entitlements = server_lib.check_entitlement(server_id)
     if not entitlements:
         # No entitlement

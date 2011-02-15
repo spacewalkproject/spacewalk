@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,8 +13,8 @@
 # in this software or its documentation. 
 #
 import sys
-from server import rhnSQL
-from satellite_tools import satCerts
+from spacewalk.server import rhnSQL
+from spacewalk.satellite_tools import satCerts
 
 def main():
     if len(sys.argv) != 3:

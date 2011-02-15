@@ -1436,11 +1436,11 @@
       <target>{0} સિસ્ટમો પસંદ થયેલ છે</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-      <target>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</target></trans-unit>
+      <target>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</target></trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
 <source>Legal statement</source>
         <context-group name="ctx">
@@ -22442,25 +22442,25 @@ given channel.</source>
      <trans-unit id="task.status.last.completed">
          <source>Last Completed Action</source>
      <target>સમાપ્ત થયેલ ક્રિયાઓ</target></trans-unit>
-     <trans-unit id="task.status.session.cleanup">
+     <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>
-     <trans-unit id="task.status.errata.queue.notif">
+     <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      <target>ત્રુટિસૂચી સૂચન મોકલો</target></trans-unit>
-     <trans-unit id="task.status.errata.mail">
+     <trans-unit id="task.status.errata-mailer">
          <source>Errata Notification Mail</source>
      <target>ત્રુટિસૂચી સૂચન મોકલો</target></trans-unit>
-     <trans-unit id="task.status.daily.summary">
+     <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>દૈનિક સાર</target></trans-unit>
-     <trans-unit id="task.status.daily.summary.mail">
+     <trans-unit id="task.status.daily-summary">
          <source>Daily Summary Mail</source>
      <target>દૈનિક સાર</target></trans-unit>
-     <trans-unit id="task.status.clean.alerts">
+     <trans-unit id="task.status.clean-current-alerts">
          <source>Clean Current Alerts</source>
      <target>વર્તમાન આવૃત્તિ</target></trans-unit>
-     <trans-unit id="task.status.sync.probe">
+     <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>ચકાસણી પરિસ્થિતિ</target></trans-unit>
      <trans-unit id="task.status.message">

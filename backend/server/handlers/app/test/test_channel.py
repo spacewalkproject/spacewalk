@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,12 +14,10 @@
 # in this software or its documentation. 
 #
 
-import sys
 import unittest
-sys.path.append('/usr/share/rhn/')
-from server import rhnSQL
-from common import rhnFault
-from server.handlers.app import channel
+from spacewalk.server import rhnSQL
+from spacewalk.common import rhnFault
+from spacewalk.server.handlers.app import channel
 
 #setup
 db = 'webdev'

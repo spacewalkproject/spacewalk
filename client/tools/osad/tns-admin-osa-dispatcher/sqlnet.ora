@@ -1,3 +1,4 @@
 
 log_directory_client = /var/log/rhn/oracle/osa-dispatcher
+diag_adr_enabled = off
 

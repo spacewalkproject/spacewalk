@@ -127,7 +127,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="refresh"></a><span class="summary-sig-name">refresh</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#refresh">source&nbsp;code</a></span>
             
@@ -143,8 +144,29 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="action"></a><span class="summary-sig-name">action</span>(<span class="summary-sig-arg">action_name</span>,
+        <span class="summary-sig-arg">query</span>,
+        <span class="summary-sig-arg">server_id</span>,
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.action.virt-pysrc.html#action">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="start"></a><span class="summary-sig-name">start</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#start">source&nbsp;code</a></span>
             
@@ -161,7 +183,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="shutdown"></a><span class="summary-sig-name">shutdown</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#shutdown">source&nbsp;code</a></span>
             
@@ -178,7 +201,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="suspend"></a><span class="summary-sig-name">suspend</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#suspend">source&nbsp;code</a></span>
             
@@ -195,7 +219,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="resume"></a><span class="summary-sig-name">resume</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#resume">source&nbsp;code</a></span>
             
@@ -212,7 +237,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="reboot"></a><span class="summary-sig-name">reboot</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#reboot">source&nbsp;code</a></span>
             
@@ -229,7 +255,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="destroy"></a><span class="summary-sig-name">destroy</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#destroy">source&nbsp;code</a></span>
             
@@ -246,7 +273,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="setMemory"></a><span class="summary-sig-name">setMemory</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#setMemory">source&nbsp;code</a></span>
             
@@ -263,7 +291,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="setVCPUs"></a><span class="summary-sig-name">setVCPUs</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#setVCPUs">source&nbsp;code</a></span>
             
@@ -280,7 +309,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="schedulePoller"></a><span class="summary-sig-name">schedulePoller</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.virt-pysrc.html#schedulePoller">source&nbsp;code</a></span>
             
@@ -327,125 +357,134 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_refresh" class="summary-name" onclick="show_private();">_query_refresh</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095436; statement=
+        <a href="server.action.virt-module.html#_query_refresh" class="summary-name" onclick="show_private();">_query_refresh</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51997944; stat\
+ement=
     select  avf.action_id,
     from    rhnActionVirtRefresh
     where   avf.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance at<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_shutdown" class="summary-name" onclick="show_private();">_query_shutdown</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095468; statement=
+        <a href="server.action.virt-module.html#_query_shutdown" class="summary-name" onclick="show_private();">_query_shutdown</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998016; stat\
+ement=
     select  avs.action_id, 
             avs.uuid
     from    rhnActionVirtShutdown avs
     where   avs.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance a<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_suspend" class="summary-name" onclick="show_private();">_query_suspend</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095500; statement=
+        <a href="server.action.virt-module.html#_query_suspend" class="summary-name" onclick="show_private();">_query_suspend</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998088; stat\
+ement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtSuspend avs    
     where   avs.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance at<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_resume" class="summary-name" onclick="show_private();">_query_resume</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095532; statement=
+        <a href="server.action.virt-module.html#_query_resume" class="summary-name" onclick="show_private();">_query_resume</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998160; stat\
+ement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtResume avr
     where   avr.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance at <code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement in<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_reboot" class="summary-name" onclick="show_private();">_query_reboot</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095564; statement=
+        <a href="server.action.virt-module.html#_query_reboot" class="summary-name" onclick="show_private();">_query_reboot</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998232; stat\
+ement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtReboot avr
     where   avr.action_id = :action_id
 
-">&lt;server.rhnSQL.sql_base.Statement instance at <code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement in<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_destroy" class="summary-name" onclick="show_private();">_query_destroy</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095596; statement=
+        <a href="server.action.virt-module.html#_query_destroy" class="summary-name" onclick="show_private();">_query_destroy</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998304; stat\
+ement=
     select  avd.action_id,
             avd.uuid
     from    rhnActionVirtDestroy avd
     where   avd.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance at<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_start" class="summary-name" onclick="show_private();">_query_start</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095628; statement=
+        <a href="server.action.virt-module.html#_query_start" class="summary-name" onclick="show_private();">_query_start</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998376; stat\
+ement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtStart avs
     where   avs.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance at 1<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_setMemory" class="summary-name" onclick="show_private();">_query_setMemory</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095660; statement=
+        <a href="server.action.virt-module.html#_query_setMemory" class="summary-name" onclick="show_private();">_query_setMemory</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998448; stat\
+ement=
     select  asm.action_id,
             asm.uuid,
             asm.memory
     from    rhnActionVirtSetMemory asm
     where   asm.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance <code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_getVCPUs" class="summary-name" onclick="show_private();">_query_getVCPUs</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095692; statement=
+        <a href="server.action.virt-module.html#_query_getVCPUs" class="summary-name" onclick="show_private();">_query_getVCPUs</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998520; stat\
+ement=
     select  av.action_id,
             av.uuid,
             av.vcpu
     from    rhnActionVirtVCPU av
     where   av.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance a<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_schedulePoller" class="summary-name" onclick="show_private();">_query_schedulePoller</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095724; statement=
+        <a href="server.action.virt-module.html#_query_schedulePoller" class="summary-name" onclick="show_private();">_query_schedulePoller</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998592; stat\
+ement=
     select  asp.action_id,
             asp.minute,
             asp.hour,
             asp.dom,
             asp.month,
             asp.dow
-    from    rhnActionVirtSchedulePoller asp
-...">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.Stat<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -512,7 +551,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095436; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51997944; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  avf.action_id,
     from    rhnActionVirtRefresh
     where   avf.action_id = :action_id
@@ -534,7 +574,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095468; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998016; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  avs.action_id, 
             avs.uuid
     from    rhnActionVirtShutdown avs
@@ -557,7 +598,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095500; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998088; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtSuspend avs    
@@ -580,7 +622,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095532; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998160; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtResume avr
@@ -603,7 +646,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095564; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998232; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtReboot avr
@@ -627,7 +671,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095596; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998304; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  avd.action_id,
             avd.uuid
     from    rhnActionVirtDestroy avd
@@ -650,7 +695,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095628; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998376; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtStart avs
@@ -673,7 +719,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095660; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998448; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  asm.action_id,
             asm.uuid,
             asm.memory
@@ -697,7 +744,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095692; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998520; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  av.action_id,
             av.uuid,
             av.vcpu
@@ -721,14 +769,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159095724; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51998592; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select  asp.action_id,
             asp.minute,
             asp.hour,
             asp.dom,
             asp.month,
             asp.dow
-    from    rhnActionVirtSchedulePoller asp
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -759,7 +807,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.4
+Version:      1.184.5
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -146,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 1.184.5-1
+- 612581 - change egrep to grep -E (msuchy@redhat.com)
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.184.4-1
 - 636224 - fix typos in mange and output of --help
 

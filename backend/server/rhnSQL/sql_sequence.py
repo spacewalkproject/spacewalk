@@ -16,7 +16,7 @@
 #
 # $Id$
 
-from common import rhnException
+from spacewalk.common import rhnException
 
 import sql_base
 

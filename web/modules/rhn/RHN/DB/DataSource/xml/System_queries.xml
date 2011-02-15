@@ -487,6 +487,7 @@ where a.user_id = :some_user_id
 
 <mode name="affected_by_errata">
   <query params="eid, user_id">
+  select * from (
   SELECT  DISTINCT S.id, S.name
     FROM  rhnServerNeededErrataCache SNEC,
           rhnEntitledServers S,
@@ -495,7 +496,8 @@ where a.user_id = :some_user_id
      AND  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = SNEC.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  ) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
   </query>
   <elaborator params="eid" multiple="t">
 SELECT SA.server_id as id, 
@@ -1028,15 +1030,15 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-       ( SELECT  DECODE(
-                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+          MONITORING_STATUS.ST AS MONITORING_STATUS,
+          COALESCE((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = OV.server_id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+    FROM  rhnServerOverview OV LEFT OUTER JOIN
+       ( SELECT  CP.host_id, CASE
+                   MAX(CASE PS.state WHEN 'OK' THEN 1 WHEN 'PENDING' THEN 2 WHEN 'UNKNOWN' THEN 3 WHEN 'WARNING' THEN 4 WHEN 'CRITICAL' THEN 5 END)
+                         WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 3 THEN 'UNKNOWN' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
            FROM  rhn_check_probe CP, rhn_probe_state PS
           WHERE  PS.probe_id = CP.probe_id
-            AND  OV.server_id = CP.host_id(+)
-         GROUP BY OV.server_id ) MONITORING_STATUS,
-       NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = OV.server_id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
-    FROM  rhnServerOverview OV
+         GROUP BY CP.host_id ) MONITORING_STATUS ON OV.server_id = MONITORING_STATUS.host_id
    WHERE  server_id IN (%s)
 ORDER BY  UPPER(NVL(SERVER_NAME, '(none)')), SERVER_ID
 </query>
@@ -1049,16 +1051,18 @@ ORDER BY  UPPER(NVL(SERVER_NAME, '(none)')), SERVER_ID
          SEV.is_base
     FROM rhnServerEntitlementView SEV
    WHERE SEV.server_id IN (%s)
-ORDER BY DECODE(SEV.is_base,'Y',1,'N',2), SEV.label
+ORDER BY CASE SEV.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
 </query>
 
 <query name="in_set" params="user_id, set_label">
+  SELECT * FROM (
   SELECT  DISTINCT S.id, S.name
     FROM  rhnServer S, rhnSet ST
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
      AND  ST.element = S.id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  ) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
 </query>
 
 <query name="system_package_data_from_set" params="user_id, package_set_label">

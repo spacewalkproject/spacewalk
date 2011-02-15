@@ -21,14 +21,13 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, TupleType
 
 # Global modules
-from common import CFG, log_debug, log_error, Traceback
-from common import rhnFlags
-from common import rhnFault
-from common.rhnTranslate import _
-
-from server import rhnSQL, rhnHandler, rhnCapability, rhnAction
-from server.rhnLib import InvalidAction, EmptyAction, ShadowAction
-from server.rhnServer import server_kickstart
+from spacewalk.common import CFG, log_debug, log_error, Traceback, \
+    rhnFlags, rhnFault
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnSQL, rhnCapability, rhnAction
+from spacewalk.server.rhnLib import InvalidAction, EmptyAction, ShadowAction
+from spacewalk.server.rhnServer import server_kickstart
 
 import getMethod
 
@@ -74,12 +73,8 @@ class Queue(rhnHandler):
         """ Fetches queued actions for the clients version 2+. """
         log_debug(3, self.server_id)
         # Get the root dir of this install
-        rootDir = rhnFlags.get("RootDir")
-        if not rootDir:
-            raise EmptyAction("Could not figure out RootDir for "
-                              "action retrieval via getMethod")
         try:
-            method = getMethod.getMethod(action['method'], rootDir,
+            method = getMethod.getMethod(action['method'],
                                          'server.action')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
@@ -213,7 +208,7 @@ class Queue(rhnHandler):
                        and sa.action_id = a.id
                        and a.action_type = at.id
                        and sa.status in (0, 1) -- Queued or picked up
-                       and a.earliest_action <= sysdate + (:time_window/24)  -- Check earliest_action
+                       and a.earliest_action <= current_timestamp + numtodsinterval(:time_window * 3600, 'second')  -- Check earliest_action
                        and at.label in ('packages.update', 'errata.update',
                             'packages.runTransaction', 'packages.fullUpdate')
                       order by a.earliest_action, a.prerequisite nulls first, a.id
@@ -246,7 +241,7 @@ class Queue(rhnHandler):
                        and sa.action_id = a.id
                        and a.action_type = at.id
                        and sa.status in (0, 1) -- Queued or picked up
-                       and a.earliest_action <= sysdate -- Check earliest_action
+                       and a.earliest_action <= current_timestamp -- Check earliest_action
                        and not exists (
                            select 1
                              from rhnServerAction sap
@@ -355,7 +350,7 @@ class Queue(rhnHandler):
                 h = rhnSQL.prepare("""
                 update rhnServerAction
                     set status = 1,
-                        pickup_time = SYSDATE,
+                        pickup_time = current_timestamp,
                         remaining_tries = :tries - 1
                 where action_id = :action_id
                   and server_id = :server_id
@@ -506,13 +501,8 @@ class Queue(rhnHandler):
             # Shouldn't happen
             return
 
-        rootDir = rhnFlags.get("RootDir")
-        if not rootDir:
-            log_error("Could not figure out RootDir")
-            return
-
         try:
-            method = getMethod.getMethod(action_type, rootDir,
+            method = getMethod.getMethod(action_type,
                                          'server.action_extra_data')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")

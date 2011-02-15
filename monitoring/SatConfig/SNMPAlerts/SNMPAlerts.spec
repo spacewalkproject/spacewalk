@@ -1,7 +1,7 @@
-%define cgi_bin        %{_var}/www/cgi-bin
-%define cgi_mod_perl   %{_var}/www/cgi-mod-perl
+%define cgi_bin        %{_datadir}/nocpulse/cgi-bin
+%define cgi_mod_perl   %{_datadir}/nocpulse/cgi-mod-perl
 Name:         SNMPAlerts
-Version:      0.5.5
+Version:      0.5.6
 Release:      1%{?dist}
 Summary:      Download and clear SNMP alerts from the database
 URL:          https://fedorahosted.org/spacewalk
@@ -43,6 +43,9 @@ install -m 555 fetch_snmp_alerts.cgi $RPM_BUILD_ROOT%cgi_mod_perl
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+- 474591 - move web data to /usr/share/nocpulse (msuchy@redhat.com)
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
 - remove dead code (apachereg)
 

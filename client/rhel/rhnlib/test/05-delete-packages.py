@@ -9,7 +9,6 @@
 
 
 import sys
-import httplib
 sys.path.append('..')
 from rhn.rpclib import Server
 

@@ -310,7 +310,7 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
         //checking to make sure args for the defaults were set correctly
         assertTrue(ksdata.getCommand("lang").getArguments().equals("en_US"));
         assertTrue(ksdata.getCommand("keyboard").getArguments().equals("us"));
-        assertTrue(ksdata.getCommand("zerombr").getArguments().length() == 0);
+        assertTrue(ksdata.getCommand("zerombr").getArguments() == null);
         assertTrue(ksdata.getCommand("clearpart").getArguments().equals("--all"));
         assertTrue(ksdata.getCommand("bootloader").getArguments()
                                                   .equals("--location mbr"));

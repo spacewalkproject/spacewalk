@@ -12,7 +12,7 @@ try:
         if key.startswith('re-'):
             os.exit(0)
     if os.path.exists(old_system_id):
-        client =  xmlrpclib.Server("http://$http_server/rpc/api")
+        client =  xmlrpclib.Server("http://$redhat_management_server/rpc/api")
         key = client.system.obtain_reactivation_key(open(old_system_id).read())
         f = open("/mnt/sysimage/tmp/key","w")
         f.write(key)

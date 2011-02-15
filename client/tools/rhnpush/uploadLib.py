@@ -15,14 +15,21 @@
 
 # system imports
 import os
+import re
 import sys
 import string
 import fnmatch
 import getpass
 import rhnpush_cache
 import struct
+import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
+try:
+    from up2date_client import rhnserver
+    rhnserver_available = True
+except ImportError:
+    rhnserver_available = False
 
 try:
     from rhn import rpclib
@@ -30,7 +37,6 @@ try:
     Output = rpclib.transports.Output
 except ImportError:
     # old-style xmlrpclib library
-    import xmlrpclib
     rpclib = xmlrpclib
     Binary = rpclib.Binary
     import cgiwrap
@@ -222,7 +228,7 @@ class UploadClass:
         # Loop through the args and only keep the newest ones
         localPackagesHash = {}
         for filename in self.files:
-            nvrea = _processFile(filename, nosig=1)['nvrea']
+            nvrea = self._processFile(filename, nosig=1)['nvrea']
             name = nvrea[0]
             if not localPackagesHash.has_key(name):
                 localPackagesHash[name] = {nvrea : filename}
@@ -354,7 +360,7 @@ class UploadClass:
         while file_list:
             chunk = file_list[:self.count]
             del file_list[:self.count]
-            uploadedPackages, headersList = _processBatch(chunk,
+            uploadedPackages, headersList = self._processBatch(chunk,
                 relativeDir=self.relativeDir, source=self.options.source, 
                 verbose=self.options.verbose, nosig=self.options.nosig)
 
@@ -486,90 +492,88 @@ class UploadClass:
                     self.new_sat = 0
         return self.new_sat     
  
-        
+    def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
+        """ Processes a file
+            Returns a hash containing:
+              header
+              packageSize
+              checksum
+              relativePath
+              nvrea
+         """
 
-def _processFile(filename, relativeDir=None, source=None, nosig=None):
-    """ Processes a file
-        Returns a hash containing:
-          header
-          packageSize
-          checksum
-          relativePath
-          nvrea
-     """
+        # Is this a file?
+        if not os.access(filename, os.R_OK):
+            raise UploadError("Could not stat the file %s" % filename)
+        if not os.path.isfile(filename):
+            raise UploadError("%s is not a file" % filename)
 
-    # Is this a file?
-    if not os.access(filename, os.R_OK):
-        raise UploadError("Could not stat the file %s" % filename)
-    if not os.path.isfile(filename):
-        raise UploadError("%s is not a file" % filename)
+        # Size
+        size = os.path.getsize(filename)
+        # Open the file
+        f = open(filename, "r")
+        # Read the header
+        h = get_header(None, f.fileno(), source)
+        (header_start, header_end) = get_header_byte_range(f);
+        # Rewind the file
+        f.seek(0, 0)
+        # Compute digest
+        checksum_type = h.checksum_type()
+        checksum = getFileChecksum(checksum_type, file=f)
+        f.close()
+        if h is None:
+            raise UploadError("%s is not a valid RPM file" % filename)
 
-    # Size
-    size = os.path.getsize(filename)
-    # Open the file
-    f = open(filename, "r")
-    # Read the header
-    h = get_header(None, f.fileno(), source)
-    (header_start, header_end) = get_header_byte_range(f);
-    # Rewind the file
-    f.seek(0, 0)
-    # Compute digest
-    checksum_type = h.checksum_type()
-    checksum = getFileChecksum(checksum_type, file=f)
-    f.close()
-    if h is None:
-        raise UploadError("%s is not a valid RPM file" % filename)
+        if nosig is None and not h.is_signed():
+            raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"
+                % filename)
 
-    if nosig is None and not h.is_signed():
-        raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"
-            % filename)
+        # Get the name, version, release, epoch, arch
+        lh = []
+        for k in ['name', 'version', 'release', 'epoch']:
+            lh.append(h[k])
+        # Fix the epoch
+        if lh[3] is None:
+            lh[3] = ""
+        else:
+            lh[3] = str(lh[3])
 
-    # Get the name, version, release, epoch, arch
-    lh = []
-    for k in ['name', 'version', 'release', 'epoch']:
-        lh.append(h[k])
-    # Fix the epoch
-    if lh[3] is None:
-        lh[3] = ""
-    else:
-        lh[3] = str(lh[3])
+        if source:
+            lh.append('src')
+        else:
+            lh.append(h['arch'])
 
-    if source:
-        lh.append('src')
-    else:
-        lh.append(h['arch'])
+        # Build the header hash to be sent
+        hash = { 'header' : Binary(h.unload()),
+                'checksum_type' : checksum_type,
+                'checksum' : checksum,
+                'packageSize' : size,
+                'header_start' : header_start,
+                'header_end' : header_end}
+        if relativeDir:
+            # Append the relative dir too
+            hash["relativePath"] = "%s/%s" % (relativeDir,
+                os.path.basename(filename))
+        hash['nvrea'] = tuple(lh)
+        return hash
 
-    # Build the header hash to be sent
-    hash = { 'header' : Binary(h.unload()),
-            'checksum_type' : checksum_type,
-            'checksum' : checksum,
-            'packageSize' : size,
-            'header_start' : header_start,
-            'header_end' : header_end}
-    if relativeDir:
-        # Append the relative dir too
-        hash["relativePath"] = "%s/%s" % (relativeDir,
-            os.path.basename(filename))
-    hash['nvrea'] = tuple(lh)
-    return hash
+    def _processBatch(self, batch, relativeDir, source, verbose, nosig=None):
+        sentPackages = {}
+        headersList = []
+        for filename in batch:
+            if verbose:
+                print "Uploading %s" % filename
+            hash = self._processFile(filename, relativeDir=relativeDir, source=source,
+                nosig=nosig)
+            # Get nvrea
+            nvrea = hash['nvrea']
+            del hash['nvrea']
 
-def _processBatch(batch, relativeDir, source, verbose, nosig=None):
-    sentPackages = {}
-    headersList = []
-    for filename in batch:
-        if verbose:
-            print "Uploading %s" % filename
-        hash = _processFile(filename, relativeDir=relativeDir, source=source, 
-            nosig=nosig)
-        # Get nvrea
-        nvrea = hash['nvrea']
-        del hash['nvrea']
+            sentPackages[nvrea] = filename
 
-        sentPackages[nvrea] = filename
-
-        # Append the header to the list of headers to be sent out
-        headersList.append(hash)
-    return sentPackages, headersList
+            # Append the header to the list of headers to be sent out
+            headersList.append(hash)
+        return sentPackages, headersList
 
 def readStdin():
     # Reads the standard input lines and returns a list
@@ -636,14 +640,14 @@ def call(function, *params):
     # Wrapper function
     try:
         ret = apply(function, params)
-    except rpclib.Fault, e:
+    except xmlrpclib.Fault, e:
         x = parseXMLRPCfault(e)
         if x.faultString:
             print x.faultString
         if x.faultExplanation:
             print x.faultExplanation
         sys.exit(-1)
-    except rpclib.ProtocolError, e:
+    except xmlrpclib.ProtocolError, e:
         print e.errmsg
         sys.exit(-1)
 
@@ -654,7 +658,7 @@ def raw_call(function, *params):
 
 
 def parseXMLRPCfault(fault):
-    if not isinstance(fault, rpclib.Fault):
+    if not isinstance(fault, xmlrpclib.Fault):
         return None
     faultCode = fault.faultCode
     if faultCode and isinstance(faultCode, type(1)):
@@ -711,23 +715,24 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
         s.add_trusted_cert(ca_chain)
     return s
 
-def exists_getPackageChecksumBySession(server):
+def exists_getPackageChecksumBySession(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
-    ret = True
-    try:
-        raw_call(server.packages.getPackageChecksumBySession, '', {})
-    except rpclib.Fault, e:
-        if e.faultCode == -33:
-            # Fault -33: session token is invalid
-            # i.e. function exists but we supplied wrong data
-            pass
-        elif e.faultCode == -1:
-            # Fault -1: function invalid
-            ret = False
+    if rhnserver_available:
+        # unfortunatelly we do not have capability for getPackageChecksumBySession function,
+        # but extended_profile in version 2 has been created just 2 months before
+        # getPackageChecksumBySession lets use it instead
+        server = rhnserver.RhnServer()
+        server._server = rpc_server
+        result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
+    else: # rhel4 has no rhnserver
+        server_capabilities = rpc_server.get_server_capability()
+        if 'xmlrpc.packages.extended_profile' in server_capabilities:
+            # that capability can be '1' or '1-2', this is hackish
+            result = server_capabilities['xmlrpc.packages.extended_profile']['version'] > '1' and \
+                server_capabilities['xmlrpc.packages.extended_profile']['value']  # usually '1'
         else:
-            # pass through anything else
-            raise
-    return ret
+            result = False
+    return result
 
 # compare two package [n,v,r,e] tuples
 def packageCompare(pkg1, pkg2, is_mpm=None):

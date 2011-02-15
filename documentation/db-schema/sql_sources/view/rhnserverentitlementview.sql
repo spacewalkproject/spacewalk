@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:43 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:22 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERENTITLEMENTVIEW" ("SERVER_ID", "SERVER_GROUP_TYPE_ID", "LABEL", "PERMANENT", "IS_BASE") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERENTITLEMENTVIEW" ("SERVER_ID", "SERVER_GROUP_TYPE_ID", "LABEL", "PERMANENT", "IS_BASE") AS 
   select
    distinct
    sgm.server_id,

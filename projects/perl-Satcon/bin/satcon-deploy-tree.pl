@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,7 @@ my $help = '';
 
 GetOptions("source=s" => \$sourcedir, "dest=s" => \$destdir,
 	   "conf=s" => \$conf_file, "start-delim:s" => \$open,
-	   "end-delim:s" => \$close, "backupdir=s" => \$backupdir);
+	   "end-delim:s" => \$close, "backupdir=s" => \$backupdir) or die $usage;
 
 die $usage unless ($sourcedir and $destdir and $conf_file);
 

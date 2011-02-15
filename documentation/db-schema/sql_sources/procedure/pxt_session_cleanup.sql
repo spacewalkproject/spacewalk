@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:03 2010
+-- created by Oraschemadoc Thu Jan 20 13:58:41 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "SPACEWALK"."PXT_SESSION_CLEANUP"
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."PXT_SESSION_CLEANUP" 
    (bound_in in number, commit_interval in number := 100,
 batch_size in number := 50000, sessions_deleted in out number)
 is

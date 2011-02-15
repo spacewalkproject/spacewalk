@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,6 +44,9 @@ sub register_dobby_commands {
   $cli->register_mode(-command => "report-stats",
 		      -description => "Show tables with stale or empty statistics",
 		      -handler => \&command_reportstats);
+  $cli->register_mode(-command => "reset-password",
+                      -description => "Reset the user password and unlock account",
+                      -handler => \&command_resetpassword);
 }
 
 sub command_startstop {
@@ -77,6 +80,7 @@ sub command_startstop {
   else {
     croak "Unknown command '$command' not in (start, stop)";
   }
+  return 0;
 }
 
 sub command_status {
@@ -142,6 +146,7 @@ sub command_report {
       $class->size_scale($ts->{FREE_BYTES}),
       sprintf("%.0f", 100 * ($ts->{USED_BYTES} / $ts->{TOTAL_BYTES}));
   }
+  return 0;
 }
 
 sub command_tablesizes {
@@ -168,6 +173,7 @@ sub command_tablesizes {
 
   printf $fmt, "-" x 32, "-" x 7;
   printf $fmt, "Total", $class->size_scale($total);
+  return 0;
 }
 
 sub command_reportstats {
@@ -182,7 +188,27 @@ sub command_reportstats {
   my $stats = $d->report_database_stats();
   for my $i (sort keys %$stats) {
     print "Tables with $i statistics: $stats->{$i}\n";
-    }
+  }
+  return 0;
+}
+
+sub command_resetpassword {
+  my $cli = shift;
+
+  my $d = new Dobby::DB;
+  if (not $d->database_started) {
+    print "Error: The database must be running to reset the user password.\n";
+    return 1;
+  }
+
+  my $result = $d->password_reset();
+  if ($result) {
+    print "Password reset for database user $result\n";
+  } else {
+    print "Failed to reset password\n";
+    return 1;
+  }
+  return 0;
 }
 
 1;

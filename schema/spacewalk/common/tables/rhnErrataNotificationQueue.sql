@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,14 +38,10 @@ CREATE TABLE rhnErrataNotificationQueue
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_enqueue_eid_idx
-    ON rhnErrataNotificationQueue (errata_id, org_id)
-    TABLESPACE [[4m_tbs]];
-
-CREATE INDEX rhn_enqueue_na_eid_idx
-    ON rhnErrataNotificationQueue (next_action, errata_id)
+CREATE INDEX rhn_enqueue_na_idx
+    ON rhnErrataNotificationQueue (next_action)
     TABLESPACE [[8m_tbs]];
 
 ALTER TABLE rhnErrataNotificationQueue
-    ADD CONSTRAINT rhn_enqueue_eoid_uq UNIQUE (errata_id, org_id);
+    ADD CONSTRAINT rhn_enqueue_eoid_uq UNIQUE (errata_id, channel_id, org_id);
 

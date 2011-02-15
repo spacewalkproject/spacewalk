@@ -1,6 +1,6 @@
 #
 # RHN Registration Client
-# Copyright (c) 2000-2002 Red Hat, Inc.
+# Copyright (c) 2000--2011 Red Hat, Inc.
 #
 # Authors:
 #     Adrian Likins <alikins@redhat.com>
@@ -8,6 +8,8 @@
 #     Daniel Benamy <dbenamy@redhat.com>
 
 import os
+import re
+import rpm
 import sys
 
 import up2dateUtils
@@ -21,10 +23,7 @@ import hardware
 from rhnPackageInfo import convertPackagesFromHashToList
 from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
 
-try:
-    from rhn import rpclib
-except ImportError:
-    rpclib = __import__("xmlrpclib")
+import xmlrpclib
 
 try:
     from virtualization import support
@@ -36,11 +35,13 @@ _ = gettext.gettext
 
 
 # global variables
+YUM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'
 #SYSID_DIR = /tmp
 SYSID_DIR = "/etc/sysconfig/rhn"
 REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
 
 HW_CODE_FILE = "%s/hw-activation-code" % SYSID_DIR
+RHSM_FILE = "/etc/pki/consumer/cert.pem"
 
 import config
 cfg = config.initUp2dateConfig()
@@ -82,6 +83,13 @@ def getOemInfo():
 
     return info
 
+def rhsm_registered():
+    """ Returns true if system is registred using subscription manager """
+    if os.access(RHSM_FILE, os.R_OK):
+        statinfo = os.stat(RHSM_FILE)
+        return statinfo.st_size > 0
+    else:
+        return False
 
 def registered():
     return os.access(cfg['systemIdPath'], os.R_OK)
@@ -141,10 +149,10 @@ def get_virt_info():
 
        1.  Check /proc/xen/xsd_port.  If exists, we know the system is a
            host; exit.
-       2.  Check /sys/hypervisor/uuid.  If exists and is non-zero, we know
-           the system is a para-virt guest; exit.
-       3.  Check SMBIOS.  If vendor='Xen' and UUID is non-zero, we know the
+       2.  Check SMBIOS.  If vendor='Xen' and UUID is non-zero, we know the
            system is a fully-virt guest; exit.
+       3.  Check /sys/hypervisor/uuid.  If exists and is non-zero, we know
+           the system is a para-virt guest; exit.
        4.  If non of the above checks worked; we know we have a
            non-xen-enabled system; exit. 
     """
@@ -163,13 +171,13 @@ def get_virt_info():
         # Failed.  Move on to next strategy.
         pass
 
-    # This is not a virt host system.  Check if it's a para-virt guest.
-    (uuid, virt_type) = get_para_virt_info()
+    # This is not a virt host system. Check if it's a fully-virt guest.
+    (uuid, virt_type) = get_fully_virt_info()
     if uuid is not None:
         return (uuid, virt_type)
-        
-    # This is not a para-virt guest.  Check if it's a fully-virt guest.
-    (uuid, virt_type) = get_fully_virt_info()
+
+    # This is not a fully virt guest system. Check if it's a para-virt guest.
+    (uuid, virt_type) = get_para_virt_info()
     if uuid is not None:
         return (uuid, virt_type)
 
@@ -353,7 +361,7 @@ def getAvailableChannels(username, password):
                                                  username, password,
                                                  server_arch, server_version, 
                                                  server_release)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise up2dateErrors.DelayError(f.faultString)
         else:
@@ -634,3 +642,69 @@ def spawnRhnCheckForUI():
     else:
         log.log_me("Warning: unable to run rhn_check")
 
+def enableYumRhnPlugin():
+    """ enable yum-rhn-plugin by setting enabled=1 in file
+        /etc/yum/pluginconf.d/rhnplugin.conf
+        Can thrown IOError exception.
+    """
+    f = open(YUM_PLUGIN_CONF, 'r')
+    lines = f.readlines()
+    f.close()
+    main_section = False
+    f = open(YUM_PLUGIN_CONF, 'w')
+    for line in lines:
+        if re.match("^\[.*]", line):
+            if re.match("^\[main]", line):
+                main_section = True
+            else:
+                main_section = False
+        if main_section:
+            line = re.sub('^(\s*)enabled\s*=.+', r'\1enabled = 1', line)
+        f.write(line)
+    f.close()
+
+def YumRhnPluginEnabled():
+    """ Returns True if yum-rhn-plugin is enabled
+        Can thrown IOError exception.
+    """
+    f = open(YUM_PLUGIN_CONF, 'r')
+    lines = f.readlines()
+    f.close()
+    main_section = False
+    result = False
+    for line in lines:
+        if re.match("^\[.*]", line):
+            if re.match("^\[main]", line):
+                main_section = True
+            else:
+                main_section = False
+        if main_section:
+            m = re.match('^\s*enabled\s*=\s*([0-9])', line)
+            if m:
+                if int(m.group(1)):
+                    result = True
+                else:
+                    result = False
+    return result
+
+def createDefaultYumRHNPluginConf():
+    """ Create file /etc/yum/pluginconf.d/rhnplugin.conf with default values """
+    f = open(YUM_PLUGIN_CONF, 'w')
+    f.write("""[main]
+enabled = 1
+gpgcheck = 1""")
+    f.close()
+
+def YumRHNPluginConfPresent():
+    """ Returns true if /etc/yum/pluginconf.d/rhnplugin.conf is presented """
+    try:
+        os.stat(YUM_PLUGIN_CONF)
+        return True
+    except OSError:
+        return False
+
+def YumRHNPluginPackagePresent():
+    """ Returns positive number if packaga yum-rhn-plugin is installed, otherwise it return 0 """
+    ts = rpm.TransactionSet()
+    headers = ts.dbMatch('providename', 'yum-rhn-plugin')
+    return headers.count()

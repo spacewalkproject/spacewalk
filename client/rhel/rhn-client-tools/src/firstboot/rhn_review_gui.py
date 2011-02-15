@@ -33,6 +33,7 @@ gtk.glade.bindtextdomain("rhn-client-tools")
 
 from firstboot.module import Module
 from firstboot.constants import *
+from firstboot.config import config
 
 class moduleClass(Module):
     def __init__(self):
@@ -57,6 +58,8 @@ class moduleClass(Module):
 
     def initializeUI(self):
         self.reviewSubscriptionPage.reviewSubscriptionPagePrepare()
+        while len(config.interface._control.history) > 1:
+            config.interface._control.history.pop()
 
     def shouldAppear(self):
         if rhnreg.registered():

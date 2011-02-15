@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
@@ -75,6 +76,16 @@ public abstract class BaseSystemsAction extends RhnListAction {
 
         request.setAttribute("pageList", result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+
+        /**
+         * This may not be the best spot...
+         */
+        request.setAttribute("scCrit", ConfigDefaults.get().getSCCrit());
+        request.setAttribute("scImp",  ConfigDefaults.get().getSCImp());
+        request.setAttribute("scMod",  ConfigDefaults.get().getSCMod());
+        request.setAttribute("scLow",  ConfigDefaults.get().getSCLow());
+        request.setAttribute("scBug",  ConfigDefaults.get().getSCBug());
+        request.setAttribute("scEhn",  ConfigDefaults.get().getSCEnh());
 
         TagHelper.bindElaboratorTo("systemList", result.getElaborator(), request);
 

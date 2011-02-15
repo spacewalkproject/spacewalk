@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2009 Red Hat, Inc.
+# Copyright (c) 2009--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -33,10 +33,7 @@ if ($q =~ /^rhn-(org-)?httpd-ssl-key-pair/) {
 	$macros{'server_pem'} = '/etc/jabberd/server.pem';
 }
 
-GetOptions("macros:s" => \$macros, "verbose" => \$verbose, "help" => \$help);
-
-if ($help) {
-	print <<EOHELP;
+my $usage = <<EOHELP;
 Usage: $0 --help | --verbose | --macros macros
 Options:
   --help     Print this help message
@@ -44,6 +41,9 @@ Options:
   --macros   Comma delimited list of macroname:macrovalue options
 EOHELP
 
+GetOptions("macros:s" => \$macros, "verbose" => \$verbose, "help" => \$help) or die $usage;
+if ($help) {
+	print $usage;
 	exit 0;
 }
 

@@ -2,8 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -15,26 +14,27 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
 #: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
-msgstr ""
-
-#: rhnsd.c:136
-msgid "wrong number of arguments"
-msgstr ""
+msgstr "Seda programmi saab käivitada ainult administraator\n"
 
 #: rhnsd.c:143
 msgid "already running"
-msgstr ""
+msgstr "juba töötab"
 
-#: rhnsd.c:243
-#, c-format
-msgid "Copyright (C) %s Red Hat, Inc.\n"
-msgstr ""
+#: rhnsd.c:136
+msgid "wrong number of arguments"
+msgstr "vale argumentide arv"
 
 #: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
-msgstr ""
+msgstr "Autor %s.\n"
+
+#: rhnsd.c:243
+#, c-format
+msgid "Copyright (C) %s Red Hat, Inc.\n"
+msgstr "Autoriõigus (C) %s Red Hat, Inc.\n"

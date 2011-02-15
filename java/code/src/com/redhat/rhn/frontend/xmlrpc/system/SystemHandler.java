@@ -75,6 +75,7 @@ import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.ServerPath;
+import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -1190,6 +1191,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
+     *                 #prop("int", "id")
      *                 #prop("string", "name")
      *                 #prop("string", "version")
      *                 #prop("string", "release")
@@ -1849,7 +1851,8 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("string", "earliest_action", "Earliest date this action
      *                     will occur.")
      *          #prop_desc("int", "archived", "If this action is archived. (1 or 0)")
-     *          #prop("string", "scheduler_user")
+     *          #prop_desc("string", "scheduler_user", "available only if concrete user
+     *                     has scheduled the action")
      *          #prop_desc("string", "prerequisite", "Pre-requisite action. (optional)")
      *          #prop_desc("string", "name", "Name of this action.")
      *          #prop_desc("int", "id", "Id of this action.")
@@ -1926,7 +1929,8 @@ public class SystemHandler extends BaseHandler {
             if (action.getArchived() != null) {
                 result.put("archived", action.getArchived());
             }
-            if (action.getSchedulerUser().getLogin() != null) {
+            if ((action.getSchedulerUser() != null) &&
+                    (action.getSchedulerUser().getLogin() != null)) {
                 result.put("scheduler_user", action.getSchedulerUser().getLogin());
             }
             if (action.getPrerequisite() != null) {
@@ -4679,8 +4683,104 @@ public class SystemHandler extends BaseHandler {
         if (cf == null) {
             throw new InvalidEntitlementException();
         }
+        // we need long values to pass
+        List<Long> longServerIds = new ArrayList();
+        for (Iterator it = serverIds.iterator(); it.hasNext();) {
+            longServerIds.add(new Long((Integer) it.next()));
+        }
         return VirtualizationEntitlementsManager.getInstance().
-                            convertToFlex(serverIds, cf.getId(), user);
+                            convertToFlex(longServerIds, cf.getId(), user).size();
     }
 
+    /**
+     * Get the System Currency score multipliers
+     * @param sessionKey session
+     * @return the score multipliers used by the System Currency page
+     *
+     * @xmlrpc.doc Get the System Currency score multipliers
+     *  @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype Map of score multipliers
+     */
+    public Map getSystemCurrencyMultipliers(String sessionKey) {
+        Map multipliers = new HashMap();
+        multipliers.put("scCrit", ConfigDefaults.get().getSCCrit());
+        multipliers.put("scImp", ConfigDefaults.get().getSCImp());
+        multipliers.put("scMod", ConfigDefaults.get().getSCMod());
+        multipliers.put("scLow", ConfigDefaults.get().getSCLow());
+        multipliers.put("scBug", ConfigDefaults.get().getSCBug());
+        multipliers.put("scEnh", ConfigDefaults.get().getSCEnh());
+        return multipliers;
+    }
+
+    /**
+     * Get System Currency scores for all servers the user has access to
+     * @param sessionKey session
+     * @return List of user visible systems and a breakdown of the security,
+     * bug fix and enhancement errata counts plus a score based on the default
+     * system currency multipliers.
+     *
+     * @xmlrpc.doc Get the System Currency score multipliers
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("system currency")
+     *              #prop("int", "sid")
+     *              #prop("int", "critical security errata count")
+     *              #prop("int", "important security errata count")
+     *              #prop("int", "moderate security errata count")
+     *              #prop("int", "low security errata count")
+     *              #prop("int", "bug fix errata count")
+     *              #prop("int", "enhancement errata count")
+     *              #prop("int", "system currency score")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public List getSystemCurrencyScores(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        DataResult<SystemCurrency> dr = SystemManager.systemCurrencyList(user, null);
+        List l = new ArrayList();
+        for (Iterator it = dr.iterator(); it.hasNext();) {
+            Map m = new HashMap();
+            SystemCurrency s = (SystemCurrency) it.next();
+            m.put("sid", s.getId());
+            m.put("crit", s.getCritical());
+            m.put("imp", s.getImportant());
+            m.put("mod", s.getModerate());
+            m.put("low", s.getLow());
+            m.put("bug", s.getBug());
+            m.put("enh", s.getEnhancement());
+            m.put("score", s.getCritical()    * ConfigDefaults.get().getSCCrit() +
+                           s.getImportant()   * ConfigDefaults.get().getSCImp() +
+                           s.getModerate()    * ConfigDefaults.get().getSCMod() +
+                           s.getLow()         * ConfigDefaults.get().getSCLow() +
+                           s.getBug()         * ConfigDefaults.get().getSCBug() +
+                           s.getEnhancement() * ConfigDefaults.get().getSCEnh());
+            l.add(m);
+        }
+
+        return l;
+    }
+
+    /**
+     * Get the UUID for the given system ID.
+     * @param sessionKey of user making call
+     * @param serverId of the server
+     * @return UUID string
+     *
+     * @xmlrpc.doc Get the UUID from the given system ID.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "serverId")
+     * @xmlrpc.returntype string
+     */
+    public String getUuid(String sessionKey, Integer serverId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        if (server.isVirtualGuest()) {
+            return server.getVirtualInstance().getUuid();
+        }
+        else {
+            return "";
+        }
+    }
 }

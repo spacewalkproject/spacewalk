@@ -292,7 +292,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testListErrata() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        ErrataFactory.publishToChannel(e, c, user);
+        ErrataFactory.publishToChannel(e, c, user, false);
 
         e = (Errata) TestUtils.saveAndReload(e);
 
@@ -829,7 +829,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testRemoveErrata() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        ErrataFactory.publishToChannel(e, c, user);
+        ErrataFactory.publishToChannel(e, c, user, false);
 
         e = (Errata) TestUtils.saveAndReload(e);
 

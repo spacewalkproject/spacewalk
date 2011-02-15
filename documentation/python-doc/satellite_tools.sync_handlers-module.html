@@ -89,7 +89,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers.ChannelCollection-class.html" class="summary-name">ChannelCollection</a>
+        <a href="satellite_tools.sync_handlers.ChannelCollection-class.html" class="summary-name">ChannelCollection</a><br />
+      hash(x)
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.sync_handlers.SyncHandlerContainer-class.html" class="summary-name">SyncHandlerContainer</a>
     </td>
   </tr>
 <tr>
@@ -103,7 +111,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers.ShortPackageCollection-class.html" class="summary-name">ShortPackageCollection</a>
+        <a href="satellite_tools.sync_handlers.ShortPackageCollection-class.html" class="summary-name">ShortPackageCollection</a><br />
+      hash(x)
     </td>
   </tr>
 <tr>
@@ -117,7 +126,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers.PackageCollection-class.html" class="summary-name">PackageCollection</a>
+        <a href="satellite_tools.sync_handlers.PackageCollection-class.html" class="summary-name">PackageCollection</a><br />
+      hash(x)
     </td>
   </tr>
 <tr>
@@ -131,7 +141,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers.SourcePackageCollection-class.html" class="summary-name">SourcePackageCollection</a>
+        <a href="satellite_tools.sync_handlers.SourcePackageCollection-class.html" class="summary-name">SourcePackageCollection</a><br />
+      hash(x)
     </td>
   </tr>
 <tr>
@@ -145,7 +156,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers.ErrataCollection-class.html" class="summary-name">ErrataCollection</a>
+        <a href="satellite_tools.sync_handlers.ErrataCollection-class.html" class="summary-name">ErrataCollection</a><br />
+      hash(x)
     </td>
   </tr>
 <tr>
@@ -159,7 +171,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers.KickstartableTreesCollection-class.html" class="summary-name">KickstartableTreesCollection</a>
+        <a href="satellite_tools.sync_handlers.KickstartableTreesCollection-class.html" class="summary-name">KickstartableTreesCollection</a><br />
+      hash(x)
     </td>
   </tr>
 <tr>
@@ -209,6 +222,22 @@
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_sync_handler"></a><span class="summary-sig-name">get_sync_handler</span>(<span class="summary-sig-arg">container</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.sync_handlers-pysrc.html#get_sync_handler">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -426,7 +455,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="compute_sum_max_members"></a><span class="summary-sig-name">compute_sum_max_members</span>(<span class="summary-sig-arg">cfps</span>)</span></td>
+          <td><span class="summary-sig"><a name="compute_sum_max_members"></a><span class="summary-sig-name">compute_sum_max_members</span>(<span class="summary-sig-arg">cfps</span>)</span><br />
+      If a channel family appears multiple times for each org, comgine them</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.sync_handlers-pysrc.html#compute_sum_max_members">source&nbsp;code</a></span>
             
@@ -529,70 +559,65 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_existing_channel_families" class="summary-name" onclick="show_private();">_query_fetch_existing_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161474924; statement=
+        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_existing_channel_families" class="summary-name" onclick="show_private();">_query_fetch_existing_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select label
      from rhnChannelFamily cf
-">&lt;server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_channel_family_permissions" class="summary-name" onclick="show_private();">_query_fetch_channel_family_permissions</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161474956; statement=
+        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_channel_family_permissions" class="summary-name" onclick="show_private();">_query_fetch_channel_family_permissions</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select cf.label as channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cf.org_id as owner_or\
-g_id
+           cfp.max_members, cfp.current_members, cfp.fve_max_members a\
+s max_flex, 
+           cfp.fve_current_members as current_flex, 
+            cf.org_id as owner_org_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
-">&lt;server.rhnSQL.sql_b<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_purge_extra_channel_families_1" class="summary-name" onclick="show_private();">_query_purge_extra_channel_families_1</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161474988; statement=
+        <a href="satellite_tools.sync_handlers-module.html#_query_purge_extra_channel_families_1" class="summary-name" onclick="show_private();">_query_purge_extra_channel_families_1</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     delete from rhnPrivateChannelFamily cfp
      where max_members = 0
        and not exists (
         select 1 from rhnChannelFamilyMembers
          where channel_family_id = cfp.channel_family_id
        )
-">&lt;server.rhnSQL.sql_bas<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_purge_private_channel_families" class="summary-name" onclick="show_private();">_query_purge_private_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161475020; statement=
+        <a href="satellite_tools.sync_handlers-module.html#_query_purge_private_channel_families" class="summary-name" onclick="show_private();">_query_purge_private_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     delete from rhnChannelFamily
         where org_id is null
           and label like '%private%'
-">&lt;server.rhnSQL.sql_bas<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_update_family_counts" class="summary-name" onclick="show_private();">_query_update_family_counts</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161475052; statement=
+        <a href="satellite_tools.sync_handlers-module.html#_query_update_family_counts" class="summary-name" onclick="show_private();">_query_update_family_counts</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     declare
-        cursor ch_fam_cursor is
+        /*pg_cs*/ cursor ch_fam_cursor /*pg cursor*/ is
             select cf.id channel_family_id, wc.id org_id
               from rhnChannelFamily cf, web_customer wc;
     begin
         for row in ch_fam_cursor loop
-            rhn_channel.update_family_counts(row.channel_family_id,
-...">&lt;server.rhnSQL.sql_base.Statemen<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_tools'"><code class="variable-quote">'</code><code class="variable-string">satellite_tools</code><code class="variable-quote">'</code></code>
+            /*pg perform*/ rhn_channel.update_family_counts(row.channe\
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -626,10 +651,10 @@ g_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 161474924; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select label
      from rhnChannelFamily cf
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -647,13 +672,15 @@ g_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 161474956; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select cf.label as channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cf.org_id as owner_or<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-g_id
+           cfp.max_members, cfp.current_members, cfp.fve_max_members a<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+s max_flex, 
+           cfp.fve_current_members as current_flex, 
+            cf.org_id as owner_org_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
-
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -671,14 +698,14 @@ g_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 161474988; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     delete from rhnPrivateChannelFamily cfp
      where max_members = 0
        and not exists (
         select 1 from rhnChannelFamilyMembers
          where channel_family_id = cfp.channel_family_id
        )
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -696,11 +723,11 @@ g_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 161475020; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     delete from rhnChannelFamily
         where org_id is null
           and label like '%private%'
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -718,14 +745,14 @@ g_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 161475052; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     declare
-        cursor ch_fam_cursor is
+        /*pg_cs*/ cursor ch_fam_cursor /*pg cursor*/ is
             select cf.id channel_family_id, wc.id org_id
               from rhnChannelFamily cf, web_customer wc;
     begin
         for row in ch_fam_cursor loop
-            rhn_channel.update_family_counts(row.channel_family_id,
+            /*pg perform*/ rhn_channel.update_family_counts(row.channe<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -756,7 +783,7 @@ g_id
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:37 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

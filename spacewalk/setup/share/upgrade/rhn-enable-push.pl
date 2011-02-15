@@ -30,7 +30,7 @@ my $usage = "usage: $0 [ --hostname=<override_hostname> ] [ --ssl-dir=<ssl_build
   . " [ --pub-ssl-cert=<public_ssl_certificate> ] [ --force ]"
   . " [ --help ]\n";
 
-GetOptions(\%opts, @valid_opts);
+GetOptions(\%opts, @valid_opts) or die $usage;
 
 if ($opts{help}) {
   die $usage;
@@ -81,7 +81,7 @@ $config_opts{jabberDOTpassword} = 'rhn-dispatcher-' . PXT::Utils->random_passwor
 $config_opts{osadispatcherDOTosa_ssl_cert} = $opts{'pub-ssl-cert'} || '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT';
 
 RHN::SatInstall->write_config(\%config_opts,
-			      '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+			      '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf');
 
 print "Deploying config\n";
 

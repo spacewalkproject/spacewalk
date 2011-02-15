@@ -30,11 +30,6 @@ import java.util.HashMap;
 public class CleanCurrentAlerts extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "clean_current_alerts";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext contextIn)

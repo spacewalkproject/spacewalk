@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,6 +32,6 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_solaris_pp_pid_pnid_idx
     ON rhnSolarisPatchPackages (patch_id, package_nevra_id);
 
-CREATE INDEX rhn_solaris_pp_pnid_pid_idx
-    ON rhnSolarisPatchPackages (package_nevra_id, patch_id);
+CREATE INDEX rhn_solaris_pp_pnid_idx
+    ON rhnSolarisPatchPackages (package_nevra_id);
 

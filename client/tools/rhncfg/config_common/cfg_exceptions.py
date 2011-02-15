@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,12 +19,6 @@ class InvalidSession(Exception):
 class AuthenticationError(Exception):
     pass
 
-class MalformedRepository(Exception):
-    pass
-
-class FileNotInRepo(Exception):
-    pass
-
 class ConfigChannelNotInRepo(Exception):
     pass
 
@@ -32,12 +26,6 @@ class ConfigChannelAlreadyExistsError(Exception):
     pass
 
 class ConfigChannelNotEmptyError(Exception):
-    pass
-
-class RepoAlreadyExists(Exception):
-    pass
-
-class RepoPlainFile(Exception):
     pass
 
 class ConfigNotManaged(Exception):

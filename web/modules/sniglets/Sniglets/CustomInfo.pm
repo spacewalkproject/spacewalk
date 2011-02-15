@@ -76,7 +76,7 @@ sub ssm_set_values {
   		$pxt->push_message(site_info => "Value <strong>" . $key->label() . "</strong> could not be set for ". ($total_count - $success_count) . " systems because they do not have provisioning entitlements.");
   }
 
-  $pxt->redirect("/network/systems/ssm/misc/index.pxt");
+  $pxt->redirect("/rhn/systems/ssm/misc/Index.do");
 }
 
 sub ssm_remove_values {
@@ -94,7 +94,7 @@ sub ssm_remove_values {
 
   $pxt->push_message(site_info => "Value removed for <strong>" . $key->label() . "</strong> from selected systems.");
 
-  $pxt->redirect("/network/systems/ssm/misc/index.pxt");
+  $pxt->redirect("/rhn/systems/ssm/misc/Index.do");
 }
 
 sub remove_system_value {
@@ -114,7 +114,7 @@ sub remove_system_value {
   $server->remove_custom_value($key->id());
 
   $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> removed for this system.");
-  $pxt->redirect("/network/systems/details/custominfo/index.pxt?sid=$sid");
+  $pxt->redirect("/rhn/systems/details/ListCustomData.do?$sid");
 }
 
 sub system_value_edit {
@@ -143,7 +143,7 @@ sub system_value_edit {
 			      -key_label => $key->label(),
 			      -value => undef);
 
-    $pxt->redirect("/network/systems/details/custominfo/edit.pxt?sid=$sid&cikid=$key_id");
+    $pxt->redirect("/rhn/systems/details/UpdateCustomData.do?sid=$sid&cikid=$key_id");
   }
 
   return PXT::Utils->perform_substitutions($params{__block__}, \%subs);
@@ -176,7 +176,7 @@ sub edit_value_cb {
   # anti-jkt code...
   if (length($value) > 4000) {
     $pxt->push_message(local_alert => "Custom values must be fewer than 4000 characters.");
-    $pxt->redirect("/network/systems/details/custominfo/edit.pxt?sid=$sid&cikid=$key_id");
+    $pxt->redirect("/rhn/systems/details/UpdateCustomData.do?sid=$sid&cikid=$key_id");
   }
 
   my $server = RHN::Server->lookup(-id => $sid);
@@ -204,7 +204,7 @@ sub edit_value_cb {
 			   );
 
   $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> changed.");
-  $pxt->redirect("/network/systems/details/custominfo/index.pxt?sid=$sid");
+  $pxt->redirect("/rhn/systems/details/ListCustomData.do?sid=$sid");
 }
 
 sub system_value_details {
@@ -235,7 +235,7 @@ sub delete_key {
 
   unless ($pxt->user->can_delete_custominfokey($key_id)) {
     $pxt->push_message(local_alert => "Only org admins or a key's creator may delete a key.");
-    $pxt->redirect("/network/systems/custominfo/edit.pxt?cikid=$key_id");
+    $pxt->redirect("/rhn/systems/customdata/UpdateCustomKey.do?cikid=$key_id");
   }
 
   my $transaction = RHN::DB->connect();
@@ -254,7 +254,7 @@ sub delete_key {
 
     if ($E->constraint_value eq 'RHN_SCDV_KID_FK') {
       $pxt->push_message(local_alert => 'Other systems have values for this key; deletion request denied.');
-      $pxt->redirect("/network/systems/custominfo/edit.pxt?cikid=$key_id");
+      $pxt->redirect("/rhn/systems/customdata/UpdateCustomKey.do?cikid=$key_id");
     }
  
     die $E;
@@ -356,7 +356,7 @@ sub edit_key_cb {
     $pxt->push_message(site_info => "New key " . PXT::Utils->escapeHTML($key->label) . " created.");
   }
 
-  $pxt->redirect('/network/systems/custominfo/index.pxt');
+  $pxt->redirect('/rhn/systems/customdata/CustomDataList.do');
 }
 
 1;

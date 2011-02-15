@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,16 +24,18 @@ import cfg_exceptions
 import local_config
 import base64
 import utils
+import xmlrpclib
 
-from rhn_log import log_debug, die
-#from rhn_rpc import rpclib
+from rhn_log import log_debug
+
 try:
-    from selinux import lgetfilecon
+    from selinux import lgetfilecon, is_selinux_enabled
 except:
     # on rhel4 we do not support selinux
     def lgetfilecon(path):
-        return [0, ''];
-
+        return [0, '']
+    def is_selinux_enabled():
+        return 0
 
 #6/29/05 rpc_wrapper implements the failover logic.
 import rpc_wrapper
@@ -85,7 +87,7 @@ class Repository:
         "To be overwritten in subclasses"
         return 1024
 
-    def _make_stat_info(self, path, file_stat):
+    def make_stat_info(self, path, file_stat):
         # Returns the stat information as required by the API
         ret = {}
         fields = {
@@ -132,9 +134,16 @@ class Repository:
             ret['group'] = gr_name
             self._gid_cache[gid] = gr_name
 
-        ret['selinux_ctx'] = lgetfilecon(path)[1]
-        if ret['selinux_ctx'] == None:
-            ret['selinux_ctx'] = ''
+        # if selinux is disabled or on RHEL4 we do not send the selinux_ctx
+        # flag at all - see bug 644985 - SELinux context cleared from
+        # RHEL4 rhncfg-client
+        try:
+            selinux_ctx = lgetfilecon(path)[1]
+        except OSError:
+            selinux_ctx = None
+
+        if is_selinux_enabled():
+            ret['selinux_ctx'] = selinux_ctx
 
         return ret
 
@@ -186,7 +195,7 @@ class Repository:
 
             self._add_content(file_contents, params)
 
-        params.update(self._make_stat_info(local_path, file_stat))
+        params.update(self.make_stat_info(local_path, file_stat))
         return params
 
     def _add_content(self, file_contents, params):
@@ -288,11 +297,11 @@ class RPC_Repository(Repository):
             # without setting any state on the server side
             try:
                 x_server.registration.welcome_message()
-            except rpclib.Fault, e:
+            except xmlrpclib.Fault, e:
                 sys.stderr.write("XML-RPC error while talking to %s:\n %s\n" % (self.__server_url, e))
                 sys.exit(2)
 
-            self._server_capabilities = get_server_capability(x_server)
+            self._server_capabilities = x_server.get_server_capability()
             del x_server
 
         # 6/29/05 wregglej 152388
@@ -359,10 +368,10 @@ class RPC_Repository(Repository):
         method = getattr(self.server, method_name)
         try:
             result = apply(method, params)
-        except rpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError, e:
             sys.stderr.write("XML-RPC call error: %s\n" % e)
             sys.exit(1)
-        except rpclib.Fault:
+        except xmlrpclib.Fault:
             # Re-raise them
             raise
         except Exception, e:
@@ -387,33 +396,3 @@ class RPC_Repository(Repository):
             params['file_contents'] = file_contents
 
         return params
-
-def get_server_capability(s):
-    headers = s.get_response_headers()
-    if headers is None:
-        # No request done yet
-        return {}
-    cap_headers = headers.getallmatchingheaders("X-RHN-Server-Capability")
-    if not cap_headers:
-        return {}
-    regexp = re.compile(
-            r"^(?P<name>[^(]*)\((?P<version>[^)]*)\)\s*=\s*(?P<value>.*)$")
-    vals = {}
-    for h in cap_headers:
-        arr = string.split(h, ':', 1)
-        assert len(arr) == 2
-        val = string.strip(arr[1])
-        if not val:
-            continue
-
-        mo = regexp.match(val)
-        if not mo:
-            # XXX Just ignoring it, for now
-            continue
-        vdict = mo.groupdict()
-        for k, v in vdict.items():
-            vdict[k] = string.strip(v)
-
-        vals[vdict['name']] = vdict
-    return vals
-

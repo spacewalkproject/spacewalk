@@ -14,9 +14,9 @@
 .\" along with this man page; if not, write to the Free Software
 .\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 .\"
-.TH RHN_REGISTER 8 "2010 August 30" "Linux" "Red Hat, Inc."
+.TH RHN_REGISTER 8 "2011 February 4" "Linux" "Red Hat, Inc."
 .SH NAME
-rhn_register \- Connect to Red Hat Network.
+rhn_register \- Connect to RHN Satellite or Red Hat Network Classic.
 
 .SH SYNOPSIS
 rhn_register [\fIoptions\fP]
@@ -25,8 +25,8 @@ rhn_register [\fIoptions\fP]
 
 .PP
 \fBrhn_register\fP is a client program that registers your system with 
-.B Red Hat Network
-(or a Red Hat Network Satellite). After registering, your system can recieve
+.B Red Hat Network Classic
+(or a RHN Satellite). After registering, your system can recieve
 software updates, install new software, and remotely manage your system.
 It can run both in graphical and text modes.
 
@@ -59,7 +59,9 @@ Show a help message and exit.
 
 .IP \fI/etc/sysconfig/rhn/systemid\fP
 The digital server ID for this machine if the system has been registered onto
-.B Red Hat Network.
+.B RHN Satellite
+or
+.B Red Hat Network Classic.
 This file does not exist otherwise.
 .br
 .IP \fI/etc/sysconfig/rhn/up2date\fP
@@ -83,7 +85,7 @@ Report bugs to <http://bugzilla.redhat.com>.
 .SH COPYRIGHT
 
 .PP
-Copyright \(co 1999\-2010 Red Hat, Inc.
+Copyright \(co 1999\-2011 Red Hat, Inc.
 
 .PP
 This is free software; see the source for copying conditions.  There is 

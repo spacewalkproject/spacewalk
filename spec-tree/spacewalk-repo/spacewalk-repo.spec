@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
-Version: 1.2
-Release: 0%{?dist}
+Version: 1.4
+Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -32,7 +32,7 @@ mkdir -p $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 # some sane default value
-%define reposubdir      RHEL/5
+%define reposubdir      RHEL/%{rhel}
 # redefine on fedora
 %{?fedora: %define reposubdir      Fedora/%{fedora}}
 
@@ -77,6 +77,15 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
+* Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.4-1
+- Bumping spacewalk-repo package version for 1.4
+
+* Mon Jan 31 2011 Tomas Lestach <tlestach@redhat.com> 1.3-1
+- enable rhel6 repo (tlestach@redhat.com)
+
+* Mon Nov 15 2010 Jan Pazdziora 1.3-0
+- Bumping up version for 1.3.
+
 * Wed Aug 18 2010 Jan Pazdziora 1.2-0
 - point the repos to new spacewalk gpg key
 

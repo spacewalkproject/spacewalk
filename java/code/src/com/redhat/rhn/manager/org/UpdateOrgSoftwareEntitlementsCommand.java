@@ -59,13 +59,24 @@ public class UpdateOrgSoftwareEntitlementsCommand {
             throw new IllegalArgumentException("Cant update the default org");
         }
         this.org = orgIn;
-        this.newTotal = newTotalIn;
-        this.newFlexTotal = newFlexTotalIn;
         this.channelFamily = ChannelFamilyFactory.lookupByLabel(channelFamilyLabel,
                 OrgFactory.getSatelliteOrg());
         if (this.channelFamily == null) {
             throw new IllegalArgumentException("ChannelFamily not found: [" +
                     channelFamilyLabel + "]");
+        }
+        // if set to null, keep currently used value
+        if (newTotalIn == null) {
+            this.newTotal = this.channelFamily.getMaxMembers(org);
+        }
+        else {
+            this.newTotal = newTotalIn;
+        }
+        if (newFlexTotalIn == null) {
+            this.newFlexTotal = this.channelFamily.getMaxFlex(org);
+        }
+        else {
+            this.newFlexTotal = newFlexTotalIn;
         }
     }
 
@@ -122,13 +133,12 @@ public class UpdateOrgSoftwareEntitlementsCommand {
     private  ValidatorError store(Long satMax, Long orgMax,
                                                 Long satCurrent, Long orgCurrent,
                                                 Long proposed, boolean isFlex) {
-        // No sense making the call if its the same.
-        if (orgMax == proposed) {
-            return null;
-        }
-
         if (orgMax == null) {
             orgMax = 0L;
+        }
+        // No sense making the call if its the same.
+        if (proposed.compareTo(orgMax) == 0) {
+            return null;
         }
 
         Long avail = 0L;
@@ -156,18 +166,18 @@ public class UpdateOrgSoftwareEntitlementsCommand {
 
         Long toOrgId;
         Long fromOrgId;
-        long actualTotal;
+        long actualDiff;
         // If we are decreasing the # of entitlements
         // we give back to the default org.
         if (orgMax.longValue() > proposed) {
             fromOrgId = this.org.getId();
             toOrgId = OrgFactory.getSatelliteOrg().getId();
-            actualTotal = orgMax.longValue() - proposed;
+            actualDiff = orgMax.longValue() - proposed;
         }
         else {
             toOrgId = this.org.getId();
             fromOrgId = OrgFactory.getSatelliteOrg().getId();
-            actualTotal = proposed - orgMax.longValue();
+            actualDiff = proposed - orgMax.longValue();
         }
 
         Map in = new HashMap();
@@ -177,11 +187,11 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         in.put("to_org_id", toOrgId);
         if (isFlex) {
             in.put("quantity", 0);
-            in.put("flex_quantity", actualTotal);
+            in.put("flex_quantity", actualDiff);
 
         }
         else {
-            in.put("quantity", actualTotal);
+            in.put("quantity", actualDiff);
             in.put("flex_quantity", 0);
 
         }

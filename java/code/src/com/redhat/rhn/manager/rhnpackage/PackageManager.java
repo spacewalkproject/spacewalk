@@ -49,12 +49,14 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -177,22 +179,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Runs Channel_queries.org.pkg_channel_ids query
-     * @param orgId The id of the org for the logged in user
-     * @param pid The id of the package in question
-     * @return Returns a list of channel ids which provide the given package
-     */
-    public static DataResult orgPackageChannelIds(Long orgId, Long pid) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "org_pkg_channel_ids",
-                Map.class);
-        Map params = new HashMap();
-        params.put("pid", pid);
-        params.put("org_id", orgId);
-        DataResult dr = m.execute(params);
-        return dr;
-    }
-
-    /**
      * Returns the erratas providing a given package
      * @param orgId The id of the org for the logged in user
      * @param pid The package id for the package in question
@@ -267,29 +253,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Returns a list of downloadable packages for the given server id in the given set
-     * @param label Set label
-     * @param user User
-     * @param sid Server id
-     * @param pc PageControl
-     * @return list of packages
-     */
-    public static DataResult downloadableInSet(String label, User user, Long sid,
-                                          PageControl pc) {
-
-        SelectMode m = ModeFactory.getMode("Package_queries",
-                "package_download_for_system_arch_select");
-        Map params = new HashMap();
-        params.put("set_label", label);
-        params.put("user_id", user.getId());
-        params.put("sid", sid);
-        Map elabParams = new HashMap();
-        elabParams.put("sid", sid);
-        return makeDataResult(params, elabParams, pc, m);
-
-    }
-
-    /**
      * Returns a list of upgradable packages for the given server id.
      * @param sid Server Id
      * @param pc PageControl to limit page size, maybe null for all
@@ -324,29 +287,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Returns a DataResult of the packages in the set.
-     * @param user User who owns set
-     * @param label Set label
-     * @param pc PageControl containing paging information.
-     * @return DataResult of packages in the set
-     */
-    public static DataResult packagesInSet(User user, String label,
-            PageControl pc) {
-
-        SelectMode m = ModeFactory.getMode("Package_queries",
-                                           "packages_in_set");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("set_label", label);
-        if (pc != null) {
-            return makeDataResult(params, params, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
-    }
-
-    /**
      * Finds a package by using the id column of rhnPackage
      * @param id The package id
      * @param user The user performing the lookup
@@ -354,39 +294,6 @@ public class PackageManager extends BaseManager {
      */
     public static Package lookupByIdAndUser(Long id, User user) {
         return PackageFactory.lookupByIdAndUser(id, user);
-    }
-
-    /**
-     * Returns a dataResult containing all of the packages available to an
-     * errata. Picks the right query depending on whether or not the errata
-     * is published.
-     * @param errata The errata in question
-     * @param user The user requesting the list
-     * @param pc The page control for this user
-     * @return Returns the list of packages available for this particular errata.
-     */
-    public static DataResult packagesAvailableToErrata(Errata errata,
-                                                       User user,
-                                                       PageControl pc) {
-        Org org = errata.getOrg();
-
-        // Get the correct query depending on whether or not this errata is published.
-        String mode = "packages_available_to_tmp_errata";
-        if (errata.isPublished()) {
-            mode = "packages_available_to_errata";
-        }
-
-        // Setup the params and execute the query
-        SelectMode m = ModeFactory.getMode("Package_queries", mode);
-        Map params = new HashMap();
-        params.put("org_id", org.getId());
-        params.put("eid", errata.getId());
-        if (pc != null) {
-            return makeDataResult(params, params, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
     }
 
     /**
@@ -412,41 +319,6 @@ public class PackageManager extends BaseManager {
         params.put("eid", errata.getId());
 
         return makeDataResult(params, params, null, m);
-    }
-
-    /**
-     * Returns a data result containing all of the packages available to an errata
-     * in the channel specified by cid.
-     * @param errata The errata in question
-     * @param cid The channel id, we want packages in this channel
-     * @param user The user requesting the list
-     * @param pc The page control for this user
-     * @return Returns the list of packages available for this particular errata in
-     * this particular channel.
-     */
-    public static DataResult packagesAvailableToErrataInChannel(Errata errata,
-                                                                Long cid,
-                                                                User user,
-                                                                PageControl pc) {
-        //Set the mode depending on if the errata is published
-        String mode = "packages_available_to_tmp_errata_in_channel";
-        if (errata.isPublished()) {
-            mode = "packages_available_to_errata_in_channel";
-        }
-
-        //Setup params and execute query
-        SelectMode m = ModeFactory.getMode("Package_queries", mode);
-        Map params = new HashMap();
-        params.put("target_eid", errata.getId().toString());
-        params.put("source_cid", cid.toString());
-        if (pc != null) {
-            Map elabParams = new HashMap();
-            elabParams.put("org_id", user.getOrg().getId());
-            return makeDataResult(params, elabParams, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
     }
 
     /**
@@ -1119,19 +991,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Clear the needed package cache entries for a package
-     * @param pid the package id
-     */
-    public static void clearNeededPackageCache(Long pid) {
-        Map params = new HashMap();
-        params.put("pid", pid);
-            WriteMode m = ModeFactory.getWriteMode("Package_queries",
-                    "cleanup_needed_package_cache");
-            m.executeUpdate(params);
-    }
-
-
-    /**
      * This deletes a package completely from the satellite including the
      *      physical rpm on the disk
      * @param ids the set of package ids
@@ -1159,6 +1018,7 @@ public class PackageManager extends BaseManager {
         WriteMode mode;
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("set_label", set.getLabel());
+        params.put("uid", user.getId());
 
         // First, capture all of the channels that have one or more of the packages
         // to delete (we'll need this later)
@@ -1475,6 +1335,32 @@ public class PackageManager extends BaseManager {
 
         DataResult result = m.execute(params);
         return result;
+    }
+
+
+    /**
+     * Gets a package changelog from the file system
+     * @param pkg the package to get
+     * @return the changelog as a string or null if package isn't readable/doesn't exist
+     */
+    public static String getPackageChangeLog(Package pkg) {
+
+        File f = new File(Config.get().getString(ConfigDefaults.MOUNT_POINT),
+                            pkg.getPath());
+        if (!f.canRead()) {
+                return null;
+        }
+
+        List<String> cmd = new ArrayList<String>();
+        cmd.add(Config.get().getString("rpm.path", "/bin/rpm"));
+        cmd.add("-qp");
+        cmd.add("--changelog");
+        cmd.add(f.getPath());
+
+        SystemCommandExecutor ce = new SystemCommandExecutor();
+        ce.setLogError(false);
+        ce.execute(cmd.toArray(new String[0]));
+        return ce.getLastCommandOutput();
     }
 
 }

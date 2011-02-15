@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,8 +14,8 @@
 #
 import sys
 import time
-from common import initCFG, rhnFlags
-from server import rhnSQL, rhnChannel, rhnServer, rhnUser
+from spacewalk.common import initCFG, rhnFlags
+from spacewalk.server import rhnSQL, rhnChannel, rhnServer, rhnUser
 
 def test_server_search(use_key=0):
     if use_key:

@@ -945,7 +945,8 @@
 	  <form-property name="revnum"         type="java.lang.String" />
 	  <form-property name="binary"         type="java.lang.Boolean" />
       <form-property name="submitted"      type="java.lang.Boolean"/>
-      <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
+      <form-property name="no_scrub" type="java.lang.String"
+                  initial="contents, cffMacroStart, cffMacroEnd"/>
       
     </form-bean>
 
@@ -1069,6 +1070,13 @@
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="createSystemGroupForm"
+      type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="name" type="java.lang.String" />
+      <form-property name="description" type="java.lang.String" />
+      <form-property name="submitted"   type="java.lang.Boolean" />
+    </form-bean>
+
     <form-bean name="submittedForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="submitted"   type="java.lang.Boolean" />
@@ -1099,6 +1107,22 @@
       <form-property name="sid" type="java.lang.Long" />
       <form-property name="subject" type="java.lang.String" />
       <form-property name="note" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
+    <form-bean name="updateCustomKeyForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="cikid" type="java.lang.Long" />
+      <form-property name="label" type="java.lang.String" />
+      <form-property name="description" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
+    <form-bean name="updateCustomDataForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="cikid" type="java.lang.Long" />
+      <form-property name="label" type="java.lang.String" />
+      <form-property name="value" type="java.lang.String" />
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
@@ -1182,7 +1206,7 @@
         validate="false"
         input="/WEB-INF/pages/common/login.jsp"
         type="com.redhat.rhn.frontend.action.LoginAction">
-      <forward name="failure" path="/WEB-INF/pages/common/login.jsp" />
+      <forward name="failure" path="/WEB-INF/pages/common/relogin.jsp" />
       <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
       <forward name="error" path="/WEB-INF/pages/common/errors/loginerror.jsp" />
     </action>
@@ -3207,6 +3231,44 @@
                       path="/WEB-INF/pages/systems/sdc/details.jsp" />
      </action>
 
+     <action path="/systems/details/ListCustomData"
+             scope="request"
+             validate="false"
+             input="/WEB-INF/pages/systems/sdc/listcustomdata.jsp"
+             type="com.redhat.rhn.frontend.action.systems.sdc.ListCustomDataAction">
+             <forward name="default"
+                      path="/WEB-INF/pages/systems/sdc/listcustomdata.jsp" />
+     </action>
+
+   <action path="/systems/details/CreateCustomData"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/createcustomdata.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.CreateCustomDataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/sdc/createcustomdata.jsp" />
+      </action>
+
+   <action path="/systems/details/UpdateCustomData"
+        name="updateCustomDataForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/updatecustomdata.jsp"
+        parameter="dispatch"
+        type="com.redhat.rhn.frontend.action.systems.sdc.UpdateCustomDataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/sdc/updatecustomdata.jsp" />
+        <forward name="updated" path="/systems/details/ListCustomData.do" redirect="true"/>
+      </action>
+
+   <action path="/systems/details/DeleteCustomData"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/deletecustomdata.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.DeleteCustomDataAction"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/sdc/deletecustomdata.jsp" />
+        <forward name="deleted" path="/systems/details/ListCustomData.do" redirect="true"/>
+      </action>
+
      <action path="/systems/details/SystemMigrate"
              name="systemMigrateForm"
              scope="request"
@@ -3286,6 +3348,22 @@
                       path="/WEB-INF/pages/groups/listsystems.jsp" />
              <forward name="success"
                       path="/groups/ListRemoveSystems.do"
+                      redirect="true" />
+     </action>
+
+     <action path="/groups/CreateGroup"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.CreateGroupAction"
+             input="/WEB-INF/pages/groups/create.jsp"
+             parameter="dispatch"
+             name="createSystemGroupForm"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/create.jsp" />
+             <forward name="error"
+                      path="/WEB-INF/pages/groups/create.jsp" />
+             <forward name="success"
+                      path="/systems/SystemGroupList.do"
                       redirect="true" />
      </action>
 
@@ -3952,11 +4030,6 @@
          type="com.redhat.rhn.frontend.action.systems.monitoring.ProbeGraphAction">
          <forward name="default"
                   path="/WEB-INF/pages/systems/probes/details.jsp"/>
-    </action>
-
-    <action path="/SetItemSelected"
-         scope="request"
-         type="com.redhat.rhn.frontend.action.rhnset.SetItemSelectionAction">
     </action>
 
     <action path="/systems/details/probes/ProbeDelete"
@@ -6890,6 +6963,15 @@
         <forward name="deleted" path="/systems/customdata/CustomDataList.do" redirect="true"/>
       </action>
 
+   <action path="/systems/customdata/UpdateCustomKey"
+        scope="request"
+        input="/WEB-INF/pages/systems/customkey/updatekey.jsp"
+        type="com.redhat.rhn.frontend.action.systems.customkey.UpdateCustomKeyAction"
+        name="updateCustomKeyForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/customkey/updatekey.jsp" />
+        <forward name="updated" path="/systems/customdata/CustomDataList.do" redirect="true"/>
+      </action>
 
    <action path="/software/manage/packages/PackageList"
         scope="request"
@@ -6913,6 +6995,13 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/rhnpackage/packagedetail.jsp" />
 		<forward name="package" path="/software/packages/Details.do" redirect="true"/>
+      </action>
+
+   <action path="/software/packages/ChangeLog"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.PackageChangeLogAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/changelog.jsp" />
       </action>
 
 
@@ -7145,6 +7234,16 @@
                  path="/ssm/ViewLog.do" redirect="true"/>
      </action>
 
+     <action path="/admin/TaskStatus"
+         scope="request"
+         name="datePickerForm"
+         input="/WEB-INF/pages/admin/taskStatus.jsp"
+         type="com.redhat.rhn.frontend.action.satellite.TaskStatusAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/taskStatus.jsp" />
+        <forward name="confirm"
+                 path="/ssm/Packages.do"/>
+     </action>
 
   </action-mappings>
 

@@ -88,6 +88,7 @@ public class IndexSystemsTask extends GenericIndexTask {
         attrs.put("registered", srvr.getRegistered());
         attrs.put("ram", srvr.getRam());
         attrs.put("swap", srvr.getSwap());
+        attrs.put("uuid", srvr.getUuid());
         return attrs;
     }
 

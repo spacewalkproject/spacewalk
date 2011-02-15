@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:55 2010
+-- created by Oraschemadoc Thu Jan 20 13:57:13 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CMETH_VAL_TRIG"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CMETH_VAL_TRIG" 
 before insert or update on rhn_contact_methods
 referencing new as new old as old
 for each row

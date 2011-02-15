@@ -43,11 +43,6 @@ public class CobblerSyncTask extends RhnJavaJob {
     private long distroWarnCount;
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "sync_from_cobbler";
-
-    /**
      * Default constructor
      */
     public CobblerSyncTask() {

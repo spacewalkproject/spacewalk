@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,6 +36,10 @@ class UI:
 	        help="The start date limit that the last modified dates are compared against. Should be in the format 'YYYYMMDDHH24MISS'."),
 	    option(         "--end-date",                action="store",
 	        help="The end date limit that the last modified dates are compared against. Should be in the format 'YYYYMMDDHH24MISS'."),
+	    option(         "--use-rhn-date",            action="store_true",
+	        help="Limit exported packages according to the date when they appeared at Red Hat Network."),
+	    option(         "--use-sync-date",            action="store_true",
+	        help="Limit exported packages according to the date they where pulled into satellite."),
 	    option(         "--make-isos",               action="store",
 	        help="Create channel dump isos a directory called satellite-isos. Usage: --make-isos=cd or dvd"),
             option("-p",    "--print-configuration",    action="store_true",    default=0,

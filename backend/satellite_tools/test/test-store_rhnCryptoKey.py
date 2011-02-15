@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,11 +24,11 @@
 
 import os
 
-from server import rhnSQL
-from common import initCFG, CFG
+from spacewalk.server import rhnSQL
+from spacewalk.common import initCFG, CFG
 
-from satellite_tools.satCerts import store_rhnCryptoKey
-from satellite_tools.satCerts import _querySelectCryptoCertInfo
+from spacewalk.satellite_tools.satCerts import store_rhnCryptoKey
+from spacewalk.satellite_tools.satCerts import _querySelectCryptoCertInfo
 
 print "NOTE: has to be performed on an RHN Satellite or server"
 

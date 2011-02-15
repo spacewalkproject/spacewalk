@@ -37,11 +37,6 @@ import java.util.Map;
 public class KickstartCleanup extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "kickstart_session_check";
-
-    /**
      * Primarily a convenience method to make testing easier
      * @param ctx Quartz job runtime environment
      *

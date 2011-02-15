@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,8 +20,8 @@
 
 import sys
 import unittest
-from common import initCFG
-from server import rhnSQL
+from spacewalk.common import initCFG
+from spacewalk.server import rhnSQL
 
 import misc_functions
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,7 +27,6 @@
 import os
 import re
 import sys
-import pwd
 import string
 import socket
 import urlparse
@@ -214,13 +213,13 @@ def _errorHandler(pre='', post=''):
         errorString = pre
         try:
             raise
-        except rpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError, e:
             errorCode, s = _getProtocolError(e)
             errorString = errorString + s
         except socket.error, e:
             errorCode, s = _getSocketError(e)
             errorString = errorString + s
-        except rpclib.Fault, e:
+        except xmlrpclib.Fault, e:
             errorCode, errorString = _getActivationError(e)
         except SSL.SSL.Error, e:
             errorCode = 13
@@ -279,14 +278,14 @@ def getAPIVersion(options):
         version = s.api.system_version()    # 3.1+ API
     except (SystemExit, KeyboardInterrupt):
         raise
-    except rpclib.Fault:
+    except xmlrpclib.Fault:
         sys.stderr.write("warning: can't check API version. Assuming at least API version 3.0.0\n")
         version = '3.0.0'
     except SSL.SSL.Error:
         errorCode, errorString = _errorHandler()
         sys.stderr.write(errorString + '\n')
         sys.exit(errorCode)
-    except (rpclib.ProtocolError, socket.error):
+    except (xmlrpclib.ProtocolError, socket.error):
         errorCode, errorString = _errorHandler()
         sys.stderr.write(errorString + '\n')
         sys.exit(errorCode)
@@ -332,7 +331,7 @@ def _deactivateProxy_api_v3_x(options, apiVersion):
         errorCode, errorString = _errorHandler()
         try:
             raise
-        except rpclib.Fault:
+        except xmlrpclib.Fault:
             if errorCode == 8:
                 # fine. We weren't activated yet.
                 # noop and look like a success
@@ -343,7 +342,7 @@ def _deactivateProxy_api_v3_x(options, apiVersion):
         except SSL.SSL.Error:
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (rpclib.ProtocolError, socket.error):
+        except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
         except:
@@ -377,12 +376,12 @@ def _activateProxy_api_v3_x(options, apiVersion):
             # let's force a system exit for this one.
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (rpclib.Fault, Exception):
-            # let's force a slight change in messaging for this one.
-            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
-        except (rpclib.ProtocolError, socket.error):
+        except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
+        except (xmlrpclib.Fault, Exception):
+            # let's force a slight change in messaging for this one.
+            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except:
             errorString = "ERROR: upon activation attempt (something unexpected): %s" % errorString
             return errorCode, errorString
@@ -413,12 +412,12 @@ def createMonitoringScout(options):
             # let's force a system exit for this one.
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (rpclib.Fault, Exception):
-            # let's force a slight change in messaging for this one.
-            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
-        except (rpclib.ProtocolError, socket.error):
+        except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
+        except (xmlrpclib.Fault, Exception):
+            # let's force a slight change in messaging for this one.
+            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except:
             errorString = "ERROR: upon activation attempt (something unexpected): %s" % errorString
             return errorCode, errorString
@@ -464,7 +463,6 @@ def listAvailableProxyChannels(options):
         if not options.quiet and list:
             sys.stdout.write("\n".join(list)+"\n")
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def processCommandline():
     # FIXME: we should populate this keys from /etc/sysconfig/rhn/up2date
     rhn_parent = ''

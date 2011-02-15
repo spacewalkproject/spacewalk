@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:06 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:12 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CONFIG"
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CONFIG" 
 is
 	procedure prune_org_configs (
 		org_id_in in number,
@@ -13,8 +13,6 @@ is
 		config_file_id_in in number,
 		config_content_id_in in number,
 		config_info_id_in in number,
-		delim_start_in in varchar2 := '{@',
-		delim_end_in in varchar2 := '@}',
       config_file_type_id_in number := 1
 	) return number;
 
@@ -48,7 +46,7 @@ is
 		config_channel_id_in in number
 	);
 end rhn_config;
-CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_CONFIG"
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_CONFIG" 
 is
 	-- just a stub for now
 	procedure prune_org_configs (
@@ -64,8 +62,6 @@ is
 		config_file_id_in in number,
 		config_content_id_in in number,
 		config_info_id_in in number,
-		delim_start_in in varchar2 := '{@',
-		delim_end_in in varchar2 := '@}',
       config_file_type_id_in in number := 1
 	) return number is
 		retval number;
@@ -78,12 +74,10 @@ is
 	begin
 
 		insert into rhnConfigRevision(id, revision, config_file_id,
-				config_content_id, config_info_id, delim_start, delim_end,
-            config_file_type_id
+				config_content_id, config_info_id, config_file_type_id
 			) values (
 				rhn_confrevision_id_seq.nextval, revision_in, config_file_id_in,
-				config_content_id_in, config_info_id_in, delim_start_in,
-				delim_end_in, config_file_type_id_in
+				config_content_id_in, config_info_id_in, config_file_type_id_in
 			)
 			returning id into retval;
 

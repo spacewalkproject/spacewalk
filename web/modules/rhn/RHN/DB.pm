@@ -186,6 +186,7 @@ sub connect {
 							AutoCommit => 0,
 							private_rhndb_transaction_level => 0,
 							FetchHashKeyName => 'NAME_uc',
+							pg_enable_utf8 => 1,
 						      });
 
   # this dbh is from a cache, which means disconnects fail
@@ -540,10 +541,13 @@ sub execute_h {
     use Scalar::Util qw/blessed/;
 
     if (ref $v and blessed($v) and $v->isa("RHN::DB::Type::BLOB")) {
-      eval 'use DBD::Oracle ()' or die $@;
-      $attr->{ora_type} = DBD::Oracle::ORA_BLOB();
-      if (defined $v->{ora_field}) {
-        $attr->{ora_field} = $v->{ora_field};
+      if ($self->{Database}->{Driver}->{Name} eq 'Oracle') {
+        eval 'use DBD::Oracle ()';
+        if ($@) { die $@; }
+        $attr->{ora_type} = DBD::Oracle::ORA_BLOB();
+        if (defined $v->{ora_field}) {
+          $attr->{ora_field} = $v->{ora_field};
+        }
       }
       $v = $v->{value};
     }

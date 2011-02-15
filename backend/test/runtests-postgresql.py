@@ -26,7 +26,7 @@ sys.path.insert(0, '../')
 sys.path.insert(0, './suites/')
 sys.path.insert(0, '../../client/rhel/rhnlib')
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 # Import all test modules here:
 import dbtests

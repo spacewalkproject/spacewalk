@@ -1,14 +1,12 @@
-%{!?__redhat_release:%define __redhat_release 2.1AS}
-
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.2
+Version: 1.4.0
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/System
-BuildRoot: %{_tmppath}/%{name}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Buildarch: noarch
 Requires: perl(Satcon)
 Requires: perl(Apache::DBI)
@@ -20,11 +18,12 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 # We need package httpd to be able to assign group apache in files section
 Requires: httpd
+Requires: openssl
 
-%define prepdir %{_sysconfdir}/sysconfig/rhn-satellite-prep
+%global prepdir %{_var}/lib/rhn/rhn-satellite-prep
 
 %description
-Spacewalk Configuration Templates
+Common Spacewalk configuration files and templates.
 
 %prep
 %setup -q
@@ -38,6 +37,7 @@ rm -Rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
 mv var $RPM_BUILD_ROOT/
+mv usr $RPM_BUILD_ROOT/
 
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      | tar -C $RPM_BUILD_ROOT -xvf -
@@ -56,11 +56,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/satidmap.pl
-%attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
+%dir %{_var}/lib/cobbler/
+%dir %{_var}/lib/cobbler/kickstarts/
+%dir %{_var}/lib/cobbler/snippets/
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
 %attr(0750,root,apache) %dir %{_sysconfdir}/rhn
@@ -74,7 +75,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
 %config(noreplace) %{_sysconfdir}/pki/tls/certs/spacewalk.crt
 %config(noreplace) %{_sysconfdir}/satname
-%{prepdir}
+%{_var}/lib/rhn
+%dir %{_prefix}/share/rhn
+%attr(0755,root,root) %{_prefix}/share/rhn/satidmap.pl
+%attr(0755,root,root) %{_prefix}/share/rhn/startup.pl
 %doc LICENSE
 
 %pre
@@ -91,6 +95,39 @@ fi
 
 
 %changelog
+* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
+- 474591 - move web data to /usr/share/nocpulse (msuchy@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
+* Mon Nov 15 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.7-1
+- 491331 - move /etc/rhn/satellite-httpd/conf/startup.pl
+  to /usr/share/rhn/startup.pl
+
+* Thu Nov 04 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.6-1
+- 491331 move /etc/rhn/satellite-httpd/conf/satidmap.pl to
+  /usr/share/rhn/satidmap.pl
+- 491331 - do not list duplicates in %%files
+- 491331 - require openssl
+- 491331 - we should own /var/lib/cobbler
+- 491331 - _sharedstatedir expands on el5 to /usr/com instead of expected
+  /var/lib/ as on fedora or EL6
+- 491331 - %%description should end with a dot (and could be a little more
+  elaborate)
+- 491331 - use %%global instead of %%define
+- 491331 - use correct buildroot
+
+* Wed Nov 03 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
+- code cleanup - no one use Red Hat Enterprise Linux 2AS
+- 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
+  satellite-prep
+
+* Fri Oct 29 2010 Jan Pazdziora 1.2.4-1
+- removed unused Spacewalk (Certificate Signing Key) <jmrodri@nc.rr.com> key
+  from keyring (michael.mraka@redhat.com)
+
+* Mon Oct 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.3-1
+- fixing changelog entry
+
 * Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.2-1
 - removed unneeded oracle settings from httpd environment
 
@@ -172,7 +209,7 @@ fi
   (mmccune@gmail.com)
 
 * Wed Apr 29 2009 Jan Pazdziora 0.6.4-1
-- Require httpd, we need the apache group for %files
+- Require httpd, we need the apache group for %%files
 
 * Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - 485355 - change perms of /etc/rhn/rhn.conf & /etc/rhn dir

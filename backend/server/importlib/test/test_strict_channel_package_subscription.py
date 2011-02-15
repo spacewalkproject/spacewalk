@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,10 +30,10 @@
 #   invalid should become non-null (2 in my tests)
 
 import sys
-from common import initCFG
+from spacewalk.common import initCFG
 
-from server import rhnSQL
-from server.importlib import importLib, packageImport, backendOracle
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib import importLib, packageImport, backendOracle
 
 def main():
     initCFG("server.app")

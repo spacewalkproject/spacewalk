@@ -56,6 +56,7 @@ public class SystemSearchResult extends SystemOverview {
     private HardwareDeviceDto hw;
     private Integer rank;
     private Double score;
+    private String uuid;
 
     private static Logger log = Logger.getLogger(SystemSearchResult.class);
     /**
@@ -526,5 +527,19 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setScore(Double scoreIn) {
         this.score = scoreIn;
+    }
+
+    /**
+     * @return the UUID
+     */
+    public String getUuid() {
+        return uuid;
+    }
+
+    /**
+     * @param uuidIn the UUID to set
+     */
+    public void setUuid(String uuidIn) {
+        this.uuid = uuidIn;
     }
 }

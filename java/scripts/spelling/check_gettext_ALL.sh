@@ -73,5 +73,5 @@ zh_TW
 
 for lang in "${langs[@]}"
 do
-	./check_gettext.sh "$lang"
+    ./check_gettext.sh "$lang"
 done

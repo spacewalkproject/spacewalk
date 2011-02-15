@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.monitoring.config;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.monitoring.notification.ContactGroup;
 
@@ -101,7 +102,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return String db name
      */
     public static String getDatabaseName() {
-        String dbName = Config.get().getString("db_name");
+        String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
         return dbName.toUpperCase(Locale.ENGLISH);
     }
 
@@ -111,7 +112,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return String username
      */
     public static String getDatabaseUsername() {
-        return Config.get().getString("db_user");
+        return Config.get().getString(ConfigDefaults.DB_USER);
     }
 
 
@@ -120,7 +121,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return String password
      */
     public static String getDatabasePassword() {
-        return Config.get().getString("db_password");
+        return Config.get().getString(ConfigDefaults.DB_PASSWORD);
     }
 
 }

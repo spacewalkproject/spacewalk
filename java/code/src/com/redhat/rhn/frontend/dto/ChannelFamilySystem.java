@@ -111,8 +111,9 @@ public class ChannelFamilySystem extends SelectableAdapter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getSelectionKey() {
-        return group.getId() + "|" + id;
+        return id + "";
     }
 
     /**

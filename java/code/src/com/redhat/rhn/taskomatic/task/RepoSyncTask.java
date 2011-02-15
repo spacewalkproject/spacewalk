@@ -38,11 +38,6 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 public class RepoSyncTask extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "repo_sync";
-
-    /**
      *
      * {@inheritDoc}
      */

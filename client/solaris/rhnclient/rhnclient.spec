@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.9
+Version: 0.10
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.10-1
+- import Fault, ResponseError and ProtocolError directly from xmlrpclib
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9-1
 - updated copyrights
 

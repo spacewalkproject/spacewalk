@@ -15,8 +15,7 @@
 
 # This thing gets the hardware configuraion out of a system
 """Used to read hardware info from kudzu, /proc, etc"""
-from socket import gethostname
-from socket import gethostbyname
+from socket import gethostname, AF_INET, AF_INET6
 import socket
 
 import os
@@ -469,7 +468,10 @@ def read_network():
 
     netdict['hostname'] = gethostname()
     try:
-        netdict['ipaddr'] = gethostbyname(gethostname())
+        list_of_addrs = getaddrinfo(gethostname(),None)
+        ipv4_addrs = filter(lambda x:x[0]==socket.AF_INET, list_of_addrs)
+        # take first ipv4 addr
+        netdict['ipaddr'] = ipv4_addrs[0][4][0]
     except:
         netdict['ipaddr'] = "127.0.0.1"
 
@@ -483,6 +485,8 @@ def read_network():
         if netdict['ipaddr'] == "127.0.0.1":
             netdict['ipaddr'] = ipaddr
 
+    if netdict['ipaddr'] is None:
+        netdict['ipaddr'] = ''
     return netdict
 
 def read_network_interfaces():
@@ -528,11 +532,24 @@ def read_network_interfaces():
         except:
             broadcast = ""
             
+        ip6_list = []
+        try:
+            dev_info = ethtool.get_interfaces_info(interface)
+            # one interface may have more IPv6 addresses
+            for ip6 in dev_info.get_ipv6_addresses():
+                ip6_list.append({
+                    'scope':   ip6.scope,
+                    'addr':    ip6.address, 
+                    'netmask': ip6.netmask
+                })
+        except:  #this will does not work on el5, ignore it
+            pass
         intDict[interface] = {'hwaddr':hwaddr,
                               'ipaddr':ipaddr,
                               'netmask':netmask,
                               'broadcast':broadcast,
-                              'module': module}
+                              'module': module,
+                              'ipv6': ip6_list}
 
     return intDict
 

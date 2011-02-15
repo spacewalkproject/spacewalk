@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,10 +26,6 @@ CREATE TABLE rhnSnapshotPackage
 )
 ENABLE ROW MOVEMENT
 ;
-
-CREATE INDEX rhn_snapshotpkg_sid
-    ON rhnSnapshotPackage (snapshot_id)
-    TABLESPACE [[8m_tbs]];
 
 CREATE UNIQUE INDEX rhn_snapshotpkg_sid_nid_uq
     ON rhnSnapshotPackage (snapshot_id, nevra_id)

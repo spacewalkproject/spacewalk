@@ -1,0 +1,270 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+import sys
+import os
+import stat
+import re
+import hashlib
+from optparse import Option, OptionParser
+
+try:
+    from spacewalk.common import CFG, initCFG, initLOG, log_debug
+    from spacewalk.server import rhnSQL
+except:
+    _LIBPATH = "/usr/share/rhn"
+    # add to the path if need be
+    if _LIBPATH not in sys.path:
+        sys.path.append(_LIBPATH)
+    from common import CFG, initCFG, initLOG, log_debug
+    from server import rhnSQL
+
+LOG_FILE='/var/log/rhn/spacewalk-data-fsck.log'
+
+report_msg = {
+        'file'      : "%5d files scanned",
+        'exists'    : "ERROR: %5d files missing on disk",
+        'dbexists'  : "ERROR: %5d files missing in database",
+        'size'      : "ERROR: %5d file size mismatch(es)",
+        'checksum'  : "ERROR: %5d file checksum mismatch(es)",
+        'nevrao'    : "ERROR: %5d file NEVRAO mismatch(es)",
+        }
+report = {}
+
+def is_sha256_capable():
+    import rpm
+    ts = rpm.TransactionSet()
+    mi = ts.dbMatch('name', 'spacewalk-schema')
+    cmp = -1
+    try:
+      h = mi.next()
+      cmp = rpm.labelCompare([h['name'], h['version'], h['release']],
+                             [h['name'], '0.8.1','1'])
+    except StopIteration:
+      pass
+    return (cmp > 0)
+
+
+def db_init():
+    initCFG('server')
+    rhnSQL.initDB(CFG.DEFAULT_DB)
+
+def package_query(options, bind_path=False):
+    query = """select %s
+                 from %s
+                     """
+    columns = "p.id, p.org_id, p.package_size, p.path"
+    tables  = "rhnPackage p"
+    if options.checksum or options.nevrao:
+        if is_sha256_capable():
+            columns += ", c.checksum, c.checksum_type"
+            tables  += " join rhnChecksumView c on p.checksum_id = c.id"
+        else:
+            columns += ", p.md5sum as checksum, 'md5sum' as checksum_type"
+    if options.nevrao:
+        columns += ", n.name, evr.epoch, evr.version, evr.release, a.label as arch"
+        tables  += " join rhnPackageName n on p.name_id = n.id"
+        tables  += " join rhnPackageEVR evr on p.evr_id = evr.id"
+        tables  += " join rhnPackageArch a on p.package_arch_id = a.id"
+    if bind_path:
+        query += "where p.path = :path"
+    return query % (columns, tables)
+
+def check_db_vs_disk(options):
+    for k in report_msg.keys():
+        report[k] = 0
+    query  = package_query(options)
+    h = rhnSQL.prepare(query)
+
+    path_prefix = CFG.MOUNT_POINT
+
+    h.execute()
+
+    while 1:
+        row = h.fetchone_dict()
+        if not row:
+            break
+
+        if row['path']:
+            abs_path = os.path.join(path_prefix, row['path'])
+            log(3,abs_path)
+            report['file'] += 1
+
+            if check_disk_exists(abs_path) == 1:
+                report['exists'] += 1
+            else:
+                if options.size:
+                    report['size'] += check_disk_size(abs_path, row['package_size'])
+                if options.nevrao:
+                    report['nevrao'] += check_disk_nevrao(abs_path, row.copy())
+                if options.checksum:
+                    report['checksum'] += check_disk_checksum(abs_path,
+                                               row['checksum_type'], row['checksum'])
+    h.close()
+    error_found=0
+    for i in ['file', 'exists', 'size', 'nevrao', 'checksum']:
+        if report[i] > 0:
+            log(1, report_msg[i] % report[i])
+            if i != 'file':
+                error_found = 1
+    return error_found
+
+def check_disk_exists(abs_path):
+    ret = 0
+    if not os.path.isfile(abs_path):
+        log(0, "File missing: %s" % abs_path)
+        ret = 1
+    return ret
+
+def check_disk_size(abs_path, size):
+    file_size = os.stat(abs_path)[stat.ST_SIZE]
+    ret = 0
+    if file_size != size:
+        log(0, "File size mismatch: %s (%s vs. %s)" % (abs_path, size, file_size))
+        ret = 1
+    return ret
+
+def check_disk_nevrao(abs_path, row):
+    file = {};
+    (_redhat_,
+      file['org_id'],
+      file['checksum_prefix'],
+      file['name'],
+      file['evr'],
+      file['arch'],
+      file['checksum'],
+      file['basename']) = row['path'].split('/')
+    if not row['org_id']:
+        row['org_id'] = 'NULL'
+    else:
+        row['org_id'] = str(row['org_id'])
+    row['checksum_prefix'] = row['checksum'][:3]
+    if row['epoch']:
+        row['evr'] = row['epoch'] + ':'
+    else:
+        row['evr'] = ''
+    row['evr'] += row['version'] + '-' + row['release']
+    row['basename'] = "%s-%s-%s.%s.rpm" % (
+                row['name'], row['version'], row['release'], row['arch'])
+    ret = 0
+    for key in ('org_id', 'checksum_prefix', 'name', 'evr', 'arch', 'checksum',
+            'basename'):
+        if file[key] != row[key]:
+            log(0, "File path mismatch: %s (%s: %s vs. %s)" % (abs_path, key, row[key],
+                                                               file[key]))
+            ret = 1
+    return ret
+
+def check_disk_checksum(abs_path, checksum_type, checksum):
+    try:
+        fp = file(abs_path ,'rb')
+        file_checksum = hashlib.new(checksum_type, fp.read()).hexdigest()
+        fp.close()
+    except:
+        file_checksum = None
+    ret = 0
+    if file_checksum != checksum:
+        log(0, "File checksum mismatch: %s (%s: %s vs. %s)" %
+                 (abs_path, checksum_type, checksum, file_checksum))
+        ret = 1
+    return ret
+
+def check_disk_vs_db(disk_content=None, db_content=None):
+    for k in report_msg.keys():
+        report[k] = 0
+    query  = package_query(options, bind_path=True)
+    h = rhnSQL.prepare(query)
+    for root, dirs, files in os.walk(os.path.join(CFG.MOUNT_POINT, 'redhat')):
+      rel_root = root[len(CFG.MOUNT_POINT)+1:]
+      for f in files:
+          if f[:-4] == '.rpm':
+              continue
+
+          abs_path = os.path.join(root, f)
+          rel_path = os.path.join(rel_root, f)
+          log(3,abs_path)
+          report['file'] += 1
+
+          h.execute(path=rel_path)
+          row = h.fetchone_dict()
+
+          if not row:
+              report['dbexists'] += 1
+              not_in_db(abs_path, options)
+              continue
+
+          if options.size and options.fs_only:
+                    report['size'] += check_disk_size(abs_path, row['package_size'])
+          if options.nevrao and options.fs_only:
+                    report['nevrao'] += check_disk_nevrao(abs_path, row.copy())
+          if options.checksum and options.fs_only:
+                    report['checksum'] += check_disk_checksum(abs_path,
+                                               row['checksum_type'], row['checksum'])
+    h.close()
+    error_found=0
+    for i in ['file', 'dbexists', 'size', 'nevrao', 'checksum']:
+        if report[i] > 0:
+            log(1, report_msg[i] % report[i])
+            if i != 'file':
+                error_found = 1
+    return error_found
+
+def not_in_db(path, options):
+    if options.remove:
+        log(0, "Removed file missing in db: %s" % (path))
+        os.unlink(path)
+        dirname = os.path.dirname(path)
+        while dirname != CFG.MOUNT_POINT:
+            try:
+                os.rmdir(dirname)
+            except OSError, e:
+                if e.errno == 39: #OSError: [Errno 39] Directory not empty
+                    break
+                else:
+                    raise e
+            dirname = os.path.dirname(dirname)
+    else:
+        log(0, "File missing in db: %s" % (path))
+
+def log(level, *args):
+    log_debug(level, *args)
+    verbose = options.verbose
+    if not verbose:
+        verbose = 0
+    if verbose >= level:
+        print (', '.join(map(lambda i: str(i), args)))
+
+if __name__ == '__main__':
+
+    options_table = [
+        Option("-v", "--verbose",       action="count",
+            help="Increase verbosity"),
+        Option("-S", "--no-size",       action="store_false", dest="size", default=True,
+            help="Don't check package size"),
+        Option("-C", "--no-checksum",   action="store_false", dest="checksum", default=True,
+            help="Don't check package checksum"),
+        Option("-O", "--no-nevrao",     action="store_false", dest="nevrao", default=True,
+            help="Don't check package name, epoch, version, release, arch, org"),
+        Option("-d", "--db-only",       action="store_true",
+            help="Check only if packages from database are present on filesystem"),
+        Option("-f", "--fs-only",       action="store_true",
+            help="Check only if packages from filesystem are in the database"),
+        Option("-r", "--remove",        action="store_true",
+            help="Automaticaly remove packages from filesystem not present in database"),
+    ]
+    parser = OptionParser(option_list=options_table)
+    (options, args) = parser.parse_args()
+
+    initLOG(LOG_FILE, options.verbose or 0)
+
+    db_init()
+
+    exit_value=0
+    if not options.fs_only:
+        log(1, "Checking if packages from database are present on filesystem")
+        exit_value += check_db_vs_disk(options)
+    if not options.db_only:
+        log(1, "Checking if packages from filesystem are present in database")
+        exit_value += check_disk_vs_db(options)
+
+    sys.exit(exit_value)

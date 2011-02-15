@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,7 @@ CREATE UNIQUE INDEX rhn_snapshotcc_sid_ccid_uq
     ON rhnSnapshotConfigChannel (snapshot_id, config_channel_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_snpsht_cc_ccid_sid_idx
-    ON rhnSnapshotConfigChannel (config_channel_id, snapshot_id)
+CREATE INDEX rhn_snpsht_cc_ccid_idx
+    ON rhnSnapshotConfigChannel (config_channel_id)
     TABLESPACE [[4m_tbs]];
 

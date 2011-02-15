@@ -14,8 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.systems.entitlements;
 
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
@@ -34,27 +35,37 @@ import javax.servlet.http.HttpServletResponse;
  * FloatingVirtualizationAction
  * @version $Rev$
  */
-public class FlexGuestAction extends RhnAction implements Listable {
+public class FlexGuestAction  extends EligibleFlexGuestAction implements Listable  {
+
+    private static final String SELECTABLE = "selectable";
+    private static final String SELECTED_FAMILY = "channel_family";
+    private static final String ALL = "all";
 
     /**
      *
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
+
+        RequestContext requestContext = new RequestContext(request);
+        User user = requestContext.getLoggedInUser();
+
+
+        request.setAttribute("selected_family", getSelectedChannel(requestContext));
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
         return mapping.findForward("default");
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
-    public List getResult(RequestContext contextIn) {
+    @Override
+    protected List<ChannelFamilySystemGroup> query(RequestContext contextIn) {
         return VirtualizationEntitlementsManager.getInstance().
-                    listFlexGuests(contextIn.getLoggedInUser());
+            listFlexGuests(contextIn.getLoggedInUser());
     }
+
 }

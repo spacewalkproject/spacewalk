@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,7 @@
 
 import string
 
-from common import UserDictCase, rhnException
+from spacewalk.common import UserDictCase, rhnException
 
 import sql_base
 import sql_lib
@@ -70,14 +70,6 @@ class Table:
         self.__cache = None
         if cache:
             self.__cache = {}
-
-	# see if the table exists
-	sql = "select %s from %s where rownum = 0" % (self.__hashid, self.__table)
-	try:
-	    h = self.__db.prepare(sql)
-	except:
-	    raise ValueError,"Invalid table or column"
-	del h
 
     def set_cache(self, value):
         if not value:

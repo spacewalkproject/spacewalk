@@ -1,7 +1,7 @@
 #!/bin/env python
 # Script that uses RHN API to clone RHN Errata to Satellite
 # or Spacewalk server.
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # Author: Andy Speagle (andy.speagle@wichita.edu)
 #
@@ -60,7 +60,7 @@ class RHNServer:
         self.server = xmlrpclib.Server(self.rhnUrl)
         self.rhnSession = self.rhnLogin(self.login,self.password,0)
 
-    def rhnLogin(self, login, password, retry): 
+    def rhnLogin(self, login, password, retry=0): 
         try:
             rhnSession=self.server.auth.login(login,password)
         except  xmlrpclib.Fault, f:
@@ -269,7 +269,7 @@ class RHNServer:
             if retry > 3:
                 raise
             else:
-                return self.server.packages.findPackageChannels(pkgid, (retrun + 1))
+                return self.server.packages.findPackageChannels(pkgid, (retry + 1))
         return channels
 
     def cloneErrata(self,dest_chan,errata,retry):
@@ -281,7 +281,7 @@ class RHNServer:
             print "Fault Code: %d\tFault String: %s" % (f.faultCode,f.faultString)
             if f.faultCode == -20:
                 self.rhnLogin(self.login,self.password)
-                return self.self.server.errata.clone(self.rhnSession,dest_chan,errata)
+                return self.server.errata.clone(self.rhnSession,dest_chan,errata)
             else:
                 raise
         except xmlrpclib.ProtocolError, err:

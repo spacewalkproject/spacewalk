@@ -1,4 +1,4 @@
--- created by Oraschemadoc Fri Jan 22 13:41:07 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:19 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RPM" AS
@@ -10,19 +10,8 @@
         PARALLEL_ENABLE;
     PRAGMA RESTRICT_REFERENCES(vercmp, WNDS, RNDS);
 
-    FUNCTION vercmpCounter
-    return NUMBER
-        PARALLEL_ENABLE;
-    PRAGMA RESTRICT_REFERENCES(vercmpCounter, WNDS, RNDS);
-
-    FUNCTION vercmpResetCounter
-    return NUMBER
-        PARALLEL_ENABLE;
-    PRAGMA RESTRICT_REFERENCES(vercmpResetCounter, WNDS, RNDS);
-
 END rpm;
 CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RPM" AS
-    vercmp_counter NUMBER := 0;
 
     FUNCTION isdigit(ch CHAR)
     RETURN BOOLEAN
@@ -213,7 +202,6 @@ CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RPM" AS
           ep1 NUMBER;
           ep2 NUMBER;
           BEGIN
-            vercmp_counter := vercmp_counter + 1;
             if e1 is null then
               ep1 := 0;
             else
@@ -234,22 +222,6 @@ CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RPM" AS
 
     END vercmp;
 
-    FUNCTION vercmpCounter
-    RETURN NUMBER
-    IS
-    BEGIN
-        return vercmp_counter;
-    END vercmpCounter;
-
-    FUNCTION vercmpResetCounter
-    RETURN NUMBER
-    IS
-        result NUMBER;
-    BEGIN
-        result := vercmp_counter;
-        vercmp_counter := 0;
-        return result;
-    END vercmpResetCounter;
 END rpm;
  
 /

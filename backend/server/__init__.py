@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,4 @@
 # init module for the whole server object. We also provide a few
 # exposed classes for making import statements nicer
 #
-
-# expose higher level classes we need.
-from rhnHandler import rhnHandler
 

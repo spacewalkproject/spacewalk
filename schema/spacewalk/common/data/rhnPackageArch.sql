@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,108 +15,108 @@
 --
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'noarch', 'noarch', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'noarch', 'noarch', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i386', 'i386', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'i386', 'i386', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i486', 'i486', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'i486', 'i486', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i586', 'i586', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'i586', 'i586', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i686', 'i686', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'i686', 'i686', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'alpha', 'alpha', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'alpha', 'alpha', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'alphaev6', 'alphaev6', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'alphaev6', 'alphaev6', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'ia64', 'ia64', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'ia64', 'ia64', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc', 'sparc', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc', 'sparc', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparcv9', 'sparcv9', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparcv9', 'sparcv9', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc64', 'sparc64', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc64', 'sparc64', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'src', 'src', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'src', 'src', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 's390', 's390', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 's390', 's390', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'athlon', 'athlon', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'athlon', 'athlon', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 's390x', 's390x', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 's390x', 's390x', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'ppc', 'ppc', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'ppc', 'ppc', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'ppc64', 'ppc64', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'ppc64', 'ppc64', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'pSeries', 'pSeries', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'pSeries', 'pSeries', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'iSeries', 'iSeries', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'iSeries', 'iSeries', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'x86_64', 'x86_64', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'x86_64', 'x86_64', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'ppc64iseries', 'ppc64iseries', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'ppc64iseries', 'ppc64iseries', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'ppc64pseries', 'ppc64pseries', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'ppc64pseries', 'ppc64pseries', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc.sun4u-solaris', 'Sparc Solaris sun4u', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc.sun4u-solaris', 'Sparc Solaris sun4u', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc.sun4v-solaris', 'Sparc Solaris sun4v', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc.sun4v-solaris', 'Sparc Solaris sun4v', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'tar', 'TAR archive', lookup_arch_type('tar'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'tar', 'TAR archive', lookup_arch_type('tar'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'ia32e', 'EM64T', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'ia32e', 'EM64T', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'amd64', 'AMD64', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'amd64', 'AMD64', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i386-solaris', 'i386-solaris', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'i386-solaris', 'i386-solaris', lookup_arch_type('sysv-solaris'));
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values 
-( rhn_package_arch_id_seq.nextval, 'nosrc', 'nosrc', lookup_arch_type('rpm') );
+( sequence_nextval('rhn_package_arch_id_seq'), 'nosrc', 'nosrc', lookup_arch_type('rpm') );
 
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc-solaris-patch', 'Sparc Solaris patch', lookup_arch_type('solaris-patch'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc-solaris-patch', 'Sparc Solaris patch', lookup_arch_type('solaris-patch'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i386-solaris-patch', 'i386 Solaris patch', lookup_arch_type('solaris-patch'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'i386-solaris-patch', 'i386 Solaris patch', lookup_arch_type('solaris-patch'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc-solaris-patch-cluster', 
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc-solaris-patch-cluster',
 'Sparc Solaris patch cluster', lookup_arch_type('solaris-patch-cluster'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i386-solaris-patch-cluster', 
+(sequence_nextval('rhn_package_arch_id_seq'), 'i386-solaris-patch-cluster',
 'i386 Solaris patch cluster', lookup_arch_type('solaris-patch-cluster'));
  
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'noarch-solaris', 'noarch-solaris', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'noarch-solaris', 'noarch-solaris', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'noarch-solaris-patch', 'noarch-solaris-patch', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'noarch-solaris-patch', 'noarch-solaris-patch', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'noarch-solaris-patch-cluster', 'noarch-solaris-patch-cluster', lookup_arch_type('sysv-solaris'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'noarch-solaris-patch-cluster', 'noarch-solaris-patch-cluster', lookup_arch_type('sysv-solaris'));
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'all-deb', 'all-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'all-deb', 'all-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'i386-deb', 'i386-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'i386-deb', 'i386-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'alpha-deb', 'alpha-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'alpha-deb', 'alpha-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'ia64-deb', 'ia64-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'ia64-deb', 'ia64-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc-deb', 'sparc-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'sparc-deb', 'sparc-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'src-deb', 'src-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'src-deb', 'src-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 's390-deb', 's390-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 's390-deb', 's390-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'powerpc-deb', 'powerpc-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'powerpc-deb', 'powerpc-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'arm-deb', 'arm-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'arm-deb', 'arm-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'mips-deb', 'mips-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'mips-deb', 'mips-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'amd64-deb', 'AMD64-deb', lookup_arch_type('deb'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'amd64-deb', 'AMD64-deb', lookup_arch_type('deb'));
 
 commit;
 

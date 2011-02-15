@@ -169,7 +169,7 @@
     <target name="package" depends="compile">
         <jar basedir="${build.dir}"
              destfile="${dist.dir}/${jar.file.name}"
-             excludes="**/tests/**, **/db/config.xml"
+             excludes="**/tests/**"
              includes="**/**" />
     </target>
 

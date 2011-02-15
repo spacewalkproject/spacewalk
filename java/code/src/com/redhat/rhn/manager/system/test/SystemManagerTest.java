@@ -68,6 +68,7 @@ import com.redhat.rhn.domain.server.test.LocationTest;
 import com.redhat.rhn.domain.server.test.NetworkTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
+import com.redhat.rhn.domain.server.test.VirtualInstanceManufacturer;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
@@ -722,6 +723,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
         loc.setServer(s);
         s.setLocation(loc);
 
+        /* UUID setup */
+        VirtualInstanceManufacturer vim = new VirtualInstanceManufacturer(user);
+        VirtualInstance vi = vim.newUnregisteredGuest();
+        vi.setGuestSystem(s);
+
         /* custom data value */
         CustomDataValue value = CustomDataValueTest.createTestCustomDataValue(user,
                                 CustomDataKeyTest.createTestCustomDataKey(user),
@@ -761,6 +767,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         map.put("systemsearch_location_building", loc.getBuilding());
         map.put("systemsearch_location_room", loc.getRoom());
         map.put("systemsearch_location_rack", loc.getRack());
+        map.put("systemsearch_uuid", s.getVirtualInstance().getUuid());
 
         Iterator i = map.keySet().iterator();
 
@@ -880,21 +887,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         DataResult dr = SystemManager.registeredList(user, null, 0);
         assertNotEmpty(dr);
-    }
-
-    public void testDeactivateSatellite() throws Exception {
-        // Server s = ServerFactory.lookupById(new Long(1007294616));
-        Server s = ServerTestUtils.createTestSystem();
-        flushAndEvict(s);
-        s = (Server) reload(s);
-        assertNotNull(s);
-        try {
-            SystemManager.deactivateSatellite(s);
-            fail("Should have thrown an NotActivatedSatelliteException");
-        }
-        catch (Exception e) {
-           // do nothing
-        }
     }
 
     public void testDeactivateProxy() throws Exception {

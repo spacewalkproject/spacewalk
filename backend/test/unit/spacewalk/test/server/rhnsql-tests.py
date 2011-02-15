@@ -20,10 +20,8 @@ NOTE: Not hitting the database here!
 """
 
 import unittest
-import spacewalk.test.setpath
 
-from server import rhnSQL
-from server.rhnSQL.driver_postgresql import convert_named_query_params
+from spacewalk.server.rhnSQL.driver_postgresql import convert_named_query_params
 
 class RhnSQLTests(unittest.TestCase):
     """ Pure unit tests for components of rhnSQL. """

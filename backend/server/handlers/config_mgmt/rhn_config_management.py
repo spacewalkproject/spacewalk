@@ -17,10 +17,10 @@
 #
 # $Id$
 
-import os
-from common import rhnFault, log_debug
-import tempfile
-from server import rhnSQL, configFilesHandler
+import difflib
+from spacewalk.common import rhnFault, log_debug
+from spacewalk.server import rhnSQL, configFilesHandler
+from spacewalk.common.fileutils import f_date, ostr_to_sym
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
@@ -55,14 +55,16 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
          order by cc.label, cc.name
     """)
 
-    def management_list_channels(self, dict):
-        log_debug(1)
+    def _get_and_validate_session(self, dict):
         session = dict.get('session')
         self._validate_session(session)
 
-        h = rhnSQL.prepare(self._query_list_config_channels)
-        h.execute(org_id=self.org_id)
-        return map(lambda x: x['label'], h.fetchall_dict() or [])
+    def management_list_channels(self, dict):
+        log_debug(1)
+        self._get_and_validate_session(dict)
+        return map(lambda x: x['label'],
+                  rhnSQL.fetchall_dict(self._query_list_config_channels,
+                                       org_id=self.org_id) or [])
 
     _query_lookup_config_channel = rhnSQL.Statement("""
         select id
@@ -73,8 +75,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_create_channel(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -82,9 +83,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         config_channel_name = dict.get('config_channel_name') or config_channel
         config_channel_description = dict.get('description') or config_channel
 
-        h = rhnSQL.prepare(self._query_lookup_config_channel)
-        h.execute(org_id=self.org_id, config_channel=config_channel)
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_lookup_config_channel,
+                  org_id=self.org_id, config_channel=config_channel)
         if row:
             raise rhnFault(4010, "Configuration channel %s already exists" % 
                 config_channel, explain=0)
@@ -109,16 +109,13 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     """)
     def management_remove_channel(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
 
-        h = rhnSQL.prepare(self._query_config_channel_by_label)
-        h.execute(org_id=self.org_id, label=config_channel)
-
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_config_channel_by_label,
+                  org_id=self.org_id, label=config_channel)
 
         if not row:
             raise rhnFault(4009, "Channel not found")
@@ -155,8 +152,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_list_files(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the config channel
@@ -184,8 +180,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         
     def management_get_file(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -214,17 +209,15 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_list_file_revisions(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
         path = dict.get('path')
 
-        h = rhnSQL.prepare(self._query_list_file_revisions)
-        h.execute(org_id=self.org_id, config_channel=config_channel, path=path)
-
-        retval = map(lambda x: x['revision'], h.fetchall_dict() or [])
+        retval = map(lambda x: x['revision'],
+                 rhnSQL.fetchall_dict(self._query_list_file_revisions,
+                        org_id=self.org_id, config_channel=config_channel, path=path) or [])
         if not retval:
             raise rhnFault(4011, "File %s does not exist in channel %s" % 
                 (path, config_channel), explain=0)
@@ -233,8 +226,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_has_file(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -335,11 +327,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         else:
             params['revision'] = revision
             q = self._query_get_file_revision
-        h = rhnSQL.prepare(q)
         log_debug(4, params)
-        apply(h.execute, (), params)
-
-        return h.fetchone_dict()
+        return rhnSQL.fetchone_dict(q, **params)
 
     _query_lookup_config_file_by_channel = rhnSQL.Statement("""
         select cf.id,
@@ -354,18 +343,14 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_remove_file(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
         path = dict.get('path')
 
-
-        h = rhnSQL.prepare(self._query_lookup_config_file_by_channel)
-        h.execute(org_id=self.org_id, config_channel=config_channel, path=path)
-
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_lookup_config_file_by_channel,
+                  org_id=self.org_id, config_channel=config_channel, path=path)
         if not row:
             raise rhnFault(4011, "File %s does not exist in channel %s" %
                 (path, config_channel), explain=0)
@@ -388,8 +373,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     def management_disable_file(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         # XXX Validate the namespace
@@ -398,26 +382,20 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         t = rhnSQL.Table('rhnConfigFileState', 'label')
         state_id_dead = t['dead']['id']
 
-        h = rhnSQL.prepare(self._query_lookup_config_file_by_channel)
-        h.execute(config_channel=config_channel, path=path)
-
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_lookup_config_file_by_channel,
+                  config_channel=config_channel, path=path)
         if not row or row['state_id'] == state_id_dead:
             raise rhnFault(4011, "File %s does not exist in channel %s" %
                 (path, config_channel), explain=0)
 
-        config_file_id = row['id']
-        h = rhnSQL.prepare(self._query_update_file_state)
-        h.execute(config_file_id=config_file_id, state_id=state_id_dead)
-
+        rhnSQL.execute(self._query_update_file_state,
+                config_file_id=row['id'], state_id=state_id_dead)
         rhnSQL.commit()
-
         return {}
 
     def management_put_file(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         config_channel = dict.get('config_channel')
         row = self.lookup_org_config_channel_by_name(config_channel)
@@ -436,23 +414,38 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         
     def management_get_delimiters(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         return self._get_delimiters()
     
     def management_get_maximum_file_size(self, dict={}):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         return self._get_maximum_file_size()
                 
-                
+    def __attributes_differ(self, fsrc, fdst):
+        """ Returns true if acl, ownership, type or selinux context differ. """
+        return (fsrc['filemode'] != fdst['filemode']) or (fsrc['label'] != fdst['label']) or \
+               (fsrc['username'] != fdst['username']) or (fsrc['groupname'] != fdst['groupname']) or \
+               (fsrc['selinux_ctx'] != fdst['selinux_ctx'])
+
+    def __header(self, path, fsrc, config_channel_src, fdst, config_channel_dst):
+        """ Returns diff like header for this two files. """
+        template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
+        first_row = template % (path, f_date(fsrc['modified']), ostr_to_sym(fsrc['filemode'], fsrc['label']),
+                        fsrc['username'], fsrc['groupname'], fsrc['selinux_ctx'], config_channel_src,
+                        fsrc['revision'],
+        )
+        second_row = template % (path, f_date(fdst['modified']), ostr_to_sym(fdst['filemode'], fdst['label']),
+                        fdst['username'], fdst['groupname'], fdst['selinux_ctx'], config_channel_dst,
+                        fdst['revision'],
+        )
+        return (first_row, second_row)
+
     def management_diff(self, dict):
         log_debug(1)
-        session = dict.get('session')
-        self._validate_session(session)
+        self._get_and_validate_session(dict)
 
         param_names = [ 'config_channel_src', 'revision_src', 'path', ]
         for p in param_names:
@@ -465,19 +458,60 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         config_channel_src = dict['config_channel_src']
         revision_src = dict.get('revision_src')
-        if revision_src and not revision_src.isdigit():
-            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
-                "in channel %s" % (revision_src, path, config_channel_src), 
+        fsrc = self._get_file_revision(config_channel_src, revision_src, path)
+        
+        config_channel_dst = dict.get('config_channel_dst')
+        if config_channel_dst is None:
+            config_channel_dst = config_channel_src
+        revision_dst = dict.get('revision_dst')
+        fdst = self._get_file_revision(config_channel_dst, revision_dst, path)
+        
+        if fsrc['label'] != fdst['label']:
+            raise rhnFault(4017,
+                  "Path %s  is a %s in channel %s while it is a %s in channel %s" \
+                                % (path, fsrc['label'], \
+                                    config_channel_src, fdst['label'], config_channel_dst),
                 explain=0)
 
-        fsrc = self._get_file(config_channel_src, path, revision=revision_src)
-        if not fsrc:
-            raise rhnFault(4011, "File %s (revision %s) does not exist "
-                "in channel %s" % (path, revision_src, config_channel_src), 
+        if fsrc['label'] == 'symlink':
+            if (fsrc["symlink"] != fdst['symlink']) or self.__attributes_differ(fsrc, fdst):
+                (first_row, second_row) = self.__header(path, fsrc, config_channel_src, fdst, config_channel_dst)
+                first_row += ' target: %s' % fsrc["symlink"]
+                second_row += ' target: %s' % fdst["symlink"]
+                return first_row + "\n" +  second_row + "\n"
+            return ""
+
+        diff = difflib.unified_diff(fsrc['file_content'], fdst['file_content'], path, path, fsrc['modified'], fdst['modified'], lineterm='')
+        first_row = diff.next()
+        if not first_row:
+            return ""
+
+        if not first_row.startswith('---'):
+            # Hmm, weird
+            return first_row + '\n'.join(list(diff))
+
+        second_row = diff.next()
+        if not second_row.startswith('+++'):
+            # Hmm, weird
+            return second_row + '\n'.join(list(diff))
+
+        (first_row, second_row) = self.__header(path, fsrc, config_channel_src, fdst, config_channel_dst)
+        return first_row + "\n" + second_row + '\n' + '\n'.join(list(diff))
+
+    def _get_file_revision(self, config_channel, revision, path):
+        if revision and not revision.isdigit():
+            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
+                "in channel %s" % (revision, path, config_channel),
                 explain=0)
-        if fsrc['label'] == 'file' and fsrc['is_binary'] == 'Y':
+
+        f = self._get_file(config_channel, path, revision=revision)
+        if not f:
+            raise rhnFault(4011, "File %s (revision %s) does not exist "
+                "in channel %s" % (path, revision, config_channel),
+                explain=0)
+        if f['label'] == 'file' and f['is_binary'] == 'Y':
             raise rhnFault(4004, "File %s (revision %s) seems to contain "
-                "binary data" % (path, revision_src),
+                "binary data" % (path, revision),
                 explain=0)
 
         # We have to read the contents of the first file here, because the LOB
@@ -485,85 +519,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # seems to be invalid (bug 151220)
 
         # Empty files or directories may have NULL instead of lobs
-        fd, filename_src = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
-        fc_lob = fsrc.get('file_contents')
+        fc_lob = f.get('file_contents')
         if fc_lob:
-            os.write(fd, rhnSQL.read_lob(fc_lob))
-        os.close(fd)
-        
-        config_channel_dst = dict.get('config_channel_dst')
-        if config_channel_dst is None:
-            config_channel_dst = config_channel_src
-        revision_dst = dict.get('revision_dst')
-        if revision_dst and not revision_dst.isdigit():
-            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
-                "in channel %s" % (revision_dst, path, config_channel_dst), 
-                explain=0)
-        # revision_dst may be None, in which case we diff with HEAD
-        fdst = self._get_file(config_channel_dst, path, revision=revision_dst)
-        if not fdst:
-            raise rhnFault(4011, "File %s (revision %s) does not exist "
-                "in channel %s" % (path, revision_dst, config_channel_dst), 
-                explain=0)
-        if fdst['label'] == 'file' and fdst['is_binary'] == 'Y':
-            raise rhnFault(4004, "File %s (revision %s) seems to contain "
-                "binary data" % (path, revision_dst),
-                explain=0)
-        
-        fd, filename_dst = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
-        fc_lob = fdst.get('file_contents')
-        if fc_lob:
-            os.write(fd, rhnSQL.read_lob(fc_lob))
-        os.close(fd)
-        del fc_lob
-
-        if fsrc['label'] != fdst['label']:
-            raise rhnFault(4017, "Path %s  is a %s"+ \
-                                " in channel %s while it is a %s in channel %s"\
-                                % (path, fsrc['label'], \
-                                    config_channel_src, fdst['label'], config_channel_dst),
-                explain=0)
-        template = "--- %s\t%s\tconfig channel: %s\trevision: %s target: %s \n"
-
-        if fsrc['label'] == 'symlink':
-            if  fsrc["symlink"] != fdst['symlink']:
-                first_row = template % (
-                    path, f_date(fsrc['modified']), config_channel_src,
-                    fsrc['revision'], fsrc["symlink"],
-                )
-                second_row = template % (
-                    path, f_date(fdst['modified']), config_channel_dst,
-                    fdst['revision'], fdst["symlink"],
-                )
-                return first_row +  second_row
-            return ""
-
-        pipe = os.popen("/usr/bin/diff -u %s %s" % (filename_src,
-            filename_dst))
-        first_row = pipe.readline()
-        if not first_row:
-            return ""
-
-        if not startswith(first_row, '---'):
-            # Hmm, weird
-            return first_row + pipe.read()
-
-        second_row = pipe.readline()
-        if not startswith(second_row, '+++'):
-            # Hmm, weird
-            return second_row + pipe.read()
-
-        template = "--- %s\t%s\tconfig channel: %s\trevision: %s\n"
-
-        first_row = template % (
-            path, f_date(fsrc['modified']), config_channel_src, 
-            fsrc['revision'],
-        )
-        second_row = template % (
-            path, f_date(fdst['modified']), config_channel_dst, 
-            fdst['revision'],
-        )
-        return first_row + second_row + pipe.read()
+            f['file_content'] = rhnSQL.read_lob(fc_lob).splitlines()
+        else:
+            f['file_content'] = ''
+        return f
 
     # Helper functions
     _query_org_config_channels = rhnSQL.Statement("""
@@ -575,9 +536,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     """)
 
     def lookup_org_config_channel_by_name(self, config_channel):
-        h = rhnSQL.prepare(self._query_org_config_channels)
-        h.execute(config_channel=config_channel, org_id=self.org_id)
-        row = h.fetchone_dict()
+        row = rhnSQL.fetchone_dict(self._query_org_config_channels,
+                  config_channel=config_channel, org_id=self.org_id)
         if not row:
             raise rhnFault(4009, "Configuration channel %s does not exist" % 
                 config_channel, explain=0)
@@ -591,10 +551,3 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         raise rhnFault(4006, 
             "User is not a allowed to manage config files")
-
-def startswith(s, prefix):
-    return (s[:len(prefix)] == prefix)
-
-def f_date(dbiDate):
-    return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month, 
-        dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)

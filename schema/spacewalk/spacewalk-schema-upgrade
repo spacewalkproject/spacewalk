@@ -17,42 +17,33 @@ if (not -e $config_file) {
 
 my %options;
 Spacewalk::Setup::read_config($config_file, \%options);
-if (not defined $options{default_db}) {
-	if (defined $options{'db_name'} and defined $options{'db_user'} and defined $options{'db_password'}) {
-		$options{default_db} = "$options{'db_user'}/$options{'db_password'}\@$options{'db_name'}";
-	} else {
-		die "Config file [$config_file] does not seem to have database connection string (default_db) set.\n";
-	}
+if (not defined $options{db_backend}) {
+	die "Config file [$config_file] does not seem to have database backend info (db_backend) set.\n";
 }
 
-my $test = run_query(\%options, "select 1, 2 from dual;");
+my $test = run_query("select '1' || '2' || '3' as testing from dual;");
 if (not defined $test) {
-	die "Connect to [$options{default_db}] was not successful.\n";
+	die "Connect to database was not successful.\n";
 }
-if (@$test != 1
-	|| @{ $test->[0] } != 2
-	|| $test->[0][0] ne '1'
-	|| $test->[0][1] ne '2') {
-	die "Test select from [$options{default_db}] did not give expected results.\n";
+if ($test ne '123') {
+	die "Test select from database did not give expected results.\n";
 }
 
-my $schema_versions = run_query(\%options, <<EOF);
-	select rhnPackageName.name, PE.evr.as_vre_simple()
+my $schema_version = run_query(<<EOF);
+	select rhnPackageName.name || '-' || (PE.evr).version || '-' || (PE.evr).release
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
 		and rhnVersionInfo.name_id = rhnPackageName.id
 		and rhnVersionInfo.evr_id = PE.id;
 EOF
-if (not @$schema_versions) {
+if (not defined $schema_version) {
 	die "No existing schema version info found in rhnVersionInfo.\n";
 }
-if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
-	and $schema_versions->[0][0] ne 'spacewalk-schema'
-	and $schema_versions->[0][0] ne 'satellite-schema') {
-	die "Unknown schema name [$schema_versions->[0][0]] found.\n";
+if (not $schema_version =~ /^rhn-satellite-schema-|^spacewalk-schema-|^satellite-schema-/) {
+	die "Unknown schema name [$schema_version] found.\n";
 }
 
-my $start_schema = join '-', @{ $schema_versions->[0] };
+my $start_schema = $schema_version;
 (my $start_schema_norm = $start_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
 my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/oracle/schema-override 2> /dev/null`;
@@ -123,17 +114,17 @@ if (not exists $upgrade_path{$start_schema_norm}) {
 my @path = get_shortest_path($upgrade_path{$start_schema_norm}, $target_schema_norm);
 print "The path: ", (join " -> ", map "[$_]", $start_schema_norm, @path), "\n";
 
-my $default_tablespace_data = run_query(\%options, <<EOF);
-	select default_tablespace
-	from user_users
-	where username = sys_context('userenv', 'session_user');
+my $default_tablespace;
+if ($options{db_backend} eq 'oracle') {
+	$default_tablespace = run_query(<<EOF);
+		select default_tablespace
+		from user_users
+		where username = sys_context('userenv', 'session_user');
 EOF
-if (not defined $default_tablespace_data
-	or not defined $default_tablespace_data->[0]
-	or not defined $default_tablespace_data->[0][0]) {
-	die "Failed to retrieve default_tablespace from database.\n";
+	if (not defined $default_tablespace) {
+		die "Failed to retrieve default_tablespace from database.\n";
+	}
 }
-my $default_tablespace = $default_tablespace_data->[0][0];
 
 mkdir "/var/log/spacewalk", 0755;
 mkdir $SCHEMA_UPGRADE_LOGDIR, 0755;
@@ -148,12 +139,9 @@ my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
 
 my $start = $start_schema_norm;
 my $in = <<EOF;
-spool $SCHEMA_UPGRADE_LOGDIR/$stamp-begin.log append
-whenever sqlerror exit sql.sqlcode
-
 update rhnVersionInfo
        set label = 'schema-from-' || to_char(created, 'YYYYMMDD-HH24MISS'),
-           modified = sysdate
+           modified = current_timestamp
        where label = 'schema';
 commit;
 EOF
@@ -165,16 +153,16 @@ while (@path) {
 		die "Directory [$SCHEMA_UPGRADE_DIR/$dir] was seen but is lost now.\n";
 	}
 
-	my @files = match_overrides("$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}");
+	my @files = match_overrides("$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}", "$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}.$options{db_backend}");
 	for (my $i = 0; $i < @files; $i++) {
-		if ($files[$i] =~ /\.ref$/) {
+		if ($files[$i] =~ /\.ref(\.$options{db_backend})?$/) {
 			my @subfiles;
 			local *REF;
 			open REF, $files[$i] or die "Error reading [$files[$i]]: $!\n";
 			while (<REF>) {
 				chomp;
 				next if /^\s*(#|$)/;
-				my @newsubfiles = match_overrides("$SCHEMA_UPGRADE_DIR/$_");
+				my @newsubfiles = match_overrides("$SCHEMA_UPGRADE_DIR/$_", "$SCHEMA_UPGRADE_DIR/$_.$options{db_backend}");
 				if (not @newsubfiles) {
 					die "Could not find any files matching [$_] from [$files[$i]]\n";
 				}
@@ -185,11 +173,6 @@ while (@path) {
 			$i--;
 		}
 	}
-	my $logfile = $SCHEMA_UPGRADE_LOGDIR . "/$stamp-to-$t.log";
-
-	$in .= <<EOF;
-
-EOF
 
 	for my $fullname (@files) {
 		(my $name = $fullname) =~ s!^.*/!!;
@@ -202,11 +185,8 @@ EOF
 		}
 		close FILE;
 		$f_in =~ s!^--.*\n!!gm;
-		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g;
+		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g if defined $default_tablespace;
 		$in .= <<EOF;
-set echo on
-spool $logfile append
-whenever sqlerror exit sql.sqlcode
 select '$dir/$name' from dual;
 EOF
 		$in .= $f_in;
@@ -216,36 +196,24 @@ EOF
 	$start = $t;
 }
 
+my $backend_dir = ( $options{db_backend} eq 'postgresql' ? 'postgres' : $options{db_backend} );
+my $endfile = "/etc/sysconfig/rhn/$backend_dir/upgrade-end.sql";
+local * END;
+open END, '<', $endfile or die "Error reading [$endfile]: $!\n";
+{
+local $/ = undef;
+$in .= join '', <END>;
+}
+close END;
+
 $in .= <<EOF;
-spool $SCHEMA_UPGRADE_LOGDIR/$stamp-end.log append
-whenever sqlerror exit sql.sqlcode
-
-exec dbms_utility.compile_schema(user);
-
--- check whether all objects are valid
-declare
-  invalid_objects number;
-begin
-  select count(*)
-    into invalid_objects
-    from user_objects
-   where status <> 'VALID' and
-         (object_name, object_type) not in (select object_name, type from recyclebin);
- if invalid_objects > 0 then
-    RAISE_APPLICATION_ERROR(-20001, 'SCHEMA UPGRADE ENDS WITH INVALD OBJECTS');
- end if;
-end;
-/
-
 insert into rhnVersionInfo
        ( label, name_id, evr_id, created, modified )
        values ('schema', lookup_package_name('$my_schema_name'),
                lookup_evr(null, '$my_schema_version' , '$my_schema_release' ),
-               sysdate, sysdate );
+               current_timestamp, current_timestamp );
 commit;
 EOF
-
-$in .= "quit;\n";
 
 local *SQL;
 open SQL, "> $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql" or die "Error writing [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]: $!.\n";
@@ -253,7 +221,7 @@ print SQL $in;
 close SQL;
 
 if (not @ARGV or $ARGV[0] ne '-y') {
-	print "Planning to run sqlplus with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
+	print "Planning to run spacewalk-sql with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
 	local $| = 1;
 	READ_ENTER:
 	print "Hit Enter to continue or Ctrl+C to interrupt: ";
@@ -264,78 +232,72 @@ if (not @ARGV or $ARGV[0] ne '-y') {
 	}
 }
 
-print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
+my $logfile = $SCHEMA_UPGRADE_LOGDIR . "/$stamp-to-$target_schema_norm.log";
 
-if (not run_query({ default_db => $options{default_db}, no_query => 1 },
-		"\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql")) {
-	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
+local * LOG;
+open LOG, '>>', $logfile or die "Error writing logfile [$logfile]: $!\n";
+
+system("/sbin/restorecon $logfile 2>&1 > /dev/null");
+
+print "Executing spacewalk-sql, the log is in [$logfile].\n";
+
+my $pid = IPC::Open3::open3(my $wfh, '>&LOG', '>&LOG',
+	'spacewalk-sql', '--select-mode', "$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql") or die "Error running spacewalk-sql: $!\n";
+close $wfh;
+
+waitpid $pid, 0;
+if ($?) {
+	die "Upgrade failed, please see log [$logfile].\n";
 }
 
-my $new_schema_versions = run_query(\%options, <<EOF);
-	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
+my $new_schema_version = run_query(<<EOF);
+	select rhnPackageName.name || '-' || (PE.evr).version || '-' || (PE.evr).release
 	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
 	where rhnVersionInfo.label = 'schema'
 		and rhnVersionInfo.name_id = rhnPackageName.id
 		and rhnVersionInfo.evr_id = PE.id;
 EOF
-if (not @$new_schema_versions) {
+if (not defined $new_schema_version) {
 	die "Upgrade seems to have run OK yet new schema version is not in rhnVersionInfo.\n";
 }
-if ($new_schema_versions->[0][0] ne $target_schema) {
+if ($new_schema_version ne $target_schema) {
 	die <<EOF;
 Upgrade seems to have run OK yet new schema version is
-[$new_schema_versions->[0][0]], not [$target_schema].
+    [$new_schema_version], not [$target_schema].
 EOF
 }
 
 print "The database schema was upgraded to version [$target_schema].\n";
 
+exit;
+
 sub run_query {
-	my ($options, $command) = @_;
-	my @silent = ( '-S' ) unless $options->{no_query};
+	my ($command) = @_;
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
-		'sqlplus', @silent, $options->{default_db}) or return;
-	if (not $options->{no_query}) {
-		print $wfh <<EOF;
-set linesize 4000
-set pagesize 0
-set colsep ":"
-set trimout on
-set heading off
-set wrap off
-EOF
-	}
-	print $wfh <<EOF;
-whenever oserror exit failure
-whenever sqlerror exit sql.sqlcode
-EOF
+		'spacewalk-sql', '--select-mode', '-') or return;
 	print $wfh $command;
 	print $wfh "\n";
 	close $wfh;
 
 	my $out;
-	{
-	local $/ = undef;
-	$out = <$rfh>;
+	my $seen_dashes = 0;
+	while (<$rfh>) {
+		if (not defined $out and $seen_dashes) {
+			$out = $_;
+			last;
+		}
+		if (/---/) {
+			$seen_dashes = 1;
+		}
 	}
 	close $rfh;
 	waitpid $pid, 0;
 	if ($?) {
-		print STDERR $out;
 		return;
 	}
 
-	my @data;
-	for (split /\n/, $out) {
-		next if /^\s*$/;
-		my @values = split /:/;
-		for (@values) {
-			s/^\s+//;
-			s/\s+$//;
-		}
-		push @data, \@values;
-	}
-	return \@data;
+	$out =~ s/^\s+|\s+$//g if defined $out;
+	return $out;
 }
 
 sub get_shortest_path {
@@ -354,7 +316,7 @@ sub get_shortest_path {
 }
 
 sub match_overrides {
-	return map {-e "$_.override" ? "$_.override" : $_} sort glob shift;
+	return sort map {-e "$_.override" ? "$_.override" : $_} map { glob } @_;
 }
 
 1;
@@ -418,7 +380,7 @@ with B<-y> switch).
 Proceed with the schema upgrade following the upgrade path found, putting
 the output from executed sql scripts (including errors if any)
 into F</var/log/spacewalk/schema-upgrade>. For this step it is important
-that you have sqlplus command in your PATH.
+that you have spacewalk-sql command in your PATH.
 
 =back
 
@@ -433,8 +395,7 @@ every major upgrade step).
 
 =item F</etc/rhn/rhn.conf>
 
-Default configuration file containing database connection string
-(default_db option).
+Default configuration file containing database connection information.
 
 =item F</var/log/spacewalk/schema-upgrade>
 

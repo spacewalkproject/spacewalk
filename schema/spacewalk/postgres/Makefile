@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,7 +27,7 @@ SQLUSER := spacewalk
 endif
 
 STYLE   := postgres
-DIRS    := class types tables procs packages views triggers data quartz/tables quartz/data
+DIRS    := class types tables procs packages views triggers data synonyms quartz/tables quartz/data
 BLEND   := ../blend -as $(STYLE)
 REPLTBS := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
 MKFILES := $(shell find . -mindepth 2 -maxdepth 2 -name Makefile)

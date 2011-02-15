@@ -41,7 +41,7 @@ install :: all $(DIRS) $(INSTALL_FILES) $(INSTALL_LINKS)
 	@$(foreach f,$(INSTALL_FILES), \
 		$(INSTALL_DATA) $(f) $(PREFIX)$(INSTALL_DEST)/$(f) ; )
 	@$(foreach f,$(INSTALL_LINKS), \
-		ln -s `echo $(f)` $(PREFIX)$(INSTALL_DEST)/$(f) ; )
+		ln -s `cat $(f)` $(PREFIX)$(INSTALL_DEST)/$(f) ; )
 
 $(DIRS):
 	$(INSTALL_DIR) $@

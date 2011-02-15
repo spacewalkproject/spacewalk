@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,10 +14,9 @@
 #
 import sys
 import StringIO
-from server import rhnSQL
-
-from satellite_tools import xmlSource
-from satellite_tools.exporter import xmlWriter, exportLib
+from spacewalk.server import rhnSQL
+from spacewalk.satellite_tools import xmlSource
+from spacewalk.satellite_tools.exporter import xmlWriter, exportLib
 
 rhnSQL.initDB("rhnuser/rhnuser@webdev")
 
@@ -32,10 +31,10 @@ class ChannelsDumper(exportLib.ChannelsDumper):
                c.summary, c.description,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified,
                pc.label parent_channel
-          from rhnChannel c, rhnChannelArch ca, rhnChannel pc
+          from rhnChannel c left outer join rhnChannel pc on c.parent_channel = pc.id,
+               rhnChannelArch ca
          where c.label = :channel
            and c.channel_arch_id = ca.id
-           and c.parent_channel = pc.id (+)
     """)
 
     def set_iterator(self):
@@ -54,9 +53,6 @@ sys.exit(0)
 cont = xmlSource.ChannelContainer()
 handler = xmlSource.SatelliteDispatchHandler()
 handler.set_container(cont)
-
-#from common import initCFG
-#initCFG('server.satellite')
 
 s.seek(0, 0)
 handler.process(s)

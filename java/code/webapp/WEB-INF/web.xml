@@ -291,12 +291,14 @@
     <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
   </resource-env-ref>
   -->
-  <!-- configuration for HttpSession timeout, defaults to 30 minutes -->
-  <!--
-  <session-config>
-    <session-timeout>30</session-timeout>
-  </session-config>
+  <!-- 
+    configuration for HttpSession timeout
+    please keep in sync with web.session_cookie_lifetime value
+    in rhn_web.conf and rhn.conf
   -->
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
 
   <error-page>
       <error-code>404</error-code>

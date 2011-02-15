@@ -162,14 +162,16 @@ class ConnectionManager {
             Properties hibProperties = Config.get().getNamespaceProperties(
                     "hibernate");
             hibProperties.put("hibernate.connection.username",
-                        Config.get().getString("db_user"));
+ Config.get()
+                    .getString(ConfigDefaults.DB_USER));
             hibProperties.put("hibernate.connection.password",
-                        Config.get().getString("db_password"));
+ Config.get()
+                    .getString(ConfigDefaults.DB_PASSWORD));
             String connectionUrl =
                         Config.get().getString("hibernate.connection.driver_proto") + ":";
-            String dbName = Config.get().getString("db_name");
-            String dbHost = Config.get().getString("db_host");
-            String dbPort = Config.get().getString("db_port");
+            String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
+            String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
+            String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
 
             if (ConfigDefaults.get().isOracle() && connectionUrl.contains("thin")) {
                 connectionUrl += "@" + dbHost + ":" + dbPort + ":" + dbName;

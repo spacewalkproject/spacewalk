@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,10 +22,6 @@ fi
 
 if [ -x /etc/init.d/oracle ]; then
    DB_SERVICE="oracle"
-fi
-
-if [ -x /etc/init.d/oracle-xe ]; then
-   DB_SERVICE="oracle-xe"
 fi
 
 if [ -x /etc/init.d/tomcat5 ]; then
@@ -50,6 +46,19 @@ forward_services() {
 	if [ -e /etc/init.d/$service ]; then
 	    /sbin/service $service $ACTION
             E_STAT=$?
+            if [ "$service" == "$TOMCAT" \
+                -a "$ACTION" == "start" \
+                -a "$WAIT_FOR_TOMCAT" == "1" ] ; then
+                if /usr/sbin/lsof /proc > /dev/null ; then
+                    echo "Waiting for tomcat to be ready ..."
+                    while [ -f "/var/run/$TOMCAT.pid" ] ; do
+                        /usr/sbin/lsof -t -i @localhost:8009 -p $(cat /var/run/$TOMCAT.pid) > /dev/null && break
+                        sleep 1
+                    done
+                else
+                    echo "No lsof found, not waiting for tomcat."
+                fi
+            fi
 	fi
         if [ $E_STAT -ne 0 ]; then
             RET=$E_STAT
@@ -148,12 +157,13 @@ ensure_httpd_down() {
     return 0
 }
 
-OPTS=$(getopt --longoptions=exclude:,level: -n ${0##*/} -- e:l: "$@")
+OPTS=$(getopt --longoptions=exclude:,level:,no-wait-for-tomcat -n ${0##*/} -- e:l:T "$@")
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
 eval set -- "$OPTS"
 
+WAIT_FOR_TOMCAT=1
 while true ; do
     case "$1" in
         -e|--exclude)
@@ -166,12 +176,15 @@ while true ; do
             LEVEL="--level $2"
             shift
             ;;
+        -T|--no-wait-for-tomcat)
+            WAIT_FOR_TOMCAT=0
+            ;;
         --)
             shift
             break
             ;;
         *)
-            echo "Internal error!" >&2
+            echo "Internal error [$1]!" >&2
             exit 1
             ;;
     esac

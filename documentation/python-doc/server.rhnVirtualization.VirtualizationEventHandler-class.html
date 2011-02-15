@@ -149,10 +149,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_handle_domain_removed"></a><span class="summary-sig-name">_handle_domain_removed</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#_handle_domain_removed" class="summary-sig-name" onclick="show_private();">_handle_domain_removed</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">timestamp</span>,
-        <span class="summary-sig-arg">properties</span>)</span></td>
+        <span class="summary-sig-arg">properties</span>)</span><br />
+      Handle a domain removal.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler._handle_domain_removed">source&nbsp;code</a></span>
             
@@ -225,10 +226,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__db_get_system"></a><span class="summary-sig-name">__db_get_system</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization.VirtualizationEventHandler-class.html#__db_get_system" class="summary-sig-name" onclick="show_private();">__db_get_system</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">identity</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">uuid</span>)</span></td>
+        <span class="summary-sig-arg">uuid</span>)</span><br />
+      This returns a row from the database that represents a virtual
+      system.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_get_system">source&nbsp;code</a></span>
             
@@ -248,7 +251,8 @@
         <span class="summary-sig-arg">identity</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">uuid</span>,
-        <span class="summary-sig-arg">virt_type</span>)</span></td>
+        <span class="summary-sig-arg">virt_type</span>)</span><br />
+      Inserts a new system into the database.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_insert_system">source&nbsp;code</a></span>
             
@@ -267,7 +271,8 @@
           <td><span class="summary-sig"><a name="__db_update_system"></a><span class="summary-sig-name">__db_update_system</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">identity</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">existing_row</span>)</span></td>
+        <span class="summary-sig-arg">existing_row</span>)</span><br />
+      Updates a system in the database.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_update_system">source&nbsp;code</a></span>
             
@@ -304,7 +309,9 @@
           <td><span class="summary-sig"><a name="__db_insert_domain"></a><span class="summary-sig-name">__db_insert_domain</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">host_id</span>,
         <span class="summary-sig-arg">uuid</span>,
-        <span class="summary-sig-arg">properties</span>)</span></td>
+        <span class="summary-sig-arg">properties</span>)</span><br />
+      To create a new domain, we must modify both the rhnVirtualInstance
+      and the rhnVirtualInstanceInfo tables.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_insert_domain">source&nbsp;code</a></span>
             
@@ -375,7 +382,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__remove_unconfirmed_domains"></a><span class="summary-sig-name">__remove_unconfirmed_domains</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">system_id</span>)</span></td>
+        <span class="summary-sig-arg">system_id</span>)</span><br />
+      Mark the unconfirmed entries in the RVII table as stopped, since it
+      appears they are no longer running.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__remove_unconfirmed_domains">source&nbsp;code</a></span>
             
@@ -411,7 +420,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__convert_properties"></a><span class="summary-sig-name">__convert_properties</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">properties</span>)</span></td>
+        <span class="summary-sig-arg">properties</span>)</span><br />
+      This function normalizes and converts the values of some properties
+      to format consumable by the server.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__convert_properties">source&nbsp;code</a></span>
             
@@ -478,6 +489,72 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_handle_domain_removed"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_handle_domain_removed</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">timestamp</span>,
+        <span class="sig-arg">properties</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler._handle_domain_removed">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+  <p>Handle a domain removal.  Since we are dealing with virtual domains,
+  we can't really tell whether physical removal took place, so we'll just
+  mark the domain as 'stopped'.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__db_get_system"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__db_get_system</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">identity</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">uuid</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#VirtualizationEventHandler.__db_get_system">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+  <p>This returns a row from the database that represents a virtual system.
+  If no system could be found, None is returned.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -563,7 +640,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:16 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:06 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

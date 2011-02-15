@@ -118,42 +118,44 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.script-module.html#_query_clear_output" class="summary-name" onclick="show_private();">_query_clear_output</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149127980; statement=
+        <a href="server.action_extra_data.script-module.html#_query_clear_output" class="summary-name" onclick="show_private();">_query_clear_output</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 49051336; stat\
+ement=
 delete from rhnServerActionScriptResult
  where server_id = :server_id
    and action_script_id = (
      select id from rhnActionScript where action_id = :action_id
    )
-">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.script-module.html#_query_initial_store" class="summary-name" onclick="show_private();">_query_initial_store</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149127788; statement=
+        <a href="server.action_extra_data.script-module.html#_query_initial_store" class="summary-name" onclick="show_private();">_query_initial_store</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 49051408; stat\
+ement=
 insert into rhnServerActionScriptResult (
     server_id,
     action_script_id,
     output,
     start_date,
     stop_date,
-    return_code
-...">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.script-module.html#_query_get_output_row" class="summary-name" onclick="show_private();">_query_get_output_row</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149140396; statement=
+        <a href="server.action_extra_data.script-module.html#_query_get_output_row" class="summary-name" onclick="show_private();">_query_get_output_row</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 49051480; stat\
+ement=
 select asr.output
   from rhnServerActionScriptResult asr,
        rhnActionScript ascript
  where ascript.action_id = :action_id
    and asr.server_id = :server_id
    and asr.action_script_id = ascript.id
-">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.Stat<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -194,7 +196,8 @@ select asr.output
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149127980; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 49051336; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
 delete from rhnServerActionScriptResult
  where server_id = :server_id
    and action_script_id = (
@@ -218,14 +221,14 @@ delete from rhnServerActionScriptResult
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149127788; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 49051408; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
 insert into rhnServerActionScriptResult (
     server_id,
     action_script_id,
     output,
     start_date,
     stop_date,
-    return_code
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -244,14 +247,15 @@ insert into rhnServerActionScriptResult (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149140396; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 49051480; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
 select asr.output
   from rhnServerActionScriptResult asr,
        rhnActionScript ascript
  where ascript.action_id = :action_id
    and asr.server_id = :server_id
    and asr.action_script_id = ascript.id
-
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -281,7 +285,7 @@ select asr.output
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,8 +25,8 @@ import server.importlib.headerSource
 import server.importlib.packageImport
 import server.importlib.backendOracle
 import server.xmlrpc.up2date
-from server import rhnSQL, rhnChannel, rhnServer, rhnUser, rhnServerGroup, rhnActivationKey
-from server.xmlrpc import registration
+from spacewalk.server import rhnSQL, rhnChannel, rhnServer, rhnUser, rhnServerGroup, rhnActivationKey
+from spacewalk.server.xmlrpc import registration
 
 def init_db(username, password, dbhost):
     db = "%s/%s@%s" % (username, password, dbhost)
@@ -204,7 +204,6 @@ def upload_packages( channel_label, directory, org_id = None, username = None, p
             raise
     
     p = package_import( package_list, oracle_backend, source = source )
-    p.ignoreUploaded = 1
     p.run()
     if source == 0:
         p.subscribeToChannels()
@@ -281,16 +280,6 @@ def new_server(user, org_id):
     serv.save()
     return serv
 
-def create_user(username, password, email=None, org_id=None, org_password=None):
-    #reserved = rhnUser.reserve_user( username, password )
-    #newuser = rhnUser.new_user( username, password, email, org_id, org_password )
-    u = rhnUser.User( username, password )
-    u.set_org_id( org_id )
-    u.save()
-    u.contact['password'] = password
-    u.save()
-    return u
-
 class Counter:
     _counter = 0
     def value(self):
@@ -335,14 +324,6 @@ def build_sys_params_with_username(**kwargs):
     if params.has_key('token'):
         del params['token']
     return params
-
-def register_system( params ):
-    data = registration.Registration().new_system(params)
-    sysfile = open("/tmp/systemid", "w+")
-    sysfile.write(data)
-    sysfile.close()
-
-    return data
 
 
 

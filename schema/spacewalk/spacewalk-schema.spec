@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.44
+Version:        1.4.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -32,6 +32,7 @@ Oracle tablespace name conversions have NOT been applied.
 %build
 make -f Makefile.schema SCHEMA=%{name} VERSION=%{version} RELEASE=%{release}
 pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
+pod2man spacewalk-sql spacewalk-sql.1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -40,12 +41,16 @@ install -m 0755 -d $RPM_BUILD_ROOT%{oracle}
 install -m 0755 -d $RPM_BUILD_ROOT%{postgres}
 install -m 0644 oracle/main.sql $RPM_BUILD_ROOT%{oracle}
 install -m 0644 postgres/main.sql $RPM_BUILD_ROOT%{postgres}
+install -m 0644 oracle/end.sql $RPM_BUILD_ROOT%{oracle}/upgrade-end.sql
+install -m 0644 postgres/end.sql $RPM_BUILD_ROOT%{postgres}/upgrade-end.sql
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
+install -m 0755 spacewalk-sql $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 cp -r upgrade/* $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -56,9 +61,252 @@ rm -rf $RPM_BUILD_ROOT
 %{postgres}
 %{rhnroot}/schema-upgrade
 %{_bindir}/%{name}-upgrade
+%{_bindir}/spacewalk-sql
 %{_mandir}/man1/spacewalk-schema-upgrade*
+%{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 07 2011 Jan Pazdziora 1.4.1-1
+- Fixed rhn_ugm_applicant_fix_fun trigger function.
+
+* Thu Jan 27 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.18-1
+- 671464 - added schema upgrade for new keys 
+- added Fedora 14 key
+- added Fedora 13 key
+- added new Spacewalk key
+- 671464 - added RHEL6 key
+- For upgrades, missing PostgreSQL equivalent is an error.
+- Catch situation when both .sql and .sql.oracle or .sql.postgresql schema
+  upgrade scripts exist.
+
+* Tue Jan 25 2011 Jan Pazdziora 1.3.17-1
+- Add PostgreSQL schema upgrade scripts for 1.2 -> 1.3 upgrade.
+
+* Fri Jan 21 2011 Jan Pazdziora 1.3.16-1
+- The evr_t_as_vre_simple is not available on old Spacewalks, fixed.
+
+* Fri Jan 21 2011 Jan Pazdziora 1.3.15-1
+- Changed spacewalk-schema-upgrade to use spacewalk-sql, to run on PostgreSQL.
+
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.14-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- The maximum pagesize is 50000 -- this will prevent the headings to be
+  repeated. (jpazdziora@redhat.com)
+- Add linesize 4000 to allow long enough lines to be returned.
+  (jpazdziora@redhat.com)
+
+* Wed Jan 19 2011 Jan Pazdziora 1.3.13-1
+- Using array should be faster than appending string.
+- Added --select-mode-direct option to print out the sqlplus/psql output right
+  when we get it.
+- Show --verbose and --select-mode options in usage; also show usage when
+  Getopt::Long::GetOptions fails.
+
+* Wed Jan 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.12-1
+- fixed failed 1.1 -> 1.3 upgrade test
+
+* Tue Jan 18 2011 Jan Pazdziora 1.3.11-1
+- The table rhnPackageChangelog is dropped in 103-rhnPackageChangeLog-
+  refactoring.sql, no need to alter it here.
+
+* Tue Jan 11 2011 Jan Pazdziora 1.3.10-1
+- Add spacewalk-sql which unifies sqlplus and psql invocation.
+
+* Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
+- 662563 - rhn_sndpb_pid_ptype_idx was used for rhn_sndpb_probe_id_pk enforcement
+- 662563 - rhn_efilectmp_cid_efid_idx was used for rhn_efilectmp_efid_cid_uq enforcement
+- 662563 - web_contact_id_oid_cust_luc was used for web_contact_pk enforcement
+- 662563 - rhn_package_path_idx was used for rhn_package_id_pk enforcement
+- 653510 - deleting a virt host had a virtual entitlement that would not properly
+  move its guests to flex entitled if it was available
+- 667232 - fixing issue where balancing of guests between flex an regular
+  entitlements did would not work correctly, making certificates very difficult
+  to activate
+
+* Thu Dec 23 2010 Jan Pazdziora 1.3.8-1
+- Mark PostgreSQL rhn_user schema as equivalent to the Oracle package.
+- Dropping rhn_user.add_users_to_usergroups as it is now used anymore.
+- Dropping rhn_user.remove_users_from_servergroups as it is not used anywhere.
+
+* Thu Dec 23 2010 Jan Pazdziora 1.3.7-1
+- Marking PostgreSQL rpm schema equivalent to the Oracle package.
+- Fix PostgreSQL rpm.vercmp to handle empty string epoch gracefully.
+- Removing vercmpCounter and vercmpResetCounter from rpm package as they are
+  not used anywhere.
+- Procedure channel_name_join not used anywhere, removing (together with the
+  channel_name_t type).
+- View rhnUsersInOrgOverview does not use web_user_site_info, fixing the deps.
+- Mark postgres/end.sql as equivalent to the oracle variant (even if they do
+  different things).
+- Function rhn_org.find_server_group_by_type not used anywhere, removing.
+- The rhn_package database package is not used, removing.
+
+* Wed Dec 22 2010 Jan Pazdziora 1.3.6-1
+- Fixed the rhnPackage.build_time type on PostgreSQL to
+  address rhnpush error.
+
+* Tue Dec 14 2010 Jan Pazdziora 1.3.5-1
+- 661109 - the schema upgrade script has to have extension .sql.
+
+* Tue Dec 14 2010 Jan Pazdziora 1.3.4-1
+- 661109 - fixing issue where channel subscription would not use a flex guest
+  subscription if the system already was using  a flex guest subscription for a
+  different channel (jsherril@redhat.com)
+
+* Wed Dec 01 2010 Jan Pazdziora 1.3.3-1
+- 650129 - don't change last_modified values during schema upgrade
+  (mzazrivec@redhat.com)
+- drop unused rhnDaemonState table (tlestach@redhat.com)
+
+* Mon Nov 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
+- 655509 - fixed namespace
+
+* Thu Nov 18 2010 Lukas Zapletal 1.3.1-1
+- Replacing rownum with limit-offset syntax 
+- 645694 - introducing cleanup-packagechangelog-data task 
+- Bumping package versions for 1.3. 
+
+* Sun Nov 14 2010 Tomas Lestach <tlestach@redhat.com> 1.2.69-1
+- create oracle compatible set of 'instr' functions for postgres(PG)
+  (tlestach@redhat.com)
+
+* Sat Nov 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.68-1
+- better call stored functions with correct parameter order
+  (tlestach@redhat.com)
+
+* Fri Nov 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.67-1
+- remove 2 extra params from the stored proc and include oracle equivalent sha1
+  (tlestach@redhat.com)
+- fix typo: rh_config -> rhn_config (tlestach@redhat.com)
+- change filemode_in type in stored proc to match the DB type
+  (tlestach@redhat.com)
+
+* Thu Nov 11 2010 Lukas Zapletal 1.2.66-1
+- Putting packages/rhn_org.pkb in sync with ORA (PG)
+
+* Wed Nov 10 2010 Lukas Zapletal 1.2.65-1
+- Adding missing PLSQL function update_needed_cache (PG)
+
+* Wed Nov 03 2010 Jan Pazdziora 1.2.64-1
+- correct the rule for rhnUser (mzazrivec@redhat.com)
+- define rhnUser as a view of web_customer (mzazrivec@redhat.com)
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.63-1
+- Update copyright years in schema/.
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.62-1
+- Generally, we use sequence_nextval when populating tables, we will just
+  require it for all tables.
+- Removing sqlplus-specific pieces.
+- Replace sysdate with current_timestamp now that common/data is not processed
+  by chameleon.
+- Replace .nextval notation with sequence_nextval now that common/data is not
+  processed by chameleon.
+- Turn off chameleon processing for common/data.
+- Merging the db-specific data/ sources to common/data.
+- fixed typo in upgrade script (tlestach@redhat.com)
+- Fixing typo in comment.
+- Cannot use the .nextval notation in PostgreSQL sources (which became
+  .sequence_nextval with the previous substitution).
+- Replace sydate with current_timestamp in Oracle sources.
+- Replace nextval with sequence_nextval in PostgreSQL sources.
+- Replace .nextval with sequence_nextval in Oracle sources.
+- Fixed the oracle equivalent source sha1 of rhnTaskoSchedule.sql.
+
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.61-1
+- adding new TimeSeriesCleanUp taskomatic task (tlestach@redhat.com)
+
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.60-1
+- 645702 - adding upgrade script for delete_errata procedure
+  (tlestach@redhat.com)
+- updating sha1 in postgres procs/delete_errata.sql file (tlestach@redhat.com)
+
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.59-1
+- 645702 - remove rhnPaidErrataTempCache temporary table (tlestach@redhat.com)
+
+* Mon Nov 01 2010 Jan Pazdziora 1.2.58-1
+- Missed drop of rhnSatelliteChannelFamily in schema upgrades, dropping now.
+
+* Fri Oct 29 2010 Jan Pazdziora 1.2.57-1
+- The Oracle version and use of find_compatible_sg was changed in
+  b6832310938382e6f4e0f3c2d26807f4594ae96d, the comment no longer true.
+- Move the source of find_compatible_sg up in the file, to match the position
+  of the Oracle code.
+- Apply change 15c8aa97447223934e3e9c991b76deef466b0b9b to PostgreSQL code.
+- We have rhn_snapshotpkg_sid_nid_uq, no need to have another index on column
+  snapshot_id.
+- We have rhn_sprofile_id_oid_bc_idx and rhn_server_profile_noid_uq, so
+  rhn_server_profile_o_id_bc_idx is not useful, removing.
+- Clearing the ancient changelogs for rhn_channel.
+- Removing rhnSatelliteChannelFamily as it is no longer referenced.
+- Fixing dependencies for rhnRepoRegenQueue.
+- No need to have index which includes column which is in primary key and the
+  first two which are in rhn_pkgnevra_nid_eid_paid_uq.
+
+* Wed Oct 27 2010 Lukas Zapletal 1.2.56-1
+- Addresing recursion with opened cursor in PostgreSQL 
+- Function unsubscribe_server now in sync with Oracle 
+- Function numtodsinterval now accepts days, minutes, hours (incl. fix)
+  
+
+* Mon Oct 25 2010 Lukas Zapletal 1.2.55-1
+- Taskomatic schedule schema correction (sysdate)
+
+* Mon Oct 25 2010 Lukas Zapletal 1.2.54-1
+- Taskomatic data being inserted in PostgreSQL schema now
+- Default cast fix for PostgreSQL
+
+* Mon Oct 25 2010 Jan Pazdziora 1.2.53-1
+- Fix dependencies for rhnUserReceiveNotifications.
+
+* Fri Oct 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.52-1
+- removed unused views
+- reviewed more indexes
+
+* Fri Oct 22 2010 Tomas Lestach <tlestach@redhat.com> 1.2.51-1
+- 529064 - fixed update_needed_cache which wrongly updated cache if a package
+  was in more erratas (michael.mraka@redhat.com)
+- We cannot touch old if tg_op is INSERT. (jpazdziora@redhat.com)
+- Use uniform eight character indents; clean trailing blanks.
+  (jpazdziora@redhat.com)
+
+* Fri Oct 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.50-1
+- reviewed indexes
+- rhnPrivateErrataMail is unused; dropping
+
+* Thu Oct 21 2010 Jan Pazdziora 1.2.49-1
+- Need to add date_diff_in_days to schema upgrade scripts.
+- Missed the rhnPackageChangeLog view from schema upgrades, fixing.
+- Fixing the rhn_pkg_cld_id_seq update for situations when there is no data in
+  rhnPackageChangeLogData.
+
+* Wed Oct 20 2010 Lukas Zapletal 1.2.48-1
+- Trigger rhn_server_group_org_mapping_fun was missing return clause
+- Reformat of rhnServerGroupMembers.sql prior to next change
+- PostgreSQL function array_upper returns NULL on empty array
+  
+
+* Wed Oct 20 2010 Jan Pazdziora 1.2.47-1
+- Dropping rhn_package_changelog_id_trig. The id is always specified explicitly
+  (it seems).
+- Fixing the SHA1 mapping.
+- Schema upgrade script for the new trigger on rhnPackageChangeLogRec.
+- Move the triggers from rhnPackageChangeLog to rhnPackageChangeLogRec.
+
+* Wed Oct 20 2010 Jan Pazdziora 1.2.46-1
+- Process in chunks of 10000 packages, so that we do not blow the undo
+  tablespace.
+- Schema upgrade script for the rhnPackageChangeLog refactoring.
+- Replace the rhnPackageChangeLog table with compatibility view, so that we do
+  not have to rewrite code which just reads the table.
+- To save space for rhnPackageChangeLog data, split the table to two.
+
+* Tue Oct 19 2010 Jan Pazdziora 1.2.45-1
+- 644349 - do not update/delete all errata entries when the erratum affects
+  multiple channels (tlestach@redhat.com)
+- Fixing the date_diff_in_days source.
+- Use numtodsinterval instead of the arithmetics.
+
 * Mon Oct 18 2010 Jan Pazdziora 1.2.44-1
 - Remove the timestamptz_minus_int and minus operator -- we want the interval
   issue addressed properly.

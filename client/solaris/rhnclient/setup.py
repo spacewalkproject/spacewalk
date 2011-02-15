@@ -6,7 +6,7 @@
 from distutils.core import setup
 
 setup(name = "rhnclient",
-      version = "1.0",
+      version = "0.10",
       description = "Red Hat Network Client Utilities and Libraries",
       long_description = """\
 Red Hat Network Client Utilities

@@ -17,26 +17,17 @@
 import os
 import tempfile
 
-from common import CFG, log_debug, rhnFault, UserDictCase
-from spacewalk.common import rhn_mpm, rhn_deb
-from spacewalk.common.checksum import getFileChecksum
+from spacewalk.common import CFG, log_debug, rhnFault, rhn_mpm, \
+    rhn_deb
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
-from server import rhnSQL
-from server.importlib import importLib, userAuth, mpmSource, \
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendOracle import SQLBackend
+from spacewalk.server.importlib import importLib, userAuth, mpmSource, \
     packageImport, errataCache
-from server.rhnLib import get_package_path, \
+from spacewalk.server.rhnLib import get_package_path, \
     get_package_path_without_package_name
-from server.rhnServer import server_packages
-from server.rhnSQL.const import ORACLE, POSTGRESQL
-
-def source_match(v1, v2):
-    """ returns true if both parameters are true, false otherwise """
-    if v1 and v2:
-        return 1
-    if not v1 and not v2:
-        return 1
-    return 0
+from spacewalk.server.rhnServer import server_packages
 
 
 def write_temp_file(req, buffer_size, packaging=None):
@@ -161,13 +152,7 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
     batch = importLib.Collection()
     batch.append(pkg)
 
-    if CFG.DB_BACKEND == ORACLE:
-        from server.importlib.backendOracle import OracleBackend
-        backend = OracleBackend()
-    elif CFG.DB_BACKEND == POSTGRESQL:
-        from server.importlib.backendOracle import PostgresqlBackend
-        backend = PostgresqlBackend()
-    backend.init()
+    backend = SQLBackend()
 
     if force:
         upload_force = 4
@@ -176,7 +161,6 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
     importer = packageImport.packageImporter(batch, backend,
         source=header.is_source, caller="server.app.uploadPackage")
     importer.setUploadForce(upload_force)
-    importer.setIgnoreUploaded(1)
     importer.run()
 
     package = batch[0]
@@ -322,18 +306,4 @@ def load_package(package_stream):
 
 class AlreadyUploadedError(Exception):
     pass
-
-class PackageConflictError(Exception):
-    pass
-
-def check_package_exists(package_path, package_checksum_type, package_checksum, force=0):
-    if not os.path.exists(package_path):
-        return
-    # File exists, same checksum?
-    checksum = getFileChecksum(package_checksum_type, package_path)
-    if package_checksum == checksum and not force:
-        raise AlreadyUploadedError(package_path)
-    if force:
-        return
-    raise PackageConflictError(package_path, package_checksum_type, checksum)
 

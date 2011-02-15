@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
-import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 
@@ -102,22 +101,6 @@ public class ServerGroupManager {
         validateOrgAdminCredentials(user);
         EntitlementServerGroup sg = ServerGroupFactory.
                                 lookupEntitled(ent, user.getOrg());
-
-        return sg;
-    }
-
-    /**
-     * Returns an EntitlementServerGroup for a given server group type
-     * @param typeIn the servergroup type desired
-     * @param user logged in user needed for authentication -
-     *                           needs to be ORG Admin
-     * @return the Server group requested.
-     */
-    public EntitlementServerGroup lookupEntitled(ServerGroupType typeIn,
-                                                                User user) {
-        validateOrgAdminCredentials(user);
-        EntitlementServerGroup sg = ServerGroupFactory.
-                                lookupEntitled(user.getOrg(), typeIn);
 
         return sg;
     }

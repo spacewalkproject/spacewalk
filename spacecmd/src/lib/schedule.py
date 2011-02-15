@@ -343,7 +343,7 @@ def help_schedule_listpending(self):
     print 'schedule_listpending: List pending actions'
     print 'usage: schedule_listpending [BEGINDATE] [ENDDATE]'
     print
-    print self.TIME_OPTS
+    print self.HELP_TIME_OPTS
 
 def do_schedule_listpending(self, args):
     return self.print_schedule_summary('pending', args)
@@ -354,7 +354,7 @@ def help_schedule_listcompleted(self):
     print 'schedule_listcompleted: List completed actions'
     print 'usage: schedule_listcompleted [BEGINDATE] [ENDDATE]'
     print
-    print self.TIME_OPTS
+    print self.HELP_TIME_OPTS
 
 def do_schedule_listcompleted(self, args):
     return self.print_schedule_summary('completed', args)
@@ -365,7 +365,7 @@ def help_schedule_listfailed(self):
     print 'schedule_listfailed: List failed actions'
     print 'usage: schedule_listfailed [BEGINDATE] [ENDDATE]'
     print
-    print self.TIME_OPTS
+    print self.HELP_TIME_OPTS
 
 def do_schedule_listfailed(self, args):
     return self.print_schedule_summary('failed', args)
@@ -376,7 +376,7 @@ def help_schedule_listarchived(self):
     print 'schedule_listarchived: List archived actions'
     print 'usage: schedule_listarchived [BEGINDATE] [ENDDATE]'
     print
-    print self.TIME_OPTS
+    print self.HELP_TIME_OPTS
 
 def do_schedule_listarchived(self, args):
     return self.print_schedule_summary('archived', args)
@@ -387,7 +387,7 @@ def help_schedule_list(self):
     print 'schedule_list: List all actions'
     print 'usage: schedule_list [BEGINDATE] [ENDDATE]'
     print
-    print self.TIME_OPTS
+    print self.HELP_TIME_OPTS
 
 def do_schedule_list(self, args):
     return self.print_schedule_summary('all', args)

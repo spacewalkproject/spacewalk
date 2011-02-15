@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,11 +15,8 @@
 # Class for handling and updating the server history.
 #
 
-# Global Modules
-from common import log_debug
-
-# Local Modules
-from server import rhnSQL
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
 
 # these are kind of out there...
 MAX_SUMMARY = 128
@@ -29,8 +26,8 @@ class History:
     def __init__(self):
         self.__h = []
         
-    # Add a history event to the server.
     def add_history(self, summary, details = ""):
+        """ Add a history event to the server. """
         log_debug(4, summary)
         self.__h.append((summary[:MAX_SUMMARY], details[:MAX_DETAILS]))
         

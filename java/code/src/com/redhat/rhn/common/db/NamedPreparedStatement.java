@@ -19,7 +19,6 @@ import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -185,14 +184,7 @@ public final class NamedPreparedStatement {
                 Integer pos = (Integer)positions.next();
                 try {
                     Object value = map.get(name);
-                    if (value == null) {
-                        // We need to tell the jdbc driver what type of
-                        // parameter this is.
-                        ps.setNull(pos.intValue(), Types.VARCHAR);
-                    }
-                    else {
-                        ps.setObject(pos.intValue(), value);
-                    }
+                    ps.setObject(pos.intValue(), value);
                 }
                 catch (SQLException e) {
                     throw SqlExceptionTranslator.sqlException(e);

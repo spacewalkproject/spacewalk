@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,15 +21,15 @@ import crypt
 import string
 
 # Global Modules
-from common import UserDictCase, rhnFault, rhnException
-from common import CFG, log_debug, log_error
-from common.rhnTranslate import _
+from spacewalk.common import UserDictCase, rhnFault, rhnException, \
+    CFG, log_debug, log_error
+from spacewalk.common.rhnTranslate import _
 
 import rhnSQL
 import rhnSession
 
-# Main User class
 class User:
+    """ Main User class """
     def __init__(self, username, password):
         # compatibilty with the rest of the code
         self.username = username
@@ -52,16 +52,16 @@ class User:
         self.__init_site()
         self._session = None
         
-    # init web_user_personal_info
     def __init_info(self):
+        """ init web_user_personal_info """
         # web_user_personal_info
         self.info = rhnSQL.Row("web_user_personal_info",
                                          "web_user_id")
         self.info['first_names'] =  "Valued"
         self.info['last_name'] = "Customer"
         self.info['prefix'] = "Mr."
-    # init web_user_contact_permission
     def __init_perms(self):
+        """ init web_user_contact_permission """
         # web_user_contact_permission
         self.perms = rhnSQL.Row("web_user_contact_permission",
                                           "web_user_id")
@@ -69,8 +69,8 @@ class User:
         self.perms["mail"] = "Y"
         self.perms["call"] = "Y"
         self.perms["fax"] = "Y"      
-    # init web_user_site_info
     def __init_site(self):
+        """ init web_user_site_info """
         # web_user_site_info
         self.site = rhnSQL.Row("web_user_site_info", "id")
         self.site['city'] = "."
@@ -79,8 +79,8 @@ class User:
         self.site['type'] = "M"
         self.site['notes'] = "Entry created by Spacewalk registration process"
 
-    # simple check for a password that might become more complex sometime
     def check_password(self, password):
+        """ simple check for a password that might become more complex sometime """
         good_pwd = str(self.contact["password"])
         old_pwd = str(self.contact["old_password"])
         if CFG.pam_auth_service:
@@ -126,8 +126,8 @@ class User:
             userid = self.contact["id"]
         return userid
                     
-    # handling of contact permissions
     def set_contact_perm(self, name, value):
+        """ handling of contact permissions """
         if not name: return -1
         n = string.lower(name)
         v = 'N'
@@ -139,8 +139,8 @@ class User:
         elif n == "contact_fax":   self.perms["fax"] = v
         return 0
 
-    # set a certain value for the userinfo field. This is BUTT ugly.
     def set_info(self, name, value):
+        """ set a certain value for the userinfo field. This is BUTT ugly. """
         log_debug(3, name, value)
         # translation from what the client send us to real names of the fields
         # in the tables.
@@ -217,8 +217,8 @@ class User:
             log_error("SET_INFO: Unknown info `%s' = `%s'" % (name, value))
         return 0
 
-    # Save this record in the database
     def __save(self):
+        """ Save this record in the database. """
         is_admin = 0
         if self.customer.real:
             # get the org_id and the applicant group id for this org
@@ -314,7 +314,7 @@ class User:
         user_id = self.getid()
 
         h = rhnSQL.prepare("""
-            select ugt.label role
+            select ugt.label as role
               from rhnUserGroup ug,
                    rhnUserGroupType ugt,
                    rhnUserGroupMembers ugm
@@ -325,9 +325,10 @@ class User:
         h.execute(user_id=user_id)
         return map(lambda x: x['role'], h.fetchall_dict() or [])
 
-    # This is a wrapper for the above class that allows us to rollback
-    # any changes in case we don't succeed completely
     def save(self):
+        """ This is a wrapper for the above class that allows us to rollback
+            any changes in case we don't succeed completely.
+        """
         log_debug(3, self.username)
         rhnSQL.commit()
         try:
@@ -340,8 +341,8 @@ class User:
             rhnSQL.commit()
         return 0
     
-    # Reload the current data from the SQL database using the given id
     def reload(self, user_id):
+        """ Reload the current data from the SQL database using the given id """
         log_debug(3, user_id)
 
         # If we can not load these we have a fatal condition
@@ -373,8 +374,8 @@ class User:
 
 
 
-# hrm.  it'd be nice to move importlib.userAuth stuff here
 def auth_username_password(username, password):
+    # hrm.  it'd be nice to move importlib.userAuth stuff here 
     user = search(username)
 
     if not user:
@@ -384,12 +385,6 @@ def auth_username_password(username, password):
         raise rhnFault(2, _("Invalid username/password combination"))
 
     return user
-
-
-# placeholder for future OCS user <-> org access checks
-def auth_org_access(user_obj, org_id):
-    if user_obj.contact["org_id"] != org_id:
-        raise rhnFault(42)
 
 
 def session_reload(session_string):
@@ -406,8 +401,8 @@ def session_reload(session_string):
         raise rhnFault(10)
     return u
 
-# search for an userid
 def get_user_id(username):
+    """ search for an userid """
     username = str(username)
     h = rhnSQL.prepare("""
     select w.id from web_contact w
@@ -419,8 +414,8 @@ def get_user_id(username):
         return data["id"]
     return None
 
-# search the database for a user
 def search(user):
+    """ search the database for a user """
     log_debug(3, user)
     userid = get_user_id(user)
     if not userid: # no user found
@@ -445,8 +440,8 @@ def is_user_disabled(user):
         return 1
     return 0
 
-# create a reservation record
 def reserve_user(username, password):
+    """ create a reservation record """
     return __reserve_user_db(username, password)
 
 def __reserve_user_db(user, password):
@@ -477,6 +472,7 @@ def __reserve_user_db(user, password):
     # user doesn't exist.  now we fail, instead of reserving user.
     if CFG.disallow_user_creation:
         raise rhnFault(2001)
+    user, password = check_user_password(user, password)
 
     # now check the reserved table
     h = rhnSQL.prepare("""
@@ -510,8 +506,8 @@ def __reserve_user_db(user, password):
     # all should be dandy
     return 0
 
-# create a new user account
 def new_user(username, password, email, org_id, org_password):
+    """ create a new user account """
     return __new_user_db(username, password, email, org_id, org_password)
 
 def __new_user_db(username, password, email, org_id, org_password):
@@ -629,8 +625,8 @@ def __new_user_db(username, password, email, org_id, org_password):
     return 0
 
 
-# Do some minimal checks on the data thrown our way
 def check_user_password(username, password):
+    """ Do some minimal checks on the data thrown our way. """
     # username is required
     if not username:
         raise rhnFault(11)
@@ -660,8 +656,8 @@ def check_user_password(username, password):
 
     return username, password
 
-# Do some minimal checks on the e-mail address
 def check_email(email):
+    """ Do some minimal checks on the e-mail address """
     if email is not None:
         email = string.strip(email)
 
@@ -675,33 +671,17 @@ def check_email(email):
     # XXX More to come (check the format is indeed foo@bar.baz
     return email
     
-def check_unique_email(email):
-    return __check_unique_email_db(email)
-
-def __check_unique_email_db(email):
-    h = rhnSQL.prepare("""
-        select 1
-        from web_user_personal_info
-        where email = :email
-    """)
-    h.execute(email=email)
-    row = h.fetchone_dict()
-    if row:
-        # e-mail already exists
-        raise rhnFault(102, 
-            _("A user with the supplied e-mail address (%s)\n"
-            "    is already registered with Red Hat Network") % email)
-
-# Validates the given key against the current or old password
-# If encrypted_password is false, it compares key with pwd1 and pwd2
-# If encrypted_password is true, it compares the encrypted key
-# with pwd1 and pwd2
-#
-# Historical note: we used to compare the passwords case-insensitive, and that
-# was working fine until we started to encrypt passwords. -- misa 20030530
-#
-# Old password is no longer granting access -- misa 20040205
 def check_password(key, pwd1, pwd2=None):
+    """ Validates the given key against the current or old password
+        If encrypted_password is false, it compares key with pwd1 and pwd2
+        If encrypted_password is true, it compares the encrypted key
+        with pwd1 and pwd2
+
+        Historical note: we used to compare the passwords case-insensitive, and that
+        was working fine until we started to encrypt passwords. -- misa 20030530
+
+        Old password is no longer granting access -- misa 20040205
+    """
     encrypted_password = CFG.encrypted_passwords
     log_debug(4, "Encrypted password:", encrypted_password)
     # We don't trust the origin for key, so stringify it
@@ -726,9 +706,10 @@ def check_password(key, pwd1, pwd2=None):
     return 0 # invalid
 
 
-# Encrypt the key
-# If no salt is supplied, generates one (md5-crypt salt)
 def encrypt_password(key, salt=None):
+    """ Encrypt the key
+        If no salt is supplied, generates one (md5-crypt salt)
+    """
     # Case insensitive key
     if not salt:
         # No salt supplied, generate it ourselves
@@ -745,8 +726,8 @@ def encrypt_password(key, salt=None):
     salt = str(salt)
     return crypt.crypt(key, salt)
 
-# Perform all the checks required for new passwords
 def validate_new_password(password):
+    """ Perform all the checks required for new passwords """
     log_debug(3, "Entered validate_new_password")
     #
     # We're copying the code because we don't want to
@@ -782,8 +763,8 @@ def validate_new_password(password):
             _("password contains character `%s'") % password[pos[1]-1])
 
 
-# Perform all the checks required for new usernames
 def validate_new_username(username):
+    """ Perform all the checks required for new usernames. """
     log_debug(3)
     if len(username) < CFG.MIN_NEW_USER_LEN:
         raise rhnFault(13, _("username should be at least %d characters long")

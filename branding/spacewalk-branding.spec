@@ -1,16 +1,17 @@
 Name:       spacewalk-branding
-Version:    1.2.2
+Version:    1.4.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
 Group:      Applications/Internet
 License:    GPLv2
 URL:        https://fedorahosted.org/spacewalk/
-Source0:    %{name}-%{version}.tar.gz
+Source0:    https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
 BuildRequires: java-devel >= 1.5.0
+Requires:   httpd
 
 %description
 Spacewalk specific branding, CSS, and images.
@@ -26,6 +27,8 @@ jar -cf java-branding.jar -C java/code/src com
 
 %install
 rm -rf %{buildroot}
+install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf.d
+install -p -m 644 zz-spacewalk-branding.conf %{buildroot}%{_sysconfdir}/httpd/conf.d
 install -d -m 755 %{buildroot}/%{_var}/www/html
 install -d -m 755 %{buildroot}/%{_var}/www/html/nav
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk
@@ -37,21 +40,21 @@ install -d -m 755 %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/
 %endif
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn/default
-cp -R css %{buildroot}/%{_var}/www/html/
-cp -R img %{buildroot}/%{_var}/www/html/
+cp -pR css %{buildroot}/%{_var}/www/html/
+cp -pR img %{buildroot}/%{_var}/www/html/
 # Appplication expects two favicon's for some reason, copy it so there's just
 # one in source:
-cp img/favicon.ico %{buildroot}/%{_var}/www/html/
-cp -R templates %{buildroot}/%{_var}/www/html/
-cp -R styles %{buildroot}/%{_var}/www/html/nav/
-cp -R setup  %{buildroot}%{_datadir}/spacewalk/
-cp -R java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
+cp -p img/favicon.ico %{buildroot}/%{_var}/www/html/
+cp -pR templates %{buildroot}/%{_var}/www/html/
+cp -pR styles %{buildroot}/%{_var}/www/html/nav/
+cp -pR setup  %{buildroot}%{_datadir}/spacewalk/
+cp -pR java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
 %if  0%{?rhel} && 0%{?rhel} < 6
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
 %else
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
 %endif
-cp conf/rhn_docs.conf %{buildroot}/%{_sysconfdir}/rhn/default/rhn_docs.conf
+cp -p conf/rhn_docs.conf %{buildroot}/%{_sysconfdir}/rhn/default/rhn_docs.conf
 
 %clean
 rm -rf %{buildroot}
@@ -59,16 +62,16 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%dir /%{_var}/www/html/css
-/%{_var}/www/html/css/*
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-branding.conf
+%dir %{_var}/www/html/css
+%{_var}/www/html/css/*
 %dir /%{_var}/www/html/img
-/%{_var}/www/html/img/*
-/%{_var}/www/html/favicon.ico
+%{_var}/www/html/img/*
+%{_var}/www/html/favicon.ico
 %dir /%{_var}/www/html/templates
-/%{_var}/www/html/templates/*
-/%{_var}/www/html/templates/.htaccess
+%{_var}/www/html/templates/*
 %dir /%{_var}/www/html/nav/styles
-/%{_var}/www/html/nav/styles/*
+%{_var}/www/html/nav/styles/*
 %{_datadir}/spacewalk/
 %{_datadir}/rhn/lib/java-branding.jar
 %if  0%{?rhel} && 0%{?rhel} < 6
@@ -77,9 +80,22 @@ rm -rf %{buildroot}
 %{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
 %endif
 %{_sysconfdir}/rhn/default/rhn_docs.conf
-
+%doc LICENSE
 
 %changelog
+* Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
+- made system legend of the same width as side navigation
+
+* Fri Dec 17 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
+- let import PXT modules on fly
+
+* Thu Nov 25 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
+- add GPLv2 license (msuchy@redhat.com)
+- cleanup spec (msuchy@redhat.com)
+- remove .htaccess file (msuchy@redhat.com)
+- point to url where we store tar.gz (msuchy@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.2-1
 - 627920 - Added a larger config file icon for symlinks. Thanks to Joshua Roys
   (paji@redhat.com)

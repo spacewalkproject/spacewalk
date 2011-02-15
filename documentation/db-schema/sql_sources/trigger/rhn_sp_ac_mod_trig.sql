@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:01 2010
+-- created by Oraschemadoc Thu Jan 20 13:58:22 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_SP_AC_MOD_TRIG"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_SP_AC_MOD_TRIG" 
 before insert or update on rhnServerPackageArchCompat
 for each row
 begin

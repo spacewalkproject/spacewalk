@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -156,7 +156,7 @@ class Handler(handler_base.HandlerBase):
         #Not verbose, so give the simple output for each file...
         else:
             outstring = "%*s %s"
-            maxlen = max(map(lambda x: len(x['status']), ret)) + 1
+            maxlen = max([0] + map(lambda x: len(x['status']), ret)) + 1
             for fdict in ret:
                 if self.options.only and len(fdict['status']) == 0:
                     continue

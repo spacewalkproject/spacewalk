@@ -1,7 +1,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <html:xhtml/>
@@ -12,7 +12,7 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif" imgAlt="system.common.groupAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-group-list"
- creationUrl="/network/systems/groups/create.pxt"
+ creationUrl="/rhn/groups/CreateGroup.do"
  creationType="group"
  creationAcl="user_role(system_group_admin)">
   <bean:message key="grouplist.jsp.header"/>

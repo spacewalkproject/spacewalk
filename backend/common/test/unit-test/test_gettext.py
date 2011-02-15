@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,7 +30,7 @@ topdir = os.path.abspath(os.path.dirname(topdir + "/../../../../.."))
 if topdir not in sys.path:
     sys.path.append(topdir)
 
-from common import rhnTranslate
+from spacewalk.common import rhnTranslate
 
 class Tests(unittest.TestCase):
     
@@ -134,21 +134,21 @@ class Tests(unittest.TestCase):
         target = s
         self._test(lang, s, target)
 
-    def test_en_2(self):
+    def test_go_2(self):
         "Tests plain English messages translated in the mythical go language"
         lang = 'en'
         s = "How do you do?"
         target = s
         self._test(lang, s, target)
 
-    def test_en_3(self):
+    def test_go_3(self):
         "Tests plain English messages translated in the mythical go language"
         lang = 'en'
         s = "What should I do now?"
         target = s
         self._test(lang, s, target)
 
-    def test_en_missing_1(self):
+    def test_go_missing_1(self):
         "Tests plain English messages that are not in the translation files (go)"
         lang = 'en'
         s = "This string doesn't exist in the translation"

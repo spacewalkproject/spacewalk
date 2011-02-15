@@ -69,7 +69,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         else {
             repoWriter = new RpmRepositoryWriter(prefixPath, mountPoint);
         }
-        logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath +
+        logger.debug("Creating ChannelRepodataWorker with prefixPath(" + prefixPath +
                 "), mountPoint(" + mountPoint + ")" + " for channel_label (" +
                 channelLabelToProcess + ")");
     }
@@ -91,9 +91,6 @@ public class ChannelRepodataWorker implements QueueWorker {
             if (!isChannelLabelAlreadyInProcess()) {
                 markInProgress();
                 populateQueueEntryDetails();
-
-
-
                 Channel channelToProcess = ChannelFactory
                         .lookupByLabel(channelLabelToProcess);
                 // if the channelExists in the db still

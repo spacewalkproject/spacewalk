@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,8 +36,8 @@ CREATE UNIQUE INDEX rhn_usgp_u_sg_p_uq
     ON rhnUserServerGroupPerms (user_id, server_group_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_usgp_sg_u_p_idx
-    ON rhnUserServerGroupPerms (server_group_id, user_id)
+CREATE INDEX rhn_usgp_sg_idx
+    ON rhnUserServerGroupPerms (server_group_id)
     TABLESPACE [[4m_tbs]]
     NOLOGGING;
 

@@ -19,7 +19,7 @@ PACKAGES_LIST_DIR   = $(PREFIX)/var/up2date/list
 
 FILES	= __init__ apacheHandler apacheServer responseContext \
         rhnAuthCacheClient rhnAuthProtocol rhnConstants \
-        rhnProxyAuth rhnShared xxmlrpclib
+        rhnProxyAuth rhnShared
 TAR_EXCLUDE = install
 
 SERVICE_SCRIPTS = rhn-proxy

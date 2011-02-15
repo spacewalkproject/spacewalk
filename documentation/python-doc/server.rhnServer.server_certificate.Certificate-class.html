@@ -55,6 +55,8 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Certificate</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate">source&nbsp;code</a></span></p>
+<p>Main certificate class</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -78,7 +80,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      init data normally we include in the attrs: username, os_release, os,
+      arch, system_id and fields</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.__init__">source&nbsp;code</a></span>
             
@@ -95,7 +99,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__getitem__"></a><span class="summary-sig-name">__getitem__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">key</span>)</span></td>
+        <span class="summary-sig-arg">key</span>)</span><br />
+      function that make it look like a dictionary for easy access</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.__getitem__">source&nbsp;code</a></span>
             
@@ -113,7 +118,9 @@
         <tr>
           <td><span class="summary-sig"><a name="__setitem__"></a><span class="summary-sig-name">__setitem__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">value</span>)</span></td>
+        <span class="summary-sig-arg">value</span>)</span><br />
+      function that make it look like a dictionary for easy access updates 
+      the values of the attributes list with new values</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.__setitem__">source&nbsp;code</a></span>
             
@@ -129,7 +136,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__repr__"></a><span class="summary-sig-name">__repr__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__repr__"></a><span class="summary-sig-name">__repr__</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      string format</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.__repr__">source&nbsp;code</a></span>
             
@@ -145,7 +153,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__str__"></a><span class="summary-sig-name">__str__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__str__"></a><span class="summary-sig-name">__str__</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      string format</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.__repr__">source&nbsp;code</a></span>
             
@@ -161,7 +170,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="certificate"></a><span class="summary-sig-name">certificate</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="certificate"></a><span class="summary-sig-name">certificate</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      convert to XML</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.certificate">source&nbsp;code</a></span>
             
@@ -178,7 +188,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="compute_checksum"></a><span class="summary-sig-name">compute_checksum</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">secret</span>)</span></td>
+        <span class="summary-sig-arg">secret</span>)</span><br />
+      Update the checksum</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.compute_checksum">source&nbsp;code</a></span>
             
@@ -195,7 +206,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="set_secret"></a><span class="summary-sig-name">set_secret</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">secret</span>)</span></td>
+        <span class="summary-sig-arg">secret</span>)</span><br />
+      set the secret of the entry and recompute the checksum</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.set_secret">source&nbsp;code</a></span>
             
@@ -212,7 +224,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="reload"></a><span class="summary-sig-name">reload</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">text</span>)</span></td>
+        <span class="summary-sig-arg">text</span>)</span><br />
+      load data from a text certificate passed on by a client</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.reload">source&nbsp;code</a></span>
             
@@ -229,7 +242,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__validate_checksum"></a><span class="summary-sig-name">__validate_checksum</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">secret</span>)</span></td>
+        <span class="summary-sig-arg">secret</span>)</span><br />
+      compute the current checksum against a secret and check it against 
+      the current checksum</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_certificate-pysrc.html#Certificate.__validate_checksum">source&nbsp;code</a></span>
             
@@ -351,7 +366,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:14 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:05 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

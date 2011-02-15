@@ -17,12 +17,13 @@
 #
 
 import sys
-from importLib import GenericPackageImport, IncompletePackage, Package, \
+import os.path
+from importLib import GenericPackageImport, IncompletePackage, \
     Import, InvalidArchError, InvalidChannelError, \
     IncompatibleArchError
-from server import taskomatic
-from common import CFG
-from types import StringType
+from spacewalk.common import CFG, rhn_pkg
+from spacewalk.server import taskomatic
+from spacewalk.server.rhnServer import server_packages
 
 class ChannelPackageSubscription(GenericPackageImport):
     def __init__(self, batch, backend, caller=None, strict=0, repogen=True):
@@ -143,32 +144,6 @@ class ChannelPackageSubscription(GenericPackageImport):
                 affected_channels[channel_id] = channel_label
         self.affected_channels = affected_channels.values()
 
-    def addFromPackageBatch(self, batch):
-        # Initialize the batch with information from the other batch
-        for package in batch:
-            if not isinstance(package, Package):
-                raise TypeError("Expected a Package instance")
-            if package.ignored:
-                # Skip it
-                continue
-            # Build an IncompletePackage
-            dict = {
-                'name'      : package.name,
-                'epoch'     : package.evr[0],
-                'version'   : package.evr[1],
-                'release'   : package.evr[2],
-                'arch'      : package.arch,
-                'org_id'    : package.org_id,
-            }
-            channels = package.channels or []
-            l = []
-            for channel in channels:
-                l.append({'label' : channel})
-            dict['channels'] = l
-            p = IncompletePackage()
-            p.populate(dict)
-            self.batch.append(p)
-
     def _processPackage(self, package):
         GenericPackageImport._processPackage(self, package)
 
@@ -221,10 +196,12 @@ class PackageImport(ChannelPackageSubscription):
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
         ChannelPackageSubscription.__init__(self, batch, backend,
             caller=caller)
+        self.ignoreUploaded = 1
         self._update_last_modified = update_last_modified
         self.capabilities = {}
         self.groups = {}
         self.sourceRPMs = {}
+        self.changelog_data = {}
 
     def _processPackage(self, package):
         ChannelPackageSubscription._processPackage(self, package)
@@ -269,17 +246,16 @@ class PackageImport(ChannelPackageSubscription):
                 self.checksums[fchecksumTuple] = None
 
         # Uniquify changelog entries
-        changelogs = {}
+        unique_package_changelog_hash = {}
+        unique_package_changelog = []
         for changelog in package['changelog']:
             key = (changelog['name'], changelog['time'], changelog['text']) 
-            changelogs[key] = changelog
+            if not unique_package_changelog_hash.has_key(key):
+                self.changelog_data[key] = None
+                unique_package_changelog.append(changelog)
+                unique_package_changelog_hash[key] = 1
+        package['changelog'] = unique_package_changelog
         
-        changelogs = changelogs.values()
-        # Sort the changelogs by time (descending), then name (ascending)
-        changelogs.sort(lambda a, b: cmp(b['time'], a['time']) or 
-            cmp(a['name'], b['name']))
-        package['changelog'] = changelogs
-
         if 'solaris_patch_set' in package:
             if package.arch.startswith("sparc"):
                 self.package_arches['sparc-solaris-patch'] = None
@@ -297,6 +273,8 @@ class PackageImport(ChannelPackageSubscription):
                 raise
             # Since this is the bulk of the work, commit
             self.backend.commit()
+
+        self.backend.processChangeLog(self.changelog_data)
 
         ChannelPackageSubscription.fix(self)
 
@@ -316,6 +294,7 @@ class PackageImport(ChannelPackageSubscription):
                 forceVerify=self.forceVerify, 
                 ignoreUploaded=self.ignoreUploaded,
                 transactional=self.transactional)
+            self._import_signatures()
         except:
             # Oops
             self.backend.rollback()
@@ -372,6 +351,8 @@ class PackageImport(ChannelPackageSubscription):
             for entry in package[tag]:
                 nv = entry['capability']
                 entry['capability_id'] = self.capabilities[nv]
+        for c in package['changelog']:
+            c['changelog_data_id'] = self.changelog_data[(c['name'], c['time'], c['text'])]
         fileList = package['files']
         for f in fileList:
             f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]
@@ -497,10 +478,20 @@ class PackageImport(ChannelPackageSubscription):
         if object.ignored:
             object.id = object.first_package.id
 
+    def _import_signatures(self):
+       for package in self.batch:
+           if package['path']:
+               full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
+               if os.path.exists(full_path):
+                   header = rhn_pkg.get_package_header(filename=full_path)
+                   server_packages.processPackageKeyAssociations(header,
+                                   package['checksum_type'], package['checksum'])
+
 class SourcePackageImport(Import):
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
         Import.__init__(self, batch, backend)
         self._update_last_modified = update_last_modified
+        self.ignoreUploaded = 1
         self.sourceRPMs = {}
         self.groups = {}
         self.checksums = {}

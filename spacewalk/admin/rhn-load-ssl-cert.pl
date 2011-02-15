@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,7 +41,7 @@ my $org_id;
 my $help;
 
 GetOptions("ssl-dir=s" => \$ssl_dir, "hostname=s" => \$hostname,
-	   "channel=s" => \$channel, "org-id=i" => \$org_id, "version=s" => \$version, "help" => \$help);
+	   "channel=s" => \$channel, "org-id=i" => \$org_id, "version=s" => \$version, "help" => \$help) or die $usage;
 
 if ($help or not ($ssl_dir and $hostname and $channel and $org_id)) {
   die $usage;
@@ -96,3 +96,31 @@ sub extract_system_name {
   return $system_name;
 }
 
+=pod
+
+=head1 NAME
+
+rhn-load-ssl-cert.pl - utility load ssl certificates.
+
+rhn-sudo-load-ssl-cert - run I<sudo rhn-load-ssl-cert.pl>
+
+=head2 SYNOPSIS
+
+B<rhn-load-ssl-cert.pl> B<--ssl-dir=DIR> B<--hostname=NAME> B<--channel=CHANNEL> B<--orgid=ID> B<--version>
+
+B<rhn-load-ssl-cert.pl> [B<--help>]
+
+=head1 DESCRIPTION
+
+This script is intended to run from WebUI installer of RHN Proxy. You do not want to run
+it directly unless you really knows what are you doing.
+
+=head1 OPTIONS
+
+You either knows what this options do, or you should stop reading immediately.
+
+=head1 SEE ALSO
+
+B<satellite-debug>(8), B<send-satellite-debug>(8)
+
+=cut

@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 906e02f9fee6baee19a765099b3969238347cf8e
+-- oracle equivalent source sha1 6ad08bc269a271e810c7e4942f282985536e7f07
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -43,7 +43,7 @@ rhnServerOverview
 )
 as
 select
-    s.org_id, s.id, s.name, cast(0 as bigint), s.modified,
+    s.org_id, s.id, s.name, 0, s.modified,
     ( select count(user_id) from rhnUserServerPerms ap 
       where server_id = s.id ), 
     ( select count(server_group_id) from rhnVisibleServerGroupMembers
@@ -97,7 +97,7 @@ select
          and ACR.failure_id is null
          and ACRR.result is not null
         ),
-    ( select date_diff_in_days(current_timestamp, checkin) from rhnServerInfo where server_id = S.id ),
+    ( select date_diff_in_days(checkin, current_timestamp) from rhnServerInfo where server_id = S.id ),
     ( select TO_CHAR(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnServerInfo where server_id = S.id ),
     ( select count(1) 
         from rhnServerAction
@@ -106,7 +106,7 @@ select
     os,
     release,
     ( select name from rhnServerArch where id = s.server_arch_id),
-    cast(coalesce((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0) as numeric)
+    coalesce((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0)
 from 
     rhnServer S
 ;

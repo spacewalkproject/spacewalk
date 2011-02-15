@@ -17,6 +17,7 @@ package com.redhat.rhn.common.util;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -28,9 +29,12 @@ import java.util.HashMap;
  *
  * @version $Rev: 325 $
  */
-public class CharacterMap {
+public class CharacterMap implements Serializable {
 
     private HashMap innerMap;
+
+    // increase this number on any data change
+    private static final long serialVersionUID = 1L;
 
     /**
     * public constructor

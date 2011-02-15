@@ -32,7 +32,6 @@
 # system module imports
 import os
 import sys
-import pwd
 import string
 import traceback
 import time

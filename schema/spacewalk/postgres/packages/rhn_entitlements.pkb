@@ -1,7 +1,11 @@
 -- Note: this file is not a full equivalent of the Oracle sources.
 -- Neither the flex stuff nor the update_family_countsYN was fully migrated.
--- Only things on the code path of simple rhn-satellite-activate
--- were done.
+-- Migrated functions or code paths:
+--
+-- can_entitle_server
+-- entitle_server
+-- code path of simple rhn-satellite-activate
+--
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -21,6 +25,42 @@
 
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_entitlements,' || setting where name = 'search_path';
+
+   create or replace function find_compatible_sg (
+      server_id_in in numeric,
+      type_label_in in varchar
+   )
+   returns numeric
+as $$
+    declare
+      servergroups cursor for
+         select sg.id
+           from rhnServerGroupType             sgt,
+                rhnServerGroup                 sg,
+                rhnServer                     s,
+                rhnServerServerGroupArchCompat ssgac
+          where s.id = server_id_in
+            and s.org_id = sg.org_id
+            and sgt.label = type_label_in
+            and sg.group_type = sgt.id
+            and ssgac.server_group_type = sgt.id
+            and ssgac.server_arch_id = s.server_arch_id
+            and not exists ( 
+                     select 1
+                      from rhnServerGroupMembers sgm
+                     where sgm.server_group_id = sg.id 
+                       and sgm.server_id = s.id);
+
+         
+   begin
+      for servergroup in servergroups loop
+         return servergroup.id;
+      end loop;
+
+      --no servergroup found
+      return NULL;
+   end$$
+language plpgsql;
 
     -- *******************************************************************
     -- PROCEDURE: remove_org_entitlements
@@ -190,7 +230,7 @@ as $$
       from rhnServerGroupType
       where label = type_label_in;
 
-      if array_upper(previous_ent, 1) = 0 then
+      if array_upper(previous_ent, 1) is null or array_upper(previous_ent, 1) = 0 then
          if is_base_in = 'Y' then
             sgid := rhn_entitlements.find_compatible_sg (server_id_in, type_label_in);
             if sgid is not null then
@@ -283,43 +323,6 @@ as $$
          end if;
       end if;
 
-   end$$
-language plpgsql;
-
-   -- returns NULL if no match found; this is different from the Oracle coding
-   create or replace function find_compatible_sg (
-      server_id_in in numeric,
-      type_label_in in varchar
-   )
-   returns numeric
-as $$
-    declare
-      servergroups cursor for
-         select sg.id
-           from rhnServerGroupType             sgt,
-                rhnServerGroup                 sg,
-                rhnServer                     s,
-                rhnServerServerGroupArchCompat ssgac
-          where s.id = server_id_in
-            and s.org_id = sg.org_id
-            and sgt.label = type_label_in
-            and sg.group_type = sgt.id
-            and ssgac.server_group_type = sgt.id
-            and ssgac.server_arch_id = s.server_arch_id
-            and not exists ( 
-                     select 1
-                      from rhnServerGroupMembers sgm
-                     where sgm.server_group_id = sg.id 
-                       and sgm.server_id = s.id);
-
-         
-   begin
-      for servergroup in servergroups loop
-         return servergroup.id;
-      end loop;
-
-      --no servergroup found
-      return NULL;
    end$$
 language plpgsql;
 
@@ -870,7 +873,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'enterprise', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'enterprise', 'Y');
     end$$
 language plpgsql;
 
@@ -879,7 +882,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'provisioning', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'provisioning', 'Y');
     end$$
 language plpgsql;
 
@@ -888,7 +891,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'monitoring', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'monitoring', 'Y');
     end$$
 language plpgsql;
 
@@ -897,7 +900,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'nonlinux', 'Y');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'nonlinux', 'Y');
     end$$
 language plpgsql;
 
@@ -906,7 +909,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'enterprise', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'enterprise', 'N');
     end$$
 language plpgsql;
 
@@ -915,7 +918,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'provisioning', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'provisioning', 'N');
     end$$
 language plpgsql;
 
@@ -924,7 +927,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'monitoring', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'monitoring', 'N');
     end$$
 language plpgsql;
 
@@ -933,7 +936,7 @@ language plpgsql;
     ) returns void
 as $$
     begin
-        perform modify_org_service(customer_id_in, 'nonlinux', 'N');
+        perform rhn_entitlements.modify_org_service(customer_id_in, 'nonlinux', 'N');
     end$$
 language plpgsql;
 

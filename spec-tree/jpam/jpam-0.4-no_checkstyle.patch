@@ -1,0 +1,11 @@
+diff -up ./build.xml ./build.xml
+--- ./build.xml 2005-04-23 15:00:42.000000000 +0200
++++ ./build.xml	2010-12-17 17:37:55.000000000 +0100
+@@ -27,7 +27,7 @@
+     <target name="build" depends="clean, test, dist" description="Builds a clean distribution"/>
+
+     <!-- compiles -->
+-    <target name="compile" depends="checkstyle, compile-src, compile-tests" description="Performs a compile"/>
++    <target name="compile" depends="compile-src, compile-tests" description="Performs a compile"/>
+
+     <target name="shared-object" depends="compile, generate-c-headers" description="Creates the shared library">

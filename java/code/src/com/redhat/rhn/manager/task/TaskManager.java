@@ -22,7 +22,6 @@ import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,38 +38,6 @@ public class TaskManager {
     }
 
     /**
-     * gets the last time a certain task was exectued
-     * @param label the label of the task
-     * @return the date
-     */
-    public static Date getTaskExecutionTime(String label) {
-
-        SelectMode m = ModeFactory.getMode("Task_queries", "get_task_stats");
-        Map in = new HashMap();
-        in.put("label", label);
-        DataResult<Map> list = m.execute(in);
-
-        if (!list.isEmpty()) {
-            return (Date) list.get(0).get("last_poll");
-        }
-        return null;
-    }
-
-
-    /**
-     * Gets the current db time
-     * @return the date
-     */
-    public static Date getCurrentDBTime() {
-        SelectMode m = ModeFactory.getMode("Task_queries", "get_current_time");
-        DataResult<Map> list = m.execute();
-        if (!list.isEmpty()) {
-            return (Date) list.get(0).get("sysdate");
-        }
-        return null;
-    }
-
-    /**
      *  Get the channel package list for a channel
      * @param channel channel info
      * @return the iterator
@@ -83,5 +50,12 @@ public class TaskManager {
         return m.execute(params);
     }
 
-
+    /**
+     * Return task status info
+     * @return task status info
+     */
+    public static DataResult getTaskStatusInfo() {
+        SelectMode m = ModeFactory.getMode("Task_queries", "taskomatic_task_status");
+        return m.execute(new HashMap());
+    }
 }

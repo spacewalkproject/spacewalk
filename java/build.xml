@@ -4,6 +4,10 @@
   Spacewalk build file, please indent 2 spaces. NO TABS!
 -->
 <project name="RHN" default="all" basedir=".">
+  <property name="tomcat" value="tomcat5" />
+  <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
+  <echo message="Importing buildconf/build-props-${tomcat}.xml" />
+  <import file="buildconf/build-props-${tomcat}.xml" />
   <import file="buildconf/build-props.xml" />
   <import file="buildconf/build-taskdefs.xml" />
   <import file="buildconf/build-utils.xml" />
@@ -27,10 +31,13 @@
     <mkdir dir="${run-external.lib.dir}" />
     <mkdir dir="${test.lib.dir}" />
 
+    <echo message="Linking build jars"/>
     <link-jars ivyxml="${rhn-home}/ivy.xml" libdir="${lib.dir}"
                jars="${build.jar.dependencies}" dir="${build.lib.dir}" />
+    <echo message="Linking test jars"/>
     <link-jars ivyxml="${rhn-home}/ivy.xml" libdir="${lib.dir}"
                jars="${test.jar.dependencies}" dir="${test.lib.dir}"/>
+    <echo message="Linking run jars"/>
     <link-jars ivyxml="${rhn-home}/ivy.xml" libdir="${lib.dir}"
                jars="${run.jar.dependencies}" dir="${run-external.lib.dir}"/>
     <!--
@@ -691,6 +698,8 @@ delete from rhnChannel where label like 'ChannelLabel%';
         <exclude name="**/ojdbc*" />
         <exclude name="**/oracle-jdbc*" />
         <exclude name="**/servlet*" />
+        <exclude name="**/jspapi*" />
+        <exclude name="**/jasper5-compiler*" />
       </lib>
     </war>
   </target>
@@ -781,16 +790,12 @@ delete from rhnChannel where label like 'ChannelLabel%';
        classpathid="playpen.tests.runpath" reportdir="${playpen.testresults.dir}"/>
   </target>
 
-  
-
-  <target name="install-tomcat5"
-           description="Install the webapp to the directory specified by $prefix for tomcat5">
+  <target name="install-tomcat5">
        <property name="webapp-dir" value="/var/lib/tomcat5/webapps/" />
        <antcall target="install" />
   </target>
 
-  <target name="install-tomcat6"
-           description="Install the webapp to the directory specified by $prefix for tomcat5">
+  <target name="install-tomcat6">
        <property name="webapp-dir" value="/var/lib/tomcat6/webapps/" />
        <echo message="${prefix}" />
        <echo message="${webapp-dir}" />
@@ -862,16 +867,18 @@ delete from rhnChannel where label like 'ChannelLabel%';
     </copy>
 
     <!--
-     - delete the symlinks for the jars that break the webapp.  Basically
-     - these are the oracle jars and the servlet jar.
-     -->
-    <delete>
-      <fileset dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib">
+      - delete the symlinks for the jars that break the webapp.  Basically
+      - these are the oracle jars and the servlet jars
+      -->
+     <delete verbose="true">
+       <fileset dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib">
         <include name="**/ojdbc*" />
         <include name="**/oracle-jdbc*" />
         <include name="**/servlet*" />
         <include name="**/logdriver*" />
-      </fileset>
+        <include name="**/jspapi*" />
+        <include name="**/jasper5-compiler*" />
+    </fileset>
     </delete>
   </target>
 

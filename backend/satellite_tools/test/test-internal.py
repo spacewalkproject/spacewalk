@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 import sys
-from satellite_tools.connection import StreamConnection
+from spacewalk.satellite_tools.connection import StreamConnection
 
 if __name__ == '__main__':    
     #s = StreamConnection("http://scripts.back-webqa.redhat.com/SAT-DUMP-INTERNAL",

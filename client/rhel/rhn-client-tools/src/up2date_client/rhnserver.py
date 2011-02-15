@@ -1,7 +1,7 @@
 
 #   rhn-client-tools
 #
-#   Copyright (C) 2006 Red Hat, Inc.
+# Copyright (c) 2006--2010 Red Hat, Inc.
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ import rpcServer
 import up2dateErrors
 import capabilities
 
-from rhn import rpclib
+import xmlrpclib
 import OpenSSL
 
 
@@ -48,7 +48,7 @@ class _DoCallWrapper(object):
 
         try:
             return rpcServer.doCall(method, *args, **kwargs)
-        except rpclib.Fault, f:
+        except xmlrpclib.Fault, f:
             raise self.__exception_from_fault(f)
         except OpenSSL.SSL.Error, e:
             # TODO This should probably be moved to rhnlib and raise an

@@ -26,7 +26,8 @@ import java.util.List;
  * ChannelSystemGrouping
  * @version $Rev$
  */
-public class ChannelFamilySystemGroup implements Identifiable, Expandable {
+public class ChannelFamilySystemGroup implements Identifiable,
+                    Expandable, Comparable<ChannelFamilySystemGroup> {
 
     private String label;
     private String name;
@@ -72,6 +73,15 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
      */
     public Long getId() {
         return id;
+    }
+
+
+    /**
+     * get the id as a string
+     * @return the string
+     */
+    public String getIdString() {
+        return id + "";
     }
 
     /**
@@ -128,5 +138,14 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
     public List<ChannelFamilySystem> expand() {
         return systems;
     }
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public int compareTo(ChannelFamilySystemGroup arg0) {
+        return this.getName().compareTo(arg0.getName());
+    }
+
 
 }

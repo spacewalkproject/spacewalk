@@ -11,13 +11,14 @@ my ($host, $username) = ( 'localhost', 'admin' );
 my $passwd;
 my $force;
 
+my $usage = "Usage: $0 --idle=<idletime[w|d|h|m]> [--host=<host>] [--username=<username>] [--password=<password>] [--force]\n";
 Getopt::Long::GetOptions(
 	'idle=s' => \$idle_time,
 	'host=s' => \$host,
 	'username=s' => \$username,
 	'password=s' => \$passwd,
 	'force' => \$force,
-);
+) or die $usage;
 
 if (not defined $idle_time) {
 	die "Need --idle parameter\n";

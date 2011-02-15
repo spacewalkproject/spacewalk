@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,13 +17,13 @@
 import time
 
 # common module imports
-from common import CFG, rhnFault, rhnFlags, log_debug, log_error, UserDictCase
-from common.rhnTranslate import _
+from spacewalk.common import CFG, rhnFault, rhnFlags, log_debug, log_error, UserDictCase
+from spacewalk.common.rhnTranslate import _
 
 # local module imports
-from server.rhnLib import computeSignature
-
-from server import rhnServer, rhnHandler, rhnSQL, apacheAuth, rhnPackage
+from spacewalk.server.rhnLib import computeSignature
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnServer, rhnSQL, apacheAuth, rhnPackage
 
 # a class that provides additional authentication support for the
 # proxy functions

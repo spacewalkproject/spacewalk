@@ -4,7 +4,7 @@
 # authentication token caching.
 # (Client, meaning, a client to the authCache daemon)
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,9 +23,10 @@
 import socket
 
 ## local imports
-from common import log_debug, log_error, Traceback, rhnFault
-from common.rhnTranslate import _
-from rhnAuthProtocol import CommunicationError, Fault, send, recv
+from spacewalk.common import log_debug, log_error, Traceback, rhnFault
+from spacewalk.common.rhnTranslate import _
+from rhnAuthProtocol import CommunicationError, send, recv
+from xmlrpclib import Fault
 
 #
 # Protocol description:
@@ -170,7 +171,7 @@ class Shelf:
 #-------------------------------------------------------------------------------
 # test code
 if __name__ == '__main__':
-    from common import initCFG
+    from spacewalk.common import initCFG
     initCFG("proxy.broker")
     s = Shelf(('localhost', 9999))
     s['1234'] = [1, 2, 3, 4, None, None]

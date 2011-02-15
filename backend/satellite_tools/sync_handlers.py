@@ -17,8 +17,8 @@
 import types
 import string
 
-from server import rhnSQL
-from server.importlib import channelImport, packageImport, errataImport, \
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport, importLib
 import diskImportLib
 import xmlSource
@@ -93,7 +93,7 @@ class ChannelCollection:
             self._channels_hash = {}
             self._cache = syncCache.ChannelCache()
 
-    def add_channel(self, channel_object):
+    def add_item(self, channel_object):
         """Stores a channel in the collection"""
         channel_label = channel_object['label']
         channel_last_modified = channel_object['last_modified']
@@ -160,24 +160,34 @@ class ChannelCollection:
         self._shared_state.clear()
         self.__init__()
 
-class ChannelContainer(xmlSource.ChannelContainer):
+class SyncHandlerContainer:
+    collection = None
 
     def endItemCallback(self):
-        xmlSource.ChannelContainer.endItemCallback(self)
+        # reference to xmlSource superclass we redefines
+        xml_superclass = self.__class__.__bases__[1]
+        xml_superclass.endItemCallback(self)
         if not self.batch:
             return
-        c = ChannelCollection()
-        c.add_channel(self.batch[-1])
+        c = self.collection()
+        c.add_item(self.batch[-1])
         del self.batch[:]
 
     def endContainerCallback(self):
         # Not much to do here...
         pass
 
-def get_channel_handler():
+def get_sync_handler(container):
     handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(ChannelContainer())
+    handler.set_container(container)
     return handler
+
+class ChannelContainer(SyncHandlerContainer, xmlSource.ChannelContainer):
+    collection = ChannelCollection
+
+
+def get_channel_handler():
+    return get_sync_handler(ChannelContainer())
 
 def import_channels(channels, orgid=None):
     collection = ChannelCollection()
@@ -232,7 +242,7 @@ class ShortPackageCollection:
     def _init_cache(self):
         self._cache = syncCache.ShortPackageCache()
 
-    def add_package(self, package):
+    def add_item(self, package):
         """Stores a package in the collection"""
         package_id = package['package_id']
         timestamp = package['last_modified']
@@ -260,24 +270,11 @@ class ShortPackageCollection:
         self._shared_state.clear()
         self.__init__()
 
-class ShortPackageContainer(xmlSource.IncompletePackageContainer):
-
-    def endItemCallback(self):
-        xmlSource.IncompletePackageContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = ShortPackageCollection()
-        c.add_package(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class ShortPackageContainer(SyncHandlerContainer, xmlSource.IncompletePackageContainer):
+    collection = ShortPackageCollection
 
 def get_short_package_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(ShortPackageContainer())
-    return handler
+    return get_sync_handler(ShortPackageContainer())
 
 
 class PackageCollection(ShortPackageCollection):
@@ -289,24 +286,11 @@ class PackageCollection(ShortPackageCollection):
     def get_package_timestamp(self, package_id):
         raise NotImplementedError
 
-class PackageContainer(xmlSource.PackageContainer):
-
-    def endItemCallback(self):
-        xmlSource.PackageContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = PackageCollection()
-        c.add_package(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class PackageContainer(SyncHandlerContainer, xmlSource.PackageContainer):
+    collection = PackageCollection
 
 def get_package_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(PackageContainer())
-    return handler
+    return get_sync_handler(PackageContainer())
 
 
 # Singleton-like
@@ -316,23 +300,11 @@ class SourcePackageCollection(ShortPackageCollection):
     def _init_cache(self):
         self._cache = syncCache.SourcePackageCache()
 
-class SourcePackageContainer(xmlSource.SourcePackageContainer):
-    def endItemCallback(self):
-        xmlSource.SourcePackageContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = SourcePackageCollection()
-        c.add_package(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class SourcePackageContainer(SyncHandlerContainer, xmlSource.SourcePackageContainer):
+    collection = SourcePackageCollection
 
 def get_source_package_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(SourcePackageContainer())
-    return handler
+    return get_sync_handler(SourcePackageContainer())
 
 # Singleton-like
 class ErrataCollection:
@@ -347,7 +319,7 @@ class ErrataCollection:
     def _init_cache(self):
         self._cache = syncCache.ErratumCache()
 
-    def add_erratum(self, erratum):
+    def add_item(self, erratum):
         """Stores an erratum in the collection"""
         erratum_id = erratum['erratum_id']
         timestamp = _to_timestamp(erratum['last_modified'])
@@ -375,24 +347,11 @@ class ErrataCollection:
         self._shared_state.clear()
         self.__init__()
 
-class ErrataContainer(xmlSource.ErrataContainer):
-
-    def endItemCallback(self):
-        xmlSource.ErrataContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = ErrataCollection()
-        c.add_erratum(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class ErrataContainer(SyncHandlerContainer, xmlSource.ErrataContainer):
+    collection = ErrataCollection
 
 def get_errata_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(ErrataContainer())
-    return handler
+    return get_sync_handler(ErrataContainer())
 
 
 class KickstartableTreesCollection(BaseCollection):
@@ -407,29 +366,15 @@ class KickstartableTreesCollection(BaseCollection):
     def _get_item_timestamp(self, item):
         return None
 
-class KickstartableTreesContainer(xmlSource.KickstartableTreesContainer):
-
-    def endItemCallback(self):
-        xmlSource.KickstartableTreesContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = KickstartableTreesCollection()
-        c.add_item(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class KickstartableTreesContainer(SyncHandlerContainer, xmlSource.KickstartableTreesContainer):
+    collection = KickstartableTreesCollection
 
 def get_kickstarts_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(KickstartableTreesContainer())
-    return handler
+    return get_sync_handler(KickstartableTreesContainer())
 
 def import_packages(batch, sources=0):
     importer = packageImport.PackageImport(batch, diskImportLib.get_backend(), sources)
     importer.setUploadForce(4)
-    importer.setIgnoreUploaded(1)
     importer.run()
     importer.status()
     return importer

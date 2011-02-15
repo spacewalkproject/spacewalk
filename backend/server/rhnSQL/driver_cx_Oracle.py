@@ -28,9 +28,9 @@ import string
 import os
 import types
 
-from server import rhnSQL
-from common import rhnException, log_debug, log_error, rhnConfig
-from common import UserDictCase
+from spacewalk.server import rhnSQL
+from spacewalk.common import rhnException, log_debug, log_error, rhnConfig, \
+    UserDictCase
 from sql_base import adjust_type
 from const import ORACLE
 

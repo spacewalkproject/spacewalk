@@ -23,36 +23,32 @@ import os
 import shutil
 from optparse import Option, OptionParser
 
-
-_LIBPATH = "/usr/share/rhn"
-# add to the path if need be
-if _LIBPATH not in sys.path:
-    sys.path.append(_LIBPATH)
-
 try:
     from rhn import rhnLockfile    #new place for rhnLockfile
 except:
-    from common import rhnLockfile #old place for rhnLockfile
+    from spacewalk.common import rhnLockfile #old place for rhnLockfile
 
-from satellite_tools.progress_bar import ProgressBar
-from common import CFG, initCFG, initLOG, log_debug, log_error
-from server import rhnSQL
+from spacewalk.satellite_tools.progress_bar import ProgressBar
+from spacewalk.common import CFG, initCFG, initLOG, log_debug, log_error
+from spacewalk.server import rhnSQL
 
 options_table = [
     Option("-v", "--verbose",       action="count", 
-        help="Increase verbosity"),
+           help="Increase verbosity"),
     Option("-l", "--list",          action="store_true",
-        help="List defined channels and exit"),
+           help="List defined channels and exit"),
     Option("-c", "--channel",       action="append", 
-        help="Delete this channel (can be present multiple times)"),
+           help="Delete this channel (can be present multiple times)"),
     Option("-u", "--unsubscribe",   action="store_true",
-        help="Unsubscribe systems registered to the specified channels"),
+           help="Unsubscribe systems registered to the specified channels"),
     Option(      "--justdb",        action="store_true",
-        help="Delete only from the database, do not remove files from disk"),
+                 help="Delete only from the database, do not remove files from disk"),
     Option(      "--force",         action="store_true",
-        help="Remove the channel packages from any other channels too (Not Recommended)"),
+                 help="Remove the channel packages from any other channels too (Not Recommended)"),
     Option("-p", "--skip-packages", action="store_true",
-        help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
+           help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
+    Option(      "--skip-channels", action="store_true",
+           help="Remove only packages from channel not the channel itself."),
 ]
 
 LOCK = None
@@ -75,7 +71,7 @@ def main():
     parser = OptionParser(option_list=options_table)
 
     (options, args) = parser.parse_args()
-        
+
     if args:
         for arg in args:
             sys.stderr.write("Not a valid option ('%s'), try --help\n" % arg)
@@ -84,7 +80,7 @@ def main():
     if not (options.channel or options.list):
         sys.stderr.write("Nothing to do\n")
         sys.exit(0)
-    
+
     initCFG('server')
     initLOG("stdout", options.verbose or 0)
 
@@ -95,9 +91,9 @@ def main():
         keys = dict_parents.keys()
         keys.sort()
         for c in keys:
-           print c
-           for sub in dict_parents[c]:
-               print "\t" + sub
+            print c
+            for sub in dict_parents[c]:
+                print "\t" + sub
         return
 
 
@@ -111,35 +107,38 @@ def main():
         if not dict_label.has_key(channel):
             print "Unknown channel %s" % channel
             return -1
-        # Sanity check: verify subchannels are deleted as well if base 
-        # channels are selected
-        if not dict_parents.has_key(channel):
-            continue
-        # this channel is a parent channel?
-        children = []
-        for subch in dict_parents[channel]:
-            if not channels.has_key(subch):
-                child_test_fail = True
-                children.append(subch)
-        if children:
-            print "Error: cannot remove channel %s: subchannel(s) exist: " %(
-                channel)
-            for child in children:
-                print "\t\t\t" + child
-               
+        if not options.skip_channels:
+            # Sanity check: verify subchannels are deleted as well if base
+            # channels are selected
+            if not dict_parents.has_key(channel):
+                continue
+            # this channel is a parent channel?
+            children = []
+            for subch in dict_parents[channel]:
+                if not channels.has_key(subch):
+                    child_test_fail = True
+                    children.append(subch)
+            if children:
+                print "Error: cannot remove channel %s: subchannel(s) exist: " %(
+                    channel)
+                for child in children:
+                    print "\t\t\t" + child
+
     if child_test_fail:
         return -1
- 
-    if __serverCheck(channels.keys(), options.unsubscribe):
-        return -1
 
-    if __kickstartCheck(channels.keys()):
-        return -1
+    if not options.skip_channels:
+       if __serverCheck(channels.keys(), options.unsubscribe):
+           return -1
+
+       if __kickstartCheck(channels.keys()):
+           return -1
 
 
     try:
         delete_channels(channels.keys(), force=options.force,
-            justdb=options.justdb, skip_packages=options.skip_packages)
+                        justdb=options.justdb, skip_packages=options.skip_packages,
+                        skip_channels=options.skip_channels)
     except:
         rhnSQL.rollback()
         raise
@@ -208,9 +207,9 @@ def __unsubscribeServers(labels):
     for i in channel_list:
         print(i.ljust(40)),
         print(str(channel_counts[i]).ljust(8))
-    
+
     pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete',
-                finalSize=len(list), finalBarLength=40, stream=sys.stdout)
+                     finalSize=len(list), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
     for i in list:
@@ -219,14 +218,16 @@ def __unsubscribeServers(labels):
         pb.printIncrement()
     pb.printComplete()
 
-  
+
 def __unbsubscribeServer(server_id, channel_id):
     sql = """
-         call rhn_channel.unsubscribe_server(:server_id, :channel_id)
+         begin
+         /*pg perform*/ rhn_channel.unsubscribe_server(:server_id, :channel_id);
+         end;
     """
-    h = rhnSQL.prepare(sql)
+    h = rhnSQL.prepare(sql, params=('server_id numeric', 'channel_id numeric'))
     h.execute(server_id=server_id, channel_id=channel_id)
- 
+
 
 def __kickstartCheck(labels):
     sql = """
@@ -242,12 +243,12 @@ def __kickstartCheck(labels):
     h = rhnSQL.prepare(sql % (bind_params))
     apply(h.execute, (), params)
     list = h.fetchall_dict()
-   
+
     if not list:
         return 0
- 
+
     print("The following kickstarts are associated with one of the specified channels. " +
-               "Please remove these or change their associated base channel.\n")
+          "Please remove these or change their associated base channel.\n")
     print('org_id'.ljust(8)),
     print('label')
     print("-"*20) 
@@ -261,9 +262,8 @@ def __kickstartCheck(labels):
 def __listChannels():
     sql = """
         select c1.label, c2.label parent_channel 
-        from rhnChannel c1, rhnChannel c2
-        where c1.parent_channel = c2.id (+) and
-              (C1.org_id is null or C2.org_id is null)
+        from rhnChannel c1 left outer join rhnChannel c2 on c1.parent_channel = c2.id
+        where C1.org_id is null or C2.org_id is null
         order by c2.label desc, c1.label asc
     """
     h = rhnSQL.prepare(sql)
@@ -281,11 +281,11 @@ def __listChannels():
 
         if parent_channel:
             parents[parent_channel].append(row['label'])
-        
+
     return labels, parents
 
 
-def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0):
+def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_channels=0):
     # Get the package ids
     if not channelLabels:
         return 
@@ -348,16 +348,20 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0):
         ['rhnErrataFileChannel', 'channel_id'],
         ['rhnErrataNotificationQueue', 'channel_id'],
         ['rhnChannelErrata', 'channel_id'],
-        ['rhnChannelFamilyMembers', 'channel_id'],
         ['rhnChannelPackage', 'channel_id'],
-        ['rhnDistChannelMap', 'channel_id'],
         ['rhnRegTokenChannels', 'channel_id'],
         ['rhnServerProfile', 'base_channel'],
         ['rhnKickstartableTree', 'channel_id'],
-        ['rhnReleaseChannelMap', 'channel_id'],
-        ['rhnChannel', 'id'],
     ]
-    
+
+    if not skip_channels:
+        tables.extend([
+            ['rhnChannelFamilyMembers', 'channel_id'],
+            ['rhnDistChannelMap', 'channel_id'],
+            ['rhnReleaseChannelMap', 'channel_id'],
+            ['rhnChannel', 'id'],
+        ])
+
     query = "delete from %s where %s = :channel_id"
     for table, field in tables:
         log_debug(3, "Processing table %s" % table)
@@ -395,14 +399,19 @@ def list_packages(channelLabels, sources=0, force=0):
     if force:
         query = templ % ("", bind_params)
     else:
+        if CFG.DB_BACKEND == 'oracle':
+            minus_op = 'MINUS' # ORA syntax
+        else:
+            minus_op = 'EXCEPT' # ANSI syntax
         query = """
             %s
-            MINUS
+            %s
             %s
         """ % (
-            templ % ("", bind_params),
-            templ % ("not", bind_params),
-        )
+                templ % ("", bind_params),
+                minus_op,
+                templ % ("not", bind_params),
+            )
     h = rhnSQL.prepare(query)
     apply(h.execute, (), params)
     return map(lambda x: x['id'], h.fetchall_dict() or [])
@@ -431,7 +440,7 @@ def _templ_srpms():
             and p.source_rpm_id = ps.source_rpm_id
             and ((p.org_id is null and ps.org_id is null) or
                 p.org_id = ps.org_id)"""
-        
+
 def _delete_srpms(srcPackageIds):
     """Blow away rhnPackageSource and rhnFile entries.
     """
@@ -456,7 +465,7 @@ def _delete_rpms(packageIds):
     toDel = packageIds[:]
     print "Deleting package metadata (" + str(len(toDel)) + "):"
     pb = ProgressBar(prompt='Removing:         ', endTag=' - complete',
-                finalSize=len(packageIds), finalBarLength=40, stream=sys.stdout)
+                     finalSize=len(packageIds), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
     while len(toDel) > 0:
@@ -472,7 +481,7 @@ def _delete_rpm_group(packageIds):
         'rhnChannelPackage', 
         'rhnErrataPackage', 
         'rhnErrataPackageTMP', 
-        'rhnPackageChangelog', 
+        'rhnPackageChangelogRec', 
         'rhnPackageConflicts', 
         'rhnPackageFile', 
         'rhnPackageObsoletes', 

@@ -566,6 +566,25 @@ SELECT  distinct USP.server_id AS ID
    WHERE  R.server_id IN (%s)
 </query>
 
+<mode name="systemsearch_uuid" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
+  <query params="user_id, search_string">
+SELECT  USP.server_id AS ID
+  FROM  rhnVirtualInstance VI, rhnUserServerPerms USP
+ WHERE  USP.user_id = :user_id
+   AND  VI.virtual_system_id = USP.server_id
+   AND  INSTR(UPPER(VI.uuid), UPPER(:search_string) ) > 0
+  </query>
+  <elaborator name="entitlements"/>
+  <elaborator name="base_elaborator"/>
+  <elaborator name="systemsearch_uuid_elab"/>
+</mode>
+
+<query name="systemsearch_uuid_elab" params="" multiple="f">
+  SELECT  VI.virtual_system_id ID, VI.uuid MATCHING_FIELD
+    FROM  rhnVirtualInstance VI
+   WHERE  VI.virtual_system_id IN (%s)
+</query>
+
 <query name="entitlements" params="" multiple="t">
   SELECT SEV.server_id AS ID,
          SEV.label AS ENTITLEMENT,
@@ -584,6 +603,5 @@ SELECT S.id AS ID, S.name AS SERVER_NAME,
   WHERE S.id IN (%s)
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 </query>
-
 </datasource_modes>
 

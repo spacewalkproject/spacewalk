@@ -7,7 +7,7 @@
 /var/log/rhn/rhn_upload_package_push\.log gen_context(system_u:object_r:spacewalk_httpd_log_t,s0)
 /var/log/rhn/rhn_server_xmlrpc\.log gen_context(system_u:object_r:spacewalk_httpd_log_t,s0)
 
-/etc/rhn/satellite-httpd/conf/satidmap\.pl gen_context(system_u:object_r:httpd_sys_script_exec_t,s0)
+/usr/share/rhn/satidmap\.pl gen_context(system_u:object_r:httpd_sys_script_exec_t,s0)
 /usr/sbin/rhn-sat-restart-silent gen_context(system_u:object_r:spacewalk_initrc_exec_t,s0)
 /var/satellite(/.*)? gen_context(system_u:object_r:spacewalk_data_t,s0)
 

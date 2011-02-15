@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 
 import sys
 
-from config_common import handler_base, utils, cfg_exceptions
+from config_common import handler_base, cfg_exceptions
 from config_common.rhn_log import log_debug, die
 
 class Handler(handler_base.HandlerBase):

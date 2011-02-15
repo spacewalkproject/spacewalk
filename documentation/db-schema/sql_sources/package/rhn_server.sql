@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:07 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:18 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_SERVER"
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_SERVER" 
 is
 
     -- i.e., "can this box do management stuff?" and yes if provisioning box
@@ -108,8 +108,13 @@ is
 	function get_ip_address (
 		server_id_in in number
 	) return varchar2;
+
+        procedure update_needed_cache(
+                server_id_in in number
+        );
+
 end rhn_server;
-CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_SERVER"
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_SERVER" 
 is
     function system_service_level(
     	server_id_in in number,
@@ -822,6 +827,19 @@ is
 		end loop;
 		return NULL;
 	end get_ip_address;
+
+        procedure update_needed_cache(server_id_in in number)
+        is
+        begin
+            delete from rhnServerNeededCache
+             where server_id = server_id_in;
+            insert into rhnServerNeededCache
+                   (server_id, errata_id, package_id)
+                   (select distinct server_id, errata_id, package_id
+                      from rhnServerNeededView
+                     where server_id = server_id_in);
+        end update_needed_cache;
+
 end rhn_server;
  
 /

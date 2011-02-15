@@ -1,6 +1,6 @@
 # Shared (RHN Proxy/Redirect) handler code called by rhnApache.
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,13 +23,12 @@ from types import ListType, TupleType
 
 ## global imports
 from rhn import connections
-from common import apache
 from rhn.SSL import TimeoutException
 
 ## common imports
-from common import UserDictCase, rhnFlags, log_debug, log_error, Traceback, \
-    CFG, rhnException, rhnFault, rhnLib
-from common.rhnTranslate import _
+from spacewalk.common import UserDictCase, rhnFlags, log_debug, log_error, \
+    Traceback, CFG, rhnException, rhnFault, rhnLib, apache
+from spacewalk.common.rhnTranslate import _
 
 ## local imports
 import rhnConstants
@@ -81,7 +80,7 @@ class SharedHandler:
         # Just to be on the safe side
         if self.req.main:
             # A subrequest
-            return apache.DECLINE
+            return apache.DECLINED
         log_debug(4, rhnFlags.all())
 
         if not self.rhnParent:
@@ -293,7 +292,6 @@ class SharedHandler:
             hdrs[k] = req.headers_in[k]
         return hdrs
 
-    # Forward the server response to the client.
     def _forwardServer2Client(self):
         """ Forward headers, and bodyfd from server to the calling client.
             For most XMLRPC code, this function is called.
@@ -329,7 +327,17 @@ class SharedHandler:
                # mod_wsgi modifies incoming headers so we have to transform them back
                k = k.replace('_','-')
             if not (string.lower(k)[:2] == 'x-' or
-                    string.lower(k) in ['range', 'content-length', 'user-agent', 'content-type']):
+                    string.lower(k) in [ #all but 'host'
+                            'accept', 'accept-charset', 'accept-encoding', 'accept-language',
+                            'accept-ranges', 'age', 'allow', 'authorization', 'cache-control',
+                            'connection', 'content-encoding', 'content-language', 'content-length',
+                            'content-location', 'content-md5', 'content-range', 'content-type',
+                            'date', 'etag', 'expect', 'expires', 'from', 'if-match',
+                            'if-modified-since', 'if-none-match', 'if-range', 'if-unmodified-since',
+                            'last-modified', 'location', 'max-forwards', 'pragma', 'proxy-authenticate',
+                            'proxy-authorization', 'range', 'referer', 'retry-after', 'server',
+                            'te', 'trailer', 'transfer-encoding', 'upgrade', 'user-agent', 'vary',
+                            'via', 'warning', 'www-authenticate']):
                 # filter out header we don't want to send
                 continue
             if type(vals) not in (ListType, TupleType):
@@ -421,7 +429,7 @@ class SharedHandler:
         # Now fill in the bytes if need be.
 
         # read content if there is some or the size is unknown
-        if size > 0 or size == -1:
+        if (size > 0 or size == -1) and (toRequest.method != 'HEAD'):
             buf = fromResponse.read(CFG.BUFFER_SIZE)
             while buf:
                 try:

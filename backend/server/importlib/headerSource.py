@@ -23,7 +23,7 @@ from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
 from types import ListType, TupleType, IntType, LongType, StringType
-from common import log_debug
+from spacewalk.common import log_debug
 from spacewalk.common.checksum import getFileChecksum
 
 class rpmPackage(IncompletePackage):

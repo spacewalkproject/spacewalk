@@ -17,7 +17,6 @@ import os
 import hashlib
 import sys
 import time
-import types
 import select
 import socket
 import jabber
@@ -336,15 +335,6 @@ def sign(secret_key, *values):
     for v in values:
         h = hashlib.new('sha1', h + str(v)).hexdigest()
     return h
-
-class JabberCallback:
-    def __init__(self, stanza_id=None, stanza_ns=None):
-        log_debug(4, stanza_id, stanza_ns)
-        self.stanza_id = stanza_id
-        self.stanza_ns = stanza_ns
-
-    def callback(self, client, stanza):
-        pass
 
 # getAttr is braindead, rewrite it
 class JabberProtocolNode(jabber.Protocol):

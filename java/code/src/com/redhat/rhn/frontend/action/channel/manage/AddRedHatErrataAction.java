@@ -142,6 +142,12 @@ public class AddRedHatErrataAction extends RhnListAction {
             selectedChannel = original;
             selectedChannelStr = selectedChannel.getId().toString();
             String tmp = findVersionFromChannel(selectedChannel);
+            if (tmp == null) {
+                // if we haven't found channel version, let's try to check its parent
+                if (!selectedChannel.isBaseChannel()) {
+                    tmp = findVersionFromChannel(selectedChannel.getParentChannel());
+                }
+            }
             if (tmp != null) {
                 selectedVersionStr = tmp;
             }

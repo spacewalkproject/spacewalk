@@ -30,9 +30,6 @@ import types
 
 def adjust_type(val):
     """ Adjust data types prior to calling execute(). """
-    if type(val) in [types.IntType, types.FloatType]:
-        # Convert it to strings to be uniform
-        return str(val)
     if isinstance(val, types.UnicodeType):
         # Represent it as UTF8
         return val.encode("UTF8")
@@ -345,7 +342,7 @@ class Database:
         See cx_Oracle's Cursor.callfunc for more details.
         """
         if not isinstance(ret_type, sql_types.DatabaseDataType):
-            raise sql_base.SQLError("Invalid return type specified", ret_type)
+            raise SQLError("Invalid return type specified", ret_type)
         return self._function(name, ret_type)
 
     def _function(self, name, ret_type):

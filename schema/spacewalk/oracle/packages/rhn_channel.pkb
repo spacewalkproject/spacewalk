@@ -12,9 +12,6 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---
---
---
 
 CREATE OR REPLACE
 PACKAGE BODY rhn_channel
@@ -282,10 +279,7 @@ IS
         CURSOR vi_entries IS
             SELECT 1
               FROM rhnVirtualInstance vi
-             WHERE vi.virtual_system_id = server_id_in
-             and not exists(select server_id from rhnServerChannel sc where 
-                            sc.server_id = vi.virtual_system_id 
-                            and  sc.is_fve='Y');
+             WHERE vi.virtual_system_id = server_id_in;
         vi_count NUMBER;
 
     BEGIN
@@ -538,7 +532,6 @@ IS
 
         for ignore in channel_family_is_satellite(channel_family_id_val) loop
                 delete from rhnSatelliteInfo where server_id = server_id_in;
-                delete from rhnSatelliteChannelFamily where server_id = server_id_in;
         end loop;
 
         for ignore in channel_family_is_proxy(channel_family_id_val) loop

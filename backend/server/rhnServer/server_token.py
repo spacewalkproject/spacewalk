@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,24 +19,18 @@ import string
 
 from cStringIO import StringIO
 
-from common import rhnFlags
-from common import rhnFault, rhnException, log_error, log_debug
-from common.rhnTranslate import _
-from server import rhnSQL, rhnChannel, rhnAction
+from spacewalk.common import rhnFlags, rhnFault, rhnException, log_error, \
+    log_debug
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL, rhnChannel, rhnAction
 
 from server_lib import join_server_group
 
 VIRT_ENT_LABEL = 'virtualization_host'
 VIRT_PLATFORM_ENT_LABEL = 'virtualization_host_platform'
 
-# Convert a SQLError exception into the appropriate text
-def sql_exception_text(e):
-    if isinstance(e, rhnSQL.SQLSchemaError):
-        return e.errmsg
-    return str(e)
-
-# Handle channel subscriptions for the registration token
 def token_channels(server, server_arch, tokens_obj):
+    """ Handle channel subscriptions for the registration token """
     assert(isinstance(tokens_obj, ActivationTokens))
 
     server_id, server_arch_id = server['id'], server['server_arch_id']
@@ -182,8 +176,8 @@ _query_token_server_groups = rhnSQL.Statement("""
        and sg.id = rtg.server_group_id
 """)
 
-# Handle server group subscriptions for the registration token
 def token_server_groups(server_id, tokens_obj):
+    """ Handle server group subscriptions for the registration token """
     assert(isinstance(tokens_obj, ActivationTokens))
     h = rhnSQL.prepare(_query_token_server_groups)
     server_groups = {}
@@ -482,10 +476,10 @@ _query_check_token_limits = rhnSQL.Statement("""
     where rt.id = :token_id
 """)
 
-# check the token registration limits
-# XXX: would be nice to have those done with triggers in the database
-# land...
 def check_token_limits(server_id, tokens_obj):
+    """ check the token registration limits """
+    # XXX: would be nice to have those done with triggers in the database
+    # land...
     assert(isinstance(tokens_obj, ActivationTokens))
     rhnSQL.transaction("check_token_limits")
     for token in tokens_obj.tokens:
@@ -573,9 +567,10 @@ class ActivationTokens:
     def get_deploy_configs(self):
         return self.deploy_configs
 
-    # Returns a string of the entitlement names that the token grants.
-    # This function is poorly named.
     def get_names(self):
+        """ Returns a string of the entitlement names that the token grants.
+            This function is poorly named.
+        """
         token_names = map(lambda x: x[0], self.entitlements)
         if not token_names:
             return None
@@ -701,8 +696,9 @@ class ReRegistrationActivationToken(ReRegistrationToken):
 
 
 def _fetch_token_from_cursor(cursor):
-    # Fetches a token from a prepared and executed cursor
-    # Used by both fetch_token and fetch_org_token
+    """ Fetches a token from a prepared and executed cursor
+        Used by both fetch_token and fetch_org_token
+    """
     token_entry = None
     token_entitlements = {}
     while 1:
@@ -729,8 +725,9 @@ def _fetch_token_from_cursor(cursor):
     
 def _categorize_token_entitlements(token_entitlements, entitlements_base,
         entitlements_extra):
-    # Given a hash token_entitlements, splits the base ones and puts them in
-    # the entitlements_base hash, and the extras in entitlements_extra
+    """ Given a hash token_entitlements, splits the base ones and puts them in
+        the entitlements_base hash, and the extras in entitlements_extra
+    """
     for tup in token_entitlements.keys():
         is_base = tup[2]
         ent = (tup[0], tup[1])
@@ -808,8 +805,8 @@ _query_token = rhnSQL.Statement("""
       and rte.server_group_type_id = sgt.id
 """)
 
-# Fetches a token from the database
 def fetch_token(token_string):
+    """ Fetches a token from the database """
     log_debug(3, token_string)
     # A token should always be passed to this function
     assert token_string
@@ -1002,8 +999,8 @@ def disable_token(tokens_obj):
             # only disable re-activation tokens
             h.execute(token_id=token["token_id"])
 
-# perform registration tasks for a server as indicated by a token
 def process_token(server, server_arch, tokens_obj, virt_type = None):
+    """ perform registration tasks for a server as indicated by a token """
     assert(isinstance(tokens_obj, ActivationTokens))
     server_id = server['id']
     log_debug(1, server_id, tokens_obj.get_names())
@@ -1061,8 +1058,8 @@ def process_token(server, server_arch, tokens_obj, virt_type = None):
     # build the report and send it back
     return history_report(history)
 
-# build a mildly html-ized version of the history as a report
-def history_report(history):    
+def history_report(history):
+    """ build a mildly html-ized version of the history as a report """
     report = StringIO()
     # header information
     report.write("Entitlement Information:\n")

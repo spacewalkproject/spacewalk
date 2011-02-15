@@ -1,5 +1,5 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <table cellspacing="0" cellpadding="0" class="half-table">
     <thead><th><bean:message key="configoverview.jsp.configsummary"/></th> <th></th></thead>
     <tr class="list-row-odd">

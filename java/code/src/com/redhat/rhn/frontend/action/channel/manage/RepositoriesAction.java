@@ -59,6 +59,7 @@ public class RepositoriesAction extends RhnAction implements Listable {
         long cid = context.getRequiredParam("cid");
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
         request.setAttribute("channel_name", chan.getName());
+        request.setAttribute("cid", chan.getId());
 
         Map params = new HashMap();
         params.put(RequestContext.CID, chan.getId().toString());

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,9 +18,9 @@
 # the DB.
 #
 
-from common import log_debug
-from server import rhnSQL, rhnCapability
-from server.rhnLib import InvalidAction
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL, rhnCapability
+from spacewalk.server.rhnLib import InvalidAction
 
 # the "exposed" functions
 __rhnexport__ = ['update',
@@ -30,20 +30,20 @@ __rhnexport__ = ['update',
                  'verify']
 
 _query_action_verify_packages = rhnSQL.Statement("""
-    select distinct
-           pn.name name,
-           pe.version version,
-           pe.release release,
-           pe.epoch epoch,
-           pa.label arch
-      from rhnActionPackage ap,
+  select distinct
+           pn.name as name,
+           pe.version as version,
+           pe.release as release,
+           pe.epoch as epoch,
+           pa.label as arch
+      from rhnActionPackage ap
+ left join rhnPackageArch pa
+        on ap.package_arch_id = pa.id,
            rhnPackageName pn,
-           rhnPackageEVR pe,
-           rhnPackageArch pa
+           rhnPackageEVR pe
      where ap.action_id = :actionid
        and ap.evr_id = pe.id
        and ap.name_id = pn.id
-       and ap.package_arch_id = pa.id (+)
 """)
 def verify(serverId, actionId, dry_run=0):
     log_debug(3, dry_run)
@@ -142,17 +142,18 @@ def runTransaction(server_id, action_id, dry_run=0):
 
     # Fetch packages
     h = rhnSQL.prepare("""
-        select tro.label operation, pn.name, pe.version, pe.release, pe.epoch,
-               pa.label package_arch
-          from rhnPackageDeltaElement pde, rhnTransactionPackage rp,
-            rhnTransactionOperation tro, rhnPackageName pn, rhnPackageEVR pe,
-            rhnPackageArch pa
+        select tro.label as operation, pn.name, pe.version, pe.release, pe.epoch,
+               pa.label as package_arch
+          from rhnPackageDeltaElement pde,
+               rhnTransactionPackage rp
+     left join rhnPackageArch pa
+            on rp.package_arch_id = pa.id,
+               rhnTransactionOperation tro, rhnPackageName pn, rhnPackageEVR pe,
          where pde.package_delta_id = :package_delta_id
            and pde.transaction_package_id = rp.id
            and rp.operation = tro.id
            and rp.name_id = pn.id
            and rp.evr_id = pe.id
-           and rp.package_arch_id = pa.id (+)
         order by tro.label, pn.name
     """)
     h.execute(package_delta_id=package_delta_id)
@@ -194,16 +195,17 @@ def runTransaction(server_id, action_id, dry_run=0):
 # SQL statements -- used by update()
 _packageStatement_update = """
     select distinct
-        pn.name name,
-        pe.epoch epoch,
-        pe.version version,
-        pe.release release,
-        pa.label  arch
-    from rhnActionPackage ap,
+        pn.name as name,
+        pe.epoch as epoch,
+        pe.version as version,
+        pe.release as release,
+        pa.label as arch
+    from rhnActionPackage ap
+left join rhnPackageArch pa
+     on ap.package_arch_id = pa.id,
         rhnPackage p,
         rhnPackageName pn,
         rhnPackageEVR pe,
-        rhnPackageArch pa,
         rhnServerChannel sc,
         rhnChannelPackage cp
     where ap.action_id = :actionid
@@ -212,67 +214,66 @@ _packageStatement_update = """
         and ap.evr_id = pe.id
         and ap.name_id = p.name_id
         and ap.name_id = pn.id
-        and ap.package_arch_id = pa.id(+)
         and p.id = cp.package_id
         and cp.channel_id = sc.channel_id
         and sc.server_id = :serverid
     union
     select distinct
-        pn.name name,
-        null version,
-        null release,
-        null epoch,
-        pa.label arch
-    from rhnActionPackage ap,
+        pn.name as name,
+        null as version,
+        null as release,
+        null as epoch,
+        pa.label as arch
+   from rhnActionPackage ap
+left join rhnPackageArch pa
+     on ap.package_arch_id = pa.id,
         rhnPackage p,
         rhnPackageName pn,
-        rhnPackageArch pa,
         rhnServerChannel sc,
         rhnChannelPackage cp
     where ap.action_id = :actionid
         and ap.evr_id is null
         and ap.name_id = p.name_id
         and p.name_id = pn.id
-        and ap.package_arch_id = pa.id(+)
         and p.id = cp.package_id
         and cp.channel_id = sc.channel_id
         and sc.server_id = :serverid"""
 
 _packageStatement_remove = """
     select distinct
-        pn.name name,
-        pe.epoch epoch,
-        pe.version version,
-        pe.release release,
-        pa.label  arch
-    from rhnActionPackage ap,
+        pn.name as name,
+        pe.epoch as epoch,
+        pe.version as version,
+        pe.release as release,
+        pa.label as arch
+    from rhnActionPackage ap
+left join rhnPackageArch pa
+     on ap.package_arch_id = pa.id,
         rhnPackageName pn,
         rhnPackageEVR pe,
-        rhnPackageArch pa,
         rhnServerPackage sp
     where ap.action_id = :actionid
         and ap.evr_id is not null
         and ap.evr_id = pe.id
         and ap.name_id = pn.id
-        and ap.package_arch_id = pa.id(+)
         and sp.server_id = :serverid
         and sp.name_id = ap.name_id
         and sp.evr_id = ap.evr_id
         and (sp.package_arch_id = ap.package_arch_id or sp.package_arch_id is null)
     union
     select distinct
-        pn.name name,
-        null version,
-        null release,
-        null epoch,
-        pa.label arch
-    from rhnActionPackage ap,
+        pn.name as name,
+        null as version,
+        null as release,
+        null as epoch,
+        pa.label as arch
+    from rhnActionPackage ap
+left join rhnPackageArch pa
+     on ap.package_arch_id = pa.id,
         rhnPackageName pn,
-        rhnPackageArch pa,
         rhnServerPackage sp
     where ap.action_id = :actionid
         and ap.evr_id is null
-        and ap.package_arch_id = pa.id(+)
         and sp.server_id = :serverid
         and (sp.package_arch_id = ap.package_arch_id or sp.package_arch_id is null)"""
 

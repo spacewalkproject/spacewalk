@@ -1,14 +1,25 @@
 documentation for java and python:
+    yum install -y epidoc
     make all
 
 documentation for java:
-    make java
+    git rm -rf javadoc/*
+    make java	# javadoc needs to be installed, it needs java-1.6.0-openjdk-devel
+    git add javadoc/
+    # update javadoc.readme
 
 documentation of python:
-    make python
+    git rm -rf python-doc/*
+    make python	# epydoc needs to be installed, it needs texlive, ouch :-(
+    git add python-doc/*
+    rm -rf build
+    # update python-doc.readme
 
 documentation for the db schema:
+    git rm -rf db-schema/*
     ORASCHEMADOC=/path/to/oraschemadoc.py DSN=user/pass@db make schema
+    git add db-schema/*
+    # update db-schema.readme
 
 DB Schema is created using http://oraschemadoc.sourceforge.net/
 Which requires cx_Oracle and graphviz.

@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 #
 # String constants for the RHN Register TUI/GUI.
-# Copyright (c) 2000-2010 Red Hat, Inc.
+# Copyright (c) 2000--2010 Red Hat, Inc.
 #
 # Author:
 #       James Slagle <jslagle@redhat.com>
@@ -19,7 +19,7 @@ CONNECT_WINDOW_TEXT   = _("We are attempting to contact the Red Hat "
 CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")                          
 
 # Start Window
-START_REGISTER_WINDOW = _("Setting up Software updates")
+START_REGISTER_WINDOW = _("Registering for software updates")
 START_REGISTER_TEXT   = _("This assistant will guide you through " 
                           "connecting your system to "
                           "Red Hat Network (RHN) to receive software "
@@ -34,7 +34,7 @@ START_REGISTER_TEXT   = _("This assistant will guide you through "
 
 # Why Register Window
 WHY_REGISTER          = _("Why Should I Connect to RHN? ...")                  
-WHY_REGISTER_WINDOW   = _("Why connect to Red Hat Network?")
+WHY_REGISTER_WINDOW   = _("Why Register")
 WHY_REGISTER_TEXT     = _("Connecting your system to Red Hat Network allows you to take full "
                           "advantage of the benefits of a paid subscription, including:")
 WHY_REGISTER_SEC      = _("Security & Updates:")
@@ -53,7 +53,7 @@ WHY_REGISTER_COMP_TXT = _("Stay in compliance with your subscription agreement "
                           "http://rhn.redhat.com/.")
 WHY_REGISTER_TIP      = _("Tip: Red Hat values your privacy: "
                           "http://www.redhat.com/legal/privacy_statement.html")
-BACK_REGISTER         = _("Take me back to the setup process.")
+BACK_REGISTER         = _("Take me back to the registration")
 
 # Confirm Quit Window
 CONFIRM_QUIT           = _("Software update setup unsuccessful")
@@ -65,7 +65,7 @@ CONTINUE_REGISTERING   = _("Take me back to the setup process.")
 REGISTER_LATER2        = _("I'll register later.")
 
 # Info Window
-REGISTER_WINDOW   = _("Setting up software updates")
+REGISTER_WINDOW   = _("Enter you account information")
 LOGIN_PROMPT      = _("Please enter your login information for the %s Red "
                     "Hat Network Satellite:\n\n")
 HOSTED_LOGIN      = _("Red Hat Login:")
@@ -77,7 +77,7 @@ USER_REQUIRED     = _("Please enter a desired login.")
 PASSWORD_REQUIRED = _("Please enter and verify a password.")
 
 # OS Release Window
-SELECT_OSRELEASE             = _("Select Operating System Release")
+SELECT_OSRELEASE             = _("Select operating system release")
 OS_VERSION                   = _("Operating System version:")
 MINOR_RELEASE                = _(" Minor Release: ")
 LIMITED_UPDATES              = _("Limited Updates Only")
@@ -88,7 +88,7 @@ CONFIRM_OS_ALL               = _("Your system will be subscribed to the base"
                                  " updates.")
 
 # Hardware Window
-HARDWARE_WINDOW = _("Register a System Profile - Hardware")
+HARDWARE_WINDOW = _("Create your system profile - Hardware")
 HARDWARE_WINDOW_DESC1 = _("A Profile Name is a descriptive name that"
                           " you choose to identify this System Profile"
                           " on the Red Hat Network web pages. Optionally,"
@@ -100,7 +100,7 @@ HARDWARE_WINDOW_CHECKBOX = _("Include the following information about hardware"
                              " and network:")
 
 # Packages Window
-PACKAGES_WINDOW         = _("Register a System Profile - Packages")
+PACKAGES_WINDOW         = _("Create your system profile - Packages")
 PACKAGES_WINDOW_DESC1   = _("RPM information is important to determine what"
                           " updated software packages are relevant to this"
                           " system.")
@@ -120,6 +120,14 @@ EMAIL                  = _("*Email Address:")
 SYSTEM_ALREADY_SETUP = _("System software updates already set up")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
+
+RHSM_SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been registered with RHN using RHN"
+				" Certificate-Based Entitlement technology. This tool requires registration using"
+				" RHN Classic technology.\n\n"
+				"Except for a few cases, Red Hat recommends customers only register with RHN"
+				" once.\n\n"
+				"For more information, including alternate tools, consult this Knowledge Base"
+				" Article: https://access.redhat.com/kb/docs/DOC-45563")
 
 # Send Window
 SEND_WINDOW      = _("Send Profile Information to Red Hat Network")
@@ -176,6 +184,12 @@ CHANNELS_HOSTED_WARNING = _("Warning: If an installed product on this system "
                             "product. See Kbase article 11313 "
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
+YUM_PLUGIN_WARNING		= _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
+							"Automatic updates will not work.")
+YUM_PLUGIN_CONF_CHANGED = _("Note: yum-rhn-plugin has been enabled.")
+YUM_PLUGIN_CONF_ERROR	= _("Warning: An error occurred during enabling yum-rhn-plugin.\n"
+							"yum-rhn-plugin is not enabled.\n"
+							"Automatic updates will not work.")
 FAILED_CHANNELS         = _("You were unable to be subscribed to the following "
                             "software channels because there were insufficient "
                             "subscriptions available in your account:")

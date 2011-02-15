@@ -42,10 +42,13 @@
 <tr><td>PRE<a name="col-PRE"></a></td><td>BLOB</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>POST<a name="col-POST"></a></td><td>BLOB</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>NOCHROOT_POST<a name="col-NOCHROOT_POST"></a></td><td>BLOB</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PARTITION_DATA<a name="col-PARTITION_DATA"></a></td><td>BLOB</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>STATIC_DEVICE<a name="col-STATIC_DEVICE"></a></td><td>VARCHAR2(32)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>KERNEL_PARAMS<a name="col-KERNEL_PARAMS"></a></td><td>VARCHAR2(128)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>VERBOSEUP2DATE<a name="col-VERBOSEUP2DATE"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
 <tr><td>NONCHROOTPOST<a name="col-NONCHROOTPOST"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
+<tr><td>NO_BASE<a name="col-NO_BASE"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
+<tr><td>IGNORE_MISSING<a name="col-IGNORE_MISSING"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
 <tr><td>CREATED<a name="col-CREATED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
 <tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
 </table><h3>Primary key:<a name="t-pk"></a></h3>
@@ -54,27 +57,31 @@
 </td></tr>
 </table><h3>Check Constraints:<a name="t-cc"></a></h3>
 <table>
-<tr><th>Constraint Name</th><th>Check Condition</th></tr><tr><td>RHN_KS_ACTIVE_CK<a name="cs-RHN_KS_ACTIVE_CK"></a></td><td>active in ( 'Y' , 'N' )</td></tr>
-<tr><td>RHN_KS_CFG_SAVE_CK<a name="cs-RHN_KS_CFG_SAVE_CK"></a></td><td>kscfg in ( 'Y' , 'N' )</td></tr>
-<tr><td>RHN_KS_DEFAULT_CK<a name="cs-RHN_KS_DEFAULT_CK"></a></td><td>is_org_default in ( 'Y' , 'N' )</td></tr>
-<tr><td>RHN_KS_NONCHROOT_POST_CK<a name="cs-RHN_KS_NONCHROOT_POST_CK"></a></td><td>nonchrootpost in ( 'Y' , 'N' )</td></tr>
-<tr><td>RHN_KS_POST_LOG_CK<a name="cs-RHN_KS_POST_LOG_CK"></a></td><td>postLog in ( 'Y' , 'N' )</td></tr>
-<tr><td>RHN_KS_PRE_LOG_CK<a name="cs-RHN_KS_PRE_LOG_CK"></a></td><td>preLog in ( 'Y' , 'N' )</td></tr>
-<tr><td>RHN_KS_TYPE_CK<a name="cs-RHN_KS_TYPE_CK"></a></td><td>ks_type in ( 'wizard' , 'raw' )</td></tr>
-<tr><td>RHN_KS_VERBOSE_UP2DATE_CK<a name="cs-RHN_KS_VERBOSE_UP2DATE_CK"></a></td><td>verboseup2date in ( 'Y' , 'N' )</td></tr>
+<tr><th>Constraint Name</th><th>Check Condition</th></tr><tr><td>RHN_KS_ACTIVE_CK<a name="cs-RHN_KS_ACTIVE_CK"></a></td><td>active in ('Y','N')</td></tr>
+<tr><td>RHN_KS_CFG_SAVE_CK<a name="cs-RHN_KS_CFG_SAVE_CK"></a></td><td>kscfg in ('Y','N')</td></tr>
+<tr><td>RHN_KS_DEFAULT_CK<a name="cs-RHN_KS_DEFAULT_CK"></a></td><td>is_org_default in ('Y','N')</td></tr>
+<tr><td>RHN_KS_IGNORE_MISSING_CK<a name="cs-RHN_KS_IGNORE_MISSING_CK"></a></td><td>ignore_missing in ( 'Y' , 'N' )</td></tr>
+<tr><td>RHN_KS_NOBASE_CK<a name="cs-RHN_KS_NOBASE_CK"></a></td><td>no_base in ( 'Y' , 'N' )</td></tr>
+<tr><td>RHN_KS_NONCHROOT_POST_CK<a name="cs-RHN_KS_NONCHROOT_POST_CK"></a></td><td>nonchrootpost in ('Y','N')</td></tr>
+<tr><td>RHN_KS_POST_LOG_CK<a name="cs-RHN_KS_POST_LOG_CK"></a></td><td>postLog in ('Y','N')</td></tr>
+<tr><td>RHN_KS_PRE_LOG_CK<a name="cs-RHN_KS_PRE_LOG_CK"></a></td><td>preLog in ('Y','N')</td></tr>
+<tr><td>RHN_KS_TYPE_CK<a name="cs-RHN_KS_TYPE_CK"></a></td><td>ks_type in ('wizard','raw')</td></tr>
+<tr><td>RHN_KS_VERBOSE_UP2DATE_CK<a name="cs-RHN_KS_VERBOSE_UP2DATE_CK"></a></td><td>verboseup2date in ('Y','N')</td></tr>
 </table><h3>Foreign Keys:<a name="t-fk"></a></h3>
 <table>
 <tr><th>Constraint Name</th><th>Columns</th><th>Referenced table</th><th>Referenced Constraint</th><th>On Delete Rule</th></tr><tr><td>RHN_KS_OID_FK<a name="cs-RHN_KS_OID_FK"></a></td><td><a href="table-RHNKSDATA.html#col-ORG_ID">ORG_ID </a>
 </td><td><a href="table-WEB_CUSTOMER.html"> WEB_CUSTOMER </a></td><td><a href="table-WEB_CUSTOMER.html#cs-WEB_CUSTOMER_ID_PK">WEB_CUSTOMER_ID_PK </a>
 </td><td>CASCADE</td></tr>
-</table><h3>Unique Keys:<a name="t-uc"></a></h3>
+</table><map name="erdmap"><area shape="rect" id="node1" href="table-WEB_CUSTOMER.html#t-fk" title="WEB_CUSTOMER" alt="" coords="7,41,143,71">
+<area shape="rect" id="node2" href="table-RHNKSDATA.html#t-fk" title="RHNKSDATA" alt="" coords="192,41,299,71">
+</map><img class="erd" usemap="#erdmap" src="RHNKSDATA.png"/><h3>Unique Keys:<a name="t-uc"></a></h3>
 <table>
 <tr><th>Constraint name</th><th>Columns</th></tr><tr><td>RHN_KS_OID_LABEL_UQ<a name="cs-RHN_KS_OID_LABEL_UQ"></a></td><td><a href="table-RHNKSDATA.html#col-ORG_ID">ORG_ID </a>
 , <a href="table-RHNKSDATA.html#col-LABEL">LABEL </a>
 </td></tr>
 </table><h3>Options:<a name="t-opt"></a></h3>
 <table>
-<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>DATA_TBS</td></tr>
+<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>USERS</td></tr>
 <tr><td>Index Organized</td><td>No</td></tr>
 <tr><td>Generated by Oracle</td><td>No</td></tr>
 <tr><td>Clustered</td><td>No</td></tr>
@@ -88,9 +95,10 @@
 , <a href="table-RHNKSDATA.html#col-LABEL">LABEL </a>
 , <a href="table-RHNKSDATA.html#col-ID">ID </a>
 </td><td><a href="sql_sources/index/rhn_ks_oid_label_id_idx.sql">DDL script</a></td></tr>
-<tr><td>SYS_IL0000114407C00012$$<a name="ind-SYS_IL0000114407C00012$$"></a></td><td>LOB</td><td>UNIQUE</td><td>&nbsp;</td><td><a href="sql_sources/index/sys_il0000114407c00012$$.sql">DDL script</a></td></tr>
-<tr><td>SYS_IL0000114407C00013$$<a name="ind-SYS_IL0000114407C00013$$"></a></td><td>LOB</td><td>UNIQUE</td><td>&nbsp;</td><td><a href="sql_sources/index/sys_il0000114407c00013$$.sql">DDL script</a></td></tr>
-<tr><td>SYS_IL0000114407C00014$$<a name="ind-SYS_IL0000114407C00014$$"></a></td><td>LOB</td><td>UNIQUE</td><td>&nbsp;</td><td><a href="sql_sources/index/sys_il0000114407c00014$$.sql">DDL script</a></td></tr>
+<tr><td>SYS_IL0000013822C00012$$<a name="ind-SYS_IL0000013822C00012$$"></a></td><td>LOB</td><td>UNIQUE</td><td>&nbsp;</td><td><a href="sql_sources/index/sys_il0000013822c00012$$.sql">DDL script</a></td></tr>
+<tr><td>SYS_IL0000013822C00013$$<a name="ind-SYS_IL0000013822C00013$$"></a></td><td>LOB</td><td>UNIQUE</td><td>&nbsp;</td><td><a href="sql_sources/index/sys_il0000013822c00013$$.sql">DDL script</a></td></tr>
+<tr><td>SYS_IL0000013822C00014$$<a name="ind-SYS_IL0000013822C00014$$"></a></td><td>LOB</td><td>UNIQUE</td><td>&nbsp;</td><td><a href="sql_sources/index/sys_il0000013822c00014$$.sql">DDL script</a></td></tr>
+<tr><td>SYS_IL0000013822C00015$$<a name="ind-SYS_IL0000013822C00015$$"></a></td><td>LOB</td><td>UNIQUE</td><td>&nbsp;</td><td><a href="sql_sources/index/sys_il0000013822c00015$$.sql">DDL script</a></td></tr>
 </table><h3>Referenced by:<a name="t-refs"></a></h3>
 <table>
 <tr><th>Table</th><th>Constraint</th></tr><tr><td><a href="table-RHNCRYPTOKEYKICKSTART.html"> RHNCRYPTOKEYKICKSTART </a></td><td><a href="table-RHNCRYPTOKEYKICKSTART.html#cs-RHN_CKEY_KS_KSD_FK">RHN_CKEY_KS_KSD_FK </a>
@@ -130,5 +138,5 @@ REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <s
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:14 2010</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:00:52 2011</div>
 </body></html>

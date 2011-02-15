@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,7 +32,7 @@ CREATE UNIQUE INDEX rhn_udsg_uid_sgid_idx
     ON rhnUserDefaultSystemGroups (user_id, system_group_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_udsg_sgid_uid_idx
-    ON rhnUserDefaultSystemGroups (system_group_id, user_id)
+CREATE INDEX rhn_udsg_sgid_idx
+    ON rhnUserDefaultSystemGroups (system_group_id)
     TABLESPACE [[2m_tbs]];
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,8 +15,8 @@
 # config file-related queuing functions
 #
 
-from common import log_debug
-from server import rhnSQL
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
 
 # the "exposed" functions
 __rhnexport__ = ['install', 'remove', 'patchInstall', 'patchRemove',

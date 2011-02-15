@@ -56,18 +56,19 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class NetIfaceInformation</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#NetIfaceInformation">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_r_85" name="uml_class_diagram_for_server_r_85">
-<area shape="rect" href="server.rhnServer.server_hardware.Device-class.html" title="server.rhnServer.server_hardware.Device" alt="" coords="69,104,115,136"/>
-<area shape="rect" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#key_mapping" title="server.rhnServer.server_hardware.NetIfaceInformation.key_mapping" alt="" coords="17,183,167,201"/>
-<area shape="rect" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#__init__" title="server.rhnServer.server_hardware.NetIfaceInformation.__init__" alt="" coords="17,204,167,223"/>
-<area shape="rect" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#save" title="server.rhnServer.server_hardware.NetIfaceInformation.save" alt="" coords="17,223,167,241"/>
-<area shape="rect" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#reload" title="server.rhnServer.server_hardware.NetIfaceInformation.reload" alt="" coords="17,241,167,260"/>
-<area shape="rect" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html" title="server.rhnServer.server_hardware.NetIfaceInformation" alt="" coords="16,165,168,261"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html#getid" title="server.rhnServer.server_hardware.GenericDevice.getid" alt="" coords="41,36,143,55"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html#must_save" title="server.rhnServer.server_hardware.GenericDevice.must_save" alt="" coords="41,55,143,73"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html" title="server.rhnServer.server_hardware.GenericDevice" alt="" coords="40,11,144,75"/>
+<center>  <map id="uml_class_diagram_for_server_r_79" name="uml_class_diagram_for_server_r_79">
+<area shape="rect" id="node2187" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#key_mapping" title="server.rhnServer.server_hardware.NetIfaceInformation.key_mapping" alt="" coords="17,209,167,228"/>
+<area shape="rect" id="node2187" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#__init__" title="server.rhnServer.server_hardware.NetIfaceInformation.__init__" alt="" coords="17,231,167,249"/>
+<area shape="rect" id="node2187" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#save" title="save data in the rhnDevice table" alt="" coords="17,249,167,268"/>
+<area shape="rect" id="node2187" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#reload" title="reload from rhnDevice table based on devid" alt="" coords="17,268,167,287"/>
+<area shape="rect" id="node1" href="server.rhnServer.server_hardware.NetIfaceInformation-class.html" title="server.rhnServer.server_hardware.NetIfaceInformation" alt="" coords="5,185,179,293"/>
+<area shape="rect" id="node2" href="server.rhnServer.server_hardware.Device-class.html" title="This is the base Device class that supports instantiation from a dictionarry." alt="" coords="59,121,125,165"/>
+<area shape="rect" id="node2189" href="server.rhnServer.server_hardware.GenericDevice-class.html#getid" title="server.rhnServer.server_hardware.GenericDevice.getid" alt="" coords="21,39,163,57"/>
+<area shape="rect" id="node2189" href="server.rhnServer.server_hardware.GenericDevice-class.html#must_save" title="server.rhnServer.server_hardware.GenericDevice.must_save" alt="" coords="21,57,163,76"/>
+<area shape="rect" id="node2189" href="server.rhnServer.server_hardware.GenericDevice-class.html#unsetEmptyFields" title="empty string fields mapped to varchar must be saved as NULL values" alt="" coords="21,76,163,95"/>
+<area shape="rect" id="node3" href="server.rhnServer.server_hardware.GenericDevice-class.html" title="A generic device class" alt="" coords="9,6,175,101"/>
 </map>
-  <img src="uml_class_diagram_for_server_r_85.png" alt='' usemap="#uml_class_diagram_for_server_r_85" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_server_r_79.png" alt='' usemap="#uml_class_diagram_for_server_r_79" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -112,7 +113,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">server_id</span>)</span></td>
+        <span class="summary-sig-arg">server_id</span>)</span><br />
+      save data in the rhnDevice table</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#NetIfaceInformation.save">source&nbsp;code</a></span>
             
@@ -198,7 +200,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="server.rhnServer.server_hardware.NetIfaceInformation-class.html#reload" class="summary-sig-name">reload</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">server_id</span>)</span></td>
+        <span class="summary-sig-arg">server_id</span>)</span><br />
+      reload from rhnDevice table based on devid</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#NetIfaceInformation.reload">source&nbsp;code</a></span>
             
@@ -212,8 +215,12 @@
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html">GenericDevice</a></code></b>:
       <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#getid">getid</a></code>,
-      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#must_save">must_save</a></code>
+      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#must_save">must_save</a></code>,
+      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#unsetEmptyFields">unsetEmptyFields</a></code>
       </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html">GenericDevice</a></code></b> (private):
+      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#_null_columns" onclick="show_private();">_null_columns</a></code>
+      </p></div>
     </td>
   </tr>
 </table>
@@ -303,10 +310,11 @@
     </td>
   </tr></table>
   
-  
+  <p>save data in the rhnDevice table</p>
   <dl class="fields">
     <dt>Overrides:
         <a href="server.rhnServer.server_hardware.GenericDevice-class.html#save">GenericDevice.save</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -326,10 +334,11 @@
     </td>
   </tr></table>
   
-  
+  <p>reload from rhnDevice table based on devid</p>
   <dl class="fields">
     <dt>Overrides:
         <a href="server.rhnServer.server_hardware.GenericDevice-class.html#reload">GenericDevice.reload</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -399,7 +408,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:05 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

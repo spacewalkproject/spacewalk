@@ -22,6 +22,8 @@ import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.util.Date;
+
 
 /**
  * Test for urlhelper
@@ -123,7 +125,7 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
         session = (KickstartSession) reload(session);
         String encodedId = SessionSwap.encodeData(session.getId().toString());
         String expected = "/ty/" + "";
-        String url = helper.getKickstartMediaPath(session);
+        String url = helper.getKickstartMediaPath(session, new Date());
         // "/ty/weOyQenH";
         String token = url.substring(url.lastIndexOf("/"));
         token = token.split("/")[1];

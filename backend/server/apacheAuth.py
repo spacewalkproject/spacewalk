@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,8 +17,8 @@
 import time
 import string
 
-from common import CFG, rhnFlags, rhnFault, log_debug, log_error
-from common.rhnTranslate import _
+from spacewalk.common import CFG, rhnFlags, rhnFault, log_debug, log_error
+from spacewalk.common.rhnTranslate import _
 
 from rhnLib import computeSignature
 

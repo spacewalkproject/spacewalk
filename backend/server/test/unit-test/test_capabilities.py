@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,7 +30,8 @@ if _basedir not in sys.path:
 
 import time
 from rhn import rpclib
-from server import rhnSQL, rhnServer, rhnCapability
+from spacewalk.server import rhnSQL, rhnServer, rhnCapability
+from spacewalk.common.rhnConfig import ConfigParserError
 
 def main():
     if len(sys.argv) == 1:
@@ -43,7 +44,12 @@ def main():
     else:
         db_name = sys.argv[2]
 
-    rhnSQL.initDB(db_name)
+    try:
+        rhnSQL.initDB(db_name)
+    except ConfigParserError:
+        # database is not available when running in rpmbuild time
+        print "Test skipped"
+        return 0
 
     uri = "http://%s/XMLRPC" % (server_name, )
     s = rpclib.Server(uri)

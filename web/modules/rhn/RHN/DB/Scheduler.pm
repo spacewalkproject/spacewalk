@@ -92,7 +92,7 @@ sub make_base_action {
 
   my $dbh = $transaction || RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
-SELECT rhn_event_id_seq.nextval,
+SELECT sequence_nextval('rhn_event_id_seq'),
        rAT.id,
        rAS.id
   FROM rhnActionType rAT,
@@ -1558,7 +1558,7 @@ EOQ
 INSERT
   INTO rhnActionScript
        (id, action_id, script, username, groupname, timeout)
-VALUES (rhn_actscript_id_seq.nextval, :aid, :script, :username, :groupname, :timeout)
+VALUES (sequence_nextval('rhn_actscript_id_seq'), :aid, :script, :username, :groupname, :timeout)
 EOQ
 
   $sth->execute_h(aid => $action_id,

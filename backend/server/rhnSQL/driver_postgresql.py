@@ -22,12 +22,17 @@ import re
 import psycopg2
 import hashlib
 
-import sql_base
-from server import rhnSQL
-from server.rhnSQL import sql_types
+# workaround for python-psycopg2 = 2.0.13 (RHEL6)
+# which does not import extensions by default
+if not hasattr(psycopg2, 'extensions'):
+    import psycopg2.extensions
 
-from common import log_debug, log_error
-from common import UserDictCase
+import sql_base
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnSQL import sql_types
+
+from spacewalk.common import log_debug, log_error, UserDictCase
+from spacewalk.common.rhnException import rhnException
 from const import POSTGRESQL
 
 def convert_named_query_params(query):
@@ -45,9 +50,9 @@ def convert_named_query_params(query):
           where it was used.
         - number of arguments found and replaced
     """
-    log_debug(3, "Converting query for PostgreSQL: %s" % query)
+    log_debug(6, "Converting query for PostgreSQL: %s" % query)
     new_query = re.sub(r'(\W):(\w+)', r'\1%(\2)s', query.replace('%', '%%'))
-    log_debug(3, "New query: %s" % new_query)
+    log_debug(6, "New query: %s" % new_query)
     return new_query
 
 
@@ -74,20 +79,13 @@ class Function(sql_base.Procedure):
                 positional_args = positional_args + ", %s"
             i += 1
         query = "SELECT %s(%s)" % (self.name, positional_args)
-        log_debug(2, query)
 
-        # Ugh, unicode strings coming in here, PostgreSQL doesn't like
-        # getting them as such:
-        new_args = []
-        for arg in args:
-            if type(arg) == type(u""):
-                new_args.append(str(arg))
-            else:
-                new_args.append(arg)
-
-        # for now return just result (ret_type is ignored)
-        print query, new_args
-        return self.cursor.execute(query, new_args)
+        log_debug(2, query, args)
+        ret = self.cursor.execute(query, args)
+        if self.ret_type == None:
+            return ret
+        else:
+            return self.cursor.fetchone()[0]
 
 
 class Procedure(Function):
@@ -102,6 +100,7 @@ class Procedure(Function):
 
     def __init__(self, name, cursor):
         Function.__init__(self, name, cursor, None)
+        self.ret_type = None
 
     def __call__(self, *args):
         result = Function.__call__(self, *args)
@@ -109,12 +108,24 @@ class Procedure(Function):
         #if not (type(result) == 'tuple' and result[0] == ''):
             #raise rhnSQL.SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
 
+def decimal2intfloat(dec, cursor):
+    "Convert a Decimal to an int or a float with no loss of information."
+    "The dec is passed in as str (not Decimal) so we cannot check its type."
+    if dec is None:
+        return None
+    "If we can convert to int without loss of information, return int, float otherwise."
+    try:
+        if float(dec) == float(int(dec)):
+            return int(dec)
+        return float(dec)
+    except ValueError:
+        return float(dec)
 
 class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
 
     def __init__(self, host=None, port=None, username=None,
-        password=None, database=None):
+                 password=None, database=None):
 
         self.host = host
         self.port = port
@@ -137,10 +148,14 @@ class Database(sql_base.Database):
         try:
             if self.host is None:
                 self.dbh = psycopg2.connect(database=self.database, user=self.username,
-                    password=self.password)
+                                            password=self.password)
             else:
                 self.dbh = psycopg2.connect(database=self.database, user=self.username,
-                    password=self.password, host=self.host, port=self.port)
+                                            password=self.password, host=self.host, port=self.port)
+            # convert all DECIMAL types to float (let Python to choose one)
+            DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
+                                                            'DEC2INTFLOAT', decimal2intfloat)
+            psycopg2.extensions.register_type(DEC2INTFLOAT)
         except Exception, e:
             if reconnect:
                 # Try one more time:
@@ -148,16 +163,16 @@ class Database(sql_base.Database):
 
             # Failed reconnect, time to error out:
             raise apply(sql_base.SQLConnectError,
-                [self.database, e.pgcode, e.pgerror, "Attempting Re-Connect to the database failed",])
+                        [self.database, e.pgcode, e.pgerror, "Attempting Re-Connect to the database failed",])
 
     def is_connected_to(self, backend, host, port, username, password,
-            database):
+                        database):
         adjusted_port = -1
         if port:
             adjusted_port = port
         return (backend == POSTGRESQL) and (self.host == host) and \
-                (self.port == adjusted_port) and (self.username == username) \
-                and (self.password == password) and (self.database == database)
+               (self.port == adjusted_port) and (self.username == username) \
+               and (self.password == password) and (self.database == database)
 
     def check_connection(self):
         try:
@@ -237,15 +252,10 @@ class Cursor(sql_base.Cursor):
         return cursor
 
     def _execute_wrapper(self, function, *p, **kw):
-        # PostgreSQL really doesn't like getting unicode strings:
-        for key, value in kw.items():
-            if type(value) == type(u""):
-                kw[key] = str(value)
-
-        params =  ','.join(["%s: %s" % (str(key), str(value)) for key, value \
-                in kw.items()])
+        params =  ','.join(["%s: %s" % (key, value) for key, value \
+                            in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
-                % (self.sql, params))
+                  % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
 
@@ -292,14 +302,14 @@ class Cursor(sql_base.Cursor):
         return rowcount
 
     def update_blob(self, table_name, column_name, where_clause, data, 
-            **kwargs):
+                    **kwargs):
         """ 
         PostgreSQL uses bytea columns instead of blobs. Nothing special
         needs to be done to insert text into one.
         """
         # NOTE: Injecting a :column_name parameter here
         sql = "UPDATE %s SET %s = :%s %s" % (table_name, column_name,
-            column_name, where_clause)
+                                             column_name, where_clause)
         c = rhnSQL.prepare(sql)
         kwargs[column_name] = data
         apply(c.execute, (), kwargs)

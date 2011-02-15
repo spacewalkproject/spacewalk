@@ -156,6 +156,7 @@ public class ConfigDefaults {
 
     public static final String DB_BACKEND = "db_backend";
     public static final String DB_BACKEND_ORACLE = "oracle";
+    public static final String DB_BACKEND_POSTGRESQL = "postgresql";
     public static final String DB_USER = "db_user";
     public static final String DB_PASSWORD = "db_password";
     public static final String DB_NAME = "db_name";
@@ -168,7 +169,65 @@ public class ConfigDefaults {
 
     public static final String KS_PARTITION_DEFAULT = "kickstart.partition.default";
 
+    /**
+     * System Currency defaults
+     */
+    public static final String SYSTEM_CURRENCY_CRIT = "sc.crit";
+    public static final String SYSTEM_CURRENCY_IMP  = "sc.imp";
+    public static final String SYSTEM_CURRENCY_MOD  = "sc.mod";
+    public static final String SYSTEM_CURRENCY_LOW  = "sc.low";
+    public static final String SYSTEM_CURRENCY_BUG  = "sc.bug";
+    public static final String SYSTEM_CURRENCY_ENH  = "sc.enh";
+
     private ConfigDefaults() {
+    }
+
+    /**
+     * Returns the System Currency multiplier for critical security errata
+     * @return the System Currency multiplier for critical security errata
+     */
+    public Integer getSCCrit() {
+        return Config.get().getInt(SYSTEM_CURRENCY_CRIT);
+    }
+
+    /**
+     * Returns the System Currency multiplier for important security errata
+     * @return the System Currency multiplier for important security errata
+     */
+    public Integer getSCImp() {
+        return Config.get().getInt(SYSTEM_CURRENCY_IMP);
+    }
+
+    /**
+     * Returns the System Currency multiplier for moderate security errata
+     * @return the System Currency multiplier for moderate security errata
+     */
+    public Integer getSCMod() {
+        return Config.get().getInt(SYSTEM_CURRENCY_MOD);
+    }
+
+    /**
+     * Returns the System Currency multiplier for low security errata
+     * @return the System Currency multiplier for low security errata
+     */
+    public Integer getSCLow() {
+        return Config.get().getInt(SYSTEM_CURRENCY_LOW);
+    }
+
+    /**
+     * Returns the System Currency multiplier for bug fix errata
+     * @return the System Currency multiplier for bug fix errata
+     */
+    public Integer getSCBug() {
+        return Config.get().getInt(SYSTEM_CURRENCY_BUG);
+    }
+
+    /**
+     * Returns the System Currency multiplier for enhancement errata
+     * @return the System Currency multiplier for enhancement errata
+     */
+    public Integer getSCEnh() {
+        return Config.get().getInt(SYSTEM_CURRENCY_ENH);
     }
 
     /**
@@ -488,5 +547,13 @@ public class ConfigDefaults {
      */
     public boolean isOracle() {
         return DB_BACKEND_ORACLE.equals(Config.get().getString(DB_BACKEND));
+    }
+
+    /**
+     * is the server configured to use oracle
+     * @return true if so
+     */
+    public boolean isPostgresql() {
+        return DB_BACKEND_POSTGRESQL.equals(Config.get().getString(DB_BACKEND));
     }
 }

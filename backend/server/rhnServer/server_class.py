@@ -19,16 +19,11 @@
 import time
 import string
 
-# Global Modules
-from common import rhnException, rhnFault, log_debug, log_error, CFG
-from common import rhnFlags
-from common.rhnTranslate import _
-from spacewalk.common import rhn_rpm
-
-# from the server stuff...
-from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \
+from spacewalk.common import rhnException, rhnFault, log_debug, log_error, \
+    CFG, rhnFlags
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \
                    rhnVirtualization
-# from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction
 from search_notify import SearchNotify
 
 # Local Modules
@@ -37,7 +32,6 @@ import server_lib
 import server_token
 from server_certificate import Certificate, gen_secret
 from server_wrapper import ServerWrapper
-from satellite_cert import SatelliteCert
 
 class Server(ServerWrapper):
     """ Main Server class """
@@ -713,38 +707,6 @@ class Server(ServerWrapper):
         if (now > expire_time + grace_period_seconds):
             log_debug(1, "Satellite certificate expired on %s" % expire_string)
             return 0
-        return 1
-
-    def checkSatEntitlement(self):
-        """Check serverId against DB to see if it maps to an entitled
-           RHN Satellite Server.
-        """
-        h = rhnSQL.prepare("""
-            select cert
-            from rhnsatelliteinfo si
-            where si.server_id = :serverId
-        """)
-        h.execute(serverId=self.server["id"])
-        row = h.fetchone_dict()
-        if not row:
-            return 0
-
-        cert = row['cert']
-        if not cert:
-            return 0
-
-        # Bugzilla #219625
-        # Cert is now a blob, so convert it to a string
-        cert = cert.read()
-
-        self.satellite_cert = SatelliteCert()
-        self.satellite_cert.load(cert)
-        # Some sanity checking
-        #if self.satellite_cert.expires:
-        #    if time.time() > self.satellite_cert.expires:
-        #        # Expired satellite
-        #        return 0
-
         return 1
 
     def checkin(self, commit = 1, check_for_abuse = 1):

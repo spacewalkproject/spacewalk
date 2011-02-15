@@ -21,10 +21,6 @@ from types import IntType, StringType, InstanceType
 from UserDict import UserDict
 from UserList import UserList
 
-from common import log_debug
-
-from server.rhnLib import get_package_path
-from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.fileutils import createPath, setPermsPath
 
@@ -397,17 +393,6 @@ class SourcePackage(IncompletePackage):
         return self.source_rpm
 
 
-class SourcePackageFile(Information):
-    attributeTypes = {
-        'file_size'         : IntType,
-        'path'              : StringType,
-        'org_id'            : IntType,
-        # these attributes are mutualy exclusive
-        'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum_list'     : [Checksum],
-    }
-
-
 class Bug(Information):
     attributeTypes = {
         'bug_id'            : StringType,
@@ -430,12 +415,6 @@ class ErrataFile(Information):
 class Keyword(Information):
     attributeTypes = {
         'keyword'           : StringType,
-    }
-
-
-class CVE(Information):
-    attributeTypes = {
-        'name'              : StringType,
     }
 
 

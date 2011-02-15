@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -158,7 +158,6 @@ begin
 	delete from rhnProxyInfo where server_id = server_id_in;
 	delete from rhnRam where server_id = server_id_in;
 	delete from rhnRegToken where server_id = server_id_in;
-	delete from rhnSatelliteChannelFamily where server_id = server_id_in;
 	delete from rhnSatelliteInfo where server_id = server_id_in;
 	-- this cascades to rhnActionConfigChannel and rhnActionConfigFileName
 	delete from rhnServerAction where server_id = server_id_in;

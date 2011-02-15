@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,15 +12,15 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from common import log_debug
-from server import rhnSQL
-from server.rhnLib import InvalidAction, ShadowAction
-from server.action.utils import SubscribedChannel, \
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnLib import InvalidAction, ShadowAction
+from spacewalk.server.action.utils import SubscribedChannel, \
                                 ChannelPackage, \
                                 PackageInstallScheduler, \
                                 NoActionInfo, \
                                 PackageNotFound
-from server.rhnChannel import subscribe_to_tools_channel
+from spacewalk.server.rhnChannel import subscribe_to_tools_channel
                                  
 
 __rhnexport__ = ['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']

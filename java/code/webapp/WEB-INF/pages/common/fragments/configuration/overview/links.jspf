@@ -1,4 +1,4 @@
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <table cellspacing="0" cellpadding="0" class="half-table">
     <thead><th><bean:message key="configoverview.jsp.configlinks"/></th></thead>
     <tr class="list-row-odd"><td class="last-column first-column"><a href="/rhn/configuration/system/ManagedSystems.do">

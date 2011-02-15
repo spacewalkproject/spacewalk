@@ -35,42 +35,35 @@ before insert or update on rhnServerGroupMembers
 for each row
 execute procedure rhn_sg_member_mod_trig_fun();
 
-
-
-
-
-
-
 CREATE OR REPLACE FUNCTION rhn_server_group_org_mapping_fun() RETURNS TRIGGER
 AS
 $$
 DECLARE
         same_org        NUMERIC;
 BEGIN
-        same_org := 0;
-        SELECT 1 INTO same_org
-          FROM rhnServer S, rhnServerGroup SG
-         WHERE SG.org_id = S.org_id
-           AND S.id = new.server_id
-           AND SG.id = new.server_group_id;
-        IF same_org = 0 THEN
-          PERFORM rhn_exception.raise_exception('sgm_insert_diff_orgs');
-        END IF;
+    same_org := 0;
 
-	IF NOT FOUND THEN
-		PERFORM rhn_exception.raise_exception('sgm_insert_diff_orgs');
-	END IF;
-        
+    SELECT 1 INTO same_org
+    FROM rhnServer S, rhnServerGroup SG
+    WHERE SG.org_id = S.org_id
+    AND S.id = new.server_id
+    AND SG.id = new.server_group_id;
 
+    IF same_org = 0 THEN
+        PERFORM rhn_exception.raise_exception('sgm_insert_diff_orgs');
+    END IF;
+
+    IF NOT FOUND THEN
+        PERFORM rhn_exception.raise_exception('sgm_insert_diff_orgs');
+    END IF;
+
+    return new;
 END;
 $$
 LANGUAGE PLPGSQL;
-
 
 CREATE TRIGGER
 rhn_server_group_org_mapping
 BEFORE INSERT OR UPDATE ON rhnServerGroupMembers
 FOR EACH ROW
 EXECUTE PROCEDURE rhn_server_group_org_mapping_fun();
-
-

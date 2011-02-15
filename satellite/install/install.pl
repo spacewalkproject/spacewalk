@@ -288,7 +288,7 @@ sub python_path {
 }
 
 sub remove_php_packages {
-  my @packages = `rpm -qa | egrep '(php|piranha|squirrelmail|specspo)'`;
+  my @packages = `rpm -qa | grep -E '(php|piranha|squirrelmail|specspo)'`;
 
   if (@packages) {
     for (@packages) {

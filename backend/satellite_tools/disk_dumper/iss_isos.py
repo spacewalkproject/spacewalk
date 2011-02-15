@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2010 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-from satellite_tools import geniso
+from spacewalk.satellite_tools import geniso
 
 def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, copy_iso_dir=None, iso_type=None):
     opts = [ "--mountpoint=%s" % mountpoint,

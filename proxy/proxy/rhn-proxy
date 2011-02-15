@@ -72,8 +72,12 @@ case "$1" in
         restart
         ;;
     condrestart)
-        wrd_services condrestart
-	;;
+        if [ -f /var/lock/subsys/rhn-proxy ]; then
+            stop
+            start
+            RETVAL=$?
+        fi
+        ;;
     *)
         echo "Usage: rhn-proxy {start|stop|status|restart|condrestart}"
         exit 1

@@ -16,7 +16,7 @@
             <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
             <td>
               <c:if test="${requestScope.nochannels != 'true'}">
-                <html:select property="channelid" onchange="refresh('dist-tree-form');">
+                <html:select property="channelid" onchange="refresh('treeEditForm');">
                     <html:options collection="channels" property="value" labelProperty="label" />
                 </html:select>
               </c:if>

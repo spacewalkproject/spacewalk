@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,16 +17,16 @@
 
 
 # these are pretty much the only entry points
-from common import rhnFault, log_debug, log_error
-from server import rhnUser
+from spacewalk.common import rhnFault, log_debug, log_error
+from spacewalk.server import rhnUser
 
 # Local imports
 from server_class import Server
 from server_certificate import Certificate
 from server_token import fetch_token, fetch_org_token
 
-# retrieve the server with matching certificate from the database
 def get(system_id, load_user = 1):
+    """ retrieve the server with matching certificate from the database """
     log_debug(3, "load_user = %s" % load_user)
     # This has to be a string
     if not type(system_id) == type(""):
@@ -48,8 +48,8 @@ def get(system_id, load_user = 1):
     return server
 
 
-# search for a server in the database and return the Server object
 def search(server_id, username = None):
+    """ search for a server in the database and return the Server object """
     log_debug(3, server_id, username)
     s = Server(None)
     if not s.reload(server_id) == 0:

@@ -82,7 +82,9 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="spacewalk.common.rhn_rpm.RPMTransaction-class.html" class="summary-name">RPMTransaction</a>
+        <a href="spacewalk.common.rhn_rpm.RPMTransaction-class.html" class="summary-name">RPMTransaction</a><br />
+      wrapper/proxy class for rpm.Transaction so we can instrument it,
+        etc easily
     </td>
   </tr>
 <tr>
@@ -175,7 +177,10 @@
         <tr>
           <td><span class="summary-sig"><a name="get_package_header"></a><span class="summary-sig-name">get_package_header</span>(<span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Loads the package header from a file / stream / file descriptor
+      Raises rpm.error if an error is found, or InvalidPacageError if
+      package is busted</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#get_package_header">source&nbsp;code</a></span>
             
@@ -259,41 +264,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="rpmLabelCompare"></a><span class="summary-sig-name">rpmLabelCompare</span>(<span class="summary-sig-arg">rpmFilename1</span>,
-        <span class="summary-sig-arg">rpmFilename2</span>)</span><br />
-      take two RPMs and compare them for order</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#rpmLabelCompare">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="spacewalk.common.rhn_rpm-module.html#sortHeaders" class="summary-sig-name">sortHeaders</a>(<span class="summary-sig-arg">hdrs</span>)</span><br />
-      Sorts a list of RPM headers (or RPMs).</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#sortHeaders">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a href="spacewalk.common.rhn_rpm-module.html#sortRPMs" class="summary-sig-name">sortRPMs</a>(<span class="summary-sig-arg">rpms</span>)</span><br />
       Sorts a list of RPM files.</td>
           <td align="right" valign="top">
@@ -353,6 +323,34 @@
  8: 'sha256',
  9: 'sha384',
 ..."><code class="variable-group">{</code>1<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">md5</code><code class="variable-quote">'</code><code class="variable-op">, </code>2<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">sha1</code><code class="variable-quote">'</code><code class="variable-op">, </code>3<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">ripemd160</code><code class="variable-quote">'</code><code class="variable-op">, </code>5<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">md2</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMBUILD_ISICON"></a><span class="summary-name">RPMBUILD_ISICON</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMBUILD_ISNO"></a><span class="summary-name">RPMBUILD_ISNO</span> = <code title="8">8</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMBUILD_ISPATCH"></a><span class="summary-name">RPMBUILD_ISPATCH</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMBUILD_ISSOURCE"></a><span class="summary-name">RPMBUILD_ISSOURCE</span> = <code title="1">1</code>
     </td>
   </tr>
 <tr>
@@ -478,6 +476,13 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="RPMDBI_LABEL"></a><span class="summary-name">RPMDBI_LABEL</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="RPMDBI_PACKAGES"></a><span class="summary-name">RPMDBI_PACKAGES</span> = <code title="0">0</code>
     </td>
   </tr>
@@ -521,13 +526,6 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="RPMFILE_GHOST"></a><span class="summary-name">RPMFILE_GHOST</span> = <code title="64">64</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="RPMFILE_ICON"></a><span class="summary-name">RPMFILE_ICON</span> = <code title="4">4</code>
     </td>
   </tr>
 <tr>
@@ -835,6 +833,48 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="RPMRC_FAIL"></a><span class="summary-name">RPMRC_FAIL</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMRC_NOKEY"></a><span class="summary-name">RPMRC_NOKEY</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMRC_NOTFOUND"></a><span class="summary-name">RPMRC_NOTFOUND</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMRC_NOTTRUSTED"></a><span class="summary-name">RPMRC_NOTTRUSTED</span> = <code title="3">3</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMRC_OK"></a><span class="summary-name">RPMRC_OK</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_ANY"></a><span class="summary-name">RPMSENSE_ANY</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="RPMSENSE_CONFIG"></a><span class="summary-name">RPMSENSE_CONFIG</span> = <code title="268435456">268435456</code>
     </td>
   </tr>
@@ -1129,6 +1169,13 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="RPMTAG_DBINSTANCE"></a><span class="summary-name">RPMTAG_DBINSTANCE</span> = <code title="1195">1195</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="RPMTAG_DEPENDSDICT"></a><span class="summary-name">RPMTAG_DEPENDSDICT</span> = <code title="1145">1145</code>
     </td>
   </tr>
@@ -1193,6 +1240,20 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="RPMTAG_EPOCH"></a><span class="summary-name">RPMTAG_EPOCH</span> = <code title="1003">1003</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_EPOCHNUM"></a><span class="summary-name">RPMTAG_EPOCHNUM</span> = <code title="5019">5019</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_EVR"></a><span class="summary-name">RPMTAG_EVR</span> = <code title="5013">5013</code>
     </td>
   </tr>
 <tr>
@@ -1444,6 +1505,13 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="RPMTAG_HEADERCOLOR"></a><span class="summary-name">RPMTAG_HEADERCOLOR</span> = <code title="5017">5017</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="RPMTAG_HEADERI18NTABLE"></a><span class="summary-name">RPMTAG_HEADERI18NTABLE</span> = <code title="100">100</code>
     </td>
   </tr>
@@ -1563,7 +1631,49 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="RPMTAG_NEVR"></a><span class="summary-name">RPMTAG_NEVR</span> = <code title="5015">5015</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_NEVRA"></a><span class="summary-name">RPMTAG_NEVRA</span> = <code title="5016">5016</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_NOPATCH"></a><span class="summary-name">RPMTAG_NOPATCH</span> = <code title="1052">1052</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_NOSOURCE"></a><span class="summary-name">RPMTAG_NOSOURCE</span> = <code title="1051">1051</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="RPMTAG_NOT_FOUND"></a><span class="summary-name">RPMTAG_NOT_FOUND</span> = <code title="-1">-1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_NVR"></a><span class="summary-name">RPMTAG_NVR</span> = <code title="5014">5014</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_NVRA"></a><span class="summary-name">RPMTAG_NVRA</span> = <code title="1196">1196</code>
     </td>
   </tr>
 <tr>
@@ -2095,6 +2205,13 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="RPMTAG_VERBOSE"></a><span class="summary-name">RPMTAG_VERBOSE</span> = <code title="5018">5018</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="RPMTAG_VERIFYSCRIPT"></a><span class="summary-name">RPMTAG_VERIFYSCRIPT</span> = <code title="1079">1079</code>
     </td>
   </tr>
@@ -2159,6 +2276,13 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="RPMTRANS_FLAG_NOCONFIGS"></a><span class="summary-name">RPMTRANS_FLAG_NOCONFIGS</span> = <code title="1073741824">1073741824</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOCONTEXTS"></a><span class="summary-name">RPMTRANS_FLAG_NOCONTEXTS</span> = <code title="256">256</code>
     </td>
   </tr>
 <tr>
@@ -2404,26 +2528,6 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="sortHeaders"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">sortHeaders</span>(<span class="sig-arg">hdrs</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#sortHeaders">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Sorts a list of RPM headers (or RPMs). Assertion: they *must* 
-  exist.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="sortRPMs"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -2512,7 +2616,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:16 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

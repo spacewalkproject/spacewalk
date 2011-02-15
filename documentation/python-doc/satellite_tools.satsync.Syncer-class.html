@@ -83,6 +83,7 @@
           <td><span class="summary-sig"><a href="satellite_tools.satsync.Syncer-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channels</span>,
         <span class="summary-sig-arg">listChannelsYN</span>,
+        <span class="summary-sig-arg">check_rpms</span>,
         <span class="summary-sig-arg">forceAllErrata</span>=<span class="summary-sig-default">False</span>)</span><br />
       Base initialization.</td>
           <td align="right" valign="top">
@@ -135,7 +136,6 @@
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.satsync.Syncer-class.html#_process_simple" class="summary-sig-name" onclick="show_private();">_process_simple</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">remote_function_name</span>,
-        <span class="summary-sig-arg">disk_class</span>,
         <span class="summary-sig-arg">step_name</span>)</span><br />
       Wrapper function that can process metadata that is relatively simple.</td>
           <td align="right" valign="top">
@@ -189,7 +189,9 @@
         <tr>
           <td><span class="summary-sig"><a name="_process_cert"></a><span class="summary-sig-name">_process_cert</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">cert</span>,
-        <span class="summary-sig-arg">store_cert</span>=<span class="summary-sig-default">1</span>)</span></td>
+        <span class="summary-sig-arg">store_cert</span>=<span class="summary-sig-default">1</span>)</span><br />
+      Give the cert a check - if it's broken xml we'd better find it out 
+      now</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._process_cert">source&nbsp;code</a></span>
             
@@ -215,13 +217,53 @@
       
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_set_comps_for_channel"></a><span class="summary-sig-name">_set_comps_for_channel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">backend</span>,
+        <span class="summary-sig-arg">channel_id</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">timestamp</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._set_comps_for_channel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_process_comps"></a><span class="summary-sig-name">_process_comps</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">backend</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">timestamp</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._process_comps">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="process_channels"></a><span class="summary-sig-name">process_channels</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="satellite_tools.satsync.Syncer-class.html#process_channels" class="summary-sig-name">process_channels</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      push channels, channel-family and dist.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer.process_channels">source&nbsp;code</a></span>
             
@@ -229,6 +271,62 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.satsync.Syncer-class.html#_formatDateTime" class="summary-sig-name" onclick="show_private();">_formatDateTime</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">datestring</span>)</span><br />
+      Format the date time using your locale settings.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._formatDateTime">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_formatChannelExportType"></a><span class="summary-sig-name">_formatChannelExportType</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel</span>)</span><br />
+      returns pretty formated text with type of channel export</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._formatChannelExportType">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_printChannel"></a><span class="summary-sig-name">_printChannel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">channel_object</span>,
+        <span class="summary-sig-arg">format</span>,
+        <span class="summary-sig-arg">is_imported</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._printChannel">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
     </td>
   </tr>
 <tr class="private">
@@ -289,7 +387,25 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_compute_unique_packages"></a><span class="summary-sig-name">_compute_unique_packages</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_get_channel_timestamp"></a><span class="summary-sig-name">_get_channel_timestamp</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._get_channel_timestamp">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_compute_unique_packages"></a><span class="summary-sig-name">_compute_unique_packages</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      process package metadata for one channel at a time</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._compute_unique_packages">source&nbsp;code</a></span>
             
@@ -313,6 +429,24 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_diff_packages_process"></a><span class="summary-sig-name">_diff_packages_process</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chunk</span>,
+        <span class="summary-sig-arg">channel_label</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._diff_packages_process">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
     </td>
   </tr>
 <tr class="private">
@@ -383,10 +517,7 @@
         <span class="summary-sig-arg">size</span>,
         <span class="summary-sig-arg">checksum_type</span>,
         <span class="summary-sig-arg">checksum</span>)</span><br />
-      Verifies if the file is on the filesystem and matches the mtime and
-checksum
-Computing the checksum is costly, that's why we rely on mtime
-comparisons.</td>
+      Verifies if the file is on the filesystem and matches the mtime and checksum.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._verify_file">source&nbsp;code</a></span>
             
@@ -409,7 +540,8 @@ comparisons.</td>
         <span class="summary-sig-arg">row</span>,
         <span class="summary-sig-arg">m_channel_packages</span>,
         <span class="summary-sig-arg">m_fs_packages</span>,
-        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">0</span>)</span></td>
+        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">check_rpms</span>=<span class="summary-sig-default">1</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._process_package">source&nbsp;code</a></span>
             
@@ -489,7 +621,8 @@ comparisons.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_compute_unique_source_packages"></a><span class="summary-sig-name">_compute_unique_source_packages</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_compute_unique_source_packages"></a><span class="summary-sig-name">_compute_unique_source_packages</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      process package metadata for one channel at a time</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._compute_unique_source_packages">source&nbsp;code</a></span>
             
@@ -513,6 +646,24 @@ comparisons.</td>
         </tr>
       </table>
       
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_diff_source_packages_process"></a><span class="summary-sig-name">_diff_source_packages_process</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chunk</span>,
+        <span class="summary-sig-arg">channel_label</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._diff_source_packages_process">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
     </td>
   </tr>
 <tr class="private">
@@ -553,7 +704,8 @@ comparisons.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_compute_unique_kickstarts"></a><span class="summary-sig-name">_compute_unique_kickstarts</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_compute_unique_kickstarts"></a><span class="summary-sig-name">_compute_unique_kickstarts</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      process package metadata for one channel at a time</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._compute_unique_kickstarts">source&nbsp;code</a></span>
             
@@ -569,7 +721,8 @@ comparisons.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_compute_missing_kickstarts"></a><span class="summary-sig-name">_compute_missing_kickstarts</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_compute_missing_kickstarts"></a><span class="summary-sig-name">_compute_missing_kickstarts</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      process package metadata for one channel at a time</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._compute_missing_kickstarts">source&nbsp;code</a></span>
             
@@ -577,6 +730,24 @@ comparisons.</td>
         </tr>
       </table>
       
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_download_kickstarts_file"></a><span class="summary-sig-name">_download_kickstarts_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chunk</span>,
+        <span class="summary-sig-arg">channel_label</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._download_kickstarts_file">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
     </td>
   </tr>
 <tr>
@@ -687,7 +858,8 @@ comparisons.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_diff_errata"></a><span class="summary-sig-name">_diff_errata</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_diff_errata"></a><span class="summary-sig-name">_diff_errata</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Fetch the errata for this channel</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._diff_errata">source&nbsp;code</a></span>
             
@@ -703,7 +875,10 @@ comparisons.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_diff_db_errata"></a><span class="summary-sig-name">_diff_db_errata</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_diff_db_errata"></a><span class="summary-sig-name">_diff_db_errata</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Compute errata that are missing from the satellite Kind of similar to
+      diff_errata, if we had the timestamp and advisory information 
+      available</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._diff_db_errata">source&nbsp;code</a></span>
             
@@ -729,6 +904,70 @@ comparisons.</td>
       
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_processWithProgressBar"></a><span class="summary-sig-name">_processWithProgressBar</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">batch</span>,
+        <span class="summary-sig-arg">size</span>,
+        <span class="summary-sig-arg">process_function</span>,
+        <span class="summary-sig-arg">prompt</span>=<span class="summary-sig-default">_('Downloading:')</span>,
+        <span class="summary-sig-arg">nevermorethan</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">process_function_args</span>=<span class="summary-sig-default">[]</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._processWithProgressBar">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_proces_batch"></a><span class="summary-sig-name">_proces_batch</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel</span>,
+        <span class="summary-sig-arg">batch</span>,
+        <span class="summary-sig-arg">log_msg</span>,
+        <span class="summary-sig-arg">process_function</span>,
+        <span class="summary-sig-arg">prompt</span>=<span class="summary-sig-default">_('Downloading:')</span>,
+        <span class="summary-sig-arg">process_function_args</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">nevermorethan</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">is_slow</span>=<span class="summary-sig-default">False</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._proces_batch">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_import_packages_process"></a><span class="summary-sig-name">_import_packages_process</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chunk</span>,
+        <span class="summary-sig-arg">sources</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._import_packages_process">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -739,6 +978,41 @@ comparisons.</td>
         <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer.import_packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_import_package_signatures"></a><span class="summary-sig-name">_import_package_signatures</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">packages</span>,
+        <span class="summary-sig-arg">channel</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._import_package_signatures">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_lookup_pkgs_by_path"></a><span class="summary-sig-name">_lookup_pkgs_by_path</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._lookup_pkgs_by_path">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -770,7 +1044,8 @@ comparisons.</td>
         <tr>
           <td><span class="summary-sig"><a name="_get_cached_package_batch"></a><span class="summary-sig-name">_get_cached_package_batch</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">chunk</span>,
-        <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span></td>
+        <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span><br />
+      short-circuit the most common case</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._get_cached_package_batch">source&nbsp;code</a></span>
             
@@ -803,7 +1078,8 @@ comparisons.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_fix_erratum"></a><span class="summary-sig-name">_fix_erratum</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">erratum</span>)</span></td>
+        <span class="summary-sig-arg">erratum</span>)</span><br />
+      Replace the list of packages with references to short packages</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._fix_erratum">source&nbsp;code</a></span>
             
@@ -906,18 +1182,6 @@ fied
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satsync.Syncer-class.html#_query_get_kickstarts" class="summary-name" onclick="show_private();">_query_get_kickstarts</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-        select TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modifie\
-d
-          from rhnKickstartableTree
-         where label = :label
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a href="satellite_tools.satsync.Syncer-class.html#_query_get_db_errata" class="summary-name" onclick="show_private();">_query_get_db_errata</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select e.id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modif\
@@ -958,6 +1222,7 @@ ied
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">channels</span>,
         <span class="sig-arg">listChannelsYN</span>,
+        <span class="sig-arg">check_rpms</span>,
         <span class="sig-arg">forceAllErrata</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
@@ -981,7 +1246,6 @@ ied
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">_process_simple</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">remote_function_name</span>,
-        <span class="sig-arg">disk_class</span>,
         <span class="sig-arg">step_name</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -995,6 +1259,47 @@ ied
   console.</p>
   <p>The remote function is passed by name (as a string), to mimic the lazy
   behaviour of the if block</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="process_channels"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">process_channels</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer.process_channels">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>push channels, channel-family and dist. map information as well upon 
+  parsing.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_formatDateTime"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_formatDateTime</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">datestring</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._formatDateTime">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Format the date time using your locale settings. This assume that your
+  setlocale has been alread called.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -1063,21 +1368,14 @@ ied
   </tr></table>
   
   <pre class="literalblock">
-Verifies if the file is on the filesystem and matches the mtime and
-checksum
-Computing the checksum is costly, that's why we rely on mtime
-comparisons.
-Returns a tuple (error_code, ret_path) where:
-    if the file has the specified mtime and checksum, error_code is 0
-        and ret_path is None
-    if the file has the checksum, the function sets mtime, error_code is
-        0 and ret_path is path
-    if the file exists but has a different checksum, error_code is the
-        file's current checksum and ret_path is path
-    if the file does not exist at all, error_code is 1 and ret_path is
-        null
-The idea is that error_code is 0 if the file exists or something else
-otherwise
+
+Verifies if the file is on the filesystem and matches the mtime and checksum.
+Computing the checksum is costly, that's why we rely on mtime comparisons.
+Returns errcode:
+    0   - file is ok, it has either the specified mtime and size
+                  or checksum matches (then function sets mtime)
+    1   - file does not exist at all
+    2   - file has a different checksum
 
 </pre>
   <dl class="fields">
@@ -1176,29 +1474,6 @@ fied
   </dl>
 </td></tr></table>
 </div>
-<a name="_query_get_kickstarts"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">_query_get_kickstarts</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-        select TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modifie<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-d
-          from rhnKickstartableTree
-         where label = :label
-    &quot;&quot;&quot;)
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
 <a name="_query_get_db_errata"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -1249,7 +1524,7 @@ ied
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:34 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:48 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

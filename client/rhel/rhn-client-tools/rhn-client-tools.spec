@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.2.9
+Version: 1.4.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -15,7 +15,11 @@ BuildRequires: update-desktop-files
 Requires: rhnlib >= 2.5.20
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
+%if 0%{?rhel} && 0%{?rhel} <= 5
 Requires: python-ethtool
+%else
+Requires: python-ethtool >= 0.4
+%endif
 Requires: gnupg
 Requires: sh-utils
 Requires: dbus-python
@@ -30,6 +34,11 @@ Requires: python-dmidecode
 Requires: libxml2-python
 
 Conflicts: up2date < 5.0.0
+Conflicts: yum-rhn-plugin < 1.1.4-1
+Conflicts: rhncfg < 5.9.23-1
+Conflicts: spacewalk-koan < 0.2.7-1
+Conflicts: rhn-kickstart < 5.4.3-1
+Conflicts: rhn-virtualization < 5.4.14-1
 
 BuildRequires: python-devel
 BuildRequires: gettext
@@ -262,6 +271,7 @@ make -f Makefile.rhn-client-tools test
 
 %if 0%{?rhel} > 0 && 0%{?rhel} < 6
 %{_datadir}/firstboot/modules/rhn_login_gui.*
+%{_datadir}/firstboot/modules/rhn_choose_channel.*
 %{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
 %{_datadir}/firstboot/modules/rhn_start_gui.*
 %{_datadir}/firstboot/modules/rhn_choose_server_gui.*
@@ -274,6 +284,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/firstboot/rhn_login_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_start_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_choose_server_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/rhn_choose_channel.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_provide_certificate_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_create_profile_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_review_gui.*
@@ -281,6 +292,103 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Feb 08 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.1-1
+- fix typo
+- 671039 - add warning about subsription manager to TUI part of rhn_register
+- 671039 - add warning about subsription manager to GUI part of rhn_register
+- l10n: Updates to German (de) translation (delouw@fedoraproject.org)
+- 671041 - substitute RHN with "RHN Satellite or RHN Classic"
+- 671032 - disable rhnplugin by default and enable it only after successful
+  registration
+- Bumping package versions for 1.4 (tlestach@redhat.com)
+
+* Mon Jan 31 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.12-1
+- cp firstboot/rhn_choose_channel.py firstboot-legacy-rhel5/
+
+* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.11-1
+- break circular import
+- 580479 - put new submodule into package
+- W: 28: Unused import glade
+- 580479 - Graphical firstboot should offer EUS channel selection
+- 581482 - make tui consistent with gui
+- 596108 - firstboot: don't allow multiple system registrations
+- 606222 - label could not have focus
+
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.10-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- update .po and .pot files for rhn-client-tools (tlestach@redhat.com)
+- 602609 - fix DeprecationWarning when using gtk.MessageDialog()
+  (mzazrivec@redhat.com)
+- 617066 - fix "Why register" dialog size (msuchy@redhat.com)
+- 667739 - use accessibility tags (msuchy@redhat.com)
+- 626752 - correct virt. type detection for RHEL-6 FV Xen guests
+  (mzazrivec@redhat.com)
+- 651403 - reference to RHEL6 as actuall system (msuchy@redhat.com)
+- dead code: removal of function foobar() (msuchy@redhat.com)
+- 649233 - reset busy mouse cursor back to arrow after unexpected error
+  (msuchy@redhat.com)
+
+* Mon Jan 17 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.9-1
+- Revert "update .po and .pot files for rhn-client-tools"
+- Revert "removing msgctxt which rhel5 could not handle"
+
+* Mon Jan 17 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.8-1
+- removing msgctxt which rhel5 could not handle
+
+* Mon Jan 17 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.7-1
+- update .po and .pot files for rhn-client-tools
+- 651789 - fail if adding/removal of channels fail
+- 651792 - list all available child channels related to system
+- localize spacewalk-channel script
+- 651857 - print error if you specify --add or --remove, but you do not specify
+  any channel
+- 651857 - removing forgotten lines, which makes no sense and cause TB
+- 652424 - return back useNoSSLForPackages option
+- 668809 - mention the requirement to use FQDN
+
+* Wed Jan 05 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.6-1
+- 665013 - do not send None for ipaddr in IPv6 only system
+
+* Tue Jan 04 2011 Jan Pazdziora 1.3.5-1
+- 666860 - Add support for subscription-manager in firstboot.
+
+* Tue Dec 14 2010 Jan Pazdziora 1.3.4-1
+- l10n: Updates to Malayalam (ml) translation (anipeter@fedoraproject.org)
+
+* Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.3-1
+- import Fault, ResponseError and ProtocolError directly from xmlrpclib
+
+* Fri Dec 03 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.2-1
+- on el5 do not send IPv6 addresses (msuchy@redhat.com)
+
+* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
+- 655310 - replace gethostbyname by getaddrinfo (msuchy@redhat.com)
+- 655310 - send IPv6 addresses to server (msuchy@redhat.com)
+- 481721 - _ts report epoch as int, but satelite and rhn use string, this does
+  not work for comparement like pkg in [['name', 'version', 'release', 'epoch',
+  'arch']..] (msuchy@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
+* Wed Nov 10 2010 Jan Pazdziora 1.2.15-1
+- rebuild
+
+* Wed Nov 10 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.14-1
+- 650520 - allow # in password
+
+* Wed Nov 03 2010 Jan Pazdziora 1.2.13-1
+- Update .po and .pot files for rhn-client-tools (fix for RHEL 5).
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.12-1
+- Clearing msgctx which is not supported by gettext on RHEL 5.
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.11-1
+- Update copyright years in the rest of the repo.
+- update .po and .pot files for rhn-client-tools
+- require versions which can handle cache_only (msuchy@redhat.com)
+
+* Mon Oct 25 2010 Jan Pazdziora 1.2.10-1
+- correct man page acording to reality (msuchy@redhat.com)
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.9-1
 - l10n: Updates to Panjabi (Punjabi) (pa) translation (jassy@fedoraproject.org)
 

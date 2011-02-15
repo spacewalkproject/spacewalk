@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.27
+Version: 2.5.33
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -17,6 +17,13 @@ BuildArch: noarch
 BuildRequires: python-devel
 
 Requires: pyOpenSSL 
+Conflicts: rhncfg < 5.9.37
+Conflicts: spacewalk-proxy-installer < 1.3.2
+Conflicts: rhn-client-tools < 1.3.3
+Conflicts: rhn-custom-info < 5.4.7
+Conflicts: rhnpush < 5.5.10
+Conflicts: rhnclient < 0.10
+Conflicts: spacewalk-proxy < 1.3.6
 
 %description
 rhnlib is a collection of python modules used by the 
@@ -54,6 +61,27 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 2.5.33-1
+- Revert "get_server_capability() is defined twice in osad and rhncfg, merge
+  and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
+
+* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 2.5.32-1
+- get_server_capability() is defined twice in osad and rhncfg, merge and move
+  to rhnlib and make it member of rpclib.Server
+- Updating the copyright years to include 2010.
+
+* Mon Dec 20 2010 Michael Mraka <michael.mraka@redhat.com> 2.5.31-1
+- put crypto back
+
+* Mon Dec 20 2010 Miroslav Suchý <msuchy@redhat.com> 2.5.30-1
+- conflitcs with older versions
+
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 2.5.29-1
+- removed unused imports
+
+* Tue Nov 02 2010 Jan Pazdziora 2.5.28-1
+- Update copyright years in the rest of the repo.
+
 * Mon Sep 20 2010 Miroslav Suchý <msuchy@redhat.com> 2.5.27-1
 - add copyright file - this is required by Debian policy
 - update GPLv2 license file

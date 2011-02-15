@@ -16,6 +16,7 @@ package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.util.StringUtil;
 
+import java.io.BufferedOutputStream;
 import java.io.Closeable;
 import java.io.Flushable;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
     private DigestOutputStream uncompressedDigestStream;
     private DigestOutputStream compressedDigestStream;
     private OutputStream compressedStream;
+    private BufferedOutputStream bufferedStream;
 
     /**
      *
@@ -51,6 +53,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
             compressedStream = new GZIPOutputStream(compressedDigestStream);
             uncompressedDigestStream = new DigestOutputStream(compressedStream,
                     MessageDigest.getInstance(checksumAlgo));
+            bufferedStream = new BufferedOutputStream(uncompressedDigestStream);
     }
 
     /**
@@ -59,7 +62,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
      * @throws IOException ioexception
      */
     public void write(int arg0) throws IOException {
-        uncompressedDigestStream.write(arg0);
+        bufferedStream.write(arg0);
     }
 
     /**
@@ -68,7 +71,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
      * @throws IOException ioexception
      */
     public void write(byte[] b) throws IOException {
-        uncompressedDigestStream.write(b);
+        bufferedStream.write(b);
     }
 
     /**
@@ -76,7 +79,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
      * @throws IOException ioexception
      */
     public void flush() throws IOException {
-        uncompressedDigestStream.flush();
+        bufferedStream.flush();
     }
 
     /**
@@ -84,7 +87,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
      * @throws IOException ioexception
      */
     public void close() throws IOException {
-        uncompressedDigestStream.close();
+        bufferedStream.close();
     }
 
     /**

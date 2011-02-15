@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,37 +13,37 @@
 -- in this software or its documentation. 
 --
 insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'rhel_6','Red Hat Enterprise Linux 6'
         );
 
 insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'rhel_5','Red Hat Enterprise Linux 5'
         );
 
 insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'rhel_4','Red Hat Enterprise Linux 4'
         );
 
 insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'rhel_3','Red Hat Enterprise Linux 3'
         );
 
 insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'rhel_2.1','Red Hat Enterprise Linux 2.1'
         );
 
 insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'fedora','Fedora'
         );
 
 insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'generic_rpm','Generic RPM'
         );
 commit;

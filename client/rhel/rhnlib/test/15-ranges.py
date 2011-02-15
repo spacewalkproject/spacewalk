@@ -4,7 +4,6 @@
 #
 # $Id$
 
-import string
 import sys 
 sys.path.append('..')
 from rhn import rpclib

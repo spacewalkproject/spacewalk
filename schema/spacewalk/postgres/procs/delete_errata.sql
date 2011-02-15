@@ -1,5 +1,4 @@
--- oracle equivalent source sha1 21bc8f72e16e20e6f82872f19143b8c43c937ba6
--- retrieved from ./1235561447/a7740e6945947b753ef3359998c3a103d464f765/schema/spacewalk/rhnsat/procs/delete_errata.sql
+-- oracle equivalent source sha1 f1e3f73afd42b300ac491676e510eafda8d2ce49
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -24,7 +23,6 @@ delete_errata (
 $$
 begin
         delete from rhnServerNeededCache where errata_id = errata_id_in;
-        delete from rhnPaidErrataTempCache where errata_id = errata_id_in;
         delete from rhnErrataFile where errata_id = errata_id_in;
         delete from rhnErrataPackage where errata_id = errata_id_in;
         delete from rhnErrata where id = errata_id_in;

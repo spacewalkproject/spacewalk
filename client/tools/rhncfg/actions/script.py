@@ -22,7 +22,11 @@ import select
 import signal
 import tempfile
 import base64
-from subprocess import MAXFD
+
+try:
+    from subprocess import MAXFD
+except ImportError:
+    from popen2 import MAXFD
 
 
 # this is ugly, hopefully it will be natively supported in up2date

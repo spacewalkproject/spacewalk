@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:54 2010
+-- created by Oraschemadoc Thu Jan 20 13:57:09 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CHANNEL_DEL_TRIG"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CHANNEL_DEL_TRIG" 
 before delete on rhnChannel
 for each row
 declare

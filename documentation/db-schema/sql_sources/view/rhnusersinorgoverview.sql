@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:47 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:37 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERSINORGOVERVIEW" ("ORG_ID", "USER_ID", "USER_LOGIN", "USER_FIRST_NAME", "USER_LAST_NAME", "USER_MODIFIED", "SERVER_COUNT", "SERVER_GROUP_COUNT", "ROLE_NAMES") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERSINORGOVERVIEW" ("ORG_ID", "USER_ID", "USER_LOGIN", "USER_FIRST_NAME", "USER_LAST_NAME", "USER_MODIFIED", "SERVER_COUNT", "SERVER_GROUP_COUNT", "ROLE_NAMES") AS 
   select
 	u.org_id					as org_id,
 	u.id						as user_id,

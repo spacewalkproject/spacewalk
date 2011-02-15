@@ -7,18 +7,19 @@ TOP	= ..
 # Specific stuff
 SUBDIR	= satellite_tools
 SUBDIRS = exporter disk_dumper accounts repo_plugins
-FILES	= __init__ connection constants diskImportLib messages \
+SPACEWALK_FILES	= __init__ connection constants diskImportLib messages \
             progress_bar req_channels satCerts satsync syncCache \
             sync_handlers \
-            syncLib SequenceServer xmlDiskDumper xmlDiskSource \
+            syncLib SequenceServer xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
-            satComputePkgHeaders updatePackages reposync
+            satComputePkgHeaders updatePackages reposync \
+	    geniso
 
 SCRIPTS = satellite-sync spacewalk-debug rhn-entitlement-report \
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
 	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
           spacewalk-repo-sync spacewalk-remove-channel \
-	  spacewalk-update-signatures
+	  spacewalk-update-signatures spacewalk-data-fsck
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
@@ -31,7 +32,6 @@ MANDIR	?= /usr/man
 
 EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR)
 
-INSTALL_FILES   = geniso.py gentree.py
 SAT_ACTIV       = rhn-satellite-activate
 CA_DBSTORE      = rhn-ssl-dbstore
 
@@ -71,4 +71,3 @@ $(CA_DBSTORE).inst : $(CA_DBSTORE) $(CA_DBSTORE).new $(PREFIX)/$(BINDIR)
 clean ::
 	@rm -fv $(MANS) manpage.* *.new
 
-include Makefile.dump

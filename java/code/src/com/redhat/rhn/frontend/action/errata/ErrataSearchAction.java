@@ -204,7 +204,7 @@ public class ErrataSearchAction extends RhnAction {
         if (!StringUtils.isBlank(search) || dateSearch) {
             // If doing a dateSearch use the DatePicker values from the
             // request params otherwise use the defaults.
-            dates = picker.processDatePickers(dateSearch);
+            dates = picker.processDatePickers(dateSearch, true);
             if (log.isDebugEnabled()) {
                 log.debug("search is NOT blank");
                 log.debug("Issue Start Date = " + dates.getStart().getDate());
@@ -219,7 +219,7 @@ public class ErrataSearchAction extends RhnAction {
         }
         else {
             // Reset info on date pickers
-            dates = picker.processDatePickers(false);
+            dates = picker.processDatePickers(false, true);
             if (log.isDebugEnabled()) {
                 log.debug("search is blank");
                 log.debug("Issue Start Date = " + dates.getStart().getDate());
@@ -453,8 +453,8 @@ public class ErrataSearchAction extends RhnAction {
         }
         List<ErrataOverview> filteredByIssueDate = new ArrayList<ErrataOverview>();
         for (ErrataOverview eo : unfiltered) {
-            if (eo.getIssueDateObj().after(startDate) &&
-                    eo.getIssueDateObj().before(endDate)) {
+            if (!startDate.after(eo.getIssueDateObj()) &&
+                    !eo.getIssueDateObj().after(endDate)) {
                 filteredByIssueDate.add(eo);
             }
         }

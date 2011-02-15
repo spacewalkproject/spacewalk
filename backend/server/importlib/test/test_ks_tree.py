@@ -13,10 +13,10 @@
 # in this software or its documentation. 
 #
 
-from server import rhnSQL
-from server.importlib.importLib import KickstartableTree, KickstartFile
-from server.importlib.kickstartImport import KickstartableTreeImport
-from server.importlib.backendOracle import OracleBackend
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.importLib import KickstartableTree, KickstartFile
+from spacewalk.server.importlib.kickstartImport import KickstartableTreeImport
+from spacewalk.server.importlib.backendOracle import OracleBackend
 
 ks_trees = [
     KickstartableTree().populate({

@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:51 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:54 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_ACT_KEY_MOD_TRIG"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_ACT_KEY_MOD_TRIG" 
 before insert or update on rhnActivationKey
 for each row
 begin

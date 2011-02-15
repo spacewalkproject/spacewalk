@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,10 +32,6 @@ ENABLE ROW MOVEMENT
 
 CREATE INDEX rhn_parch_id_l_n_idx
     ON rhnPackageArch (id, label, name)
-    TABLESPACE [[2m_tbs]];
-
-CREATE INDEX rhn_parch_l_id_n_idx
-    ON rhnPackageArch (label, id, name)
     TABLESPACE [[2m_tbs]];
 
 CREATE SEQUENCE rhn_package_arch_id_seq START WITH 100;

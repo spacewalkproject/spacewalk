@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:07 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:19 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_USER"
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_USER" 
 is
 	version varchar2(100) := '';
 
@@ -31,20 +31,13 @@ is
 		user_group_id_in in number
 	);
 
-	procedure add_users_to_usergroups(
-		user_id_in in number
-	);
-
 	procedure remove_from_usergroup(
 		user_id_in in number,
 		user_group_id_in in number
 	);
 
-	procedure remove_users_from_servergroups(
-		user_id_in in number
-	);
 end rhn_user;
-CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_USER"
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_USER" 
 is
 	body_version varchar2(100) := '';
 
@@ -246,21 +239,6 @@ is
 		end loop;
 	end add_to_usergroup;
 
-	procedure add_users_to_usergroups(
-		user_id_in in number
-	) is
-		cursor ugms is
-			select	element user_id,
-					element_two user_group_id
-			from	rhnSet
-			where	user_id = user_id_in
-				and label = 'user_group_list';
-	begin
-		for ugm in ugms loop
-			rhn_user.add_to_usergroup(ugm.user_id, ugm.user_group_id);
-		end loop;
-	end add_users_to_usergroups;
-
 	procedure remove_from_usergroup(
 		user_id_in in number,
 		user_group_id_in in number
@@ -289,20 +267,6 @@ is
 		end loop;
 	end remove_from_usergroup;
 
-	procedure remove_users_from_servergroups(
-		user_id_in in number
-	) is
-		cursor ugms is
-			select	element user_id,
-					element_two user_group_id
-			from	rhnSet
-			where	user_id = user_id_in
-				and label = 'user_group_list';
-	begin
-		for ugm in ugms loop
-			rhn_user.remove_from_usergroup(ugm.user_id, ugm.user_group_id);
-		end loop;
-	end remove_users_from_servergroups;
 end rhn_user;
  
 /

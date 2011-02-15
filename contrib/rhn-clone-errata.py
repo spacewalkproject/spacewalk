@@ -22,7 +22,6 @@
 import xmlrpclib
 from optparse import OptionParser
 import sys
-import os
 
 class RHNServer:
     def __init__(self,servername,user,passwd): 
@@ -53,7 +52,7 @@ class RHNServer:
         except  xmlrpclib.Fault, f:
             if f.faultCode==-20:
                 self.rhnLogin(self.login,self.password)
-                return self.self.server.errata.clone(self.rhnSession,dest_chan,errata)
+                return self.server.errata.clone(self.rhnSession,dest_chan,errata)
             else:
                 raise
         return out
@@ -65,7 +64,7 @@ class RHNServer:
         except  xmlrpclib.Fault, f:
             if f.faultCode==-20:
                 self.rhnLogin(self.login,self.password)
-                return self.self.server.errata.listByDate(self.rhnSession,channel_label)
+                return self.server.errata.listByDate(self.rhnSession,channel_label)
             else:
                 raise
         return out

@@ -33,8 +33,6 @@ Version 1.1
 
 our $VERSION = '1.1';
 
-use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
-
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
 use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile("/etc", "sysconfig", 
@@ -50,10 +48,10 @@ use constant DEFAULT_RHN_ETC_DIR =>
   '/etc/sysconfig/rhn';
 
 use constant DEFAULT_SATCON_DICT =>
-  '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf';
+  '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf';
 
 use constant DEFAULT_RHN_SATCON_TREE =>
-  '/etc/sysconfig/rhn-satellite-prep/etc';
+  '/var/lib/rhn/rhn-satellite-prep/etc';
 
 use constant DEFAULT_BACKUP_DIR =>
    '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;
@@ -110,6 +108,7 @@ sub parse_options {
             "run-cobbler",
             "enable-tftp:s",
                     "external-db",
+                    "db-only",
 		   );
 
   my $usage = loc("usage: %s %s\n",
@@ -211,10 +210,7 @@ sub system_debug {
   else {
     local $SIG{'ALRM'};
     if (@args == 1) {
-      set_spinning_callback();
-      my $ret = system("$args[0] 1>> $logfile 2>&1");
-      alarm 0;
-      return $ret;
+      die "Single parameter system_debug [@args] not supported.\n";
     } else {
       local *LOGFILE;
       open(LOGFILE, ">>", $logfile) or do {
@@ -312,18 +308,13 @@ sub upgrade_stop_services {
 
 my $spinning_callback_count;
 my @spinning_pattern = (
-    '~~\0/~~~~~~',
-    '~~-0-~~~~~^',
-    '~~/0\~~~~^~',
-    '~~-0-~~~^~~',
-    '~~\0/~~^~~~',
-    '~~-0-~^~~~~',
-    q|~~`o'^~~~~~|,
-    '~~o<^=><~~~',
-    '~~~^~~~~~~~',
-    '~~^~~~~~~~~',
-    '~^~~~~~~~~~',
-    '^~~~~~~~~~~',
+    '|)      ( )',
+    '+)>     ( )',
+    '|) ->   ( )',
+    '|)  ->  ( )',
+    '|)   -> ( )',
+    '|)    ->( )',
+    '|)     -(>)',
 );
 
 my $spinning_pattern_maxlength = 0;
@@ -439,7 +430,8 @@ sub clear_db {
 
     print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
 
-    system_debug('/usr/sbin/spacewalk-service --exclude=oracle* --exclude=postgresql stop');
+    # The --exclude=oracle is needed for embedded database Satellites.
+    system_debug('/usr/sbin/spacewalk-service', '--exclude=oracle', 'stop');
 
     print loc("** Database: Services stopped.  Clearing DB.\n");
 
@@ -652,51 +644,191 @@ sub set_progress_callback {
 	alarm 1;
 }
 
-sub oracle_get_database_answers {
-    my $opts = shift;
-    my $answers = shift;
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB User",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-user'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB Password",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-password'},
-        -password => 1);
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB SID",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-name'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB hostname",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-host'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB port",
-        -test => qr/\d+/,
-        -default => 1521,
-        -answer => \$answers->{'db-port'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB protocol",
-        -test => qr/\S+/,
-        -default => 'TCP',
-        -answer => \$answers->{'db-protocol'});
-
-    return;
+# Format connect data to connect string.
+sub _oracle_make_dsn_string {
+	my $data = shift;
+	if (not (defined $data->{'db-host'} and defined $data->{'db-name'})) {
+		return;
+	}
+	my $dsn = "//$data->{'db-host'}";
+	if (defined $data->{'db-port'}) {
+		$dsn .= ':' . $data->{'db-port'};
+	}
+	$dsn .= "/$data->{'db-name'}";
+	return $dsn;
 }
+
+# We attempt to connect to the database using the current db-* values.
+# Returns 0 if could not even connect, 1 if could connect but
+# login/password was wrong, and 2 if the connect was fully successful.
+sub _oracle_check_connect_info {
+	my $data = shift;
+	eval {
+		my $dbh = get_dbh($data);
+		$dbh->disconnect();
+	};
+	if (not $@) {
+		# We were able to connect to the database. Good.
+		return 2;
+	}
+	if (DBI->err() == 1017 or DBI->err() == 1005) {
+		# We at least knew the connect string, so we
+		# were able to communicate with the database.
+		return 1;
+	}
+	return 0;
+}
+
+# Called from oracle_get_database_answers, here we focus on
+# at least reaching some instance, not worrying about username
+# and password for now.
+sub oracle_get_connect_answers {
+	my $opts = shift;
+	my $answers = shift;
+
+	my $ret;
+
+	my %data;
+	$data{'db-backend'} = 'oracle';
+	$data{'db-user'} = $answers->{'db-user'};
+	$data{'db-password'} = $answers->{'db-password'};
+
+REDO_CONNECT:
+	# If the answers hold data that make it possible
+	# to create DSN, try it without asking first.
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (defined $data{'db-name'}) {
+		# Try the direct //host:port/name format.
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	if (defined $answers->{'db-name'}) {
+		# Try just the db-name directly, ignore db-host.
+		# This would work if tnsnames.ora already existed.
+		if ($ret = _oracle_check_connect_info($answers)) {
+			return $ret;
+		}
+	}
+
+	ask(
+		-noninteractive => $opts->{"non-interactive"},
+		-question => "Database service name (SID)",
+		-test => qr/\S+/,
+		-answer => \$answers->{'db-name'}
+	);
+
+	# Try the db-name as full connect (ignore host).
+	if ($ret = _oracle_check_connect_info($answers)) {
+		return $ret;
+	}
+
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (not defined $data{'db-name'}) {
+		$data{'db-name'} = $answers->{'db-name'};
+		$data{'db-host'} = 'localhost';
+		$data{'db-name'} = _oracle_make_dsn_string(\%data);
+	}
+	if (defined $data{'db-name'}) {
+		# Try db-name as SID for host (//host:port/name).
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	ask(
+		-noninteractive => $opts->{"non-interactive"},
+		-question => "Database hostname",
+		-test => qr/\S+/,
+		-default => 'localhost',
+		-answer => \$answers->{'db-host'});
+
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (defined $data{'db-name'}) {
+		# Try db-name as SID for host (//host:port/name).
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	ask(
+		-noninteractive => $opts->{"non-interactive"},
+		-question => "Database (listener) port",
+		-test => qr/\d+/,
+		-default => '1521',
+		-answer => \$answers->{'db-port'});
+
+	$data{'db-name'} = _oracle_make_dsn_string($answers);
+	if (defined $data{'db-name'}) {
+		# Try db-name as SID for host (//host:port/name).
+		if ($ret  = _oracle_check_connect_info(\%data)) {
+			# It worked, we shall set it in place of name.
+			$answers->{'db-name'} = $data{'db-name'};
+			return $ret;
+		}
+	}
+
+	print $@;
+	if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
+		exit 19;
+	}
+
+	delete @{$answers}{qw/db-host db-port db-name/};
+	goto REDO_CONNECT;
+}
+
+sub oracle_get_database_answers {
+	my $opts = shift;
+	my $answers = shift;
+
+	while (1) {
+		my $ret = oracle_get_connect_answers($opts, $answers);
+		if ($ret > 1) {
+			# Connect info was good, and even username and password were OK.
+			return;
+		}
+
+		while (1) {
+			ask(
+				-noninteractive => $opts->{"non-interactive"},
+				-question => "Username",
+				-test => qr/\S+/,
+				-answer => \$answers->{'db-user'});
+
+			ask(
+				-noninteractive => $opts->{"non-interactive"},
+				-question => "Password",
+				-test => qr/\S+/,
+				-answer => \$answers->{'db-password'},
+				-password => 1);
+
+			$ret = _oracle_check_connect_info($answers);
+			if ($ret > 1) {
+				return;
+			}
+			print $@;
+			if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
+				exit 19;
+			}
+
+			if (not $ret) {
+				# We won't try username/password, need to go
+				# back to connect check loop.
+				last;
+			}
+			delete @{$answers}{qw/db-user db-password/};
+		}
+		delete @{$answers}{qw/db-host db-port db-name/};
+	}
+}
+
 
 sub postgresql_get_database_answers {
     my $opts = shift;
@@ -773,6 +905,7 @@ sub postgresql_setup_db {
         }
     }
 
+    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password');
     postgresql_populate_db($opts, $answers);
 
     return 1;
@@ -788,9 +921,6 @@ sub postgresql_populate_db {
         print Spacewalk::Setup::loc("** Database: Skipping database population.\n");
         return 1;
     }
-
-    #my $tablespace_name = oracle_get_default_tablespace_name($answers);
-    #oracle_populate_tablespace_name($tablespace_name);
 
     if ($opts->{"clear-db"}) {
         print Spacewalk::Setup::loc("** Database: --clear-db option used.  Clearing database.\n");
@@ -820,15 +950,7 @@ sub postgresql_populate_db {
     my $sat_schema_deploy = POSTGRESQL_SCHEMA_FILE;
     my $logfile = DB_POP_LOG_FILE;
 
-    my @opts = ('/usr/bin/rhn-populate-database.pl',
-        sprintf('--user=%s', @{$answers}{'db-user'}),
-        sprintf('--password=%s', @{$answers}{'db-password'}),
-        sprintf('--database=%s', @{$answers}{'db-name'}),
-        sprintf('--host=%s', @{$answers}{'db-host'}),
-        sprintf('--port=%s', @{$answers}{'db-port'}),
-        sprintf("--schema-deploy-file=$sat_schema_deploy"),
-        sprintf('--postgresql'),
-    );
+    my @opts = ('spacewalk-sql', '--select-mode-direct', $sat_schema_deploy);
 
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => Spacewalk::Setup::DB_POP_LOG_FILE,
@@ -871,7 +993,6 @@ my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
 	drop schema rhn_channel cascade ;
 	drop schema rhn_config_channel cascade ;
 	drop schema rhn_org cascade ;
-	drop schema rhn_package cascade ;
 	drop schema rhn_user cascade ;
 	drop schema public cascade ;
 	create schema public authorization postgres ;
@@ -911,6 +1032,7 @@ sub oracle_setup_db {
     oracle_setup_embedded_db($opts, $answers);
     oracle_setup_db_connection($opts, $answers);
     oracle_test_db_settings($opts, $answers);
+    write_rhn_conf($answers, 'db-backend', 'db-name', 'db-user', 'db-password');
     oracle_populate_db($opts, $answers);
 }
 
@@ -949,14 +1071,6 @@ sub oracle_setup_embedded_db {
         $answers->{'db-name'} = 'rhnsat' if not defined $answers->{'db-name'};
         $answers->{'db-host'} = 'localhost';
         $answers->{'db-port'} = 1521;
-        $answers->{'db-protocol'} = 'TCP';
-    }
-
-    # create DB_SERVICE entry in /etc/sysconfig/rhn-satellite
-    if (! -e SATELLITE_SYSCONFIG) {
-            open(S, '>>', SATELLITE_SYSCONFIG)
-                or die loc("Could not open '%s' file: %s\n", SATELLITE_SYSCONFIG, $!);
-            close(S);
     }
 
 
@@ -1045,20 +1159,10 @@ sub oracle_setup_db_connection {
     while (not $connected) {
         oracle_get_database_answers($opts, $answers);
 
-        my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
-
-        system_or_exit([ "/usr/bin/rhn-config-tnsnames.pl",
-            "--target=/etc/tnsnames.ora",
-            "--sid=" . $answers->{'db-name'},
-            "--address=$address" ],
-            18,
-            "Could not update tnsnames.ora");
-
         my $dbh;
 
         eval {
-            $dbh = get_dbh($answers);
-            $dbh->disconnect();
+            oracle_check_db_version($answers);
         };
         if ($@) {
             print loc("Could not connect to the database.  Your connection information may be incorrect.  Error: %s\n", $@);
@@ -1066,7 +1170,7 @@ sub oracle_setup_db_connection {
                 exit 19;
             }
 
-            delete @{$answers}{qw/db-protocol db-host db-port db-user db-name db-password/};
+            delete @{$answers}{qw/db-host db-port db-user db-name db-password/};
         }
         else {
             $connected = 1;
@@ -1097,12 +1201,12 @@ EOQ
     $sth->finish();
     $dbh->disconnect();
 
-    my $version = join('', (split(/\./, $v))[0 .. 2]);
-    my @allowed_db_versions = qw/1120 1110 1020 920/;
+    my $version = join('.', (split(/\./, $v))[0 .. 2]);
+    my @allowed_db_versions = qw/11.2.0 11.1.0 10.2.0/;
 
-    unless (grep { $version == $_ } @allowed_db_versions) {
-        print loc("Invalid db version: (%s, %s)\n", $v, $c);
-        exit 20;
+    unless (grep { $version eq $_ } @allowed_db_versions) {
+        die "Version [$version] is not supported (does not match "
+                . join(', ', @allowed_db_versions) . ").\n";
     }
 
     return 1;
@@ -1114,7 +1218,6 @@ sub oracle_test_db_settings {
 
   print loc("** Database: Testing database connection.\n");
 
-  oracle_check_db_version($answers);
   oracle_check_db_privs($answers);
   oracle_check_db_tablespace_settings($answers);
   oracle_check_db_charsets($answers);
@@ -1291,19 +1394,7 @@ sub oracle_populate_db {
         File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
     my $logfile = DB_POP_LOG_FILE;
 
-#    my @opts = ('/usr/bin/rhn-populate-database.pl',
-#        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-name/}),
-#        "--schema-deploy-file=$sat_schema_deploy",
-#        '--nofork',
-#    );
-    my @opts = ('/usr/bin/rhn-populate-database.pl',
-        sprintf('--user=%s', @{$answers}{'db-user'}),
-        sprintf('--password=%s', @{$answers}{'db-password'}),
-        sprintf('--database=%s', @{$answers}{'db-name'}),
-        sprintf('--host=%s', @{$answers}{'db-host'}),
-        sprintf("--schema-deploy-file=$sat_schema_deploy"),
-    );
-
+    my @opts = ('spacewalk-sql', '--select-mode-direct', $sat_schema_deploy);
 
     if (have_selinux()) {
       local *X; open X, '> ' . DB_POP_LOG_FILE and close X;
@@ -1538,7 +1629,7 @@ sub update_monitoring_scout {
 		update rhn_sat_node
 			set ip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where ip = '127.0.0.1' and
 			recid = 2};
 
@@ -1546,7 +1637,7 @@ sub update_monitoring_scout {
 		update rhn_sat_cluster
 			set vip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where vip = '127.0.0.1' and
 			recid = 1};
 
@@ -1555,7 +1646,7 @@ sub update_monitoring_scout {
 		update rhn_sat_node
 			set ip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where ip is null and
 			recid = 2};
 
@@ -1563,7 +1654,7 @@ sub update_monitoring_scout {
 		update rhn_sat_cluster
 			set vip = ?,
 			last_update_user = 'upgrade',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where vip is null and
 			recid = 1};
 
@@ -1591,6 +1682,23 @@ sub update_monitoring_ack_enqueuer {
 		unlink($l);
 		symlink($t, $l);
 	}
+}
+
+# Write subset of $answers to /etc/rhn/rhn.conf.
+sub write_rhn_conf {
+	my $answers = shift;
+
+	my $rhnconf = DEFAULT_RHN_CONF_LOCATION;
+	local *RHNCONF;
+	open RHNCONF, '>', $rhnconf or die "Error writing [$rhnconf]: $!\n";
+	for my $n (@_) {
+		if (defined $answers->{$n}) {
+			my $name = $n;
+			$name =~ s!-!_!g;
+			print RHNCONF "$name = $answers->{$n}\n";
+		}
+	}
+	close RHNCONF;
 }
 
 =head1 DESCRIPTION

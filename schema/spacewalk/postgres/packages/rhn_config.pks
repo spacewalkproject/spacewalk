@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 8d34647e8827f2df28d6de06df04340eb7fd1528
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,8 +37,6 @@ create or replace function insert_revision (
 		config_file_id_in in numeric,
 		config_content_id_in in numeric,
 		config_info_id_in in numeric,
-		delim_start_in in varchar default '{@',
-		delim_end_in in varchar default '@}',
 		config_file_type_id_in numeric default 1
 	) returns numeric
 as $$    

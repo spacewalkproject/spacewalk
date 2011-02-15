@@ -1,0 +1,175 @@
+#!/usr/bin/perl -CSAD
+
+use strict;
+use warnings FATAL => 'all';
+
+use Getopt::Long ();
+use DBI ();
+
+my ($db, $user, $password);
+
+sub usage {
+	print "$0: --db=SID --user=USERNAME --password=PASSWORD [ --help ]\n";
+	if ($@) {
+		exit shift;
+	}
+	exit;
+}
+
+Getopt::Long::GetOptions (
+	'db=s' => \$db,
+	'user=s' => \$user,
+	'password=s' => \$password,
+	'help' => \&usage,
+) or exit 1;
+
+if (grep { not defined $_ } $db, $user, $password) {
+	usage(2);
+}
+
+$ENV{NLS_LANG} = 'AMERICAN_AMERICA.UTF8';
+my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, {
+	RaiseError => 1,
+	FetchHashKeyName => 'NAME_lc',
+	LongReadLen => 10_000_000,
+	LongTruncOk => 0,
+});
+$dbh->do(q!alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS'!);
+
+print <<'EOS';
+\set ON_ERROR_STOP on
+EOS
+process_sequences($dbh);
+process_tables($dbh);
+$dbh->disconnect();
+
+exit 0;
+
+sub process_sequences {
+	my $dbh = shift;
+	my $sth = $dbh->prepare(q!
+		select lower(sequence_name) sequence_name, last_number
+		from user_sequences
+		order by sequence_name
+	!);
+	$sth->execute();
+	while (my $row = $sth->fetchrow_hashref()) {
+		print "select pg_catalog.setval('$row->{sequence_name}', $row->{last_number}, false);\n";
+	}
+}
+
+sub process_tables {
+	my $dbh = shift;
+	my $tables = $dbh->selectcol_arrayref(q!
+		select lower(table_name) table_name
+		from user_tables
+		order by table_name
+	!);
+	for (@$tables) {
+		print "alter table $_ disable trigger all;\n";
+	}
+	for (@$tables) {
+		print "delete from $_;\n";
+		# print "commit;\n";
+	}
+	for (@$tables) {
+		next if /^qrtz_/;		# skip the quartz tables, they get regenerated anyway
+		process_table($dbh, $_);
+	}
+	for (@$tables) {
+		print "alter table $_ enable trigger all;\n";
+	}
+}
+
+sub process_table {
+	my ($dbh, $table) = @_;
+	my $sth = $dbh->prepare("select * from $table");
+	$sth->execute();
+	my $row = $sth->fetchrow_arrayref();
+	if (not $row) {
+		return;
+	}
+	my $names = $sth->{NAME_lc};
+	my $types = $sth->{TYPE};
+	my @types;
+	for (my $i = 0; $i < @$types; $i++) {
+		my $type = eval { $dbh->type_info($types->[$i])->{TYPE_NAME} };
+		push @types, ( defined $type ? $type : 'unknown' );
+	}
+	print "-- Types for $table: @types\n";
+	print qq!copy $table(@{[ join ',', @$names ]}) from stdin;\n!;
+	while ($row) {
+		for (my $i = 0; $i < @$row; $i++) {
+			print "\t" if $i;
+			if (defined $row->[$i]) {
+				if (ref $row->[$i] and ref $row->[$i] eq 'ARRAY') {	# user types
+					no warnings 'uninitialized';
+					$row->[$i] = "(@{[ join ',', @{$row->[$i]} ]})";
+				} elsif ($types[$i] eq 'unknown') {			# blobs
+					$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
+				} else {
+					$row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "\\x%02x", ord($1) !seg;
+				}
+				print $row->[$i];
+			} else {
+				print '\N';
+			}
+		}
+		print "\n";
+		$row = $sth->fetchrow_arrayref();
+	}
+	print "\\.\n";
+}
+
+1;
+
+__END__
+
+=head1 NAME
+
+spacewalk-dump-schema
+
+=head1 SYNOPSIS
+
+	spacewalk-dump-schema --db=SID \
+		--user=USERNAME --password=PASSWORD
+
+	spacewalk-dump-schema --help
+
+=head1 DESCRIPTION
+
+The B<spacewalk-dump-schema> script dumps the content of Spacewalk's
+Oracle database schema in format which can be fed to PostgreSQL's
+B<psql>. Thus it can be used to convert Spacewalk with Oracle database
+backend to the one which uses PostgreSQL database backend.
+
+The script connects to the Oracle instance, so that one must be
+running and accessible with given connect parameter.
+
+The output is printed to the standard output. It can be piped to
+B<psql> directly in which case the PostgreSQL server must also be
+running, or you can redirect it to a file and use that file as
+input for B<psql> later.
+
+The database schema in PostgreSQL must already exist, created by
+(probably) B<spacewalk-setup>. The output of this script does not
+create any tables or other database objects, it only emits commands
+to set sequences and table contents in the PostgreSQL database schema.
+Any existing content in those PostgreSQL tables is discarded, data
+is not appended.
+
+The exit value is 0 upon success, non-zero value upon error.
+
+=head1 EXAMPLE
+
+	spacewalk-dump-schema --db=xe \
+		--user=spacewalk --password=o9k2HInsl \
+		| PGPASSWORD=o9k2HInsl psql -h localhost \
+			-U spaceuser spaceschema
+
+=head1 AUTHOR
+
+Jan Pazdziora
+
+=cut
+

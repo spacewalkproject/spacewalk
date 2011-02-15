@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,12 +35,6 @@ LOGGING
 
 CREATE INDEX rhn_snc_pid_idx
     ON rhnServerNeededCache (package_id)
-    NOPARALLEL
-    TABLESPACE [[128m_tbs]]
-    NOLOGGING;
-
-CREATE INDEX rhn_snc_sid_idx
-    ON rhnServerNeededCache (server_id)
     NOPARALLEL
     TABLESPACE [[128m_tbs]]
     NOLOGGING;

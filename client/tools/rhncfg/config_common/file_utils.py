@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,11 +14,10 @@
 #
 
 import os
-import os.path
 import time
 import tempfile
 import base64
-from config_common.rhn_log import log_debug
+import difflib
 try:
     from selinux import lgetfilecon
 except:
@@ -40,17 +39,20 @@ class FileProcessor:
     def process(self, file_struct, directory=None, strict_ownership=1):
         # Older servers will not return directories; if filetype is missing,
         # assume file
-    	if file_struct.get('filetype') == 'directory':
-                return directory, []
 
+    	if file_struct.get('filetype') == 'directory':
+                file_struct['path'] = directory + file_struct['path']
+                return file_struct['path'], []
+
+        if directory:
+            directory += os.path.split(file_struct['path'])[0]
         if file_struct.get('filetype') == 'symlink':
             if not file_struct.has_key('symlink'):
                 raise Exception, "Missing key symlink"
 
-            (dirname, filename) = os.path.split(file_struct['path'])
-            temppath = ".rhn-cfg-tmp_%s_%s_%.8f" % (filename, os.getpid(), time.time())
-            os.symlink(file_struct['symlink'], temppath)
-            return temppath, []
+            (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
+                                  directory=directory, symlink=file_struct['symlink'])
+            return fullpath, dirs_created
 
         for k in self.file_struct_fields.keys():
             if not file_struct.has_key(k):
@@ -116,8 +118,7 @@ class FileProcessor:
                 else:
                     raise e
         else:
-            pipe = os.popen("/usr/bin/diff -u %s %s" % (path, temp_file))
-            result = pipe.read()
+            result = ''.join(diff(path, temp_file))
 
         os.unlink(temp_file)
         return sectx_result + result
@@ -129,7 +130,33 @@ class FileProcessor:
                 raise Exception, "Missing key %s" % k
         
 
-def maketemp(prefix=None, directory=None):
+def diff(src, dst, srcname=None, dstname=None):
+    def f_content(path, name):
+        if os.access(path, os.R_OK):
+            f = open(path, 'U')
+            content = f.readlines()
+            f.close()
+            f_time = time.ctime(os.stat(path).st_mtime)
+            if content and content[-1] and content[-1][-1] != "\n":
+                content[-1] += "\n"
+        else:
+            content = []
+            f_time = time.ctime(0)
+        if not name:
+            name = path
+        return (content, name, f_time)
+
+    (src_content, src_name, src_time) = f_content(src, srcname)
+    (dst_content, dst_name, dst_time) = f_content(dst, dstname)
+
+    diff_u = difflib.unified_diff(src_content, dst_content,
+                                  src_name, dst_name,
+                                  src_time, dst_time)
+    return list(diff_u)
+
+
+
+def maketemp(prefix=None, directory=None, symlink=None):
     """Creates a temporary file (guaranteed to be new), using the
        specified prefix.
 
@@ -149,5 +176,11 @@ def maketemp(prefix=None, directory=None):
     file_prefix = "%s-%s-" % (prefix, os.getpid())
     (fd, filename) = tempfile.mkstemp(prefix=file_prefix, dir=directory)
 
-    return filename, dirs_created, os.fdopen(fd, "w+")
+    if symlink:
+        os.unlink(filename)
+        os.symlink(symlink, filename)
+        open_file = None
+    else:
+        open_file = os.fdopen(fd, "w+")
 
+    return filename, dirs_created, open_file

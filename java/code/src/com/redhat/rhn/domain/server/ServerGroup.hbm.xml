@@ -13,28 +13,28 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		</id>
 		<discriminator column = "group_type"
 				type="string"/>
-				
+
 		<property name="name" column="name" type="string" length="64" />
 		<property name="description" column="description" type="string"
 			length="1024" />
-		
+
 		<property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
-		
+
 		<many-to-one name="groupType"
 				class="com.redhat.rhn.domain.server.ServerGroupType"
 				column="group_type" cascade="none" insert="false"
 				update="false" lazy="false"/>
-						
+
         <many-to-one
             name="org"
             class="com.redhat.rhn.domain.org.Org"
             column="org_id"
             />
 
-		
+
         <subclass name="com.redhat.rhn.domain.server.ManagedServerGroup"
                 discriminator-value="null">
     		<set name="associatedAdmins" lazy="true" table="rhnUserServerGroupPerms"
@@ -95,7 +95,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="ServerGroup.lookupAdministrators">
         <![CDATA[ select {wc.*}
-					from WEB_CONTACT wc	
+					from WEB_CONTACT wc
 					inner join rhnUserManagedServerGroups umsg on wc.id = umsg.user_id
 					inner join rhnServerGroup SG on SG.id = umsg.server_group_id
                   where
@@ -174,7 +174,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 						inner join rhnServer S on SGM.server_id = s.id
 						inner join rhnServerInfo SI on S.id = SI.server_id
 				 WHERE
-					SI.checkin >= (sysdate - :threshold) AND
+					SI.checkin >= current_timestamp - numtodsinterval(:threshold, 'day') AND
 					SGM.server_group_id = :sgid
         ]]>
     </sql-query>
@@ -186,8 +186,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				  		inner join rhnServer S on SGM.server_id = s.id
 				  		inner join rhnServerInfo SI on S.id = SI.server_id
 				 WHERE
-					SI.checkin < (sysdate - :threshold) AND
+					SI.checkin < current_timestamp - numtodsinterval(:threshold, 'day') AND
 					SGM.server_group_id = :sgid
         ]]>
-    </sql-query>                	
+    </sql-query>
 </hibernate-mapping>

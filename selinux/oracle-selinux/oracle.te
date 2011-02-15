@@ -1,9 +1,4 @@
-policy_module(oracle,1.1.1)
-
-########################################
-#
-# $Id: oracle.te 1558 2008-04-16 21:25:05Z rm153 $
-#
+policy_module(oracle,1.1.2)
 
 ########################################
 #
@@ -78,8 +73,12 @@ oracle_management_role(sysadm_r)
 #
 
 # define oracle ports
-type oracle_port_t;
-corenet_port(oracle_port_t)
+# The following two lines are not in oracle-port.te.
+# type oracle_port_t;
+# corenet_port(oracle_port_t)
+gen_require(`
+	type oracle_port_t;
+')
 # for RHEL5.0 policy
 #corenet_port_type(oracle_port_t)
 
@@ -200,3 +199,22 @@ tunable_policy(`oracle_11g_support',`
 ')
 
 role unconfined_r types oracle_sqlplus_t;
+
+optional_policy(`
+	gen_require(`
+		type user_devpts_t;
+		type devpts_t;
+		class chr_file { read append getattr };
+	')
+
+	dontaudit oracle_db_t user_devpts_t:chr_file { read append getattr };
+	dontaudit oracle_db_t devpts_t:dir search;
+	dontaudit oracle_tnslsnr_t user_devpts_t:chr_file { read append };
+')
+
+require {
+	class netlink_route_socket { write getattr read bind create nlmsg_read };
+}
+
+allow oracle_sqlplus_t self:netlink_route_socket { write getattr read bind create nlmsg_read };
+dev_list_sysfs(oracle_sqlplus_t)

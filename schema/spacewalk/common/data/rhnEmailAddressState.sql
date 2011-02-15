@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,15 +18,15 @@
 -- data for rhnEmailAddressState
 
 insert into rhnEmailAddressState ( id, label )
-	values (rhn_eastate_id_seq.nextval, 'unverified');
+	values (sequence_nextval('rhn_eastate_id_seq'), 'unverified');
 insert into rhnEmailAddressState ( id, label )
-	values (rhn_eastate_id_seq.nextval, 'pending');
+	values (sequence_nextval('rhn_eastate_id_seq'), 'pending');
 insert into rhnEmailAddressState ( id, label )
-	values (rhn_eastate_id_seq.nextval, 'pending_warned');
+	values (sequence_nextval('rhn_eastate_id_seq'), 'pending_warned');
 insert into rhnEmailAddressState ( id, label )
-	values (rhn_eastate_id_seq.nextval, 'verified');
+	values (sequence_nextval('rhn_eastate_id_seq'), 'verified');
 insert into rhnEmailAddressState ( id, label )
-	values (rhn_eastate_id_seq.nextval, 'needs_verifying');
+	values (sequence_nextval('rhn_eastate_id_seq'), 'needs_verifying');
 	
 commit;
 

@@ -10,7 +10,7 @@
 		           headerkey="systemlist.jsp.monitoring"
 		           styleclass="center"
 		           headerclass="row-2 thin-column">
-		    <c:out value="<a href=\"/rhn/systems/details/probes/ProbesList.do?sid=${current.id}\""  escapeXml="false"/>
+		    <c:out value="<a href=\"/rhn/systems/details/probes/ProbesList.do?sid=${current.id}\">"  escapeXml="false"/>
 
             <c:if test="${current.monitoringStatus == 'CRITICAL'}">
                 <img src="/img/rhn-mon-down.gif"

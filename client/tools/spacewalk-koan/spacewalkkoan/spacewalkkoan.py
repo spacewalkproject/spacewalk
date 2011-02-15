@@ -22,7 +22,6 @@ import shutil
 import sys
 import types
 import os
-import subprocess
 import os.path
 import tempfile
 import xmlrpclib
@@ -274,15 +273,35 @@ def _remove_func(path):
 
 def my_popen(cmd):
     print "CMD: %s " % cmd
-    c = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+
+    subproc = 1
+    try:
+        import subprocess
+    except ImportError:
+        #RHEL 4 (python 2.3) doesn't have subprocess
+        import popen2
+        subproc = 0
+
+    if subproc:
+        c = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                  stderr=subprocess.PIPE, close_fds=True, bufsize=-1)
-    c.stdin.close()
-    while 1:
-        status = c.poll()
-        if status is not None:
-            # Save the exit code, we still have to read from
-            # the pipes
-            return status, c.stdout, c.stderr
+        c.stdin.close()
+        while 1:
+            status = c.poll()
+            if status is not None:
+                # Save the exit code, we still have to read from
+                # the pipes
+                return status, c.stdout, c.stderr
+    else:
+        c = popen2.Popen3(cmd, capturestderr=1, bufsize=-1)
+        c.tochild.close()
+
+        while 1:
+            status = c.poll()
+            if os.WIFEXITED(status):
+                # Save the exit code, we still have to read from
+                # the pipes
+                return os.WEXITSTATUS(status), c.fromchild, c.childerr
 
 def _build_error(status, stdout, stderr):
     params = {

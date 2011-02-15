@@ -98,32 +98,14 @@ VALUES (null,			-- the id is set by trigger on rhnRepoRegenQueue
 SELECT C.label AS label,
        C.name AS name,
        NVL(C2.label, ' ') AS parent_label
-  FROM rhnChannel C2,
-       rhnChannel C,
+  FROM rhnChannel C
+       LEFT OUTER JOIN rhnChannel C2 ON C.parent_channel = C2.id,
        rhnAvailableChannels AC,
        rhnChannelPackage CP
  WHERE AC.org_id = :org_id
    AND CP.package_id = :pid
    AND AC.channel_id = CP.channel_id
    AND CP.channel_id = C.id
-   AND C.parent_channel = C2.id (+)
-ORDER BY UPPER(C.name)
-  </query>
-</mode>
-
-<mode name="org_pkg_channel_ids">
-  <query params="org_id, pid">
-SELECT C.id AS channel_id
-  FROM rhnChannel C2,
-       rhnChannel C,
-       rhnAvailableChannels AC,
-       rhnChannelPackage CP
- WHERE AC.org_id = :org_id
-   AND C.org_id = :org_id
-   AND CP.package_id = :pid
-   AND AC.channel_id = CP.channel_id
-   AND CP.channel_id = C.id
-   AND C.parent_channel = C2.id (+)
 ORDER BY UPPER(C.name)
   </query>
 </mode>
@@ -189,26 +171,6 @@ ORDER BY C.parent_channel NULLS LAST, UPPER(C.name)
 </mode>
 
 
-<mode name="channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
-  <query params="channel_label, download_type, org_id">
-SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
-  FROM rhnDownloads RD,
-       rhnDownloadType DT,
-       rhnAvailableChannels AC,
-       rhnChannelDownloads CD,
-       rhnChannel C
- WHERE AC.org_id = :org_id
-   AND RD.id = CD.downloads_id
-   AND CD.channel_id = C.id
-   AND C.label = :channel_label
-   AND C.id = AC.channel_id
-   AND DT.id = RD.download_type
-   AND DT.label = :download_type
-GROUP BY RD.category
-ORDER BY MIN(ordering)
-  </query>
-</mode>
-
 <mode name="channel_downloads_by_type" class="com.redhat.rhn.frontend.dto.ISOImage">
   <query params="channel_label, download_type, org_id" >
 SELECT RD.name AS DOWNLOAD_NAME,
@@ -241,29 +203,6 @@ SELECT FL.file_id id, FL.location LOCATIONS
   FROM rhnFileLocation FL
  WHERE FL.file_id in (%s)
   </elaborator>
-</mode>
-
-
-<mode name="satellite_channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
-  <query params="channel_label, download_type, org_id">
-SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
-  FROM rhnDownloads RD,
-       rhnDownloadType DT,
-       rhnSatelliteChannelFamily SCF,
-       rhnServer S,
-       rhnChannelDownloads CD,
-       rhnChannel C
- WHERE S.org_id = :org_id
-   AND S.id = SCF.server_id
-   AND RD.id = CD.downloads_id
-   AND CD.channel_id = C.id
-   AND C.label = :channel_label
-   AND RD.channel_family_id = SCF.channel_family_id
-   AND DT.id = RD.download_type
-   AND DT.label = :download_type
-GROUP BY RD.category
-ORDER BY MIN(ordering)
-  </query>
 </mode>
 
 
@@ -309,12 +248,7 @@ SELECT FL.file_id id, L.label LOCATIONS
 SELECT AC.channel_id AS ID,
        AC.channel_name AS NAME,
        rhn_channel.user_role_check(AC.channel_id, :user_id, 'subscribe') AS HAS_PERM,
-       DECODE(
-rhn_channel.org_channel_setting(AC.channel_id, :org_id,'not_globally_subscribable'),
-0,
-1,
-NULL
-       ) AS GLOBALLY_SUBSCRIBABLE
+       CASE rhn_channel.org_channel_setting(AC.channel_id, :org_id,'not_globally_subscribable') WHEN 0 THEN 1 ELSE NULL END AS GLOBALLY_SUBSCRIBABLE
   FROM rhnAvailableChannels AC
  WHERE AC.org_id = :org_id
 ORDER BY UPPER(AC.channel_name)
@@ -345,9 +279,9 @@ ORDER BY UPPER(C.name)
 SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url,
 		CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
 		(select count(*)
-		    from rhnServerChannel sc 
+		    from rhnServerChannel sc
 		         inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id
-		         inner join rhnServer s on s.id = sc.server_id 
+		         inner join rhnServer s on s.id = sc.server_id
 		     where CFM.channel_family_id = CFO.id and s.org_id = cfo.org_id) as subscribe_count
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.org_id = :org_id
@@ -497,7 +431,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	 rhnUserChannel UC on UC.channel_id = C.id
         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
 	 where UC.user_id = :user_id  and
-	 C.end_of_life &lt; sysdate
+	 C.end_of_life &lt; current_timestamp
     </query>
       <elaborator name="visible_server_count"/>
 </mode>
@@ -589,8 +523,8 @@ AND    wc.id  = rto.org_trust_id
 
 <mode name="channel_family_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id, family_id">
-SELECT DISTINCT C.name NAME,
-       C.id ID,
+SELECT DISTINCT C.name AS NAME,
+       C.id AS ID,
        C.parent_channel as parent_id,
        (
          SELECT COUNT(P.package_id)
@@ -619,9 +553,9 @@ SELECT DISTINCT C.name NAME,
 
 <mode name="channels_with_downloads_tree_full" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -646,9 +580,9 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channels_with_downloads_tree_supported" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -674,9 +608,9 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channels_with_downloads_tree_retired" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -702,7 +636,7 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channel_tree_ssm_install">
   <query params="org_id, user_id, set_label">
-SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
+SELECT  ACh.channel_name AS NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
   FROM  rhnAvailableChannels ACh
  WHERE  ACh.org_id = :org_id
    AND  (    ACh.channel_arch_id = lookup_channel_arch('channel-ia32')
@@ -726,8 +660,8 @@ ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_sel
 
 <mode name="all_channels_tree">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
         UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
@@ -782,18 +716,6 @@ ORDER BY UPPER(C2.name), depth, UPPER(C.name)
      AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
 GROUP BY SC.channel_id
 </query>
-
-<mode name="subscribable_base_channels_for_system">
-  <query params="org_id, server_id">
-SELECT  C.id, C.label, C.name
-  FROM  rhnChannel C, rhnServerChannelArchCompat SCAC, rhnServer S
- WHERE  C.parent_channel IS NULL
-   AND  C.org_id = :org_id
-   AND  S.id = :server_id
-   AND  S.server_arch_id = SCAC.server_arch_id
-   AND  SCAC.channel_arch_id = C.channel_arch_id
-  </query>
-</mode>
 
 <mode name="base_channels_for_org"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
@@ -922,15 +844,14 @@ SELECT C.id as channel_id,
        C.label as label,
        C.name as name,
        NVL(C2.label, ' ') as parent_channel_label
-  FROM rhnChannel C2,
-       rhnChannel C,
+  FROM rhnChannel C
+       LEFT OUTER JOIN rhnChannel C2 ON C.parent_channel = C2.id,
        rhnAvailableChannels AC,
        rhnChannelErrata EC
  WHERE EC.errata_id = :eid
    AND AC.org_id = :org_id
    AND AC.channel_id = EC.channel_id
    AND EC.channel_id = C.id
-   AND C.parent_channel = C2.id (+)
 ORDER BY UPPER(C.name)
   </query>
 </mode>
@@ -940,25 +861,6 @@ ORDER BY UPPER(C.name)
       {call rhn_channel.subscribe_server(:server_id, :channel_id, 1, :user_id)}
   </query>
 </callable-mode>
-
-<write-mode name="flag_server_channels_changed">
-   <query params="server_id">
-      UPDATE rhnServer SET channels_changed = sysdate WHERE id = :server_id
-   </query>
-</write-mode>
-
-<write-mode name="log_channel_history">
-   <query params="server_id, channel_id, channel_label, message">
-       INSERT INTO rhnServerHistory (id, server_id, summary, details) (
-                SELECT  rhn_event_id_seq.nextval,
-                        :server_id,
-                        :message,
-                        :channel_label
-                FROM    rhnChannel c
-                WHERE   c.id = :channel_id
-            )
-   </query>
-</write-mode>
 
 <callable-mode name="unsubscribe_server_from_channel">
   <query params="server_id, channel_id">
@@ -1109,7 +1011,7 @@ SELECT  DISTINCT CP.channel_id as id
 
 <mode name="children_in_set" class="com.redhat.rhn.frontend.dto.ChildChannelDto">
   <query params="user_id">
-select distinct id, name, label, 1 subscribable, parent_id  from (
+select distinct id, name, label, 1 subscribed, parent_id  from (
 select 	c.id,
 		c.name,
 		c.label,
@@ -1160,7 +1062,7 @@ where	st.user_id = :user_id
 	and rhn_channel.user_role_check(cfm.channel_id,:user_id,'subscribe')=1
 	and usp.user_id = :user_id
 	and st.element = usp.server_id
-)
+) U
   </query>
 </mode>
 
@@ -1256,7 +1158,7 @@ END;
     SELECT DISTINCT c1.id as id,
        (select name from rhnChannel C2 where c1.parent_channel = c2.id) parent,
        c1.name as name,
-       CASE WHEN (SELECT 1 FROM rhnRegTokenChannels WHERE :token_id = 2 AND channel_id = c1.id)
+       CASE WHEN (SELECT 1 FROM rhnRegTokenChannels WHERE token_id = :token_id AND channel_id = c1.id)
        IS NOT NULL THEN 'selected' ELSE '' END s
     FROM rhnChannel c1 inner join rhnUserChannel UC on UC.channel_id = C1.id
     AND c1.parent_channel IS NOT NULL
@@ -1264,11 +1166,5 @@ END;
     ORDER BY parent, name
   </query>
 </mode>
-<callable-mode name="can_convert_to_flex">
-  <query params="result, sid, cfid">
-      {:result = call rhn_channel.convert_to_fve(:sid, :cfid)}
-  </query>
-</callable-mode>
 
 </datasource_modes>
-

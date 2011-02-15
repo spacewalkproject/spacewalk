@@ -21,7 +21,9 @@
 from backend import Backend
 from backendLib import DBint, DBstring, DBdateTime, DBblob, Table, \
         TableCollection
-from server import rhnSQL
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
+from spacewalk.common import CFG
 
 class OracleBackend(Backend):
     tables = TableCollection(
@@ -68,15 +70,23 @@ class OracleBackend(Backend):
             attribute   = 'obsoletes',
             map         = { 'sense' : 'flags', },
         ),
-        Table('rhnPackageChangeLog',
+        Table('rhnPackageChangeLogRec',
             fields      = {
+                'id'            : DBint(),
                 'package_id'    : DBint(),
+                'changelog_data_id'    : DBint(),
+            },
+            pk          = ['package_id', 'changelog_data_id'],
+            attribute   = 'changelog',
+            sequenceColumn = 'id',
+        ),
+        Table('rhnPackageChangeLogData',
+            fields      = {
+                'id'            : DBint(),
                 'name'          : DBstring(128),
                 'text'          : DBstring(3000),
                 'time'          : DBdateTime()
             },
-            pk          = ['package_id', 'name', 'text', 'time'],
-            attribute   = 'changelog',
         ),
         Table('rhnPackageFile',
             fields      = {
@@ -584,3 +594,10 @@ class PostgresqlBackend(OracleBackend):
         """
         return Backend.init(self)
 
+def SQLBackend():
+    if CFG.DB_BACKEND == ORACLE:
+        backend = OracleBackend()
+    elif CFG.DB_BACKEND == POSTGRESQL:
+        backend = PostgresqlBackend()
+    backend.init()
+    return backend

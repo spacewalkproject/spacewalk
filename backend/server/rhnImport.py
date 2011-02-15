@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,23 +17,21 @@
 import os
 import sys
 
-from common import log_debug, log_error
+from spacewalk.common import log_debug, log_error
 
 class Loader:
     # Class that saves the state of imported objects
     _imports = {}
 
-    def load(self, dir, root_dir=None, interface_signature='rpcClasses'):
+    def load(self, dir, interface_signature='rpcClasses'):
         # The key we use for caching
+        root_dir = "/usr/share/rhn"
         key = (dir, root_dir, interface_signature)
 
         if self._imports.has_key(key):
             return self._imports[key]
 
-        if root_dir is None:
-            dirname = dir
-        else:
-            dirname = "%s/%s" % (root_dir, dir)
+        dirname = "%s/%s" % (root_dir, dir)
 
         # We need to import things
         if root_dir is not None and root_dir not in sys.path:
@@ -96,4 +94,4 @@ def load(dir, root_dir = None, interface_signature='rpcClasses'):
     """
 
     l = Loader()
-    return l.load(dir, root_dir=root_dir, interface_signature=interface_signature)
+    return l.load(dir, interface_signature=interface_signature)

@@ -49,7 +49,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @param writer The writer object for primary xml
      */
     public PrimaryXmlWriter(Writer writer) {
-        super(writer);
+        super(writer, false);
     }
 
     /**

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2010 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,14 +16,14 @@
 
 import time
 import xmlrpclib
-from common import apache
+from spacewalk.common import apache
 
-from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
+from spacewalk.common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnException, rhnFlags
-from common.rhnTranslate import _
-from server import rhnSQL, rhnImport
-from satellite_tools.disk_dumper.dumper import ClosedConnectionError
-from satellite_tools import constants
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL, rhnImport
+from spacewalk.satellite_tools.disk_dumper.dumper import ClosedConnectionError
+from spacewalk.satellite_tools import constants
 
 class BaseApacheServer:
     def __init__(self):
@@ -61,9 +61,7 @@ class BaseApacheServer:
         rhnSQL.initDB(CFG.DEFAULT_DB)
         self.server = options['SERVER']
 
-        root_dir = options["RootDir"]
-        self.server_classes = rhnImport.load("satellite_exporter/handlers",
-            root_dir=root_dir)
+        self.server_classes = rhnImport.load("satellite_exporter/handlers")
 
         if not self.server_classes.has_key(self.server):
             # XXX do something interesting here
@@ -231,7 +229,7 @@ class ApacheServer(BaseApacheServer):
             raise rhnException("Invalid server version string %s"
                 % server_version)
 
-        if client_major != server_major or server_minor < client_minor:
+        if client_major != server_major:
             raise rhnFault(3012, "Client version %s does not match"
                 " server version %s" % (client_version, server_version),
                 explain=0)

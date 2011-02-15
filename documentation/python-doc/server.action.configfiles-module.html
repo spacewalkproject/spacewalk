@@ -78,7 +78,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="mtime_upload"></a><span class="summary-sig-name">mtime_upload</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.configfiles-pysrc.html#mtime_upload">source&nbsp;code</a></span>
             
@@ -95,7 +96,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="upload"></a><span class="summary-sig-name">upload</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.configfiles-pysrc.html#upload">source&nbsp;code</a></span>
             
@@ -112,7 +114,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="deploy"></a><span class="summary-sig-name">deploy</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.configfiles-pysrc.html#deploy">source&nbsp;code</a></span>
             
@@ -129,7 +132,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="verify"></a><span class="summary-sig-name">verify</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.configfiles-pysrc.html#verify">source&nbsp;code</a></span>
             
@@ -146,7 +150,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="diff"></a><span class="summary-sig-name">diff</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.configfiles-pysrc.html#diff">source&nbsp;code</a></span>
             
@@ -202,54 +207,57 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_upload_files" class="summary-name" onclick="show_private();">_query_upload_files</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441356; statement=
+        <a href="server.action.configfiles-module.html#_query_upload_files" class="summary-name" onclick="show_private();">_query_upload_files</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51811896; stat\
+ement=
     select cfn.path
       from rhnActionConfigFileName acfn, rhnConfigFileName cfn
      where acfn.server_id = :server_id
        and acfn.action_id = :action_id
        and acfn.config_file_name_id = cfn.id
-">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_mtime_upload_info" class="summary-name" onclick="show_private();">_query_mtime_upload_info</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441516; statement=
+        <a href="server.action.configfiles-module.html#_query_mtime_upload_info" class="summary-name" onclick="show_private();">_query_mtime_upload_info</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51811968; stat\
+ement=
     select TO_CHAR(start_date, 'YYYY-MM-DD HH24:MI:SS') as start_date,
            TO_CHAR(end_date, 'YYYY-MM-DD HH24:MI:SS') as end_date,
            TO_CHAR(sysdate, 'YYYY-MM-DD HH24:MI:SS') as now,
            import_contents
       from rhnActionConfigDate
      where action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.S<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_mtime_upload_paths" class="summary-name" onclick="show_private();">_query_mtime_upload_paths</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441484; statement=
+        <a href="server.action.configfiles-module.html#_query_mtime_upload_paths" class="summary-name" onclick="show_private();">_query_mtime_upload_paths</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51812040; stat\
+ement=
     select file_name,
            file_type
       from rhnActionConfigDateFile
      where action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_get_files" class="summary-name" onclick="show_private();">_query_get_files</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441548; statement=
+        <a href="server.action.configfiles-module.html#_query_get_files" class="summary-name" onclick="show_private();">_query_get_files</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51812112; stat\
+ement=
     select cfn.path,
            cc.label config_channel,
            ccont.contents file_contents,
            ccont.is_binary is_binary,
            c.checksum_type,
            c.checksum,
-           cr.delim_start,
-...">&lt;server.rhnSQL.sql_base.Statement instance <code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -308,7 +316,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159441356; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51811896; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select cfn.path
       from rhnActionConfigFileName acfn, rhnConfigFileName cfn
      where acfn.server_id = :server_id
@@ -332,14 +341,15 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159441516; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51811968; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select TO_CHAR(start_date, 'YYYY-MM-DD HH24:MI:SS') as start_date,
            TO_CHAR(end_date, 'YYYY-MM-DD HH24:MI:SS') as end_date,
            TO_CHAR(sysdate, 'YYYY-MM-DD HH24:MI:SS') as now,
            import_contents
       from rhnActionConfigDate
      where action_id = :action_id
-
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -357,7 +367,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159441484; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51812040; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select file_name,
            file_type
       from rhnActionConfigDateFile
@@ -380,14 +391,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159441548; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51812112; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select cfn.path,
            cc.label config_channel,
            ccont.contents file_contents,
            ccont.is_binary is_binary,
            c.checksum_type,
            c.checksum,
-           cr.delim_start,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -418,7 +429,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:37 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

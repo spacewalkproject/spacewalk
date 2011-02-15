@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,8 +14,6 @@
 #
 #
 
-import string
-
 from types import StringType
 from UserDict import UserDict
 
@@ -28,18 +26,18 @@ class UserDictCase(UserDict):
     def __setitem__(self, key, value):
         lkey = key
         if isinstance(key, StringType):
-            lkey = string.lower(key)
+            lkey = key.lower()
         self.data[lkey] = value
         self.kcase[lkey] = key
     def __getitem__(self, key):
         if isinstance(key, StringType):
-            key = string.lower(key)
+            key = key.lower()
         if not self.data.has_key(key):
             return None
         return self.data[key]   
     def __delitem__(self, key):
         if isinstance(key, StringType):
-            key = string.lower(key)
+            key = key.lower()
         del self.data[key]
         del self.kcase[key]
     get = __getitem__
@@ -49,7 +47,7 @@ class UserDictCase(UserDict):
         return self.get_hash().items()
     def has_key(self, key):
         if isinstance(key, StringType):
-            key = string.lower(key)
+            key = key.lower()
         return self.data.has_key(key)
     def clear(self):
         self.data.clear()
@@ -68,11 +66,11 @@ class UserDictCase(UserDict):
     # get a dictionary out of this instance ({}.update doesn't get instances)
     def dict(self):
         return self.get_hash()
-    def update(self, dict):
-        for (k, v) in dict.items():
+    def update(self, updict):
+        for (k, v) in updict.items():
             lk = k
             if isinstance(k, StringType):
-                lk = string.lower(k)
+                lk = k.lower()
             self.data[lk] = v
             self.kcase[lk] = k
     # Expose an iterator. This would normally fail if there is no iter()

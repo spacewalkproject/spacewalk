@@ -15,14 +15,13 @@
    maxSessions="10"
    maxTransactions="10"
    useStatementNamespaces="false"
-   defaultStatementTimeout="30"
  />
  <!-- Configure a datasource to use with this SQL Map using SimpleDataSource.
       Notice the use of the properties from the above resource -->
  <transactionManager type="JDBC" >
    <dataSource type="SIMPLE">
     <property name="JDBC.Driver" value="${search.connection.driver_class}"/>
-	<property name="JDBC.ConnectionURL" value="${search.connection.driver_proto}:@${db_name}"/>
+    <property name="JDBC.ConnectionURL" value="${search.connection.driver_proto}:${db_name}"/>
     <property name="JDBC.Username" value="${db_user}"/>
     <property name="JDBC.Password" value="${db_password}"/>
    </dataSource>

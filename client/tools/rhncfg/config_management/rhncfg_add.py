@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -81,7 +81,7 @@ class Handler(handler_base.HandlerBase):
             self.options.topdir = utils.rm_trailing_slash(self.options.topdir)
 
             for f in files:
-                if not utils.startswith(f, self.options.topdir):
+                if not f.startswith(self.options.topdir):
                     die(8, "--topdir %s specified, but file `%s' doesn't comply"
                         % (self.options.topdir, f))
                 files_to_push.append((f, f[len(self.options.topdir):]))

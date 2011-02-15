@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2010 Red Hat, Inc.
+# Copyright (c) 2010--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,22 +21,16 @@
 
 import os
 import gzip
-import cStringIO
-import tempfile
-from rhn.rpclib import xmlrpclib
 
 from debian import debfile
-import struct
-
-from types import ListType, TupleType, DictType
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
 def get_package_header(filename=None, file=None, fd=None):
     return load(filename=filename, file=file, fd=fd)[0]
 
-# Loads DEB and returns its header and its payload
 def load(filename=None, file=None, fd=None):
+    """ Loads DEB and returns its header and its payload """
     if (filename is None):
         raise ValueError, "filename has to be passed"
     if (filename is None and file is None and fd is None):
@@ -67,7 +61,7 @@ def load_deb(stream, filename):
         #header = rhn_deb.get_package_header(file=stream)
         header = deb_Header(filename)
     except:
-        raise InvalidPackageError(e)
+        raise InvalidPackageError
     stream.seek(0, 0)
 
     return header, stream

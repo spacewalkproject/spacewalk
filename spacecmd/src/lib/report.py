@@ -266,9 +266,20 @@ def do_report_duplicates(self, args):
     if len(dupes_by_profile):
         add_separator = True
 
-        print 'Duplicate Profile Names'
-        print '-----------------------'
-        print '\n'.join(sorted(dupes_by_profile))
+        for item in dupes_by_profile:
+            print '%s:' % item
+
+            # get some details for each duplicate
+            systems = self.client.system.searchByName(self.session,
+                                                      '^%s$' % item)
+
+            print 'System ID   Last Checkin'
+            print '----------  -----------------'
+
+            for dupe in systems:
+                print '%i  %s' % (dupe.get('id'), dupe.get('last_checkin'))
+
+            if len(dupes_by_profile) > 1: print
 
     if self.check_api_version('10.11'):
         dupes_by_ip = self.client.system.listDuplicatesByIp(self.session)
@@ -280,45 +291,48 @@ def do_report_duplicates(self, args):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print 'Duplicate IP Addresses'
-            print '----------------------'
-
             for item in dupes_by_ip:
-                print
                 print '%s:' % item.get('ip')
 
-                for system in sorted(item.get('systems'),
-                                     key=itemgetter('systemName')):
-                    print system.get('systemName')
+                print 'System ID   Last Checkin'
+                print '----------  -----------------'
+
+                for dupe in item.get('systems'):
+                    print '%i  %s' % (dupe.get('systemId'),
+                                      dupe.get('last_checkin'))
+
+                if len(dupes_by_ip) > 1: print
 
         if len(dupes_by_mac):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print 'Duplicate MAC Addresses'
-            print '-----------------------'
-
             for item in dupes_by_mac:
-                print
                 print '%s:' % item.get('mac').upper()
 
-                for system in sorted(item.get('systems'),
-                                     key=itemgetter('systemName')):
-                    print system.get('systemName')
+                print 'System ID   Last Checkin'
+                print '----------  -----------------'
+
+                for dupe in item.get('systems'):
+                    print '%i  %s' % (dupe.get('systemId'),
+                                      dupe.get('last_checkin'))
+
+                if len(dupes_by_mac) > 1: print
 
         if len(dupes_by_hostname):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print 'Duplicate Hostnames'
-            print '-------------------'
-
             for item in dupes_by_hostname:
-                print
                 print '%s:' % item.get('hostname')
 
-                for system in sorted(item.get('systems'),
-                                     key=itemgetter('systemName')):
-                    print system.get('systemName')
+                print 'System ID   Last Checkin'
+                print '----------  -----------------'
+
+                for dupe in item.get('systems'):
+                    print '%i  %s' % (dupe.get('systemId'),
+                                      dupe.get('last_checkin'))
+
+                if len(dupes_by_hostname) > 1: print
 
 # vim:ts=4:expandtab:

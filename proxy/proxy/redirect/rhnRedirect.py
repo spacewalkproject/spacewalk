@@ -1,6 +1,6 @@
 # Red Hat Network Proxy Server SSL Redirect handler code.
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,13 +19,11 @@
 import string
 import socket
 import re
-from common import apache
 
 # common module imports
-from common.rhnLib import parseUrl
-from common import log_debug, log_error, CFG, rhnFlags, rhnFault, rhnLib, \
-    Traceback
-from common.rhnTranslate import _
+from spacewalk.common import log_debug, log_error, CFG, rhnFlags, rhnFault, rhnLib, \
+    Traceback, apache
+from spacewalk.common.rhnTranslate import _
 
 # local module imports
 from proxy.rhnShared import SharedHandler
@@ -296,7 +294,8 @@ class RedirectHandler(SharedHandler):
         scheme, host, port, uri = self._parse_url(redirectLocation)
 
         # Add any params onto the URI since _parse_url doesn't include them.
-        uri += redirectLocation[redirectLocation.index('?'):]
+        if redirectLocation.find('?') > -1:
+            uri += redirectLocation[redirectLocation.index('?'):]
 
         # Now create a new connection.  We'll use SSL if configured to do
         # so.

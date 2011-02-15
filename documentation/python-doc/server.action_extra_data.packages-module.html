@@ -333,77 +333,80 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.packages-module.html#_query_insert_attribute_verify_results" class="summary-name" onclick="show_private();">_query_insert_attribute_verify_results</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149045324; statement=
+        <a href="server.action_extra_data.packages-module.html#_query_insert_attribute_verify_results" class="summary-name" onclick="show_private();">_query_insert_attribute_verify_results</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700664; stat\
+ement=
 insert into rhnServerActionVerifyResult (
     server_id, action_id,
     package_name_id,
     package_evr_id,
     package_arch_id,
     package_capability_id,
-    attribute, size_differs, mode_differs, checksum_differs,
-...">&lt;server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhn<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.packages-module.html#_query_insert_missing_verify_results" class="summary-name" onclick="show_private();">_query_insert_missing_verify_results</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149045356; statement=
+        <a href="server.action_extra_data.packages-module.html#_query_insert_missing_verify_results" class="summary-name" onclick="show_private();">_query_insert_missing_verify_results</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700736; stat\
+ement=
 insert into rhnServerActionVerifyMissing (
     server_id,
     action_id,
     package_name_id,
     package_evr_id,
     package_arch_id,
-    package_capability_id
-...">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQ<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.packages-module.html#_query_delete_verify_results" class="summary-name" onclick="show_private();">_query_delete_verify_results</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149045388; statement=
+        <a href="server.action_extra_data.packages-module.html#_query_delete_verify_results" class="summary-name" onclick="show_private();">_query_delete_verify_results</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700808; stat\
+ement=
     delete from rhnServerActionVerifyResult
      where server_id = :server_id
        and action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.packages-module.html#_query_delete_verify_missing" class="summary-name" onclick="show_private();">_query_delete_verify_missing</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149045420; statement=
+        <a href="server.action_extra_data.packages-module.html#_query_delete_verify_missing" class="summary-name" onclick="show_private();">_query_delete_verify_missing</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700880; stat\
+ement=
     delete from rhnServerActionVerifyMissing
      where server_id = :server_id
        and action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.packages-module.html#_query_delete_dep_failures" class="summary-name" onclick="show_private();">_query_delete_dep_failures</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149045580; statement=
+        <a href="server.action_extra_data.packages-module.html#_query_delete_dep_failures" class="summary-name" onclick="show_private();">_query_delete_dep_failures</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47701024; stat\
+ement=
     delete from rhnActionPackageRemovalFailure
     where server_id = :server_id and action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.packages-module.html#_query_insert_dep_failures" class="summary-name" onclick="show_private();">_query_insert_dep_failures</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 149045612; statement=
+        <a href="server.action_extra_data.packages-module.html#_query_insert_dep_failures" class="summary-name" onclick="show_private();">_query_insert_dep_failures</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47701096; stat\
+ement=
     insert into rhnActionPackageRemovalFailure (
         server_id, action_id, name_id, evr_id, capability_id,
         flags, suggested, sense)
     values (
         :server_id, :action_id, LOOKUP_PACKAGE_NAME(:name),
         LOOKUP_EVR(:epoch, :version, :release), 
-        LOOKUP_PACKAGE_CAPABILITY(:needs_name, :needs_version),
-...">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -467,14 +470,14 @@ insert into rhnServerActionVerifyMissing (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149045324; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700664; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
 insert into rhnServerActionVerifyResult (
     server_id, action_id,
     package_name_id,
     package_evr_id,
     package_arch_id,
     package_capability_id,
-    attribute, size_differs, mode_differs, checksum_differs,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -493,14 +496,14 @@ insert into rhnServerActionVerifyResult (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149045356; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700736; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
 insert into rhnServerActionVerifyMissing (
     server_id,
     action_id,
     package_name_id,
     package_evr_id,
     package_arch_id,
-    package_capability_id
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -519,7 +522,8 @@ insert into rhnServerActionVerifyMissing (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149045388; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700808; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     delete from rhnServerActionVerifyResult
      where server_id = :server_id
        and action_id = :action_id
@@ -541,7 +545,8 @@ insert into rhnServerActionVerifyMissing (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149045420; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47700880; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     delete from rhnServerActionVerifyMissing
      where server_id = :server_id
        and action_id = :action_id
@@ -563,7 +568,8 @@ insert into rhnServerActionVerifyMissing (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149045580; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47701024; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     delete from rhnActionPackageRemovalFailure
     where server_id = :server_id and action_id = :action_id
 
@@ -584,14 +590,14 @@ insert into rhnServerActionVerifyMissing (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 149045612; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 47701096; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     insert into rhnActionPackageRemovalFailure (
         server_id, action_id, name_id, evr_id, capability_id,
         flags, suggested, sense)
     values (
         :server_id, :action_id, LOOKUP_PACKAGE_NAME(:name),
         LOOKUP_EVR(:epoch, :version, :release), 
-        LOOKUP_PACKAGE_CAPABILITY(:needs_name, :needs_version),
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -622,7 +628,7 @@ insert into rhnServerActionVerifyMissing (
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

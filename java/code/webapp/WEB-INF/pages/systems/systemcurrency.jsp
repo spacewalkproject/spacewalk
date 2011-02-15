@@ -1,8 +1,8 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c-rt" %>
@@ -177,12 +177,12 @@
 		           sortattr="created"
                            styleclass="last-column"
 		           defaultsort="desc">
-                           <c:out value="${current.enhancement +
-				current.bug * 2 +
-				current.low * 4 +
-				current.moderate * 8 +
-				current.important * 16 +
-				current.critical * 32}"/>
+                           <c:out value="${current.enhancement * $scEnh +
+				current.bug * scBug +
+				current.low * scLow +
+				current.moderate * scMod +
+				current.important * scImp +
+				current.critical * scCrit}"/>
 		</rl:column>
 	</rl:list>
 </rl:listset>

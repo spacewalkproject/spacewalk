@@ -25,5 +25,5 @@ install :: install-code install-conf
 clean :: clean-code clean-conf
 
 test    ::  
-	$(MAKE) -C common/test/unit-test
-	$(MAKE) -C server/test/unit-test
+	$(MAKE) -C common/test/unit-test PYTHONPATH=$(PYTHONPATH)
+	$(MAKE) -C server/test/unit-test PYTHONPATH=$(PYTHONPATH)

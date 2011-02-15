@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,6 @@ import grp
 import sys
 import errno
 import shutil
-import traceback
 import string
 
 from config_common import file_utils, utils, cfg_exceptions
@@ -28,7 +27,6 @@ from config_common.rhn_log import log_debug
 
 class TargetNotFile(Exception): pass
 class DuplicateDeployment(Exception): pass
-class BackupFileMissing(Exception): pass
 class FailedRollback(Exception): pass
 
 try:
@@ -188,8 +186,6 @@ class DeployTransaction:
         # assume file
 	if file_info.get('filetype') == 'directory':
 		self.dirs.append(file_info)
-	elif file_info.get('filetype') == 'symlink':
-		self.files.append(file_info)
 	else:
         	self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 

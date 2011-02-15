@@ -146,6 +146,8 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
         }
         if package['epoch'] == None:
             package['epoch'] = ""
+        else: # convert it to string
+            package['epoch'] = "%s" % package['epoch']
         if getArch:
             package['arch'] = h['arch']
             # the arch on gpg-pubkeys is "None"...

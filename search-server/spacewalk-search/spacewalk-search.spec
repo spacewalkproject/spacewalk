@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.3
+Version: 1.4.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -22,7 +22,11 @@ Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-httpclient
 Requires: jakarta-commons-lang >= 0:2.1
+%if 0%{?fedora} >= 14
+Requires: apache-commons-logging
+%else
 Requires: jakarta-commons-logging
+%endif
 Requires: jpackage-utils >= 0:1.5
 Requires: log4j
 Requires: oro
@@ -39,7 +43,11 @@ BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-commons-lang >= 0:2.1
+%if 0%{?fedora} >= 14
+BuildRequires: apache-commons-logging
+%else
 BuildRequires: jakarta-commons-logging
+%endif
 BuildRequires: java-devel >= 1.6.0
 BuildRequires: log4j
 BuildRequires: oro
@@ -68,7 +76,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/indexes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
-install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
@@ -77,9 +84,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib/
 # using install -m does not preserve the symlinks
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
-install -p -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
 install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
-install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
 install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_initrddir}
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/rhnsearchd
 install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search/rhn_search.conf
@@ -103,8 +108,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755, root, root) %{_var}/log/rhn/search
 %{_prefix}/share/rhn/search/lib/*
-%{_prefix}/share/rhn/search/classes/log4j.properties
-%{_prefix}/share/rhn/search/classes/com/*
 %attr(755, root, root) %{_prefix}/share/rhn/search/indexes
 %attr(755, root, root) %{_initrddir}/rhn-search
 %attr(755, root, root) %{_bindir}/rhnsearchd
@@ -114,6 +117,45 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Mon Feb 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
+- don't duplicate files from spacewalk-search.jar on filesystem
+- move config.xml back to jar
+- add @ to db_name only for oracle (PG)
+- fixed package and errata search in PG
+- made service rhn-search cleanindex queries work on PG
+- added potgresql jdbc to rhn-search path
+
+* Wed Jan 26 2011 Tomas Lestach <tlestach@redhat.com> 1.3.7-1
+- remove exceptions from method declarations that aren't thrown
+  (tlestach@redhat.com)
+- remove unused imports in rhn-search (tlestach@redhat.com)
+
+* Tue Jan 18 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
+- no traceback, when searching on a server with no packages or errata
+  (tlestach@redhat.com)
+
+* Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
+- replace jakarta-commons-logging with apache-commons-logging on F14
+  (tlestach@redhat.com)
+
+* Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.4-1
+- f14 build requires apache-commons-logging instead of jakarta-commons-logging
+  (tlestach@redhat.com)
+
+* Tue Jan 11 2011 Tomas Lestach <tlestach@redhat.com> 1.3.3-1
+- change rhn-search library path to use oracle-instantclient11.x
+  (tlestach@redhat.com)
+
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.2-1
+- add UUID to the server index in the search server (aparsons@redhat.com)
+
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com>
+- add UUID to the server index in the search server (aparsons@redhat.com)
+
+* Mon Nov 15 2010 Jan Pazdziora 1.2.4-1
+- Adding PostgreSQL JDBC driver on the search daemon classpath
+  (lzap+git@redhat.com)
+
 * Tue Sep 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.3-1
 - don't fail if service is already running
 - removign srcjars from search

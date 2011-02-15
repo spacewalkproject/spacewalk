@@ -513,7 +513,7 @@ public class OrgHandler extends BaseHandler {
 
         UpdateOrgSoftwareEntitlementsCommand cmd =
             new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
-                    Long.valueOf(allocation), 0L);
+                    Long.valueOf(allocation), null);
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new ValidationException(ve.getMessage());
@@ -555,7 +555,7 @@ public class OrgHandler extends BaseHandler {
 
         UpdateOrgSoftwareEntitlementsCommand cmd =
             new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
-                    0L, Long.valueOf(allocation));
+                    null, Long.valueOf(allocation));
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new ValidationException(ve.getMessage());

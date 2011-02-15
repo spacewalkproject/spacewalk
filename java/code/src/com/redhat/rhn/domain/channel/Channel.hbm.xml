@@ -131,13 +131,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="Channel.listCustomChannels">
-        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c where c.org = :org]]>
+        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c where c.org = :org order by name]]>
     </query>
 
     <query name="Channel.findRedHatBaseChannels">
 	<![CDATA[
 		from com.redhat.rhn.domain.channel.Channel as c where c.org is null
-    						and parentChannel is null]]>
+    						and parentChannel is null order by c.name]]>
     </query>
 
 
@@ -150,7 +150,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                     AND uc.user_id = :user_id
                     AND c.org_id is not null
                     AND uc.role = 'subscribe'
-    				AND c.parent_channel is null]]>						
+    				AND c.parent_channel is null
+    		    order by C.name]]>						
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     <sql-query name="Channel.findAllBaseChannels">
@@ -189,10 +190,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
    <sql-query name="Channel.findByLabelAndUserId">
         <![CDATA[SELECT {c.*}
-              FROM rhnChannel {c},
-              rhnChannelCloned c_1_
+              FROM rhnChannel {c}
+                LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
              WHERE c.label = :label
-               AND c.id = c_1_.id (+)
                AND (rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1 OR
                     rhn_channel.user_role_check(c.id, :userId, 'manage') = 1) ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
@@ -206,10 +206,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.findBaseChannel">
         <![CDATA[SELECT {c.*}
-              FROM rhnChannel {c}, rhnChannelCloned c_1_, rhnServerChannel sc
+              FROM rhnServerChannel sc, rhnChannel {c}
+                LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
              WHERE sc.server_id = :sid
                AND sc.channel_id = c.id
-               AND c.id = c_1_.id (+)
                AND c.parent_channel IS NULL]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
@@ -234,31 +234,28 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.accessibleChildChannelIds">
         <![CDATA[SELECT {c.*}
-  FROM   rhnChannel c,
-         rhnChannelCloned c_1_
+  FROM   rhnChannel c
+         LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
  WHERE   parent_channel = :cid
      AND rhn_channel.get_org_access(c.id, :org_id) = 1
-     AND c.id = c_1_.id (+)
  UNION
  SELECT {c.*}
- FROM    rhnChannel c,
-         rhnSharedChannelView sc,
-         rhnChannelCloned c_1_
+ FROM    rhnChannel c
+ LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id,
+         rhnSharedChannelView sc
  WHERE   sc.parent_channel = :cid
  AND     sc.org_trust_id = :org_id
  AND     sc.id = c.id
- AND     c.id = c_1_.id (+)
     ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
 
    <sql-query name="Channel.accessibleChildChannels">
         <![CDATA[SELECT {c.*}
-  					FROM rhnChannel c,
-       						rhnChannelCloned c_1_
+					FROM rhnChannel c
+				LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
 		        where  parent_channel = :cid AND
-  		           		rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1
-  		           		AND c.id = c_1_.id (+)]]>
+					rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
 
@@ -279,17 +276,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.kickstartableChannels">
         <![CDATA[SELECT {c.*}
-				  FROM rhnChannel {c},
+				  FROM rhnChannel c LEFT OUTER JOIN 
+				  	   rhnChannelCloned c_1_ ON c.id = c_1_.id,
 				      rhnAvailableChannels ACh,
-					  rhnChannelArch CA,
-            	      rhnChannelCloned c_1_
+					  rhnChannelArch CA
+		      
   				  WHERE CA.id = ACh.channel_arch_id
 				   AND ACh.org_id = :org_id
 				   AND ACH.channel_depth = 1
 				   AND c.id = ACh.channel_id
-                   AND c.id = c_1_.id (+)
 				ORDER BY rhn_channel.channel_priority(ACh.parent_or_self_id),
-				ACh.parent_or_self_id, ACh.channel_depth, UPPER(ACh.channel_name)
+				 UPPER(ACh.channel_name)
                ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>

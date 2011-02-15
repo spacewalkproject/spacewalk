@@ -14,10 +14,10 @@
 #
 #
 
-from common import RPC_Base, rhnFault, log_debug, log_error, CFG
-from common.rhnTranslate import _
+from spacewalk.common import RPC_Base, rhnFault, log_debug, log_error, CFG
+from spacewalk.common.rhnTranslate import _
 
-from server import rhnServer
+from spacewalk.server import rhnServer
 
 # extend the RPC_Base base class
 class rhnHandler(RPC_Base):
@@ -38,9 +38,9 @@ class rhnHandler(RPC_Base):
         # do we check for abuse
         self.check_for_abuse = 1
         # do we attempt throttling 
-        self.throttle = 1
+        self.throttle = CFG.THROTTLE
         # attempt quality of service checks
-        self.set_qos = 0
+        self.set_qos = CFG.QOS
         # do we update the checking counters
         self.update_checkin = 1
             

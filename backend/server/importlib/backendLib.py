@@ -110,6 +110,11 @@ class Table:
             if not self.fields.has_key(field):
                 raise TypeError("Unknown primary key field %s" % field)
 
+    def __str__(self):
+        return "Instance of class %s.%s: PK: %s, Fields: %s" % (self.__class__.__module__,
+            self.__class__.__name__, self.pk, self.fields)
+    __repr__ = __str__
+
     def isNullable(self, field):
         if not self.fields.has_key(field):
             raise TypeError("Unknown field %s" % field)

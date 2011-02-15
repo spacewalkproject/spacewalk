@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,7 +34,7 @@ CREATE INDEX rhn_sc_ac_caid_paid
     ON rhnServerChannelArchCompat (server_arch_id, channel_arch_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_sc_ac_paid_caid
-    ON rhnServerChannelArchCompat (channel_arch_id, server_arch_id)
+CREATE INDEX rhn_sc_ac_caid
+    ON rhnServerChannelArchCompat (channel_arch_id)
     TABLESPACE [[64k_tbs]];
 

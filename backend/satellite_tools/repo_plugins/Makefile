@@ -2,7 +2,7 @@
 #
 # $Id: Makefile $
 #
-# Copyright (c) 2009 Red Hat, Inc.
+# Copyright (c) 2009--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ TOP	= ../..
 
 # Specific stuff
 SUBDIR	= satellite_tools/repo_plugins
-FILES	= __init__ yum_src
+SPACEWALK_FILES	= __init__ yum_src
 
 include $(TOP)/Makefile.defs
 

@@ -52,10 +52,6 @@ import java.util.TreeMap;
  */
 public class DailySummary extends RhnJavaJob {
 
-    /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "daily_summary";
     private static final int HEADER_SPACER = 10;
     private static final int ERRATA_SPACER = 4;
     private static final String ERRATA_UPDATE = "Errata Update";

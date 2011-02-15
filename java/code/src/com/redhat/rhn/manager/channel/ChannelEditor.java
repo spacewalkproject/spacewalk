@@ -20,7 +20,10 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.ArrayList;
@@ -93,9 +96,13 @@ public class ChannelEditor {
             throw pex;
         }
 
-        //Loop through packageIds and make sure user has access to the package
+        List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
+        List list = new ArrayList();
+
+        //Loop through packageIds
         for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
             Long pid = convertObjectToLong(itr.next());
+            // make sure user has access to the package
             if (!UserManager.verifyPackageAccess(user.getOrg(), pid)) {
                 StringBuffer msg = new StringBuffer("User: ");
                 msg.append(user.getLogin());
@@ -110,17 +117,20 @@ public class ChannelEditor {
                 pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.package"));
                 throw pex;
             }
-        }
-
-        List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
-
-        List list = new ArrayList();
-        for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
-            Long pid = convertObjectToLong(itr.next());
+            // check package compatibility with the channel when adding
+            if (add) {
+                Package pkg = PackageManager.lookupByIdAndUser(pid, user);
+                if (!channel.getChannelArch().isCompatible(pkg.getPackageArch())) {
+                    throw new IncompatibleArchException(pkg.getPackageArch(),
+                        channel.getChannelArch());
+                }
+            }
+            // add packages to action list
             if (!add || !existingPids.contains(pid)) {
                 list.add(pid);
             }
         }
+
         if (add) {
             ChannelManager.addPackages(channel, list, user);
         }

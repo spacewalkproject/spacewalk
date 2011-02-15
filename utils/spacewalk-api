@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 #
-# Copyright (c) 2009 Red Hat, Inc.
+# Copyright (c) 2009--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,11 +24,12 @@ use Term::ReadKey;
 my ($server, $user, $password)= ('', '', '');
 my $login=1;
 
+my $usage = "Usage: $0 --server=<server> [--login] [--user=<user>] [--password=<password>] [--force]\n";
 GetOptions("server=s" => \$server,
         "login!" => \$login,
         "user:s" => \$user,
         "password:s" => \$password,
-        );
+        ) or die $usage;
 
 if (not $server) {
         print "Error: No server specified.\n";

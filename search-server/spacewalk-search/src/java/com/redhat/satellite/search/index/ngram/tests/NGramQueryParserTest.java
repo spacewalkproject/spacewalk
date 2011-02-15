@@ -14,15 +14,11 @@
  */
 package com.redhat.satellite.search.index.ngram.tests;
 
-import java.io.IOException;
-
 import com.redhat.satellite.search.index.ngram.NGramAnalyzer;
 import com.redhat.satellite.search.index.ngram.NGramQueryParser;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Hits;
@@ -31,9 +27,9 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.store.Directory;
 
 public class NGramQueryParserTest extends NGramTestSetup {
-    
+
 	private static Logger log = Logger.getLogger(NGramQueryParserTest.class);
-	
+
     public NGramQueryParserTest() {
         super();
     }
@@ -101,7 +97,7 @@ public class NGramQueryParserTest extends NGramTestSetup {
         }
         return hits;
     }
-    
+
     public void testFreeFormQueryParse() throws Exception {
         String queryString = new String("name:spell -description:another");
         log.info("Original query: "  + queryString);
@@ -158,7 +154,7 @@ public class NGramQueryParserTest extends NGramTestSetup {
         assertTrue(hits.length() == 2);
     }
     /**
-     * 
+     *
      * */
     public void testBasicSearch() throws Exception {
         Hits hits;
@@ -175,19 +171,19 @@ public class NGramQueryParserTest extends NGramTestSetup {
         displayHits(hits);
         assertTrue(thresholdHits(hits) == 4);
         assertTrue(hits.length() == 17);
-        
+
         query = "aspell";
         hits = performSearch(this.ngramDir, query, useMust);
         displayHits(hits);
         assertTrue(thresholdHits(hits) == 4);
         assertTrue(hits.length() == 17);
-        
+
         query = "pel";
         hits = performSearch(this.ngramDir, query, useMust);
         displayHits(hits);
         assertTrue(thresholdHits(hits) == 8);
         assertTrue(hits.length() == 16);
-        
+
         query = "gtk";
         hits = performSearch(this.ngramDir, query, useMust);
         displayHits(hits);

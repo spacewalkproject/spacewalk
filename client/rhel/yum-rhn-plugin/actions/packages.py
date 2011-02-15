@@ -30,7 +30,6 @@ from up2date_client import up2dateLog
 from up2date_client import config
 from up2date_client import rpmUtils
 from up2date_client import rhnPackageInfo
-from up2date_client import rhncli
 
 from rpm import RPMPROB_FILTER_OLDPACKAGE
 
@@ -58,14 +57,15 @@ class YumAction(yum.YumBase):
 
     def __init__(self):
         yum.YumBase.__init__(self)
-        cfg = config.initUp2dateConfig()
-        self.doConfigSetup(debuglevel=cfg["debug"])
+        self.cfg = config.initUp2dateConfig()
+        self.doConfigSetup(debuglevel=self.cfg["debug"])
         self.cache_only = None
 
         self.doTsSetup()
         self.doRpmDBSetup()
         self.doRepoSetup()
         self.doSackSetup()
+        self.repos.populateSack(mdtype='all')
 
     # Copied from yum/cli.py, more or less
     def doTransaction(self):
@@ -96,8 +96,7 @@ class YumAction(yum.YumBase):
                     errstring += '  %s: %s\n' % (key, error)
             raise yum.Errors.YumBaseError, errstring
 
-        cfg = config.initUp2dateConfig()
-        if cfg['retrieveOnly']:
+        if self.cfg['retrieveOnly']:
             # We are configured to only download packages, so
             # skip rest of transaction work and return now.
             log.log_debug('Configured to "retrieveOnly" so skipping package install')
@@ -306,6 +305,38 @@ def update(package_list, cache_only=None):
 
     log.log_debug("Called update", package_list)
   
+    # Remove already installed packages from the list
+    for package in package_list:
+        pkgkeys = {
+                    'name' : package[0],
+                    'epoch' : package[3],
+                    'version' : package[1],
+                    'release' : package[2],
+                    }
+
+        if len(package) > 4:
+            pkgkeys['arch'] = package[4]
+        else:
+            package.append('')
+            pkgkeys['arch'] = None
+
+        if pkgkeys['epoch'] == '':
+            pkgkeys['epoch'] = '0'
+
+        pkgs = yum_base.rpmdb.searchNevra(name=pkgkeys['name'],
+                    epoch=pkgkeys['epoch'], arch=pkgkeys['arch'],
+                    ver=pkgkeys['version'], rel=pkgkeys['release'])
+
+        if pkgs:
+            log.log_debug('Package %s already installed and latest version'
+                % _yum_package_tup(package))
+            package_list.remove(package)
+
+    # Don't proceed further with empty list,
+    # since this would result into an empty yum transaction
+    if not package_list:
+        return (0, "Requested packages already installed", {})
+
     transaction_data = __make_transaction(package_list, 'i')
    
     return _runTransaction(transaction_data, cache_only)
@@ -382,7 +413,10 @@ def _run_yum_action(command, cache_only=None):
         try:
             yum_base.doLock(YUM_PID_FILE)
             # Accumulate transaction data
+            oldcount = len(yum_base.tsInfo)
             command.execute(yum_base)
+            if not len(yum_base.tsInfo) > oldcount:
+                raise yum.Errors.YumBaseError, 'empty transaction'
             # depSolving stage
             (result, resultmsgs) = yum_base.buildTransaction()
             if result == 1:
@@ -390,7 +424,7 @@ def _run_yum_action(command, cache_only=None):
                 for msg in resultmsgs:
                     log.log_debug('Error: %s' % msg)
                 raise yum.Errors.DepError, resultmsgs 
-            elif result == 0 or 2:
+            elif result == 0 or result == 2:
                 # Continue on
                 pass
             else:

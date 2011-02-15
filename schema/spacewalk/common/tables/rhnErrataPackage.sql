@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,8 +36,8 @@ CREATE UNIQUE INDEX rhn_err_pkg_eid_pid_uq
     ON rhnErrataPackage (errata_id, package_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_err_pkg_pid_eid_idx
-    ON rhnErrataPackage (package_id, errata_id)
+CREATE INDEX rhn_err_pkg_pid_idx
+    ON rhnErrataPackage (package_id)
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 

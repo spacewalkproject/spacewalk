@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,7 @@ CREATE UNIQUE INDEX rhn_snapshotcr_sid_crid_uq
     ON rhnSnapshotConfigRevision (snapshot_id, config_revision_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_sscr_crid_sid_idx
-    ON rhnSnapshotConfigRevision (config_revision_id, snapshot_id)
+CREATE INDEX rhn_sscr_crid_idx
+    ON rhnSnapshotConfigRevision (config_revision_id)
     TABLESPACE [[2m_tbs]];
 

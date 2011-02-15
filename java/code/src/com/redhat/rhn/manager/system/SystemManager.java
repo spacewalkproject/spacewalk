@@ -62,8 +62,6 @@ import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
-import com.redhat.rhn.frontend.xmlrpc.NotActivatedSatelliteException;
 import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -750,21 +748,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Returns whether or not this org has unused entitlements.
-     * @param org The organization
-     * @return boolean for the presence of unused entitlements
-     */
-    public static boolean unusedEntitlements(Org org) {
-        SelectMode m = ModeFactory.getMode("SystemGroup_queries", "unused_entitlements");
-
-        Map params = new HashMap();
-        params.put("org_id", org.getId());
-
-        DataResult dr = makeDataResult(params, params, null, m);
-        return ((Long)((HashMap)dr.get(0)).get("available")).intValue() > 0;
-    }
-
-    /**
      * Returns a list of errata relevant to a system
      * @param user The user
      * @param sid System Id
@@ -858,31 +841,6 @@ public class SystemManager extends BaseManager {
         elabParams.put("user_id", user.getId());
 
         return makeDataResultNoPagination(params, elabParams, m);
-    }
-
-    /**
-     * Returns a list of errata relevant to a system, sorted by priority. Security errata
-     * come first, then bug fix errata, and finally enhancement errata
-     * @param user The user
-     * @param sid System Id
-     * @param pc PageControl
-     * @return a list of ErrataOverviews
-     */
-    public static DataResult relevantErrataSortedByPriority(User user,
-                                                            Long sid,
-                                                            PageControl pc) {
-        SelectMode m = ModeFactory.getMode("Errata_queries",
-                                           "relevant_to_system_sorted_by_priority");
-
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("sid", sid);
-
-        Map elabParams = new HashMap();
-        elabParams.put("sid", sid);
-        elabParams.put("user_id", user.getId());
-
-        return makeDataResult(params, elabParams, pc, m);
     }
 
     /**
@@ -1068,31 +1026,6 @@ public class SystemManager extends BaseManager {
         List entitlements = getServerEntitlements(sid);
 
         return entitlements != null && entitlements.contains(ent);
-    }
-
-    /**
-     * Returns the features for the given server id.
-     * @param sid Server id
-     * @return features - ArrayList of features (Strings)
-     */
-    public static ArrayList getServerFeatures(Long sid) {
-        ArrayList features = new ArrayList();
-
-        SelectMode m = ModeFactory.getMode("General_queries", "system_features");
-
-        Map params = new HashMap();
-        params.put("sid", sid);
-
-        DataResult dr = makeDataResult(params, null, null, m);
-
-        Iterator iter = dr.iterator();
-        while (iter.hasNext()) {
-            Map map = (Map) iter.next();
-            String feat = (String) map.get("label");
-            features.add(feat);
-        }
-
-        return features;
     }
 
     /**
@@ -1498,37 +1431,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Deactivate a current satellite
-     * @param server the current satellite to be deactivated
-     * @throws NotActivatedSatelliteException <code>server</code> is not a satellite
-     * @throws NoSuchSystemException thrown if the server is null.
-     */
-    public static void deactivateSatellite(Server server)
-        throws NotActivatedSatelliteException, NoSuchSystemException {
-        if (server == null) {
-            throw new NoSuchSystemException();
-        }
-
-        if (!server.isSatellite()) {
-            throw new NotActivatedSatelliteException();
-        }
-
-        Map params = new HashMap();
-        params.put("sid", server.getId());
-        executeWriteMode("System_queries", "delete_satellite_info", params);
-        executeWriteMode("System_queries", "delete_satellite_channel_family", params);
-
-        Set channels = server.getChannels();
-        for (Iterator itr = channels.iterator(); itr.hasNext();) {
-            Channel c = (Channel)itr.next();
-            ChannelFamily cf = c.getChannelFamily();
-            if (cf.getLabel().equals("rhn-satellite")) {
-                SystemManager.unsubscribeServerFromChannel(server, c);
-            }
-        }
-    }
-
-    /**
      * Entitles the given server to the given Entitlement.
      * @param server Server to be entitled.
      * @param ent Level of Entitlement.
@@ -1649,9 +1551,19 @@ public class SystemManager extends BaseManager {
         User user = UserFactory.findRandomOrgAdmin(orgIn);
         ValidatorResult result = new ValidatorResult();
 
-        // If this is a Satellite, subscribe to the virt channel if possible:
+        // If this is a Satellite
         if (!ConfigDefaults.get().isSpacewalk()) {
-            subscribeToVirtChannel(server, user, result);
+            // just install libvirt for RHEL6 base channel
+            Channel base = server.getBaseChannel();
+            if ((base != null) &&
+                 base.isRhelChannel() &&
+                 base.isReleaseXChannel(6)) {
+                // do some actions for RHEL6
+            }
+            else {
+                // otherwise subscribe to the virt channel if possible
+                subscribeToVirtChannel(server, user, result);
+            }
         }
 
         // Before we start looking to subscribe to a 'tools' channel for
@@ -1695,10 +1607,10 @@ public class SystemManager extends BaseManager {
                     user, server, ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
 
             // If this is a Satellite and no RHN Tools channel is available
-            // report the error, but continue:
+            // report the error
             if (!ConfigDefaults.get().isSpacewalk() && toolsChannel == null) {
                 log.warn("no tools channel found");
-                result.addWarning(new ValidatorWarning("system.entitle.notoolschannel"));
+                result.addError(new ValidatorError("system.entitle.notoolschannel"));
             }
             // If Spacewalk and no channel has the rhn-virtualization-host package,
             // warn but allow the operation to proceed.
@@ -1718,7 +1630,7 @@ public class SystemManager extends BaseManager {
                             user, server, nameId, evrId, archId);
                 }
                 else {
-                    result.addWarning(new ValidatorWarning("system.entitle.novirtpackage",
+                    result.addError(new ValidatorError("system.entitle.novirtpackage",
                                         ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
                 }
             }
@@ -1757,7 +1669,7 @@ public class SystemManager extends BaseManager {
                 // If we couldn't find a virt channel, warn the user but continue:
                 if (virtChannel == null) {
                     log.warn("no virt channel");
-                    result.addWarning(new ValidatorWarning(
+                    result.addError(new ValidatorError(
                             "system.entitle.novirtchannel"));
                 }
             }
@@ -2389,29 +2301,11 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * List systems subscribed to a particular channel
-     * @param user the user checking
-     * @param cid the channel id
-     * @return list of systems
-     */
-    public static List<SystemOverview> subscribedToChannel(User user, Long cid) {
-        SelectMode m = ModeFactory.getMode("System_queries",
-        "systems_subscribed_to_channel");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("org_id", user.getOrg().getId());
-        params.put("cid", cid);
-        DataResult toReturn = m.execute(params);
-        toReturn.elaborate();
-        return toReturn;
-    }
-
-    /**
-     * Returns the number of systems subscribed to the channel that are <strong>not</strong>
-     * in the given org.
+     * Returns the number of systems subscribed to the channel that are
+     * <strong>not</strong> in the given org.
      *
      * @param orgId identifies the filter org
-     * @param cid   identifies the channel
+     * @param cid identifies the channel
      * @return count of systems
      */
     public static int countSubscribedToChannelWithoutOrg(Long orgId, Long cid) {
@@ -2542,24 +2436,6 @@ public class SystemManager extends BaseManager {
 
         DataResult result = makeDataResult(params, params, null, m);
         return result;
-    }
-
-    /**
-     * Returns a mapping of servers in the SSM to the user-selected packages to verify
-     * that actually exist on those servers.
-     *
-     * @param user            identifies the user making the request
-     * @param packageSetLabel identifies the RhnSet used to store the packages selected
-     *                        by the user (this is needed for the query). This must be
-     *                        established by the caller prior to calling this method
-     * @return description of server information as well as a list of relevant packages
-     */
-    public static DataResult ssmSystemPackagesToVerify(User user,
-                                                       String packageSetLabel) {
-        // The query for this operation is the same as remove, so simply chain to
-        // that method; this method is to make the verify code not look like it
-        // erronuously calls a remove query.
-        return ssmSystemPackagesToRemove(user, packageSetLabel, false);
     }
 
     /**
@@ -2900,6 +2776,23 @@ public class SystemManager extends BaseManager {
             n.setModified(Date.valueOf((String)map.get("modified")));
         }
         return n;
+    }
+
+    /**
+     * Lookup all the custom info keys not assigned to this server
+     * @param orgId The org ID that the server belongs to
+     * @param sid The ID of the server
+     * @return DataResult of keys
+     */
+    public static DataResult lookupKeysSansValueForServer(Long orgId, Long sid) {
+        SelectMode m = ModeFactory.getMode("CustomInfo_queries",
+                "custom_info_keys_sans_value_for_system");
+        Map inParams = new HashMap();
+
+        inParams.put("org_id", orgId);
+        inParams.put("sid", sid);
+
+        return m.execute(inParams);
     }
 
 }

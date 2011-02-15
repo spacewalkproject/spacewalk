@@ -99,7 +99,7 @@ public abstract class BaseFilterEditAction extends RhnAction {
                     filter.getExpiration(), DatePicker.YEAR_RANGE_POSITIVE,
                     "filter-form.jspf.start_date",
                     "filter-form.jspf.expire_date");
-        DatePickerResults dates = picker.processDatePickers(isSubmitted(form));
+        DatePickerResults dates = picker.processDatePickers(isSubmitted(form), false);
 
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(

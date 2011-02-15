@@ -56,20 +56,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class CPUDevice</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_hardware-pysrc.html#CPUDevice">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_r_77" name="uml_class_diagram_for_server_r_77">
-<area shape="rect" href="server.rhnServer.server_hardware.Device-class.html" title="server.rhnServer.server_hardware.Device" alt="" coords="59,141,104,173"/>
-<area shape="rect" href="server.rhnServer.server_hardware.CPUDevice-class.html#__init__" title="server.rhnServer.server_hardware.CPUDevice.__init__" alt="" coords="17,228,145,247"/>
-<area shape="rect" href="server.rhnServer.server_hardware.CPUDevice-class.html" title="server.rhnServer.server_hardware.CPUDevice" alt="" coords="16,203,147,248"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html#getid" title="server.rhnServer.server_hardware.GenericDevice.getid" alt="" coords="23,36,140,55"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html#must_save" title="server.rhnServer.server_hardware.GenericDevice.must_save" alt="" coords="23,55,140,73"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html#save" title="server.rhnServer.server_hardware.GenericDevice.save" alt="" coords="23,73,140,92"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html#reload" title="server.rhnServer.server_hardware.GenericDevice.reload" alt="" coords="23,92,140,111"/>
-<area shape="rect" href="server.rhnServer.server_hardware.GenericDevice-class.html" title="server.rhnServer.server_hardware.GenericDevice" alt="" coords="21,11,141,112"/>
+<center>  <map id="uml_class_diagram_for_server_r_71" name="uml_class_diagram_for_server_r_71">
+<area shape="rect" id="node2151" href="server.rhnServer.server_hardware.CPUDevice-class.html#__init__" title="server.rhnServer.server_hardware.CPUDevice.__init__" alt="" coords="24,255,151,273"/>
+<area shape="rect" id="node1" href="server.rhnServer.server_hardware.CPUDevice-class.html" title="A class for handling CPU &#45; mirrors the rhnCPU structure" alt="" coords="12,222,161,279"/>
+<area shape="rect" id="node2" href="server.rhnServer.server_hardware.Device-class.html" title="This is the base Device class that supports instantiation from a dictionarry." alt="" coords="55,158,121,202"/>
+<area shape="rect" id="node2153" href="server.rhnServer.server_hardware.GenericDevice-class.html#getid" title="server.rhnServer.server_hardware.GenericDevice.getid" alt="" coords="17,39,159,57"/>
+<area shape="rect" id="node2153" href="server.rhnServer.server_hardware.GenericDevice-class.html#must_save" title="server.rhnServer.server_hardware.GenericDevice.must_save" alt="" coords="17,57,159,76"/>
+<area shape="rect" id="node2153" href="server.rhnServer.server_hardware.GenericDevice-class.html#unsetEmptyFields" title="empty string fields mapped to varchar must be saved as NULL values" alt="" coords="17,76,159,95"/>
+<area shape="rect" id="node2153" href="server.rhnServer.server_hardware.GenericDevice-class.html#save" title="save data in the rhnDevice table" alt="" coords="17,95,159,113"/>
+<area shape="rect" id="node2153" href="server.rhnServer.server_hardware.GenericDevice-class.html#reload" title="reload from rhnDevice table based on devid" alt="" coords="17,113,159,132"/>
+<area shape="rect" id="node3" href="server.rhnServer.server_hardware.GenericDevice-class.html" title="A generic device class" alt="" coords="5,6,171,138"/>
 </map>
-  <img src="uml_class_diagram_for_server_r_77.png" alt='' usemap="#uml_class_diagram_for_server_r_77" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_server_r_71.png" alt='' usemap="#uml_class_diagram_for_server_r_71" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
+<p>A class for handling CPU - mirrors the rhnCPU structure</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -110,8 +113,12 @@
       <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#getid">getid</a></code>,
       <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#must_save">must_save</a></code>,
       <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#reload">reload</a></code>,
-      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#save">save</a></code>
+      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#save">save</a></code>,
+      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#unsetEmptyFields">unsetEmptyFields</a></code>
       </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html">GenericDevice</a></code></b> (private):
+      <code><a href="server.rhnServer.server_hardware.GenericDevice-class.html#_null_columns" onclick="show_private();">_null_columns</a></code>
+      </p></div>
     </td>
   </tr>
 </table>
@@ -181,7 +188,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:05 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

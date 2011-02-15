@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,16 +14,10 @@
 #
 
 import os
-import os.path
-import sys
-import string
 
 #Forgot about AS 2.1.
 True = 1
 False = 0
-
-class PathNotPresent(Exception):
-    pass
 
 #Base class for all modes.
 class BaseMode:

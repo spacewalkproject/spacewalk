@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,7 @@
 
 import sys
 
-from common import log_debug, rhnException, CFG, add_to_seclist
+from spacewalk.common import log_debug, rhnException, CFG, add_to_seclist
 
 # SQL objects
 import sql_table
@@ -92,8 +92,9 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
         if dsn:
             # split the dsn up into username/pass/sid so we can call the rest of
             # the code in a uniform fashion for all database backends:
-            (username, temp) = dsn.split("/")
+            (username, temp) = dsn.split("/", 1)
             (password, database) = temp.split("@")
+            del temp
 
     if backend == POSTGRESQL:
         host = None
@@ -101,6 +102,7 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
         dsn = CFG.DEFAULT_DB
         (username, temp) = dsn.split("/")
         (password, dsn) = temp.split("@")
+        del temp
         for i in dsn.split(';'):
             (k, v) = i.split('=')
             if k == 'dbname':
@@ -114,6 +116,7 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
 
     # Hide the password
     add_to_seclist(dsn)
+    add_to_seclist(password)
     try:
         __init__DB(backend, host, port, username, password, database)
 #    except (rhnException, SQLError):
@@ -191,6 +194,14 @@ def prepare(sql, params=None):
 def execute(sql, *args, **kwargs):
     db = __test_DB()
     return apply(db.execute, (sql, ) + args, kwargs)
+def fetchall_dict(sql, *args, **kwargs):
+    h = prepare(sql)
+    h.execute(sql, *args, **kwargs)
+    return h.fetchall_dict()
+def fetchone_dict(sql, *args, **kwargs):
+    h = prepare(sql)
+    h.execute(sql, *args, **kwargs)
+    return h.fetchone_dict()
 def commit():
     db = __test_DB()
     return db.commit()

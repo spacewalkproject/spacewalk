@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.satellite.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.action.satellite.GeneralConfigAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -31,7 +32,9 @@ import java.util.Map;
  * @version $Rev: 1 $
  */
 public class GeneralConfigActionTest extends RhnMockStrutsTestCase {
-    private static final String TEST_CONFIG_BOOLEAN =  "web.is_monitoring_backend";
+    private static final String TEST_CONFIG_BOOLEAN =
+        ConfigDefaults.WEB_IS_MONITORING_BACKEND;
+
     public void testTestValue() {
 
         assertTrue(GeneralConfigAction.ALLOWED_CONFIGS.

@@ -21,6 +21,7 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedBug;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
@@ -37,6 +38,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.ErrataPackageFile;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
@@ -260,17 +262,29 @@ public class ErrataFactory extends HibernateFactory {
      * @param errata errata to publish
      * @param chan channel to publish it into.
      * @param user the user doing the pushing
+     * @param inheritPackages include only original channel packages
      * @return the publsihed errata
      */
-    public static Errata publishToChannel(Errata errata, Channel chan, User user) {
+    public static Errata publishToChannel(Errata errata, Channel chan, User user,
+            boolean inheritPackages) {
         if (!errata.isPublished()) {
            errata = publish(errata);
         }
         errata.addChannel(chan);
 
         Set<Package> packagesToPush = new HashSet<Package>();
-        DataResult<PackageOverview> packs =
-            ErrataManager.lookupPacksFromErrataForChannel(chan, errata, user);
+        DataResult<PackageOverview> packs;
+        if (inheritPackages) {
+            if (!chan.isCloned()) {
+                throw new InvalidChannelException("Cloned channel expected: " +
+                       chan.getLabel());
+            }
+            Channel original = ((ClonedChannel) chan).getOriginal();
+            packs = ErrataManager.listErrataChannelPacks(original, errata, user);
+        }
+        else {
+            packs = ErrataManager.lookupPacksFromErrataForChannel(chan, errata, user);
+        }
         for (PackageOverview packOver : packs) {
             //lookup the Package object
             Package pack = PackageFactory.lookupByIdAndUser(

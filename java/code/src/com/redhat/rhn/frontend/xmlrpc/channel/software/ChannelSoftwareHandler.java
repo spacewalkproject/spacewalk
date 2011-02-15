@@ -25,6 +25,7 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
@@ -56,9 +57,10 @@ import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.manager.channel.ChannelEditor;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
+import com.redhat.rhn.manager.channel.repo.BaseRepoCommand;
+import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
@@ -1130,10 +1132,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
             //doesn't exist.
             throw new NoSuchPackageException(le);
         }
+        /*
         catch (IncompatibleArchException iae) {
             throw new FaultException(1202, "incompatiblePackageArch",
                     "package architecture is incompatible with channel", iae);
         }
+        */
 
         //refresh channel with newest packages
         ChannelManager.refreshWithNewestPackages(channel, "api");
@@ -2153,4 +2157,277 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         return repoLastBuild;
     }
+
+   /** Returns a list of ContentSource (repos) that the user can see
+     * @param sessionKey WebSession containing User information.
+     * @return Lists the repos visible to the user
+     * @xmlrpc.doc Returns a list of ContentSource (repos) that the user can see
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("map")
+     *              #prop_desc("long","id", "ID of the repo")
+     *              #prop_desc("string","label", "label of the repo")
+     *              #prop_desc("string","sourceUrl", "URL of the repo")
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *          #struct_end()
+     *      #array_end()
+     **/
+    public List listUserRepos(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        List<ContentSource> result = ChannelFactory.lookupContentSources(user.getOrg());
+
+        List list = new ArrayList();
+        for (Iterator itr = result.iterator(); itr.hasNext();) {
+            ContentSource cs = (ContentSource) itr.next();
+            Map map = new HashMap();
+            map.put("id", cs.getId());
+            map.put("label", cs.getLabel());
+            map.put("sourceUrl", cs.getSourceUrl());
+            list.add(map);
+        }
+        return list;
+    }
+
+   /**
+    * Creates a ContentSource (repo)
+    * @param sessionKey WebSession containing User information.
+    * @param label of the repo to be created
+    * @param type of the repo (YUM only for now)
+    * @param url of the repo
+    * @return the new ContentSource
+    *
+    * @xmlrpc.doc Creates a ContentSource (repo)
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "label of repo wanted")
+    * @xmlrpc.param #param_desc("string", "type", "type of repo wanted")
+    * @xmlrpc.param #param_desc("string", "url", "url of repo wanted")
+    * @xmlrpc.returntype ContentSource
+   **/
+    public ContentSource createRepo(String sessionKey, String label, String type,
+            String url) {
+        User user = getLoggedInUser(sessionKey);
+
+        BaseRepoCommand repoCmd = null;
+        repoCmd = new CreateRepoCommand(user.getOrg());
+
+        repoCmd.setLabel(label);
+        repoCmd.setUrl(url);
+
+        repoCmd.store();
+
+        ContentSource repo = ChannelFactory.lookupContentSource(label);
+        return repo;
+    }
+
+   /**
+    * Removes a ContentSource (repo)
+    * @param sessionKey WebSession containing User information.
+    * @param id of the repo to be removed
+    * @return Integer 1 on success
+    *
+    * @xmlrpc.doc Creates a ContentSource (repo)
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("long", "id", "ID of repo to be removed")
+    * @xmlrpc.returntype Integer
+   **/
+    public Integer removeRepo(String sessionKey, Integer id) {
+        User user = getLoggedInUser(sessionKey);
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+
+        ChannelFactory.remove(repo);
+        return 1;
+    }
+
+   /**
+    * Removes a ContentSource (repo)
+    * @param sessionKey WebSession containing User information.
+    * @param label of the repo to be removed
+    * @return Integer 1 on success
+    *
+    * @xmlrpc.doc Creates a ContentSource (repo)
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "label of repo to be removed")
+    * @xmlrpc.returntype Integer
+   **/
+    public Integer removeRepo(String sessionKey, String label) {
+        User user = getLoggedInUser(sessionKey);
+        ContentSource repo = ChannelFactory.lookupContentSource(label);
+
+        ChannelFactory.remove(repo);
+        return 1;
+    }
+
+   /**
+    * Associates a ContentSource (repo) with a channel
+    * @param sessionKey WebSession containing User information.
+    * @param chanLabel of the channel to use
+    * @param repoLabel of the repo to associate
+    * @return the channel with the newly associated repo
+    *
+    * @xmlrpc.doc Associates a ContentSource (repo) with a channel
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "chanLabel", "of the channel to use")
+    * @xmlrpc.param #param_desc("string", "repoLabel", "of the repo to associate")
+    * @xmlrpc.returntype Channel
+   **/
+    public Channel associateRepo(String sessionKey, String chanLabel, String repoLabel) {
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, chanLabel);
+        ContentSource repo = ChannelFactory.lookupContentSource(repoLabel);
+
+        Set<ContentSource> set = channel.getSources();
+        set.add(repo);
+        ChannelFactory.save(channel);
+
+        return channel;
+    }
+
+   /**
+    * Disassociates a ContentSource (repo) with a channel
+    * @param sessionKey WebSession containing User information.
+    * @param chanLabel of the channel to use
+    * @param repoLabel of the repo to disassociate
+    * @return the channel minus the disassociated repo
+    *
+    * @xmlrpc.doc Disassociates a ContentSource (repo) with a channel
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "chanLabel", "of the channel to use")
+    * @xmlrpc.param #param_desc("string", "repoLabel", "of the repo to disassociate")
+    * @xmlrpc.returntype Channel
+   **/
+    public Channel disassociateRepo(String sessionKey, String chanLabel, String repoLabel) {
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, chanLabel);
+        ContentSource repo = ChannelFactory.lookupContentSource(repoLabel);
+
+        Set<ContentSource> set = channel.getSources();
+        set.remove(repo);
+        channel.setSources(set);
+
+        ChannelFactory.save(channel);
+
+        return channel;
+    }
+
+   /**
+    * Updates the ContentSource (repo) source URL
+    * @param sessionKey WebSession containing User information.
+    * @param id ID of the repo
+    * @param url new URL to use
+    * @return the updated repo
+    *
+    * @xmlrpc.doc Updates the ContentSource (repo) source URL
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
+    * @xmlrpc.param #param_desc("string", "url", "new URL to use")
+    * @xmlrpc.returntype ContentSource
+   **/
+    public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
+        User user = getLoggedInUser(sessionKey);
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        repo.setSourceUrl(url);
+        ChannelFactory.save(repo);
+        return repo;
+    }
+
+   /**
+    * Updates the ContentSource (repo) source URL
+    * @param sessionKey WebSession containing User information.
+    * @param label of the repo to use
+    * @param url new URL to use
+    * @return the updated repo
+    *
+    * @xmlrpc.doc Updates the ContentSource (repo) source URL
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "of the repo to use")
+    * @xmlrpc.param #param_desc("string", "url", "new URL to use")
+    * @xmlrpc.returntype ContentSource
+   **/
+    public ContentSource updateRepoUrl(String sessionKey, String label, String url) {
+        User user = getLoggedInUser(sessionKey);
+        ContentSource repo = ChannelFactory.lookupContentSource(label);
+        repo.setSourceUrl(url);
+        ChannelFactory.save(repo);
+        return repo;
+    }
+
+   /**
+    * Updates the ContentSource's (repo) label
+    * @param sessionKey WebSession containing User information.
+    * @param id ID of the repo
+    * @param label new label
+    * @return the updated repo
+    *
+    * @xmlrpc.doc Updates the ContentSource's (repo) label
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
+    * @xmlrpc.param #param_desc("string", "label", "new label to use")
+    * @xmlrpc.returntype ContentSource
+   **/
+    public ContentSource updateRepoLabel(String sessionKey, Integer id, String label) {
+        User user = getLoggedInUser(sessionKey);
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        repo.setLabel(label);
+        ChannelFactory.save(repo);
+        return repo;
+    }
+
+   /**
+    * Updates a ContentSource (repo)
+    * @param sessionKey WebSession containing User information.
+    * @param id ID of the repo
+    * @param label new label
+    * @param url new URL
+    * @return the updated repo
+    *
+    * @xmlrpc.doc Updates a ContentSource (repo)
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
+    * @xmlrpc.param #param_desc("string", "label", "new label to use")
+    * @xmlrpc.param #param_desc("string", "url", "new URL to use")
+    * @xmlrpc.returntype ContentSource
+   **/
+    public ContentSource updateRepo(String sessionKey, Integer id, String label,
+            String url) {
+        User user = getLoggedInUser(sessionKey);
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        repo.setLabel(label);
+        repo.setSourceUrl(url);
+        ChannelFactory.save(repo);
+        return repo;
+    }
+
+    /**
+     * Returns the details of the given repo
+     * @param sessionKey WebSession containing User information.
+     * @param repoLabel Label of repo whose details are sought.
+     * @return the repo requested.
+     *
+     * @xmlrpc.doc Returns details of the given repo
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "repoLabel", "repo to query")
+     * @xmlrpc.returntype
+     *     $ContentSourceSerializer
+     */
+    public ContentSource getRepoDetails(String sessionKey, String repoLabel) {
+        return ChannelFactory.lookupContentSource(repoLabel);
+    }
+
+    /**
+     * Returns the details of the given repo
+     * @param sessionKey WebSession containing User information.
+     * @param id ID of repo whose details are sought.
+     * @return the repo requested.
+     *
+     * @xmlrpc.doc Returns details of the given repo
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "repoLabel", "repo to query")
+     * @xmlrpc.returntype
+     *     $ContentSourceSerializer
+     */
+    public ContentSource getRepoDetails(String sessionKey, Integer id) {
+        return ChannelFactory.lookupContentSource(new Long(id.longValue()));
+    }
+
 }

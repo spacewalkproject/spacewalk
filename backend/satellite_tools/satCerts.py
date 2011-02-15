@@ -23,10 +23,10 @@ from time import strftime, strptime
 import os
 
 ## other rhn imports
-from server import rhnSQL
-from server.rhnServer import satellite_cert
-from common.rhnTB import fetchTraceback
-from common.rhnConfig import RHNOptions
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import satellite_cert
+from spacewalk.common.rhnTB import fetchTraceback
+from spacewalk.common.rhnConfig import RHNOptions
 
 #
 # RHN certificate section
@@ -586,7 +586,7 @@ def verify_family_permissions(orgid=1):
 
 
 if __name__ == '__main__':
-    from common import initCFG, CFG
+    from spacewalk.common import initCFG, CFG
     
     initCFG('server.satellite')
     print 'database: %s' % CFG.DEFAULT_DB

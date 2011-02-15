@@ -15,8 +15,8 @@
 import yum
 import shutil
 import sys
-from yum import config
-from satellite_tools.reposync import ContentPackage
+from spacewalk.satellite_tools.reposync import ContentPackage
+from spacewalk.common import CFG, initCFG
 
 class YumWarnings:
     def write(self, s):
@@ -37,6 +37,19 @@ class ContentSource:
         self.name = name
         self._clean_cache(self.cache_dir + name)
 
+        # read the proxy configuration in /etc/rhn/rhn.conf
+        initCFG('server.satellite')
+        self.proxy_addr = CFG.http_proxy
+        self.proxy_user = CFG.http_proxy_username
+        self.proxy_pass = CFG.http_proxy_password
+
+        if (self.proxy_user is not None and self.proxy_pass is not None and self.proxy_addr is not None):
+            self.proxy_url = "http://%s:%s@%s" %(self.proxy_user, self.proxy_pass, self.proxy_addr)
+        elif (self.proxy_addr is not None):
+            self.proxy_url = "http://%s" %(self.proxy_addr)
+        else:
+            self.proxy_url = None
+
     def list_packages(self):
         """ list packages"""
         repo = yum.yumRepo.YumRepository(self.name)
@@ -46,6 +59,8 @@ class ContentSource:
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = self.cache_dir
+        if self.proxy_url is not None:
+            repo.proxy = self.proxy_url
 
         warnings = YumWarnings()
         warnings.disable()
@@ -64,8 +79,10 @@ class ContentSource:
             new_pack.setNVREA(pack.name, pack.version, pack.release, 
                               pack.epoch, pack.arch)
             new_pack.unique_id = pack
-            for cs in pack.checksums:
-                new_pack.checksums[cs[0]] = cs[1]
+            new_pack.checksum_type = pack.checksums[0][0]
+            if new_pack.checksum_type == 'sha':
+                new_pack.checksum_type = 'sha1'
+            new_pack.checksum      = pack.checksums[0][1]
             to_return.append(new_pack)
         return to_return
 

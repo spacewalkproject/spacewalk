@@ -1,7 +1,7 @@
 #
 # Smart IO class
 #
-# Copyright (c) 2002-2005 Red Hat, Inc.
+# Copyright (c) 2002--2010 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 
@@ -11,7 +11,6 @@ This module implements the SmartIO class
 """
 
 import os
-import time
 from cStringIO import StringIO
 
 class SmartIO:

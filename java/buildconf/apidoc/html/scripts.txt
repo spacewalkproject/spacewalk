@@ -51,6 +51,33 @@ for user in list:<br />
 <br />
 client.auth.logout(key)<br />
 </code>
+<p />
+Following code show how to use date-time parameters. This code will schedule
+immediatelly installation of package rhnlib-2.5.22.9.el6.noarch to system with
+id 1000000001.
+<p />
+
+<code>
+#!/usr/bin/python<br />
+from datetime import datetime<br />
+import time<br />
+import xmlrpclib<br />
+<br />
+SATELLITE_URL = "http://satellite.example.com/rpc/api"<br />
+SATELLITE_LOGIN = "username"<br />
+SATELLITE_PASSWORD = "password"<br />
+<br />
+client = xmlrpclib.Server(SATELLITE_URL, verbose=0)<br />
+<br />
+key = client.auth.login(SATELLITE_LOGIN, SATELLITE_PASSWORD)<br />
+package_list = client.packages.findByNvrea(key, 'rhnlib', '2.5.22', '9.el6', '', 'noarch')<br />
+today = datetime.today()<br />
+earliest_occurrence = xmlrpclib.DateTime(today)<br />
+client.system.schedulePackageInstall(key, 1000000001, package_list[0]['id'],
+earliest_occurrence)<br />
+<br />
+client.auth.logout(key)<br />
+</code>
 <hr />
 
 For more examples visit the <a href="https://fedorahosted.org/spacewalk/">Spacewalk community page</a>.

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 import sys
-from server.rhnServer import satellite_cert
+from spacewalk.server.rhnServer import satellite_cert
 
 if len(sys.argv) != 2:
     print "Usage: %s <cert-file>" % sys.argv[0]

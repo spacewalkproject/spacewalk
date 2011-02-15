@@ -1,4 +1,4 @@
--- created by Oraschemadoc Fri Jan 22 13:41:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:03 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_SNAPSHOT_INVALID_REASON" (label_in IN VARCHAR2)

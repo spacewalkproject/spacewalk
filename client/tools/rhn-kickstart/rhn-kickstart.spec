@@ -5,7 +5,7 @@ Name: rhn-kickstart
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 5.4.3
+Version: 5.4.5
 Release: 1%{?dist}
 BuildArch: noarch
 BuildRequires: python
@@ -107,6 +107,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 5.4.5-1
+- Update copyright years in the rest of the repo.
+
+* Fri Oct 29 2010 Jan Pazdziora 5.4.4-1
+- removed unused class LiloConfiguration (michael.mraka@redhat.com)
+
 * Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.3-1
 - add parameter cache_only to all client actions (msuchy@redhat.com)
 

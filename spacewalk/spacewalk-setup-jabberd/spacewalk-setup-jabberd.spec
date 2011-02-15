@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.2.1
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -53,11 +53,23 @@ rm -rf %{buildroot}
 %doc LICENSE
 %{_bindir}/spacewalk-setup-jabberd
 %{_mandir}/man1/*
+%dir %{_datadir}/spacewalk
 %{_datadir}/spacewalk/*
 %dir %{_sysconfdir}/pki/spacewalk
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Tue Dec 14 2010 Jan Pazdziora 1.3.2-1
+- We need to check the return value of GetOptions and die if the parameters
+  were not correct.
+- spacewalk-setup-jabberd should own /usr/share/spacewalk (msuchy@redhat.com)
+
+* Thu Nov 25 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.3.1-1
+- sm.xsl for jabberd ver. 2.2.11
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.2-1
+- Update copyright years in the rest of the repo.
+
 * Fri Sep 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.2.1-1
 - point c2s to server.pem contained in the rhn-org-* pkg
 

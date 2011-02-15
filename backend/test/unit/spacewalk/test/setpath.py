@@ -1,7 +1,6 @@
 import sys
 import os
 import os.path
-import unittest
 
 PYTHON_PATH_SETUP = False
 

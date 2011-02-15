@@ -18,12 +18,9 @@
 
 import copy
 import string
-import re
-import sys
 
-from common import rhnFault, CFG
-from spacewalk.common import rhn_rpm
-from server import rhnSQL, rhnChannel, taskomatic
+from spacewalk.common import rhnFault, CFG, rhn_rpm
+from spacewalk.server import rhnSQL, rhnChannel, taskomatic
 from importLib import Diff, Package, IncompletePackage, Erratum, \
         AlreadyUploadedError, InvalidPackageError, TransactionError, \
         InvalidSeverityError, SourcePackage
@@ -48,6 +45,8 @@ sequences = {
     'rhnErrataFile'             : 'rhn_erratafile_id_seq',
     'rhnKickstartableTree'      : 'rhn_kstree_id_seq',
     'rhnArchType'               : 'rhn_archtype_id_seq',
+    'rhnPackageChangeLogRec'    : 'rhn_pkg_cl_id_seq',
+    'rhnPackageChangeLogData'   : 'rhn_pkg_cld_id_seq',
 }
 
 class NoFreeEntitlementsError(Exception):
@@ -124,6 +123,35 @@ class Backend:
         """
         h = self.dbmodule.prepare(sql)
         h.executemany(id=toinsert[0], name=toinsert[1], version=toinsert[2])
+
+    def processChangeLog(self, changelogHash):
+        sql = "select id from rhnPackageChangeLogData where name = :name and time = :time and text = :text"
+        h = self.dbmodule.prepare(sql)
+        toinsert = [[], [], [], []]
+        for name, time, text in changelogHash.keys():
+            val = {}
+            _buildExternalValue(val, { 'name' : name, 'time' : time, 'text' : text }, self.tables['rhnPackageChangeLogData'])
+            h.execute(name=val['name'], time=val['time'], text=val['text'])
+            row = h.fetchone_dict()
+            if row:
+                changelogHash[(name, time, text)] = row['id']
+                continue
+
+            id = self.sequences['rhnPackageChangeLogData'].next()
+            changelogHash[(name, time, text)] = id
+
+            toinsert[0].append(id)
+            toinsert[1].append(val['name'])
+            toinsert[2].append(val['time'])
+            toinsert[3].append(val['text'])
+
+        if not toinsert[0]:
+            # Nothing to do
+            return
+
+        sql = "insert into rhnPackageChangeLogData (id, name, time, text) values (:id, :name, :time, :text)"
+        h = self.dbmodule.prepare(sql)
+        h.executemany(id=toinsert[0], name=toinsert[1], time=toinsert[2], text=toinsert[3])
 
     def processCVEs(self, cveHash):
         # First figure out which CVE's are already inserted
@@ -543,12 +571,7 @@ class Backend:
                 names.append(name)
                 
             sql = """
-            declare
-                pragma autonomous_transaction;
-            begin
-                insert into %s (id, label, name) values (:id, :label, :name);
-                commit;
-            end;
+                insert into %s (id, label, name) values (:id, :label, :name)
             """
             h = self.dbmodule.prepare(sql % table_name)
             h.executemany(id=row_ids, label=labels, name=names)
@@ -561,12 +584,7 @@ class Backend:
                 names.append(name)
 
             sql = """
-            declare
-                pragma autonomous_transaction;
-            begin
-                update %s set name = :name where label = :label;
-                commit;
-            end;
+                update %s set name = :name where label = :label
             """
             h = self.dbmodule.prepare(sql % table_name)
             h.executemany(label=labels, name=names)
@@ -664,7 +682,7 @@ class Backend:
             'rhnPackageConflicts':  'package_id',
             'rhnPackageObsoletes':  'package_id', 
             'rhnPackageFile':       'package_id',
-            'rhnPackageChangeLog':  'package_id',
+            'rhnPackageChangeLogRec':  'package_id',
         }
 
         solarisChildTables = {
@@ -814,11 +832,11 @@ class Backend:
 
         h = self.dbmodule.prepare("""
             insert into rhnErrataQueue (errata_id, channel_id, next_action) 
-            values (:errata_id, :channel_id, current_timestamp + interval :timeout second)
+            values (:errata_id, :channel_id, current_timestamp + numtodsinterval(:timeout, 'second'))
         """)
         errata_ids = map(lambda x:x[0], errata_channel_ids)
         channel_ids = map(lambda x:x[1], errata_channel_ids)
-        timeouts = [str(timeout)] * len(errata_ids)
+        timeouts = [timeout] * len(errata_ids) 
         hdel.executemany(errata_id=errata_ids)
         return h.executemany(errata_id=errata_ids, channel_id=channel_ids,\
                              timeout=timeouts)
@@ -1265,33 +1283,46 @@ class Backend:
             'package_id'    : [],
             'channel_id'    : [],
         }
-        # Now get the extra packages from the DB
         if strict:
+            # if strict remove the extra packages from the DB
             sql = """
                 select package_id
                   from rhnChannelPackage
                  where channel_id = :channel_id
             """
-            statement = self.dbmodule.prepare(sql)
-            for channel_id, pid_hash in channel_packages.items():
-                statement.execute(channel_id=channel_id)
-                while 1:
-                    row = statement.fetchone_dict()
-                    if not row:
-                        break
-                    package_id = row['package_id']
-                    if not pid_hash.has_key(package_id):
-                        # Have to remove it
-                        extra_cp['package_id'].append(package_id)
-                        extra_cp['channel_id'].append(channel_id)
-                        # And mark this channel as being affected
-                        if not affected_channels.has_key(channel_id):
-                            modified_packages = ([], [])
-                            affected_channels[channel_id] = modified_packages 
-                        else:
-                            modified_packages = affected_channels[channel_id]
-                        # Package was deletef from this channel
-                        modified_packages[1].append(package_id)
+        else:
+            # or at least we should delete packages from different org
+            sql = """
+                select package_id
+                  from rhnChannelPackage cp
+                  join rhnPackage p
+                    on p.id = cp.package_id
+                  join rhnChannel c
+                    on c.id = cp.channel_id
+                 where cp.channel_id = :channel_id
+                   and c.org_id != p.org_id
+            """
+
+        statement = self.dbmodule.prepare(sql)
+        for channel_id, pid_hash in channel_packages.items():
+            statement.execute(channel_id=channel_id)
+            while 1:
+                row = statement.fetchone_dict()
+                if not row:
+                    break
+                package_id = row['package_id']
+                if not pid_hash.has_key(package_id):
+                    # Have to remove it
+                    extra_cp['package_id'].append(package_id)
+                    extra_cp['channel_id'].append(channel_id)
+                    # And mark this channel as being affected
+                    if not affected_channels.has_key(channel_id):
+                        modified_packages = ([], [])
+                        affected_channels[channel_id] = modified_packages
+                    else:
+                        modified_packages = affected_channels[channel_id]
+                    # Package was deletef from this channel
+                    modified_packages[1].append(package_id)
 
         self.__doDeleteTable('rhnChannelPackage', extra_cp)
         self.__doInsertTable('rhnChannelPackage', hash)
@@ -1453,7 +1484,7 @@ class Backend:
         brokenTransaction = 0
 
         # Lookup object
-        lookup = TableLookup(self.tables[parentTable], self.dbmodule)
+        lookup = TableLookup(parentTableObj, self.dbmodule)
         # XXX
         childTableLookups = self.__buildQueries(childTables)
         # For each valid object in the collection, look it up
@@ -1788,10 +1819,10 @@ class Backend:
         query = """
             select
                  pn.name, 
-                 pe.evr.epoch epoch,
-                 pe.evr.version version, 
-                 pe.evr.release release,
-                 pa.label arch,
+                 (pe.evr).epoch epoch,
+                 (pe.evr).version as version,
+                 (pe.evr).release as release,
+                 pa.label as arch,
                  p.org_id,
                  cc.checksum_type,
                  cc.checksum
@@ -1951,10 +1982,10 @@ class Backend:
     def validate_pks(self):
         # If nevra is enabled use checksum as primary key
         tbs = self.tables['rhnPackage']
-        if CFG.ENABLE_NVREA:
-            # Add checksum as a primarykey if nevra is enabled
-            if 'checksum_id' not in tbs.pk:
-                tbs.pk.append('checksum_id')
+        if not CFG.ENABLE_NVREA:
+            # remove checksum from a primary key if nevra is disabled.
+            if 'checksum_id' in tbs.pk:
+                tbs.pk.remove('checksum_id')
             
 # Returns a tuple for the hash's values
 def build_key(hash, fields):

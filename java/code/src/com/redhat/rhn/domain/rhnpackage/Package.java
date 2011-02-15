@@ -14,15 +14,6 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
@@ -31,6 +22,15 @@ import com.redhat.rhn.domain.errata.impl.PublishedErrata;
 import com.redhat.rhn.domain.errata.impl.UnpublishedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rpm.SourceRpm;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Package
@@ -72,7 +72,6 @@ public class Package extends BaseDomainHelper {
     private Long headerStart = new Long(0L);
     private Long headerEnd = new Long(0L);
 
-    private Set<ChangeLogEntry> changeLog = new HashSet();
     private Set<PackageProvides> provides = new HashSet();
     private Set<PackageRequires> requires = new HashSet();
     private Set<PackageObsoletes> obsoletes = new HashSet();
@@ -90,28 +89,6 @@ public class Package extends BaseDomainHelper {
      */
     public void setProvides(Set<PackageProvides> providesIn) {
         this.provides = providesIn;
-    }
-
-    /**
-     * @return Returns the changeLog
-     */
-    public Set<ChangeLogEntry> getChangeLog() {
-        return changeLog;
-    }
-
-    /**
-     * @param changeLogIn The ChangeLog to set
-     */
-    public void setChangeLog(Set<ChangeLogEntry> changeLogIn) {
-        this.changeLog = changeLogIn;
-    }
-
-    /**
-     * @param entry The ChangeLogEntry to add
-     */
-    public void addChangeLogEntry(ChangeLogEntry entry) {
-        entry.setRhnPackage(this);
-        changeLog.add(entry);
     }
 
     /**
@@ -469,6 +446,7 @@ public class Package extends BaseDomainHelper {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         return new ToStringBuilder(this).append("id", getId()).append("packageName",
                 getPackageName()).toString();
@@ -495,6 +473,7 @@ public class Package extends BaseDomainHelper {
      *
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(Object other) {
         if (other instanceof Package) {
             Package otherPack = (Package) other;
@@ -512,6 +491,7 @@ public class Package extends BaseDomainHelper {
      *
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(this.getPackageName()).append(
                 this.getPackageArch()).append(this.getPackageEvr()).toHashCode();

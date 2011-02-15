@@ -48,20 +48,6 @@ SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
 ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
   </query>
 
-  <query name="visible_to_user_overview_slow" params="org_id, user_id">
-SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
-         GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
-         NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
-         NVL(SECURITY_ERRATA + BUG_ERRATA + ENHANCEMENT_ERRATA, 0) AS ALL_ERRATA
-  FROM   rhnVisServerGroupOverview GO, rhnUserManagedServerGroups UMSG
- WHERE   GO.ORG_ID = :org_id
-   AND   UMSG.user_id = :user_id
-   AND   UMSG.server_group_id IN (%s)
-   AND   GO.GROUP_ID = UMSG.server_group_id
-ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
-  </query>
-
-
 <query name="visible_to_user_ids" params="user_id">
 SELECT DISTINCT SG.id AS ID, SG.name AS GROUP_NAME
   FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG

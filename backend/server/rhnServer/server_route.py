@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,8 +18,8 @@
 
 import string
 
-from common import rhnFlags, log_debug
-from server import rhnSQL, apacheAuth
+from spacewalk.common import rhnFlags, log_debug
+from spacewalk.server import rhnSQL, apacheAuth
 
 def store_client_route(server_id):
     """ Stores the route the client took to get to hosted or the Satellite """

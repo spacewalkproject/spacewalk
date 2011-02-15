@@ -28,7 +28,7 @@
 
 
    <delete id="deleteLastHardwareDevice">
-		DELETE rhnIndexerWork where object_type = 'hwdevice'
+                DELETE FROM rhnIndexerWork where object_type = 'hwdevice'
    </delete>
    <insert id="createLastHardwareDevice"
 		   parameterClass="java.util.Map">

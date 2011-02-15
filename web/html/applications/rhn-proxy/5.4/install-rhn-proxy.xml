@@ -568,18 +568,6 @@ Would you like to enable Monitoring Proxy functionality on this system?
 			    template="httpd/ssl.conf" mode="644" username="root" groupname="root"/>
     </activity>
 
-    <activity description="Generate /etc/jabberd/c2s.xml config file"
-	      acl="global_config(ssl_available);session_data_true(enable_osad)">
-      <generate-config-file target-config-channel="rhn_proxy_config_${system.id}" path="/etc/jabberd/c2s.xml"
-			    template="jabberd/c2s.xml" mode="644" username="root" groupname="root"/>
-    </activity>
-
-    <activity description="Generate /etc/jabberd/sm.xml config file"
-	      acl="global_config(ssl_available);session_data_true(enable_osad)">
-      <generate-config-file target-config-channel="rhn_proxy_config_${system.id}" path="/etc/jabberd/sm.xml"
-			    template="jabberd/sm.xml" mode="644" username="root" groupname="root"/>
-    </activity>
-
     <activity description="Activate the ${app.name}">
       <method-call class="RHN::ProxyInstall" method="activate_proxy">
         <version>${app.version}</version>
@@ -614,6 +602,13 @@ fi
         <rpm acl="session_data_true(enable_monitoring)">spacewalk-proxy-monitoring</rpm>
       </install-packages>
 
+      <run-script acl="global_config(ssl_available);session_data_true(enable_osad)">
+        <action-name>Generate jabberd config file</action-name>
+          <script>
+#!/bin/sh
+/usr/bin/spacewalk-setup-jabberd --macros "hostname:${session.hostname}"
+          </script>
+        </run-script>
 
       <deploy-configs>
         <action-name>Deploy Configuration</action-name>
@@ -630,8 +625,6 @@ fi
         <configfile acl="global_config(ssl_available) or not global_config(satellite)">/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT</configfile>
         <configfile acl="session_data_true(ca_rpm)">${session.ca_rpm}</configfile>
         <configfile acl="global_config(ssl_available);session_data_true(enable_osad)">/etc/jabberd/server.pem</configfile>
-        <configfile acl="global_config(ssl_available);session_data_true(enable_osad)">/etc/jabberd/c2s.xml</configfile>
-        <configfile acl="global_config(ssl_available);session_data_true(enable_osad)">/etc/jabberd/sm.xml</configfile>
       </deploy-configs> 
 
       <run-script>

@@ -21,7 +21,6 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -311,65 +310,6 @@ public class OrgManager extends BaseManager {
                 Collections.EMPTY_MAP);
     }
 
-
-    /**
-     * Lookup orgs with servers with access to any channel that's a part of the
-     * given family.
-     * @param family Channel family
-     * @param user User performing the query
-     * @return List of orgs.
-     */
-    public static List<Org> orgsUsingChannelFamily(ChannelFamily family,
-            User user) {
-
-        if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
-            // Throw an exception w/error msg so the user knows what went wrong.
-            LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a " +
-                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
-            throw pex;
-        }
-
-        return OrgFactory.lookupOrgsUsingChannelFamily(family);
-    }
-
-    /**
-     *
-     * @param entLabel to check used active orgs
-     * @return DataList of Objects
-     */
-    public static DataList getUsedActiveOrgCount(String entLabel) {
-        SelectMode m = ModeFactory
-                .getMode("Org_queries", "get_used_org_counts");
-        Map params = new HashMap();
-        params.put("label", entLabel);
-        return DataList.getDataList(m, params, Collections.EMPTY_MAP);
-    }
-
-    /**
-     * @param user User to cross security check
-     * @param entLabel to check used active orgs
-     * @return DataList of Objects
-     */
-    public static DataList getAllOrgs(User user, String entLabel) {
-        if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
-            // Throw an exception w/error msg so the user knows what went wrong.
-            LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a " +
-                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
-            throw pex;
-        }
-        SelectMode m = ModeFactory
-                .getMode("Org_queries", "get_all_orgs");
-        Map params = new HashMap();
-        params.put("label", entLabel);
-        return DataList.getDataList(m, params, Collections.EMPTY_MAP);
-    }
-
     /**
      * Returns the total number of orgs on this satellite.
      * @param user User performing the query.
@@ -408,26 +348,6 @@ public class OrgManager extends BaseManager {
         }
 
         return OrgFactory.getTrustedSince(org.getId(), trustOrg.getId());
-    }
-
-    /**
-     * Returns the date which this org trusted the supplied orgId
-     * @param user currently logged in user
-     * @param orgIn Org to calculate the number of System migrations to
-     * @return number of systems migrated to OrgIn
-     */
-    public static Long getSysMigrationsTo(User user, Org orgIn) {
-        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
-            // Throw an exception w/error msg so the user knows what went wrong.
-            LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a " +
-            RoleFactory.ORG_ADMIN.getName() + " to access the system migration data");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
-            throw pex;
-        }
-
-        return OrgFactory.getSysMigrationsTo(orgIn.getId());
     }
 
     /**

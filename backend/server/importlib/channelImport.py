@@ -17,8 +17,8 @@
 
 from importLib import Import, InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
-from common import CFG
-from satellite_tools.syncLib import log
+from spacewalk.common import CFG
+from spacewalk.satellite_tools.syncLib import log
 
 import re
 RHEL5_REGEXP = re.compile("rhel-[^-]*-(server|client)-5")
@@ -118,23 +118,19 @@ class ChannelImport(Import):
             })
         channel['families'] = families
         # Dists
-        if channel.has_key('dists') and channel['dists'] is not None:
-            for dist in channel['dists']:
-                arch = dist['channel_arch']
-                if self.arches[arch] is None:
-                    # Mark it as ignored
-                    channel.ignored = 1
-                    raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
-                dist['channel_arch_id'] = self.arches[arch]
+        self.__postprocessChannelMaps(channel, 'dists')
         #release
-        if channel.has_key('release') and channel['release'] is not None:
-            for release in channel['release']:
-                arch = release['channel_arch']
+        self.__postprocessChannelMaps(channel, 'release')
+
+    def __postprocessChannelMaps(self, channel, map):
+        if channel.has_key(map) and channel[map] is not None:
+            for dict in channel[map]:
+                arch = dict['channel_arch']
                 if self.arches[arch] is None:
                     # Mark it as ignored
                     channel.ignored = 1
                     raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
-                release['channel_arch_id'] = self.arches[arch]
+                dict['channel_arch_id'] = self.arches[arch]
 
     def submit(self):
         parentChannels = {}
@@ -335,53 +331,11 @@ class DistChannelMapImport(Import):
             raise
         self.backend.commit()
 
-class ReleaseChannelMapImport(Import):
-    """
-     Importer class to process Release Channel Mappings
-    """
-    def __init__(self, batch, backend):
-        Import.__init__(self, batch, backend)
-
-    def preprocess(self):
-        # Processes the batch to a form more suitable for database
-        # operations
-        for rcm in self.batch:
-            self.arches[rcm['arch']] = None
-            self.channels[rcm['channel']] = None
-
-    def fix(self):
-        # Look up arches and channels
-        self.backend.lookupChannelArches(self.arches)
-        self.backend.lookupChannels(self.channels)
-        for dcm in self.batch:
-            arch = self.arches[rcm['arch']]
-            if arch is None:
-                # Invalid arch
-                rcm.ignored = 1
-                raise InvalidArchError(rcm['arch'],
-                    "Invalid release_channel_map arch %s" % rcm['arch'])
-            channel = self.channels[rcm['channel']]
-            if channel is None:
-                rcm.ignored = 1
-                raise InvalidChannelError(rcm['channel'],
-                    "Invalid release_channel_map channel %s" % rcm['channel'])
-            rcm['arch'] = arch
-            rcm['channel_id'] = channel['id']
-
-
-    def submit(self):
-        try:
-            self.backend.processReleaseChannelMap(self.batch)
-        except:
-            self.backend.rollback()
-            raise
-        self.backend.commit()
-
 
 # for testing only
 if __name__ == '__main__':
     import sys
-    from server import rhnSQL
+    from spacewalk.server import rhnSQL
     from backendOracle import OracleBackend
     from importLib import Collection, ChannelFamily, DistChannelMap
     backend = OracleBackend()

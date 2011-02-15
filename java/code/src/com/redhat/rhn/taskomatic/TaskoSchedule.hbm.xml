@@ -23,7 +23,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="activeFrom" type="timestamp" column="active_from"/>
         <property name="activeTill" type="timestamp" column="active_till"/>
         <property name="cronExpr" type="string" column="cron_expr"/>
-        <property name="data" type="blob" column="data"/>
+        <property name="data" type="binary" column="data"/>
 
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>

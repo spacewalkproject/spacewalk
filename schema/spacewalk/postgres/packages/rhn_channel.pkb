@@ -1,5 +1,6 @@
 -- This file is not yet in sync with Oracle. Synced functions are:
--- subscribe_server + all subfunctions called
+-- subscribe_server + all subfunctions
+-- unsubscribe_server + all subfunctions
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -232,10 +233,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         vi_entries cursor for
             SELECT 1
               FROM rhnVirtualInstance vi
-             WHERE vi.virtual_system_id = server_id_in
-             and not exists(select server_id from rhnServerChannel sc where
-                            sc.server_id = vi.virtual_system_id
-                            and  sc.is_fve='Y');
+             WHERE vi.virtual_system_id = server_id_in;
         vi_count numeric;
 
     begin
@@ -428,7 +426,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION unsubscribe_server(server_id_in IN NUMERIC, channel_id_in NUMERIC, immediate_in NUMERIC default 1, unsubscribe_children_in numeric default 0,
-                                 deleting_server IN NUMERIC default 0 ) returns void
+                                 deleting_server in numeric default 0,
+                                 update_family_countsYN in numeric default 1) returns void
     AS $$
     declare
         channel_family_id_val   NUMERIC;
@@ -445,25 +444,25 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 from    rhnChannelFamily
                 where   id = channel_family_id_in
                     and label = 'rhn-satellite';
-        local_chk_server_parent_memb cursor (
-                        server_id_in numeric,
-                        channel_id_in numeric ) for
-                select  c.id
+        child record;
+    BEGIN
+        -- In PostgreSQL recursion with opened cursors is not allowed so we use
+        -- FOR IN SELECT form which is ok.
+        FOR child IN select  c.id
                 from    rhnChannel                      c,
                                 rhnServerChannel        sc
                 where   1=1
                         and c.parent_channel = channel_id_in
                         and c.id = sc.channel_id
-                        and sc.server_id = server_id_in;
-    BEGIN
-        FOR child IN local_chk_server_parent_memb(server_id_in, channel_id_in)
+                        and sc.server_id = server_id_in
         LOOP
             if unsubscribe_children_in = 1 then
                 perform rhn_channel.unsubscribe_server(server_id_in,
                                                        child.id,
                                                        immediate_in,
                                                        unsubscribe_children_in,
-                                                       deleting_server);
+                                                       deleting_server,
+                                                       update_family_countsYN);
             else
                 perform rhn_exception.raise_exception('channel_unsubscribe_child_exists');
             end if;
@@ -504,22 +503,18 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
 
         for ignore in channel_family_is_satellite(channel_family_id_val) loop
                 delete from rhnSatelliteInfo where server_id = server_id_in;
-                delete from rhnSatelliteChannelFamily where server_id = server_id_in;
         end loop;
 
         for ignore in channel_family_is_proxy(channel_family_id_val) loop
                 delete from rhnProxyInfo where server_id = server_id_in;
         end loop;
-
-        DELETE FROM rhnChannelFamilyLicenseConsent
-         WHERE channel_family_id = channel_family_id_val
-           AND server_id = server_id_in;
-                        
         SELECT org_id INTO server_org_id_val
           FROM rhnServer
          WHERE id = server_id_in;
          
-        perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        if update_family_countsYN = 1 then
+           perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        end if;
     END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION family_for_channel(channel_id_in IN NUMERIC)
@@ -1110,6 +1105,23 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
          -- we won't invalidate snapshots, b/c just changing the errata associated with
          -- a channel shouldn't invalidate snapshots
          perform rhn_channel.update_channel ( channel.channel_id, 0, date_to_use );
+      end loop;
+   end$$ language plpgsql;
+
+   create or replace function update_needed_cache(channel_id_in in numeric) returns void
+   as $$
+   declare
+   server record;
+   begin
+      -- we intentionaly do a loop here instead of one huge select
+      -- b/c we want to break update into smaller transaction to unblock other sessions
+      -- querying rhnServerNeededCache
+      for server in (
+                select sc.server_id as id
+                  from rhnServerChannel sc
+                 where sc.channel_id = channel_id_in
+      ) loop
+         perform rhn_server.update_needed_cache(server.id);
       end loop;
    end$$ language plpgsql;
 

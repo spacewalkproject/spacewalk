@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:41:02 2010
+-- created by Oraschemadoc Thu Jan 20 13:58:29 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_UG_MEMBER_DEL_TRIG"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_UG_MEMBER_DEL_TRIG" 
 before delete on rhnUserGroupMembers
 for each row
 begin

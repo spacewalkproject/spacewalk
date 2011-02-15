@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,11 +16,11 @@
 
 __all__ = []
 
-import auth, cert, get_handler
+import auth, cert
 
 rpcClasses = {
         'authentication'    :   auth.Authentication,
         'certificate'       :   cert.Certificate,
     }
 
-getHandler = get_handler.GetHandler
+getHandler = None

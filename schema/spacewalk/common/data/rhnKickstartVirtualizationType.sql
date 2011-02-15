@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,16 +16,16 @@
 
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-     values (rhn_kvt_id_seq.nextval, 'Para-Virtualized Host', 'para_host');
+     values (sequence_nextval('rhn_kvt_id_seq'), 'Para-Virtualized Host', 'para_host');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'KVM Virtualized Guest', 'qemu');
+    values (sequence_nextval('rhn_kvt_id_seq'), 'KVM Virtualized Guest', 'qemu');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv');
+    values (sequence_nextval('rhn_kvt_id_seq'), 'XEN Fully-Virtualized Guest', 'xenfv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'XEN Para-Virtualized Guest', 'xenpv');
+    values (sequence_nextval('rhn_kvt_id_seq'), 'XEN Para-Virtualized Guest', 'xenpv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval,  'None', 'none');
+    values (sequence_nextval('rhn_kvt_id_seq'),  'None', 'none');

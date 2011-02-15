@@ -294,14 +294,14 @@ SELECT p.recid id, p.description,
        cp.host_id server_id,
        ps.state, ps.output, csp.check_suite_id as probe_suite_id,
        spo.origin_probe_id as template_probe_id
-FROM rhn_probe p, rhn_check_probe cp, rhnServer s, rhn_probe_state ps,
-     rhn_service_probe_origins spo, rhn_check_suite_probe csp
+FROM rhn_probe p
+LEFT OUTER JOIN rhn_service_probe_origins spo ON spo.service_probe_id = p.recid
+LEFT OUTER JOIN rhn_check_suite_probe csp ON csp.probe_id = spo.origin_probe_id,
+rhn_check_probe cp, rhnServer s, rhn_probe_state ps
 WHERE s.id = :sid
   and cp.probe_id = p.recid
   and s.id = cp.host_id
   and ps.probe_id = p.recid
-  and spo.service_probe_id (+) = p.recid
-  and csp.probe_id (+) = spo.origin_probe_id
 ORDER BY p.description]]>
   </query>
 </mode>
@@ -312,15 +312,15 @@ SELECT p.recid id, p.description,
        cp.host_id server_id,
        ps.state, ps.output, csp.check_suite_id as probe_suite_id,
        spo.origin_probe_id as template_probe_id
-FROM rhn_probe p, rhn_check_probe cp, rhnServer s, rhn_probe_state ps,
-     rhn_service_probe_origins spo, rhn_check_suite_probe csp
+FROM rhn_probe p
+LEFT OUTER JOIN rhn_service_probe_origins spo ON spo.service_probe_id = p.recid
+LEFT OUTER JOIN rhn_check_suite_probe csp ON csp.probe_id = spo.origin_probe_id,
+rhn_check_probe cp, rhnServer s, rhn_probe_state ps
 WHERE s.id = :sid
   and cp.probe_id = p.recid
   and s.id = cp.host_id
   and ps.probe_id = p.recid
   and (ps.state = 'CRITICAL' OR ps.state = 'WARNING')
-  and spo.service_probe_id (+) = p.recid
-  and csp.probe_id (+) = spo.origin_probe_id
 ORDER BY p.description]]>
   </query>
 </mode>

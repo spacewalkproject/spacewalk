@@ -47,7 +47,7 @@
          ORDER by p.id ASC
    </select>
    <delete id="deleteLastPackage">
-   		DELETE rhnIndexerWork where object_type = 'package'
+                DELETE FROM rhnIndexerWork where object_type = 'package'
    </delete>
    <insert id="createLastPackage"
 		   parameterClass="java.util.Map">

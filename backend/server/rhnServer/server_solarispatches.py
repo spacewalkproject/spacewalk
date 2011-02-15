@@ -16,8 +16,8 @@
 # 
 # Extra functionality for solaris patches
 
-from common import log_debug
-from server import rhnSQL
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
 
 from server_packages import dbPackage
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,8 +13,8 @@
 # in this software or its documentation. 
 #
 import sys
-from common import rhn_memusage
-from server.rhnServer import satellite_cert
+from spacewalk.common import rhn_memusage
+from spacewalk.server.rhnServer import satellite_cert
 
 def main():
     for i in range(1000):

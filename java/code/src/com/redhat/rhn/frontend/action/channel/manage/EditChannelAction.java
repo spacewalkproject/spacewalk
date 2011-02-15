@@ -14,24 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -60,6 +42,24 @@ import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -289,16 +289,18 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
     }
 
-    private Channel grant(DynaActionForm form,
+    private void grant(DynaActionForm form,
                           ActionErrors errors,
                           RequestContext ctx) {
         Channel c = edit(form, errors, ctx);
-        // now add all of the orgs to the "rhnchanneltrust"
-        Org org = ctx.getLoggedInUser().getOrg();
-        Set<Org> trustedorgs = org.getTrustedOrgs();
-        c.setTrustedOrgs(trustedorgs);
-        ChannelFactory.save(c);
-        return c;
+        // if there was no exception during the above edit
+        // add all of the orgs to the "rhnchanneltrust"
+        if (c != null) {
+            Org org = ctx.getLoggedInUser().getOrg();
+            Set<Org> trustedorgs = org.getTrustedOrgs();
+            c.setTrustedOrgs(trustedorgs);
+            ChannelFactory.save(c);
+        }
     }
 
     private Channel makePrivate(DynaActionForm form,
@@ -585,7 +587,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 String lastSync = LocalizationService.getInstance().getMessage(
                         "channel.edit.repo.neversynced");
                 if (c.getLastSynced() != null) {
-                    lastSync = LocalizationService.getInstance().formatDate(
+                    lastSync = LocalizationService.getInstance().formatCustomDate(
                             c.getLastSynced());
                 }
                 request.setAttribute("last_sync", lastSync);

@@ -21,9 +21,8 @@ import string
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
-from common import log_debug, Traceback, rhnFlags, CFG
-
-from server.importlib import importLib, backendLib
+from spacewalk.common import log_debug, Traceback, rhnFlags, CFG
+from spacewalk.server.importlib import importLib, backendLib
 
 # Terminology used throughout this file:
 # Item: an atomic entity from the database's perspective.
@@ -66,12 +65,6 @@ class FatalParseException(SAXParseException):
     """exception wrapper for a critical PyXML parser error.
     """
     pass
-
-class WarningParseException(SAXParseException):
-    """exception wrapper for a PyXML parser warning - probably not used.
-    """
-    pass
-
 
 # XML Node
 class Node:
@@ -134,7 +127,8 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             raise
         except Exception, e:
             Traceback(ostream=sys.stderr, with_locals=1)
-            stream.close()
+            if stream is not None:
+                stream.close()
             sys.exit(1)
 
     def reset(self):
@@ -592,44 +586,38 @@ class ChangelogItem(BaseItem):
     }
 addItem(ChangelogItem)
 
-class ProvidesItem(BaseItem):
-    item_name = 'rhn-package-provides-entry'
+class DependencyItem(BaseItem):
+    """virtual class - common settings for dependency items"""
     item_class = importLib.Dependency
     tagMap = {
         'sense'                     : 'flags',
     }
+
+class ProvidesItem(DependencyItem):
+    item_name = 'rhn-package-provides-entry'
 addItem(ProvidesItem)
     
-class RequiresItem(BaseItem):
+class RequiresItem(DependencyItem):
     item_name = 'rhn-package-requires-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(RequiresItem)
 
-class ConflictsItem(BaseItem):
+class ConflictsItem(DependencyItem):
     item_name = 'rhn-package-conflicts-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(ConflictsItem)
 
-class ObsoletesItem(BaseItem):
+class ObsoletesItem(DependencyItem):
     item_name = 'rhn-package-obsoletes-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(ObsoletesItem)
 
 class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'
     item_class = importLib.File
+    tagMap = {
+        'checksum-type' : 'checksum_type',
+    }
     def populate(self, attributes, elements):
-        if 'md5' in attributes:
-            attributes['checksum_type'] = 'md5'
+        if 'md5' in attributes and 'checksum-type' not in attributes:
+            attributes['checksum-type'] = 'md5'
             attributes['checksum'] = attributes['md5']
         item = BaseChecksummedItem.populate(self, attributes, elements)
         return item
@@ -709,7 +697,6 @@ addItem(ErratumItem)
 class ErrorItem(BaseItem):
     item_name = 'rhn-error'
     item_class = importLib.Error
-    tagMap = {}
 addItem(ErrorItem)
 
 class ErrataFileItem(BaseChecksummedItem):
@@ -728,13 +715,11 @@ addItem(ErrataFileItem)
 class BlacklistObsoleteItem(BaseItem):
     item_name = 'rhn-blacklist-obsolete'
     item_class = importLib.BlacklistObsoletes
-    tagMap = {}
 addItem(BlacklistObsoleteItem)
 
 class ProductNamesItem(BaseItem):
     item_name = 'rhn-product-name'
     item_class = importLib.ProductName
-    tagMap = {}
 addItem(ProductNamesItem)
 
 class KickstartableTreeItem(BaseItem):
@@ -1066,30 +1051,4 @@ class ProductNamesContainer(ContainerHandler):
 
 class KickstartableTreesContainer(ContainerHandler):
     container_name = 'rhn-kickstartable-trees'
-
-#
-# Handler generator
-#
-def getHandler():
-    handler = SatelliteDispatchHandler()
-#    handler.set_container(ErrorContainer())
-    handler.set_container(ChannelFamilyContainer())
-    handler.set_container(ChannelContainer())
-    handler.set_container(IncompletePackageContainer())
-    handler.set_container(PackageContainer())
-    handler.set_container(SourcePackageContainer())
-    handler.set_container(ErrataContainer())
-    # arch containers
-    handler.set_container(ServerArchContainer())
-    handler.set_container(PackageArchContainer())
-    handler.set_container(ChannelArchContainer())
-    handler.set_container(CPUArchContainer())
-    handler.set_container(ServerPackageArchCompatContainer())
-    handler.set_container(ServerChannelArchCompatContainer())
-    handler.set_container(ChannelPackageArchCompatContainer())
-    handler.set_container(ServerGroupServerArchCompatContainer())
-    handler.set_container(BlacklistObsoletesContainer())
-    handler.set_container(KickstartableTreesContainer())
-    handler.set_conatiner(ProductNamesContainer())
-    return handler
 

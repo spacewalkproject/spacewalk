@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.2.3
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -88,7 +88,7 @@ fi
 %posttrans
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-  /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+  /sbin/restorecon -rvvi /usr/share/rhn/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
         /usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert /usr/sbin/tanukiwrapper
 fi
 
@@ -102,7 +102,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+/sbin/restorecon -rvvi /usr/share/rhn/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
     %{_bindir}/rhn-sudo-ssl-tool %{_bindir}/rhn-sudo-load-ssl-cert /usr/sbin/tanukiwrapper
 
 %files
@@ -113,6 +113,20 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jan 24 2011 Jan Pazdziora 1.3.2-1
+- Adding explicit append allow for sqlplus.
+
+* Wed Dec 29 2010 Jan Pazdziora 1.3.1-1
+- Create sqlplus spool files with different type than the directories, to allow
+  write.
+
+* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
+- set correct context on satidmap.pl (msuchy@redhat.com)
+
+* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.4-1
+- 491331 move /etc/rhn/satellite-httpd/conf/satidmap.pl to
+  /usr/share/rhn/satidmap.pl (msuchy@redhat.com)
+
 * Wed Oct 13 2010 Jan Pazdziora 1.2.3-1
 - Need to allow wider sqlplus access to spacewalk_db_install_log_t for schema
   upgrades to work.

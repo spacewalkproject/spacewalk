@@ -451,6 +451,13 @@ public class PackageDto extends BaseDto {
         this.primaryXml =  blobIn;
     }
 
+    /**
+     * Interface for postgres byte array
+     * @param byteArrayIn The primaryXml byte array to set.
+     */
+    public void setPrimaryXml(byte[] byteArrayIn) {
+        this.primaryXml =  HibernateFactory.byteArrayToBlob(byteArrayIn);
+    }
 
     /**
      * @return Returns the otherXml.
@@ -475,6 +482,13 @@ public class PackageDto extends BaseDto {
         this.otherXml = blobIn;
     }
 
+    /**
+     * Interface for postgres byte array
+     * @param byteArrayIn The otherXml byte array to set.
+     */
+    public void setOtherXml(byte[] byteArrayIn) {
+        this.otherXml =  HibernateFactory.byteArrayToBlob(byteArrayIn);
+    }
 
     /**
      * @return Returns the filelistXml.
@@ -496,6 +510,14 @@ public class PackageDto extends BaseDto {
      */
     public void setFilelistXml(Blob blobIn) {
         this.filelistXml = blobIn;
+    }
+
+    /**
+     * Interface for postgres byte array
+     * @param byteArrayIn The filelistXml byte array to set.
+     */
+    public void setFilelistXml(byte[] byteArrayIn) {
+        this.filelistXml =  HibernateFactory.byteArrayToBlob(byteArrayIn);
     }
 
     /**

@@ -16,11 +16,10 @@
 import os
 import re
 import hashlib
-import time
 import string
 import base64
 
-from common import rhnFault, log_debug
+from spacewalk.common import rhnFault, log_debug
 
 # architecture work
 from rhnMapping import check_package_arch
@@ -76,8 +75,8 @@ def parseRPMFilename(pkgFilename):
     pkg = string.split(pkgFilename, '.')
 
     # 'rpm' at end?
-    if string.lower(pkg[-1]) != 'rpm':
-	raise rhnFault(21, 'not an rpm package name: %s' % pkgFilename)
+    if string.lower(pkg[-1]) not in ['rpm', 'deb']:
+	raise rhnFault(21, 'neither an rpm nor a deb package name: %s' % pkgFilename)
 
     # Valid architecture next?
     if check_package_arch(pkg[-2]) is None:

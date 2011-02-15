@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2009 Red Hat, Inc.
+# Copyright (c) 2009--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,9 +17,9 @@ import os
 import sys
 from optparse import Option, OptionParser
 
-from common import rhnTB
-from common.rhnConfig import CFG, initCFG
-from server import rhnSQL
+from spacewalk.common import rhnTB
+from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.server import rhnSQL
 
 import satCerts
 

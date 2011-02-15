@@ -1,7 +1,7 @@
 #
 # Higher-level SSL objects used by rpclib
 #
-# Copyright (c) 2002-2005 Red Hat, Inc.
+# Copyright (c) 2002--2010 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 
@@ -11,9 +11,10 @@
 rhn.SSL builds an abstraction on top of the objects provided by pyOpenSSL
 """
 
-from OpenSSL import SSL, crypto
+from OpenSSL import SSL
+# SSL.crypto is provided to other modules
+from OpenSSL import crypto
 import os
-import time
 
 import socket
 import select

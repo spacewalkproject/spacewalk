@@ -22,6 +22,8 @@ import traceback
 from cStringIO import StringIO
 
 from rhnConfig import CFG
+from rhnLog import log_error
+from rhnTranslate import _
 import rhnMail
 import rhnFlags
 
@@ -182,6 +184,14 @@ def fetchTraceback(method=None, req=None, extra=None, with_locals=0):
     Traceback(method=method, req=req, mail=0, ostream=exc, extra=extra,
               severity=None, with_locals=with_locals)
     return exc.getvalue()
+
+def exitWithTraceback(e, msg, exitnum, mail=0):
+    tbOut = StringIO()
+    Traceback(mail, ostream=tbOut, with_locals=1)
+    log_error(-1, _('ERROR: %s %s: %s') %
+        (e.__class__.__name__, msg, e))
+    log_error(-1, _('TRACEBACK: %s') % tbOut.getvalue())
+    sys.exit(exitnum)
 
 class SecurityList:
     """ The SecurityList is a list of strings that are censored out of a debug email.

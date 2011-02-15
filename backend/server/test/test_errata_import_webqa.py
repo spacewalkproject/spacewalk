@@ -14,7 +14,6 @@
 # in this software or its documentation. 
 #
 
-import sys
 import xmlrpclib
 import unittest
 

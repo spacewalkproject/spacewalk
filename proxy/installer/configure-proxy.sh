@@ -349,14 +349,19 @@ else
     fi
 fi
 
+ln -sf /etc/pki/spacewalk/jabberd/server.pem /etc/jabberd/server.pem
+if [ "$VERSION" = '5.3' -o "$VERSION" = '5.2' -o "$VERSION" = '5.1' -o "$VERSION" = '5.0' ]; then
+	sed -e "s/\${session.hostname}/$HOSTNAME/g" </usr/share/rhn/installer/jabberd/c2s.xml >/etc/jabberd/c2s.xml
+	sed -e "s/\${session.hostname}/$HOSTNAME/g" </usr/share/rhn/installer/jabberd/sm.xml >/etc/jabberd/sm.xml
+else
+	/usr/bin/spacewalk-setup-jabberd --macros "hostname:$HOSTNAME"
+fi
+
 # size of squid disk cache will be 60% of free space on /var/spool/squid
 # df -P give free space in kB
 # * 60 / 100 is 60% of that space
 # / 1024 is to get value in MB
 SQUID_SIZE=$(df -P /var/spool/squid | awk '{a=$4} END {printf("%d", a * 60 / 100 / 1024)}')
-
-ln -sf /etc/pki/spacewalk/jabberd/server.pem /etc/jabberd/server.pem
-/usr/bin/spacewalk-setup-jabberd --macros "hostname:$HOSTNAME"
 SQUID_REWRITE="s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g;"
 SQUID_VER_MAJOR=$(squid -v | awk -F'[ .]' '/Version/ {print $4}')
 if [ $SQUID_VER_MAJOR -ge 3 ] ; then
@@ -390,14 +395,8 @@ PROTO="http";
 if [ $USE_SSL -eq 1 ]; then
    PROTO="https"
 fi
-echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > $HTTPDCONFD_DIR/cobbler-proxy.conf
-echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
-echo "RewriteRule ^/cblr/svc/op/ks/(.*)$ /download/\$0 [P,L]" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
-echo "ProxyPass /cblr $PROTO://$RHN_PARENT/cblr" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
-echo "ProxyPassReverse /cblr $PROTO://$RHN_PARENT/cblr" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
-echo "ProxyPass /cobbler $PROTO://$RHN_PARENT/cobbler" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
-echo "ProxyPassReverse /cobbler $PROTO://$RHN_PARENT/cobbler" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
-
+sed -e "s/\$PROTO/$PROTO/g" \
+	-e "s/\$RHN_PARENT/$RHN_PARENT/g" < $DIR/cobbler-proxy.conf > $HTTPDCONFD_DIR/cobbler-proxy.conf
 
 
 # lets do SSL stuff
@@ -482,7 +481,6 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
                 $SQUID_DIR/squid.conf \
                 $HTTPDCONFD_DIR/cobbler-proxy.conf \
                 $HTTPDCONF_DIR/httpd.conf \
-                $HTTPDCONFD_DIR/rhn_proxy.conf \
                 $HTTPDCONFD_DIR/proxy_broker.conf \
                 $HTTPDCONFD_DIR/proxy_redirect.conf \
                 $JABBERD_DIR/c2s.xml \

@@ -130,13 +130,6 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization.VirtualizationListenerError-class.html" class="summary-name">VirtualizationListenerError</a>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a href="server.rhnVirtualization.VirtualizationEventError-class.html" class="summary-name">VirtualizationEventError</a>
     </td>
   </tr>
@@ -144,7 +137,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization.Listeners-class.html" class="summary-name">Listeners</a>
+        <a href="server.rhnVirtualization.Listeners-class.html" class="summary-name">Listeners</a><br />
+      Abusing python to get a singleton behavior.
     </td>
   </tr>
 <tr>
@@ -204,49 +198,18 @@
       
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="remove_listener"></a><span class="summary-sig-name">remove_listener</span>(<span class="summary-sig-arg">listener</span>)</span><br />
-      Removes a virt event listener.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#remove_listener">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_handle_virt_guest_params"></a><span class="summary-sig-name">_handle_virt_guest_params</span>(<span class="summary-sig-arg">system_certificate</span>,
-        <span class="summary-sig-arg">params</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#_handle_virt_guest_params">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_notify_guest"></a><span class="summary-sig-name">_notify_guest</span>(<span class="summary-sig-arg">server_id</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization-module.html#_notify_guest" class="summary-sig-name" onclick="show_private();">_notify_guest</a>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">uuid</span>,
-        <span class="summary-sig-arg">virt_type</span>)</span></td>
+        <span class="summary-sig-arg">virt_type</span>)</span><br />
+      Notifies the virtualization backend that there is a guest with a
+specific
+uuid and type, then associates it with the provided system id.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#_notify_guest">source&nbsp;code</a></span>
             
@@ -365,6 +328,41 @@
   </td>
 </tr>
 </table>
+<a name="_notify_guest"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_notify_guest</span>(<span class="sig-arg">server_id</span>,
+        <span class="sig-arg">uuid</span>,
+        <span class="sig-arg">virt_type</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#_notify_guest">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+  <pre class="literalblock">
+Notifies the virtualization backend that there is a guest with a
+specific
+uuid and type, then associates it with the provided system id.
+
+New for RHEL 5.
+
+Args are:
+ * system_id   - a string representation of the system's system id.
+ * uuid        - a string representation of the system's uuid.
+ * virt_type   - a string representation of the system's virt type
+
+ No return value.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="_make_virt_action"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -469,7 +467,7 @@ Return a tuple consisting of (timestamp, event, target, properties).
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

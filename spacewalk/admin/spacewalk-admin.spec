@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.2.5
+Version: 1.4.0
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -12,8 +12,11 @@ Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
 Requires: sudo
 Requires: /sbin/restorecon
+Requires: /usr/sbin/lsof
 Obsoletes: satellite-utils < 5.3.0
+Provides: satellite-utils = 5.3.0
 Obsoletes: rhn-satellite-admin < 5.3.0
+Provides: rhn-satellite-admin = 5.3.0
 BuildArch: noarch
 
 %description
@@ -30,9 +33,14 @@ make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 
 (cd $RPM_BUILD_ROOT/%{_bindir} && ln -s validate-sat-cert.pl validate-sat-cert)
 
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
-%{_bindir}/pod2man validate-sat-cert.pod | gzip -c - > $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
-chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
+%{_bindir}/pod2man --section=8 validate-sat-cert.pod > $RPM_BUILD_ROOT%{_mandir}/man8/validate-sat-cert.8
+%{_bindir}/pod2man --section=8 rhn-config-schema.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-schema.pl.8
+%{_bindir}/pod2man --section=8 rhn-load-ssl-cert.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-load-ssl-cert.pl.8
+%{_bindir}/pod2man --section=8 man/spacewalk-service.pod > $RPM_BUILD_ROOT%{_mandir}/man8/spacewalk-service.8
+install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
+install -p man/rhn-sudo-load-ssl-cert.8 $RPM_BUILD_ROOT%{_mandir}/man8/
+chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
 ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
 
 %clean
@@ -48,8 +56,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/validate-sat-cert
 %{_bindir}/rhn-config-satellite.pl
 %{_bindir}/rhn-config-schema.pl
-%{_bindir}/rhn-config-tnsnames.pl
-%{_bindir}/rhn-populate-database.pl
 %{_bindir}/rhn-generate-pem.pl
 %{_bindir}/rhn-sudo-load-ssl-cert
 %{_bindir}/rhn-load-ssl-cert.pl
@@ -57,9 +63,60 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-install-ssl-cert.pl
 %{_sbindir}/rhn-sat-restart-silent
 %{rhnroot}/RHN-GPG-KEY
-%{_mandir}/man3/validate-sat-cert.3.gz
+%{_mandir}/man8/validate-sat-cert.8.gz
+%{_mandir}/man8/rhn-satellite.8*
+%{_mandir}/man8/rhn-config-schema.pl.8*
+%{_mandir}/man8/rhn-load-ssl-cert.pl.8*
+%{_mandir}/man8/rhn-sudo-load-ssl-cert.8*
+%{_mandir}/man8/spacewalk-service.8*
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.9-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- Removing rhn-populate-database.pl, we now use the generic spacewalk-sql.
+  (jpazdziora@redhat.com)
+
+* Tue Jan 18 2011 Jan Pazdziora 1.3.8-1
+- The rhn-config-tnsnames.pl is no longer used, removing.
+- Do not call external /bin/touch to create a lockfile.
+
+* Tue Jan 11 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.7-1
+- more update of spacewalk-service man page (msuchy@redhat.com)
+- Change to root directory for PostgreSQL, just like we do for sqlplus.
+  (jpazdziora@redhat.com)
+
+* Tue Jan 11 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.6-1
+- add man page for spacewalk-service
+
+* Tue Jan 11 2011 Jan Pazdziora 1.3.5-1
+- Fixing typo -- we want to eval, not echo.
+
+* Mon Jan 10 2011 Jan Pazdziora 1.3.4-1
+- Wait for tomcat by default, use --no-wait-for-tomcat to skip.
+
+* Tue Dec 14 2010 Jan Pazdziora 1.3.3-1
+- Need to define $usage if I insist on using it.
+
+* Tue Dec 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.2-1
+- add man page for rhn-sudo-load-ssl-cert
+- add man page for rhn-load-ssl-cert.pl
+- specify section of man page
+- create man page for rhn-config-schema.pl
+- man3 is usually used by C library functions, we should use man8
+- add man page for rhn-satellite script
+- provide rhn-satellite-admin
+- provide satellite-utils
+
+* Tue Dec 14 2010 Jan Pazdziora 1.3.1-1
+- We need to check the return value of GetOptions and die if the parameters
+  were not correct.
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.7-1
+- Update copyright years in the rest of the repo.
+
+* Tue Oct 19 2010 Jan Pazdziora 1.2.6-1
+- The /usr/sbin/rhn-satellite will no longer start/stop Oracle XE.
+
 * Wed Oct 13 2010 Jan Pazdziora 1.2.5-1
 - 631847 - in RHN Proxy 5.4 is used jabber 2.0 where user is called jabber
   (instead of jabberd) (msuchy@redhat.com)

@@ -21,11 +21,10 @@
 import sys
 sys.path.append("/usr/share/rhn")
 from up2date_client import rhnreg
-from up2date_client import rhnregGui
+from up2date_client import rhnregGui, rhnserver
 from up2date_client import messageWindow
 
 import gtk
-from gtk import glade
 
 import gettext
 _ = lambda x: gettext.ldgettext("rhn-client-tools", x)
@@ -62,7 +61,15 @@ class moduleClass(Module):
         # We should try to activate hardware, even if no EUS in firstboot
         rhnregGui.try_to_activate_hardware()
 
-        return RESULT_SUCCESS
+        # populate capability - needef for EUSsupported
+        s = rhnserver.RhnServer()
+        s.capabilities.validate()
+
+        if rhnregGui.ChooseChannelPage().chooseChannelShouldBeShown():
+            return RESULT_SUCCESS
+        else:
+            interface.moveToPage(moduleTitle=_("Create Profile"))
+            return RESULT_JUMP
 
     def createScreen(self):
         self.loginPage = FirstbootLoginPage()

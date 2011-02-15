@@ -31,11 +31,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created"         type="date"   column="created"/>
         <property name="modified"        type="date"   column="modified"/>
 
-        <set name="changeLog" cascade="save-update,delete" inverse="true">
-            <key column="package_id" />
-            <one-to-many class="com.redhat.rhn.domain.rhnpackage.ChangeLogEntry" />
-        </set>
-
        <set name="packageKeys" lazy="true" table="rhnPackageKeyAssociation"
             cascade="save-update" >
             <key column="package_id"/>

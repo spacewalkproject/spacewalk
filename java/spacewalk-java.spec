@@ -13,13 +13,11 @@
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
 %endif
 
-%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
-
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.63
+Version: 1.4.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -29,6 +27,20 @@ ExcludeArch: ia64
 
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
+
+# for RHEL6 we need to filter out several package versions
+%if  0%{?rhel} && 0%{?rhel} >= 6
+# cglib is not compatible with hibernate and asm from RHEL6
+Requires: cglib < 0:2.2
+# we dont want jfreechart from EPEL because it has different symlinks
+Requires: jfreechart < 1.0.13
+# workaround jpackage5 repo issue with missing msv-msv dependency
+Requires: msv-workaround
+%else
+Requires: cglib
+Requires: jfreechart >= 1.0.9
+%endif
+
 Requires: bcel
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
@@ -36,25 +48,27 @@ Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
+Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-io
-Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
 Requires: jcommon
-Requires: jfreechart >= 1.0.9
 Requires: jpam
 Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
 Requires: servletapi5
-Requires: struts >= 0:1.2.9
-%if  0%{?rhel} && 0%{?rhel} < 6
+# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 Requires: tomcat5
+Requires: struts >= 0:1.2.9
 %else
 Requires: tomcat6
+Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
 %endif
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
@@ -67,6 +81,11 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
+%if 0%{?fedora} >= 14
+Requires: apache-commons-logging
+%else
+Requires: jakarta-commons-logging
+%endif
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
@@ -82,7 +101,6 @@ BuildRequires: javamail
 Requires: classpathx-mail
 BuildRequires: classpathx-mail
 %endif
-BuildRequires: jsp
 BuildRequires: checkstyle
 
 # Sadly I need these to symlink the jars properly.
@@ -113,11 +131,21 @@ BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: simple-core
 BuildRequires: stringtree-json
-BuildRequires: struts
+# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+BuildRequires: struts >= 0:1.2.9
+BuildRequires: jsp
+%else
+BuildRequires: struts >= 0:1.3.0
+BuildRequires: struts-taglib >= 0:1.3.0
+BuildRequires: tomcat6
+%endif
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
-# the following line is for spell checking script
+%if 0%{?fedora} && 0%{?fedora} >= 13
+# spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
+%endif
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
 Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
@@ -156,6 +184,11 @@ and taskomatic process.
 Summary: Oracle database backend support files for Spacewalk Java
 Group: Applications/Internet
 Requires: ojdbc14
+%if  0%{?rhel} && 0%{?rhel} < 6
+Requires: tomcat5
+%else
+Requires: tomcat6
+%endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
 %description oracle
@@ -165,6 +198,11 @@ This package contains Oracle database backend files for the Spacewalk Java.
 Summary: PostgreSQL database backend support files for Spacewalk Java
 Group: Applications/Internet
 Requires: postgresql-jdbc
+%if  0%{?rhel} && 0%{?rhel} < 6
+Requires: tomcat5
+%else
+Requires: tomcat6
+%endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
 %description postgresql
@@ -173,9 +211,20 @@ This package contains PostgreSQL database backend files for the Spacewalk Java.
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
 Group: Applications/Internet
+
+# for RHEL6 we need to filter out several package versions
+%if  0%{?rhel} && 0%{?rhel} >= 6
+# cglib is not compatible with hibernate and asm from RHEL6
+Requires: cglib < 0:2.2
+# we dont want jfreechart from EPEL because it has different symlinks
+Requires: jfreechart < 1.0.13
+%else
+Requires: cglib
+Requires: jfreechart >= 1.0.9
+%endif
+
 Requires: bcel
 Requires: c3p0
-Requires: cglib
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.6.0
 Requires: java-devel >= 0:1.6.0
@@ -183,10 +232,13 @@ Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-dbcp
+%if 0%{?fedora} >= 14
+Requires: apache-commons-logging
+%else
 Requires: jakarta-commons-logging
+%endif
 Requires: jakarta-taglibs-standard
 Requires: jcommon
-Requires: jfreechart >= 0:1.0.9
 Requires: jpam
 Requires: log4j
 Requires: oscache
@@ -215,9 +267,20 @@ This package contains the Java version of taskomatic.
 %prep
 %setup -q
 
+# missing tomcat juli JAR (needed for JSP precompilation) - bug 661244
+if test -d /usr/share/tomcat6 -a ! -h /usr/share/java/tomcat6/tomcat-juli.jar; then
+    mkdir -p build/build-lib
+    ln -s /usr/share/tomcat6/bin/tomcat-juli.jar \
+        build/build-lib/tomcat-juli.jar
+fi
+
+
 %build
 # compile only java sources (no packing here)
 ant -Dprefix=$RPM_BUILD_ROOT init-install compile
+
+# checkstyle is broken on Fedora 14 - we skip for now
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 echo "Running checkstyle on java main sources"
 export CLASSPATH="build/classes"
 export BASE_OPTIONS="-Djavadoc.method.scope=public \
@@ -228,6 +291,7 @@ export BASE_OPTIONS="-Djavadoc.method.scope=public \
 -Dcheckstyle.header.file=buildconf/LICENSE.txt"
 find . -name *.java | grep -vE '(/test/|/jsp/|/playpen/)' | \
 xargs checkstyle -c buildconf/checkstyle.xml
+
 echo "Running checkstyle on java test sources"
 export BASE_OPTIONS="-Djavadoc.method.scope=nothing \
 -Djavadoc.type.scope=nothing \
@@ -237,60 +301,76 @@ export BASE_OPTIONS="-Djavadoc.method.scope=nothing \
 -Dcheckstyle.header.file=buildconf/LICENSE.txt"
 find . -name *.java | grep -E '/test/' | grep -vE '(/jsp/|/playpen/)' | \
 xargs checkstyle -c buildconf/checkstyle.xml
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %if  0%{?rhel} && 0%{?rhel} < 6
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
+install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %else
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/
-install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
+install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 
-# check spelling errors in all resources for English
-scripts/spelling/check_java.sh . en_US
+# check spelling errors in all resources for English if aspell installed
+[ -x "$(which aspell)" ] && scripts/spelling/check_java.sh .. en_US
 
-install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
-install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/lib
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes
-install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
-install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
-install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
-install -d -m 755 $RPM_BUILD_ROOT/%{cobdirsnippets}
-install -d -m 755 $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs
+install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
+install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/lib
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/classes
+install -d -m 755 $RPM_BUILD_ROOT%{cobprofdir}
+install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirup}
+install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirwiz}
+install -d -m 755 $RPM_BUILD_ROOT%{cobdirsnippets}
+install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
-install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
-install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
-install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
-install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/rhn_web_api
-install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_initrddir}
-install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datadir}/rhn/lib
-install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
+install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_hibernate.conf
+install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
+install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
+install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
+install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
+install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT%{_datadir}/rhn/classes/log4j.properties
 
-install -m 644 conf/cobbler/snippets/keep_system_id  $RPM_BUILD_ROOT/%{cobdirsnippets}/keep_system_id
-install -m 644 conf/cobbler/snippets/post_reactivation_key  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_reactivation_key
-install -m 644 conf/cobbler/snippets/post_delete_system  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_delete_system
-install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT/%{cobdirsnippets}/redhat_register
+install -m 644 conf/cobbler/snippets/keep_system_id  $RPM_BUILD_ROOT%{cobdirsnippets}/keep_system_id
+install -m 644 conf/cobbler/snippets/post_reactivation_key  $RPM_BUILD_ROOT%{cobdirsnippets}/post_reactivation_key
+install -m 644 conf/cobbler/snippets/post_delete_system  $RPM_BUILD_ROOT%{cobdirsnippets}/post_delete_system
+install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT%{cobdirsnippets}/redhat_register
 
-ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
+ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
-install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
-ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
-touch $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs/audit-review.log
+install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
+ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
+touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 
-%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
-ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
+# Fedoras have cglib version that is not compatible with asm and need objectweb-asm
+# Unfortunately both libraries must be installed for dependencies so we override
+# the asm symlink with objectweb-asm here
+%if 0%{?fedora} >= 13
+ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.jar
+ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
-ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
+ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %endif
+
+# delete JARs which must not be deployed
+rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat6*.jar
+
+# show all JAR symlinks
+echo "#### SYMLINKS START ####"
+find $RPM_BUILD_ROOT%{jardir} -name *.jar
+echo "#### SYMLINKS END ####"
 
 
 %clean
@@ -312,6 +392,102 @@ fi
 %files
 %defattr(644,tomcat,tomcat,775)
 %dir %{appdir}
+%dir %{appdir}/rhn/
+%{appdir}/rhn/apidoc/
+%{appdir}/rhn/css/
+%{appdir}/rhn/errata/
+%{appdir}/rhn/help/
+%{appdir}/rhn/img/
+%{appdir}/rhn/META-INF/
+%{appdir}/rhn/schedule/
+%{appdir}/rhn/systems/
+%{appdir}/rhn/users/
+%{appdir}/rhn/*.jsp
+%{appdir}/rhn/WEB-INF/classes
+%{appdir}/rhn/WEB-INF/decorators
+%{appdir}/rhn/WEB-INF/includes
+%{appdir}/rhn/WEB-INF/nav
+%{appdir}/rhn/WEB-INF/pages
+%{appdir}/rhn/WEB-INF/*.xml
+# list of all jar symlinks without any version numbers
+# and wildcards (except non-symlinks dwr and velocity)
+%{jardir}/antlr.jar
+%{jardir}/bcel.jar
+%{jardir}/c3p0.jar
+%{jardir}/cglib.jar
+%{jardir}/commons-beanutils.jar
+%{jardir}/commons-cli.jar
+%{jardir}/commons-codec.jar
+%{jardir}/commons-collections.jar
+%{jardir}/commons-digester.jar
+%{jardir}/commons-discovery.jar
+%{jardir}/commons-el.jar
+%{jardir}/commons-fileupload.jar
+%{jardir}/commons-io.jar
+%{jardir}/commons-lang.jar
+%{jardir}/commons-logging.jar
+%{jardir}/commons-validator.jar
+%{jardir}/concurrent.jar
+%{jardir}/dom4j.jar
+%{jardir}/dwr-*.jar
+%{jardir}/hibernate3.jar
+%{jardir}/jaf.jar
+%{jardir}/javamail.jar
+%{jardir}/jcommon.jar
+%{jardir}/jdom.jar
+%{jardir}/jpam.jar
+%{jardir}/jta.jar
+%{jardir}/log4j.jar
+%{jardir}/oro.jar
+%{jardir}/oscache.jar
+%{jardir}/quartz.jar
+%{jardir}/redstone-xmlrpc-client.jar
+%{jardir}/redstone-xmlrpc.jar
+%{jardir}/rhn.jar
+%{jardir}/simple-core.jar
+%{jardir}/sitemesh.jar
+%{jardir}/stringtree-json.jar
+%{jardir}/taglibs-core.jar
+%{jardir}/taglibs-standard.jar
+%{jardir}/tanukiwrapper.jar
+%{jardir}/velocity-*.jar
+%{jardir}/xalan-j2.jar
+%{jardir}/xerces-j2.jar
+%{jardir}/xml-commons-apis.jar
+
+# asm-1.5.3-7.jpp5.noarch (F14, F13, EL6)
+# asm-1.5.3-1jpp.ep1.1.el5.2.noarch (EL5)
+%{jardir}/asm_asm.jar
+#%{jardir}/asmasm.jar
+#%{jardir}/asmasm-analysis.jar
+#%{jardir}/asmasm-attrs.jar
+#%{jardir}/asmasm-tree.jar
+#%{jardir}/asmasm-util.jar
+#%{jardir}/asmasm-xml.jar
+#%{jardir}/asmkasm.jar
+
+%if 0%{?fedora} && 0%{?fedora} >= 13
+# jfreechart-1.0.10-4.fc13.noarch (F13)
+# jfreechart-1.0.13-1.fc14.noarch (F14)
+%{jardir}/jfreechart_jfreechart.jar
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} >= 5
+# jfreechart-1.0.10-1.el5.noarch (EL5)
+# jfreechart-1.0.9-4.jpp5.noarch (EL6)
+%{jardir}/jfreechart.jar
+%endif
+
+# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+%{jardir}/struts.jar
+%else
+%{jardir}/struts.jar
+%{jardir}/struts-taglib.jar
+%{jardir}/struts-extras.jar
+%{jardir}/commons-chain.jar
+%endif
+
 %dir %{cobprofdir}
 %dir %{cobprofdirup}
 %dir %{cobprofdirwiz}
@@ -320,7 +496,6 @@ fi
 %config %{cobdirsnippets}/post_reactivation_key
 %config %{cobdirsnippets}/post_delete_system
 %config %{cobdirsnippets}/redhat_register
-%{appdir}/*
 %if  0%{?rhel} && 0%{?rhel} < 6
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %else
@@ -350,14 +525,619 @@ fi
 %{_datadir}/rhn/lib/rhn.jar
 
 %files oracle
-%defattr(644, root, root)
+%defattr(644, tomcat, tomcat)
 %{jardir}/ojdbc14.jar
 
 %files postgresql
-%defattr(644, root, root)
+%defattr(644, tomcat, tomcat)
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 11 2011 Tomas Lestach <tlestach@redhat.com> 1.4.4-1
+- 645391 - fixing improper actions, when adding virtualization entitlement to
+  the activation key (tlestach@redhat.com)
+- 676581 - navigate to a different jsp, when logging in with a wrong
+  username/password (cherry picked from commit
+  0405f53a84f2acc9b1dd5d189706e689f2f45809) (tlestach@redhat.com)
+
+* Thu Feb 10 2011 Tomas Lestach <tlestach@redhat.com> 1.4.3-1
+- let spacewalk-java require msv-workaround on RHEL6 (tlestach@redhat.com)
+
+* Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
+- fix outer join syntax in Channel.accessibleChildChannelIds
+
+* Mon Feb 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
+- fixed javax.servlet.ServletException: Cannot specify "styleId" when in XHTML
+  mode as the HTML "id" attribute is already used to store the bean name
+- Fixing type (removing extra comma, left there by
+
+* Thu Jan 27 2011 Tomas Lestach <tlestach@redhat.com> 1.3.52-1
+- Password with less than minlength characters accepted (jrenner@suse.de)
+
+* Thu Jan 27 2011 Tomas Lestach <tlestach@redhat.com> 1.3.51-1
+- Revert "671450 - do not set null for maxFlex and maxMembers ChannelOverview
+  attributes" (tlestach@redhat.com)
+
+* Thu Jan 27 2011 Tomas Lestach <tlestach@redhat.com> 1.3.50-1
+- removing remains of RhnDaemonState table (tlestach@redhat.com)
+- Improving spelling script and adding few ignore words (lzap+git@redhat.com)
+- Automatic detection of tomcat Ant property (lzap+git@redhat.com)
+- 671450 - do not set null for maxFlex and maxMembers ChannelOverview
+  attributes (tlestach@redhat.com)
+
+* Wed Jan 26 2011 Tomas Lestach <tlestach@redhat.com> 1.3.49-1
+- 460356 - time not needed on errata search (tlestach@redhat.com)
+- fixed channel list in create kickstart profile (PG)
+  (michael.mraka@redhat.com)
+
+* Fri Jan 21 2011 Tomas Lestach <tlestach@redhat.com> 1.3.48-1
+- fixing ISE when deleting software channel from the
+  rhn/channels/manage/Repositories.do page (tlestach@redhat.com)
+- unschedule eventual repo sync schedules, when deleting channel
+  (tlestach@redhat.com)
+
+* Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.47-1
+- asm requires different handling on fedoras and rhels (tlestach@redhat.com)
+- replace jakarta-commons-logging with apache-commons-logging on F14
+  (tlestach@redhat.com)
+
+* Wed Jan 12 2011 Lukas Zapletal 1.3.46-1
+- Using objectweb-asm symlink on Fedoras
+- 522251 - no post_install_network_config snippet on s390(x)
+
+* Tue Jan 11 2011 Tomas Lestach <tlestach@redhat.com> 1.3.45-1
+- change taskomatic library path to use oracle-instantclient11.x
+  (tlestach@redhat.com)
+- removing spacewalk-asm.jar symlink (tlestach@redhat.com)
+
+* Tue Jan 11 2011 Lukas Zapletal 1.3.44-1
+- Removed unnecessary require in spw-java
+
+* Mon Jan 10 2011 Tomas Lestach <tlestach@redhat.com> 1.3.43-1
+- 668539 - make possible to clone Red Hat errata even if you specify the
+  "Channel Version" (tlestach@redhat.com)
+- 663403 - correctly escape updateinfo.xml (tlestach@redhat.com)
+
+* Mon Jan 10 2011 Lukas Zapletal 1.3.42-1
+- Solving asm CNF exception in Hudson
+
+* Sat Jan 08 2011 Lukas Zapletal 1.3.41-1
+- Correcting symlink for Fedoras (jfreechart)
+
+* Sat Jan 08 2011 Lukas Zapletal 1.3.40-1
+- Adding missing struts-taglib require into the spec file and asm/jfreechart
+
+* Fri Jan 07 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.39-1
+- do not cast to string, when db expect number (msuchy@redhat.com)
+
+* Fri Jan 07 2011 Lukas Zapletal 1.3.38-1
+- Building spacewalk-java.spec on RHEL6
+
+* Thu Jan 06 2011 Tomas Lestach <tlestach@redhat.com> 1.3.37-1
+- 628755 - fix searching for the primary network interface
+  (tlestach@redhat.com)
+- remove MigrationManagerTest.testRemoveVirtualGuestAssociations test
+  (tlestach@redhat.com)
+
+* Thu Jan 06 2011 Tomas Lestach <tlestach@redhat.com> 1.3.36-1
+- removing unused import (tlestach@redhat.com)
+
+* Wed Jan 05 2011 Tomas Lestach <tlestach@redhat.com> 1.3.35-1
+- 663490 - identify, when package is too large to download via API
+  (tlestach@redhat.com)
+- temporary allow 2010 and 2011 headers (tlestach@redhat.com)
+- 667432 - don't untie host from guests during host migration
+  (mzazrivec@redhat.com)
+- 661212 - setting probe suite name for ProbeSuiteListProbes.do
+  (tlestach@redhat.com)
+
+* Mon Jan 03 2011 Jan Pazdziora 1.3.34-1
+- display also error parameters when throwing InvalidKickstartTreeException
+  (tlestach@redhat.com)
+- Correct the Filename tag in Packages.gz (slukasik@redhat.com)
+
+* Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.33-1
+- add package ID to array returned by system.listPackages API call
+
+* Wed Dec 22 2010 Tomas Lestach <tlestach@redhat.com> 1.3.32-1
+- 640928 - convert List<Integer> serverIds to List<Long> (tlestach@redhat.com)
+
+* Tue Dec 21 2010 Jan Pazdziora 1.3.31-1
+- Rewrite remove_unowned_errata and remove_nonrhn_unowned_errata not to use
+  rowid.
+- No need to subselect from dual.
+- 642926 - offer correct Channel and Channel Version for child channel errata
+  listings (tlestach@redhat.com)
+- 664717 - removing unused ks install type translations (tlestach@redhat.com)
+- 664717 - adding RHEL6 dist channel map translations (tlestach@redhat.com)
+
+* Mon Dec 20 2010 Tomas Lestach <tlestach@redhat.com> 1.3.30-1
+- 662981 - change warnings to errors, if required channels not found when
+  adding virt entitlement (tlestach@redhat.com)
+- 662981 - fix ISE, when adding virt entitlement and current org has no access
+  to the VT channel (tlestach@redhat.com)
+
+* Mon Dec 20 2010 Tomas Lestach <tlestach@redhat.com> 1.3.29-1
+- 640958 - do not zero (non)flex entitlements, when updating the others
+  (tlestach@redhat.com)
+
+* Thu Dec 16 2010 Aron Parsons <aparsons@redhat.com> 1.3.28-1
+- fix testSystemSearch JUnit test (aparsons@redhat.com)
+
+* Tue Dec 14 2010 Jan Pazdziora 1.3.27-1
+- Checkstyle: bumping up the max method length to 180 lines.
+- checkstyle fix (aparsons@redhat.com)
+- 661263 - fixing issue where private channels in one org could be seen by
+  other orgs.  Please note that this only fixes newly created orgs, existing
+  orgs with the problem will continue to experience it (jsherril@redhat.com)
+
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.26-1
+- added API call system.getUuid (aparsons@redhat.com)
+- added API call system.search.uuid (aparsons@redhat.com)
+- add support for searching by system UUID to the web interface
+  (aparsons@redhat.com)
+- add support for searching for systems by UUID (aparsons@redhat.com)
+
+* Fri Dec 10 2010 Tomas Lestach <tlestach@redhat.com> 1.3.25-1
+- add tomcat require for spacewalk-java-oracle and -postgres
+  (tlestach@redhat.com)
+
+* Thu Dec 09 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.24-1
+- 646488 - fixed systemGroups.jsp according to new query
+- removed unused code
+- removed unused overview query
+
+* Wed Dec 08 2010 Tomas Lestach <tlestach@redhat.com> 1.3.23-1
+- change default owner:group of ojdbc14.jar and postgresql-jdbc.jar
+  (tlestach@redhat.com)
+
+* Wed Dec 08 2010 Lukas Zapletal 1.3.22-1
+- Revert "spacewalk-java.spec change - jasper was merged into tomcat-lib"
+
+* Tue Dec 07 2010 Tomas Lestach <tlestach@redhat.com> 1.3.21-1
+- adding cleanup-packagechangelog-data translation key (tlestach@redhat.com)
+- add example of usage of DateTime in python API scripts (msuchy@redhat.com)
+
+* Tue Dec 07 2010 Lukas Zapletal 1.3.20-1
+- 642988 - ISE when setting Software Channel Entitlements
+
+* Mon Dec 06 2010 Tomas Lestach <tlestach@redhat.com> 1.3.19-1
+- 581832 - return correct package info according to the comparism result
+  (tlestach@redhat.com)
+- 658653 - fixing dupliclates from showing up on eligible flex guests page
+  (jsherril@redhat.com)
+- 620578 - just fix the exception handling (tlestach@redhat.com)
+- 620578 - introduce errata.publishAccordingToParents API (tlestach@redhat.com)
+- fixing VirtualizationEntitlementsManagerTest.testConvertToFlex
+  (tlestach@redhat.com)
+- spacewalk-java.spec change - jasper was merged into tomcat-lib
+  (lzap+git@redhat.com)
+- 659364 - fix syntax error (mzazrivec@redhat.com)
+- 659364 - allow files without checksums in the file list
+  (mzazrivec@redhat.com)
+- 658653 - converting flex entitlement pages under "Virt Entitlements" to use
+  the normal list tag instead of the fancy new tree tag,  This enables the page
+  to be usable where there are hundreds of children for each channel family
+  (jsherril@redhat.com)
+
+* Wed Dec 01 2010 Jan Pazdziora 1.3.18-1
+- 658167 - fix cases, when quartz triggers a job earlier, than the job info
+  lands in the DB (tlestach@redhat.com)
+- 516570 - just unify channel dates format (tlestach@redhat.com)
+- comment unused query in Task_queries (tlestach@redhat.com)
+- remove dead queries from User_queries (tlestach@redhat.com)
+- remove dead queries from test_queries (tlestach@redhat.com)
+- remove dead queries from System_queries (tlestach@redhat.com)
+- remove dead query from Org_queries (tlestach@redhat.com)
+- remove dead queries from General_queries (tlestach@redhat.com)
+- remove dead queries from Channel_queries (tlestach@redhat.com)
+- remove dead query from Action_queries (tlestach@redhat.com)
+- 642285 - remove old TaskStatus related code (tlestach@redhat.com)
+- removing unused SetItemSelected action (tlestach@redhat.com)
+
+* Thu Nov 25 2010 Tomas Lestach <tlestach@redhat.com> 1.3.17-1
+- 642285 - introducing disabled TaskStatus page (tlestach@redhat.com)
+
+* Thu Nov 25 2010 Lukas Zapletal 1.3.16-1
+- Bug 657259 - Enable Spacewalk Configuration Management fails
+
+* Wed Nov 24 2010 Lukas Zapletal 1.3.15-1
+- 615026 - [Multi-Org] Grants for channel permission edits throws ISE
+- 642226 - do not look for the VT channel in case of RHEL6 base channels
+- adding last_modified attribute to the ChannelSerializer
+
+* Tue Nov 23 2010 Lukas Zapletal 1.3.14-1
+- 646817 - System health indicator in "Systems" related pages not displayed
+
+* Mon Nov 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.13-1
+- PE2.evr.as_vre_simple() -> evr_t_as_vre_simple(PE2.evr) (PG)
+- removed rowid from query (PG)
+- 646401 - setting missing RhnSetDecl
+
+* Mon Nov 22 2010 Lukas Zapletal 1.3.12-1
+- Fixing two queries in system overview (monitoring)
+- Replacing DECODE with ANSI compatible CASE-WHEN
+- Adding missing monitoring state (UNKNOWN)
+
+* Mon Nov 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.11-1
+- 655519 - PE2.evr.as_vre_simple() -> evr_t_as_vre_simple(PE2.evr) (PG)
+- 655515 - changed DECODE to ANSI CASE (PG)
+- fixing several issues in system_overview query
+
+* Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.10-1
+- fixed wrongly rendered API doc
+
+* Fri Nov 19 2010 Lukas Zapletal 1.3.9-1
+- Fixing JOIN in monitoring status query (System_queries.xml)
+
+* Fri Nov 19 2010 Lukas Zapletal 1.3.8-1
+- Removing from SQL clause (System_queries) causing bugs in monitoring
+
+* Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.7-1
+- fixed outer joins
+
+* Thu Nov 18 2010 Lukas Zapletal 1.3.6-1
+- Replacing DECODE function with CASE-SWITCH (multiple times)
+- 642599 use redhat_management_server insted of http_server in reactivation
+  snippet 
+
+* Thu Nov 18 2010 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
+- 654275 - make repo generation faster in the RHN way (tlestach@redhat.com)
+- checkstyle fix (tlestach@redhat.com)
+- fix CreateProfileWizardTest.testSuccess test (tlestach@redhat.com)
+- store null as empty argumets (instead of empty string) (tlestach@redhat.com)
+- fix DataSourceParserTest.testNullParam (tlestach@redhat.com)
+- check for parameter presence in the CachedStatement (tlestach@redhat.com)
+
+* Tue Nov 16 2010 Lukas Zapletal 1.3.4-1
+- Replacing sysdate in SQL INSERT with current_timestamp
+
+* Tue Nov 16 2010 Lukas Zapletal 1.3.3-1
+- Adding one jar ignore to spacewalk-java.spec for F14 
+- Turning off checkstyle in the java spec for F14 
+- Adding requires for F14 in spacewalk-java.spec 
+
+* Tue Nov 16 2010 Lukas Zapletal 1.3.2-1
+- No longer distributing jar symlinks with version numbers
+- use an existing column name in ORDER BY statements 
+- Revert "Implement new API call packages.getPackageIdFromPath"
+- Implement new API call packages.getPackageIdFromPath 
+- allow setting null value as paramter 
+- fix TaskManagerTest.testGetCurrentDBTime test 
+- 645694 - introducing cleanup-packagechangelog-data task 
+
+* Mon Nov 15 2010 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
+- checkstyle fix (tlestach@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
+* Mon Nov 15 2010 Jan Pazdziora 1.2.111-1
+- 653305 - do not access the login information, if the user is null
+  (tlestach@redhat.com)
+
+* Sat Nov 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.110-1
+- better call stored functions with correct parameter order
+  (tlestach@redhat.com)
+- fix daily-summary task(PG) (tlestach@redhat.com)
+- comapre chars with chars(PG) (tlestach@redhat.com)
+- Restore 'yumrepo_last_sync' (colin.coe@gmail.com)
+- Update the ChannelSerializer to show all associated repos
+  (colin.coe@gmail.com)
+- removing old changelog hibernate stuff that no longer works now that things
+  are stored differently (jsherril@redhat.com)
+
+* Fri Nov 12 2010 Lukas Zapletal 1.2.109-1
+- Deletion from base table and not from view (PG)
+
+* Fri Nov 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.108-1
+- replace the rest of (+)s in config_queries.xml (tlestach@redhat.com)
+- replace the rest of NVL functions in config_queries.xml (tlestach@redhat.com)
+- enable comparism of sandbox other files(PG) (tlestach@redhat.com)
+- enable config file deployment(PG) (tlestach@redhat.com)
+- enable config target systems page (tlestach@redhat.com)
+- enable config subscribed systems page (tlestach@redhat.com)
+- enable deply file page(PG) (tlestach@redhat.com)
+- enable "Manage Revisions" page (tlestach@redhat.com)
+- store NULL if selinuxCtx is empty (tlestach@redhat.com)
+- enable listing of config managed systems(PG) (tlestach@redhat.com)
+- list centrally managed congif files(PG) (tlestach@redhat.com)
+- enable listing of config files(PG) (tlestach@redhat.com)
+- enable upload of config files(PG) (tlestach@redhat.com)
+- do not set null value of type Types.VARCHAR for prepared statements
+  (tlestach@redhat.com)
+- enable (un)subscription to config channels via SSM(PG) (tlestach@redhat.com)
+- replacing another MINUS by OUTER JOIN(PG) (tlestach@redhat.com)
+- replacing NVL by COALESCE(PG) (tlestach@redhat.com)
+- rewriting MINUS to OUTER JOIN(PG) (tlestach@redhat.com)
+- enable creation of config channels(PG) (tlestach@redhat.com)
+
+* Fri Nov 12 2010 Lukas Zapletal 1.2.107-1
+- Revert "Removing commons-discovery jar from spacewalk-java.spec"
+- Add missing file from previous commit 
+- Implement getRepoDetails API calls 
+- Correct the xmlrpc.doc 
+- 647806 - Implement API calls for external repos 
+- 652626 - correct typo in named query 
+
+* Fri Nov 12 2010 Lukas Zapletal 1.2.106-1
+- Removing jasper5-compiler jar from spacewalk-java.spec 
+- Removing commons-discovery jar from spacewalk-java.spec 
+
+* Fri Nov 12 2010 Lukas Zapletal 1.2.105-1
+- Adding missing jakarta-commons-discovery require for RHEL6+/FC13+
+
+* Thu Nov 11 2010 Lukas Zapletal 1.2.104-1
+- Removing extra slash after RPM_BUILD_ROOT 
+- We do not distribute jspapi.jar now - according to Servlet Spec 2.3
+- Add missing ssm.migrate.systems.notrust to StringResource
+- Implement channel.software.listUserRepos API call 
+
+* Thu Nov 11 2010 Lukas Zapletal 1.2.103-1
+- Replacing one more NVL with COALESCE function 
+- Replacing NVL with COALESCE function 
+
+* Thu Nov 11 2010 Lukas Zapletal 1.2.102-1
+- Correcting one more ANSI JOIN syntax in channel queries (PG)
+- Correcting ANSI JOIN syntax in channel queries 
+- Correcting spaces in channel queries xml file 
+- Making two server group portable 
+- Correcting NULL values in channel manager repo gen 
+
+* Thu Nov 11 2010 Lukas Zapletal 1.2.101-1
+- Correcting spacewalk-java.spec - removing doubled files
+
+* Thu Nov 11 2010 Lukas Zapletal 1.2.100-1
+- Correcting spacewalk-java.spec - JDBC driver links
+
+* Wed Nov 10 2010 Lukas Zapletal 1.2.99-1
+- Fixing table aliases for DISTINCT queries (PG)
+
+* Wed Nov 10 2010 Tomas Lestach <tlestach@redhat.com> 1.2.98-1
+- updating alias to match the dto object attribute (tlestach@redhat.com)
+- setting an alias for subquery(PG) (tlestach@redhat.com)
+- enable SSM Package upgrade process(PG) (tlestach@redhat.com)
+- fix OUTER JOIN from recent commit (tlestach@redhat.com)
+- fix OUTER JOIN from recent commit (tlestach@redhat.com)
+- fix OUTER JOIN from recent commit (tlestach@redhat.com)
+- fixing queries, where rhnServer was unexpectedly joined to the query
+  (tlestach@redhat.com)
+- fixing broken queries (due to ORDER BY statements) (tlestach@redhat.com)
+- setting action name for package verification (tlestach@redhat.com)
+
+* Wed Nov 10 2010 Lukas Zapletal 1.2.97-1
+- Correcting spec for spacewalk-java (JAR symlinks)
+
+* Tue Nov 09 2010 Tomas Lestach <tlestach@redhat.com> 1.2.96-1
+- enable SSM Package remove process(PG) (tlestach@redhat.com)
+- enable SSM Package install process(PG) (tlestach@redhat.com)
+- enable SSM Package upgrade page(PG) (tlestach@redhat.com)
+- enable SSM Package remove page(PG) (tlestach@redhat.com)
+- enable SSM Package install page(PG) (tlestach@redhat.com)
+- enable Virtual Systems page(PG) (tlestach@redhat.com)
+
+* Mon Nov 08 2010 Tomas Lestach <tlestach@redhat.com> 1.2.95-1
+- fix creating of groups(PG) (tlestach@redhat.com)
+- do not pass string params, when numeric are expected(PG)
+  (tlestach@redhat.com)
+- reduced logging of RpmRepositoryWriter (tlestach@redhat.com)
+- create setters with byte[] param(PG) for repo generation code
+  (tlestach@redhat.com)
+- updating logging of ChannelRepodataWorker (tlestach@redhat.com)
+- updated logging of ChannelRepodataDriver (tlestach@redhat.com)
+- adding extra logging to KickstartFileSyncTask (tlestach@redhat.com)
+- removing unused code from KickstartFileSyncTask (tlestach@redhat.com)
+
+* Fri Nov 05 2010 Tomas Lestach <tlestach@redhat.com> 1.2.94-1
+- removing insert of NULL value(PG) (tlestach@redhat.com)
+
+* Fri Nov 05 2010 Lukas Zapletal 1.2.93-1
+- Two config queries are ported to PostgreSQL 
+- rewriting INSERT ALL in insert_channel_packages_in_set (PG)
+
+* Thu Nov 04 2010 Lukas Zapletal 1.2.92-1
+- Replacing 4 occurances of NVL with ANSI COALESCE 
+- 645842 - return macro delims for config files 
+
+* Thu Nov 04 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.91-1
+- fixing build errors (msuchy@redhat.com)
+
+* Thu Nov 04 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.90-1
+- fixing build errors (msuchy@redhat.com)
+
+* Wed Nov 03 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.89-1
+- 647099 - add API call isMonitoringEnabledBySystemId (msuchy@redhat.com)
+
+* Wed Nov 03 2010 Tomas Lestach <tlestach@redhat.com> 1.2.88-1
+- 649319 - enable upload of binary files (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- use public static string instead of directly calling query name
+  (tlestach@redhat.com)
+- migrating change log to java, and making it use the rpm itself instead of the
+  database (jsherril@redhat.com)
+
+* Wed Nov 03 2010 Lukas Zapletal 1.2.87-1
+- Using general nextval function in ssm operation queries 
+- fixing some fedora 14 provisioning issues 
+
+* Tue Nov 02 2010 Lukas Zapletal 1.2.86-1
+- Removing unnecessary JSPF fragment file 
+
+* Tue Nov 02 2010 Lukas Zapletal 1.2.85-1
+- Fixing unambiguous column 'name' for PostgreSQL 
+- 645829 - make it possile to update macro delimiters 
+- 645829 - do not trim curly brackets in macro delimiters 
+- removing unnecessary condition 
+
+* Tue Nov 02 2010 Lukas Zapletal 1.2.84-1
+- Changing the way how taskomatic connects to PostgreSQL db
+- Replacing some constants with ConfigDefaults in java codebase
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.83-1
+- Typo in a java resource (lzap+git@redhat.com)
+- Spelling java resource script correction + retab (lzap+git@redhat.com)
+- ErrataMailer improvements (tlestach@redhat.com)
+- bumping API version to identify new API call availability
+  (tlestach@redhat.com)
+
+* Tue Nov 02 2010 Lukas Zapletal 1.2.82-1
+- Renaming two ignored unit tests properly 
+- Removing unused methods from java db manager 
+- Removing unused class from java db manager 
+- Removing unused class - Worker 
+- Removing dead code in two tests 
+- Fixing table name aliases 
+- Two classes were not serializabled while putting them into HttpSession
+- Fixing date diff in alerts 
+- making kickstart channel list sorted alphabetically 
+- sorting activation key base channel drop down by alphabetical order
+- 648470 - changing manage package page to sort channels by name
+- 644880 - check for arch compatibility when adding packages into a channel
+- 647099 - introducing satellite.isMonitoringEnabled API 
+- replace web.is_monitoring_backend with
+  ConfigDefaults.WEB_IS_MONITORING_BACKEND 
+- fixing ISE on package deletion due to RHNSAT.RHN_PFDQUEUE_PATH_UQ violation
+
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.81-1
+- updating logging of SessionCleanup task (tlestach@redhat.com)
+- checkstyle fix (tlestach@redhat.com)
+
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.80-1
+- adding new TimeSeriesCleanUp taskomatic task (tlestach@redhat.com)
+- Fixing system_available_packages -- the order by got lost in previous
+  commits, and the name_upper is still there. (jpazdziora@redhat.com)
+
+* Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.79-1
+- 645702 - remove rhnPaidErrataTempCache temporary table (tlestach@redhat.com)
+
+* Fri Oct 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.78-1
+- removing unused imports
+
+* Fri Oct 29 2010 Jan Pazdziora 1.2.77-1
+- removed unused Spacewalk (Certificate Signing Key) <jmrodri@nc.rr.com> key
+  from keyring (michael.mraka@redhat.com)
+- Operations on rhnSatelliteChannelFamily are not longer called, removing the
+  queries.
+- Method deactivateSatellite not used (presumably hosted only), removing.
+- Queries channel_download_categories_by_type and
+  satellite_channel_download_categories_by_type not used after previous
+  removal, removing.
+- ISOCategory not referenced, removing.
+- The listDownloadCategories is not used, removing.
+
+* Fri Oct 29 2010 Lukas Zapletal 1.2.76-1
+- Making DISTINCT-ORDER BY package/system queries portable
+- Removing unnecessary subselect 
+- Simplifying ORDER BY clauses in package queries 
+- Revert "Reverting "Removed unnecessary ORDER BY" commits and fixing"
+  
+
+* Wed Oct 27 2010 Shannon Hughes <shughes@redhat.com> 1.2.75-1
+- fix for checkstyle (shughes@redhat.com)
+
+* Wed Oct 27 2010 Lukas Zapletal 1.2.74-1
+- Fixing missing brace in Taskomatic query 
+- Addressing issue in system overview 
+- PostgreSQL needs FROM keyword in DELETE 
+- Adding missing interval keyword to Taskomatic 
+- Protocol config value is now used in Taskomatic 
+- Getting taskomatic working on PostgreSQL 
+- removing unneeded insmod on kickstart %pre script, since they are already
+  loaded 
+- fixing query to run correctly, c.id was not valid because the join did not
+  come directly after rhnChannel c 
+- adding missing import 
+- 646892 - fixing issue where kickstart expiration would occur after current
+  date and not scheduled date of kickstart 
+- removing need of setNvreUpper method in PackageOverview 
+- fixing broken if statement in snippet 
+- fixing broken query used by SSM System delete 
+
+* Mon Oct 25 2010 Lukas Zapletal 1.2.73-1
+- Fixing Taskomatic blob handling (now binary)
+- Support for PostgreSQL driver in Taskomatic
+- Implement API calls for System Currency
+
+* Mon Oct 25 2010 Lukas Zapletal 1.2.72-1
+- Addressing subquery in FROM must have an alias issue (fix)
+- Sorting fix in packages for PostgreSQL
+- Reverting "Removed unnecessary ORDER BY" commits and fixing
+- Default cast fix for PostgreSQL
+- Use the { call ... } syntax instead of the direct PL/SQL.
+
+* Mon Oct 25 2010 Jan Pazdziora 1.2.71-1
+- 639999 - adding %end tags to generated kickstart files if os is fedora or
+  RHEL 6 (jsherril@redhat.com)
+
+* Thu Oct 21 2010 Jan Pazdziora 1.2.70-1
+- Fix checkstyle errors (colin.coe@gmail.com)
+
+* Thu Oct 21 2010 Lukas Zapletal 1.2.69-1
+- Fixed all LEFT OUTER JOINs in Channels 
+- Fixed LEFT OUTER JOIN for PostgreSQL in Software Channels
+- Removed unnecessary ORDER BY in DISTINCT query. 
+- Simplified SQL query with evr_t_as_vre_simple function. 
+- Fixed composite type accessing for PostgreSQL for all packages
+- Simplified SQL query with evr_t_as_vre_simple function. 
+- Fixed composite type accessing for PostgreSQL 
+- Sorting fix in packages for PostgreSQL 
+- Fix of evr_t_as_vre_simple PostgreSQL function 
+- ANSI JOIN syntax fix for PostgreSQL in system update 
+- PostgreSQL fix in package search 
+- Integer-Long fix in channel subscribers for PostgreSQL 
+- Update System Currency to use rhn.cfg file 
+
+* Wed Oct 20 2010 Lukas Zapletal 1.2.68-1
+- Rewrite of LEFT OUTER JOIN into ANSI syntax 
+- Function evr_t_as_vre_simple in all package queries now general
+- Using date time function instead of arithmetics 
+- Sysdate replaced with current_timestamp 
+- Removed unnecessary ORDER BY in SELECT COUNT
+- Use the global function evr_t_as_vre_simple in package_ids_in_set instead of
+  method .as_vre_simple; this works on PostgreSQL as well.
+
+* Wed Oct 20 2010 Jan Pazdziora 1.2.67-1
+- Delete from rhnPackageChangeLogRec, not from the view.
+- Fix ISE in AK child channel page (colin.coe@gmail.com)
+
+* Wed Oct 20 2010 Lukas Zapletal 1.2.66-1
+- Removed unnecessary ORDER BY 
+- Using date time function instead of arithmetics 
+- Added setHasSubscription for Integer 
+- Using date time function instead of arithmetics 
+- Fix in PostgreSQL (ORDER BY) in Out Of Date system list.
+- Fixed comma in ANSI JOIN syntax from previous commit 
+- Left join now in ANSI syntax for virtual system list. 
+- Fix in PostgreSQL plus NVL fix
+- All DECODE functions replaced with CASE-WHEN in System_queries
+- Fixing system overview list for PostgreSQL 
+
+* Tue Oct 19 2010 Tomas Lestach <tlestach@redhat.com> 1.2.65-1
+- removing unused imports (tlestach@redhat.com)
+- 644361 - use cache instead of view for update check (tlestach@redhat.com)
+- Port /network/systems/groups/create.pxt, part 2 (colin.coe@gmail.com)
+- Port /network/systems/groups/create.pxt (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/new_value.pxt (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/remove_value_conf.pxt
+  (colin.coe@gmail.com)
+- More checkstyle fixes (colin.coe@gmail.com)
+- Fix checkstyle errors (colin.coe@gmail.com)
+- Fix missing links (colin.coe@gmail.com)
+- Fix /rhn/systems/details/UpdateCustomData.do (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/edit.pxt (colin.coe@gmail.com)
+- Fix NPE when lastModifier is null (colin.coe@gmail.com)
+- Port /network/systems/details/custominfo/index.pxt (colin.coe@gmail.com)
+- Fix page not updating description (colin.coe@gmail.com)
+- Checkstyle fixes (colin.coe@gmail.com)
+- Port /network/systems/custominfo/edit.pxt (colin.coe@gmail.com)
+- 644349 - remove hasProcessedErrata method (tlestach@redhat.com)
+- 644349 - extend ErrataMailer logging (tlestach@redhat.com)
+- 644349 - do not update/delete all errata entries when the erratum affects
+  multiple channels (tlestach@redhat.com)
+- 644349 - do not list one system several times in the errata notification
+  e-mail (tlestach@redhat.com)
+
+* Tue Oct 19 2010 Lukas Zapletal 1.2.64-1
+- Fixing system list for Oracle
+
 * Mon Oct 18 2010 Jan Pazdziora 1.2.63-1
 - fixing broken tag
 

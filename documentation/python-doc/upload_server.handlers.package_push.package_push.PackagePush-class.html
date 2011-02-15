@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="upload_server-module.html">Package&nbsp;upload_server</a> ::
         <a href="upload_server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="upload_server.handlers.package_push-module.html">Package&nbsp;package_push</a> ::
+        <a href="upload_server.handlers.package_push-module.html" onclick="show_private();">Package&nbsp;package_push</a> ::
         <a href="upload_server.handlers.package_push.package_push-module.html" onclick="show_private();">Module&nbsp;package_push</a> ::
         Class&nbsp;PackagePush
       </span>
@@ -58,14 +58,14 @@
 <h1 class="epydoc">Class PackagePush</h1><p class="nomargin-top"><span class="codelink"><a href="upload_server.handlers.package_push.package_push-pysrc.html#PackagePush">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_upload_s" name="uml_class_diagram_for_upload_s">
-<area shape="rect" href="server.basePackageUpload.BasePackageUpload-class.html#cleanupHandler" title="server.basePackageUpload.BasePackageUpload.cleanupHandler" alt="" coords="17,36,321,55"/>
-<area shape="rect" href="server.basePackageUpload.BasePackageUpload-class.html#logHandler" title="server.basePackageUpload.BasePackageUpload.logHandler" alt="" coords="17,55,321,73"/>
-<area shape="rect" href="server.basePackageUpload.BasePackageUpload-class.html" title="server.basePackageUpload.BasePackageUpload" alt="" coords="16,11,323,75"/>
-<area shape="rect" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#__init__" title="upload_server.handlers.package_push.package_push.PackagePush.__init__" alt="" coords="73,129,265,148"/>
-<area shape="rect" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#headerParserHandler" title="This whole function is ugly as hell." alt="" coords="73,148,265,167"/>
-<area shape="rect" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#handler" title="upload_server.handlers.package_push.package_push.PackagePush.handler" alt="" coords="73,167,265,185"/>
-<area shape="rect" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#get_auth_token" title="upload_server.handlers.package_push.package_push.PackagePush.get_auth_token" alt="" coords="73,185,265,204"/>
-<area shape="rect" href="upload_server.handlers.package_push.package_push.PackagePush-class.html" title="upload_server.handlers.package_push.package_push.PackagePush" alt="" coords="72,104,267,205"/>
+<area shape="rect" id="node2428" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#__init__" title="upload_server.handlers.package_push.package_push.PackagePush.__init__" alt="" coords="103,135,287,153"/>
+<area shape="rect" id="node2428" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#headerParserHandler" title="This whole function is ugly as hell." alt="" coords="103,153,287,172"/>
+<area shape="rect" id="node2428" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#handler" title="upload_server.handlers.package_push.package_push.PackagePush.handler" alt="" coords="103,172,287,191"/>
+<area shape="rect" id="node2428" href="upload_server.handlers.package_push.package_push.PackagePush-class.html#get_auth_token" title="upload_server.handlers.package_push.package_push.PackagePush.get_auth_token" alt="" coords="103,191,287,209"/>
+<area shape="rect" id="node1" href="upload_server.handlers.package_push.package_push.PackagePush-class.html" title="upload_server.handlers.package_push.package_push.PackagePush" alt="" coords="91,102,299,215"/>
+<area shape="rect" id="node2429" href="javascript:void(0);" title="spacewalk.server.basePackageUpload.BasePackageUpload.cleanupHandler" alt="" coords="17,39,372,57"/>
+<area shape="rect" id="node2429" href="javascript:void(0);" title="spacewalk.server.basePackageUpload.BasePackageUpload.logHandler" alt="" coords="17,57,372,76"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="spacewalk.server.basePackageUpload.BasePackageUpload" alt="" coords="5,6,384,82"/>
 </map>
   <img src="uml_class_diagram_for_upload_s.png" alt='' usemap="#uml_class_diagram_for_upload_s" ismap="ismap" class="graph-without-title" />
 </center>
@@ -178,9 +178,9 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.basePackageUpload.BasePackageUpload-class.html">server.basePackageUpload.BasePackageUpload</a></code></b>:
-      <code><a href="server.basePackageUpload.BasePackageUpload-class.html#cleanupHandler">cleanupHandler</a></code>,
-      <code><a href="server.basePackageUpload.BasePackageUpload-class.html#logHandler">logHandler</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.server.basePackageUpload.BasePackageUpload</code></b>:
+      <code>cleanupHandler</code>,
+      <code>logHandler</code>
       </p>
     </td>
   </tr>
@@ -218,11 +218,11 @@
     ><span class="codelink"><a href="upload_server.handlers.package_push.package_push-pysrc.html#PackagePush.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Overrides:
-        <a href="server.basePackageUpload.BasePackageUpload-class.html#__init__">server.basePackageUpload.BasePackageUpload.__init__</a>
+        spacewalk.server.basePackageUpload.BasePackageUpload.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -241,13 +241,13 @@
     ><span class="codelink"><a href="upload_server.handlers.package_push.package_push-pysrc.html#PackagePush.headerParserHandler">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>This whole function is ugly as hell. The Auth field in the header used
-  to be required, but now it must have either the Auth field or the 
+  to be required, but now it must have either the Auth field or the
   Auth-Session field.</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="server.basePackageUpload.BasePackageUpload-class.html#headerParserHandler">server.basePackageUpload.BasePackageUpload.headerParserHandler</a>
+        spacewalk.server.basePackageUpload.BasePackageUpload.headerParserHandler
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
@@ -267,11 +267,11 @@
     ><span class="codelink"><a href="upload_server.handlers.package_push.package_push-pysrc.html#PackagePush.handler">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Overrides:
-        <a href="server.basePackageUpload.BasePackageUpload-class.html#handler">server.basePackageUpload.BasePackageUpload.handler</a>
+        spacewalk.server.basePackageUpload.BasePackageUpload.handler
     </dt>
   </dl>
 </td></tr></table>
@@ -300,7 +300,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:17 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

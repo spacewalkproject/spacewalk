@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -64,7 +64,7 @@ class BaseMain:
                 show_help = 1
                 continue
 
-            if utils.startswith(arg, server_name_opt):
+            if arg.startswith(server_name_opt):
                 rarg = arg[len(server_name_opt):]
                 if not rarg:
                     needs_server_name = 1
@@ -115,7 +115,7 @@ class BaseMain:
         try:
             module = __import__(full_module_name)
         except ImportError, e:
-             rhn_log.die(1, "Unable to load plugin for mode '%s': %s" % (mode, e))
+            rhn_log.die(1, "Unable to load plugin for mode '%s': %s" % (mode, e))
 
         module = getattr(module, module_name)
 

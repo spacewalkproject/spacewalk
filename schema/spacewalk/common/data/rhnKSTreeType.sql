@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,12 +13,12 @@
 -- in this software or its documentation. 
 --
 insert into rhnKSTreeType (id, label, name)
-        values (rhn_kstree_type_seq.nextval,
+        values (sequence_nextval('rhn_kstree_type_seq'),
                 'rhn-managed','Spacewalk managed kickstart tree'
         );
 
 insert into rhnKSTreeType (id, label, name)
-        values (rhn_kstree_type_seq.nextval,
+        values (sequence_nextval('rhn_kstree_type_seq'),
                 'externally-managed','Externally managed kickstart tree'
         );
 

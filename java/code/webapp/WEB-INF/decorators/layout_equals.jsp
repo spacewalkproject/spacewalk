@@ -1,4 +1,4 @@
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>

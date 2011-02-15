@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#Copyright (c) 2005, Red Hat Inc.
+# Copyright (c) 2005--2010 Red Hat, Inc.
 #
 #
 #
@@ -13,7 +13,7 @@ This test is no more valid; see the bug
 
 import os
 import unittest
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 DB = 'rhnuser/rhnuser@webdev'
 

@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.8
+Version: 1.4.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -23,7 +23,7 @@ This package is never built.
 Summary: Packages required by the SpacewalkManagement Proxy
 Group:   Applications/Internet
 Requires: squid
-Requires: spacewalk-backend
+Requires: spacewalk-backend >= 1.2.32
 # python-hashlib is optional for spacewalk-backend-libs
 # but we need made it mandatory here
 Requires: python-hashlib
@@ -49,16 +49,16 @@ Provides: rhns-proxy-tools = 5.3.0
 Obsoletes: spacewalk-proxy-tools < 0.5.3
 Provides: spacewalk-proxy-tools = %{version}
 Obsoletes: rhns-auth-daemon < 5.2.0
-Provides: rhns-auth-daemon = %{version}
+Provides: rhns-auth-daemon = 1:%{version}
 Obsoletes: rhn-modssl < 2.9.0
-Provides: rhn-modssl = %{version}
+Provides: rhn-modssl = 1:%{version}
 Obsoletes: rhn-modpython < 2.8.0
-Provides: rhn-modpython = %{version}
+Provides: rhn-modpython = 1:%{version}
 Obsoletes: rhn-apache < 1.4.0
-Provides: rhn-apache = %{version}
+Provides: rhn-apache = 1:%{version}
 
 %description management
-Spacewalk Management Proxy components.
+This package require all needed packages for Spacewalk Proxy Server.
 
 %package broker
 Group:   Applications/Internet
@@ -83,12 +83,12 @@ Obsoletes: rhns-proxy-broker < 5.3.0
 
 
 %description broker
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of 
 resources to package update and deployment.
 
-This package includes module, which request is cacheable and should
+This package includes module, which request is cache-able and should
 be sent to Squid and which should be sent directly to parent Spacewalk
 server.
 
@@ -100,7 +100,7 @@ Requires: httpd
 Obsoletes: rhns-proxy-redirect < 5.3.0
 
 %description redirect
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
@@ -119,12 +119,12 @@ Requires: mod_python
 Requires: mod_wsgi
 %endif
 Requires: %{name}-broker >= %{version}
-Requires: spacewalk-backend >= 0.9.22
+Requires: spacewalk-backend >= 1.2.32
 Requires: policycoreutils
 Obsoletes: rhns-proxy-common < 5.3.0
 
 %description common
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
@@ -135,7 +135,7 @@ Spacewalk Proxy components.
 %package package-manager
 Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
 Group:   Applications/Internet
-Requires: spacewalk-backend
+Requires: spacewalk-backend >= 1.2.32
 Requires: rhnlib
 Requires: python
 Requires: rhnpush
@@ -145,7 +145,7 @@ Obsoletes: rhn_package_manager < 5.3.0
 Obsoletes: rhns-proxy-package-manager < 5.3.0
 
 %description package-manager
-The Spacewalk Proxy Server allows package proxying/caching
+The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
@@ -165,6 +165,8 @@ make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
 install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
+
+touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 
 %if  0%{?rhel} && 0%{?rhel} < 6
 rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-wsgi.conf
@@ -254,23 +256,23 @@ fi
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
 %attr(770,root,apache) %dir %{_var}/log/rhn
-%config %{_sysconfdir}/logrotate.d/rhn_proxy_broker
+%config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-broker
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %{rhnconf}/default/rhn_proxy_broker.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(755,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %{rhnconf}/default/rhn_proxy_broker.conf
 
 %files redirect
 %defattr(-,root,root)
 %dir %{destdir}
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
-%attr(770,root,apache) %dir %{_var}/log/rhn
-%config %{_sysconfdir}/logrotate.d/rhn_proxy_redirect
+%attr(775,root,apache) %dir %{_var}/log/rhn
+%config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-redirect
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %{rhnconf}/default/rhn_proxy_redirect.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(755,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %{rhnconf}/default/rhn_proxy_redirect.conf
 
 %files common
 %defattr(-,root,root)
@@ -284,20 +286,21 @@ fi
 %{destdir}/rhnAuthCacheClient.py*
 %{destdir}/rhnProxyAuth.py*
 %{destdir}/rhnAuthProtocol.py*
-%{destdir}/xxmlrpclib.py*
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
 %attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(640,root,apache) %config %{rhnconf}/rhn.conf
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
-%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(645,root,apache) %config %{rhnconf}/rhn.conf
+%attr(754,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %{rhnconf}/default/rhn_proxy.conf
+%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+# this file is created by either cli or webui installer
+%ghost %config %{httpdconf}/cobbler-proxy.conf
 %if  0%{?rhel} && 0%{?rhel} < 6
-%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
+%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
 %else
-%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
+%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
 %{rhnroot}/wsgi/xmlrpc.py*
 %{rhnroot}/wsgi/xmlrpc_redirect.py*
 %endif
@@ -308,9 +311,9 @@ fi
 %files package-manager
 %defattr(-,root,root)
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
-%attr(750,root,apache) %dir %{rhnconf}/default
-%attr(640,root,apache) %config %{rhnconf}/default/rhn_proxy_package_manager.conf
+%attr(755,root,apache) %dir %{rhnconf}
+%attr(755,root,apache) %dir %{rhnconf}/default
+%attr(644,root,apache) %config %{rhnconf}/default/rhn_proxy_package_manager.conf
 %{_bindir}/rhn_package_manager
 %{rhnroot}/PackageManager/rhn_package_manager.py*
 %{rhnroot}/PackageManager/uploadLib.py*
@@ -328,6 +331,85 @@ fi
 
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.11-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- remove redundant comment (msuchy@redhat.com)
+- convert comment to docstring (msuchy@redhat.com)
+- remove redundant comment (msuchy@redhat.com)
+
+* Thu Jan 13 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.10-1
+- do not traceback if redirected location do not contain '?'
+- fix module name during import
+- replace tabs with space to fix indentation
+
+* Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
+- fixed pylint errors
+
+* Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.8-1
+- removed xxmlrpclib
+- Updating the copyright years to include 2010.
+
+* Mon Dec 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.7-1
+- fixed number of errors reported by pylint
+
+* Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.6-1
+- import Fault, ResponseError and ProtocolError directly from xmlrpclib
+
+* Fri Dec 03 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.5-1
+- 656746 - send to hosted md5 checksum of package (msuchy@redhat.com)
+- 656746 - make _processFile and _processBatch method of UploadClass class
+  (msuchy@redhat.com)
+- 656753 - add namespace prefix to merged functions (msuchy@redhat.com)
+- 656753 - fix TB during rhn_package_manager -v -l (msuchy@redhat.com)
+- 658527 - create _split_url function (msuchy@redhat.com)
+- use constant instead of hardcoded string (msuchy@redhat.com)
+- import Fault from different class (msuchy@redhat.com)
+
+* Tue Nov 30 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.4-1
+- 658303 - do not forward Host header, it will confuse target Satellite
+
+* Mon Nov 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.3-1
+- 657956 - fix condrestart option (msuchy@redhat.com)
+
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
+- removed unused imports
+
+* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
+- 629552 - Proxy should allow all header from rfc2616 (msuchy@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
+* Wed Nov 10 2010 Jan Pazdziora 1.2.15-1
+- addressing rpmlint error non-standard-dir-perm (msuchy@redhat.com)
+- fix spelling error (msuchy@redhat.com)
+- update Makefile to reflect logrotate files rename (msuchy@redhat.com)
+- rename logrotate/rhn_proxy_redirect to logrotate/rhn-proxy-redirect
+  (msuchy@redhat.com)
+- rename logrotate/rhn_proxy_broker to logrotate/rhn-proxy-broker
+  (msuchy@redhat.com)
+- mark logrotate.d files as %config(noreplace) (msuchy@redhat.com)
+- correct description (msuchy@redhat.com)
+- bumping up epoch in provides - do not self-obsolete (msuchy@redhat.com)
+- escape entry in changelog (msuchy@redhat.com)
+
+* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.14-1
+- 514253 - file cobbler-proxy.conf should have owner, winner is spacewalk-
+  proxy-common (msuchy@redhat.com)
+
+* Wed Nov 03 2010 Jan Pazdziora 1.2.13-1
+- remove RootDir (msuchy@redhat.com)
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.12-1
+- Update copyright years in the rest of the repo.
+
+* Fri Oct 29 2010 Jan Pazdziora 1.2.11-1
+- removed unused class rhnPackageManagerException (michael.mraka@redhat.com)
+
+* Thu Oct 21 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.10-1
+- 612581 - spacewalk-backend modules has been migrated to spacewalk namespace
+
+* Thu Oct 21 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.9-1
+- 641371 - do not read response body if request is HEAD
+
 * Mon Oct 18 2010 Jan Pazdziora 1.2.8-1
 - code cleanup - it does not have sense to require itself (msuchy@redhat.com)
 - require policycoreutils due usage of restorecon (msuchy@redhat.com)
@@ -340,7 +422,7 @@ fi
 - fix typo in macro (msuchy@redhat.com)
 
 * Wed Oct 13 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
-- 640195 - put upgrade script to %posttrans (msuchy@redhat.com)
+- 640195 - put upgrade script to %%posttrans (msuchy@redhat.com)
 
 * Wed Oct 13 2010 Jan Pazdziora 1.2.4-1
 - bump up version of proxy (msuchy@redhat.com)

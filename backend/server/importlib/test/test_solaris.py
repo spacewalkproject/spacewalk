@@ -13,16 +13,11 @@
 # in this software or its documentation. 
 #
 
-import sys
-rhn_path = '/usr/share/rhn'
-if rhn_path not in sys.path:
-    sys.path.append(rhn_path)
+from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendOracle import OracleBackend
+from spacewalk.server.importlib.packageImport import PackageImport
 
-from server import rhnSQL
-from server.importlib.backendOracle import OracleBackend
-from server.importlib.packageImport import PackageImport
-
-from server.importlib.mpmSource import mpmBinaryPackage
+from spacewalk.server.importlib.mpmSource import mpmBinaryPackage
 
 solaris_pkgs = [
     mpmBinaryPackage().populate(
@@ -263,7 +258,6 @@ backend = OracleBackend()
 backend.init()
 
 pi = PackageImport(solaris_pkgs, backend, update_last_modified=1)
-pi.setIgnoreUploaded(1)
 pi.run()
 
 # vim:sw=4:ts=4:et:mouse=a

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,9 +16,10 @@
 
 import time
 
-from common import CFG, rhnFault, log_debug
-from common.rhnTranslate import _
-from server import rhnHandler, rhnSQL, rhnLib
+from spacewalk.common import CFG, rhnFault, log_debug
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnLib
 
 class Authentication(rhnHandler):
     """ Simple authentication based on hostname and allowed_iss_slaves

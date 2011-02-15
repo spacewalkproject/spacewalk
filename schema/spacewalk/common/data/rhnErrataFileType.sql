@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,13 +16,13 @@
 --
 
 insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'RPM' );
+	values ( sequence_nextval('rhn_erratafile_type_id_seq'), 'RPM' );
 insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'SRPM' );
+	values ( sequence_nextval('rhn_erratafile_type_id_seq'), 'SRPM' );
 insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'IMG' );
+	values ( sequence_nextval('rhn_erratafile_type_id_seq'), 'IMG' );
 insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'OVAL' );
+	values ( sequence_nextval('rhn_erratafile_type_id_seq'), 'OVAL' );
 
 
 --

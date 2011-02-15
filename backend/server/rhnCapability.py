@@ -18,7 +18,7 @@ import re
 import string
 
 # common module
-from common import log_debug, rhnFlags
+from spacewalk.common import log_debug, rhnFlags
 
 # local module
 import rhnSQL
@@ -162,14 +162,13 @@ def update_client_capabilities(server_id):
 
 def set_server_capabilities():
     try:
-        ret = _set_server_capabilities()
+        _set_server_capabilities()
     except rhnSQL.SQLError, e:
         if e.args[0] != 1:
             # Not a unique constraint violation
             raise
         # Try again
-        ret = _set_server_capabilities()
-    return ret
+        _set_server_capabilities()
 
 def _set_server_capabilities():
     # XXX Will have to figure out how to define this

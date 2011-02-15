@@ -1,6 +1,6 @@
 # Red Hat Network Proxy Server Broker handler code.
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,17 +21,15 @@ import string
 import socket
 import re
 
-# global module imports
-from common import apache
-
 # common module imports
-from common.rhnLib import parseUrl
-from common import UserDictCase, rhnFlags, log_debug, log_error, CFG, \
-    rhnFault, rhnException
-from common.rhnTranslate import _
+from spacewalk.common.rhnLib import parseUrl
+from spacewalk.common import UserDictCase, rhnFlags, log_debug, log_error, CFG, \
+    rhnFault, apache
+from spacewalk.common.rhnTranslate import _
 
 # local module imports
 from proxy.rhnShared import SharedHandler
+from proxy.rhnConstants import URI_PREFIX_KS_CHECKSUM
 import rhnRepository
 import proxy.rhnProxyAuth
 
@@ -104,7 +102,7 @@ class BrokerHandler(SharedHandler):
             scheme = 'http'
             self.httpProxy = CFG.SQUID
             self.caChain = self.httpProxyUsername = self.httpProxyPassword = ''
-            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^/ty-cksm/', self._getEffectiveURI()):
+            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^'+URI_PREFIX_KS_CHECKSUM, self._getEffectiveURI()):
                 # o if we need to go through an outside HTTP proxy, use the
                 #   redirect
                 # o if an SSL request, use the redirect
@@ -259,6 +257,17 @@ class BrokerHandler(SharedHandler):
         """ prep handler and check PROXY_AUTH's expiration. """
         SharedHandler._prepHandler(self)
 
+    def _split_url(self, req):
+        """ read url from incoming url and return (req_type, channel, action, params)
+            URI should look something like:
+            /GET-REQ/rhel-i386-server-5/getPackage/autofs-5.0.1-0.rc2.143.el5_5.6.i386.rpm
+        """
+        args = req.path_info.split('/')
+        if len(args) < 5:
+            return (None, None, None, None)
+        else:
+            return (args[1], args[2], args[3], args[4:])
+            
     # --- PRIVATE METHODS ---
 
     def __handleAction(self, headers):
@@ -289,18 +298,11 @@ class BrokerHandler(SharedHandler):
             # Don't know how to handle this
             return None
 
-        # Split the URI to find out if we should take care of this.
-        # URI should look something like:
-        # /$RHN/redhat-linux-i386-7.1/getPackage/abiword-0.7.13.2.i386.rpm
-        # NOTE: it splits to ['', '$RHN', label, channel, ...]
-        args = string.split(req.path_info, '/')
-        if not args or len(args) < 2 or (args[1] != '$RHN' and args[1] != 'GET-REQ'):
+        (req_type, reqchannel, reqaction, reqparams) = self._split_url(req)
+        if req_type is None or (req_type not in ['$RHN', 'GET-REQ']):
             # not a traditional RHN GET (i.e., it is an arbitrary get)
             # XXX: there has to be a more elegant way to do this
             return None
-        reqchannel = args[2]
-        reqaction = args[3]
-        reqparams = args[4:]
 
         # --- AUTH. CHECK:
         # Check client authentication. If not authenticated, throw
@@ -390,7 +392,6 @@ class BrokerHandler(SharedHandler):
         _writeToCache(self.clientServerId, token)
         return token
 
-    # To service items from local repository.
     def __callLocalRepository(self, channelName, funct, params):
         """ Contacts the local repository and retrieves files
         

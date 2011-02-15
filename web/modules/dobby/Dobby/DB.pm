@@ -210,19 +210,11 @@ sub shrink_segment {
 
   my $query;
 
-  if ($seg->{SEGMENT_TYPE} eq 'TABLE') {
-    $query = sprintf("alter table %s.%s shrink space",
-                     @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
-  } elsif ($seg->{SEGMENT_TYPE} eq 'INDEX') {
-    $query = sprintf("alter index %s.%s shrink space",
-                     @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
-  } else {
-    printf "ERROR: do not know how to shrink %s %s.%s\n",
-            @$seg{qw/SEGMENT_TYPE SEGMENT_OWNER SEGMENT_NAME/};
-    return -1;
-  }
   my $dbh = $self->connect;
-  $dbh->do($query);
+  for my $rec ('C3', 'C2', 'C1') {
+        next if not defined($seg->{$rec});
+        $dbh->do($seg->{$rec});
+  }
 }
 
 sub listener_startup {
@@ -246,7 +238,6 @@ sub database_startup {
   my $self = shift;
   my $mode = shift;
 
-  $self->assert_local;
   if ($mode) {
     $mode = uc $mode;
   }
@@ -261,7 +252,6 @@ sub database_shutdown {
   my $self = shift;
   my $mode = shift;
 
-  $self->assert_local;
   if ($mode) {
     $mode = uc $mode;
   }
@@ -275,8 +265,6 @@ sub database_shutdown {
 sub sqlplus_nolog {
   my $self = shift;
   my @commands = @_;
-
-  $self->assert_local;
 
   Dobby::Log->log("Connecting via sqlplus as sysdba...");
 
@@ -335,11 +323,10 @@ sub connect {
   $ENV{ORACLE_SID} = $self->config->get("sid");
   $ENV{ORACLE_HOME} = $self->config->get("oracle_home");
   my $dbi_str = "dbi:Oracle:";
-  $dbi_str .= $self->config->get("remote_dsn") if $self->config->get("remote_dsn");
 
   my $dbh = RHN::DB->direct_connect($dbi_str,
-				    $self->config->get("normal_username"),
-				    $self->config->get("normal_password"),
+				    PXT::Config->get("db_user"),
+				    PXT::Config->get("db_password"),
 				    \%params);
 
   $self->{dbh} = $dbh;
@@ -384,10 +371,6 @@ sub sysdba_connect {
 		ora_session_mode => 2);  # ora_session_mode: OCI_SYSDBA
 
   my $dbi_str = "dbi:Oracle:";
-  if ($self->config->get("remote_dsn")) {
-    $dbi_str .= $self->config->get("remote_dsn");
-    delete $params{ora_session_mode};
-  }
 
   # this is a terrible workaround for a bug in DBI.  When doing
   # ora_session_mode commits with DBI 1.37 and DBD-Oracle 1.14, there
@@ -415,11 +398,15 @@ sub sysdba_connect {
   return $dbh;
 }
 
-sub assert_local {
+sub password_reset {
   my $self = shift;
-
-  croak"attempt to perform local-only operation on remote dobby db"
-    if $self->config->get("remote_dsn");
+  my $user = PXT::Config->get("db_user");
+  my $password = PXT::Config->get("db_password");
+  my $dbh = $self->sysdba_connect;
+  if ($dbh->do(qq{ALTER USER $user IDENTIFIED BY "$password" ACCOUNT UNLOCK})) {
+    return $user;
+  }
+  return 0;
 }
 
 1;

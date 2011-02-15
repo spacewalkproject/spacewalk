@@ -22,7 +22,8 @@ import string
 import connection
 
 # rhn imports
-from common import CFG, rhnLib
+from spacewalk.common import CFG, rhnLib
+sys.path.append("/usr/share/rhn")
 from up2date_client import config
 
 # local imports
@@ -152,7 +153,7 @@ class BaseWireSource:
             try:
                 stream = apply(func, params)
                 return stream
-            except rpclib.ProtocolError, e:
+            except rpclib.xmlrpclib.ProtocolError, e:
                 p = tuple(['<the systemid>'] + list(params[1:]))
                 lastErrorMsg = 'ERROR: server.%s%s: %s' % (method, p, e)
                 log2(-1, 2, lastErrorMsg, stream=sys.stderr)
@@ -161,7 +162,7 @@ class BaseWireSource:
                 # do not reraise this exception!
             except (KeyboardInterrupt, SystemExit):
                 raise
-            except rpclib.Fault, e:
+            except rpclib.xmlrpclib.Fault, e:
                 lastErrorMsg = e.faultString
                 break
             except Exception, e:
@@ -184,6 +185,9 @@ class BaseWireSource:
 class MetadataWireSource(BaseWireSource):
     
     """retrieve specific xml stream through xmlrpc interface."""
+
+    def is_disk_loader(self):
+        return False
 
     def _prepare(self):
         self.setServer(self.server_handler)
@@ -288,57 +292,10 @@ class XMLRPCWireSource(BaseWireSource):
         except TypeError, e:
             log(-1, 'ERROR: during "apply(getattr(BaseWireSource.serverObj, %s), %s)"' % (function, params))
             raise
-        except rpclib.ProtocolError, e:
+        except rpclib.xmlrpclib.ProtocolError, e:
             log2(-1, 2, 'ERROR: ProtocolError: %s' % e, stream=sys.stderr)
             raise
         return retval
-
-
-class FileWireSource(XMLRPCWireSource):
-
-    """retrieve rpm (or arbitrary file) stream through an xmlrpc interface."""
-
-    def __init__(self, systemid, sslYN):
-        XMLRPCWireSource.__init__(self, systemid, sslYN)
-        self.extinctErrorYN = 0
-
-    def getRpmStream(self, chn, nvrea):
-        """Fetch a file handle, given channel and nvrea
-        """
-        self.setServer(CFG.RHN_XMLRPC_HANDLER)
-        stream = None
-        try:
-            stream = self._xmlrpc('package.get', (self.systemid, chn, nvrea))
-        except (rpclib.Fault), e:
-            if e.faultCode == -17:
-                pass
-                #log(-1, 2, '   WARNING: originating RPM is extinct: %s' % self.__makeFilename(nvrea))
-            else:
-                log(-1, 'ERROR: rpclib.Fault: %s' % e, stream=sys.stderr)
-            self.extinctErrorYN = 1
-            # Marked as erronous... handled elsewhere. Don't reraise.
-        return stream
-
-    def __makeFilename(self, nvrea):
-        return "%s-%s-%s.%s.rpm" % (nvrea[0], nvrea[1], nvrea[2], nvrea[4]) 
-
-    def getKickstartFileStream(self, ksLabel, relativePath):
-        """Fetch a kickstart file handle, given kickstart label and the path
-        """
-        self.setServer(CFG.RHN_XMLRPC_HANDLER)
-        stream = None
-        try:
-            stream = self._xmlrpc('kickstart.get_ks_file',
-                       (self.systemid, ksLabel, relativePath))
-        except (rpclib.Fault), e:
-            if e.faultCode == -17:
-                pass
-                #log2(-1, 2, '   WARNING: originating RPM is extinct: %s' % self.__makeFilename(nvrea))
-            else:
-                log2(-1, 2, 'ERROR: rpclib.Fault: %s' % e, stream=sys.stderr)
-            self.extinctErrorYN = 1
-            raise e
-        return stream
 
 
 class AuthWireSource(XMLRPCWireSource):
@@ -351,7 +308,7 @@ class AuthWireSource(XMLRPCWireSource):
         log(2, '   +++ Satellite synchronization tool checking in.')
         try:
             authYN = self._xmlrpc('authentication.check', (self.systemid,))
-        except (rpclib.ProtocolError, rpclib.Fault), e:
+        except (rpclib.xmlrpclib.ProtocolError, rpclib.xmlrpclib.Fault), e:
             # bug 141197: the logging of all exceptions is handled higher up in 
             # the call stack
 #            log2(-1, 1, '   ERROR: %s' % e, stream=sys.stderr)
@@ -376,7 +333,7 @@ class CertWireSource(XMLRPCWireSource):
         #log(2, '   +++ Satellite synchronization tool downloading certificate.')
         try:
             cert = self._xmlrpc("certificate.download", (self.systemid, ))
-        except rpclib.Fault, e:
+        except rpclib.xmlrpclib.Fault, e:
             log(-1, '   --- Unable to download the satellite certificate')
             log(-1, '   ERROR: %s' % e, stream=sys.stderr)
             sys.exit(-1)
@@ -425,7 +382,7 @@ class RPCGetWireSource(BaseWireSource):
 
         try:
             login_token = self.getServer().authentication.login(self.systemid)
-        except rpclib.ProtocolError, e:
+        except rpclib.xmlrpclib.ProtocolError, e:
             log2(-1, 2, 'ERROR: ProtocolError: %s' % e, stream=sys.stderr)
             raise
         return login_token
@@ -443,7 +400,7 @@ class RPCGetWireSource(BaseWireSource):
         for i in range(cfg['networkRetries']):
             try:
                 ret = apply(getattr(get_server_obj, function_name), params)
-            except rpclib.ProtocolError, e:
+            except rpclib.xmlrpclib.ProtocolError, e:
                 # We have two codes to check: the HTTP error code, and the
                 # combination (failtCode, faultString) encoded in the headers
                 # of the request.

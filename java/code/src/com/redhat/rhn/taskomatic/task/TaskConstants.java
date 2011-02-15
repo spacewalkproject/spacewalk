@@ -50,6 +50,12 @@ public class TaskConstants {
     public static final String TASK_QUERY_SESSION_CLEANUP =
         "taskomatic_session_cleanup";
 
+    public static final String TASK_QUERY_TIME_SERIES_CLEANUP =
+        "taskomatic_time_series_cleanup";
+
+    public static final String TASK_QUERY_PACKAGE_CHANGELOG_CLEANUP =
+        "taskomatic_package_changelog_cleanup";
+
     public static final String TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES =
         "errataqueue_find_candidates";
 
@@ -62,10 +68,14 @@ public class TaskConstants {
     public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA =
         "errataqueue_dequeue_errata";
 
+    public static final String TASK_QUERY_REPOMD_DRIVER_QUERY =
+        "repomd_driver_query";
+
     public static final String TASK_QUERY_REPOMD_DEQUEUE =
         "repomd_dequeue";
 
-    public static final String TASK_QUERY_REPOMD_DETAILS_QUERY = "repomd_details_query";
+    public static final String TASK_QUERY_REPOMD_DETAILS_QUERY =
+        "repomd_details_query";
 
     public static final String TASK_QUERY_REPOMD_MARK_IN_PROGRESS =
         "repomd_mark_in_progress";
@@ -105,20 +115,14 @@ public class TaskConstants {
     public static final String TASK_QUERY_ERRATAMAILER_FIND_ERRATA =
         "erratamailer_find_errata";
 
-    public static final String TASK_QUERY_ERRATAMAILER_FILL_WORK_QUEUE =
-        "erratamailer_fill_work_queue";
-
-    public static final String TASK_QUERY_ERRATAMAILER_FIND_TARGET_USERS =
-        "erratamailer_find_users";
-
-    public static final String TASK_QUERY_ERRATAMAILER_FIND_TARGET_SERVERS =
-        "erratamailer_find_servers";
-
-    public static final String TASK_QUERY_ERRATAMAILER_CLEAN_QUEUE =
-        "erratamailer_clean_work_queue";
+    public static final String TASK_QUERY_ERRATAMAILER_GET_RELEVANT_SERVERS =
+        "erratamailer_get_relevant_servers";
 
     public static final String TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE =
         "erratamailer_mark_errata_done";
+
+    public static final String TASK_QUERY_ERRATAMAILER_GET_USERINFO =
+        "erratamailer_get_userinfo";
 
     public static final String TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES =
         "repomdgenerator_channel_packages";
@@ -142,5 +146,4 @@ public class TaskConstants {
         "repomdgenerator_package_changelog";
 
     public static final String MODE_NAME = "Task_queries";
-
 }

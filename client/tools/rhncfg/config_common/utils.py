@@ -173,12 +173,6 @@ def sha1_file(file):
 
     return engine.hexdigest()
 
-def endswith(s, suffix):
-    return (s[:len(suffix)] == suffix)
-
-def startswith(s, prefix):
-    return (s[:len(prefix)] == prefix)
-
 def get_up2date_config():
     c = up2date_config_parser.ConfigFile()
     c.load()

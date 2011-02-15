@@ -1,0 +1,194 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings FATAL => 'all';
+
+use Spacewalk::Setup ();
+use IPC::Open3 ();
+use Getopt::Long ();
+
+sub usage {
+	die "Usage: $0 [ OPTIONS ] sql-file-to-use.sql\n    where possible OPTIONS are\n        --verbose\n        --select-mode or --select-mode-direct\n";
+}
+
+my ($verbose, $select_mode, $select_direct);
+if (not Getopt::Long::GetOptions(
+	'verbose' => \$verbose,
+	'select-mode' => \$select_mode,
+	'select-mode-direct' => \$select_direct,
+	)) {
+	usage();
+}
+
+if ($select_mode and $select_direct) {
+	warn "Options --select-mode and --select-mode-direct are exclusive.\n";
+	usage();
+}
+
+if (@ARGV != 1) {
+	usage();
+}
+
+my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
+
+if (not -e $config_file) {
+	die "The config file [$config_file] does not seem to exist. Was Spacewalk configured yet?\n";
+}
+
+my %options;
+Spacewalk::Setup::read_config($config_file, \%options);
+
+my @missing;
+for my $n (qw( db_backend db_name db_user db_password )) {
+	if (not defined $options{$n}) {
+		push @missing, "Config file [$config_file] does not seem to have $n set.\n";
+	}
+}
+if (@missing) {
+	die join '', @missing;
+}
+
+chdir '/';
+
+my ($pid, $wfh, $rfh);
+if ($options{db_backend} eq 'oracle') {
+	my @command = ( 'sqlplus', '-S', "$options{db_user}/$options{db_password}\@$options{db_name}");
+	if ($verbose) {
+		print STDERR "Running: @command\n";
+	}
+	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
+	print $wfh <<'EOF';
+whenever oserror exit failure
+whenever sqlerror exit sql.sqlcode
+set linesize 4000
+set pagesize 50000
+EOF
+	if ($ARGV[0] eq '-') {
+		print { $wfh } <>;
+	} else {
+		print $wfh "\@$ARGV[0]\n";
+	}
+	close $wfh;
+} elsif ($options{db_backend} eq 'postgresql') {
+        my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $ARGV[0] );
+        if (defined $options{db_host}) {
+                push @command, '-h', $options{db_host};
+                if (defined $options{db_port}) {
+                        push @command, '-p', $options{db_port};
+                }
+        }
+        $ENV{PGPASSWORD} = $options{db_password};
+	if ($verbose) {
+		print STDERR "Running: @command\n";
+	}
+	if ($ARGV[0] eq '-') {
+		$wfh = '<&STDIN';
+	}
+	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
+	close $wfh;
+} else {
+	die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
+}
+
+my @out;
+while (<$rfh>) {
+	if ($select_direct) {
+		print;
+	}
+	push @out, $_;
+}
+close $rfh;
+waitpid $pid, 0;
+if ($?) {
+	my $ret = $? >> 8;
+	print STDERR @out;
+	exit $ret;
+} elsif ($select_mode) {
+	print @out;
+}
+exit;
+
+__END__
+
+=head1 NAME
+
+spacewalk-sql - utility for feeding SQL to Spacewalk's database
+
+=head1 SYNOPSIS
+
+    B<spacewalk-sql> sql-file-to-use.sql
+    B<spacewalk-sql> - < sql-file-to-use.sql
+
+    B<spacewalk-sql> --verbose sql-file-to-use.sql
+    B<spacewalk-sql> --select-mode - < sql-file-to-use.sql
+    B<spacewalk-sql> --verbose --select-mode sql-file-to-use.sql
+    B<spacewalk-sql> --select-mode-direct sql-file-to-use.sql
+
+=head1 OPTIONS
+
+=over 5
+
+=item --select-mode
+
+By default, no output is printed to standard output because
+B<spacewalk-sql> is primarily intended to feed DDL/DML to the
+database, not do queries. With this option, upon successful
+completion, the output will be printed to standard output. Note that
+it will be in the native format.
+
+=item --select-mode-direct
+
+Variant of B<--select-mode> when the output is printed out
+immediatelly, without waiting for successful result. This is useful
+when you want to log the output and be able to watch it while
+the command runs, for example with C<tail -f>.
+
+Note that only one of B<--select-mode> and B<--select-mode-direct>
+can be specified.
+
+=item --verbose
+
+If this option is used, the command which will be invoked including
+any parameter is printed to standard error output, prior to it
+execution. No quoting is done however, so it can only be used to get
+rough idea about what is being called.
+
+=back
+
+=head1 DESCRIPTION
+
+Depending on the database backend of Spacewalk, PostgreSQL or
+Oracle RDBMS, different client tools have to be used when feeding
+native SQL to the databases -- B<psql> or B<sqlplus>. They have
+different invocation options.
+
+The B<spacewalk-sql> does the right thing for both database backends.
+It fetches the database backend type and the connect information from
+Spacewalk config files, selects the correct command line tool, runs it
+and feeds it the SQL from file specified as parameter. If single
+hyphen sign (B<->) is used for the SQL file parameter, standard input
+is used.
+
+No output is printed upon successful operation unless B<--select-mode>.
+If any error is reported, the error message and all output generated
+is printed on the standard output.
+
+The exit value is the exit value of the B<psql> or B<sqlplus>.
+
+=head1 FILES
+
+=over 5
+
+=item F</etc/rhn/rhn.conf>
+
+File which holds connect information for the Spacewalk database backend.
+
+=back
+
+=head1 AUTHORS
+
+Jan Pazdziora
+
+=cut
+
+

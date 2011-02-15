@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.7.5
+Version:     1.4.0
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -32,6 +32,9 @@ spacecmd is a command-line interface to Spacewalk and Satellite servers
 %{__mkdir_p} %{buildroot}/%{_bindir}
 %{__install} -p -m0755 src/bin/spacecmd %{buildroot}/%{_bindir}/
 
+%{__mkdir_p} %{buildroot}/%{_sysconfdir}
+touch %{buildroot}/%{_sysconfdir}/spacecmd.conf
+
 %{__mkdir_p} %{buildroot}/%{_sysconfdir}/bash_completion.d
 %{__install} -p -m0644 src/misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
@@ -51,12 +54,55 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %defattr(-,root,root,-)
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
+%ghost %config %{_sysconfdir}/spacecmd.conf
 %dir %{_sysconfdir}/bash_completion.d
 %{_sysconfdir}/bash_completion.d/spacecmd
 %doc src/doc/README src/doc/COPYING
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jan 27 2011 Aron Parsons <aparsons@redhat.com> 1.3.8-1
+- added configchannel_backup function (john@vanzantvoort.org)
+
+* Thu Dec 23 2010 Aron Parsons <aparsons@redhat.com> 1.3.7-1
+- added system_syncpackages function
+
+* Wed Dec 22 2010 Aron Parsons <aparsons@redhat.com> 1.3.6-1
+- added organization functions
+
+* Tue Dec 21 2010 Aron Parsons <aparsons@redhat.com> 1.3.5-1
+- discard the password variable once we use it
+- attempt to re-login as the same user if the cached credentials are invalid
+- fix logic regarding which configuration files to load
+- don't try to load non-existent config sections
+
+* Tue Dec 21 2010 Aron Parsons <aparsons@redhat.com> 1.3.4-1
+- support server-specific configuration sections in the configuration file
+- added support for a system-wide configuration file
+- added support for server-specific sections in the configuration file
+
+* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.3-1
+- add support for server UUIDs
+
+* Tue Nov 30 2010 Aron Parsons <aparsons@redhat.com> 1.3.2-1
+- don't use a cached session if username and password are passed as arguments
+- added get_session function
+
+* Mon Nov 22 2010 Aron Parsons <aparsons@redhat.com> 1.3.1-1
+- fix uninitialized variable in snippet_create
+- 655055 - honor the quiet flag when generating caches in spacecmd
+* Fri Nov 05 2010 Aron Parsons <aparsons@redhat.com> 1.2.2-1
+- spacecmd: fixed exception in kickstart_create due to typo
+  (aparsons@redhat.com)
+
+* Fri Oct 29 2010 Aron Parsons <aparsons@redhat.com> 1.2.1-1
+- renamed system_addchildchannel to system_addchildchannels and
+  system_removechildchannel to system_removechildchannels for consistency
+- added help topics for time and system options
+- print the system ID and last checkin in report_duplicates
+- print help messages for functions if the user passes --help
+- exit the shell if the initial login attempt fails
+- version bump to 1.2 to stay in sync with other Spacewalk packages
 * Thu Oct 07 2010 Aron Parsons <aparsons@redhat.com> 0.7.5-1
 - fix unhandled exception in activationkey_create
   (aparsons@redhat.com)

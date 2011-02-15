@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,9 +13,9 @@
 # in this software or its documentation. 
 #
 
-from common import initCFG
-from server.rhnSQL import initDB
-from server.xmlrpc import registration
+from spacewalk.common import initCFG
+from spacewalk.server.rhnSQL import initDB
+from spacewalk.server.xmlrpc import registration
 
 initCFG("server.xmlrpc")
 initDB('rhnuser/rhnuser@webdev')

@@ -2,7 +2,7 @@
 #
 # $Id: Makefile 34065 2003-01-20 17:52:20Z misa $
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ TOP	= ../..
 
 # Specific stuff
 SUBDIR	= satellite_tools/disk_dumper
-FILES	= __init__ iss iss_isos iss_ui iss_actions dumper string_buffer
+SPACEWALK_FILES	= __init__ iss iss_isos iss_ui iss_actions dumper string_buffer
 SCRIPTS = rhn-satellite-exporter
 BINDIR	= /usr/bin
 include $(TOP)/Makefile.defs

@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:46 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:34 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERCHANNELFAMILYPERMS" ("CHANNEL_FAMILY_ID", "ORG_ID", "USER_ID", "MAX_MEMBERS", "CURRENT_MEMBERS", "CREATED", "MODIFIED") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERCHANNELFAMILYPERMS" ("CHANNEL_FAMILY_ID", "ORG_ID", "USER_ID", "MAX_MEMBERS", "CURRENT_MEMBERS", "CREATED", "MODIFIED") AS 
   select	pcf.channel_family_id,
 		u.org_id org_id,
 		u.id user_id,

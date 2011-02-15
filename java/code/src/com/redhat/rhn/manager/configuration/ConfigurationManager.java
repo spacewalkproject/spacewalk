@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.configuration;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -996,8 +997,18 @@ public class ConfigurationManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("num", results);
-        SelectMode m = ModeFactory
-                .getMode("config_queries", "recent_modified_config_files_for_user");
+        SelectMode m;
+        if (ConfigDefaults.get().isOracle()) {
+            m = ModeFactory.getMode("config_queries",
+                    "recent_modified_config_files_for_user_oracle");
+        }
+        else if (ConfigDefaults.get().isPostgresql()) {
+            m = ModeFactory.getMode("config_queries",
+                    "recent_modified_config_files_for_user_postgres");
+        }
+        else {
+            throw new IllegalStateException("Unknown database platform");
+        }
         DataResult dr = m.execute(params);
         return dr;
     }
@@ -1024,11 +1035,20 @@ public class ConfigurationManager extends BaseManager {
         format.applyPattern("yyyy-MM-dd HH:mm:ss");
         params.put("date", format.format(cal.getTime()));
 
-        SelectMode m = ModeFactory
-                .getMode("config_queries", "recent_config_deploy_actions_for_user");
+        SelectMode m;
+        if (ConfigDefaults.get().isOracle()) {
+            m = ModeFactory.getMode("config_queries",
+                    "recent_config_deploy_actions_for_user_oracle");
+        }
+        else if (ConfigDefaults.get().isPostgresql()) {
+            m = ModeFactory.getMode("config_queries",
+                    "recent_config_deploy_actions_for_user_postgres");
+        }
+        else {
+            throw new IllegalStateException("Unknown database platform");
+        }
         DataResult dr = m.execute(params);
         return dr;
-
     }
 
     /**
@@ -1496,30 +1516,6 @@ public class ConfigurationManager extends BaseManager {
         }
         return makeDataResult(params, elabParams, pc, m);
     }
-
-    /**
-     * For a specified channel, return info about all systems that the
-     * user has access to that are NOT already in that channel
-     * @param usr User making the request
-     * @param cc ConfigChannel of interest
-     * @param pc A page control for this user.
-     * @return DataResult; entities are
-     */
-     public DataResult listAvailableFilesNotInChannel(User usr, ConfigChannel cc,
-             PageControl pc) {
-         // Validate params
-         if (usr == null || cc == null) {
-             throw new IllegalArgumentException("User and channel cannot be null.");
-         }
-
-         Map params = new HashMap();
-         params.put("ccid", cc.getId());
-         params.put("user_id", usr.getId());
-         params.put("orgid", usr.getOrg().getId());
-         SelectMode m = ModeFactory
-                 .getMode("config_queries", "config_files_not_in_channel");
-         return makeDataResult(params, new HashMap(), pc, m);
-     }
 
     /**
      * Provides a list of 'Unique' paths (ConfigFileNameDto's)

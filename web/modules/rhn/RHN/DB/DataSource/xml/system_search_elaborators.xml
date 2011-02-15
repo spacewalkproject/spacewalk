@@ -13,7 +13,7 @@
          SEV.is_base
     FROM rhnServerEntitlementView SEV
    WHERE SEV.server_id IN (%s)
-ORDER BY DECODE(SEV.is_base,'Y',1,'N',2), SEV.label
+ORDER BY CASE SEV.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
 </query>
 
 <mode name="search_custom_info">

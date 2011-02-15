@@ -15,61 +15,64 @@
 
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status-bunch', 'Sends daily report', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'daily-status-bunch', 'Sends daily report', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync-bunch', 'Runs satellite-sync
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'sat-sync-bunch', 'Runs satellite-sync
 Parameters:
 - list parameter lists channels
 - channel parameter specifies channel to be synced
 - without parameter runs satellite-sync without parameters', 'Y');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clear-taskologs-bunch', 'Clears taskomatic run log history
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'clear-taskologs-bunch', 'Clears taskomatic run log history
 Parameters:
 - days parameter specifies age of logs to be kept
 - without parameter default value will be used', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'cobbler-sync-bunch', 'Applies any cobbler configuration changes', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'cobbler-sync-bunch', 'Applies any cobbler configuration changes', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'compare-configs-bunch', 'Schedules a comparison of config files on all systems', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'compare-configs-bunch', 'Schedules a comparison of config files on all systems', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clean-alerts-bunch', 'Clears current monitoring alerts', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'clean-alerts-bunch', 'Clears current monitoring alerts', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sync-probe-bunch', 'Calls the synch probe state proc', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'sync-probe-bunch', 'Calls the synch probe state proc', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'session-cleanup-bunch', 'Deletes expired rows from the PXTSessions table to keep it from growing too large', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'session-cleanup-bunch', 'Deletes expired rows from the PXTSessions table to keep it from growing too large', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sandbox-cleanup-bunch', 'Clean up sandbox', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'sandbox-cleanup-bunch', 'Clean up sandbox', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'repo-sync-bunch', 'Used for syncing repos to a channel', 'Y');
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'repo-sync-bunch', 'Used for syncing repos to a channel', 'Y');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'package-cleanup-bunch', 'Cleans up orphaned packages', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'package-cleanup-bunch', 'Cleans up orphaned packages', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'kickstartfile-sync-bunch', 'Syncs kickstart profiles that were generated using the wizard', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'kickstartfile-sync-bunch', 'Syncs kickstart profiles that were generated using the wizard', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'kickstart-cleanup-bunch', 'Cleans up stale Kickstarts', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'kickstart-cleanup-bunch', 'Cleans up stale Kickstarts', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-queue-bunch', 'Processes errata', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'errata-queue-bunch', 'Processes errata', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-cache-bunch', 'Performs errata cache recalc for a given server or channel', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'errata-cache-bunch', 'Performs errata cache recalc for a given server or channel', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'channel-repodata-bunch', 'Generates channel repodata', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'channel-repodata-bunch', 'Generates channel repodata', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'satcert-check-bunch', 'Checks whether satellite certificate has not expired', null);
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'satcert-check-bunch', 'Checks whether satellite certificate has not expired', null);
+
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'cleanup-data-bunch', 'Cleans up orphaned and outdated data', null);
 
 commit;

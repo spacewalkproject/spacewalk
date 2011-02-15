@@ -3,7 +3,7 @@
 # Python client for checking periodically for posted actions
 # on the Red Hat Network servers.
 #
-# Copyright (C) 2000-2002, Red Hat, Inc. Distributed under GPL.
+# Copyright (c) 2000--2010 Red Hat, Inc. Distributed under GPL.
 # Authors: Cristian Gafton <gafton@redhat.com>,
 #          Preston Brown <pbrown@redhat.com>
 #          Adrian Likins <alikins@redhat.com>
@@ -34,7 +34,7 @@ from client import config
 from client import clientCaps
 from client import capabilities
 
-from rhn import rpclib
+import xmlrpclib
 
 cfg = config.initUp2dateConfig()
 log = rhnLog.initLog()
@@ -84,7 +84,7 @@ def submit_response(action_id, status, message, data):
     try:
         ret = rpcServer.doCall(server.queue.submit,rhnAuth.getSystemId(),
                                   action_id, status, message, data)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         print "Could not submit results to server %s" % server
         print "Error code: %d%s" % (f.faultCode, f.faultString)
         sys.exit(-1)
@@ -127,7 +127,7 @@ def check_action(action):
         print action
         # the -99 here is kind of magic
         submit_response(action["id"],
-                        rpclib.Fault(-99, "Can not handle this version"))
+                        xmlrpclib.Fault(-99, "Can not handle this version"))
         return -1
     return 0
 
@@ -171,7 +171,7 @@ def handle_action(action):
         action_id, version))
         
     # Decipher the data
-    parser, decoder = rpclib.getparser()
+    parser, decoder = xmlrpclib.getparser()
     parser.feed(data)
     parser.close()
     params = decoder.close()
@@ -265,7 +265,7 @@ while 1:
     try:
         action = rpcServer.doCall(server.queue.get,rhnAuth.getSystemId(),
                                   ACTION_VERSION, Status)
-    except rpclib.Fault, f:
+    except xmlrpclib.Fault, f:
         print "Could not retrieve action item from server %s" % server
         print "Error code: %d%s" % (f.faultCode, f.faultString)
         sys.exit(-1)

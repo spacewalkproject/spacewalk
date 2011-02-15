@@ -267,14 +267,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
      * other PackageListItem are null, returns null.
      */
     public String getEpoch() {
-        if (system != null) {
+        if (comparison == KEY_THIS_ONLY) {
             return system.getEpoch();
         }
-        else if (other != null) {
-            return other.getEpoch();
-        }
-
-        return null;
+        return other.getEpoch();
     }
 
     /**
@@ -284,14 +280,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
      * other PackageListItem are null, returns null.
      */
     public String getVersion() {
-        if (system != null) {
+        if (comparison == KEY_THIS_ONLY) {
             return system.getVersion();
         }
-        else if (other != null) {
-            return other.getVersion();
-        }
-
-        return null;
+        return other.getVersion();
     }
 
     /**
@@ -301,14 +293,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
      * other PackageListItem are null, returns null.
      */
     public String getRelease() {
-        if (system != null) {
+        if (comparison == KEY_THIS_ONLY) {
             return system.getRelease();
         }
-        else if (other != null) {
-            return other.getRelease();
-        }
-
-        return null;
+        return other.getRelease();
     }
 
     /**

@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.domain.rhnpackage.ChangeLogEntry;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageCapability;
@@ -58,15 +57,6 @@ public class PackageTest extends RhnBaseTestCase {
 
         Package lookup = PackageFactory.lookupByIdAndOrg(pkg.getId(), pkg.getOrg());
         assertNotNull(lookup.getBuildTime());
-
-
-        assertTrue(lookup.getChangeLog().size() > 0);
-
-        ChangeLogEntry change2 = ChangeLogEntryTest.createTestChangeLogEntry(lookup,
-                new Date(System.currentTimeMillis() + 1000));
-        lookup.addChangeLogEntry(change2);
-
-        assertTrue(lookup.getChangeLog().size() > 1);
     }
 
     public void testFile() throws Exception {
@@ -154,8 +144,7 @@ public class PackageTest extends RhnBaseTestCase {
 
         p.getPackageFiles().add(createTestPackageFile(p));
         p.getPackageFiles().add(createTestPackageFile(p));
-        p.getChangeLog().add(createTestChangeLogEntry(p));
-        p.getChangeLog().add(createTestChangeLogEntry(p));
+
 
         HibernateFactory.getSession().save(createTestPackageSource(srpm, org));
 
@@ -165,16 +154,6 @@ public class PackageTest extends RhnBaseTestCase {
     }
 
 
-    public static ChangeLogEntry createTestChangeLogEntry(Package pack) {
-        ChangeLogEntry log = new ChangeLogEntry();
-        log.setName(TestUtils.randomString());
-        log.setRhnPackage(pack);
-        log.setText(TestUtils.randomString());
-        log.setTime(new Date());
-        log.setCreated(new Date());
-        return log;
-
-    }
 
     public static PackageSource createTestPackageSource(SourceRpm rpm, Org org) {
 

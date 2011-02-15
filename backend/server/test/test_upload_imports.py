@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,9 +13,9 @@
 # in this software or its documentation. 
 #
 
-from server import rhnImport
+from spacewalk.server import rhnImport
 
 root_dir = "/var/www/rhns"
 
 print rhnImport.load("upload_server/handlers",
-            root_dir=root_dir, interface_signature='upload_class')
+            interface_signature='upload_class')

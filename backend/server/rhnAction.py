@@ -14,8 +14,8 @@
 #
 #
 
-from common import log_debug
-from server import rhnSQL
+from spacewalk.common import log_debug
+from spacewalk.server import rhnSQL
 
 def schedule_action(action_type, action_name=None, delta_time=0,
                     scheduler=None, org_id=None, prerequisite=None):
@@ -83,7 +83,7 @@ def update_server_action(server_id, action_id, status, result_code=None,
         set status = :status,
             result_code = :result_code,
             result_msg  = :result_message,
-            completion_time = SYSDATE
+            completion_time = current_timestamp
     where action_id = :action_id
       and server_id = :server_id
     """)
@@ -127,24 +127,6 @@ def invalidate_action(server_id, action_id):
 
     return a_ids
 
-_query_schedule_server_packages_update = rhnSQL.Statement("""
-    insert into rhnActionPackage (id, action_id, name_id, parameter)
-    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, 'upgrade')
-""")
-
-def schedule_server_packages_update(server_id, package_ids, org_id = None,
-        prerequisite = None, action_name = "Package update"):
-    action_id = schedule_server_action(server_id, 
-            action_type = 'packages.update', action_name = action_name,
-            org_id = org_id, prerequisite = prerequisite)
-
-    h = rhnSQL.prepare(_query_schedule_server_packages_update)
-
-    h.execute_bulk({
-        'action_id' : [action_id] * len(package_ids),
-        'name_id'   : package_ids,
-    })
-
 _query_schedule_server_packages_update_by_arch = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, package_arch_id, \
            parameter)
@@ -160,4 +142,4 @@ def schedule_server_packages_update_by_arch(server_id, package_arch_ids, org_id 
 
     for name_id, arch_id in package_arch_ids:
         h.execute(action_id=action_id, name_id=name_id, arch_id=arch_id)
-
+    return action_id

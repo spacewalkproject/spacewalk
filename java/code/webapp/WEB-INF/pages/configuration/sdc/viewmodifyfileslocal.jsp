@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <head>
     <meta name="name" value="sdc.config.jsp.header" />
 </head>
@@ -55,7 +55,7 @@
 							type = "central"/>
    					</c:set>
       	       		<bean:message key="sdc.config.file_list.revision_from"
-    	       				arg0 = "${cfg:fileRevisionUrl (current.configFileId, current.configRevisionId)}"
+					arg0 = "${cfg:fileRevisionUrl(current.configFileId, current.configRevisionId)}"
     	       				arg1 = "${cfg:fileListIcon(current.configFileType)}"
     	       				arg2 = "${rhn:localize(cfg:fileAlt(current.configFileType))}"
        	       				arg3 = "${current.configRevision}"

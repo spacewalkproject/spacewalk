@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <html:html xhtml="true">
 <head>
@@ -12,7 +12,7 @@ function reloadForm(ctl) {
   submittedFlag.value = "false";
   var changedField = document.getElementById("fieldChanged");
   changedField.value = ctl.id;
-  var form = document.getElementById("editForm");
+  var form = document.getElementById("kickstartSoftwareForm");
   form.submit();
 }
 //-->
@@ -32,7 +32,7 @@ function reloadForm(ctl) {
     <bean:message key="softwareedit.jsp.summary1"/>
   </p>
 
-    <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do" styleId="editForm">
+    <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do">
       <table class="details">
           <tr>
             <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>

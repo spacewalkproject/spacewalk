@@ -1,4 +1,4 @@
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <div class="sideleg">
   <h2><bean:message key="probes-list-legend.jsp.title"/></h2>

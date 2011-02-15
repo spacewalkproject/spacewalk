@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,8 +17,8 @@
 --
 -- data for rhnPackageGroup
 
-insert into rhnPackageGroup values (rhn_package_group_id_seq.nextval,'NoGroup',
-        sysdate,sysdate);
+insert into rhnPackageGroup values (sequence_nextval('rhn_package_group_id_seq'),'NoGroup',
+        current_timestamp,current_timestamp);
 
 commit;
 

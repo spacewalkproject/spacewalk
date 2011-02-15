@@ -16,12 +16,13 @@
 #
 
 # common modules imports
-from common.rhnTranslate import _
-from common import rhnFault, rhnFlags, log_debug, log_error
+from spacewalk.common.rhnTranslate import _
+from spacewalk.common import rhnFault, rhnFlags, log_debug, log_error
 
 # server modules imports
-from server.rhnLib import parseRPMName
-from server import rhnSQL, rhnHandler, rhnCapability
+from spacewalk.server.rhnLib import parseRPMName
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnSQL, rhnCapability
 
 class Errata(rhnHandler):
     """ Errata class --- retrieve (via xmlrpc) package errata. """

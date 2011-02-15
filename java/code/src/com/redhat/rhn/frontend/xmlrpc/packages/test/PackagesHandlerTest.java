@@ -15,22 +15,19 @@
 package com.redhat.rhn.frontend.xmlrpc.packages.test;
 
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.domain.rhnpackage.ChangeLogEntry;
 import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.rhnpackage.test.ChangeLogEntryTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class PackagesHandlerTest extends BaseHandlerTestCase {
 
-    private PackagesHandler handler = new PackagesHandler();
+    private final PackagesHandler handler = new PackagesHandler();
 
     public void testGetDetails() throws Exception {
 
@@ -50,29 +47,6 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void testListChangeLog() throws Exception {
-        // TODO: GET THIS WORKING
-        // if (Config.get().isSatellite()) {
-        if (true) {
-            return;
-        }
-
-        Package pkg = PackageTest.createTestPackage(admin.getOrg());
-        assertNotNull(pkg.getOrg().getId());
-
-        Object[] changelog = handler.listChangelog(adminKey,
-                                                   new Integer(pkg.getId().intValue()));
-
-        assertEquals(pkg.getChangeLog().size(), changelog.length);
-
-        ChangeLogEntry change1 = ChangeLogEntryTest.
-            createTestChangeLogEntry(pkg, new Date());
-        pkg.addChangeLogEntry(change1);
-
-        changelog = handler.listChangelog(adminKey, new Integer(pkg.getId().intValue()));
-
-        assertEquals(pkg.getChangeLog().size(), changelog.length);
-    }
 
     public void testListFiles() throws Exception {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());

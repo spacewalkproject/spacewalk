@@ -4,7 +4,8 @@
 CODE_DIRS = handlers
 
 SUBDIR      = satellite_exporter
-FILES       = __init__ satexport
+FILES	    = __init__
+SPACEWALK_FILES       = __init__ satexport
 
 TOP     = ..
 

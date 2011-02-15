@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <html:xhtml />
 <html>
@@ -11,7 +11,7 @@
 
     <script language="javascript">
 function moveNext() {
-   var form = document.getElementById("wizard-form");
+   var form = document.getElementById("kickstartScheduleWizardForm");
    form.submit();
 }
 
@@ -26,7 +26,7 @@ function setStep(stepName) {
 
 <h2><img src="/img/icon_kickstart_session-medium.gif" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
-<html:form method="POST" action="${actionUrl}" styleId="wizard-form">
+<html:form method="POST" action="${actionUrl}">
 <c:if test="${empty regularKS}">
 	<c:set var="noStatic" value="true"/>
 </c:if>

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,15 +12,13 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server import rhnSQL
-from common import initCFG, rhnFlags, initLOG
-from server.xmlrpc import queue
+from spacewalk.server import rhnSQL
+from spacewalk.common import initCFG, initLOG
+from spacewalk.server.xmlrpc import queue
 
 initLOG("stderr", 4)
 initCFG('server.xmlrpc')
 rhnSQL.initDB('rhnuser/rhnuser@webdev')
-
-rhnFlags.set('RootDir', '/var/www/rhns')
 
 q = queue.Queue()
 if 1:

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,11 +14,11 @@
 --
 -- data for rhnVirtualInstanceEventType
 
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Create', 'create');
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Destroy', 'destroy');
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Shutdown', 'shutdown');
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Pause', 'pause');
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Unpause', 'unpause');
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Migrate', 'migrate');
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Vcpu-Set', 'vcpu-set');
-insert into rhnVirtualInstanceEventType (id, name, label) values (rhn_viet_id_seq.nextval, 'Mem-Set', 'mem-set');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Create', 'create');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Destroy', 'destroy');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Shutdown', 'shutdown');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Pause', 'pause');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Unpause', 'unpause');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Migrate', 'migrate');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Vcpu-Set', 'vcpu-set');
+insert into rhnVirtualInstanceEventType (id, name, label) values (sequence_nextval('rhn_viet_id_seq'), 'Mem-Set', 'mem-set');

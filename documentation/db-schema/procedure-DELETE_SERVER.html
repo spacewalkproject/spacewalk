@@ -165,116 +165,109 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    130<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnActionConfigChannel <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
    131<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnActionConfigRevision <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
    132<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnActionPackageRemovalFailure <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   133<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnChannelFamilyLicenseConsent <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   134<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnClientCapability <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   135<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnCpu <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   136<span class="operator">:</span> 	<span class="comment">-- there's still a cascade here, because the constraint keeps the</span>
-   137<span class="operator">:</span> 	<span class="comment">-- table locked for too long to rebuild it.  Ugh...</span>
-   138<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnDevice <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   139<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnProxyInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   140<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnRam <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   141<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnRegToken <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   142<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSNPServerQueue <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   143<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSatelliteChannelFamily <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   144<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSatelliteInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   145<span class="operator">:</span> 	<span class="comment">-- this cascades to rhnActionConfigChannel and rhnActionConfigFileName</span>
-   146<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerAction <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   147<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionPackageResult <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   148<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionScriptResult <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   149<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionVerifyResult <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   150<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionVerifyMissing <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   151<span class="operator">:</span> 	<span class="comment">-- counts are handled above.  this should be a delete_ function.</span>
-   152<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerChannel <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   153<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerConfigChannel <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   154<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerCustomDataValue <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   155<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerDMI <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   156<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerMessage <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   157<span class="operator">:</span> 	<span class="comment">-- this gets rhnServerMessage (only) on cascade; it's handled just above</span>
-   158<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerEvent <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   159<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerHistory <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   160<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   161<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerInstallInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   162<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerLocation <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   163<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerLock <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   164<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNeededCache <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   165<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNetwork <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   166<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNotes <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   167<span class="operator">:</span> 	<span class="comment">-- I'm not removing the foreign key from rhnServerPackage; that'll</span>
-   168<span class="operator">:</span> 	<span class="comment">-- take forever.  Do the delete anyway.</span>
-   169<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerPackage <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   170<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerTokenRegs <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   171<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSnapshotTag <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   172<span class="operator">:</span> 	<span class="comment">-- this cascades to:</span>
-   173<span class="operator">:</span> 	<span class="comment">--   rhnSnapshotChannel, rhnSnapshotConfigChannel, rhnSnapshotPackage,</span>
-   174<span class="operator">:</span> 	<span class="comment">--   rhnSnapshotConfigRevision, rhnSnapshotServerGroup,</span>
-   175<span class="operator">:</span> 	<span class="comment">--   rhnSnapshotTag.</span>
-   176<span class="operator">:</span> 	<span class="comment">-- We may want to consider delete_snapshot() at some point, but</span>
-   177<span class="operator">:</span> 	<span class="comment">--   I don't think we need to yet.</span>
-   178<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSnapshot <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   179<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnTransaction <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   180<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnUserServerPrefs <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   181<span class="operator">:</span> 	<span class="comment">-- hrm, this one's interesting... we _probably_ should delete</span>
-   182<span class="operator">:</span> 	<span class="comment">-- everything for the parent server_id when we delete the proxy,</span>
-   183<span class="operator">:</span> 	<span class="comment">-- but we don't currently.</span>
-   184<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerPath <span class="reserved">where</span> server_id_in <span class="reserved">in</span> <span class="operator">(</span>server_id<span class="operator">,</span> proxy_server_id<span class="operator">)</span>;
-   185<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnUserServerPerms <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   186<span class="operator">:</span> 
-   187<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_interface_monitoring <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   188<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNetInterface <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   189<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_server_monitoring_info <span class="reserved">where</span> recid <span class="operator">=</span> server_id_in;
-   190<span class="operator">:</span> 
-   191<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnAppInstallSession <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   192<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerUuid <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   193<span class="operator">:</span>     <span class="comment">-- We delete all the probes running directly against this system</span>
-   194<span class="operator">:</span>     <span class="comment">-- and any probes that were using this Server as a Proxy Scout.</span>
-   195<span class="operator">:</span>      <span class="reserved">SELECT</span> CP<span class="operator">.</span>probe_id <span class="keyword">bulk</span> <span class="keyword">collect</span> <span class="reserved">into</span> probesid_c
-   196<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_check_probe CP
-   197<span class="operator">:</span>       <span class="reserved">WHERE</span> CP<span class="operator">.</span>host_id <span class="operator">=</span> server_id_in
-   198<span class="operator">:</span>          <span class="reserved">OR</span> CP<span class="operator">.</span>sat_cluster_id <span class="reserved">in</span>
-   199<span class="operator">:</span>     <span class="operator">(</span><span class="reserved">SELECT</span> SN<span class="operator">.</span>sat_cluster_id
-   200<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_sat_node SN
-   201<span class="operator">:</span>       <span class="reserved">WHERE</span> SN<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in<span class="operator">)</span>;
-   202<span class="operator">:</span> 
-   203<span class="operator">:</span>     <span class="reserved">if</span> probesid_c<span class="operator">.</span>first <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
-   204<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
-   205<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe_state PS <span class="reserved">WHERE</span> PS<span class="operator">.</span>probe_id <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
-   206<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
-   207<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe P  <span class="reserved">WHERE</span> P<span class="operator">.</span>recid <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
-   208<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
-   209<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="comment">/*+index(time_series time_series_probe_id_idx)*/</span>
-   210<span class="operator">:</span>             <span class="reserved">FROM</span> time_series
-   211<span class="operator">:</span>             <span class="reserved">WHERE</span> substr<span class="operator">(</span>o_id<span class="operator">,</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span> <span class="operator">+</span> 1<span class="operator">,</span>
-   212<span class="operator">:</span>                 <span class="operator">(</span>instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">,</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span> <span class="operator">+</span> 1<span class="operator">)</span> <span class="operator">-</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span><span class="operator">)</span>	<span class="operator">-</span> 1<span class="operator">)</span> <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
-   213<span class="operator">:</span>     <span class="reserved">end</span> <span class="reserved">if</span>;
-   214<span class="operator">:</span> 
-   215<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_check_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
-   216<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_host_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
-   217<span class="operator">:</span> 
-   218<span class="operator">:</span>     <span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_cluster <span class="reserved">where</span> recid <span class="reserved">in</span>
-   219<span class="operator">:</span>       <span class="operator">(</span> <span class="reserved">select</span> sat_cluster_id <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in <span class="operator">)</span>;
+   133<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnClientCapability <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   134<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnCpu <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   135<span class="operator">:</span> 	<span class="comment">-- there's still a cascade here, because the constraint keeps the</span>
+   136<span class="operator">:</span> 	<span class="comment">-- table locked for too long to rebuild it.  Ugh...</span>
+   137<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnDevice <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   138<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnProxyInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   139<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnRam <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   140<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnRegToken <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   141<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSatelliteInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   142<span class="operator">:</span> 	<span class="comment">-- this cascades to rhnActionConfigChannel and rhnActionConfigFileName</span>
+   143<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerAction <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   144<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionPackageResult <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   145<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionScriptResult <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   146<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionVerifyResult <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   147<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerActionVerifyMissing <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   148<span class="operator">:</span> 	<span class="comment">-- counts are handled above.  this should be a delete_ function.</span>
+   149<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerChannel <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   150<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerConfigChannel <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   151<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerCustomDataValue <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   152<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerDMI <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   153<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerEvent <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   154<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerHistory <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   155<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   156<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerInstallInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   157<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerLocation <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   158<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerLock <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   159<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNeededCache <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   160<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNetwork <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   161<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNotes <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   162<span class="operator">:</span> 	<span class="comment">-- I'm not removing the foreign key from rhnServerPackage; that'll</span>
+   163<span class="operator">:</span> 	<span class="comment">-- take forever.  Do the delete anyway.</span>
+   164<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerPackage <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   165<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerTokenRegs <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   166<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSnapshotTag <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   167<span class="operator">:</span> 	<span class="comment">-- this cascades to:</span>
+   168<span class="operator">:</span> 	<span class="comment">--   rhnSnapshotChannel, rhnSnapshotConfigChannel, rhnSnapshotPackage,</span>
+   169<span class="operator">:</span> 	<span class="comment">--   rhnSnapshotConfigRevision, rhnSnapshotServerGroup,</span>
+   170<span class="operator">:</span> 	<span class="comment">--   rhnSnapshotTag.</span>
+   171<span class="operator">:</span> 	<span class="comment">-- We may want to consider delete_snapshot() at some point, but</span>
+   172<span class="operator">:</span> 	<span class="comment">--   I don't think we need to yet.</span>
+   173<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnSnapshot <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   174<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnUserServerPrefs <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   175<span class="operator">:</span> 	<span class="comment">-- hrm, this one's interesting... we _probably_ should delete</span>
+   176<span class="operator">:</span> 	<span class="comment">-- everything for the parent server_id when we delete the proxy,</span>
+   177<span class="operator">:</span> 	<span class="comment">-- but we don't currently.</span>
+   178<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerPath <span class="reserved">where</span> server_id_in <span class="reserved">in</span> <span class="operator">(</span>server_id<span class="operator">,</span> proxy_server_id<span class="operator">)</span>;
+   179<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnUserServerPerms <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   180<span class="operator">:</span> 
+   181<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNetInterface <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   182<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_server_monitoring_info <span class="reserved">where</span> recid <span class="operator">=</span> server_id_in;
+   183<span class="operator">:</span> 
+   184<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnAppInstallSession <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   185<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerUuid <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   186<span class="operator">:</span>     <span class="comment">-- We delete all the probes running directly against this system</span>
+   187<span class="operator">:</span>     <span class="comment">-- and any probes that were using this Server as a Proxy Scout.</span>
+   188<span class="operator">:</span>      <span class="reserved">SELECT</span> CP<span class="operator">.</span>probe_id <span class="keyword">bulk</span> <span class="keyword">collect</span> <span class="reserved">into</span> probesid_c
+   189<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_check_probe CP
+   190<span class="operator">:</span>       <span class="reserved">WHERE</span> CP<span class="operator">.</span>host_id <span class="operator">=</span> server_id_in
+   191<span class="operator">:</span>          <span class="reserved">OR</span> CP<span class="operator">.</span>sat_cluster_id <span class="reserved">in</span>
+   192<span class="operator">:</span>     <span class="operator">(</span><span class="reserved">SELECT</span> SN<span class="operator">.</span>sat_cluster_id
+   193<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_sat_node SN
+   194<span class="operator">:</span>       <span class="reserved">WHERE</span> SN<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in<span class="operator">)</span>;
+   195<span class="operator">:</span> 
+   196<span class="operator">:</span>     <span class="reserved">if</span> probesid_c<span class="operator">.</span>first <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   197<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
+   198<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe_state PS <span class="reserved">WHERE</span> PS<span class="operator">.</span>probe_id <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
+   199<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
+   200<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe P  <span class="reserved">WHERE</span> P<span class="operator">.</span>recid <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
+   201<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
+   202<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="comment">/*+index(time_series time_series_probe_id_idx)*/</span>
+   203<span class="operator">:</span>             <span class="reserved">FROM</span> time_series
+   204<span class="operator">:</span>             <span class="reserved">WHERE</span> substr<span class="operator">(</span>o_id<span class="operator">,</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span> <span class="operator">+</span> 1<span class="operator">,</span>
+   205<span class="operator">:</span>                 <span class="operator">(</span>instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">,</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span> <span class="operator">+</span> 1<span class="operator">)</span> <span class="operator">-</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span><span class="operator">)</span>	<span class="operator">-</span> 1<span class="operator">)</span> <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
+   206<span class="operator">:</span>     <span class="reserved">end</span> <span class="reserved">if</span>;
+   207<span class="operator">:</span> 
+   208<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_check_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
+   209<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_host_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
+   210<span class="operator">:</span> 
+   211<span class="operator">:</span>     <span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_cluster <span class="reserved">where</span> recid <span class="reserved">in</span>
+   212<span class="operator">:</span>       <span class="operator">(</span> <span class="reserved">select</span> sat_cluster_id <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in <span class="operator">)</span>;
+   213<span class="operator">:</span> 
+   214<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   215<span class="operator">:</span> 
+   216<span class="operator">:</span> 	<span class="comment">-- now get rhnServer itself.</span>
+   217<span class="operator">:</span> 	<span class="reserved">delete</span>
+   218<span class="operator">:</span> 	<span class="reserved">from</span>	rhnServer
+   219<span class="operator">:</span> 		<span class="reserved">where</span> id <span class="operator">=</span> server_id_in;
    220<span class="operator">:</span> 
-   221<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   222<span class="operator">:</span> 
-   223<span class="operator">:</span> 	<span class="comment">-- now get rhnServer itself.</span>
-   224<span class="operator">:</span> 	<span class="reserved">delete</span>
-   225<span class="operator">:</span> 	<span class="reserved">from</span>	rhnServer
-   226<span class="operator">:</span> 		<span class="reserved">where</span> id <span class="operator">=</span> server_id_in;
-   227<span class="operator">:</span> 
-   228<span class="operator">:</span> 	<span class="reserved">delete</span>
-   229<span class="operator">:</span> 	<span class="reserved">from</span>	rhnSet
-   230<span class="operator">:</span> 	<span class="reserved">where</span>	1<span class="operator">=</span>1
-   231<span class="operator">:</span> 		<span class="reserved">and</span> user_id <span class="reserved">in</span> <span class="operator">(</span>
-   232<span class="operator">:</span> 			<span class="reserved">select</span>	wc<span class="operator">.</span>id
-   233<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServer rs<span class="operator">,</span>
-   234<span class="operator">:</span> 				web_contact wc
-   235<span class="operator">:</span> 			<span class="reserved">where</span>	rs<span class="operator">.</span>id <span class="operator">=</span> server_id_in
-   236<span class="operator">:</span> 				<span class="reserved">and</span> rs<span class="operator">.</span>org_id <span class="operator">=</span> wc<span class="operator">.</span>org_id
-   237<span class="operator">:</span> 		<span class="operator">)</span>
-   238<span class="operator">:</span> 		<span class="reserved">and</span> label <span class="operator">=</span> <span class="string">'system_list'</span>
-   239<span class="operator">:</span> 		<span class="reserved">and</span> <span class="keyword">element</span> <span class="operator">=</span> server_id_in;
-   240<span class="operator">:</span> <span class="reserved">end</span> delete_server;
+   221<span class="operator">:</span> 	<span class="reserved">delete</span>
+   222<span class="operator">:</span> 	<span class="reserved">from</span>	rhnSet
+   223<span class="operator">:</span> 	<span class="reserved">where</span>	1<span class="operator">=</span>1
+   224<span class="operator">:</span> 		<span class="reserved">and</span> user_id <span class="reserved">in</span> <span class="operator">(</span>
+   225<span class="operator">:</span> 			<span class="reserved">select</span>	wc<span class="operator">.</span>id
+   226<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServer rs<span class="operator">,</span>
+   227<span class="operator">:</span> 				web_contact wc
+   228<span class="operator">:</span> 			<span class="reserved">where</span>	rs<span class="operator">.</span>id <span class="operator">=</span> server_id_in
+   229<span class="operator">:</span> 				<span class="reserved">and</span> rs<span class="operator">.</span>org_id <span class="operator">=</span> wc<span class="operator">.</span>org_id
+   230<span class="operator">:</span> 		<span class="operator">)</span>
+   231<span class="operator">:</span> 		<span class="reserved">and</span> label <span class="operator">=</span> <span class="string">'system_list'</span>
+   232<span class="operator">:</span> 		<span class="reserved">and</span> <span class="keyword">element</span> <span class="operator">=</span> server_id_in;
+   233<span class="operator">:</span> <span class="reserved">end</span> delete_server;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:15 2010</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:00:59 2011</div>
 </body></html>

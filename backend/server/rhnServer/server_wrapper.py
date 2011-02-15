@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,14 +24,15 @@ from server_packages import Packages
 from server_history import History
 from server_solarispatches import SolarisPatches
 
-from common import UserDictCase
-from server import rhnSQL
+from spacewalk.common import UserDictCase
+from spacewalk.server import rhnSQL
 
-# This is a middle class that ties all the subclasses together, plus it
-# provides a cleaner way to keep all the wrapper functions in one place.
-# The main Server class is based on this one and it looks a little bit
-# cleaner that way.
 class ServerWrapper(Packages, Hardware, History, SolarisPatches):
+    """ This is a middle class that ties all the subclasses together, plus it
+        provides a cleaner way to keep all the wrapper functions in one place.
+        The main Server class is based on this one and it looks a little bit
+        cleaner that way.
+    """
     def __init__(self):
         self.server = UserDictCase()
         Packages.__init__(self)
@@ -42,8 +43,8 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
     def __repr__(self):
         return "<%s instance>" % (self.__class__,)
     
-    # update a value in self.server
     def set_value(self, name, value):
+        """ update a value in self.server """
         if name is None or value is None:
             return -1
         self.server[name] = value
@@ -53,9 +54,10 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
     ### PACKAGES
     ###
     
-    # Wrappers for the similar functions from Packages class that supplementaly
-    # require a valid sysid.
     def add_package(self, entry):
+        """ Wrappers for the similar functions from Packages class that supplementaly
+            require a valid sysid.
+        """
         if entry['name'].startswith("patch-solaris"):
             SolarisPatches.add_patch(self, self.server.get("id"), entry)
         return Packages.add_package(self, self.server.get("id"), entry)
@@ -67,17 +69,17 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
         SolarisPatches.dispose_patched_packages(self, self.server["id"])
         return Packages.dispose_packages(self, self.server["id"])
 
-    # wrapper for the Packages.save_packages_byid() which requires the sysid
     def save_packages(self, schedule=1):
+        """ wrapper for the Packages.save_packages_byid() which requires the sysid """
         SolarisPatches.save_patched_packages(self, self.server["id"])
         ret = self.save_packages_byid(self.server["id"], schedule=schedule)
         # this function is primarily called from outside
         # so we have to commit here
         rhnSQL.commit()
         return ret
-        # wrapper for the Packages.reload_packages_byid() which requires the
-        # sysid
+
     def reload_packages(self):
+        """ wrapper for the Packages.reload_packages_byid() which requires the sysid """
         ret = self.reload_packages_byid(self.server["id"])
         return ret
 
@@ -85,18 +87,18 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
     ### HARDWARE
     ###
     
-    # Wrappers for the similar functions from Hardware class
     def delete_hardware(self):
+        """ Wrappers for the similar functions from Hardware class """
         return Hardware.delete_hardware(self, self.server.get("id"))
-    # wrapper for the Hardware.save_hardware_byid() which requires the sysid
     def save_hardware(self):
+        """ wrapper for the Hardware.save_hardware_byid() which requires the sysid """
         ret = self.save_hardware_byid(self.server["id"])
         # this function is primarily called from outside
         # so we have to commit here
         rhnSQL.commit()
         return ret   
-    # wrapper for the Hardware.reload_hardware_byid() which requires the sysid
     def reload_hardware(self):
+        """ wrapper for the Hardware.reload_hardware_byid() which requires the sysid """
         ret = self.reload_hardware_byid(self.server["id"])
         return ret
 

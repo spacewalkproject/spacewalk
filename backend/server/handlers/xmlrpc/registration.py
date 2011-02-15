@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,26 +14,17 @@
 #
 
 # system modules
-import types
 import string
 
-# Global modules
-
-# common module
-from common import CFG, rhnFault, rhnFlags, log_debug, log_error, rhnMail
-from common.rhnTranslate import _, cat
-from common.rhnLib import checkValue
-
-# local modules
-from server import rhnVirtualization
-
-from server.rhnLib import normalize_server_arch
-from server.rhnServer import server_route, server_lib
-from server.rhnMapping import real_version
-from server import rhnUser, rhnServer, rhnSQL, rhnHandler, rhnCapability, \
-        rhnChannel, rhnAction
-from server.rhnSQL import procedure
-from server.action.utils import ChannelPackage
+from spacewalk.common import CFG, rhnFault, rhnFlags, log_debug, log_error, rhnMail
+from spacewalk.common.rhnTranslate import _, cat
+from spacewalk.common.rhnLib import checkValue
+from spacewalk.server.rhnLib import normalize_server_arch
+from spacewalk.server.rhnServer import server_route, server_lib
+from spacewalk.server.rhnMapping import real_version
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnUser, rhnServer, rhnSQL, rhnCapability, \
+        rhnChannel, rhnVirtualization
 
 
 def hash_validate(data, *keylist):
@@ -47,27 +38,6 @@ def hash_validate(data, *keylist):
         if type(l) == type("") and len(l) == 0:
             return 0
     return 1
-
-def RegistrationNumber(nr):
-    """ process a registration number for sanitization purposes """
-    if not nr:      
-        return None     
-    if not type(nr) == type(""):    
-        log_debug(3, "Got unparseable registration Number: %s" % nr)    
-        return None     
-    mynr = string.lower(nr)     
-    # prepare the translation table     
-    t = string.maketrans("los", "105")      
-    # and strip out unwanted chars      
-    mynr = string.translate(mynr, t, "_- ")     
-    # keep only hexdigits   
-    ret = ""    
-    for r in mynr:      
-        if r in string.hexdigits:   
-            ret = ret + r   
-    if not ret:     
-        return None     
-    return ret
 
 def parse_smbios(smbios):
     vendor = smbios.get('smbios.bios.vendor')
@@ -153,14 +123,14 @@ class Registration(rhnHandler):
         """
         Get an username and a password and create a record for this user.
         Eventually mark it as such.
+        Additionaly this method is used to verify login and password in early
+        stage of rhn_register.
 
         Returns true value if user is reserved, otherwise fault is raised.
         """
-
         log_debug(1, username)
-        # validate the arguments
-        username, password  = rhnUser.check_user_password(username, password)
-        # now try to reserve the user
+        # check user login/password and if not CFG.disallow_user_creation
+        # then reserver the user
         ret = rhnUser.reserve_user(username, password)
         log_debug(3, "rhnUser.reserve_user returned: " + str(ret))
         if ret < 0:
@@ -498,50 +468,6 @@ class Registration(rhnHandler):
         profile_name = data['profile_name']
         architecture = data['architecture']
 
-        # Activate a registration number if we recieved one, and we have a
-        # valid user.
-        if data.has_key('registrationNumber') and user:
-            log_debug(3, "registrationNumber:" + data["registrationNumber"]);
-
-            # probably need to keep the code below for satellite
-
-            # Cleanse the registrationNumber.
-            data["registrationNumber"] = RegistrationNumber(
-                                             data["registrationNumber"])
-
-            try:
-                server_lib.use_registration_number(user, 
-                                                   data['registrationNumber'],
-                                                   commit = 0)
-
-            # Catch the exception if the registration failed.
-            except rhnFault, reg_except:
-
-                # Check for remaining subscriptions
-                try:
-                    subscriptions = self.remaining_subscriptions(
-                                                        data["username"],
-                                                        data["password"],
-                                                        architecture,
-                                                        release_version)
-                except rhnFault, sub_except:
-                    # Catch the 2 known faults that we want to ignore...they
-                    # just mean subscriptions = 0.
-                    if sub_except.code == 71 or \
-                       sub_except.code == 19: 
-                        subscriptions = 0
-                                                            
-                subscriptions = int(subscriptions)
-
-                if subscriptions > 0:
-                    # Even though the number activation failed, 
-                    # they have enough valid subs to coninue.
-                    pass
-                else:
-                    # For whatever reason, the number didn't activate
-                    # subscriptions, so re-raise the original exception.
-                    raise reg_except
-
         # Create the system and get back the rhnServer object.
         #
         # bretm 02/19/2007 -- the following things get thrown underneath,
@@ -559,9 +485,6 @@ class Registration(rhnHandler):
         newserv = server_data['server']
 
         system_certificate = newserv.system_id()
-
-        # Check guest parameters and perform updates if necessary.
-        # self._handle_virt_guest_params(system_certificate, data)
 
         # Return the server certificate file down to the client.
         return system_certificate
@@ -635,9 +558,6 @@ class Registration(rhnHandler):
 
         # Get the server certificate file
         system_certificate = newserv.system_id()
-
-        # Check guest parameters and perform updates if necessary.
-        # self._handle_virt_guest_params(system_certificate, other)
 
         log_debug(4, 'Server id created as %s' % server_id)
 

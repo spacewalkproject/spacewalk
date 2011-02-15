@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@
 import sys
 import time
 import unittest
-from server import rhnSQL, rhnChannel
+from spacewalk.server import rhnSQL, rhnChannel
 
 DB = 'rhnuser/rhnuser@webdev'
     
@@ -154,41 +154,6 @@ class Tests(unittest.TestCase):
             label = entry['label']
             c = rhnChannel.Channel().load_by_label(label)
             self.failIf(c.exists())
-        return entries
-
-    def test_delete_channels_1(self):
-        """Tests rhnChannel.delete_channels"""
-        entries = self.test_create_channels_1()
-        messages = rhnChannel.delete_channels(entries)
-        self.assertEqual(messages, [])
-        rhnSQL.commit()
-        return entries
-
-    def test_delete_channel_families_1(self):
-        """Tests rhnChannel.delete_channel_families"""
-        entries = self.test_create_channel_families_1()
-        messages = rhnChannel.delete_channel_families(entries)
-        self.assertEqual(messages, [])
-        rhnSQL.commit()
-        for entry in entries:
-            label = entry['label']
-            c = rhnChannel.ChannelFamily().load_by_label(label)
-            self.failIf(c.exists())
-        return entries
-
-    def test_delete_channel_families_2(self):
-        """Tests the removal of a channel family that has a child associated"""
-        c = self.test_new_channel_1()
-        cf_label = c.get_channel_families()[0]
-
-        vdict = {'label' : cf_label}
-        entries = [ vdict ]
-        messages = rhnChannel.delete_channel_families(entries)
-        self.assertNotEqual(messages, [])
-        rhnSQL.commit()
-        # Just to be sure
-        c = rhnChannel.ChannelFamily().load_by_label(cf_label)
-        self.failUnless(c.exists())
         return entries
 
     def test_list_channel_families_1(self):

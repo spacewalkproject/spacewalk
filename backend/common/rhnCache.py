@@ -19,7 +19,6 @@
 import os
 import gzip
 import cPickle
-import cStringIO
 import fcntl
 from struct import pack
 from stat import ST_MTIME
@@ -27,7 +26,6 @@ from errno import EEXIST
 
 from rhnLib import timestamp
 import rhn_posix
-import fcntl
 
 from spacewalk.common.fileutils import makedirs, setPermsPath
 
@@ -237,6 +235,8 @@ class WriteLockedFile(LockedFile):
 
 
 class Cache:
+    def __init__(self):
+        pass
 
     def get(self, name, modified = None):
         fd = self.get_file(name, modified)
@@ -246,7 +246,7 @@ class Cache:
 
         return s
 
-    def set(self, name, value, modified = None, user='root', group='root',\
+    def set(self, name, value, modified = None, user='root', group='root', \
             mode=0755):
         fd = self.set_file(name, modified, user, group, mode)
 
@@ -309,9 +309,9 @@ class CompressedCache:
         fd = self.get_file(name, modified) 
         try:
             value = fd.read()
-        except (ValueError, IOError, gzip.zlib.error), e:
+        except (ValueError, IOError, gzip.zlib.error):
             # Some gzip error
-            # XXX poking at gzip.zlib may not be such a good idea
+            # poking at gzip.zlib may not be such a good idea
             fd.close()
             raise KeyError(name)
         fd.close()
@@ -355,7 +355,7 @@ class ObjectCache:
         except cPickle.UnpicklingError:
             raise KeyError(name)
     
-    def set(self, name, value, modified = None, user='root', group='root',\
+    def set(self, name, value, modified = None, user='root', group='root', \
             mode=0755):
         pickled = cPickle.dumps(value, -1)
         self.cache.set(name, pickled, modified, user, group, mode)

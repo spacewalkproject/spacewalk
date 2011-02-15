@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:53 2010
+-- created by Oraschemadoc Thu Jan 20 13:57:06 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CFSTATE_MOD_TRIG"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CFSTATE_MOD_TRIG" 
 before insert or update on rhnConfigFileState
 for each row
 begin

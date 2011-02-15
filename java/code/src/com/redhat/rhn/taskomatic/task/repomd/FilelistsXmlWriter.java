@@ -43,7 +43,7 @@ public class FilelistsXmlWriter extends RepomdWriter {
      * @param writer The writer object for filelist xml
      */
     public FilelistsXmlWriter(Writer writer) {
-        super(writer);
+        super(writer, false);
     }
 
     /**

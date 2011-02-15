@@ -47,6 +47,15 @@
   <property name="git.home" location="${basedir}/../"/>
 
   <!-- =================== jar dependencies ======================= -->
+
+  <condition property="asm" value="asm/asm" else="asm">
+    <available file="/usr/share/java/asm/asm.jar" />
+  </condition>
+
+  <condition property="jfreechart" value="jfreechart/jfreechart" else="jfreechart">
+    <available file="/usr/share/java/jfreechart/jfreechart.jar" />
+  </condition>
+
   <property name="boot.jar.dependencies" value="ivy" />
 
   <property name="common.jar.dependencies"
@@ -54,15 +63,15 @@
              commons-collections commons-digester commons-discovery
              commons-el commons-lang commons-logging commons-io commons-validator hibernate3
              mailapi smtp jdom jpam 
-             jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
+             log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
-             jfreechart taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
+             ${jfreechart} taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
              commons-fileupload commons-io concurrent velocity simple-core" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart jmap 
+             regexp tyrex jmock jmock-cglib strutstest gsbase ${jfreechart} jmap
              postgresql-jdbc" />
 
   <condition property="ant-contrib.path" value="ant/ant-contrib" else="ant-contrib">
@@ -71,16 +80,11 @@
 
   <property name="build.jar.dependencies"
       value="ant ant-junit ${ant-contrib.path} antlr
-      ${common.jar.dependencies} tanukiwrapper jasper5-compiler jasper5-runtime
+      ${common.jar.dependencies} tanukiwrapper ${tomcat-jars} ${jasper-jars}
        concurrent" />
 
-
-  <condition property="asm" value="objectweb-asm/asm" else="asm">
-    <available file="/usr/share/java/objectweb-asm" />
-  </condition>
-
   <property name="run.jar.dependencies"
-      value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
+      value="antlr ${asm} cglib c3p0 commons-discovery dom4j ehcache jaf jta
              ojdbc14 oscache sitemesh taglibs-standard xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
@@ -91,7 +95,7 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase" / -->
 
   <property name="install.build.jar.dependencies"
-      value="ant ant/ant-junit ${ant-contrib.path} antlr
+      value="ant ant/ant-junit ${ant-contrib.path} antlr ${jasper-jars}
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
@@ -103,10 +107,10 @@
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-lang commons-logging commons-validator hibernate3
-             jasper5-compiler jasper5-runtime javamail jdom jpam 
-             jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
+             ${tomcat-jars} javamail jdom jpam
+             log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
-             jfreechart taglibs-core quartz
+             ${jfreechart} taglibs-core quartz
              commons-fileupload concurrent simple-core" />
 
   <property name="dist.jar.dependencies"
@@ -115,10 +119,10 @@
              commons-digester commons-discovery commons-el
              commons-fileupload commons-io commons-lang commons-logging
              commons-validator concurrent dom4j hibernate3 jta
-             jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
-             jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
-             oro oscache quartz stringtree-json sitemesh struts taglibs-core
-             taglibs-standard tanukiwrapper  postgresql-jdbc
+             jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
+             ${jfreechart} ${tomcat-jars} jpam log4j redstone-xmlrpc-client redstone-xmlrpc
+             oro oscache quartz stringtree-json sitemesh ${struts-jars} taglibs-core
+             taglibs-standard tanukiwrapper postgresql-jdbc
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />
 
   <path id="bootjars">

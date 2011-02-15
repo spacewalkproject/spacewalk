@@ -8,14 +8,14 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.29
+Version: 5.9.49
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
 Requires: python
-Requires: rhnlib
+Requires: rhnlib >= 2.5.32
 # If this is rhel 4 or less we need up2date.
 %if 0%{?rhel} && "%rhel" < "5"
 Requires: up2date
@@ -31,6 +31,7 @@ The base libraries and functions needed by all rhncfg-* packages.
 Summary: Red Hat Network Configuration Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
+Requires: spacewalk-backend-libs >= 1.3.32-1
 
 %description client
 A command line interface to the client features of the RHN Configuration
@@ -99,6 +100,102 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Feb 15 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.49-1
+- 675164 - do not traceback if file do not differ (msuchy@redhat.com)
+- 676317 - handle fs objects without selinux context correctly
+  (mzazrivec@redhat.com)
+- 628920 - older Satellites do not send selinux_ctx (msuchy@redhat.com)
+- 675164 - do not traceback if file do not differ (msuchy@redhat.com)
+- Revert "Revert "get_server_capability() is defined twice in osad and rhncfg,
+  merge and move to rhnlib and make it member of rpclib.Server""
+  (msuchy@redhat.com)
+
+* Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.9.48-1
+- Revert "get_server_capability() is defined twice in osad and rhncfg, merge
+  and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
+
+* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.47-1
+- get_server_capability() is defined twice in osad and rhncfg, merge and move
+  to rhnlib and make it member of rpclib.Server
+
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 5.9.46-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- 628920 - rhel4 does not support selinux (msuchy@redhat.com)
+
+* Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.45-1
+- fixed TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+
+* Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.44-1
+- fixed NameError: global name 'os' is not defined
+- 634963 - satellites <= 5.4 do not send modified value
+
+* Thu Jan 06 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.43-1
+- 637833 - reused shared file deploy code
+- 637833 - moved file deploy code into shared module
+
+* Mon Jan 03 2011 Tomas Lestach <tlestach@redhat.com> 5.9.42-1
+- 634963 - adding extra colon (tlestach@redhat.com)
+
+* Mon Jan 03 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.41-1
+- 634963 - indicate change in selinux, ownership or file mode (even if diff is
+  empty)
+- do not fail if diff do not differ
+- do diff directly in memory
+- Updating the copyright years to include 2010. (jpazdziora@redhat.com)
+
+* Thu Dec 23 2010 Jan Pazdziora 5.9.40-1
+- make _make_stat_info public method (msuchy@redhat.com)
+- create new function get_raw_file_info for case, when we do not need file on
+  disk (msuchy@redhat.com)
+
+* Wed Dec 22 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.39-1
+- if file is excluded skip also deploy preparation
+- use difflib instead of external diff command
+- made exception block more readable
+- 664677 - fixed directory deployment under --topdir
+- 664677 - fixed symlink deployment under --topdir 
+
+* Mon Dec 20 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.38-1
+- 628846 - fixed symlink info
+
+* Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.37-1
+- import Fault, ResponseError and ProtocolError directly from xmlrpclib
+
+* Wed Dec 01 2010 Lukas Zapletal 5.9.36-1
+- 644985 - SELinux context cleared from RHEL4 rhncfg-client
+- Correcting indentation for rhn_main.py
+
+* Fri Nov 26 2010 Jan Pazdziora 5.9.35-1
+- 656895 - fixing other instances of two-parameter utils.startswith.
+- 656895 - Need to call startswith on string.
+
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.34-1
+- removed unused imports
+
+* Tue Nov 02 2010 Jan Pazdziora 5.9.33-1
+- Update copyright years in the rest of the repo.
+
+* Fri Oct 29 2010 Jan Pazdziora 5.9.32-1
+- removed unused class RepoPlainFile (michael.mraka@redhat.com)
+- removed unused class RepoAlreadyExists (michael.mraka@redhat.com)
+- removed unused class PathNotPresent (michael.mraka@redhat.com)
+- removed unused class MalformedRepository (michael.mraka@redhat.com)
+- removed unused class FileNotInRepo (michael.mraka@redhat.com)
+- after ClientTemplatedDocument removal rhncfg_template.py is empty; removing
+  (michael.mraka@redhat.com)
+- removed unused class ClientTemplatedDocument (michael.mraka@redhat.com)
+- removed unused class BackupFileMissing (michael.mraka@redhat.com)
+
+* Mon Oct 25 2010 Jan Pazdziora 5.9.31-1
+- 645795 - making script actions (within rhncfg) work with RHEL 4 by using
+  popen2 if subprocess is not available (jsherril@redhat.com)
+
+* Fri Oct 22 2010 Jan Pazdziora 5.9.30-1
+- 628920 - Fixed an rhcfg-manager-diff  issue where files were not being
+  properly checked (paji@redhat.com)
+- startswith(), endswith() are builtin functions since RHEL4
+  (michael.mraka@redhat.com)
+
 * Mon Oct 18 2010 Jan Pazdziora 5.9.29-1
 - 643157 - fix for the prev commit on RHEL 4 clients the method has to return a
   value... (paji@redhat.com)

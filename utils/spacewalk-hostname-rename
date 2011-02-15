@@ -26,16 +26,12 @@ ETC_JABBERD_DIR=/etc/jabberd
 NOCPULSE_INI=/etc/NOCpulse.ini
 BOOTSTRAP_SH=/var/www/html/pub/bootstrap/bootstrap.sh
 BOOTSTRAP_CCO=/var/www/html/pub/bootstrap/client-config-overrides.txt
-SAT_LOCAL_RULES_CONF=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf
+SAT_LOCAL_RULES_CONF=/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf
 COBBLER_SETTINGS_FILE="/etc/cobbler/settings"
 BACKUP_EXT=.rnmbck
 
 if [ -x /etc/init.d/oracle ]; then
     DB_SERVICE="oracle"
-fi
-
-if [ -x /etc/init.d/oracle-xe ]; then
-    DB_SERVICE="oracle-xe"
 fi
 
 MONITORING_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_backend/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
@@ -148,7 +144,7 @@ function update_rhn_conf {
        >> $LOG 2>&1
     # but do not deploy (we'd lose actual configuration)
     # /usr/bin/satcon-deploy-tree.pl \
-    #    --source=/etc/sysconfig/rhn-satellite-prep/etc
+    #    --source=/var/lib/rhn/rhn-satellite-prep/etc
     #    --dest=/etc
     #    --conf=$SAT_LOCAL_RULES_CONF
     #    >> $LOG 2>&1
@@ -402,6 +398,9 @@ fi
 if [ -e $ORACLE_XE_TNSNAMES_ORA_FILE ]
 then
     sed -i$BACKUP_EXT 's/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1localhost\2/' $ORACLE_XE_TNSNAMES_ORA_FILE
+    if [ -x /etc/init.d/oracle-xe ]; then
+        /sbin/service oracle-xe restart >> $LOG 2>&1
+    fi
 fi
 
 SQL_RET=$(
@@ -501,7 +500,7 @@ then
     $SPW_SETUP_JABBERD
 else
     /usr/bin/satcon-deploy-tree.pl \
-        --source=/etc/sysconfig/rhn-satellite-prep/etc/jabberd \
+        --source=/var/lib/rhn/rhn-satellite-prep/etc/jabberd \
         --dest=$ETC_JABBERD_DIR \
         --conf=$SAT_LOCAL_RULES_CONF \
        >> /dev/null 2>&1

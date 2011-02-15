@@ -18,12 +18,10 @@
 
 # system module imports
 import time
-import string
-import os.path
 
 
 # global module imports
-from common import apache
+from spacewalk.common import apache
 
 
 # Now local module imports
@@ -45,6 +43,7 @@ class rhnApache:
 
     def __init__(self):
         self.lang = "C"
+        self.domain = None
         self.clientVersion = 0
         self.proxyVersion = None
         self.start_time = 0
@@ -63,7 +62,7 @@ class rhnApache:
         self.start_time = time.time()
         # Decline if this is a subrequest:
         if req.main:
-            return apache.DECLINE
+            return apache.DECLINED
         log_debug(4, req.method, req.path_info, req.headers_in)
 
         # Clear the global flags.
@@ -141,7 +140,7 @@ class rhnApache:
         """ determine what language the client prefers """
         if req.headers_in.has_key("Accept-Language"):
             # RFC 2616 #3.10: case insensitive
-            lang = string.lower(req.headers_in["Accept-Language"])
+            lang = req.headers_in["Accept-Language"].lower()
         else:
             lang = "C"
         self.setlang(lang, self._lang_catalog)
@@ -149,12 +148,6 @@ class rhnApache:
         return apache.OK
 
     def _set_other(self, req):
-        req_config = req.get_options()
-        # XXX: attempt to catch these KeyErrors sometime when there is
-        # time to play nicely
-        # Save the RootDir in the global flags
-        root_dir = req_config["RootDir"]
-        rhnFlags.set("RootDir", root_dir)
         return apache.OK
 
     def _init_request_processor(self, req):
@@ -221,21 +214,19 @@ class rhnApache:
         """
         self.lang = lang
         self.domain = domain
-        rootdir = rhnFlags.get("RootDir") or "."
-        localedir = os.path.abspath("%s/locale" % rootdir)
-        cat.set(domain=domain, localedir=localedir)
+        cat.set(domain=domain)
         # If the language presented by the client does not exist, the
         # translation object falls back to printing the original string, which
         # is pretty much the same as translating to en
         cat.setlangs(self.lang)
-        log_debug(3, rootdir, self.lang, self.domain)
+        log_debug(3, self.lang, self.domain)
 
     def getlang(self):
         """
         And another lang function to produce the list of languages we're
         handling
         """
-        return string.join(cat.getlangs(), "; ")
+        return "; ".join(cat.getlangs())
 
     def _setSessionToken(self, headers):
         """ Pushes token into rhnFlags. If doesn't exist, returns None.
@@ -250,7 +241,7 @@ class rhnApache:
             return None
         prefix = "x-rhn-auth"
         tokenKeys = filter(
-            lambda x, prefix=prefix: string.lower(x[:len(prefix)]) == prefix,
+            lambda x, prefix=prefix: x[:len(prefix)].lower() == prefix,
                 headers.keys())
         for k in tokenKeys:
             token[k] = headers[k]

@@ -94,6 +94,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="check_package_file"></a><span class="summary-sig-name">check_package_file</span>(<span class="summary-sig-arg">rel_path</span>,
+        <span class="summary-sig-arg">logpkg</span>,
+        <span class="summary-sig-arg">raisepkg</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnPackage-pysrc.html#check_package_file">source&nbsp;code</a></span>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="get_package_path_compat_arches"></a><span class="summary-sig-name">get_package_path_compat_arches</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">pkg</span>,
         <span class="summary-sig-arg">server_arch</span>)</span></td>
@@ -119,24 +137,6 @@
       package with respect to package id</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_all_package_paths">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_package_remote_location_path"></a><span class="summary-sig-name">get_package_remote_location_path</span>(<span class="summary-sig-arg">pkg_id</span>)</span><br />
-      check if the given package is available on remote host and return the
-      base_url + remotepath</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_package_remote_location_path">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -238,44 +238,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_source_package_path_by_nvrea"></a><span class="summary-sig-name">get_source_package_path_by_nvrea</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">pkg</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_source_package_path_by_nvrea">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_channels_for_package"></a><span class="summary-sig-name">get_channels_for_package</span>(<span class="summary-sig-arg">pkg</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_channels_for_package">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_package_for_checksum"></a><span class="summary-sig-name">get_package_for_checksum</span>(<span class="summary-sig-arg">org_id</span>,
+          <td><span class="summary-sig"><a name="get_path_for_checksum"></a><span class="summary-sig-name">get_path_for_checksum</span>(<span class="summary-sig-arg">org_id</span>,
         <span class="summary-sig-arg">checksum_type</span>,
         <span class="summary-sig-arg">checksum</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_package_for_checksum">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_path_for_checksum">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_path_for_package"></a><span class="summary-sig-name">get_path_for_package</span>(<span class="summary-sig-arg">pkg</span>,
+        <span class="summary-sig-arg">channel_label</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnPackage-pysrc.html#get_path_for_package">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -348,7 +332,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

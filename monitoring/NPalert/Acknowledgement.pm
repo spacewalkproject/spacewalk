@@ -439,7 +439,7 @@ sub not_valid_redirect {
   return "Invalid duration"  unless $self->duration       =~ /^\d+[mhd]$/;
 
   if ($self->redirect_type  =~ /(metoo|redir)/) {
-    return "Invalid email destination" unless $self->destination =~ /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;  #email address validation from http://www.regexlib.com/REDetails.aspx?regexp_id=26
+    return "Invalid email destination" unless $self->destination =~ /^([a-zA-Z0-9_\-\.\+]+)@(\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.\]|[a-zA-Z0-9\-\.]+)$/;
   }
 
   return 0

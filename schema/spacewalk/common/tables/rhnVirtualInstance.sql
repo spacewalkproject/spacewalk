@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,8 +40,8 @@ CREATE INDEX rhn_vi_hsid_vsid_idx
     ON rhnVirtualInstance (host_system_id, virtual_system_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_vi_vsid_hsid_idx
-    ON rhnVirtualInstance (virtual_system_id, host_system_id)
+CREATE INDEX rhn_vi_vsid_idx
+    ON rhnVirtualInstance (virtual_system_id)
     TABLESPACE [[64k_tbs]];
 
 CREATE SEQUENCE rhn_vi_id_seq;

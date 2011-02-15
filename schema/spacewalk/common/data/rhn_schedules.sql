@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,7 +23,7 @@
 
 insert into rhn_schedules(recid,schedule_type_id,description,last_update_user,
 last_update_date,customer_id) 
-    values ( rhn_schedules_recid_seq.nextval,1,'24x7','system',sysdate,NULL);
+    values ( sequence_nextval('rhn_schedules_recid_seq'),1,'24x7','system',current_timestamp,NULL);
 commit;
 
 --

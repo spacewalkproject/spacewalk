@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,7 @@
 -- sw_mgr_entitled type ------------------------------------------------------
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (rhn_servergroup_type_seq.nextval,
+        values (sequence_nextval('rhn_servergroup_type_seq'),
                 'sw_mgr_entitled', 'Spacewalk Update Entitled Servers', 
                 'N', 'Y'
         );
@@ -28,7 +28,7 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
 -- enterprise_entitled type --------------------------------------------------
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (rhn_servergroup_type_seq.nextval,
+        values (sequence_nextval('rhn_servergroup_type_seq'),
                 'enterprise_entitled', 'Spacewalk Management Entitled Servers', 
                 'N', 'Y'
         );
@@ -36,7 +36,7 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
 -- provisioning_entitled type ------------------------------------------------
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (rhn_servergroup_type_seq.nextval,
+        values (sequence_nextval('rhn_servergroup_type_seq'),
                 'provisioning_entitled', 'Spacewalk Provisioning Entitled Servers', 
                 'N', 'N'
         );
@@ -44,7 +44,7 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
 -- monitoring_entitled type --------------------------------------------------
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
-	values (rhn_servergroup_type_seq.nextval,
+	values (sequence_nextval('rhn_servergroup_type_seq'),
 		'monitoring_entitled', 'Spacewalk Monitoring Entitled Servers', 
         'N', 'N'
 	);
@@ -52,7 +52,7 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
 -- nonlinux_entitled type ----------------------------------------------------
 
 insert into rhnServerGroupType ( id, label, name, permanent, is_base)
-   values ( rhn_servergroup_type_seq.nextval,
+   values ( sequence_nextval('rhn_servergroup_type_seq'),
       'nonlinux_entitled', 'Non-Linux Entitled Servers',
       'N', 'Y'
    );
@@ -60,13 +60,13 @@ insert into rhnServerGroupType ( id, label, name, permanent, is_base)
 -- virtualization_* types ----------------------------------------------------
 
 insert into rhnServerGroupType ( id, label, name, permanent, is_base)
-   values ( rhn_servergroup_type_seq.nextval,
+   values ( sequence_nextval('rhn_servergroup_type_seq'),
       'virtualization_host', 'Virtualization Host Entitled Servers',
       'N', 'N'
    );      
 
 insert into rhnServerGroupType ( id, label, name, permanent, is_base)
-   values ( rhn_servergroup_type_seq.nextval,
+   values ( sequence_nextval('rhn_servergroup_type_seq'),
       'virtualization_host_platform', 
       'Virtualization Host Platform Entitled Servers',
       'N', 'N'

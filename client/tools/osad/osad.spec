@@ -9,13 +9,13 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.41
+Version: 5.10.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python-devel
 Requires: python
-Requires: rhnlib >= 1.8-3
+Requires: rhnlib >= 2.5.31
 Requires: jabberpy
 %if 0%{?rhel} <= 5
 Requires: python-hashlib
@@ -42,8 +42,9 @@ only poll the Spacewalk Server from time to time.
 %package -n osa-dispatcher
 Summary: OSA dispatcher
 Group:    System Environment/Daemons
-Requires: spacewalk-backend-server
+Requires: spacewalk-backend-server >= 1.2.32
 Requires: jabberpy
+Requires: lsof
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
 Requires(post): chkconfig
@@ -224,7 +225,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %config %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
 %config %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
-%config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/tnsnames.ora
 %config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
 %attr(770,root,apache) %dir %{_var}/log/rhn/oracle
@@ -247,6 +247,53 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Mon Feb 07 2011 Tomas Lestach <tlestach@redhat.com> 5.10.2-1
+- do not check port 5222 on the client (tlestach@redhat.com)
+
+* Thu Feb 03 2011 Tomas Lestach <tlestach@redhat.com> 5.10.1-1
+- Bumping version to 5.10
+
+* Thu Feb 03 2011 Tomas Lestach <tlestach@redhat.com> 5.9.53-1
+- reverting osa-dispatcher selinux policy rules (tlestach@redhat.com)
+
+* Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 5.9.52-1
+- pospone osa-dispatcher start, until jabberd is ready (tlestach@redhat.com)
+
+* Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.9.51-1
+- Revert "get_server_capability() is defined twice in osad and rhncfg, merge
+  and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
+
+* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.50-1
+- get_server_capability() is defined twice in osad and rhncfg, merge and move
+  to rhnlib and make it member of rpclib.Server
+
+* Mon Jan 17 2011 Jan Pazdziora 5.9.49-1
+- Silence InstantClient 11g-related AVCs in osa-dispatcher.
+- Silence diagnostics which was causing AVC denials.
+
+* Tue Dec 21 2010 Jan Pazdziora 5.9.48-1
+- SQL changes for PostgreSQL support.
+
+* Fri Dec 10 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.47-1
+- 661998 - removed looping symlink
+- fixed symlink creation
+
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.46-1
+- removed unused imports
+
+* Thu Nov 18 2010 Lukas Zapletal 5.9.45-1
+- 630867 - Allow osa-dispatcher to connect to the PostgreSQL database with
+  PostgreSQL backend.
+
+* Tue Nov 02 2010 Jan Pazdziora 5.9.44-1
+- Update copyright years in the rest of the repo.
+
+* Fri Oct 29 2010 Jan Pazdziora 5.9.43-1
+- removed unused class JabberCallback (michael.mraka@redhat.com)
+
+* Thu Oct 21 2010 Miroslav Suchý <msuchy@redhat.com> 5.9.42-1
+- 612581 - spacewalk-backend modules has been migrated to spacewalk namespace
+
 * Tue Oct 12 2010 Lukas Zapletal 5.9.41-1
 - Sysdate pgsql fix in osad
 

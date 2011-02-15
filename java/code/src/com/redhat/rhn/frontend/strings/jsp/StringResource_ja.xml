@@ -1436,11 +1436,11 @@
       <target>{0} システムが選択されました</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-      <target>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</target></trans-unit>
+      <target>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</target></trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
 <source>Legal statement</source>
         <context-group name="ctx">
@@ -22583,25 +22583,25 @@ given channel.</source>
      <trans-unit id="task.status.last.completed">
          <source>Last Completed Action</source>
      <target>完了したアクション</target></trans-unit>
-     <trans-unit id="task.status.session.cleanup">
+     <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target>セッションクリーンアップ</target></trans-unit>
-     <trans-unit id="task.status.errata.queue.notif">
+     <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      <target>エラータ通知を送信</target></trans-unit>
-     <trans-unit id="task.status.errata.mail">
+     <trans-unit id="task.status.errata-mailer">
          <source>Errata Notification Mail</source>
      <target>エラータ通知を送信</target></trans-unit>
-     <trans-unit id="task.status.daily.summary">
+     <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>デイリー要約:</target></trans-unit>
-     <trans-unit id="task.status.daily.summary.mail">
+     <trans-unit id="task.status.daily-summary">
          <source>Daily Summary Mail</source>
      <target>デイリー要約:</target></trans-unit>
-     <trans-unit id="task.status.clean.alerts">
+     <trans-unit id="task.status.clean-current-alerts">
          <source>Clean Current Alerts</source>
      <target>現在のバージョン</target></trans-unit>
-     <trans-unit id="task.status.sync.probe">
+     <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>プローブの状態</target></trans-unit>
      <trans-unit id="task.status.message">

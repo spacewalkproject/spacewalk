@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -72,9 +72,6 @@ class Slots:
         """Returns the name of the slot, used by
         rhn_entitlements.modify_org_service"""
         return self._slot_name
-
-class UpdateSlots(Slots):
-    _db_label = 'sw_mgr_entitled'
 
 class ManagementSlots(Slots):
     _db_label = 'enterprise_entitled'

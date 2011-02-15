@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,12 +18,9 @@ import os
 import sys
 import string
 import re
-import shutil
 
 sys.path.append("/usr/share/rhn")
-from up2date_client import up2date
 from up2date_client import config
-from up2date_client import configUtils
 from up2date_client import up2dateAuth
 
 from rhn import rpclib

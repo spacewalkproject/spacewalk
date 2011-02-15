@@ -1436,11 +1436,11 @@
       <target>{0} கணினிகள் தேர்வு செய்யப்பட்டன</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-      <target>பதிப்புரிமை &amp;#169; 2002-10 Red Hat, Inc. அனைத்து உரிமைகளும் உள்ளடக்கியது.</target></trans-unit>
+      <target>பதிப்புரிமை &amp;#169; 2002-11 Red Hat, Inc. அனைத்து உரிமைகளும் உள்ளடக்கியது.</target></trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
 <source>Legal statement</source>
         <context-group name="ctx">
@@ -22441,25 +22441,25 @@ given channel.</source>
      <trans-unit id="task.status.last.completed">
          <source>Last Completed Action</source>
      <target>முடிக்கப்பட்ட செயல்கள்</target></trans-unit>
-     <trans-unit id="task.status.session.cleanup">
+     <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>
-     <trans-unit id="task.status.errata.queue.notif">
+     <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      <target>பிழைத்திருத்தங்கள் அறிவிப்பினை அனுப்பவும்</target></trans-unit>
-     <trans-unit id="task.status.errata.mail">
+     <trans-unit id="task.status.errata-mailer">
          <source>Errata Notification Mail</source>
      <target>பிழைத்திருத்தங்கள் அறிவிப்பினை அனுப்பவும்</target></trans-unit>
-     <trans-unit id="task.status.daily.summary">
+     <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>தினசரி சுருக்கம்</target></trans-unit>
-     <trans-unit id="task.status.daily.summary.mail">
+     <trans-unit id="task.status.daily-summary">
          <source>Daily Summary Mail</source>
      <target>தினசரி சுருக்கம்</target></trans-unit>
-     <trans-unit id="task.status.clean.alerts">
+     <trans-unit id="task.status.clean-current-alerts">
          <source>Clean Current Alerts</source>
      <target>நடப்பு பதிப்பு</target></trans-unit>
-     <trans-unit id="task.status.sync.probe">
+     <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>ஆய்வு நிலை</target></trans-unit>
      <trans-unit id="task.status.message">

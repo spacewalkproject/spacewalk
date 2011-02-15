@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,8 +16,8 @@
 # Kickstart-related operations
 #
 
-from common import rhnException, rhnFlags, log_debug
-from server import rhnSQL, rhnAction, rhnLib, rhnChannel
+from spacewalk.common import rhnException, rhnFlags, log_debug, log_error
+from spacewalk.server import rhnSQL, rhnAction, rhnLib, rhnChannel
 
 def update_kickstart_session(server_id, action_id, action_status, 
         kickstart_state, next_action_type):
@@ -151,28 +151,6 @@ def get_kickstart_session_id(server_id, action_id):
         # Nothing to do
         return None
     return row['id']
-
-_query_lookup_kickstart_label = rhnSQL.Statement("""
-    select k.label
-      from rhnKickstartSession ks, rhnKSData k
-     where (
-             (ks.old_server_id = :server_id and ks.new_server_id is NULL) 
-             or ks.new_server_id = :server_id
-             or ks.host_server_id = :server_id
-           )
-       and ks.action_id = :action_id
-       and k.id = ks.kickstart_id
-""")
-
-def get_kickstart_label(server_id, action_id):
-    h = rhnSQL.prepare(_query_lookup_kickstart_label)
-    h.execute(server_id=server_id, action_id=action_id)
-
-    row = h.fetchone_dict()
-    if not row:
-        # Nothing to do
-        return None
-    return row['label']
 
 
 
@@ -347,9 +325,9 @@ _query_schedule_config_files = rhnSQL.Statement("""
                and cfs.label = 'alive'
             )
 """)
-# schedule a configfiles.deploy action dependent on the current action
 def schedule_config_deploy(server_id, action_id, kickstart_session_id,
         server_profile):
+    """ schedule a configfiles.deploy action dependent on the current action """
     log_debug(3, server_id, action_id, kickstart_session_id)
     row = get_kickstart_session_info(kickstart_session_id, server_id)
     org_id = row['org_id']
@@ -559,10 +537,11 @@ def schedule_package_install(server_id, action_id, scheduler, packages):
     h.executemany(action_id=action_ids, package_id=packages)
     return new_action_id
 
-# Execute the cursor, with arguments extracted from the array
-# The array is converted into a hash having col_names as keys, and adds
-# whatever kwarg was specified too.
 def __execute_many(cursor, array, col_names, **kwargs):
+    """ Execute the cursor, with arguments extracted from the array
+        The array is converted into a hash having col_names as keys, and adds
+        whatever kwarg was specified too.
+    """
     linecount = len(array)
     if not linecount:
         return
@@ -661,8 +640,8 @@ def terminate_kickstart_sessions(server_id):
     return history
 
 
-# Fetches the package profile from the kickstart profile (Not the session)
 def get_kickstart_profile_package_profile(kickstart_session_id):
+    """ Fetches the package profile from the kickstart profile (Not the session) """
     h = rhnSQL.prepare("""
         select pn.name, pe.version, pe.release, pe.epoch, pa.label
           from rhnKickstartSession ks,
@@ -682,8 +661,8 @@ def get_kickstart_profile_package_profile(kickstart_session_id):
     return _packages_from_cursor(h)
 
 
-# Fetches the package profile from the kickstart session
 def get_kisckstart_session_package_profile(kickstart_session_id):
+    """ Fetches the package profile from the kickstart session """
     h = rhnSQL.prepare("""
         select pn.name, pe.version, pe.release, pe.epoch, pa.label
           from rhnKickstartSession ks,

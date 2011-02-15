@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,7 @@
 --data for rhn_physical_location (uses sequence!!!)
 
 insert into rhn_physical_location(recid, location_name, last_update_user, last_update_date)
-    values (rhn_physical_loc_recid_seq.nextval, 'Generic All-Encompassing Location','system', sysdate); 
+    values (sequence_nextval('rhn_physical_loc_recid_seq'), 'Generic All-Encompassing Location','system', current_timestamp);
 
 commit;
 

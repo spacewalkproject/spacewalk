@@ -18,8 +18,6 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.rhnpackage.ChangeLogEntry;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -29,6 +27,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageArchException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
+import com.redhat.rhn.frontend.xmlrpc.PackageDownloadException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.manager.download.DownloadManager;
@@ -46,7 +45,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * PackagesHandler
@@ -58,6 +56,7 @@ import java.util.Set;
 public class PackagesHandler extends BaseHandler {
 
     private static Logger logger = Logger.getLogger(PackagesHandler.class);
+    private static float freeMemCoeff = 0.9f;
 
     /**
      * Get Details - Retrieves the details for a given package
@@ -244,7 +243,7 @@ public class PackagesHandler extends BaseHandler {
      * Gets the change log for a given package
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The id of the package you're looking for
-     * @return Returns an array of maps representing the changelog
+     * @return Returns a string with the changelog
      * @throws FaultException A FaultException is thrown if the errata corresponding to
      * pid cannot be found.
      *
@@ -252,34 +251,14 @@ public class PackagesHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
      * @xmlrpc.returntype
-     *   #array()
-     *      #struct("changelog entry")
-     *        #prop("string", "author")
-     *        #prop("string", "date")
-     *        #prop("string", "text")
-     *      #struct_end()
-     *   #array_end()
+     *   string
      */
-    public Object[] listChangelog(String sessionKey, Integer pid) throws FaultException {
+    public String listChangelog(String sessionKey, Integer pid) throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
 
-        //changes is a set containing the ChangeLogEntry objects for the package
-        Set changes = pkg.getChangeLog();
-        //returnList is the list we will be returning to the user
-        List returnList = new ArrayList();
-
-        /*
-         * Loop through the changes and convert the ChangeLogEntry objects to a map and add
-         * to the returnList.
-         */
-        for (Iterator itr = changes.iterator(); itr.hasNext();) {
-            ChangeLogEntry entry = (ChangeLogEntry) itr.next();
-            returnList.add(convertEntryToMap(entry));
-        }
-
-        return returnList.toArray();
+        return PackageManager.getPackageChangeLog(pkg);
     }
 
     /**
@@ -462,26 +441,6 @@ public class PackagesHandler extends BaseHandler {
         return depmod.toString();
     }
 
-    /**
-     * Private helper method to convert a ChangeLogEntry to a Map.
-     * @param entry The ChangeLogEntry in question.
-     * @return Returns a ChangeLogEntry object represented as a Map.
-     */
-    private Map convertEntryToMap(ChangeLogEntry entry) {
-        Map map = new HashMap();
-
-        map.put("author",
-                StringUtils.defaultString(entry.getName()));
-        map.put("text",
-                StringUtils.defaultString(entry.getText()));
-        String entryDate = " ";
-        if (entry.getTime() != null) {
-            entryDate = entry.getTime().toString();
-        }
-        map.put("date", entryDate);
-
-        return map;
-    }
 
     /**
      * @param user The logged in user
@@ -596,15 +555,14 @@ public class PackagesHandler extends BaseHandler {
             pkg.getPath();
         File file = new File(path);
 
-        if (file.length() > Integer.MAX_VALUE) {
-            throw new IOException(LocalizationService.getInstance().getMessage(
-                    "api.package.download.toolarge"));
+        if (file.length() > freeMemCoeff * Runtime.getRuntime().freeMemory()) {
+            throw new PackageDownloadException("api.package.download.toolarge");
         }
 
         byte[] toReturn = new byte[(int) file.length()];
         BufferedInputStream br = new BufferedInputStream(new FileInputStream(file));
         if (br.read(toReturn) != file.length()) {
-            throw new IOException("api.package.download.ioerror");
+            throw new PackageDownloadException("api.package.download.ioerror");
         }
         return toReturn;
     }

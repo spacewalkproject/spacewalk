@@ -12,10 +12,9 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from server import rhnSQL
-from server.rhnDependency import find_package_with_arch
-from server.rhnChannel import channels_for_server
-from server import rhnAction
+from spacewalk.server import rhnSQL, rhnAction
+from spacewalk.server.rhnDependency import find_package_with_arch
+from spacewalk.server.rhnChannel import channels_for_server
 
 class PackageNotFound(Exception):
     pass

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,6 +29,7 @@ use DateTime ();
 use Sys::Hostname ();
 use Spacewalk::Setup ();
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
+use IO::Socket ();
 
 use RHN::DB ();
 
@@ -81,6 +82,10 @@ elsif ($answers{'db-backend'} eq 'postgresql') {
 }
 else {
     die "No idea how to install to database: " . $answers{'db-backend'};
+}
+
+if ($opts{'db-only'}) {
+    exit;
 }
 
 remove_old_jvm(\%opts, \%answers);
@@ -158,8 +163,6 @@ sub choose_database_schema {
 
     my %is_valid_schema = (
 	'oracle' => 1,
-	# Uncomment this to enable installation of postgresql schema:
-	# NOTE: useful for development ONLY at this time.
 	'postgresql' => 1,
 	);
 
@@ -1075,7 +1078,7 @@ sub populate_initial_configs {
     }
   }
   write_config( \%rhnopt,
-		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
+		'/var/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
     foreach my $opt_name (qw/session_swap_secret session_secret/) {
         foreach my $i (1 .. 4) {
@@ -1107,7 +1110,7 @@ sub populate_final_configs {
 
   write_config($final_config, Spacewalk::Setup::DEFAULT_SATCON_DICT);
 
-  Spacewalk::Setup::satcon_deploy(-tree => '/etc/sysconfig/rhn-satellite-prep/etc/rhn',
+  Spacewalk::Setup::satcon_deploy(-tree => '/var/lib/rhn/rhn-satellite-prep/etc/rhn',
 		-dest => '/etc/rhn');
 
   return;
@@ -1159,7 +1162,7 @@ EOQ
 
 sub write_config {
   my $options = shift;
-  my $target = shift || Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
+  my $target = shift;
 
   my @opt_strings = map { "--option=${_}=" . $options->{$_} } grep { defined $options->{$_} } keys %{$options};
 
@@ -1298,7 +1301,7 @@ sub setup_gpg {
     Spacewalk::Setup::system_or_exit(['mkdir', '-m', '700', '/root/.gnupg'], 12, 'Could not create /root/.gnupg');
   }
 
-  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg --list-keys'], 12, 'Could not run gpg.');
+  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg', '--list-keys'], 12, 'Could not run gpg.');
 
   my $key_path = '/usr/share/rhn/RHN-GPG-KEY';
   if ( ! (-e $key_path) ) {
@@ -1381,6 +1384,15 @@ sub valid_multiple_email {
 
 sub wait_for_tomcat {
     my $hostname = shift;
+
+    for (my $i = 0; $i < 20; $i++) {
+        IO::Socket::INET->new(
+            PeerAddr => 'localhost',
+            PeerPort => '8009',
+            Proto    => 'tcp'
+        ) or last;
+        sleep 5;
+    }
 
     for (my $i = 0; $i < 20; $i++) {
         my $retval = system("HEAD http://$hostname/ 2>&1 > /dev/null");

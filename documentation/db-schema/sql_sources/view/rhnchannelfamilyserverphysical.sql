@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:41 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:11 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELFAMILYSERVERPHYSICAL" ("CUSTOMER_ID", "CHANNEL_FAMILY_ID", "SERVER_ID", "CREATED", "MODIFIED") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELFAMILYSERVERPHYSICAL" ("CUSTOMER_ID", "CHANNEL_FAMILY_ID", "SERVER_ID", "CREATED", "MODIFIED") AS 
   select	rs.org_id			as customer_id,
 		rcfm.channel_family_id		as channel_family_id,
 		rsc.server_id			as server_id,
@@ -13,6 +13,7 @@
 	where
 		rcfm.channel_id = rsc.channel_id
 		and rsc.server_id = rs.id
+         and rsc.is_fve = 'N'
         and not exists (
                 select 1
                 from

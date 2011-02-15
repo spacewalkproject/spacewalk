@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +15,7 @@
 
 path = . tables procs
 
+* :: procs/sequence_nextval
 rhnChannelArch                   :: lookup_arch_type
 rhnChannelPackageArchCompat      :: data/rhnChannelArch \
                                     data/rhnPackageArch lookup_functions
@@ -54,4 +55,13 @@ rhn_os_commands_xref             :: data/rhn_command data/rhn_os
 rhn_schedules                    :: data/rhn_schedule_types
 rhn_units                        :: data/rhn_quanta
 rhnVersionInfo                   :: lookup_functions
+
+rhnArchTypeActions         :: data/rhnArchType data/rhnActionType
+rhnKickstartTimezone       :: data/rhnKSInstallType
+rhnTaskoSchedule           :: rhnTaskoBunch
+rhnTaskoTemplate           :: rhnTaskoBunch rhnTaskoTask
+rhnTemplateString          :: data/rhnTemplateCategory
+rhnBlacklistObsoletes      :: lookup_functions
+rhn_schedule_days          :: data/rhn_schedules
+
 

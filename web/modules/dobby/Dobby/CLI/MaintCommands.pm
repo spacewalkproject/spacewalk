@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -84,6 +84,7 @@ sub command_extend {
   $d->tablespace_extend($ts, $ftype, $fn, "$size K");
   print "done.\n";
 
+  return 0;
 }
 
 sub next_filename {
@@ -128,6 +129,7 @@ sub gather_stats {
   $d->gather_database_stats($pct);
   print "done.\n";
 
+  return 0;
 }
 
 sub shrink_segments {
@@ -165,6 +167,7 @@ sub shrink_segments {
   }
 
   print "done.\n";
+  return 0;
 }
 
 1;

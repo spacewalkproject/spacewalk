@@ -212,7 +212,7 @@ sub commit {
   else {
     $query = get_table->insert_query(get_table->methods_to_columns(@modified));
     # adjust the query to update last_update_date
-    $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, $table_alias\.last_update_date\) VALUES \($2, SYSDATE\)/;
+    $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, last_update_date\) VALUES \($2, SYSDATE\)/;
   }
   
   my $sth = $dbh->prepare($query);

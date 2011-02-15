@@ -49,7 +49,7 @@ SELECT DISTINCT S.id, S.name, SI.checkin
        rhnUserServerPerms USP
  WHERE USP.user_id = :user_id
    AND USP.server_id = SI.server_id
-   AND (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold)
+   AND date_diff_in_days(SI.checkin, current_timestamp) BETWEEN 1 AND (1 + :checkin_threshold)
    AND SI.server_id = S.id
    AND NOT EXISTS (
   SELECT *
@@ -57,7 +57,7 @@ SELECT DISTINCT S.id, S.name, SI.checkin
    WHERE user_id = :user_id
      AND server_id = S.id
      AND name = 'include_in_daily_summary'
-     AND value = 0
+     AND value = '0'
 )
    AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_daily_summary')
 ORDER BY CHECKIN DESC
@@ -71,11 +71,12 @@ SELECT AT.name as type,
         COUNT(SA.server_id) as count,
         E.advisory_name AS ADVISORY,
         E.synopsis AS SYNOPSIS
-   FROM rhnErrata E,
-        rhnActionErrataUpdate AEU,
-        rhnActionStatus AStat,
+   FROM rhnActionStatus AStat,
         rhnActionType AT,
-        rhnAction A,
+        rhnAction A LEFT OUTER JOIN rhnActionErrataUpdate AEU
+        ON A.id = AEU.action_id
+            LEFT OUTER JOIN rhnErrata E
+            ON AEU.errata_id = E.id,
         rhnServerAction SA,
         rhnUserServerPerms USP
   WHERE USP.user_id = :user_id
@@ -85,19 +86,17 @@ SELECT AT.name as type,
    WHERE user_id = :user_id
      AND server_id = USP.server_id
      AND name = 'include_in_daily_summary'
-     AND value = 0
+     AND value = '0'
 )
     AND EXISTS ( select 1 from rhnServerFeaturesView sfv
                  where sfv.server_id = usp.server_id
                    and sfv.label = 'ftr_daily_summary')
     AND USP.server_id = SA.server_id
-    AND sysdate - SA.modified &gt; 0
-    AND sysdate - SA.modified &lt; 1
+    AND date_diff_in_days(SA.modified, current_timestamp) &gt; 0
+    AND date_diff_in_days(SA.modified, current_timestamp) &lt; 1
     AND SA.status = AStat.id
     AND SA.action_id = A.id
     AND A.action_type = AT.id
-    AND A.id = AEU.action_id (+)
-    AND AEU.errata_id = E.id (+)
 GROUP BY AT.name, AStat.name, E.advisory_name, E.synopsis
   </query>
 </mode>
@@ -108,26 +107,30 @@ INSERT
   INTO rhnErrataNotificationQueue
        (errata_id, org_id, next_action, channel_id)
 SELECT DISTINCT
-       :errata_id, wc.id, sysdate + :minutes / 1440, :channel_id
+       :errata_id,
+       wc.id,
+       current_timestamp + numtodsinterval(:minutes, 'minute'),
+       :channel_id
   FROM web_customer wc,
        rhnChannelErrata CE
  WHERE CE.errata_id = :errata_id
        and not exists (select q2.errata_id
                          from   rhnErrataNotificationQueue Q2
                          where Q2.errata_id = :errata_id and
+                               Q2.channel_id = :channel_id and
                                Q2.org_id = wc.id)
    </query>
 </write-mode>
 
 <write-mode name="errataqueue_dequeue_errata_notification">
-   <query params="errata_id">
-      DELETE FROM rhnErrataNotificationQueue WHERE errata_id = :errata_id
+   <query params="errata_id, channel_id">
+      DELETE FROM rhnErrataNotificationQueue WHERE errata_id = :errata_id AND channel_id = :channel_id
    </query>
 </write-mode>
 
 <write-mode name="errataqueue_dequeue_errata">
-   <query params="errata_id">
-      DELETE FROM rhnErrataQueue WHERE errata_id = :errata_id
+   <query params="errata_id, channel_id">
+      DELETE FROM rhnErrataQueue WHERE errata_id = :errata_id AND channel_id = :channel_id
    </query>
 </write-mode>
 
@@ -169,13 +172,13 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
 
 <write-mode name="repomd_mark_in_progress">
    <query params="channel_label">
-      UPDATE rhnRepoRegenQueue set next_action=null, modified=sysdate WHERE channel_label = :channel_label
+      UPDATE rhnRepoRegenQueue set next_action=null, modified=current_timestamp WHERE channel_label = :channel_label
    </query>
 </write-mode>
 
 <write-mode name="repomd_clear_in_progress">
    <query params="">
-      UPDATE rhnRepoRegenQueue set next_action=sysdate, modified=sysdate WHERE next_action is null
+      UPDATE rhnRepoRegenQueue set next_action=current_timestamp, modified=current_timestamp WHERE next_action is null
    </query>
 </write-mode>
 
@@ -191,9 +194,9 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
       SELECT KS.id, KSS.label, KS.action_id, KS.new_server_id, KS.old_server_id
       FROM rhnKickstartSession KS, rhnKickstartSessionState KSS
       WHERE KS.state_id = KSS.id
-      AND ((KSS.label NOT IN ('created', 'complete', 'failed') AND KS.last_action &lt; sysdate - 1)
+      AND ((KSS.label NOT IN ('created', 'complete', 'failed') AND KS.last_action &lt; current_timestamp - interval '1' day)
           OR
-          (KSS.label = 'created' AND KS.last_action &lt; sysdate - 6))
+          (KSS.label = 'created' AND KS.last_action &lt; current_timestamp - interval '6' day))
       AND (KS.kickstart_mode != 'default_session' OR KS.kickstart_mode is NULL)
    </query>
 </mode>
@@ -228,9 +231,28 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </write-mode>
 
+<write-mode name="taskomatic_time_series_cleanup">
+   <query params="">
+        DELETE FROM time_series
+        WHERE NOT EXISTS (
+            SELECT 1 FROM rhn_probe
+            WHERE substr(time_series.o_id, instr(time_series.o_id,'-')+1,
+            (instr(time_series.o_id,'-',
+            instr(time_series.o_id,'-')+1)-instr(time_series.o_id,'-'))-1)
+            = rhn_probe.recid)
+   </query>
+</write-mode>
+
+<write-mode name="taskomatic_package_changelog_cleanup">
+   <query params="">
+    DELETE FROM rhnPackageChangeLogData
+        WHERE id NOT IN ( SELECT changelog_data_id FROM rhnPackageChangeLogRec )
+   </query>
+</write-mode>
+
 <callable-mode name="synchprobestate_synch_proc">
    <query params="">
-      {call rhn_synch_probe_state}
+      { call rhn_synch_probe_state() }
    </query>
 </callable-mode>
 
@@ -239,6 +261,30 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
       {call pxt_session_cleanup(:bound, :commit_interval, :batch_size, :sessions_deleted)}
    </query>
 </callable-mode>
+
+<mode name="taskomatic_task_status">
+   <query params="">
+   SELECT t.name, r.id, r.start_time, r.status
+   FROM
+     (SELECT ta.id as task_id, max(ru.start_time) as st
+     FROM rhnTaskoTask ta,
+      rhnTaskoTemplate te,
+      rhnTaskoRun ru
+     WHERE ru.org_id is null
+      AND ru.status != 'SKIPPED'
+      AND ru.template_id = te.id
+      AND ta.id = te.task_id
+     GROUP BY ta.id) se,
+     rhnTaskoRun r,
+     rhnTaskoTask t,
+     rhnTaskoTemplate e
+   WHERE r.start_time = se.st
+	AND t.id = se.task_id
+    AND r.template_id = e.id
+    AND t.id = e.task_id
+   ORDER BY t.name
+   </query>
+</mode>
 
 <mode name="pkgcleanup_find_deleted_pkgs">
    <query params="">
@@ -253,6 +299,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
 </write-mode>
 
 <!-- timings: webdev: 6m (2 records), webqa: 1m 58s (3), prod: 3m 32s (697) -->
+<!--
 <mode name="summarypop_awol_server_in_orgs"
       class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
    <query params="checkin_threshold">
@@ -263,11 +310,13 @@ inner join rhnServerGroup sg on (s.org_id = sg.org_id)
 inner join rhnServerGroupType sgt on (sg.group_type = sgt.id)
 where sgt.label in ('enterprise_entitled', 'provisioning_entitled')
   and sg.max_members > 0
-  and si.checkin between (sysdate + 1) and (sysdate + 1 + :checkin_threshold)
+  and si.checkin between (current_timestamp + interval '1' day)
+  and (current_timestamp + numtodsinterval(1 + :checkin_threshold, 'day')
    </query>
 </mode>
-
+-->
 <!-- timings: webdev: 3m 36s (2), webqa: 11s (3), prod: 3m 21s(697) -->
+
 <mode name="summarypop_awol_server_in_orgs2"
       class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
    <query params="checkin_threshold">
@@ -280,7 +329,7 @@ select distinct sg.org_id as id
        select s.org_id
          from rhnServer s, rhnServerINfo si
         where s.id = si.SERVER_ID
-          AND (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold))
+          AND date_diff_in_days(SI.checkin, current_timestamp) BETWEEN 1 AND (1 + :checkin_threshold))
    </query>
 </mode>
 
@@ -298,7 +347,7 @@ SELECT /*+full(sa)*/  DISTINCT S.org_id as id
    AND SG.max_members > 0
    AND SG.org_id = S.org_id
    AND  S.id = SA.server_id
-   AND SA.modified between sysdate - 1 and sysdate
+   AND SA.modified between current_timestamp - interval '1' day and current_timestamp
    </query>
 </mode>
 
@@ -334,7 +383,7 @@ FROM rhnConfigFile CF
 WHERE CF.config_channel_id IN
     (SELECT cc.Id
      FROM rhnConfigChannel CC
-     WHERE CC.created &lt; sysdate - :window
+     WHERE CC.created &lt; current_timestamp - numtodsinterval(:window, 'day')
      AND CC.confchan_type_id =
      (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import'))
   </query>
@@ -344,7 +393,7 @@ WHERE CF.config_channel_id IN
   <query params="window">
 SELECT CC.id
 FROM rhnConfigChannel CC
-WHERE CC.created &lt; sysdate - :window
+WHERE CC.created &lt; current_timestamp - numtodsinterval(:window, 'day')
 AND CC.confchan_type_id =
    (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import')
 
@@ -356,7 +405,7 @@ AND CC.confchan_type_id =
    <query params="threshold">
 SELECT enq.errata_id, enq.org_id, enq.channel_id
   FROM rhnErrataNotificationQueue ENQ
- WHERE (enq.next_action &lt; sysdate + :threshold/1440)
+ WHERE (enq.next_action &lt; current_timestamp + numtodsinterval(:threshold, 'minute'))
 ORDER BY next_action DESC
    </query>
 </mode>
@@ -369,50 +418,32 @@ ORDER BY next_action DESC
    </query>
 </write-mode>
 
-<write-mode name="erratamailer_fill_work_queue">
+<mode name="erratamailer_get_relevant_servers">
    <query params="errata_id,org_id, channel_id">
-  INSERT INTO rhnPaidErrataTempCache
-    (user_id, server_id, errata_id)
-    SELECT urn.user_id, snv.server_id, snv.errata_id
-      FROM rhnServerNeededView snv
+    SELECT snv.server_id AS server_id, S.name, S.release, SA.name as arch,
+        urn.user_id
+      FROM rhnServerNeededCache snv
       JOIN rhnUserReceiveNotifications urn
         ON snv.server_id = urn.server_id
       JOIN rhnServerChannel sc
         ON sc.server_id = snv.server_id
       JOIN rhnServer S
         ON S.id = SC.server_id
+      JOIN rhnServerArch sa
+        ON s.server_arch_id = sa.id
      WHERE sc.channel_id = :channel_id
        AND snv.errata_id = :errata_id
        AND S.org_id = :org_id
    </query>
-</write-mode>
-
-<mode name="erratamailer_find_users">
-   <query params="">
-  SELECT distinct WC.id, WC.org_id, WC.login, WUPI.email
-    FROM web_user_personal_info WUPI,
-         web_contact WC,
-         rhnPaidErrataTempCache PETC
-   WHERE WC.id = PETC.user_id
-     AND WUPI.web_user_id = WC.id
-   </query>
 </mode>
 
-<mode name="erratamailer_find_servers">
+<mode name="erratamailer_get_userinfo">
    <query params="user_id">
-  SELECT S.id, S.name, S.release, SA.name as arch, C.name base_channel
-    FROM rhnChannel C,
-         rhnServerChannel SC,
-         rhnServer S,
-         rhnServerArch SA,
-         rhnPaidErrataTempCache PETC
-   WHERE S.server_arch_id = SA.id
-     AND S.id = PETC.server_id
-     AND PETC.user_id = :user_id
-     AND S.id = SC.server_id
-     AND SC.channel_id = C.id
-     AND C.parent_channel IS NULL
-   ORDER BY 3,4,2
+  SELECT wc.id, wc.org_id, wc.login, wupi.email
+    FROM web_user_personal_info wupi,
+         web_contact wc
+   WHERE wupi.web_user_id = wc.id
+     AND wc.id = :user_id
    </query>
 </mode>
 
@@ -529,50 +560,6 @@ ORDER BY next_action DESC
    </query>
 </mode>
 
-<write-mode name="erratamailer_clean_work_queue">
-   <query params="">
-      DELETE rhnPaidErrataTempCache
-   </query>
-</write-mode>
-
-<mode name="find_task_stats">
-  <query params="display_name">
-    SELECT COUNT(LABEL) as stat_exists
-    FROM rhnDaemonState
-    WHERE LABEL = :display_name
-  </query>
-</mode>
-
-<write-mode name="create_task_stats">
-  <query params="display_name">
-    INSERT INTO rhnDaemonState (LABEL, LAST_POLL)
-    VALUES (:display_name, sysdate)
-  </query>
-</write-mode>
-
-<write-mode name="update_task_stats">
-  <query params="display_name">
-    UPDATE rhnDaemonState
-      SET LAST_POLL = sysdate
-      WHERE LABEL = :display_name
-  </query>
-</write-mode>
-
-<mode name="get_task_stats">
-	<query params="label">
-		SELECT LAST_POLL
-		FROM rhnDaemonState
-		WHERE label = :label
-	</query>
-</mode>
-
-<mode name="get_current_time">
-	<query params="">
-		SELECT sysdate
-		FROM dual
-	</query>
-</mode>
-
 <mode name="find_channel_in_task_queue">
 	<query params="cid">
 		SELECT task_data
@@ -600,7 +587,7 @@ ORDER BY next_action DESC
 
 <write-mode name="delete_task">
   <query params="org_id, name, task_data, priority">
-  DELETE rhnTaskQueue where org_id = :org_id and task_name = :name
+  DELETE FROM rhnTaskQueue where org_id = :org_id and task_name = :name
   and task_data = :task_data and priority = :priority
   </query>
 </write-mode>

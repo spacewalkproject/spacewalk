@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ from rhn.rpclib import xmlrpclib
 
 import struct
 
-from types import ListType, TupleType, DictType
+from types import ListType, TupleType
 
 MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
@@ -36,8 +36,8 @@ def labelCompare(l1, l2):
 def get_package_header(filename=None, file=None, fd=None):
     return load(filename=filename, file=file, fd=fd)[0]
 
-# Loads an MPM and returns its header and its payload
 def load(filename=None, file=None, fd=None):
+    """ Loads an MPM and returns its header and its payload """
     if (filename is None and file is None and fd is None):
         raise ValueError, "No parameters passed"
     

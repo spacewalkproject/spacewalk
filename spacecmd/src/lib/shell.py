@@ -22,14 +22,13 @@
 
 import atexit, logging, os, readline, re, sys
 from cmd import Cmd
-from pwd import getpwuid
 from spacecmd.utils import *
 
 class SpacewalkShell(Cmd):
     __module_list = [ 'activationkey', 'configchannel', 'cryptokey',
                       'custominfo', 'distribution', 'errata',
                       'filepreservation', 'group', 'kickstart',
-                      'misc', 'package', 'report', 'schedule',
+                      'misc', 'org', 'package', 'report', 'schedule',
                       'snippet', 'softwarechannel', 'ssm',
                       'system', 'user', 'utils' ]
 
@@ -40,13 +39,6 @@ class SpacewalkShell(Cmd):
     # maximum length of history file
     HISTORY_LENGTH = 1024
 
-    intro = '''
-Welcome to spacecmd, a command-line interface to Spacewalk.
-
-Type: 'help' for a list of commands
-      'help <cmd>' for command-specific help
-      'quit' to quit
-'''
     cmdqueue = []
     completekey = 'tab'
     stdout = sys.stdout
@@ -56,25 +48,23 @@ Type: 'help' for a list of commands
     # do nothing on an empty line
     emptyline = lambda self: None
 
-    def __init__(self, options):
+    def __init__(self, options, conf_dir, config_parser):
         self.session = ''
-        self.username = ''
+        self.current_user = ''
         self.server = ''
         self.ssm = {}
+        self.config = {}
 
         self.postcmd(False, '')
 
         # make the options available everywhere
         self.options = options
 
-        userinfo = getpwuid(os.getuid())
-        self.conf_dir = os.path.join(userinfo[5], '.spacecmd')
+        # make the configuration file available everywhere
+        self.config_parser = config_parser
 
-        try:
-            if not os.path.isdir(self.conf_dir):
-                os.mkdir(self.conf_dir, 0700)
-        except OSError:
-            logging.error('Could not create directory %s' % self.conf_dir) 
+        # this is used when loading and saving caches
+        self.conf_dir = conf_dir
         
         self.history_file = os.path.join(self.conf_dir, 'history')
 
@@ -134,6 +124,10 @@ Type: 'help' for a list of commands
             args = ' '.join(parts[1:])
         else:
             args = ''
+
+        # print the help message if the user passes '--help'
+        if re.search('--help', line):
+            return 'help %s' % command
 
         # should we look for an item in the history?
         if command[0] != '!' or len(command) < 2:

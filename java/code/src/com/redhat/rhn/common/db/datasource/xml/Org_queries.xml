@@ -145,16 +145,6 @@ AND      sg.org_id != 1
   </query>
 </mode>
 
-<mode name="get_used_org_counts">
-  <query params="label">
-  SELECT COUNT(sg.org_id) as orgsused
-    FROM rhnServerGroup sg, rhnServerGroupMembers sgm, rhnServerGroupType sgt
-   WHERE sg.GROUP_TYPE = sgt.id
-     AND sgm.SERVER_GROUP_ID = sg.id
-     AND sgt.label = :label
-  </query>
-</mode>
-
 <callable-mode name="delete_organization">
   <query params="org_id">
      {call rhn_org.delete_org(:org_id)}

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,7 +34,7 @@ CREATE INDEX rhn_sgtvsl_sgtid_vslid
     ON rhnSGTypeVirtSubLevel (server_group_type_id, virt_sub_level_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_sgtvsl_vslid_sgtid
-    ON rhnSGTypeVirtSubLevel (virt_sub_level_id, server_group_type_id)
+CREATE INDEX rhn_sgtvsl_vslid
+    ON rhnSGTypeVirtSubLevel (virt_sub_level_id)
     TABLESPACE [[64k_tbs]];
 

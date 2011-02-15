@@ -45,6 +45,12 @@ def FatalErrorWindow(screen, errmsg):
                              [OK])
     screen.finish()
     sys.exit(1)
+
+def WarningWindow(screen, errmsg):
+    snack.ButtonChoiceWindow(screen, WARNING, "%s" % errmsg,
+                             [OK])
+    screen.finish()
+
     
 def ConfirmQuitWindow(screen):
     button = snack.ButtonChoiceWindow(screen, CONFIRM_QUIT,
@@ -120,6 +126,51 @@ class AlreadyRegisteredWindow:
                             + _("Red Hat Network Location:") + " " + self.tui.serverURL + "\n"
                             + _("Login:") + " " + oldUsername + "\n"
                             + _("System ID:") + " " + oldsystemId + "\n\n"
+                            + SYSTEM_ALREADY_REGISTERED_CONT + "\n",
+                            1, 1)
+        toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
+
+        self.g = toplevel
+
+    def saveResults(self):
+            pass
+
+    def run(self):
+        log.log_debug("Running %s" % self.__class__.__name__)
+
+        result = self.g.runOnce()
+        button = self.bb.buttonPressed(result)
+
+        if result == "F12":
+            return "next"
+
+        return button
+
+class AlreadyRegisteredSubscriptionManagerWindow:
+
+    def __init__(self, screen, tui):
+
+        if not rhnreg.rhsm_registered() or tui.test:
+            raise WindowSkipException()
+
+        self.name = "AlreadyRegisteredSubscriptionManagerWindow"
+        self.screen = screen
+        self.tui = tui
+        size = snack._snack.size()
+
+        systemIdXml = rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())
+        oldUsername = systemIdXml[0][0]['username']
+        oldsystemId = systemIdXml[0][0]['system_id']
+
+        toplevel = snack.GridForm(self.screen, SYSTEM_ALREADY_SETUP, 1, 2)
+        self.bb = snack.ButtonBar(self.screen,
+                                  [(YES_CONT, "next"),
+                                   (NO_CANCEL, "exit")])
+        toplevel.add(self.bb, 0, 1, growx = 1)
+
+        tb = snack.Textbox(size[0]-30, size[1]-20,
+                            WARNING + "\n\n"
+                            + RHSM_SYSTEM_ALREADY_REGISTERED + "\n\n"
                             + SYSTEM_ALREADY_REGISTERED_CONT + "\n",
                             1, 1)
         toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
@@ -905,7 +956,23 @@ class SendingWindow:
         except up2dateErrors.InsuffMgmntEntsError, e:
             FatalErrorWindow(self.screen, e)
 
-        rhnreg.spawnRhnCheckForUI() 
+        # enable yum-rhn-plugin
+        try:
+            if rhnreg.YumRHNPluginPackagePresent():
+                if rhnreg.YumRHNPluginConfPresent():
+                    if not rhnreg.YumRhnPluginEnabled():
+                        rhnreg.enableYumRhnPlugin()
+                        self.tui.yum_plugin_conf_changed = 1
+                else:
+                    rhnreg.createDefaultYumRHNPluginConf()
+                    self.tui.yum_plugin_conf_changed = 1
+            else:
+                self.tui.yum_plugin_present = 0
+        except IOError, e:
+            WarningWindow(self.screen, _("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
+            self.tui.yum_plugin_conf_error = 1
+
+        rhnreg.spawnRhnCheckForUI()
         self.setScale(4, 4)
 
         # Pop the pwin (Progress bar window)
@@ -969,9 +1036,17 @@ class ReviewWindow:
         size = snack._snack.size()
         
         toplevel = snack.GridForm(screen, REVIEW_WINDOW, 1, 2)
-    
+        review_window_text = ''
+
+        if not self.tui.yum_plugin_present:
+            review_window_text += YUM_PLUGIN_WARNING + "\n\n"
+        if self.tui.yum_plugin_conf_error:
+            review_window_text += YUM_PLUGIN_CONF_ERROR + "\n\n"
+        if self.tui.yum_plugin_conf_changed:
+            review_window_text += YUM_PLUGIN_CONF_CHANGED + "\n\n"
+
         # Build up the review_window_text based on the data in self.reg_info
-        review_window_text = REVIEW_WINDOW_PROMPT + "\n\n"
+        review_window_text += REVIEW_WINDOW_PROMPT + "\n\n"
 
         # Create and add the text for what channels the system was
         # subscribed to.
@@ -1039,7 +1114,11 @@ class ReviewWindow:
         button = self.bb.buttonPressed(result)
 
         if result == "F12":
-            return "next"
+            button = "next"
+        if not self.tui.yum_plugin_present:
+            button = "exit"
+        if self.tui.yum_plugin_conf_error:
+            button = "exit"
             
         return button    
     
@@ -1058,6 +1137,7 @@ class Tui:
                                      "Only https and http are allowed."))
 
         self.windows = [
+            AlreadyRegisteredSubscriptionManagerWindow,
             AlreadyRegisteredWindow,
             ConnectWindow,
             StartWindow,
@@ -1125,6 +1205,9 @@ class Tui:
         self.includePackages = 0
         self.packageList = []
         self.selectedPackages = []
+        self.yum_plugin_present = 1
+        self.yum_plugin_conf_error = 0
+        self.yum_plugin_conf_changed = 0
 
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)

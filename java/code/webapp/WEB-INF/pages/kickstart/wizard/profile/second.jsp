@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <html:html xhtml="true">
 
 <head>
@@ -32,13 +32,13 @@ function swapValues(fromCtlId, toCtlId) {
 }
 
 function moveNext() {
-   var form = document.getElementById("wizard-form");
+   var form = document.getElementById("kickstartCreateWizardForm");
    swapValues("wizard-nextstep", "wizard-curstep");
    form.submit();
 }
 
 function movePrevious() {
-   var form = document.getElementById("wizard-form");
+   var form = document.getElementById("kickstartCreateWizardForm");
    swapValues("wizard-prevstep", "wizard-curstep");
    form.submit();
 }
@@ -50,7 +50,7 @@ function movePrevious() {
 <body onload="setState();">
 <br />
 <div>
-  <html:form styleId="wizard-form" method="post" action="/kickstart/CreateProfileWizard.do">
+  <html:form method="post" action="/kickstart/CreateProfileWizard.do">
     <html:hidden property="wizardStep" styleId="wizard-curstep" />
     <html:hidden property="nextStep" styleId="wizard-nextstep"/>
     <html:hidden property="prevStep" styleId="wizard-prevstep" />

@@ -5,13 +5,19 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.5
+Version:       5.5.16
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
-Requires:      rpm-python, rhnlib
+Requires:      rpm-python
+Requires:      rhnlib >= 2.5.32
 Requires:      spacewalk-backend-libs >= 0.8.3
+%if 0%{?rhel} && 0%{?rhel} < 5
+Requires:      up2date
+%else
+Requires:      rhn-client-tools
+%endif
 BuildRequires: docbook-utils, gettext
 
 Summary: Package uploader for the Red Hat Network Satellite Server
@@ -50,6 +56,47 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.5.16-1
+- Revert "648403 - do not create TB even on Red Hat Enterprise Linux 4"
+  (tlestach@redhat.com)
+
+* Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.5.15-1
+- Revert "get_server_capability() is defined twice in osad and rhncfg, merge
+  and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
+
+* Tue Feb 01 2011 Miroslav Suchý <msuchy@redhat.com> 5.5.14-1
+- 648403 - do not require up2date on rhel5
+
+* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 5.5.13-1
+- get_server_capability() is defined twice in osad and rhncfg, merge and move
+  to rhnlib and make it member of rpclib.Server
+- 648403 - do not create TB even on Red Hat Enterprise Linux 4
+- 648403 - workaround missing hasCapability() on RHEL4
+- Updating the copyright years to include 2010.
+
+* Thu Dec 23 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.12-1
+- 648403 - use server given on command line rather than rhnParent
+
+* Mon Dec 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.11-1
+- 648403 - do not call getPackageChecksumBySession directly
+
+* Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 5.5.10-1
+- import Fault, ResponseError and ProtocolError directly from xmlrpclib
+
+* Mon Dec 06 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.9-1
+- 656746 - make _processFile and _processBatch method of UploadClass class
+  (msuchy@redhat.com)
+
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.5.8-1
+- removed unused imports
+
+* Wed Nov 03 2010 Jan Pazdziora 5.5.7-1
+- 649259 - do not fail with invalid user, if we are only testing if call exist
+  (msuchy@redhat.com)
+
+* Tue Nov 02 2010 Jan Pazdziora 5.5.6-1
+- Update copyright years in the rest of the repo.
+
 * Thu Sep 16 2010 Michael Mraka <michael.mraka@redhat.com> 5.5.5-1
 - 600347 - added sat<540 compatibility functions
 

@@ -38,7 +38,8 @@ distmap = {'6E':'.el6',
            'f10':'.fc10',
            'f11':'.fc11',
            'f12':'.fc12',
-           'f13':'.fc13'}
+           'f13':'.fc13',
+           'f14': ['.fc13','.fc14']}
 
 distsuffix = ''
 tag = args[0]
@@ -66,7 +67,11 @@ gitnames = []
 notingit = []
 for rpm in rpmlist[1]:
     rpmname = rpm['nvr'].rstrip(distsuffix)
-    rpmname = rpmname.replace(disttag, '')
+    if isinstance(disttag, str):
+        rpmname = rpmname.replace(disttag, '')
+    else:
+        for d in disttag:
+            rpmname = rpmname.replace(d, '')
     if rpm['name'] not in pkgstoignore:
         nvrs.append(rpmname)
         kojinames.append([rpm['name'], rpmname])

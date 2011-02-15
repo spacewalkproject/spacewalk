@@ -27,7 +27,6 @@ import org.quartz.JobExecutionException;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  *
@@ -38,21 +37,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * @version $Rev$
  */
 public class KickstartFileSyncTask extends RhnJavaJob {
-
-    private static final AtomicLong LAST_UPDATED = new AtomicLong();
-    private long WARN_COUNT;
-
-    /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "sync_from_cobbler";
-
-    /**
-     * Default constructor
-     */
-    public KickstartFileSyncTask() {
-        WARN_COUNT = 0;
-    }
 
     /**
      * {@inheritDoc}
@@ -70,6 +54,7 @@ public class KickstartFileSyncTask extends RhnJavaJob {
                 if (p != null) {
                     String file = p.getKickstart();
                     if (file != null && !(new File(file)).exists()) {
+                        log.info("Syncing " + ks.getLabel());
                         KickstartFactory.saveKickstartData(ks);
                     }
                 }

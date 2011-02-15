@@ -174,24 +174,21 @@ SELECT  user_id, label, element, element_two, element_three
   <query params="user_id, label">
 DELETE
   FROM rhnSet S
- WHERE rowid IN(SELECT s.rowid
-                  FROM rhnSet S, web_contact WC
-                 WHERE S.user_id = :user_id
-                   AND S.user_id = WC.id
-                   AND S.label = :label
+ WHERE S.user_id = :user_id
+   AND S.label = :label
+   and exists (
+       select 1 from web_contact WC
+       where S.user_id = WC.id
                    AND NOT EXISTS(SELECT 1
-                                    FROM dual
-                                   WHERE EXISTS (SELECT 1
                                                    FROM rhnErrata E
                                                   WHERE E.id = S.element
                                                     AND E.org_id = WC.org_id
                                                 )
-                                      OR EXISTS (SELECT 1
+                   AND NOT EXISTS(SELECT 1
                                                    FROM rhnErrataTmp ET
                                                   WHERE ET.id = S.element
                                                     AND ET.org_id = WC.org_id
                                                 )
-                                 )
                )
   </query>
 </write-mode>
@@ -200,24 +197,21 @@ DELETE
   <query params="user_id, label">
 DELETE
   FROM rhnSet S
- WHERE rowid IN(SELECT s.rowid
-                  FROM rhnSet S, web_contact WC
-                 WHERE S.user_id = :user_id
-                   AND S.user_id = WC.id
-                   AND S.label = :label
+ WHERE S.user_id = :user_id
+   AND S.label = :label
+   and exists (
+       select 1 from web_contact WC
+       where S.user_id = WC.id
                    AND NOT EXISTS(SELECT 1
-                                    FROM dual
-                                   WHERE EXISTS (SELECT 1
                                                    FROM rhnErrata E
                                                   WHERE E.id = S.element
                                                     AND (E.org_id = WC.org_id OR E.org_id IS NULL)
                                                 )
-                                      OR EXISTS (SELECT 1
+                   AND NOT EXISTS(SELECT 1
                                                    FROM rhnErrataTmp ET
                                                   WHERE ET.id = S.element
                                                     AND ET.org_id = WC.org_id
                                                 )
-                                 )
                )
   </query>
 </write-mode>
@@ -237,12 +231,12 @@ DELETE
 <write-mode name="remove_unowned_packages">
   <query params="user_id, label">
 DELETE
-  FROM rhnSet
- WHERE rowid IN(SELECT s.rowid
-                  FROM rhnSet S, web_contact WC, rhnPackage P
-                 WHERE S.user_id = :user_id
-                   AND S.user_id = WC.id
-                   AND S.label = :label
+  FROM rhnSet S
+ WHERE S.user_id = :user_id
+   AND S.label = :label
+   AND EXISTS ( SELECT 1
+                  FROM web_contact WC, rhnPackage P
+                 WHERE S.user_id = WC.id
                    AND S.element = P.id
                    AND (P.org_id != WC.org_id
                            AND  P.id NOT IN (SELECT CP.package_id
@@ -252,7 +246,6 @@ DELETE
                                                     AND AC.channel_id = CP.channel_id
                                  ))
                    )
-
   </query>
 </write-mode>
 

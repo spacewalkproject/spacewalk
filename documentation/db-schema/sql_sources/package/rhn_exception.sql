@@ -1,13 +1,8 @@
--- created by Oraschemadoc Fri Jan 22 13:41:06 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:16 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_EXCEPTION"
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_EXCEPTION" 
 IS
-    CURSOR exception_details(exception_label_in VARCHAR2) IS
-        SELECT id, label, message
-          FROM rhnException
-         WHERE label = exception_label_in;
-
     PROCEDURE raise_exception(exception_label_in IN VARCHAR2);
     procedure raise_exception_val(
 	exception_label_in in varchar2,
@@ -15,14 +10,18 @@ IS
     );
     PROCEDURE lookup_exception(exception_label_in IN VARCHAR2, exception_id_out OUT NUMBER, exception_message_out OUT VARCHAR2);
 END rhn_exception;
-CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_EXCEPTION"
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_EXCEPTION" 
 IS
 
     PROCEDURE lookup_exception(exception_label_in IN VARCHAR2, exception_id_out OUT NUMBER, exception_message_out OUT VARCHAR2)
     IS
         return_string     VARCHAR2(2000);
     BEGIN
-        FOR exc IN exception_details(exception_label_in)
+        FOR exc IN (
+            SELECT id, label, message
+              FROM rhnException
+             WHERE label = exception_label_in
+        )
         LOOP
             exception_id_out := exc.id;
             exception_message_out := '(' || exc.label || ')' || ' - ' || exc.message;

@@ -5,7 +5,7 @@ License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Epoch:	 1
-Version: 2.0
+Version: 2.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Nov 02 2010 Jan Pazdziora 2.1-1
+- Update copyright years in the rest of the repo.
+
 * Tue May 04 2010 Jan Pazdziora 2.0-1
 - 461270 - replace our own ssl-cert-check with stock certwatch.
 

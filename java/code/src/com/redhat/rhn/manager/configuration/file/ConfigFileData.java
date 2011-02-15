@@ -376,6 +376,7 @@ public abstract class ConfigFileData {
         map.put(ConfigFileForm.REV_SYMLINK_TARGET_PATH, getSelinuxCtx());
         map.put(ConfigFileForm.REV_MACROSTART, getMacroStart());
         map.put(ConfigFileForm.REV_MACROEND, getMacroEnd());
+        map.put(ConfigFileForm.REV_BINARY, isBinary());
         return map;
     }
 

@@ -128,6 +128,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="clicked" handler="on_whyRegisterButton_clicked"/>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Why Should I Connect to RHN? ...</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -173,7 +176,6 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	  <child>
 	    <widget class="GtkLabel" id="chooseServerLabel">
 	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
 	      <property name="label" translatable="yes" context="yes">You may connect your system to &lt;b&gt;Red Hat Network&lt;/b&gt; (https://rhn.redhat.com/) or to a &lt;b&gt;Red Hat Network Satellite&lt;/b&gt; or &lt;b&gt;Red Hat Network Proxy&lt;/b&gt; in order to receive software updates.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
@@ -257,6 +259,57 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		  <property name="expand">False</property>
 		  <property name="fill">False</property>
 		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkAlignment" id="hostedClassicAlignment">
+		  <property name="visible">False</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xscale">1</property>
+		  <property name="yscale">1</property>
+		  <property name="top_padding">0</property>
+		  <property name="bottom_padding">0</property>
+		  <property name="left_padding">30</property>
+		  <property name="right_padding">1</property>
+		  <property name="no_show_all">True</property>
+		  <child>
+		    <widget class="GtkCheckButton" id="hostedClassicButton">
+		      <property name="visible">True</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <property name="active">False</property>
+		      <property name="inconsistent">False</property>
+		      <property name="draw_indicator">True</property>
+
+		      <child>
+			<widget class="GtkLabel" id="label96cm">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="label" translatable="yes" context="yes">RHN Classic Mode</property>
+			  <property name="use_underline">True</property>
+			  <property name="use_markup">True</property>
+			  <property name="justify">GTK_JUSTIFY_LEFT</property>
+			  <property name="wrap">True</property>
+			  <property name="selectable">False</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+			  <property name="width_chars">-1</property>
+			  <property name="single_line_mode">False</property>
+			  <property name="angle">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		    <packing>
+		      <property name="padding">0</property>
+		      <property name="expand">False</property>
+		      <property name="fill">False</property>
+		    </packing>
+		  </child>
+		</widget>
 	      </child>
 
 	      <child>
@@ -359,6 +412,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			  <property name="activates_default">False</property>
 			  <signal name="changed" handler="onSatelliteServerEntryChanged"/>
 			  <signal name="focus_in_event" handler="onSatelliteServerEntryFocused"/>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">satellite server location</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -458,6 +514,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="clicked" handler="onAdvancedNetworkConfigurationButtonClicked"/>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Advanced Network Configuration button</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -625,6 +684,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
 		  <signal name="activate" handler="onLoginUserEntryActivate"/>
+		  <accessibility>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">RHN login field</atkproperty>
+		  </accessibility>
 		</widget>
 		<packing>
 		  <property name="left_attach">1</property>
@@ -647,6 +709,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 		  <property name="invisible_char">•</property>
 		  <property name="activates_default">False</property>
 		  <signal name="activate" handler="onLoginPasswordEntryActivate"/>
+		  <accessibility>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">RHN password field</atkproperty>
+		  </accessibility>
 		</widget>
 		<packing>
 		  <property name="left_attach">1</property>
@@ -1988,6 +2053,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="invisible_char">•</property>
 			  <property name="activates_default">False</property>
 			  <signal name="changed" handler="registrationNumberEntryChanged"/>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">installation number field</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -2365,6 +2433,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="has_frame">True</property>
 			  <property name="invisible_char">•</property>
 			  <property name="activates_default">False</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">system name</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -2488,6 +2559,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
 			  <signal name="clicked" handler="onViewHardwareButtonClicked"/>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">View Hardware Profile</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -2507,6 +2581,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">View Package Profile</atkproperty>
+			  </accessibility>
 			  <signal name="clicked" handler="onViewPackageListButtonClicked"/>
 			</widget>
 			<packing>
@@ -2530,6 +2607,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="active">True</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Send hardware profile checkbox</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">0</property>
@@ -2552,6 +2632,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="active">True</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Send package profile checkbox</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="left_attach">0</property>
@@ -2628,7 +2711,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
 	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	  <property name="width_chars">-1</property>
+	  <property name="width_request">600</property>
 	  <property name="single_line_mode">False</property>
 	  <property name="angle">0</property>
 	</widget>
@@ -2658,6 +2741,9 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="clicked" handler="onBackToRegistrationButtonClicked"/>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Take me back to the registration</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -2767,7 +2853,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -2861,7 +2947,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -2955,7 +3041,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -3049,7 +3135,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			  <property name="width_chars">-1</property>
+			  <property name="width_request">460</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
 			</widget>
@@ -3511,6 +3597,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Close</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -3582,6 +3671,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
+		      <accessibility>
+			<atkproperty name="AtkObject::accessible_name" translatable="yes">I would like to connect to Red Hat Network via an _HTTP proxy.</atkproperty>
+		      </accessibility>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -3709,6 +3801,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char">*</property>
 			      <property name="activates_default">False</property>
+			      <accessibility>
+				<atkproperty name="AtkObject::accessible_name" translatable="yes">proxy location</atkproperty>
+			      </accessibility>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -3739,6 +3834,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
+		      <accessibility>
+			<atkproperty name="AtkObject::accessible_name" translatable="yes">Use Authentication with HTTP Proxy</atkproperty>
+		      </accessibility>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -3839,6 +3937,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char">*</property>
 			      <property name="activates_default">False</property>
+			      <accessibility>
+				<atkproperty name="AtkObject::accessible_name" translatable="yes">proxy user field</atkproperty>
+			      </accessibility>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -3861,6 +3962,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char">•</property>
 			      <property name="activates_default">False</property>
+			      <accessibility>
+				<atkproperty name="AtkObject::accessible_name" translatable="yes">proxy password field</atkproperty>
+			      </accessibility>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -3934,6 +4038,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">No, Cancel</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 
@@ -3945,6 +4052,9 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">1</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Yes, Continue</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -4113,6 +4223,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Take me back to the setup process.</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 
@@ -4124,6 +4237,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">1</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">No thanks, I'll connect later.</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -4156,7 +4272,7 @@ Are you sure you would like to continue?</property>
 	      <property name="xpad">0</property>
 	      <property name="ypad">0</property>
 	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	      <property name="width_chars">-1</property>
+	      <property name="width_request">600</property>
 	      <property name="single_line_mode">False</property>
 	      <property name="angle">0</property>
 	    </widget>
@@ -4259,7 +4375,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
@@ -4353,7 +4469,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
@@ -4447,7 +4563,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
@@ -4542,7 +4658,7 @@ Are you sure you would like to continue?</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
 			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-			      <property name="width_chars">-1</property>
+			      <property name="width_request">460</property>
 			      <property name="single_line_mode">False</property>
 			      <property name="angle">0</property>
 			    </widget>
@@ -4641,6 +4757,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">No, Cancel</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 
@@ -4652,6 +4771,9 @@ Are you sure you would like to continue?</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">1</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Yes, Continue</atkproperty>
+	      </accessibility>
 	    </widget>
 	  </child>
 	</widget>
@@ -4917,6 +5039,214 @@ Are you sure you would like to continue?</property>
   </child>
 </widget>
 
+<widget class="GtkDialog" id="alreadyRegisteredSubscriptionManagerDialog">
+  <property name="title" translatable="yes">System software updates already set up</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
+  <property name="has_separator">False</property>
+
+  <child internal-child="vbox">
+    <widget class="GtkVBox" id="dialog-vbox4">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child internal-child="action_area">
+	<widget class="GtkHButtonBox" id="dialog-action_area4">
+	  <property name="visible">True</property>
+	  <property name="layout_style">GTK_BUTTONBOX_END</property>
+
+	  <child>
+	    <widget class="GtkButton" id="button5">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes" context="yes">_No, Cancel</property>
+	      <property name="use_underline">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">0</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">No, Cancel</atkproperty>
+	      </accessibility>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="button6">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes" context="yes">_Yes, Continue</property>
+	      <property name="use_underline">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">1</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Yes, Continue</atkproperty>
+	      </accessibility>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	  <property name="pack_type">GTK_PACK_END</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkVBox" id="vbox30">
+	  <property name="border_width">10</property>
+	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">15</property>
+
+          <child>
+	    <widget class="GtkLabel" id="label71">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes" context="yes">&lt;b&gt;Warning&lt;/b&gt;</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">True</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="label72">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes" context="yes">It appears this system has already been registered with RHN using RHN Certificate-Based Entitlement technology. This tool requires registration using RHN Classic technology.</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">True</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="label73">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes" context="yes">Except for a few cases, Red Hat recommends customers only register with RHN once.
+</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">True</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="label74">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes" context="yes">For more information, including alternate tools, consult this Knowledge Base Article: &lt;a href="https://access.redhat.com/kb/docs/DOC-45563"&gt;https://access.redhat.com/kb/docs/DOC-45563&lt;/a&gt;
+</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">True</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">True</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+
+	  <child>
+	    <widget class="GtkLabel" id="label75">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes" context="yes">Are you sure you would like to continue?</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
+
 <widget class="GtkWindow" id="successfulFinishWindow">
   <property name="title" translatable="yes"></property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -5028,6 +5358,9 @@ You'll know when software updates are available when a package icon appears in t
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
+	  <accessibility>
+	    <atkproperty name="AtkObject::accessible_name" translatable="yes">Aplet screenshot</atkproperty>
+	  </accessibility>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
@@ -5104,6 +5437,9 @@ You'll know when software updates are available when a package icon appears in t
 	      <property name="active">False</property>
 	      <property name="inconsistent">False</property>
 	      <property name="draw_indicator">True</property>
+	      <accessibility>
+	        <atkproperty name="AtkObject::accessible_name" translatable="yes">Limited updates</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -5181,6 +5517,9 @@ You'll know when software updates are available when a package icon appears in t
 	      <property name="items" translatable="yes"></property>
 	      <property name="add_tearoffs">False</property>
 	      <property name="focus_on_click">True</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">Choose minor release</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -5294,6 +5633,9 @@ You'll know when software updates are available when a package icon appears in t
 	      <property name="inconsistent">False</property>
 	      <property name="draw_indicator">True</property>
 	      <property name="group">limited_updates_button</property>
+	      <accessibility>
+		<atkproperty name="AtkObject::accessible_name" translatable="yes">All available updates</atkproperty>
+	      </accessibility>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -5305,7 +5647,7 @@ You'll know when software updates are available when a package icon appears in t
 	  <child>
 	    <widget class="GtkLabel" id="allUpdatesLabel">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">&lt;b&gt;_All available updates&lt;/b&gt; will be provided to this system.  This system, if kept updated, will always be equivalent to the latest available minor release of Red Hat Enterprise Linux 5.  It will be registered to the main 'Red Hat Enterprise Linux 5' software channel.</property>
+	      <property name="label" translatable="yes">&lt;b&gt;_All available updates&lt;/b&gt; will be provided to this system.  This system, if kept updated, will always be equivalent to the latest available minor release of Red Hat Enterprise Linux 6.  It will be registered to the main 'Red Hat Enterprise Linux 6' software channel.</property>
 	      <property name="use_underline">True</property>
 	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -5538,6 +5880,9 @@ You'll know when software updates are available when a package icon appears in t
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
+	  <accessibility>
+	    <atkproperty name="AtkObject::accessible_name" translatable="yes">icon of aplet</atkproperty>
+	  </accessibility>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>

@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:42 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:16 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNHISTORYVIEW" ("EVENT_ID", "SERVER_ID", "SUMMARY", "DETAILS", "CREATED", "MODIFIED") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNHISTORYVIEW" ("EVENT_ID", "SERVER_ID", "SUMMARY", "DETAILS", "CREATED", "MODIFIED") AS 
   select
     id event_id, server_id, summary, details, created, modified
 from

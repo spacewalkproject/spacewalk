@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,14 +17,13 @@
 import os
 import sys
 import types
-import string
-from optik import OptionParser, Option
+from optparse import OptionParser, Option
 
 _topdir = os.path.abspath(os.path.dirname(sys.argv[0]))
 if _topdir not in sys.path:
     sys.path.append(_topdir)
 
-from server import rhnSQL
+from spacewalk.server import rhnSQL
 
 def main():
     options_table = [
@@ -61,7 +60,7 @@ def main():
             print "Unable to import module %s: %s" % (module_name, e)
             continue
 
-        comps = string.split(pmn, '.')
+        comps = pmn.split('.')
         for c in comps[1:]:
             m = getattr(m, c)
 
@@ -73,13 +72,10 @@ def main():
 
 def proper_module_name(module_name):
     suffix = '.py'
-    if endswith(module_name, suffix):
+    if module_name.endswith(suffix):
         module_name = module_name[:-len(suffix)]
 
-    return string.replace(os.path.normpath(module_name), '/', '.')
-
-def endswith(s, suffix):
-    return (s[-len(suffix):] == suffix)
+    return os.path.normpath(module_name).replace('/', '.')
 
 _objs_seen = {}
 

@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <c:set value="${requestScope[param.configchan]}" var="mychan"/>
 <c:set value="${requestScope[param.configfile]}" var="myfile"/>

@@ -1,6 +1,6 @@
 # apacheServer.py      - Apache XML-RPC server for mod_python (Red Hat Network).
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,14 +16,9 @@
 #-------------------------------------------------------------------------------
 # $Id: apacheServer.py,v 1.81 2005/07/05 17:39:03 wregglej Exp $
 
-# system module imports
-import os
-
-# global module imports
-from common import apache
-
 # common module imports
-from common import CFG, initCFG, initLOG, log_setreq, Traceback, log_debug
+from spacewalk.common import CFG, initCFG, initLOG, log_setreq, Traceback, \
+    log_debug, apache
 
 class HandlerWrap:
     """ Wrapper handlers to catch unwanted exceptions """

@@ -74,8 +74,8 @@ class ConfigFile:
 
         for line in f.readlines():
             # strip comments
-            if '#' in line:
-                line = line[:line.find('#')]
+            if line.find('#') == 0:
+                continue
             line = line.strip()            
             if not line:
                 continue
@@ -280,6 +280,18 @@ def getProxySetting():
 
     return proxy
 
+def getServerlURL():
+    """ return list of serverURL from config
+        Note: in config may be one value or more values, but this
+        function always return list
+    """
+    cfg = initUp2dateConfig()
+    # serverURL may be a list in the config file, so by default, grab the
+    # first element.
+    if type(cfg['serverURL']) == type([]):
+        return cfg['serverURL']
+    else:
+        return [cfg['serverURL']]
 
 def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
     """This function is the right way to get at the up2date config."""

@@ -15,9 +15,9 @@
 #
 # Package import process
 #
-import os.path
+
 from importLib import KickstartableTree, Import
-from common import CFG
+
 class KickstartableTreeImport(Import):
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)

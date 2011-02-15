@@ -14,4 +14,19 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="/sm/local[ not (id  = '@hostname@') ]">
+  <xsl:copy>
+    <xsl:text>
+    </xsl:text>
+    <id>@hostname@</id>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="/sm/storage/driver">
+  <xsl:copy>
+    <xsl:text>db</xsl:text>
+  </xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>

@@ -18,7 +18,7 @@
 
 import re
 import sys
-from common import log_error
+from spacewalk.common import log_error
 
 class XMLWriter:
     """

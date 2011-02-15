@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,8 +30,13 @@ my $show_help;
 my $nosig;
 my $allow_old;
 
+my $usage = <<<"EOF";
+Usage: $0 [--keyring /path/to/keyring.gpg] [--quiet] [--nosig] [--allow-old] [--required-version VERSION CERTFILE]
+       $0 --help
+EOF
+
 GetOptions("keyring=s", \$keyring, "quiet" => \$quiet, "nosig" => \$nosig, "allow-old" => \$allow_old,
-           "required-version=s" => \$required_version, "help" => \$show_help);
+           "required-version=s" => \$required_version, "help" => \$show_help) or die $usage;
 
 if ($show_help) {
   print "See 'man validate-sat-cert' for details on usage.\n";

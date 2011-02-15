@@ -59,8 +59,29 @@ print only error messages
 .B \-d, \-\-debug
 print debug messages
 .TP
-.B  \-h, \-\-help
+.B \-h, \-\-help
 show this help message and exit
+.fi
+.SH CONFIGURATION FILES
+.nf
+Configuration files are loaded from /etc/spacecmd.conf and ~/.spacecmd/config.
+The default section is [spacecmd].  It can then be overridden with server
+specific sections.  Command-line arguments always override options in the
+configuration files.
+.fi
+.P
+.nf
+[spacecmd]
+server=localhost
+username=admin
+password=redhat
+nossl=0
+
+[satellite.example.com]
+username=joe
+password=secret
+nossl=1
+.fi
 .SH EXAMPLES
 .P
 .B Make temporary groups on-the-fly

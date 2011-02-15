@@ -1,28 +1,32 @@
--- created by Oraschemadoc Fri Jan 22 13:40:41 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:13 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELNEWESTPACKAGEVIEW" ("CHANNEL_ID", "NAME_ID", "EVR_ID", "PACKAGE_ARCH_ID", "PACKAGE_ID") AS
-  select  cp.channel_id		as channel_id,
-		p.name_id			as name_id,
-		p.evr_id			as evr_id,
-		p.package_arch_id	as package_arch_id,
-		p.id				as package_id
-from	rhnPackageEVR		pe,
-		rhnPackage			p,
-		rhnChannelPackage	cp
-where	cp.package_id = p.id
-		and p.evr_id = pe.id
-		and pe.evr = (
-			select	max(sq_pe.evr)
-			from	rhnChannelPackage sq_cp,
-					rhnPackage sq_p,
-					rhnPackageEVR sq_pe
-			where	1=1
-				and sq_cp.channel_id = cp.channel_id
-				and sq_cp.package_id = sq_p.id
-				and sq_p.name_id = p.name_id
-				and sq_pe.id = sq_p.evr_id
-		)
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELNEWESTPACKAGEVIEW" ("CHANNEL_ID", "NAME_ID", "EVR_ID", "PACKAGE_ARCH_ID", "PACKAGE_ID") AS 
+  SELECT m.channel_id          as channel_id,
+       p.name_id             as name_id,
+       p.evr_id              as evr_id,
+       m.package_arch_id     as package_arch_id,
+       p.id                  as package_id
+FROM
+    (select max(pe.evr) AS max_evr,
+         cp.channel_id,
+         p.name_id,
+         p.package_arch_id
+        from rhnPackageEVR       pe,
+         rhnPackage          p,
+         rhnChannelPackage   cp
+        where p.evr_id = pe.id
+         and cp.package_id = p.id
+        group by cp.channel_id, p.name_id, p.package_arch_id) m,
+    rhnPackageEVR       pe,
+    rhnPackage          p,
+    rhnChannelPackage   chp
+WHERE m.max_evr = pe.evr
+AND m.name_id = p.name_id
+AND m.package_arch_id = p.package_arch_id
+AND p.evr_id = pe.id
+AND chp.package_id = p.id
+AND chp.channel_id = m.channel_id
 
  
 /

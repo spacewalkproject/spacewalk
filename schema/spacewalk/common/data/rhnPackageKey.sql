@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,47 +15,61 @@
 --
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '5326810137017186', lookup_package_key_type('gpg'), lookup_package_provider('Red Hat Inc.'));
+(sequence_nextval('rhn_pkey_id_seq'), '5326810137017186', lookup_package_key_type('gpg'), lookup_package_provider('Red Hat Inc.'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '219180cddb42a60e', lookup_package_key_type('gpg'), lookup_package_provider('Red Hat Inc.'));
+(sequence_nextval('rhn_pkey_id_seq'), '219180cddb42a60e', lookup_package_key_type('gpg'), lookup_package_provider('Red Hat Inc.'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, 'b44269d04f2a6fd2', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+(sequence_nextval('rhn_pkey_id_seq'), 'b44269d04f2a6fd2', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, 'a8a447dce8562897', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
+(sequence_nextval('rhn_pkey_id_seq'), 'a8a447dce8562897', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '2802e89216ff0e46', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
+(sequence_nextval('rhn_pkey_id_seq'), '2802e89216ff0e46', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, 'a53d0bab443e1821', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
+(sequence_nextval('rhn_pkey_id_seq'), 'a53d0bab443e1821', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '7049e44d025e513b', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
+(sequence_nextval('rhn_pkey_id_seq'), '7049e44d025e513b', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '25dbef78a7048f8d', lookup_package_key_type('gpg'), lookup_package_provider('Scientific Linux'));
+(sequence_nextval('rhn_pkey_id_seq'), '25dbef78a7048f8d', lookup_package_key_type('gpg'), lookup_package_provider('Scientific Linux'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '66ced3de1e5e0159', lookup_package_key_type('gpg'), lookup_package_provider('Oracle Inc.'));
+(sequence_nextval('rhn_pkey_id_seq'), '66ced3de1e5e0159', lookup_package_key_type('gpg'), lookup_package_provider('Oracle Inc.'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '2e2bcdbcb38a8516', lookup_package_key_type('gpg'), lookup_package_provider('Oracle Inc.'));
+(sequence_nextval('rhn_pkey_id_seq'), '2e2bcdbcb38a8516', lookup_package_key_type('gpg'), lookup_package_provider('Oracle Inc.'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, 'a84edae89c800aca', lookup_package_key_type('gpg'), lookup_package_provider('Suse'));
+(sequence_nextval('rhn_pkey_id_seq'), 'a84edae89c800aca', lookup_package_key_type('gpg'), lookup_package_provider('Suse'));
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '1dc5c758d22e77f2', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+(sequence_nextval('rhn_pkey_id_seq'), '1dc5c758d22e77f2', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 
 -- Fedora 12
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '9d1cc34857bbccba', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
-
+(sequence_nextval('rhn_pkey_id_seq'), '9d1cc34857bbccba', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 13
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(rhn_pkey_id_seq.nextval, '95423d4e430a1c35', lookup_package_key_type('gpg'), lookup_package_provider('Spacewalk'));
+(sequence_nextval('rhn_pkey_id_seq'), '7edc6ad6e8e40fde', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 14
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '421caddb97a1071f', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+
+-- Spacewalk
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '95423d4e430a1c35', lookup_package_key_type('gpg'), lookup_package_provider('Spacewalk'));
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'ed635379b3892132', lookup_package_key_type('gpg'), lookup_package_provider('Spacewalk'));
+
+-- RHEL 6
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '199e2f91fd431d51', lookup_package_key_type('gpg'), lookup_package_provider('Red Hat Inc.'));
+
 
 commit;
 

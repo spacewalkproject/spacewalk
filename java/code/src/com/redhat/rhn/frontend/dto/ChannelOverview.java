@@ -166,6 +166,16 @@ public class ChannelOverview extends BaseDto implements Comparable {
     public Long isHasSubscription() {
         return hasSubscription;
     }
+
+    /**
+     * For PostgreSQL we need to accept also Integer and cast it to Long.
+     *
+     * @param hasSubscriptionIn The hasSubscription to set.
+     */
+    public void setHasSubscription(Integer hasSubscriptionIn) {
+        setHasSubscription(new Long(hasSubscriptionIn));
+    }
+
     /**
      * @param hasSubscriptionIn The hasSubscription to set.
      */

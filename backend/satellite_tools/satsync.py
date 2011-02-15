@@ -25,7 +25,6 @@ import string
 import time
 import types
 import exceptions
-import cStringIO
 import locale
 from optparse import Option, OptionParser
 
@@ -33,16 +32,17 @@ import gettext
 _ = gettext.gettext
 
 # __rhn imports__
-from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
+from spacewalk.common import CFG, initCFG, initLOG, exitWithTraceback, rhnMail, \
     rhnLib, rhnFlags
+sys.path.append("/usr/share/rhn")
 from up2date_client import config
 from spacewalk.common import rhn_rpm
 from spacewalk.common.checksum import getFileChecksum
 
-from server import rhnSQL
-from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
-from server.rhnServer import satellite_cert, server_packages
-from server.rhnLib import get_package_path
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
+from spacewalk.server.rhnServer import satellite_cert, server_packages
+from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
 
 initCFG('server.satellite')
@@ -55,17 +55,17 @@ from progress_bar import ProgressBar
 from xmlSource import FatalParseException, ParseException
 from diskImportLib import rpmsPath
 
-from syncLib import log, log2, log2disk, log2stderr, log2email, unique
+from syncLib import log, log2, log2disk, log2stderr, log2email
 from syncLib import RhnSyncException, RpmManip, ReprocessingNeeded
 from syncLib import initEMAIL_LOG, dumpEMAIL_LOG
-from syncLib import FileCreationError, FileManip, intersection
+from syncLib import FileCreationError, FileManip
 
 from SequenceServer import SequenceServer
-from server.importlib.errataCache import schedule_errata_cache_update
+from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 
-from server.importlib.importLib import InvalidChannelFamilyError
-from server.importlib.importLib import MissingParentChannelError
-from server.importlib.importLib import get_nevra, get_nevra_dict
+from spacewalk.server.importlib.importLib import InvalidChannelFamilyError
+from spacewalk.server.importlib.importLib import MissingParentChannelError
+from spacewalk.server.importlib.importLib import get_nevra, get_nevra_dict
 
 import satCerts
 import req_channels
@@ -183,13 +183,13 @@ class Runner:
             initEMAIL_LOG()
 
         # init the synchronization processor
-        self.syncer = Syncer(channels, actionDict['list-channels'],
+        self.syncer = Syncer(channels, actionDict['list-channels'], actionDict['rpms'],
                 forceAllErrata=actionDict['force-all-errata'])
         try:
             self.syncer.initialize()
         except (KeyboardInterrupt, SystemExit):
             raise
-        except xmlWireSource.rpclib.Fault, e:
+        except xmlWireSource.rpclib.xmlrpclib.Fault, e:
             if CFG.ISS_PARENT:  
                 # we met old satellite who do not know ISS
                 log(-1, ['', messages.iss_not_available ], )
@@ -279,7 +279,7 @@ class Runner:
             return 1
         except (KeyboardInterrupt, SystemExit):
             raise
-        except xmlWireSource.rpclib.Fault, e:
+        except xmlWireSource.rpclib.xmlrpclib.Fault, e:
             log(-1, messages.failed_step % (step_name, e.faultString))
             return 1
         except Exception, e:
@@ -313,7 +313,7 @@ class Runner:
         try:
             return self.syncer.processShortPackages()
         except xmlDiskSource.MissingXmlDiskSourceFileError, e:
-            msg= _("ERROR: The dump is missing package data, use --no-rpms to skip this step or fix the content to include package data.")
+            msg = _("ERROR: The dump is missing package data, use --no-rpms to skip this step or fix the content to include package data.")
             log2disk(-1, msg)
             log2stderr(-1, msg, cleanYN=1)
             sys.exit(25)
@@ -377,7 +377,7 @@ class Syncer:
         NOTE: there should *ONLY* be one instance of this.
     """
 
-    def __init__(self, channels, listChannelsYN, forceAllErrata=False):
+    def __init__(self, channels, listChannelsYN, check_rpms, forceAllErrata=False):
         """ Base initialization. Most work done in self.initialize() which
             needs to be called soon after instantiation.
         """
@@ -391,6 +391,7 @@ class Syncer:
         self._systemidPath = OPTIONS.systemid or _DEFAULT_SYSTEMID_PATH
         self._batch_size = OPTIONS.batch_size
         self.xml_dump_version = OPTIONS.dump_version or str(constants.PROTOCOL_VERSION)
+        self.check_rpms = check_rpms
 
         # Object to help with channel math
         self._channel_req = None
@@ -399,10 +400,13 @@ class Syncer:
         self.containerHandler = sync_handlers.ContainerHandler()
 
         # instantiated in self.initialize()
-        self.xmlWireServer = None
+        self.xmlDataServer = None
         self.systemid = None
 
+        # self._*_full hold list of all ids for appropriate channel while
+        # non-full self._* contain every id only once (in first channel it appeared)
         self._channel_packages = {}
+        self._channel_packages_full = {}
         self._avail_channel_packages = {}
 
         self._missing_channel_packages = None
@@ -415,6 +419,7 @@ class Syncer:
         self._missing_channel_errata = {}
 
         self._channel_source_packages = {}
+        self._channel_source_packages_full = {}
 
         self._channel_kickstarts = {}
 
@@ -425,9 +430,10 @@ class Syncer:
         if self.mountpoint:
             log(1, [_('Red Hat Network Satellite - file-system synchronization'),
                     '   mp:  %s' % self.mountpoint])
+            self.xmlDataServer = xmlDiskSource.MetadataDiskSource(self.mountpoint)
         # Sync across the wire:
         else:
-            self.xmlWireServer = xmlWireSource.MetadataWireSource(self.systemid,
+            self.xmlDataServer = xmlWireSource.MetadataWireSource(self.systemid,
                                                     self.sslYN, self.xml_dump_version)
             if CFG.ISS_PARENT:
                 sync_parent = CFG.ISS_PARENT
@@ -437,11 +443,11 @@ class Syncer:
                 sync_parent = CFG.RHN_PARENT
                 is_iss = 0
 
-            url = self.xmlWireServer.schemeAndUrl(sync_parent)
+            url = self.xmlDataServer.schemeAndUrl(sync_parent)
             log(1, [_('Red Hat Network Satellite - live synchronization'),
                     _('   url: %s') % url,
                     _('   debug/output level: %s') % CFG.DEBUG])
-            self.xmlWireServer.setServerHandler(isIss=is_iss)
+            self.xmlDataServer.setServerHandler(isIss=is_iss)
 
             if not self.systemid:
                 # check and fetch systemid (NOTE: systemid kept in memory... may or may not
@@ -459,7 +465,7 @@ class Syncer:
     def __del__(self):
         self.containerHandler.close()
 
-    def _process_simple(self, remote_function_name, disk_class, step_name):
+    def _process_simple(self, remote_function_name, step_name):
         """ Wrapper function that can process metadata that is relatively
             simple. This does the decoding of data (over the wire or from
             disk).
@@ -474,14 +480,8 @@ class Syncer:
         log(1, ["", _("Retrieving / parsing %s data") % step_name])
         # get XML stream
         stream = None
-        if self.mountpoint:
-            # snag from the filesystem
-            dataServer = disk_class(self.mountpoint)
-            stream = dataServer.load()
-        else:
-            # snag from the wire
-            method = getattr(self.xmlWireServer, remote_function_name)
-            stream = method()
+        method = getattr(self.xmlDataServer, remote_function_name)
+        stream = method()
 
         # parse/process XML stream
         try:
@@ -504,24 +504,19 @@ class Syncer:
                 log(-1, _('*** SYSTEM INTERRUPT CALLED ***'), stream=sys.stderr)
                 raise
             else:
-                tbOut = cStringIO.StringIO()
-                Traceback(mail=0, ostream=tbOut, with_locals=1)
-                msg = (_('ERROR: exception (during parse) occurred: ') +
-                       _('%s, TRACEBACK: %s') % (e, tbOut.getvalue()))
+                msg = _('ERROR: exception (during parse) occurred: ')
             log2stderr(-1, _('   Encountered some errors with %s data (see logs (%s) for more information)') % (step_name, CFG.LOG_FILE))
             log2(-1, 3, [_('   Encountered some errors with %s data:') % step_name,
                          _('   ------- %s PARSE/IMPORT ERROR -------') % step_name,
                          '   %s' % msg,
                          _('   ---------------------------------------')], stream=sys.stderr)
-            sys.exit(11)
+            exitWithTraceback(e, '', 11)
         self.containerHandler.reset()
         log(1, _("%s data complete") % step_name)
 
     def processArches(self):
-        self._process_simple("getArchesXmlStream",
-            xmlDiskSource.ArchesDiskSource, "arches")
-        self._process_simple("getArchesExtraXmlStream",
-            xmlDiskSource.ArchesExtraDiskSource, "additional arches")
+        self._process_simple("getArchesXmlStream", "arches")
+        self._process_simple("getArchesExtraXmlStream", "additional arches")
 
     def syncCert(self):
         "sync the RHN satellite cert if applicable (to local DB & filesystem)"
@@ -544,7 +539,7 @@ class Syncer:
                 cert = row['cert']
                 return self._process_cert(cert, store_cert=0)
         else:
-            log2(1, 3, ["",_("RHN Entitlement Certificate sync")])
+            log2(1, 3, ["", _("RHN Entitlement Certificate sync")])
             certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN,
                                                       self.xml_dump_version)
             cert = string.strip(certSource.download())
@@ -600,9 +595,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log2(1, 3, _("RHN Entitlement Certificate sync complete"))
 
     def processChannelFamilies(self):
-        self._process_simple("getChannelFamilyXmlStream",
-                             xmlDiskSource.ChannelFamilyDiskSource,
-                             "channel-families")
+        self._process_simple("getChannelFamilyXmlStream", "channel-families")
 
     def _set_comps_for_channel(self, backend, channel_id, path, timestamp):
         sth = backend.dbmodule.prepare("""
@@ -630,12 +623,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
         full_path = os.path.join(CFG.MOUNT_POINT, comps_path)
         if not os.path.exists(full_path):
-            if self.mountpoint:
-                sourcer = xmlDiskSource.ChannelCompsDiskSource(self.mountpoint)
-                sourcer.setChannel(label)
-                stream = sourcer.load()
-            elif CFG.ISS_PARENT:
-                stream  = self.xmlWireServer.getComps(label)
+            if self.mountpoint or CFG.ISS_PARENT:
+                stream  = self.xmlDataServer.getComps(label)
             else:
                 rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version)
                 stream = rpmServer.getCompsFileStream(label)
@@ -654,20 +643,14 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         h = sync_handlers.get_channel_handler()
 
         # get channel XML stream
-        dataServer = None
+        stream = self.xmlDataServer.getChannelXmlStream([])
         if self.mountpoint:
-            dataServer = xmlDiskSource.ChannelDiskSource(self.mountpoint)
-            channels = dataServer.list()
-            for c in channels:
-                dataServer.setChannel(c)
-                stream = dataServer.load()
-                h.process(stream)
-            doEOSYN=0
+            for substream in stream:
+                h.process(substream)
+            doEOSYN = 0
         else:
-            dataServer = self.xmlWireServer.getChannelXmlStream
-            stream = dataServer([])
             h.process(stream)
-            doEOSYN=1
+            doEOSYN = 1
 
         h.close()
 
@@ -715,21 +698,31 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         if 'export-type' not in channel or channel['export-type'] is None:
             return ''
         else:
-             export_type = channel['export-type']
+            export_type = channel['export-type']
         if 'export-start-date' in channel and channel['export-start-date'] is not None:
-             start_date = channel['export-start-date']
+            start_date = channel['export-start-date']
         else:
-             start_date = ''
+            start_date = ''
         if 'export-end-date' in channel and channel['export-end-date'] is not None:
-             end_date = channel['export-end-date']
+            end_date = channel['export-end-date']
         else:
-             end_date = ''
+            end_date = ''
         if end_date and not start_date:
-             return _("%10s import from %s") % (export_type, self._formatDateTime(end_date))
+            return _("%10s import from %s") % (export_type, self._formatDateTime(end_date))
         elif end_date and start_date:
-             return _("%10s import from %s - %s") % (export_type, self._formatDateTime(start_date), self._formatDateTime(end_date))
+            return _("%10s import from %s - %s") % (export_type, self._formatDateTime(start_date), self._formatDateTime(end_date))
         else:
-             return _("%10s") % export_type
+            return _("%10s") % export_type
+
+    def _printChannel(self, label, channel_object, format, is_imported):
+        assert channel_object is not None
+        all_pkgs = channel_object['all-packages'] or channel_object['packages']
+        pkgs_count = len(all_pkgs)
+        if is_imported:
+            status = _('p')
+        else:
+            status = _('.')
+        log(1, format % (status, label, pkgs_count, self._formatChannelExportType(channel_object)))
 
     def _printChannelTree(self, doEOSYN=1, doTyposYN=1):
         "pretty prints a tree of channel information"
@@ -745,7 +738,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         if doTyposYN and ch_typos:
             log(1, _('   ? = channel label invalid --- typo?'))
 
-        pc_labels = self._channel_collection.get_parent_channel_labels()
+        pc_labels = sorted(self._channel_collection.get_parent_channel_labels())
 
         t_format = _('   %s:')
         p_format = _('      %s %-40s %4s %s')
@@ -758,14 +751,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             timestamp = self._channel_collection.get_channel_timestamp(plabel)
             channel_object = self._channel_collection.get_channel(plabel,
                 timestamp)
-            assert channel_object is not None
-            all_pkgs = channel_object['all-packages'] or channel_object['packages']
-            pkgs_count = len(all_pkgs)
-            if plabel in ch_requested_imported:
-                status = _('p')
-            else:
-                status = _('.')
-            log(1, p_format % (status, plabel, pkgs_count, self._formatChannelExportType(channel_object)))
+            self._printChannel(plabel, channel_object, p_format, (plabel in ch_requested_imported))
 
         # Relevant parent channels
         for plabel in pc_labels:
@@ -784,18 +770,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 # No child channels, skip
                 continue
             log(1, t_format % plabel)
-            for clabel, ctimestamp in chns:
+            for clabel, ctimestamp in sorted(chns):
                 channel_object = self._channel_collection.get_channel(clabel,
                     ctimestamp)
-                assert channel_object is not None
-                all_pkgs = channel_object['all-packages'] or channel_object['packages']
-                pkgs_count = len(all_pkgs)
-
-                if clabel in ch_requested_imported:
-                    status = _('p')
-                else:
-                    status = _('.')
-                log(1, p_format % (status, clabel, pkgs_count, self._formatChannelExportType(channel_object)))
+                self._printChannel(clabel, channel_object, p_format, (clabel in ch_requested_imported))
         log(2, '')
 
         if doEOSYN and ch_end_of_service:
@@ -850,11 +828,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         return rc
 
     def processBlacklists(self):
-        self._process_simple("getBlacklistsXmlStream",
-          xmlDiskSource.BlacklistsDiskSource, "blacklists")
+        self._process_simple("getBlacklistsXmlStream", "blacklists")
         try:
-            self._process_simple("getProductNamesXmlStream",
-	            xmlDiskSource.ProductnamesDiskSource, "product names")
+            self._process_simple("getProductNamesXmlStream", "product names")
         except Exception:
             None
 
@@ -868,17 +844,23 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
     def _compute_unique_packages(self):
         """ process package metadata for one channel at a time """
-        relevant = self._channel_req.get_requested_channels()
+        relevant = sorted(self._channel_req.get_requested_channels())
         self._channel_packages = {}
+        self._channel_packages_full = {}
         self._avail_channel_packages = {}
+        already_seen_ids = set()
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             avail_package_ids = sorted(set(channel_obj['packages'] or []))
-            package_ids = sorted(set(channel_obj['all-packages'] or [])) or avail_package_ids
+            package_full_ids = sorted(set(channel_obj['all-packages'] or [])) or avail_package_ids
+            package_ids = sorted(set(package_full_ids) - already_seen_ids)
+
             self._channel_packages[chn] = package_ids
+            self._channel_packages_full[chn] = package_full_ids
             self._avail_channel_packages[chn] = avail_package_ids
+            already_seen_ids.update(package_ids)
 
     def processShortPackages(self):
         log(1, ["", "Retrieving short package metadata (used for indexing)"])
@@ -886,28 +868,23 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # Compute the unique packages and populate self._channel_packages
         self._compute_unique_packages()
 
-        h = sync_handlers.get_short_package_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.ShortPackageDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getChannelShortPackagesXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_short_package_handler(),
+                self.xmlDataServer, 'getChannelShortPackagesXmlStream')
 
-        # OK, now uq_channel_packages only has the unique packages
-        for channel_label, package_ids in self._channel_packages.items():
-            # Pretend we fetch all packages
+        sorted_channels = sorted(self._channel_packages.items(), key=lambda x: x[0]) # sort by channel_label
+        for channel_label, package_ids in sorted_channels:
             log(1, _("   Retrieving / parsing short package metadata: %s (%s)") %
                 (channel_label, len(package_ids)))
 
-            lm = self._channel_collection.get_channel_timestamp(channel_label)
-            channel_last_modified = int(rhnLib.timestamp(lm))
+            if package_ids:
+                lm = self._channel_collection.get_channel_timestamp(channel_label)
+                channel_last_modified = int(rhnLib.timestamp(lm))
 
-            stream_loader.set_args(channel_label, channel_last_modified)
-            stream_loader.process(package_ids)
+                stream_loader.set_args(channel_label, channel_last_modified)
+                stream_loader.process(package_ids)
 
-        h.close()
+        stream_loader.close()
 
         self._diff_packages()
 
@@ -922,59 +899,52 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                (p.org_id is null and :org_id is null))
            and p.checksum_id = c.id
     """
+
+    def _diff_packages_process(self, chunk, channel_label):
+        package_collection = sync_handlers.ShortPackageCollection()
+
+        h = rhnSQL.prepare(self._query_compare_packages)
+        for pid in chunk:
+            p_timestamp = package_collection.get_package_timestamp(pid)
+            l_timestamp = rhnLib.timestamp(p_timestamp)
+            package = package_collection.get_package(pid, p_timestamp)
+            assert package is not None
+
+            if package['org_id'] is not None:
+                package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
+            nevra = get_nevra_dict(package)
+            nevra['org_id'] = package['org_id']
+
+            h.execute(**nevra)
+            row = None
+            for r in (h.fetchall_dict() or []):
+                # let's check which checksum we have in database
+                if package['checksums'][r['checksum_type']] == r['checksum']:
+                    row = r
+                    break
+
+            self._process_package(pid, package, l_timestamp, row,
+                self._missing_channel_packages[channel_label],
+                self._missing_fs_packages[channel_label],
+                source=0, check_rpms=self.check_rpms)
+
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
-        package_collection = sync_handlers.ShortPackageCollection()
-        h = rhnSQL.prepare(self._query_compare_packages)
+        self._missing_channel_packages = {}
+        self._missing_fs_packages = {}
 
-        missing_channel_packages = {}
-        missing_fs_packages = {}
-
-        for channel_label, upids in self._channel_packages.items():
+        sorted_channels = sorted(self._channel_packages.items(), key=lambda x: x[0]) # sort by channel_label
+        for channel_label, upids in sorted_channels:
             log(1, _("Diffing package metadata (what's missing locally?): %s") %
                 channel_label)
-            m_channel_packages = missing_channel_packages[channel_label] = []
-            m_fs_packages = missing_fs_packages[channel_label] = []
-            pb = ProgressBar(prompt=_('Diffing:    '), endTag=_(' - complete'),
-                finalSize=len(upids), finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
+            self._missing_channel_packages[channel_label] = []
+            self._missing_fs_packages[channel_label] = []
+            self._proces_batch(channel_label, upids[:], None,
+                                self._diff_packages_process,
+                                _('Diffing:    '),
+                                [channel_label])
 
-            if not upids:
-                pb.printComplete()
-                continue
-
-            for pid in upids:
-                p_timestamp = package_collection.get_package_timestamp(pid)
-                l_timestamp = rhnLib.timestamp(p_timestamp)
-                package = package_collection.get_package(pid, p_timestamp)
-                assert package is not None
-
-                if package['org_id'] is not None:
-                    package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
-                nevra = get_nevra_dict(package)
-                nevra['org_id'] = package['org_id']
-
-                h.execute(**nevra)
-                row = None
-                for r in (h.fetchall_dict() or []):
-                    # let's check which checksum we have in database
-                    if package['checksums'][r['checksum_type']] == r['checksum']:
-                       row = r
-                       break
-
-                # Update the progress bar
-                pb.addTo(1)
-                pb.printIncrement()
-                self._process_package(pid, package, l_timestamp, row,
-                    m_channel_packages, m_fs_packages, source=0)
-            pb.printComplete()
-
-        self._verify_missing_channel_packages(missing_channel_packages)
-
-        self._missing_channel_packages = missing_channel_packages
-        self._missing_fs_packages = missing_fs_packages
+        self._verify_missing_channel_packages(self._missing_channel_packages)
 
     def _verify_missing_channel_packages(self, missing_channel_packages, sources=0):
         """Verify if all the missing packages are actually available somehow.
@@ -982,12 +952,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         not available in the current dump, probably because of applying an
         incremental to the wrong base"""
         for channel_label, pids in missing_channel_packages.items():
-	    if sources:
-		avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
-	    else:
-		avail_pids = self._avail_channel_packages[channel_label]
-            comm, ul, ur = intersection(pids, avail_pids)
-            if ul:
+            if sources:
+                avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
+            else:
+                avail_pids = self._avail_channel_packages[channel_label]
+
+            if set(pids or []) > set(avail_pids or []):
                 raise RhnSyncException, _('ERROR: incremental dump skipped')
 
     def _get_rel_package_path(self, nevra, org_id, source, checksum_type, checksum):
@@ -1029,7 +999,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         return 0
 
     def _process_package(self, package_id, package, l_timestamp, row,
-            m_channel_packages, m_fs_packages, source=0):
+            m_channel_packages, m_fs_packages, source=0, check_rpms=1):
         path = None
         channel_package = None
         fs_package      = None
@@ -1046,24 +1016,25 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 db_path = row['path']
 
                 if not (l_timestamp <= db_timestamp and
-                        checksum == db_checksum and
-                        package_size == db_package_size):
-                        # package doesn't match
-                        channel_package = package_id
-
-                if db_path:
-                    # check the filesystem
-                    errcode = self._verify_file(db_path, l_timestamp,
-                            package_size, checksum_type, checksum)
-                    if errcode:
-                        # file doesn't match
-                        fs_package = package_id
-                        channel_package = package_id
-                    path = db_path
-                else:
-                    # upload package and reimport metadata
+                    checksum == db_checksum and
+                    package_size == db_package_size):
+                    # package doesn't match
                     channel_package = package_id
-                    fs_package = package_id
+
+                if check_rpms:
+                    if db_path:
+                        # check the filesystem
+                        errcode = self._verify_file(db_path, l_timestamp,
+                                package_size, checksum_type, checksum)
+                        if errcode:
+                            # file doesn't match
+                            fs_package = package_id
+                            channel_package = package_id
+                        path = db_path
+                    else:
+                        # upload package and reimport metadata
+                        channel_package = package_id
+                        fs_package = package_id
         else:
             # package is missing from the DB
             channel_package = package_id
@@ -1078,7 +1049,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def download_rpms(self):
         log(1, ["", _("Downloading rpm packages")])
         # Lets go fetch the packages and push them to their proper location:
-        for channel, missing_fs_packages in self._missing_fs_packages.items():
+        sorted_channels = sorted(self._missing_fs_packages.items(), key=lambda x: x[0]) # sort by channel
+        for channel, missing_fs_packages in sorted_channels:
             missing_packages_count = len(missing_fs_packages)
             log(1, _("   Fetching any missing RPMs: %s (%s)") %
                 (channel, missing_packages_count or _('NONE MISSING')))
@@ -1098,7 +1070,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # First, determine what has to be downloaded
         short_package_collection = sync_handlers.ShortPackageCollection()
         package_collection = sync_handlers.PackageCollection()
-        for channel, pids in self._channel_packages.items():
+        for channel, pids in self._missing_channel_packages.items():
             missing_packages[channel] = mp = []
 
             if not pids:
@@ -1119,41 +1091,15 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # Get the missing but uncached packages
         missing_packages = self._missing_not_cached_packages()
 
-        h = sync_handlers.get_package_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.PackageDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getPackageXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_package_handler(),
+                self.xmlDataServer, 'getPackageXmlStream')
 
-        for channel, pids in missing_packages.items():
-            package_count = len(pids)
-
-            log(1, messages.package_parsing % (channel,
-                package_count or _('NONE RELEVANT')))
-            if not package_count:
-                continue
-            log(1, messages.warning_slow)
-
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=package_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(pids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
-
-        h.close()
+        sorted_channels = sorted(missing_packages.items(), key=lambda x: x[0]) # sort by channel
+        for channel, pids in sorted_channels:
+            self._proces_batch(channel, pids[:], messages.package_parsing,
+                               stream_loader.process, is_slow=True)
+        stream_loader.close()
 
         # Double-check that we got all the packages
         missing_packages = self._missing_not_cached_packages()
@@ -1168,7 +1114,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         self._diff_source_packages()
         log(1, ["", _("Downloading srpm packages")])
         # Lets go fetch the source packages and push them to their proper location:
-        for channel, missing_fs_source_packages in self._missing_fs_source_packages.items():
+        sorted_channels = sorted(self._missing_fs_source_packages.items(), key=lambda x: x[0]) # sort by channel_label
+        for channel, missing_fs_source_packages in sorted_channels:
             missing_source_packages_count = len(missing_fs_source_packages)
             log(1, _("   Fetching any missing SRPMs: %s (%s)") %
                 (channel, missing_source_packages_count or _('NONE MISSING')))
@@ -1186,7 +1133,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         self._channel_source_packages = {}
+        self._channel_source_packages_full = {}
         self._avail_channel_source_packages = {}
+
+        already_seen_ids = set()
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
@@ -1204,8 +1154,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     ret_sps.append((sp['id'], sp['last_modified']))
             del sps
             ret_sps.sort()
-            self._channel_source_packages[chn] = ret_sps
+            self._channel_source_packages[chn] = sorted(set(ret_sps)-already_seen_ids)
+            self._channel_source_packages_full[chn] = ret_sps
             self._avail_channel_source_packages[chn] = ret_sps
+            already_seen_ids.update(ret_sps)
 
     def _compute_not_cached_source_packages(self):
         missing_sps = {}
@@ -1213,17 +1165,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # First, determine what has to be downloaded
         sp_collection = sync_handlers.SourcePackageCollection()
         for channel, sps in self._channel_source_packages.items():
-            missing_sps[channel] = mp = []
-
+            missing_sps[channel] = []
             if not sps:
                 # Nothing to see here
                 continue
-
-            for (sp_id, timestamp) in sps:
-                # XXX Catch errors
-                if not sp_collection.has_package(sp_id, timestamp):
-                    mp.append(sp_id)
-
+            missing_sps[channel] = [sp_id for (sp_id, timestamp) in sps
+                                          if not sp_collection.has_package(sp_id, timestamp)]
         return missing_sps
 
     _query_compare_source_packages = """
@@ -1237,57 +1184,45 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
            and c.checksum = :checksum
            and c.checksum_type = :checksum_type
     """
-    # XXX the "is null" condition will have to change in multiorg satellites
-    def _diff_source_packages(self):
+    def _diff_source_packages_process(self, chunk, channel_label):
         package_collection = sync_handlers.SourcePackageCollection()
         sql_params = ['package_id', 'checksum', 'checksum_type']
         h = rhnSQL.prepare(self._query_compare_source_packages)
+        for pid, timestamp in chunk:
+            package = package_collection.get_package(pid, timestamp)
+            assert package is not None
 
-        missing_channel_source_packages = {}
-        missing_fs_source_packages = {}
+            params = {}
+            for t in sql_params:
+                params[t] = package[t] or ""
 
+            if package['org_id'] is not None:
+                params['org_id'] = OPTIONS.orgid or DEFAULT_ORG
+                package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
+            else:
+                params['org_id'] = package['org_id']
+
+            apply(h.execute, (), params)
+            row = h.fetchone_dict()
+            self._process_package(pid, package, None, row,
+                self._missing_channel_source_packages[channel_label],
+                self._missing_fs_source_packages[channel_label],
+                source=1)
+
+    # XXX the "is null" condition will have to change in multiorg satellites
+    def _diff_source_packages(self):
+        self._missing_channel_source_packages = {}
+        self._missing_fs_source_packages = {}
         for channel_label, upids in self._channel_source_packages.items():
             log(1, _("Diffing source package metadata (what's missing locally?): %s") % channel_label)
-            m_channel_source_packages = missing_channel_source_packages[channel_label] = []
-            m_fs_source_packages = missing_fs_source_packages[channel_label] = []
-            pb = ProgressBar(prompt=_('Diffing:    '), endTag=_(' - complete'),
-                finalSize=len(upids), finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
+            self._missing_channel_source_packages[channel_label] = []
+            self._missing_fs_source_packages[channel_label] = []
+            self._proces_batch(channel_label, upids[:], None,
+                                         self._diff_source_packages_process,
+                                         _('Diffing:    '),
+                                         [channel_label])
 
-            if not upids:
-                pb.printComplete()
-                continue
-
-            for pid, timestamp in upids:
-                package = package_collection.get_package(pid, timestamp)
-                assert package is not None
-
-                params = {}
-                for t in sql_params:
-                    params[t] = package[t] or ""
-
-                if package['org_id'] is not None:
-                    params['org_id'] = OPTIONS.orgid or DEFAULT_ORG
-                    package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
-                else:
-                    params['org_id'] = package['org_id']
-
-                apply(h.execute, (), params)
-                row = h.fetchone_dict()
-                # Update the progress bar
-                pb.addTo(1)
-                pb.printIncrement()
-              # print "process package:", package['name']
-                self._process_package(pid, package, None, row,
-                    m_channel_source_packages, m_fs_source_packages, source=1)
-            pb.printComplete()
-
-        self._verify_missing_channel_packages(missing_channel_source_packages, sources=1)
-
-        self._missing_channel_source_packages = missing_channel_source_packages
-        self._missing_fs_source_packages = missing_fs_source_packages
+        self._verify_missing_channel_packages(self._missing_channel_source_packages, sources=1)
 
     def download_source_package_metadata(self):
         log(1, ["", _("Downloading source package metadata")])
@@ -1295,41 +1230,14 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # Get the missing but uncached packages
         missing_packages = self._compute_not_cached_source_packages()
 
-        h = sync_handlers.get_source_package_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.SourcePackageDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getSourcePackageXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_source_package_handler(),
+                self.xmlDataServer, 'getSourcePackageXmlStream')
 
         for channel, pids in missing_packages.items():
-            package_count = len(pids)
-
-            log(1, messages.package_parsing % (channel,
-                package_count or _('NONE RELEVANT')))
-            if not package_count:
-                continue
-            log(1, _("   * WARNING: this may be a very slow process."))
-
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=package_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(pids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
-
-        h.close()
+            self._proces_batch(channel, pids[:], messages.package_parsing,
+                               stream_loader.process, is_slow=True)
+        stream_loader.close()
 
         # Double-check that we got all the packages
         missing_packages = self._compute_not_cached_source_packages()
@@ -1343,25 +1251,21 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         self._channel_kickstarts = {}
+        already_seen_kickstarts = set()
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             self._channel_kickstarts[chn] = \
-			sorted(set(channel_obj['kickstartable_trees'] or []))
-
-    _query_get_kickstarts = rhnSQL.Statement("""
-        select TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnKickstartableTree
-         where label = :label
-    """)
+			sorted(set(channel_obj['kickstartable_trees'])
+                               - already_seen_kickstarts)
+            already_seen_kickstarts.update(self._channel_kickstarts[chn])
 
     def _compute_missing_kickstarts(self):
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         coll = sync_handlers.KickstartableTreesCollection()
         missing_kickstarts = {}
-        h = rhnSQL.Statement(self._query_get_kickstarts)
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
@@ -1378,26 +1282,34 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 # Once we add it, we should be able to do more meaningful
                 # diffs
                 missing_kickstarts[kt_label] = None
-                continue
-
-                timestamp = int(rhnLib.timestamp(kt['last_modified']))
-
-                h.execute(label=kt_label)
-                row = h.fetchone_dict()
-                if not row:
-                    # Missing
-                    missing_kickstarts[kt_label] = timestamp
-                    continue
-
-                db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-                if timestamp != db_timestamp:
-                    # Different timestamp
-                    missing_kickstarts[kt_label] = timestamp
-                    continue
 
         ret = missing_kickstarts.items()
         ret.sort()
         return ret
+
+    def _download_kickstarts_file(self, chunk, channel_label):
+        cfg = config.initUp2dateConfig()
+        assert len(chunk) == 1
+        item = chunk[0]
+        label, base_path, relative_path, timestamp, file_size = item
+        path = os.path.join(base_path, relative_path)
+        f = FileManip(path, timestamp=timestamp, file_size=file_size)
+        # Retry a number of times, we may have network errors
+        for i in range(cfg['networkRetries']):
+            stream = self._get_ks_file_stream(channel_label, label, relative_path)
+            try:
+                f.write_file(stream)
+                break # inner for
+            except FileCreationError, e:
+                msg = e[0]
+                log2disk(-1, _("Unable to save file %s: %s") % (path,
+                    msg))
+                # Try again
+                continue
+        else: # for
+            # Retried a number of times and it still failed; log the
+            # file as being failed and move on
+            log2disk(-1, _("Failed to fetch file %s") % path)
 
     def download_kickstarts(self):
         """Downloads all the kickstart-related information"""
@@ -1406,89 +1318,24 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         self._compute_unique_kickstarts()
 
-        h = sync_handlers.get_kickstarts_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.KickstartDataDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getKickstartsXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_kickstarts_handler(),
+                self.xmlDataServer, 'getKickstartsXmlStream')
 
         for channel, ktids in self._channel_kickstarts.items():
-            kt_count = len(ktids)
-
-            log(1, messages.kickstart_parsing % (channel,
-                kt_count or _('NONE RELEVANT')))
-            if not kt_count:
-                continue
-
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=kt_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(ktids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
-
-        h.close()
+            self._proces_batch(channel, ktids[:], messages.kickstart_parsing,
+                               stream_loader.process)
+        stream_loader.close()
 
         missing_ks_files = self._compute_missing_ks_files()
 
         log(1, ["", _("Downloading kickstartable trees files")])
-        cfg = config.initUp2dateConfig()
-        for channel, files in missing_ks_files.items():
-            files_count = len(files)
-
-            log(1, messages.kickstart_downloading % (channel,
-                files_count or _('NONE RELEVANT')))
-            if not files_count:
-                continue
-
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=files_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(files[:], nevermorethan=1)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                assert item_count == 1
-                item = chunk[0]
-                label, base_path, relative_path, timestamp, file_size = item
-                path = os.path.join(base_path, relative_path)
-                f = FileManip(path, timestamp=timestamp, file_size=file_size)
-                # Retry a number of times, we may have network errors
-                for i in range(cfg['networkRetries']):
-                    stream = self._get_ks_file_stream(channel, label, relative_path)
-                    try:
-                        f.write_file(stream)
-                        break # inner for
-                    except FileCreationError, e:
-                        msg = e[0]
-                        log2disk(-1, _("Unable to save file %s: %s") % (path,
-                            msg))
-                        # Try again
-                        continue
-                else: # for
-                    # Retried a number of times and it still failed; log the
-                    # file as being failed and move on
-                    log2disk(-1, _("Failed to fetch file %s") % path)
-
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+        sorted_channels = sorted(missing_ks_files.items(), key=lambda x: x[0]) # sort by channel
+        for channel, files in sorted_channels:
+            self._proces_batch(channel, files[:], messages.kickstart_downloading,
+                               self._download_kickstarts_file,
+                               nevermorethan=1,
+                               process_function_args=[channel])
 
     def _get_ks_file_stream(self, channel, kstree_label, relative_path):
         if self.mountpoint:
@@ -1498,7 +1345,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             return s.load()
 
         if CFG.ISS_PARENT:
-            return self.xmlWireServer.getKickstartFile(kstree_label, relative_path)
+            return self.xmlDataServer.getKickstartFile(kstree_label, relative_path)
         else:
             srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN,
                                                  self.xml_dump_version)
@@ -1563,18 +1410,13 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # First, determine what has to be downloaded
         errata_collection = sync_handlers.ErrataCollection()
         for channel, errata in self._channel_errata.items():
-            missing_errata[channel] = mp = []
-
+            missing_errata[channel] = []
             if not errata:
                 # Nothing to see here
                 continue
-
-            for (eid, timestamp, advisory_name) in errata:
-                # XXX Catch errors
-                if not errata_collection.has_erratum(eid, timestamp) or \
-                    self.forceAllErrata:
-                    mp.append(eid)
-
+            missing_errata[channel] = [eid for (eid, timestamp, advisory_name) in errata
+                                               if not errata_collection.has_erratum(eid, timestamp)
+                                                  or self.forceAllErrata]
         return missing_errata
 
     _query_get_db_errata = rhnSQL.Statement("""
@@ -1645,8 +1487,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             channel_errata[chn] = errata
 
         # Uniquify the errata
+        already_seen_errata = set()
         for channel, errata in channel_errata.items():
-            self._channel_errata[channel] = sorted(list(set(errata)))
+            uq_errata = set(errata) - already_seen_errata
+            self._channel_errata[channel] = sorted(uq_errata)
+            already_seen_errata.update(uq_errata)
 
     def _diff_db_errata(self):
         """ Compute errata that are missing from the satellite
@@ -1678,45 +1523,67 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             log(2, _("Forcing download of all errata data for requested channels."))
         self._diff_errata()
         not_cached_errata = self._compute_not_cached_errata()
-        h = sync_handlers.get_errata_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.ErrataDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getErrataXmlStream
-            stream_loader.set_wire_loader(s)
+        stream_loader = StreamProducer(
+                sync_handlers.get_errata_handler(),
+                self.xmlDataServer, 'getErrataXmlStream')
 
-        for channel, erratum_ids in not_cached_errata.items():
-            erratum_count = len(erratum_ids)
-            log(1, messages.erratum_parsing % (channel, erratum_count))
-            if not erratum_count:
-                log(2, _("    * no new relevant errata for this channel"))
-                continue
-
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=erratum_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(erratum_ids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
-
-        h.close()
+        sorted_channels = sorted(not_cached_errata.items(), key=lambda x: x[0]) # sort by channel
+        for channel, erratum_ids in sorted_channels:
+            self._proces_batch(channel, erratum_ids[:], messages.erratum_parsing,
+                               stream_loader.process)
+        stream_loader.close()
         # XXX This step should go away once the channel info contains the
         # errata timestamps and advisory names
         self._diff_db_errata()
         log(1, _("Downloading errata data complete"))
 
     # __private methods__
+    def _processWithProgressBar(self, batch, size,
+                                process_function,
+                                prompt=_('Downloading:'),
+                                nevermorethan=None,
+                                process_function_args=[]):
+        pb = ProgressBar(prompt=prompt, endTag=_(' - complete'),
+                finalSize=size, finalBarLength=40, stream=sys.stdout)
+        if CFG.DEBUG > 2:
+            pb.redrawYN = 0
+        pb.printAll(1)
+
+        ss = SequenceServer(batch, nevermorethan=(nevermorethan or self._batch_size))
+        while not ss.doneYN():
+            chunk = ss.getChunk()
+            item_count = len(chunk)
+            process_function(chunk, *process_function_args)
+            ss.clearChunk()
+            pb.addTo(item_count)
+            pb.printIncrement()
+        pb.printComplete()
+
+    def _proces_batch(self, channel, batch, log_msg,
+                      process_function,
+                      prompt=_('Downloading:'),
+                      process_function_args=[],
+                      nevermorethan=None,
+                      is_slow=False):
+        count = len(batch)
+        if log_msg:
+            log(1, log_msg % (channel, count or _('NONE RELEVANT')))
+        if not count:
+            return
+        if is_slow:
+            log(1, messages.warning_slow)
+        self._processWithProgressBar(batch, count, process_function,
+                        prompt, nevermorethan, process_function_args)
+
+    def _import_packages_process(self, chunk, sources):
+        batch = self._get_cached_package_batch(chunk, sources)
+        # check to make sure the orgs exported are valid
+        _validate_package_org(batch)
+        try:
+            sync_handlers.import_packages(batch, sources)
+        except (SQLError, SQLSchemaError, SQLConnectError), e:
+            # an SQL error is fatal... crash and burn
+            exitWithTraceback(e, 'Exception caught during import', 13)
 
     def import_packages(self, sources=0):
         if sources:
@@ -1726,73 +1593,21 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             log(1, ["", _("Importing package metadata")])
             missing_channel_items = self._missing_channel_packages
 
-        for channel, packages in missing_channel_items.items():
-            package_count = len(packages)
-
-            log(1, messages.package_importing % (channel,
-                package_count or _('NONE RELEVANT')))
-            if not package_count:
-                continue
-            log(1, messages.warning_slow)
-            pb = ProgressBar(prompt=_('Importing:  '), endTag=_(' - complete'),
-                finalSize=package_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(packages[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                batch = self._get_cached_package_batch(chunk, sources)
-                # check to make sure the orgs exported are valid
-                _validate_package_org(batch)
-                try:
-                    sync_handlers.import_packages(batch, sources)
-                except (SQLError, SQLSchemaError, SQLConnectError), e:
-                    tbOut = cStringIO.StringIO()
-                    Traceback(mail=0, ostream=tbOut, with_locals=1)
-                    log(-1, _('ERROR: %s Exception caught during import: %s') %
-                        (e.__class__.__name__, e), stream=sys.stderr)
-                    log(-1, _('TRACEBACK: %s') % tbOut.getvalue(),
-                        stream=sys.stderr)
-                    # an SQL error is fatal... crash and burn
-                    sys.exit(13)
-                ss.clearChunk()
-                pb.addTo(ss.returnedChunksize)
-                pb.printIncrement()
-            self._import_package_signatures(packages, channel)
-            pb.printComplete()
+        sorted_channels = sorted(missing_channel_items.items(), key=lambda x: x[0]) # sort by channel
+        for channel, packages in sorted_channels:
+            self._proces_batch(channel, packages[:],
+                        messages.package_importing,
+                        self._import_packages_process,
+                        _('Importing:  '),
+                        [sources])
         return self._link_channel_packages()
-
-    def _import_package_signatures(self, packages, channel):
-        for pkg in packages:
-            pkg_dicts = self._lookup_pkgs_by_path(pkg[1])
-            if not pkg_dicts:
-                continue
-            for pkgd in pkg_dicts:
-                full_path = os.path.join(CFG.MOUNT_POINT, pkgd['path'])
-                if os.path.exists(full_path):
-                    header = rhn_rpm.get_package_header(filename=full_path)
-                    server_packages.processPackageKeyAssociations(header,
-                                     pkgd['checksum_type'], pkgd['checksum'])
-
-    def _lookup_pkgs_by_path(self, path):
-       h = rhnSQL.prepare("""select P.id, P.path, CV.checksum, CV.checksum_type
-                               from rhnPackage P left join
-                                    rhnPackageKeyAssociation PA on  PA.package_id = P.id inner join
-                                    rhnChecksumView CV on CV.id = P.checksum_id
-                              where p.path = :path and PA.key_id is null""")
-       h.execute(path=path)
-       return h.fetchall_dict()
-
-
 
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])
         short_package_collection = sync_handlers.ShortPackageCollection()
         package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
-        for chn, package_ids in self._channel_packages.items():
+        for chn, package_ids in self._channel_packages_full.items():
             for pid in package_ids:
                 timestamp = short_package_collection.get_package_timestamp(pid)
                 package = short_package_collection.get_package(pid, timestamp)
@@ -1817,13 +1632,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             else:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data)
         except (SQLError, SQLSchemaError, SQLConnectError), e:
-            tbOut = cStringIO.StringIO()
-            Traceback(mail=0, ostream=tbOut, with_locals=1)
-            log(-1, _('ERROR: %s Exception caught during import: %s') %
-                (e.__class__.__name__, e), stream=sys.stderr)
-            log(-1, _('TRACEBACK: %s') % tbOut.getvalue(), stream=sys.stderr)
             # an SQL error is fatal... crash and burn
-            sys.exit(14)
+            exitWithTraceback(e, 'Exception caught during import', 14)
         return importer.affected_channels
 
     def _get_cached_package_batch(self, chunk, sources=0):
@@ -1849,7 +1659,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def import_errata(self):
         log(1, ["", _("Importing channel errata")])
         errata_collection = sync_handlers.ErrataCollection()
-        for chn, errata in self._missing_channel_errata.items():
+        sorted_channels = sorted(self._missing_channel_errata.items(), key=lambda x: x[0]) # sort by channel_label
+        for chn, errata in sorted_channels:
             log(2, _("Importing %s errata for channel %s.") % (len(errata), chn))
             batch = []
             for eid, timestamp, advisory_name in errata:
@@ -1860,32 +1671,13 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     self._fix_erratum(erratum)
                     batch.append(erratum)
 
-            errata_count = len(batch)
-            log(1, messages.errata_importing % (chn,
-                errata_count or _('NONE RELEVANT')))
-            if not errata_count:
-                continue
-
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=errata_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(batch, nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                sync_handlers.import_errata(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+            self._proces_batch(chn, batch, messages.errata_importing,
+                        sync_handlers.import_errata)
 
     def _fix_erratum(self, erratum):
         """ Replace the list of packages with references to short packages"""
         sp_coll = sync_handlers.ShortPackageCollection()
-        pids = unique(erratum['packages'])
+        pids = set(erratum['packages'] or [])
         # map all the pkgs objects to the erratum
         packages = []
         # remove packages which are not in the export (e.g. archs we are not syncing)
@@ -1963,7 +1755,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             # update package path
             package['path'] = path
-            package_collection.add_package(package)
+            package_collection.add_item(package)
 
             errcode = self._verify_file(path, rhnLib.timestamp(timestamp), package_size,
                                                 checksum_type, checksum)
@@ -2056,7 +1848,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         # Wire stream
         if CFG.ISS_PARENT:
-            stream  = self.xmlWireServer.getRpm(nvrea, channel)
+            stream  = self.xmlDataServer.getRpm(nvrea, channel)
         else:
             rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN,
                                                        self.xml_dump_version)
@@ -2066,35 +1858,32 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
 
 class StreamProducer:
-    def __init__(self, handler):
+    def __init__(self, handler, data_source_class, source_func):
         self.handler = handler
-        self.disk_loader = None
-        self.wire_loader = None
+        self.is_disk_loader = data_source_class.is_disk_loader()
+        if self.is_disk_loader:
+            self.loader = getattr(data_source_class, source_func)()
+        else:
+            self.loader = getattr(data_source_class, source_func)
         self._args = ()
-
-    def set_disk_loader(self, disk_loader):
-        self.disk_loader = disk_loader
-
-    def set_wire_loader(self, wire_loader):
-        self.wire_loader = wire_loader
 
     def set_args(self, *args):
         self._args = args
 
+    def close(self):
+        self.handler.close()
+
     def process(self, batch):
-        if self.disk_loader:
+        if self.is_disk_loader:
             for oid in batch:
-                self.disk_loader.setID(oid)
-                stream = self.disk_loader.load()
+                self.loader.setID(oid)
+                stream = self.loader.load()
                 self.handler.process(stream)
-            return
-        if self.wire_loader:
+        else:
             # Only use the extra arguments if needed, for now
             args = self._args or (batch, )
-            stream = apply(self.wire_loader, args)
+            stream = self.loader(*args)
             self.handler.process(stream)
-            return
-        raise Exception(_("No action for this stream producer"))
 
 def _verifyPkgRepMountPoint():
     """ Checks the base package repository directory tree for
@@ -2144,11 +1933,7 @@ def _getImportedChannels():
         return map(lambda x: x['label'], h.fetchall_dict() or [])
     except (SQLError, SQLSchemaError, SQLConnectError), e:
         # An SQL error is fatal... crash and burn
-        tbOut = cStringIO.StringIO()
-        Traceback(mail=0, ostream=tbOut, with_locals=1)
-        log(-1, _('SQL ERROR during xml processing: %s') % e, stream=sys.stderr)
-        log(-1, _('TRACEBACK: %s') % tbOut.getvalue(), stream=sys.stderr)
-        sys.exit(17)
+        exitWithTraceback(e, 'SQL ERROR during xml processing', 17)
     return []
 
 
@@ -2256,7 +2041,7 @@ def processCommandline():
     # we take extra commandline arguments that are not linked to an option
     if args:
         msg = _("ERROR: these arguments make no sense in this context (try --help): %s") % repr(args)
-        log2stderr(-1, msg, 1,1)
+        log2stderr(-1, msg, 1, 1)
         sys.exit(19)
 
     #
@@ -2302,7 +2087,7 @@ def processCommandline():
                    _("  2  - normal level of logging/messaging."),
                    _("  3  - lots of logging/messaging."),
                    _("  4+ - excessive logging/messaging.")]
-            log(-1, msg, 1,1,sys.stderr)
+            log(-1, msg, 1, 1, sys.stderr)
             sys.exit(21)
         else:
             CFG.set('DEBUG', debugLevel)
@@ -2343,7 +2128,7 @@ def processCommandline():
         OPTIONS.step = stepHierarchy[-1]
 
     if OPTIONS.step not in stepHierarchy:
-        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") % OPTIONS.step, 1,1)
+        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") % OPTIONS.step, 1, 1)
         sys.exit(22)
 
     #XXX: --source is deferred for the time being
@@ -2482,7 +2267,7 @@ def processCommandline():
               _("  25 - no such directory"),
               _("  26 - mount_point does not exist"),
               _("  27 - No such org"),]
-        log(-1, msg, 1,1,sys.stderr)
+        log(-1, msg, 1, 1, sys.stderr)
         sys.exit(0) 
 
     if OPTIONS.dump_version:
@@ -2505,7 +2290,7 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, SystemExit), e:
         sys.exit(e)
     except Exception:
-        from common import fetchTraceback
+        from spacewalk.common import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)
         log2email(-1, tb)

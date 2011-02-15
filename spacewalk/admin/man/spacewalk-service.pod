@@ -1,0 +1,49 @@
+=head1 NAME
+
+spacewalk-service - Script to control Spacewalk server.
+
+=head2 SYNOPSIS
+
+B<spacewalk-service> {B<start>|B<stop>|B<status>|B<reload>|B<restart>|B<enable>|B<disable>|B<list>}
+
+=head2 DESCRIPTION
+
+Spacewalk server consist from several services. While each of such service has its own init.d script
+and you can start/stop each service separately, you usually want to control all services together.
+This script does exactly this.
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<start>|B<stop>|B<status>|B<reload>|B<restart>
+
+Behave exactly as B<service> for every Spacewalk service.
+
+=item B<enable>|B<disable>
+
+Behave exactly as B<chkconfig> on/off for every Spacewalk service.
+
+=item B<list>
+
+List all Spacewalk services and if it is enabled or disabled.
+
+=item B<--no-wait-for-tomcat>
+
+By default, spacewalk-service wait until tomcat is able to answer requests.
+If you specify this option, spacewalk-service will continue immediately when
+tomcat service will start.
+
+=item B<--exclude> SERVICE
+
+It will not start/stop SERVICE.
+
+=item B<--level> LEVEL
+
+Pass LEVEL to chkconfig when you specify option B<enable>.
+
+=back
+
+=head1 SEE ALSO
+
+B<service>(8) B<chkconfig>(8)

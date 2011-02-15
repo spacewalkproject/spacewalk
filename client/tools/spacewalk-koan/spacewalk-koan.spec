@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.11
+Version: 0.2.16
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -13,9 +13,9 @@ BuildRequires:  python
 Requires:       python >= 1.5
 Requires:       koan >= 1.4.3
 
-Provides: rhn.kickstart.boot_image = 5.3.0
-Provides: rhn-kickstart = 5.3.0
 Conflicts: rhn-kickstart
+Conflicts: rhn-kickstart-common
+Conflicts: rhn-kickstart-virtualization
 
 #this currently doesn't work for RHEL 2.1
 %if 0%{?rhel} && 0%{?rhel} < 5
@@ -49,6 +49,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 0.2.16-1
+- Fixed typo in import subprocess (mmello@redhat.com)
+
+* Tue Nov 02 2010 Jan Pazdziora 0.2.15-1
+- Update copyright years in the rest of the repo.
+
+* Fri Oct 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.2.14-1
+- spacewalk-koan should conflict with all rhn-kickstart subpackages
+
+* Mon Oct 25 2010 Jan Pazdziora 0.2.13-1
+- 645795 - changing spaceawlk-koan to use subproccess only if it is available
+  and to fall back to popen2 if its not, this enables RHEL 4 support again
+  (jsherril@redhat.com)
+
+* Wed Oct 20 2010 Michael Mraka <michael.mraka@redhat.com> 0.2.12-1
+- must not provide & conflict with same (unversioned) package
+
 * Mon Oct 18 2010 Jan Pazdziora 0.2.11-1
 - spacewalk-koan conflicts with any version of rhn-kickstart
   (michael.mraka@redhat.com)

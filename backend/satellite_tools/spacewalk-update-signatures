@@ -22,15 +22,13 @@ import os
 import time
 import shutil
 
-sys.path.append('/usr/share/rhn')
-
 from optparse import Option, OptionParser
-from common import rhnLib, rhnLog, initLOG, CFG, initCFG
+from spacewalk.common import rhnLib, rhnLog, initLOG, CFG, initCFG
 from spacewalk.common import rhn_rpm
-from server.rhnLib import parseRPMFilename, get_package_path
-from server import rhnSQL
-from server.rhnServer import server_packages
-from satellite_tools.progress_bar import ProgressBar
+from spacewalk.server.rhnLib import parseRPMFilename, get_package_path
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import server_packages
+from spacewalk.satellite_tools.progress_bar import ProgressBar
 
 initCFG('server.satellite')
 initLOG(CFG.LOG_FILE, CFG.DEBUG)
@@ -111,6 +109,8 @@ def process_package_data():
         pb.printIncrement()
         path =  pkg['path']
 
+        if path is None:
+                continue
         full_path = os.path.join(CFG.MOUNT_POINT, path)
         checksum_type = pkg['checksum_type']
         checksum = pkg['checksum']
@@ -129,7 +129,7 @@ def process_package_data():
 
         # Process gpg key ids
         server_packages.processPackageKeyAssociations(hdr, checksum_type, checksum)
-        if debug: Log.writeMessage("gpg key info updated from %s" % new_abs_path )
+        if debug: Log.writeMessage("gpg key info updated from %s" % full_path )
         i = i + 1
         # we need to break the transaction to smaller pieces
         if i % 1000 == 0:

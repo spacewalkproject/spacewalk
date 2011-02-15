@@ -54,6 +54,8 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class User</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnUser-pysrc.html#User">source&nbsp;code</a></span></p>
+<p>Main User class</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -95,7 +97,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init_info"></a><span class="summary-sig-name">__init_info</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init_info"></a><span class="summary-sig-name">__init_info</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      init web_user_personal_info</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.__init_info">source&nbsp;code</a></span>
             
@@ -111,7 +114,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init_perms"></a><span class="summary-sig-name">__init_perms</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init_perms"></a><span class="summary-sig-name">__init_perms</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      init web_user_contact_permission</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.__init_perms">source&nbsp;code</a></span>
             
@@ -127,7 +131,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init_site"></a><span class="summary-sig-name">__init_site</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init_site"></a><span class="summary-sig-name">__init_site</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      init web_user_site_info</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.__init_site">source&nbsp;code</a></span>
             
@@ -144,7 +149,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="check_password"></a><span class="summary-sig-name">check_password</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">password</span>)</span></td>
+        <span class="summary-sig-arg">password</span>)</span><br />
+      simple check for a password that might become more complex sometime</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.check_password">source&nbsp;code</a></span>
             
@@ -195,7 +201,8 @@
         <tr>
           <td><span class="summary-sig"><a name="set_contact_perm"></a><span class="summary-sig-name">set_contact_perm</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">value</span>)</span></td>
+        <span class="summary-sig-arg">value</span>)</span><br />
+      handling of contact permissions</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.set_contact_perm">source&nbsp;code</a></span>
             
@@ -211,9 +218,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="set_info"></a><span class="summary-sig-name">set_info</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnUser.User-class.html#set_info" class="summary-sig-name">set_info</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">value</span>)</span></td>
+        <span class="summary-sig-arg">value</span>)</span><br />
+      set a certain value for the userinfo field.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.set_info">source&nbsp;code</a></span>
             
@@ -229,7 +237,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__save"></a><span class="summary-sig-name">__save</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__save"></a><span class="summary-sig-name">__save</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Save this record in the database.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.__save">source&nbsp;code</a></span>
             
@@ -261,7 +270,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="save"></a><span class="summary-sig-name">save</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="save"></a><span class="summary-sig-name">save</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      This is a wrapper for the above class that allows us to rollback any
+      changes in case we don't succeed completely.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.save">source&nbsp;code</a></span>
             
@@ -278,7 +289,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="reload"></a><span class="summary-sig-name">reload</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">user_id</span>)</span></td>
+        <span class="summary-sig-arg">user_id</span>)</span><br />
+      Reload the current data from the SQL database using the given id</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnUser-pysrc.html#User.reload">source&nbsp;code</a></span>
             
@@ -305,6 +317,46 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="set_info"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_info</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnUser-pysrc.html#User.set_info">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+
+  <p>set a certain value for the userinfo field. This is BUTT ugly.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -328,7 +380,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:16 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:06 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

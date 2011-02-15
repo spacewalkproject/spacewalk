@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,82 +16,82 @@
 -- 
 
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_package_updates', 'Update Packages',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_package_updates', 'Update Packages',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_errata_updates', 'Errata Updates',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_errata_updates', 'Errata Updates',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_hardware_refresh', 'Refresh Hardware Profile',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_hardware_refresh', 'Refresh Hardware Profile',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_package_refresh', 'Refresh Packages Profile',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_package_refresh', 'Refresh Packages Profile',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_package_remove', 'Remove Packages',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_package_remove', 'Remove Packages',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_auto_errata_updates', 'Auto Errata Update',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_auto_errata_updates', 'Auto Errata Update',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_system_grouping', 'System Groups',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_system_grouping', 'System Groups',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_package_verify', 'Verify Packages',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_package_verify', 'Verify Packages',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_profile_compare', 'Compare Package Profiles',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_profile_compare', 'Compare Package Profiles',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_proxy_capable', 'Proxy Capable',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_proxy_capable', 'Proxy Capable',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_sat_capable', 'Satellite Capable',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_sat_capable', 'Satellite Capable',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_reboot', 'Reboot System',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_reboot', 'Reboot System',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_satellite_applet', 'Satellite Applet',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_satellite_applet', 'Satellite Applet',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_osa_bus', 'OSA Bus',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_osa_bus', 'OSA Bus',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_kickstart', 'Kickstart',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_kickstart', 'Kickstart',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_config', 'Config File Management',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_config', 'Config File Management',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_custom_info', 'Custom Information',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_custom_info', 'Custom Information',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_delta_action', 'Package Profile Sync',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_delta_action', 'Package Profile Sync',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_snapshotting', 'System Snapshotting',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_snapshotting', 'System Snapshotting',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_agent_smith', 'Agent Smith',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_agent_smith', 'Agent Smith',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_remote_command', 'Execute Remote Command',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_remote_command', 'Execute Remote Command',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_schedule_probe', 'Schedule Probe',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_schedule_probe', 'Schedule Probe',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_probes', 'Probes',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_probes', 'Probes',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_nonlinux_support', 'Non-Linux Support',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_nonlinux_support', 'Non-Linux Support',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (rhn_feature_seq.nextval, 'ftr_daily_summary', 'Daily Summary',
-        sysdate, sysdate);
+values (sequence_nextval('rhn_feature_seq'), 'ftr_daily_summary', 'Daily Summary',
+        current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name)
-values (rhn_feature_seq.nextval, 'ftr_xen_provision_domain', 'Provision new Xen domains');
+values (sequence_nextval('rhn_feature_seq'), 'ftr_xen_provision_domain', 'Provision new Xen domains');
 insert into rhnFeature (id, label, name)
-values (rhn_feature_seq.nextval, 'ftr_xen_manage_domains', 'Manage existing Xen domains');
+values (sequence_nextval('rhn_feature_seq'), 'ftr_xen_manage_domains', 'Manage existing Xen domains');
 

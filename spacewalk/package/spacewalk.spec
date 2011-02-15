@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.2.3
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -77,11 +77,14 @@ Requires:       osa-dispatcher-selinux
 Requires:       spacewalk-monitoring-selinux
 Requires:       spacewalk-selinux
 
-%if 0%{?fedora} >= 11
-%else
-# Fedoras 11+ have their own selinux policy for jabberd:
+%if 0%{?rhel} == 5
 Requires:       jabberd-selinux
 %endif
+# Work around for jabberd to work with stock RHEL-6.0 SELinux policy
+%if 0%{?rhel} == 6
+Requires:       jabberd-selinux-workaround
+%endif
+
 
 Requires:       editarea >= 0.8.2-2
 
@@ -99,8 +102,10 @@ Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
 Conflicts: spacewalk-postgresql
 
-Requires: oracle-instantclient-basic >= 10.2.0
-Requires: oracle-instantclient-sqlplus >= 10.2.0
+Requires: oracle-instantclient11.2-basic
+Requires: oracle-instantclient11.2-sqlplus
+Conflicts: oracle-instantclient-basic <= 10.2.0.4
+Conflicts: oracle-instantclient-sqlplus <= 10.2.0.4
 Requires: spacewalk-java-oracle
 Requires: perl(DBD::Oracle)
 Requires: cx_Oracle
@@ -169,6 +174,19 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Mon Jan 31 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.3.3-1
+- Require jabberd-selinux-workaround on RHEL-6.0
+
+* Fri Jan 07 2011 Jan Pazdziora 1.3.2-1
+- Conflict with the InstantClient 10 to remind that they need to be removed
+  upon upgrade.
+- Switch to Oracle InstantClient 11 in spacewalk-oracle.
+- add build.py.props to allow building using tito (msuchy@redhat.com)
+
+* Wed Dec 08 2010 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
+- remove jabberd-selinux dependency for rhel6+ (tlestach@redhat.com)
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.3-1
 - Move the oracle-instantclient*-selinux dependency to spacewalk-oracle, to
   make it posible to install Spacewalk without Oracle SELinux modules.

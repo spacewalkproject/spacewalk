@@ -17,9 +17,9 @@ import os
 
 from types import ListType
 
-from common import log_debug, log_error, CFG, rhnFault, rhnFlags
-from common.rhnTranslate import _
-from server import rhnSQL
+from spacewalk.common import log_debug, log_error, CFG, rhnFault, rhnFlags
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL
 from rhnLib import parseRPMFilename
 
 
@@ -86,19 +86,21 @@ def get_package_path(server_id, pkg_spec, channel):
         if _none2emptyString(each['epoch']) > _none2emptyString(max_row['epoch']):
             max_row = each
 
-    if max_row['path'] is None:
-        log_error("Package path null for package id", max_row['id'])
-        raise rhnFault(17, _("Invalid RPM package %s requested") % pkg_spec)
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, max_row['path'])
+    # Set the flag for the proxy download accelerator
+    rhnFlags.set("Download-Accelerator-Path", max_row['path'])
+    return check_package_file(max_row['path'], max_row['id'], pkg_spec), max_row['id']
+
+def check_package_file(rel_path, logpkg, raisepkg):
+    if rel_path is None:
+        log_error("Package path null for package id", logpkg)
+        raise rhnFault(17, _("Invalid RPM package %s requested") % raisepkg)
+    filePath = "%s/%s" % (CFG.MOUNT_POINT, rel_path)
     if not os.access(filePath, os.R_OK):
         # Package not found on the filesystem
         log_error("Package not found", filePath)
         raise rhnFault(17, _("Package not found"))
 
-    pkgId = max_row['id']
-    # Set the flag for the proxy download accelerator
-    rhnFlags.set("Download-Accelerator-Path", max_row['path'])
-    return filePath, pkgId
+    return filePath
 
 
 # Old client
@@ -159,16 +161,7 @@ def get_package_path_compat_arches(server_id, pkg, server_arch):
             pkg, server_arch)
         raise rhnFault(17, _("Invalid RPM package %s requested") % str(pkg))
 
-    if row['path'] is None:
-        log_error("Package path null for package id", row['id'])
-        raise rhnFault(17, _("Invalid RPM package %s requested") % str(pkg))
-
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, row['path'])
-    if not os.access(filePath, os.R_OK):
-        # Package not found on the filesystem
-        log_error("Package not found", filePath)
-        raise rhnFault(17, _("Package not found"))
-    return filePath
+    return check_package_file(row['path'], row['id'], str(pkg))
 
 def get_all_package_paths(server_id, pkg_spec, channel):
     """
@@ -192,20 +185,9 @@ def get_source_package_path(server_id, pkgFilename, channel):
             pkgFilename, channel)
         raise rhnFault(17, _("Invalid RPM package %s requested") % pkgFilename)
 
-    if rs['path'] is None:
-        log_error("Package path null for source package", pkgFilename,
-            server_id, channel)
-        raise rhnFault(17, _("Invalid RPM package %s requested") % pkgFilename)
-
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, rs['path'])
-    if not os.access(filePath, os.R_OK):
-        # Package not found on the filesystem
-        log_error("Package not found", filePath)
-        raise rhnFault(17, _("Package not found"))
-
     # Set the flag for the proxy download accelerator
     rhnFlags.set("Download-Accelerator-Path", rs['path'])
-    return filePath
+    return check_package_file(rs['path'], pkgFilename, pkgFilename)
 
 
 # 0 or 1: is this source in this channel?
@@ -295,175 +277,49 @@ def get_source_package_path_by_name(server_id, packageName):
     rhnFlags.set("Download-Accelerator-Path", rs['path'])
     return filePath
 
-
-# get source package path from [n,v,r,e,a]
-# XXX: not used currently
-def get_source_package_path_by_nvrea(server_id, pkg):
-    log_debug(3, pkg)
-    pkg = map(str, pkg)
-    # Build the param dict
-    param_dict = {
-        'name'      : pkg[0], 
-        'ver'       : pkg[1],
-        'rel'       : pkg[2], 
-        'arch'      : pkg[4],
-        'server_id' : server_id
-    }
-    if pkg[3] == '':
-        epochStatement = "is NULL"
-    else:
-        epochStatement = "= :epoch"
-        param_dict['epoch'] = pkg[3]
-
-    statement = """
-    select
-            unique ps.path
-    from
-            rhnPackage p,
-            rhnPackageSource ps,
-            rhnPackageName pn,
-            rhnPackageEVR pe,
-            rhnPackageArch pa,
-            rhnChannelPackage cp,
-            rhnServerChannel sc
-    where
-                sc.server_id = :server_id
-            and sc.channel_id = cp.channel_id
-            and cp.package_id = p.id
-            and p.source_rpm_id = ps.source_rpm_id
-            and ((p.org_id is null and ps.org_id is null)
-                or (p.org_id = ps.org_id))
-            and p.name_id = pn.id
-            and pn.name = :name
-            and p.evr_id = pe.id
-            and pe.version = :ver
-            and pe.release = :rel
-            and pe.epoch %s
-            and p.package_arch_id = pa.id
-            and pa.label = :arch
-    """ % epochStatement
-    h = rhnSQL.prepare(statement)
-    apply(h.execute, (), param_dict)
-        
-    rs = h.fetchone_dict()
-    if not rs:
-        log_debug(4, "Error", "Non-existant package requested", server_id, 
-            pkg)
-        raise rhnFault(17, _("Invalid RPM package %s requested") % pkg)
-
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, rs['path'])
-    if not os.access(filePath, os.R_OK):
-        # Package not found on the filesystem
-        log_error("Package not found", filePath)
-        raise rhnFault(17, _("Package not found"))
-
-    # Set the flag for the proxy download accelerator
-    rhnFlags.set("Download-Accelerator-Path", rs['path'])
-    return filePath
-
-
-# get all channels that have this [n,v,r,e,a]
-# XXX: no use for this yet.
-def get_channels_for_package(pkg):
-    log_debug(3, pkg)
-    pkg = map(str, pkg)
-    if pkg[3] == "":
-        epochStatement = "is null"
-    else:
-        epochStatement = "= :epoch"
-    statement = """
-    select
-            c.label
-    from
-            rhnChannel c,
-            rhnPackage p,
-            rhnPackageName pn,
-            rhnPackageEVR pe,
-            rhnPackageArch pa,
-            rhnChannelPackage cp
-    where
-                p.name_id = pn.id
-            and pn.name = :name
-            and p.evr_id = pe.id
-            and pe.version = :ver
-            and pe.release = :rel
-            and pe.epoch %s
-            and p.package_arch_id = pa.id
-            and pa.label = :arch
-            and p.id = cp.package_id
-            and cp.channel_id = c.id
-    """ % epochStatement
-    h = rhnSQL.prepare(statement)
-    if pkg[3] == '':
-        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4])
-    else:
-        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4], epoch=pkg[3],)
-        
-    ret = h.fetchall_dict()
-    if not ret:
-        return []
-    return map(lambda c: c['label'], ret)
-
-def get_path_for_checksum(org_id, checksum_type, checksum):
-     statement = """
-     select
-         p.path
-     from
-         rhnPackage p,
-         rhnChecksumView c
-     where p.org_id = :org_id
-         and p.checksum_id = c.id
-         and c.checksum = :checksum
-         and c.checksum_type = :checksumtype
-     """
-     h = rhnSQL.prepare(statement)
-     h.execute(org_id=org_id, checksum=checksum, checksumtype=checksum_type)
-     ret = h.fetchone_dict()
-     if not ret:
-         return None
-     return ret['path']
-
-
 def get_path_for_package(pkg, channel_label):
     log_debug(3, pkg)
     pkg = map(str, pkg)
-    if pkg[3] == "":
-        epochStatement = "is null"
+    params = {'name': pkg[0],
+              'ver': pkg[1],
+              'rel': pkg[2],
+              'epoch': pkg[3],
+              'arch': pkg[4],
+              'label': channel_label}
+    # yum repo has epoch="0" not only when epoch is "0" but also if it's NULL
+    if pkg[3] == '0' or pkg[3] == '':
+        epochStatement = "(epoch is null or epoch = :epoch)"
     else:
-        epochStatement = "= :epoch"
+        epochStatement = "epoch = :epoch"
     statement = """
-    select
-            P.path
-    from
-            rhnChannel c,
-            rhnPackage p,
-            rhnPackageName pn,
-            rhnPackageEVR pe,
-            rhnPackageArch pa,
-            rhnChannelPackage cp
-    where
-                p.name_id = pn.id
-            and pn.name = :name
-            and p.evr_id = pe.id
-            and pe.version = :ver
-            and pe.release = :rel
-            and pe.epoch %s
-            and p.package_arch_id = pa.id
-            and pa.label = :arch
-            and p.id = cp.package_id
-            and cp.channel_id = c.id
-            and C.label = :label
+    select p.path, c.label as channel_label
+      from rhnPackage p
+      join rhnPackageName pn
+        on p.name_id = pn.id
+      join rhnPackageEVR pe
+        on p.evr_id = pe.id
+      join rhnPackageArch pa
+        on p.package_arch_id = pa.id
+      left join rhnChannelPackage cp
+        on p.id = cp.package_id
+      left join rhnChannel c
+        on cp.channel_id = c.id
+       and p.org_id = c.org_id
+       and c.label = :label
+     where pn.name = :name
+       and pe.version = :ver
+       and pe.release = :rel
+       and %s
+       and pa.label = :arch
+     order by c.label nulls last
     """ % epochStatement
     h = rhnSQL.prepare(statement)
-    if pkg[3] == '':
-        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4], label = channel_label)
-    else:
-        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4], epoch=pkg[3], label = channel_label)
+    h.execute(**params)
 
     ret = h.fetchone_dict()
     if not ret:
-        return None
-    return ret['path']
+        return None, None
+    return ret['path'], ret['channel_label']
 
 
 def _none2emptyString(foo):
@@ -474,7 +330,7 @@ def _none2emptyString(foo):
 if __name__ == '__main__':
     """Test code.
     """
-    from common import initLOG
+    from spacewalk.common import initLOG
     initLOG("stdout", 1)
     rhnSQL.initDB('rhnuser/rhnuser@webqa')
     print
@@ -487,6 +343,3 @@ if __name__ == '__main__':
     print get_source_package_path_by_nvre(1000463284, ['kernel', '2.4.2', '2', ''])
     print get_source_package_path_by_name(1000463284, 'kernel-2.4.2-2.src.rpm')
     
-    # not used currently
-    print get_source_package_path_by_nvrea(1000463284, ['kernel-headers', '2.4.2', '2', '', 'i386'])
-    print get_channels_for_package(['kernel', '2.4.9', '31', '', 'i386'])

@@ -54,6 +54,16 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class SharedHandler</h1><p class="nomargin-top"><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_proxy_rh_2" name="uml_class_diagram_for_proxy_rh_2">
+<area shape="rect" id="node65" href="proxy.rhnShared.SharedHandler-class.html#__init__" title="init with http request object" alt="" coords="75,39,183,57"/>
+<area shape="rect" id="node1" href="proxy.rhnShared.SharedHandler-class.html" title="Shared handler class (between rhnBroker and rhnRedirect." alt="" coords="63,6,193,63"/>
+<area shape="rect" id="node2" href="proxy.redirect.rhnRedirect.RedirectHandler-class.html" title="RHN Proxy SSL Redirect specific handler code called by rhnApache." alt="" coords="5,83,253,122"/>
+</map>
+  <img src="uml_class_diagram_for_proxy_rh_2.png" alt='' usemap="#uml_class_diagram_for_proxy_rh_2" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
 <p>Shared handler class (between rhnBroker and rhnRedirect. *** only 
   inherited ***</p>
 
@@ -98,10 +108,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_prepHandler"></a><span class="summary-sig-name">_prepHandler</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Handler part 0</td>
+          <td><span class="summary-sig"><a name="_clientCommo"></a><span class="summary-sig-name">_clientCommo</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">status</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Handler part 3 Forward server's response to the client.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._prepHandler">source&nbsp;code</a></span>
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._clientCommo">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -149,11 +160,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_parse_url"></a><span class="summary-sig-name">_parse_url</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">url</span>)</span><br />
-      Returns scheme, host, port, path.</td>
+          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_determineHTTPBodySize" class="summary-sig-name" onclick="show_private();">_determineHTTPBodySize</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">headers</span>)</span><br />
+      This routine attempts to determine the size of an HTTP body by
+      searching the headers for a &quot;Content-Length&quot; field.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._parse_url">source&nbsp;code</a></span>
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._determineHTTPBodySize">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -167,11 +179,104 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_serverCommo" class="summary-sig-name" onclick="show_private();">_serverCommo</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">data</span>)</span><br />
-      Handler part 2</td>
+          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_forwardHTTPBody" class="summary-sig-name" onclick="show_private();">_forwardHTTPBody</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fromResponse</span>,
+        <span class="summary-sig-arg">toRequest</span>)</span><br />
+      This routine will transfer the body of an HTTP response to the output
+      area of an HTTP request for response to the original requesting
+      client.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._serverCommo">source&nbsp;code</a></span>
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardHTTPBody">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_forwardHTTPHeaders" class="summary-sig-name" onclick="show_private();">_forwardHTTPHeaders</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fromResponse</span>,
+        <span class="summary-sig-arg">toRequest</span>)</span><br />
+      This routine will transfer the header contents of an HTTP response to
+      the output headers of an HTTP request for reply to the original
+      requesting client.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardHTTPHeaders">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_forwardServer2Client" class="summary-sig-name" onclick="show_private();">_forwardServer2Client</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Forward headers, and bodyfd from server to the calling client.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardServer2Client">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_getEffectiveURI"></a><span class="summary-sig-name">_getEffectiveURI</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._getEffectiveURI">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_getHeaders"></a><span class="summary-sig-name">_getHeaders</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">req</span>)</span><br />
+      Copy the incoming headers.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._getHeaders">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_get_header"></a><span class="summary-sig-name">_get_header</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">k</span>,
+        <span class="summary-sig-arg">headerObj</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._get_header">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -204,11 +309,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_get_header"></a><span class="summary-sig-name">_get_header</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">k</span>,
-        <span class="summary-sig-arg">headerObj</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td><span class="summary-sig"><a name="_parse_url"></a><span class="summary-sig-name">_parse_url</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">url</span>)</span><br />
+      Returns scheme, host, port, path.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._get_header">source&nbsp;code</a></span>
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._parse_url">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -222,46 +327,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_clientCommo"></a><span class="summary-sig-name">_clientCommo</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">status</span>=<span class="summary-sig-default">apache.OK</span>)</span><br />
-      Handler part 3 Forward server's response to the client.</td>
+          <td><span class="summary-sig"><a name="_prepHandler"></a><span class="summary-sig-name">_prepHandler</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Handler part 0</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._clientCommo">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_getHeaders"></a><span class="summary-sig-name">_getHeaders</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">req</span>)</span><br />
-      Copy the incoming headers.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._getHeaders">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_forwardServer2Client" class="summary-sig-name" onclick="show_private();">_forwardServer2Client</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Forward headers, and bodyfd from server to the calling client.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardServer2Client">source&nbsp;code</a></span>
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._prepHandler">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -292,70 +361,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_getEffectiveURI"></a><span class="summary-sig-name">_getEffectiveURI</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_serverCommo" class="summary-sig-name" onclick="show_private();">_serverCommo</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>)</span><br />
+      Handler part 2</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._getEffectiveURI">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_determineHTTPBodySize" class="summary-sig-name" onclick="show_private();">_determineHTTPBodySize</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">headers</span>)</span><br />
-      This routine attempts to determine the size of an HTTP body by 
-      searching the headers for a &quot;Content-Length&quot; field.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._determineHTTPBodySize">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_forwardHTTPHeaders" class="summary-sig-name" onclick="show_private();">_forwardHTTPHeaders</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">fromResponse</span>,
-        <span class="summary-sig-arg">toRequest</span>)</span><br />
-      This routine will transfer the header contents of an HTTP response to
-      the output headers of an HTTP request for reply to the original 
-      requesting client.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardHTTPHeaders">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="proxy.rhnShared.SharedHandler-class.html#_forwardHTTPBody" class="summary-sig-name" onclick="show_private();">_forwardHTTPBody</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">fromResponse</span>,
-        <span class="summary-sig-arg">toRequest</span>)</span><br />
-      This routine will transfer the body of an HTTP response to the output
-      area of an HTTP request for response to the original requesting 
-      client.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardHTTPBody">source&nbsp;code</a></span>
+            <span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._serverCommo">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -382,70 +392,6 @@
   </td>
 </tr>
 </table>
-<a name="_serverCommo"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">_serverCommo</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">data</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._serverCommo">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Handler part 2</p>
-  <p>Server (or next proxy) communication. data is the self.req.read()</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="_handleServerResponse"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">_handleServerResponse</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">status</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._handleServerResponse">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>This method can be overridden by subclasses who want to handle server 
-  responses in their own way.  By default, we will wrap all the headers up 
-  and send them back to the client with an error status.  This method 
-  should return apache.OK if everything went according to plan.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="_forwardServer2Client"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">_forwardServer2Client</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardServer2Client">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Forward headers, and bodyfd from server to the calling client. For 
-  most XMLRPC code, this function is called.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="_determineHTTPBodySize"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -461,33 +407,9 @@
     </td>
   </tr></table>
   
-  <p>This routine attempts to determine the size of an HTTP body by 
-  searching the headers for a &quot;Content-Length&quot; field.  The size 
-  is returned, if found, otherwise 0 is returned.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="_forwardHTTPHeaders"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">_forwardHTTPHeaders</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">fromResponse</span>,
-        <span class="sig-arg">toRequest</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardHTTPHeaders">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>This routine will transfer the header contents of an HTTP response to 
-  the output headers of an HTTP request for reply to the original 
-  requesting client.  This function does NOT call the request's 
-  send_http_header routine; that is the responsibility of the caller.</p>
+  <p>This routine attempts to determine the size of an HTTP body by
+  searching the headers for a &quot;Content-Length&quot; field.  The size
+  is returned, if found, otherwise -1 is returned.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -508,10 +430,98 @@
     </td>
   </tr></table>
   
-  <p>This routine will transfer the body of an HTTP response to the output 
-  area of an HTTP request for response to the original requesting client. 
-  The request's send_http_header function must be called before this 
+  <p>This routine will transfer the body of an HTTP response to the output
+  area of an HTTP request for response to the original requesting client.
+  The request's send_http_header function must be called before this
   function is called.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_forwardHTTPHeaders"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_forwardHTTPHeaders</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">fromResponse</span>,
+        <span class="sig-arg">toRequest</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardHTTPHeaders">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This routine will transfer the header contents of an HTTP response to
+  the output headers of an HTTP request for reply to the original
+  requesting client.  This function does NOT call the request's
+  send_http_header routine; that is the responsibility of the caller.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_forwardServer2Client"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_forwardServer2Client</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._forwardServer2Client">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Forward headers, and bodyfd from server to the calling client. For
+  most XMLRPC code, this function is called.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_handleServerResponse"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_handleServerResponse</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">status</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._handleServerResponse">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This method can be overridden by subclasses who want to handle server
+  responses in their own way.  By default, we will wrap all the headers up
+  and send them back to the client with an error status.  This method
+  should return apache.OK if everything went according to plan.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_serverCommo"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_serverCommo</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="proxy.rhnShared-pysrc.html#SharedHandler._serverCommo">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Handler part 2</p>
+  <p>Server (or next proxy) communication. data is the self.req.read()</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -540,7 +550,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:19 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:40 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

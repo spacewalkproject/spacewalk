@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,19 +15,19 @@
 --
 
 insert into rhnConfigFileFailure (id, label, name) values
-    (rhn_conffile_failure_id_seq.nextval, 'missing',
+    (sequence_nextval('rhn_conffile_failure_id_seq'), 'missing',
     'Missing file');
 
 insert into rhnConfigFileFailure (id, label, name) values
-    (rhn_conffile_failure_id_seq.nextval, 'too_big',
+    (sequence_nextval('rhn_conffile_failure_id_seq'), 'too_big',
     'File too big');
 
 insert into rhnConfigFileFailure (id, label, name) values
-    (rhn_conffile_failure_id_seq.nextval, 'binary_file',
+    (sequence_nextval('rhn_conffile_failure_id_seq'), 'binary_file',
     'Binary file');
 
 insert into rhnConfigFileFailure (id, label, name) values
-    (rhn_conffile_failure_id_seq.nextval, 'insufficient_quota',
+    (sequence_nextval('rhn_conffile_failure_id_seq'), 'insufficient_quota',
     'Insufficient free quota space');
 
 

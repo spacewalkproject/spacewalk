@@ -184,7 +184,7 @@ public class KickstartFactory extends HibernateFactory {
         Map map = new HashMap();
         map.put("cid", cobblerId);
         return (KickstartableTree) singleton.lookupObjectByNamedQuery(
-                "KickstartableTree.findByCobblerIdorXenId", map);
+                "KickstartableTree.findByCobblerIdOrXenId", map);
     }
 
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,8 +17,6 @@ import os
 import sys
 import rpm
 import struct
-
-import exceptions
 
 # Expose a bunch of useful constants from rpm
 error = rpm.error
@@ -57,9 +55,8 @@ PGPHASHALGO = {
 class InvalidPackageError(Exception):
     pass
 
-# wrapper/proxy class for rpm.Transaction so we can
-# instrument it, etc easily
 class RPMTransaction:
+    """ wrapper/proxy class for rpm.Transaction so we can instrument it, etc easily """
     read_only = 0
     def __init__(self):
         self.ts = rpm.TransactionSet()
@@ -70,14 +67,13 @@ class RPMTransaction:
         # profile/etc info
         return getattr(self.ts, method)
 
-    # push/pop methods so we don't lose the previous
-    # set value, and we can potentially debug a bit
-    # easier
     def pushVSFlags(self, flags):
+        """ push method, so we don't lose the previous set value, and we can potentially debug a bit easier """
         self.tsflags.append(flags)
         self.ts.setVSFlags(self.tsflags[-1])
 
     def popVSFlags(self):
+        """ pop method, so we don't lose the previous set value, and we can potentially debug a bit easier """
         del self.tsflags[-1]
         self.ts.setVSFlags(self.tsflags[-1])
 
@@ -167,10 +163,19 @@ class RPM_Header:
         ]
         for ht, sig_type in header_tags:
             ret = self.hdr[ht]
-            if not ret or len(ret) < 17:
+            if not ret:
+                continue
+            ret_len = len(ret)
+            if ret_len < 17:
                 continue
             # Get the key id - hopefully we get it right
-            key_id = ret[9:17]
+            elif ret_len <= 65: # V3 DSA signature
+                key_id = ret[9:17]
+            elif ret_len <= 72: # V4 DSA signature
+                key_id = ret[18:26]
+            else: # ret_len <= 536 # V3 RSA/SHA256 signature
+                key_id = ret[10:18]
+
             key_id_len = len(key_id)
             format = "%dB" % key_id_len
             t = struct.unpack(format, key_id)
@@ -234,11 +239,12 @@ def get_header_struct_size(package_file):
 
     return header_size
 
-# Loads the package header from a file / stream / file descriptor
-# Raises rpm.error if an error is found, or InvalidPacageError if package is
-# busted
-# XXX Deal with exceptions better
 def get_package_header(filename=None, file=None, fd=None):
+    """ Loads the package header from a file / stream / file descriptor
+        Raises rpm.error if an error is found, or InvalidPacageError if package is
+        busted
+    """
+    # XXX Deal with exceptions better
     if (filename is None and file is None and fd is None):
         raise ValueError, "No parameters passed"
 
@@ -290,12 +296,11 @@ class MatchIterator:
         # rpm 4.1 or later
         self.ts = rpm.TransactionSet()
         self.ts.setVSFlags(8)
-        method = self.ts.dbMatch
 
+        m_args = (tag_name,)
         if value:
-            self.mi = method(tag_name, value)
-        else:
-            self.mi = method(tag_name)
+            m_args += (value,)
+        self.mi = self.ts.dbMatch(*m_args)
 
     def pattern(self, tag_name, mode, pattern):
         self.mi.pattern(tag_name, mode, pattern)
@@ -349,31 +354,11 @@ def hdrLabelCompare(hdr1, hdr2):
     return 1
 
 
-def rpmLabelCompare(rpmFilename1, rpmFilename2):
-    """ take two RPMs and compare them for order """
-    return hdrLabelCompare(get_package_header(rpmFilename1),
-                           get_package_header(rpmFilename2))
-
-
-def sortHeaders(hdrs):
-    """ Sorts a list of RPM headers (or RPMs).
-        Assertion: they *must* exist.
-    """
-
-    assert isinstance(hdrs, type([]))
-
-    sorted = hdrs[:]
-    sorted.sort(hdrLabelCompare)
-    return sorted
-
-
 def sortRPMs(rpms):
     """ Sorts a list of RPM files. They *must* exist.  """
 
     assert isinstance(rpms, type([]))
 
-    # We don't want to use rpmLabelCompare as a sorting mechanism, it would
-    # extract the rpm header for each comparison.
     # Build a list of (header, rpm)
     helper = map(lambda x: (get_package_header(x), x), rpms)
 

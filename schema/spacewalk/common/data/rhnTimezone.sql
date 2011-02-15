@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,249 +17,249 @@
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Australia/Sydney', 'Australia (Eastern)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Tokyo', 'Japan');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Hong_Kong', 'Australia (Western)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Europe/Moscow', 'Russia (Moscow)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Europe/Bucharest', 'Europe (Eastern)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Europe/Paris', 'Europe (Central)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'GMT', 'Greenwich Mean Time');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/St_Johns', 'Canada (Newfoundland)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Halifax', 'Canada (Atlantic)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/New_York', 'United States (Eastern)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Indianapolis', 'United States (Indiana)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Chicago', 'United States (Central)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Regina', 'Canada (Regina)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Denver', 'United States (Mountain)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Phoenix', 'United States (Arizona)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Los_Angeles', 'United States (Pacific)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Anchorage', 'United States (Alaska)');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Pacific/Honolulu', 'United States (Hawaii)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Pacific/Enderbury', 'Tonga');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Pacific/Wallis', 'New Zealand (Wallis)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Pacific/Auckland', 'New Zealand (Auckland)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Pacific/Norfolk', 'Norfolk Island');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Pacific/Guadalcanal', 'Micronesia');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Australia/Darwin', 'Australia (Central/Darwin)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Jakarta', 'Thailand');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Indian/Cocos', 'Burma');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Indian/Chagos', 'Bangladesh');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Katmandu', 'Nepal');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Calcutta', 'India (Calcutta)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Indian/Maldives', 'Pakistan');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Kabul', 'Afghanistan');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Tehran', 'Iran');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Indian/Mauritius', 'Russia (Samara)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Atlantic/Azores', 'Azores');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Atlantic/South_Georgia', 'Sandwich Islands');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Pacific/Midway', 'Midway');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'America/Sao_Paulo', 'Brazil');
 
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'GB', 'Great Britain');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
 values
-  (rhn_timezone_id_seq.nextval,
+  (sequence_nextval('rhn_timezone_id_seq'),
    'GB-Eire', 'Ireland');
 
 

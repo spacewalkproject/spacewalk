@@ -105,7 +105,7 @@ public class AuditSearchAction extends RhnAction {
             DatePicker.YEAR_RANGE_NEGATIVE,
             "probedetails.jsp.start_date", "probedetails.jsp.end_date");
         DateRangePicker.DatePickerResults dpresults =
-                drp.processDatePickers(processDates);
+                drp.processDatePickers(processDates, false);
 
         if (processDates) { // we need to redo {start,end}{Disp,Milli}
             start = dpresults.getStart().getDate();

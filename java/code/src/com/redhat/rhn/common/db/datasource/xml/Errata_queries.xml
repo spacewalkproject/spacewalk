@@ -221,21 +221,6 @@ ORDER BY E.update_date DESC, E.id
   </query>
 </mode>
 
-<mode name="relevant_to_system_sorted_by_priority">
-  <query params="user_id, sid">
-SELECT E.synopsis AS ERRATA_SYNOPSIS, E.advisory_type
-  FROM rhnErrata E,
-       rhnServerNeededPackageCache SNEC,
-       rhnUserServerPerms USP
- WHERE USP.server_id = :sid
-   AND   USP.user_id = :user_id
-   AND   SNEC.server_id = USP.server_id
-   AND   SNEC.errata_id IS NOT NULL
-   AND   E.id = SNEC.errata_id
-ORDER BY  E.advisory_type DESC, E.update_date DESC,  E.id
-  </query>
-</mode>
-
 <mode name="count_critical_errata_for_system">
   <query params="user_id, sid">
 SELECT COUNT(DISTINCT E.ID) AS COUNT
@@ -443,7 +428,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
        rhnSet S
  WHERE CE.channel_id  = S.element
  AND S.label =  'channels_for_errata'
-         and temp.clonedId is null		
+         and temp.clonedId is null
          and S.user_id = :user_id
   </query>
 </mode>
@@ -494,7 +479,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
         where CE2.channel_id = :custom_cid
     )  temp on temp.clonedId = Errata1.id
    where  channel_id is null
-   	and temp.clonedId is null 		
+	and temp.clonedId is null
   </query>
 </mode>
 
@@ -641,13 +626,12 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
         rhnPackage P on P.id = EP.package_id inner join
         rhnPackageArch PA on PA.id = P.package_arch_id inner join
         rhnPackageEvr EVR on Evr.id = P.evr_id inner join
-        rhnPackage P2 on P2.name_id = P.name_id inner join
-        rhnChannelPackage CP on CP.package_id = P2.id inner join
+        rhnChannelPackageArchCompat COMPAT on P.package_arch_id = COMPAT.package_arch_id inner join
+        rhnChannel C on C.channel_arch_id = COMPAT.channel_arch_id inner join
         rhnPackageName PN on  PN.id = P.name_id
     where S.label = :set
 		 and S.user_id = :uid
-         and CP.channel_id = :dest_cid
-         and P2.Package_arch_id = P.package_arch_id
+         and C.id = :dest_cid
   </query>
 </mode>
 
@@ -673,6 +657,26 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
          and P2.Package_arch_id = P.package_arch_id
          and CN.org_id = :org_id and
          (E.org_id is NULL or E.org_id = :org_id)
+  </query>
+</mode>
+
+<mode name="find_errata_channel_packages" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="custom_cid, eid, org_id">
+	select distinct P.id, PN.name package_name, PA.label as package_arch,
+		EVR.version
+       || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
+         package_nvre
+    from
+        rhnErrata E inner join
+        rhnErrataPackage EP on E.id = EP.errata_id inner join
+        rhnPackage P on P.id = EP.package_id inner join
+        rhnPackageArch PA on PA.id = P.package_arch_id inner join
+        rhnPackageEvr EVR on Evr.id = P.evr_id inner join
+        rhnChannelPackage CP on CP.package_id = P.id inner join
+        rhnPackageName PN on  PN.id = P.name_id
+    where E.id = :eid
+         AND CP.channel_id = :custom_cid
+         AND (E.org_id is NULL or E.org_id = :org_id)
   </query>
 </mode>
 
@@ -784,7 +788,7 @@ ORDER BY  E.update_date DESC, E.id
   <query params="org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-         NVL(((SELECT 1
+         COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -811,7 +815,7 @@ ORDER BY update_date DESC, E.id
   <query params="org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-         NVL(((SELECT 1
+         COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -829,7 +833,7 @@ ORDER BY update_date DESC, E.id
                   WHERE C.org_id = :org_id
                     AND CC.id = C.id
                     AND CC.original_id = CE.channel_id
-                    AND                            NVL(((SELECT 1
+                    AND                            COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -848,7 +852,7 @@ ORDER BY update_date DESC, E.id
   <query params="channel_id, org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-         NVL(((SELECT 1
+         COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -876,7 +880,7 @@ ORDER BY update_date DESC, E.id
   <query params="channel_id, org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-                  NVL(((SELECT 1
+                  COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -895,7 +899,7 @@ ORDER BY update_date DESC, E.id
                   WHERE C.id = :channel_id
                     AND CC.id = C.id
                     AND CC.original_id = CE.channel_id
-                    AND                            NVL(((SELECT 1
+                    AND                            COALESCE(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
                                  AND EC.id = E2.id
@@ -962,13 +966,6 @@ ORDER BY  E.update_date DESC
      {call delete_errata(:eid)}
   </query>
 </callable-mode>
-
-<write-mode name="deletePaidErrataTempCacheBulk">
-  <query params="set, uid">
- delete from rhnPaidErrataTempCache where errata_id in
-	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
-  </query>
-</write-mode>
 
 <write-mode name="deleteErrataFileBulk">
   <query params="set, uid">
@@ -1117,28 +1114,6 @@ SELECT  EK.keyword
   FROM  rhnErrataKeyword EK
  WHERE  EK.errata_id = :eid
 ORDER BY UPPER(EK.keyword)
-  </query>
-</mode>
-
-<mode name="errata_packages" class="com.redhat.rhn.frontend.dto.ErrataPackageFile">
-  <query params="eid, org_id">
-SELECT  DISTINCT EFP.package_id,
-                 CS.checksum,
-                 CS.checksum_type AS CHECKSUMTYPE,
-                 EF.filename AS FILENAME,
-                 C.name AS CHANNEL_NAME
-  FROM  rhnChannel C,
-        rhnErrataFilePackage EFP,
-        rhnErrataFileChannel EFC,
-        rhnErrataFile EF,
-        rhnChecksumView CS
- WHERE  EF.errata_id = :eid
-   AND  EF.id = EFC.errata_file_id (+)
-   AND  EF.id = EFP.errata_file_id (+)
-   AND  EFC.channel_id IN (SELECT AC.channel_id FROM rhnAvailableChannels AC WHERE AC.org_id = :org_id)
-   AND  EFC.channel_id = C.id
-   AND  EF.checksum_id = CS.id
-ORDER BY C.name, EF.filename DESC
   </query>
 </mode>
 

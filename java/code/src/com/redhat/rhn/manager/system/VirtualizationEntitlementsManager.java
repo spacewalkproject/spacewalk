@@ -26,9 +26,11 @@ import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -148,14 +150,14 @@ public class VirtualizationEntitlementsManager {
      * @param user the user
      * @return the number of successful converts
      */
-    public int convertToFlex(List<Long> systemIds,
+    public Set<Long> convertToFlex(List<Long> systemIds,
             Long channelFamilyId,
             User user) {
-        int success = 0;
+        Set<Long> toRet = new HashSet<Long>();
         for (Long sid : systemIds) {
             try {
                 convertToFlex(sid, channelFamilyId, user);
-                success++;
+                toRet.add(sid);
             }
             catch (WrappedSQLException sq) {
                 SQLException ex = (SQLException) sq.getCause();
@@ -164,11 +166,14 @@ public class VirtualizationEntitlementsManager {
                     if (m != null && "not_enough_flex_entitlements".equals(m.getLabel())) {
                         break;
                     }
+                    if (m != null && "server_cannot_convert_to_flex".equals(m.getLabel())) {
+                        break;
+                    }
                 }
                 throw sq;
             }
         }
-        return success;
+        return toRet;
 
     }
 }

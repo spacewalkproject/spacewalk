@@ -34,11 +34,6 @@ import java.util.Map;
 public class SessionCleanup extends RhnJavaJob {
 
     /**
-     * Used to log stats in the RHNDAEMONSTATE table
-     */
-    public static final String DISPLAY_NAME = "session_cleanup";
-
-    /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context)
@@ -66,7 +61,7 @@ public class SessionCleanup extends RhnJavaJob {
 
         long bound = (System.currentTimeMillis() / 1000) - (2 * window);
 
-        log.info("session_cleanup: starting delete of stale sessions");
+        log.debug("session_cleanup: starting delete of stale sessions");
         if (log.isDebugEnabled()) {
             log.debug("Batch size is " + String.valueOf(batchSize));
             log.debug("Commit interval is " + String.valueOf(commitInterval));
@@ -93,8 +88,13 @@ public class SessionCleanup extends RhnJavaJob {
                     TaskConstants.TASK_QUERY_SESSION_CLEANUP + " returned");
         }
         //retrieves and logs number of sessions deleted
-        log.debug("session: cleanup " + row.get("sessions_deleted") +
-                 " stale sessions deleted\n");
+        Long sessionsDeleted = (Long) row.get("sessions_deleted");
+        if (sessionsDeleted > 0) {
+            log.info(row.get("sessions_deleted") + " stale session(s) deleted\n");
+        }
+        else {
+            log.debug("No stale sessions deleted\n");
+        }
     }
 
 }

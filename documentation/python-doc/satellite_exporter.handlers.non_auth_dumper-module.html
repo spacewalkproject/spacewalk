@@ -115,20 +115,6 @@
         <a href="satellite_exporter.handlers.non_auth_dumper.ChannelsDumper-class.html" class="summary-name">ChannelsDumper</a>
     </td>
   </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper._ChannelSnapshotter-class.html" class="summary-name" onclick="show_private();">_ChannelSnapshotter</a>
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper._ChannelDumper-class.html" class="summary-name" onclick="show_private();">_ChannelDumper</a>
-    </td>
-  </tr>
 </table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -147,26 +133,6 @@
     </table>
   </td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="list_minus"></a><span class="summary-sig-name">list_minus</span>(<span class="summary-sig-arg">l1</span>,
-        <span class="summary-sig-arg">l2</span>,
-        <span class="summary-sig-arg">comp_func</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x8c6309c&gt;</span>)</span><br />
-      Returns l1 minus l2, comparing each item of l1 and l2 after filtering
-      them through comp_func</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_exporter.handlers.non_auth_dumper-pysrc.html#list_minus">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -176,22 +142,6 @@
           <td><span class="summary-sig"><a name="_lookup_last_modified_packages"></a><span class="summary-sig-name">_lookup_last_modified_packages</span>(<span class="summary-sig-arg">package_ids</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_exporter.handlers.non_auth_dumper-pysrc.html#_lookup_last_modified_packages">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_lookup_last_modified_errata"></a><span class="summary-sig-name">_lookup_last_modified_errata</span>(<span class="summary-sig-arg">errata_ids</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_exporter.handlers.non_auth_dumper-pysrc.html#_lookup_last_modified_errata">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -254,39 +204,28 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_packages" class="summary-name" onclick="show_private();">_query_lookup_last_modified_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147404332; statement=
+        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_packages" class="summary-name" onclick="show_private();">_query_lookup_last_modified_packages</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 27636872; stat\
+ement=
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi\
 ed
       from rhnPackage
      where id = :id
-">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQ<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_errata" class="summary-name" onclick="show_private();">_query_lookup_last_modified_errata</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147404364; statement=
-    select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi\
-ed
-      from rhnErrata
-     where id = :id
-">&lt;server.rhnSQL.sql_base.S<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_ks_trees" class="summary-name" onclick="show_private();">_query_lookup_last_modified_ks_trees</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147404396; statement=
+        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_ks_trees" class="summary-name" onclick="show_private();">_query_lookup_last_modified_ks_trees</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 27636944; stat\
+ement=
     select TO_CHAR(kt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_mod\
 ified
       from rhnKickstartableTree kt, rhnChannel c
      where kt.channel_id = c.id
        and c.label = :channel_label
        and kt.label = :ks_label
-       and kt.org_id is null
-...">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQ<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -334,33 +273,11 @@ ified
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 147404332; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 27636872; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ed
       from rhnPackage
-     where id = :id
-
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="_query_lookup_last_modified_errata"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">_query_lookup_last_modified_errata</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 147404364; statement=
-    select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ed
-      from rhnErrata
      where id = :id
 
 </pre></td></tr></table>
@@ -380,14 +297,14 @@ ed
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 147404396; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 27636944; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select TO_CHAR(kt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_mod<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ified
       from rhnKickstartableTree kt, rhnChannel c
      where kt.channel_id = c.id
        and c.label = :channel_label
        and kt.label = :ks_label
-       and kt.org_id is null
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -418,7 +335,7 @@ ified
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:37 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

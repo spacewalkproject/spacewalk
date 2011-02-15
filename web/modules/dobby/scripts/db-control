@@ -59,6 +59,7 @@ B<db-control>
 [B<start>]
 [B<status>]
 [B<stop>]
+[B<tablesizes>]
 [B<verify DIRNAME>]
 
 =head1 OPTIONS
@@ -124,6 +125,8 @@ Show space report for each table.
 =item B<verify DIRNAME>
 
 Verifies the contents of the backup kept in DIRNAME.  This command checks the md5sums of each of the files kept in the backup.
+
+=back
 
 =head1 SEE ALSO
 

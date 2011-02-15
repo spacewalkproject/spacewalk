@@ -17,13 +17,11 @@
 #
 
 import headerSource
-import os
 import time
 import string
-from importLib import File, Dependency, ChangeLog, Channel, \
-    IncompletePackage, Package, SourcePackage
+from importLib import Channel
 from backendLib import gmtime, localtime
-from types import ListType, TupleType, IntType
+from types import IntType
 
 
 class debBinaryPackage(headerSource.rpmBinaryPackage):

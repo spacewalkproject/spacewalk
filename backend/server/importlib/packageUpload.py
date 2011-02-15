@@ -16,15 +16,14 @@
 # Package import code on the app side
 #
 
-from common import rhnFault, log_debug
-from spacewalk.common import rhn_rpm
+from spacewalk.common import rhnFault, log_debug, rhn_rpm, CFG
 
-from server import rhnChannel, taskomatic, rhnSQL
-from server.importlib.headerSource import createPackage
-from server.importlib.importLib import Collection
-from server.importlib.packageImport import packageImporter
-from common import CFG
-from server.importlib.errataCache import schedule_errata_cache_update
+from spacewalk.server import rhnChannel, taskomatic, rhnSQL
+from spacewalk.server.importlib.backendOracle import SQLBackend
+from spacewalk.server.importlib.headerSource import createPackage
+from spacewalk.server.importlib.importLib import Collection
+from spacewalk.server.importlib.packageImport import packageImporter
+from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 
 def uploadPackages(info, source=0, force=0, caller=None):
     log_debug(4, source, force, caller)
@@ -46,17 +45,9 @@ def uploadPackages(info, source=0, force=0, caller=None):
         p = __processPackage(package, org_id, channelList, source)
         batch.append(p)
 
-    if CFG.DB_BACKEND == ORACLE:
-        from server.importlib.backendOracle import OracleBackend
-        backend = OracleBackend()
-    elif CFG.DB_BACKEND == POSTGRESQL:
-        from server.importlib.backendOracle import PostgresqlBackend
-        backend = PostgresqlBackend()
-
-    backend.init()
+    backend = SQLBackend()
     importer = packageImporter(batch, backend, source, caller=caller)
 
-    importer.setIgnoreUploaded(1)
     importer.setUploadForce(force)
 
     importer.run()

@@ -37,7 +37,6 @@ import java.util.Properties;
 
 /**
  * Taskomatic Kernel.
- * @version $Rev$
  */
 public class SchedulerKernel {
 
@@ -87,6 +86,33 @@ public class SchedulerKernel {
             dbUrl += dbName;
             props.setProperty(ds + ".URL", dbUrl);
         }
+        else if (ConfigDefaults.get().isPostgresql()) {
+            props.setProperty("org.quartz.jobStore.driverDelegateClass",
+                    "org.quartz.impl.jdbcjobstore.PostgreSQLDelegate");
+
+            String driver = Config.get().getString(ConfigDefaults.DB_CLASS,
+                    "org.postgresql.Driver");
+            props.setProperty(ds + ".driver", driver);
+
+            String connectionUrl = Config.get().getString(
+                    ConfigDefaults.DB_PROTO) +
+                    ":";
+            String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
+            String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
+            if (dbHost != null && dbHost.length() > 0) {
+                connectionUrl += "//" + dbHost;
+                if (dbPort != null && dbPort.length() > 0) {
+                    connectionUrl += ":" + dbPort;
+                }
+                connectionUrl += "/";
+            }
+            connectionUrl += dbName;
+            props.setProperty(ds + ".URL", connectionUrl);
+        }
+        else {
+            throw new InstantiationException(
+                    "Unknown db backend set, expecting oracle or postgresql");
+        }
 
         try {
             SchedulerKernel.factory = new StdSchedulerFactory(props);
@@ -96,7 +122,6 @@ public class SchedulerKernel {
             // Setup TriggerListener chain
             this.chainedTriggerListener = new ChainedListener();
             this.chainedTriggerListener.addListener(new TaskEnvironmentListener());
-            this.chainedTriggerListener.addListener(new LoggingListener());
 
             try {
                 SchedulerKernel.scheduler.addTriggerListener(this.chainedTriggerListener);
@@ -108,7 +133,6 @@ public class SchedulerKernel {
             xmlrpcServer.start();
         }
         catch (SchedulerException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new InstantiationException("this.scheduler failed");
         }

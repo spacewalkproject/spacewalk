@@ -35,7 +35,7 @@ my $usage = "usage: $0 [ --enable-scout ] [ --admin-email=<email_address> ] [ --
   . " [ --mail-domain=<mail_domain> ] [ --hostname=<override_hostname> ]"
   . " [ --help ]\n";
 
-GetOptions(\%opts, @valid_opts);
+GetOptions(\%opts, @valid_opts) or die $usage;
 
 if ($opts{help}) {
   die $usage;
@@ -92,7 +92,7 @@ $config_opts{monitoringDOTsmonDOTtestfqdn} = 'localhost';
 $config_opts{monitoringDOTscout_shared_key} = $scout_shared_key;
 
 RHN::SatInstall->write_config(\%config_opts,
-			      '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+			      '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf');
 
 print "Deploying config\n";
 

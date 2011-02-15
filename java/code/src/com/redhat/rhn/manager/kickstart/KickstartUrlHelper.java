@@ -51,9 +51,9 @@ public class KickstartUrlHelper {
                         "/rhn/kickstart/KickstartFileDownloadAdvanced.do?ksid=%s";
     private static final String KS_WIZARD_PAGE_URL =
             "/rhn/kickstart/KickstartFileDownload.do?ksid=%s";
-    private KickstartData ksData;
-    private String host;
-    private String protocol;
+    private final KickstartData ksData;
+    private final String host;
+    private final String protocol;
     private KickstartableTree ksTree;
 
 
@@ -278,17 +278,18 @@ public class KickstartUrlHelper {
      * /ty/xZ38
      *
      * @param session to compute tracking URL for.
+     * @param date for tiny url track
      *
      * @return String url to this KickstartData's media (packages, kernel
      * etc...)
      */
-    public String getKickstartMediaPath(KickstartSession session) {
+    public String getKickstartMediaPath(KickstartSession session, Date date) {
         log.debug("Formatting for session use.");
         // /ks/dist/session/
         // 94xe86321bae3cb74551d995e5eafa065c0/ks-rhel-i386-as-4-u2
         String file = getLongMediaPath(session);
         TinyUrl turl = CommonFactory.createTinyUrl(file.toString(),
-                new Date());
+                date);
         CommonFactory.saveTinyUrl(turl);
         log.debug("returning: " + turl.computeTinyPath());
         return turl.computeTinyPath();

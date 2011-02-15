@@ -14,8 +14,8 @@
 #
 #
 
-from common import log_debug, log_error
-from common import rhnException
+from spacewalk.common import log_debug, log_error
+from spacewalk.common.rhnException import rhnFault
 import rhnSQL
 import rpm
 import string
@@ -26,11 +26,11 @@ __packages_with_arch_and_id_sql = """
 select distinct
     p.id id,
     pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    1 preference
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    1 as preference
 from
     rhnPackageEvr pe,
     rhnChannelPackage cp,
@@ -64,11 +64,11 @@ and pe.evr = (
 __packages_sql = """
 select distinct
     pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    1 preference
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    1 as preference
 from
     rhnPackageEvr pe,
     rhnChannelPackage cp,
@@ -103,11 +103,11 @@ and pe.evr = (
 __packages_all_sql = """
 select distinct
     pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    1 preference
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    1 as preference
 from
     rhnPackageEvr pe,
     rhnChannelPackage cp,
@@ -129,11 +129,11 @@ and p.package_arch_id = pa.id
 __provides_sql  = """
 select  distinct
     pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    2 preference
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    2 as preference
 from
     rhnServerChannel sc,
     rhnChannelPackage cp,
@@ -175,11 +175,11 @@ and pe.evr = (
 __provides_all_sql  = """
 select  distinct
     pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    2 preference
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    2 as preference
 from
     rhnServerChannel sc,
     rhnChannelPackage cp,
@@ -206,11 +206,11 @@ and p.package_arch_id = pa.id
 __files_sql = """
 select distinct
     pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    3 preference
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    3 as preference
 from
     rhnServerChannel sc,
     rhnChannelPackage cp,
@@ -252,11 +252,11 @@ and pe.evr = (
 __files_all_sql = """
 select distinct
     pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    3 preference
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    3 as preference
 from
     rhnServerChannel sc,
     rhnChannelPackage cp,
@@ -284,31 +284,8 @@ class SolveDependenciesError(Exception):
         self.deps = deps
         self.packages = packages
 
-class InvalidLimitField(SolveDependenciesError):
-    pass
-
-class InvalidLimitOperator(SolveDependenciesError):
-    pass
-
-class InvalidLimit(SolveDependenciesError):
-    pass
-
-class IncompleteLimitInfo(SolveDependenciesError):
-    pass
-
 class MakeEvrError(SolveDependenciesError):
     pass
-
-def __single_query(server_id, deps, query):
-    """ Now run one of those queries and return the results. """
-    ret = {}
-    # first prepare the statement
-    h = rhnSQL.prepare(query)
-    for dep in deps:
-        h.execute(server_id = server_id, dep = dep)
-        data = h.fetchall() or []
-        ret[dep] = map(lambda a: a[:4], data)
-    return ret
 
 def __single_query_with_arch_and_id(server_id, deps, query):
     """ Run one of the queries and return the results along with the arch. """
@@ -355,7 +332,7 @@ def make_evr(nvre):
             }
             return ret
         else:
-            raise rhnException.rhnFault(err_code = 21, 
+            raise rhnFault(err_code = 21,
                                          err_text = "NVRE is missing name, version, or release.")
     elif string.find(nvre, '-') != -1:
         nvre = string.split(nvre, '-')
@@ -377,27 +354,6 @@ def make_evr(nvre):
 def find_package_with_arch(server_id, deps):
     log_debug(4, server_id, deps)
     return __single_query_with_arch_and_id(server_id, deps, __packages_with_arch_and_id_sql)
-
-def find_by_packages(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __packages_sql)
-def find_by_packages_all(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __packages_all_sql)
-
-def find_by_provides(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __provides_sql)
-def find_by_provides_all(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __provides_all_sql)
-
-def find_by_files(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __files_sql)
-def find_by_files_all(server_id, deps):
-    log_debug(4, server_id, deps)
-    return __single_query(server_id, deps, __files_all_sql)
 
 def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_operator=None, limit = None):
     """ This version of solve_dependencies allows the caller to get all of the packages that solve a dependency and limit
@@ -512,20 +468,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
                 list_of_tuples.append(newtuple)
 
         if all == 0:
-            # attempt to avoid giving out the compat-* packages if there are other candidates
-            if len(dict) > 1:
-                matches = dict.keys()
-        
-                # check we have at least one non- "compat-*" package name
-                compats = filter(lambda a: a[:7] == "compat-", matches)
-        
-                if len(compats) > 0 and len(compats) < len(matches): # compats and other things
-                    for p in compats: # delete all references to a compat package for this dependency
-                        del dict[p]
-                # otherwise there's nothing much we can do (no compats or only compats)
-        
-            # and now return these final results ordered by preferece
-            list_of_tuples = dict.values()
+            packages[dep] = _avoid_compat_packages(dict)
         else:
             #filter out compats
             if len(list_of_tuples) > 1:
@@ -537,13 +480,16 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
                         tup_keep.append(tup)
                 list_of_tuples = tup_keep
 
-        list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
-        packages[dep] = map(lambda x: x[0], list_of_tuples)
+            list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
+            packages[dep] = map(lambda x: x[0], list_of_tuples)
         
     # v2 clients are done
     if version > 1:
         return packages
-    
+    else:
+        return _v2packages_to_v1list(packages, deplist, all)
+
+def _v2packages_to_v1list(packages, deplist, all=0):
     # v1 clients expect a list as a result
     result = []
     # Return the results in order (not that anyone would care)
@@ -631,40 +577,13 @@ def solve_dependencies_arch(server_id, deps, version):
             # The first time we see this package.
             dict[name_key] = (entry, p['preference'])
 
-        # attempt to avoid giving out the compat-* packages if there are other candidates
-        if len(dict) > 1:
-            matches = dict.keys()
-        
-            # check we have at least one non- "compat-*" package name
-            compats = filter(lambda a: a[:7] == "compat-", matches)
-        
-            if len(compats) > 0 and len(compats) < len(matches): # compats and other things
-                for p in compats: # delete all references to a compat package for this dependency
-                    del dict[p]
-            # otherwise there's nothing much we can do (no compats or only compats)
-        
-        # and now return these final results ordered by preferece
-        list_of_tuples = dict.values()
-        list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
-        packages[dep] = map(lambda x: x[0], list_of_tuples)
+        packages[dep] = _avoid_compat_packages(dict)
         
     # v2 clients are done
     if version > 1:
         return packages
-    
-    # v1 clients expect a list as a result
-    result = []
-    # Return the results in order (not that anyone would care)
-    for dep in deplist:
-        if not packages[dep]:
-            # Unresolved dependency; skip it
-            continue
-        # consider only the first one for each dep
-        r = packages[dep][0]
-        # Avoid sending the same result back multiple times
-        if r not in result:
-            result.append(r)
-    return result
+    else:
+        return _v2packages_to_v1list(packages, deplist)
 
 def solve_dependencies(server_id, deps, version):
     """ The unchanged version of solve_dependencies. 
@@ -716,39 +635,31 @@ def solve_dependencies(server_id, deps, version):
                 continue
             # The first time we see this package.
             dict[entry[0]] = (entry, p['preference'])
-        # attempt to avoid giving out the compat-* packages if there are other candidates
-        if len(dict) > 1:
-            matches = dict.keys()
-            # check we have at least one non- "compat-*" package name
-            compats = filter(lambda a: a[:7] == "compat-", matches)
-            if len(compats) > 0 and len(compats) < len(matches): # compats and other things
-                for p in compats: # delete all references to a compat package for this dependency
-                    del dict[p]
-            # otherwise there's nothing much we can do (no compats or only compats)
-        # and now return these final results ordered by preferece
-        l = dict.values()
-        l.sort(lambda a, b: cmp(a[1], b[1]))
-        packages[dep] = map(lambda x: x[0], l)
+
+        packages[dep] = _avoid_compat_packages(dict)
 
     # v2 clients are done
     if version > 1:
         return packages
-    
-    # v1 clients expect a list as a result
-    result = []
-    # Return the results in order (not that anyone would care)
-    for dep in deplist:
-        if not packages[dep]:
-            # Unresolved dependency; skip it
-            continue
-        # consider only the first one for each dep
-        r = packages[dep][0]
-        # Avoid sending the same result back multiple times
-        if r not in result:
-            result.append(r)
-    return result
+    else:
+        return _v2packages_to_v1list(packages, deplist)
 
-
+def _avoid_compat_packages(dict):
+    """ attempt to avoid giving out the compat-* packages
+        if there are other candidates
+    """
+    if len(dict) > 1:
+        matches = dict.keys()
+        # check we have at least one non- "compat-*" package name
+        compats = filter(lambda a: a[:7] == "compat-", matches)
+        if len(compats) > 0 and len(compats) < len(matches): # compats and other things
+            for p in compats: # delete all references to a compat package for this dependency
+                del dict[p]
+        # otherwise there's nothing much we can do (no compats or only compats)
+    # and now return these final results ordered by preferece
+    l = dict.values()
+    l.sort(lambda a, b: cmp(a[1], b[1]))
+    return map(lambda x: x[0], l)
 
 def cmp_evr(pkg1, pkg2):
     """ Intended to be passed to a list object's sort().
@@ -786,7 +697,7 @@ def test_evr(evr, operator, limit):
     good_operators = ['<', '<=', '==', '>=', '>']
 
     if not operator in good_operators:
-        raise rhnException.rhnFault(err_code = 21, 
+        raise rhnFault(err_code = 21,
                                      err_text = "Bad operator passed into test_evr.")
 
     evr_epoch = evr['epoch']

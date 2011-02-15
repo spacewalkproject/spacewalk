@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.2.4
+Version: 1.4.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,55 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Feb 14 2011 Jan Pazdziora 1.4.1-1
+- 675780 - remove installed packages from transaction (mzazrivec@redhat.com)
+- 671032 - specify RHN as "RHN Satellite or RHN Classic" (msuchy@redhat.com)
+- 671032 - disable rhnplugin by default and enable it only after successful
+  registration (msuchy@redhat.com)
+- Bumping package versions for 1.4 (tlestach@redhat.com)
+
+* Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
+- this was accidentaly commited in previous commit - reverting
+  (msuchy@redhat.com)
+- 648403 - do not require up2date on rhel5 (msuchy@redhat.com)
+
+* Mon Jan 31 2011 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
+- 672471 - do not send info to rhnParent about removing packages if plugin is
+  enabled, but machine is not registred - i.e. getSystemId() returns None
+  (msuchy@redhat.com)
+
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.4-1
+- updating Copyright years for year 2011 (tlestach@redhat.com)
+- update .po and .pot files for yum-rhn-plugin (tlestach@redhat.com)
+- 666545 - don't report empty transactions as a successful action
+  (mzazrivec@redhat.com)
+- fix expression semantics (mzazrivec@redhat.com)
+
+* Fri Jan 14 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.3-1
+- switch off network communication in cache only mode
+- cache list of rhn channels so we can correctly clean our stuff
+- 627525 - moved communication with satellite server from init_hook to
+- 656380 - do not disable SSL server name check for XMLRPC communication
+- 652424 - code optimalization: use up2date_cfg as class atribute
+- 652424 - do not enable Akamai if you set useNoSSLForPackages option
+- 627525 - do not parse command line, leave it to yum itself
+
+* Mon Jan 03 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.2-1
+- 666876 - respect metadata_expire setting from yum config
+
+* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
+- removed unused imports
+
+* Mon Nov 15 2010 Jan Pazdziora 1.2.7-1
+- l10n: Updates to Italian (it) translation (tombo@fedoraproject.org)
+
+* Wed Nov 10 2010 Jan Pazdziora 1.2.6-1
+- call config.initUp2dateConfig() only once (msuchy@redhat.com)
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.5-1
+- Update copyright years in the rest of the repo.
+- update .po and .pot files for yum-rhn-plugin
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.4-1
 - l10n: Updates to Persian (fa) translation (aysabzevar@fedoraproject.org)
 

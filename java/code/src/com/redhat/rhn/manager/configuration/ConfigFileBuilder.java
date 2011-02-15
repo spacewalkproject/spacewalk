@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.configuration.ConfigFileForm;
 import com.redhat.rhn.manager.configuration.file.ConfigFileData;
 
 import org.apache.commons.lang.StringUtils;
@@ -54,7 +55,7 @@ public class ConfigFileBuilder {
 
     /**
      * Validates the passed in channel using the info provided
-     * @param cff the COnfigFileForm associated to the request
+     * @param cff the ConfigFileForm associated to the request
      * @param user the logged in user
      * @param channel the config channel.
      * @return returns a ValidatorResult
@@ -131,11 +132,16 @@ public class ConfigFileBuilder {
             revision = ConfigurationFactory.newConfigRevision();
             ConfigContent content = null;
             if (ConfigFileType.file().equals(form.getType())) {
-                String delimStart = null;
-                String delimEnd = null;
-                if (!form.isBinary()) {
-                    delimStart = form.getMacroStart();
-                    delimEnd = form.getMacroEnd();
+                String delimStart = form.getMacroStart();
+                String delimEnd = form.getMacroEnd();
+                if (form.isBinary()) {
+                    // if not given, use the default value
+                    if (delimStart == null) {
+                        delimStart = ConfigFileForm.DEFAULT_CONFIG_DELIM_START;
+                    }
+                    if (delimEnd == null) {
+                        delimEnd = ConfigFileForm.DEFAULT_CONFIG_DELIM_END;
+                    }
                 }
                 content = ConfigurationFactory.createNewContentFromStream(
                             form.getContentStream(),
@@ -151,6 +157,17 @@ public class ConfigFileBuilder {
                         form.getContentSize());
             if (revision.isFile()) {
                 revision.getConfigContent().setBinary(form.isBinary());
+                if (form.isBinary()) {
+                    // copy delims from the previous revision
+                    ConfigContent prevContent = cf.getLatestConfigRevision().
+                        getConfigContent();
+                    revision.getConfigContent().setDelimStart(prevContent.getDelimStart());
+                    revision.getConfigContent().setDelimEnd(prevContent.getDelimEnd());
+                }
+                else {
+                    revision.getConfigContent().setDelimStart(form.getMacroStart());
+                    revision.getConfigContent().setDelimEnd(form.getMacroEnd());
+                }
             }
         }
         revision.setConfigInfo(form.extractInfo());
@@ -159,7 +176,6 @@ public class ConfigFileBuilder {
         if (!StringUtils.isEmpty(form.getRevNumber())) {
             revision.setRevision(Long.parseLong(form.getRevNumber()));
         }
-
 
         // Committing the revision commits the file for us (which commits the
         // Channel, so everybody's pointers get updated...)
@@ -242,6 +258,4 @@ public class ConfigFileBuilder {
         }
         return update(form, user, file);
     }
-
-
 }

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 -- data for rhnTemplateCategory
 
 INSERT INTO rhnTemplateCategory (id, label, description) 
-     VALUES (rhn_template_cat_id_seq.nextval, 'org_strings', 'Organization specific strings.');
+     VALUES (sequence_nextval('rhn_template_cat_id_seq'), 'org_strings', 'Organization specific strings.');
 
 INSERT INTO rhnTemplateCategory (id, label, description)
-     VALUES (rhn_template_cat_id_seq.nextval, 'email_strings', 'Strings appearing in e-mail sent to users.');
+     VALUES (sequence_nextval('rhn_template_cat_id_seq'), 'email_strings', 'Strings appearing in e-mail sent to users.');

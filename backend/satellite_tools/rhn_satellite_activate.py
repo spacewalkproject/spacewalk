@@ -30,13 +30,11 @@ except ImportError:
         pass
 
 ## common, server imports
-from common import rhnTB
-from common import rhnLib
-from common.rhnConfig import CFG, initCFG
-from common.rhnTranslate import _
-from server import rhnSQL
-from server.rhnServer import satellite_cert
-from spacewalk.common import fileutils
+from spacewalk.common import rhnTB, rhnLib, fileutils
+from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server import rhnSQL
+from spacewalk.server.rhnServer import satellite_cert
 
 import tempfile
 
@@ -55,12 +53,6 @@ DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 
 class CaCertInsertionError(Exception):
     "raise when fail to insert CA cert into the local database"
-
-class genServerCertError(Exception):
-    "Raise when we fail to properly generate a httpd server certificate"
-
-class SatCertNoFreeEntitlementsException(Exception):
-    "Raise when no free entitlements are available during activation"
 
 def openGzippedFile(filename):
     """ Open a file for reading. File may or may not be a gzipped file.
@@ -87,7 +79,8 @@ def openGzippedFile(filename):
 def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
                     sslCertPath, sslYN=1):
     """ Return an XML-RPC Server connection object; no ssl if sslCertPath==None.
-        May return rpclib.Fault, rpclib.ProtocolError, or socket.error.
+        May return rpclib.xmlrpclib.Fault, rpclib.xmlrpclib.ProtocolError,
+        or socket.error.
     """
 
     _uri = server + handler
@@ -295,7 +288,7 @@ def activateSatellite_remote(options):
             if options.verbose:
                 print "Executing: remote XMLRPC deactivation (if necessary)."
             ret = s.satellite.deactivate_satellite(systemid, rhn_cert)
-        except rpclib.Fault, f:
+        except rpclib.xmlrpclib.Fault, f:
             # 1025 results in "satellite_not_activated"
             if abs(f.faultCode) != 1025:
                 sys.stderr.write('ERROR: unhandled XMLRPC fault upon '
@@ -311,7 +304,7 @@ def activateSatellite_remote(options):
         if options.verbose:
             print "Executing: remote XMLRPC activation call."
         ret = s.satellite.activate_satellite(systemid, rhn_cert)
-    except rpclib.Fault, f:
+    except rpclib.xmlrpclib.Fault, f:
         sys.stderr.write("Error reported from RHN: %s\n" % f)
 	# NOTE: we support the old (pre-cactus) web-handler API and the new.
 	# The old web handler used faultCodes of 1|-1 and the new API uses
@@ -634,7 +627,7 @@ def main():
                 return 89
 
         # channel family stuff
-        if not options.disconnected:
+        if not options.disconnected and CFG.RHN_PARENT and not CFG.ISS_PARENT:
             try:
                 populateChannelFamilies(options)
             except PopulateChannelFamiliesException, e:

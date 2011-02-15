@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,6 @@
 #
 
 import os
-import sys
 import string
 
 from config_common import handler_base, utils, cfg_exceptions
@@ -97,7 +96,7 @@ class Handler(handler_base.HandlerBase):
         flist = list_files_recursive(channel_dir)
 
         for (dirname, filenames) in flist:
-            assert utils.startswith(dirname, channel_dir)
+            assert dirname.startswith(channel_dir)
             remote_dirname = dirname[len(channel_dir):]
 
             for f in filenames:

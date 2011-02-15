@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,12 +19,12 @@
 insert into rhnSGTypeVirtSubLevel
 values(lookup_sg_type('virtualization_host'),
        lookup_virt_sub_level('virtualization_free'),
-       sysdate, sysdate);
+       current_timestamp, current_timestamp);
 
 insert into rhnSGTypeVirtSubLevel
 values(lookup_sg_type('virtualization_host_platform'),
        lookup_virt_sub_level('virtualization_platform_free'),
-       sysdate, sysdate);
+       current_timestamp, current_timestamp);
 
 commit;
 

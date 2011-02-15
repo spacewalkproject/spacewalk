@@ -4,7 +4,7 @@
 TOP	= ..
 
 INSTALL_FILES	= sqlnet.ora
-INSTALL_LINKS	= tnsnames.ora
+INSTALL_LINKS	=
 INSTALL_DEST	= /etc/rhn/tns_admin/osa-dispatcher
 
 include $(TOP)/Makefile.defs

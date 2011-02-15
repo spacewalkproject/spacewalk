@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:59 2010
+-- created by Oraschemadoc Thu Jan 20 13:57:44 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_KS_SESSION_HISTORY_TRIGGER"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_KS_SESSION_HISTORY_TRIGGER" 
 after insert or update on rhnKickstartSession
 for each row
 begin

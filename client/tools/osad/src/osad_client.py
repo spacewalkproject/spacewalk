@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,7 @@ import time
 import string
 
 import jabber_lib
-from rhn_log import log_debug, log_error, die
+from rhn_log import log_debug
 
 class Client(jabber_lib.JabberClient):
     def __init__(self, *args, **kwargs):

@@ -47,7 +47,8 @@
                 cpu.chipset as cpuChipset,
                 si.checkin as checkin,
                 rr.ram as ram,
-                rr.swap as swap
+                rr.swap as swap,
+                vi.uuid as uuid
             FROM rhnServer s
                 LEFT OUTER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
                 LEFT OUTER JOIN rhnServerInfo si on s.id = si.server_id
@@ -55,6 +56,7 @@
                 LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
                 LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
                 LEFT OUTER JOIN rhnCPU cpu on s.id = cpu.server_id
+                LEFT OUTER JOIN rhnVirtualInstance vi on s.id = vi.virtual_system_id
             WHERE s.modified >= #last_modified#
                 or rsn.modified >= #last_modified#
                 or si.checkin >= #last_modified#
@@ -67,7 +69,7 @@
     </select>
 
    <delete id="deleteLastServer">
-   		DELETE rhnIndexerWork where object_type = 'server'
+                DELETE FROM rhnIndexerWork where object_type = 'server'
    </delete>
    <insert id="createLastServer"
 		   parameterClass="java.util.Map">

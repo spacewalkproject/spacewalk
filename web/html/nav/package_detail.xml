@@ -4,7 +4,7 @@
     <rhn-tab name="Overview" url="/rhn/software/packages/Details.do"/>
     <rhn-tab name="Dependencies" url="/network/software/packages/dependencies.pxt"/>
     <rhn-tab name="Package Map" url="/network/software/packages/package_map.pxt" acl="package_type_capable(package_map)"/>
-    <rhn-tab name="Change Log" url="/network/software/packages/change_log.pxt" acl="package_type_capable(change_log)"/>
+    <rhn-tab name="Change Log" url="/rhn/software/packages/ChangeLog.do" acl="package_type_capable(change_log)"/>
     <rhn-tab name="File List" url="/network/software/packages/file_list.pxt" acl="package_type_capable(file_list)"/>
   </rhn-tab>
   <rhn-tab name="New Versions" url="/network/software/packages/newer_versions.pxt"/>

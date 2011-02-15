@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008-2010 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,7 @@ create or replace function
 lookup_config_info (
     username_in     in varchar2,
     groupname_in    in varchar2,
-    filemode_in     in varchar2,
+    filemode_in     in number,
     selinux_ctx_in  in varchar2,
     symlink_target_id in number
 ) return number

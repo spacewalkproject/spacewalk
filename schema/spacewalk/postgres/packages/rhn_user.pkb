@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 933cd1f52ab0cff6e55450f5882a7efbfeddf870
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,9 +12,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
 --
 
 -- create schema rhn_user;
@@ -239,25 +237,6 @@ create or replace
 $$ language plpgsql;
 
 create or replace
-	function add_users_to_usergroups(
-		user_id_in in numeric
-	) returns void as $$
-        declare
-            ugm record;
-	begin
-		for ugm in
-			select	element as user_id,
-					element_two as user_group_id
-			from	rhnSet
-			where	user_id = user_id_in
-				and label = 'user_group_list'
-                loop
-			perform rhn_user.add_to_usergroup(ugm.user_id, ugm.user_group_id);
-		end loop;
-	end;
-$$ language plpgsql;
-
-create or replace
 	function remove_from_usergroup(
 		user_id_in in numeric,
 		user_group_id_in in numeric
@@ -289,25 +268,5 @@ create or replace
 	end;
 $$ language plpgsql;
 
-create or replace
-	function remove_users_from_servergroups(
-		user_id_in in numeric
-	) returns void as $$
-        declare
-            ugm record;
-	begin
-		for ugm in
-			select	element as user_id,
-					element_two as user_group_id
-			from	rhnSet
-			where	user_id = user_id_in
-				and label = 'user_group_list'
-                loop
-			perform rhn_user.remove_from_usergroup(ugm.user_id, ugm.user_group_id);
-		end loop;
-	end;
-$$ language plpgsql;
-
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_user')+1) ) where name = 'search_path';
-

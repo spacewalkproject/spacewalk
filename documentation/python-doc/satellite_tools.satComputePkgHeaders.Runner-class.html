@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.satComputePkgHeaders-module.html" onclick="show_private();">Module&nbsp;satComputePkgHeaders</a> ::
+        <a href="satellite_tools.satComputePkgHeaders-module.html">Module&nbsp;satComputePkgHeaders</a> ::
         Class&nbsp;Runner
       </span>
     </td>
@@ -192,49 +192,52 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channel_packages" class="summary-name" onclick="show_private();">_query_get_channel_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159637932; statement=
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channel_packages" class="summary-name" onclick="show_private();">_query_get_channel_packages</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911144; stat\
+ement=
         select c.id, c.label
           from rhnChannel c,
                rhnChannelPackage cp
          where cp.package_id = :package_id
            and cp.channel_id = c.id
-    ">&lt;server.rhnSQL.sql_base.Statemen<code class="variable-ellipsis">...</code></code>
+    ">&lt;spacewalk.server.rhnSQL.sql_bas<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channels" class="summary-name" onclick="show_private();">_query_get_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159637996; statement=
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channels" class="summary-name" onclick="show_private();">_query_get_channels</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911216; stat\
+ement=
         select id, label from rhnChannel 
-    ">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
+    ">&lt;spacewalk.server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_packages" class="summary-name" onclick="show_private();">_query_get_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159638028; statement=
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_packages" class="summary-name" onclick="show_private();">_query_get_packages</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911288; stat\
+ement=
         select cp.package_id, p.path, p.header_start, p.header_end
           from rhnChannelPackage cp,
                rhnPackage p
          where cp.channel_id = :channel_id
            and cp.package_id = p.id
            and p.path is not null
-           and p.header_start = -1
-...">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_add_package_header_values" class="summary-name" onclick="show_private();">_query_add_package_header_values</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159638060; statement=
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_add_package_header_values" class="summary-name" onclick="show_private();">_query_add_package_header_values</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911360; stat\
+ement=
         update rhnPackage 
            set header_start = :header_start,
                header_end = :header_end
          where id = :package_id
-    ">&lt;server.rhnSQL.sql_base.Sta<code class="variable-ellipsis">...</code></code>
+    ">&lt;spacewalk.server.rhnSQL.sq<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -268,13 +271,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159637932; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911144; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         select c.id, c.label
           from rhnChannel c,
                rhnChannelPackage cp
          where cp.package_id = :package_id
            and cp.channel_id = c.id
-    
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -292,9 +296,10 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159637996; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911216; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         select id, label from rhnChannel 
-    
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -312,14 +317,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159638028; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911288; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         select cp.package_id, p.path, p.header_start, p.header_end
           from rhnChannelPackage cp,
                rhnPackage p
          where cp.channel_id = :channel_id
            and cp.package_id = p.id
            and p.path is not null
-           and p.header_start = -1
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -338,12 +343,13 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 159638060; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 40911360; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
         update rhnPackage 
            set header_start = :header_start,
                header_end = :header_end
          where id = :package_id
-    
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -373,7 +379,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:34 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:48 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

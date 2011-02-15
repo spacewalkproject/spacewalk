@@ -57,20 +57,21 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Queue</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.queue-pysrc.html#Queue">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_16" name="uml_class_diagram_for_server_h_16">
-<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="153,111,335,129"/>
-<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="152,85,336,131"/>
-<area shape="rect" href="server.handlers.xmlrpc.queue.Queue-class.html#__init__" title="Add a list of functions we are willing to server out." alt="" coords="17,185,471,204"/>
-<area shape="rect" href="server.handlers.xmlrpc.queue.Queue-class.html#get" title="server.handlers.xmlrpc.queue.Queue.get" alt="" coords="17,204,471,223"/>
-<area shape="rect" href="server.handlers.xmlrpc.queue.Queue-class.html#submit" title="Submit the results of a queue run." alt="" coords="17,223,471,241"/>
-<area shape="rect" href="server.handlers.xmlrpc.queue.Queue-class.html#status_for_action_type_code" title="Convert whatever the client sends as a result code into a status in the &#160;database format This is more complicated, since some of the client&#39;s result codes have to be marked as successes." alt="" coords="17,241,471,260"/>
-<area shape="rect" href="server.handlers.xmlrpc.queue.Queue-class.html#process_extra_data" title="server.handlers.xmlrpc.queue.Queue.process_extra_data" alt="" coords="17,260,471,279"/>
-<area shape="rect" href="server.handlers.xmlrpc.queue.Queue-class.html#length" title="Return the queue length for a certain server." alt="" coords="17,279,471,297"/>
-<area shape="rect" href="server.handlers.xmlrpc.queue.Queue-class.html" title="XMLRPC queue functions that we will provide for the outside world." alt="" coords="16,160,472,299"/>
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="147,36,341,55"/>
-<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="145,11,343,56"/>
+<center>  <map id="uml_class_diagram_for_server_h_14" name="uml_class_diagram_for_server_h_14">
+<area shape="rect" id="node1256" href="server.handlers.xmlrpc.queue.Queue-class.html#__init__" title="Add a list of functions we are willing to server out." alt="" coords="17,193,452,212"/>
+<area shape="rect" id="node1256" href="server.handlers.xmlrpc.queue.Queue-class.html#get_future_actions" title="return actions which are scheduled within next /time_window/ hours" alt="" coords="17,212,452,231"/>
+<area shape="rect" id="node1256" href="server.handlers.xmlrpc.queue.Queue-class.html#get" title="server.handlers.xmlrpc.queue.Queue.get" alt="" coords="17,231,452,249"/>
+<area shape="rect" id="node1256" href="server.handlers.xmlrpc.queue.Queue-class.html#submit" title="Submit the results of a queue run." alt="" coords="17,249,452,268"/>
+<area shape="rect" id="node1256" href="server.handlers.xmlrpc.queue.Queue-class.html#status_for_action_type_code" title="Convert whatever the client sends as a result code into a status in the &#160;database format This is more complicated, since some of the client&#39;s result codes have to be marked as successes." alt="" coords="17,268,452,287"/>
+<area shape="rect" id="node1256" href="server.handlers.xmlrpc.queue.Queue-class.html#process_extra_data" title="server.handlers.xmlrpc.queue.Queue.process_extra_data" alt="" coords="17,287,452,305"/>
+<area shape="rect" id="node1256" href="server.handlers.xmlrpc.queue.Queue-class.html#length" title="Return the queue length for a certain server." alt="" coords="17,305,452,324"/>
+<area shape="rect" id="node1" href="server.handlers.xmlrpc.queue.Queue-class.html" title="XMLRPC queue functions that we will provide for the outside world." alt="" coords="5,161,464,330"/>
+<area shape="rect" id="node1257" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler.auth_system" alt="" coords="115,116,353,135"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler" alt="" coords="103,83,364,141"/>
+<area shape="rect" id="node1258" href="javascript:void(0);" title="??.RPC_Base&#45;1.get_function" alt="" coords="153,39,315,57"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="??.RPC_Base&#45;1" alt="" coords="141,6,325,63"/>
 </map>
-  <img src="uml_class_diagram_for_server_h_16.png" alt='' usemap="#uml_class_diagram_for_server_h_16" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_server_h_14.png" alt='' usemap="#uml_class_diagram_for_server_h_14" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -135,7 +136,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__getV2"></a><span class="summary-sig-name">__getV2</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">action</span>)</span><br />
+        <span class="summary-sig-arg">action</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span><br />
       Fetches queued actions for the clients version 2+.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.queue-pysrc.html#Queue.__getV2">source&nbsp;code</a></span>
@@ -207,6 +209,42 @@ server from the status dictionary passed on queue checkin.</td>
           <td><span class="summary-sig"><a name="_invalidate_failed_prereq_actions"></a><span class="summary-sig-name">_invalidate_failed_prereq_actions</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.queue-pysrc.html#Queue._invalidate_failed_prereq_actions">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_future_actions_enabled"></a><span class="summary-sig-name">_future_actions_enabled</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns true if staging content is enabled for this system</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.xmlrpc.queue-pysrc.html#Queue._future_actions_enabled">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_future_actions"></a><span class="summary-sig-name">get_future_actions</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">system_id</span>,
+        <span class="summary-sig-arg">time_window</span>)</span><br />
+      return actions which are scheduled within next /time_window/ hours</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.xmlrpc.queue-pysrc.html#Queue.get_future_actions">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -373,11 +411,11 @@ server from the status dictionary passed on queue checkin.</td>
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
-      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.server.rhnHandler.rhnHandler</code></b>:
+      <code>auth_system</code>
       </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>.RPC_Base</code></b>:
+      <code>get_function</code>
       </p>
     </td>
   </tr>
@@ -403,15 +441,44 @@ server from the status dictionary passed on queue checkin.</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.xmlrpc.queue.Queue-class.html#_query_queue_get" class="summary-name" onclick="show_private();">_query_queue_get</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151629804; statement=
+        <a href="server.handlers.xmlrpc.queue.Queue-class.html#_query_future_enabled" class="summary-name" onclick="show_private();">_query_future_enabled</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66808576; stat\
+ement=
+        select staging_content_enabled
+          from web_customer wc,
+               rhnServer s
+         where s.org_id = wc.id
+           and s.id = :server_id
+    ">&lt;spacewalk.server.rhnSQL.sql_base.Stat<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.xmlrpc.queue.Queue-class.html#_query_queue_future" class="summary-name" onclick="show_private();">_query_queue_future</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66808936; stat\
+ement=
+                    select sa.action_id id, a.version,
+                           sa.remaining_tries, at.label method,
+                           at.unlocked_only,
+                           a.prerequisite
+                      from rhnServerAction sa,
+                           rhnAction a,
+...">&lt;spacewalk.server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.xmlrpc.queue.Queue-class.html#_query_queue_get" class="summary-name" onclick="show_private();">_query_queue_get</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66809008; stat\
+ement=
                     select sa.action_id id, a.version, 
                            sa.remaining_tries, at.label method,
                            at.unlocked_only,
                            a.prerequisite
                       from rhnServerAction sa, 
                            rhnAction a, 
-                           rhnActionType at
-...">&lt;server.rhnSQL.sql_base.Statement instance <code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -447,11 +514,11 @@ server from the status dictionary passed on queue checkin.</td>
     ><span class="codelink"><a href="server.handlers.xmlrpc.queue-pysrc.html#Queue.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>Add a list of functions we are willing to server out.</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+        spacewalk.common.RPC_Base.RPC_Base.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -553,6 +620,57 @@ New DB status codes:      Old DB status codes:
   </td>
 </tr>
 </table>
+<a name="_query_future_enabled"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_future_enabled</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66808576; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
+        select staging_content_enabled
+          from web_customer wc,
+               rhnServer s
+         where s.org_id = wc.id
+           and s.id = :server_id
+
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_queue_future"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_queue_future</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66808936; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
+                    select sa.action_id id, a.version,
+                           sa.remaining_tries, at.label method,
+                           at.unlocked_only,
+                           a.prerequisite
+                      from rhnServerAction sa,
+                           rhnAction a,
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="_query_queue_get"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -565,14 +683,14 @@ New DB status codes:      Old DB status codes:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 151629804; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 66809008; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
                     select sa.action_id id, a.version, 
                            sa.remaining_tries, at.label method,
                            at.unlocked_only,
                            a.prerequisite
                       from rhnServerAction sa, 
                            rhnAction a, 
-                           rhnActionType at
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -603,7 +721,7 @@ New DB status codes:      Old DB status codes:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:55 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

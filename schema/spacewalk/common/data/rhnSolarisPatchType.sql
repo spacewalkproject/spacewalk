@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,16 +15,16 @@
 --
 
 insert into rhnSolarisPatchType (id, name, label)
-   values (rhn_solaris_pt_seq.nextval, 'Generic Patch', 'generic');
+   values (sequence_nextval('rhn_solaris_pt_seq'), 'Generic Patch', 'generic');
 insert into rhnSolarisPatchType (id, name, label)
-   values (rhn_solaris_pt_seq.nextval, 'Kernel Update Patch', 'kernel');
+   values (sequence_nextval('rhn_solaris_pt_seq'), 'Kernel Update Patch', 'kernel');
 insert into rhnSolarisPatchType (id, name, label)
-   values (rhn_solaris_pt_seq.nextval, 'Restricted Patch', 'restricted');
+   values (sequence_nextval('rhn_solaris_pt_seq'), 'Restricted Patch', 'restricted');
 insert into rhnSolarisPatchType (id, name, label)
-   values (rhn_solaris_pt_seq.nextval, 'Point Patch', 'point');
+   values (sequence_nextval('rhn_solaris_pt_seq'), 'Point Patch', 'point');
 insert into rhnSolarisPatchType (id, name, label)
-   values (rhn_solaris_pt_seq.nextval, 'Temporary Patch', 'temporary');
+   values (sequence_nextval('rhn_solaris_pt_seq'), 'Temporary Patch', 'temporary');
 insert into rhnSolarisPatchType (id, name, label)
-   values (rhn_solaris_pt_seq.nextval, 'Nonstandard Patch', 'nonstandard');
+   values (sequence_nextval('rhn_solaris_pt_seq'), 'Nonstandard Patch', 'nonstandard');
 
 --

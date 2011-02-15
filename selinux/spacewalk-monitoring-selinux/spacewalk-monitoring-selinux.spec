@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.2.3
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -142,6 +142,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
+- Bumping package versions for 1.3. (jpazdziora@redhat.com)
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.3-1
 - Make the Oracle part of the spacewalk-monitoring SELinux policy module
   optional as well.

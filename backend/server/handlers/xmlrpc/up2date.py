@@ -19,20 +19,16 @@
 import time
 import string
 
-# global module import
 from rhn import rpclib
 from types import ListType, TupleType, StringType, IntType
-
-# common module imports
-from common import CFG, rhnFlags, rhnFault, log_debug, log_error
-from common.rhnTranslate import _
-from spacewalk.common import rhn_rpm
-
-# local module imports
-from server.rhnLib import computeSignature
-from server import rhnChannel, rhnHandler, rhnPackage, rhnDependency,\
+from spacewalk.common import CFG, rhnFlags, rhnFault, log_debug, log_error, \
+    rhn_rpm
+from spacewalk.common.rhnTranslate import _
+from spacewalk.server.rhnLib import computeSignature
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server import rhnChannel, rhnPackage, rhnDependency,\
     rhnCapability
-from server.rhnServer import server_route
+from spacewalk.server.rhnServer import server_route
 
 class Up2date(rhnHandler):
     """ xml-rpc Server Functions that we will provide for the outside world.
@@ -68,6 +64,12 @@ class Up2date(rhnHandler):
         self.functions.append('solveDependencies_arch')
         self.functions.append('solveDependencies_with_limits')
     
+    def auth_system(self, action, system_id):
+        # Stuff the action in the headers:
+        transport = rhnFlags.get('outputTransportOptions')
+        transport['X-RHN-Action'] = action
+        return rhnHandler.auth_system(self, system_id)
+
     def login(self, system_id, extra_data={}):
         """ Clients v2+
             Log in routine.
@@ -78,7 +80,7 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate. We need the user record
         # to generate the tokens
         self.load_user = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('login', system_id)
         # log the entry
         log_debug(1, self.server_id)
         # Update the capabilities list
@@ -129,7 +131,6 @@ class Up2date(rhnHandler):
         # Duplicate these values in the headers so that the proxy can
         # intercept and cache them without parseing the xmlrpc.
         transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'login'
         for k, v in loginDict.items():
             # Special case for channels
             if string.lower(k) == string.lower('X-RHN-Auth-Channels'):
@@ -148,11 +149,8 @@ class Up2date(rhnHandler):
     def listChannels(self, system_id):
         """ Clients v2+ """
         log_debug(5, system_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'listChannels'
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('listChannels', system_id)
         # log the entry
         log_debug(1, self.server_id)
         channelList = rhnChannel.channels_for_server(self.server_id)
@@ -162,11 +160,8 @@ class Up2date(rhnHandler):
     def subscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
         log_debug(5, system_id, channelNames, username, passwd)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'subscribeChannel'
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('subscribeChannel', system_id)
         # log the entry
         log_debug(1, self.server_id, channelNames)
         for channelName in channelNames:
@@ -178,11 +173,8 @@ class Up2date(rhnHandler):
     def unsubscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
         log_debug(3)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'unsubscribeChannel'
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('unsubscribeChannel', system_id)
         # log the entry
         log_debug(1, self.server_id, channelNames)
         for channelName in channelNames:
@@ -199,12 +191,9 @@ class Up2date(rhnHandler):
         """
         log_debug(5, system_id)
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('listall', system_id)
         # log the entry
         log_debug(1, self.server_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'listall'
         # and now call into rhnChannel to find the data
         return rhnChannel.list_packages_for_server(self.server_id)
 
@@ -217,12 +206,9 @@ class Up2date(rhnHandler):
         """
         log_debug(5, system_id)
         # Authenticate the system certificate
-        self.auth_system(system_id)
+        self.auth_system('listall_size', system_id)
         # log the entry
         log_debug(1, self.server_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'listall_size'
         # call into rhnChannel to find the data
         return rhnChannel.list_packages_for_server(self.server_id,
                                                    need_size = 1)
@@ -252,7 +238,7 @@ class Up2date(rhnHandler):
         for p in pkgList:
             req_list.append(check_package_spec(p))
         # Authenticate the system certificate
-        server = self.auth_system(system_id)
+        server = self.auth_system('header', system_id)
         # log the entry
         log_debug(1, self.server_id, "items: %d" % len(req_list))
 
@@ -272,10 +258,6 @@ class Up2date(rhnHandler):
                         _("Unable to retrieve package header %s") % str(pkg))
             rpmHeaders.append(rpclib.xmlrpclib.Binary(h.unload()))
             del h
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'header'
 
         # Reset the flag for the proxy download accelerator
         # This gets set by default in rhnPackage
@@ -298,18 +280,14 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate and set the QoS data
         # according to the user type
         self.set_qos = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('package', system_id)
 
         # log the entry (avoiding to fill the log in case of abuse)
         log_debug(1, self.server_id, str(package)[:100])
 
         filePath = rhnPackage.get_package_path_compat_arches(self.server_id,
             package, server.archname)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = "package"
-        return rpclib.File(open(filePath, "r"), name=filePath)
+        return rpclib.transports.File(open(filePath, "r"), name=filePath)
 
 
     def source_package(self, system_id, package):
@@ -324,18 +302,14 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate and set the QoS data
         # according to the user type
         self.set_qos = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('source_package', system_id)
 
         # log the entry (avoiding to fill the log in case of abuse)
         log_debug(1, self.server_id, str(package)[:100])
 
         filePath = rhnPackage.get_source_package_path_by_nvre(self.server_id,
             package)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = "source_package"
-        return rpclib.File(open(filePath, "r"), name=filePath)
+        return rpclib.transports.File(open(filePath, "r"), name=filePath)
 
 
     def source_package_by_name(self, system_id, filename):
@@ -348,18 +322,14 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate and set the QoS data
         # according to the user type
         self.set_qos = 1
-        server = self.auth_system(system_id)
+        server = self.auth_system('source_package_by_name', system_id)
 
         # log the entry (avoiding to fill the log in case of abuse)
         log_debug(1, self.server_id, str(filename)[:100])
 
         filePath = rhnPackage.get_source_package_path_by_name(self.server_id,
             filename)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = "source_package_by_name"
-        return rpclib.File(open(filePath, "r"), name=filePath)
+        return rpclib.transports.File(open(filePath, "r"), name=filePath)
 
 
     def solvedep(self, system_id, deps):
@@ -415,12 +385,9 @@ class Up2date(rhnHandler):
         """
         log_debug(5, system_id, summary, body)
         # Authenticate the system certificate
-        server = self.auth_system(system_id)
+        server = self.auth_system('history', system_id)
         # log the entry
         log_debug(1, self.server_id)
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = 'history'
         # XXX: Probably this should be a non fatal error...
         server.add_history(summary, body)
         server.save_history()
@@ -429,12 +396,12 @@ class Up2date(rhnHandler):
 
     # --- PRIVATE METHODS ---
 
-    def __solveDep(self, system_id, deps, action, clientVersion):
+    def __solveDep_prepare(self, system_id, deps, action, clientVersion):
         """ Response for clients:
                 version 1: list
                 version 2: hash
         """
-        log_debug(5, system_id, deps, action, clientVersion)
+        log_debug(7, system_id, deps, action, clientVersion)
         faultString = _("Invalid value %s (%s)")
         if type(deps) not in (ListType, TupleType):
             log_error("Invalid argument type", type(deps))
@@ -449,15 +416,21 @@ class Up2date(rhnHandler):
         if not deps:
             return []
         # Authenticate the system certificate
-        server = self.auth_system(system_id)
+        server = self.auth_system(action, system_id)
         log_debug(1, self.server_id, action, "items: %d" % len(deps))
-        # Solve dependencies
-        result = rhnDependency.solve_dependencies(self.server_id,
-                                                  deps, clientVersion)
+        return deps
 
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = action
+    def __solveDep(self, system_id, deps, action, clientVersion):
+        """ Response for clients:
+                version 1: list
+                version 2: hash
+        """
+        log_debug(5, system_id, deps, action, clientVersion)
+        result = self.__solveDep_prepare(system_id, deps, action, clientVersion)
+        if result:
+           # Solve dependencies
+           result = rhnDependency.solve_dependencies(self.server_id,
+                                                  result, clientVersion)
         return result
 
     def __solveDep_arch(self, system_id, deps, action, clientVersion):
@@ -466,29 +439,11 @@ class Up2date(rhnHandler):
                 version 2: hash
         """
         log_debug(5, system_id, deps, action, clientVersion)
-        faultString = _("Invalid value %s (%s)")
-        if type(deps) not in (ListType, TupleType):
-            log_error("Invalid argument type", type(deps))
-            raise rhnFault(30, faultString % (deps, type(deps)))
-        for dep in deps:
-            if type(dep) is not StringType:
-                log_error("Invalid dependency member", type(dep))
-                raise rhnFault(30, faultString % (dep, type(dep)))
-        # Ignore empty strings
-        deps = filter(len, deps)
-        # anything left to do?
-        if not deps:
-            return []
-        # Authenticate the system certificate
-        server = self.auth_system(system_id)
-        log_debug(1, self.server_id, action, "items: %d" % len(deps))
-        # Solve dependencies
-        result = rhnDependency.solve_dependencies_arch(self.server_id,
-                                                  deps, clientVersion)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = action
+        result = self.__solveDep_prepare(system_id, deps, action, clientVersion)
+        if result:
+            # Solve dependencies
+            result = rhnDependency.solve_dependencies_arch(self.server_id,
+                                                  result, clientVersion)
         return result
 
 
@@ -498,29 +453,11 @@ class Up2date(rhnHandler):
                 version 2: hash
         """
         log_debug(5, system_id, deps, action, clientVersion)
-        faultString = _("Invalid value %s (%s)")
-        if type(deps) not in (ListType, TupleType):
-            log_error("Invalid argument type", type(deps))
-            raise rhnFault(30, faultString % (deps, type(deps)))
-        for dep in deps:
-            if type(dep) is not StringType:
-                log_error("Invalid dependency member", type(dep))
-                raise rhnFault(30, faultString % (dep, type(dep)))
-        # Ignore empty strings
-        deps = filter(len, deps)
-        # anything left to do?
-        if not deps:
-            return []
-        # Authenticate the system certificate
-        server = self.auth_system(system_id)
-        log_debug(1, self.server_id, action, "items: %d" % len(deps))
-        # Solve dependencies
-        result = rhnDependency.solve_dependencies_with_limits(self.server_id,
+        result = self.__solveDep_prepare(system_id, deps, action, clientVersion)
+        if result:
+            # Solve dependencies
+            result = rhnDependency.solve_dependencies_with_limits(self.server_id,
                                                   deps, clientVersion, all, limit_operator, limit)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = action
         return result
 
 def check_package_spec(package):

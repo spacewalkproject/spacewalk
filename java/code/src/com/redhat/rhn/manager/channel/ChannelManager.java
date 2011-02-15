@@ -72,6 +72,7 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -179,39 +180,6 @@ public class ChannelManager extends BaseManager {
          if (chan != null) {
              ChannelManager.queueChannelChange(chan.getLabel(), label, label);
          }
-    }
-
-    /**
-     * Retrieves a list of base channels the given user can subscribe the given server to.
-     * @param user The user in question
-     * @param server The server in question
-     * @return Returns a list of base channels the user can subscribe the server to.
-     */
-    public static DataResult userSubscribableBaseChannelsForSystem(User user,
-                                 Server server) {
-        SelectMode m = ModeFactory.getMode("Channel_queries",
-                           "subscribable_base_channels_for_system", Map.class);
-        Map params = new HashMap();
-        params.put("org_id", user.getOrg().getId());
-        params.put("server_id", server.getId());
-        DataResult dr = m.execute(params);
-        /*
-         * This sucks, but verifying channel access for a user is a stored proc so we have
-         * to loop through each of the org's base channels and make sure we can show them
-         * to this user.
-         */
-        List toRemove = new ArrayList();
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            Map map = (Map) itr.next();
-            //Verify channel access for the user
-            Long id = (Long) map.get("id");
-            if (!verifyChannelSubscribe(user, id)) {
-                toRemove.add(map);
-            }
-        }
-
-        dr.removeAll(toRemove);
-        return dr;
     }
 
     /**
@@ -547,29 +515,6 @@ public class ChannelManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
-
-    /**
-     * Returns a list of ChannelTreeNodes containing all channels
-     * the trusted org is consuming from a specific org
-     * @param org Org that is consuming from the trusted org shared channels
-     * @param trustOrg org that is sharing the channels
-     * @param user User of trust org that is sharing the channels
-     * @param lc ListControl to use
-     * @return list of ChannelTreeNode's
-     */
-    public static DataResult trustChannelProvide(Org org, Org trustOrg, User user,
-                                            ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
-
-        Map params = new HashMap();
-        params.put("org_id", trustOrg.getId());
-        params.put("user_id", user.getId());
-        params.put("org_id2", org.getId());
-
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
-    }
-
 
     /**
      * Returns a list of ChannelTreeNodes containing all channels
@@ -934,9 +879,30 @@ public class ChannelManager extends BaseManager {
                         "message.channel.cannot-be-deleted.has-distros");
 
             }
+            ChannelManager.unscheduleEventualRepoSync(toRemove, user);
             ChannelManager.queueChannelChange(label,
                     user.getLogin(), "java::deleteChannel");
             ChannelFactory.remove(toRemove);
+        }
+    }
+
+    /**
+     * Unschedule eventual repo sync schedule
+     * @param channel relevant channel
+     * @param user executive
+     */
+    public static void unscheduleEventualRepoSync(Channel channel, User user) {
+        TaskomaticApi tapi = new TaskomaticApi();
+        try {
+            String cronExpr = tapi.getRepoSyncSchedule(channel, user);
+            if (!StringUtils.isEmpty(cronExpr)) {
+                log.info("Unscheduling repo sync schedule with " + cronExpr +
+                        " for channel " + channel.getLabel());
+                tapi.unscheduleRepoSync(channel, user);
+            }
+        }
+        catch (Exception e) {
+            log.warn("Failed to unschedule repo sync for channel " + channel.getLabel());
         }
     }
 
@@ -1282,16 +1248,6 @@ public class ChannelManager extends BaseManager {
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
      * @param startDate package start date
-     * @return list of packages in channel
-     */
-    public static List listAllPackages(Channel channel, String startDate) {
-        return listAllPackages(channel, startDate, null);
-    }
-
-    /**
-     * Returns list of packages in channel
-     * @param channel channel whose packages are sought
-     * @param startDate package start date
      * @param endDate package end date
      * @return list of packages in channel
      */
@@ -1490,6 +1446,25 @@ public class ChannelManager extends BaseManager {
     public static Long findChildChannelWithPackage(Org org, Long parent, String
             packageName) {
 
+        List<Long> cids = findChildChannelsWithPackage(org, parent, packageName, true);
+        if (cids.isEmpty()) {
+            return null;
+        }
+        return cids.get(0);
+    }
+
+    /**
+     * Finds the id of a child channel with the given parent channel id that contains
+     * a package with the given name.  Returns all child channel unless expectOne is True
+     * @param org Organization of the current user.
+     * @param parent The id of the parent channel
+     * @param packageName The exact name of the package sought for.
+     * @param expectOne if true, throws exception, if more child channels are returned
+     * @return List of child channel ids
+     */
+    public static List<Long> findChildChannelsWithPackage(Org org, Long parent, String
+            packageName, boolean expectOne) {
+
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_with_package");
         Map params = new HashMap();
         params.put("parent", parent);
@@ -1497,24 +1472,19 @@ public class ChannelManager extends BaseManager {
         params.put("org_id", org.getId());
 
         DataResult dr = m.execute(params);
-        if (dr.size() == 0) {
-            return null;
+        List<Long> channelIds = new LinkedList<Long>();
+        for (Iterator it = dr.iterator(); it.hasNext();) {
+            channelIds.add((Long)((Map)it.next()).get("id"));
         }
-        if (dr.size() > 1) {
-            List<Long> channelIds = new LinkedList<Long>();
-            for (Iterator it = dr.iterator(); it.hasNext();) {
-                channelIds.add((Long)((Map)it.next()).get("id"));
-            }
+        if (expectOne && channelIds.size() > 1) {
             // Multiple channels have this package, highly unlikely we can guess which
             // one is the right one so we'll raise an exception and let the caller
             // decide what to do.
             throw new MultipleChannelsWithPackageException(channelIds);
         }
 
-        Map dm = (Map)dr.get(0);
-        return (Long) dm.get("id");
+        return channelIds;
     }
-
 
     /**
      * Finds the ids of all child channels that contain
@@ -1594,7 +1564,15 @@ public class ChannelManager extends BaseManager {
             return null;
         }
 
-        Channel channel = ChannelManager.lookupByIdAndUser(cid, user);
+        Channel channel = null;
+        try {
+            channel = ChannelManager.lookupByIdAndUser(cid, user);
+        }
+        catch (LookupException e) {
+            log.warn("User " + user.getLogin() + " does not have access to channel " +
+                    cid + ".");
+        }
+
         boolean canSubscribe = false;
 
         // check to make sure we *can* sub to this channel
@@ -1807,43 +1785,6 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", u.getId());
 
-        DataResult dr = makeDataResult(params, params, lc, m);
-        if (dr.size() == 0) {
-            return null;
-        }
-        else {
-            return dr;
-        }
-    }
-
-    /**
-     * Return a list of categories available for download
-     * @param u User making the request
-     * @param channelLabel channel to download from
-     * @param downloadType download-type to look for (typically "iso")
-     * @param lc associated list-control (if any)
-     * @param forSatellite true if we want satellite-related categories
-     * @return DataResult<ISOCategory>
-     */
-    public static DataResult listDownloadCategories(
-            User u,
-            String channelLabel, String downloadType, ListControl lc,
-            boolean forSatellite) {
-        SelectMode m = null;
-
-        if (forSatellite) {
-            m = ModeFactory.getMode("Channel_queries",
-                    "satellite_channel_download_categories_by_type");
-        }
-        else {
-            m = ModeFactory.getMode("Channel_queries",
-            "channel_download_categories_by_type");
-        }
-
-        Map params = new HashMap();
-        params.put("org_id", u.getOrg().getId());
-        params.put("channel_label", channelLabel);
-        params.put("download_type", downloadType);
         DataResult dr = makeDataResult(params, params, lc, m);
         if (dr.size() == 0) {
             return null;
@@ -2568,6 +2509,7 @@ public class ChannelManager extends BaseManager {
     public static List<String> getSyncdChannelArches() {
         return ChannelFactory.findChannelArchLabelsSyncdChannels();
     }
+
     /**
      *
      * @param channelLabel channel label
@@ -2576,12 +2518,12 @@ public class ChannelManager extends BaseManager {
      */
     public static void queueChannelChange(String channelLabel, String client,
             String reason) {
-        if (client == null) {
-            client = "";
+        if ("".equals(client)) {
+            client = null;
         }
 
-        if (reason == null) {
-            reason = "";
+        if ("".equals(reason)) {
+            reason = null;
         }
 
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "request_repo_regen");

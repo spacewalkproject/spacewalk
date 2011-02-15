@@ -16,6 +16,9 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -41,6 +44,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("string", "summary")
  *      #prop("string", "description")
  *      #prop("string", "checksum_label")
+ *      #prop("dateTime.iso8601", "last_modified")
  *      #prop("string", "maintainer_name")
  *      #prop("string", "maintainer_email")
  *      #prop("string", "maintainer_phone")
@@ -83,6 +87,7 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("description",
                 StringUtils.defaultString(c.getDescription()));
         helper.add("checksum_label", c.getChecksumTypeLabel());
+        helper.add("last_modified", c.getLastModified());
         helper.add("maintainer_name", c.getMaintainerName());
         helper.add("maintainer_email", c.getMaintainerEmail());
         helper.add("maintainer_phone", c.getMaintainerPhone());
@@ -95,15 +100,12 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("gpg_key_fp",
                 StringUtils.defaultString(c.getGPGKeyFp()));
 
-        if (c.getSources().isEmpty()) {
-            helper.add("yumrepo_source_url", "");
-            helper.add("yumrepo_label", "");
-            helper.add("yumrepo_last_sync", "");
-        }
-        else {
-            ContentSource cs = c.getSources().iterator().next();
-            helper.add("yumrepo_source_url", cs.getSourceUrl());
-            helper.add("yumrepo_label", cs.getLabel());
+        List<ContentSource> csList = new ArrayList<ContentSource>(c.getSources().size());
+        if (!c.getSources().isEmpty()) {
+            for (Iterator itr = c.getSources().iterator(); itr.hasNext();) {
+                ContentSource cs = (ContentSource) itr.next();
+                csList.add(cs);
+            }
             if (c.getLastSynced() != null) {
                 helper.add("yumrepo_last_sync", c.getLastSynced());
             }
@@ -111,6 +113,7 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
                 helper.add("yumrepo_last_sync", "");
             }
         }
+        helper.add("contentSources", csList);
 
         if (c.getEndOfLife() != null) {
             helper.add("end_of_life", c.getEndOfLife().toString());

@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="spacewalk-module.html">Package&nbsp;spacewalk</a> ::
         <a href="spacewalk.common-module.html">Package&nbsp;common</a> ::
-        <a href="spacewalk.common.rhn_rpm-module.html">Module&nbsp;rhn_rpm</a> ::
+        <a href="spacewalk.common.rhn_rpm-module.html" onclick="show_private();">Module&nbsp;rhn_rpm</a> ::
         Class&nbsp;RPMTransaction
       </span>
     </td>
@@ -56,26 +56,29 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class RPMTransaction</h1><p class="nomargin-top"><span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_spacewal_4" name="uml_class_diagram_for_spacewal_4">
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMReadOnlyTransaction-class.html" title="spacewalk.common.rhn_rpm.RPMReadOnlyTransaction" alt="" coords="32,285,208,312"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#read_only" title="spacewalk.common.rhn_rpm.RPMTransaction.read_only" alt="" coords="17,28,223,47"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#__init__" title="spacewalk.common.rhn_rpm.RPMTransaction.__init__" alt="" coords="17,49,223,68"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#__getattr__" title="spacewalk.common.rhn_rpm.RPMTransaction.__getattr__" alt="" coords="17,68,223,87"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#getMethod" title="spacewalk.common.rhn_rpm.RPMTransaction.getMethod" alt="" coords="17,87,223,105"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#pushVSFlags" title="spacewalk.common.rhn_rpm.RPMTransaction.pushVSFlags" alt="" coords="17,105,223,124"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#popVSFlags" title="spacewalk.common.rhn_rpm.RPMTransaction.popVSFlags" alt="" coords="17,124,223,143"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#addInstall" title="Install a package" alt="" coords="17,143,223,161"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#addErase" title="Erase a package" alt="" coords="17,161,223,180"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#check" title="Check dependencies" alt="" coords="17,180,223,199"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#setFlags" title="Set transaction flags" alt="" coords="17,199,223,217"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#setProbFilter" title="Set problem flags" alt="" coords="17,217,223,236"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#run" title="spacewalk.common.rhn_rpm.RPMTransaction.run" alt="" coords="17,236,223,255"/>
-<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html" title="spacewalk.common.rhn_rpm.RPMTransaction" alt="" coords="16,11,224,256"/>
+<center>  <map id="uml_class_diagram_for_spacewal_5" name="uml_class_diagram_for_spacewal_5">
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#read_only" title="spacewalk.common.rhn_rpm.RPMTransaction.read_only" alt="" coords="17,31,216,49"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#__init__" title="spacewalk.common.rhn_rpm.RPMTransaction.__init__" alt="" coords="17,52,216,71"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#getMethod" title="spacewalk.common.rhn_rpm.RPMTransaction.getMethod" alt="" coords="17,71,216,89"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#pushVSFlags" title="push method, so we don&#39;t lose the previous set value, and we can &#160;potentially debug a bit easier" alt="" coords="17,89,216,108"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#popVSFlags" title="pop method, so we don&#39;t lose the previous set value, and we can potentially debug a bit easier" alt="" coords="17,108,216,127"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#addInstall" title="Install a package" alt="" coords="17,127,216,145"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#addErase" title="Erase a package" alt="" coords="17,145,216,164"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#check" title="Check dependencies" alt="" coords="17,164,216,183"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#setFlags" title="Set transaction flags" alt="" coords="17,183,216,201"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#setProbFilter" title="Set problem flags" alt="" coords="17,201,216,220"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#run" title="spacewalk.common.rhn_rpm.RPMTransaction.run" alt="" coords="17,220,216,239"/>
+<area shape="rect" id="node2258" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#hdrFromFdno" title="spacewalk.common.rhn_rpm.RPMTransaction.hdrFromFdno" alt="" coords="17,239,216,257"/>
+<area shape="rect" id="node1" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html" title="wrapper/proxy class for rpm.Transaction so we can instrument it, etc easily" alt="" coords="5,6,227,263"/>
+<area shape="rect" id="node2" href="spacewalk.common.rhn_rpm.RPMReadOnlyTransaction-class.html" title="spacewalk.common.rhn_rpm.RPMReadOnlyTransaction" alt="" coords="21,283,213,322"/>
 </map>
-  <img src="uml_class_diagram_for_spacewal_4.png" alt='' usemap="#uml_class_diagram_for_spacewal_4" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_spacewal_5.png" alt='' usemap="#uml_class_diagram_for_spacewal_5" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
+<p>wrapper/proxy class for rpm.Transaction so we can instrument it, etc
+  easily</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -115,23 +118,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__getattr__"></a><span class="summary-sig-name">__getattr__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">attr</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.__getattr__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="getMethod"></a><span class="summary-sig-name">getMethod</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">method</span>)</span></td>
           <td align="right" valign="top">
@@ -150,7 +136,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="pushVSFlags"></a><span class="summary-sig-name">pushVSFlags</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">flags</span>)</span></td>
+        <span class="summary-sig-arg">flags</span>)</span><br />
+      push method, so we don't lose the previous set value, and we can
+      potentially debug a bit easier</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.pushVSFlags">source&nbsp;code</a></span>
             
@@ -166,7 +154,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="popVSFlags"></a><span class="summary-sig-name">popVSFlags</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="popVSFlags"></a><span class="summary-sig-name">popVSFlags</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      pop method, so we don't lose the previous set value, and we can
+      potentially debug a bit easier</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.popVSFlags">source&nbsp;code</a></span>
             
@@ -285,6 +275,23 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="hdrFromFdno"></a><span class="summary-sig-name">hdrFromFdno</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fd</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.hdrFromFdno">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -334,7 +341,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:17 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:06 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

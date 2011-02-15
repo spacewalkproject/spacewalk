@@ -6,6 +6,6 @@ TOP	= ../..
 
 SUBDIR	= server/repomd
 
-FILES	= __init__ mapper domain repository view
+SPACEWALK_FILES	= __init__ mapper domain repository view
 
 include $(TOP)/Makefile.defs

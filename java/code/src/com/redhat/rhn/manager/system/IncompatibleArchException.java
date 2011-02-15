@@ -48,11 +48,11 @@ public class IncompatibleArchException extends RhnRuntimeException {
 
     /**
      * Ctor
-     * @param pa ServerArch which is incompatible with ChannelArch.
-     * @param ca ChannelArch which is incompatible with ServerArch.
+     * @param pa PackageArch which is incompatible with ChannelArch.
+     * @param ca ChannelArch which is incompatible with PackageArch.
      */
     public IncompatibleArchException(PackageArch pa, ChannelArch ca) {
-        this("The server architecture (" + pa.getName() + ") is incompatible " +
+        this("The package architecture (" + pa.getName() + ") is incompatible " +
                 "with the channel architecture (" + ca.getName() + ")");
     }
 }

@@ -16,21 +16,19 @@
 import sys
 sys.path.append("/usr/share/rhn/")
 
-import os
-
 from virtualization import domain_control, poller, schedule_poller
 
-from virtualization.errors           import VirtualizationException, \
-                                            UUIDError
-from virtualization.constants        import StateType,               \
-                                            IdentityType,            \
+from virtualization.constants        import IdentityType,            \
                                             PropertyType
 from virtualization.notification     import Plan,                    \
                                             EventType,               \
                                             TargetType
 from virtualization.domain_config    import DomainConfig
 from virtualization.domain_directory import DomainDirectory
-from virtualization.util             import dehyphenize_uuid
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-virtualization")
+
 
 try:
     import libvirt
@@ -194,7 +192,11 @@ def _is_host_domain():
     if not libvirt:
         # No libvirt, dont bother with the rest
         return False
-    conn = libvirt.open(None)
+    try:
+        conn = libvirt.open(None)
+    except libvirt.libvirtError: # libvirtd is not running
+        sys.stderr.write(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"))
+        return False
     if conn and conn.getType() in ['Xen', 'QEMU']:
         return True
     return False

@@ -78,7 +78,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="initiate"></a><span class="summary-sig-name">initiate</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.kickstart-pysrc.html#initiate">source&nbsp;code</a></span>
             
@@ -95,26 +96,10 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="schedule_sync"></a><span class="summary-sig-name">schedule_sync</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
+        <span class="summary-sig-arg">action_id</span>,
+        <span class="summary-sig-arg">dry_run</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.kickstart-pysrc.html#schedule_sync">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="schedule_virt_pkg_install"></a><span class="summary-sig-name">schedule_virt_pkg_install</span>(<span class="summary-sig-arg">server_id</span>,
-        <span class="summary-sig-arg">action_id</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.action.kickstart-pysrc.html#schedule_virt_pkg_install">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -151,27 +136,28 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.kickstart-module.html#_query_initiate" class="summary-name" onclick="show_private();">_query_initiate</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 158965228; statement=
+        <a href="server.action.kickstart-module.html#_query_initiate" class="summary-name" onclick="show_private();">_query_initiate</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51845744; stat\
+ement=
     select ak.append_string, ak.static_device, ak.kickstart_host, ak.c\
 obbler_system_name
       from rhnActionKickstart ak, rhnKickstartableTree kst 
      where ak.action_id = :action_id
-">&lt;server.rhnSQL.sql_base.Statement instance a<code class="variable-ellipsis">...</code></code>
+">&lt;spacewalk.server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.kickstart-module.html#_query_file_list_initiate" class="summary-name" onclick="show_private();">_query_file_list_initiate</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 158964428; statement=
+        <a href="server.action.kickstart-module.html#_query_file_list_initiate" class="summary-name" onclick="show_private();">_query_file_list_initiate</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51845816; stat\
+ement=
     select distinct rcfn.path
       from rhnActionKickstartFileList akfl,
            rhnFileListMembers rflm,
            rhnConfigFileName rcfn,
            rhnActionKickstart ak
      where rcfn.id = rflm.config_file_name_id
-       and akfl.file_list_id = rflm.file_list_id
-...">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
+...">&lt;spacewalk.server.rhnSQL.sql_base.<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -212,7 +198,8 @@ obbler_system_name
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 158965228; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51845744; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select ak.append_string, ak.static_device, ak.kickstart_host, ak.c<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 obbler_system_name
       from rhnActionKickstart ak, rhnKickstartableTree kst 
@@ -235,14 +222,14 @@ obbler_system_name
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at 158964428; statement=
+&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 51845816; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ement=
     select distinct rcfn.path
       from rhnActionKickstartFileList akfl,
            rhnFileListMembers rflm,
            rhnConfigFileName rcfn,
            rhnActionKickstart ak
      where rcfn.id = rflm.config_file_name_id
-       and akfl.file_list_id = rflm.file_list_id
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -273,7 +260,7 @@ obbler_system_name
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:37 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

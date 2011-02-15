@@ -1441,7 +1441,7 @@
       </trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
@@ -5487,6 +5487,9 @@ value for this entitlement, excluding the default organization's consumption.</s
        <trans-unit id="ssm.migrate.systems.org">
          <source>Target Organization</source>
        </trans-unit>
+       <trans-unit id="ssm.migrate.systems.notrust">
+         <source>No trusted organizations</source>
+       </trans-unit>
      </group>
 
 
@@ -6353,6 +6356,37 @@ value for this entitlement, excluding the default organization's consumption.</s
             <source>Remove Systems</source>
      </trans-unit>
     </group>
+
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/groups/CreateGroup.do</context>
+       </context-group>
+       <trans-unit id="systemgroup.create.header">
+         <source>Create System Group</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.summary">
+         <source>Create a system group using the form provided. Note that the group will be empty until systems are joined to it. Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.requiredfield">
+         <source>Required Field</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.requirements">
+         <source>Both name and description are required for System Groups.</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.alreadyexists">
+         <source>That group name is already in use. Please choose another.</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.name">
+         <source>Name</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.description">
+         <source>Description</source>
+       </trans-unit>
+       <trans-unit id="systemgroup.create.creategroup">
+         <source>Create Group</source>
+       </trans-unit>
+     </group>
+
 <!--System Entitlements Page - entitlements.jsp -->
      <trans-unit id="systementitlements.jsp.header">
 		<source>System Entitlements</source>
@@ -13093,6 +13127,26 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
     </group>
 
+    <!-- custdata/updatekey.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/systems/customdata/UpdateCustomKey.do</context>
+       </context-group>
+
+       <trans-unit id="system.jsp.customkey.updatetitle">
+         <source>Edit Custom Info Key</source>
+       </trans-unit>
+       <trans-unit id="system.jsp.customkey.updatemsg">
+         <source>Define information about this key below.</source>
+       </trans-unit>
+       <trans-unit id="system.jsp.customkey.updateheader">
+         <source>Systems with a value for this key</source>
+       </trans-unit>
+       <trans-unit id="system.jsp.customkey.noservers">
+         <source>No systems exist which have a value for this key.</source>
+       </trans-unit>
+    </group>
+
      <!-- System Common -->
      <group>
        <context-group name="ctx">
@@ -19192,6 +19246,34 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.customdata.header">
+            <source>Custom System Information</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.customdata.summary">
+            <source>The following &lt;a href="/rhn/systems/customdata/CustomDataList.do"&gt;Custom System Information&lt;/a&gt; keys are defined for this system.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.customdata.nosystems">
+            <source>No custom information defined for this system.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.customdata.editvalue">
+            <source>Edit this value</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
          <!-- SDC Details Edit Page strings -->
          <trans-unit id="sdc.details.edit.header">
             <source>Edit System Details</source>
@@ -22007,11 +22089,20 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.description">
          <source>Description</source>
        </trans-unit>
+      <trans-unit id="system.jsp.customkey.value">
+         <source>Value</source>
+       </trans-unit>
       <trans-unit id="system.jsp.customkey.systemcount">
          <source>Systems With Value</source>
        </trans-unit>
+      <trans-unit id="system.jsp.customkey.created">
+         <source>Created</source>
+       </trans-unit>
       <trans-unit id="system.jsp.customkey.modified">
          <source>Last Modified</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customkey.last_checkin">
+         <source>Last Checkin</source>
        </trans-unit>
       <trans-unit id="system.jsp.customkey.createlink">
          <source>create new key</source>
@@ -22024,6 +22115,30 @@ given channel.</source>
        </trans-unit>
       <trans-unit id="system.jsp.customkey.createbutton">
          <source>Create Key</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customkey.updatebutton">
+         <source>Update Key</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.deletetitle">
+         <source>Remove Custom Value</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.keylabel">
+         <source>Key</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.description">
+         <source>Description</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.created">
+         <source>Created</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.lastmodified">
+         <source>Last Modified</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.removemsg">
+         <source>Are you certain you wish to remove the value for this from this system?</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.removevalue">
+         <source>Remove Value</source>
        </trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
@@ -22698,35 +22813,68 @@ given channel.</source>
          <source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      </trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     </trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      </trans-unit>
-     <trans-unit id="task.status.last.completed">
-         <source>Last Completed Action</source>
+     <trans-unit id="task.status.taskomatic.on">
+         <source>Scheduling Service</source>
      </trans-unit>
-     <trans-unit id="task.status.session.cleanup">
+     <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      </trans-unit>
-     <trans-unit id="task.status.errata.queue.notif">
+     <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      </trans-unit>
-     <trans-unit id="task.status.errata.mail">
+     <trans-unit id="task.status.errata-mailer">
          <source>Errata Notification Mail</source>
      </trans-unit>
-     <trans-unit id="task.status.daily.summary">
+     <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      </trans-unit>
-     <trans-unit id="task.status.daily.summary.mail">
+     <trans-unit id="task.status.daily-summary">
          <source>Daily Summary Mail</source>
      </trans-unit>
-     <trans-unit id="task.status.clean.alerts">
+     <trans-unit id="task.status.clean-current-alerts">
          <source>Clean Current Alerts</source>
      </trans-unit>
-     <trans-unit id="task.status.sync.probe">
+     <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
+     </trans-unit>
+     <trans-unit id="task.status.clear-log-history">
+         <source>Clean Log History</source>
+     </trans-unit>
+     <trans-unit id="task.status.cobbler-sync">
+         <source>Cobbler Sync</source>
+     </trans-unit>
+     <trans-unit id="task.status.compare-config-files">
+         <source>Compare Config Files</source>
+     </trans-unit>
+     <trans-unit id="task.status.sandbox-cleanup">
+         <source>Sandbox Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.package-cleanup">
+         <source>Package Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.kickstartfile-sync">
+         <source>Kickstart Sync</source>
+     </trans-unit>
+     <trans-unit id="task.status.kickstart-cleanup">
+         <source>Kickstart Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.errata-cache">
+         <source>Errata Cache</source>
+     </trans-unit>
+     <trans-unit id="task.status.channel-repodata">
+         <source>Channel Repodata</source>
+     </trans-unit>
+     <trans-unit id="task.status.sat-cert-check">
+         <source>Certificate Check</source>
+     </trans-unit>
+     <trans-unit id="task.status.cleanup-timeseries-data">
+         <source>TimeSeries Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.cleanup-packagechangelog-data">
+         <source>Changelog Cleanup</source>
      </trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
@@ -22849,6 +22997,12 @@ given channel.</source>
 	 <trans-unit id="debuginfo.external">
 	   <source>Note:  A local debuginfo rpm could not be found.  The above links to an external FTP server and may not be valid.</source>
 	 </trans-unit>
+	<trans-unit id="channel.jsp.changelog.title">
+	        <source>Change Log</source>
+	 </trans-unit>
+	 <trans-unit id="channel.jsp.changelog.error">
+        <source>There was an error reading the selected package changelog.  Please check that the package physically exists and has the correct permissions.</source>
+     </trans-unit>
   </body>
   </file>
 </xliff>

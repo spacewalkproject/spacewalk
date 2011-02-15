@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.11
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,65 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Wed Jan 26 2011 Jan Pazdziora 1.3.10-1
+- PostgreSQL start/stop is no longer handled by spacewalk-service, neither is
+  Oracle XE.
+- Make all system_debug invocations multiparameter.
+
+* Tue Jan 25 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.9-1
+- 636458 - reuse db version check via dbms_utility.db_version()
+- updating Copyright years for year 2011
+
+* Wed Jan 19 2011 Jan Pazdziora 1.3.8-1
+- Call spacewalk-sql instead of rhn-populate-database.pl.
+
+* Tue Jan 18 2011 Jan Pazdziora 1.3.7-1
+- The db-sid is long gone, using db-name now.
+- As db-protocol is no longer processed (supported), removing.
+- Refactored oracle_get_database_answers.
+- Creating empty file is not that useful, dropping.
+
+* Tue Jan 11 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
+- replace any LD_LIBRARY_PATH by given content (tlestach@redhat.com)
+- Removing Oracle-ism from postgresql_populate_db. (jpazdziora@redhat.com)
+- The installation on PostgreSQL is now supported. (jpazdziora@redhat.com)
+- Removing code which was commented out since 2009. (jpazdziora@redhat.com)
+- All three invocations of write_config in spacewalk-setup specify the target,
+  no need to have the default. (jpazdziora@redhat.com)
+
+* Fri Jan 07 2011 Jan Pazdziora 1.3.5-1
+- Setup InstantClient 11 path for tomcat.
+
+* Sun Dec 26 2010 Jan Pazdziora 1.3.4-1
+- 665693: convert sysdate to current_timestamp (colin.coe@gmail.com)
+
+* Thu Dec 23 2010 Jan Pazdziora 1.3.3-1
+- The rhn_package package (schema in PostgreSQL) is now gone.
+
+* Thu Dec 16 2010 Jan Pazdziora 1.3.2-1
+- 636458 - check that the Oracle database instance is version 10 or 11.
+
+* Mon Dec 13 2010 Jan Pazdziora 1.3.1-1
+- 640971 - when waiting for tomcat, try to connect directly to 8009.
+- We need to check the return value of GetOptions and die if the parameters
+  were not correct.
+
+* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.16-1
+- 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
+  satellite-prep (msuchy@redhat.com)
+
+* Tue Nov 02 2010 Jan Pazdziora 1.2.15-1
+- Update copyright years in the rest of the repo.
+
+* Fri Oct 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.14-1
+- change ascii art animation to bow, arrow and target
+
+* Tue Oct 26 2010 Jan Pazdziora 1.2.13-1
+- When run with the --db-only option, stop after populating the database.
+
+* Fri Oct 22 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.12-1
+- 612581 - use new spacewalk namespace for spacewalk-setup
+
 * Fri Oct 15 2010 Jan Pazdziora 1.2.11-1
 - Revert "avoid people install packages for different os"
 - Revert "valid require format is name = version"

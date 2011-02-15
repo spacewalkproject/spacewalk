@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,10 +15,7 @@
 
 import time
 import types
-import string
 import urlparse
-from common import log_debug, log_error
-from spacewalk.common.checksum import getFileChecksum
 
 def setHeaderValue(mp_table, name, values):
     """
@@ -64,7 +61,7 @@ def rfc822time(arg):
     # Now, the arg must be a float.
 
     (tm_year, tm_mon, tm_mday, tm_hour, tm_min, \
-         tm_sec, tm_wday, tm_yday, tm_isdst) = time.gmtime(arg)
+         tm_sec, tm_wday, _tm_yday_, _tm_isdst_) = time.gmtime(arg)
 
     return \
         "%s, %02d %s %04d %02d:%02d:%02d %s" % \
@@ -142,42 +139,12 @@ def parseUrl(url):
     return tuple(parsed)
 
 
-class InvalidUrlError(Exception):
-    pass
-
-
-def fix_url(url, scheme="http", path="/"):
-    if string.lower(scheme) not in ('http', 'https'):
-        # Programmer error
-        raise ValueError("Unknown URL scheme %s" % scheme)
-    _scheme, _netloc, _path, _params, _query, _fragment = \
-        urlparse.urlparse(url)
-
-    if not _netloc:
-        # No schema - trying to patch it up
-        new_url = scheme + '://' + url
-        _scheme, _netloc, _path, _params, _query, _fragment = \
-            urlparse.urlparse(new_url)
-
-    if string.lower(_scheme) not in ('http', 'https'):
-        raise InvalidUrlError("Invalid scheme %s for URL %s" % (_scheme, url))
-
-    if not _netloc:
-        raise InvalidUrlError(url)
-
-    if _path == '':
-        _path = path
-
-    url = urlparse.urlunparse((_scheme, _netloc, _path, _params, _query,
-        _fragment))
-    return url
-
 def hash_object_id(object_id, factor):
     """Given an object id (assumed to be <label>-<number>), returns the
     last few digits for the number. For instance, (812345, 3) should
     return 345"""
     # Grab the digits after -
-    num_id = string.split(object_id, '-')[-1]
+    num_id = object_id.split('-')[-1]
     # get last 'factor' numbers
     num_id = num_id[-factor:]
     return num_id.rjust(factor,'0')

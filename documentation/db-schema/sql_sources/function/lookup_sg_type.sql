@@ -1,4 +1,4 @@
--- created by Oraschemadoc Fri Jan 22 13:41:04 2010
+-- created by Oraschemadoc Thu Jan 20 13:59:02 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_SG_TYPE" (label_in in varchar2)

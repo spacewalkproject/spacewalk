@@ -41,41 +41,54 @@ __revision__ = "$Rev$"
 requires_api_version = '2.5'
 plugin_type = TYPE_CORE
 pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"
+cachedRHNReposFile = 'rhnplugin.repos'
 
 rhn_enabled = True
 
 COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
-from M2Crypto.SSL import SSLError, Connection
-
-def bypass_m2crypto_ssl_connection_check(*args, **kw):
-    """This needs to return True, it's used to bypass a check in 
-    M2Crypto.SSL.Connection
-    """
-    return True
-
+from M2Crypto.SSL import SSLError
 
 def init_hook(conduit):
     """ 
     Plugin initialization hook. We setup the RHN channels here. 
-    
+
+    Read list of repos we've seen last time (from cache file)
+    """
+    cachedir = conduit.getConf().cachedir
+    repos = conduit.getRepos()
+    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
+    if os.access(cachefilename, os.R_OK):
+       cachefile = open(cachefilename, 'r')
+       repolist = [ line.rstrip() for line in cachefile.readlines()]
+       cachefile.close()
+       for reponame in repolist:
+           repodir = os.path.join(cachedir, reponame)
+           if os.path.isdir(repodir):
+               repo = YumRepository(reponame)
+               repo.basecachedir = cachedir
+               repo.baseurl = ['file:///' + repodir ]
+               repo.urls = repo.baseurl
+               repo.enable()
+               if not repos.findRepos(repo.id):
+                   repos.add(repo)
+
+def prereposetup_hook(conduit):
+    """
     We get a list of RHN channels from the server, then make a repo object for
     each one. This list of repos is then added to yum's list of repos via the 
     conduit.
     """
 
     global rhn_enabled
-   
-    RHN_DISABLED = _("RHN support will be disabled.")
-    
-    #####bz 332011 
-    #This will bypass a check in M2Crypto.SSL.Connection.
-    #The check we are bypassing, was causing an exception on multi-homed machines
-    #when the SSL Cert "commonName" did not match the name used to connect to the host.
-    #This functionality was different than RHEL4, desire was to bypass the check to 
-    #maintain the functionality in RHEL4 
-    setattr(Connection, "clientPostConnectionCheck", bypass_m2crypto_ssl_connection_check)
 
+    if '-C' in sys.argv:
+        # don't communicate with RHN server but use cached repos
+        rhn_enabled = False
+        return
+   
+    RHN_DISABLED = _("RHN Satellite or RHN Classic support will be disabled.")
+    
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
         conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories."))
@@ -95,23 +108,6 @@ def init_hook(conduit):
         PROXY_ERROR =  _("There was an error parsing the RHN proxy settings.") 
         conduit.error(0, PROXY_ERROR + "\n" + RHN_DISABLED)
         return 
-
-    # We might not have an opt parser (ie in pirut)
-    opt_parser = conduit.getOptParser()
-    if opt_parser:
-        (opts, commands) = opt_parser.parse_args()
-
-        if len(commands) > 0 and commands[0] == 'clean':
-            formReposForClean(conduit)
-            conduit.info(10, _("Cleaning") +
-                "\n" + RHN_DISABLED)
-            return
-
-        if  (hasattr(opts,'version') and opts.version) or (len(commands) == 0):
-            rhn_enabled = False
-            conduit.info(10, _("Either --version, or no commands entered") +
-                "\n" + RHN_DISABLED)
-            return
 
     try:
         login_info = up2dateAuth.getLoginInfo()
@@ -151,7 +147,13 @@ def init_hook(conduit):
     gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     enablegroups = conduit.getConf().enablegroups
+    metadata_expire = conduit.getConf().metadata_expire
 
+    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
+    try:
+        cachefile = open(cachefilename, 'w')
+    except:
+        cachefile = None
     for channel in svrChannels:
         if channel['version']:
             repo = RhnRepo(channel)
@@ -160,42 +162,20 @@ def init_hook(conduit):
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
+            repo.metadata_expire = metadata_expire
             repoOptions = getRHNRepoOptions(conduit, repo.id)
             if repoOptions:
                 for o in repoOptions:
                     setattr(repo, o[0], o[1])
                     conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
                             (repo.id, o[0], o[1]))
+            if repos.findRepos(repo.id):
+                repos.delete(repo.id)
             repos.add(repo)
-
-
-#bz226151,441265
-#Allows a "yum clean all" to succeed without communicating
-#to backend.  Creating a set of dummy repos which mimic the dirs stored locally
-#This gives yum the dir info it needs to peform a clean
-#
-def formReposForClean(conduit):
-    repos = conduit.getRepos()
-    cachedir = conduit.getConf().cachedir
-    try:
-        dir_list = os.listdir(cachedir)
-    except Exception, e:
-        raise yum.Errors.RepoError(str(e))
-    urls = ["http://dummyvalue"]
-    for dir in dir_list:
-        if dir[0] == ".":
-            continue
-        if os.path.isdir(os.path.join(cachedir,dir)):
-            repo = YumRepository(dir)
-            repo.basecachedir = cachedir
-            repo.baseurl = urls 
-            repo.urls = repo.baseurl
-            repo.enable()
-            if not repos.findRepos(repo.id):
-                repos.add(repo)
-   # cleanup cached login info
-    if os.path.exists(pcklAuthFileName):
-        os.unlink(pcklAuthFileName)
+            if cachefile:
+                cachefile.write(repo.id + "\n")
+    if cachefile:
+        cachefile.close()
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
@@ -206,12 +186,13 @@ def posttrans_hook(conduit):
             ts_info = conduit.getTsInfo()
             delta = make_package_delta(ts_info)
             rhnPackageInfo.logDeltaPackages(delta)
-        try:
-            rhnPackageInfo.updatePackageProfile()
-        except up2dateErrors.RhnServerException, e:
-            conduit.error(0, COMMUNICATION_ERROR + "\n" +
-                _("Package profile information could not be sent.") + "\n" + 
-                str(e))
+        if up2dateAuth.getSystemId(): # are we registred?
+            try:
+                rhnPackageInfo.updatePackageProfile()
+            except up2dateErrors.RhnServerException, e:
+                conduit.error(0, COMMUNICATION_ERROR + "\n" +
+                    _("Package profile information could not be sent.") + "\n" + 
+                    str(e))
 
 def rewordError(e):
     #This is compensating for hosted/satellite returning back an error
@@ -268,11 +249,13 @@ class RhnRepo(YumRepository):
         self.retries = 1
         self.throttle = 0
         self.timeout = 60.0
+        self.metadata_expire = 21700
 
         self.http_caching = True
 
         self.gpgkey = []
         self.gpgcheck = False
+        self.up2date_cfg = config.initUp2dateConfig()
     
         try:
             self.gpgkey = get_gpg_key_urls(channel['gpg_key_url'])
@@ -300,8 +283,8 @@ class RhnRepo(YumRepository):
                 raise yum.Errors.RepoError(error)
             
             self.http_headers[header] = li[header]
-        # Set the redirect flag
-        self.http_headers['X-RHN-Transport-Capability'] = "follow-redirects=3"
+        if not self.up2date_cfg['useNoSSLForPackages']:
+            self.http_headers['X-RHN-Transport-Capability'] = "follow-redirects=3"
 
     # Override the 'private' __get method so we can do our auth stuff.
     def _getFile(self, url=None, relative=None, local=None,
@@ -396,8 +379,7 @@ class RhnRepo(YumRepository):
         urlException = None
         for server in self.baseurl:
             #force to http if configured
-            up2date_cfg = config.initUp2dateConfig()
-            if up2date_cfg['useNoSSLForPackages'] == 1:
+            if self.up2date_cfg['useNoSSLForPackages'] == 1:
                 server = force_http(server)
             #Sanity check the url
             check_url(server)

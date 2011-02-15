@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,8 +13,6 @@
 # in this software or its documentation. 
 #
 #
-
-import sys
 
 from const import ORACLE, POSTGRESQL
 
@@ -33,7 +31,7 @@ def get_database_module(backend=None):
     else:
         driver = BACKEND_DRIVERS[backend]
 
-    driver_dir = "server.rhnSQL"
+    driver_dir = "spacewalk.server.rhnSQL"
     driver_mod = "driver_" + driver
     try:
         module = __import__(driver_dir, globals(), locals(), [driver_mod])

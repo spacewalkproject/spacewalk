@@ -56,16 +56,16 @@
 <h1 class="epydoc">Class apacheHandler</h1><p class="nomargin-top"><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_server_a_7" name="uml_class_diagram_for_server_a_7">
-<area shape="rect" href="common.rhnApache%27.rhnApache-class.html#getlang" title="And another lang function to produce the list of languages we&#39;re handling" alt="" coords="17,36,209,55"/>
-<area shape="rect" href="common.rhnApache%27.rhnApache-class.html#logHandler" title="A dummy log function" alt="" coords="17,55,209,73"/>
-<area shape="rect" href="common.rhnApache%27.rhnApache-class.html#setlang" title="An entry point for setting the language for the current sesstion" alt="" coords="17,73,209,92"/>
-<area shape="rect" href="common.rhnApache%27.rhnApache-class.html" title="Shared rhnApache class: rhnApache classes in proxy and server inherit this class." alt="" coords="16,11,211,93"/>
-<area shape="rect" href="server.apacheHandler.apacheSession-class.html" title="a class that extends rhnApache with several support functions used by the main handler class." alt="" coords="64,123,163,155"/>
-<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#__init__" title="server.apacheHandler.apacheHandler.__init__" alt="" coords="17,209,209,228"/>
-<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#headerParserHandler" title="parse the request, init database and figure out what can we call" alt="" coords="17,228,209,247"/>
-<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#handler" title="main Apache handler" alt="" coords="17,247,209,265"/>
-<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#cleanupHandler" title="Clean up stuff before we close down the session when we are called from &#160;apacheServer.Cleanup()" alt="" coords="17,265,209,284"/>
-<area shape="rect" href="server.apacheHandler.apacheHandler-class.html" title="main Apache XMLRPC point of entry for the server" alt="" coords="16,184,211,285"/>
+<area shape="rect" id="node1119" href="server.apacheHandler.apacheHandler-class.html#__init__" title="server.apacheHandler.apacheHandler.__init__" alt="" coords="21,217,205,236"/>
+<area shape="rect" id="node1119" href="server.apacheHandler.apacheHandler-class.html#headerParserHandler" title="after a request has been received, first thing we do is to create the input object" alt="" coords="21,236,205,255"/>
+<area shape="rect" id="node1119" href="server.apacheHandler.apacheHandler-class.html#handler" title="main Apache handler" alt="" coords="21,255,205,273"/>
+<area shape="rect" id="node1119" href="server.apacheHandler.apacheHandler-class.html#cleanupHandler" title="Clean up stuff before we close down the session when we are called from &#160;apacheServer.Cleanup()" alt="" coords="21,273,205,292"/>
+<area shape="rect" id="node1" href="server.apacheHandler.apacheHandler-class.html" title="main Apache XMLRPC point of entry for the server" alt="" coords="9,185,217,298"/>
+<area shape="rect" id="node2" href="server.apacheHandler.apacheSession-class.html" title="a class that extends rhnApache with several support functions used by the main handler class." alt="" coords="56,121,171,165"/>
+<area shape="rect" id="node1121" href="javascript:void(0);" title="And another lang function to produce the list of languages we&#39;re handling" alt="" coords="17,39,208,57"/>
+<area shape="rect" id="node1121" href="javascript:void(0);" title="A dummy log function" alt="" coords="17,57,208,76"/>
+<area shape="rect" id="node1121" href="javascript:void(0);" title="An entry point for setting the language for the current sesstion" alt="" coords="17,76,208,95"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="Shared rhnApache class: rhnApache classes in proxy and server inherit this class." alt="" coords="5,6,219,101"/>
 </map>
   <img src="uml_class_diagram_for_server_a_7.png" alt='' usemap="#uml_class_diagram_for_server_a_7" ismap="ismap" class="graph-without-title" />
 </center>
@@ -114,7 +114,8 @@
         <tr>
           <td><span class="summary-sig"><a href="server.apacheHandler.apacheHandler-class.html#headerParserHandler" class="summary-sig-name">headerParserHandler</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
-      parse the request, init database and figure out what can we call</td>
+      after a request has been received, first thing we do is to create the
+      input object</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.headerParserHandler">source&nbsp;code</a></span>
             
@@ -197,17 +198,17 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.rhnApache%27.rhnApache-class.html">common.rhnApache'.rhnApache</a></code></b>:
-      <code><a href="common.rhnApache%27.rhnApache-class.html#getlang">getlang</a></code>,
-      <code><a href="common.rhnApache%27.rhnApache-class.html#logHandler">logHandler</a></code>,
-      <code><a href="common.rhnApache%27.rhnApache-class.html#setlang">setlang</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>proxy.apacheHandler.rhnApache</code></b>:
+      <code>getlang</code>,
+      <code>logHandler</code>,
+      <code>setlang</code>
       </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.rhnApache%27.rhnApache-class.html">common.rhnApache'.rhnApache</a></code></b> (private):
-      <code><a href="common.rhnApache%27.rhnApache-class.html#_setSessionToken" onclick="show_private();">_setSessionToken</a></code>,
-      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_client_info" onclick="show_private();">_set_client_info</a></code>,
-      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_lang" onclick="show_private();">_set_lang</a></code>,
-      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_other" onclick="show_private();">_set_other</a></code>,
-      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_proxy_info" onclick="show_private();">_set_proxy_info</a></code>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>proxy.apacheHandler.rhnApache</code></b> (private):
+      <code>_setSessionToken</code>,
+      <code>_set_client_info</code>,
+      <code>_set_lang</code>,
+      <code>_set_other</code>,
+      <code>_set_proxy_info</code>
       </p></div>
     </td>
   </tr>
@@ -269,11 +270,11 @@
     ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.rhnApache%27.rhnApache-class.html#__init__">common.rhnApache'.rhnApache.__init__</a>
+        proxy.apacheHandler.rhnApache.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -292,11 +293,13 @@
     ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.headerParserHandler">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  <p>parse the request, init database and figure out what can we call</p>
+
+  <p>after a request has been received, first thing we do is to create the
+  input object</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.rhnApache%27.rhnApache-class.html#headerParserHandler">common.rhnApache'.rhnApache.headerParserHandler</a>
+        proxy.apacheHandler.rhnApache.headerParserHandler
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -315,11 +318,11 @@
     ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler._init_request_processor">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.rhnApache%27.rhnApache-class.html#_init_request_processor" onclick="show_private();">common.rhnApache'.rhnApache._init_request_processor</a>
+        proxy.apacheHandler.rhnApache._init_request_processor
     </dt>
   </dl>
 </td></tr></table>
@@ -337,11 +340,11 @@
     ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler._cleanup_request_processor">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>Clean up the request processor</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.rhnApache%27.rhnApache-class.html#_cleanup_request_processor" onclick="show_private();">common.rhnApache'.rhnApache._cleanup_request_processor</a>
+        proxy.apacheHandler.rhnApache._cleanup_request_processor
     </dt>
   </dl>
 </td></tr></table>
@@ -360,11 +363,11 @@
     ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.handler">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>main Apache handler</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.rhnApache%27.rhnApache-class.html#handler">common.rhnApache'.rhnApache.handler</a>
+        proxy.apacheHandler.rhnApache.handler
     </dt>
   </dl>
 </td></tr></table>
@@ -383,12 +386,12 @@
     ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.cleanupHandler">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  <p>Clean up stuff before we close down the session when we are called 
+
+  <p>Clean up stuff before we close down the session when we are called
   from apacheServer.Cleanup()</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.rhnApache%27.rhnApache-class.html#cleanupHandler">common.rhnApache'.rhnApache.cleanupHandler</a>
+        proxy.apacheHandler.rhnApache.cleanupHandler
     </dt>
   </dl>
 </td></tr></table>
@@ -417,7 +420,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:43 2010
+    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:53 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

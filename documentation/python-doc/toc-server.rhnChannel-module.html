@@ -20,8 +20,7 @@
      >Channel</a><br />    <a target="mainFrame" href="server.rhnChannel.ChannelException-class.html"
      >ChannelException</a><br />    <a target="mainFrame" href="server.rhnChannel.ChannelFamily-class.html"
      >ChannelFamily</a><br />    <a target="mainFrame" href="server.rhnChannel.ChannelNotFoundError-class.html"
-     >ChannelNotFoundError</a><br />    <a target="mainFrame" href="server.rhnChannel.ForceNotSpecified-class.html"
-     >ForceNotSpecified</a><br />    <a target="mainFrame" href="server.rhnChannel.IncompatibilityError-class.html"
+     >ChannelNotFoundError</a><br />    <a target="mainFrame" href="server.rhnChannel.IncompatibilityError-class.html"
      >IncompatibilityError</a><br />    <a target="mainFrame" href="server.rhnChannel.InvalidChannel-class.html"
      >InvalidChannel</a><br />    <a target="mainFrame" href="server.rhnChannel.InvalidDataError-class.html"
      >InvalidDataError</a><br />    <a target="mainFrame" href="server.rhnChannel.InvalidEntryError-class.html"
@@ -40,14 +39,14 @@
     <a target="mainFrame" href="server.rhnChannel-module.html#__stringify"
      >__stringify</a><br />  </div>
   <div class="private">
-    <a target="mainFrame" href="server.rhnChannel-module.html#_delete_channel"
-     >_delete_channel</a><br />  </div>
-  <div class="private">
-    <a target="mainFrame" href="server.rhnChannel-module.html#_delete_channel_family"
-     >_delete_channel_family</a><br />  </div>
-  <div class="private">
     <a target="mainFrame" href="server.rhnChannel-module.html#_list_packages"
      >_list_packages</a><br />  </div>
+  <div class="private">
+    <a target="mainFrame" href="server.rhnChannel-module.html#_list_packages_sql"
+     >_list_packages_sql</a><br />  </div>
+  <div class="private">
+    <a target="mainFrame" href="server.rhnChannel-module.html#_load_by_id"
+     >_load_by_id</a><br />  </div>
   <div class="private">
     <a target="mainFrame" href="server.rhnChannel-module.html#_map_install_num_chan_2_label"
      >_map_install_num_chan_2_label</a><br />  </div>
@@ -58,17 +57,13 @@
      >applet_channels_for_uuid</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#base_channel_for_rel_arch"
      >base_channel_for_rel_arch</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#base_eus_channel_for_ver_rel_arch"
      >base_eus_channel_for_ver_rel_arch</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#channel_info"
-     >channel_info</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#channels_for_org"
-     >channels_for_org</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#channels_for_release_arch"
+     >channel_info</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#channels_for_release_arch"
      >channels_for_release_arch</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#channels_for_server"
      >channels_for_server</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#create_channel_families"
      >create_channel_families</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#create_channels"
-     >create_channels</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#delete_channel_families"
-     >delete_channel_families</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#delete_channels"
-     >delete_channels</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#get_base_channel"
+     >create_channels</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#get_base_channel"
      >get_base_channel</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#get_channel_for_release_arch"
-     >get_channel_for_release_arch</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#get_obsoletes_blacklist"
-     >get_obsoletes_blacklist</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#guess_channels_for_server"
+     >get_channel_for_release_arch</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#guess_channels_for_server"
      >guess_channels_for_server</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#isCustomChannel"
      >isCustomChannel</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#is_subscribed"
      >is_subscribed</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#list_all_packages"
@@ -85,10 +80,7 @@
      >list_packages_path</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#list_packages_source"
      >list_packages_source</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#list_packages_sql"
      >list_packages_sql</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#make_evr"
-     >make_evr</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#migrate_errata"
-     >migrate_errata</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#migrate_errata_files"
-     >migrate_errata_files</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#migrate_packages"
-     >migrate_packages</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#subscribe_channel"
+     >make_evr</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#subscribe_channel"
      >subscribe_channel</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#subscribe_channels"
      >subscribe_channels</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#subscribe_child_channels"
      >subscribe_child_channels</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#subscribe_server_channels"
@@ -105,11 +97,11 @@
     <a target="mainFrame" href="server.rhnChannel-module.html#_query_can_subscribe"
      >_query_can_subscribe</a><br />  </div>
   <div class="private">
-    <a target="mainFrame" href="server.rhnChannel-module.html#_query_delete_channel_family"
-     >_query_delete_channel_family</a><br />  </div>
-  <div class="private">
     <a target="mainFrame" href="server.rhnChannel-module.html#_query_get_source_packages_from_ids"
      >_query_get_source_packages_from_ids</a><br />  </div>
+  <div class="private">
+    <a target="mainFrame" href="server.rhnChannel-module.html#_query_latest_packages_from_channel"
+     >_query_latest_packages_from_channel</a><br />  </div>
     <a target="mainFrame" href="server.rhnChannel-module.html#h_invalid_channel_message"
      >h_invalid_channel_message</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#h_invalid_channel_title"
      >h_invalid_channel_title</a><br />    <a target="mainFrame" href="server.rhnChannel-module.html#no_autoentitlement_message"

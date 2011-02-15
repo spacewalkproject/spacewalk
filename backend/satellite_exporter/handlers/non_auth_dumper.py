@@ -18,16 +18,15 @@ Non-authenticated dumper
 
 import os
 import xmlrpclib
-import gzip, tempfile
-from common import log_debug, log_error, rhnFault, CFG, UserDictCase, rhnCache
-from common import rhnLib as rhnLib_common
-from server import rhnSQL, rhnLib
-from server.rhnHandler import rhnHandler
-from server.importlib.backendLib import localtime
-from common.rhnTranslate import _
+import gzip
+from spacewalk.common import log_debug, log_error, rhnFault, CFG, UserDictCase
+from spacewalk.server import rhnSQL, rhnLib
+from spacewalk.server.rhnHandler import rhnHandler
+from spacewalk.server.importlib.backendLib import localtime
+from spacewalk.common.rhnTranslate import _
 
-from satellite_tools.exporter import exportLib
-from satellite_tools.disk_dumper import dumper
+from spacewalk.satellite_tools.exporter import exportLib
+from spacewalk.satellite_tools.disk_dumper import dumper
 
 class InvalidPackageError(Exception):
     pass
@@ -41,7 +40,7 @@ class MissingPackageError(Exception):
 class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def __init__(self, req):
         rhnHandler.__init__(self)
-        self.compress_level = 5
+        dumper.XML_Dumper.__init__(self)
         self.headers_out = UserDictCase()
         self._raw_stream = req
         self._raw_stream.content_type = 'application/octet-stream'
@@ -49,11 +48,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self._headers_sent = 0
         self._is_closed = 0
         self._compressed_stream = None
-        # Redefine in subclasses
-        self._channel_family_query = """
-            select pcf.channel_family_id, to_number(null) quantity
-              from rhnPublicChannelFamily pcf
-        """
 
         # Don't check for abuse
         self.check_for_abuse = 0
@@ -167,7 +161,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     def _get_channel_data(self, channels):
         writer = ContainerWriter()
-        d = ChannelsDumper(writer, channels=channels.values())
+        d = ChannelsDumper(writer, params=channels.values())
         d.dump()
         data = writer.get_data()
         # We don't care about <rhn-channels> here
@@ -225,58 +219,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     _cleanse_channels = staticmethod(_cleanse_channels)
 
-    def _lookup_last_modified(channel_data):
-        for channel_label, data in channel_data.items():
-            packages = data['packages']
-            packages = _lookup_last_modified_packages(packages)
-            data['packages'] = packages
-
-            ks_trees = data['ks_trees']
-            ks_trees = _lookup_last_modified_ks_trees(channel_label, ks_trees)
-            data['ks_trees'] = ks_trees
-
-        return channel_data
-
-    _lookup_last_modified = staticmethod(_lookup_last_modified)
-
-    def _generate_executemany_data(label, channels, channel_data):
-        """
-        Convenience function to reduce duplication
-        returns two arrays snapshot_channel_ids, label_ids
-        where label can be source_package_ids or package_ids or errata_ids
-        """
-        snapshot_channel_ids = []
-        obj_ids = []
-        channel_ids = []
-        last_modifieds = []
-        for channel_label, data in channel_data.items():
-            # Get the snapshot channel id
-            chan = channels[channel_label]
-            snapshot_channel_id = chan['snapshot_channel_id']
-            channel_id = chan['channel_id']
-            ids = data[label]
-            for i, last_modified in ids:
-                obj_ids.append(i)
-                last_modifieds.append(last_modified)
-                snapshot_channel_ids.append(snapshot_channel_id)
-                channel_ids.append(channel_id)
-        return snapshot_channel_ids, channel_ids, obj_ids, last_modifieds
-
-    _generate_executemany_data = staticmethod(_generate_executemany_data)
-
-    def _do_snapshot(self, label, channels, channel_data, query,
-            with_channels=0):
-        snapshot_channel_ids, channel_ids, obj_ids, last_modifieds = \
-            self._generate_executemany_data(label, channels, channel_data)
-        h = rhnSQL.prepare(query)
-        if with_channels:
-            h.executemany(snapshot_channel_id=snapshot_channel_ids,
-                obj_id=obj_ids, channel_id=channel_ids,
-                last_modified=last_modifieds)
-        else:
-            h.executemany(snapshot_channel_id=snapshot_channel_ids,
-                obj_id=obj_ids, last_modified=last_modifieds)
-
     # Dumper functions here
     def dump_channel_families(self, virt_filter=0):
         log_debug(2)
@@ -300,7 +242,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
         writer = self._get_xml_writer()
         d = dumper.SatelliteDumper(writer, dumper.ChannelsDumperEx(writer,
-            channels=channels.values()))
+            params=channels.values()))
         d.dump()
         writer.flush()
         log_debug(4, "OK")
@@ -308,139 +250,20 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         return 0
 
     def dump_channel_packages_short(self, channel_label, last_modified):
-        log_debug(2, channel_label)
-        channels = self._validate_channels(channel_labels=[channel_label])
-        channel_obj = channels[channel_label]
-        db_last_modified = int(rhnLib_common.timestamp(channel_obj['last_modified']))
-        last_modified = int(rhnLib_common.timestamp(last_modified))
-        log_debug(3, "last modified", last_modified, "db last modified",
-            db_last_modified)
-        if last_modified != db_last_modified:
-            raise rhnFault(3013, "The requested channel version does not match"
-                " the upstream version", explain=0)
-        channel_id = channel_obj['channel_id']
-        key = "xml-channel-packages/rhn-channel-%d.data" % channel_id
-        # Try to get everything off of the cache
-        val = rhnCache.get(key, compressed=0, raw=1, modified=last_modified)
-        if val is None:
-            # Not generated yet
-            log_debug(4, "Cache MISS for %s (%s)" % (channel_label,
-                channel_id))
-            stream = self._cache_channel_packages_short(channel_id, key,
-                last_modified)
-        else:
-            log_debug(4, "Cache HIT for %s (%s)" % (channel_label,
-                channel_id))
-            temp_stream = tempfile.TemporaryFile()
-            temp_stream.write(val)
-            temp_stream.flush()
-            stream = self._normalize_compressed_stream(temp_stream)
-
-        # Copy the results to the output stream
-        # They shold be already compressed if they were requested to be
-        # compressed
-        buffer_size = 16384
-        # Send the HTTP headers - but don't init the compressed stream since
-        # we send the data ourselves
-        self._send_headers(init_compressed_stream=0)
-        while 1:
-            buff = stream.read(buffer_size)
-            if not buff:
-                break
-            try:
-                self._raw_stream.write(buff)
-            except IOError:
-                log_error("Client disconnected prematurely")
-                self.close()
-                raise dumper.ClosedConnectionError
-        # We're done
-        return 0
+        return dumper.XML_Dumper.dump_channel_packages_short(
+                        self, channel_label, last_modified, filepath=None,
+                        validate_channels=True, send_headers=True, open_stream=False)
 
     def _packages(self, packages, prefix, dump_class, sources=0):
-        if sources:
-            h = self.get_source_packages_statement()
-        else:
-            h = self.get_packages_statement()
-
-        packages_hash = {}
-        for package in packages:
-            package = str(package)
-            if package[:len(prefix)] != prefix:
-                raise rhnFault(3002, "Invalid package name %s" % package)
-            package_id = package[len(prefix):]
-            try:
-                package_id = int(package_id)
-            except ValueError:
-                raise rhnFault(3002, "Invalid package name %s" % package)
-            if packages_hash.has_key(package_id):
-                # Already verified
-                continue
-            h.execute(package_id=package_id)
-            row = h.fetchone_dict()
-            if not row:
-                # XXX Silently ignore it?
-                raise rhnFault(3003, "No such package %s" % package)
-            # Saving the row, it's handy later when we create the iterator
-            packages_hash[package_id] = row
-
-        writer = self._get_xml_writer()
-        d = dumper.SatelliteDumper(writer,
-            dump_class(writer, packages_hash.values()))
-        d.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
+        return dumper.XML_Dumper._packages(self, packages, prefix, dump_class, sources,
+                                          verify_packages=True)
 
     def dump_errata(self, errata):
-        log_debug(2)
-
-        h = self.get_errata_statement()
-
-        errata_hash = {}
-        prefix = 'rhn-erratum-'
-        for erratum in errata:
-            erratum = str(erratum)
-            if erratum[:len(prefix)] != prefix:
-                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-            errata_id = erratum[len(prefix):]
-            try:
-                errata_id = int(errata_id)
-            except ValueError:
-                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-            if errata_hash.has_key(errata_id):
-                # Already verified
-                continue
-            h.execute(errata_id=errata_id)
-            row = h.fetchone_dict()
-            if not row:
-                # XXX Silently ignore it?
-                raise rhnFault(3005, "No such erratum %s" % erratum)
-            # Saving the row, it's handy later when we create the iterator
-            errata_hash[errata_id] = row
-
-        writer = self._get_xml_writer()
-        d = dumper.SatelliteDumper(writer,
-            dumper.ErrataDumper(writer, errata_hash.values()))
-        d.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
+        return dumper.XML_Dumper.dump_errata(self, errata, verify_errata=True)
 
     def dump_kickstartable_trees(self, kickstart_labels=None):
-        log_debug(2)
-        kickstarts = self._validate_kickstarts(
-            kickstart_labels=kickstart_labels)
-
-        writer = self._get_xml_writer()
-        d = dumper.SatelliteDumper(writer,
-            dumper.KickstartableTreesDumper(writer, kickstarts=kickstarts))
-        d.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
+        return dumper.XML_Dumper.dump_kickstartable_trees(self, kickstart_labels,
+                                                        validate_kickstarts=True)
 
     def dump_product_names(self):
         log_debug(4)
@@ -503,11 +326,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def get_rpm(self, package, channel):
         log_debug(1, package, channel)
         return self._send_package_stream(package, channel)
-
-    def get_source_rpm(self, package):
-        log_debug(1, package)
-        return self._send_package_stream(package, "rhn-source-package-",
-            "rhnPackageSource")
 
     def get_comps_file(self, channel):
         comps_query = """
@@ -593,8 +411,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         try:
             return _get_path_from_cursor(h)
         except InvalidPackageError:
-            log_debug(4, "Error", "Non-existant package requested", server_id,
-                fileName)
+            log_debug(4, "Error", "Non-existent package requested", fileName)
             raise rhnFault(17, _("Invalid RPM package %s requested") % fileName)
         except NullPathPackageError, e:
             package_id = e[0]
@@ -622,22 +439,11 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         stream.seek(0, 0)
         log_debug(3, "Package size", file_size)
         self.headers_out['Content-Length'] = file_size
-        self._send_headers_rpm()
+        self.compress_level = 0
+        self._raw_stream.content_type = 'application/x-rpm'
+        self._send_headers()
         self.send_rpm(stream)
         return 0
-
-    def _send_headers_rpm(self):
-        log_debug(3, "is_closed", self._is_closed)
-        if self._is_closed:
-            raise Exception, "Trying to write to a closed connection"
-        if self._headers_sent:
-            return
-        self._headers_sent = 1
-
-        self._raw_stream.content_type = 'application/x-rpm'
-        for h, v in self.headers_out.items():
-            self._raw_stream.headers_out[h] = str(v)
-        self._raw_stream.send_http_header()
 
     def send_rpm(self, stream):
         buffer_size = 65536
@@ -724,57 +530,13 @@ class ChannelsDumper(dumper.ChannelsDumper):
         c = exportLib.ChannelDumper(self._writer, data)
         c.dump()
 
-_query_lookup_last_modified_packages = rhnSQL.Statement("""
-    select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-      from rhnPackage
-     where id = :id
-""")
-def _lookup_last_modified_packages(package_ids):
-    h = rhnSQL.prepare(_query_lookup_last_modified_packages)
-    ret = []
-    for pid in package_ids:
-        h.execute(id=pid)
-        row = h.fetchone_dict()
-        assert row, "Invalid package id %s" % pid
-        ret.append((pid, row['last_modified']))
-    return ret
-
-_query_lookup_last_modified_ks_trees = rhnSQL.Statement("""
-    select TO_CHAR(kt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-      from rhnKickstartableTree kt, rhnChannel c
-     where kt.channel_id = c.id
-       and c.label = :channel_label
-       and kt.label = :ks_label
-       and kt.org_id is null
-""")
-def _lookup_last_modified_ks_trees(channel_label, ks_trees):
-    h = rhnSQL.prepare(_query_lookup_last_modified_ks_trees)
-    ret = []
-    for klabel in ks_trees:
-        h.execute(channel_label=channel_label, ks_label=klabel)
-        row = h.fetchone_dict()
-        assert row, "Invalid kickstart label %s for channel %s" % (
-            klabel, channel_label)
-        ret.append((klabel, row['last_modified']))
-    return ret
-
 def _get_path_from_cursor(h):
     # Function shared between other retrieval functions
     rs = h.fetchall_dict()
     if not rs:
         raise InvalidPackageError
 
-    # It is unlikely for this query to return more than one row,
-    # but it is possible
-    # (having two packages with the same n, v, r, a and different epoch in
-    # the same channel is prohibited by the RPM naming scheme; but extra
-    # care won't hurt)
     max_row = rs[0]
-    for each in rs[1:]:
-        # Compare the epoch as string
-        if _none2emptyString(each['epoch']) > _none2emptyString(
-                max_row['epoch']):
-            max_row = each
 
     if max_row['path'] is None:
 

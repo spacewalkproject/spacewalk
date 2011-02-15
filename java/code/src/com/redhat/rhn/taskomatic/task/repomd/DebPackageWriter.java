@@ -37,6 +37,7 @@ public class DebPackageWriter {
 
     private static Logger log = Logger.getLogger(DebPackageWriter.class);
     private String filenamePackages = "";
+    private String channelLabel = "";
     private PackageCapabilityIterator providesIterator;
     private PackageCapabilityIterator requiresIterator;
     private PackageCapabilityIterator conflictsIterator;
@@ -50,6 +51,7 @@ public class DebPackageWriter {
     public DebPackageWriter(Channel channel, String prefix) {
         log.debug("DebPackageWriter created");
         try {
+            channelLabel = channel.getLabel();
             filenamePackages = prefix + "Packages";
             File f = new File(filenamePackages);
             if (f.exists()) {
@@ -119,9 +121,9 @@ public class DebPackageWriter {
             addPackageDepData(out, obsoletesIterator, pkgDto.getId()
                     .longValue(), "Replaces");
 
-            // TODO FIX path to package, Apache needs access to it
-            out.write("Filename: ");
-            out.write("/var/satellite/" + pkgDto.getPath());
+            out.write("Filename: XMLRPC/GET-REQ/" + channelLabel + "/getPackage/" +
+                    pkgDto.getName() + "-" + pkgDto.getVersion() + "-" +
+                    pkgDto.getRelease() + "." + pkgDto.getArchLabel() + ".deb");
             out.newLine();
 
             // size of package, is checked by apt

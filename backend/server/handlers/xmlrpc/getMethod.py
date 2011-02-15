@@ -23,7 +23,7 @@
 import os
 import string
 from types import ClassType
-
+from distutils.sysconfig import get_python_lib
 
 class GetMethodException(Exception):
     """Exception class"""
@@ -48,16 +48,16 @@ def sanity(methodNameComps):
                 "Method names should start with an alphabetic character")
 
 
-def getMethod(methodName, abspath, baseClass):
+def getMethod(methodName, baseClass):
     """ Retreive method given methodName, path to base of tree, and class/module
         route/label.
     """
     # First split the method name
-    methodNameComps = string.split(baseClass, '.') + string.split(methodName, '.')  
+    methodNameComps = ['spacewalk'] + string.split(baseClass, '.') + string.split(methodName, '.')
     # Sanity checks
     sanity(methodNameComps)
     # Build the path to the file
-    path = abspath
+    path = get_python_lib()
     for index in range(len(methodNameComps)):
         comp = methodNameComps[index]
         path = "%s/%s" % (path, comp)
@@ -137,7 +137,7 @@ if __name__ == '__main__':
     for m in methods:
         print "----Running method %s: " % m
         try:
-            method = getMethod(m, '.', 'Actions')
+            method = getMethod(m, 'Actions')
         except GetMethodException, e:
             print "Error getting the method %s: %s" % (m, 
                 string.join(map(str, e.args)))

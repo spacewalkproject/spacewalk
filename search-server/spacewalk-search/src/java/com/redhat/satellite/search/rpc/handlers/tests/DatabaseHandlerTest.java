@@ -43,7 +43,7 @@ public class DatabaseHandlerTest extends BaseTestCase {
         return TestUtil.buildComponentsList(components);
     }
 
-    public void testQuery() throws XmlRpcFault, InterruptedException {
+    public void testQuery() throws XmlRpcFault {
         DatabaseManager db = (DatabaseManager)
             container.getComponentInstance(DatabaseManager.class);
         IndexManager idx = (IndexManager)

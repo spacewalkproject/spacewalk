@@ -973,15 +973,15 @@ SELECT TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST_ACTION,
        TO_CHAR(SA.completion_time, 'YYYY-MM-DD HH24:MI:SS') COMPLETION_TIME,
        U.login,
        TO_CHAR(A.created, 'YYYY-MM-DD HH24:MI:SS') CREATED
-  FROM rhnAction A,
-       web_contact U,
+  FROM rhnAction A LEFT OUTER JOIN
+       web_contact U
+    ON U.id = A.scheduler,
        rhnActionStatus AStatus,
        rhnActionType AType,
        rhnServerAction SA
  WHERE SA.action_id = :aid
    AND SA.server_id = :sid
    AND A.id = :aid
-   AND U.id(+) = A.scheduler
    AND AStatus.id = SA.status
    AND AType.id = A.action_type
 EOS
@@ -1073,16 +1073,20 @@ sub server_event_package_action {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
-SELECT PN.name || NVL2(PE.evr, ('-' || PE.evr.as_vre_simple()), '') AS NVRE,
+SELECT PN.name ||
+       CASE
+         WHEN PE.evr IS NULL THEN ''
+         WHEN PE.evr IS NOT NULL THEN ('-' || evr_t_as_vre_simple(PE.evr)) END
+       AS NVRE,
        AP.id AS ACTION_PACKAGE_ID,
        PN.id || '|' || PE.id AS id_combo,
        AP.package_arch_id
   FROM rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnActionPackage AP
+       rhnActionPackage AP LEFT OUTER JOIN
+       rhnPackageEVR PE
+    ON AP.evr_id = PE.id
  WHERE AP.action_id = :aid
    AND AP.name_id = PN.id
-   AND AP.evr_id = PE.id (+)
 EOS
   $sth->execute_h(aid => $aid);
   while (my $row = $sth->fetchrow_hashref_copy) {
@@ -2830,10 +2834,9 @@ SELECT VI.id,
        VI.host_system_id,
        VI.UUID,
        S.name AS HOST_SYSTEM_NAME
-  FROM rhnVirtualInstance VI,
-       rhnServer S
+  FROM rhnVirtualInstance VI left outer join rhnServer S
+       on VI.host_system_id = S.id
  WHERE VI.virtual_system_id = :sid
-   AND VI.host_system_id = S.id (+)
 EOQ
 
   $sth->execute_h(sid => $self->id());

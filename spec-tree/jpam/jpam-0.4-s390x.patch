@@ -1,0 +1,32 @@
+--- jpam-0.4/Linux_s390.properties.orig
++++ jpam-0.4/Linux_s390.properties
+@@ -0,0 +1,4 @@
++shared.library.name=libjpam.so
++native.pam.library.path=/lib
++native.java.library.path=${java.home}/lib/i386/client
++make.target=libjpam.s390
+
+--- jpam-0.4/Linux_s390x.properties.orig
++++ jpam-0.4/Linux_s390x.properties
+@@ -0,0 +1,4 @@
++shared.library.name=libjpam.so
++native.pam.library.path=/lib
++native.java.library.path=${java.home}/lib/i386/client
++make.target=libjpam.s390x
+
+--- jpam-0.4/src/c/makefile.orig
++++ jpam-0.4/src/c/makefile
+@@ -57,3 +57,13 @@
+ libjpam.mac_os_x: Pam.c
+	gcc -fPIC -Wall -g -c -I$(JAVA_HOME)/include Pam.c
+	gcc -g -export-dynamic -dynamiclib -Wl -o libjpam.jnilib Pam.o -lpam -lpam_misc -ldl -framework JavaVM
++
++# Linux s390
++libjpam.s390: Pam.c
++	gcc -fPIC -Wall -g -c -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux Pam.c
++	gcc -g -shared -fPIC -o libjpam.so Pam.o -lpam -lpam_misc -ldl
++
++# Linux s390x
++libjpam.s390x: Pam.c
++	gcc -fPIC -Wall -g -c -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux Pam.c
++	gcc -g -shared -fPIC -o libjpam.so Pam.o -lpam -lpam_misc -ldl

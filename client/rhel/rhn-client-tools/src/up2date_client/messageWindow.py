@@ -66,11 +66,14 @@ class MessageWindow:
             buttons = gtk.BUTTONS_YES_NO
             style = gtk.MESSAGE_QUESTION
 
-        # this seems to be wordwrapping text passed to
-        # it, which is making for ugly error messages
-        self.dialog = gtk.MessageDialog(parent, 0, style, buttons, text)
-        self.dialog.label.set_line_wrap(False)
-        self.dialog.label.set_use_markup(True)
+        self.dialog = gtk.MessageDialog(parent, 0, style, buttons)
+        # Work around for bug #602609
+        try:
+            self.dialog.vbox.get_children()[0].get_children()[1].\
+                get_children()[0].set_line_wrap(False)
+        except:
+            self.dialog.label.set_line_wrap(False)
+        self.dialog.set_markup(text)
         if default == "no":
             self.dialog.set_default_response(0)
         elif default == "yes" or default == "ok":

@@ -28,39 +28,43 @@
             </div><div class="subcontextbar"><a href="#v-descr">Description</a> <a href="#v-cols">Columns</a> <a href="#v-query">Query</a> <a href="#v-cc">Constraints</a> <a href="#v-trgs">Triggers</a> </div><h2>RHNCHANNELNEWESTPACKAGEVIEW</h2>
 <a href="sql_sources/view/rhnchannelnewestpackageview.sql">DDL script</a><h3>Columns<a name="v-cols"></a></h3>
 <table>
-<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>CHANNEL_ID<a name="col-CHANNEL_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>CHANNEL_ID<a name="col-CHANNEL_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>NAME_ID<a name="col-NAME_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>EVR_ID<a name="col-EVR_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>PACKAGE_ARCH_ID<a name="col-PACKAGE_ARCH_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>PACKAGE_ARCH_ID<a name="col-PACKAGE_ARCH_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>PACKAGE_ID<a name="col-PACKAGE_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 </table><h3>Query:</h3>
 <a name="v-query"></a><pre>
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
 <pre>
-<span class="reserved">select</span>  cp<span class="operator">.</span>channel_id		<span class="reserved">as</span> channel_id<span class="operator">,</span>
-		p<span class="operator">.</span>name_id			<span class="reserved">as</span> name_id<span class="operator">,</span>
-		p<span class="operator">.</span>evr_id			<span class="reserved">as</span> evr_id<span class="operator">,</span>
-		p<span class="operator">.</span>package_arch_id	<span class="reserved">as</span> package_arch_id<span class="operator">,</span>
-		p<span class="operator">.</span>id				<span class="reserved">as</span> package_id
-<span class="reserved">from</span>	rhnPackageEVR		pe<span class="operator">,</span>
-		rhnPackage			p<span class="operator">,</span>
-		rhnChannelPackage	cp
-<span class="reserved">where</span>	cp<span class="operator">.</span>package_id <span class="operator">=</span> p<span class="operator">.</span>id
-		<span class="reserved">and</span> p<span class="operator">.</span>evr_id <span class="operator">=</span> pe<span class="operator">.</span>id
-		<span class="reserved">and</span> pe<span class="operator">.</span>evr <span class="operator">=</span> <span class="operator">(</span>
-			<span class="reserved">select</span>	<span class="keyword">max</span><span class="operator">(</span>sq_pe<span class="operator">.</span>evr<span class="operator">)</span>
-			<span class="reserved">from</span>	rhnChannelPackage sq_cp<span class="operator">,</span>
-					rhnPackage sq_p<span class="operator">,</span>
-					rhnPackageEVR sq_pe
-			<span class="reserved">where</span>	1<span class="operator">=</span>1
-				<span class="reserved">and</span> sq_cp<span class="operator">.</span>channel_id <span class="operator">=</span> cp<span class="operator">.</span>channel_id
-				<span class="reserved">and</span> sq_cp<span class="operator">.</span>package_id <span class="operator">=</span> sq_p<span class="operator">.</span>id
-				<span class="reserved">and</span> sq_p<span class="operator">.</span>name_id <span class="operator">=</span> p<span class="operator">.</span>name_id
-				<span class="reserved">and</span> sq_pe<span class="operator">.</span>id <span class="operator">=</span> sq_p<span class="operator">.</span>evr_id
-		<span class="operator">)</span>
+<span class="reserved">SELECT</span> m<span class="operator">.</span>channel_id          <span class="reserved">as</span> channel_id<span class="operator">,</span>
+       p<span class="operator">.</span>name_id             <span class="reserved">as</span> name_id<span class="operator">,</span>
+       p<span class="operator">.</span>evr_id              <span class="reserved">as</span> evr_id<span class="operator">,</span>
+       m<span class="operator">.</span>package_arch_id     <span class="reserved">as</span> package_arch_id<span class="operator">,</span>
+       p<span class="operator">.</span>id                  <span class="reserved">as</span> package_id
+<span class="reserved">FROM</span>
+    <span class="operator">(</span><span class="reserved">select</span> <span class="keyword">max</span><span class="operator">(</span>pe<span class="operator">.</span>evr<span class="operator">)</span> <span class="reserved">AS</span> max_evr<span class="operator">,</span>
+         cp<span class="operator">.</span>channel_id<span class="operator">,</span>
+         p<span class="operator">.</span>name_id<span class="operator">,</span>
+         p<span class="operator">.</span>package_arch_id
+        <span class="reserved">from</span> rhnPackageEVR       pe<span class="operator">,</span>
+         rhnPackage          p<span class="operator">,</span>
+         rhnChannelPackage   cp
+        <span class="reserved">where</span> p<span class="operator">.</span>evr_id <span class="operator">=</span> pe<span class="operator">.</span>id
+         <span class="reserved">and</span> cp<span class="operator">.</span>package_id <span class="operator">=</span> p<span class="operator">.</span>id
+        <span class="reserved">group</span> <span class="reserved">by</span> cp<span class="operator">.</span>channel_id<span class="operator">,</span> p<span class="operator">.</span>name_id<span class="operator">,</span> p<span class="operator">.</span>package_arch_id<span class="operator">)</span> m<span class="operator">,</span>
+    rhnPackageEVR       pe<span class="operator">,</span>
+    rhnPackage          p<span class="operator">,</span>
+    rhnChannelPackage   chp
+<span class="reserved">WHERE</span> m<span class="operator">.</span>max_evr <span class="operator">=</span> pe<span class="operator">.</span>evr
+<span class="reserved">AND</span> m<span class="operator">.</span>name_id <span class="operator">=</span> p<span class="operator">.</span>name_id
+<span class="reserved">AND</span> m<span class="operator">.</span>package_arch_id <span class="operator">=</span> p<span class="operator">.</span>package_arch_id
+<span class="reserved">AND</span> p<span class="operator">.</span>evr_id <span class="operator">=</span> pe<span class="operator">.</span>id
+<span class="reserved">AND</span> chp<span class="operator">.</span>package_id <span class="operator">=</span> p<span class="operator">.</span>id
+<span class="reserved">AND</span> chp<span class="operator">.</span>channel_id <span class="operator">=</span> m<span class="operator">.</span>channel_id
 
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:14 2010</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:00:59 2011</div>
 </body></html>

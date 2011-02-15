@@ -1,7 +1,7 @@
--- created by Oraschemadoc Fri Jan 22 13:40:40 2010
+-- created by Oraschemadoc Thu Jan 20 13:56:08 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNAVAILABLECHANNELS" ("ORG_ID", "CHANNEL_ID", "CHANNEL_DEPTH", "CHANNEL_NAME", "CHANNEL_ARCH_ID", "PADDED_NAME", "CURRENT_MEMBERS", "AVAILABLE_MEMBERS", "LAST_MODIFIED", "CHANNEL_LABEL", "PARENT_OR_SELF_LABEL", "PARENT_OR_SELF_ID") AS
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNAVAILABLECHANNELS" ("ORG_ID", "CHANNEL_ID", "CHANNEL_DEPTH", "CHANNEL_NAME", "CHANNEL_ARCH_ID", "PADDED_NAME", "CURRENT_MEMBERS", "AVAILABLE_MEMBERS", "LAST_MODIFIED", "CHANNEL_LABEL", "PARENT_OR_SELF_LABEL", "PARENT_OR_SELF_ID") AS 
   select
      ct.org_id,
      ct.id,
@@ -22,7 +22,7 @@
      CT.parent_or_self_id
 from
      rhnOrgChannelTreeView CT
-UNION
+UNION ALL
 select
      ct.org_id,
      ct.id,

@@ -18,6 +18,7 @@ import string
 import time
 import httplib
 import urllib2
+import xmlrpclib
 
 # so we can use the same code with python 1.5.2 and 2.2
 try:
@@ -141,7 +142,7 @@ def doCall(method, *args, **kwargs):
             log.log_me(msg)
             raise rhnErrors.CommunicationError(msg)
         
-        except rpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError, e:
             
             log.log_me("A protocol error occurred: %s , attempt #%s," % (
                 e.errmsg, attempt_count))
@@ -190,7 +191,7 @@ def doCall(method, *args, **kwargs):
                 else:
                     failure = 1
             
-        except rpclib.ResponseError:
+        except xmlrpclib.ResponseError:
             raise rhnErrors.CommunicationError(
                 "Broken response from the server.")
 

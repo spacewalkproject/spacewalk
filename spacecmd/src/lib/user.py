@@ -26,7 +26,7 @@ from optparse import Option
 from spacecmd.utils import *
 
 def help_user_create(self):
-    print 'user_create: Create a user'
+    print 'user_create: Create an user'
     print '''usage: user_create [options]
 
 options:
@@ -103,7 +103,7 @@ def do_user_create(self, args):
 ####################
 
 def help_user_delete(self):
-    print 'user_delete: Delete a user'
+    print 'user_delete: Delete an user'
     print 'usage: user_delete NAME'
 
 def complete_user_delete(self, text, line, beg, end):
@@ -250,7 +250,7 @@ def do_user_removerole(self, args):
 ####################
 
 def help_user_details(self):
-    print 'user_details: Show the details of a user'
+    print 'user_details: Show the details of an user'
     print 'usage: user_details USER ...'
 
 def complete_user_details(self, text, line, beg, end):

@@ -7,7 +7,7 @@ import glob
 import os
 import string
 
-import capabilities
+from capabilities import parseCap
 
 class ClientCapabilities(UserDict.UserDict):
     def __init__(self):
@@ -51,7 +51,7 @@ def loadLocalCaps(capsDir = "/etc/sysconfig/rhn/clientCaps.d"):
             string.strip(line)
             if line[0] == "#":
                 continue
-            caplist = capabilities.parseCap(line)
+            caplist = parseCap(line)
 
             for (cap,data) in caplist:
                 caps.data[cap] = data

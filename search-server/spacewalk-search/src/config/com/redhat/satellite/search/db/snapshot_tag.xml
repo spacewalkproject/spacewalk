@@ -26,7 +26,7 @@
 
 
    <delete id="deleteLastSnapshotTag">
-		DELETE rhnIndexerWork where object_type = 'snapshot_tag'
+                DELETE FROM rhnIndexerWork where object_type = 'snapshot_tag'
    </delete>
    <insert id="createLastSnapshotTag"
 		   parameterClass="java.util.Map">

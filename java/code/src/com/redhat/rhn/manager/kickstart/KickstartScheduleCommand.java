@@ -384,12 +384,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 ChannelArch arch = baseChannel.getChannelArch();
                 SelectMode mode = getMode();
                 Map params = new HashMap();
-                params.put("org_id", this.user.getOrg().getId().toString());
-                params.put("prim_arch_id", arch.getId().toString());
+                params.put("org_id", this.user.getOrg().getId());
+                params.put("prim_arch_id", arch.getId());
                 if (arch.getName().equals("x86_64")) {
                     log.debug("    Adding IA-32 to search list.");
                     ChannelArch ia32arch = ChannelFactory.lookupArchByName("IA-32");
-                    params.put("sec_arch_id", ia32arch.getId().toString());
+                    params.put("sec_arch_id", ia32arch.getId());
                 }
                 else if (arch.getName().equals("IA-32") &&
                         (hostServer.getServerArch().getName().equals(
@@ -398,10 +398,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                 ServerConstants.getArchATHLON().getName()))) {
                     log.debug("    Adding x86_64 to search list.");
                     ChannelArch x86Arch = ChannelFactory.lookupArchByName("x86_64");
-                    params.put("sec_arch_id", x86Arch.getId().toString());
+                    params.put("sec_arch_id", x86Arch.getId());
                 }
                 else {
-                    params.put("sec_arch_id", arch.getId().toString());
+                    params.put("sec_arch_id", arch.getId());
                 }
                 retval = mode.execute(params);
                 if (log.isDebugEnabled()) {
@@ -574,7 +574,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             CobblerSystemCreateCommand cmd =
                 getCobblerSystemCreateCommand(user, server,
                         ksdata, uhelper.
-                        getKickstartMediaPath(kickstartSession),
+                        getKickstartMediaPath(kickstartSession, scheduleDate),
                         tokenList);
             cmd.setKickstartHost(host);
             cmd.setKernelOptions(getExtraOptions());

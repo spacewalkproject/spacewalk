@@ -17,9 +17,8 @@
 
 import os
 import gzip
-import string
 from spacewalk.common.fileutils import createPath
-
+from spacewalk.common.rhnLib import hash_object_id
 
 class MissingXmlDiskSourceFileError(Exception):
     pass
@@ -135,28 +134,6 @@ class ChannelCompsDiskSource(ChannelDiskSource):
 
     def _file_name(self):
         return "comps.xml"
-
-
-def hashPackageId(obj_id, mod=100, padding=2):
-    """Hash the package ID
-
-    Ord each character, add 'em up, mod the result... and make
-    sure there is enough padding.
-    """
-
-    # Make sure obj_id is a string
-    obj_id = str(obj_id)
-    # Get the last numeric part out of this package
-    obj_id = obj_id[string.rfind(obj_id, '-') + 1:]
-    try:
-        obj_id = long(obj_id)
-    except ValueError:
-        # No numbers at the end, add all the values for the string
-        obj_id = reduce(lambda x,y: x+y, map(long, map(ord, obj_id)))
-    obj_id = obj_id % mod
-    format = "%%0%sd" % padding
-    # Map the id to the hash/format
-    return format % obj_id
     
 
 class ShortPackageDiskSource(DiskSource):
@@ -192,7 +169,7 @@ class ShortPackageDiskSource(DiskSource):
 
     def _hashID(self):
         # Hashes the package name
-        return hashPackageId(self.id, mod=100, padding=2)
+        return hash_object_id(self.id, 2)
 
 class PackageDiskSource(ShortPackageDiskSource):
     subdir = "packages"
@@ -205,7 +182,7 @@ class ErrataDiskSource(ShortPackageDiskSource):
 
     def _hashID(self):
         # Hashes the erratum name
-        return hashPackageId(self.id, mod=10, padding=1)
+        return hash_object_id(self.id, 1)
 
 class BlacklistsDiskSource(DiskSource):
     subdir = "blacklists"
@@ -261,6 +238,57 @@ class KickstartFileDiskSource(KickstartDataDiskSource):
         if create and not os.path.isdir(dirname):
             createPath(dirname, logging=0)
         return path
+
+class MetadataDiskSource:
+    def __init__(self, mountpoint):
+        self.mountpoint = mountpoint
+
+    def is_disk_loader(self):
+        return True
+
+    def getArchesXmlStream(self):
+        return ArchesDiskSource(self.mountpoint).load()
+
+    def getArchesExtraXmlStream(self):
+        return ArchesExtraDiskSource(self.mountpoint).load()
+
+    def getChannelFamilyXmlStream(self):
+        return ChannelFamilyDiskSource(self.mountpoint).load()
+
+    def getBlacklistsXmlStream(self):
+        return BlacklistsDiskSource(self.mountpoint).load()
+
+    def getProductNamesXmlStream(self):
+        return ProductnamesDiskSource(self.mountpoint).load()
+
+    def getComps(self, label):
+        sourcer = ChannelCompsDiskSource(self.mountpoint)
+        sourcer.setChannel(label)
+        return sourcer.load()
+
+    def getChannelXmlStream(self, labels):
+        sourcer = ChannelDiskSource(self.mountpoint)
+        channels = sourcer.list()
+        stream_list = []
+        for c in channels:
+            sourcer.setChannel(c)
+            stream_list.append(sourcer.load())
+        return stream_list
+
+    def getChannelShortPackagesXmlStream(self):
+        return ShortPackageDiskSource(self.mountpoint)
+
+    def getPackageXmlStream(self):
+        return PackageDiskSource(self.mountpoint)
+
+    def getSourcePackageXmlStream(self):
+        return SourcePackageDiskSource(self.mountpoint)
+
+    def getKickstartsXmlStream(self):
+        return KickstartDataDiskSource(self.mountpoint)
+
+    def getErrataXmlStream(self):
+        return ErrataDiskSource(self.mountpoint)
 
 if __name__ == '__main__':
     # TEST CODE

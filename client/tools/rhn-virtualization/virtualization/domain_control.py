@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2006 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 2006--2010 Red Hat, Inc.  Distributed under GPL.
 #
 # Author: Peter Vetere <pvetere@redhat.com>
 #
@@ -9,9 +9,7 @@
 import sys
 sys.path.append("/usr/share/rhn/")
 
-import os
-
-from virtualization import poller, start_domain, state
+from virtualization import poller, start_domain
 
 from virtualization.errors import VirtualizationException
 from virtualization.util   import hyphenize_uuid

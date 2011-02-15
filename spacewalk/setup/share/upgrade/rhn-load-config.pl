@@ -32,7 +32,7 @@ my $usage = "usage: $0 [ --force ]"
   . " [ --disable-solaris ]"
   . " [ --help ]\n";
 
-GetOptions(\%opts, @valid_opts);
+GetOptions(\%opts, @valid_opts) or die $usage;
 
 if ($opts{help}) {
   die $usage;
@@ -114,7 +114,7 @@ $config_opts{serverDOTnls_lang} = 'english.' . $nls_database_paramaters{NLS_CHAR
 $config_opts{cobblerDOThost} = Sys::Hostname::hostname;
 print "Writing configuration\n";
 RHN::SatInstall->write_config(\%config_opts,
-			      '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+			      '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf');
 
 
 Spacewalk::Setup::satcon_deploy();

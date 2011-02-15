@@ -2,24 +2,27 @@
 
 <mode name="systems_with_feature" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id, feature">
+select * from (
   SELECT  DISTINCT S.id,
                    S.name,
                    SI.server_id AS IS_RHN_SATELLITE,
                    PI.server_id AS IS_RHN_PROXY,
                    TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECKIN
-    FROM  rhnSatelliteInfo SI, rhnServerInfo SInfo, rhnProxyInfo PI, rhnServer S, rhnUserServerPerms USP
+    FROM rhnServerInfo SInfo, rhnUserServerPerms USP, rhnServer S
+    LEFT OUTER JOIN rhnSatelliteInfo SI ON S.id = SI.server_id
+    LEFT OUTER JOIN rhnProxyInfo PI ON S.id = PI.server_id
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
-     AND  S.id = SI.server_id (+)
-     AND  S.id = PI.server_id (+)
      AND  Sinfo.server_id = S.id
      AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.ID AND SFV.label = :feature)
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
   </query>
 </mode>
 
 <mode name="virtual_hosts_for_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">
+select * from (
   SELECT  DISTINCT S.id,
                    S.name
     FROM  rhnServer S,
@@ -30,7 +33,8 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
      AND VI.host_system_id = S.id
      AND USP.server_id  = S.id
      AND USP.user_id = :user_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
   </query>
   <elaborator name="system_overview" />
 </mode>
@@ -71,6 +75,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="ssm_remote_commandable">
   <query params="user_id">
+select * from (
 SELECT DISTINCT S.id,
        S.name AS SERVER_NAME
   FROM rhnServer S,
@@ -87,7 +92,8 @@ SELECT DISTINCT S.id,
    AND CC.capability_name_id = CCN.id
    AND CCN.name = 'script.run'
    AND USP.server_id = S.id
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+) X
+ORDER BY UPPER(NVL(X.server_name, '(none)')), X.id
   </query>
   <elaborator name="system_overview" />
 </mode>
@@ -112,6 +118,7 @@ SELECT CDK.id,
 
 
 <query name="ssm_package_upgrades_systems" params="user_id, set_label, package_set_label">
+select * from (
 SELECT  DISTINCT
         S.id,
         S.name AS SERVER_NAME
@@ -139,16 +146,18 @@ SELECT  DISTINCT
    AND  C.id = CP.channel_id
    AND  CP.package_id = P.id
    AND  P.package_arch_id = PA.id
-ORDER BY UPPER(S.name)
+) X
+ORDER BY UPPER(X.server_name)
 </query>
 
 <mode name="ssm_package_upgrades_conf">
   <query name="ssm_package_upgrades_systems" />
   <elaborator params="user_id, package_set_label" multiple="t">
+select * from (
 SELECT  DISTINCT
         S.id AS ID,
         S.name AS SERVER_NAME,
-        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' || PA.label NVRE,
         PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         P.name_id AS NAME_ID,
         P.evr_id AS EVR_ID,
@@ -179,7 +188,8 @@ SELECT  DISTINCT
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
-ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label)
+) X
+ORDER BY UPPER(X.server_name), UPPER(X.NVRE)
   </elaborator>
 </mode>
 
@@ -297,7 +307,6 @@ SELECT
    AND S.id = SC.server_id
    AND SC.channel_id = :cid
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
 </mode>
 
@@ -402,6 +411,7 @@ SELECT ES.id, S.name, 1 as selectable
 
 <mode name="xmlrpc_visible_to_user">
   <query params="user_id">
+select * from (
   SELECT  DISTINCT S.id AS ID,
           S.name AS NAME,
           INFO.checkin AS LAST_CHECKIN
@@ -409,7 +419,8 @@ SELECT ES.id, S.name, 1 as selectable
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = INFO.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
   </query>
 </mode>
 
@@ -468,6 +479,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 </mode>
 
 <query name="available_to_uid" params="formvar_uid">
+select * from (
   SELECT  DISTINCT S.id AS ID,
           S.name AS SERVER_NAME,
           (SELECT 1
@@ -477,7 +489,8 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
     FROM  rhnServer S, rhnUserServerPerms USP
    WHERE  USP.user_id = :formvar_uid
      AND  S.id = USP.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY  UPPER(NVL(X.server_name, '(none)')), X.id
 </query>
 
 
@@ -530,6 +543,7 @@ where a.user_id = :formvar_uid
 
 <mode name="affected_by_errata_no_selectable" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="eid, user_id">
+select * from (
   SELECT  DISTINCT S.id as system_id,
   					S.name as system_name,
 					S.id as id,
@@ -541,12 +555,14 @@ where a.user_id = :formvar_uid
      AND  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = SNEC.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
   </query>
 </mode>
 
 <mode name="affected_by_errata" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="eid, user_id">
+select * from (
   SELECT  DISTINCT S.id, S.name,
           1 as selectable
     FROM  rhnServerNeededErrataCache SNEC,
@@ -556,7 +572,8 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
      AND  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND  S.id = SNEC.server_id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
   </query>
   <elaborator params="eid" multiple="t">
 SELECT SA.server_id as id,
@@ -605,6 +622,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 
 <query name="system_set_remove_package_query" params="user_id, set_label, package_set_label">
+select * from (
 	SELECT  DISTINCT S.id,
 	        S.name SYSTEM_NAME
 	  FROM  rhnServer S,
@@ -617,7 +635,8 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 	   AND  SP.evr_id = ST2.element_two
 	   AND  (SP.package_arch_id  = ST2.element_three  OR (SP.package_arch_id is null and ST2.element_three is null))
 	   AND  SP.server_id = S.id
-	ORDER BY UPPER(S.name), S.id
+) X
+	ORDER BY UPPER(X.system_name), X.id
    </query>
 
 
@@ -640,37 +659,31 @@ SELECT  DISTINCT SP.server_id id,
 	<query name="system_set_remove_package_query" />
    <elaborator params="user_id, package_set_label" multiple="t">
 SELECT  DISTINCT SP.server_id id,
-        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,
+        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' || PA.label NVRE,
         PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO
   FROM  rhnPackageEVR PE,
         rhnPackageName PN,
-        rhnServerPackage SP,
-        rhnPackageArch PA
+        rhnServerPackage SP LEFT OUTER JOIN rhnPackageArch PA
+        ON SP.package_arch_id = PA.id
  WHERE  SP.server_id IN (%s)
    AND  SP.name_id = PN.id
    AND  PN.id || '|' || PE.id || '|' || PA.id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
-   AND  SP.package_arch_id = PA.id (+)
    </elaborator>
 </mode>
 
-<write-mode name="insert_ssm_remove_server_package">
-   <query params="user_id, name_id, evr_id, arch_id">
-      INSERT INTO rhnSsmSystemPackages (user_id, name_id, evr_id, arch_id)
-      VALUES (:user_id, :name_id, :evr_id, :arch_id)
-   </query>
-</write-mode>
-
 <mode name="out_of_date" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, user_id">
-SELECT    DISTINCT S.ID, S.NAME,
+select * from (
+  SELECT    DISTINCT S.ID, S.NAME,
        (SELECT 1
           FROM rhnServerFeaturesView SFV
          WHERE SFV.server_id = S.id
            AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM    rhnServer S, rhnUserServerPerms USP, rhnServerNeededPackageCache SNPC
- WHERE    S.ORG_ID = :org_id AND S.ID = USP.server_id AND USP.user_id = :user_id AND S.id = SNPC.server_id
-ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  WHERE    S.ORG_ID = :org_id AND S.ID = USP.server_id AND USP.user_id = :user_id AND S.id = SNPC.server_id
+) X
+ORDER BY  UPPER(NVL(X.NAME, '(none)')), X.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements" />
@@ -732,7 +745,7 @@ SELECT S.id, S.NAME,
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
    AND SI.server_id = S.id
-   AND SI.checkin &lt; sysdate - :checkin_threshold
+   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
@@ -753,7 +766,7 @@ SELECT S.id, S.NAME,
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
    AND SI.server_id = S.id
-   AND SI.checkin &lt; sysdate - :checkin_threshold
+   AND SI.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')
 ORDER BY SI.checkin DESC
   </query>
   <elaborator name="system_overview" />
@@ -775,7 +788,7 @@ SELECT S.id, S.NAME, S.info, S.created,
   FROM rhnServer S
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
-   AND S.created &gt; sysdate - :threshold
+   AND S.created &gt; current_timestamp - numtodsinterval(:threshold * 86400, 'second')
 ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
@@ -834,20 +847,18 @@ SELECT PI.server_id ID, S.name,
 	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
      NVL(VII.vcpus, 0) AS VCPUS,
      NVL(VII.memory_size_k, 0) AS MEMORY,
-     NVL(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
+     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
 	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable,
 	 1 AS selectable
-    FROM rhnVirtualInstance VI,
-	 rhnVirtualInstanceInfo VII,
-	 rhnVirtualInstanceState VIS
+    FROM rhnVirtualInstance VI
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
    WHERE EXISTS (SELECT 1
                    FROM rhnUserServerPerms USP
                   WHERE USP.user_id = :user_id
                     AND USP.server_id = VI.host_system_id)
      AND VI.host_system_id = :sid
      AND VI.uuid IS NOT NULL
-     AND VI.id = VII.instance_id (+)
-     AND VII.state = VIS.id (+)
 ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
@@ -884,18 +895,16 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 						and VI.virtual_system_id is null
 						and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')
        ) as virt_entitlement,
-     NVL(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
-	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable       
-     FROM rhnVirtualInstance VI,
- 	 rhnVirtualInstanceInfo VII,
-	 rhnVirtualInstanceState VIS
+     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
+	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
+     FROM rhnVirtualInstance VI
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
     WHERE EXISTS (SELECT 1
                   FROM rhnUserServerPerms USP
                   WHERE USP.user_id = :user_id
                         AND (USP.server_id = VI.host_system_id
                         OR USP.server_id = VI.virtual_system_id))
-      AND VI.id = VII.instance_id (+)
-      AND VII.state = VIS.id (+)
   ORDER BY VI.host_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
@@ -1087,11 +1096,11 @@ SELECT  DISTINCT ST.element AS ID
                      FROM rhnServerFeaturesView SFV
                     WHERE SFV.server_id = S.id
                       AND SFV.label = 'ftr_system_grouping') AS selectable
-    FROM  rhnSatelliteInfo SI, rhnServerInfo SInfo, rhnProxyInfo PI, rhnServer S, rhnUserServerPerms USP
+    FROM rhnServerInfo SInfo, rhnUserServerPerms USP, rhnServer S
+    LEFT OUTER JOIN rhnSatelliteInfo SI ON S.id = SI.server_id
+    LEFT OUTER JOIN rhnProxyInfo PI ON S.id = PI.server_id
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
-     AND  S.id = SI.server_id (+)
-     AND  S.id = PI.server_id (+)
      AND  Sinfo.server_id = S.id
      AND ((SELECT count (*) FROM rhnServerErrataTypeView setv WHERE setv.server_id = s.id) > 0)
 </query>
@@ -1135,15 +1144,24 @@ ORDER BY S.ID
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
           config_files_with_differences,
-       ( SELECT  CASE
-                   MAX(CASE PS.state WHEN 'OK' THEN 1 WHEN 'PENDING' THEN 2 WHEN 'UNKNOWN' THEN 3 WHEN 'WARNING' THEN 4 WHEN 'CRITICAL' THEN 5 END)
-                         WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
-                         FROM  rhn_probe_state PS
-                         LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
-          WHERE  PS.probe_id = CP.probe_id
-         GROUP BY OV.server_id ) MONITORING_STATUS
-    FROM  rhnServerOverview OV
-   WHERE  server_id IN (%s)
+          MONITORING_STATUS.ST AS MONITORING_STATUS
+  FROM  rhnServerOverview OV LEFT OUTER JOIN
+     ( SELECT CP.host_id, CASE MAX(CASE PS.state
+               WHEN 'OK' THEN 1
+               WHEN 'PENDING' THEN 2
+               WHEN 'UNKNOWN' THEN 3
+               WHEN 'WARNING' THEN 4
+               WHEN 'CRITICAL' THEN 5 END)
+           WHEN 1 THEN 'OK'
+           WHEN 2 THEN 'PENDING'
+           WHEN 3 THEN 'UNKNOWN'
+           WHEN 4 THEN 'WARNING'
+           WHEN 5 THEN 'CRITICAL' END ST
+      FROM  rhn_check_probe CP, rhn_probe_state PS
+      WHERE  PS.probe_id = CP.probe_id
+      GROUP BY CP.host_id ) MONITORING_STATUS
+  ON  OV.server_id = MONITORING_STATUS.host_id
+  WHERE  server_id IN (%s)
 ORDER BY  UPPER(NVL(SERVER_NAME, '(none)')), SERVER_ID
 </query>
 
@@ -1164,36 +1182,50 @@ select distinct sgm.server_id as ID, 1 as virtual_host
 </query>
 
 <query name="system_overview_most_critical" params="">
-  SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
+ SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences,
-       ( SELECT  DECODE(
-                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+          config_files_with_differences, MONITORING_STATUS.ST AS MONITORING_STATUS
+    FROM  rhnServerOverview OV LEFT OUTER JOIN
+     ( SELECT CP.host_id, CASE MAX(CASE PS.state
+               WHEN 'OK' THEN 1
+               WHEN 'PENDING' THEN 2
+               WHEN 'UNKNOWN' THEN 3
+               WHEN 'WARNING' THEN 4
+               WHEN 'CRITICAL' THEN 5 END)
+           WHEN 1 THEN 'OK'
+           WHEN 2 THEN 'PENDING'
+           WHEN 3 THEN 'UNKNOWN'
+           WHEN 4 THEN 'WARNING'
+           WHEN 5 THEN 'CRITICAL' END ST
            FROM  rhn_check_probe CP, rhn_probe_state PS
           WHERE  PS.probe_id = CP.probe_id
-            AND  OV.server_id = CP.host_id(+)
-         GROUP BY OV.server_id ) MONITORING_STATUS
-    FROM  rhnServerOverview OV
+         GROUP BY CP.host_id ) MONITORING_STATUS ON OV.server_id = MONITORING_STATUS.host_id
    WHERE  server_id IN (%s)
 ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
 </query>
 
 <query name="virtual_system_overview" params="">
-  SELECT  VI.id,
+ SELECT  VI.id,
           SERVER_ID as system_id, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, OV.MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences,
-       ( SELECT  DECODE(
-                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+          config_files_with_differences, MONITORING_STATUS.ST AS MONITORING_STATUS
+    FROM  rhnVirtualInstance VI, rhnServerOverview OV LEFT OUTER JOIN
+       ( SELECT CP.host_id, CASE MAX(CASE PS.state
+               WHEN 'OK' THEN 1
+               WHEN 'PENDING' THEN 2
+               WHEN 'UNKNOWN' THEN 3
+               WHEN 'WARNING' THEN 4
+               WHEN 'CRITICAL' THEN 5 END)
+           WHEN 1 THEN 'OK'
+           WHEN 2 THEN 'PENDING'
+           WHEN 3 THEN 'UNKNOWN'
+           WHEN 4 THEN 'WARNING'
+           WHEN 5 THEN 'CRITICAL' END ST
            FROM  rhn_check_probe CP, rhn_probe_state PS
           WHERE  PS.probe_id = CP.probe_id
-            AND  OV.server_id = CP.host_id(+)
-         GROUP BY OV.server_id ) MONITORING_STATUS
-    FROM  rhnServerOverview OV, rhnVirtualInstance VI
+         GROUP BY CP.host_id ) MONITORING_STATUS ON OV.server_id = MONITORING_STATUS.host_id
    WHERE  VI.id IN (%s)
      AND  (   (    VI.uuid IS NULL
                AND OV.server_id = VI.host_system_id)
@@ -1214,7 +1246,7 @@ ORDER BY  SERVER_ID
    rhnServerGroupMembers sgm,
          rhnVirtualInstance VI
    WHERE VI.id IN (%s)
-     AND sgm.server_id = NVL(VI.virtual_system_id, VI.host_system_id)
+     AND sgm.server_id = COALESCE(VI.virtual_system_id, VI.host_system_id)
      AND sg.id = sgm.server_group_id
      and sg.group_type = sgt.id
 
@@ -1223,12 +1255,14 @@ ORDER BY  SERVER_ID
 
 
 <query name="in_set" params="user_id, set_label">
+select * from (
   SELECT  DISTINCT S.id, S.name
     FROM  rhnServer S, rhnSet ST
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
      AND  ST.element = S.id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+) X
+ORDER BY  UPPER(NVL(name, '(none)')), id
 </query>
 
 <mode name="virtual_systems_in_set" class="com.redhat.rhn.frontend.dto.VirtualSystemOverview">
@@ -1242,15 +1276,12 @@ DISTINCT VI.id,
 	 NVL(VIS.name, '(unknown)') AS STATE_NAME,
 	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
 	 1 AS selectable
-    FROM rhnVirtualInstance VI,
-	 rhnVirtualInstanceInfo VII,
-	 rhnVirtualInstanceState VIS,
-         rhnSet ST
+    FROM rhnSet ST, rhnVirtualInstance VI
+	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
    WHERE ST.user_id = :user_id
      AND ST.label = :set_label
      AND ST.element = VI.id
-     AND VI.id = VII.instance_id (+)
-     AND VII.state = VIS.id (+)
 ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
@@ -1259,17 +1290,17 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 
 <mode name="monitoring_status">
 	<query name="monitoring_status" params="sid">
-		SELECT  DECODE(
-	                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-	                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL')
+        SELECT  CASE
+                   MAX(CASE PS.state WHEN 'OK' THEN 1 WHEN 'PENDING' THEN 2 WHEN 'UNKNOWN' THEN 3 WHEN 'WARNING' THEN 4 WHEN 'CRITICAL' THEN 5 END)
+                         WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 3 THEN 'UNKNOWN' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
 	           FROM  rhn_check_probe CP, rhn_probe_state PS
 	          WHERE  PS.probe_id = CP.probe_id
 		            AND CP.host_id = :sid
-
 	</query>
 </mode>
 
 <query name="system_package_data_from_set" params="user_id, package_set_label">
+select * from (
 SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, PN.name || '-' || PE.evr.as_vre_simple() NVRE
   FROM  rhnServer S,
         rhnPackageEVR PE,
@@ -1280,7 +1311,8 @@ SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, PN.name || '-' || PE.evr.as
    AND  PN.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
    AND  SP.server_id = S.id
-ORDER BY UPPER(S.name)
+) X
+ORDER BY UPPER(X.system_name)
 </query>
 
 <mode name="system_installed_packages">
@@ -1290,7 +1322,8 @@ SELECT PN.name,
        PE.release,
        coalesce(PE.epoch, ' ') as epoch,
        PA.name as arch,
-       SP.installtime
+       SP.installtime,
+       PN.id
   FROM rhnServerPackage SP inner join
        rhnPackageName PN on PN.id = SP.name_id inner join
        rhnPackageEVR PE on PE.id = SP.evr_id left join
@@ -1333,17 +1366,13 @@ SELECT S.id,
 
 <callable-mode name="delete_server">
     <query params="server_id">
-BEGIN
-  delete_server(:server_id);
-END;
+    { call delete_server(:server_id) }
     </query>
 </callable-mode>
 
 <callable-mode name="snapshot_server">
     <query params="server_id, reason">
-BEGIN
-  rhn_server.snapshot_server(:server_id, :reason);
-END;
+    { call rhn_server.snapshot_server(:server_id, :reason) }
     </query>
 </callable-mode>
 
@@ -1458,7 +1487,7 @@ ORDER BY UPPER(S.name)
          SEV.is_base AS entitlement_is_base
     FROM rhnServerEntitlementView SEV
    WHERE SEV.server_id IN (%s)
-ORDER BY DECODE(SEV.is_base,'Y',1,'N',2), SEV.label
+ORDER BY CASE SEV.is_base WHEN'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
 </query>
 
 <mode name="is_satellite">
@@ -1492,19 +1521,6 @@ SELECT 1
   </query>
 </mode>
 
-<write-mode name="delete_proxy_info">
-  <query params="server_id">
-delete from rhnProxyInfo where server_id = :server_id
-  </query>
-</write-mode>
-
-<write-mode name="insert_proxy_info">
-  <query params="server_id, version">
-INSERT INTO  rhnProxyInfo (server_id, proxy_evr_id)
-     VALUES  (:server_id, lookup_evr(NULL, :version, '1'))
-  </query>
-</write-mode>
-
 <callable-mode name="entitle_server">
   <query params="sid, entitlement">
 {call rhn_entitlements.entitle_server(:sid, :entitlement)}
@@ -1522,34 +1538,6 @@ INSERT INTO  rhnProxyInfo (server_id, proxy_evr_id)
 {call rhn_entitlements.remove_server_entitlement(:sid, :entitlement, :repoll)}
   </query>
 </callable-mode>
-
-<write-mode name="insert_satellite_info">
-  <query params="sid, product, owner, issued_string, expiration_string,version">
-INSERT INTO  rhnSatelliteInfo (server_id, cert, product, owner, issued_string, expiration_string, evr_id)
-     VALUES  (:sid, EMPTY_BLOB(), :product, :owner, :issued_string, :expiration_string, lookup_evr(NULL, :version, '1'))
-  </query>
-</write-mode>
-
-<write-mode name="insert_satellite_channel_family">
-  <query params="sid, channel_family_label, quantity">
-INSERT INTO rhnSatelliteChannelFamily
-  (server_id, channel_family_id, quantity)
-VALUES
-  (:sid, (SELECT id FROM rhnChannelFamily WHERE label = :channel_family_label), :quantity)
-  </query>
-</write-mode>
-
-<write-mode name="delete_satellite_info">
-  <query params="sid">
-DELETE FROM  rhnSatelliteInfo WHERE  server_id = :sid
-  </query>
-</write-mode>
-
-<write-mode name="delete_satellite_channel_family">
-  <query params="sid">
-DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
-  </query>
-</write-mode>
 
 <callable-mode name="remove_from_action">
   <query params="server_id, action_id">
@@ -1729,7 +1717,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,
-    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
+    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')) as inactive,
     TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
     pcf.FVE_CURRENT_MEMBERS as current_members,
     pcf.FVE_MAX_MEMBERS as max_members
@@ -1749,13 +1737,13 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 
 <mode name="eligible_flex_guests">
   <query params="user_id, checkin_threshold ">
-    select
+    select distinct
     cf.label as cf_label,
     cf.name as cf_name,
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,
-    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
+    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')) as inactive,
     TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
     pcf.FVE_CURRENT_MEMBERS as current_members,
     pcf.FVE_MAX_MEMBERS as max_members
@@ -1768,6 +1756,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
       inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
       inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
   where sc.is_fve = 'N'
+		AND CF.org_id is null
   		AND USP.user_id = :user_id
   		AND (vi.host_system_id is null OR
 		    0 = (select
@@ -1810,6 +1799,27 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 delete from rhnServerNotes where id = :id and server_id = :server_id
   </query>
 </write-mode>
+
+<!-- Lifted from web/modules/rhn/RHN/DB/DataSource/xml/System_queries.xml with slight changes -->
+<mode name="users_systems_with_value_for_key">
+  <query params="user_id, cikid">
+SELECT S.id,
+       S.name AS NAME,
+       SCDV.value,
+       TO_CHAR(SI.checkin, 'YYYY-MM-DD') as LAST_CHECKIN
+  FROM rhnServer S,
+       rhnServerCustomDataValue SCDV,
+       rhnUserServerPerms USP,
+       rhnServerInfo SI
+ WHERE USP.user_id = :user_id
+   AND USP.server_id = SCDV.server_id
+   AND SI.server_id = S.id
+   AND SCDV.key_id = :cikid
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
 
 </datasource_modes>
 

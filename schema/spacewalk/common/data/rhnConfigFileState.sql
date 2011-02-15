@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,10 +17,10 @@
 --
 
 insert into rhnConfigFileState(id, label, name) values
-	(rhn_cfstate_id_seq.nextval, 'dead', 'Will not be deployed');
+	(sequence_nextval('rhn_cfstate_id_seq'), 'dead', 'Will not be deployed');
 
 insert into rhnConfigFileState(id, label, name) values
-	(rhn_cfstate_id_seq.nextval, 'alive', 'Will be deployed');
+	(sequence_nextval('rhn_cfstate_id_seq'), 'alive', 'Will be deployed');
 
 commit;
 

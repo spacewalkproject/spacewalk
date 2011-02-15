@@ -1,0 +1,12 @@
+-- oracle equivalent source sha1 054658f16439e0bb3772d52b90edd7a1e7b4feff
+--
+-- Copyright (c) 2011 Red Hat, Inc.
+
+-- setup search_path so that these functions are created in appropriate schema.
+update pg_settings set setting = 'rhn_user,' || setting where name = 'search_path';
+
+drop function add_users_to_usergroups(user_id_in in numeric);
+drop function remove_users_from_servergroups(user_id_in in numeric);
+
+-- restore the original setting
+update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_user')+1) ) where name = 'search_path';

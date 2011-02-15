@@ -42,10 +42,16 @@ class moduleClass(Module):
         self.priority = 106
         self.sidebarTitle = _("Set Up Software Updates")
         self.title = _("Set Up Software Updates")
+        self.skip_registration = False
+        self.start_page_vbox = None
 
     def apply(self, interface, testing=False):
         if testing:
             return RESULT_SUCCESS
+
+        if self.skip_registration:
+            interface.moveToPage(pageNum = len(interface.moduleList))
+            return RESULT_JUMP
 
         if not self.start_page.startPageRegisterNow():
             dlg = rhnregGui.ConfirmQuitDialog()
@@ -58,19 +64,40 @@ class moduleClass(Module):
 
     def createScreen(self):
         self.vbox = gtk.VBox(spacing=5)
-        self.vbox.pack_start(self._getVbox(), True, True)
 
     def initializeUI(self):
-        pass
+        if self.start_page_vbox:
+            self.start_page_vbox.destroy()
+
+        self.start_page_vbox = self._getVbox()
+        self.vbox.pack_start(self.start_page_vbox, True, True)
+
+    def _system_is_registered(self):
+        if rhnreg.registered():
+            return True
+        try:
+            _rhsm_path = "/usr/share/rhsm"
+            _rhsm_path_added = False
+            if _rhsm_path not in sys.path:
+                sys.path.append(_rhsm_path)
+                _rhsm_path_added = True
+            import certlib
+            if _rhsm_path_added:
+                sys.path.remove("/usr/share/rhsm")
+            return certlib.ConsumerIdentity.existsAndValid()
+        except:
+            return False
 
     def _getVbox(self):
-        if rhnreg.registered():
+        if self._system_is_registered():
             self.start_page = KsRegisteredPage()
+            self.skip_registration = True
             return self.start_page.startPageVbox()
         if _haveNetwork():
             self.start_page = rhnregGui.StartPage(firstboot=True)
         else:
             self.start_page = NoNetworkPage()
+            self.skip_registration = True
         return self.start_page.startPageVbox()
     
 class KsRegisteredPage:

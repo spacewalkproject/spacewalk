@@ -109,7 +109,9 @@ public class RpmRepositoryWriter extends RepositoryWriter {
             return;
         }
         new File(prefix + NOREPO_FILE).delete();
-        log.info("Checksum Type Value: " + this.checksumtype);
+        if (log.isDebugEnabled()) {
+            log.debug("Checksum Type Value: " + this.checksumtype);
+        }
 
         // java.security.MessageDigest recognizes:
         // MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
@@ -125,8 +127,9 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         }
 
         log.info("Generating new repository metatada for channel '" +
-                channel.getLabel() + "' " + channel.getPackageCount() +
-                " packages, " + channel.getErrataCount() + " updates");
+                channel.getLabel() + "'(" + this.checksumtype + ") " +
+                channel.getPackageCount() + " packages, " +
+                channel.getErrataCount() + " errata");
 
         CompressingDigestOutputWriter primaryFile;
         CompressingDigestOutputWriter filelistsFile;
@@ -201,8 +204,9 @@ public class RpmRepositoryWriter extends RepositoryWriter {
                 .getCompressedChecksum(), otherFile
                 .getUncompressedChecksum(), channel.getLastModified());
 
-        log.info("Starting updateinfo generation for '" + channel.getLabel() + '"');
-        log.info("Checksum Type Value for generate updateinfo " + this.checksumtype);
+        if (log.isDebugEnabled()) {
+            log.debug("Starting updateinfo generation for '" + channel.getLabel() + '"');
+        }
         RepomdIndexData updateinfoData = generateUpdateinfo(channel,
                 prefix, checksumAlgo);
 
@@ -219,10 +223,6 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         if (groupsData != null) {
             groupsData.setType(checksumLabel);
         }
-
-        log.info("Primary xml's type: " + primaryData.getType());
-        log.info("filelists xml's type: " + filelistsData.getType());
-        log.info("other xml's type: " + otherData.getType());
 
         FileWriter indexFile;
 

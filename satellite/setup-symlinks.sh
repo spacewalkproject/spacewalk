@@ -80,6 +80,7 @@ makedir /etc/rhn/satellite-httpd
 makedir /etc/rhn/satellite-httpd/conf
 makedir /etc/rhn/satellite-httpd/conf/rhn
 makedir /var/www/lib
+makedir /usr/share/rhn
 
 chdir /etc
 symlink $SVNDIR/eng/web/conf/tnsnames.ora
@@ -101,16 +102,15 @@ symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/httpd.conf
 symlink /etc/httpd/conf/magic
 symlink $SVNDIR/eng/backend/httpd-conf/rhn_server.conf
 symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/rhnweb.conf
-symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/satidmap.pl
 symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/ssl.conf
 symlink /etc/httpd/conf/ssl.crt
 symlink /etc/httpd/conf/ssl.key
-symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/startup.pl
+symlink $SVNDIR/eng/satellite/config/usr/share/rhn/startup.pl
 symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/workers.properties
 
 chdir /etc/httpd/conf
 symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/httpd.conf
-symlink $SVNDIR/eng/satellite/config/etc/rhn/satellite-httpd/conf/startup.pl
+symlink $SVNDIR/eng/satellite/config/usr/share/rhn/startup.pl
 symlink $SVNDIR/eng/java/conf/workers.properties
 
 chdir /etc/init.d
@@ -140,6 +140,9 @@ symlink $SVNDIR/eng/java/conf/rhn.xml
 
 chdir $SVNDIR/eng/java
 symlink conf/eclipse/.project
+
+chdir /usr/share/rhn
+symlink $SVNDIR/eng/satellite/config/usr/share/rhn/satidmap.pl
 
 echo ""
 echo "Finished: errors = $errors"
