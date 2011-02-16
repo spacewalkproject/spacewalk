@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.2
+Version: 1.4.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.3-1
+- enable RHN Proxy 5.4 on RHEL6 (msuchy@redhat.com)
+- server_event_config_deploy just called server_event_config_revisions without
+  adding any value, removing. (jpazdziora@redhat.com)
+
 * Wed Feb 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
 - 552628 - implemented db-control reset-password
 - removed remote_dsn - it's always empty
