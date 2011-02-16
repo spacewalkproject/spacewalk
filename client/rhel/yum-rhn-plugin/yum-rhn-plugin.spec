@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Feb 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.2-1
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+- repopulate package sack after initial setup (mzazrivec@redhat.com)
+
 * Mon Feb 14 2011 Jan Pazdziora 1.4.1-1
 - 675780 - remove installed packages from transaction (mzazrivec@redhat.com)
 - 671032 - specify RHN as "RHN Satellite or RHN Classic" (msuchy@redhat.com)
