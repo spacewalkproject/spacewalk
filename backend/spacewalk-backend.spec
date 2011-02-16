@@ -23,7 +23,7 @@ Requires: /etc/rhn
 Requires: rhnlib >= 1.8
 # for Debian support
 Requires: python-debian
-Requires: %{name}-libs = %{version}-%{release}
+Requires: %{name}-libs >= 1.1.16-1
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
@@ -182,6 +182,7 @@ This package contains listener for the Server XML dumper.
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
 BuildRequires: python2-devel
+Conflicts: %{name} < 0.8.28
 %if 0%{?rhel} && 0%{?rhel} < 5
 Requires: python-crypto
 BuildRequires: python-crypto
