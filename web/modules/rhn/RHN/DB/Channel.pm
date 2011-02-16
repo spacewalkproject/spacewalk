@@ -304,6 +304,9 @@ my %proxy_chans_by_version = ('1.1' => ['redhat-rhn-proxy-as-i386-2.1', 'redhat-
                    '5.4' => [ 'redhat-rhn-proxy-5.4-server-i386-5',
                          'redhat-rhn-proxy-5.4-server-x86_64-5',
                          'redhat-rhn-proxy-5.4-server-s390x-5',
+                         'redhat-rhn-proxy-5.4-server-i386-6',
+                         'redhat-rhn-proxy-5.4-server-x86_64-6',
+                         'redhat-rhn-proxy-5.4-server-s390x-6',
                             ],
 
 			     );
