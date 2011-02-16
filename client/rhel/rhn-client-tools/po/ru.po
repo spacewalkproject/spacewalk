@@ -5,14 +5,14 @@
 # Leonid Kanter <leon@geon.donetsk.ua>, 2003.
 # Vladimir Lazarenko <vlad@lazarenko.net>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.
-# Yulia <ypoyarko@redhat.com>, 2006, 2007, 2010.
+# Yulia <ypoyarko@redhat.com>, 2006, 2007, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2011-02-15 16:11+1100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2011-02-16 12:30\n"
+"Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -228,7 +228,7 @@ msgid ""
 "\n"
 msgstr ""
 "Помощник поможет подключить систему к Red Hat Network (RHN) для получения "
-"обновлений ПО, включая обновления безопасности для поддержки защиты системы. "
+"обновлений, включая обновления безопасности для защиты системы. "
 "Для этого необходимо:\n"
 "\n"
 " * Сетевое соединение\n"
@@ -275,7 +275,7 @@ msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
 msgstr ""
-"Получайте последние обновления ПО, включая обновления безопасности, тем "
+"Получайте последние обновления, включая обновления безопасности, тем "
 "самым поддерживая Red Hat Enterprise Linux в обновлённом и защищённом "
 "состоянии."
 
@@ -301,7 +301,7 @@ msgid ""
 "for systems connected to your account at http://rhn.redhat.com/."
 msgstr ""
 "Действуйте в соответствиями с условиями подписки и управляйте подписками "
-"ваших систем с http://rhn.redhat.com/."
+"систем с http://rhn.redhat.com/."
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
@@ -555,7 +555,7 @@ msgstr "Просмотрите сведения подписки"
 #: ../src/up2date_client/rhnreg_constants.py:149
 #: ../data/rh_register.glade.h:75
 msgid "Please review the subscription details below:"
-msgstr "Ниже просмотрите сведения системной подписки:"
+msgstr "Просмотрите информацию о подписке:"
 
 #: ../src/up2date_client/rhnreg_constants.py:150
 #, python-format
@@ -1625,7 +1625,7 @@ msgstr "ваш пароль"
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
-msgstr ""
+msgstr "ОШИБКА: неверное использование аргументов (добавьте аргумент --help)"
 
 #: ../src/bin/spacewalk-channel.py:80
 msgid "Username: "
@@ -2025,7 +2025,7 @@ msgstr "Нет, спасибо. Я зарегистрируюсь позже."
 
 #: ../data/rh_register.glade.h:73
 msgid "Package Information"
-msgstr "Сведения о пакете"
+msgstr "Сведения о пакетах"
 
 #: ../data/rh_register.glade.h:74
 msgid ""
@@ -2039,18 +2039,18 @@ msgstr "Предоставьте сертификат безопасности"
 
 #: ../data/rh_register.glade.h:77
 msgid "Proxy P_assword:"
-msgstr "_Пароль Proxy:"
+msgstr "_Пароль к прокси:"
 
 #: ../data/rh_register.glade.h:78
 msgid "Proxy _Username:"
-msgstr "_Имя пользователя Proxy:"
+msgstr "_Имя пользователя на прокси:"
 
 #: ../data/rh_register.glade.h:79
 msgid ""
 "Purchase an additional Red Hat Enterprise Linux subscription at http://www."
 "redhat.com/store/."
 msgstr ""
-"Дополнительная подписка Red Hat Enterprise Linux может быть приобретена "
+"Дополнительную подписку Red Hat Enterprise Linux можно приобрести"
 "через http://www.redhat.com/store/."
 
 #: ../data/rh_register.glade.h:80
@@ -2154,7 +2154,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:106
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "А_утентификация на HTTP Proxy:"
+msgstr "А_утентификация на прокси HTTP:"
 
 #: ../data/rh_register.glade.h:107
 msgid "Use Authentication with HTTP Proxy"
@@ -2180,7 +2180,7 @@ msgstr "Зачем регистрироваться"
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
-msgstr "Зарегистрировать систему сейчас? <b>(настоятельно рекомендуется)</b>"
+msgstr "Зарегистрировать систему сейчас? <b>(рекомендуется)</b>"
 
 #: ../data/rh_register.glade.h:115
 msgid ""
@@ -2188,9 +2188,9 @@ msgid ""
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
 "b> in order to receive software updates."
 msgstr ""
-"Вы можете подключить свою систему к <b>Red Hat Network</b> (https://rhn."
+"Вы можете подключить систему к <b>Red Hat Network</b> (https://rhn."
 "redhat.com/), <b>Red Hat Network Satellite</b> или <b>Red Hat Network Proxy</"
-"b> для получения обновлений ПО."
+"b> для получения обновлений."
 
 #: ../data/rh_register.glade.h:116
 msgid ""
@@ -2198,7 +2198,7 @@ msgid ""
 "privileges without connecting your system to Red Hat Network."
 msgstr ""
 "Вы <b>не</b> сможете воспользоваться всеми преимуществами подписки без "
-"подключения вашей системы к Red Hat Network."
+"подключения системы к Red Hat Network."
 
 #: ../data/rh_register.glade.h:117
 msgid ""
@@ -2221,18 +2221,20 @@ msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
 msgstr ""
-"Чтобы мы смогли определить подходящие вашей системе обновления, нужно "
-"предоставить информацию об оборудовании и установленных в системе пакетах."
+"Чтобы определить подходящие для системы обновления, нужно "
+"предоставить информацию об оборудовании и установленных пакетах."
 
 #: ../data/rh_register.glade.h:122
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
-msgstr "Можно выбрать имя системы для её идентификации в интерфейсе Red Hat Network."
+msgstr ""
+"Выберите имя для системы для её идентификации в интерфейсе Red Hat "
+"Network."
 
 #: ../data/rh_register.glade.h:123
 msgid "Your system is not setup for software updates."
-msgstr "Система не настроена на получение обновлений ПО."
+msgstr "Система не настроена на получение обновлений."
 
 #: ../data/rh_register.glade.h:124
 msgid ""
@@ -2312,7 +2314,7 @@ msgstr "_Нет, отменить"
 
 #: ../data/rh_register.glade.h:138
 msgid "_No, I prefer to register at a later time."
-msgstr "Нет, я _зарегистрируюсь позже"
+msgstr "Нет, _зарегистрируюсь позже"
 
 #: ../data/rh_register.glade.h:139
 msgid "_Operating system version:"
@@ -2324,7 +2326,7 @@ msgstr "_Пароль:"
 
 #: ../data/rh_register.glade.h:141
 msgid "_Proxy Location:"
-msgstr "Расположение _Proxy:"
+msgstr "Расположение _прокси:"
 
 #: ../data/rh_register.glade.h:142
 msgid "_Take me back to the registration"
