@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.33
+Version: 2.5.34
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,11 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Wed Feb 16 2011 Miroslav Suchý <msuchy@redhat.com> 2.5.34-1
+- Revert "Revert "get_server_capability() is defined twice in osad and rhncfg,
+  merge and move to rhnlib and make it member of rpclib.Server""
+  (msuchy@redhat.com)
+
 * Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 2.5.33-1
 - Revert "get_server_capability() is defined twice in osad and rhncfg, merge
   and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
