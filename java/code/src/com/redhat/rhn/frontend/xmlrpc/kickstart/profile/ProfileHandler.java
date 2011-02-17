@@ -454,8 +454,8 @@ public class ProfileHandler extends BaseHandler {
      *              mouse, device, deviceprobe, zerombr, clearpart, bootloader,
      *              timezone, auth, rootpw, selinux, reboot, firewall, xconfig, skipx,
      *              key, ignoredisk, autopart, cmdline, firstboot, graphical, iscsi,
-     *              iscsiname, logging, monitor, multipath, poweroff, halt, service,
-     *              shutdown, user, vnc, zfcp")
+     *              iscsiname, logging, monitor, multipath, poweroff, halt, services,
+     *              shutdown, user, vnc, zfcp", "driverdisk")
      *          #prop_desc("string", "arguments", "Arguments of the option")
      *      #struct_end()
      *   #array_end()
