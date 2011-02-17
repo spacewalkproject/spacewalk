@@ -109,7 +109,6 @@ BuildRequires: bcel
 BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
-BuildRequires: ehcache
 BuildRequires: dom4j
 BuildRequires: hibernate3
 BuildRequires: jakarta-commons-cli
