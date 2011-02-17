@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 17 2011 Tomas Lestach <tlestach@redhat.com> 1.4.5-1
+- remove ehcache from java/ivy.xml (tlestach@redhat.com)
+- remove ehcache from java/buildconf/build-props.xml (tlestach@redhat.com)
+- removing ehcache buildrequire (tlestach@redhat.com)
+- 601524 updating kickstart.profile.setAdvancedOptions apidoc
+  (tlestach@redhat.com)
+- 601524 - fixing allowed kickstart advanced options (pmutha@redhat.com)
+- 669167 - add apidoc for activationkey.setDetails parameters
+  (tlestach@redhat.com)
+- Extend the copyright year to 2011. (jpazdziora@redhat.com)
+
 * Fri Feb 11 2011 Tomas Lestach <tlestach@redhat.com> 1.4.4-1
 - 645391 - fixing improper actions, when adding virtualization entitlement to
   the activation key (tlestach@redhat.com)
