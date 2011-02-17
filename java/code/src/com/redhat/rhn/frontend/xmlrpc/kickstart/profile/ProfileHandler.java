@@ -479,7 +479,7 @@ public class ProfileHandler extends BaseHandler {
                 "selinux", "reboot", "firewall", "xconfig", "skipx", "key",
                 "ignoredisk", "autopart", "cmdline", "firstboot", "graphical", "iscsi",
                 "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt",
-                "service", "shutdown", "user", "vnc", "zfcp"};
+                "services", "shutdown", "user", "vnc", "zfcp", "driverdisk"};
 
         List<String> validOptions = Arrays.asList(validOptionNames);
 
