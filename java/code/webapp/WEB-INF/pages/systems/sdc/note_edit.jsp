@@ -9,18 +9,19 @@
 
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-    <rhn:toolbar base="h2" img="/img/rhn-icon-note.gif"
-           deletionUrl="/rhn/systems/details/DeleteNote.do?sid=${system.id}&nid=${n.id}"
-           deletionType="note"
-      >
-      <bean:message key="sdc.details.notes.header"/>
-    </rhn:toolbar>
-
     <c:choose>
       <c:when test="${empty param.nid}">
+        <rhn:toolbar base="h2" img="/img/rhn-icon-note.gif">
+          <bean:message key="sdc.details.notes.header"/>
+        </rhn:toolbar>
         <c:set var="urlParam" scope="request" value="sid=${system.id}"/>
       </c:when>
       <c:otherwise>
+        <rhn:toolbar base="h2" img="/img/rhn-icon-note.gif"
+            deletionUrl="/rhn/systems/details/DeleteNote.do?sid=${system.id}&nid=${n.id}"
+            deletionType="note">
+          <bean:message key="sdc.details.notes.header"/>
+        </rhn:toolbar>
         <c:set var="urlParam" scope="request" value="sid=${system.id}&nid=${n.id}"/>
       </c:otherwise>
     </c:choose>
