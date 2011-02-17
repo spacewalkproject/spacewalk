@@ -328,9 +328,22 @@ def update(package_list, cache_only=None):
                     ver=pkgkeys['version'], rel=pkgkeys['release'])
 
         if pkgs:
-            log.log_debug('Package %s already installed and latest version'
+            log.log_debug('Package %s already installed' \
                 % _yum_package_tup(package))
             package_list.remove(package)
+        else:
+            found = False
+            evr = yum.packages.PackageEVR(pkgkeys['epoch'], \
+                pkgkeys['version'], pkgkeys['release'])
+
+            for pkg in yum_base.rpmdb.searchNevra(name=pkgkeys['name'], arch=pkgkeys['arch']):
+                if pkg.returnEVR() > evr:
+                    found = True
+
+            if found:
+                log.log_debug('More recent version of package %s is already installed' \
+                    % _yum_package_tup(package))
+                package_list.remove(package)
 
     # Don't proceed further with empty list,
     # since this would result into an empty yum transaction
