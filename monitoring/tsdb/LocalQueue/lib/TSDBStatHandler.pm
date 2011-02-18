@@ -172,7 +172,8 @@ sub write_stats {
   foreach my $stat (sort keys %stats) {
     my $method = "${stat}_file";
 
-    open(FILE, '>' . $self->$method());
+    local * FILE;
+    open(FILE, '>', $self->$method());
     print FILE $stats{$stat}, "\n";
     close(FILE);
 
@@ -195,7 +196,8 @@ sub get_metric {
 
   $Log->log(1, "Opening metric file $file\n");
 
-  open(FILE, $file) or die "Couldn't open $file: $!";
+  local * FILE;
+  open(FILE, '<', $file) or die "Couldn't open $file: $!";
   chomp(my $metric = <FILE>);
   close(FILE);
 
