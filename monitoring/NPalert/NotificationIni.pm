@@ -16,7 +16,8 @@ sub create_file {
     $arrayptr = \values(%$arrayptr);
   }
 
-  open(FILE, "> " . $self->file_name())
+  local * FILE;
+  open(FILE, '>', $self->file_name())
     || die("Unable to open file" . $self->file_name());
 
   unless (@fields_to_include) {
