@@ -246,7 +246,8 @@ sub readFromFile
 
         my $satnumber;
         my $satNameFile = $self->configValue('satNameFile');
-        if ($satNameFile and open(FILE,$satNameFile)) {
+        local * FILE;
+        if ($satNameFile and open(FILE, '<', $satNameFile)) {
                 $satnumber = <FILE>;
                 close(FILE);
                 chomp($satnumber);
@@ -271,7 +272,8 @@ sub nodeCount
 sub writeBaseHostsFile
 {
 	my ($self) = @_;
-	if (open(FILE,">$hostsFile")) {
+	local * FILE;
+	if (open(FILE, '>', $hostsFile)) {
 		my $success = 1;
 		if (! print FILE "$localhostEntry\n") {
 			$success = 0;
@@ -286,7 +288,8 @@ sub writeBaseHostsFile
 sub writeHostsFile
 {
 	my ($self) = @_;
-	if (open(FILE,">$hostsFile")) {
+	local * FILE;
+	if (open(FILE, '>', $hostsFile)) {
 		my $success = 1;
 		if (! print FILE "$localhostEntry\n") {
 			$success = 0
@@ -328,7 +331,8 @@ sub writeResolverFile
 {
 	my ($self) = @_;
 	
-	if (open(FILE,">$resolverFile")) {
+	local * FILE;
+	if (open(FILE, '>', $resolverFile)) {
 		my $success = 1;
 		if (! print FILE "search ".$self->get_nssearchpath."\n") {
 			$success = 0;
