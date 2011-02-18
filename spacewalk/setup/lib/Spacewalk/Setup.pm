@@ -141,7 +141,8 @@ sub loc {
 sub read_config {
   my $config_file = shift;
   my $options = shift;
-  open(CONFIG, "< $config_file") or die "Could not open $config_file: $!";
+  local * CONFIG;
+  open(CONFIG, '<', $config_file) or die "Could not open $config_file: $!";
 
   while (my $line = <CONFIG>) {
     if ($line =~ /^#/ or $line =~ /\[comment\]/ or $line =~ "^\n") {
@@ -173,7 +174,8 @@ sub load_answer_file {
     if ($options->{'answer-file'} and $file eq $options->{'answer-file'}) {
       print loc("* Loading answer file: %s.\n", $file);
     }
-    open FH, $file or die loc("Could not open answer file: %s\n", $!);
+    local * FH;
+    open FH, '<', $file or die loc("Could not open answer file: %s\n", $!);
 
     while (my $line = <FH>) {
       next if substr($line, 0, 1) eq '#';
@@ -353,12 +355,13 @@ sub init_log_files {
 
   log_rotate(INSTALL_LOG_FILE);
   if (have_selinux()) {
-    local *X; open X, '> ' . INSTALL_LOG_FILE and close X;
+    local *X; open X, '>', INSTALL_LOG_FILE and close X;
     system('/sbin/restorecon', INSTALL_LOG_FILE);
   }
   log_rotate(DB_INSTALL_LOG_FILE);
   log_rotate(DB_POP_LOG_FILE);
 
+  local * FH;
   open(FH, ">", INSTALL_LOG_FILE)
     or die "Could not open '" . INSTALL_LOG_FILE .
         "': $!";
@@ -1130,7 +1133,7 @@ EOQ
 EOQ
 
     if (have_selinux()) {
-      local *X; open X, '> ' . DB_INSTALL_LOG_FILE and close X;
+      local *X; open X, '>', DB_INSTALL_LOG_FILE and close X;
       system('/sbin/restorecon', DB_INSTALL_LOG_FILE);
     }
     print_progress(-init_message => "*** Progress: #",
@@ -1397,7 +1400,7 @@ sub oracle_populate_db {
     my @opts = ('spacewalk-sql', '--select-mode-direct', $sat_schema_deploy);
 
     if (have_selinux()) {
-      local *X; open X, '> ' . DB_POP_LOG_FILE and close X;
+      local *X; open X, '>', DB_POP_LOG_FILE and close X;
       system('/sbin/restorecon', DB_POP_LOG_FILE);
     }
     print_progress(-init_message => "*** Progress: #",
@@ -1580,7 +1583,8 @@ sub generate_server_pem {
 	my $opts = join(' ', @opts);
 
 	my $content;
-	open(FH, "/usr/bin/rhn-generate-pem.pl $opts |")
+	local * FH;
+	open(FH, '-|', "/usr/bin/rhn-generate-pem.pl $opts")
 		or die "Could not generate server.pem file: $OS_ERROR";
 
 	my @content = <FH>;
