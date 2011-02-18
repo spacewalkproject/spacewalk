@@ -108,10 +108,12 @@ sub spawn {
     my $f;
 
     $f = sprintf($stdout, $$);
-    open(STDOUT, ">$f") or die "Couldn't create $f: $!";
+    local * STDOUT;
+    open(STDOUT, '>', $f) or die "Couldn't create $f: $!";
 
     $f = sprintf($stderr, $$);
-    open(STDERR, ">>$f") or die "Couldn't create $f: $!";
+    local * STDERR;
+    open(STDERR, '>>', $f) or die "Couldn't create $f: $!";
 
 
     # Execute the command
@@ -127,7 +129,8 @@ sub spawn {
       # Print the returned object to the rvfile
       my $frozen = freeze($return);
       $f = sprintf($retval, $$);
-      open(RV, ">$f") or die "Couldn't create $f: $!";
+      local * RV;
+      open(RV, '>', $f) or die "Couldn't create $f: $!";
       print RV $frozen;
       close(RV);
 
@@ -176,7 +179,8 @@ sub file_contents {
   # Read the file if cleanup has not been called yet.
   if (defined($file)) {
      $self->dprint(4, "\t$label: Fetching from ", $file, "\n");
-     open(FILE, $file);
+     local * FILE;
+     open(FILE, '<', $file);
      $contents = join('', <FILE>);
      close(FILE);
   }
