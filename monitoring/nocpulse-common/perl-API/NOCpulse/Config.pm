@@ -41,7 +41,8 @@ sub load_config {
 
   my($section);
 
-  unless (open(FILE, $filename)) {
+  local * FILE;
+  unless (open(FILE, '<', $filename)) {
     $@ = "Couldn't open $filename: $!";
     return undef;
   }
@@ -110,7 +111,8 @@ sub getContents {
   my $filename = $self->get($section, $key);
 
   if (defined($filename)) {
-    if (open(FILE, $filename)) {
+    local * FILE;
+    if (open(FILE, '<', $filename)) {
       my $contents = join('', <FILE>);
       close(FILE);
       return $contents;
