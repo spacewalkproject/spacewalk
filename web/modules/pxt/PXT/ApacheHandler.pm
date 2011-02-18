@@ -219,8 +219,9 @@ sub load_pxt_file {
     }
   }
 
+  local * FH;
   unless ($use_cache) {
-    open FH, ("<" . $filename) or return;
+    open FH, '<', $filename or return;
   }
 
   local $/ = undef;
