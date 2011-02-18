@@ -47,7 +47,8 @@ sub remove_locks {
 
   foreach my $f (@files) {
     $Log->log(9,"lock file: $f\n");
-    open(FILE,"< $f");
+    local * FILE;
+    open(FILE, '<', $f);
     my @contents=<FILE>;
     close(FILE);
     my $content=join('',@contents);
@@ -100,7 +101,8 @@ sub acquire_lock {
 
   
   if (-e $lockfile) {
-    open(FILE,$lockfile);
+    local * FILE;
+    open(FILE, '<', $lockfile);
     my @lines=<FILE>;
     close(FILE);
     my $err= "$$ Unable to acquire lock on " . $self->file . " " . 
@@ -109,7 +111,8 @@ sub acquire_lock {
     warn $err;
     return undef;
   } else {
-    unless (open(LOCK,">$lockfile")) {
+    local * LOCK;
+    unless (open(LOCK, '>', $lockfile)) {
       my $msg = "Unable to open lock on " . $self->file;
       $Log->log(1,"FATAL ERROR: $msg");
       print STDERR "FATAL ERROR: AlertFile->acquire_lock $msg";
