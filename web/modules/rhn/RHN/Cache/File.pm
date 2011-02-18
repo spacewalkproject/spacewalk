@@ -88,7 +88,8 @@ sub contents {
 
   my $path = $self->path;
   local $/;
-  open(DATA, "< $path") or throw "Could not open '$path' - $!";
+  local * DATA;
+  open(DATA, '<', $path) or throw "Could not open '$path' - $!";
   my $ret = <DATA>;
   close(DATA);
 
