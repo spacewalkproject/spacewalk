@@ -50,7 +50,8 @@ sub from_file {
 
   # Create a Mail::Internet object from the email file
   $Log->log(9,"opening $filename\n");
-  unless (open(FILE,"< $filename")) {
+  local * FILE;
+  unless (open(FILE, '<', $filename)) {
     $Log->log(1,"unable to open '$filename'\n");
     return undef
   }
