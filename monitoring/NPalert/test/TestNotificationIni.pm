@@ -63,7 +63,8 @@ sub test_create_file {
 
   $self->{'blah'}->create_file($arrayptr, 'RECID', 'NAME', 'TITLE');
 
-  open(FILE, $file) || die;
+  local * FILE;
+  open(FILE, '<', $file) || die;
   my @result_array = <FILE>;
   close(FILE) || die;
 
@@ -195,7 +196,8 @@ name=Garcia
 title=Sargent
 EOT
 
-  open(FILE, "> $file");
+  local * FILE;
+  open(FILE, '>', $file);
   print FILE $data;
   close FILE;
 
