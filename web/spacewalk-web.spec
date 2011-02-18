@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.3
+Version: 1.4.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 1.4.4-1
+- Localize the filehandle globs; also use three-parameter opens.
+
 * Wed Feb 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.3-1
 - enable RHN Proxy 5.4 on RHEL6 (msuchy@redhat.com)
 - server_event_config_deploy just called server_event_config_revisions without
