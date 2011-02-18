@@ -187,7 +187,9 @@ sub split_ip {
     ($octets[0], $octets[1], $octets[2], $octets[3], $port) = split($regex, $field);
 
     # Set empty octets to wildcard
-    map { $_ = '*' unless defined($_) } @octets;
+    for (@octets) {
+        $_ = '*' unless defined($_);
+    }
 
     return (\@octets, $port);
 }
