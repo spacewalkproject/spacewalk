@@ -27,7 +27,8 @@ sub gzip_copy {
   my $src = shift;
   my $dst = shift;
 
-  open IN, "<$src" or die "open $src: $!\n";
+  local * IN;
+  open IN, '<', $src or die "open $src: $!\n";
   my $gz = gzopen("$dst", "wb") or die "gzopen: $!\n";
   my $ctx = new Digest::MD5;
 
@@ -53,8 +54,9 @@ sub gunzip_copy {
   my $dst = shift;
 
   my $write;
+  local * OUT;
   if ($dst) {
-    open OUT, ">$dst" or die "open $dst: $!\n";
+    open OUT, '>', $dst or die "open $dst: $!\n";
     $write = 1
   }
   else {
