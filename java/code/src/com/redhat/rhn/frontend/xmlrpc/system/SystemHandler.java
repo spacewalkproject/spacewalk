@@ -3932,10 +3932,14 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      $ChannelSerializer
      */
-    public Channel getSubscribedBaseChannel(String sessionKey, Integer sid) {
+    public Object getSubscribedBaseChannel(String sessionKey, Integer sid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        return server.getBaseChannel();
+        Channel base = server.getBaseChannel();
+        if (base == null) {
+            return new HashMap();
+        }
+        return base;
     }
 
 
