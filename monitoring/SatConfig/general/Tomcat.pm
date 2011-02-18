@@ -109,7 +109,8 @@ sub generateServerConfFile
     my $success = 1;
 
     # Get the config values that we need from NOCpulse.ini
-    open(SERVER_XML,'>'.$configFile) || ($success = 0);
+    local * SERVER_XML;
+    open(SERVER_XML, '>', $configFile) || ($success = 0);
     if ($success) {
 	my $content = $self->createServer($dg);
 	$self->dprint(9,"SERVER XML FOLLOWS:\n\n\n$content\n\n");
