@@ -286,7 +286,7 @@ sub update_channel_roles {
   @seen{@new_users} = (); #lookup table
 
   # determine blessed users who are not new users and remove manage role 
-  for $item (@blessed_users) { push ( @remove_users, $item ) unless exists $seen{$item}; }
+  for my $item (@blessed_users) { push ( @remove_users, $item ) unless exists $seen{$item}; }
   $user->org->remove_channel_permissions(-uids => \@remove_users, -cid => $cid, -role => $attr{role});
  
   # reset new users role that are selected
