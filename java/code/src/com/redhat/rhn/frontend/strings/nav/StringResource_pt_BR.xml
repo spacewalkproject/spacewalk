@@ -658,14 +658,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>@@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="Spacewalk Configuration">
 <source>@@PRODUCT_NAME@@ Configuration</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Configuração do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Configuração do @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="Remote Command">
 <source>Remote Command</source>

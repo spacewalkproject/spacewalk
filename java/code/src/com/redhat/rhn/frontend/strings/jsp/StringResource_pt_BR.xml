@@ -526,7 +526,7 @@
           <context-group name="ctx">
             <context context-type="paramnotes">Your login session has expired. For security reasons, @@PRODUCT_NAME@@ terminates your login session after 15 minutes of inactivity. To sign in again, click _here_.</context>
           </context-group>
-        <target>Sua sessão de login expirou. Por razões de segurança, o @@NOME_DO_PRODUTO@@ finaliza sua sessão de login após {0} minutos de inatividade. Para se registrar novamente, clique &lt;a href="{1}"&gt;aqui&lt;/a&gt;.</target></trans-unit>
+        <target>Sua sessão de login expirou. Por razões de segurança, o @@PRODUCT_NAME@@ finaliza sua sessão de login após {0} minutos de inatividade. Para se registrar novamente, clique &lt;a href="{1}"&gt;aqui&lt;/a&gt;.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason3">
           <source>You've found an error in our site. Please contact your Support representative with details of how you received this message.</source>
           <context-group name="ctx">
@@ -535,7 +535,7 @@
         <target>Você encontrou um erro em nosso site.  Por favor, entre em contato com um representante de Suporte com os detalhes de como você recebeu esta mensagem.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason4">
           <source>Your browser does not have cookies enabled. The @@PRODUCT_NAME@@ requires cookies in order to function; if you have disabled them, please re-enable them to use the site.</source>
-        <target>A função cookies não está habilitada em seu navegador. O @@NOME_DO_PRODUTO@@ requer cookies para que funcione, se você os desabilitou, reabilite-os para usar este site.</target></trans-unit>
+        <target>A função cookies não está habilitada em seu navegador. O @@PRODUCT_NAME@@ requer cookies para que funcione, se você os desabilitou, reabilite-os para usar este site.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason5">
           <source>You've done something naughty. Stop it.</source>
         <target>Você fez algo de errado. Pare.</target></trans-unit>
@@ -690,7 +690,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserList</context>
         </context-group>
-      <target>Admin do @@NOME_DO_PRODUTO@@?</target></trans-unit>
+      <target>Admin do @@PRODUCT_NAME@@?</target></trans-unit>
       <trans-unit id="username.nopunc.displayname">
 <source>Username</source>
         <context-group name="ctx">
@@ -935,7 +935,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>Login do @@NOME_DO_PRODUTO@@:</target></trans-unit>
+      <target>Login do @@PRODUCT_NAME@@:</target></trans-unit>
       <trans-unit id="login.jsp.password">
 <source>Password: </source>
         <context-group name="ctx">
@@ -960,28 +960,28 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>Bem Vindo ao @@NOME_DO_PRODUTO@@:</target></trans-unit>
+      <target>Bem Vindo ao @@PRODUCT_NAME@@:</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody1">
         <source>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; is an open source (GPLv2) Linux systems management solution. Below are some links that should prove useful if you have any questions regarding your @@PRODUCT_NAME@@ server. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>A &lt;strong&gt;@@NOME_DO_PRODUTO@@&lt;/strong&gt; é o principal serviço para manter a infra-estrutura Linux de sua empresa. Apresentamos alguns links abaixo que podem ser úteis para questões sobre seu servidor  @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>A &lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; é o principal serviço para manter a infra-estrutura Linux de sua empresa. Apresentamos alguns links abaixo que podem ser úteis para questões sobre seu servidor  @@PRODUCT_NAME@@.</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody2">
         <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>Para obter mais detalhes sobre @@NOME_DO_PRODUTO@@, visite nosso site em &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;. </target></trans-unit>
+      <target>Para obter mais detalhes sobre @@PRODUCT_NAME@@, visite nosso site em &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;. </target></trans-unit>
 
       <trans-unit id="login.jsp.satbody3">
         <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>Para detalhes sobre como interagir com a comunidade do @@NOME_DO_PRODUTO@@, por favor visite-nos em &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </target></trans-unit>
+      <target>Para detalhes sobre como interagir com a comunidade do @@PRODUCT_NAME@@, por favor visite-nos em &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </target></trans-unit>
 
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -995,14 +995,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>A @@NOME_DO_PRODUTO@@ é uma plataforma completa de administração de sistemas Linux. É desenvolvida sobre padrões abertos e usa uma interface gráfica simples, baseada na Internet. Também traz um design modular - conforme a rede cresce, os administradores podem adicionar capacidades aprimoradas para atualizações, administração e monitoramento de sistemas de sua infra-estrutura inteira.</target></trans-unit>
+      <target>A @@PRODUCT_NAME@@ é uma plataforma completa de administração de sistemas Linux. É desenvolvida sobre padrões abertos e usa uma interface gráfica simples, baseada na Internet. Também traz um design modular - conforme a rede cresce, os administradores podem adicionar capacidades aprimoradas para atualizações, administração e monitoramento de sistemas de sua infra-estrutura inteira.</target></trans-unit>
 
       <trans-unit id="login.jsp.hostbody2">
 <source>Red Hat currently features three @@PRODUCT_NAME@@ modules:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>A Red Hat apresenta os três módulos da @@NOME_DO_PRODUTO@@:</target></trans-unit>
+      <target>A Red Hat apresenta os três módulos da @@PRODUCT_NAME@@:</target></trans-unit>
 
       <trans-unit id="login.jsp.list1">
 <source>Update: Easy software updates to your Red Hat systems.</source>
@@ -1037,7 +1037,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>&lt;strong&gt;Nota:&lt;/strong&gt; Se você tiver problemas com a conexão SSL ao se conectar à @@NOME_DO_PRODUTO@@, verifique se está usando as últimas &lt;a href="/help/latest-up2date.pxt"&gt;últimas versões&lt;/a&gt; do up2date (Enterprise Linux 4 e versões anteriores) ou yum (Enterprise Linux 5 e versões posteriores) e rhn_register.</target></trans-unit>
+      <target>&lt;strong&gt;Nota:&lt;/strong&gt; Se você tiver problemas com a conexão SSL ao se conectar à @@PRODUCT_NAME@@, verifique se está usando as últimas &lt;a href="/help/latest-up2date.pxt"&gt;últimas versões&lt;/a&gt; do up2date (Enterprise Linux 4 e versões anteriores) ou yum (Enterprise Linux 5 e versões posteriores) e rhn_register.</target></trans-unit>
 
       <!-- preferences.jsp -->
       <trans-unit id="preferences.jsp.alt">
@@ -1057,7 +1057,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-      <target>O @@NOME_DO_PRODUTO@@ oferece os e-mails de notificação sempre que lançar erratas relevantes para seus sistemas, assim como os e-mails diários resumindo os eventos de seus sistemas.</target></trans-unit>
+      <target>O @@PRODUCT_NAME@@ oferece os e-mails de notificação sempre que lançar erratas relevantes para seus sistemas, assim como os e-mails diários resumindo os eventos de seus sistemas.</target></trans-unit>
       <trans-unit id="preferences.jsp.receivenote">
 <source> Receive email notifications</source>
         <context-group name="ctx">
@@ -1069,7 +1069,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-      <target>Tamanho de Página para a Lista @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Tamanho de Página para a Lista @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="preferences.jsp.controlentry">
 <source>This controls how many entries, like systems, would be displayed per page in a list context.</source>
         <context-group name="ctx">
@@ -1096,7 +1096,7 @@
 		 <context-group name="ctx">
 		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
 		 </context-group>
-	<target> Um menu orientado a tarefas contendo links rápidos à diversas áreas da interface do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+	<target> Um menu orientado a tarefas contendo links rápidos à diversas áreas da interface do @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 	<trans-unit id="preferences.critical-systems.name">
@@ -1195,7 +1195,7 @@
 		 <context-group name="ctx">
 		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
 		 </context-group>
-	<target> Lista sistemas registrados no @@NOME_DO_PRODUTO@@ que recentemente pararam de se autenticar.</target></trans-unit>
+	<target> Lista sistemas registrados no @@PRODUCT_NAME@@ que recentemente pararam de se autenticar.</target></trans-unit>
 
 	<trans-unit id="preferences.pending-actions.name">
          <source>Recently Scheduled Actions</source>
@@ -1266,7 +1266,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/LocalePreferences</context>
         </context-group>
-      <target>Por favor selecione seu idioma favorito na lista abaixo contendo os idiomas atualmente suportados. O idioma selecionado será usado como padrão para a interface do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>Por favor selecione seu idioma favorito na lista abaixo contendo os idiomas atualmente suportados. O idioma selecionado será usado como padrão para a interface do @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="preferences.jsp.startpagetitle">
 <source>"Overview" Start Page</source>
         <context-group name="ctx">
@@ -1461,7 +1461,7 @@
             @@PRODUCT_NAME@@ release 3.7.1
           </context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ versão &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ versão &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target></trans-unit>
       <trans-unit id="bugzilla.jsp.submitbug">
 <source>Something wrong with this page?  Submit a &lt;a href="{0}"&gt;bug report&lt;/a&gt;.</source>
         <context-group name="ctx">
@@ -1693,7 +1693,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
-      <target>Termos e Condições do @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>Termos e Condições do @@PRODUCT_NAME@@ </target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>
@@ -1733,7 +1733,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/Addresses</context>
         </context-group>
-      <target>Os endereços associados à sua conta na @@NOME_DO_PRODUTO@@ estão listados abaixo.</target></trans-unit>
+      <target>Os endereços associados à sua conta na @@PRODUCT_NAME@@ estão listados abaixo.</target></trans-unit>
       <trans-unit id="address.jsp.associated">
 <source> The following addresses are associated with this user's account. </source>
         <context-group name="ctx">
@@ -1760,8 +1760,8 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
         </context-group>
-      <target>Você pode desativar sua conta @@NOME_DO_PRODUTO@@ abaixo. &lt;b&gt;Isto irá remover seu direito de acesso
-ao @@NOME_DO_PRODUTO@@.&lt;/b&gt;</target></trans-unit>
+      <target>Você pode desativar sua conta @@PRODUCT_NAME@@ abaixo. &lt;b&gt;Isto irá remover seu direito de acesso
+ao @@PRODUCT_NAME@@.&lt;/b&gt;</target></trans-unit>
 
       <trans-unit id="disableself.jsp.message2">
 <source>Once your account is deactivated, you will need to contact your organization's
@@ -1770,7 +1770,7 @@ ao @@NOME_DO_PRODUTO@@.&lt;/b&gt;</target></trans-unit>
           <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
         </context-group>
       <target>Quando sua conta estiver desativada, você precisará contatar o Administrador da Organização
-do @@NOME_DO_PRODUTO@@ para reativar sua conta.</target></trans-unit>
+do @@PRODUCT_NAME@@ para reativar sua conta.</target></trans-unit>
 
       <trans-unit id="disableselfconfirm.jsp.warning">
 <source>You will be logged out immediately after pressing the 'Deactivate Account'
@@ -1923,7 +1923,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target> Gostaria de receber informações da Red Hat das seguintes formas. (Nota: você pode receber e-mails diversos da Red Hat; não somente relacionados à @@NOME_DO_PRODUTO@@.)</target></trans-unit>
+      <target> Gostaria de receber informações da Red Hat das seguintes formas. (Nota: você pode receber e-mails diversos da Red Hat; não somente relacionados à @@PRODUCT_NAME@@.)</target></trans-unit>
       <trans-unit id="usercreate.mail">
 <source> Regular Mail</source>
         <context-group name="ctx">
@@ -1971,7 +1971,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
-      <target>Um login corporativo possibilita a você administrar os sistemas de propriedade de sua empresa, além de adquirir produtos e serviços Red Hat como cliente corporativo. &lt;strong&gt;Se a sua organização já tem um login corporativo junto ao @@NOME_DO_PRODUTO@@, você não deve usar este formulário. Neste caso, é preciso contatar o seu Administrador da Organização do @@NOME_DO_PRODUTO@@ para criar sua conta para que você apareça registrado com a sua organização.&lt;/strong&gt; </target></trans-unit>
+      <target>Um login corporativo possibilita a você administrar os sistemas de propriedade de sua empresa, além de adquirir produtos e serviços Red Hat como cliente corporativo. &lt;strong&gt;Se a sua organização já tem um login corporativo junto ao @@PRODUCT_NAME@@, você não deve usar este formulário. Neste caso, é preciso contatar o seu Administrador da Organização do @@PRODUCT_NAME@@ para criar sua conta para que você apareça registrado com a sua organização.&lt;/strong&gt; </target></trans-unit>
       <trans-unit id="usercreate.personalSummary">
 <source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
         <context-group name="ctx">
@@ -2007,7 +2007,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
-      <target>acessar as atualizações de software, as Erratas e a manutenção do @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>acessar as atualizações de software, as Erratas e a manutenção do @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="usercreate.enables4">
 <source>access Red Hat technical support, documentation, and Knowledgebase</source>
         <context-group name="ctx">
@@ -2225,13 +2225,13 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users</context>
         </context-group>
-      <target>O usuário {0} é o último Administrador do @@NOME_DO_PRODUTO@@ e não pode ser removido da função de Administrador de @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>O usuário {0} é o último Administrador do @@PRODUCT_NAME@@ e não pode ser removido da função de Administrador de @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="satadmin.jsp.error.notsatadmin">
     <source>The user {0} is the not a @@PRODUCT_NAME@@ Administrator. Only users with @@PRODUCT_NAME@@ Administrator role can grant  or revoke @@PRODUCT_NAME@@ Administrator roles from other users.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users</context>
         </context-group>
-      <target>O usuário {0} não é um Administrador do @@NOME_DO_PRODUTO@@. Somente os usuários com a função de Administrador de @@NOME_DO_PRODUTO@@ podem obter ou revogar as funções de Administrador de @@NOME_DO_PRODUTO@@  de outros usuários.</target></trans-unit>
+      <target>O usuário {0} não é um Administrador do @@PRODUCT_NAME@@. Somente os usuários com a função de Administrador de @@PRODUCT_NAME@@ podem obter ou revogar as funções de Administrador de @@PRODUCT_NAME@@  de outros usuários.</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.pendingchange">
 <source>Pending change to</source>
@@ -2356,7 +2356,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm</context>
         </context-group>
-      <target>Os seguintes usuários serão reativados.  Estes usuários terão acesso ao @@NOME_DO_PRODUTO@@ e reterão todas as permissões, funções e dados que possuíam antes de serem desativados.</target></trans-unit>
+      <target>Os seguintes usuários serão reativados.  Estes usuários terão acesso ao @@PRODUCT_NAME@@ e reterão todas as permissões, funções e dados que possuíam antes de serem desativados.</target></trans-unit>
 
       <trans-unit id="userconfirm.jsp.confirm">
 <source>Confirm</source>
@@ -2429,7 +2429,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/EnableUser</context>
         </context-group>
-      <target>&lt;p&gt;Esta ação permitirá ao usuário acessar o @@NOME_DO_PRODUTO@@.  Este usuário reterá todas as permissões, funções e dados que possuía antes de ser desativado.&lt;/p&gt;</target></trans-unit>
+      <target>&lt;p&gt;Esta ação permitirá ao usuário acessar o @@PRODUCT_NAME@@.  Este usuário reterá todas as permissões, funções e dados que possuía antes de ser desativado.&lt;/p&gt;</target></trans-unit>
 
       <!-- systemsadmin.jsp -->
       <trans-unit id="systemsadmined.jsp.noData">
@@ -2530,7 +2530,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
-      <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Renove&lt;/a&gt;&lt;/strong&gt; suas &lt;strong&gt;subscrições Red Hat Enterprise Linux&lt;/strong&gt; e &lt;strong&gt;Serviços @@NOME_DO_PRODUTO@@&lt;/strong&gt; no &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Centro de Renovações da Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
+      <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Renove&lt;/a&gt;&lt;/strong&gt; suas &lt;strong&gt;subscrições Red Hat Enterprise Linux&lt;/strong&gt; e &lt;strong&gt;Serviços @@PRODUCT_NAME@@&lt;/strong&gt; no &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Centro de Renovações da Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.purchase">
 <source>Purchase Additional Subscriptions</source>
         <context-group name="ctx">
@@ -2542,7 +2542,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
-      <target>&lt;strong&gt;Nota:&lt;/strong&gt; Os serviços de Abastecimento e Administração são oferecidos para prover funcionalidades adicionais somente às subscrições Red Hat Enterprise Linux existentes.  Estes serviços, isoladamente, não possibilitarão a você registrar um perfil de sistema adicional à sua conta no @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>&lt;strong&gt;Nota:&lt;/strong&gt; Os serviços de Abastecimento e Administração são oferecidos para prover funcionalidades adicionais somente às subscrições Red Hat Enterprise Linux existentes.  Estes serviços, isoladamente, não possibilitarão a você registrar um perfil de sistema adicional à sua conta no @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 <source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
         <context-group name="ctx">
@@ -2554,7 +2554,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
-      <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Adquira&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;serviços adicionais de administração e abastecimento do @@NOME_DO_PRODUTO@@ &lt;/strong&gt; na &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Loja da Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
+      <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Adquira&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;serviços adicionais de administração e abastecimento do @@PRODUCT_NAME@@ &lt;/strong&gt; na &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Loja da Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements">
 <source>View &amp;amp; Assign Entitlements to Systems</source>
         <context-group name="ctx">
@@ -2572,7 +2572,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
-      <target>&lt;strong&gt;Nota:&lt;/strong&gt; Você não pode visualizar as informações de vencimento dos serviços pela página &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Direitos a Serviços de Sistemas&lt;/a&gt;&lt;/strong&gt; na interface do @@NOME_DO_PRODUTO@@. Para tanto, visite o &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Site de Suporte da Red Hat&lt;/a&gt;&lt;/strong&gt; para visualizar informações sobre vencimentos de direitos a serviços.</target></trans-unit>
+      <target>&lt;strong&gt;Nota:&lt;/strong&gt; Você não pode visualizar as informações de vencimento dos serviços pela página &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Direitos a Serviços de Sistemas&lt;/a&gt;&lt;/strong&gt; na interface do @@PRODUCT_NAME@@. Para tanto, visite o &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Site de Suporte da Red Hat&lt;/a&gt;&lt;/strong&gt; para visualizar informações sobre vencimentos de direitos a serviços.</target></trans-unit>
 <!-- edit_address.jsp -->
       <trans-unit id="edit_address.jsp.address">
 <source> Address</source>
@@ -2664,7 +2664,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/newlogin</context>
         </context-group>
-      <target>Se a sua empresa já possui um login corporativo junto ao @@NOME_DO_PRODUTO@@, você precisa contatar seu Administrador de Empresa no @@NOME_DO_PRODUTO@@ para ele criar a sua conta e registrá-la sob sua empresa. </target></trans-unit>
+      <target>Se a sua empresa já possui um login corporativo junto ao @@PRODUCT_NAME@@, você precisa contatar seu Administrador de Empresa no @@PRODUCT_NAME@@ para ele criar a sua conta e registrá-la sob sua empresa. </target></trans-unit>
       <trans-unit id="usercreate.createCorpNew">
 <source>Create a new Business Login</source>
         <context-group name="ctx">
@@ -3260,25 +3260,25 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
-      <target>Clique no botão "confirmar" abaixo para reverter os reparos listados no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@NOME_DO_PRODUTO@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
+      <target>Clique no botão "confirmar" abaixo para reverter os reparos listados no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@PRODUCT_NAME@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
       <trans-unit id="packagelist.confirmpatchsummary">
 <source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
-      <target>Clique no botão "confirmar" abaixo para reverter o patch listado no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@NOME_DO_PRODUTO@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
+      <target>Clique no botão "confirmar" abaixo para reverter o patch listado no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@PRODUCT_NAME@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
       <trans-unit id="packagelist.confirminstallpatchsummary.plural">
 <source>Click on the "confirm" button below to install the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirmInstall</context>
         </context-group>
-      <target>Clique no botão "confirmar" abaixo para instalar os patches listados no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@NOME_DO_PRODUTO@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
+      <target>Clique no botão "confirmar" abaixo para instalar os patches listados no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@PRODUCT_NAME@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
       <trans-unit id="packagelist.confirminstallpatchsummary">
 <source>Click on the "confirm" button below to install the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
-      <target>Clique no botão "confirmar" abaixo para instalar o patch listado no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@NOME_DO_PRODUTO@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
+      <target>Clique no botão "confirmar" abaixo para instalar o patch listado no &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; na próxima vez que fizer checkin no @@PRODUCT_NAME@@. (hora do último checkin: &lt;b&gt;{1}&lt;/b&gt;; próximo checkin esperado para: &lt;b&gt;{2}&lt;/b&gt;.)</target></trans-unit>
       <!-- upgradable.jsp -->
       <trans-unit id="upgradable.jsp.header">
 <source>Upgradable Packages</source>
@@ -4271,13 +4271,13 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
-      <target>Abaixo, segue uma lista de todos os usuários neste @@NOME_DO_PRODUTO@@ , em todas as empresas. Observe que você somente terá acesso para modificar os detalhes dos usuários que são membros desta empresa, a qual você está autenticado atualmente ({0}), e somente se você tiver os previlégios de administrador para esta empresa.</target></trans-unit>
+      <target>Abaixo, segue uma lista de todos os usuários neste @@PRODUCT_NAME@@ , em todas as empresas. Observe que você somente terá acesso para modificar os detalhes dos usuários que são membros desta empresa, a qual você está autenticado atualmente ({0}), e somente se você tiver os previlégios de administrador para esta empresa.</target></trans-unit>
       <trans-unit id="org.allusers.title">
 <source>Users Across @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
-      <target>Usuários em @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>Usuários em @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="orgdetails.jsp.header">
 <source>Organization Details</source>
         <context-group name="ctx">
@@ -4445,13 +4445,13 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      <target>Serviços do Canal de Software do @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>Serviços do Canal de Software do @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="softwareentitlements.description">
 <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      <target>Segue uma lista de todos os serviços de canal de software neste @@NOME_DO_PRODUTO@@, em todas as empresas, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
+      <target>Segue uma lista de todos os serviços de canal de software neste @@PRODUCT_NAME@@, em todas as empresas, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
       <trans-unit id="softwareentitlements.noentitlements">
 <source>No entitlements found.</source>
         <context-group name="ctx">
@@ -4551,7 +4551,7 @@ deducted from the default organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      <target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a empresa padrão de seu @@NOME_DO_PRODUTO@@. Os serviços para esta empresa estão ligados ao seu arquivo de certificado do @@NOME_DO_PRODUTO@@, portanto não podem ser modificados. Caso você remova os serviços de uma empresa não-padrão acima
+      <target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a empresa padrão de seu @@PRODUCT_NAME@@. Os serviços para esta empresa estão ligados ao seu arquivo de certificado do @@PRODUCT_NAME@@, portanto não podem ser modificados. Caso você remova os serviços de uma empresa não-padrão acima
 estes serviços serão adicionados novamente à empresa padrão, e se você adicionar
 serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.</target></trans-unit>
       <trans-unit id="softwareEntitlements.unlimited">
@@ -4589,7 +4589,7 @@ serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; das empresas &lt;strong&gt;{1}&lt;/strong&gt; neste @@NOME_DO_PRODUTO@@, possuem ao menos um sistema registrado usando este serviço.</target></trans-unit>
+      <target>&lt;strong&gt;{0}&lt;/strong&gt; das empresas &lt;strong&gt;{1}&lt;/strong&gt; neste @@PRODUCT_NAME@@, possuem ao menos um sistema registrado usando este serviço.</target></trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.accessGranted">
 <source>Access Granted by this Entitlement</source>
         <context-group name="ctx">
@@ -4668,7 +4668,7 @@ serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      <target>A alocação atual de serviços para '{0}' em organizações neste @@NOME_DO_PRODUTO@@, está exposta abaixo. Você poderá modificar para a alocação dos serviços de cada organização na coluna 'Total Proposto', mas suas mudanças não surtirão efeito antes de apertar o botão 'Update'.</target></trans-unit>
+      <target>A alocação atual de serviços para '{0}' em organizações neste @@PRODUCT_NAME@@, está exposta abaixo. Você poderá modificar para a alocação dos serviços de cada organização na coluna 'Total Proposto', mas suas mudanças não surtirão efeito antes de apertar o botão 'Update'.</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.noOrgsFound">
 <source>No organizations found.</source>
         <context-group name="ctx">
@@ -4816,7 +4816,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
-      <target>A Busca de Erratas procura em todo o conjunto de erratas lançadas pelo @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>A Busca de Erratas procura em todo o conjunto de erratas lançadas pelo @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="erratasearch.jsp.instructions">
 <source>Specify your search criteria below.</source>
         <context-group name="ctx">
@@ -6082,7 +6082,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
-     <target>Para que você possa usufruir ao máximo do @@NOME_DO_PRODUTO@@, cada sistema deve possuir &lt;strong&gt;direitos&lt;/strong&gt; a serviços. Se um sistema não possuir direitos a serviços, você não poderá executar tarefas importantes de gerenciamento de software para aquele sistema, tais como instalação de pacotes e atualizações de erratas. </target></trans-unit>
+     <target>Para que você possa usufruir ao máximo do @@PRODUCT_NAME@@, cada sistema deve possuir &lt;strong&gt;direitos&lt;/strong&gt; a serviços. Se um sistema não possuir direitos a serviços, você não poderá executar tarefas importantes de gerenciamento de software para aquele sistema, tais como instalação de pacotes e atualizações de erratas. </target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.para2">
 		<source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -6225,7 +6225,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Update&lt;/strong&gt;.</target></trans-unit>
         <trans-unit id="system_entitlements.setToUpdateEntitled.failure">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@NOME_DO_PRODUTO@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Update&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s)  &lt;strong&gt;Sem Direitos a Serviços&lt;/strong&gt;.</target></trans-unit>
@@ -6244,7 +6244,7 @@ value for this entitlement, excluding the default organization's consumption.</s
 
         <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@NOME_DO_PRODUTO@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
         <trans-unit id="system_entitlements.provisioning.noManagement">
                 <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
         <target>A associação de direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Provisioning&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
@@ -6263,7 +6263,7 @@ value for this entitlement, excluding the default organization's consumption.</s
 
         <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@NOME_DO_PRODUTO@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas. &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas. &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.noManagement">
                 <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
         <target>A associação de direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Virtualização&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
@@ -6281,7 +6281,7 @@ value for this entitlement, excluding the default organization's consumption.</s
 
         <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@NOME_DO_PRODUTO@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.&lt;br/&gt;&lt;strong&gt;NOTA: &lt;/strong&gt; Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.&lt;br/&gt;&lt;strong&gt;NOTA: &lt;/strong&gt; Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
         <target>A associação de direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
@@ -6299,7 +6299,7 @@ value for this entitlement, excluding the default organization's consumption.</s
 
         <trans-unit id="system_entitlements.monitoring.notEnoughSlots">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@NOME_DO_PRODUTO@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
         <trans-unit id="system_entitlements.monitoring.noManagement">
                 <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
         <target>A associação de direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Monitoring&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
@@ -6308,7 +6308,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>O serviço &lt;strong&gt;Monitoring&lt;/strong&gt; falhou nos sistemas &lt;strong&gt;{0}&lt;/strong&gt; pois o Monitoring não é suportado nos sistemas Solaris.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization.setup_error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) falhou ao adicionar &lt;strong&gt;(Plataforma) Virtualização&lt;/strong&gt;.  Isto foi causado por erros ao tentar se inscrever automaticamente no sistema nas Ferramentas @@NOME_DO_PRODUTO@@ e canais de Virtualização RHEL que são requisitados para a virtualização.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) falhou ao adicionar &lt;strong&gt;(Plataforma) Virtualização&lt;/strong&gt;.  Isto foi causado por erros ao tentar se inscrever automaticamente no sistema nas Ferramentas @@PRODUCT_NAME@@ e canais de Virtualização RHEL que são requisitados para a virtualização.</target></trans-unit>
 
         <trans-unit id="system_entitlements.unknown.error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add an entitlement.  This was caused by an unknown error.  Please contact support.</source>
@@ -6614,7 +6614,7 @@ value for this entitlement, excluding the default organization's consumption.</s
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>Configuração do @@NOME_DO_PRODUTO@@ - Monitoramento</target></trans-unit>
+    <target>Configuração do @@PRODUCT_NAME@@ - Monitoramento</target></trans-unit>
 
     <trans-unit id="generalconfig.jsp.header2">
 <source>General Monitoring Config</source>
@@ -6628,7 +6628,7 @@ value for this entitlement, excluding the default organization's consumption.</s
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>Após atualizar as opções de configuração abaixo, os serviços de monitoramento neste Satellite e em todos os servidores @@NOME_DO_PRODUTO@@ Proxy com Monitoramento deverão ser reiniciados.  Estas ações serão agendadas automaticamente quando você atualizar esta página.</target></trans-unit>
+    <target>Após atualizar as opções de configuração abaixo, os serviços de monitoramento neste Satellite e em todos os servidores @@PRODUCT_NAME@@ Proxy com Monitoramento deverão ser reiniciados.  Estas ações serão agendadas automaticamente quando você atualizar esta página.</target></trans-unit>
 
     <trans-unit id="generalconfig.jsp.update_config">
 <source>Update Config</source>
@@ -7762,7 +7762,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context-group name="ctx">
             <context context-type="sourcefile">/admin/multiorg/SatRoleConfirm</context>
         </context-group>
-      <target>Confirmar a Modificação do Administrador do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Confirmar a Modificação do Administrador do @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="deleteconfirm.jsp.satadmin.description">
 <source>Are you sure you would like to remove the "@@PRODUCT_NAME@@ Administrator" role from
@@ -9022,45 +9022,45 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Configuração do @@NOME_DO_PRODUTO@@ - Configuração Geral</target></trans-unit>
+      <target>Configuração do @@PRODUCT_NAME@@ - Configuração Geral</target></trans-unit>
       <trans-unit id="general.jsp.org.toolbar">
 <source>@@PRODUCT_NAME@@ Configuration - Organizations</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Configuração do @@NOME_DO_PRODUTO@@ - Organizations (Empresas)</target></trans-unit>
+      <target>Configuração do @@PRODUCT_NAME@@ - Organizations (Empresas)</target></trans-unit>
       <trans-unit id="config.restartrequired">
 <source>The @@PRODUCT_NAME@@ must be restarted to reflect these changes.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>O @@NOME_DO_PRODUTO@@ deve ser reiniciado para refletir estas alterações.</target></trans-unit>
+      <target>O @@PRODUCT_NAME@@ deve ser reiniciado para refletir estas alterações.</target></trans-unit>
       <trans-unit id="general.jsp.header2">
 <source>@@PRODUCT_NAME@@ Configuration</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Configuração do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Configuração do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="general.jsp.summary">
 <source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Configure seu @@NOME_DO_PRODUTO@@ abaixo. A configuração do proxy HTTP aborda a comunicação do servidor @@NOME_DO_PRODUTO@@ com o servidor @@NOME_DO_PRODUTO@@ pai, se houver. O proxy HTTP deve estar no formato: nome_de_host: porta, porém será utilizada  a porta padrão 8080 caso nenhuma outra seja provida. A configuração do proxy HTTP para sistemas clientes se conectarem a este @@NOME_DO_PRODUTO@@ pode ser diferente e será configurada posteriormente. Se você ativar o Backend do Monitoring, também deve ativar o Agente de Monitoramento (Monitoring Scout) ou configurá-lo como um servidor separado. Se você ativar o agente de monitoramento, também deve ativar o backend de monitoramento.</target></trans-unit>
+      <target>Configure seu @@PRODUCT_NAME@@ abaixo. A configuração do proxy HTTP aborda a comunicação do servidor @@PRODUCT_NAME@@ com o servidor @@PRODUCT_NAME@@ pai, se houver. O proxy HTTP deve estar no formato: nome_de_host: porta, porém será utilizada  a porta padrão 8080 caso nenhuma outra seja provida. A configuração do proxy HTTP para sistemas clientes se conectarem a este @@PRODUCT_NAME@@ pode ser diferente e será configurada posteriormente. Se você ativar o Backend do Monitoring, também deve ativar o Agente de Monitoramento (Monitoring Scout) ou configurá-lo como um servidor separado. Se você ativar o agente de monitoramento, também deve ativar o backend de monitoramento.</target></trans-unit>
       <trans-unit id="general.jsp.org.header">
 <source>@@PRODUCT_NAME@@ Organizations</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Organizações do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Organizações do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="general.jsp.org.summary1">
 <source>@@PRODUCT_NAME@@ allows for the creation of multiple 'organizations'
 on a @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>O @@NOME_DO_PRODUTO@@ Satellite permite a criação de várias 'organizações'
-em um @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>O @@PRODUCT_NAME@@ Satellite permite a criação de várias 'organizações'
+em um @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="general.jsp.org.summary2">
 <source>Organizations are a way to place boundaries between sets of systems, system
 groups, software channels, subscriptions and entitlements, kickstart profiles,
@@ -9089,7 +9089,7 @@ the following tabs in the left navigation menu:</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-      <target>Para iniciar a criação e gerenciamento do organizations em seu @@NOME_DO_PRODUTO@@, vá para
+      <target>Para iniciar a criação e gerenciamento do organizations em seu @@PRODUCT_NAME@@, vá para
 as seguintes abas no menu de navegação da esquerda:</target></trans-unit>
       <trans-unit id="general.jsp.org.summary4">
 <source>For more details on organizations, please refer to the</source>
@@ -9111,9 +9111,9 @@ organizations on your @@PRODUCT_NAME@@ here as well.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-      <target>Gerencie as subscrições em seu @@NOME_DO_PRODUTO@@. Você também pode procurar qual acesso
+      <target>Gerencie as subscrições em seu @@PRODUCT_NAME@@. Você também pode procurar qual acesso
 é fornecido por cada serviço. Você também pode alocar aqui os serviços, um a um, para qualquer serviço em todos os
-organizations em seu @@NOME_DO_PRODUTO@@.</target></trans-unit>
+organizations em seu @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
 <source>Go to Subscriptions now</source>
         <context-group name="ctx">
@@ -9131,7 +9131,7 @@ organizations em seu @@NOME_DO_PRODUTO@@.</target></trans-unit>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-      <target>Crie e gerencie o organizations em seu @@NOME_DO_PRODUTO@@. Você poderá também alocar aqui a subscrição do software e os serviços de sistema, um a um.</target></trans-unit>
+      <target>Crie e gerencie o organizations em seu @@PRODUCT_NAME@@. Você poderá também alocar aqui a subscrição do software e os serviços de sistema, um a um.</target></trans-unit>
       <trans-unit id="general.jsp.org.tbl.link1">
 <source>Go to Organizations now</source>
         <context-group name="ctx">
@@ -9153,8 +9153,8 @@ administrator privileges.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-      <target>Crie e gerencie as organizações em seu @@NOME_DO_PRODUTO@@. Você pode não conseguir visualizar todos
-os usuários no @@NOME_DO_PRODUTO@@ por aqui, mas você pode procurar pelos usuários com os previlégios do administrador da organização em todas as organizaçẽos em seu @@NOME_DO_PRODUTO@@ e
+      <target>Crie e gerencie as organizações em seu @@PRODUCT_NAME@@. Você pode não conseguir visualizar todos
+os usuários no @@PRODUCT_NAME@@ por aqui, mas você pode procurar pelos usuários com os previlégios do administrador da organização em todas as organizaçẽos em seu @@PRODUCT_NAME@@ e
 também pode atribuir ou tomar os previlégios do administrador de uma organização do satellite.</target></trans-unit>
       <trans-unit id="general.jsp.org.tbl.link3">
 <source>Go to Users now</source>
@@ -9180,7 +9180,7 @@ também pode atribuir ou tomar os previlégios do administrador de uma organiza�
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Hostname do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Hostname do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="general.jsp.proxy">
 <source>HTTP proxy</source>
         <context-group name="ctx">
@@ -9234,7 +9234,7 @@ também pode atribuir ou tomar os previlégios do administrador de uma organiza�
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ Disconectado</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ Disconectado</target></trans-unit>
       <trans-unit id="general.jsp.monitoring_backend">
 <source>Enable Monitoring</source>
         <context-group name="ctx">
@@ -9259,14 +9259,14 @@ também pode atribuir ou tomar os previlégios do administrador de uma organiza�
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Criar Administrador do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Criar Administrador do @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="usercreate.satSummary">
 <source>Create the first @@PRODUCT_NAME@@ Administrator account. This account will have access to all resources on this @@PRODUCT_NAME@@. This account will also be able to create new users and delegate permissions to them.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Criar a primeira conta de Administrador do @@NOME_DO_PRODUTO@@. Esta conta terá acesso a todos os recursos neste @@NOME_DO_PRODUTO@@. Através desta, também é possível criar usuários novos e atribuí-los permissões.</target></trans-unit>
+      <target>Criar a primeira conta de Administrador do @@PRODUCT_NAME@@. Esta conta terá acesso a todos os recursos neste @@PRODUCT_NAME@@. Através desta, também é possível criar usuários novos e atribuí-los permissões.</target></trans-unit>
 
       <trans-unit id="monitoring.jsp.monitoringdisabled">
 <source>Monitoring is disabled.  Please go to the &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;General&lt;/strong&gt;&lt;/a&gt; configuration page and select the Enable Monitoring checkbox.</source>
@@ -9280,21 +9280,21 @@ também pode atribuir ou tomar os previlégios do administrador de uma organiza�
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Configuração do @@NOME_DO_PRODUTO@@ - Certificado</target></trans-unit>
+      <target>Configuração do @@PRODUCT_NAME@@ - Certificado</target></trans-unit>
 
       <trans-unit id="certificate.jsp.summary">
 <source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Você deve prover um certificado para o @@NOME_DO_PRODUTO@@. Este certificado oferece diversos níveis de serviços providos pelo @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>Você deve prover um certificado para o @@PRODUCT_NAME@@. Este certificado oferece diversos níveis de serviços providos pelo @@PRODUCT_NAME@@.</target></trans-unit>
 
       <trans-unit id="certificate.jsp.header2">
 <source>@@PRODUCT_NAME@@ Certificate</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Certificado do  @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Certificado do  @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="certificate.jsp.cert_file">
 <source>Upload Certificate File:</source>
@@ -9315,7 +9315,7 @@ também pode atribuir ou tomar os previlégios do administrador de uma organiza�
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/BootstrapConfig.do</context>
         </context-group>
-      <target>Configuração do @@NOME_DO_PRODUTO@@ - Bootstrap</target></trans-unit>
+      <target>Configuração do @@PRODUCT_NAME@@ - Bootstrap</target></trans-unit>
 
       <trans-unit id="bootstrap.jsp.summary">
 <source> The following information will be used to generate bootstrap scripts. These bootstrap scripts can be used to configure a client to use this @@PRODUCT_NAME@@ to receive updates. Once the bootstrap scripts have been generated, they will be available from  &lt;a href="/pub/bootstrap"&gt;this server&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
@@ -9323,8 +9323,8 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/BootstrapConfig.do</context>
         </context-group>
-      <target> As informações a seguir serão usadas para gerar os scripts de rotina de inicialização. Estes scripts podem ser usados para configurar um cliente a usar este @@NOME_DO_PRODUTO@@ para receber atualizações. Uma vez gerados, os scripts de rotina de inicialização estarão disponíveis &lt;a href="/pub/bootstrap"&gt;neste servidor&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
-  Por favor, note que talvez seja necessária alguma configuração manual destes scripts.  O script de rotina de inicialização pode ser encontrado no sistema de arquivos do @@NOME_DO_PRODUTO@@ Server em &lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</target></trans-unit>
+      <target> As informações a seguir serão usadas para gerar os scripts de rotina de inicialização. Estes scripts podem ser usados para configurar um cliente a usar este @@PRODUCT_NAME@@ para receber atualizações. Uma vez gerados, os scripts de rotina de inicialização estarão disponíveis &lt;a href="/pub/bootstrap"&gt;neste servidor&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
+  Por favor, note que talvez seja necessária alguma configuração manual destes scripts.  O script de rotina de inicialização pode ser encontrado no sistema de arquivos do @@PRODUCT_NAME@@ Server em &lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</target></trans-unit>
 
       <trans-unit id="bootstrap.jsp.header2">
 <source>Client Bootstrap Script Configuration</source>
@@ -9338,7 +9338,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/BootstrapConfig.do</context>
         </context-group>
-      <target>hostname do servidor  @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>hostname do servidor  @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="bootstrap.jsp.ssl-cert">
 <source>SSL cert location</source>
@@ -9401,21 +9401,21 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>Configuração do @@NOME_DO_PRODUTO@@ - Reiniciar </target></trans-unit>
+      <target>Configuração do @@PRODUCT_NAME@@ - Reiniciar </target></trans-unit>
 
       <trans-unit id="restart.jsp.summary">
 <source> The configuration changes require a restart of the @@PRODUCT_NAME@@. Please click Restart to restart the @@PRODUCT_NAME@@. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>As alterações de configuração requerem uma reinicialização do @@NOME_DO_PRODUTO@@. Por favor clique em Reiniciar para reiniciar o @@NOME_DO_PRODUTO@@. Esta página será automaticamente recarregada em 4 minutos.  Tenha em mente que isto afetará todos os usuários autenticados nesta aplicação, assim como todos os sistemas tentando registrar ou interagir com o @@NOME_DO_PRODUTO@@. </target></trans-unit>
+      <target>As alterações de configuração requerem uma reinicialização do @@PRODUCT_NAME@@. Por favor clique em Reiniciar para reiniciar o @@PRODUCT_NAME@@. Esta página será automaticamente recarregada em 4 minutos.  Tenha em mente que isto afetará todos os usuários autenticados nesta aplicação, assim como todos os sistemas tentando registrar ou interagir com o @@PRODUCT_NAME@@. </target></trans-unit>
 
       <trans-unit id="restart.jsp.header2">
 <source>Restart @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>Reiniciar  o  @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Reiniciar  o  @@PRODUCT_NAME@@</target></trans-unit>
 
 
       <trans-unit id="restart.jsp.restart_satellite">
@@ -9423,7 +9423,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>Reiniciar o  @@NOME_DO_PRODUTO@@?</target></trans-unit>
+      <target>Reiniciar o  @@PRODUCT_NAME@@?</target></trans-unit>
 
       <trans-unit id="restart.jsp.restart">
 <source>Restart</source>
@@ -9448,7 +9448,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
         <trans-unit id="cobbler.jsp.toolbar">
           <source>@@PRODUCT_NAME@@ Configuration - Cobbler.</source>
-        <target> Configuração do @@NOME_DO_PRODUTO@@ - Cobbler.</target></trans-unit>
+        <target> Configuração do @@PRODUCT_NAME@@ - Cobbler.</target></trans-unit>
         <trans-unit id="Cobbler">
           <source>Cobbler</source>
         <target>Cobbler</target></trans-unit>
@@ -9463,7 +9463,7 @@ Please note that some manual configuration of these scripts may still be require
 		<target>Ação de Sincronização do Cobbler foi executada com sucesso. Procure em /var/log/cobbler/*.log para obter mais informações. </target></trans-unit>
 		<trans-unit id="cobbler.jsp.summary1">
 		  <source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
-		<target>Configure seu Cobbler  @@NOME_DO_PRODUTO@@ abaixo.</target></trans-unit>
+		<target>Configure seu Cobbler  @@PRODUCT_NAME@@ abaixo.</target></trans-unit>
 		<trans-unit id="cobbler.jsp.summary2">
 		  <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
 		<target>A sincronização do Cobbler é usada para reparar ou reconstruir o conteúdo de /tftpboot ou /var/www/cobbler quando a modificação manual do cobbler ocorreu.</target></trans-unit>
@@ -9589,14 +9589,14 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/tnc/</context>
         </context-group>
-    <target>Por favor leia o documento exibido abaixo e aceite ou rejeite os termos e condições descritos, selecionando os botões "Eu aceito" ou "Eu não aceito" abaixo. Você não pode prosseguir em sua autenticação na @@NOME_DO_PRODUTO@@ sem aceitar estes termos e condições. Se você aceitá-los agora, não precisará fazê-lo novamente, a não ser que sofram alterações. </target></trans-unit>
+    <target>Por favor leia o documento exibido abaixo e aceite ou rejeite os termos e condições descritos, selecionando os botões "Eu aceito" ou "Eu não aceito" abaixo. Você não pode prosseguir em sua autenticação na @@PRODUCT_NAME@@ sem aceitar estes termos e condições. Se você aceitá-los agora, não precisará fazê-lo novamente, a não ser que sofram alterações. </target></trans-unit>
 
   <trans-unit id="tnc.jsp.consequence">
     <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/tnc/</context>
         </context-group>
-    <target>Se você rejeitar os termos e condições acima selecionando o botão "Eu não aceito", será automaticamente desconectado de sua conta @@NOME_DO_PRODUTO@@. </target></trans-unit>
+    <target>Se você rejeitar os termos e condições acima selecionando o botão "Eu não aceito", será automaticamente desconectado de sua conta @@PRODUCT_NAME@@. </target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-accept">
     <source>I Accept</source>
@@ -9617,35 +9617,35 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/tnc/</context>
         </context-group>
-    <target>Isto prosseguirá sua autenticação na @@NOME_DO_PRODUTO@@ </target></trans-unit>
+    <target>Isto prosseguirá sua autenticação na @@PRODUCT_NAME@@ </target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">
     <source>This will log you out of @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/tnc/</context>
         </context-group>
-    <target>Isto o desconectará da @@NOME_DO_PRODUTO@@ </target></trans-unit>
+    <target>Isto o desconectará da @@PRODUCT_NAME@@ </target></trans-unit>
 
   <trans-unit id="tnc.jsp.refused-desc">
     <source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access @@PRODUCT_NAME@@ and your Red Hat subscriptions. Please click on the link below to log back in to @@PRODUCT_NAME@@ and accept the Terms and Conditions of use.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/tnc/</context>
         </context-group>
-    <target>Você recusou aceitar os Termos e Condições associados ao uso dos produtos e serviços Red Hat. É necessário aceitar estes Termos e Condições para poder acessar a @@NOME_DO_PRODUTO@@ e seus serviços Red Hat. Por favor clique no link abaixo para retornar à @@NOME_DO_PRODUTO@@ e aceitar os Termos e Condições de uso. </target></trans-unit>
+    <target>Você recusou aceitar os Termos e Condições associados ao uso dos produtos e serviços Red Hat. É necessário aceitar estes Termos e Condições para poder acessar a @@PRODUCT_NAME@@ e seus serviços Red Hat. Por favor clique no link abaixo para retornar à @@PRODUCT_NAME@@ e aceitar os Termos e Condições de uso. </target></trans-unit>
 
   <trans-unit id="tnc.jsp.return-login">
     <source>Link to Log in to @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/tnc/</context>
         </context-group>
-    <target>Link para Autenticar no @@NOME_DO_PRODUTO@@ </target></trans-unit>
+    <target>Link para Autenticar no @@PRODUCT_NAME@@ </target></trans-unit>
 
   <trans-unit id="tnc.jsp.error-desc">
     <source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/tnc/</context>
         </context-group>
-    <target>Ocorreu um erro ao processar sua aceitação dos Termos e Condições de uso da Red Hat. Por favor clique no link abaixo para se autenticar novamente no  @@NOME_DO_PRODUTO@@ e concluir seu processo. </target></trans-unit>
+    <target>Ocorreu um erro ao processar sua aceitação dos Termos e Condições de uso da Red Hat. Por favor clique no link abaixo para se autenticar novamente no  @@PRODUCT_NAME@@ e concluir seu processo. </target></trans-unit>
 
   <trans-unit id="tnc.jsp.print-version">
     <source>Printer-Friendly Version</source>
@@ -10199,7 +10199,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-    <target>Você não pode realizar o kickstart de um sistema registrado no @@NOME_DO_PRODUTO@@, usando um perfil kickstart inativo. No entanto, os arquivos de kickstart para perfis de kickstart inativos, ainda estão disponíveis para download manual e podem ser usados para kickstarts bare metal.</target></trans-unit>
+    <target>Você não pode realizar o kickstart de um sistema registrado no @@PRODUCT_NAME@@, usando um perfil kickstart inativo. No entanto, os arquivos de kickstart para perfis de kickstart inativos, ainda estão disponíveis para download manual e podem ser usados para kickstarts bare metal.</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.org_default">
         <source>Organization Default</source>
@@ -10483,7 +10483,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-    <target>Você pode associar uma ou mais chaves de ativação com este perfil de kickstart.  As chaves de ativação permitem que os sistemas com este perfil de kickstart sejam registrados automaticamente no @@NOME_DO_PRODUTO@@,  obtenham níveis de serviço do @@NOME_DO_PRODUTO@@, registrem em canais de software e configuração específicos e também registrem em grupos de sistemas específicos.  As chaves de ativação também podem especificar pacotes a serem instalados num sistema.  Por favor considere como isto pode afetar sua seleção de pacotes na aba &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; deste perfil.</target></trans-unit>
+    <target>Você pode associar uma ou mais chaves de ativação com este perfil de kickstart.  As chaves de ativação permitem que os sistemas com este perfil de kickstart sejam registrados automaticamente no @@PRODUCT_NAME@@,  obtenham níveis de serviço do @@PRODUCT_NAME@@, registrem em canais de software e configuração específicos e também registrem em grupos de sistemas específicos.  As chaves de ativação também podem especificar pacotes a serem instalados num sistema.  Por favor considere como isto pode afetar sua seleção de pacotes na aba &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; deste perfil.</target></trans-unit>
 
     <trans-unit id="kickstart.activationkeys.jsp.nokeys">
         <source>No activation keys available</source>
@@ -10605,7 +10605,7 @@ Please note that some manual configuration of these scripts may still be require
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
-  <target>Preferências do @@NOME_DO_PRODUTO@@ </target></trans-unit>
+  <target>Preferências do @@PRODUCT_NAME@@ </target></trans-unit>
 
   <trans-unit id="kickstart.systemdetails.jsp.header4">
     <source>Root Password</source>
@@ -10706,14 +10706,14 @@ Please note that some manual configuration of these scripts may still be require
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
-  <target>Ativar Gerenciamento da  &lt;br /&gt;Configuração &lt;br /&gt; do  @@NOME_DO_PRODUTO@@</target></trans-unit>
+  <target>Ativar Gerenciamento da  &lt;br /&gt;Configuração &lt;br /&gt; do  @@PRODUCT_NAME@@</target></trans-unit>
 
   <trans-unit id="kickstart.config.mgmt.tip.jsp.label">
     <source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to deploy configuration files from @@PRODUCT_NAME@@ to any system that uses this kickstart profile. If you do not use @@PRODUCT_NAME@@ configuration management, it is a good security practice to leave this box unchecked. You can always enable it on individual systems later.</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
-  <target>&lt;strong&gt;Dica:&lt;/strong&gt; Ativar esta opção permite empregar os arquivos de configuração pelo @@NOME_DO_PRODUTO@@ em qualquer sistema que usa este perfil de kickstart. Se você não utiliza a administração de configuração do @@NOME_DO_PRODUTO@@, é mais seguro deixar esta caixa desselecionada. É sempre possível ativá-la para sistemas separadamente mais tarde. </target></trans-unit>
+  <target>&lt;strong&gt;Dica:&lt;/strong&gt; Ativar esta opção permite empregar os arquivos de configuração pelo @@PRODUCT_NAME@@ em qualquer sistema que usa este perfil de kickstart. Se você não utiliza a administração de configuração do @@PRODUCT_NAME@@, é mais seguro deixar esta caixa desselecionada. É sempre possível ativá-la para sistemas separadamente mais tarde. </target></trans-unit>
 
 
   <trans-unit id="kickstart.remote.cmd.jsp.label">
@@ -10721,14 +10721,14 @@ Please note that some manual configuration of these scripts may still be require
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
-  <target>Ativar Comandos &lt;br /&gt;Remotos&lt;br /&gt; do @@NOME_DO_PRODUTO@@</target></trans-unit>
+  <target>Ativar Comandos &lt;br /&gt;Remotos&lt;br /&gt; do @@PRODUCT_NAME@@</target></trans-unit>
 
   <trans-unit id="kickstart.remote.cmd.tip.jsp.label">
     <source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to execute commands remotely from @@PRODUCT_NAME@@ on any system that uses this profile. It is a good security practice to leave this box unchecked unless you are sure you will use the remote command feature. You can always enable it on individual systems later.</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
-  <target>&lt;strong&gt;Dica:&lt;/strong&gt; Ativar esta opção permite executar comandos remotamente pelo @@NOME_DO_PRODUTO@@ em qualquer sistema que usa este perfil. É aconselhável deixar esta caixa desselecionada por motivos de segurança a não ser que você tenha certeza que utilizará esta funcionalidade de comando remoto. É sempre possível ativá-la para sistemas separadamente mais tarde. </target></trans-unit>
+  <target>&lt;strong&gt;Dica:&lt;/strong&gt; Ativar esta opção permite executar comandos remotamente pelo @@PRODUCT_NAME@@ em qualquer sistema que usa este perfil. É aconselhável deixar esta caixa desselecionada por motivos de segurança a não ser que você tenha certeza que utilizará esta funcionalidade de comando remoto. É sempre possível ativá-la para sistemas separadamente mais tarde. </target></trans-unit>
 
   <trans-unit id="kickstart.root.password.jsp.label">
     <source>New Root&lt;br /&gt;Password</source>
@@ -10840,7 +10840,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-    <target>Você pode referenciar estas chaves e/ou certificados nos seus perfis de kickstart a fim de instalá-los nos sistemas durante um kickstart.  Um sistema precisará das chaves corretas para instalar os pacotes assinados e do certificado correto para poder ter o kickstart por um @@NOME_DO_PRODUTO@@ Proxy Server ou @@NOME_DO_PRODUTO@@ Server.  Para mais informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</target></trans-unit>
+    <target>Você pode referenciar estas chaves e/ou certificados nos seus perfis de kickstart a fim de instalá-los nos sistemas durante um kickstart.  Um sistema precisará das chaves corretas para instalar os pacotes assinados e do certificado correto para poder ter o kickstart por um @@PRODUCT_NAME@@ Proxy Server ou @@PRODUCT_NAME@@ Server.  Para mais informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</target></trans-unit>
 
     <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -11250,7 +11250,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Se os seus sistemas estão conectados através de um @@NOME_DO_PRODUTO@@ Proxy, você pode alocar a árvore de instalação no diretório &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; do Proxy. </target></trans-unit>
+    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Se os seus sistemas estão conectados através de um @@PRODUCT_NAME@@ Proxy, você pode alocar a árvore de instalação no diretório &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; do Proxy. </target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>
@@ -11343,7 +11343,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 Você pode acessar a rede nesta seção, mas você deve usar endereços IP (Name Service ainda não foi configurado a esta altura).  Para maiores detalhes sobre
 pré-scripts de kickstart, por favor consulte o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Linux.&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
-Você também pode editar o pós-script para este kickstart abaixo.  Primeiro, comandos relacionados ao @@NOME_DO_PRODUTO@@ serão executados automaticamente (por  exemplo, registro do sistema ao @@NOME_DO_PRODUTO@@).
+Você também pode editar o pós-script para este kickstart abaixo.  Primeiro, comandos relacionados ao @@PRODUCT_NAME@@ serão executados automaticamente (por  exemplo, registro do sistema ao @@PRODUCT_NAME@@).
 A seguir, o pós-script non-chroot será executado, e por fim, o pós-script será executado.  Para maiores detalhes sobre pós-scripts de kickstart, por favor consulte
 o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Linux.&lt;/strong&gt; </target></trans-unit>
 
@@ -11416,7 +11416,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
         </context-group>
-      <target>Você pode editar o pós script do kickstart abaixo.  Primeiro, os comandos relacionados ao @@NOME_DO_PRODUTO@@ serão executados automaticamente (ex.: registro do sistema junto ao @@NOME_DO_PRODUTO@@).  Em seguida, o pós script não-chroot será executado, e finalmente o pós script será executado.  Para mais detalhes dos pós scripts do kickstart, por favor consulte o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Linux.&lt;/strong&gt; </target></trans-unit>
+      <target>Você pode editar o pós script do kickstart abaixo.  Primeiro, os comandos relacionados ao @@PRODUCT_NAME@@ serão executados automaticamente (ex.: registro do sistema junto ao @@PRODUCT_NAME@@).  Em seguida, o pós script não-chroot será executado, e finalmente o pós script será executado.  Para mais detalhes dos pós scripts do kickstart, por favor consulte o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Linux.&lt;/strong&gt; </target></trans-unit>
 
       <trans-unit id="post.jsp.tip1">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
@@ -11529,7 +11529,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
     <trans-unit id="snippets.jsp.summary">
         <source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
-    <target>Use os snippets para armazenar blocos comuns de código que podem ser compartilhados por perfis de kickstart múltiplos no @@NOME_DO_PRODUTO@@. Quando você criar um snippet de kickstart, todos os perfis de kickstart, incluindo este snippet, serão atualizados quando necessário.</target></trans-unit>
+    <target>Use os snippets para armazenar blocos comuns de código que podem ser compartilhados por perfis de kickstart múltiplos no @@PRODUCT_NAME@@. Quando você criar um snippet de kickstart, todos os perfis de kickstart, incluindo este snippet, serão atualizados quando necessário.</target></trans-unit>
 
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
@@ -11567,7 +11567,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
     <target>Caminhos de Arquivos</target></trans-unit>
 	<trans-unit id="cobbler.snippet.path.tip">
         <source>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</source>
-    <target>Aqui se encontra o sistema de arquivo do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+    <target>Aqui se encontra o sistema de arquivo do @@PRODUCT_NAME@@.</target></trans-unit>
     <trans-unit id="cobbler.snippet.header.name">
         <source>Kickstart Snippet: {0}</source>
     <target>Snippet do Kickstart: {0}</target></trans-unit>
@@ -11950,7 +11950,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-     <target>&lt;strong&gt;Nenhum sistema inativo.&lt;/strong&gt; &lt;p&gt;Todos os seus sistema estão atualmente se autenticando regularmente ao @@NOME_DO_PRODUTO@@. Você pode visualizar uma lista de todos os seus sistemas em &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Sistemas &gt; Todos&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</target></trans-unit>
+     <target>&lt;strong&gt;Nenhum sistema inativo.&lt;/strong&gt; &lt;p&gt;Todos os seus sistema estão atualmente se autenticando regularmente ao @@PRODUCT_NAME@@. Você pode visualizar uma lista de todos os seus sistemas em &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Sistemas &gt; Todos&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.securityerrata">
         <source>Relevant Security Errata</source>
@@ -12062,14 +12062,14 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-      <target>Gerenciar &lt;strong&gt;Organizações do @@NOME_DO_PRODUTO@@&lt;/strong&gt; </target></trans-unit>
+      <target>Gerenciar &lt;strong&gt;Organizações do @@PRODUCT_NAME@@&lt;/strong&gt; </target></trans-unit>
 
       <trans-unit id="yourrhn.jsp.tasks.config_sat">
         <source>&lt;strong&gt;Configure&lt;/strong&gt; @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-      <target>&lt;strong&gt;Configurar&lt;/strong&gt; @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>&lt;strong&gt;Configurar&lt;/strong&gt; @@PRODUCT_NAME@@ </target></trans-unit>
 
       <trans-unit id="yourrhn.jsp.tasks.registersystem">
         <source>&lt;strong&gt;Register&lt;/strong&gt; Systems</source>
@@ -12601,7 +12601,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
      <target>Deixe em branco para geração automática.</target></trans-unit>
        <trans-unit id="activation-key.jsp.blank.auto-generator.prefix-notice">
          <source>Leave blank for automatic key generation. Note that the prefix is an indication of the @@PRODUCT_NAME@@ organization the key is associated with.</source>
-     <target>Deixe o item de geração de chave automática em branco. Observe que o prefixo é uma indicação do Organizações do @@NOME_DO_PRODUTO@@ com o qual a chave estiver associada.</target></trans-unit>
+     <target>Deixe o item de geração de chave automática em branco. Observe que o prefixo é uma indicação do Organizações do @@PRODUCT_NAME@@ com o qual a chave estiver associada.</target></trans-unit>
    <trans-unit id="activation-key.jsp.edit-basechannel-tooltip">
        <source>Choose "&lt;strong&gt;{0}&lt;/strong&gt;" to allow systems to register to the default Red Hat provided channel that corresponds to their installed version of Red Hat Enterprise Linux. You may also choose particular Red Hat provided channels or custom base channels here, but please note if a system using this key is not compatible with the selected channel, it will fall back to its Red Hat default channel.</source>
    <target>Escolha "&lt;strong&gt;{0}&lt;/strong&gt;" para permitir que os sistemas registrem no canal padrão fornecido pela Red Hat que correspondem com a versão instalada do Red Hat Enterprise Linux. Aqui você pode também escolher canais específicos, fornecidos pela Red Hat ou canais base padronizados, mas perceba que se um sistema, que estiver usando esta chave, não for compatível com o canal selecionado, ele retornará para seu canal padrão da Red Hat.</target></trans-unit>
@@ -12614,13 +12614,13 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
      <target>Deixe em branco para uso ilimitado.</target></trans-unit>
        <trans-unit id="activation-key.jsp.org_notice">
            <source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the @@PRODUCT_NAME@@'s multiple organizations feature.</source>
-     <target>Se você modificar a chave acima, observe que a chave será precedida por um  '&lt;strong&gt;{0}&lt;/strong&gt;'. Isto acontece para identificar a organização a que pertence , cuja chave é associada com os números das organizações múltiplas do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+     <target>Se você modificar a chave acima, observe que a chave será precedida por um  '&lt;strong&gt;{0}&lt;/strong&gt;'. Isto acontece para identificar a organização a que pertence , cuja chave é associada com os números das organizações múltiplas do @@PRODUCT_NAME@@.</target></trans-unit>
      <trans-unit id="activation-key.jsp.create-key">
          <source>Create Activation Key</source>
      <target>Criar Chaves de Ativação</target></trans-unit>
      <trans-unit id="activation-key.jsp.rh-default">
          <source>@@PRODUCT_NAME@@ Default</source>
-     <target>@@NOME_DO_PRODUTO@@ Default</target></trans-unit>
+     <target>@@PRODUCT_NAME@@ Default</target></trans-unit>
      <trans-unit id="activation-key.jsp.edit-key">
          <source>Update Activation Key</source>
      <target>Atualizar Chaves de Ativação</target></trans-unit>
@@ -13005,16 +13005,16 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>Sistemas Alvo</target></trans-unit>
         <trans-unit id="targetsystems.jsp.summary">
           <source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management.  For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable @@PRODUCT_NAME@@ Configuration Management' button below.</source>
-        <target>Os sistemas listados abaixo não possuem arquivos gerenciados via gerenciamento de configuração @@NOME_DO_PRODUTO@@. Os sistemas que são capazes de ser gerenciados pelo gerenciamento de configuração @@NOME_DO_PRODUTO@@, precisarão de um serviço de provisioning, além de ter pacotes rhncfg* específicos instalados. Você pode habilitar o gerenciamento de configuração nos sistemas selecionados, usando o botão de ' Habilitar Gerenciamento de Configuração do @@NOME_DO_PRODUTO@@' abaixo.</target></trans-unit>
+        <target>Os sistemas listados abaixo não possuem arquivos gerenciados via gerenciamento de configuração @@PRODUCT_NAME@@. Os sistemas que são capazes de ser gerenciados pelo gerenciamento de configuração @@PRODUCT_NAME@@, precisarão de um serviço de provisioning, além de ter pacotes rhncfg* específicos instalados. Você pode habilitar o gerenciamento de configuração nos sistemas selecionados, usando o botão de ' Habilitar Gerenciamento de Configuração do @@PRODUCT_NAME@@' abaixo.</target></trans-unit>
         <trans-unit id="targetsystems.jsp.noSystems">
           <source>No non-managed systems.</source>
         <target>Nenhum sistema não gerenciado.</target></trans-unit>
         <trans-unit id="targetsystems.jsp.enable">
           <source>Enable @@PRODUCT_NAME@@ Configuration Management</source>
-        <target>Habilitar o Gerenciamento de Configuração @@NOME_DO_PRODUTO@@ </target></trans-unit>
+        <target>Habilitar o Gerenciamento de Configuração @@PRODUCT_NAME@@ </target></trans-unit>
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
-        <target>Capacitação de Configuração do @@NOME_DO_PRODUTO@@?</target></trans-unit>
+        <target>Capacitação de Configuração do @@PRODUCT_NAME@@?</target></trans-unit>
         <trans-unit id="targetsystems.jsp.yes">
           <source>Yes</source>
         <target>Sim</target></trans-unit>
@@ -13032,7 +13032,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>Adicionar Serviços de provisão</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-        <target>Registrar-se nos canais de Ferramenta do @@NOME_DO_PRODUTO@@</target></trans-unit>
+        <target>Registrar-se nos canais de Ferramenta do @@PRODUCT_NAME@@</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
         <target>Agendar Instalação de Pacotes rhncfg</target></trans-unit>
@@ -13099,7 +13099,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>Não foi possível obter serviço de provisão.</target></trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-        <target>Não foi possível inscrever o canal de Ferramenta @@NOME_DO_PRODUTO@@. </target></trans-unit>
+        <target>Não foi possível inscrever o canal de Ferramenta @@PRODUCT_NAME@@. </target></trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>
         <target>Não foi possível agendar instalações de pacote rhncfg*</target></trans-unit>
@@ -13131,7 +13131,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
         </context-group>
-     <target>Os canais de configuração listados abaixo são &lt;strong&gt;gerenciados centralmente&lt;/strong&gt;. Isto significa que qualquer sistema registrado no @@NOME_DO_PRODUTO@@ pode se inscrever nos canais de configuração abaixo. Qualquer modificação realizada nestes arquivos dentro de um destes canais, afetará todos os sistemas inscritos neste canal. </target></trans-unit>
+     <target>Os canais de configuração listados abaixo são &lt;strong&gt;gerenciados centralmente&lt;/strong&gt;. Isto significa que qualquer sistema registrado no @@PRODUCT_NAME@@ pode se inscrever nos canais de configuração abaixo. Qualquer modificação realizada nestes arquivos dentro de um destes canais, afetará todos os sistemas inscritos neste canal. </target></trans-unit>
 
      <trans-unit id="toolbar.create.configchannel">
         <source>create new config channel</source>
@@ -13791,7 +13791,7 @@ but are not subscribed to {0}.</source>
 (meaning they have the required client software installed and have provisioning entitlements)
 but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         </context-group>
-     <target>Os sistemas listados abaixo são capazes de ser gerenciados pelo gerenciamento de configuração @@NOME_DO_PRODUTO@@
+     <target>Os sistemas listados abaixo são capazes de ser gerenciados pelo gerenciamento de configuração @@PRODUCT_NAME@@
  (ou seja, eles possuem o software cliente requerido instalado e possuem serviços de provisão)
  mas não são inscritos no {0}. </target></trans-unit>
 	<trans-unit id="targetsystems.jsp.subscribe">
@@ -15177,7 +15177,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-     <target>Os sistemas listados abaixo, possuem atualmente &lt;strong&gt;arquivos de configuração gerenciados pelo @@NOME_DO_PRODUTO@@ &lt;/strong&gt;. Isto significa que cada sistema pode ter arquivos de configuração &lt;strong&gt;gerenciados localmente&lt;/strong&gt; através de seu perfil de sistema @@NOME_DO_PRODUTO@@, pode ter arquivos de configuração &lt;strong&gt;gerenciados centralmente&lt;/strong&gt; através de canais de configuração central, ou ambos. O número de arquivos gerenciados localmente que sobrescrevem arquivos gerenciados centralmente é visível na coluna 'Arquivos Gerenciados Localmente' abaixo. </target></trans-unit>
+     <target>Os sistemas listados abaixo, possuem atualmente &lt;strong&gt;arquivos de configuração gerenciados pelo @@PRODUCT_NAME@@ &lt;/strong&gt;. Isto significa que cada sistema pode ter arquivos de configuração &lt;strong&gt;gerenciados localmente&lt;/strong&gt; através de seu perfil de sistema @@PRODUCT_NAME@@, pode ter arquivos de configuração &lt;strong&gt;gerenciados centralmente&lt;/strong&gt; através de canais de configuração central, ou ambos. O número de arquivos gerenciados localmente que sobrescrevem arquivos gerenciados centralmente é visível na coluna 'Arquivos Gerenciados Localmente' abaixo. </target></trans-unit>
 
      <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
@@ -15272,7 +15272,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
         <trans-unit id="configoverview.jsp.summary">
           <source>The list below shows all of the configuration files that are managed by your organization in @@PRODUCT_NAME@@. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
-        <target>A lista abaixo mostra todos os arquivos de configuração que são gerenciados pela sua empresa no @@NOME_DO_PRODUTO@@. Esta lista inclui arquivos que sejam gerenciados centralmente nos canais de configuração e arquivos que são gerenciados localmente através de perfis de sistema individuais. </target></trans-unit>
+        <target>A lista abaixo mostra todos os arquivos de configuração que são gerenciados pela sua empresa no @@PRODUCT_NAME@@. Esta lista inclui arquivos que sejam gerenciados centralmente nos canais de configuração e arquivos que são gerenciados localmente através de perfis de sistema individuais. </target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configsummary">
           <source>Configuration Summary</source>
@@ -15815,7 +15815,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Comparar Arquivos de Configuração</target></trans-unit>
         <trans-unit id="ssmdiff.jsp.summary">
           <source>The following configuration files are associated with the systems in this set. You can select files and compare the @@PRODUCT_NAME@@-managed versions of the files to the versions of the files on the systems in your set.&lt;br /&gt;&lt;br /&gt;The comparisons for each system will not complete until each system checks in to @@PRODUCT_NAME@@. Once each comparison is complete, any differences between the files will be accessible from each system's events page.</source>
-        <target>Os seguintes arquivos de configuração são associados com os sistemas neste conjunto. Você pode selecionar arquivos para comparar as versões gerenciadas por @@NOME_DO_PRODUTO@@ dos arquivos com as versões dos arquivos nos sistemas em seu conjunto. &lt;br /&gt;&lt;br /&gt; As comparações para cada sistema não serão finalizadas até que cada sistema verifique no @@NOME_DO_PRODUTO@@. Uma vez terminada cada uma das comparações, qualquer diferença entre os arquivos ficarão acessíveis a partir de cada página de evento do sistema.  </target></trans-unit>
+        <target>Os seguintes arquivos de configuração são associados com os sistemas neste conjunto. Você pode selecionar arquivos para comparar as versões gerenciadas por @@PRODUCT_NAME@@ dos arquivos com as versões dos arquivos nos sistemas em seu conjunto. &lt;br /&gt;&lt;br /&gt; As comparações para cada sistema não serão finalizadas até que cada sistema verifique no @@PRODUCT_NAME@@. Uma vez terminada cada uma das comparações, qualquer diferença entre os arquivos ficarão acessíveis a partir de cada página de evento do sistema.  </target></trans-unit>
         <trans-unit id="ssmdiff.jsp.noFiles">
           <source>No configuration files.</source>
         <target>Nenhum arquivo de configuração</target></trans-unit>
@@ -16181,7 +16181,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Ativar  Gerenciamento de Configuração</target></trans-unit>
         <trans-unit id="ssmenable.jsp.summary">
           <source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management. For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on the systems listed below. &lt;strong&gt;Note:&lt;/strong&gt; nothing will happen to already enabled systems.</source>
-        <target>Os sistemas listados abaixo não possuem arquivos gerenciados através do gerenciamento de configuração @@NOME_DO_PRODUTO@@. Para que seja possível gerenciar sistemas através do gerenciamento de configuração @@NOME_DO_PRODUTO@@, eles precisarão de serviços de provisão além de terem pacotes rhncfg* específicos instalados. Você pode ativar o gerenciamento de configuração nos sistemas listados abaixo. &lt;strong&gt;Nota:&lt;/strong&gt; nada irá acontecer aos sistemas que já estiverem ativados. </target></trans-unit>
+        <target>Os sistemas listados abaixo não possuem arquivos gerenciados através do gerenciamento de configuração @@PRODUCT_NAME@@. Para que seja possível gerenciar sistemas através do gerenciamento de configuração @@PRODUCT_NAME@@, eles precisarão de serviços de provisão além de terem pacotes rhncfg* específicos instalados. Você pode ativar o gerenciamento de configuração nos sistemas listados abaixo. &lt;strong&gt;Nota:&lt;/strong&gt; nada irá acontecer aos sistemas que já estiverem ativados. </target></trans-unit>
      </group>
 
      <!-- configuration/ssm/channelsystems.jsp  -->
@@ -16462,7 +16462,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Importar Novos Arquivos</target></trans-unit>
         <trans-unit id="sdcimportfile.jsp.newsummary">
           <source>Specify the full path of any files you wish to import from this system into @@PRODUCT_NAME@@, one per line:</source>
-        <target>Especificar um caminho completo de quaisquer arquivos que você desejar importar deste sistema para o @@NOME_DO_PRODUTO@@, um por linha: </target></trans-unit>
+        <target>Especificar um caminho completo de quaisquer arquivos que você desejar importar deste sistema para o @@PRODUCT_NAME@@, um por linha: </target></trans-unit>
         <trans-unit id="sdcimportfile.jsp.paths">
           <source>File Paths:</source>
         <target>Caminhos de Arquivos:</target></trans-unit>
@@ -16588,7 +16588,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">You may compare configuration files on postmaster.devel to @@PRODUCT_NAME@@ managed configuration files. The files listed below are the deployable revisions of files from configuration channels to which this system is subscribed.</context>
           </context-group>
-        <target>Você pode comparar os arquivos de configuração em {0} para os arquivos de configuração gerenciados pelo @@NOME_DO_PRODUTO@@. Os arquivos listados abaixo são revisões implementáveis de arquivos dos canais de configuração no qual este sistem é registrado. </target></trans-unit>
+        <target>Você pode comparar os arquivos de configuração em {0} para os arquivos de configuração gerenciados pelo @@PRODUCT_NAME@@. Os arquivos listados abaixo são revisões implementáveis de arquivos dos canais de configuração no qual este sistem é registrado. </target></trans-unit>
      </group>
 
      <!-- configuration/sdc/deployfile.jsp  -->
@@ -16996,7 +16996,7 @@ Base Channel chosen on the
       </context-group>
     <target>Você pode sincronizar sistemas aos quais o kickstart está sendo
 executado ao perfil de pacotes de um sistema registrado com o
-@@NOME_DO_PRODUTO@@ escolhendo um perfil de pacotes abaixo.
+@@PRODUCT_NAME@@ escolhendo um perfil de pacotes abaixo.
 &lt;strong&gt;Nota&lt;/strong&gt;: Esta lista mostrará
 apenas perfis de pacotes que tenham sido feitos usando
 os mesmo Canal Base escolhido na página
@@ -17022,25 +17022,25 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    <target>&lt;strong&gt;Dica:&lt;/strong&gt; A data listada representa a última vez que o proxy contatou o @@NOME_DO_PRODUTO@@. </target></trans-unit>
+    <target>&lt;strong&gt;Dica:&lt;/strong&gt; A data listada representa a última vez que o proxy contatou o @@PRODUCT_NAME@@. </target></trans-unit>
     <trans-unit id="kickstart.schedule.heading.proxy.jsp">
         <source>Select @@PRODUCT_NAME@@ Proxy</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    <target>Selecionar @@NOME_DO_PRODUTO@@ Proxy </target></trans-unit>
+    <target>Selecionar @@PRODUCT_NAME@@ Proxy </target></trans-unit>
     <trans-unit id="kickstart.schedule.msg.proxy.jsp">
         <source>You may choose to use an @@PRODUCT_NAME@@ Proxy to access the files necessary for kickstart. This system will be registered to the @@PRODUCT_NAME@@ Proxy selected below after its kickstart has completed.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    <target>Você pode escolher usar um @@NOME_DO_PRODUTO@@ Proxy para acessar os arquivos de kickstart necessários. Este sistema será registrado no @@NOME_DO_PRODUTO@@ Proxy selecionado abaixo após a conclusão de seu kickstart. </target></trans-unit>
+    <target>Você pode escolher usar um @@PRODUCT_NAME@@ Proxy para acessar os arquivos de kickstart necessários. Este sistema será registrado no @@PRODUCT_NAME@@ Proxy selecionado abaixo após a conclusão de seu kickstart. </target></trans-unit>
     <trans-unit id="kickstart.schedule.default.proxy.jsp">
         <source>Do not use an @@PRODUCT_NAME@@ Proxy</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    <target>Não Usar Um @@NOME_DO_PRODUTO@@ Proxy </target></trans-unit>
+    <target>Não Usar Um @@PRODUCT_NAME@@ Proxy </target></trans-unit>
 
     <trans-unit id="kickstart.schedule.cannot.provision.guest">
         <source>Re-provisioning guest systems is not currently supported.</source>
@@ -17175,19 +17175,19 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    <target>Os perfis que não forem gerenciados por @@NOME_DO_PRODUTO@@, não possuem garantia de registrar sistemas no @@NOME_DO_PRODUTO@@ após realizar o kickstart. Talvez você queira rever estes kickstarts (clique no nome do perfil para fazer isto) para confirmar se seu sistema irá reaparecer ou não na lista de sistemas do @@NOME_DO_PRODUTO@@ após o kickstart.</target></trans-unit>
+    <target>Os perfis que não forem gerenciados por @@PRODUCT_NAME@@, não possuem garantia de registrar sistemas no @@PRODUCT_NAME@@ após realizar o kickstart. Talvez você queira rever estes kickstarts (clique no nome do perfil para fazer isto) para confirmar se seu sistema irá reaparecer ou não na lista de sistemas do @@PRODUCT_NAME@@ após o kickstart.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
         <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>Os perfis de kickstart que não são gerenciados por @@NOME_DO_PRODUTO@@ não poderão ser editados na UI do @@NOME_DO_PRODUTO@@. Para modificar estes perfis, registre-se no servidor do @@NOME_DO_PRODUTO@@ e execute o comando 'cobbler edit profile'. Para mais informações, consulte o Guia de Referência do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+    <target>Os perfis de kickstart que não são gerenciados por @@PRODUCT_NAME@@ não poderão ser editados na UI do @@PRODUCT_NAME@@. Para modificar estes perfis, registre-se no servidor do @@PRODUCT_NAME@@ e execute o comando 'cobbler edit profile'. Para mais informações, consulte o Guia de Referência do @@PRODUCT_NAME@@.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>@@NOME_DO_PRODUTO@@ Gerenciado?*</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ Gerenciado?*</target></trans-unit>
     <trans-unit id="kickstart.distro.label.jsp">
         <source>Distribution</source>
         <context-group name="ctx">
@@ -17223,13 +17223,13 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
 	    <target>Caso você não gostar de qualquer uma das opções do kernel, selecione '{0}' e deixe o campo de formato em branco.</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.system.profile.jsp">
 	        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-	    <target>Perfil de Sistema&lt;br /&gt; do @@NOME_DO_PRODUTO@@ </target></trans-unit>
+	    <target>Perfil de Sistema&lt;br /&gt; do @@PRODUCT_NAME@@ </target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>Sincronizar Perfil de Pacotes&lt;br /&gt;</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.system.profile.option1.jsp">
 	        <source>Use this system's existing @@PRODUCT_NAME@@ Profile</source>
-	    <target>Usar o Perfil do @@NOME_DO_PRODUTO@@ existente deste sistema </target></trans-unit>
+	    <target>Usar o Perfil do @@PRODUCT_NAME@@ existente deste sistema </target></trans-unit>
 	    <trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
 	        <source>Use the default guest profile</source>
 	    <target>Usar o perfil de convidado padrão</target></trans-unit>
@@ -17431,7 +17431,7 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-    <target>Registrar sistema ao @@NOME_DO_PRODUTO@@ </target></trans-unit>
+    <target>Registrar sistema ao @@PRODUCT_NAME@@ </target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_profile">
         <source>Sync system to &lt;a href="/rhn/profiles/Details.do?prid={0}"&gt;package profile&lt;/a&gt;</source>
@@ -17868,7 +17868,7 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
        <context-group name="ctx">
          <context context-type="sourcefile">/rhn/systems/VirtualSystemsList.do</context>
        </context-group>
-     <target>Você não pode selecionar este sistema - não está registrado no @@NOME_DO_PRODUTO@@ </target></trans-unit>
+     <target>Você não pode selecionar este sistema - não está registrado no @@PRODUCT_NAME@@ </target></trans-unit>
 
      <trans-unit id="virtualguestslist.jsp.header">
 <source>Hosted Virtual Systems</source>
@@ -18064,7 +18064,7 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-      <target>Clique no botão Confirmar abaixo para deletar os seguintes sistemas virtuais. Isto irá remover todas as informações sobre os sistema virtual do @@NOME_DO_PRODUTO@@. &lt;strong&gt;NOTA:&lt;/strong&gt; Isto irá remover a máquina virtual atual do host. </target></trans-unit>
+      <target>Clique no botão Confirmar abaixo para deletar os seguintes sistemas virtuais. Isto irá remover todas as informações sobre os sistema virtual do @@PRODUCT_NAME@@. &lt;strong&gt;NOTA:&lt;/strong&gt; Isto irá remover a máquina virtual atual do host. </target></trans-unit>
 
      <trans-unit id="virtualguests_confirm.jsp.nosystems">
 <source>No systems selected.</source>
@@ -18438,7 +18438,7 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
 	     <target>Última Implementação de Configuração </target></trans-unit>
 	     <trans-unit id="sdc.config.last-rhn.comparison">
 			<source>Last @@PRODUCT_NAME@@ and System Comparison</source>
-	     <target>Última Comparação de Sistema e @@NOME_DO_PRODUTO@@ </target></trans-unit>
+	     <target>Última Comparação de Sistema e @@PRODUCT_NAME@@ </target></trans-unit>
 	     <trans-unit id="sdc.config.header.actions">
 			<source>Configuration Actions</source>
 	     <target>Ações de Configuração</target></trans-unit>
@@ -18606,7 +18606,7 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
 		<context-group name="ctx">
 		<context context-type="sourcefile">/systems/details/Overview.do</context>
 		</context-group>
-	     <target>ID do Sistema @@NOME_DO_PRODUTO@@: </target></trans-unit>
+	     <target>ID do Sistema @@PRODUCT_NAME@@: </target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.lockstatus">
 		<source>Lock Status:</source>
@@ -18860,7 +18860,7 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
 		<context-group name="ctx">
 		<context context-type="sourcefile">/systems/details/Overview.do</context>
 		</context-group>
-	     <target>&lt;strong&gt;Sistema não está fazendo o check in com o @@NOME_DO_PRODUTO@@&lt;/strong&gt; (&lt;a href="{0}"&gt;mais info&lt;/a&gt;) </target></trans-unit>
+	     <target>&lt;strong&gt;Sistema não está fazendo o check in com o @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;mais info&lt;/a&gt;) </target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.unentitled">
 		<source>&lt;strong&gt;System not entitled&lt;/strong&gt; (&lt;a href="{0}"&gt;entitle it here&lt;/a&gt;)</source>
@@ -18916,14 +18916,14 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
             <context-group name="ctx">
             <context context-type="sourcefile">/systems/details/Overview.do</context>
             </context-group>
-         <target>Reativar rhn-miniaplicativo para uso do @@NOME_DO_PRODUTO@.</target></trans-unit>
+         <target>Reativar rhn-miniaplicativo para uso do @@PRODUCT_NAME@@.</target></trans-unit>
 
          <trans-unit id="sdc.details.overview.applet.activate">
             <source>Activate rhn-applet for @@PRODUCT_NAME@@ usage."</source>
             <context-group name="ctx">
             <context context-type="sourcefile">/systems/details/Overview.do</context>
             </context-group>
-         <target>Ativar miniaplicativo rhn para uso do @@NOME_DO_PRODUTO@@" </target></trans-unit>
+         <target>Ativar miniaplicativo rhn para uso do @@PRODUCT_NAME@@" </target></trans-unit>
 
          <trans-unit id="sdc.details.migrate.header">
             <source>Migrate System Between Organisations</source>
@@ -19468,7 +19468,7 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
         <context-group name="ctx">
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
-      <target>Política Externa do .@@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Política Externa do .@@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="outage-policy.jsp.intro">
 <source>Our highest priority is your access to @@PRODUCT_NAME@@ and the
 advantages of a registered account. We strive to maintain 100% uptime
@@ -19478,9 +19478,9 @@ performance.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
-      <target>Nossa maior prioridade é seu acesso ao @@NOME_DO_PRODUTO@@ e às
+      <target>Nossa maior prioridade é seu acesso ao @@PRODUCT_NAME@@ e às
 vantagens de uma conta registrada. Nós nos empenhamos para manter
-os serviços do @@NOME_DO_PRODUTO@@ disponíveis 100% do tempo, mas você também deve
+os serviços do @@PRODUCT_NAME@@ disponíveis 100% do tempo, mas você também deve
 executar tarefas de manutenção periodicamente para atualizar funcionalidade
 remediar bugs que já tenham sido relatados, e melhorar o desempenho. </target></trans-unit>
 
@@ -19500,10 +19500,10 @@ list (see below) about this scheduled downtime whenever possible.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
-      <target>A Red Hat agenda todas as manutenções planejadas do @@NOME_DO_PRODUTO@@ para
+      <target>A Red Hat agenda todas as manutenções planejadas do @@PRODUCT_NAME@@ para
 cada Terça-Feira das 9 PM às 3 AM, Horário do Leste dos EUA (1 AM às 7 AM UTC).  Apesar
 da Red Hat não necessariamente usar todos estes períodos para executar tarefas de manutenção, nós recomendamos que a sua
-organização desenvolva práticas que levem em conta estes períodos de indisponibilidade do @@NOME_DO_PRODUTO@@.
+organização desenvolva práticas que levem em conta estes períodos de indisponibilidade do @@PRODUCT_NAME@@.
 A Red Hat, sempre que for possível, tentará informar sobre estes períodos de manutenção programados com pelo menos uma semana de antecedência através da lista de e-mails relevante
 (veja abaixo). </target></trans-unit>
 
@@ -19559,7 +19559,7 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         <context-group name="ctx">
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
-      <target>Recomendamos que todos os usuários do @@NOME_DO_PRODUTO@@ subscrevam-se à lista de
+      <target>Recomendamos que todos os usuários do @@PRODUCT_NAME@@ subscrevam-se à lista de
 e-mails de indisponibilidades opcional. Esta lista de e-mails lhe oferecerá
 atualizações periódicas sobre períodos programados de indisponibilidade
 para atividades de manutenção, e também servirá como o canal a ser usado
@@ -19738,19 +19738,19 @@ Os canais do software listados acima possuem imagens ISO disponíveis para produ
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
-      <target>Fazer o Download das imagens ISO não é uma ação suportada pelo @@NOME_DO_PRODUTO@@. </target></trans-unit>
+      <target>Fazer o Download das imagens ISO não é uma ação suportada pelo @@PRODUCT_NAME@@. </target></trans-unit>
       <trans-unit id="isodownload.not-paying.warn">
 <source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
-      <target>O download das imagens ISO está disponível somente para clientes que pagaram pelos serviços @@NOME_DO_PRODUTO@@. </target></trans-unit>
+      <target>O download das imagens ISO está disponível somente para clientes que pagaram pelos serviços @@PRODUCT_NAME@@. </target></trans-unit>
       <trans-unit id="isodownload.not-paying.purchase">
 <source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
-      <target>Se você estiver interessado em adquirir os serviços @@NOME_DO_PRODUTO@@, vá para a página &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; para maiores informações.</target></trans-unit>
+      <target>Se você estiver interessado em adquirir os serviços @@PRODUCT_NAME@@, vá para a página &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; para maiores informações.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)
@@ -19895,7 +19895,7 @@ Perceba que apenas um conjunto de imagens ISO é necessário para instalação d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
-      <target>ISOs de Conteúdo de Canal do @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>ISOs de Conteúdo de Canal do @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="isodownload.channel-dump-descr1">
 <source>
 Below are all the channel content ISOs available for use with channel {0}.  If any channel content ISOs appear to be missing below, please ensure that your @@PRODUCT_NAME@@ Entitlement Certificate has been uploaded to @@PRODUCT_NAME@@ and correctly identifies the target channels.
@@ -19943,13 +19943,13 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
-      <target>Visualizar o ISOs de Conteúdo de Canal Base para o @@NOME_DO_PRODUTO@@. </target></trans-unit>
+      <target>Visualizar o ISOs de Conteúdo de Canal Base para o @@PRODUCT_NAME@@. </target></trans-unit>
       <trans-unit id="isodownload.channel-dumps.view-incr">
 <source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
-      <target>Visualizar o ISOs de Conteúdo de Canal Incremental para @@NOME_DO_PRODUTO@@. </target></trans-unit>
+      <target>Visualizar o ISOs de Conteúdo de Canal Incremental para @@PRODUCT_NAME@@. </target></trans-unit>
 	</group>
 
       <trans-unit id="sdc.channels.edit.available">
@@ -20127,7 +20127,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ - Serviços de Virtualização - Hosts de Virtualização</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ - Serviços de Virtualização - Hosts de Virtualização</target></trans-unit>
 
       <trans-unit id="guestlimited.jsp.header2">
         <source>Guest-Limited  Hosts</source>
@@ -20204,7 +20204,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ - Serviços de Virtualização - Hosts sem Convidados</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ - Serviços de Virtualização - Hosts sem Convidados</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.header2">
 <source>Guests of Non-Virtual Entitled Hosts</source>
@@ -20218,7 +20218,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Segue abaixo uma lista de sistemas convidados que não são associados a um sistema de máquina com serviço virtual (seja ele Virtualização ou Plataforma de Virtualização) no @@NOME_DO_PRODUTO@@. Estes sistemas estão consumindo o mesmo software e serviços de sistema que um sistema físico normal. </target></trans-unit>
+      <target>Segue abaixo uma lista de sistemas convidados que não são associados a um sistema de máquina com serviço virtual (seja ele Virtualização ou Plataforma de Virtualização) no @@PRODUCT_NAME@@. Estes sistemas estão consumindo o mesmo software e serviços de sistema que um sistema físico normal. </target></trans-unit>
 
       <trans-unit id="virtualentitlements.toolbar">
 <source>Virtualization Entitlements</source>
@@ -20239,7 +20239,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Você pode sempre remover o perfil de sistema @@NOME_DO_PRODUTO@@ de um convidado listado acima para libertar o software livre e os serviços de sistema que ele consome (ou então, você pode remover os serviços de sistemas de um convidado para libertar os serviços de sistema). Você pode libertar os serviços físicos associados ao convidado sem remover o perfil do convidado: </target></trans-unit>
+      <target>Você pode sempre remover o perfil de sistema @@PRODUCT_NAME@@ de um convidado listado acima para libertar o software livre e os serviços de sistema que ele consome (ou então, você pode remover os serviços de sistemas de um convidado para libertar os serviços de sistema). Você pode libertar os serviços físicos associados ao convidado sem remover o perfil do convidado: </target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsofknown">
 <source>Guests of Known Hosts</source>
@@ -20267,7 +20267,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Se você quiser libertar os serviços físicos de um convidado listado acima e estiver associado ao Host registrado com o @@NOME_DO_PRODUTO@@, por favor adicione um serviço de sistema de Virtualização ou Plataforma de Virtualização. </target></trans-unit>
+      <target>Se você quiser libertar os serviços físicos de um convidado listado acima e estiver associado ao Host registrado com o @@PRODUCT_NAME@@, por favor adicione um serviço de sistema de Virtualização ou Plataforma de Virtualização. </target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.unknownnote">
 <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
@@ -20281,7 +20281,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>O sistema host do seu convidado está registrado no @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>O sistema host do seu convidado está registrado no @@PRODUCT_NAME@@ </target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>
@@ -20295,7 +20295,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>O host está registrado ao canal de Ferramentas @@NOME_DO_PRODUTO@@ e possui o pacote rhn-virtualization-host instalado. </target></trans-unit>
+      <target>O host está registrado ao canal de Ferramentas @@PRODUCT_NAME@@ e possui o pacote rhn-virtualization-host instalado. </target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.nonredhatnote">
 <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
@@ -20337,7 +20337,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ - Serviços de Virtualização - Hosts de Plataforma de Virtualização</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ - Serviços de Virtualização - Hosts de Plataforma de Virtualização</target></trans-unit>
 
       <trans-unit id="guestunlimited.jsp.header2">
         <source>Unlimited-Guest Virtualization Platform Hosts</source>
@@ -20407,7 +20407,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate.do</context>
         </context-group>
-      <target>Sua função de &lt;strong&gt;Administrador do @@NOME_DO_PRODUTO@@&lt;/strong&gt; não permitirá que você se autentique ou modifique esta nova organização, e seu registro do @@NOME_DO_PRODUTO@@ não pode ser membro de mais de uma organização. Consequentemente, você precisará criar um registro novo para o &lt;strong&gt; Administrador da Organização&lt;/strong&gt; inicial para esta organização: </target></trans-unit>
+      <target>Sua função de &lt;strong&gt;Administrador do @@PRODUCT_NAME@@&lt;/strong&gt; não permitirá que você se autentique ou modifique esta nova organização, e seu registro do @@PRODUCT_NAME@@ não pode ser membro de mais de uma organização. Consequentemente, você precisará criar um registro novo para o &lt;strong&gt; Administrador da Organização&lt;/strong&gt; inicial para esta organização: </target></trans-unit>
 
      <trans-unit id="org.channel.subscribed.systems">
         <source>Subscribed Systems</source>
@@ -20507,7 +20507,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
-      <target>Necessário para todos os sistemas registrados no @@NOME_DO_PRODUTO@@. </target></trans-unit>
+      <target>Necessário para todos os sistemas registrados no @@PRODUCT_NAME@@. </target></trans-unit>
 
       <trans-unit id="orgsystemsubs.jsp.mon_tip">
         <source>Enables the tracking of monitoring data for a system.</source>
@@ -20549,14 +20549,14 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
        </context-group>
-      <target>Segue uma lista de todos os serviços de canal de software neste @@NOME_DO_PRODUTO@@, em todas as empresas, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
+      <target>Segue uma lista de todos os serviços de canal de software neste @@PRODUCT_NAME@@, em todas as empresas, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
 
       <trans-unit id="sys_entitlements.header">
         <source>System Entitlements Across @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>Direitos a Serviços de Sistema no @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>Direitos a Serviços de Sistema no @@PRODUCT_NAME@@ </target></trans-unit>
 
       <trans-unit id="sys_entitlements.ent_name">
         <source>Entitlement Name</source>
@@ -20598,8 +20598,8 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>*&lt;strong&gt;Dica:&lt;/strong&gt; 'Total' se refere ao total disponível no @@NOME_DO_PRODUTO@@
-como refletido neste certificado do @@NOME_DO_PRODUTO@@. </target></trans-unit>
+      <target>*&lt;strong&gt;Dica:&lt;/strong&gt; 'Total' se refere ao total disponível no @@PRODUCT_NAME@@
+como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
 
       <trans-unit id="sys_entitlements.not_allocated">
         <source>Not Allocated*</source>
@@ -20784,7 +20784,7 @@ como refletido neste certificado do @@NOME_DO_PRODUTO@@. </target></trans-unit>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
-      <target>A Alocação Atual do serviço para {0} nas organizações neste @@NOME_DO_PRODUTO@@ está exposta abaixo. Você pode modificar para a alocação dos serviços de cada organização na coluna "Total Proposto", mas suas modificações não serão efetuadas até que confirme usando o botão 'Confirme Modificações', abaixo. </target></trans-unit>
+      <target>A Alocação Atual do serviço para {0} nas organizações neste @@PRODUCT_NAME@@ está exposta abaixo. Você pode modificar para a alocação dos serviços de cada organização na coluna "Total Proposto", mas suas modificações não serão efetuadas até que confirme usando o botão 'Confirme Modificações', abaixo. </target></trans-unit>
       <trans-unit id="entitlementorgs.jsp.possible_vals">
         <source>Possible Values: &lt;strong&gt;0&lt;/strong&gt; to &lt;strong&gt;{0}&lt;/strong&gt;.</source>
         <context-group name="ctx">
@@ -20808,7 +20808,7 @@ como refletido neste certificado do @@NOME_DO_PRODUTO@@. </target></trans-unit>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
-      <target>Uso de Serviço em todo o @@NOME_DO_PRODUTO@@ </target></trans-unit>
+      <target>Uso de Serviço em todo o @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="entitlementorgs.inuse">
 <source>In Use*</source>
         <context-group name="ctx">
@@ -20886,7 +20886,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       <target>&lt;strong&gt;*Dica:&lt;/strong&gt; 'Total' refere-se ao total de serviços disponíveis para
-as organizações (excluindo a organização do @@NOME_DO_PRODUTO@@ padrão) neste @@NOME_DO_PRODUTO@@. Não é igual ao total disponível no certificado do @@NOME_DO_PRODUTO@@. </target></trans-unit>
+as organizações (excluindo a organização do @@PRODUCT_NAME@@ padrão) neste @@PRODUCT_NAME@@. Não é igual ao total disponível no certificado do @@PRODUCT_NAME@@. </target></trans-unit>
 
       <trans-unit id="orgsoftwaresubs.jsp.header2">
 <source>Software Channel Entitlement Counts</source>
@@ -21436,7 +21436,7 @@ Você poderá alterar os canais base dos sistemas em que você está inscrito co
 
       <trans-unit id="badcsvaction.jsp.reason1">
           <source>Your login session to the @@PRODUCT_NAME@@ expired. @@PRODUCT_NAME@@ sessions time out when your browser is left unattended for an extended period of time for security.</source>
-      <target>Sua sessão de login ao @@NOME_DO_PRODUTO@@ expirou. Para sua própria segurança, as sessões do @@NOME_DO_PRODUTO@@ venceram depois de um longo tempo que seu browser ficou parado. </target></trans-unit>
+      <target>Sua sessão de login ao @@PRODUCT_NAME@@ expirou. Para sua própria segurança, as sessões do @@PRODUCT_NAME@@ venceram depois de um longo tempo que seu browser ficou parado. </target></trans-unit>
 
       <trans-unit id="badcsvaction.jsp.reason2">
 			<source>You may have followed an incorrect or out-of-date link. Double-check the link you followed - did you type or copy it correctly? If so, you may wish to contact the person who provided you with this link to let them know that it should be updated.</source>
@@ -21659,7 +21659,7 @@ given channel.</source>
       <target>Este é o perfil do kickstart de sua empresa.</target></trans-unit>
       <trans-unit id="help.jsp.refguide">
         <source>@@PRODUCT_NAME@@ Reference Guide</source>
-      <target>@@NOME_DO_PRODUTO@@ Guia de Referência </target></trans-unit>
+      <target>@@PRODUCT_NAME@@ Guia de Referência </target></trans-unit>
       <trans-unit id="help.jsp.helpdesk">
         <source>Welcome to the Help Desk</source>
       <target>Bem-vindo(a) ao Help Desk</target></trans-unit>
@@ -21671,10 +21671,10 @@ given channel.</source>
       <target>Instruções detalhadas para usar o serviço RHN.</target></trans-unit>
 	  <trans-unit id="help.jsp.install">
         <source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
-      <target>Informações detalhadas a respeito do servidor do @@NOME_DO_PRODUTO@@ e sua instalação.</target></trans-unit>
+      <target>Informações detalhadas a respeito do servidor do @@PRODUCT_NAME@@ e sua instalação.</target></trans-unit>
 	  <trans-unit id="help.jsp.install.title">
         <source>@@PRODUCT_NAME@@ Installation Guide</source>
-      <target>Guia de Instalação do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Guia de Instalação do @@PRODUCT_NAME@@</target></trans-unit>
 	  <trans-unit id="help.jsp.proxy">
         <source>Detailed information regarding RHN Proxy server.</source>
       <target>Informações detalhadas a respeito do RHN Proxy server</target></trans-unit>
@@ -21683,22 +21683,22 @@ given channel.</source>
       <target>Proxy Guide</target></trans-unit>
 	  <trans-unit id="help.jsp.clients">
         <source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
-      <target>Documentação para configurar clientes para conectarem-se ao Proxy do @@NOME_DO_PRODUTO@@ ou ao servidor @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>Documentação para configurar clientes para conectarem-se ao Proxy do @@PRODUCT_NAME@@ ou ao servidor @@PRODUCT_NAME@@.</target></trans-unit>
 	  <trans-unit id="help.jsp.clients.title">
         <source>Client Configuration Guide</source>
       <target>Guia de Configuração do Cliente</target></trans-unit>
 	  <trans-unit id="help.jsp.channel">
         <source>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</source>
-      <target>Documentação para a criação e manutenção de canais padronizados usando  @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>Documentação para a criação e manutenção de canais padronizados usando  @@PRODUCT_NAME@@.</target></trans-unit>
 	  <trans-unit id="help.jsp.channel.title">
         <source>Channel Management Guide</source>
       <target>Permissões de Administração do Canal </target></trans-unit>
 	  <trans-unit id="help.jsp.release.title">
         <source>@@PRODUCT_NAME@@ Release Notes</source>
-      <target>Notas de Lançamento do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>Notas de Lançamento do @@PRODUCT_NAME@@.</target></trans-unit>
 	  <trans-unit id="help.jsp.proxyrelease.title">
         <source>@@PRODUCT_NAME@@ Proxy Release Notes</source>
-      <target>Notas de Lançamento do Proxy do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>Notas de Lançamento do Proxy do @@PRODUCT_NAME@@.</target></trans-unit>
 
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>
@@ -21927,7 +21927,7 @@ given channel.</source>
 
       <trans-unit id="baddownload.jsp.reason3">
 			<source>The @@PRODUCT_NAME@@ server does not have read permissions on the specified file.</source>
-      <target>O servidor do @@NOME_DO_PRODUTO@@ não possui permissões de leitura no arquivo especificado.</target></trans-unit>
+      <target>O servidor do @@PRODUCT_NAME@@ não possui permissões de leitura no arquivo especificado.</target></trans-unit>
 
       <trans-unit id="baddownload.jsp.retry">
 			<source>Please revisit the page you recieved this url from to recieve a new one.</source>
@@ -22087,11 +22087,11 @@ given channel.</source>
 
       <trans-unit id="layout.jsp.productname">
             <source>@@PRODUCT_NAME@@</source>
-      <target>@@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>@@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.name">
             <source>@@PRODUCT_NAME@@ project</source>
-      <target>projeto do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>projeto do @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.title">
             <source>Visit http://spacewalk.redhat.com/ for more information</source>

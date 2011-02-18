@@ -414,7 +414,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Contatar @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Contatar @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Create Account">
 <source>Create Account</source>
         <context-group name="ctx">
@@ -524,7 +524,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Obter Software do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Obter Software do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Global Config">
 <source>Global Config</source>
         <context-group name="ctx">
@@ -620,19 +620,19 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Guia do @@NOME_DO_PRODUTO@@ de Gerenciamento</target></trans-unit>
+      <target>Guia do @@PRODUCT_NAME@@ de Gerenciamento</target></trans-unit>
       <trans-unit id="Management Spacewalk">
 <source>Management @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ de Gerenciamento</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ de Gerenciamento</target></trans-unit>
       <trans-unit id="Management Spacewalk Release Notes">
 <source>Management @@PRODUCT_NAME@@ Release Notes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Notas da Versão do @@NOME_DO_PRODUTO@@ de Gerenciamento</target></trans-unit>
+      <target>Notas da Versão do @@PRODUCT_NAME@@ de Gerenciamento</target></trans-unit>
       <trans-unit id="Manage Software Channels">
 <source>Manage Software Channels</source>
         <context-group name="ctx">
@@ -824,13 +824,13 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Ferramentas de Administração do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Ferramentas de Administração do @@PRODUCT_NAME@@</target></trans-unit>
           <trans-unit id="Spacewalk Login">
 <source>@@PRODUCT_NAME@@ Login</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-          <target>Login do @@NOME_DO_PRODUTO@@</target></trans-unit>
+          <target>Login do @@PRODUCT_NAME@@</target></trans-unit>
           <trans-unit id="Create Login">
 <source>Create Login</source>
         <context-group name="ctx">
@@ -842,7 +842,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Ferramentas de Suporte do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Ferramentas de Suporte do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Schedule">
 <source>Schedule</source>
         <context-group name="ctx">
@@ -1216,19 +1216,19 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-      <target>Administradores do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Administradores do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Spacewalk Administrators">
 <source>@@PRODUCT_NAME@@ Administrators</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-      <target>Administradores do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Administradores do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Spacewalk Super Users">
 <source>@@PRODUCT_NAME@@ Super Users</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-      <target>Super Usuários do@@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Super Usuários do@@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="System Group Administrators">
 <source>System Group Administrators</source>
         <context-group name="ctx">
@@ -2022,7 +2022,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
         <context context-type="sourcefile">/rhn/kickstart/KickstartOptionsEdit</context>
         </context-group>
-      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; As URLs do kickstart padrão do @@PRODUCT_NAME@@ são armazenadas com somente o caminho do arquivo, permitindo que o @@NOME_DO_PRODUTO@@ saiba quando ajustar de forma dinâmica o hostname na URL renderizada no arquivo do kickstart. (para proxies, etc.) Você deve padronizar este valor, modificando-o para uma URL totalmente qualificada, a qual aparecerá no arquivo do kickstart como está.</target></trans-unit>
+      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; As URLs do kickstart padrão do @@PRODUCT_NAME@@ são armazenadas com somente o caminho do arquivo, permitindo que o @@PRODUCT_NAME@@ saiba quando ajustar de forma dinâmica o hostname na URL renderizada no arquivo do kickstart. (para proxies, etc.) Você deve padronizar este valor, modificando-o para uma URL totalmente qualificada, a qual aparecerá no arquivo do kickstart como está.</target></trans-unit>
       <trans-unit id="kickstart.iprange_add.success">
         <source>Successfully added IP Range to Kickstart Profile {0}</source>
         <context-group name="ctx">
@@ -2216,7 +2216,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-      <target>Configuração do Daemon do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Configuração do Daemon do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="packages.verify">
 <source>Verify deployed packages</source>
         <context-group name="ctx">
@@ -2228,7 +2228,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-      <target>Permite o uso do rhn-applet com um @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Permite o uso do rhn-applet com um @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="rollback.rollback">
 <source>Rollback a transaction</source>
         <context-group name="ctx">
@@ -2395,7 +2395,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-      <target>Administrador do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Administrador do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="org_applicant">
 <source>Organization Applicant</source>
         <context-group name="ctx">
@@ -2413,7 +2413,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-      <target>Super usuário do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Super usuário do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="coma_admin">
 <source>Coma CMS Administrator</source>
         <context-group name="ctx">
@@ -2437,7 +2437,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-      <target>Administrador de Suporte do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Administrador de Suporte do @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="config_admin">
 <source>Configuration Administrator</source>
         <context-group name="ctx">
@@ -3522,7 +3522,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
-      <target>Hora atual do @@NOME_DO_PRODUTO@@:</target></trans-unit>
+      <target>Hora atual do @@PRODUCT_NAME@@:</target></trans-unit>
 
       <trans-unit id="timetag.expected">
 <source>Expected check-in time:</source>
@@ -3536,7 +3536,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
-      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Este sistema não fez checkin no @@NOME_DO_PRODUTO@@ recentemente. Como um sistema não pode ser atualizado sem o checkin no @@NOME_DO_PRODUTO@@, é improvável que esta ação seja completa.&lt;br/&gt;&lt;br/&gt;Por favor faça o checkin do sistema e garanta que o rhnsd esteja rodando.</target></trans-unit>
+      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Este sistema não fez checkin no @@PRODUCT_NAME@@ recentemente. Como um sistema não pode ser atualizado sem o checkin no @@PRODUCT_NAME@@, é improvável que esta ação seja completa.&lt;br/&gt;&lt;br/&gt;Por favor faça o checkin do sistema e garanta que o rhnsd esteja rodando.</target></trans-unit>
 
       <trans-unit id="timetag.categorizeFormat">
 <source>{0} {1} {2}</source>
@@ -3942,7 +3942,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; O @@NOME_DO_PRODUTO@@ &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;agendou&lt;/a&gt;&lt;/strong&gt; uma verificação de atualizações de hardware para &lt;strong&gt;{2}&lt;/strong&gt; a ser rodado antes do pacote profile sync.  Isto é necessário para verificar se o sistema tem a habilidade de comparar pacotes.</target></trans-unit>
+      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; O @@PRODUCT_NAME@@ &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;agendou&lt;/a&gt;&lt;/strong&gt; uma verificação de atualizações de hardware para &lt;strong&gt;{2}&lt;/strong&gt; a ser rodado antes do pacote profile sync.  Isto é necessário para verificar se o sistema tem a habilidade de comparar pacotes.</target></trans-unit>
 
       <trans-unit id="filterCreate.success">
 <source>The filter {0} was successfully created</source>
@@ -5868,7 +5868,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Você criou seu primeiro usuário para o serviço Satellite do @@NOME_DO_PRODUTO@@.  A configuração adicional dever ser finalizada pelo &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicando aqui&lt;/strong&gt;&lt;/a&gt;</target></trans-unit>
+      <target>Você criou seu primeiro usuário para o serviço Satellite do @@PRODUCT_NAME@@.  A configuração adicional dever ser finalizada pelo &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicando aqui&lt;/strong&gt;&lt;/a&gt;</target></trans-unit>
 
     <trans-unit id="satellite.expired">
         <source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -5897,7 +5897,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Upload do certificado bem-sucedido.  O @@NOME_DO_PRODUTO@@ foi reativado.</target></trans-unit>
+      <target>Upload do certificado bem-sucedido.  O @@PRODUCT_NAME@@ foi reativado.</target></trans-unit>
 
     <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>
@@ -5918,7 +5918,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Versão desconhecida do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Versão desconhecida do @@PRODUCT_NAME@@</target></trans-unit>
 
     <trans-unit id="certificate.config.error.20">
         <source>Remote activation failure, see log file for more details.</source>
@@ -5953,21 +5953,21 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>canal do @@NOME_DO_PRODUTO@@ não foi encontrado</target></trans-unit>
+      <target>canal do @@PRODUCT_NAME@@ não foi encontrado</target></trans-unit>
 
     <trans-unit id="certificate.config.error.83">
         <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Nenhum serviço de canal do @@NOME_DO_PRODUTO@@ remanescente</target></trans-unit>
+      <target>Nenhum serviço de canal do @@PRODUCT_NAME@@ remanescente</target></trans-unit>
 
     <trans-unit id="certificate.config.error.84">
         <source>Invalid @@PRODUCT_NAME@@ certificate</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Certificado inválido do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Certificado inválido do @@PRODUCT_NAME@@</target></trans-unit>
 
     <trans-unit id="certificate.config.error.85">
         <source>Unknown activation error, see log file for more details.</source>
@@ -5981,14 +5981,14 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ sem canal base ou servidor pai</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ sem canal base ou servidor pai</target></trans-unit>
 
     <trans-unit id="certificate.config.error.87">
         <source>No @@PRODUCT_NAME@@ channel available for this version</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-      <target>Nenhum canal do @@NOME_DO_PRODUTO@@ disponível para esta versão</target></trans-unit>
+      <target>Nenhum canal do @@PRODUCT_NAME@@ disponível para esta versão</target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>
@@ -6002,7 +6002,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/BootstrapConfig.do</context>
         </context-group>
-      <target>hostname do servidor do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>hostname do servidor do @@PRODUCT_NAME@@</target></trans-unit>
 
 
     <trans-unit id="bootstrap.config.error.10">
@@ -6096,20 +6096,20 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ reiniciando. Caso esta página não seja atualizada em 5 minutos, por favor clique  &lt;a href="/rhn/YourRhn.do"&gt;aqui&lt;/a&gt; para tentar manualmente. </target></trans-unit>
+      <target>@@PRODUCT_NAME@@ reiniciando. Caso esta página não seja atualizada em 5 minutos, por favor clique  &lt;a href="/rhn/YourRhn.do"&gt;aqui&lt;/a&gt; para tentar manualmente. </target></trans-unit>
 
     <trans-unit id="restart.config.norestart">
         <source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-    <target>Por favor confirme se você deseja reiniciar o @@NOME_DO_PRODUTO@@, selecionando a caixa no formulário abaixo.</target></trans-unit>
+    <target>Por favor confirme se você deseja reiniciar o @@PRODUCT_NAME@@, selecionando a caixa no formulário abaixo.</target></trans-unit>
     <trans-unit id="restart.config.restarted">
         <source>@@PRODUCT_NAME@@ has been restarted.</source>
         <context-group name="ctx">
            <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
          </context-group>
-    <target>O @@NOME_DO_PRODUTO@@ foi reativado.</target></trans-unit>
+    <target>O @@PRODUCT_NAME@@ foi reativado.</target></trans-unit>
 
 
     <trans-unit id="scout.default.name">
@@ -6117,7 +6117,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>Agente de Monitoramento do @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>Agente de Monitoramento do @@PRODUCT_NAME@@</target></trans-unit>
 
     <trans-unit id="Panic Destination">
         <source>Panic Destination</source>
@@ -6517,21 +6517,21 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-<target>Você possui subscrições sobrando no canal provisioning do @@NOME_DO_PRODUTO@@ para este canal base atual do sistema.</target></trans-unit>
+<target>Você possui subscrições sobrando no canal provisioning do @@PRODUCT_NAME@@ para este canal base atual do sistema.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>Não foi possível encontrar os pacotes do provisioning do @@NOME_DO_PRODUTO@@ necessários, dados o canal base atual deste sistema e o canal alvo almejado: {0}</target></trans-unit>
+      <target>Não foi possível encontrar os pacotes do provisioning do @@PRODUCT_NAME@@ necessários, dados o canal base atual deste sistema e o canal alvo almejado: {0}</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.cantsubscribe">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>Você possui subscrições sobrando no canal provisioning do @@NOME_DO_PRODUTO@@ para este canal base atual do sistema.</target></trans-unit>
+      <target>Você possui subscrições sobrando no canal provisioning do @@PRODUCT_NAME@@ para este canal base atual do sistema.</target></trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe.channel">
         <source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
         <context-group name="ctx">
@@ -6565,7 +6565,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>Não foi possível buscar canais de Ferramentas do @@NOME_DO_PRODUTO@@ para {1}.</target></trans-unit>
+      <target>Não foi possível buscar canais de Ferramentas do @@PRODUCT_NAME@@ para {1}.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>
@@ -6593,7 +6593,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-      <target>O sistema convidado não se comunicou com o @@NOME_DO_PRODUTO@@ nos últimos {0} minutos. O processo de instalação pode ser lento devido às restrições do hardware, ou ele pode estar congelado. .&lt;p/&gt;Você pode preferir aplicar a resolução de problemas, executando &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; no sistema hóspede. Este comando não permitirá que você se conecte ao console de texto do convidado enquanto estiver instalando, o qual pode fornecer informações adicionais sobre o estado da instalação deste sistema convidado.</target></trans-unit>
+      <target>O sistema convidado não se comunicou com o @@PRODUCT_NAME@@ nos últimos {0} minutos. O processo de instalação pode ser lento devido às restrições do hardware, ou ele pode estar congelado. .&lt;p/&gt;Você pode preferir aplicar a resolução de problemas, executando &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; no sistema hóspede. Este comando não permitirá que você se conecte ao console de texto do convidado enquanto estiver instalando, o qual pode fornecer informações adicionais sobre o estado da instalação deste sistema convidado.</target></trans-unit>
 
       <trans-unit id="tree.edit.success">
         <source>Kickstart Distribution Updated</source>
@@ -7355,15 +7355,15 @@ Follow this url to see the full list of inactive systems:
 
 	<trans-unit id="sdc.config.differing.files_0">
 		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-        <target>Nenhum arquivo existente no sistema existente diferiu dos arquivos Gerenciados pelo @@NOME_DO_PRODUTO@@</target></trans-unit>
+        <target>Nenhum arquivo existente no sistema existente diferiu dos arquivos Gerenciados pelo @@PRODUCT_NAME@@</target></trans-unit>
 
 	<trans-unit id="sdc.config.differing.files_1">
 		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
-	<target>1 de 1 arquivo no sistema diferiu dos arquivos Gerenciados pelo @@NOME_DO_PRODUTO@@</target></trans-unit>
+	<target>1 de 1 arquivo no sistema diferiu dos arquivos Gerenciados pelo @@PRODUCT_NAME@@</target></trans-unit>
 
 	<trans-unit id="sdc.config.differing.files_2">
 		<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-	<target>{0} de {1} arquivo no sistema diferiu dos arquivos Gerenciados pelo @@NOME_DO_PRODUTO@@</target></trans-unit>
+	<target>{0} de {1} arquivo no sistema diferiu dos arquivos Gerenciados pelo @@PRODUCT_NAME@@</target></trans-unit>
     </group>
 
     <group>
@@ -7850,7 +7850,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-      <target>Nennum canal com o pacote {0} foi encontrado. Este pacote é necessário para gerenciar os convidados virtuais com o @@NOME_DO_PRODUTO@@.</target></trans-unit>
+      <target>Nennum canal com o pacote {0} foi encontrado. Este pacote é necessário para gerenciar os convidados virtuais com o @@PRODUCT_NAME@@.</target></trans-unit>
 
 	  <trans-unit id="system.entitle.alreadyentitled">
 <source>The system already has the {0} entitlement.</source>

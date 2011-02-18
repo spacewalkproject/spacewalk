@@ -7,7 +7,7 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
       <context context-type="sourcefile">/users/ChangeEmail.do</context>
         </context-group>
-      <target>E-mail de Verificação do Login @@NOME_DO_PRODUTO@@</target></trans-unit>
+      <target>E-mail de Verificação do Login @@PRODUCT_NAME@@</target></trans-unit>
 
 <!-- New Account Email -->
       <trans-unit id="email.newaccount.subject">
@@ -16,7 +16,7 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
       <context context-type="sourcefile">/users/ChangeEmail.do</context>
         </context-group>
-      <target>Sua Conta @@NOME_DO_PRODUTO@@ está pronta</target></trans-unit>
+      <target>Sua Conta @@PRODUCT_NAME@@ está pronta</target></trans-unit>
 
       <trans-unit id="email.newaccountbycreator.body">
 <source>Hello,
@@ -52,7 +52,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 Um login da Red Hat foi criado para você por {0} {1}. O seu
 login, combinado a uma assinatura ativa da Red Hat, possibilitam o acesso à
-administração de sistemas no @@NOME_DO_PRODUTO@@.
+administração de sistemas no @@PRODUCT_NAME@@.
 
   Login da Red Hat: {2}
        Senha: {3}
@@ -62,7 +62,7 @@ administração de sistemas no @@NOME_DO_PRODUTO@@.
 
 Importante: por favor, altere sua senha ao se autenticar.
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 {6}</target></trans-unit>
 
     <trans-unit id="email.newaccount.body">
@@ -109,7 +109,7 @@ administração de sistemas no Red Hat Network.
 
 Importante: por favor, altere sua senha ao se autenticar.
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 {4}</target></trans-unit>
 
       <trans-unit id="email.newaccount.pam.body">
@@ -150,7 +150,7 @@ proporciona acesso ao gerenciamento de sistemas através do Red Hat Network.
 
   {5}
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 {6}</target></trans-unit>
 
 <!-- New User Email -->
@@ -161,7 +161,7 @@ Obrigado por usar o @@NOME_DO_PRODUTO@@.
       <context context-type="sourcefile">/users/ChangeEmail.do</context>
       <context context-type="paramnotes">@@PRODUCT_NAME@@ User Created: dugb (Bordon, Duglas &lt;dugb@meko.com&gt;)</context>
         </context-group>
-      <target>@@NOME_DO_PRODUTO@@ Usuário Criado: {0} ({1}, {2} &lt;{3}&gt;)</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ Usuário Criado: {0} ({1}, {2} &lt;{3}&gt;)</target></trans-unit>
 
       <trans-unit id="email.newuser.body">
 <source>Hello,
@@ -200,11 +200,11 @@ visite:
 
   {1}
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 {2}</target></trans-unit>
       <trans-unit id="email.user.deleted.subject">
          <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>Conta do @@NOME_DO_PRODUTO@@ Desativada: {0}</target></trans-unit>
+      <target>Conta do @@PRODUCT_NAME@@ Desativada: {0}</target></trans-unit>
 
       <trans-unit id="email.user.deleted.body">
          <source>
@@ -423,9 +423,9 @@ Existem diversas causas para este acontecimento:
 
 1) Você reisntalou recentemente um sistema e está tentando associá-lo
     a um outro sistema existente, subscrição ativa. Por favor, certifique-se de
-     excluir seu perfil de sistema existente no @@NOME_DO_PRODUTO@@.
+     excluir seu perfil de sistema existente no @@PRODUCT_NAME@@.
 
-2) O número de sistemas que você conectou ao @@NOME_DO_PRODUTO@@ excede
+2) O número de sistemas que você conectou ao @@PRODUCT_NAME@@ excede
     o número de subscrições da Red Hat ativas e associadas com sua conta.
     Isto é devido às suas subscrições terem vencido o prazo de validade ou
     você precisar adquirir uma subscrição da Red Hat.
@@ -448,7 +448,7 @@ da Red Hat no:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 </target></trans-unit>
 
 <group>
@@ -486,7 +486,7 @@ Summary:
       </context>
     </context-group>
   <target>
-@@NOME_DO_PRODUTO@@ determina que a informação seguinte aplica-se a
+@@PRODUCT_NAME@@ determina que a informação seguinte aplica-se a
 um ou mais sistemas em que você registrou:
 
 A informação completa sobre estes erros pode ser encontrada no seguinte local:
@@ -604,7 +604,7 @@ click the "Details" tab.
   <target>
 Modificação das Preferências de Notificação
 ---------------------------------
-Para ativar/desativar globalmente suas preferências de Alerta de Erros, por favor realize o login no @@NOME_DO_PRODUTO@@
+Para ativar/desativar globalmente suas preferências de Alerta de Erros, por favor realize o login no @@PRODUCT_NAME@@
 e navegue do tab "Visão Geral" / "Sua Conta" para "Preferências".
 
         URL: {0}
@@ -624,7 +624,7 @@ da visualização individual do sistema.
           <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
           <context context-type="paramnotes">{0} - current time in short format</context>
         </context-group>
-      <target>Relatório @@NOME_DO_PRODUTO@@ de Status Diário para {0}</target></trans-unit>
+      <target>Relatório @@PRODUCT_NAME@@ de Status Diário para {0}</target></trans-unit>
       <trans-unit id="dailysummary.email.body">
 <source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
@@ -659,11 +659,11 @@ Thank you for using @@PRODUCT_NAME@@.
              {6} = email account info from template db
           </context>
         </context-group>
-      <target>Este é o Relatório de Status do @@NOME_DO_PRODUTO@@ para sua conta {0}, conforme o {1}.
+      <target>Este é o Relatório de Status do @@PRODUCT_NAME@@ para sua conta {0}, conforme o {1}.
 
 Este e-mail será enviado nas seguintes condições:
 
-1.  O sistema falhar em checar o @@NOME_DO_PRODUTO@@ com uma janela de 24 horas.
+1.  O sistema falhar em checar o @@PRODUCT_NAME@@ com uma janela de 24 horas.
 2.  O sistema registrar a atividade de ação programada.
 
 {2}
@@ -676,7 +676,7 @@ Consulte a página abaixo para maiores informações de como desativar este e-ma
 https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 {5}
 {6}
 </target></trans-unit>
@@ -710,12 +710,12 @@ Thank you for using @@PRODUCT_NAME@@.
           </context>
         </context-group>
       <target>
-Caro Usuário do @@NOME_DO_PRODUTO@@,
+Caro Usuário do @@PRODUCT_NAME@@,
 
 Este e-mail foi enviado para validar o endereço de e-mail que você
 forneceu para seu login da Red Hat. O seu login da Red Hat, em combinação
 com a subscrição da Red Hat ativa, fornece acesso às capacidades de
-gerenciamento de sistema através do @@NOME_DO_PRODUTO@@.
+gerenciamento de sistema através do @@PRODUCT_NAME@@.
 
 Para garantia de segurança da informação de conta associada com seu
 login da Red Hat,  por favor espere um momento para clicar no link abaixo
@@ -727,7 +727,7 @@ Por favor, visite o seguinte URL, para confirmar seu endereço de e-mail:
 
 {0}
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 {1}
 {2}
 </target></trans-unit>
@@ -774,12 +774,12 @@ Thank you for using @@PRODUCT_NAME@@.
           </context>
         </context-group>
       <target>
-Caro Usuário do @@NOME_DO_PRODUTO@@,
+Caro Usuário do @@PRODUCT_NAME@@,
 
 Este e-mail foi enviado com o objetivo de validar o endereço de e-mail que você
 forneceu para seu login da Red Hat. O seu login da Red Hat, em combinação
 com uma subscrição ativa da Red Hat, fornece acesso às capacidades de
-gerenciamento de sistema através do @@NOME_DO_PRODUTO@@.
+gerenciamento de sistema através do @@PRODUCT_NAME@@.
 
 Por favor, espere um minuto antes de clicar no link abaixo
 e verifique se possuímos o endereço de e-mail correto,
@@ -794,7 +794,7 @@ Por favor visite o seguinte URL para confirmar seu endereço de e-mail:
 
 {0}
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
+Obrigado por usar o @@PRODUCT_NAME@@.
 {1}
 {2}
 </target></trans-unit>
@@ -811,7 +811,7 @@ Obrigado por usar o @@NOME_DO_PRODUTO@@.
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
-      <target>Advertência de vencimento do Certificado do @@NOME_DO_PRODUTO@@ da Red Hat</target></trans-unit>
+      <target>Advertência de vencimento do Certificado do @@PRODUCT_NAME@@ da Red Hat</target></trans-unit>
 
       <trans-unit id="email.satellitecert.graceperiod.body">
 <source>
@@ -834,16 +834,16 @@ Thank you for using @@PRODUCT_NAME@@.
           </context>
         </context-group>
       <target>
-Caro Usuário do @@NOME_DO_PRODUTO@@,
+Caro Usuário do @@PRODUCT_NAME@@,
 
-Este e-mail foi enviado para informá-lo de que seu Certificado do @@NOME_DO_PRODUTO@@
+Este e-mail foi enviado para informá-lo de que seu Certificado do @@PRODUCT_NAME@@
 está vencido em seu satellite local {0}. Após {1} dia(s), os serviços
-de gerenciamento de sistemas fornecidos por seu Servidor do @@NOME_DO_PRODUTO@@, irão tornar-se inacessíveis.
+de gerenciamento de sistemas fornecidos por seu Servidor do @@PRODUCT_NAME@@, irão tornar-se inacessíveis.
 Por favor, consulte seu Representate de Serviço ao Consumidor da Red Hat para maiores informações
-de como renovar seu Certificado do @@NOME_DO_PRODUTO@@.
+de como renovar seu Certificado do @@PRODUCT_NAME@@.
 
-Obrigado por  usar o @@NOME_DO_PRODUTO@@.
---Time do @@NOME_DO_PRODUTO@@
+Obrigado por  usar o @@PRODUCT_NAME@@.
+--Time do @@PRODUCT_NAME@@
 </target></trans-unit>
 
       <trans-unit id="email.satellitecert.expired.subject">
@@ -871,16 +871,16 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="paramnotes">{0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com </context>
         </context-group>
       <target>
-Caro Usuário do @@NOME_DO_PRODUTO@@,
+Caro Usuário do @@PRODUCT_NAME@@,
 
-Este e-mail está sendo enviado para informá-lo de que seu Certificado do @@NOME_DO_PRODUTO@@
+Este e-mail está sendo enviado para informá-lo de que seu Certificado do @@PRODUCT_NAME@@
 venceu em seu satellite local {0}. Os serviços de gerenciamento de sistema irão tronar-se inacessíveis
 até que seu certificado seja renovado. Por favor, consulte seu Representante de Serviço ao Consumidor
-regional para maiores informações de como renovar seu Certificado do @@NOME_DO_PRODUTO@@.
+regional para maiores informações de como renovar seu Certificado do @@PRODUCT_NAME@@.
 
 
-Obrigado por usar o @@NOME_DO_PRODUTO@@.
---Time do @@NOME_DO_PRODUTO@@
+Obrigado por usar o @@PRODUCT_NAME@@.
+--Time do @@PRODUCT_NAME@@
 </target></trans-unit>
     </body>
   </file>

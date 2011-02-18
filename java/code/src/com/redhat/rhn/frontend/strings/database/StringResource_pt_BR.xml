@@ -370,49 +370,49 @@
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@NOME_DO_PRODUTO@@ email do administrador</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ email do administrador</target></trans-unit>
 
     <trans-unit id="RHN_DB_NAME">
 <source>@@PRODUCT_NAME@@ database name</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@NOME_DO_PRODUTO@@ nome do banco de dados</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ nome do banco de dados</target></trans-unit>
 
     <trans-unit id="RHN_DB_PASSWD">
 <source>@@PRODUCT_NAME@@ database password</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@NOME_DO_PRODUTO@@ senha do banco de dados</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ senha do banco de dados</target></trans-unit>
 
     <trans-unit id="RHN_DB_TABLE_OWNER">
 <source>@@PRODUCT_NAME@@ Database table owner</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@NOME_DO_PRODUTO@@ proprietário da tabela de banco de dados</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ proprietário da tabela de banco de dados</target></trans-unit>
 
     <trans-unit id="RHN_DB_USERNAME">
 <source>@@PRODUCT_NAME@@ database username</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@NOME_DO_PRODUTO@@ nome do usuaŕio do banco de dados</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ nome do usuaŕio do banco de dados</target></trans-unit>
 
 	<trans-unit id="RHN_SAT_HOSTNAME">
 <source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@NOME_DO_PRODUTO@@ hostname (FQDN)</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ hostname (FQDN)</target></trans-unit>
 
     <trans-unit id="RHN_SAT_WEB_PORT">
 <source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@NOME_DO_PRODUTO@@ porta do webservert (80 para http, 443 para https)</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ porta do webservert (80 para http, 443 para https)</target></trans-unit>
 
     <trans-unit id="XPROTO">
 <source>External protocol ('http' or 'https')</source>
@@ -3328,10 +3328,10 @@
         <target>Oracle</target></trans-unit>
         <trans-unit id="Spacewalk">
           <source>@@PRODUCT_NAME@@</source>
-        <target>@@NOME_DO_PRODUTO@@</target></trans-unit>
+        <target>@@PRODUCT_NAME@@</target></trans-unit>
         <trans-unit id="Satellite">
           <source>@@PRODUCT_NAME@@</source>
-        <target>@@NOME_DO_PRODUTO@@</target></trans-unit>
+        <target>@@PRODUCT_NAME@@</target></trans-unit>
     </group>
 
 	<group>
@@ -3587,7 +3587,7 @@
         <target>O sistema foi reiniciado a fim de iniciar o processo de kickstart.</target></trans-unit>
         <trans-unit id="kickstart.state.configuration_accessed">
           <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-        <target>O sistema baixou o arquivo de configuração do kickstart a partir do @@NOME_DO_PRODUTO@@.</target></trans-unit>
+        <target>O sistema baixou o arquivo de configuração do kickstart a partir do @@PRODUCT_NAME@@.</target></trans-unit>
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>Os arquivos iniciais exigidos pelo anaconda foram baixados.</target></trans-unit>
@@ -3596,7 +3596,7 @@
         <target>O sistema está baixando os RPMs necessários para a instalação.</target></trans-unit>
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>O sistema registrou-se ao RHN com sucesso com @@NOME_DO_PRODUTO@@ após o kickstart.</target></trans-unit>
+        <target>O sistema registrou-se ao RHN com sucesso com @@PRODUCT_NAME@@ após o kickstart.</target></trans-unit>
         <trans-unit id="kickstart.state.package_synch">
           <source>Package synchronization in progress.</source>
         <target>Sincronização de pacotes em andamento.</target></trans-unit>
