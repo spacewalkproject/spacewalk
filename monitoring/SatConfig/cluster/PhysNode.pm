@@ -83,7 +83,8 @@ sub setLeading
 	my ($self,$state) = @_;
 	if ($self->get_parent->get_haFailoverEnabled) {
 		if ($state) {
-			open(FILE,'>'.$self->configValue('leaderFlag'));
+			local * FILE;
+			open(FILE, '>', $self->configValue('leaderFlag'));
 			print FILE "KNEEL, KNAVE!\n";
 			close(FILE);
 		} else {
