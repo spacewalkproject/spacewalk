@@ -302,6 +302,8 @@ find . -name *.java | grep -E '/test/' | grep -vE '(/jsp/|/playpen/)' | \
 xargs checkstyle -c buildconf/checkstyle.xml
 %endif
 
+find . -type f -name '*.xml' | xargs perl -CSAD -lne 'for (grep { $_ ne "PRODUCT_NAME" } /\@\@(\w+)\@\@/) { print; $exit = 1;} END { exit $exit }'
+
 %install
 rm -rf $RPM_BUILD_ROOT
 %if  0%{?rhel} && 0%{?rhel} < 6
