@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.4.0
+Version:        1.4.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 1.4.1-1
+- Localize globs used for filehandles; use three-parameter opens.
+
 * Wed Jan 26 2011 Jan Pazdziora 1.3.10-1
 - PostgreSQL start/stop is no longer handled by spacewalk-service, neither is
   Oracle XE.
