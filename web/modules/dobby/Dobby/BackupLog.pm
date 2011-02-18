@@ -37,7 +37,8 @@ sub parse {
   
   eval { $doc = $parser->parse_file($restore_log); }; 
   if ($@) {
-    open FH, "<$restore_log" or die "open $restore_log: $!";
+    local * FH;
+    open FH, '<', $restore_log or die "open $restore_log: $!";
     my $contents = join("", <FH>);
     close FH;
     $log = thaw($contents);    
@@ -149,7 +150,8 @@ sub serialize {
   my $self = shift;
   my $dest = shift;
 
-  open FH, ">$dest" or die "open $dest: $!";
+  local * FH;
+  open FH, '>', $dest or die "open $dest: $!";
   print FH $self->toXml();
   close FH;
 }
