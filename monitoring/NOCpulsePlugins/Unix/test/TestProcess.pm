@@ -32,7 +32,8 @@ sub set_up {
                        shell_os_name => LINUX,
                      );
 
-  open(PID, ">$PIDFILE") or die "Couldn't create $PIDFILE: $!";
+  local * PID;
+  open(PID, '>', $PIDFILE) or die "Couldn't create $PIDFILE: $!";
   print PID "1\nbooga booga booga\n";
   close(PID);
 }
