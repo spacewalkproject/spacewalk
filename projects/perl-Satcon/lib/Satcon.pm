@@ -32,7 +32,8 @@ sub load_conf_file {
   my $self = shift;
   my $patfile = shift;
 
-  open IF, "<$patfile"
+  local * IF;
+  open IF, '<', $patfile
     or die "Cannot open $patfile: $!";
 
   my %pats;
@@ -63,7 +64,8 @@ sub save_conf_file {
   my $self = shift;
   my $outfile = shift || $self->{pattern_file};
 
-  open OF, ">$outfile"
+  local * OF;
+  open OF, '>', $outfile
     or die "Cannot create $outfile: $!";
 
   foreach my $line (@{$self->{lines}}) {
