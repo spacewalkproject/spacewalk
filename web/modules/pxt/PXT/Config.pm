@@ -67,7 +67,8 @@ sub load_file {
   my $self = ref $class ? $class : $class->default_config();
   my %params = validate(@_, { -filename => 1, -mode => 1 });
 
-  open FH, "<$params{-filename}"
+  local * FH;
+  open FH, '<', $params{-filename}
     or die "Can't open config file '$params{-filename}': $!";
 
   while(<FH>) {
