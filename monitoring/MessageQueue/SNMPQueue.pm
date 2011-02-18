@@ -269,7 +269,8 @@ sub dequeue
 	chomp($last = $self->config()->getContents('queues', 'snmplast'));
     } else {
 	# State file wasn't created yet -- create it.
-	open(FILE, ">$statefile") or die "Couldn't create $statefile: $!";
+	local * FILE;
+	open(FILE, '>', $statefile) or die "Couldn't create $statefile: $!";
 	print FILE "0";
 	close(FILE);
 	$last = 0;
@@ -341,7 +342,8 @@ sub dequeue
 	    $self->dprint(3, "\tLast SNMP alert sent: $last\n");
 	    
 	    # Save the last processed recid for later
-	    open(FILE, ">$statefile") or die "Couldn't create $statefile: $!";
+	    local * FILE;
+	    open(FILE, '>', $statefile) or die "Couldn't create $statefile: $!";
 	    print FILE "$last";
 	    close(FILE);
 	}
@@ -358,7 +360,8 @@ sub gettimeticks
 {
     my $self = shift;
     
-    open(UPTIME, "/proc/uptime");
+    local * UPTIME;
+    open(UPTIME, '<', '/proc/uptime');
     my $uptime = <UPTIME>;
     close(UPTIME);
     
