@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.5
+Version: 1.4.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -534,6 +534,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 1.4.6-1
+- Check upon build time that we did not get the @@PRODUCT_NAME@@ template
+  translated.
+- 678583 - The @@PRODUCT_NAME@@ template must not be translated (pt_BR, ja).
+- 652788 - do not return null via xmlrpc, if a system has no base channel
+  (tlestach@redhat.com)
+
 * Thu Feb 17 2011 Tomas Lestach <tlestach@redhat.com> 1.4.5-1
 - remove ehcache from java/ivy.xml (tlestach@redhat.com)
 - remove ehcache from java/buildconf/build-props.xml (tlestach@redhat.com)
