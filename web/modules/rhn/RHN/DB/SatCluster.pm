@@ -334,7 +334,8 @@ sub push_config {
 #########################
 sub generate_shared_key {
 #########################
-  open(RANDOM, '/dev/urandom') or die 'could not open /dev/urandom for reading!';
+  local * RANDOM;
+  open(RANDOM, '<', '/dev/urandom') or die 'could not open /dev/urandom for reading!';
   binmode(RANDOM);
   my $rand_data;
   my $result = read(RANDOM, $rand_data, 128);
