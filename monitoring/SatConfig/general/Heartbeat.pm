@@ -10,7 +10,8 @@ sub startActions
 
 	my $cluster = PhysCluster->newInitialized;
 
-	open(FILE,'>'.$self->get_configFile);
+	local * FILE;
+	open(FILE, '>', $self->get_configFile);
 	print FILE "debugfile      ".$self->get_debugfile."\n";
 	print FILE "logfile        ".$self->get_logfile."\n";
 	print FILE "logfacility    ".$self->get_logfacility."\n";
@@ -26,12 +27,12 @@ sub startActions
 	close(FILE);
 	$self->addShellStopAction('rm '.$self->get_configFile);
 
-	open(FILE,'>'.$self->get_resourceFile);
+	open(FILE, '>', $self->get_resourceFile);
 	print FILE $cluster->thisNode->privateIp->nameForNumber(1)." ClusterLeader\n";
 	close(FILE);
 	$self->addShellStopAction('rm '.$self->get_resourceFile);
 	my $oldmask = umask(0177);
-	open(FILE,'>'.$self->get_authFile);
+	open(FILE, '>', $self->get_authFile);
 	print FILE "auth 1\n1 ".$self->get_authKey."\n";
 	close(FILE);
 	umask($oldmask);
