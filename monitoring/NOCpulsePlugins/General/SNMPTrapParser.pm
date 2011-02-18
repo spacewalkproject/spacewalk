@@ -58,7 +58,8 @@ sub run {
             $Log->log_method(1, "run", "Errors found -- bailing out\n");
             
             # Yup -- just bail out.
-            open(ERR, "$mbox.ERROR");
+            local * ERR;
+            open(ERR, '<', "$mbox.ERROR");
             my $errors = join('', <ERR>);
             close(ERR);
             
@@ -115,7 +116,8 @@ sub load_traps {
       or throw NOCpulse::Probe::InternalError("Cannot rename $mbox to $mbox.WORKING: $!");
             
     # Suck up the traps
-    open(TRAPS, "$mbox.WORKING")
+    local * TRAPS;
+    open(TRAPS, '<', "$mbox.WORKING")
       or throw NOCpulse::Probe::InternalError("Cannot open $mbox.WORKING: $!");
     
     my $xml = "<perldata>\n<array>\n";
