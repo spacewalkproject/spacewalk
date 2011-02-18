@@ -187,7 +187,8 @@ sub heartbeat {
   my $hbfile = $self->heartbeatfile;
   if (defined($hbfile)) {
     $self->dprint(3, "Freshening heartbeat file $hbfile\n");
-    open(HB, ">$hbfile");
+    local * HB;
+    open(HB, '>', $hbfile);
     print HB "Last updated ", scalar(localtime(time)), " by PID $$\n";
     close(HB);
     return 1;
