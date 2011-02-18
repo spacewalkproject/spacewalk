@@ -110,7 +110,8 @@ sub queued_datapoints {
     } else {
 
       # Count the lines
-      unless (open(FILE, $queuefile)) {
+      local * FILE;
+      unless (open(FILE, '<', $queuefile)) {
         warn "Couldn't open $queuefile: $!";
         next;
       }
