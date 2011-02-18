@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-service.8*
 
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 1.4.1-1
+- Explicitly require lsof in spacewalk-admin (for spacewalk-service).
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.9-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - Removing rhn-populate-database.pl, we now use the generic spacewalk-sql.
