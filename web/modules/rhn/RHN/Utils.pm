@@ -56,7 +56,8 @@ sub read_file {
     throw "(file_not_readable) Could not read '$filename'";
   }
 
-  open(FH, $filename) or throw "(file_open_error) Could not open '$filename': $!";
+  local * FH;
+  open(FH, '<', $filename) or throw "(file_open_error) Could not open '$filename': $!";
 
   my @lines = <FH>;
 
