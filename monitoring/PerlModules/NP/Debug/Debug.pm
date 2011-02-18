@@ -88,8 +88,7 @@ sub addstream {
 
         # Assume fh is a filename
 	($filename) = $fh =~ /(.*)/;
-	($append) = $append =~ /(.*)/;
-        unless (open($newfh, "$append $filename")) {
+        unless (open($newfh, $append, $filename)) {
 	  $@ = "Can't write to file '$filename': $!";
 	  return undef;
 	}
@@ -534,7 +533,7 @@ sub rotate {
 
   # Reopen the file
   my $append = $self->append;
-  unless (open($self->fh, "$append $oldname")) {
+  unless (open($self->fh, $append, $oldname)) {
     $@ = "Can't create file '$oldname': $!";
     return undef;
   }
