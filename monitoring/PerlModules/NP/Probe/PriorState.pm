@@ -102,7 +102,8 @@ sub save {
 
     my $filename = $self->filename($probe_id);
     my $tmpfilename = $filename . ".NEW";
-    open STATE, ">$tmpfilename" 
+    local * STATE;
+    open STATE, '>', $tmpfilename
       or throw NOCpulse::Probe::InternalError("Cannot open $tmpfilename for writing: $!");
     print STATE $dumper->Dump();
     close STATE;
