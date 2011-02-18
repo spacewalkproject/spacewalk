@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.5
+Version:      1.184.6
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -146,6 +146,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 1.184.6-1
+- Localize the filehandle globs; also use three-parameter opens.
+- Changing array with map is ugly, we shall use for instead.
+
 * Tue Nov 02 2010 Jan Pazdziora 1.184.5-1
 - 612581 - change egrep to grep -E (msuchy@redhat.com)
 
