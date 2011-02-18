@@ -44,7 +44,8 @@ sub initialize
 	$self->set_configFilename($npconfig->get('netsaint','configDir').'/SatCluster.ini');
 	my $config;
 	if ( ! -f $self->get_configFilename) {
-		open(FILE,">".$self->get_configFilename);
+		local * FILE;
+		open(FILE, '>', $self->get_configFilename);
 		print FILE "[garbage]\n";
 		close(FILE);
 	}
