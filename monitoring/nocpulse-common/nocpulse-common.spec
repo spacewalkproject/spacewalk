@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.19
+Version:      2.1.20
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -143,6 +143,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 2.1.20-1
+- Localize the filehandle globs; also use three-parameter opens.
+
 * Thu Feb 11 2010 Miroslav Suchý <msuchy@redhat.com> 2.1.19-1
 - Fedora guys do not want to have migration code in theirs spec
  
