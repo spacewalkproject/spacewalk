@@ -316,7 +316,8 @@ sub shellcmd {
       my $out;
       foreach $out (qw(STDOUT STDERR)) {
 
-        open(FILE, "/tmp/$pid.$out");
+        local * FILE;
+        open(FILE, '<', "/tmp/$pid.$out");
 	my $output = join('', <FILE>);
 	close(FILE);
 
@@ -351,9 +352,10 @@ sub get_id {
   my $alt   = shift;
   my $id;
 
+  local * FILE;
   if (-f $file) {
 
-    unless(open(FILE, "$file")) {
+    unless(open(FILE, '<', $file)) {
       $@ = "Couldn't open $file: $!";
       return undef;
     }
@@ -362,7 +364,7 @@ sub get_id {
 
   } elsif (-f $alt) {
 
-    unless(open(FILE, "$alt")) {
+    unless(open(FILE, '<', $alt)) {
       $@ = "Couldn't open $alt: $!";
       return undef;
     }
@@ -411,7 +413,8 @@ sub write_id {
   my $new   = "${file}.new";
   my $old   = "${file}.old";
 
-  unless (open(FILE, ">$new")) {
+  local * FILE;
+  unless (open(FILE, '>', $new)) {
     $@ = "Couldn't write to $new: $!";
     return undef;
   }
