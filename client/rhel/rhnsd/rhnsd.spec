@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.8
+Version: 4.9.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 4.9.9-1
+- l10n: Updates to Estonian (et) translation (mareklaane@fedoraproject.org)
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 4.9.8-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - update .po and .pot files for rhnsd (tlestach@redhat.com)
