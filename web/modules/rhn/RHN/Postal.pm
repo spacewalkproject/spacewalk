@@ -58,7 +58,8 @@ sub template {
     $full_filename = $filename;
   }
 
-  open FH, "< $full_filename"
+  local * FH;
+  open FH, '<', $full_filename
     or die "Can't open $full_filename: $!";
 
   local $/ = undef;
