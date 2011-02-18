@@ -109,7 +109,8 @@ sub asConfigData
 sub writeToFile
 {
 	my ($self) = @_;
-	open(FILE,'>'.$self->configValue('configFile'));
+	local * FILE;
+	open(FILE, '>', $self->configValue('configFile'));
 	print FILE $self->asConfigData;
 	close(FILE);
 }
@@ -146,7 +147,8 @@ sub readFromFile
 	if (! -f $filename ) {
 		print "!!! ******* ERROR ******* !!!: NO CONFIG FILE FOR ".ref($self)." ($filename)!!!!\n";
 	} else {
-		open(FILE,$filename);
+		local * FILE;
+		open(FILE, '<', $filename);
 		my ($line,$pathPart,$value,@pathParts,$entity,$id);
 		while ($line =  <FILE>) {
 			if ( $line !~ /^\s*#.*$/ ) {
