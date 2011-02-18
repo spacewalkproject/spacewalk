@@ -370,7 +370,7 @@
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
-    <target>@@製品名@@ 管理者のメールアドレス</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ 管理者のメールアドレス</target></trans-unit>
 
     <trans-unit id="RHN_DB_NAME">
 <source>@@PRODUCT_NAME@@ database name</source>
