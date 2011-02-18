@@ -522,7 +522,8 @@ sub set_up {
 
   mkdir ($directory,0777);
   foreach (@files) {
-    open(FILE,">> $directory/$_");    
+    local * FILE;
+    open(FILE, '>>', "$directory/$_");
     print FILE $$_;
     close(FILE);
     $self->{$_}=$MODULE->from_file("$directory/$_");
