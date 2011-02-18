@@ -10,7 +10,8 @@ sub generateSpreadConfigFile
 	my $cluster = PhysCluster->newInitialized;
 	my $privateIp = $cluster->thisNode->privateIp;
 	my $clusterHosts = $privateIp->clusterHosts;
-	open(SPCONF,'>'.$self->get_configFile) || ($success = 0);
+	local * SPCONF;
+	open(SPCONF, '>', $self->get_configFile) || ($success = 0);
 	print SPCONF "DebugFlags = { PRINT EXIT }\n" || ($success = 0);
 	print SPCONF "EventLogFile = /home/spread/event.log\n" || ($success = 0);
 	print SPCONF "EventTimeStamp\n" || ($success = 0);
