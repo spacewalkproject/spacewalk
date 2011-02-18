@@ -19,7 +19,8 @@ sub startActions
 		my @servers = split(' ',$serverlist);
 		$self->dprint(0,'Syncing time for ntp');
 		$self->shell("/usr/sbin/ntpdate -s -b -p 8 $serverlist");
-		open(FILE,">$configfile");
+		local * FILE;
+		open(FILE, '>', $configfile);
 		print FILE "restrict default ignore\n";
 		print FILE "restrict 128.0.0.1\n";
 		print FILE "driftfile $driftfile\n";
