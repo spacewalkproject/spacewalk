@@ -8,7 +8,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.22
+Version:      1.27.23
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -90,6 +90,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Feb 18 2011 Jan Pazdziora 1.27.23-1
+- Localize the filehandle globs; also use three-parameter opens.
+
 * Thu Jan 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.27.22-1
 - Fix the fix to install the tsdb init script (joshua.roys@gtri.gatech.edu)
 
