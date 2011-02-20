@@ -126,7 +126,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
             checksumLabel = "sha";
         }
 
-        log.info("Generating new repository metatada for channel '" +
+        log.info("Generating new repository metadata for channel '" +
                 channel.getLabel() + "'(" + this.checksumtype + ") " +
                 channel.getPackageCount() + " packages, " +
                 channel.getErrataCount() + " errata");
