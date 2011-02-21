@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.6
+Version: 1.4.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -534,6 +534,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 21 2011 Jan Pazdziora 1.4.7-1
+- Typo in the log message (luc@delouw.ch)
+- fix testGetSubscribedBaseChannel test (tlestach@redhat.com)
+- 658533 - enable sorting according all the columns except of score on
+  SystemCurrency.do page (tlestach@redhat.com)
+- 657548 - do not allow channel names to begin with a digit
+  (tlestach@redhat.com)
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.6-1
 - Check upon build time that we did not get the @@PRODUCT_NAME@@ template
   translated.
