@@ -53,7 +53,6 @@ Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-io
 Requires: jakarta-taglibs-standard
-Requires: jasper5
 Requires: jcommon
 Requires: jpam
 Requires: jta
@@ -64,9 +63,11 @@ Requires: servletapi5
 # EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 Requires: tomcat5
+Requires: jasper5
 Requires: struts >= 0:1.2.9
 %else
 Requires: tomcat6
+Requires: tomcat6-lib
 Requires: struts >= 0:1.3.0
 Requires: struts-taglib >= 0:1.3.0
 %endif
@@ -120,7 +121,6 @@ BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
-BuildRequires: jasper5
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jfreechart >= 0:1.0.9
@@ -134,10 +134,12 @@ BuildRequires: stringtree-json
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 BuildRequires: struts >= 0:1.2.9
 BuildRequires: jsp
+BuildRequires: jasper5
 %else
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
+BuildRequires: tomcat6-lib
 %endif
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
