@@ -17,7 +17,6 @@ use strict;
 package RHN::DB::ConfigRevision;
 
 use Date::Parse;
-use Text::Diff;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
