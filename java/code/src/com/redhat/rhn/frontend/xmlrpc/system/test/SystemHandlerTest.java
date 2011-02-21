@@ -1987,10 +1987,11 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testGetSubscribedBaseChannel() throws Exception {
         Server srv1 = ServerFactoryTest.createTestServer(regular, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
-        Channel base = (Channel) handler.getSubscribedBaseChannel(adminKey,
+        if (srv1.getBaseChannel() != null) {
+            Channel base = (Channel) handler.getSubscribedBaseChannel(adminKey,
                 new Integer(srv1.getId().intValue()));
-        assertEquals(srv1.getBaseChannel(), base);
-
+            assertEquals(srv1.getBaseChannel(), base);
+        }
     }
 
     public void testListInactiveSystems() throws Exception {
