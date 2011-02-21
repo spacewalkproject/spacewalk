@@ -11,6 +11,13 @@
     <description>Spacewalk Server Packages</description>
     <uservisible>true</uservisible>
     <packagelist>
+<!--  client libs - needed till it get propagated to distribuitions -->
+       <packagereq type="default">rhnlib</packagereq>
+       <packagereq type="default">rhn-check</packagereq>
+       <packagereq type="default">rhn-setup</packagereq>
+       <packagereq type="default">rhn-setup-gnome</packagereq>
+       <packagereq type="default">rhn-client-tools</packagereq>
+
        <packagereq type="default">chameleon</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
