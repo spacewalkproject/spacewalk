@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Mon Feb 21 2011 Jan Pazdziora 1.4.1-1
+- Reporting: system-history proof of concept report.
+
 * Thu Nov 25 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
 - fixed namespace of imported modules
 
