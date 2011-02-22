@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.7
+Version: 1.4.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -536,6 +536,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 22 2011 Tomas Lestach <tlestach@redhat.com> 1.4.8-1
+- replace jasper5 with tomcat6-lib for tomcat6 (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- selectedChannel is always null at this place (tlestach@redhat.com)
+- fix CreateCommandTest.testVerifyChannelName test (tlestach@redhat.com)
+- fix SystemHandlerTest.testGetSubscribedBaseChannel test (tlestach@redhat.com)
+
 * Mon Feb 21 2011 Jan Pazdziora 1.4.7-1
 - Typo in the log message (luc@delouw.ch)
 - fix testGetSubscribedBaseChannel test (tlestach@redhat.com)
