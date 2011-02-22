@@ -114,7 +114,7 @@ rhn_install_satellite           :: rhn_command_queue_instances rhn_sat_cluster \
 rhn_prepare_install             :: rhn_command_queue_instances
 rhn_synch_probe_state           :: rhn_probe_state rhn_deployed_probe \
                                    rhn_current_state_summaries \
-                                   rhn_multi_scout_threshold rhn_satellite_state \
+                                   rhn_multi_scout_threshold \
                                    rhn_current_state_summaries
 set_ks_session_history_message  :: rhnKickstartSessionState \
                                    rhnKickstartSessionHistory
