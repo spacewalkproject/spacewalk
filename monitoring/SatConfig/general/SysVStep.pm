@@ -295,7 +295,7 @@ sub startStep
 		if ($is_not_subsystem)  {
 			# This is for RH "rc" script - won't kill if this isn't here
 			local * FILE;
-			open(FILE, '>', /var/lock/subsys/'.ref($self));
+			open(FILE, '>', '/var/lock/subsys/'.ref($self));
 			print FILE 'running';
 			close(FILE);
 		}
