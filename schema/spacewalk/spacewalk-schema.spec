@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.2
+Version:        1.4.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 22 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.3-1
+- removed unused rhn_sat_node_probe table
+- rhn_synch_probe_state doesn't depend on rhn_satellite_state
+- removed unused table web_customer_notification
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.2-1
 - Make the index on rhnActionErrataUpdate (action_id, errata_id) unique.
 
