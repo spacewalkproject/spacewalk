@@ -242,7 +242,6 @@ rhn_redirects                  :: web_contact web_customer rhn_redirect_types
 rhn_sat_cluster                :: rhn_command_target web_customer rhn_physical_location
 rhn_sat_cluster_probe          :: rhn_probe rhn_sat_cluster
 rhn_sat_node                   :: rhn_command_target rhn_sat_cluster 
-rhn_sat_node_probe             :: rhn_probe rhn_sat_node 
 rhn_schedule_days              :: rhn_schedules
 rhn_schedules                  :: web_customer rhn_schedule_types
 rhn_schedule_weeks             :: rhn_schedules
