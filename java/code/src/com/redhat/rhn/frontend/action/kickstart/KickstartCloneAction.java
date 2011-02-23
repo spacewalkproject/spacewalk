@@ -16,10 +16,7 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -102,12 +99,5 @@ public class KickstartCloneAction extends RhnAction {
 
         form.set(RequestContext.LABEL, cmd.getNewLabel());
         return mapping.findForward("default");
-    }
-
-    private boolean alreadyExists(String label, User user) {
-        long oid = user.getOrg().getId();
-        KickstartData d =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(label, oid);
-        return (d != null);
     }
 }
