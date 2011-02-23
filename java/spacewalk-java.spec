@@ -59,15 +59,16 @@ Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
-Requires: servletapi5
 # EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 Requires: tomcat5
 Requires: jasper5
+Requires: tomcat5-servlet-2.4-api
 Requires: struts >= 0:1.2.9
 %else
 Requires: tomcat6
 Requires: tomcat6-lib
+Requires: tomcat6-servlet-2.5-api
 Requires: struts >= 0:1.3.0
 Requires: struts-taglib >= 0:1.3.0
 %endif
