@@ -207,7 +207,6 @@ my $MAX_CRITERIA = 15;
 # M A I N
 #----------------------------------------------
 
-$ENV{TZ}='GMT';
 
 #----- Create a new CGI object
 $query   = new CGI;

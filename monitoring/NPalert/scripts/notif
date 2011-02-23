@@ -8,7 +8,6 @@ use NOCpulse::Notif::EscalatorInterface;
 use NOCpulse::Notif::Send;
 use NOCpulse::Notif::SendInfo;
 
-$ENV{TZ}='GMT';
 umask(002);
 
 my $np_cfg       = new NOCpulse::Config;

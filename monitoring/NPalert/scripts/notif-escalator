@@ -22,7 +22,6 @@ use NOCpulse::Notif::RotateFirstEscalateStrategy;
 
 use Data::Dumper;
 
-$ENV{TZ}='GMT';
 umask(002);
 my $program='notif-escalator';
 

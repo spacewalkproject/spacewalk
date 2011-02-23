@@ -15,7 +15,6 @@ use NOCpulse::Notif::AlertFile;
 use NOCpulse::Notif::AlertDB; #for current alerts
 use NOCpulse::Notif::EscalatorInterface;
 
-$ENV{TZ}='GMT';
 use constant DEF_UNIX_DATE_FMT => '%m-%d-%Y %H:%M:%S';
 
 umask(002);

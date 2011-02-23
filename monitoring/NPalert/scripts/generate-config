@@ -19,7 +19,6 @@ use Data::Dumper;
 
 my $bailout;
 $SIG{'INT'} = $SIG{'TERM'} = sub { $bailout = 1; };
-$ENV{TZ} = 'GMT';
 $| = 1;
 
 # Constants for time conversion
