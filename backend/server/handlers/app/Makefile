@@ -5,7 +5,7 @@
 TOP	= ../../..
 SUBDIR	= server/handlers/app
 
-FILES	= __init__ packages channel comps
+FILES	= __init__ packages channel
 
 include $(TOP)/Makefile.defs
 
