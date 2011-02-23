@@ -116,6 +116,13 @@ public class LoginAction extends RhnAction {
                 }
                 urlBounce = DEFAULT_URL_BOUNCE;
             }
+            if (!urlBounce.trim().startsWith("/")) {
+                if (log.isDebugEnabled()) {
+                    log.debug("2 - url bounce is not local using [" +
+                                         DEFAULT_URL_BOUNCE + "]");
+                }
+                urlBounce = DEFAULT_URL_BOUNCE;
+            }
             if (user != null) {
                 try {
                     publishUpdateErrataCacheEvent(user.getOrg());
