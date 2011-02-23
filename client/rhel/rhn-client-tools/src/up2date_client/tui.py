@@ -158,10 +158,6 @@ class AlreadyRegisteredSubscriptionManagerWindow:
         self.tui = tui
         size = snack._snack.size()
 
-        systemIdXml = rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())
-        oldUsername = systemIdXml[0][0]['username']
-        oldsystemId = systemIdXml[0][0]['system_id']
-
         toplevel = snack.GridForm(self.screen, SYSTEM_ALREADY_SETUP, 1, 2)
         self.bb = snack.ButtonBar(self.screen,
                                   [(YES_CONT, "next"),
