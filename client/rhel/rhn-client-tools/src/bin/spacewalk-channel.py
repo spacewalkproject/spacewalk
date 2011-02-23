@@ -131,7 +131,7 @@ def main():
             systemExit(1, _('This system is not associated with any channel.'))
         channels.sort()
         print '\n'.join(channels)
-    elif OPTIONS.available-channels:
+    elif OPTIONS.available_channels:
         channels = get_available_channels(OPTIONS.user, OPTIONS.password)
         channels.sort()
         print '\n'.join(channels)
