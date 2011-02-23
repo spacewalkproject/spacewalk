@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.8
+Version: 1.4.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 23 2011 Tomas Lestach <tlestach@redhat.com> 1.4.9-1
+- 679374 - clone also "Don't install @Base package group" and "Ignore missing
+  packages" kickstart profile atributes (tlestach@redhat.com)
+- remove dead code (tlestach@redhat.com)
+- replace servletapi5 require by tomcatX-servlet-2.X-api (tlestach@redhat.com)
+
 * Tue Feb 22 2011 Tomas Lestach <tlestach@redhat.com> 1.4.8-1
 - replace jasper5 with tomcat6-lib for tomcat6 (tlestach@redhat.com)
 - removing dead code (tlestach@redhat.com)
