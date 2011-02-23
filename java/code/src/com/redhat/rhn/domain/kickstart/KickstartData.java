@@ -1175,6 +1175,8 @@ public class KickstartData {
             }
         }
         cloned.setDefaultRegTokens(newTokens);
+        cloned.setNoBase(this.getNoBase());
+        cloned.setIgnoreMissing(this.getIgnoreMissing());
 
         //create a new session one
         KickstartSessionCreateCommand cmd = new KickstartSessionCreateCommand(
