@@ -5531,7 +5531,7 @@ You'll know when software updates are available when a package icon appears in t
 	<packing>
 	  <property name="padding">0</property>
 	  <property name="expand">True</property>
-	  <property name="fill">True</property>
+	  <property name="fill">False</property>
 	</packing>
       </child>
 
