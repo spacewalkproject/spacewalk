@@ -16,6 +16,7 @@
 # Authentication
 #
 
+import time
 from spacewalk.common import rhnFault, log_debug, add_to_seclist
 from spacewalk.common.rhnTranslate import _
 
@@ -29,13 +30,29 @@ class UserAuth:
 
     def auth(self, login, password):
         add_to_seclist(password)
-        self.groups, self.org_id, self.user_id = getUserGroups(login, password)
+        try:
+            self.groups, self.org_id, self.user_id = getUserGroups(login, password)
+        except rhnFault, e:
+            if e.code == 2:
+                # invalid login/password; set timeout to baffle
+                # brute force password guessing attacks (BZ 672163)
+                time.sleep(2)
+            raise e
+
         log_debug(4, "Groups: %s; org_id: %s; user_id: %s" % (
             self.groups, self.org_id, self.user_id))
 
     def auth_session(self, session_string):
         user_instance = rhnUser.session_reload(session_string)
-        self.groups, self.org_id, self.user_id = getUserGroupsFromUserInstance(user_instance)
+        try:
+            self.groups, self.org_id, self.user_id = getUserGroupsFromUserInstance(user_instance)
+        except rhnFault, e:
+            if e.code == 2:
+                # invalid login/password; set timeout to baffle
+                # brute force password guessing attacks (BZ 672163)
+                time.sleep(2)
+            raise e
+
         log_debug(4, "Groups: %s; org_id: %s; user_id: %s" % (
             self.groups, self.org_id, self.user_id))
 
