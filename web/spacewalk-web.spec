@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 24 2011 Jan Pazdziora 1.4.5-1
+- The module Text::Diff is no longer needed, removing its use.
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.4-1
 - Localize the filehandle globs; also use three-parameter opens.
 
