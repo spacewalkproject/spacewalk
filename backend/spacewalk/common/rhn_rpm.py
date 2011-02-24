@@ -107,12 +107,6 @@ class RPMTransaction:
 
 
 
-class SharedStateTransaction:
-    _shared_state = {}
-
-    def __init__(self):
-        self.__dict__ = self._shared_state
-
 class RPM_Header:
     "Wrapper class for an rpm header - we need to store a flag is_source"
     def __init__(self, hdr, is_source=None):
