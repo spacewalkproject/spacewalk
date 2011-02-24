@@ -1,21 +1,22 @@
 # translation of ta.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Felix <ifelix@redhat.com>, 2006.
 #
+# Felix <ifelix@redhat.com>, 2006.
+# I Felix <ifelix@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2006-11-29 11:11+0530\n"
-"Last-Translator: Felix <ifelix@redhat.com>\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-15 15:13+0530\n"
+"Last-Translator: I Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ta\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "\n"
@@ -26,8 +27,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN உடன் தொடர்பு கொள்வதில் பிழை."
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN துணை செயல்நீக்கப்படும்."
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN சேட்டிலைட் அல்லது RHN கிளாஸிக் சேவை செயல்நீக்கப்படும்."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
@@ -35,6 +36,8 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
+"*குறிப்பு* Red Hat Network தொகுபதிவங்கள் கீழே பட்டியலிடப்படவில்லை. நீங்கள் "
+"ரூட்டாக இருந்து RHN தொகுபதிவங்களை இயக்க வேண்டும்."
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -56,6 +59,8 @@ msgstr "இந்த கணினி எந்த தடங்களுடனு
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
+"இந்த கணினி RHNவுடன் பதிவு செய்யப்பட்டிருக்காது. SystemId "
+"எடுத்துக்கொள்ளப்படவில்லை.\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
@@ -66,11 +71,11 @@ msgstr "தொகுப்பு விவரக்குறிப்பு த�
 #. bz: 438175
 #: ../rhnplugin.py:200
 msgid "Error Message:"
-msgstr ""
+msgstr "பிழை செய்தி:பிழை செய்தி"
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "இந்த கிளையன்டில் rhn_registerஐ ரூட்டாக இயக்கவும்"
 
 #: ../rhnplugin.py:280
 #, python-format

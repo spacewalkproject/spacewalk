@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # shankar Prasad <svenkate@redhat.com>, 2006.
+# Shankar Prasad <svenkate@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2006-12-10 15:10+0530\n"
-"Last-Translator: shankar Prasad <svenkate@redhat.com>\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-14 17:09+0530\n"
+"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: kn\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplural=2;plural=(n !=1);\n"
 
 #: ../rhnplugin.py:48
@@ -23,8 +23,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN ಜೊತೆಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ."
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN ಬೆಂಬಲವು ಅಶಕ್ತಗೊಳ್ಳುತ್ತದೆ."
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN Satellite ಅಥವ RHN Classic  ಬೆಂಬಲವನ್ನು ಅಶಕ್ತಗೊಳಿಸಲಾಗುತ್ತದೆ."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
@@ -32,6 +32,8 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
+"*ಸೂಚನೆ* Red Hat Network ರೆಪೊಸಿಟರಿಗಳನ್ನು ಈ ಕೆಳಗೆ ಪಟ್ಟಿ ಮಾಡಲಾಗಿರುವುದಿಲ್ಲ. RHN "
+"ರೆಪೊಸಿಟರಿಗಳನ್ನು ನಿಲುಕಿಸಿಕೊಳ್ಳಲು ನೀವು ಈ ಆಜ್ಞೆಯನ್ನು ನಿರ್ವಾಹಕನಾಗಿ ಚಲಾಯಿಸಬೇಕು."
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -53,6 +55,7 @@ msgstr "ಈ ವ್ಯವಸ್ಥೆಯು ಯಾವುದೇ ಮಾರ್ಗಗ
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
+"ಈ ವ್ಯವಸ್ಥೆಯನ್ನು RHN ನೊಂದಿಗೆ ನೋಂದಾಯಿಸಲಾಗಿಲ್ಲ. SystemId ಅನ್ನು ಪಡೆಯಲಾಗಿಲ್ಲ.\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
@@ -63,11 +66,11 @@ msgstr "ಪ್ಯಾಕೆಜಿನ ಮಾಹಿತಿ ಪರಿಚಯವನ್�
 #. bz: 438175
 #: ../rhnplugin.py:200
 msgid "Error Message:"
-msgstr ""
+msgstr "ದೋಷ ಸಂದೇಶ:"
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "ಈ ಕ್ಲೈಂಟ್‌ನಲ್ಲಿ ನಿರ್ವಾಹಕರಾಗಿ rhn_register ಅನ್ನು ಚಲಾಯಿಸಿ"
 
 #: ../rhnplugin.py:280
 #, python-format

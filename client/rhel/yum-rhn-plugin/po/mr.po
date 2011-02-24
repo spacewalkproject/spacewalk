@@ -1,37 +1,38 @@
 # translation of mr.po to Marathi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
 #
+# Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
+# Sandeep Shedmake <sshedmak@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2006-11-29 13:27+0530\n"
-"Last-Translator: Rahul Bhalerao <b.rahul.pm@gmail.com>\n"
-"Language-Team: Marathi\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-15 10:11+0530\n"
+"Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
+"Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "RHN शी संवाद करण्यात चूक झाली."
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN आधार अकार्यान्वित केला जाईल."
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN सॅटेलाइट किंवा RHN क्लासिक सपोर्ट बंद केले जाईल."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
+msgstr "*टिप* Red Hat Network रेपॉजिटरीज् सूचीत दाखवले नाही. RHN रेपॉजिटरीजकरीता प्रवेशसाठी या आदेशला रूट म्हणून चालवा."
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -50,9 +51,8 @@ msgid "This system is not subscribed to any channels."
 msgstr "ही प्रणालीचे कोणत्याही वाहिनीवर सदस्यत्व नाही."
 
 #: ../rhnplugin.py:135
-msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr ""
+msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr "ही प्रणालीची RHN सह नोंदणी नाही. SystemId प्राप्त करणे अशक्य.\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
@@ -63,16 +63,14 @@ msgstr "संकुल प्रोफाइल माहिती पाठव
 #. bz: 438175
 #: ../rhnplugin.py:200
 msgid "Error Message:"
-msgstr ""
+msgstr "त्रुटी संदेश:"
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "या क्लाएंटवर rhn_register यास रूट म्हणून चालवा"
 
 #: ../rhnplugin.py:280
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN साठी आवश्यक लॉगिन माहिती सापडली नाही: %s"
 
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "एकतर --version, किंवा कोणताही आदेश दाखल केला नाही"

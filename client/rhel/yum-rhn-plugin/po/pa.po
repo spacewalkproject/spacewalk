@@ -1,21 +1,21 @@
 # translation of pa.po to Punjabi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Jaswinder Singh <jsingh@redhat.com>, 2006.
 #
+# Jaswinder Singh <jsingh@redhat.com>, 2006, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2006-12-01 14:14+0530\n"
-"Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
-"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-15 15:31+0530\n"
+"Last-Translator: \n"
+"Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
+"Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pa\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "\n"
@@ -25,8 +25,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN ਨਾਲ ਸੰਪਰਕ ਕਰਨ ਸਮੇਂ ਗਲਤੀ ਸੀ।"
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਏਗਾ।"
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN ਸੈਟੇਲਾਈਟ ਜਾਂ RHN ਕਲਾਸਿਕ ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਏਗਾ।"
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
@@ -34,6 +34,8 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
+"*ਸੂਚਨਾ* Red Hat Network ਰਿਪੋਜ਼ਟਰੀਆਂ ਹੇਠਾਂ ਨਹੀਂ ਵੇਖਾਈਆਂ ਹਨ। ਤੁਹਾਨੂੰ RHN "
+"ਰਿਪੋਜ਼ਟਰੀਆਂ ਵਰਤਣ ਲਈ ਪਰਬੰਧਕ ਦੇ ਤੌਰ ਤੇ ਇਹ ਕਮਾਂਡ ਚਲਾਉਣੀ ਪਵੇਗੀ।"
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -55,6 +57,7 @@ msgstr "ਇਹ ਸਿਸਟਮ ਕਿਸੇ ਵੀ ਚੈਨਲ ਤੇ ਮੈਂ
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
+"ਇਹ ਸਿਸਟਮ ਹੋ ਸਕਦਾ ਕਿ RHN ਨਾਲ ਰਜਿਸਟਰ ਨਾ ਹੋਵੇ। SystemId ਫੇਲ ਨਹੀਂ ਹੋ ਸਕਦਾ।\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
@@ -65,11 +68,11 @@ msgstr "ਪੈਕੇਜ ਪਰੋਫਾਈਲ ਜਾਣਕਾਰੀ ਭੇਜੀ
 #. bz: 438175
 #: ../rhnplugin.py:200
 msgid "Error Message:"
-msgstr ""
+msgstr "ਗਲਤੀ ਸੁਨੇਹਾ:"
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "ਕਿਰਪਾ ਕਰਕੇ ਪਰਬੰਧਕ ਦੇ ਤੌਰ ਤੇ ਇਸ ਕਲਾਂਈਟ ਉੱਪਰ rhn_register ਚਲਾਓ"
 
 #: ../rhnplugin.py:280
 #, python-format

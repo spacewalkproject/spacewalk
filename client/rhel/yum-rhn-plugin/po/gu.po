@@ -1,21 +1,22 @@
 # translation of gu.po to Gujarati
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ankit Patel <ankit@redhat.com>, 2006.
 #
+# Ankit Patel <ankit@redhat.com>, 2006.
+# Sweta Kothari <swkothar@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2006-11-29 10:42+0530\n"
-"Last-Translator: Ankit Patel <ankit@redhat.com>\n"
-"Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-15 11:47+0530\n"
+"Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
+"Language-Team: Gujarati\n"
+"Language: gu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gu\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "\n"
@@ -25,15 +26,15 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN સાથે સંપર્કવ્યવહાર કરવામાં ભૂલ હતી."
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN આધાર નિષ્ક્રિય કરવામાં આવશે."
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN સેટેલાઇટ અથવા RHN Classic આધાર નિષ્ક્રિય થયેલ હશે."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
+msgstr "*નોંધ* Red Hat Network રિપોઝીટરીઓ નીચે યાદી થયેલ નથી. તમારે RHN રિપોઝીટરીઓને વાપરવા માટે રુટ તરીકે આ આદેશને ચલાવવો જ પડશે."
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -52,9 +53,8 @@ msgid "This system is not subscribed to any channels."
 msgstr "આ સિસ્ટમની કોઈ ચેનલોમાં ઉમેદવારી નોંધાયેલ નથી."
 
 #: ../rhnplugin.py:135
-msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr ""
+msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr "આ સિસ્ટમ RHN માં રજીસ્ટર થઇ શકશે નહિં. SystemId ને મેળવી શક્યા નહિં.\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
@@ -65,16 +65,14 @@ msgstr "પેકેજ રૂપરેખા જાણકારી મોકલ
 #. bz: 438175
 #: ../rhnplugin.py:200
 msgid "Error Message:"
-msgstr ""
+msgstr "ભૂલ સંદેશો:"
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "મહેરબાની કરીને આ ક્લાયન્ટ પર રુટ તરીકે rhn_register ને ચલાવો"
 
 #: ../rhnplugin.py:280
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN માટેની ગુમ થયેલ પ્રવેશ જાણકારી: %s"
 
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "ક્યાં તો --version, દાખલ કરો અથવા કોઈ આદેશો દાખલ કરો નહિં"

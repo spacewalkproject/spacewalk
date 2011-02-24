@@ -2,29 +2,30 @@
 # translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
-# Sree Ganesh <sthottem@redhat.com>, 2006.
 #
+# Sree Ganesh <sthottem@redhat.com>, 2006.
+# Krishnababu Krothapalli <kkrothap@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2006-11-30 17:44+0530\n"
-"Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-15 17:00+0530\n"
+"Last-Translator: Krishnababu Krothapalli <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: te\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "RHNతో సంప్రదించటంలో దోషం ఉంది."
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN మద్దతు అసాధ్యం అవుతుంది."
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN శాటిలైట్ లేదా RHN క్లాసిక్ తోడ్పాటు అచేతనమగును."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
@@ -32,6 +33,9 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
+"*గమనిక* Red Hat నెట్వర్కు రిపోజిటరీలు కిందన జాబితా చేసిలేవు. RHN "
+"రిపోజిటరీలను వాడుకొనుటకు "
+"మీరు యీ ఆదేశమును root గా నడుపవలెను."
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -53,6 +57,7 @@ msgstr "ఈ కంప్యూటరు ఏ చానళ్లకీ అను�
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
+"ఈ సిస్టమ్ RHN తో నమోదై వుండకపోవచ్చును. సిస్టమ్ఐడి పొందలేక పోవుచున్నది.\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
@@ -63,11 +68,11 @@ msgstr "ప్యాకేజీ రూప సమాచారం పంపబడ
 #. bz: 438175
 #: ../rhnplugin.py:200
 msgid "Error Message:"
-msgstr ""
+msgstr "దోషం సందేశం:"
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "దయచేసి ఈ క్లైంట్ పై root గా rhn_register నడుపుము"
 
 #: ../rhnplugin.py:280
 #, python-format

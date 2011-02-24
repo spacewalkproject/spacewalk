@@ -1,46 +1,42 @@
-# translation of spacewalk.yum-rhn-plugin.po to Wei Liu
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# translation of zh_CN.po to Wei Liu
+# This file is distributed under the same license as the yum-rhn-plugin package.
+# Copyright (C) 2011.
 #
 # Tony Fu <tfu@redhat.com>, 2006.
 # Xi Huang <xhuang@redhat.com>, 2006.
-# Leah Liu <lliu@redhat.com>, 2010.
+# Leah Liu <lliu@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.yum-rhn-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2010-06-10 12:08+1000\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-15 10:11+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Wei Liu\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
-msgstr "有一个 RHN 的连接错误。"
+msgstr "连接到 RHN 时出错。"
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN 支持将被禁用。"
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN Satellite 或者 RHN Classic 支持将被禁用。"
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
-"*备注* 以下没有列出红帽网络程序库。您必须以根用户身份运行这个命令方可进入 "
-"RHN 程序库。"
+msgstr "*备注* 下面没有列出红帽网络程序库。您必须以 root 身份运行这个命令方可访问 RHN 程序库。"
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
-msgstr "RHN 代理服务器设置解释错误。"
+msgstr "解析 RHN 代理服务器设置时出错。"
 
 #: ../rhnplugin.py:122
 msgid "This system is not registered with RHN."
@@ -52,16 +48,15 @@ msgstr "RHN 频道支持将被禁用。"
 
 #: ../rhnplugin.py:131
 msgid "This system is not subscribed to any channels."
-msgstr "这个系统没有订阅到任何频道。"
+msgstr "没有在任何频道中订阅这个系统。"
 
 #: ../rhnplugin.py:135
-msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr "这个系统可能没有在 RHN 注册。无法获得 SystemId。\n"
+msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr "这个系统还没有在 RHN 中注册。无法获得 SystemId。\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
-msgstr "软件包配置档案信息无法发送。"
+msgstr "无法发送软件包侧写信息。"
 
 #. This is compensating for hosted/satellite returning back an error
 #. message instructing RHEL5 clients to run "up2date --register"
@@ -72,15 +67,10 @@ msgstr "出错信息："
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
-msgstr "请在客户端中以根用户身份运行 rhn_register"
+msgstr "请在这个客户端中以 root 身份运行 rhn_register"
 
 #: ../rhnplugin.py:280
 #, python-format
 msgid "Missing required login information for RHN: %s"
-msgstr "缺少 RHN: %s 所要求的登录信息"
+msgstr "缺少 RHN 所需登录信息：%s"
 
-#~ msgid "Cleaning"
-#~ msgstr "清除中"
-
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "输入 --version 或不输入命令"

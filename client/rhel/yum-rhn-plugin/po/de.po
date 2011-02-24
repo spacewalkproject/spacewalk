@@ -1,31 +1,32 @@
-# translation of spacewalk.yum-rhn-plugin.po to
 # translation of de.po to
-# translation of de.po to
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# This file is distributed under the same license as the yum-rhn-plugin package.
+# Copyright (C) 2011.
 #
 # sknirT omiT <moc.tahder@sknirtt>, 2010.
+# Timo Trinks <ttrinks@redhat.com>, 2006.
+# Hedda Peters <hpeters@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.yum-rhn-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: 2010-05-06 13:34+1000\n"
-"Last-Translator: sknirT omiT <moc.tahder@sknirtt>\n"
-"Language-Team:  <de@li.org>\n"
+"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"PO-Revision-Date: 2011-02-17 15:15+1000\n"
+"Last-Translator: Hedda Peters <hpeters@redhat.com>\n"
+"Language-Team: de_DE <kde-i18n-doc@kde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "Bei der Kommunikation mit RHN trat ein Fehler auf."
 
 #: ../rhnplugin.py:90
-msgid "RHN support will be disabled."
-msgstr "RHN-Unterstützung wird deaktiviert."
+msgid "RHN Satellite or RHN Classic support will be disabled."
+msgstr "RHN Satellite oder RHN Classic Unterstützung wird deaktiviert."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
@@ -33,9 +34,9 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"*Hinweis* Red Hat Network Repositories werden nachfolgend nicht aufgeführt. "
-"Sie müssen diesen Befehl als Root ausführen, um Zugriff auf RHN-Repositories "
-"zu erhalten."
+"*Hinweis* Red Hat Network Repositorys sind unten nicht aufgeführt. Sie "
+"müssen "
+"folgenden Befehl als Root ausführen, um auf RHN Repositorys zuzugreifen."
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -57,8 +58,8 @@ msgstr "Dieses System hat keine Channels abonniert."
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
-"Dieses System ist ggf. nicht bei RHN registriert. SystemID konnte nicht "
-"abgerufen werden.\n"
+"Dieses System ist womöglich nicht bei RHN registriert. SystemId konnte nicht "
+"ermittelt werden.\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
