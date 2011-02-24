@@ -43,6 +43,7 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification/generated
 mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification/static
 mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/config
 mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification
+mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/smrsh
 mkdir -p --mode=775 $RPM_BUILD_ROOT%install_prefix/queue/ack_queue
 mkdir -p --mode=775 $RPM_BUILD_ROOT%install_prefix/queue/ack_queue/.new
 mkdir -p --mode=775 $RPM_BUILD_ROOT%install_prefix/queue/alert_queue
@@ -54,6 +55,7 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir/ticketlog
 
 # Create symlinks
 ln -s ../../static                  $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/config/static
+ln -s /usr/bin/ack_enqueuer.pl      $RPM_BUILD_ROOT%{_sysconfdir}/smrsh/ack_enqueuer.pl
 
 # Install the perl modules
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
@@ -127,6 +129,7 @@ fi
 %attr (755,%notif_user,%notif_user) %dir %log_dir/archive
 %attr (755,%notif_user,%notif_user) %dir %log_dir/ticketlog
 %attr(644,%notif_user,%notif_user) %{_sysconfdir}/notification/static/*
+%{_sysconfdir}/smrsh/ack_enqueuer.pl
 %{_sysconfdir}/notification/stage/config/static
 %{_mandir}/man3/monitor-queue*
 %{_mandir}/man3/queue_remote_check.pl*
