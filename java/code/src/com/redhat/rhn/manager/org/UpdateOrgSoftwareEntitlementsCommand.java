@@ -41,8 +41,8 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         Logger.getLogger(UpdateOrgSoftwareEntitlementsCommand.class);
 
     private Org org;
-    private long newTotal;
-    private long newFlexTotal;
+    private Long newTotal;
+    private Long newFlexTotal;
     private ChannelFamily channelFamily;
 
     /**
@@ -137,7 +137,7 @@ public class UpdateOrgSoftwareEntitlementsCommand {
             orgMax = 0L;
         }
         // No sense making the call if its the same.
-        if (proposed.compareTo(orgMax) == 0) {
+        if (proposed == null || proposed.compareTo(orgMax) == 0) {
             return null;
         }
 
