@@ -407,13 +407,14 @@ public class UserManager extends BaseManager {
      * @throws LoginException if login fails.  The message is a string resource key.
      */
     public static User loginUser(String username, String password) throws LoginException {
+        String exceptionType = null;
         try {
             User user = UserFactory.lookupByLogin(username);
             if (!user.authenticate(password)) {
-                throw new LoginException("error.invalid_login");
+                exceptionType = "error.invalid_login";
             }
             else if (user.isDisabled()) {
-                throw new LoginException("account.disabled");
+                exceptionType = "account.disabled";
             }
             else {
                 user.setLastLoggedIn(new Date());
@@ -423,8 +424,17 @@ public class UserManager extends BaseManager {
             }
         }
         catch (LookupException le) {
-            throw new LoginException("error.invalid_login");
+            exceptionType = "error.invalid_login";
         }
+        // invalid login/password; set timeout to baffle
+        // brute force password guessing attacks (BZ 672163)
+        try {
+            Thread.sleep(2000);
+        }
+        catch (InterruptedException ie) {
+            log.warn("Failed to set timeout: " + ie.getMessage());
+        }
+        throw new LoginException(exceptionType);
     }
 
     /**
