@@ -127,10 +127,10 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_whyRegisterButton_clicked"/>
 	      <accessibility>
 		<atkproperty name="AtkObject::accessible_name" translatable="yes">Why Should I Connect to RHN? ...</atkproperty>
 	      </accessibility>
+	      <signal name="clicked" handler="on_whyRegisterButton_clicked"/>
 	    </widget>
 	  </child>
 	</widget>
@@ -410,11 +410,11 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			  <property name="has_frame">True</property>
 			  <property name="invisible_char">•</property>
 			  <property name="activates_default">False</property>
-			  <signal name="changed" handler="onSatelliteServerEntryChanged"/>
-			  <signal name="focus_in_event" handler="onSatelliteServerEntryFocused"/>
 			  <accessibility>
 			    <atkproperty name="AtkObject::accessible_name" translatable="yes">satellite server location</atkproperty>
 			  </accessibility>
+			  <signal name="changed" handler="onSatelliteServerEntryChanged"/>
+			  <signal name="focus_in_event" handler="onSatelliteServerEntryFocused"/>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -513,10 +513,10 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="onAdvancedNetworkConfigurationButtonClicked"/>
 	      <accessibility>
 		<atkproperty name="AtkObject::accessible_name" translatable="yes">Advanced Network Configuration button</atkproperty>
 	      </accessibility>
+	      <signal name="clicked" handler="onAdvancedNetworkConfigurationButtonClicked"/>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -683,10 +683,10 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 		  <property name="has_frame">True</property>
 		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
-		  <signal name="activate" handler="onLoginUserEntryActivate"/>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">RHN login field</atkproperty>
 		  </accessibility>
+		  <signal name="activate" handler="onLoginUserEntryActivate"/>
 		</widget>
 		<packing>
 		  <property name="left_attach">1</property>
@@ -708,10 +708,10 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 		  <property name="has_frame">True</property>
 		  <property name="invisible_char">•</property>
 		  <property name="activates_default">False</property>
-		  <signal name="activate" handler="onLoginPasswordEntryActivate"/>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">RHN password field</atkproperty>
 		  </accessibility>
+		  <signal name="activate" handler="onLoginPasswordEntryActivate"/>
 		</widget>
 		<packing>
 		  <property name="left_attach">1</property>
@@ -2052,10 +2052,10 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="has_frame">True</property>
 			  <property name="invisible_char">•</property>
 			  <property name="activates_default">False</property>
-			  <signal name="changed" handler="registrationNumberEntryChanged"/>
 			  <accessibility>
 			    <atkproperty name="AtkObject::accessible_name" translatable="yes">installation number field</atkproperty>
 			  </accessibility>
+			  <signal name="changed" handler="registrationNumberEntryChanged"/>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -2558,10 +2558,10 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
-			  <signal name="clicked" handler="onViewHardwareButtonClicked"/>
 			  <accessibility>
 			    <atkproperty name="AtkObject::accessible_name" translatable="yes">View Hardware Profile</atkproperty>
 			  </accessibility>
+			  <signal name="clicked" handler="onViewHardwareButtonClicked"/>
 			</widget>
 			<packing>
 			  <property name="left_attach">1</property>
@@ -2740,10 +2740,10 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="onBackToRegistrationButtonClicked"/>
 	      <accessibility>
 		<atkproperty name="AtkObject::accessible_name" translatable="yes">Take me back to the registration</atkproperty>
 	      </accessibility>
+	      <signal name="clicked" handler="onBackToRegistrationButtonClicked"/>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
