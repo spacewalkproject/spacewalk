@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.9
+Version: 1.4.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.10-1
+- always generate new session after login
+- set timeout after unsuccessful login
+
 * Wed Feb 23 2011 Tomas Lestach <tlestach@redhat.com> 1.4.9-1
 - 679374 - clone also "Don't install @Base package group" and "Ignore missing
   packages" kickstart profile atributes (tlestach@redhat.com)
