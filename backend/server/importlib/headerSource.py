@@ -120,7 +120,7 @@ class rpmBinaryPackage(Package, rpmPackage):
     tagMap.update({
         'package_group' : 'group',
         'rpm_version'   : 'rpmversion',
-        'payload_size'  : 'archivesize',
+        'payload_size'  : 'size',
         'payload_format': 'payloadformat',
         'build_host'    : 'buildhost',
         'build_time'    : 'buildtime',
@@ -248,7 +248,7 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
     tagMap.update({
         'package_group' : 'group',
         'rpm_version'   : 'rpmversion',
-        'payload_size'  : 'archivesize',
+        'payload_size'  : 'size',
         'build_host'    : 'buildhost',
         'build_time'    : 'buildtime',
         'source_rpm'    : 'sourcerpm',
