@@ -648,7 +648,11 @@ sub zonify_daily {
 
   } ## end foreach my $zone (sort(@zones...
 
-  $ENV{'TZ'} = $oldtz;
+  if ($oldtz) {
+    $ENV{'TZ'} = $oldtz;
+  } else {
+    delete $ENV{'TZ'};
+  }
 
   # Note:  log OK again
 } ## end sub zonify_daily
