@@ -264,6 +264,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[select rhn_channel.available_chan_subscriptions(:channel_id, :org_id) as entitlements from dual]]>
     </sql-query>
 
+    <sql-query name="Channel.availableFveEntitlements">
+        <return-scalar type="long" column="entitlements"/>
+        <![CDATA[select rhn_channel.available_fve_chan_subs(:channel_id, :org_id) as entitlements from dual]]>
+    </sql-query>
+
     <sql-query name="Channel.verifyLabel">
         <return-scalar type="string" column="label"/>
         <![CDATA[select label from rhnChannel where label = :label]]>

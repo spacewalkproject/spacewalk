@@ -1128,6 +1128,23 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * Returns available flex entitlements for the org and the given channel.
+     * @param org Org
+     * @param c Channel
+     * @return available flex entitlements for the org and the given channel.
+     */
+    public static Long getAvailableFveEntitlements(Org org, Channel c) {
+        ChannelEntitlementCounter counter =
+            (ChannelEntitlementCounter) MethodUtil.getClassFromConfig(
+                    ChannelEntitlementCounter.class.getName());
+
+        Long retval = counter.getAvailableFveEntitlements(org, c);
+        log.debug("getAvailableFveEntitlements: " + c.getLabel() + " got: " + retval);
+
+        return retval;
+    }
+
+    /**
      * Returns the latest packages in the channel. This call will return more details
      * about the channel than the API specific call
      * {@link #latestPackagesInChannel(com.redhat.rhn.domain.channel.Channel)}.

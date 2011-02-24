@@ -1794,6 +1794,27 @@ SELECT 1
   </query>
 </mode>
 
+<mode name="is_server_fve_eligible">
+    <query params="sid">
+    select 1
+        from rhnVirtualInstance vi
+             inner join rhnServer s on vi.virtual_system_id = s.id
+       where s.id = :sid and (
+             vi.host_system_id is null or
+             not exists (
+                select 1
+                  from rhnServerGroupMembers sgm
+                       inner join rhnServerGroup sg on sgm.server_group_id = sg.id
+                       inner join rhnServerGroupType sgt on sgt.id = sg.group_type
+                       inner join rhnServer s2 on s2.id = sgm.server_id
+                 where s2.id = vi.host_system_id
+                 and sgt.label in
+                 ('virtualization_host', 'virtualization_host_platform')
+                )
+             )
+    </query>
+</mode>
+
 <write-mode name="delete_note">
   <query params="id,server_id">
 delete from rhnServerNotes where id = :id and server_id = :server_id

@@ -37,4 +37,16 @@ public class ChannelEntitlementCounter {
         return retval;
     }
 
+    /**
+     * Get the available flex guest entitlements for the passed in Org
+     * and Channel
+     * @param orgIn to check
+     * @param channelIn to check
+     * @return Long count, null if unlimited.
+     */
+    public Long getAvailableFveEntitlements(Org orgIn, Channel channelIn) {
+        Long retval = ChannelFactory.getAvailableFveEntitlements(orgIn, channelIn);
+        return retval;
+    }
+
 }
