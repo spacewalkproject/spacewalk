@@ -5353,7 +5353,7 @@ You'll know when software updates are available when a package icon appears in t
       <child>
 	<widget class="GtkImage" id="image5">
 	  <property name="visible">True</property>
-	  <property name="pixbuf">puplet-screenshot.png</property>
+	  <property name="pixbuf">/usr/share/pixmaps/puplet-screenshot.png</property>
 	  <property name="xalign">0.5</property>
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
