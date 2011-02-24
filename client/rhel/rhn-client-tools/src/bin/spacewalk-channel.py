@@ -129,6 +129,8 @@ def main():
             channels = map(lambda x: x['label'], getChannels().channels())
         except up2dateErrors.NoChannelsError:
             systemExit(1, _('This system is not associated with any channel.'))
+        except up2dateErrors.NoSystemIdError:
+            systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
         channels.sort()
         print '\n'.join(channels)
     elif OPTIONS.available_channels:
