@@ -305,7 +305,7 @@ sub select_active_redirects {
         RECURRING_FREQUENCY,
         RECURRING_DURATION
       FROM   $table
-      WHERE  SYSDATE BETWEEN START_DATE AND EXPIRATION
+      WHERE  SYSDATE < EXPIRATION
 EOSQL
 
   my $redirptr = $self->execute($sql, $table, FETCH_ARRAYREF);
@@ -331,7 +331,7 @@ EOSQL
       FROM 
         $table, $table2
       WHERE 
-        SYSDATE BETWEEN $table2.START_DATE AND $table2.EXPIRATION
+        SYSDATE < $table2.EXPIRATION
         AND    $table.REDIRECT_ID = $table2.RECID
 EOSQL
 
@@ -355,7 +355,7 @@ EOSQL
       FROM 
         $table, $table2
       WHERE 
-        SYSDATE BETWEEN $table2.START_DATE AND $table2.EXPIRATION
+        SYSDATE < $table2.EXPIRATION
         AND    $table.REDIRECT_ID = $table2.RECID
 EOSQL
 
@@ -378,7 +378,7 @@ EOSQL
       FROM 
         $table, $table2
       WHERE 
-        SYSDATE BETWEEN $table2.START_DATE AND $table2.EXPIRATION
+        SYSDATE < $table2.EXPIRATION
         AND    $table.REDIRECT_ID = $table2.RECID
 EOSQL
 
@@ -412,7 +412,7 @@ sub select_active_redirect_criteria {
         $table.MATCH_VALUE,
         $table.INVERTED
       FROM   $table, $table2
-      WHERE  SYSDATE BETWEEN $table2.START_DATE AND $table2.EXPIRATION
+      WHERE  SYSDATE < $table2.EXPIRATION
       AND    $table2.RECID = $table.REDIRECT_ID
       ORDER BY $table.REDIRECT_ID, $table.MATCH_PARAM
 EOSQL
