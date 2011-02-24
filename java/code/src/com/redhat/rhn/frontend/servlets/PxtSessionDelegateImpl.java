@@ -59,6 +59,9 @@ public class PxtSessionDelegateImpl implements PxtSessionDelegate {
      */
     public void updateWebUserId(HttpServletRequest request, HttpServletResponse response,
             Long id) {
+        // generate new session to prevent session fixation (BZ 672159)
+        Object sessionAttribute = createPxtSession();
+        request.setAttribute("session", sessionAttribute);
 
         getPxtSession(request).setWebUserId(id);
         refreshPxtSession(request, response);
