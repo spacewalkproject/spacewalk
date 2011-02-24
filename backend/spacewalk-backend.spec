@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.9
+Version: 1.4.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.10-1
+- set timeout after unsuccessful login
+- removed unused/unsupported API
+
 * Thu Feb 17 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.9-1
 - fixed No module named common
 - 677549 - do not require spacewalk-backend-libs in the same version
