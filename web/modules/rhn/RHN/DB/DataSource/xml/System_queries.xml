@@ -873,6 +873,7 @@ ORDER BY SP.position
 
 <mode name="systems_in_channel_family">
   <query params="org_id, cfam_id, user_id">
+select * from (
 SELECT distinct S.id, S.name
   FROM rhnServer S,
        rhnServerChannel SC,
@@ -882,7 +883,8 @@ SELECT distinct S.id, S.name
    AND SC.channel_id = CFM.channel_id
    AND CFM.channel_family_id = :cfam_id
    AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+) X
+ORDER BY UPPER(NVL(X.NAME, '(none)')), X.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements"/>
