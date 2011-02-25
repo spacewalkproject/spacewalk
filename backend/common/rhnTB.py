@@ -231,7 +231,3 @@ def add_to_seclist(obj):
     if not seclist.check(obj):
         seclist.add(obj)
 
-def check_with_seclist(obj):
-    """ Checks whether a string is in seclist.sec or not. Returns True or False. """
-    seclist = SecurityList()
-    return seclist.check(obj)       

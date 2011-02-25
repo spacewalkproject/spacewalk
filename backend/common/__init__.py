@@ -20,7 +20,7 @@
 from UserDictCase import UserDictCase
 from RPC_Base import RPC_Base
 from rhnException import rhnFault, rhnException, xmlrpclib, redirectException
-from rhnTB import Traceback, fetchTraceback, exitWithTraceback, add_to_seclist, check_with_seclist, get_seclist
+from rhnTB import Traceback, fetchTraceback, exitWithTraceback, add_to_seclist, get_seclist
 from rhnConfig import CFG, initCFG
 
 # try to figure out if we're running under Apache or not
