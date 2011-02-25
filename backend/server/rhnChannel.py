@@ -509,28 +509,6 @@ class ChannelFamily(BaseChannelObject):
     _generic_fields = ['label', 'name', 'product_url']
 
 
-def create_channels(entries, update=0):
-    if not isinstance(entries, ListType):
-        raise InvalidEntryError(entries, "Not a list")
-    mandatory_fields = Channel._generic_fields + ['channel_arch']
-    for e in entries:
-        if not isinstance(e, DictType):
-            raise InvalidEntryError(e, "Entry is not a dictionary")
-
-        for f in mandatory_fields:
-            if not e.has_key(f):
-                raise InvalidEntryError(e, "Missing required field %s" % f)
-
-        parent_channel = e.get('parent_channel')
-        release = e.get('release')
-        if parent_channel and not release:
-            raise InvalidEntryError(e, "Attempting to create a base channel "
-                "without a distribution release")
-
-        c = Channel()
-        c.load_from_dict(e)
-        c.save(with_updates=update)
-    
 def create_channel_families(entries, update=0):
     if not isinstance(entries, ListType):
         raise InvalidEntryError(entries, "Not a list")
