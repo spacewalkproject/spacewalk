@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.5
+Version: 1.4.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Feb 25 2011 Jan Pazdziora 1.4.6-1
+- 680375 - we do not want the locked status (icon) to hide the the other
+  statuses, we add separate padlock icon.
+- Fixing systems_in_channel_family query for PostgreSQL.
+- The /network/systems/details/hardware.pxt was replaced by
+  /rhn/systems/details/SystemHardware.do.
+
 * Thu Feb 24 2011 Jan Pazdziora 1.4.5-1
 - The module Text::Diff is no longer needed, removing its use.
 
