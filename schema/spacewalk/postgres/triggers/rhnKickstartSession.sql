@@ -62,6 +62,7 @@ begin
                         );
           end if;
         end if;
+        return new;
 end;
 $$ language plpgsql;
 
