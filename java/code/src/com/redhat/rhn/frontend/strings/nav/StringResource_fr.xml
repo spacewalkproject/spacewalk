@@ -1166,10 +1166,10 @@
     </context-group>
   <trans-unit id="manage">
     <source>Manage</source>
-  <target>Gère</target></trans-unit>
+  <target>Gérer</target></trans-unit>
   <trans-unit id="clear">
     <source>Clear</source>
-  <target>Clair</target></trans-unit>
+  <target>Vider</target></trans-unit>
 
   </group>
 
