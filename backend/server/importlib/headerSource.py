@@ -405,14 +405,3 @@ def createPackage(header, size, checksum_type, checksum, relpath, org_id, header
         channels)
     return p
 
-def createPackageFromFile(filePath, relpath, org_id, channels, source=0):
-    """
-    Returns a populated instance of rpmBinaryPackage or rpmSourcePackage
-    """
-    if source:
-        p = rpmSourcePackage()
-    else:
-        p = rpmBinaryPackage()
-
-    p.populateFromFile(filePath, relpath, org_id, channels)
-    return p
