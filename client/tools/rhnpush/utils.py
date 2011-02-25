@@ -21,11 +21,6 @@ def get_home_dir():
 	info = pwd.getpwuid(userid)
 	return info[5]
 
-#Check to see if obj1 has an attribute named attr_name.
-#attr_name is a string and can denote a method or a member variable.
-def object_has_attr(obj1, attr_name):
-	return obj1.__dict__.has_key(attr_name)
-
 #If Object1 and Object2 have any common attributes, set the attribute in Object1
 #to the value of the attribute in Object2. Does not make functions or variables starting with '_' equivalent.
 def make_common_attr_equal(object1, object2):
