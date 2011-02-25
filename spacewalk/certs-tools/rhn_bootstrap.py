@@ -125,56 +125,6 @@ def parseHttpProxyString(httpProxy):
     return httpProxy
 
 
-def getExistingOverridesConfig(overrides):
-    """ Fetch previously set values from the overrides file.
-        These values will be used to set the defaults for the commandline.
-        Sensible defaults are chosen for any settings left blank.
-        FIXME: I don't use this yet.
-    """
-
-    d = {
-            'enableProxy':      None,
-            'enableProxyAuth':  None,
-            'httpProxy':        None,
-            'proxyUser':        None,
-            'proxyPassword':    None,
-            'serverURL':        '',
-            'sslCACert':        '',
-            'useGPG':           1,
-        }
-    if os.path.exists(overrides):
-        d.update(readConfigFile(overrides))
-
-    # now let's fill in any blanks with sensible defaults.
-    if not d['serverURL']:
-        d['serverURL'] = 'https://' + socket.gethostname() + '/XMLRPC'
-
-    d['sslCACert'] = d['sslCACert'] or DEFAULT_CA_CERT_PATH
-
-    # http_proxy can be one of None, '' or 'something:port'
-    # None means leave the configuration alone.
-    # '' or 'something:port' means remap it.
-    if d['httpProxy'] == '':
-        d['proxyUser'] = ''
-        d['enableProxy'] = 0
-    elif d['httpProxy'] is None:
-        d['proxyUser'] = None
-        d['enableProxy'] = None # means no change
-    else:
-        d['enableProxy'] = 1
-
-    if d['proxyUser'] == '':
-        d['proxyPassword'] = ''
-        d['enableProxyAuth'] = 0
-    elif d['proxyUser'] is None:
-        d['proxyPassword'] = None
-        d['enableProxyAuth'] = None # means no change
-    else:
-        d['enableProxyAuth'] = 1
-
-    return d
-
-
 def processCACertPath(options):
     isRpmYN = 0
 
