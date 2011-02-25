@@ -161,9 +161,6 @@ class rpmBinaryPackage(Package, rpmPackage):
         # Channels
         self._populateChannels(channels)
 
-    def populateFromFile(self, file, relpath=None, org_id=None, channels=[]):
-        return self._populateFromFile(file, relpath, org_id, channels)
-
     def _populateFiles(self, header):
         self._populateTag(header, 'files', rpmFile)
 
@@ -282,9 +279,6 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         self['sigchecksum_type'] = 'md5'
         self['sigchecksum'] = string.join(
             map(lambda x: "%02x" % ord(x), self['sigchecksum']), '')
-
-    def populateFromFile(self, file, relpath=None, org_id=None, channels=[]):
-        return self._populateFromFile(file, relpath, org_id, channels, source=1)
 
 class rpmFile(File, ChangeLog):
     # Mapping from the attribute's names to rpm tags
