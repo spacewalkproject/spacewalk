@@ -149,21 +149,6 @@ def reInitDEFS(caYN=0):
         DEFS.update(_defsServer)
 
 
-def printDEFS(defs=None):
-    if not defs:
-        defs = DEFS
-    print 'XXX DEFS:'
-    for k,v in defs.items():
-        print k, ' '*(25-len(k)), repr(v)
-
-
-def printOptions(options):
-    print 'XXX options:'
-    if options:
-        for k, v in options.__dict__.items():
-	    print k, ' '*(25-len(k)), repr(v)
-
-
 def figureDEFS_dirs(options):
     """ figure out the directory defaults (after options being at least parsed
         once).
