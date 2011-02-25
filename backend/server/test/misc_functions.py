@@ -183,31 +183,6 @@ def listdir(directory):
         packageList.append("%s/%s" % (directory, f))
     return packageList
 
-def upload_packages( channel_label, directory, org_id = None, username = None, password = None, source = 0 ):
-    #1. Get a list of packages
-    filelist = listdir(directory)
-    package_list = []
-
-    package_from_file = server.importlib.headerSource.createPackageFromFile
-    package_import = server.importlib.packageImport.packageImporter
-
-    oracle_backend = server.importlib.backendOracle.OracleBackend()
-    oracle_backend.init()
-
-    #2. Turn them into package objects.
-    for file in filelist:
-        try:
-            package = package_from_file( os.path.join( directory, file ), None, org_id, [channel_label], source = source )
-            package_list.append(package)
-        except:
-            print file
-            raise
-    
-    p = package_import( package_list, oracle_backend, source = source )
-    p.run()
-    if source == 0:
-        p.subscribeToChannels()
-
 #stolen from backend/server/test/unit-test/test_rhnChannel
 def new_channel_dict( **kwargs):
     _counter = 0
