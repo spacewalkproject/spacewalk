@@ -122,49 +122,6 @@ def chdir(newdir):
     return cwd
 
 
-##
-## common.rhnLib stuff that I duplicate here to make the tool "stand-alone"
-##
-
-def getCertValidityRange(certPath, daysYN=0):
-    """ parse a cert (x509) and snag the validity range.
-        Returns (notBefore, notAfter) in seconds or days the epoch.
-    """
-    certPath = cleanupAbsPath(certPath)
-    if not os.path.exists(certPath):
-        return None, None
-
-    args = "/usr/bin/openssl x509 -dates -noout -in %s" % certPath
-    ret, out_stream, err_stream = rhn_popen(args)
-
-    out = out_stream.read(); out_stream.close()
-    err = err_stream.read(); err_stream.close()
-
-    out = string.strip(out)
-
-    if ret or not out:
-        raise RhnSslToolException("certificate parse (for validity range) "
-                                  "failed:\n%s\n%s" % (out, err))
-
-    if out \
-      and string.find(out, 'notBefore=')!=-1 \
-      and string.find(out, 'notAfter=')!=-1:
-        notBefore, notAfter = string.split(out, '\n')
-        notBefore = string.strip(string.split(notBefore, 'notBefore=')[1])[:-4]
-        notAfter = string.strip(string.split(notAfter, 'notAfter=')[1])[:-4]
-        # secs from epoch
-        notBefore = str2secs(notBefore, '%b %d %H:%M:%S %Y')
-        notAfter = str2secs(notAfter, '%b %d %H:%M:%S %Y')
-        if daysYN:
-            # days from epoch
-            notBefore = secs2days(notBefore)
-            notAfter = secs2days(notAfter)
-        return notBefore, notAfter
-    else:
-        raise RhnSslToolException("certificate parse (for validity range) "
-                                  "failed:\n%s\n%s" % (out, err))
-
-
 class TempDir:
 
     """ temp directory class with a cleanup destructor and method """
