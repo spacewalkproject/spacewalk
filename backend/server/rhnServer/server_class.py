@@ -667,14 +667,6 @@ class Server(ServerWrapper):
         log_debug(3, self.server["id"])
 
         return server_lib.check_entitlement(self.server['id'])
-    
-
-    # Given a dbiDate object, returns the UNIX representation (seconds since
-    # epoch)
-    def dbiDate2timestamp(self, dateobj):
-        timeString = '%s %s %s %s %s %s' % (dateobj.year, dateobj.month,
-            dateobj.day, dateobj.hour, dateobj.minute, dateobj.second)
-        return time.mktime(time.strptime(timeString, '%Y %m %d %H %M %S'))
  
     def validateSatCert(self):
         # make sure the cert is still valid

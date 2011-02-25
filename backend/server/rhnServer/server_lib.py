@@ -272,13 +272,6 @@ def join_rhn(org_id):
     """ Stub """
     return
 
-def dbiDate2timestamp(dateobj):
-    """ Given a dbiDate object, returns the UNIX representation (seconds since epoch) """
-    timeString = '%s %s %s %s %s %s' % (dateobj.year, dateobj.month, 
-        dateobj.day, dateobj.hour, dateobj.minute, dateobj.second)
-    return time.mktime(time.strptime(timeString, '%Y %m %d %H %M %S'))
-    
-
 def snapshot_server(server_id, reason):
     if CFG.ENABLE_SNAPSHOTS:
        return rhnSQL.Procedure("rhn_server.snapshot_server")(server_id, reason)
