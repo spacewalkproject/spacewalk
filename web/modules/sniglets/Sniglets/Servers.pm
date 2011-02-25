@@ -399,6 +399,25 @@ sub server_name {
   return PXT::Utils->escapeHTML($server->name);
 }
 
+sub system_locked_info {
+  my $user = shift;
+  my $data = shift;
+
+  my $ret = {};
+  if ($data->{LOCKED}) {
+    $ret->{image} = '/img/icon_locked.gif';
+    $ret->{image_medium} = '/img/icon_locked.gif';
+    $ret->{status_str} = 'System locked';
+    $ret->{status_class} = 'system-status-locked';
+    $ret->{message} = 'more info';
+    $ret->{link} = Sniglets::HTML::render_help_link(-user => $user,
+                                                   -href => 's1-sm-systems.html#S3-SM-SYSTEM-DETAILS');
+
+  }
+  return $ret;
+}
+
+
 # not a sniglet
 sub system_status_info {
   my $user = shift;
@@ -432,16 +451,6 @@ sub system_status_info {
     $ret->{message} = 'more info';
     $ret->{link} = Sniglets::HTML::render_help_link(-user => $user,
 						    -href => 's1-sm-systems.html#S3-SM-SYSTEM-LIST-INACT');
-  }
-  elsif ($data->{LOCKED}) {
-    $ret->{image} = '/img/icon_locked.gif';
-    $ret->{image_medium} = '/img/icon_locked.gif';
-    $ret->{status_str} = 'System locked';
-    $ret->{status_class} = 'system-status-locked';
-    $ret->{message} = 'more info';
-    $ret->{link} = Sniglets::HTML::render_help_link(-user => $user,
-						    -href => 's1-sm-systems.html#S3-SM-SYSTEM-DETAILS');
-
   }
   elsif ($data->{KICKSTART_SESSION_ID}) {
     $ret->{image} = '/img/icon_kickstart_session.gif';

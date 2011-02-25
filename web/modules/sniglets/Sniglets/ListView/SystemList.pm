@@ -678,6 +678,16 @@ sub row_callback {
  			       -border => 0);
 
     $row->{ADVISORY_ICON} = PXT::HTML->link($icon_data->{link}, $image);
+
+    my $locked_data = Sniglets::Servers::system_locked_info($pxt->user, $row);
+    if ($locked_data->{link}) {
+      my $locked_image = PXT::HTML->img(-src => $locked_data->{image},
+			       -alt => $locked_data->{status_str},
+			       -title => $locked_data->{status_str},
+			       -border => 0);
+
+      $row->{ADVISORY_ICON} .= PXT::HTML->link($locked_data->{link}, $locked_image);
+    }
   }
 
   $row->{MONITORING_ICON} = '';
