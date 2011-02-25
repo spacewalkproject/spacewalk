@@ -60,11 +60,6 @@ class UtilsTestCase(unittest.TestCase):
 		self.obj1, self.obj2 = utils.make_common_attr_equal(self.obj1,self.obj2)
 		assert self.obj1._d == '1' and self.obj2._d == '4' and self.obj1.a == 4 and self.obj1.b == 5 and self.obj1.c == 6 and self.obj2.f == 'aaa'	
 
-
-
-	def testObjectHasAttr(self):
-		assert utils.object_has_attr( self.obj1, 'a') == True and utils.object_has_attr( self.obj1, 'd') == False
-		
 	def testAttrNotFunction(self):
 		assert utils.attr_not_function(self.obj1.__dict__['a']) == True
 
