@@ -165,23 +165,6 @@ def getCertValidityRange(certPath, daysYN=0):
                                   "failed:\n%s\n%s" % (out, err))
 
 
-def getCertValidityDates(certPath, format="%a %b %d %H:%M:%S %Y"):
-    """ parse a cert (x509) and snag the validity dates.
-        Returns (notBefore, notAfter) - strings of course.
-    """
-
-    # validity in seconds 
-    notBefore, notAfter = getCertValidityRange(certPath)
-
-    if notBefore is not None:
-        notBefore = secs2str(format, notBefore)
-    if notAfter is not None:
-        notAfter = secs2str(format, notAfter)
-
-    # validity as strings
-    return notBefore, notAfter
-
-
 class TempDir:
 
     """ temp directory class with a cleanup destructor and method """
