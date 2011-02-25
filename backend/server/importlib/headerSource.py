@@ -94,26 +94,6 @@ class rpmPackage(IncompletePackage):
             self['payload_size'] = 0
         return self
 
-    def _populateFromFile(self, f_path, relpath=None, org_id=None, channels=[],
-            source=None):
-	f_obj = file(f_path)
-        import server.rhnPackageUpload as rhnPackageUpload
-        header, payload_stream, header_start, header_end = \
-            rhnPackageUpload.load_package(f_obj)
-        if (source and not header.is_source) or (not source and header.is_source):
-            raise ValueError("Unexpected RPM package type")
-                    
-        # Get the size
-        size = os.path.getsize(f_path)
-        path = None
-        if relpath:
-            # Strip trailing slashes
-            path = "%s/%s" % (sanitizePath(relpath), os.path.basename(f_path))
-        checksum_type = header.checksum_type()
-        checksum = getFileChecksum(header.checksum_type(), file=payload_stream)
-        self.populate(header, size, checksum_type, checksum, path, org_id,
-                 header_start, header_end, channels)
-
 class rpmBinaryPackage(Package, rpmPackage):
     # Various mappings
     tagMap = rpmPackage.tagMap.copy()
