@@ -2031,7 +2031,8 @@ public class SystemManager extends BaseManager {
 
         /* If serverIn is fve eligible, check number of flex guest entitlements available */
         if (m.execute(params).size() >= 1) {
-            availableSubscriptions = ChannelManager.getAvailableFveEntitlements(orgIn, channelIn);
+            availableSubscriptions =
+                ChannelManager.getAvailableFveEntitlements(orgIn, channelIn);
         }
 
         /* If the previous query did not result any data or the number of flex guest
