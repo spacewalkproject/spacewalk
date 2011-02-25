@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.5
+Version:        1.4.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Feb 25 2011 Jan Pazdziora 1.4.6-1
+- Need to return new at the end of a trigger function.
+
 * Thu Feb 24 2011 Jan Pazdziora 1.4.5-1
 - Adding a schema upgrade script for the sat_node_probe drop.
 - Adding a schema upgrade script for the web_cust_notif_seq drop.
