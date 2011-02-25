@@ -509,23 +509,6 @@ class ChannelFamily(BaseChannelObject):
     _generic_fields = ['label', 'name', 'product_url']
 
 
-def create_channel_families(entries, update=0):
-    if not isinstance(entries, ListType):
-        raise InvalidEntryError(entries, "Not a list")
-    mandatory_fields = ChannelFamily._generic_fields
-    for e in entries:
-        if not isinstance(e, DictType):
-            raise InvalidEntryError(e, "Entry is not a dictionary")
-
-        for f in mandatory_fields:
-            if not e.has_key(f):
-                raise InvalidEntryError(e, "Missing required field %s" % f)
-
-        c = ChannelFamily()
-        c.load_from_dict(e)
-        c.save(with_updates=update)
-
-
 def _load_by_id(query, item_object, pattern=None):
     if pattern:
         query += "and label like :pattern"
