@@ -159,22 +159,22 @@ public class SystemListHelper {
         }
 
         if (next.getLocked().intValue() == 1) {
-            HtmlTag locked_url = new HtmlTag("a");
-            HtmlTag locked_img = new HtmlTag("img");
+            HtmlTag lockedUrl = new HtmlTag("a");
+            HtmlTag lockedImg = new HtmlTag("img");
 
             //status = "locked";
-            locked_url.setAttribute("href",
+            lockedUrl.setAttribute("href",
                     "/rhn/help/reference/en-US/s1-sm-systems.jsp");
             message = ls.getMessage("systemlist.jsp.locked");
-            locked_img.setAttribute("src", "/img/icon_locked.gif");
-            locked_img.setAttribute("alt", message);
-            locked_img.setAttribute("title", message);
+            lockedImg.setAttribute("src", "/img/icon_locked.gif");
+            lockedImg.setAttribute("alt", message);
+            lockedImg.setAttribute("title", message);
             if (makeLinks) {
-                locked_url.addBody(locked_img);
-                statusDisplay = statusDisplay + locked_url.render();
+                lockedUrl.addBody(lockedImg);
+                statusDisplay = statusDisplay + lockedUrl.render();
             }
             else {
-                statusDisplay = statusDisplay + locked_img.render();
+                statusDisplay = statusDisplay + lockedImg.render();
             }
         }
 
