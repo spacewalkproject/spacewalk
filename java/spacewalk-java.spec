@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.10
+Version: 1.4.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 25 2011 Jan Pazdziora 1.4.11-1
+- Fix SSM buttons translation. (jfenal@redhat.com)
+- 680375 - we do not want the locked status (icon) to hide the the other
+  statuses, we add separate padlock icon.
+- The /network/systems/details/hardware.pxt was replaced by
+  /rhn/systems/details/SystemHardware.do.
+- We want to show the bios information if it is *not* empty.
+- 673394 - correct entitlement logic when altering channel subscriptions
+  (mzazrivec@redhat.com)
+
 * Thu Feb 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.10-1
 - always generate new session after login
 - set timeout after unsuccessful login
