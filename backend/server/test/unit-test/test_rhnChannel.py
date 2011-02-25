@@ -123,21 +123,6 @@ class Tests(unittest.TestCase):
         rhnSQL.commit()
         return c
 
-    def test_create_channel_families_1(self):
-        """Tests rhnChannel.create_channel_families"""
-        entries = []
-        for i in range(5):
-            vdict = self._new_channel_family_dict()
-            entries.append(vdict)
-
-        rhnChannel.create_channel_families(entries)
-        rhnSQL.commit()
-        for entry in entries:
-            label = entry['label']
-            c = rhnChannel.Channel().load_by_label(label)
-            self.failIf(c.exists())
-        return entries
-
     def test_list_channel_families_1(self):
         """Tests rhnChannel.list_channel_families"""
         channel_families =  rhnChannel.list_channel_families()
