@@ -1353,7 +1353,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>O login requisitado é muito longo. Por favor, indique um login mais curto e tente novamente.</target></trans-unit>
+      <target>O nome de usuário é muito longo. Por favor, indique um nome de usuário mais curto e tente novamente.</target></trans-unit>
 
       <trans-unit id="error.minpassword">
 <source>Passwords must be at least {0} characters.</source>
@@ -1375,7 +1375,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>A senha indicada é muito longa. Por favor, indique uma senha mais curta e tente novamente.</target></trans-unit>
+      <target>A senha informada é muito longa. Por favor, indique uma senha mais curta e tente novamente.</target></trans-unit>
 
       <trans-unit id="error.password_mismatch">
 <source>Passwords do not match.</source>
@@ -8031,11 +8031,11 @@ Follow this url to see the full list of inactive systems:
 
      <trans-unit id="api.package.download.toolarge">
           <source>The requested file is too large to download over XMLRPC.</source>
-      <target>O arquivo requisitado é muito grande para ser baixado sob o XMLRPC.</target></trans-unit>
+      <target>O arquivo solicitado é muito grande para ser baixado sob o XMLRPC.</target></trans-unit>
 
      <trans-unit id="api.package.download.ioerror">
           <source>There was a general IO Error, check permissions on the requested file.</source>
-      <target>Ocorreu um Erro de E/S, verifique as permissões no arquivo requisitado.</target></trans-unit>
+      <target>Ocorreu um Erro de E/S, verifique as permissões no arquivo solicitado.</target></trans-unit>
 
       <trans-unit id="api.channel.access.invalidaccessvalue">
           <source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
