@@ -289,28 +289,6 @@ class Backend:
                 hash[k] = row
             # Else, it's an unsupported channel
 
-    def updateChannelFamilyInfo(self, familyid, orgid):
-        _query_org_priv_family = """
-             SELECT  1
-               FROM  rhnPrivateChannelFamily PCF
-              WHERE  PCF.channel_family_id = :cfid
-                AND  PCF.org_id = :orgid 
-        """
-        h = self.dbmodule.prepare(_query_org_priv_family)
-        h.execute(cfid = familyid, orgid = orgid)
-        row = h.fetchone_dict()
-        if row:
-          return
-          
-        _query_priv_cf_org =  """
-            insert into rhnPrivateChannelFamily
-            (channel_family_id, org_id)  values
-            (:cfid, :orgid)
-        """
-        h = self.dbmodule.prepare(_query_priv_cf_org)
-        h.execute(cfid = familyid, orgid = orgid)
-        
-
     def lookupChannelPackageArchCompat(self, channelArchHash):
         # Return all the arches compatible with each key of archHash
         sql = """
