@@ -1,0 +1,253 @@
+.\" Process this file with
+.\" groff -man -Tascii foo.1
+.\"
+.TH rhn.conf 5 "1 March 2011" Linux "File Formats and Conventions"
+.SH NAME
+rhn.conf \- Configuration file for Spacewalk/RHN Satellite Server
+.SH SYNOPSIS
+.B /etc/rhn/rhn.conf
+.SH DESCRIPTION
+.B rhn.conf
+is a configuration file for used for several services in Spacewalk/RHN Satellite server.
+The file content are read by
+.B rhn-satellite (8)
+command to start the Spacewalk/RHN Satellite service.
+.SH FORMAT
+.P
+The format of /etc/rhn/rhn.conf is very simple. Each line is either a comment or a directive.  Comment lines start with a # and are ignored. A directive line has the format below:
+.TP
+parameter = value
+.SH OPTIONS
+.TP
+.B "traceback_mail"
+Define which mail address will be used to notify about reports, warnings and Web traceback errors.
+Use comma to separate mail addresses.
+.IP
+.B Default:
+none
+
+.TP
+.B "mount_point"
+Define the directory used to store the RPM package files offered by software channels.
+Per recommendation, we suggest at least 30 GB storage per software
+channel (including Base and child channels).
+.IP
+.B Default:
+/var/satellite
+
+.TP
+.B "kickstart_mount_point"
+Define the directory used to store the kickstart trees.
+.IP
+.B Default:
+/var/satellite
+
+.TP
+.B "repomd_cache_mount_point"
+Define the directory used to store the packages, errata, channels, kickstart-tree and repositories metadata
+cache information generated when using Spacewalk/RHN Satellite, which get regenerated, as needed, if deleted.
+These cache files are stored in
+.B /var/cache/rhn
+and the storage needs of this directory will vary greatly. We suggest at least 10GB of space in
+.B /var/cache/rhn
+on Spacewalk/RHN Satellite server. Very large environments will need to increase the amount of space in
+.B /var/cache/rhn
+directory.
+
+.IP
+.B Default:
+/var/cache
+
+.TP
+.B "server.satellite.rhn_parent"
+This parameter determines the parent RHN/RHN Satellite which packages will be downloaded or synced. This parameter usually points to RHN Hosted,
+.B rhn.redhat.com
+.IP
+.B Default:
+none
+
+.TP
+.B "server.satellite.http_proxy"
+This parameter determines the HTTP proxy used to download or sync packages. Enter the IP address or HTTP Proxy FQDN address.
+.IP
+.B Default:
+none
+
+.TP
+.B "server.satellite.http_proxy_username"
+This parameter determines the HTTP proxy username.
+.IP
+.B Default:
+none
+
+.TP
+.B "server.satellite.http_proxy_password"
+This parameter determines the HTTP proxy password.
+.IP
+.B Default:
+none
+
+.TP
+.B "server.satellite.ca_chain"
+This parameter specify the SSL certificate used in communication against
+.B server.satellite.rhn_parent.
+The default SSL CA certificate points to RHN Hosted.
+.IP
+.B Default:
+/usr/share/rhn/RHNS-CA-CERT
+
+.TP
+.B "debug"
+.P
+.RS
+This parameter determines debug level used by Spacewalk/RHN Satellite processes.
+Please, keep in mind that raising up this value will generate a very verbose logs, which is only useful for debug.
+.B Use it carefully!
+Valid values:
+.B [0-6]
+.RE
+.B
+.P
+.RS
+0 low verbosity
+.RE
+.RS
+6 high verbosity
+.RE
+.IP
+.B Default:
+1
+
+.TP
+.B "disconnected (boolean)"
+This parameter controls if server is running in connected or disconnected mode.
+When running in disconnected mode, the RHN Entitlement Certificate is activated locally
+but not on remote RHN Servers. To switch to connected mode, see man page
+.B rhn-satellite-activate (8).
+.IP
+.B Default:
+0
+
+.TP
+.B "enable_snapshots"
+This parameter controls if server is allow system snapshots.
+.IP
+.B Default:
+1
+
+.SS Database Options
+.TP
+.B "db_backend"
+Determine the database backend. Valid backends are:
+.B postgresql
+or
+.B oracle
+.IP
+
+.TP
+.B "db_user"
+Determine the user for database connections.
+.IP
+
+.TP
+.B "db_password"
+Determine the password for database connections.
+.IP
+
+.TP
+.B "db_name"
+Determine the database name.
+.IP
+
+.TP
+.B "db_host"
+Determine the database host.
+.IP
+
+.TP
+.B "db_port"
+Determine the database port.
+.IP
+
+.SH Inter-RHN Satellite Sync (ISS)
+The ability of synchronization between two Spacewalk/RHN Satellites servers
+is called Inter-RHN Satellite Sync (ISS)  which allows to synchronize channels
+from the master RHN Satellite to slave servers, simplifying the
+process of coordinating content from one Spacewalk/RHN Satellite source to another or several others.
+
+.SS Master Spacewalk/RHN Satellite Servers
+
+.TP
+.B "allowed_iss_slaves"
+This parameter is used if the server is intended to be a master. Comma separated list of allowed
+iss slaves. Use full qualified domain names
+.B (FQDN)
+at this option.
+.IP
+
+.TP
+.B "disable_iss"
+If set to 1, then no slave will be able to sync from this server
+this option does not affect ability to sync to this server from
+another spacewalk (or hosted).
+.IP
+.B Default:
+0
+
+.SS Slave Spacewalk/RHN Satellite Servers
+
+.TP
+.B "iss_parent"
+This parameter determines the Spacewalk/RHN Satellite parent server. If left blank,
+.B server.satellite.rhn_parent
+is taken by default.
+Only use this option if this server is intended to be a slave server.
+.IP
+
+.TP
+.B "iss_ca_chain"
+This parameter specify the SSL certificate used in communication against
+.B iss_parent
+server. This certificate
+.I must
+contains the
+.I SSL Common Name
+from
+.B iss_parent
+server.
+.IP
+.B Default:
+/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+
+.SH FILES
+.I /etc/rhn/rhn.conf
+.RS
+Configuration file for Spacewalk/RHN Satellite server. See
+.BR rhn.conf (5)
+for further details.
+
+.SH ADDITIONAL DOCS
+For additional documentation, please visit:
+.P
+.RE
+.B Red Hat Network RHN Satellite Documentation
+.RS
+http://docs.redhat.com/docs/en-US/Red_Hat_Network_Satellite/index.html
+.P
+.RE
+.B Spacewalk Documentation
+.RS
+http://spacewalk.redhat.com/documentation.html
+.P
+
+.SH BUGS
+Please, if you find a bug or want a new feature fill a bug at
+.BI http://bugzilla.redhat.com
+
+.SH AUTHORS
+Marcelo Moreira de Mello <mmello@redhat.com>
+
+.SH "SEE ALSO"
+.BR rhn.conf (5),
+.BR rhn-activate-satellite (8),
+.BR db-control (1)
