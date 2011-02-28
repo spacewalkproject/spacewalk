@@ -680,7 +680,7 @@ EOQ
 
   my $ep_table = $self->table_map('rhnErrataPackage');
   $query = <<EOQ;
-SELECT rhn_erratafile_id_seq.nextval AS ID, EFT.id AS TYPE_ID, Csum.checksum md5sum, P.path, P.id AS PACKAGE_ID,
+SELECT sequence_nextval('rhn_erratafile_id_seq') AS ID, EFT.id AS TYPE_ID, Csum.checksum md5sum, P.path, P.id AS PACKAGE_ID,
        PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
   FROM rhnErrataFileType EFT, rhnPackage P, $ep_table EP, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA, rhnChecksum Csum
  WHERE EFT.label = 'RPM'
