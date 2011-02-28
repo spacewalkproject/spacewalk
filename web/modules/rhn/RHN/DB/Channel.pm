@@ -108,7 +108,7 @@ sub commit {
   }
 
   my $sth = $dbh->prepare($query);
-  $sth->execute((map { $self->$_() } grep { $modified{$_} } $c->method_names), ($mode eq 'update') ? ($self->id) : ());
+  $sth->execute((map { my $e = $self->$_(); $e = undef if defined $e and $e eq ''; $e } grep { $modified{$_} } $c->method_names), ($mode eq 'update') ? ($self->id) : ());
 
 #  if ($mode eq 'insert') {
 #    $sth = $dbh->prepare('INSERT INTO rhnChannelPermissions (channel_id, org_id) VALUES (?, ?)');
