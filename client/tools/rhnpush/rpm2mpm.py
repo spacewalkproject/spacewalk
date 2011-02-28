@@ -47,7 +47,7 @@ def rpm_to_mpm(header, file_stream):
     tag_map = {
         'package_group' : 'group',
         'rpm_version'   : 'rpmversion',
-        'payload_size'  : 'size',
+        'payload_size'  : 'archivesize',
         'payload_format': 'payloadformat',
         'build_host'    : 'buildhost',
         'build_time'    : 'buildtime',
