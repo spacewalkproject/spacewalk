@@ -466,20 +466,16 @@ EOQ
 
   $sth->execute($cid);
 
-  my $now = RHN::Date->now->long_date;
-
-  $delay = $delay / (24*60*60);
-
   if ($sth->fetchrow) {
     $sth->finish;
 
     $sth = $dbh->prepare(<<EOQ);
 UPDATE rhnTaskQueue
-   SET earliest = TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') + ?
+   SET earliest = current_timestamp + numtodsinterval(?, 'second')
  WHERE task_data = ?
 EOQ
 
-    $sth->execute($now, $delay, $cid);
+    $sth->execute($delay, $cid);
   }
   else {
     $sth->finish;
@@ -487,10 +483,10 @@ EOQ
     $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnTaskQueue
        (org_id, task_name, task_data, priority, earliest)
-VALUES (?, 'update_errata_cache_by_channel', ?, 0, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') + ?)
+VALUES (?, 'update_errata_cache_by_channel', ?, 0, current_timestamp + numtodsinterval(?, 'second'))
 EOQ
 
-    $sth->execute($org_id, $cid, $now, $delay);
+    $sth->execute($org_id, $cid, $delay);
   }
 
   $dbh->commit;
