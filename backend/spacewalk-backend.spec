@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.12
+Version: 1.4.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,23 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Feb 28 2011 Jan Pazdziora 1.4.13-1
+- removed unused updateChannelFamilyInfo() (michael.mraka@redhat.com)
+- removed dead function check_with_seclist() (michael.mraka@redhat.com)
+- _populateFromFile() is dead after populateFromFile() removal
+  (michael.mraka@redhat.com)
+- populateFromFile is dead after createPackageFromFile() removal
+  (michael.mraka@redhat.com)
+- removed test for already removed createPackageFromFil()
+  (michael.mraka@redhat.com)
+- removed dead function createPackageFromFile() (michael.mraka@redhat.com)
+- removed test for already removed create_channel_families()
+  (michael.mraka@redhat.com)
+- removed dead function create_channel_families() (michael.mraka@redhat.com)
+- removed test for already removed create_channels() (michael.mraka@redhat.com)
+- removed dead function create_channels() (michael.mraka@redhat.com)
+- removed dead function dbiDate2timestamp() (michael.mraka@redhat.com)
+
 * Mon Feb 28 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.12-1
 - reverted bask to RHEL4 rpm read header code 
 * Thu Feb 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
