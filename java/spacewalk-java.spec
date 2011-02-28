@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.12
+Version: 1.4.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 28 2011 Jan Pazdziora 1.4.13-1
+- No need to convert numeric values to upper.
+- Fixing affected_by_errata for PostgreSQL.
+
 * Mon Feb 28 2011 Jan Pazdziora 1.4.12-1
 - For PostgreSQL and setAlreadyCloned, we need to accept also Integer and cast
   it to Long.
