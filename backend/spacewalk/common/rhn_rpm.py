@@ -55,6 +55,58 @@ PGPHASHALGO = {
 class InvalidPackageError(Exception):
     pass
 
+class RPMTransaction:
+    """ wrapper/proxy class for rpm.Transaction so we can instrument it, etc easily """
+    read_only = 0
+    def __init__(self):
+        self.ts = rpm.TransactionSet()
+        self.tsflags = []
+
+    def getMethod(self, method):
+        # in theory, we can override this with
+        # profile/etc info
+        return getattr(self.ts, method)
+
+    def pushVSFlags(self, flags):
+        """ push method, so we don't lose the previous set value, and we can potentially debug a bit easier """
+        self.tsflags.append(flags)
+        self.ts.setVSFlags(self.tsflags[-1])
+
+    def popVSFlags(self):
+        """ pop method, so we don't lose the previous set value, and we can potentially debug a bit easier """
+        del self.tsflags[-1]
+        self.ts.setVSFlags(self.tsflags[-1])
+
+    def addInstall(self, arg1, arg2, mode):
+        """Install a package"""
+        hdr = arg1.hdr
+        return self.ts.addInstall(hdr, arg2, mode)
+
+    def addErase(self, arg1):
+        """Erase a package"""
+        hdr = arg1.hdr
+        return self.ts.addErase(hdr)
+
+    def check(self):
+        """Check dependencies"""
+        return self.ts.check()
+
+    def setFlags(self, flag):
+        """Set transaction flags"""
+        return self.ts.setFlags(flag)
+
+    def setProbFilter(self, flag):
+        """Set problem flags"""
+        return self.ts.setProbFilter(flag)
+
+    def run(self, callback, user_data):
+        return self.ts.run(callback, user_data)
+
+    def hdrFromFdno(self, fd):
+	return self.ts.hdrFromFdno(fd)
+
+
+
 class RPM_Header:
     "Wrapper class for an rpm header - we need to store a flag is_source"
     def __init__(self, hdr, is_source=None):
