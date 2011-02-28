@@ -169,6 +169,15 @@ public class ClonableErrataDto extends BaseDto {
     }
 
     /**
+     * For PostgreSQL we need to accept also Integer and cast it to Long.
+     *
+     * @param setAlreadyClonedIn The setAlreadyCloned to set.
+     */
+    public void setAlreadyCloned(Integer setAlreadyClonedIn) {
+        setAlreadyCloned(new Long(setAlreadyClonedIn));
+    }
+
+    /**
      * @param setAlreadyClonedIn The setAlreadyCloned to set.
      */
     public void setAlreadyCloned(Long setAlreadyClonedIn) {
