@@ -443,7 +443,7 @@ sub commit {
   if ($self->id == -1) {
 
     unless ($id) {
-      my $sth = $dbh->prepare("SELECT rhn_errata_id_seq.nextval FROM DUAL");
+      my $sth = $dbh->prepare("SELECT sequence_nextval('rhn_errata_id_seq') FROM DUAL");
       $sth->execute;
       ($id) = $sth->fetchrow;
       die "No new errata id from seq rhn_errata_id_seq (possible error: " . $sth->errstr . ")" unless $id;
