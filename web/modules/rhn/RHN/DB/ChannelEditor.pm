@@ -157,7 +157,7 @@ sub channels_visible_to_org {
   my $sth;
 
   $query = <<EOQ;
-SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, C.org_id CHANNEL_ORG_ID
+SELECT  ACh.channel_name as NAME, ACh.channel_id as ID, ACh.channel_depth as DEPTH, C.org_id as CHANNEL_ORG_ID
   FROM  rhnAvailableChannels ACh, rhnChannel C
  WHERE  ACh.org_id = :org_id
    AND  C.id = ACh.channel_id
