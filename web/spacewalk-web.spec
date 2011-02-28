@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.6
+Version: 1.4.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,17 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Feb 28 2011 Jan Pazdziora 1.4.7-1
+- Replacing date arithmetics with current_timestamp + numtodsinterval().
+- We need to use current_timestamp instead of sysdate.
+- Use sequence_nextval function.
+- PostgreSQL does not like table alias on insert.
+- We need to use global evr_t_as_vre_simple instead of PE.evr.as_vre_simple().
+- The use of verify_channel_role is always in scalar context, no need to user
+  the user_role_check_debug.
+- Prevent empty strings from being inserted to the database.
+- Adding the AS keyword to column aliases for PostgreSQL.
+
 * Fri Feb 25 2011 Jan Pazdziora 1.4.6-1
 - 680375 - we do not want the locked status (icon) to hide the the other
   statuses, we add separate padlock icon.
