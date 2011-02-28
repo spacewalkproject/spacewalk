@@ -80,7 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_prefix}/share/rhn/satidmap.pl
 %attr(0755,root,root) %{_prefix}/share/rhn/startup.pl
 %doc LICENSE
-%doc %{_prefix}/share/man/man5/rhn.conf.5*
+%doc %{_mandir}/man5/rhn.conf.5*
 
 %pre
 # This section is needed here because previous versions of spacewalk-config
