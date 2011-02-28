@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.11
+Version: 1.4.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 28 2011 Jan Pazdziora 1.4.12-1
+- For PostgreSQL and setAlreadyCloned, we need to accept also Integer and cast
+  it to Long.
+- Small fix on pt_BR translations (mmello@redhat.com)
+
 * Fri Feb 25 2011 Jan Pazdziora 1.4.11-1
 - Fix SSM buttons translation. (jfenal@redhat.com)
 - 680375 - we do not want the locked status (icon) to hide the the other
