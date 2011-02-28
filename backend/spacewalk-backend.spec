@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.11
+Version: 1.4.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Feb 28 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.12-1
+- reverted bask to RHEL4 rpm read header code 
 * Thu Feb 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
 - RPMTransaction is dead after RPMReadOnlyTransaction removal
 - SharedStateTransaction is dead after RPMReadOnlyTransaction removal
