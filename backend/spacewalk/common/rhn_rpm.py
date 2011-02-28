@@ -113,6 +113,15 @@ class SharedStateTransaction:
     def __init__(self):
         self.__dict__ = self._shared_state
 
+class RPMReadOnlyTransaction(SharedStateTransaction, RPMTransaction):
+    read_only = 1
+    def __init__(self):
+        SharedStateTransaction.__init__(self)
+        if not hasattr(self, 'ts'):
+            RPMTransaction.__init__(self)
+            # FIXME: replace with macro defination
+            self.pushVSFlags(8)
+
 class RPM_Header:
     "Wrapper class for an rpm header - we need to store a flag is_source"
     def __init__(self, hdr, is_source=None):
