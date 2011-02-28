@@ -707,7 +707,7 @@ EOQ
   my $efp_table = $self->table_map('rhnErrataFilePackage');
   my $efp_insert_query = <<EOQ;
 INSERT
-  INTO $efp_table EFP
+  INTO $efp_table
        (errata_file_id, package_id)
 VALUES (:ef_id, :pid)
 EOQ
