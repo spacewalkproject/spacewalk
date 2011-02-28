@@ -1281,19 +1281,15 @@ sub verify_channel_role {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
-BEGIN
-  :result := rhn_channel.user_role_check_debug(:cid, :user_id, :role, :reason);
-END;
+	select rhn_channel.user_role_check(:cid, :user_id, :role) from dual
 EOQ
 
-  my ($result, $reason);
-  $sth->execute_h(cid => $channel_id,
+  my $result = $sth->execute_h(cid => $channel_id,
 		  user_id => $self->id,
 		  role => $role,
-		  result => \$result,
-		  reason => \$reason);
+		);
 
-  return wantarray ? ($result, $reason) : $result;
+  return $result;
 }
 sub verify_errata_admin {
   my $self = shift;
