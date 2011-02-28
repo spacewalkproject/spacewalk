@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -96,6 +96,10 @@ fi
 
 
 %changelog
+* Mon Feb 28 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.1-1
+- Modifing SPEC file including new man page
+- Adding usr/share/man/man5/rhn.conf.5 manpage file (mmello@redhat.com)
+
 * Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
 - 474591 - move web data to /usr/share/nocpulse (msuchy@redhat.com)
 - Bumping package versions for 1.3. (jpazdziora@redhat.com)
