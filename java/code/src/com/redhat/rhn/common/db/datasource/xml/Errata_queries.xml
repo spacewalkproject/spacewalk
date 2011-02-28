@@ -1084,7 +1084,7 @@ SELECT DISTINCT E.id, E.update_date
 SELECT  EBL.bug_id, EBL.summary
   FROM  rhnErrataBugList EBL
  WHERE  EBL.errata_id = :eid
-ORDER BY UPPER(EBL.bug_id)
+ORDER BY EBL.bug_id
   </query>
 </mode>
 
