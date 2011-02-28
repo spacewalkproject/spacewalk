@@ -812,13 +812,15 @@ SELECT  DISTINCT C.id,
 
 <mode name="affected_by_errata" class="com.redhat.rhn.domain.channel.Channel">
   <query params="eid, org_id">
+select * from (
 SELECT  DISTINCT C.id, C.name
   FROM  rhnAvailableChannels AC, rhnChannel C, rhnChannelErrata CE
  WHERE  CE.errata_id = :eid
    AND  CE.channel_id = C.id
    AND  AC.org_id = :org_id
    AND  C.id = AC.channel_id
- ORDER  BY UPPER(C.name)
+) X
+ ORDER  BY UPPER(X.name)
   </query>
 </mode>
 
