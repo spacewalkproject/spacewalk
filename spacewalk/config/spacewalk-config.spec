@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -96,6 +96,12 @@ fi
 
 
 %changelog
+* Tue Mar 01 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.2-1
+- Fixed some typos in man page for rhn.conf (mmello@redhat.com)
+- Added on rhn.conf man page a bunch of new options and fixed some typos.
+  (mmello@redhat.com)
+- use better macro (msuchy@redhat.com)
+
 * Mon Feb 28 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.1-1
 - Modifing SPEC file including new man page
 - Adding usr/share/man/man5/rhn.conf.5 manpage file (mmello@redhat.com)
