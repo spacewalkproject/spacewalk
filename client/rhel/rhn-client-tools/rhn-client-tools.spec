@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.2
+Version: 1.4.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -292,6 +292,17 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Mar 01 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.3-1
+- Revert "provide path to puplet-screenshot.png" (msuchy@redhat.com)
+- 666860 - remove glade warnings (msuchy@redhat.com)
+- provide path to puplet-screenshot.png (msuchy@redhat.com)
+- move <accessibility> in front of <signal> (msuchy@redhat.com)
+- 580479 - do not let combo box to fill available space (msuchy@redhat.com)
+- 651792 - if system is not registered, print nice error insted of TB
+  (msuchy@redhat.com)
+- 651857 - fix typo in variable name (msuchy@redhat.com)
+- 671039 - do not Traceback if system was never registered (msuchy@redhat.com)
+
 * Wed Feb 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.2-1
 - l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
 
