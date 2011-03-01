@@ -197,8 +197,9 @@ class Cursor(sql_base.Cursor):
     def _get_oracle_error_info(self, error):
         if isinstance(error, cx_Oracle.DatabaseError):
             e = error[0]
-            return (e.code, e.message, self.sql)
-        return str(error)
+            if isinstance(e, cx_Oracle._Error):
+                return (e.code, e.message, self.sql)
+        return (None, str(error), self.sql)
 
     # so we can "inherit" the self._real_cursor functions
     def __getattr__(self, name):
