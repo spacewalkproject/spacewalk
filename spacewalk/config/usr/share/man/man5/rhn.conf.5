@@ -8,20 +8,27 @@ rhn.conf \- Configuration file for Spacewalk/RHN Satellite Server
 .B /etc/rhn/rhn.conf
 .SH DESCRIPTION
 .B rhn.conf
-is a configuration file for used for several services in Spacewalk/RHN Satellite server.
-The file content are read by
+is a configuration file used for several services in Spacewalk/RHN Satellite server.
+The file contents are read by the
 .B rhn-satellite (8)
 command to start the Spacewalk/RHN Satellite service.
 .SH FORMAT
 .P
-The format of /etc/rhn/rhn.conf is very simple. Each line is either a comment or a directive.  Comment lines start with a # and are ignored. A directive line has the format below:
+Format of /etc/rhn/rhn.conf is very simple. Each line is either a comment or a directive.  Comment lines start with a # and are ignored. A directive line has the format below:
 .TP
 parameter = value
 .SH OPTIONS
+.P
+Spacewalk/RHN Satellite includes dozens other options in \fB/etc/rhn/default/*.conf\fR which administrator can override,
+but \fB*** JUST CHANGE THOSE PARAMETERS IF YOU REALLY KNOW WHAT ARE YOU DOING! *** \fR
+
+.P
+The most important tunables parameters in \fB/etc/rhn/rhn.conf\fR are listed below:
+
 .TP
 .B "traceback_mail"
 Define which mail address will be used to notify about reports, warnings and Web traceback errors.
-Use comma to separate mail addresses.
+Use commas to separate mail addresses.
 .IP
 .B Default:
 none
@@ -29,7 +36,7 @@ none
 .TP
 .B "mount_point"
 Define the directory used to store the RPM package files offered by software channels.
-Per recommendation, we suggest at least 30 GB storage per software
+As a recommendation, we suggest at least 30 GB storage per software
 channel (including Base and child channels).
 .IP
 .B Default:
@@ -44,15 +51,15 @@ Define the directory used to store the kickstart trees.
 
 .TP
 .B "repomd_cache_mount_point"
-Define the directory used to store the packages, errata, channels, kickstart-tree and repositories metadata
-cache information generated when using Spacewalk/RHN Satellite, which get regenerated, as needed, if deleted.
+Define the directory used to store the packages, errata, channels, kickstart trees and also store the repositories metadata
+cache information. It is generated when using Spacewalk/RHN Satellite on demand when the client asks for thoses files.
 These cache files are stored in
 .B /var/cache/rhn
 and the storage needs of this directory will vary greatly. We suggest at least 10GB of space in
 .B /var/cache/rhn
 on Spacewalk/RHN Satellite server. Very large environments will need to increase the amount of space in
 .B /var/cache/rhn
-directory.
+that directory.
 
 .IP
 .B Default:
@@ -60,7 +67,7 @@ directory.
 
 .TP
 .B "server.satellite.rhn_parent"
-This parameter determines the parent RHN/RHN Satellite which packages will be downloaded or synced. This parameter usually points to RHN Hosted,
+This parameter determines the parent RHN/RHN Satellite whose packages will be downloaded or synced. This parameter usually points to RHN Hosted,
 .B rhn.redhat.com
 .IP
 .B Default:
@@ -68,7 +75,7 @@ none
 
 .TP
 .B "server.satellite.http_proxy"
-This parameter determines the HTTP proxy used to download or sync packages. Enter the IP address or HTTP Proxy FQDN address.
+This parameter determines the HTTP proxy used to download or sync packages from. Enter the IP address or HTTP Proxy FQDN address.
 .IP
 .B Default:
 none
@@ -89,7 +96,7 @@ none
 
 .TP
 .B "server.satellite.ca_chain"
-This parameter specify the SSL certificate used in communication against
+This parameter specify the SSL certificate used for communicationg with
 .B server.satellite.rhn_parent.
 The default SSL CA certificate points to RHN Hosted.
 .IP
@@ -101,7 +108,8 @@ The default SSL CA certificate points to RHN Hosted.
 .P
 .RS
 This parameter determines debug level used by Spacewalk/RHN Satellite processes.
-Please, keep in mind that raising up this value will generate a very verbose logs, which is only useful for debug.
+Please, keep in mind that raising up this value will generate a very verbose logs, which is only useful for debugging
+purposes.
 .B Use it carefully!
 Valid values:
 .B [0-6]
@@ -120,7 +128,7 @@ Valid values:
 
 .TP
 .B "disconnected (boolean)"
-This parameter controls if server is running in connected or disconnected mode.
+This parameter controls whether server is running in connected or disconnected mode.
 When running in disconnected mode, the RHN Entitlement Certificate is activated locally
 but not on remote RHN Servers. To switch to connected mode, see man page
 .B rhn-satellite-activate (8).
@@ -129,11 +137,86 @@ but not on remote RHN Servers. To switch to connected mode, see man page
 0
 
 .TP
-.B "enable_snapshots"
-This parameter controls if server is allow system snapshots.
+.B "enable_snapshots" (boolean)
+This parameter controls whether server is allowed to perform system snapshots.
 .IP
 .B Default:
 1
+
+.TP
+.B "pam_auth_service"
+Spacewalk/RHN Satellite supports network-based authentication systems via Pluggable Authentication Modules (PAM).
+Spacewalk/RHN Satellite supports LDAP, Kerberos, Directory Server and other network-based authentication
+systems. To enable Spacewalk/RHN Satellite to use PAM and your organization's authentication infrastructure, follow the
+steps below:
+.RS
+.IP \(bu 3
+make sure that pam\-devel package is installed
+.IP \(bu 3
+set the parameter \fBpam_auth_service = rhn\-satellite\fR
+.IP \(bu 3
+create a file in \fB/etc/pam.d/rhn\-satellite\fR which contains:
+
+.B For LDAP authentication on 32\-bit systems:
+.nf
+#%PAM-1.0
+auth         required      /lib/security/pam_env.so
+auth         sufficient    /lib/security/pam_ldap.so no_user_check
+auth         required      /lib/security/pam_deny.so
+account      required      /lib/security/pam_ldap.so no_user_check
+.fi
+
+.B For LDAP authentication on 64\-bit systems:
+.nf
+#%PAM-1.0
+auth      required      /lib64/security/pam_env.so
+auth      sufficient    /lib64/security/pam_ldap.so no_user_check
+auth      required      /lib64/security/pam_deny.so
+account   required      /lib64/security/pam_ldap.so no_user_check
+.fi
+
+.IP \(bu 3
+restart Spacewalk/RHN Satellite service using
+.RE
+.IP
+.B Default:
+none
+
+.TP
+.B "enable_nvrea" (boolean)
+This parameter controls whether server will allow package uploads for same NVREA
+(Name, Version, Release, Epoch, Arch) but different vendors.
+.RS
+.IP \(bu 3
+Spacewalk Server
+.RS
+.IP \(bu 3
+\fBDefault:\fR 1
+.RE
+.IP \(bu 3
+RHN Satellite Server
+.RS
+.IP \(bu 3
+\fBDefault:\fR 0
+.RE
+.RE
+
+.TP
+.B "web.is_monitoring_backend" (boolean)
+This parameter controls whether server will be able to monitor the registered systems.
+If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a
+separate server.
+.IP
+.B Default:
+0
+
+.TP
+.B "web.is_monitoring_scout" (boolean)
+This parameter controls whether Monitoring Scout Agent will be running in that server.
+If you enable the Monitoring Scout, you must also enable the Monitoring Backend.
+.IP
+.B Default:
+0
 
 .SS Database Options
 .TP
@@ -170,10 +253,10 @@ Determine the database port.
 .IP
 
 .SH Inter-RHN Satellite Sync (ISS)
-The ability of synchronization between two Spacewalk/RHN Satellites servers
+The ability of synchronize two Spacewalk/RHN Satellites servers
 is called Inter-RHN Satellite Sync (ISS)  which allows to synchronize channels
 from the master RHN Satellite to slave servers, simplifying the
-process of coordinating content from one Spacewalk/RHN Satellite source to another or several others.
+process of coordinating contents from one Spacewalk/RHN Satellite source to another or several others.
 
 .SS Master Spacewalk/RHN Satellite Servers
 
@@ -188,7 +271,7 @@ at this option.
 .TP
 .B "disable_iss"
 If set to 1, then no slave will be able to sync from this server
-this option does not affect ability to sync to this server from
+this option does not affect the ability to sync to this server from
 another spacewalk (or hosted).
 .IP
 .B Default:
@@ -206,11 +289,11 @@ Only use this option if this server is intended to be a slave server.
 
 .TP
 .B "iss_ca_chain"
-This parameter specify the SSL certificate used in communication against
+This parameter specifies the SSL certificate used when communication with
 .B iss_parent
 server. This certificate
 .I must
-contains the
+contain the
 .I SSL Common Name
 from
 .B iss_parent
@@ -251,3 +334,4 @@ Marcelo Moreira de Mello <mmello@redhat.com>
 .BR rhn.conf (5),
 .BR rhn-activate-satellite (8),
 .BR db-control (1)
+.BR pam (8)
