@@ -50,27 +50,6 @@ EOQ
   };
 }
 
-sub get_nls_database_parameters {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT NDP.parameter, NDP.value
-  FROM nls_database_parameters NDP
-EOQ
-
-  $sth->execute();
-
-  my %nls_database_parameters;
-
-  while (my ($param, $value) = $sth->fetchrow()) {
-    $nls_database_parameters{$param} = $value;
-  }
-
-  return %nls_database_parameters;
-}
-
 sub update_monitoring_config {
   my $class = shift;
   my $mon_config = shift;
