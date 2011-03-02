@@ -19,7 +19,6 @@ use strict;
 
 use File::Spec;
 use Frontier::Client;
-use Digest::MD5 qw/md5_hex/;
 
 use English;
 use POSIX qw/dup2 setsid O_WRONLY O_CREAT/;
@@ -31,7 +30,6 @@ use RHN::DB;
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 
-use PXT::Utils;
 use RHN::Exception qw/throw/;
 
 use RHN::DB::SatInstall;
@@ -76,10 +74,6 @@ sub write_config {
   }
 
   return;
-}
-
-sub generate_secret {
-  return md5_hex(PXT::Utils->random_bits(4096));
 }
 
 my %server_cert_opts = (
