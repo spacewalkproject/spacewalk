@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.13
+Version: 1.4.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 02 2011 Tomas Lestach <tlestach@redhat.com> 1.4.14-1
+- 639134 - consider also package arch when searching systems according to a
+  package (tlestach@redhat.com)
+- 640958 - fixing NullPointerException (tlestach@redhat.com)
+- do not show delete link on creation of notes (bnc#672090) (jrenner@suse.de)
+
 * Mon Feb 28 2011 Jan Pazdziora 1.4.13-1
 - No need to convert numeric values to upper.
 - Fixing affected_by_errata for PostgreSQL.
