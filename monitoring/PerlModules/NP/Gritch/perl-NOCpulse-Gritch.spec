@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Gritch
-Version:      1.27.8
+Version:      1.27.9
 Release:      1%{?dist}
 Summary:      Perl throttled email notification for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
@@ -51,6 +51,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Mar 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.27.9-1
+- LWP::UserAgent is required by tesl.pl (tests run in buildtime)
+- 493028 - get_sendmail() has been already removed
+
 * Wed Apr  7 2010 Miroslav Suchý <msuchy@redhat.com> 1.27.8-1
 - add build requires
 
