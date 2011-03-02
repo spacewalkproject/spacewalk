@@ -344,15 +344,6 @@ class rpmChangeLog(ChangeLog):
             except UnicodeDecodeError:
                 self[i] = unicode(self[i], "iso-8859-1")
 
-def sanitizePath(path):
-    if not path:
-        return ""
-    while path:
-        if path[-1] != '/':
-            break
-        path = path[:-1]
-    return path
-
 def sanitizeList(l):
     if l is None:
          return []
