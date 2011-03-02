@@ -359,9 +359,10 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
   <query params="pid, user_id">
  SELECT  SP.server_id AS id
   FROM  rhnServerPackage SP
- WHERE
-     SP.name_id = (SELECT P.name_id from  rhnPackage P where P.id = :pid)
-   AND  SP.evr_id = (SELECT P.evr_id from rhnPackage P where P.id = :pid)
+ WHERE P.id = :pid
+   AND  P.name_id = SP.name_id
+   AND  P.evr_id = SP.evr_id
+   AND  P.package_arch_id = SP.package_arch_id
    AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SP.server_id)
  </query>
   <elaborator name="system_overview" />
