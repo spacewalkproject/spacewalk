@@ -16,7 +16,7 @@
 
 from spacewalk.common import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
-import rhnSQL
+import rhnSQL, rhnLib
 import rpm
 import string
 
@@ -297,55 +297,6 @@ def __single_query_with_arch_and_id(server_id, deps, query):
         ret[dep] = map(lambda a: a[:6], data)
     return ret
 
-def make_evr(nvre):
-    """ IN: 'e:name-version-release' or 'name-version-release:e'
-        OUT: {'name':name, 'version':version, 'release':release, 'epoch':epoch }
-    """
-    epoch = ''
-    name = ''
-    version = ''
-    release = ''
-    list = None
-    ret = None    
-
-    #There is an epoch
-    if string.find(nvre, ':') != -1:
-        holder = string.split(nvre, ':')
-        
-        #holder[0] has the n,v,r,a
-        if string.find(holder[0], '-') != -1:
-            holder[0] = string.split(holder[0], '-')
-            ret = {
-                'name'      :   '-'.join(holder[0][:-2]),
-                'version'   :   holder[0][-2],
-                'release'   :   holder[0][-1],
-                'epoch'     :   holder[1]
-            }
-            return ret
-        elif string.find(holder[1], '-') != -1:
-            holder[1] = string.split(holder[1], '-')
-            ret = {
-                'name'      :   '-'.join(holder[1][:-2]),
-                'version'   :   holder[1][-2],
-                'release'   :   holder[1][-1],
-                'epoch'     :   holder[0]
-            }
-            return ret
-        else:
-            raise rhnFault(err_code = 21,
-                                         err_text = "NVRE is missing name, version, or release.")
-    elif string.find(nvre, '-') != -1:
-        nvre = string.split(nvre, '-')
-        ret = {
-            'name'      :   '-'.join(nvre[:-2]),
-            'version'   :   nvre[-2],
-            'release'   :   nvre[-1],
-            'epoch'     :   None
-        }
-        return ret
-    else:
-        return MakeEvrError(message = "NVRE is missing name, version, or release.")
-
 #
 # Interfaces
 #
@@ -422,7 +373,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
             keep_list = []
 
             try:
-                limit = make_evr(limit)
+                limit = rhnLib.make_evr(limit)
             except:
                 raise
   

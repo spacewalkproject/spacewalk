@@ -975,7 +975,7 @@ def list_packages_source(channel_id):
             r = r['name']
             if string.find(r, ".rpm") != -1:
                 r = string.replace(r, ".rpm", "")
-                new_evr = make_evr(r,source=1)
+                new_evr = rhnLib.make_evr(r,source=1)
                 new_evr_list = [new_evr['name'], new_evr['version'], new_evr['release'],new_evr['epoch']]
             ret.append(new_evr_list)
 
@@ -1900,31 +1900,6 @@ def system_reg_message(server):
         }
         return -1, no_entitlement_title, no_entitlement_message % params
     return 0, "", ""
-
-# IN: 'e:name-version-release' or 'name-version-release:e'
-# OUT: {'name':name, 'version':version, 'release':release, 'epoch':epoch }
-def make_evr(nvre, source=False):
-    import re
-    if ":" in nvre:
-        nvr, epoch = nvre.rsplit(":", 1)
-        if "-" in epoch:
-            nvr, epoch = epoch, nvr
-    else:
-        nvr, epoch = nvre, ""
-
-    nvr_parts = nvr.rsplit("-", 2)
-    if len(nvr_parts) != 3:
-        raise rhnFault(err_code = 21, err_text = \
-                       "NVRE is missing name, version, or release.")
-
-    result = dict(zip(["name", "version", "release"], nvr_parts))
-    result["epoch"] = epoch
-
-    if source and result["release"].endswith(".src"):
-        result["release"] = result["release"][:-4]
-
-    return result
-
 
 def subscribe_to_tools_channel(server_id):
     """
