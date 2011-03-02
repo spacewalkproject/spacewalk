@@ -183,6 +183,12 @@ class Cursor(sql_base.Cursor):
                 for k, v in kwargs.iteritems():
                     pdict[k] = adjust_type(v[start+i])
                 
+            # We clear self->bindVariables so that list of all nulls
+            # in the previous chunk which caused the type to be set to
+            # string does not affect our chunk which may have number
+            # there.
+            self._real_cursor.setinputsizes(**{})
+
             # arr is now a list of dictionaries. Each dictionary contains the
             # data for one execution of the query where the key is the column
             # name and the value self explanatory.
