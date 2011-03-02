@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.7
+Version: 1.4.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Mar 02 2011 Tomas Lestach <tlestach@redhat.com> 1.4.8-1
+- consider also package arch when searching systems accorging to a package
+  (tlestach@redhat.com)
+- Removal of rhn-load-config.pl made
+  RHN::DB::SatInstall::get_nls_database_parameters unused, removing.
+  (jpazdziora@redhat.com)
+- Removal of rhn-load-config.pl made RHN::SatInstall::generate_secret unused,
+  removing. (jpazdziora@redhat.com)
+
 * Mon Feb 28 2011 Jan Pazdziora 1.4.7-1
 - Replacing date arithmetics with current_timestamp + numtodsinterval().
 - We need to use current_timestamp instead of sysdate.
