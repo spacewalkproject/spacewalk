@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.13
+Version: 1.4.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 02 2011 Jan Pazdziora 1.4.14-1
+- Prevent all nulls in a chunk (which are treated as strings) from affecting
+  the subsequent chunks.
+- Only try to show e.code when the exception is cx_Oracle._Error.
+
 * Mon Feb 28 2011 Jan Pazdziora 1.4.13-1
 - removed unused updateChannelFamilyInfo() (michael.mraka@redhat.com)
 - removed dead function check_with_seclist() (michael.mraka@redhat.com)
