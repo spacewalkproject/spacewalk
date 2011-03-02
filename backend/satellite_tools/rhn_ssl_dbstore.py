@@ -25,18 +25,6 @@ import satCerts
 
 DEFAULT_TRUSTED_CERT = 'RHN-ORG-TRUSTED-SSL-CERT'
 
-def fetchTraceback(method=None, req=None, extra=None):
-    """ a cheat for snagging just the string value of a Traceback
-        NOTE: this tool may be needed for RHN Satellite 3.2 as well,
-              which doesn't have a fetchTraceback. So... this if for
-              compatibility.
-    """
-    from cStringIO import StringIO
-    exc = StringIO()
-    rhnTB.Traceback(method=method, req=req, mail=0, ostream=exc,
-                    extra=extra, severity=None)
-    return exc.getvalue()
-
 def processCommandline():
     initCFG('server.satellite')
     
@@ -73,7 +61,7 @@ def processCommandline():
         sys.stderr.write("""\
 ERROR: there was a problem trying to initialize the database:
 
-%s\n""" % fetchTraceback())
+%s\n""" % rhnTB.fetchTraceback())
         sys.exit(11)
 
     if values.verbose:
@@ -100,10 +88,10 @@ def main():
     try:
         satCerts.store_rhnCryptoKey(values.label, values.ca_cert, verbosity=values.verbose)
     except satCerts.NoOrgIdError, e:
-        writeError("no organization ID!?!\n\n%s\n" % fetchTraceback())
+        writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(12)
     except satCerts.CaCertInsertionError, e:
-        writeError("no organization ID!?!\n\n%s\n" % fetchTraceback())
+        writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(13)
     return 0
 
