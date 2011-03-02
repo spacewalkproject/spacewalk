@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.20
+Version:      2.1.21
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -145,6 +145,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Mar 02 2011 Michael Mraka <michael.mraka@redhat.com> 2.1.21-1
+- 493028 - directory for notifications should be created
+
 * Fri Feb 18 2011 Jan Pazdziora 2.1.20-1
 - Localize the filehandle globs; also use three-parameter opens.
 
