@@ -11328,7 +11328,7 @@ Please note that some manual configuration of these scripts may still be require
 You can access the network in this section, but you must use IP addresses (name service has not been configured at this point).  For more details on
 kickstart pre scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
-You can also edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).
+You can also edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, system registration to @@PRODUCT_NAME@@).
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
         <context-group name="ctx">
@@ -11338,7 +11338,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
   এই সময়ে নেটওয়ার্ক ব্যবহার করার জন্য IP ঠিকানা ব্যবহার করা আবশ্যক (name পরিসেবা এই সময়ে কনফিগার করা হয় না)। Kickstart প্রি-স্ক্রিপ্ট সম্পর্কে জানতে
 &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt; পড়ুন।
 &lt;br/&gt;&lt;br/&gt;
-চিহ্নিত kickstart-র পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। @@PRODUCT_NAME@@ সংক্রান্ত কমান্ডগুলি প্রথমে নির্বাহিত হবে (উদাহরণস্বরূপ esystem registration to @@PRODUCT_NAME@@)।
+চিহ্নিত kickstart-র পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। @@PRODUCT_NAME@@ সংক্রান্ত কমান্ডগুলি প্রথমে নির্বাহিত হবে (উদাহরণস্বরূপ system registration to @@PRODUCT_NAME@@)।
 এর পরে, নন-chroot পোস্ট-স্ক্রিপ্ট অংশ চালিত হবে এবং সর্বশেষ পোস্ট-স্ক্রিপ্ট অংশ নির্বাহিত হবে। Kickstart-র পোস্ট-স্ক্রিপ্ট অংশ সম্বন্ধে অধিক জানতে অনুগ্রহ করে
 &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide&lt;/strong&gt; পড়ুন।</target></trans-unit>
 
@@ -11407,7 +11407,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
 
       <trans-unit id="post.jsp.summary">
-        <source>You can edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).  Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
+        <source>You can edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, system registration to @@PRODUCT_NAME@@).  Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
         </context-group>
