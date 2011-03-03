@@ -256,7 +256,7 @@ def do_login(self, args):
        and not self.options.password:
         try:
             sessionfile = open(session_file, 'r')
-           
+
             # read the session (format = username:session)
             for line in sessionfile:
                 parts = line.split(':')
@@ -455,11 +455,14 @@ def generate_errata_cache(self, force=False):
     channels = [c.get('label') for c in channels]
 
     for c in channels:
-        errata = \
-            self.client.channel.software.listErrata(self.session, c)
+        try:
+            errata = \
+                self.client.channel.software.listErrata(self.session, c)
+        except:
+            continue
 
         for erratum in errata:
-            if erratum.get('advisory_name') not in self.all_errata: 
+            if erratum.get('advisory_name') not in self.all_errata:
                 self.all_errata[erratum.get('advisory_name')] = \
                     { 'id'       : erratum.get('id'),
                       'type'     : erratum.get('advisory_type'),
@@ -477,8 +480,8 @@ def generate_errata_cache(self, force=False):
 
 
 def save_errata_cache(self):
-    save_cache(self.errata_cache_file, 
-               self.all_errata, 
+    save_cache(self.errata_cache_file,
+               self.all_errata,
                self.errata_cache_expire)
 
 
@@ -513,8 +516,8 @@ def generate_package_cache(self, force=False):
 
             if not longname in self.all_packages:
                 self.all_packages[longname] = p.get('id')
-   
-    # keep a reverse dictionary so we can lookup package names by ID 
+
+    # keep a reverse dictionary so we can lookup package names by ID
     self.all_packages_by_id = \
         dict( (v, k) for k, v in self.all_packages.iteritems() )
 
@@ -531,15 +534,15 @@ def generate_package_cache(self, force=False):
 def save_package_caches(self):
     # store the cache to disk to speed things up
     save_cache(self.packages_short_cache_file,
-               self.all_packages_short, 
-               self.package_cache_expire)
-    
-    save_cache(self.packages_long_cache_file, 
-               self.all_packages, 
+               self.all_packages_short,
                self.package_cache_expire)
 
-    save_cache(self.packages_by_id_cache_file, 
-               self.all_packages_by_id, 
+    save_cache(self.packages_long_cache_file,
+               self.all_packages,
+               self.package_cache_expire)
+
+    save_cache(self.packages_by_id_cache_file,
+               self.all_packages_by_id,
                self.package_cache_expire)
 
 
@@ -602,8 +605,8 @@ def generate_system_cache(self, force=False):
 
 
 def save_system_cache(self):
-    save_cache(self.system_cache_file, 
-               self.all_systems, 
+    save_cache(self.system_cache_file,
+               self.all_systems,
                self.system_cache_expire)
 
 
@@ -640,15 +643,15 @@ def load_caches(self, server):
     (self.all_errata, self.errata_cache_expire) = \
         load_cache(self.errata_cache_file)
 
-    # load self.all_packages_short from disk 
+    # load self.all_packages_short from disk
     (self.all_packages_short, self.package_cache_expire) = \
         load_cache(self.packages_short_cache_file)
 
-    # load self.all_packages from disk 
+    # load self.all_packages from disk
     (self.all_packages, self.package_cache_expire) = \
         load_cache(self.packages_long_cache_file)
 
-    # load self.all_packages_by_id from disk 
+    # load self.all_packages_by_id from disk
     (self.all_packages_by_id, self.package_cache_expire) = \
         load_cache(self.packages_by_id_cache_file)
 
@@ -767,7 +770,7 @@ def expand_systems(self, args):
             except ValueError:
                 # just a system name
                 systems.append(item)
-    
+
     matches = filter_results(self.get_system_names(), systems)
 
     return matches + system_ids
