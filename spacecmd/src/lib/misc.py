@@ -464,10 +464,11 @@ def generate_errata_cache(self, force=False):
         for erratum in errata:
             if erratum.get('advisory_name') not in self.all_errata:
                 self.all_errata[erratum.get('advisory_name')] = \
-                    { 'id'       : erratum.get('id'),
-                      'type'     : erratum.get('advisory_type'),
-                      'date'     : erratum.get('date'),
-                      'synopsis' : erratum.get('advisory_synopsis') }
+                    { 'id'                : erratum.get('id'),
+                      'advisory_name'     : erratum.get('advisory_name'),
+                      'advisory_type'     : erratum.get('advisory_type'),
+                      'date'              : erratum.get('date'),
+                      'advisory_synopsis' : erratum.get('advisory_synopsis') }
 
     self.errata_cache_expire = \
         datetime.now() + timedelta(self.ERRATA_CACHE_TTL)

@@ -20,7 +20,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from operator import itemgetter
 import xmlrpclib
+
 from spacecmd.utils import *
 
 def help_errata_list(self):
@@ -35,6 +37,18 @@ def do_errata_list(self, args, doreturn=False):
     else:
         if len(self.all_errata.keys()):
             print '\n'.join(sorted(self.all_errata.keys()))
+
+####################
+
+def help_errata_summary(self):
+    print 'errata_summary: Print a summary of all errata'
+    print 'usage: errata_summary'
+
+def do_errata_summary(self, args):
+    self.generate_errata_cache()
+
+    map(print_errata_summary, sorted(self.all_errata.values(),
+                                     key = itemgetter('advisory_name')))
 
 ####################
 
@@ -417,7 +431,8 @@ def do_errata_search(self, args, doreturn=False):
 
             for name in self.all_errata.keys():
                 if re.search(query, name, re.I) or \
-                   re.search(query, self.all_errata[name]['synopsis'], re.I):
+                   re.search(query, self.all_errata[name]['advisory_synopsis'],
+                             re.I):
 
                     match = self.all_errata[name]
 
