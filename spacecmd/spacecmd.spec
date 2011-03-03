@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.4.0
+Version:     1.4.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,18 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Mar 03 2011 Aron Parsons <aparsons@redhat.com> 1.4.1-1
+- spacecmd: log channel access issues in debug mode only (aparsons@redhat.com)
+- spacecmd: ignore channel failures introduced by organizations when caching
+  packages (aparsons@redhat.com)
+- spacecmd: print a summary list of all errata (name, synopsis, date)
+  (aparsons@redhat.com)
+- spacecmd: ignore channel failures introduced by organizations when caching
+  errata (aparsons@redhat.com)
+- spacecmd: delete child channels first in softwarechannel_delete
+  (aparsons@redhat.com)
+- Bumping package versions for 1.4 (tlestach@redhat.com)
+
 * Thu Jan 27 2011 Aron Parsons <aparsons@redhat.com> 1.3.8-1
 - added configchannel_backup function (john@vanzantvoort.org)
 
