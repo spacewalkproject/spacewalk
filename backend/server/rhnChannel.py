@@ -1365,31 +1365,6 @@ def list_obsoletes(channel):
                         and c.label = :channel
                         and c.id = cp.channel_id
                         and cp.package_id = po.package_id
-                    minus
-                    -- obsoletes that are blacklisted follow
-                    select  cp.channel_id,
-                            po.package_id, po.capability_id, po.sense
-                    from    rhnPackageName pni,
-                            rhnPackageCapability pc,
-                            rhnBlacklistObsoletes bo,
-                            rhnPackage p,
-                            rhnPackageObsoletes po,
-                            rhnChannelPackage cp,
-                            rhnChannel c
-                    where   1=1
-                        and c.label = :channel
-                        and c.id = cp.channel_id
-                        -- find all the packages we have obsoletes for
-                        and cp.package_id = po.package_id
-                        -- now find the name, and get the blacklists that apply
-                        and po.package_id = p.id
-                        and p.name_id = bo.name_id
-                        and p.evr_id = bo.evr_id
-                        and p.package_arch_id = bo.package_arch_id
-                        -- now match the blacklisted names to the caps
-                        and po.capability_id = pc.id
-                        and pc.name = pni.name
-                        and bo.ignore_name_id = pni.id
                 ) p_info
         where   1=1
             and p_info.package_id = p.id
