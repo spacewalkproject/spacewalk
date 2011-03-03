@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.4.0
+Version:        1.4.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Mar 03 2011 Jan Pazdziora 1.4.1-1
+- Apache should not be able to read the rpm database.
+
 * Mon Jan 24 2011 Jan Pazdziora 1.3.2-1
 - Adding explicit append allow for sqlplus.
 
