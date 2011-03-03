@@ -5544,7 +5544,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/Proxy</context>
           <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@</context>
 	</context-group>
-       <target>Convidado Virtual</target></trans-unit>
+       <target>Sistema Virtual</target></trans-unit>
 
       <trans-unit id="systemlist.jsp.nonvirt">
 <source>Non-Virtual System</source>
@@ -12503,16 +12503,16 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>Host de Virtualização Xen</target></trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.qemu">
           <source>KVM Virtualized Guest</source>
-        <target>Convidado de Virtualização KVM</target></trans-unit>
+        <target>Sistema Virtualizado KVM</target></trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.none">
           <source>None</source>
-        <target>Nada</target></trans-unit>
+        <target>Nenhum</target></trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.xenfv">
           <source>Xen Fully-Virtualized Guest</source>
-        <target>Covidado de Virtualização Completa Xen</target></trans-unit>
+        <target>Sistema Full-Virtualizado Xen</target></trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.xenpv">
           <source>Xen Para-Virtualized Guest</source>
-        <target>Convidado de Pára-Virtualização Xen</target></trans-unit>
+        <target>Sistema Para-Virtualizado Xen</target></trans-unit>
      </group>
 
 
