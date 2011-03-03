@@ -90,8 +90,7 @@ class Runner:
         'rpms'                      : [''],
         'srpms'                     : [''],
         'channels'                  : ['channel-families'],
-        'channel-families'          : ['blacklists'],
-        'blacklists'                : ['arches'],
+        'channel-families'          : [''],
         'short'                     : [''],
         'download-errata'           : ['errata'],
         'download-packages'         : [''],
@@ -106,7 +105,6 @@ class Runner:
         'channel-families',
         'arches',
         'channels',
-        'blacklists',
         'short',
         'download-packages',
         'rpms',
@@ -171,7 +169,6 @@ class Runner:
         if actionDict.has_key('list-channels'):
             if actionDict['list-channels'] == 1:
                 actionDict['channels'] = 1
-                actionDict['blacklists'] = 0
                 actionDict['arches'] = 0
                 actionDict['channel-families'] = 1
                 channels = []
@@ -305,9 +302,6 @@ class Runner:
             #log2email(-1, msg) # redundant
             sendMail()
             return 1
-
-    def _step_blacklists(self):
-        return self.syncer.processBlacklists()
 
     def _step_short(self):
         try:
@@ -2107,9 +2101,7 @@ def processCommandline():
             sys.exit(27)
 
     # the action dictionary used throughout
-    actionDict = {
-        'blacklists'    : 0,
-    }
+    actionDict = {}
 
     if OPTIONS.list_channels:
         if OPTIONS.step:
@@ -2147,7 +2139,6 @@ def processCommandline():
     channels = OPTIONS.channel or []
     if OPTIONS.list_channels:
         actionDict['channels'] = 1
-        actionDict['blacklists'] = 0
         actionDict['arches'] = 0
         actionDict['channel-families'] = 1
         channels = []
