@@ -63,6 +63,7 @@ public class KickstartFormatter {
     private static final String POST_DELETION_SNIPPET =
                                         "spacewalk/post_delete_system";
     private static final String KEEP_SYSTEM_ID_SNIPPET = "spacewalk/keep_system_id";
+    private static final String DEFAULT_MOTD = "spacewalk/default_motd";
 
     private static final String RAW_START = "#raw";
     private static final String RAW_END = "#end raw";
@@ -79,11 +80,6 @@ public class KickstartFormatter {
         Config.get().getString("web.product_name") + " Config Management" +
         NEWLINE;
     private static final String COMMENT = "#" + NEWLINE;
-    private static final String MOTD_FOOTER = "# MOTD" + NEWLINE + "echo >> /etc/motd" +
-        NEWLINE + "echo \"" + Config.get().getString("web.product_name") +
-        " kickstart on \\$(date +'%Y-%m-%d')\" >> /etc/motd" +
-        NEWLINE + "echo >> /etc/motd" + NEWLINE + NEWLINE +
-        "# end of generated kickstart file";
     private static final String BEGINRHN = "%post --logfile " +
        "/root/ks-rhn-post.log" + NEWLINE +
        "# --Begin " + Config.get().getString("web.product_name") +
@@ -266,7 +262,6 @@ public class KickstartFormatter {
         buf.append(NEWLINE);
         addCobblerSnippet(buf, "post_install_kernel_options");
         addCobblerSnippet(buf, "koan_environment");
-        buf.append(MOTD_FOOTER);
         buf.append(NEWLINE);
         buf.append("$kickstart_done");
         buf.append(NEWLINE);
@@ -677,6 +672,7 @@ public class KickstartFormatter {
             retval.append("/etc/init.d/haldaemon restart" + NEWLINE);
         }
         retval.append("# begin cobbler snippet" + NEWLINE);
+        addCobblerSnippet(retval, DEFAULT_MOTD);
         addCobblerSnippet(retval, REDHAT_REGISTER_SNIPPET);
         retval.append("# end cobbler snippet" + NEWLINE);
 
