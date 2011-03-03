@@ -340,7 +340,20 @@ def do_softwarechannel_delete(self, args):
 
     if not self.user_confirm('Delete these channels [y/N]:'): return
 
-    for channel in to_delete:
+    # delete child channels first to avoid errors
+    parents = []
+    children = []
+
+    all_channels = self.client.channel.listSoftwareChannels(self.session)
+
+    for channel in all_channels:
+        if channel.get('label') in to_delete:
+            if channel.get('parent_label'):
+                children.append(channel.get('label'))
+            else:
+                parents.append(channel.get('label'))
+
+    for channel in children + parents:
         self.client.channel.software.delete(self.session, channel)
 
 ####################
