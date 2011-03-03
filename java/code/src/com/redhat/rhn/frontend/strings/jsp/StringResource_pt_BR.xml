@@ -877,7 +877,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-      <target>Última Autenticação:</target></trans-unit>
+      <target>Último Acesso:</target></trans-unit>
       <trans-unit id="address_record.displayname">
 <source>Address Record:</source>
         <context-group name="ctx">
@@ -1057,7 +1057,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-      <target>O @@PRODUCT_NAME@@ oferece os e-mails de notificação sempre que lançar erratas relevantes para seus sistemas, assim como os e-mails diários resumindo os eventos de seus sistemas.</target></trans-unit>
+      <target>O @@PRODUCT_NAME@@ oferece e-mails de notificação sempre que lançar erratas relevantes para seus sistemas, assim como os e-mails diários resumindo os eventos de seus sistemas.</target></trans-unit>
       <trans-unit id="preferences.jsp.receivenote">
 <source> Receive email notifications</source>
         <context-group name="ctx">
@@ -2205,7 +2205,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-      <target>Última Autenticação</target></trans-unit>
+      <target>Último Acesso</target></trans-unit>
       <trans-unit id="userdetails.jsp.change">
 <source>Change</source>
         <context-group name="ctx">
@@ -9478,7 +9478,7 @@ Please note that some manual configuration of these scripts may still be require
 <!-- Repo Sync -->
         <trans-unit id="repos.jsp.summary">
           <source>Use repositories to sync additional packages to your channels. Repositories may be linked to your channels.</source>
-        <target>Use repositórios para sync pacotes adicionais aos seus canais. Os repositórios podem ser vinculados aos seus canais.</target></trans-unit>
+        <target>Use repositórios para sincronizar pacotes adicionais aos seus canais. Os repositórios podem ser vinculados aos seus canais.</target></trans-unit>
         <trans-unit id="repos.jsp.note.default">
           <source>note here</source>
         <target>anote aqui</target></trans-unit>
@@ -12274,7 +12274,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
       <trans-unit id="channels.manage.jsp.header2">
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
-      <target>Modificar um canal de software existente selecionando-o a partir da lista abaixo, ou criar um novo canal de software.</target></trans-unit>
+      <target>Para modificar um canal de software existente, selecione-o a partir da lista abaixo, ou crie um novo canal de software.</target></trans-unit>
 
       <trans-unit id="toolbar.create.channel">
         <source>create new channel</source>

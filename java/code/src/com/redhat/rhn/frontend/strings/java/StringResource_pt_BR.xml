@@ -650,7 +650,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Gerencia Repositórios</target></trans-unit>
+      <target>Gerenciar Repositórios</target></trans-unit>
       <trans-unit id="Monitoring">
 <source>Monitoring</source>
         <context-group name="ctx">
@@ -944,7 +944,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Demonstra Registros Tomcat</target></trans-unit>
+      <target>Exibir log do Tomcat</target></trans-unit>
       <trans-unit id="Terms &amp; Conditions">
 <source>Terms &amp; Conditions</source>
         <context-group name="ctx">
@@ -1593,7 +1593,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-      <target>Última Autenticação</target></trans-unit>
+      <target>Último Acesso</target></trans-unit>
       <trans-unit id="address_record">
 <source>Address Record:</source>
         <context-group name="ctx">
@@ -8207,7 +8207,7 @@ Follow this url to see the full list of inactive systems:
 
       <trans-unit id="lastLoggedIn">
 	<source>Last Logged In</source>
-      <target>Última Autenticação </target></trans-unit>
+      <target>Último Acesso</target></trans-unit>
 
       <trans-unit id="changedByFirstName">
 	<source>Changed by First Name</source>
