@@ -44,5 +44,9 @@ CREATE INDEX rhn_vi_vsid_idx
     ON rhnVirtualInstance (virtual_system_id)
     TABLESPACE [[64k_tbs]];
 
+CREATE INDEX rhn_vi_uuid_idx
+    ON rhnVirtualInstance (uuid)
+    TABLESPACE [[64k_tbs]];
+
 CREATE SEQUENCE rhn_vi_id_seq;
 
