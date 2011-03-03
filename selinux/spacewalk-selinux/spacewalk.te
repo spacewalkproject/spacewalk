@@ -17,6 +17,7 @@ require {
 	type initrc_t;
 	type system_mail_t;
 	type nfs_t;
+	type rpm_var_lib_t;
 }
 
 type spacewalk_install_log_t;
@@ -79,3 +80,7 @@ optional_policy(`
 	filetrans_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_sqlplus_spool_log_t, file)
 	allow oracle_sqlplus_t spacewalk_db_install_log_t:file append;
 ')
+
+# rpm_dontaudit_search_db(httpd_t) is not available on RHELs
+dontaudit httpd_t rpm_var_lib_t:dir list_dir_perms;
+dontaudit httpd_t rpm_var_lib_t:file read_file_perms;
