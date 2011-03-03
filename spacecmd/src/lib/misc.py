@@ -459,7 +459,7 @@ def generate_errata_cache(self, force=False):
             errata = \
                 self.client.channel.software.listErrata(self.session, c)
         except:
-            logging.warning('No access to %s' % c)
+            logging.debug('No access to %s' % c)
             continue
 
         for erratum in errata:
@@ -511,7 +511,7 @@ def generate_package_cache(self, force=False):
             packages = \
                 self.client.channel.software.listAllPackages(self.session, c)
         except:
-            logging.warning('No access to %s' % c)
+            logging.debug('No access to %s' % c)
             continue
 
         for p in packages:
