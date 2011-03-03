@@ -433,16 +433,6 @@ class OracleBackend(Backend):
             },
             pk          = ['server_arch_id', 'server_group_type'],
         ),
-        Table('rhnBlacklistObsoletes',
-            fields      = {
-                'name_id'           : DBint(),
-                'evr_id'            : DBint(),
-                'package_arch_id'   : DBint(),
-                'ignore_name_id'    : DBint(),
-            },
-            pk          = ['name_id', 'evr_id', 'package_arch_id',
-                           'ignore_name_id'],
-        ),
         Table('rhnKickstartableTree',
             fields      = {
                 'id'                : DBint(),
