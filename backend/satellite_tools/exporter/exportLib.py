@@ -1290,25 +1290,13 @@ class ServerGroupTypeServerArchCompatDumper(RestrictedArchCompatDumper):
            %s
     """
 
-class BlacklistObsoletesDumper(BaseQueryDumper):
+class BlacklistObsoletesDumper(BaseDumper):
     tag_name = 'rhn-blacklist-obsoletes'
-    iterator_query = """
-            select pn1.name, pe.epoch, pe.version, pe.release, 
-                pa.name "package-arch", pn2.name "ignored-name"
-            from rhnBlacklistObsoletes bo, 
-                rhnPackageName pn1, rhnPackageEVR pe, rhnPackageArch pa,
-                rhnPackageName pn2
-            where bo.name_id = pn1.id
-                and bo.evr_id = pe.id
-                and bo.package_arch_id = pa.id
-                and bo.ignore_name_id = pn2.id
-        """
-
-    def dump_subelement(self, data):
-        if data['epoch'] is None:
-            data['epoch'] = ""
-        EmptyDumper(self._writer, 'rhn-blacklist-obsolete', data).dump()
-
+    def dump(self):
+        note = """\n<!-- This file is intentionally left empty.
+     Older Satellites and Spacewalks require this file to exist in the dump. -->\n"""
+        self._writer.stream.write(note)
+        self._writer.empty_tag(self.tag_name)
 
 class _KickstartableTreeDumper(BaseRowDumper):
     tag_name = 'rhn-kickstartable-tree'
