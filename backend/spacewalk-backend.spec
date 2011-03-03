@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.15
+Version: 1.4.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 03 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.16-1
+- removed rpm.readHeaderFromFD(), it brokes signatures
+
 * Wed Mar 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.15-1
 - merged/moved make_evr() implemetation into a single code
 - removed duplicated fetchTraceback()
