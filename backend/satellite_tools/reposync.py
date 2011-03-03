@@ -168,11 +168,12 @@ class RepoSync:
         is_non_local_repo = (url.find("file://") < 0)
         # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
         def finally_remove(path):
-            if is_non_local_repo:
+            if is_non_local_repo and path:
                 os.remove(path)
 
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
+            localpath = None
             try:
                 self.print_msg("%d/%d : %s" % (index+1, num_to_process, pack.getNVREA()))
                 if to_download:
