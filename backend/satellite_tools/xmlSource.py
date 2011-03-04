@@ -712,11 +712,6 @@ class ErrataFileItem(BaseChecksummedItem):
     }
 addItem(ErrataFileItem)
 
-class BlacklistObsoleteItem(BaseItem):
-    item_name = 'rhn-blacklist-obsolete'
-    item_class = importLib.BlacklistObsoletes
-addItem(BlacklistObsoleteItem)
-
 class ProductNamesItem(BaseItem):
     item_name = 'rhn-product-name'
     item_class = importLib.ProductName
@@ -1042,9 +1037,6 @@ class ChannelPackageArchCompatContainer(ContainerHandler):
 
 class ServerGroupServerArchCompatContainer(ContainerHandler):
     container_name = 'rhn-server-group-server-arch-compatibility-map'
-
-class BlacklistObsoletesContainer(ContainerHandler):
-    container_name = 'rhn-blacklist-obsoletes'
 
 class ProductNamesContainer(ContainerHandler):
     container_name = 'rhn-product-names'
