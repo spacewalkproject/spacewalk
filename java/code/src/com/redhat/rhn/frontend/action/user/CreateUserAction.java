@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.user.CreateUserCommand;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -192,6 +193,16 @@ public class CreateUserAction extends RhnAction {
             command.publishNewUserEvent(orgAdmin, orgAdmin.getOrg().getActiveOrgAdmins(),
                     request.getServerName(),
                     (String) form.get(UserActionHelper.DESIRED_PASS));
+
+            user.setTimeZone(UserManager.getTimeZone(((Integer) form.get("timezone"))
+                .intValue()));
+            String preferredLocale = form.getString("preferredLocale");
+            if (preferredLocale != null && preferredLocale.equals("none")) {
+                preferredLocale = null;
+            }
+            user.setPreferredLocale(preferredLocale);
+            UserManager.storeUser(user);
+
             return getStrutsDelegate().forwardParam(mapping.findForward(SUCCESS_INTO_ORG),
                     "uid", String.valueOf(user.getId()));
 

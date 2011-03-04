@@ -18,6 +18,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.RhnTimeZone;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
+import com.redhat.rhn.frontend.action.user.BaseUserSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.user.UserManager;
@@ -44,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @version $Rev $
  */
-public class UserLocalePrefAction extends RhnAction {
+public class UserLocalePrefAction extends BaseUserSetupAction {
 
     /**
      * {@inheritDoc}
@@ -113,65 +114,6 @@ public class UserLocalePrefAction extends RhnAction {
         form.set("uid", currentUser.getId());
 
         return mapping.findForward("default");
-    }
-
-    private LangDisplayBean buildNoneLocale() {
-        LocalizationService ls =
-            LocalizationService.getInstance();
-        LangDisplayBean ldb = new LangDisplayBean();
-        ldb.setImageUri("");
-        ldb.setLanguageCode("none");
-        ldb.setLocalizedName(ls.getMessage("preferences.jsp.lang.none"));
-        return ldb;
-    }
-
-    private void setCurrentLocale(RequestContext ctx, User user) {
-        String userLocale = user.getPreferredLocale();
-
-        // If user has locale set, then just use that
-        if (userLocale != null) {
-            ctx.getRequest().setAttribute("currentLocale", userLocale);
-        }
-        else {
-            ctx.getRequest().setAttribute("currentLocale", "none");
-        }
-    }
-
-    private Map buildImageMap() {
-        Map retval = new LinkedHashMap();
-        LocalizationService ls = LocalizationService.getInstance();
-        List locales = ls.getConfiguredLocales();
-        for (Iterator iter = locales.iterator(); iter.hasNext();) {
-            String locale = (String) iter.next();
-            StringBuffer buf = new StringBuffer();
-            buf.append("/img/i18n/").append(locale);
-            buf.append(".gif");
-            LangDisplayBean ldb = new LangDisplayBean();
-            ldb.setImageUri(buf.toString());
-            ldb.setLanguageCode(locale);
-            ldb.setLocalizedName(ls.getMessage("preferences.jsp.lang." + locale));
-            retval.put(locale, ldb);
-        }
-        return retval;
-    }
-
-    private List getTimeZones() {
-        List dataList = UserManager.lookupAllTimeZones();
-        List displayList = new ArrayList();
-        for (int i = 0; i < dataList.size(); i++) {
-            String display = LocalizationService.getInstance()
-                .getMessage(((RhnTimeZone)dataList.get(i)).getOlsonName());
-            String value = String.valueOf(((RhnTimeZone)dataList.get(i)).getTimeZoneId());
-            displayList.add(createDisplayMap(display, value));
-        }
-        return displayList;
-    }
-
-    private Map createDisplayMap(String display, String value) {
-        Map selection = new HashMap();
-        selection.put("display", display);
-        selection.put("value", value);
-        return selection;
     }
 
     private User lookupUser(RequestContext ctx, DynaActionForm form) {

@@ -107,6 +107,65 @@
 </table>
 
 
+<c:if test="${account_type == 'into_org'}">
+  <h2><bean:message key="preferences.jsp.tz"/></h2>
+  <p><bean:message key="preferences.jsp.datestimes"/></p>
+  <div class="preference"><bean:message key="preferences.jsp.displaytimesas"/>
+  <select name="timezone">
+    <c:forEach var="tz" items="${requestScope.timezones}">
+      <c:if test="${tz.value == requestScope.default_tz}">
+        <option value="${tz.value}" selected="selected">${tz.display}</option>
+      </c:if>
+      <c:if test="${tz.value != requestScope.default_tz}">
+        <option value="${tz.value}">${tz.display}</option>
+      </c:if>
+    </c:forEach>
+  </select>
+  </div>
+
+  <h2><bean:message key="preferences.jsp.lang" /></h2>
+  <p><bean:message key="preferences.jsp.langs" /></p>
+
+  <div class="preference">
+  <c:set var="counter" value="0" />
+  <table width="75%" cellpadding="0">
+    <tr>
+      <td width="50%">
+        <input type="radio" name="preferredLocale" value="<c:out value="${noLocale.languageCode}" />"
+        <c:if test="${noLocale.languageCode == currentLocale}">
+          checked="checked"
+        </c:if>/>
+        <c:out value="${noLocale.localizedName}" />
+        <br />
+        <br />
+      </td>
+     </tr>
+  <c:forEach var="item" items="${supportedLocales}">
+    <c:if test="${counter == 0}">
+      <tr>
+    </c:if>
+    <td width="50%">
+      <input type="radio" name="preferredLocale" value="<c:out value="${item.key}" />"
+        <c:if test="${item.key == currentLocale}">
+          checked="checked"
+        </c:if>/>
+       <img src="<c:out value="${item.value.imageUri}" />" alt="<c:out value="${item.value.localizedName}" />" />&nbsp;(<c:out value="${item.value.localizedName}" />)
+    </td>
+    <c:if test="${counter == 1}">
+      </tr>
+    </c:if>
+    <c:set var="counter" value="${counter + 1}" />
+    <c:if test="${counter == 2}">
+      <c:set var="counter" value="0" />
+    </c:if>
+  </c:forEach>
+
+  <c:if test="${counter == 1}">
+          </tr>
+  </c:if>
+  </table>
+  </div>
+</c:if>
 
 <div align="right">
 <html:submit>

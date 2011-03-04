@@ -67,6 +67,8 @@
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String"
             				 initial="desiredpassword, desiredpasswordConfirm"/>
+            <form-property name="preferredLocale" type="java.lang.String" />
+            <form-property name="timezone" type="java.lang.Integer"/>
         </form-bean>
         <form-bean name="userCreateForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
