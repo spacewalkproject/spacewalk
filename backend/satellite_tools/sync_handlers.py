@@ -429,7 +429,6 @@ class ContainerHandler:
         self.setChannelPackageArchContainer()
         # all other containers
         self.setChannelFamilyContainer()
-        self.setBlacklistObsoletesContainer()
 	self.setProductNamesContainer()
 
     def __del__(self):
@@ -471,8 +470,6 @@ class ContainerHandler:
     # set all other containers:
     def setChannelFamilyContainer(self):
         self.handler.set_container(ChannelFamilyContainer())
-    def setBlacklistObsoletesContainer(self):
-        self.handler.set_container(diskImportLib.BlacklistObsoletesContainer())
     def setProductNamesContainer(self):
         self.handler.set_container(diskImportLib.ProductNamesContainer())
 

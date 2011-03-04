@@ -62,13 +62,6 @@ class diskImportLibContainer:
         importer.run()
         self.batch = []
 
-class BlacklistObsoletesContainer(diskImportLibContainer, xmlSource.BlacklistObsoletesContainer):
-    importer_class = blacklistImport.BlacklistObsoletesImport
-    def endContainerCallback(self):
-        if not self.batch:
-            return
-        diskImportLibContainer.endContainerCallback(self)
-
 class ProductNamesContainer(diskImportLibContainer, xmlSource.ProductNamesContainer):
     importer_class = productNamesImport.ProductNamesImport
     def endContainerCallback(self):
