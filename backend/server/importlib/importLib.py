@@ -496,16 +496,6 @@ class ServerGroupServerArchCompat(Information):
         'server-group-type' : StringType,
     }
 
-class BlacklistObsoletes(Information):
-    attributeTypes = {
-        'name'          : StringType,
-        'epoch'         : StringType,
-        'version'       : StringType,
-        'release'       : StringType,
-        'package-arch'  : StringType,
-        'ignored-name'  : StringType,
-    }
-
 class KickstartFile(Information):
     attributeTypes = {
         'relative_path' : StringType,
