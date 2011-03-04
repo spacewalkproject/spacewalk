@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.7
+Version:        1.4.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.8-1
+- added schema upgrade script for rhnBlacklistObsoletes
+- removed rhnBlacklistObsoletes table
+- created postgresql upgrade script for or rhnVirtualization.uuid index
+
 * Thu Mar 03 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.7-1
 - upgrade script for rhnVirtualization.uuid index
 - 468690 - added index to rhnVirtualization.uuid
