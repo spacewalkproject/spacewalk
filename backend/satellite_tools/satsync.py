@@ -590,6 +590,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
     def processChannelFamilies(self):
         self._process_simple("getChannelFamilyXmlStream", "channel-families")
+        try:
+            self._process_simple("getProductNamesXmlStream", "product names")
+        except Exception:
+            None
 
     def _set_comps_for_channel(self, backend, channel_id, path, timestamp):
         sth = backend.dbmodule.prepare("""
@@ -820,13 +824,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             sys.exit(12)
         self._channel_req = rc
         return rc
-
-    def processBlacklists(self):
-        self._process_simple("getBlacklistsXmlStream", "blacklists")
-        try:
-            self._process_simple("getProductNamesXmlStream", "product names")
-        except Exception:
-            None
 
     def _get_channel_timestamp(self, channel):
         try:
