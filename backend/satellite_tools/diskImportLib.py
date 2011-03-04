@@ -26,7 +26,6 @@ from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelImport, ChannelFamilyImport
 from spacewalk.server.importlib.packageImport import PackageImport, SourcePackageImport
 from spacewalk.server.importlib import archImport
-from spacewalk.server.importlib import blacklistImport
 from spacewalk.server.importlib import productNamesImport
 
 class Backend:
