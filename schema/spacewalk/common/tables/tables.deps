@@ -39,8 +39,6 @@ rhnActivationKey               :: rhnRegToken rhnKickstartSession
 rhnArchTypeActions             :: rhnArchType rhnActionType
 rhnAppInstallSession           :: rhnAppInstallInstance rhnChecksum
 rhnAppInstallSessionData       :: rhnAppInstallSession
-rhnBlacklistObsoletes          :: rhnChannel rhnPackageName rhnChannelPackage \
-                                  rhnPackage
 rhnChannel                     :: web_customer rhnChannelArch rhnChannelProduct \
                                   rhnProductName rhnChecksum
 rhnChannelArch                 :: rhnArchType
