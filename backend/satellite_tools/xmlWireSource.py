@@ -250,12 +250,6 @@ class MetadataWireSource(BaseWireSource):
         self._prepare()
         return self._openSocketStream("dump.errata", (self.systemid, erratumIds))
 
-    def getBlacklistsXmlStream(self):
-        "retrieve xml stream for blacklists"
-        self._prepare()
-        return self._openSocketStream("dump.blacklist_obsoletes", 
-            (self.systemid, ))
-
     def getKickstartsXmlStream(self, ksLabels):
         "retrieve xml stream for kickstart trees"
         self._prepare()

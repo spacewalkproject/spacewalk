@@ -255,9 +255,6 @@ class MetadataDiskSource:
     def getChannelFamilyXmlStream(self):
         return ChannelFamilyDiskSource(self.mountpoint).load()
 
-    def getBlacklistsXmlStream(self):
-        return BlacklistsDiskSource(self.mountpoint).load()
-
     def getProductNamesXmlStream(self):
         return ProductnamesDiskSource(self.mountpoint).load()
 
