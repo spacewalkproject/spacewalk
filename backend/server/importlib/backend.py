@@ -572,48 +572,6 @@ class Backend:
         hash.update(result)
         return hash
     
-    def processBlacklistObsoletes(self, blacklists):
-        # Slightly different: the table doesn't have a sequenced field
-        parentTable = 'rhnBlacklistObsoletes'
-        parentTableObj = self.tables[parentTable]
-        dml = DML([parentTable], self.tables)
-
-        q = "select %s from %s" % (string.join(parentTableObj.pk, ", "),
-            parentTable)
-        h = self.dbmodule.prepare(q)
-        h.execute()
-
-        db_fields = {}
-        for k in parentTableObj.pk:
-            db_fields[k] = parentTableObj.fields[k]
-
-        db_values_hash = {}
-        while 1:
-            row = h.fetchone_dict()
-            if not row:
-                break
-            val = _buildDatabaseValue(row, db_fields)
-            key = build_key(val, parentTableObj.pk)
-            db_values_hash[key] = val
-
-        # Now iterate through the values
-        for entry in blacklists:
-            val = {}
-            _buildExternalValue(val, entry, parentTableObj)
-            key =  build_key(val, parentTableObj.pk)
-            if db_values_hash.has_key(key):
-                # Value exists
-                del db_values_hash[key]
-                continue
-            # Have to add this value
-            addHash(dml.insert[parentTable], val)
-        # The rest of the stuff has to be deleted
-        for k, v in db_values_hash.items():
-            addHash(dml.delete[parentTable], v)
-
-        self.__doDML(dml)
-        
-
     def processChannelArches(self, arches):
         self.__processObjectCollection(arches, 'rhnChannelArch',
             uploadForce=4, ignoreUploaded=1, severityLimit=4)
