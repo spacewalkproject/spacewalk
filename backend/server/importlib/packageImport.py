@@ -219,7 +219,7 @@ class PackageImport(ChannelPackageSubscription):
         package['copyright'] = package['license']
 
         # Creates all the data structures needed to insert capabilities
-        for tag in ('provides', 'requires', 'conflicts', 'obsoletes'):
+        for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'recommends', 'suggests', 'supplements'):
             depList = package[tag]
             if type(depList) != type([]):
                 sys.stderr.write("!!! packageImport.PackageImport._processPackage: "
@@ -348,7 +348,7 @@ class PackageImport(ChannelPackageSubscription):
         package['checksum_id'] = self.checksums[(package['checksum_type'], package['checksum'])]
 
         # Postprocess the dependency information
-        for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'files'):
+        for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'files', 'recommends', 'suggests', 'supplements'):
             for entry in package[tag]:
                 nv = entry['capability']
                 entry['capability_id'] = self.capabilities[nv]

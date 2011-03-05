@@ -125,6 +125,9 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
             'requires'  : headerSource.rpmRequires, 
             'conflicts' : headerSource.rpmConflicts,
             'obsoletes' : headerSource.rpmObsoletes,
+            'recommends': headerSource.rpmRecommends,
+            'supplements': headerSource.rpmSupplements,
+            'suggests'  : headerSource.rpmSuggests,
         }
 
         for k, dclass in mapping.items():

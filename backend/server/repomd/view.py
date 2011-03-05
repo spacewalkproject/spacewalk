@@ -145,6 +145,18 @@ class PrimaryView(object):
         output.append("      <rpm:requires>")
         output.extend(self._get_deps(package.requires))
         output.append("      </rpm:requires>")
+
+        output.append("      <rpm:recommends>")
+        output.extend(self._get_deps(package.recommends))
+        output.append("      </rpm:recommends>")
+
+        output.append("      <rpm:suggests>")
+        output.extend(self._get_deps(package.suggests))
+        output.append("      </rpm:suggests>")
+
+        output.append("      <rpm:supplements>")
+        output.extend(self._get_deps(package.supplements))
+        output.append("      </rpm:supplements>")
   
         output.append("      <rpm:conflicts>")
         output.extend(self._get_deps(package.conflicts))

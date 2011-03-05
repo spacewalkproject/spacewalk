@@ -69,6 +69,9 @@ class Package:
         self.requires = []
         self.conflicts = []
         self.obsoletes = []
+        self.supplements = []
+        self.suggests = []
+        self.recommends = []
 
         self.changelog = []
 

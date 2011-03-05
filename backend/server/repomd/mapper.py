@@ -272,6 +272,42 @@ class SqlPackageMapper:
            and pr.capability_id = pc.id
         union all
         select
+           'recommends',
+           pr.sense,
+           pc.name,
+           pc.version
+        from
+           rhnPackageCapability pc,
+           rhnPackageRecommends prec
+        where
+           prec.package_id = :package_id
+           and prec.capability_id = pc.id
+        union all
+        select
+           'supplements',
+           pr.sense,
+           pc.name,
+           pc.version
+        from
+           rhnPackageCapability pc,
+           rhnPackageSupplements supp
+        where
+           supp.package_id = :package_id
+           and supp.capability_id = pc.id
+        union all
+        select
+           'suggests',
+           pr.sense,
+           pc.name,
+           pc.version
+        from
+           rhnPackageCapability pc,
+           rhnPackageSuggests sugg
+        where
+           sugg.package_id = :package_id
+           and sugg.capability_id = pc.id
+        union all
+        select
            'conflicts',
            pcon.sense,
            pc.name,
@@ -405,6 +441,12 @@ class SqlPackageMapper:
                 package.conflicts.append(dep)
             elif item[0] == "obsoletes":
                 package.obsoletes.append(dep)
+            elif item[0] == "recommends":
+                package.recommends.append(dep)
+            elif item[0] == "supplements":
+                package.supplements.append(dep)
+            elif item[0] == "suggests":
+                package.suggests.append(dep)
             else:
                 assert False, "Unknown PRCO type: %s" % item[0]
 

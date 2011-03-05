@@ -110,6 +110,9 @@ class rpmBinaryPackage(Package, rpmPackage):
         'provides'      : None,
         'conflicts'     : None,
         'obsoletes'     : None,
+        'suggests'      : None,
+        'supplements'   : None,
+        'recommends'    : None,
         'files'         : None,
         'changelog'     : None,
         'channels'      : None,
@@ -150,6 +153,9 @@ class rpmBinaryPackage(Package, rpmPackage):
             'requires'  : rpmRequires,
             'conflicts' : rpmConflicts,
             'obsoletes' : rpmObsoletes,
+            'supplements' : rpmSupplements,
+            'suggests'  : rpmSuggests,
+            'recommends'  : rpmRecommends,
         }
         for k, v in mapping.items():
             self._populateTag(header, k, v)
@@ -197,11 +203,17 @@ class rpmBinaryPackage(Package, rpmPackage):
                     hash[k] = 0
                 else:
                     hash[k] = v[i]
-            # Create a file 
+
+            # RPMSENSE_STRONG(1<<27) indicate recommends; if not set it is suggests only
+            if tag == 'recommends' and not(hash['flags'] & (1 << 27)):
+                continue
+            if tag == 'suggests' and (hash['flags'] & (1 << 27)):
+                continue
+            # Create a file
             obj = Class()
             # Fedora 10+ rpms have duplicate provides deps,
             # Lets clean em up before db inserts.
-            if tag in ['requires', 'provides', 'obsoletes', 'conflicts']:
+            if tag in ['requires', 'provides', 'obsoletes', 'conflicts', 'recommends', 'suggests', 'supplements']:
                 if not len(hash['name']):
                     continue
                 dep_nv = (hash['name'], hash['version'], hash['flags'])
@@ -304,6 +316,30 @@ class rpmRequires(Dependency):
         'name'      : 'requirename',
         'version'   : 'requireversion',
         'flags'     : 'requireflags',
+    }
+
+class rpmSuggests(Dependency):
+    # More mappings
+    tagMap = {
+        'name'      : 'suggestsname',
+        'version'   : 'suggestsversion',
+        'flags'     : 'suggestsflags',
+    }
+
+class rpmRecommends(Dependency):
+    # More mappings
+    tagMap = {
+        'name'      : 'suggestsname',
+        'version'   : 'suggestsversion',
+        'flags'     : 'suggestsflags',
+    }
+
+class rpmSupplements(Dependency):
+    # More mappings
+    tagMap = {
+        'name'      : 'enhancesname',
+        'version'   : 'enhancesversion',
+        'flags'     : 'enhancesflags',
     }
 
 class rpmConflicts(Dependency):
