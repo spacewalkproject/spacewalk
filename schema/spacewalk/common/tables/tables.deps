@@ -124,6 +124,9 @@ rhnPackageObsoletes            :: rhnPackage rhnPackageCapability
 rhnPackageNEVRA                :: rhnPackageName rhnPackageEVR rhnPackageArch
 rhnPackageProvides             :: rhnPackage rhnPackageCapability
 rhnPackageRequires             :: rhnPackage rhnPackageCapability
+rhnPackageSuggests             :: rhnPackage rhnPackageCapability
+rhnPackageSupplements          :: rhnPackage rhnPackageCapability
+rhnPackageRecommends           :: rhnPackage rhnPackageCapability
 rhnPackageSource               :: web_customer rhnSourceRPM rhnFile rhnPackageGroup \
                                   rhnChecksum
 rhnPackageSyncBlacklist        :: rhnPackageName web_customer
