@@ -35,6 +35,10 @@ import java.util.Map;
  */
 public class BaseUserSetupAction extends RhnAction {
 
+    /**
+     * Builds LangDisplayBean for none locale
+     * @return LangDisplayBean
+     */
     public LangDisplayBean buildNoneLocale() {
         LocalizationService ls =
             LocalizationService.getInstance();
@@ -45,6 +49,11 @@ public class BaseUserSetupAction extends RhnAction {
         return ldb;
     }
 
+    /**
+     * Sets user's locale to the provided request context
+     * @param ctx RequestContext
+     * @param user User
+     */
     public void setCurrentLocale(RequestContext ctx, User user) {
         String userLocale = user.getPreferredLocale();
 
@@ -57,6 +66,10 @@ public class BaseUserSetupAction extends RhnAction {
         }
     }
 
+    /**
+     * Builds Map of configured locales and locale image uris
+     * @return Map of configured locales and locale image uris
+     */
     public Map buildImageMap() {
         Map retval = new LinkedHashMap();
         LocalizationService ls = LocalizationService.getInstance();
@@ -75,6 +88,10 @@ public class BaseUserSetupAction extends RhnAction {
         return retval;
     }
 
+    /**
+     * Lists available time zones
+     * @return List of available time zones
+     */
     public List getTimeZones() {
         List dataList = UserManager.lookupAllTimeZones();
         List displayList = new ArrayList();
