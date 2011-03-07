@@ -36,6 +36,13 @@ sql:
 					|| case when rhnpackageevr.id is not null then '-' || evr_t_as_vre_simple(rhnpackageevr.evr) end
 					|| case when rhnpackagearch.id is not null then '.' || rhnpackagearch.label end
 				when rhnactiontype.label like 'configfiles.%' then rhnconfigfilename.path
+				when rhnactiontype.label = 'kickstart.initiate' then (
+					select rhnksdata.label
+					from rhnkickstartsessionhistory, rhnkickstartsession, rhnksdata
+					where rhnserveraction.action_id = rhnkickstartsessionhistory.action_id
+						and rhnkickstartsessionhistory.kickstart_session_id = rhnkickstartsession.id
+						and rhnkickstartsession.kickstart_id = rhnksdata.id
+					)
 				end as event_data
 		from rhnserveraction left outer join rhnactionerrataupdate
 			on rhnserveraction.action_id = rhnactionerrataupdate.action_id
