@@ -21,8 +21,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.user.UserManager;
 
-import org.apache.struts.action.DynaActionForm;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
