@@ -2176,3 +2176,8 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr ""
+
+#testing Transifex
+msgid "Transifex"
+msgstr ""
+
