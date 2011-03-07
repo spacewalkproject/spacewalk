@@ -14,13 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.user;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.user.RhnTimeZone;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.action.user.BaseUserSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
@@ -29,13 +25,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
