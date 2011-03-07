@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.14
+Version: 1.4.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,20 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 07 2011 Jan Pazdziora 1.4.15-1
+- 682258 - fix unit test (mzazrivec@redhat.com)
+- 682258 - removed unused imports (mzazrivec@redhat.com)
+- 682258 - createDisplayMap should be private (mzazrivec@redhat.com)
+- 682258 - java docs (mzazrivec@redhat.com)
+- 682258 - removed unused imports (mzazrivec@redhat.com)
+- 682258 - removed unused imports (mzazrivec@redhat.com)
+- 682258 - specify user locale when creating new user (mzazrivec@redhat.com)
+- Fixed pt_BR translations issues at Kickstart Create. (mmello@redhat.com)
+- fixing previous typo in all StringResource files (tlestach@redhat.com)
+- fixed typo in kickstart.script.summary and post.jsp.summary
+  (tlestach@redhat.com)
+- Fixed some pt_BR translations issues (mmello@redhat.com)
+
 * Wed Mar 02 2011 Tomas Lestach <tlestach@redhat.com> 1.4.14-1
 - 639134 - consider also package arch when searching systems according to a
   package (tlestach@redhat.com)
