@@ -37,7 +37,7 @@ sql:
 					|| case when rhnpackagearch.id is not null then '.' || rhnpackagearch.label end
 				when rhnactiontype.label like 'configfiles.%' then rhnconfigfilename.path
 				when rhnactiontype.label = 'kickstart.initiate' then (
-					select rhnksdata.label
+					select distinct rhnksdata.label
 					from rhnkickstartsessionhistory, rhnkickstartsession, rhnksdata
 					where rhnserveraction.action_id = rhnkickstartsessionhistory.action_id
 						and rhnkickstartsessionhistory.kickstart_session_id = rhnkickstartsession.id
