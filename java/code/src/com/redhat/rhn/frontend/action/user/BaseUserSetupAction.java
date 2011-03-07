@@ -104,7 +104,7 @@ public class BaseUserSetupAction extends RhnAction {
         return displayList;
     }
 
-    public Map createDisplayMap(String display, String value) {
+    private Map createDisplayMap(String display, String value) {
         Map selection = new HashMap();
         selection.put("display", display);
         selection.put("value", value);
