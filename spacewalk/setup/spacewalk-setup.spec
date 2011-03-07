@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.4.1
+Version:        1.4.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Mar 07 2011 Jan Pazdziora 1.4.2-1
+- Removing rhn-enable-push.pl as it is not referenced from anywhere.
+- Removing rhn-load-config.pl as it is not referenced from anywhere.
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.1-1
 - Localize globs used for filehandles; use three-parameter opens.
 
