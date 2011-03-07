@@ -1,11 +1,11 @@
 %post --nochroot --interpreter /usr/bin/python
-import xmlrpclib
-import shutil
-import os
-import os.path
-old_system_id = "/tmp/rhn/systemid"
-new_system_id = "/mnt/sysimage/root/systemid.old"
-try:
+    try:
+    import xmlrpclib
+    import shutil
+    import os
+    import os.path
+    old_system_id = "/tmp/rhn/systemid"
+    new_system_id = "/mnt/sysimage/root/systemid.old"
 
     new_keys = "$redhat_management_key"
     for key in new_keys.split(','):
