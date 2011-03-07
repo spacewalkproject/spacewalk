@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Mon Mar 07 2011 Jan Pazdziora 1.4.2-1
+- For Initiate a kickstart action, show the label of the kickstart profile in
+  the report.
+
 * Mon Feb 21 2011 Jan Pazdziora 1.4.1-1
 - Reporting: system-history proof of concept report.
 
