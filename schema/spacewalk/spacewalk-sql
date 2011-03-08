@@ -6,6 +6,7 @@ use warnings FATAL => 'all';
 use Spacewalk::Setup ();
 use IPC::Open3 ();
 use Getopt::Long ();
+use Cwd 'abs_path';
 
 sub usage {
 	die "Usage: $0 [ OPTIONS ] sql-file-to-use.sql\n    where possible OPTIONS are\n        --verbose\n        --select-mode or --select-mode-direct\n";
@@ -48,6 +49,11 @@ if (@missing) {
 	die join '', @missing;
 }
 
+my $filename = $ARGV[0];
+if ($filename ne '-') {
+	$filename = abs_path($filename);
+}
+
 chdir '/';
 
 my ($pid, $wfh, $rfh);
@@ -63,14 +69,14 @@ whenever sqlerror exit sql.sqlcode
 set linesize 4000
 set pagesize 50000
 EOF
-	if ($ARGV[0] eq '-') {
+	if ($filename eq '-') {
 		print { $wfh } <>;
 	} else {
-		print $wfh "\@$ARGV[0]\n";
+		print $wfh "\@$filename\n";
 	}
 	close $wfh;
 } elsif ($options{db_backend} eq 'postgresql') {
-        my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $ARGV[0] );
+        my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $filename );
         if (defined $options{db_host}) {
                 push @command, '-h', $options{db_host};
                 if (defined $options{db_port}) {
@@ -81,7 +87,7 @@ EOF
 	if ($verbose) {
 		print STDERR "Running: @command\n";
 	}
-	if ($ARGV[0] eq '-') {
+	if ($filename eq '-') {
 		$wfh = '<&STDIN';
 	}
 	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
