@@ -302,26 +302,22 @@ def entitlement_grants_service(entitlement, service):
 # XXX should be moved to a different file?
 _query_update_push_client_registration = rhnSQL.Statement("""
 declare
-    pragma autonomous_transaction;
+    updated_id numeric;
 begin
     update rhnPushClient 
-       set name = :name,
-           shared_key = :shared_key,
-           state_id = :state_id,
+       set name = :name_in,
+           shared_key = :shared_key_in,
+           state_id = :state_id_in,
            next_action_time = NULL,
            last_ping_time = NULL
-     where server_id = :server_id;
-    if sql%rowcount = 1 then
-        -- Entry successfully updated
-        commit;
-        return;
-    end if;
-
-    insert into rhnPushClient 
+     where server_id = :server_id_in
+     returning server_id into updated_id;
+    if updated_id is null then
+        insert into rhnPushClient
            (id, server_id, name, shared_key, state_id)
-    values (sequence_nextval('rhn_pclient_id_seq'), :server_id, :name, 
-            :shared_key, :state_id);
-    commit;
+        values (sequence_nextval('rhn_pclient_id_seq'), :server_id_in, :name_in,
+            :shared_key_in, :state_id_in);
+    end if;
 end;
 """)
 def update_push_client_registration(server_id):
@@ -333,13 +329,15 @@ def update_push_client_registration(server_id):
     assert row is not None
     state_id = row['id']
     
-    h = rhnSQL.prepare(_query_update_push_client_registration)
-    h.execute(server_id=server_id, name=client_name,
-        shared_key=shared_key, state_id=state_id)
+    h = rhnSQL.prepare(_query_update_push_client_registration,
+         params = ('server_id_in numeric', 'name_in varchar',
+                   'shared_key_in varchar', 'state_id_in numeric'))
+    h.execute(server_id_in=server_id, name_in=client_name,
+        shared_key_in=shared_key, state_id_in=state_id)
     # Get the server's (database) time
     # XXX
     timestamp = int(time.time())
-    # Autonomous transaction, so no need to commit
+    rhnSQL.commit()
     return timestamp, client_name, shared_key
         
 _query_delete_duplicate_client_jids = rhnSQL.Statement("""
