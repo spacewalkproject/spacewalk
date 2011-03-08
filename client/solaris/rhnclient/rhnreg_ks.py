@@ -21,6 +21,7 @@ import getopt
 import sys
 import os
 import string
+import encodings.idna
 
 PREFIX="/"
 modulepath="%s/usr/share/rhn/" % PREFIX
@@ -117,7 +118,7 @@ def generateProfileName(hardwareList):
             ipaddr = hw.get('ipaddr')
             
     if hostname:
-        profileName = hostname
+        profileName = encodings.idna.ToUnicode(hostname)
     else:
         if ipaddr:
             profileName = ipaddr
