@@ -1861,7 +1861,10 @@ def do_system_details(self, args, short=False):
 
         details = self.client.system.getDetails(self.session, system_id)
 
-        uuid = self.client.system.getUuid(self.session, system_id)
+        if self.check_api_version('10.16'):
+            uuid = self.client.system.getUuid(self.session, system_id)
+        else:
+            uuid = None
 
         registered = self.client.system.getRegistrationDate(self.session,
                                                             system_id)
