@@ -20,7 +20,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+import os,re
 import shlex
+from time import strftime
 from spacecmd.utils import *
 
 def help_group_addsystems(self):
@@ -157,6 +159,153 @@ def do_group_delete(self, args):
 
     for group in groups:
         self.client.systemgroup.delete(self.session, group)
+
+####################
+
+def help_group_backup(self):
+    print 'group_backup: backup a system group'
+    print '''usage: group_backup NAME [OUTDIR]
+
+OUTDIR defaults to $HOME/spacecmd-backup/group/YYYY-MM-DD/NAME
+'''
+
+
+def complete_group_backup(self, text, line, beg, end):
+    List = self.do_group_list('', True)
+    List.append( 'ALL' )
+    return tab_completer(List, text)
+
+
+def do_group_backup(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_group_backup()
+        return
+
+    groups = args
+    if len(args) == 1 and args[0] == 'ALL':
+        groups = self.do_group_list('', True)
+
+    outputpath_base = None
+
+    # use an output base from the user if it was passed
+    if len(args) == 2:
+        outputpath_base = datetime.now().strftime(os.path.expanduser(args[1]))
+    else:
+        outputpath_base = os.path.expanduser('~/spacecmd-backup/group')
+
+        # make the final output path be <base>/date
+        outputpath_base = os.path.join( outputpath_base,
+                                        datetime.now().strftime("%Y-%m-%d"))
+
+    try:
+        if not os.path.isdir( outputpath_base ):
+            os.makedirs( outputpath_base )
+    except:
+        logging.error('Could not create output directory')
+        return
+
+    for group in groups:
+        print "Backup Group: %s" % group
+        details = self.client.systemgroup.getDetails(self.session, group)
+        outputpath = outputpath_base + "/" + group
+        print "Output File: %s" % outputpath
+        fh = open( outputpath, 'w' )
+        fh.write( details['description'] )
+        fh.close()
+
+####################
+
+def help_group_restore(self):
+    print 'group_backup: restore a system group'
+    print 'usage: group_backup INPUTDIR [NAME] ...'
+
+
+def complete_group_restore(self, text, line, beg, end):
+    parts = shlex.split(line)
+
+    if len(parts) > 1:
+        groups = self.do_group_list('', True)
+        groups.append( 'ALL' )
+        return tab_completer(groups, text)
+
+
+def do_group_restore(self, args):
+    (args, options) = parse_arguments(args)
+
+    inputdir = os.getcwd()
+    groups = []
+    files = {}
+    restore = {}
+    current = {}
+
+    if len(args):
+        inputdir = args[0]
+        groups = args[1:]
+    else:
+        self.help_group_restore()
+        return
+
+    inputdir = os.path.abspath(inputdir)
+    logging.debug( "Input Directory: %s" % ( inputdir ) )
+
+    # make a list of file items in the input dir
+    if os.path.isdir(inputdir):
+        d_content = os.listdir(inputdir)
+        for d_item in d_content:
+            if os.path.isfile( inputdir + "/" + d_item ):
+                logging.debug( "Found file %s" % inputdir + "/" + d_item )
+                files[d_item] = inputdir + "/" + d_item
+    else:
+        logging.error( "Restore dir %s does not exits or is not a directory" % inputdir )
+        return
+
+    if not len( files ):
+        logging.error( "Restore dir %s has no restore items" % inputdir )
+        return
+
+    if ( len(groups) == 1 and groups[0] == 'ALL' ) or not len(groups):
+        groups = files.keys()
+    elif len(groups):
+        for group in groups:
+            if files.has_key( group ):
+                groups.append( group )
+            else:
+                logging.error( "Group %s was not found in backup" % ( group ) )
+
+    for groupname in self.do_group_list('', True):
+        details = self.client.systemgroup.getDetails(self.session, groupname)
+        current[groupname] = details['description']
+        current[groupname] = current[groupname].rstrip('\n')
+
+    for groupname in files.keys():
+        fh = open( files[groupname], 'r' )
+        details = fh.read()
+        fh.close()
+        details = details.rstrip('\n')
+
+        if current.has_key( groupname ) and current[groupname] == details:
+            logging.debug( "Already have %s" % groupname )
+            continue
+
+        elif current.has_key( groupname ):
+            logging.debug( "Already have %s but the description has changed" % groupname )
+
+            if is_interactive(options):
+                print "Changing description from:"
+                print "\n\"%s\"\nto\n\"%s\"\n" % ( current[groupname], details )
+                userinput = prompt_user('Continue [y/N]:')
+
+                if re.match('y', userinput, re.I):
+                    logging.info( "Updating description for group: %s" % groupname )
+                    self.client.systemgroup.update(self.session, groupname, details)
+            else:
+                logging.info( "Updating description for group: %s" % groupname )
+                self.client.systemgroup.update(self.session, groupname, details)
+        else:
+            logging.info( "Creating new group %s" % groupname )
+            group = self.client.systemgroup.create(self.session, groupname, details)
 
 ####################
 
