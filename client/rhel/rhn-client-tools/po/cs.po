@@ -3495,9 +3495,3 @@ msgstr "Zaregistrovat se u Red Hat Network"
 
 #~ msgid "Zimbabwe"
 #~ msgstr "Zimbabwe"
-
-#testing Transifex
-msgid "Transifex"
-msgstr "Foo bar"
-
-
