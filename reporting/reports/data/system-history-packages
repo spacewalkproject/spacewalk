@@ -1,0 +1,54 @@
+
+synopsis:
+
+	Package event history
+
+description:
+
+	Package event history.
+
+columns:
+
+	server_id	System identifier
+	event_id	Event id
+	created_date	Date created
+	earliest_action	Earliest date this action will occur
+	pickup_date	The date/time the action was picked up
+	completed_date	The date/time the event was completed
+	status		Status of the event
+	event		Type of the event
+	event_data	Package name, version, and release
+
+multival_columns:
+
+	event_id
+	event_data : event_data
+
+sql:
+
+	select rhnserveraction.server_id,
+		rhnserveraction.action_id as event_id,
+		to_char(rhnaction.created, 'YYYY-MM-DD HH24:MI:SS') as created_date,
+		to_char(rhnaction.earliest_action, 'YYYY-MM-DD HH24:MI:SS') as earliest_action,
+		to_char(rhnserveraction.pickup_time, 'YYYY-MM-DD HH24:MI:SS') as pickup_date,
+		to_char(rhnserveraction.completion_time, 'YYYY-MM-DD HH24:MI:SS') as completed_date,
+		rhnactionstatus.name as status,
+		case when rhnactiontype.name = 'Package Install' and rhnactionpackage.parameter = 'upgrade' then 'Package Upgrade'
+			else rhnactiontype.name end as event,
+		rhnpackagename.name
+				|| case when rhnpackageevr.id is not null then '-' || evr_t_as_vre_simple(rhnpackageevr.evr) end
+				|| case when rhnpackagearch.id is not null then '.' || rhnpackagearch.label end
+			as event_data
+	from rhnserveraction, rhnactionpackage
+		left outer join rhnpackageevr
+			on rhnactionpackage.evr_id = rhnpackageevr.id
+		left outer join rhnpackagearch
+			on rhnactionpackage.package_arch_id = rhnpackagearch.id
+		, rhnpackagename, rhnaction, rhnactiontype, rhnactionstatus
+	where rhnserveraction.action_id = rhnactionpackage.action_id
+		and rhnactionpackage.name_id = rhnpackagename.id
+		and rhnserveraction.action_id = rhnaction.id
+		and rhnaction.action_type = rhnactiontype.id
+		and rhnserveraction.status = rhnactionstatus.id
+	order by rhnserveraction.server_id, rhnaction.created, rhnserveraction.action_id
+

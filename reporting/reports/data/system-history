@@ -5,7 +5,7 @@ synopsis:
 
 description:
 
-	Event history for each system. Proof of concept.
+	Event history for each system
 
 columns:
 
@@ -14,7 +14,7 @@ columns:
 	time		Time of event
 	status		Status of the event
 	event		Type of the event
-	event_data	Additional parameters for the event
+	event_data	Additional parameters / details for the event
 
 multival_columns:
 
