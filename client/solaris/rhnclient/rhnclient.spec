@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.11
+Version: 0.12
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Tue Mar 08 2011 Miroslav Suchý <msuchy@redhat.com> 0.12-1
+- add binutils-devel as buildrequires
+
 * Tue Mar 08 2011 Miroslav Suchý <msuchy@redhat.com> 0.11-1
 - removing files from rhn subdir - they are not used
 - do not record installed files as it does not include .pyo files
