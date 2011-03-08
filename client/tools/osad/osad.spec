@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.4
+Version: 5.10.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -247,6 +247,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Tue Mar 08 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.5-1
+- fixed osad last_message_time update (PG)
+- fixed osad next_action_time update (PG)
+
 * Thu Feb 24 2011 Jan Pazdziora 5.10.4-1
 - 662593 - let osad initiate presence subscription (mzazrivec@redhat.com)
 
