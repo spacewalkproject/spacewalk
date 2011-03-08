@@ -36,6 +36,7 @@ import string
 import time
 import urlparse
 import rhnpush_confmanager
+import encodings.idna
 
 try:
     from optparse import Option, OptionParser
@@ -102,6 +103,9 @@ def main():
         optionParser.print_usage()
         sys.exit(0)
 
+    if options.proxy:
+        options.proxy = encodings.idna.ToASCII(unicode(options.proxy, 'utf-8'))
+
     if options.list:
         if not options.channel:
             upload.die(1, "Must specify a channel for --list to work")
@@ -152,7 +156,7 @@ def main():
     
 class UploadClass(uploadLib.UploadClass):
     def setURL(self):
-        server = self.options.server
+        server = encodings.idna.ToASCII(unicode(self.options.server, 'utf-8'))
         if server is None:
             self.die(1, "Required parameter --server not supplied")
         scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
