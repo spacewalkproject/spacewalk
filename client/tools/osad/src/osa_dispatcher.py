@@ -196,7 +196,7 @@ class Runner(jabber_lib.Runner):
     """)
     _query_update_clients_to_be_pinged = rhnSQL.Statement("""
         update rhnPushClient
-           set next_action_time = sysdate + :delta / 86400
+           set next_action_time = current_timestamp + numtodsinterval(:delta, 'second')
          where id = :client_id
     """)
     def _fetch_clients_to_be_pinged(self):
