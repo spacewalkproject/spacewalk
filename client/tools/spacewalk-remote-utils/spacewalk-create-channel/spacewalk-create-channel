@@ -384,23 +384,28 @@ def gather(clear):
                   extraDir = "RHEL-%s-%s-%s/%s/%s/os/%s/" % (version, release, suppl, update, arch, suppl)
                   fullDir = GATHER_DIR + extraDir
                   saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl))
-               else:
-                  ## Hacked section to grab early RHEL 6 files.  This should change once RHEL 6 is released
-                  if update != "GOLD":
-                     continue
-                  TMP_RHEL_6_DIR = "/path/to/rhel6"
-                  repoDir = "%s/%s/os/" % (release, arch)
-                  #repoDir = "RHEL-%s-%s/%s/%s/os/" % (version, release, update, arch)
-                  fullDir = TMP_RHEL_6_DIR + repoDir
+               elif float(version) == 6:
+                  if update == "GOLD":  #RHEL 6 uses X.Y notation instead of X UY
+                    update_num = "0"
+                  else:
+                    update_num = update.replace("U","") #strip the U
+                  # RHEL-6/6.0/Server/x86_64/os/
+                  repoDir = "RHEL-%s-%s/%s.%s/%s/os/" % (version, release, version, update_num, arch)
+                  fullDir = GATHER_DIR + repoDir
                   saveRpmList(fullDir +  release + "/Packages/", DATA_DIR + getFileName(version, update,release, arch))
                   #now lets handle the other repos:
                   for subrepo in subrepos:
+                     if subrepo == "Workstation":
+                       continue
                      saveRpmList(fullDir +  subrepo + "/Packages/", DATA_DIR + getFileName(version, update,release, arch, subrepo))
-                  #We don't support supplemental quite yet
-
+                  #do supplementary
+                  suppl = extras[1]
+                  fullDir = GATHER_DIR + "RHEL-%s-%s-%s/%s.%s/%s/os/Packages/" % (version, release, suppl, version, update_num, arch) 
+                  saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl)) 
 
 def saveRpmList(directory, filename):
    if path.exists(directory) and not path.exists(filename):
+      print directory
       os.system("ls " + directory + " | grep rpm | sort > " + filename);
 
 def getFileName(version, update, release, arch, additional=None):
