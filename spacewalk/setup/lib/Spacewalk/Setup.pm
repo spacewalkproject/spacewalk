@@ -17,6 +17,7 @@ use Pod::Usage qw(pod2usage);
 use POSIX ":sys_wait_h";
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 use Socket;
+use Net::LibIDN ();
 
 use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
@@ -189,6 +190,7 @@ sub load_answer_file {
 
     close FH;
   }
+  $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'})
   return;
 }
 
@@ -751,6 +753,7 @@ REDO_CONNECT:
 		-default => 'localhost',
 		-answer => \$answers->{'db-host'});
 
+    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'})
 	$data{'db-name'} = _oracle_make_dsn_string($answers);
 	if (defined $data{'db-name'}) {
 		# Try db-name as SID for host (//host:port/name).
@@ -844,6 +847,7 @@ sub postgresql_get_database_answers {
         -answer => \$answers->{'db-host'});
 
     if ($answers->{'db-host'} ne '') {
+        $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'})
         ask(
             -noninteractive => $opts->{"non-interactive"},
             -question => "Port",
