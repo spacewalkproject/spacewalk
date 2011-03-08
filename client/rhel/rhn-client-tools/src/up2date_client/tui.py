@@ -23,7 +23,7 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
 import snack
-
+import encodings.idna
 import signal
 
 import rhnreg, hardware
@@ -658,12 +658,13 @@ class HardwareWindow:
 
         for hw in tui.hardware:
             if hw['class'] == 'NETINFO':
-                hardware_text += hw['hostname'] + "\n"
+                unicode_hostname = u'.'.join([encodings.idna.ToUnicode(x) for x in hw['hostname'].split('.')])
+                hardware_text += unicode_hostname + "\n"
 
                 if tui.profileName != "":
                     self.profileEntry.set(tui.profileName)
                 else:
-                    self.profileEntry.set(hw['hostname'])
+                    self.profileEntry.set(unicode_hostname)
 
         hardware_text += _("CPU speed: ")
 

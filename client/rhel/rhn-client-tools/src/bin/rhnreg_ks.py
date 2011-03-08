@@ -22,6 +22,7 @@
 
 import sys
 import os
+import encodings.idna
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -195,7 +196,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 ipaddr = hw.get('ipaddr')
                 
         if hostname:
-            profileName = hostname
+            profileName = u'.'.join([encodings.idna.ToUnicode(x) for x in hostname.split('.')])
         else:
             if ipaddr:
                 profileName = ipaddr

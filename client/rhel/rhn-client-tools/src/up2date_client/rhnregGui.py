@@ -39,6 +39,7 @@ import gtk.glade
 import gobject
 import sys
 import os
+import encodings.idna
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
@@ -1190,7 +1191,7 @@ class HardwareDialog:
             elif hw['class'] == 'NETINFO':
                 label = self.hwXml.get_widget("hostnameLabel")
                 try:
-                    label.set_text(hw['hostname'])
+                    label.set_text(u'.'.join([encodings.idna.ToUnicode(x) for x in hw['hostname'].split('.')]))
                 except:
                     pass
                 label = self.hwXml.get_widget("ipLabel")
