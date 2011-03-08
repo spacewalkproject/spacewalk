@@ -29,10 +29,7 @@ client packages to communicate with RHN.
 make
 
 %install
-%{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
-sed -e 's|/[^/]*$||' INSTALLED_FILES | grep "site-packages/" | \
-    sort | uniq | awk '{ print "%attr(755,root,root) %dir " $1}' > INSTALLED_DIRS
-cat INSTALLED_FILES INSTALLED_DIRS > INSTALLED_OBJECTS
+%{__python} setup.py install --root=$RPM_BUILD_ROOT
 %{__install} -d -m 0755 $RPM_BUILD_ROOT/usr/sbin/
 %{__cp} -p rhn_check.py $RPM_BUILD_ROOT/usr/sbin/rhn_check
 %{__cp} -p rhnsd $RPM_BUILD_ROOT/usr/sbin/rhnsd
@@ -53,10 +50,12 @@ touch $RPM_BUILD_ROOT/var/run/.keep
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f INSTALLED_OBJECTS
+%files
 %defattr(-,root,root)
 %{shareroot}/rhn/*
 /usr/sbin/*
+%{python_sitelib}/rhn/*
+%{python_sitelib}/rhnclient*
 %{rhnconf}/*
 /var/log/up2date
 /var/run/.keep
