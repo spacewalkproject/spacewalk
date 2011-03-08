@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.17
+Version: 1.4.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -685,6 +685,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Mar 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.18-1
+- Fixed postgresql error in osad
+
 * Fri Mar 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.17-1
 - removed blacklists from sync
 - rhnBlacklistObsoletes is no more used
