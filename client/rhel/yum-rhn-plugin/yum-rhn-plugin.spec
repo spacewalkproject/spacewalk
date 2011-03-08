@@ -43,6 +43,25 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%pre
+# 682820 - re-enable yum-rhn-plugin after package upgrade if the system is already registered
+export pluginconf='/etc/yum/pluginconf.d/rhnplugin.conf'
+if [ $1 -gt 1 ] && [ -f /etc/sysconfig/rhn/systemid ] && [ -f "$pluginconf" ]; then
+    if grep -q '^[[:space:]]*enabled[[:space:]]*=[[:space:]]*1[[:space:]]*$' \
+       "$pluginconf"; then
+        touch /var/tmp/enable-yum-rhn-plugin
+    fi
+fi
+
+%post
+# 682820 - re-enable yum-rhn-plugin after package upgrade if the system is already registered
+export pluginconf='/etc/yum/pluginconf.d/rhnplugin.conf'
+if [ $1 -gt 1 ] && [ -f "$pluginconf" ] && [ -f "/var/tmp/enable-yum-rhn-plugin" ]; then
+    sed -i 's/^\([[:space:]]*enabled[[:space:]]*=[[:space:]]*\)0\([[:space:]]*\)$/\11\2/'  \
+        "$pluginconf"
+    rm -f /var/tmp/enable-yum-rhn-plugin
+fi
+
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/rhnplugin.conf
