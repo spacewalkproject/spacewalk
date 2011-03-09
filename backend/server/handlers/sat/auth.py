@@ -15,6 +15,7 @@
 # Satellite specific authentication xmlrpc method.
 
 import time
+import encodings.idna
 
 from spacewalk.common import CFG, rhnFault, log_debug
 from spacewalk.common.rhnTranslate import _
@@ -43,9 +44,9 @@ class Authentication(rhnHandler):
 
         if CFG.ALLOWED_ISS_SLAVES:
             if not isinstance(CFG.ALLOWED_ISS_SLAVES, list):
-                allowed_iss_slaves = [CFG.ALLOWED_ISS_SLAVES]
+                allowed_iss_slaves = map(lambda x: encodings.idna.ToASCII(unicode(x, 'utf-8')), [CFG.ALLOWED_ISS_SLAVES])
             else:
-                allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
+                allowed_iss_slaves = encodings.idna.ToASCII(unicode(CFG.ALLOWED_ISS_SLAVES, 'utf-8'))
         else:
             allowed_iss_slaves = []
 

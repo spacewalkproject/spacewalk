@@ -27,6 +27,7 @@ import types
 import exceptions
 import locale
 from optparse import Option, OptionParser
+import encodings.idna
 
 import gettext
 t = gettext.translation('spacewalk-backend-server', fallback=True)
@@ -2039,16 +2040,22 @@ def processCommandline():
     # process anything CFG related (db, debug, server, and print)
     #
     CFG.set("TRACEBACK_MAIL", OPTIONS.traceback_mail or CFG.TRACEBACK_MAIL)
-    CFG.set("RHN_PARENT", OPTIONS.iss_parent or OPTIONS.server or \
-             CFG.ISS_PARENT or CFG.RHN_PARENT)
+    CFG.set("RHN_PARENT", encodings.idna.ToASCII(unicode(OPTIONS.iss_parent or OPTIONS.server or \
+             CFG.ISS_PARENT or CFG.RHN_PARENT, 'utf-8')))
     if OPTIONS.server and not OPTIONS.iss_parent:
         # server option on comman line should override ISS parent from config
         CFG.set("ISS_PARENT", None)
     else:
-        CFG.set("ISS_PARENT", OPTIONS.iss_parent or CFG.ISS_PARENT)
+        if (OPTIONS.iss_parent or CFG.ISS_PARENT):
+            CFG.set("ISS_PARENT", encodings.idna.ToASCII(unicode(OPTIONS.iss_parent or CFG.ISS_PARENT, 'utf-8')))
+        else:
+            CFG.set("ISS_PARENT", None)
         CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or CFG.ISS_CA_CHAIN or CFG.CA_CHAIN)
 
-    CFG.set("HTTP_PROXY", OPTIONS.http_proxy or CFG.HTTP_PROXY)
+    if (OPTIONS.http_proxy or CFG.HTTP_PROXY):
+        CFG.set("HTTP_PROXY", encodings.idna.ToASCII(unicode(OPTIONS.http_proxy or CFG.HTTP_PROXY, 'utf-8')))
+    else:
+        CFG.set("HTTP_PROXY", None)
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
