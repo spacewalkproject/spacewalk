@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.8
+Version:        1.4.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Mar 09 2011 Jan Pazdziora 1.4.9-1
+- Make the filename absolute so that it works even after we cd to root.
+
 * Fri Mar 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.8-1
 - added schema upgrade script for rhnBlacklistObsoletes
 - removed rhnBlacklistObsoletes table
