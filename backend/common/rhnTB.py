@@ -20,6 +20,7 @@ import time
 import string
 import traceback
 from cStringIO import StringIO
+import encodings.idna
 
 from rhnConfig import CFG
 from rhnLog import log_error
@@ -122,8 +123,9 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
     e_type, e_value = sys.exc_info()[:2]
     t = time.ctime(time.time())
     exc = StringIO()
-   
-    exc.write("Exception reported from %s\nTime: %s\n" % (hostname, t))
+
+    unicode_hostname = u'.'.join([encodings.idna.ToUnicode(x) for x in hostname.split('.')])
+    exc.write("Exception reported from %s\nTime: %s\n" % (unicode_hostname, t))
     exc.write("Exception type %s\n" % (e_type,))
     if method:
         exc.write("Exception while handling function %s\n" % method)
@@ -160,7 +162,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
             fr = string.strip(to[0])
             to = string.join(map(string.strip, to), ', ')
         headers = {
-            "Subject" : "RHN TRACEBACK from %s" % hostname,
+            "Subject" : "RHN TRACEBACK from %s" % unicode_hostname,
             "From"    : "%s <%s>" % (hostname, fr),
             "To"      : to,
             "X-RHN-Traceback-Severity"  : severity,
