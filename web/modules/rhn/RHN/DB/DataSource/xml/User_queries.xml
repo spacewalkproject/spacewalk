@@ -4,9 +4,8 @@
   <query params="sgid, org_id">
 SELECT wc.id AS ID,
        wc.login,
-       NVL((SELECT MAX(1) FROM rhnUserManagedServerGroups USGP WHERE
-       USGP.server_group_id = :sgid AND USGP.user_id = wc.id), 0) AS
-       IS_ADMIN
+       case when (SELECT MAX(1) FROM rhnUserManagedServerGroups USGP WHERE
+       USGP.server_group_id = :sgid AND USGP.user_id = wc.id) = 1 then 1 else 0 end AS IS_ADMIN
   FROM web_contact wc
  WHERE wc.org_id = :org_id
 ORDER BY wc.login_uc, wc.id
