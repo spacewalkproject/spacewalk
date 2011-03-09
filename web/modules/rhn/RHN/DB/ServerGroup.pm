@@ -201,37 +201,23 @@ sub remove {
 
 #  1.  Remove the user permissions to the group.
 #      First, so that user perms won't be regenerated twice.
-  my $query = <<EOQ;
-DECLARE
-  cursor uids is
+  for my $uid ( @{ $dbh->selectcol_arrayref( <<EOQ, {}, $group_id) } ) {
     select user_id id
     from rhnUserServerGroupPerms
-    where server_group_id = :server_group_id;
-BEGIN
-  for u in uids loop
-    rhn_user.remove_servergroup_perm(u.id, :server_group_id);
-  end loop;
-END;
+    where server_group_id = ?
 EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(server_group_id => $group_id);
+    $dbh->call_procedure('rhn_user.remove_servergroup_perm', $uid, $group_id);
+  }
 
 #  2.  Remove systems from system group
-  $query = <<EOQ;
-BEGIN
-  rhn_server.clear_servergroup(:server_group_id);
-END;
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(server_group_id => $group_id);
+  $dbh->call_procedure('rhn_server.clear_servergroup', $group_id);
 
 #  3.  Remove the group itself
-  $query = <<EOQ;
+  my $query = <<EOQ;
 DELETE FROM rhnServerGroup SG WHERE SG.id = ?
 EOQ
 
-  $sth = $dbh->prepare($query);
+  my $sth = $dbh->prepare($query);
   $sth->execute($group_id);
 
   $dbh->commit();
