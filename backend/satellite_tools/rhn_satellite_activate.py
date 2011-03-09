@@ -584,7 +584,7 @@ def main():
                         username=db_user, password=db_password, database=database)
             if options.verbose:
                 print ("Database connectioned initialized: refer to %s" % 
-                       CFG.file)
+                       CFG.filename)
             activateSatellite_local(options)
         except RHNCertLocalActivationException, e:
             writeError(e)
