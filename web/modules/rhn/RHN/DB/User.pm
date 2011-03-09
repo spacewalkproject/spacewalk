@@ -1684,32 +1684,23 @@ sub revoke_servergroup_permission {
   my $sgid = shift;
 
   my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-DECLARE
-  cursor usgps is
+  for my $row (@{ $dbh->selectall_arrayref(<<EOS, {}, $uid, $sgid) }) {
     select  usgp.server_group_id, usgp.user_id
     from    rhnUserServerGroupPerms usgp
-    where   usgp.server_group_id = :server_group_id
+    where   usgp.user_id = ?
+        and usgp.server_group_id = ?
         and exists (
             select  1
             from    rhnServerGroup  sg,
                     web_contact     wc
-            where   wc.id = :user_id
-                and sg.id = :server_group_id
+            where   wc.id = usgp.user_id
+                and sg.id = usgp.server_group_id
                 and sg.org_id = wc.org_id
             );
-BEGIN
-    for usgp in usgps loop
-        begin
-            rhn_user.remove_servergroup_perm(:user_id, :server_group_id);
-        exception
-            when others then null;
-        end;
-    end loop;
-END;
 EOS
+    $dbh->call_procedure('rhn_user.remove_servergroup_perm', $uid, $sgid);
+  }
 
-  $sth->execute_h(server_group_id => $sgid, user_id => $uid);
   $dbh->commit;
 }
 
