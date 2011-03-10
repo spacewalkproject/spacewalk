@@ -12,6 +12,7 @@ import SSL
 import nonblocking
 import httplib
 import xmlrpclib
+import encodings.idna
 
 # Import into the local namespace some httplib-related names
 _CS_REQ_SENT = httplib._CS_REQ_SENT
@@ -244,3 +245,21 @@ class HTTPSProxyConnection(HTTPProxyConnection):
         HTTPProxyConnection._add_proxy_headers(self)
         # Add a User-Agent header
         self.putheader("User-Agent", self._user_agent)
+
+def idn_pune_to_unicode(hostname):
+    """ Convert Internationalized domain name from Pune encoding to Unicode """
+    if hostname is None:
+        return None
+    elif hostname == '':
+        return u''
+    else:
+        return u'.'.join([encodings.idna.ToUnicode(x) for x in hostname.split('.')])
+
+def idn_ascii_to_pune(hostname):
+    """ Convert domain name to Pune encoding. Hostname can be instance of string or Unicode """
+    if hostname is None:
+        return None
+    else:
+        if not isinstance(hostname, unicode):
+            hostname = unicode(hostname, 'utf-8')
+        return u'.'.join([encodings.idna.ToASCII(x) for x in hostname.split('.')])
