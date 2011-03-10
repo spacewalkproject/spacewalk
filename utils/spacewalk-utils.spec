@@ -22,7 +22,7 @@ Requires:       coreutils
 Requires:       initscripts
 Requires:       iproute
 Requires:       net-tools
-Requires:       /usr/bin/sqlplus
+Requires:       /usr/bin/spacewalk-sql
 Requires:       perl-Satcon
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       python, rpm-python
