@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.15
+Version: 1.4.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 10 2011 Tomas Lestach <tlestach@redhat.com> 1.4.16-1
+- 644880 - speed up channel.software.addPackages API (tlestach@redhat.com)
+- Subquery in FROM must have an alias in PostgreSQL. (jpazdziora@redhat.com)
+- reprovisioning should not fail completely if python modules are missing
+  (michael.mraka@redhat.com)
+
 * Mon Mar 07 2011 Jan Pazdziora 1.4.15-1
 - 682258 - fix unit test (mzazrivec@redhat.com)
 - 682258 - removed unused imports (mzazrivec@redhat.com)
