@@ -33,7 +33,8 @@ import iss_isos
 from spacewalk.common.checksum import getFileChecksum
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('spacewalk-backend-server', fallback=True)
+_ = t.ugettext
 
 class ISSError(Exception):
     def __init__(self, msg, tb):

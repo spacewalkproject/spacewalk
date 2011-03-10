@@ -9,7 +9,8 @@
 
 import up2dateLog
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 import OpenSSL
 import config
 

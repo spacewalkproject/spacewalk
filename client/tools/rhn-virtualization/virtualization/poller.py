@@ -19,8 +19,8 @@ sys.path.append("/usr/share/rhn/")
 import binascii
 import traceback
 import gettext
-_ = gettext.gettext
-gettext.textdomain("rhn-virtualization")
+t = gettext.translation('rhn-virtualization', fallback=True)
+_ = t.ugettext
 
 try:
     import libvirt

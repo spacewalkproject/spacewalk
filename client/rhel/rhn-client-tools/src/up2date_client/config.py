@@ -15,7 +15,8 @@ import os
 import sys
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 # XXX: This could be moved in a more "static" location if it is too
 # much of an eye sore

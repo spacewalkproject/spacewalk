@@ -26,9 +26,8 @@ from virtualization.notification     import Plan,                    \
 from virtualization.domain_config    import DomainConfig
 from virtualization.domain_directory import DomainDirectory
 import gettext
-_ = gettext.gettext
-gettext.textdomain("rhn-virtualization")
-
+t = gettext.translation('rhn-virtualization', fallback=True)
+_ = t.ugettext
 
 try:
     import libvirt

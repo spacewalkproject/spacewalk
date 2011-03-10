@@ -32,7 +32,8 @@ from OpenSSL import crypto
 from rhn import rpclib
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 sys.path.append("/usr/share/rhn/")
 
@@ -56,7 +57,6 @@ _optionsTable = [
 class RhnCli(object):
 
     def __init__(self):
-	gettext.textdomain("rhn-client-tools")
         self.optparser = OptionParser(option_list = _optionsTable,
             version = RhnCli.__versionString())
 

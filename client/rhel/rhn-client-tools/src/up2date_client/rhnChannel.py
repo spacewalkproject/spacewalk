@@ -7,11 +7,9 @@ import up2dateErrors
 import config
 import rhnserver
 
-
 import gettext
-_ = gettext.gettext
-
-
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 # heh, dont get much more generic than this...
 class rhnChannel:

@@ -23,7 +23,8 @@ except:
 
 from iniparse import INIConfig
 import gettext
-_ = gettext.gettext
+t = gettext.translation('yum-rhn-plugin', fallback=True)
+_ = t.ugettext
 
 # TODO: Get the up2date stuff that we need in a better place,
 # so we don't have to do path magic.

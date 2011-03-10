@@ -25,8 +25,8 @@ from rhn import rpclib
 from optparse import Option, OptionParser
 
 import gettext
-_ = gettext.gettext
-gettext.textdomain("rhn-client-tools")
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 def systemExit(code, msgs=None):
      "Exit with a code and optional message(s). Saved a few lines of code."

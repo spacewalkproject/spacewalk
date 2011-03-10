@@ -34,14 +34,9 @@ sys.path.insert(1,"/usr/share/rhn")
 import rhnreg
 import rhnregGui
 
-
-##
-## I18N
-## 
 import gettext
-_ = gettext.gettext
-
-gettext.textdomain("rhn-client-tools")
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 gtk.glade.bindtextdomain("rhn-client-tools", "/usr/share/locale")
 
 

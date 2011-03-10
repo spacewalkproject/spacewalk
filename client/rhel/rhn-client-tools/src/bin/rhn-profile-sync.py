@@ -12,7 +12,8 @@
 import sys
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 sys.path.append("/usr/share/rhn/")
 

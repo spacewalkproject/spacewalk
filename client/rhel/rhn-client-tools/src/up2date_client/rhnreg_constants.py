@@ -8,7 +8,8 @@
 
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 COPYRIGHT_TEXT        = _("Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
 

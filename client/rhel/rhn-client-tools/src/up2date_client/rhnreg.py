@@ -31,8 +31,8 @@ except ImportError:
     support = None    
 
 import gettext
-_ = gettext.gettext
-
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 # global variables
 YUM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'

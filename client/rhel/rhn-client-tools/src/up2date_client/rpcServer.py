@@ -19,8 +19,8 @@ import xmlrpclib
 from rhn import rpclib
 
 import gettext
-_ = gettext.gettext
-
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 def stdoutMsgCallback(msg):
     print msg

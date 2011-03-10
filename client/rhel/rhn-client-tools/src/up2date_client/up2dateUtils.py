@@ -12,11 +12,9 @@ import string
 import up2dateErrors
 import transaction
 import config
-
-
 import gettext
-_ = gettext.gettext
-
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 def _getOSVersionAndRelease():
     cfg = config.initUp2dateConfig()

@@ -5,7 +5,8 @@ import up2dateErrors
 import string
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 # a dict with "capability name" as the key, and the version
 # as the value.

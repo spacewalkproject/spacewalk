@@ -19,8 +19,8 @@ import sys
 import string
 
 import gettext
-_ = gettext.gettext
-gettext.textdomain("rhn-client-tools")
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 import snack
 

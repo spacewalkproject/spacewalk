@@ -27,9 +27,8 @@ from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
 import gtk
 from gtk import glade
 import gettext
-_ = gettext.gettext
-
-gettext.textdomain("rhn-client-tools")
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 gtk.glade.bindtextdomain("rhn-client-tools")
 
 

@@ -37,8 +37,8 @@ import up2dateErrors
 import messageWindow
 
 import gettext
-_ = gettext.gettext
-gettext.textdomain("rhn-client-tools")
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 gtk.glade.bindtextdomain("rhn-client-tools")
 
 

@@ -24,7 +24,8 @@ import signal
 import xmlrpclib
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 import up2dateErrors
 import config

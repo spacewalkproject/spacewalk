@@ -25,7 +25,8 @@ import config
 
 import ethtool
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 import dbus
 import dmidecode

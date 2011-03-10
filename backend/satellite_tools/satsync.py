@@ -29,7 +29,8 @@ import locale
 from optparse import Option, OptionParser
 
 import gettext
-_ = gettext.gettext
+t = gettext.translation('spacewalk-backend-server', fallback=True)
+_ = t.ugettext
 
 # __rhn imports__
 from spacewalk.common import CFG, initCFG, initLOG, exitWithTraceback, rhnMail, \

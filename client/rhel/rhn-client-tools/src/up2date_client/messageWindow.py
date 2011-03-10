@@ -3,7 +3,8 @@ import string
 
 import gtk
 import gettext
-_ = gettext.gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 # wrap a long line...
 def wrap_line(line, max_line_size = 100):

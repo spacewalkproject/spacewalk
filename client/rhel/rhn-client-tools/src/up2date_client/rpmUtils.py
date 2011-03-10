@@ -19,8 +19,8 @@ import rpm
 import transaction
 
 import gettext
-_ = gettext.gettext
-
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
 
 def installedHeaderByKeyword(**kwargs):    
     """ just cause this is such a potentially useful looking method... """
