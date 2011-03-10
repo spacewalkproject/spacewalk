@@ -269,7 +269,7 @@ _query_add_result_diff = rhnSQL.Statement("""
 _query_update_result = rhnSQL.Statement("""
     select result from rhnActionConfigRevisionResult
      where action_config_revision_id = :action_config_revision_id
-       for update of result
+       for update
 """)
 def _add_result(action_config_revision_id, diff):
 
