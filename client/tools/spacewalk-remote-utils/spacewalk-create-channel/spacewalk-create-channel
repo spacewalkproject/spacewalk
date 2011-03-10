@@ -126,6 +126,8 @@ def main():
       version = options.version
       release = options.release
       update = options.update_level
+      if update == "0":
+          update = "gold"
       arch = options.arch
       extra = options.extra
       filename = getFileName(version,update, release, arch, extra)
