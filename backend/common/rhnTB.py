@@ -19,7 +19,7 @@ import sys
 import time
 import string
 import traceback
-from cStringIO import StringIO
+from StringIO import StringIO
 import encodings.idna
 
 from rhnConfig import CFG
@@ -166,6 +166,8 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
             "From"    : "%s <%s>" % (hostname, fr),
             "To"      : to,
             "X-RHN-Traceback-Severity"  : severity,
+            "Content-Type" : 'text/plain; charset="utf-8"',
+
             }
         QUIET_MAIL = QUIET_MAIL - 1     # count it no matter what
         
