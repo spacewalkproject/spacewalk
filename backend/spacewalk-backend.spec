@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.18
+Version: 1.4.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.19-1
+- move server.mo from /usr/share/rhn/ to /usr/share/locale and rename it to
+  spacewalk-backend-server
+- posgtresql can't lock only one column
+- replaced (+) with ansi left join - made ompare files work on postgresql
+- 683546 - optparse isn't friendly to translations in unicode
+- The file attribute has been renamed to filename
+
 * Tue Mar 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.18-1
 - Fixed postgresql error in osad
 
