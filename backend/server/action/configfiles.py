@@ -131,13 +131,15 @@ _query_get_files = rhnSQL.Statement("""
             end as symlink	       
       from 
            rhnConfigFileState cfs,
-           rhnConfigContent ccont,
-           rhnChecksumView c,
            rhnConfigChannel cc,
            rhnConfigFileName cfn,
            rhnConfigInfo ci,
            rhnConfigFile cf,
-           rhnConfigRevision cr,
+           rhnConfigRevision cr
+      left join rhnConfigContent ccont
+        on cr.config_content_id = ccont.id
+      left join rhnChecksumView c
+        on ccont.checksum_id = c.id,
 	   rhnConfigFileType cft,
            rhnActionConfigRevision acr
      where acr.server_id = :server_id
@@ -149,9 +151,7 @@ _query_get_files = rhnSQL.Statement("""
        and cf.config_channel_id = cc.id
        and cf.state_id = cfs.id
        and cfs.label = 'alive'
-       and cr.config_content_id = ccont.id (+)
        and cr.config_file_type_id = cft.id
-       and ccont.checksum_id = c.id(+)
 """)
 
 def _get_files(server_id, action_id):
