@@ -8,7 +8,7 @@ Summary:        Red Hat Network Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.7
+Version:        5.3.8
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -91,6 +91,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 5.3.8-1
+- 538057 - add corresponding "Provides:" for the arch-specific packages
+- 538057 - versioned provides, substitute tabs with spaces
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.3.7-1
 - 578738 - obsolete archs - we are noarch now
 
