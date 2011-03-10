@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.3
+Version: 1.4.4
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Thu Mar 10 2011 Jan Pazdziora 1.4.4-1
+- 683525 - adding flex_used and flex_total to the entitlements report.
+
 * Tue Mar 08 2011 Jan Pazdziora 1.4.3-1
 - Reporting: adding six system-history subreports.
 
