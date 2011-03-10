@@ -18,6 +18,8 @@ Requires:       openssh-server openssh
 BuildRequires:  pam-devel
 Obsoletes:      rhnmd.i386 < 5.3.0-5
 Obsoletes:      rhnmd.x86_64 < 5.3.0-5
+Provides:       rhnmd.i386 = %{version}
+Provides:       rhnmd.x86_64 = %{version}
 
 %description
 rhnmd enables secure ssh-based communication between the monitoring
