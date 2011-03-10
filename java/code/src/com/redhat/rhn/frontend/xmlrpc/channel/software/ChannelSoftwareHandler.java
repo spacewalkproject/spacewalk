@@ -1114,15 +1114,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
 
-        //Make sure the user is a channel admin for the given channel.
-        if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
-            throw new PermissionCheckFailureException();
-        }
-
         // Try to add the list of packages to the channel. Catch any exceptions and
         // convert to FaultExceptions
         try {
-            ChannelEditor.getInstance().addPackages(loggedInUser, channel, packageIds);
+            // we need long values to pass
+            List<Long> longPackageIds = new ArrayList();
+            for (Iterator it = packageIds.iterator(); it.hasNext();) {
+                longPackageIds.add(new Long((Integer) it.next()));
+            }
+            ChannelEditor.getInstance().addPackages(loggedInUser, channel, longPackageIds);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException();
@@ -1132,12 +1132,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
             //doesn't exist.
             throw new NoSuchPackageException(le);
         }
-        /*
-        catch (IncompatibleArchException iae) {
-            throw new FaultException(1202, "incompatiblePackageArch",
-                    "package architecture is incompatible with channel", iae);
-        }
-        */
 
         //refresh channel with newest packages
         ChannelManager.refreshWithNewestPackages(channel, "api");

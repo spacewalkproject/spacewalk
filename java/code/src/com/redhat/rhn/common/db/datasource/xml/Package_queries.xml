@@ -1940,7 +1940,25 @@ select distinct p.evr_id as id
   </query>
 </mode>
 
-
-
+<mode name="channel_arch_and_org_access">
+    <query params="channel_id, org_id">
+SELECT p.id, comp.package_arch_id, p.org_id org_package, octv.package_id org_access, sctv.package_id shared_access
+FROM rhnPackage p
+    LEFT JOIN
+     (SELECT a.package_arch_id
+      FROM rhnChannel c
+        LEFT JOIN rhnChannelPackageArchCompat a ON a.channel_arch_id = c.channel_arch_id
+      WHERE c.id = :channel_id) comp ON p.package_arch_id = comp.package_arch_id
+    LEFT JOIN
+      (SELECT DISTINCT CP.package_id
+       FROM rhnOrgChannelTreeView CT inner join rhnChannelPackage CP on CT.id = CP.channel_id
+       WHERE CT.org_id = :org_id) octv on octv.package_id = p.id
+    LEFT JOIN
+      (SELECT DISTINCT CP.package_id
+       FROM rhnSharedChannelTreeView CT inner join rhnChannelPackage CP on CT.id = CP.channel_id
+       WHERE CT.org_id = :org_id) sctv on sctv.package_id = p.id
+WHERE p.id IN (%s)
+    </query>
+</mode>
 
 </datasource_modes>

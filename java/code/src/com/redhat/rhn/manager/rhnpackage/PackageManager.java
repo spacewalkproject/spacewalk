@@ -21,6 +21,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.CompressionUtil;
 import com.redhat.rhn.common.util.RpmVersionComparator;
@@ -50,6 +51,7 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
+import com.redhat.rhn.manager.system.IncompatibleArchException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -1363,4 +1365,45 @@ public class PackageManager extends BaseManager {
         return ce.getLastCommandOutput();
     }
 
+    /**
+     * Throw exception, if any of the packages aren't accessible by user or
+     * aren't compatible with provided channel arch
+     * @param user user
+     * @param channel channel
+     * @param packageIds package ids
+     * @param checkArchCompat optionally arch compatibility doesn't have to be checked
+     * (f.e. when removing packages, only orgt access is important)
+     */
+    public static void verifyPackagesChannelArchCompatAndOrgAccess(
+            User user, Channel channel, List<Long> packageIds, boolean checkArchCompat) {
+        DataResult dr = PackageFactory.getPackagesChannelArchCompatAndOrgAccess(
+                user.getOrg().getId(), channel.getId(), packageIds);
+        List<Long> archNonCompat = new ArrayList<Long>();
+        List<Long> orgNoAccess = new ArrayList<Long>();
+        for (Iterator i = dr.iterator(); i.hasNext();) {
+            Map m = (Map) i.next();
+            if (m.get("package_arch_id") == null) {
+                archNonCompat.add((Long)m.get("id"));
+            }
+            if (m.get("org_package") == null &&
+                m.get("org_access") == null &&
+                m.get("shared_access") == null) {
+                archNonCompat.add((Long)m.get("id"));
+            }
+        }
+        if (!orgNoAccess.isEmpty()) {
+            StringBuffer msg = new StringBuffer("User: ");
+            msg.append(user.getLogin());
+            msg.append(" does not have access to packages: ");
+            msg.append(orgNoAccess);
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException(msg.toString());
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.package"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.package"));
+            throw pex;
+        }
+        if (checkArchCompat && !archNonCompat.isEmpty()) {
+            throw new IncompatibleArchException(channel.getChannelArch(), archNonCompat);
+        }
+    }
 }

@@ -20,16 +20,12 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.user.UserManager;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -97,45 +93,18 @@ public class ChannelEditor {
         }
 
         List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
-        List list = new ArrayList();
-
-        //Loop through packageIds
-        for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
-            Long pid = convertObjectToLong(itr.next());
-            // make sure user has access to the package
-            if (!UserManager.verifyPackageAccess(user.getOrg(), pid)) {
-                StringBuffer msg = new StringBuffer("User: ");
-                msg.append(user.getLogin());
-                msg.append(" does not have access to package: ");
-                msg.append(pid);
-
-                //Throw an exception with a nice error message so the user
-                //knows what went wrong.
-                LocalizationService ls = LocalizationService.getInstance();
-                PermissionException pex = new PermissionException(msg.toString());
-                pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.package"));
-                pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.package"));
-                throw pex;
-            }
-            // check package compatibility with the channel when adding
-            if (add) {
-                Package pkg = PackageManager.lookupByIdAndUser(pid, user);
-                if (!channel.getChannelArch().isCompatible(pkg.getPackageArch())) {
-                    throw new IncompatibleArchException(pkg.getPackageArch(),
-                        channel.getChannelArch());
-                }
-            }
-            // add packages to action list
-            if (!add || !existingPids.contains(pid)) {
-                list.add(pid);
-            }
+        if (add) {
+            packageIds.removeAll(existingPids);
         }
+
+        PackageManager.verifyPackagesChannelArchCompatAndOrgAccess(user,
+                channel, (List<Long>) packageIds, add);
 
         if (add) {
-            ChannelManager.addPackages(channel, list, user);
+            ChannelManager.addPackages(channel, (List<Long>) packageIds, user);
         }
         else {
-            ChannelManager.removePackages(channel, list, user);
+            ChannelManager.removePackages(channel, (List<Long>) packageIds, user);
         }
 
         // Mark the affected channel to have it smetadata evaluated, where necessary

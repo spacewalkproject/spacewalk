@@ -19,6 +19,8 @@ import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.server.ServerArch;
 
+import java.util.List;
+
 /**
  * IncompatibleArchException
  * @version $Rev$
@@ -54,5 +56,15 @@ public class IncompatibleArchException extends RhnRuntimeException {
     public IncompatibleArchException(PackageArch pa, ChannelArch ca) {
         this("The package architecture (" + pa.getName() + ") is incompatible " +
                 "with the channel architecture (" + ca.getName() + ")");
+    }
+
+    /**
+     * Ctor
+     * @param ca ChannelArch which is incompatible with PackageArch.
+     * @param packageIds package ids incompatible with ChannelArch.
+     */
+    public IncompatibleArchException(ChannelArch ca, List<Long> packageIds) {
+        this("Following package ids: " + packageIds + " are incompatible " +
+                "with channel architecture (" + ca.getName() + ")");
     }
 }

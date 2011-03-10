@@ -506,4 +506,21 @@ public class PackageFactory extends HibernateFactory {
         return prov;
     }
 
+    /**
+     * Returns information, whether each package in the list is channel compatible
+     * and whether the org has accesds to
+     * @param orgId organization id
+     * @param channelId channel id
+     * @param packageIds list of package ids
+     * @return dataresult(id, package_arch_id, org_package, org_access, shared_access)
+     */
+    public static DataResult getPackagesChannelArchCompatAndOrgAccess(
+            Long orgId, Long channelId, List<Long> packageIds) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("channel_id", channelId);
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                "channel_arch_and_org_access");
+        return m.execute(params, packageIds);
+    }
 }
