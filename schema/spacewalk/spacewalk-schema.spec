@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.9
+Version:        1.4.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 10 2011 Jan Pazdziora 1.4.10-1
+- Using sequence_nextval instead of the .nextval.
+- update database to support SUSE distributions (ug@suse.de)
+- suse breed added to ksinstalltype (ug@suse.de)
+
 * Wed Mar 09 2011 Jan Pazdziora 1.4.9-1
 - Make the filename absolute so that it works even after we cd to root.
 
