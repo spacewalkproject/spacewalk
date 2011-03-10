@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.4.1
+Version:	1.4.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 10 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
+- made spacewalk-hostname-rename working on postgresql
+
+
 * Thu Feb 03 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
 - updated spacewalk-common-channel to spacewalk 1.3
 - Bumping package versions for 1.4
