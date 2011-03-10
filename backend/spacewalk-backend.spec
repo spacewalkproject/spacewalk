@@ -297,6 +297,7 @@ rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/wsgi
 rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
 %endif
 
+%find_lang %{name}-server
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -394,7 +395,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %doc PYTHON-LICENSES.txt LICENSE
 %{pythonrhnroot}/server/rhnSQL/driver_postgresql.py*
 
-%files server
+%files server -f %{name}-server.lang
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
 # modules
@@ -476,8 +477,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # logs and other stuff
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-server
-# translations
-%{rhnroot}/locale
 
 %files xmlrpc
 %defattr(-,root,root) 

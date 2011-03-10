@@ -46,7 +46,7 @@ class RHN_Translations(gettext.GNUTranslations):
 class i18n:
     _default_langs = ['en', 'en_US', 'C']
     # Wrapper class that allows us to change languages
-    def __init__(self, domain=None, localedir="/usr/share/rhn/locale"):
+    def __init__(self, domain=None, localedir="/usr/share/locale"):
         self.domain = domain
         self.localedir = localedir
         self.langs = self._default_langs[:]

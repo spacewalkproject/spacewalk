@@ -4,11 +4,12 @@
 
 TOP	= ..
 SUBDIR	= locale
+localedir = $(PREFIX)/usr/share/locale
 
 include $(TOP)/Makefile.defs
 
 # What is this package?
-NLSPACKAGE	= server
+NLSPACKAGE	= spacewalk-backend-server
 POTFILE		= $(NLSPACKAGE).pot
 
 # PO catalog handling
@@ -55,7 +56,7 @@ clean ::
 install :: $(MOFILES)
 	@for n in $(MOFILES); do \
 	    l=`basename $$n .mo`; \
-	    d="$(PREFIX)$(INSTALL_DEST)/$$l/LC_MESSAGES" ; \
+	    d="$(PREFIX)$(localedir)/$$l/LC_MESSAGES" ; \
 	    $(INSTALL_DIR) $$d ; \
 	    $(INSTALL_DATA) $$n $$d/$(NLSPACKAGE).mo ; \
 	done
