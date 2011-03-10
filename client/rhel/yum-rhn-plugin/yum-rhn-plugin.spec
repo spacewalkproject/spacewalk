@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.3
+Version: 1.4.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,12 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.4-1
+- 683546 - optparse isn't friendly to translations in unicode
+- 682820 - re-enable yum-rhn-plugin after package upgrade if the system is
+  already registered
+- forward port translations from RHEL6 to yum-rhn-plugin
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.3-1
 - handle installations of less recent package versions correctly
   (mzazrivec@redhat.com)
