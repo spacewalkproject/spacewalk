@@ -1478,7 +1478,7 @@ SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
            AND P.id = CP.package_id
            AND C.id = AC.channel_id
            AND PA.id = P.package_arch_id
-        )
+        ) X
 ORDER BY CHANNEL_NAME DESC, EVR DESC
 
 </query>
@@ -1514,7 +1514,7 @@ SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
            AND P.id = CP.package_id
            AND C.id = AC.channel_id
            AND PA.id = P.package_arch_id
-        )
+        ) X
 ORDER BY CHANNEL_NAME DESC, EVR DESC
 </query>
 </mode>
@@ -1549,7 +1549,7 @@ SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
            AND P.id = CP.package_id
            AND C.id = AC.channel_id
            AND PA.id = P.package_arch_id
-        )
+        ) X
 ORDER BY CHANNEL_NAME DESC, EVR DESC
 </query>
 </mode>
@@ -1584,7 +1584,7 @@ SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
            AND P.id = CP.package_id
            AND C.id = AC.channel_id
            AND PA.id = P.package_arch_id
-        )
+        ) X
 ORDER BY CHANNEL_NAME DESC, EVR DESC
 </query>
 </mode>
