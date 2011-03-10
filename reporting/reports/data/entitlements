@@ -17,6 +17,8 @@ columns:
 	entitlement		System entitlement name or channel name
 	used			How many entitlements are currently used
 	total			The total number of entitlements
+	flex_used		How many Flex entitlements are currently used
+	flex_total		The total number of Flex entitlements
 
 multival_columns:
 
@@ -31,13 +33,17 @@ sql:
 		entitlement_type,
 		entitlement,
 		used,
-		total
+		total,
+		flex_used,
+		flex_total
 	from (
 		select rhnprivatechannelfamily.org_id as organization_id,
 			'channel' as entitlement_type,
 			rhnchannelfamily.name as entitlement,
 			rhnprivatechannelfamily.current_members as used,
-			rhnprivatechannelfamily.max_members as total
+			rhnprivatechannelfamily.max_members as total,
+			rhnprivatechannelfamily.fve_current_members as flex_used,
+			rhnprivatechannelfamily.fve_max_members as flex_total
 		from rhnchannelfamily, rhnprivatechannelfamily
 		where rhnchannelfamily.id = rhnprivatechannelfamily.channel_family_id
 		union all
@@ -45,7 +51,9 @@ sql:
 			'system' as entitlement_type,
 			rhnservergrouptype.name as entitlement,
 			rhnservergroup.current_members as used,
-			rhnservergroup.max_members as total
+			rhnservergroup.max_members as total,
+			null as flex_used,
+			null as flex_total
 		from rhnservergroup, rhnservergrouptype
 		where rhnservergroup.group_type = rhnservergrouptype.id
 			and rhnservergroup.max_members > 0
