@@ -15,6 +15,7 @@
 # config file-related error handling functions
 #
 
+from types import UnicodeType
 from spacewalk.common import log_debug, log_error, rhnFlags
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import server_kickstart
@@ -288,6 +289,8 @@ def _add_result(action_config_revision_id, diff):
     h.execute(action_config_revision_id=action_config_revision_id)
     row = h.fetchone_dict()
     result = row['result']
+    if type(diff) == UnicodeType:
+        diff = unicode.encode(diff,'utf-8')
     result.write(diff)
 
 _query_lookup_old_diffs = rhnSQL.Statement("""
