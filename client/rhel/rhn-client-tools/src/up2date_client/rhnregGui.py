@@ -39,7 +39,6 @@ import gtk.glade
 import gobject
 import sys
 import os
-import encodings.idna
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
@@ -58,6 +57,7 @@ import config
 import OpenSSL
 import up2dateLog
 from rhn import rpclib
+from rhn.connections import idn_pune_to_unicode
 import rhnreg_constants
 
 cfg = config.initUp2dateConfig()
@@ -1191,7 +1191,7 @@ class HardwareDialog:
             elif hw['class'] == 'NETINFO':
                 label = self.hwXml.get_widget("hostnameLabel")
                 try:
-                    label.set_text(u'.'.join([encodings.idna.ToUnicode(x) for x in hw['hostname'].split('.')]))
+                    label.set_text(idn_pune_to_unicode(hw['hostname']))
                 except:
                     pass
                 label = self.hwXml.get_widget("ipLabel")

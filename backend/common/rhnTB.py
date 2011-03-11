@@ -20,7 +20,7 @@ import time
 import string
 import traceback
 from StringIO import StringIO
-import encodings.idna
+from rhn.connections import idn_pune_to_unicode
 
 from rhnConfig import CFG
 from rhnLog import log_error
@@ -124,7 +124,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
     t = time.ctime(time.time())
     exc = StringIO()
 
-    unicode_hostname = u'.'.join([encodings.idna.ToUnicode(x) for x in hostname.split('.')])
+    unicode_hostname = idn_pune_to_unicode(hostname)
     exc.write("Exception reported from %s\nTime: %s\n" % (unicode_hostname, t))
     exc.write("Exception type %s\n" % (e_type,))
     if method:

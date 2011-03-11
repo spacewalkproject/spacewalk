@@ -13,6 +13,7 @@ BuildRoot: %{_tmppath}/%{name}-buildroot
 Prefix: %{_prefix}
 #BuildArch: noarch
 Requires: pyOpenSSL python
+Requires: rhnlib >= 2.5.35
 BuildRequires: python-devel binutils-devel
 Url: http://rhn.redhat.com
 

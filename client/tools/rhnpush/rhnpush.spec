@@ -11,7 +11,7 @@ Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
 Requires:      rpm-python
-Requires:      rhnlib >= 2.5.32
+Requires:      rhnlib >= 2.5.35
 Requires:      spacewalk-backend-libs >= 0.8.3
 %if 0%{?rhel} && 0%{?rhel} < 5
 Requires:      up2date

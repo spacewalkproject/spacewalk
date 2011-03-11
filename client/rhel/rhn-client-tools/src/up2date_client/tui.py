@@ -23,7 +23,6 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
 import snack
-import encodings.idna
 import signal
 
 import rhnreg, hardware
@@ -34,6 +33,7 @@ import up2dateLog
 import config
 import up2dateAuth
 from rhn import rpclib
+from rhn.connections import idn_pune_to_unicode
 
 from rhnreg_constants import *
 
@@ -658,7 +658,7 @@ class HardwareWindow:
 
         for hw in tui.hardware:
             if hw['class'] == 'NETINFO':
-                unicode_hostname = u'.'.join([encodings.idna.ToUnicode(x) for x in hw['hostname'].split('.')])
+                unicode_hostname = idn_pune_to_unicode(hw['hostname'])
                 hardware_text += unicode_hostname + "\n"
 
                 if tui.profileName != "":

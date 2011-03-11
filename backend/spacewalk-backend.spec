@@ -20,7 +20,7 @@ BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
-Requires: rhnlib >= 1.8
+Requires: rhnlib >= 2.5.35
 # for Debian support
 Requires: python-debian
 Requires: %{name}-libs >= 1.1.16-1
@@ -251,7 +251,7 @@ Requires: cobbler >= 1.4.3
 %if 0%{?rhel} && 0%{?rhel} < 5
 Requires: rhnlib  >= 2.1.4-14
 %else
-Requires: rhnlib  >= 2.5.22
+Requires: rhnlib  >= 2.5.35
 %endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7

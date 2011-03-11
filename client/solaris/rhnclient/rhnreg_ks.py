@@ -21,7 +21,7 @@ import getopt
 import sys
 import os
 import string
-import encodings.idna
+from rhn.connections import idn_pune_to_unicode
 
 PREFIX="/"
 modulepath="%s/usr/share/rhn/" % PREFIX
@@ -118,7 +118,7 @@ def generateProfileName(hardwareList):
             ipaddr = hw.get('ipaddr')
             
     if hostname:
-        profileName = encodings.idna.ToUnicode(hostname)
+        profileName = idn_pune_to_unicode(hostname)
     else:
         if ipaddr:
             profileName = ipaddr

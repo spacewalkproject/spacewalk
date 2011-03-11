@@ -22,7 +22,7 @@
 
 import sys
 import os
-import encodings.idna
+from rhn.connections import idn_pune_to_unicode
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -196,7 +196,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 ipaddr = hw.get('ipaddr')
                 
         if hostname:
-            profileName = u'.'.join([encodings.idna.ToUnicode(x) for x in hostname.split('.')])
+            profileName = idn_pune_to_unicode(hostname)
         else:
             if ipaddr:
                 profileName = ipaddr
