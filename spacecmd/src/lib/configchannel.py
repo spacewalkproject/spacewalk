@@ -660,4 +660,52 @@ def do_configchannel_removefiles(self, args):
     if self.user_confirm('Remove these files [y/N]:'):
         self.client.configchannel.deleteFiles(self.session, channel, files)
 
+####################
+
+def help_configchannel_verifyfile(self):
+    print 'configchannel_verifyfile: Verify a configuration file'
+    print 'usage: configchannel_verifyfile CHANNEL FILE <SYSTEMS>'
+    print
+    print self.HELP_SYSTEM_OPTS
+
+
+def complete_configchannel_verifyfile(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_configchannel_list('', True), text)
+    elif len(parts) == 3:
+        channel = parts[1]
+        return tab_completer(self.do_configchannel_listfiles(channel, True),
+                             text)
+    elif len(parts) > 3:
+        return self.tab_complete_systems(text)
+
+
+def do_configchannel_verifyfile(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) < 3:
+        self.help_configchannel_verifyfile()
+        return
+
+    channel = args[0]
+    path = args[1]
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[2], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args[2:])
+
+    system_ids = [ self.get_system_id(s) for s in systems ]
+
+    action_id = \
+        self.client.configchannel.scheduleFileComparisons(self.session,
+                                                          channel,
+                                                          path,
+                                                          system_ids)
+
+    logging.info('Action ID: %i' % action_id)
+
 # vim:ts=4:expandtab:
