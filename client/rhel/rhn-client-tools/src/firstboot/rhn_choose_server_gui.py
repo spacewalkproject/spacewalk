@@ -53,7 +53,10 @@ class moduleClass(Module):
         if self.support_sm \
             and self.chooseServerPage.hostedButton.get_active() \
             and not self.chooseServerPage.chooseServerXml.get_widget("hostedClassicButton").get_active():
-                interface.moveToPage(moduleTitle=_("Entitlement Platform Registration"))
+                i = 0
+                while not interface.moduleList[i].__module__.startswith('rhsm_'):
+                    i += 1
+                interface.moveToPage(pageNum=i)
                 return RESULT_JUMP
 
         try:
