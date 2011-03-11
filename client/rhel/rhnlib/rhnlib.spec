@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.34
+Version: 2.5.35
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Fri Mar 11 2011 Miroslav Suchý <msuchy@redhat.com> 2.5.35-1
+- 683200 - create idn_ascii_to_pune() and idn_pune_to_unicode(), which will
+  take care about corner cases of encodings.idna
+
 * Wed Feb 16 2011 Miroslav Suchý <msuchy@redhat.com> 2.5.34-1
 - Revert "Revert "get_server_capability() is defined twice in osad and rhncfg,
   merge and move to rhnlib and make it member of rpclib.Server""
