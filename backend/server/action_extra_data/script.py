@@ -49,15 +49,6 @@ select :server_id,
  where ascript.action_id = :action_id
 """)
 
-_query_get_output_row = rhnSQL.Statement("""
-select asr.output
-  from rhnServerActionScriptResult asr,
-       rhnActionScript ascript
- where ascript.action_id = :action_id
-   and asr.server_id = :server_id
-   and asr.action_script_id = ascript.id
-""")
-
 def run(server_id, action_id, data={}):
     log_debug(3)
 
