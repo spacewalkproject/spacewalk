@@ -1386,7 +1386,8 @@ public class PackageManager extends BaseManager {
             if (m.get("package_arch_id") == null) {
                 archNonCompat.add((Long)m.get("id"));
             }
-            if (orgId.compareTo((Long)m.get("org_package")) != 0 &&
+            if ((m.get("org_package") == null ||
+                    orgId.compareTo((Long)m.get("org_package")) != 0) &&
                 m.get("org_access") == null &&
                 m.get("shared_access") == null) {
                 orgNoAccess.add((Long)m.get("id"));
