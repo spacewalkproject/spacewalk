@@ -41,7 +41,7 @@ insert into rhnServerActionScriptResult (
   )
 select :server_id,
        ascript.id,
-       empty_blob(),
+       :output,
        TO_DATE(:process_start, 'YYYY-MM-DD HH24:MI:SS'),
        TO_DATE(:process_end, 'YYYY-MM-DD HH24:MI:SS'),
        :return_code
@@ -83,23 +83,12 @@ def run(server_id, action_id, data={}):
 
     log_debug(4, "script output", output)
 
-    h = rhnSQL.prepare(_query_initial_store)
+    h = rhnSQL.prepare(_query_initial_store, blob_map={'output': 'output'})
     h.execute(server_id=server_id,
               action_id=action_id,
               process_start=process_start,
               process_end=process_end,
-              return_code=return_code
+              return_code=return_code,
+              output=output
               )
 
-    # edit the created blob
-    h = rhnSQL.prepare(_query_get_output_row)
-    h.execute(server_id=server_id, action_id=action_id)
-
-    if not output:
-        log_debug(4, "No output sent by client")
-        return
-
-    row = h.fetchone_dict()
-    lob = row['output']
-    
-    lob.write(output)
