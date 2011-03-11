@@ -494,7 +494,7 @@ def read_network_interfaces():
     intDict = {}
     intDict['class'] = "NETINTERFACES"
     
-    interfaces = ethtool.get_devices()
+    interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
     for interface in interfaces:
         try:
             hwaddr = ethtool.get_hwaddr(interface)
