@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -292,6 +292,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Mar 11 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.5-1
+- declare that we are using utf-8
+
 * Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.4-1
 - 683546 - optparse isn't friendly to translations in unicode
 - update .po files
