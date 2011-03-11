@@ -265,12 +265,7 @@ _query_add_result_identical = rhnSQL.Statement("""
 _query_add_result_diff = rhnSQL.Statement("""
     insert into rhnActionConfigRevisionResult
            (action_config_revision_id, result)
-    values (:action_config_revision_id, empty_blob())
-""")
-_query_update_result = rhnSQL.Statement("""
-    select result from rhnActionConfigRevisionResult
-     where action_config_revision_id = :action_config_revision_id
-       for update
+    values (:action_config_revision_id, :result)
 """)
 def _add_result(action_config_revision_id, diff):
 
@@ -282,17 +277,13 @@ def _add_result(action_config_revision_id, diff):
         h.execute(action_config_revision_id=action_config_revision_id)
         return
 
-    h = rhnSQL.prepare(_query_add_result_diff)
-    h.execute(action_config_revision_id=action_config_revision_id)
-    
-    h = rhnSQL.prepare(_query_update_result)
-    h.execute(action_config_revision_id=action_config_revision_id)
-    row = h.fetchone_dict()
-    result = row['result']
     if type(diff) == UnicodeType:
         diff = unicode.encode(diff,'utf-8')
-    result.write(diff)
 
+    h = rhnSQL.prepare(_query_add_result_diff, blob_map={'result': 'result'})
+    h.execute(action_config_revision_id=action_config_revision_id,
+              result=diff)
+    
 _query_lookup_old_diffs = rhnSQL.Statement("""
     select acr.id
       from rhnActionConfigRevision acr
