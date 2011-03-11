@@ -1,4 +1,4 @@
-# This Python file uses the following encoding: utf-8
+# -*- coding: utf-8 -*-
 #
 # String constants for the RHN Register TUI/GUI.
 # Copyright (c) 2000--2010 Red Hat, Inc.
@@ -11,7 +11,7 @@ import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
-COPYRIGHT_TEXT        = _("Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
+COPYRIGHT_TEXT        = _(u"Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
 
 # Connect Window
 CONNECT_WINDOW        = _("Attempting to contact the Red Hat Network server.")
