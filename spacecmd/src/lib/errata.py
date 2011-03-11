@@ -438,8 +438,8 @@ def do_errata_search(self, args, doreturn=False):
 
                     # build a structure to pass to print_errata_summary()
                     errata.append( {'advisory_name'     : name,
-                                    'advisory_type'     : match['type'],
-                                    'advisory_synopsis' : match['synopsis'],
+                                    'advisory_type'     : match['advisory_type'],
+                                    'advisory_synopsis' : match['advisory_synopsis'],
                                     'date'              : match['date'] } )
 
         if add_separator: print self.SEPARATOR
