@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.4.2
+Version:     1.4.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Mar 11 2011 Aron Parsons <aparsons@redhat.com> 1.4.3-1
+- fix invalid key name in errata_search (aparsons@redhat.com)
+
 * Tue Mar 08 2011 Aron Parsons <aparsons@redhat.com> 1.4.2-1
 - added group_backup and group_restore functions (john@vanzantvoort.org)
 - don't get the UUID on older API versions (aparsons@redhat.com)
