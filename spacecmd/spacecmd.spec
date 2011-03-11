@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.4.3
+Version:     1.4.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Mar 11 2011 Aron Parsons <aparsons@redhat.com> 1.4.4-1
+- added configchannel_verifyfile (aparsons@redhat.com)
+
 * Fri Mar 11 2011 Aron Parsons <aparsons@redhat.com> 1.4.3-1
 - fix invalid key name in errata_search (aparsons@redhat.com)
 
