@@ -357,8 +357,7 @@ def sendMail(forceEmail=0):
             headers = {
                 'Subject' : _('RHN Management Satellite sync. report from %s') % os.uname()[1],
             }
-            #sndr = CFG.get('traceback_mail', 'rhn-satellite')
-            sndr = 'rhn-satellite'
+            sndr = CFG.get('traceback_mail', 'root@localhost')
             rhnMail.send(headers, body, sender=sndr)
         else:
             print _("+++ email requested, but there is nothing to send +++")
