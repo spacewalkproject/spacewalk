@@ -92,35 +92,43 @@ def update_server_action(server_id, action_id, status, result_code=None,
               result_message=result_message[:1024])
 
 
+_query_lookup_action_childs = rhnSQL.Statement("""
+    select a.id
+      from rhnAction a
+      join rhnServerAction sa
+        on sa.action_id = a.id
+     where prerequisite = :action_id
+       and sa.server_id = :server_id
+""")
+
 _query_lookup_action = rhnSQL.Statement("""
     select sa.action_id, sa.status
-      from rhnServerAction sa,
-         (
-          select id
-            from rhnAction
-           start with id = :action_id
-                 connect by prior id = prerequisite
-         ) a
+      from rhnServerAction sa
      where sa.server_id = :server_id
-       and sa.action_id = a.id
+       and sa.action_id = :action_id
 """)
 
 def invalidate_action(server_id, action_id):
     log_debug(4, server_id, action_id)
     h = rhnSQL.prepare(_query_lookup_action)
-    h.execute(server_id=server_id, action_id=action_id)
+    h_child = rhnSQL.prepare(_query_lookup_action_childs)
+    return _invalidate_action_recursive(server_id, action_id, h, h_child)
 
-    # Data structures for the update
+def _invalidate_action_recursive(server_id, action_id, h, h_child):
+    h_child.execute(server_id=server_id, action_id=action_id)
     a_ids = []
+    # invalidate childs first
     while 1:
-        row = h.fetchone_dict()
+        row = h_child.fetchone_dict()
         if not row:
             break
-
-        if row['status'] == 3:
-            # Already failed
-            continue
-        c_action_id = row['action_id']
+        child_ids = _invalidate_action_recursive(server_id, row['id'], h, h_child)
+        a_ids.append(child_ids)
+    h.execute(server_id=server_id, action_id=action_id)
+    s_row = h.fetchone_dict()
+    if s_row and s_row['status'] <> 3:
+        # not already failed
+        c_action_id = s_row['action_id']
         a_ids.append(c_action_id)
         update_server_action(server_id=server_id, action_id=c_action_id,
             status=3, result_code=-100, result_message="Prerequisite failed")
