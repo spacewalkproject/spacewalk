@@ -321,25 +321,25 @@ class rpmRequires(Dependency):
 class rpmSuggests(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 'suggestsname',
-        'version'   : 'suggestsversion',
-        'flags'     : 'suggestsflags',
+        'name'      : 1156, #'suggestsname',
+        'version'   : 1157, #'suggestsversion',
+        'flags'     : 1158, #'suggestsflags',
     }
 
 class rpmRecommends(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 'suggestsname',
-        'version'   : 'suggestsversion',
-        'flags'     : 'suggestsflags',
+        'name'      : 1156, #'suggestsname',
+        'version'   : 1157, #'suggestsversion',
+        'flags'     : 1158, #'suggestsflags',
     }
 
 class rpmSupplements(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 'enhancesname',
-        'version'   : 'enhancesversion',
-        'flags'     : 'enhancesflags',
+        'name'      : 1159, #'enhancesname',
+        'version'   : 1160, #'enhancesversion',
+        'flags'     : 1161, #'enhancesflags',
     }
 
 class rpmConflicts(Dependency):
