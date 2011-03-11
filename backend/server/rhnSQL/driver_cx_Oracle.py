@@ -26,6 +26,7 @@ import cx_Oracle
 import sys
 import string
 import os
+import re
 import types
 
 from spacewalk.server import rhnSQL
@@ -48,12 +49,13 @@ class Cursor(sql_base.Cursor):
     """
     OracleError = cx_Oracle.DatabaseError
 
-    def __init__(self, dbh, sql=None, force=None):
+    def __init__(self, dbh, sql=None, force=None, blob_map=None):
 
         try:
             sql_base.Cursor.__init__(self, dbh=dbh, sql=sql,
                     force=force)
             self._type_mapping = ORACLE_TYPE_MAPPING
+            self.blob_map = blob_map
         except sql_base.SQLSchemaError, e:
             (errno, errmsg) = e.errno, e.errmsg
             if 900 <= errno <= 999:
@@ -92,6 +94,13 @@ class Cursor(sql_base.Cursor):
                 % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
+        if self.blob_map:
+            blob_content = {}
+            for orig_blob_var in self.blob_map.keys():
+                 new_blob_var = orig_blob_var + '_blob'
+                 blob_content[new_blob_var] = kw[orig_blob_var]
+                 kw[new_blob_var] = self.var(cx_Oracle.BLOB)
+                 del kw[orig_blob_var]
         modified_params = self._munge_args(kw)
 
         try:
@@ -121,6 +130,10 @@ class Cursor(sql_base.Cursor):
             raise
         else:
             self.reparsed = 0 # reset the reparsed counter
+
+        if self.blob_map:
+            for blob_var, content in blob_content.items():
+                 kw[blob_var].getvalue().write(content)
         # Munge back the values
         self._unmunge_args(kw, modified_params)
         return retval
@@ -259,7 +272,6 @@ class Cursor(sql_base.Cursor):
         row = c.fetchone_dict()
         blob = row[column_name]
         blob.write(data)
-
 
 
 class Procedure(sql_base.Procedure):
@@ -437,15 +449,24 @@ class Database(sql_base.Database):
         return self._cursor_class(dbh=self.dbh)
 
     # pass-through functions for when you want to do SQL yourself
-    def prepare(self, sql, force=0, params=None):
+    def prepare(self, sql, force=0, params=None, blob_map = None):
         # Abuse the map calls to get rid of SQL comments and extra spaces
         sql = string.join(filter(lambda a: len(a),
             map(string.strip,
                 map(lambda a: (a + " ")[:string.find(a, '--')],
                     string.split(sql, "\n")))),
             " ")
+        if blob_map:
+            col_list = []
+            bind_list = []
+            for bind_var, column in blob_map.items():
+                r=re.compile(":%s" % bind_var)
+                sql = re.sub(r, 'empty_blob()', sql)
+                col_list.append(column)
+                bind_list.append(":%s_blob" % bind_var)
+            sql += " returning %s into %s" %(','.join(col_list), ','.join(bind_list))
         # this way we only hit the network once for each sql statement
-        return self._cursor_class(dbh=self.dbh, sql=sql, force=force)
+        return self._cursor_class(dbh=self.dbh, sql=sql, force=force, blob_map=blob_map)
 
     def procedure(self, name):
         try:

@@ -183,7 +183,7 @@ class Database(sql_base.Database):
                       "Exception information: %s" % sys.exc_info()[1])
             self.connect() # only allow one try
 
-    def prepare(self, sql, force=0, params=None):
+    def prepare(self, sql, force=0, params=None, blob_map=None):
         if params != None:              # support for anonymour plpgsql
             sql = re.sub(r'/\*pg_cs\*/\s*cursor', '', sql)
             sql = re.sub(r'/\*pg (.+?)\*/', '\g<1>', sql)
