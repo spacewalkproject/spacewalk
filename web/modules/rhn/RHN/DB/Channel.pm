@@ -128,7 +128,7 @@ sub is_eoled {
 SELECT 1
   FROM rhnChannel
  WHERE id = :channel_id
-   AND sysdate - end_of_life > 0
+   AND current_timestamp > end_of_life
 EOQ
 
   $sth->execute_h(channel_id => $self->id);
