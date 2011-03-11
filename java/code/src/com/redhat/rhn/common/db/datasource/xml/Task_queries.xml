@@ -239,7 +239,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
             WHERE substr(time_series.o_id, instr(time_series.o_id,'-')+1,
             (instr(time_series.o_id,'-',
             instr(time_series.o_id,'-')+1)-instr(time_series.o_id,'-'))-1)
-            = rhn_probe.recid)
+            = rhn_probe.recid || '')
    </query>
 </write-mode>
 
