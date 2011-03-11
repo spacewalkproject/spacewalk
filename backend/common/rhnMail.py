@@ -18,6 +18,7 @@
 import os
 import sys
 import string
+import smtplib
 
 from rhnConfig import CFG
 from rhnLog import log_error
@@ -34,42 +35,22 @@ def __check_headers(h):
     else:
         to = h["To"]
     if type(to) in [type([]), type(())]:
+        toaddrs = to
         to = string.join(to, ', ')
+    else:
+        toaddrs = to.split(',')
     h["To"] = to
-    return h
+    return [h, toaddrs]
 
 # check the headers for sanity cases and send the mail
 def send(headers, body, sender = None, lazy = 0):
-    headers = __check_headers(headers)
+    (headers, toaddrs) = __check_headers(headers)
+    if sender is None:
+        sender = headers["From"]
+    joined_headers = ''
+    for h in headers.keys():
+        joined_headers += "%s: %s\n" % (h, headers[h])
 
-    sendmail = "/usr/sbin/sendmail"
-    cmds = ["sendmail", "-oi", "-t"]
-    if sender:
-        cmds.append("-f%s" % sender)
-    if lazy:
-        cmds.append("-ODeliveryMode=q")
-        
-    (read, write) = os.pipe()
-    childpid = os.fork()
-    if childpid < 0: # fork failed
-        log_error("ERROR: fork of sendmail process failed.\nAlert being sent:\n%s" % body)
-        return -1
-    if childpid == 0:
-        # in the child
-        os.dup2(read, 0)
-        os.close(write)
-        os.execv(sendmail, cmds)
-        # not reached
-        sys.exit(1)
-    # main process
-    os.close(read)
-    # Now write the message out
-    keys = headers.keys()
-    keys.sort()
-    for h in keys:
-        os.write(write, "%s: %s\n" % (h, headers[h]))
-    os.write(write, "\n%s\n" % body)
-    os.close(write)
-    # clean up
-    (pid, status) = os.waitpid(childpid, 0)    
-    return status
+    server = smtplib.SMTP('localhost')
+    server.sendmail(sender, toaddrs, "%s\n%s\n" % (joined_headers, body))
+    server.quit()
