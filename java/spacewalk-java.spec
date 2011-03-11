@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.16
+Version: 1.4.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 11 2011 Tomas Lestach <tlestach@redhat.com> 1.4.17-1
+- 644880 - fix Long comparism (tlestach@redhat.com)
+- 644880 - fix permission check to packages (tlestach@redhat.com)
+- Casting compare in rhn_probe to string. (jpazdziora@redhat.com)
+- Adding the AS keyword to column aliases (for PostgreSQL).
+  (jpazdziora@redhat.com)
+
 * Thu Mar 10 2011 Tomas Lestach <tlestach@redhat.com> 1.4.16-1
 - 644880 - speed up channel.software.addPackages API (tlestach@redhat.com)
 - Subquery in FROM must have an alias in PostgreSQL. (jpazdziora@redhat.com)
