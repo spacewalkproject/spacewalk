@@ -1376,8 +1376,9 @@ public class PackageManager extends BaseManager {
      */
     public static void verifyPackagesChannelArchCompatAndOrgAccess(
             User user, Channel channel, List<Long> packageIds, boolean checkArchCompat) {
+        Long orgId = user.getOrg().getId();
         DataResult dr = PackageFactory.getPackagesChannelArchCompatAndOrgAccess(
-                user.getOrg().getId(), channel.getId(), packageIds);
+                orgId, channel.getId(), packageIds);
         List<Long> archNonCompat = new ArrayList<Long>();
         List<Long> orgNoAccess = new ArrayList<Long>();
         for (Iterator i = dr.iterator(); i.hasNext();) {
@@ -1385,10 +1386,10 @@ public class PackageManager extends BaseManager {
             if (m.get("package_arch_id") == null) {
                 archNonCompat.add((Long)m.get("id"));
             }
-            if (m.get("org_package") == null &&
+            if (m.get("org_package") != orgId &&
                 m.get("org_access") == null &&
                 m.get("shared_access") == null) {
-                archNonCompat.add((Long)m.get("id"));
+                orgNoAccess.add((Long)m.get("id"));
             }
         }
         if (!orgNoAccess.isEmpty()) {

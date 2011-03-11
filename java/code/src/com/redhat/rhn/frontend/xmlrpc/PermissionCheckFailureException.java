@@ -94,6 +94,16 @@ public class PermissionCheckFailureException extends FaultException  {
                 "perform this action for system id[" + server.getId() + "]");
         // begin member variable initialization
     }
+
+    /**
+     * Contructor
+     * @param message use it as exception message
+     */
+    public PermissionCheckFailureException(String message) {
+        super(-23, "permissionCheckFailure" , message);
+    }
+
+
     /////////////////////////
     // Getters/Setters
     /////////////////////////

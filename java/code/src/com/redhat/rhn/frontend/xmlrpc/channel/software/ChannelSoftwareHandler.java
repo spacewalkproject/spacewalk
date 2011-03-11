@@ -1125,7 +1125,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             ChannelEditor.getInstance().addPackages(loggedInUser, channel, longPackageIds);
         }
         catch (PermissionException e) {
-            throw new PermissionCheckFailureException();
+            throw new PermissionCheckFailureException(e.getMessage());
         }
         catch (LookupException le) {
             //This shouldn't happen, but if it does, it is because one of the packages
