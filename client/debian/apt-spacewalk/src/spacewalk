@@ -1,6 +1,6 @@
 #!/usr/bin/python -u
 #
-# Very early prototype of apt-transport-spacewalk
+# The Spacewalk Acquire Method
 #
 # Author:  Simon Lukasik <xlukas08 [at] stud.fit.vutbr.cz>
 # Date:    2011-01-01
@@ -181,7 +181,7 @@ class spacewalk_method(pkg_acquire_method):
 
     def __transform_document(self, document):
         """Transform url given by apt to real spacewalk url"""
-        document = document.replace('dists/channels:/main/', 
+        document = document.replace('dists/channels:/main/',
                 'dists/channels:/' + self.base_channel  + '/', 1)
         document = re.sub('/binary-[\d\w]*/', '/repodata/', document, 1)
         document = document.replace('dists/channels:/', '/XMLRPC/GET-REQ/', 1)
@@ -260,4 +260,3 @@ if __name__ == '__main__':
     method = spacewalk_method()
     ret = method.run()
     sys.exit(ret)
-
