@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.19
+Version: 1.4.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Mar 14 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.20-1
+- no more need for special insert when diff is empty
+- removed unused _query_get_output_row
+- set the blob directly in insert
+- support for direct blob insert for oracle
+- replaced 'connect by prior' with recursive function in python
+- 670793 - don't fail on non-ascii config files
+- fixed virtual KVM machines in the webui
+
 * Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.19-1
 - move server.mo from /usr/share/rhn/ to /usr/share/locale and rename it to
   spacewalk-backend-server
