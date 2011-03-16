@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.5
+Version: 1.4.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -292,6 +292,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Mar 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.6-1
+- 684245 - lookup of the subscription-manager page via localized title is
+  volatile, let's use its __module__ name. (jpazdziora@redhat.com)
+- 624748 - report virtual network interfaces (mzazrivec@redhat.com)
+
 * Fri Mar 11 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.5-1
 - declare that we are using utf-8
 
