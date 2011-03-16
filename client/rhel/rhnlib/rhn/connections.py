@@ -25,42 +25,6 @@ class HTTPResponse(httplib.HTTPResponse):
             self.fp = nonblocking.NonBlockingFile(self.fp)
         self.fp.set_callback(rs, ws, ex, user_data, callback)
 
-    # Fix a bug in the upstream read() method - partial reads will incorrectly
-    # update self.length with the intended, not the real, amount of bytes
-    # See http://python.org/sf/988120
-    def read(self, amt=None):
-        if self.fp is None:
-            return ''
-
-        if self.chunked:
-            return self._read_chunked(amt)
-
-        if amt is None:
-            # unbounded read
-            if self.will_close:
-                s = self.fp.read()
-            else:
-                s = self._safe_read(self.length)
-            self.close()        # we read everything
-            return s
-
-        if self.length is not None:
-            if amt > self.length:
-                # clip the read to the "end of response"
-                amt = self.length
-
-        # we do not use _safe_read() here because this may be a .will_close
-        # connection, and the user is reading more bytes than will be provided
-        # (for example, reading in 1k chunks)
-        s = self.fp.read(amt)
-
-        if self.length is not None:
-            # Update the length with the amount of bytes we actually read
-            self.length = self.length - len(s)
-
-        return s
-
-
 class HTTPConnection(httplib.HTTPConnection):
     response_class = HTTPResponse
     
