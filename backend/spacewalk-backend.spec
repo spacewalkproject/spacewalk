@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.20
+Version: 1.4.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Mar 15 2011 Simon Lukasik <slukasik@redhat.com> 1.4.21-1
+- 687885 - do not treat expired token as a fault (slukasik@redhat.com)
+
 * Mon Mar 14 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.20-1
 - no more need for special insert when diff is empty
 - removed unused _query_get_output_row

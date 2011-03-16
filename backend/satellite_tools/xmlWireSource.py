@@ -390,8 +390,10 @@ class RPCGetWireSource(BaseWireSource):
     def _rpc_call(self, function_name, params):
         get_server_obj = self.login()
         # Try a couple of times
+        fault_count = 0
+        expired_token = 0
         cfg = config.initUp2dateConfig()
-        for i in range(cfg['networkRetries']):
+        while fault_count - expired_token < cfg['networkRetries']:
             try:
                 ret = apply(getattr(get_server_obj, function_name), params)
             except rpclib.xmlrpclib.ProtocolError, e:
@@ -400,9 +402,12 @@ class RPCGetWireSource(BaseWireSource):
                 # of the request.
                 http_error_code = e.errcode
                 fault_code, fault_string = rpclib.reportError(e.headers)
+                fault_count += 1
                 if http_error_code == 401 and fault_code == -34:
                     # Login token expired
                     get_server_obj = self.login(force=1)
+                    # allow exactly one respin for expired token
+                    expired_token = 1
                     continue
                 if http_error_code == 404 and fault_code == -17:
                     # File not found
