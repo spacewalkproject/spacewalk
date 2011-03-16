@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.17
+Version: 1.4.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -537,6 +537,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.18-1
+- 644880 - fix the condition (tlestach@redhat.com)
+
 * Fri Mar 11 2011 Tomas Lestach <tlestach@redhat.com> 1.4.17-1
 - 644880 - fix Long comparism (tlestach@redhat.com)
 - 644880 - fix permission check to packages (tlestach@redhat.com)
