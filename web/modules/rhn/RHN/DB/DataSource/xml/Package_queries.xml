@@ -108,7 +108,8 @@ ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN P
 <mode name="package_removal_failures">
   <query params="sid, action_id">
 SELECT PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS PACKAGE,
-       PC.name || DECODE(PC.version, NULL, '', '-' || PC.version) AS NEEDED_CAPABILITY,
+       PC.name || case when PC.version is NULL then ''
+                       else '-' || PC.version end  AS NEEDED_CAPABILITY,
        (SELECT name FROM rhnPackageName WHERE id = APRF.suggested) AS SUGGESTED_PACKAGE,
        APRF.flags AS FLAGS,
        APRF.sense AS SENSE
