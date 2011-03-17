@@ -132,8 +132,8 @@ sub fetch_params {
     SELECT   cgrp.description, cparam.group_name, cparam.name, cparam.value
     FROM     rhn_config_group cgrp, rhn_config_parameter cparam
     WHERE    cparam.group_name = cgrp.name
-    AND      ? = DECODE(cparam.security_type, 'ALL', ?,
-                                              cparam.security_type)
+    AND      ? = case cparam.security_type when 'ALL' then ?
+                                           else cparam.security_type end
     ORDER BY cparam.group_name, cparam.name};
   my $rv = $self->do_fetch($sql, $sec_type, $sec_type);
   # Create a parameter database, expanding macros as we go
