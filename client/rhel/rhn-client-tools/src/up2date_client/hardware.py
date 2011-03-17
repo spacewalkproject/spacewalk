@@ -17,7 +17,7 @@
 """Used to read hardware info from kudzu, /proc, etc"""
 from socket import gethostname, AF_INET, AF_INET6
 import socket
-
+import re
 import os
 import sys
 import string
@@ -139,7 +139,19 @@ def read_installinfo():
         installdict[vals[0]] = string.strip(string.join(vals[1:]))
     return installdict
     
-        
+def cpu_count():
+    """ returns number of CPU in system
+
+    Beware that it can be different from number of active CPU (e.g. on s390x architecture
+    """
+    try:
+        dir = os.listdir('/sys/devices/system/cpu/')
+    except OSError:
+        dir = []
+
+    re_cpu = re.compile(r"^cpu[0-9]+$")
+    return len([i for i in dir if re_cpu.match(i)])
+
 
 # This has got to be one of the ugliest fucntions alive
 def read_cpuinfo():
