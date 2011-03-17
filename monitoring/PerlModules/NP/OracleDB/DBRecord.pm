@@ -91,19 +91,8 @@ sub DatabaseConnection
 	if (NOCpulse::DBRecord->getClassInstVar('DatabaseConnection')) {
 		return NOCpulse::DBRecord->getClassInstVar('DatabaseConnection');
 	} else {
-		use DBI;
-		use NOCpulse::Config;
-		my $config = NOCpulse::Config->new;
-		my $dbd      = $class->DBD($config);
-		my $dbname   = $class->DBName($config);
-		my $username = $class->Username($config);
-		my $password = $class->Password($config);
-		my $orahome  = $class->OraHome($config);
-		my $attrs    = NOCpulse::DBRecord->getClassVar('ConnectionAttributes');
-		$attrs = { } unless ($attrs);
-		$attrs->{AutoCommit} = 0;
-		$ENV{'ORACLE_HOME'} = $orahome;  # base dir for Oracle
-		if (my $dbMain = DBI->connect("DBI:$dbd:$dbname", $username, $password, $attrs)) {
+		use RHN:DB;
+		if (my $dbMain = RHN::DB->connect) {
 			NOCpulse::DBRecord->setClassVar('DatabaseConnection', $dbMain);
 			return $dbMain;
 		}
