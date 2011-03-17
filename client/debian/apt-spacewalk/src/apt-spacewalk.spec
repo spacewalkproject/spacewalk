@@ -20,3 +20,6 @@ to acquire content from Spacewalk server
 %defattr(-,root,root,-)
 
 %changelog
+* Thu Mar 17 2011 Simon Lukasik <slukasik@redhat.com> 1.0.1-1
+- new package
+
