@@ -5,6 +5,7 @@ use DBI;
 use NOCpulse::Config;
 use IO::AtomicFile;
 use LWP::UserAgent;
+use RHN::DB;
 
 use Class::MethodMaker
   get_set =>
@@ -39,15 +40,9 @@ sub remove_config_file {
 
 sub connect {
   my $self = shift;
-  my $dbd      = shift;
-  my $dbname   = shift;
-  my $username = shift;
-  my $password = shift;
-  my $orahome  = shift;
 
-  $ENV{'ORACLE_HOME'} = $orahome;  # base dir for Oracle
   # Make DB connection
-  my $dbh = DBI->connect("DBI:$dbd:$dbname", $username, $password);
+  my $dbh = RHN::DB->connect;
   # Set up for graceful exit
   $SIG{'INT'} = $self->can('bailout');
   unless (defined($dbh)) {

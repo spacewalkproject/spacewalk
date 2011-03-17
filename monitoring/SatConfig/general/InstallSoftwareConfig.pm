@@ -18,14 +18,8 @@ sub startActions
 
 	if (%$localConfig) {
 		$self->dprint(1,'Grabbing local config info');
-		my $config = (values(%$localConfig))[0];
-		my $dbd = $config->get_dbd;
-		my $dbname = $config->get_dbname;
-		my $orahome = $config->get_orahome;
-		my $username = $config->get_username;
-		my $password = $config->get_password;
 		eval {
-			$ini->connect($dbd, $dbname, $username, $password, $orahome);
+			$ini->connect();
 			$ini->fetch_nocpulseini('INTERNAL');
 			$ini->save();
 		};
