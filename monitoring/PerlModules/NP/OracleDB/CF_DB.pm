@@ -883,7 +883,7 @@ $self->dprint(1, "*** *** DATEFORMAT IS:  ", $self->dateformat, " *** ***");
                 "exec.instance_id = ins.recid",
 		"ins.command_id = cmd.recid",
                 "date_executed is null",
-                "expiration_date > sysdate");
+                "expiration_date > current_timestamp");
 
   my @bind   = ($nsid, $type);
 
