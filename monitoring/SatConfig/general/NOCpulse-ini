@@ -65,12 +65,7 @@ my $localConfig = $cluster->get_LocalConfig;
 my $ini = NOCpulse::NOCpulseini->new;
 
 if (%$localConfig) {
-        my $config = (values(%$localConfig))[0];
-        my $dbd = $config->get_dbd;
-        my $dbname = $config->get_dbname;
-        my $username = $config->get_username;
-        my $password = $config->get_password;
-        $ini->connect($dbd, $dbname, $username, $password);
+        $ini->connect();
         $ini->raw($raw);
         $ini->fetch_nocpulseini('INTERNAL');
 } else {
