@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.6
+Version: 1.4.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -292,6 +292,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Mar 17 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.7-1
+- 680124 - do not count cpu from /proc/cpuinfo, but use /sys/devices/system/cpu
+
 * Wed Mar 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.6-1
 - 684245 - lookup of the subscription-manager page via localized title is
   volatile, let's use its __module__ name. (jpazdziora@redhat.com)
