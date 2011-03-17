@@ -9,38 +9,8 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs -A $(CURDIR)/usr/lib/apt/methods/
-	dh_install
-
-build: build-stamp
-
-build-stamp:
-	dh_testdir
-	touch build-stamp
-
 clean:
 	rm -rf build
-
-binary: binary-indep binary-arch
-
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installdebconf
-	dh_installdeb
-	dh_python
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-.PHONY: build clean binary-indep binary-arch binary install
+%:
+	dh $@
 

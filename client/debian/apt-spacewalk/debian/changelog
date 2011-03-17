@@ -1,6 +1,6 @@
-apt-spacewalk (1.0.0-1) unstable; urgency=low
+apt-spacewalk (1.0.1-1) unstable; urgency=low
 
-  * Initial release Package was created.
+  * Updated to the upstream version
 
- -- Miroslav Suchý <miroslav@suchy.cz>  Mon, 20 Sep 2010 10:38:44 +0200
+ -- Simon Lukasik <xlukas08@stud.fit.vutbr.cz>  Thu, 17 Mar 2010 18:43:00 +0200
 

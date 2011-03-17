@@ -22,13 +22,17 @@ apt-spacewalk
 
 
 apt-spacewalk - instructions are little different:
-cd client/debian/apt-spacewalk
-tar zcvf /tmp/apt-spacewalk_1.0.0.orig.tar.gz spacewalk.py
-cd ..
-cp -a apt-spacewalk /tmp/apt-spacewalk-1.0.0
-cd /tmp/apt-spacewalk-1.0.0
-#build source package
-debuild -i -S
-#or build binary package
-debuild -b
+1) Create an upstream tarball
+  cd client/debian/apt-spacewalk/src
+  tito build --tgz
+2) Prepare your build dir elsewhere
+  tar xzf apt-spacewalk-$version.tar.gz
+  cd apt-spacewalk-$version/
+  cp -r client/debian/apt-spacewalk/debian ./
+3) Adjust the settings in debian/ directory
+3) Build the package
+  #build source package
+  debuild -i -S
+  #or build binary package
+  debuild -b
 
