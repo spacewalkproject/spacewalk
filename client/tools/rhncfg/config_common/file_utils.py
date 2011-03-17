@@ -19,7 +19,7 @@ import tempfile
 import base64
 import difflib
 try:
-    from selinux import lgetfilecon
+    from selinux import lgetfilecon, is_selinux_enabled
 except:
     # on rhel4 we do not support selinux
     def lgetfilecon(path):
@@ -97,9 +97,14 @@ class FileProcessor:
         sectx_result = ''
         result = ''
 
-        cur_sectx = lgetfilecon(path)[1]
+        if is_selinux_enabled():
+            cur_sectx = lgetfilecon(path)[1]
+        else:
+            cur_sectx = None
+
         if cur_sectx == None:
             cur_sectx = ''
+
         if file_struct.has_key('selinux_ctx') and file_struct['selinux_ctx']:
             if cur_sectx != file_struct['selinux_ctx']:
                 sectx_result = "SELinux contexts differ:  actual: [%s], expected: [%s]\n" % (cur_sectx, file_struct['selinux_ctx'])

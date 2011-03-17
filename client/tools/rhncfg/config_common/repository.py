@@ -144,6 +144,8 @@ class Repository:
 
         if is_selinux_enabled():
             ret['selinux_ctx'] = selinux_ctx
+        else:
+            ret['selinux_ctx'] = ''
 
         return ret
 
