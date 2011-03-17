@@ -106,7 +106,7 @@ sub fetch_macros {
   # Fetch macros
   my $sql = q{
     SELECT   name, definition, description
-    FROM     config_macro
+    FROM     rhn_config_macro
   };
   my $list = $self->do_fetch_hash($sql);
   # First, create a database of unexpanded macros
