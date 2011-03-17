@@ -130,7 +130,7 @@ sub fetch_params {
   # Fetch parameters from the database
   my $sql = q{
     SELECT   cgrp.description, cparam.group_name, cparam.name, cparam.value
-    FROM     config_group cgrp, config_parameter cparam
+    FROM     rhn_config_group cgrp, config_parameter cparam
     WHERE    cparam.group_name = cgrp.name
     AND      ? = DECODE(cparam.security_type, 'ALL', ?,
                                               cparam.security_type)
