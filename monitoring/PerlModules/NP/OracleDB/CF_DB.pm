@@ -448,7 +448,7 @@ sub Node {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = 'SAT_NODE';
+  my $table  = 'RHN_SAT_NODE';
   my $idseq  = 'COMMAND_TARGET_RECID_SEQ.NEXTVAL';
   my $keycol = 'RECID';
 
