@@ -80,7 +80,7 @@ sub CQ_Commands {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "COMMAND_QUEUE_COMMANDS";
+  my $table  = "RHN_COMMAND_QUEUE_COMMANDS";
   my $idseq  = "COMMAND_Q_COMMAND_RECID_SEQ.NEXTVAL";
   my $keycol = 'RECID';
   my @cols   = qw(RECID            DESCRIPTION
