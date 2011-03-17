@@ -80,7 +80,7 @@ sub CQ_Commands {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "RHN_COMMAND_QUEUE_COMMANDS";
+  my $table  = "COMMAND_QUEUE_COMMANDS";
   my $idseq  = "COMMAND_Q_COMMAND_RECID_SEQ.NEXTVAL";
   my $keycol = 'RECID';
   my @cols   = qw(RECID            DESCRIPTION
@@ -875,8 +875,8 @@ $self->dprint(1, "*** *** DATEFORMAT IS:  ", $self->dateformat, " *** ***");
   push(@cols, sprintf("TO_CHAR(expiration_date, '%s') as expdate", 
                       $self->dateformat));
 
-  my $tables = "command_queue_commands cmd,command_queue_instances ins," .
-               "command_queue_execs exec";
+  my $tables = "rhn_command_queue_commands cmd, rhn_command_queue_instances ins," .
+               "rhn_command_queue_execs exec";
 
   my @where  = ("netsaint_id = ?",
 		"target_type = ?",
