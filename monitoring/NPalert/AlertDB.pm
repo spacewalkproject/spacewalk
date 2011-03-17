@@ -10,6 +10,7 @@ use Class::MethodMaker
 use Data::Dumper;    # for debugging
 use DBI;
 use NOCpulse::Config;
+use RHN::DB;
 
 use NOCpulse::Log::Logger;
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
@@ -24,11 +25,6 @@ sub connect {
   # $adb->connect ( 'PrintError'=>0, 'RaiseError'=>0, 'AutoCommit'=>0 );
 
   my $cfg = new NOCpulse::Config;
-  $ENV{'ORACLE_HOME'} = $cfg->get('oracle', 'ora_home');
-  my $DBD     = $cfg->get('cf_db', 'dbd');
-  my $DBNAME  = $cfg->get('cf_db', 'name');
-  my $DBUNAME = $cfg->get('cf_db', 'notification_username');
-  my $DBPASS  = $cfg->get('cf_db', 'notification_password');
 
   my $PrintError = $paramHash{PrintError} || 0;
   my $RaiseError = $paramHash{RaiseError} || 0;
@@ -40,9 +36,7 @@ sub connect {
   }
 
   # Open a connection to the DB
-  my $dbh =
-    DBI->connect("DBI:$DBD:$DBNAME", $DBUNAME, $DBPASS,
-                 { RaiseError => $RaiseError, AutoCommit => $AutoCommit });
+  my $dbh = RHN::DB->connect;
 
   if ($dbh) {
 
