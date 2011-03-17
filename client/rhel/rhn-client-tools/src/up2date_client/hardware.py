@@ -170,7 +170,7 @@ def read_cpuinfo():
                 continue
             count = count + 1
             if count > 1:
-                continue # just count the rest
+                break # no need to parse rest
             for cpu_attr in string.split(cpu, "\n"):
                 if not len(cpu_attr):
                     continue
@@ -180,7 +180,7 @@ def read_cpuinfo():
                     continue
                 name, value = string.strip(vals[0]), string.strip(vals[1])
                 tmpdict[string.lower(name)] = value
-        return [count, tmpdict]
+        return tmpdict
 
     if not os.access("/proc/cpuinfo", os.R_OK):
         return {}
@@ -193,6 +193,7 @@ def read_cpuinfo():
 
     cpulist = open("/proc/cpuinfo", "r").read()
     uname = string.lower(os.uname()[4])
+    count = cpu_count()
 
     # This thing should return a hwdict that has the following
     # members:
@@ -206,7 +207,7 @@ def read_cpuinfo():
                }
     if uname[0] == "i" and uname[-2:] == "86" or (uname == "x86_64"):
         # IA32 compatible enough
-        (count, tmpdict) = get_cpulist_as_dict(cpulist)
+        tmpdict = get_cpulist_as_dict(cpulist)
 
         if uname == "x86_64":
             hwdict['platform'] = 'x86_64'
@@ -232,7 +233,7 @@ def read_cpuinfo():
             hwdict['speed'] = -1
     elif uname in["alpha", "alphaev6"]:
         # Treat it as an an Alpha
-        (count, tmpdict) = get_cpulist_as_dict(cpulist)
+        tmpdict = get_cpulist_as_dict(cpulist)
 
         hwdict['platform']      = "alpha"
         hwdict['count']         = get_entry(tmpdict, 'cpus detected')
@@ -253,7 +254,7 @@ def read_cpuinfo():
         except ValueError:
             hwdict['speed'] = -1
     elif uname in ["ia64"]:
-        (count, tmpdict) = get_cpulist_as_dict(cpulist)
+        tmpdict = get_cpulist_as_dict(cpulist)
 
         hwdict['platform']      = uname
         hwdict['count']         = count
@@ -270,7 +271,7 @@ def read_cpuinfo():
         hwdict['other']         = get_entry(tmpdict, 'features')
 
     elif uname in ['ppc64']:
-        (count, tmpdict) = get_cpulist_as_dict(cpulist)
+        tmpdict = get_cpulist_as_dict(cpulist)
 
         hwdict['platform'] = uname
         hwdict['count'] = count
@@ -296,7 +297,7 @@ def read_cpuinfo():
         hwdict['platform']      = uname
         hwdict['type']          = get_entry(tmpdict,'vendor_id')
         hwdict['model']         = uname
-        hwdict['count']         = get_entry(tmpdict, '# processors')
+        hwdict['count']         = count
         hwdict['bogomips']      = get_entry(tmpdict, 'bogomips per cpu')
         hwdict['model_number']  = ""
         hwdict['model_ver']     = ""
@@ -309,7 +310,7 @@ def read_cpuinfo():
     else:
         # XXX: expand me. Be nice to others
         hwdict['platform']      = uname
-        hwdict['count']         = 1 # Good as any
+        hwdict['count']         = count
         hwdict['type']          = uname
         hwdict['model']         = uname
         hwdict['model_number']  = ""
