@@ -9,7 +9,7 @@ use strict;
 use DBI;
 use NOCpulse::Debug;
 use NOCpulse::Config;
-
+use RHN::DB;
 
 # Global defaults
 my $DEFAULTDATEFORMAT  = 'YYYY-MM-DD HH24:MI:SS';
@@ -127,19 +127,8 @@ sub connect {
   my $RaiseError = $paramHash{RaiseError} || 1;
   my $AutoCommit = $paramHash{AutoCommit} || 0;
 
-  $ENV{'ORACLE_HOME'} = $self->oracle_home() unless $ENV{'ORACLE_HOME'};
-
-  # Open a connection to the DB
-  my $dbd      = $self->dbd;
-  my $dbname   = $self->dbname;
-  my $dbuname  = $self->dbuname;
-  my $dbpasswd = $self->dbpasswd;
-
-  $self->dprint(2, "Connecting to DBI:$dbd:$dbname as $dbuname/$dbpasswd\n");
-  my $dbh      = DBI->connect("DBI:$dbd:$dbname", $dbuname, $dbpasswd, 
-                              { RaiseError => $RaiseError, 
-			        PrintError => $PrintError,
-			        AutoCommit => $AutoCommit });
+  $self->dprint(2, "Connecting to DB\n");
+  my $dbh      = RHN::DB->connect;
 
   if ($DBI::err) { $@ = $DBI::errstr ;  return undef }
 
