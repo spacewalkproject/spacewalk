@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.20
+Version:      1.126.21
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -138,6 +138,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Mar 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.126.21-1
+- reuse RHN:DB for db connection in AlertDB.pm (PG)
+
 * Wed Mar 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.126.20-1
 - 493028 - ack_enqueuer.pl must be linked from /etc/smrsh
 - 493028 - select all but expired redirects 
