@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.10
+Version: 1.4.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Mar 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
+- fixed package_removal_failures in postgresql
+
 * Wed Mar 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.10-1
 - made /network/systems/details/history/event.pxt work on postgresql
 - Fixing is_eoled, replacing sysdate with current_timestamp.
