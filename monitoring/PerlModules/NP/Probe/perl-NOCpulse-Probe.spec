@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.6
+Version:      1.184.7
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -146,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
+* Fri Mar 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.184.7-1
+- fixed db connection in monitoring-data-cleanup (PG)
+
 * Fri Feb 18 2011 Jan Pazdziora 1.184.6-1
 - Localize the filehandle globs; also use three-parameter opens.
 - Changing array with map is ugly, we shall use for instead.
