@@ -885,6 +885,7 @@ $self->dprint(1, "*** *** DATEFORMAT IS:  ", $self->dateformat, " *** ***");
                 "date_executed is null",
                 "expiration_date > current_timestamp");
 
+  $nsid = ($nsid eq 'NULL' or $nsid eq '' ? undef : $nsid);
   my @bind   = ($nsid, $type);
 
   my ($dataref, $ordref) =  $self->TableOp($tables, \@cols, 'instance_id', 
