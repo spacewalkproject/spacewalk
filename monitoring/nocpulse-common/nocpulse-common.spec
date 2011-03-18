@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.21
+Version:      2.1.22
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -146,6 +146,14 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Mar 18 2011 Michael Mraka <michael.mraka@redhat.com> 2.1.22-1
+- fixed ownership of NOCpulse/tmp directory
+- fixed function decode does not exist (PG)
+- fixed relation "config_parameter" does not exist (PG)
+- fixed relation "config_group" does not exist (PG)
+- fixed relation "config_macro" does not exist (PG)
+- reuse RHN:DB for db connection in monitoring (PG)
+
 * Wed Mar 02 2011 Michael Mraka <michael.mraka@redhat.com> 2.1.21-1
 - 493028 - directory for notifications should be created
 
