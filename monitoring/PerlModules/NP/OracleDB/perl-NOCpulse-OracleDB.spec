@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.17
+Version: 	  1.28.18
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 URL:          https://fedorahosted.org/spacewalk
@@ -47,6 +47,13 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Fri Mar 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.28.18-1
+- fixed input values (PG)
+- fixed sysdate error (PG)
+- replaced aliases with table names (PG)
+- reuse RHN:DB for db connection in DBRecord.pm (PG)
+- reuse RHN:DB for db connection in OracleDB.pm (PG)
+
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 1.28.17-1
 - remove of dead code
 
