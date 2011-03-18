@@ -131,6 +131,7 @@ fi
 %dir %{_sysconfdir}/nocpulse
 %config(missingok,noreplace) %{_sysconfdir}/%{package_name}/NOCpulse.ini
 %{_sysconfdir}/%{package_name}/NOCpulse
+%attr(-, %{package_name},%{package_name}) %{_sysconfdir}/%{package_name}/NOCpulse/tmp
 %config(missingok,noreplace) %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}/.forward
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
