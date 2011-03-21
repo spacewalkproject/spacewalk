@@ -1379,10 +1379,12 @@ public class PackageManager extends BaseManager {
         Long orgId = user.getOrg().getId();
         DataResult dr = PackageFactory.getPackagesChannelArchCompatAndOrgAccess(
                 orgId, channel.getId(), packageIds);
+        List<Long> found = new ArrayList<Long>();
         List<Long> archNonCompat = new ArrayList<Long>();
         List<Long> orgNoAccess = new ArrayList<Long>();
         for (Iterator i = dr.iterator(); i.hasNext();) {
             Map m = (Map) i.next();
+            found.add((Long)m.get("id"));
             if (m.get("package_arch_id") == null) {
                 archNonCompat.add((Long)m.get("id"));
             }
@@ -1393,6 +1395,9 @@ public class PackageManager extends BaseManager {
                 orgNoAccess.add((Long)m.get("id"));
             }
         }
+        List<Long> missing = new ArrayList<Long>(packageIds);
+        missing.removeAll(found);
+        orgNoAccess.addAll(missing);
         if (!orgNoAccess.isEmpty()) {
             StringBuffer msg = new StringBuffer("User: ");
             msg.append(user.getLogin());
