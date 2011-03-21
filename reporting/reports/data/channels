@@ -17,8 +17,8 @@ columns:
 sql:
 
 	select rhnchannel.label channel_label, rhnchannel.name channel_name, count(rhnchannelpackage.channel_id) number_of_packages
-	from rhnchannel, rhnchannelpackage
-	where rhnchannel.id = rhnchannelpackage.channel_id (+)
+	from rhnchannel left outer join rhnchannelpackage
+		on rhnchannel.id = rhnchannelpackage.channel_id
 	group by rhnchannel.id, rhnchannel.label, rhnchannel.name
 	order by rhnchannel.label
 

@@ -32,15 +32,15 @@ sql:
 			web_contact.id as user_id,
 			login as username,
 			case when web_contact_admin.user_id is not null then 1 else null end as admin_access
-		from web_contact, (
+		from web_contact left outer join (
 			select rhnUserGroupMembers.user_id
 			from rhnUserGroupMembers, rhnUserGroup, rhnUserGroupType
 			where rhnUserGroupMembers.user_group_id = rhnUserGroup.id
 				and rhnUserGroup.group_type = rhnUserGroupType.id
 				and rhnUserGroupType.label = 'org_admin'
 			) web_contact_admin
-		where web_contact.id = web_contact_admin.user_id (+)
-	) web_contact_adm, (
+		on web_contact.id = web_contact_admin.user_id
+	) web_contact_adm left outer join (
 		select 1 as is_admin, web_contact.id as user_id, rhnServer.id as server_id, null as group_name
 		from web_contact, rhnServer
 		where web_contact.org_id = rhnServer.org_id
@@ -51,9 +51,8 @@ sql:
 		where rhnUserServerGroupPerms.server_group_id = rhnServerGroupMembers.server_group_id
 			and rhnUserServerGroupPerms.server_group_id = rhnServerGroup.id
 		) rhn_contact_server_group
-	where
-		nvl(web_contact_adm.admin_access, 0) = rhn_contact_server_group.is_admin (+)
-		and web_contact_adm.user_id = rhn_contact_server_group.user_id (+)
-		and rhn_contact_server_group.server_id is not null
+		on ( case when web_contact_adm.admin_access is null then 0 else web_contact_adm.admin_access end ) = rhn_contact_server_group.is_admin
+		and web_contact_adm.user_id = rhn_contact_server_group.user_id
+	where rhn_contact_server_group.server_id is not null
 	order by organization_id, user_id, server_id
 

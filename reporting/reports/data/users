@@ -52,14 +52,16 @@ sql:
                                         where wccl.web_contact_id = wccl_exists.web_contact_id
 				)
 			),'enabled') as active
-	from web_contact, web_customer, web_user_personal_info,
-		rhnUserGroupMembers, rhnUserGroup, rhnUserGroupType,
+	from web_contact left outer join rhnUserGroupMembers
+		on web_contact.id = rhnUserGroupMembers.user_id
+		left outer join rhnUserGroup
+		on rhnUserGroupMembers.user_group_id = rhnUserGroup.id
+		left outer join rhnUserGroupType
+		on rhnUserGroup.group_type = rhnUserGroupType.id
+		, web_customer, web_user_personal_info,
 		rhnUserInfo
 	where web_contact.org_id = web_customer.id
 		and web_contact.id = web_user_personal_info.web_user_id
-		and web_contact.id = rhnUserGroupMembers.user_id (+)
-		and rhnUserGroupMembers.user_group_id = rhnUserGroup.id (+)
-		and rhnUserGroup.group_type = rhnUserGroupType.id (+)
 		and web_contact.id = rhnUserInfo.user_id
 	order by web_customer.id, web_contact.id
 

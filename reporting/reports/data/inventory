@@ -70,7 +70,7 @@ sql:
         		where rhnserver.id = rhnservernetinterface.server_id
 			)), 1
 		) as hardware
-	from rhnserver,
+	from rhnserver left outer join
 		(
 		select server_id, hostname, ipaddr
 		from rhnservernetwork
@@ -79,34 +79,39 @@ sql:
 			from rhnservernetwork
 			group by server_id
 			)
-		) rhnservernetwork,
-		rhnserverchannel, rhnchannel,
-		rhnserverconfigchannel, rhnconfigchannel,
+		) rhnservernetwork
+		on rhnserver.id = rhnservernetwork.server_id
+		left outer join rhnserverchannel
+		on rhnserver.id = rhnserverchannel.server_id
+		left outer join rhnchannel
+		on rhnserverchannel.channel_id = rhnchannel.id
+		left outer join rhnserverconfigchannel
+		on rhnserver.id = rhnserverconfigchannel.server_id
+		left outer join rhnconfigchannel
+		on rhnserverconfigchannel.config_channel_id = rhnconfigchannel.id
+		left outer join
 		(
 		select rhnservergroupmembers.server_id, rhnservergroupmembers.server_group_id, rhnservergroup.name
-		from rhnservergroupmembers, rhnservergroup
-		where rhnservergroupmembers.server_group_id = rhnservergroup.id (+)
-			and rhnservergroup.group_type is not null
-		) entitlement_data,
+		from rhnservergroupmembers left outer join rhnservergroup
+			on rhnservergroupmembers.server_group_id = rhnservergroup.id
+		where rhnservergroup.group_type is not null
+		) entitlement_data
+		on rhnserver.id = entitlement_data.server_id
+		left outer join
 		(
 		select rhnservergroupmembers.server_id, rhnservergroupmembers.server_group_id, rhnservergroup.name
-		from rhnservergroupmembers, rhnservergroup
-		where rhnservergroupmembers.server_group_id = rhnservergroup.id (+)
-			and rhnservergroup.group_type is null
-		) group_data,
+		from rhnservergroupmembers left outer join rhnservergroup
+			on rhnservergroupmembers.server_group_id = rhnservergroup.id
+		where rhnservergroup.group_type is null
+		) group_data
+		on rhnserver.id = group_data.server_id
+		left outer join
 		(
 		select host_system_id, virtual_system_id
 		from rhnvirtualinstance
 		where host_system_id is not null
 		) virtual_data
-	where rhnserver.id = rhnservernetwork.server_id (+)
-		and rhnserver.id = rhnserverchannel.server_id (+)
-		and rhnserverchannel.channel_id = rhnchannel.id (+)
-		and rhnserver.id = rhnserverconfigchannel.server_id (+)
-		and rhnserverconfigchannel.config_channel_id = rhnconfigchannel.id (+)
-		and rhnserver.id = entitlement_data.server_id (+)
-		and rhnserver.id = group_data.server_id (+)
-		and rhnserver.id = virtual_data.virtual_system_id (+)
+		on rhnserver.id = virtual_data.virtual_system_id
 	order by server_id, rhnchannel.parent_channel nulls first, rhnchannel.id,
 		rhnconfigchannel.id, entitlement_data.server_group_id, group_data.server_group_id,
 		virtual_data.host_system_id

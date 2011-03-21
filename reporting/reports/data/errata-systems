@@ -21,7 +21,8 @@ sql:
 		rhnServerNeededErrataCache.server_id,
 		rhnServer.name as profile_name,
 		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address
-	from rhnErrata, rhnServerNeededErrataCache, rhnServer,
+	from rhnErrata, rhnServer,
+		rhnServerNeededErrataCache left outer join
 		(
 		select server_id, hostname, ipaddr
 		from rhnservernetwork
@@ -31,8 +32,8 @@ sql:
 			group by server_id
 			)
 		) rhnservernetwork
+		on rhnServerNeededErrataCache.server_id = rhnservernetwork.server_id
 	where rhnErrata.id = rhnServerNeededErrataCache.errata_id
 		and rhnServerNeededErrataCache.server_id = rhnServer.id
-		and rhnServerNeededErrataCache.server_id = rhnservernetwork.server_id (+)
 	order by rhnErrata.advisory_name, rhnServerNeededErrataCache.server_id
 

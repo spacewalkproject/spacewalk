@@ -29,10 +29,12 @@ sql:
 		rhnCVE.name as cve,
 		rhnErrata.synopsis,
 		count(*) as systems_affected
-	from rhnErrata, rhnServerNeededErrataCache, rhnErrataCVE, rhnCVE
+	from rhnErrata left outer join rhnErrataCVE
+		on rhnErrata.id = rhnErrataCVE.errata_id
+		left outer join rhnCVE
+		on rhnErrataCVE.cve_id = rhnCVE.id
+		, rhnServerNeededErrataCache
 	where rhnErrata.id = rhnServerNeededErrataCache.errata_id
-		and rhnErrata.id = rhnErrataCVE.errata_id (+)
-		and rhnErrataCVE.cve_id = rhnCVE.id (+)
 	group by rhnErrata.id,
 		rhnErrata.advisory_name,
 		rhnErrata.advisory_type,

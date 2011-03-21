@@ -27,7 +27,8 @@ sql:
 		rhnErrata.advisory_type as type,
 		rhnCVE.name as cve,
 		rhnErrata.synopsis
-	from rhnErrata, rhnErrataCVE, rhnCVE
-	where rhnErrata.id = rhnErrataCVE.errata_id (+)
-		and rhnErrataCVE.cve_id = rhnCVE.id (+)
+	from rhnErrata left outer join rhnErrataCVE
+		on rhnErrata.id = rhnErrataCVE.errata_id
+		left outer join rhnCVE
+		on rhnErrataCVE.cve_id = rhnCVE.id
 	order by rhnErrata.advisory_name, rhnErrata.id, rhnCVE.name
