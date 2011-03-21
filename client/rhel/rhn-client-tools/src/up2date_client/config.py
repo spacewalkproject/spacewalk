@@ -87,7 +87,7 @@ class ConfigFile:
                 # or maybe error.
                 continue
             key = split[0].strip()
-            value = split[1].strip()
+            value = unicode(split[1].strip(), 'utf-8')
 
             # decode a comment line
             comment = None
@@ -149,11 +149,11 @@ class ConfigFile:
         f.write("")
         for key in self.dict.keys():
             val = self.dict[key]
-            f.write("%s[comment]=%s\n" % (key, val[0]))
+            f.write((u"%s[comment]=%s\n" % (key, val[0])).encode('utf-8'))
             if type(val[1]) == type([]):
-                f.write("%s=%s;\n" % (key, ';'.join(map(str, val[1]))))
+                f.write((u"%s=%s;\n" % (key, ';'.join(map(str, val[1])))).encode('utf-8'))
             else:
-                f.write("%s=%s\n" % (key, val[1]))
+                f.write((u"%s=%s\n" % (key, val[1])).encode('utf-8'))
             f.write("\n")
         f.close()
         os.rename(self.fileName+'.new', self.fileName)
