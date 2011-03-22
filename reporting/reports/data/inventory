@@ -61,15 +61,7 @@ sql:
 		(
 		select rhnserverarch.name from rhnserverarch where rhnserver.server_arch_id = rhnserverarch.id
 		) as architecture,
-		concat_list_clob('; ', cursor(
-			(
-			select sum(nrcpu) || ' CPUs' from rhncpu where rhnserver.id = rhncpu.server_id
-			union all
-			select name||' '||ip_addr||'/'||netmask||' '||hw_addr val
-        		from rhnservernetinterface
-        		where rhnserver.id = rhnservernetinterface.server_id
-			)), 1
-		) as hardware
+		get_hw_info_as_clob(rhnserver.id, '; ') as hardware
 	from rhnserver left outer join
 		(
 		select server_id, hostname, ipaddr
