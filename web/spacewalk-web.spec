@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.11
+Version: 1.4.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -260,6 +260,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Mar 22 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.12-1
+- evaluate default_connection in runtime not in use RHN::DB time
+
 * Fri Mar 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
 - fixed package_removal_failures in postgresql
 
