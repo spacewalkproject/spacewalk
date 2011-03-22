@@ -73,7 +73,7 @@ requested information."),
      The anonymous server functionality is no longer available.
 
      Please re-register this system by running rhn_register
-     (or up2date --register on Red Hat Enterprise Linux 3+) as root.
+     as root.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
      or login at https://%(hostname)s, and from the "Overview" tab,
      select "Subscription Management" to enable RHN service for this system.
@@ -257,8 +257,7 @@ maximum membership exceeded"),
 
      # 2000-2999: RHN Satellite specific errors:
      2001: _("""
-     RHN Satellite user creation is not allowed via rhn_register
-     (or up2date --register on Red Hat Enterprise Linux 3 or later);
+     RHN Satellite user creation is not allowed via rhn_register;
      please contact your sysadmin to have your account created.
      """),
      2002: _("""

@@ -55,9 +55,7 @@ class rhnHandler(RPC_Base):
         if not server:
             # Invalid server certificate.
             raise rhnFault(9, _(
-                "Please run rhn_register "
-                "(or up2date --register on Red Hat Enterprise Linux 3 or later)\n"
-                "as root on this client"))
+                "Please run rhn_register as root on this client"))
         self.server_id = server.getid()
         self.server = server
         # update the latest checkin time
