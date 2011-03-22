@@ -8,7 +8,7 @@
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: 10.2.0.52
+Version: 10.2.0.53
 Release: 1%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
@@ -100,6 +100,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Tue Mar 22 2011 Michael Mraka <michael.mraka@redhat.com> 10.2.0.53-1
+- new m4 (1.4.13-5) insists on having defines before template
+
 * Fri Nov 26 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0.52-1
 - 643368 - compute sga size dynamicaly
 
