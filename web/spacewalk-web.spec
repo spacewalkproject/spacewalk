@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.12
+Version: 1.4.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,16 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Mar 22 2011 Jan Pazdziora 1.4.13-1
+- Moving the Requires: httpd from sniglets to base-minimal, dobby, and pxt
+  which actually have %files with apache group in them.
+- No need to require mod_perl explicitly in spacewalk-sniglets, we will get it
+  via perl(Apache2::Cookie) and perl-libapreq2 from spacewalk-pxt.
+- Removing RHEL 4 specific Requires as we no longer support Spacewalk on RHEL 4.
+- Fixing taggable_systems_in_set PostgreSQL issues.
+- Fixing custom_info_keys PostgreSQL issue.
+- Fixing the system_set_supports_reboot PostgreSQL issue.
+
 * Tue Mar 22 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.12-1
 - evaluate default_connection in runtime not in use RHN::DB time
 
