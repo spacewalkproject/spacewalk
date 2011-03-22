@@ -308,7 +308,7 @@ function CreateDatabase() {
     db=$2
     if [ -z "$db" ] ; then return ; fi
 
-    m4 $template $(m4_macros $db) | $ORACLE_HOME/bin/sqlplus /nolog \
+    m4 $(m4_macros $db) $template | $ORACLE_HOME/bin/sqlplus /nolog \
       || exit $?
 }
 
