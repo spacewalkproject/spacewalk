@@ -55,6 +55,7 @@ Requires: tomcat5
 %else
 Requires: tomcat6
 %endif
+Requires: httpd
 Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 
@@ -65,6 +66,7 @@ Independent Perl modules in the RHN:: name-space.
 Summary: Perl modules and scripts to administer an Oracle database
 Group: Applications/Internet
 Requires: spacewalk-base
+Requires: httpd
 Obsoletes: rhn-dobby < 5.3.0
 Provides: rhn-dobby = 5.3.0
 
@@ -88,6 +90,7 @@ A component framework for Spacewalk.
 Summary: The PXT library for web page templating
 Group: Applications/Internet
 Requires: spacewalk(spacewalk-base-minimal)
+Requires: httpd
 Obsoletes: rhn-pxt < 5.3.0
 Provides:  rhn-pxt = 5.3.0
 
@@ -100,7 +103,6 @@ equlivalent to things like Apache::ASP and Mason
 %package -n spacewalk-sniglets
 Group: Applications/Internet 
 Summary: PXT Tag handlers
-Requires: httpd
 Obsoletes: rhn-sniglets < 5.3.0
 Provides:  rhn-sniglets = 5.3.0
 
