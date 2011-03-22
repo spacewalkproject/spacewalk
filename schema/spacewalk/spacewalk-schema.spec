@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.10
+Version:        1.4.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 22 2011 Jan Pazdziora 1.4.11-1
+- There is no cursor() function for inline cursors in PostgreSQL, using custom
+  function get_hw_info_as_clob instead.
+
 * Thu Mar 10 2011 Jan Pazdziora 1.4.10-1
 - Using sequence_nextval instead of the .nextval.
 - update database to support SUSE distributions (ug@suse.de)
