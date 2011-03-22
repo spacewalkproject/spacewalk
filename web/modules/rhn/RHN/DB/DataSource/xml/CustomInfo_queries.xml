@@ -7,10 +7,9 @@ SELECT CDK.id,
        CDK.description,
        (
 SELECT COUNT(SCDV.server_id)
-  FROM rhnServerCustomDataValue SCDV,
-       rhnUserServerPerms USP
+  FROM rhnUserServerPerms USP left outer join rhnServerCustomDataValue SCDV
+       on USP.server_id = SCDV.server_id
  WHERE USP.user_id = :user_id
-   AND USP.server_id = SCDV.server_id (+)
    AND SCDV.key_id = CDK.id
        ) as system_count,
        TO_CHAR(CDK.modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
