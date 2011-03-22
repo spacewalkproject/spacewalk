@@ -91,7 +91,7 @@ sub DatabaseConnection
 	if (NOCpulse::DBRecord->getClassInstVar('DatabaseConnection')) {
 		return NOCpulse::DBRecord->getClassInstVar('DatabaseConnection');
 	} else {
-		use RHN:DB;
+		use RHN::DB;
 		if (my $dbMain = RHN::DB->connect) {
 			NOCpulse::DBRecord->setClassVar('DatabaseConnection', $dbMain);
 			return $dbMain;
