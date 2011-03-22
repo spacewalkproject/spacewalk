@@ -9,16 +9,16 @@ autobuild_tags = dist-5E-sw-1.4-candidate dist-6E-sw-1.4-candidate dist-f14-sw-1
 
 [dist-5E-sw-1.4-candidate]
 disttag = .el5
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround apt-spacewalk
 
 [dist-6E-sw-1.4-candidate]
 disttag = .el6
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm heirloom-pkgtools jabberd-selinux
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm heirloom-pkgtools jabberd-selinux apt-spacewalk
 
 [dist-f13-sw-1.4-candidate]
 disttag = .fc13
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround apt-spacewalk
 
 [dist-f14-sw-1.4-candidate]
 disttag = .fc14
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround apt-spacewalk
