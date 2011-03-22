@@ -66,11 +66,7 @@ sub get_dbi_connection_string {
     }
 }
 
-$RHN::DB::default_connection = RHN::DB->get_dbi_connection_string(
-    PXT::Config->get("db_backend"),
-    PXT::Config->get("db_host"),
-    PXT::Config->get("db_port"),
-    PXT::Config->get("db_name"));
+$RHN::DB::default_connection = undef;
 
 sub set_default_connection {
   my $class = shift;
@@ -148,7 +144,11 @@ sub connect {
   # TODO: Once upon a time these aliases were just Oracle dsn's, if the incoming
   # alias is in this format, convert it to an Oracle dbi string?
 
-  $alias ||= $RHN::DB::default_connection;
+  $alias ||= ($RHN::DB::default_connection ||= RHN::DB->get_dbi_connection_string(
+                                                    PXT::Config->get("db_backend"),
+                                                    PXT::Config->get("db_host"),
+                                                    PXT::Config->get("db_port"),
+                                                    PXT::Config->get("db_name")));
 
   if ($handles{$alias} and $handles{$alias}->{Active}) {
     my $dbh = $handles{$alias};
