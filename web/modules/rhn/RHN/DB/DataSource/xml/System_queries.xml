@@ -733,6 +733,8 @@ SELECT  DISTINCT SP.server_id id, PN.name || '-' || PE.evr.as_vre_simple() NVRE
   <query name="system_set_supports_reboot" />
 </mode>
   <query name="system_set_supports_reboot" params="user_id, set_label">
+SELECT *
+from (
 SELECT  DISTINCT S.id, S.name
   FROM  rhnArchType AT,
         rhnServerArch SA,
@@ -757,6 +759,7 @@ SELECT  DISTINCT S.id, S.name
                      AND PE2.id = lookup_evr(NULL, '2.9.3', '2.2.1AS')
                      AND PE.evr &gt;= PE2.evr))
 	)
+) S
 ORDER BY UPPER(S.name), S.id
   </query>
 
