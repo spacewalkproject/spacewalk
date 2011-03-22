@@ -198,7 +198,7 @@ def posttrans_hook(conduit):
 
 def rewordError(e):
     #This is compensating for hosted/satellite returning back an error
-    #message instructing RHEL5 clients to run "up2date --register"
+    #message instructing RHEL5 clients to run "rhn_register"
     #bz: 438175
     replacedText = _("Error Message:") + "\n\t" + \
         _("Please run rhn_register as root on this client")

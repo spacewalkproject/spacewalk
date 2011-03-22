@@ -155,7 +155,7 @@ class User:
         if type(value) == type(""):
             value = string.strip(value)
         # We have to watch over carefully for different field names
-        # being sent from rhn_register (up2date --register)
+        # being sent from rhn_register
         changed = 0
 
         # translation
@@ -582,7 +582,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     if email:
 
         # don't update the user's email address in the satellite context...
-        # we *must* in the live context, but user creation through up2date --register
+        # we *must* in the live context, but user creation through rhn_register
         # is disallowed in the satellite context anyway...
         if not pre_existing_user:
             user.set_info("email", email)
