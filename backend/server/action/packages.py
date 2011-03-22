@@ -148,7 +148,7 @@ def runTransaction(server_id, action_id, dry_run=0):
                rhnTransactionPackage rp
      left join rhnPackageArch pa
             on rp.package_arch_id = pa.id,
-               rhnTransactionOperation tro, rhnPackageName pn, rhnPackageEVR pe,
+               rhnTransactionOperation tro, rhnPackageName pn, rhnPackageEVR pe
          where pde.package_delta_id = :package_delta_id
            and pde.transaction_package_id = rp.id
            and rp.operation = tro.id
