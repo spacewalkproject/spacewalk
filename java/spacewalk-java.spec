@@ -118,7 +118,6 @@ BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
-BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
@@ -426,7 +425,6 @@ fi
 %{jardir}/commons-digester.jar
 %{jardir}/commons-discovery.jar
 %{jardir}/commons-el.jar
-%{jardir}/commons-fileupload.jar
 %{jardir}/commons-io.jar
 %{jardir}/commons-lang.jar
 %{jardir}/commons-logging.jar

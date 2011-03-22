@@ -18,7 +18,6 @@
         <dependency org="redhat" name="commons-digester" rev="1.6" />
         <dependency org="redhat" name="commons-discovery" rev="0.2" />
         <dependency org="redhat" name="commons-el" rev="1.0" />
-        <dependency org="redhat" name="commons-fileupload" rev="1.0" />
         <dependency org="redhat" name="commons-httpclient" rev="3.0" />
         <dependency org="redhat" name="commons-lang" rev="2.1" />
         <dependency org="redhat" name="commons-logging" rev="1.0.4" />
