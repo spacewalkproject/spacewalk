@@ -100,7 +100,6 @@ equlivalent to things like Apache::ASP and Mason
 %package -n spacewalk-sniglets
 Group: Applications/Internet 
 Summary: PXT Tag handlers
-Requires: mod_perl >= 2.0.0
 Requires: httpd
 Obsoletes: rhn-sniglets < 5.3.0
 Provides:  rhn-sniglets = 5.3.0
