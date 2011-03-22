@@ -101,11 +101,7 @@ equlivalent to things like Apache::ASP and Mason
 Group: Applications/Internet 
 Summary: PXT Tag handlers
 Requires: mod_perl >= 2.0.0
-%if 0%{?rhel} == 4
-Requires: mod_jk-ap20
-%else
 Requires: httpd
-%endif
 Obsoletes: rhn-sniglets < 5.3.0
 Provides:  rhn-sniglets = 5.3.0
 
