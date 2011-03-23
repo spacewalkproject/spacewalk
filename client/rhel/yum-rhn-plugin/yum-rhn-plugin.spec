@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,11 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Mar 23 2011 Jan Pazdziora 1.4.5-1
+- remove every reference to "up2date --register" - even in comments
+  (msuchy@redhat.com)
+- 684342 - beside repo.id, cache even repo.name (msuchy@redhat.com)
+
 * Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.4-1
 - 683546 - optparse isn't friendly to translations in unicode
 - 682820 - re-enable yum-rhn-plugin after package upgrade if the system is
