@@ -47,14 +47,15 @@ sub update_queries {
   foreach my $table (@{$self->{tables}}) {
     next unless grep { exists $changed_fields{$_} } $table->column_names;
 
+    my $remove_alias = "$table->{alias}.";
     my $ret;
 
-    $ret .= "UPDATE $table->{name} $table->{alias}\nSET ";
+    $ret .= "UPDATE $table->{name}\nSET ";
     $ret .= join(", ", map { "$_ = ?" }
+		 map { ($remove_alias eq substr($_, 0, length($remove_alias))) ? substr($_, length($remove_alias)) : $_ }
 		 grep { exists $changed_fields{$_} } $table->column_names);
 
     $ret .= "\nWHERE " .
-      $table->{alias} . "." .
 	$self->{assoc}->{$self->{tables}->[0]->{name}}->{$table->{name}}->[1] .
 	  " = ?";
 
