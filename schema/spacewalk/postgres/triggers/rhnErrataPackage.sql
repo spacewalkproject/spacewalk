@@ -29,7 +29,7 @@ begin
         end if;
         if tg_op='DELETE' then
                 update rhnErrata
-                set rhnErrata.last_modified = current_timestamp
+                set last_modified = current_timestamp
                 where rhnErrata.id in ( old.errata_id );
 	        return old;
         end if;
