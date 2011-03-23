@@ -61,6 +61,7 @@ class apacheRequest:
         # Make sure the decoder doesn't assume UTF-8 data, that would break if
         # non-UTF-8 chars are sent (bug 139370)
         self.decoder._encoding = None
+        self.parser._parser.returns_unicode = 0
 
         # extract the server we're talking to and the root directory
         # from the request configuration options
