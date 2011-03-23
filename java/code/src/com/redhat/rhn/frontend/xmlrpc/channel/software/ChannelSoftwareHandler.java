@@ -1117,12 +1117,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // Try to add the list of packages to the channel. Catch any exceptions and
         // convert to FaultExceptions
         try {
-            // we need long values to pass
-            List<Long> longPackageIds = new ArrayList();
-            for (Iterator it = packageIds.iterator(); it.hasNext();) {
-                longPackageIds.add(new Long((Integer) it.next()));
-            }
-            ChannelEditor.getInstance().addPackages(loggedInUser, channel, longPackageIds);
+            ChannelEditor.getInstance().addPackages(loggedInUser, channel, packageIds);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e.getMessage());

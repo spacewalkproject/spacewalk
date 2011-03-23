@@ -24,8 +24,10 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.user.UserManager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -92,19 +94,25 @@ public class ChannelEditor {
             throw pex;
         }
 
+        // make sure we work with long ids
+        List<Long> longPackageIds = new ArrayList();
+        for (Iterator it = packageIds.iterator(); it.hasNext();) {
+            longPackageIds.add(new Long((Integer) it.next()));
+        }
+
         List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
         if (add) {
-            packageIds.removeAll(existingPids);
+            longPackageIds.removeAll(existingPids);
         }
 
         PackageManager.verifyPackagesChannelArchCompatAndOrgAccess(user,
-                channel, (List<Long>) packageIds, add);
+                channel, longPackageIds, add);
 
         if (add) {
-            ChannelManager.addPackages(channel, (List<Long>) packageIds, user);
+            ChannelManager.addPackages(channel, longPackageIds, user);
         }
         else {
-            ChannelManager.removePackages(channel, (List<Long>) packageIds, user);
+            ChannelManager.removePackages(channel, longPackageIds, user);
         }
 
         // Mark the affected channel to have it smetadata evaluated, where necessary
