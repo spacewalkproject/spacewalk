@@ -23,7 +23,7 @@
 <div id="header">
       <a href="<bean:message key="layout.jsp.vendor.website"/>" title="<bean:message key="layout.jsp.vendor.title"/>"><img src="/img/logo_vendor.png" alt="<bean:message key="layout.jsp.vendor.name"/>" id="rhLogo" /></a>
         <a href="/" title="<bean:message key="layout.jsp.productname"/> homepage">
-          <img src="/img/logo_product.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" />
+          <img src="/img/logo_product.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" accesskey="2"/>
         </a>
       <rhn:require acl="user_authenticated()">
  <div id="searchbar">
@@ -36,7 +36,7 @@
       <option value="packages"><bean:message key="header.jsp.packages"/></option>
       <option value="errata"><bean:message key="header.jsp.errata"/></option>
       <option value="docs"><bean:message key="header.jsp.documentation"/></option>
-      </select><input type="text" name="search_string" maxlength="40" size="20" />
+      </select><input type="text" name="search_string" maxlength="40" size="20" accesskey="4"/>
       <input type="hidden" name="submitted" value="true"/>
       <input type="submit" class="button" name="image-1" value="Search" align="top" /></form>
     </div>

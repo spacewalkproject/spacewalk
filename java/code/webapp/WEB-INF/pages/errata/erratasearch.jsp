@@ -45,7 +45,7 @@
            <tr><th><bean:message key="erratasearch.jsp.searchfor"/></th>
              <td>
                <html:text property="search_string" name="search_string"
-                     value="${search_string}" maxlength="36" />
+                     value="${search_string}" maxlength="36" accesskey="4"/>
                <html:submit>
                  <bean:message key="button.search" />
                </html:submit>
