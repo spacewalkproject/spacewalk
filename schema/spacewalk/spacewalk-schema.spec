@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.11
+Version:        1.4.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Mar 23 2011 Jan Pazdziora 1.4.12-1
+- In update, the column names should not contain table name (PostgreSQL).
+
 * Tue Mar 22 2011 Jan Pazdziora 1.4.11-1
 - There is no cursor() function for inline cursors in PostgreSQL, using custom
   function get_hw_info_as_clob instead.
