@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.21
+Version: 1.4.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 23 2011 Jan Pazdziora 1.4.22-1
+- fixing stray comma breaking package profile sync (jsherril@redhat.com)
+- set envelope From to traceback email (msuchy@redhat.com)
+- remove every reference to "up2date --register" - even in comments
+  (msuchy@redhat.com)
+- remove text "or up2date --register on Red Hat Enterprise Linux 3 or later"
+  (msuchy@redhat.com)
+
 * Tue Mar 15 2011 Simon Lukasik <slukasik@redhat.com> 1.4.21-1
 - 687885 - do not treat expired token as a fault (slukasik@redhat.com)
 
