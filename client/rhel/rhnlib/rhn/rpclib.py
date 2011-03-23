@@ -541,9 +541,9 @@ class Server:
                 r"^(?P<name>[^(]*)\((?P<version>[^)]*)\)\s*=\s*(?P<value>.*)$")
         vals = {}
         for h in cap_headers:
-            arr = string.split(h, ':', 1)
+            arr = str.split(h, ':', 1)
             assert len(arr) == 2
-            val = string.strip(arr[1])
+            val = str.strip(arr[1])
             if not val:
                 continue
 
@@ -553,7 +553,7 @@ class Server:
                 continue
             vdict = mo.groupdict()
             for k, v in vdict.items():
-                vdict[k] = string.strip(v)
+                vdict[k] = str.strip(v)
 
             vals[vdict['name']] = vdict
         return vals
