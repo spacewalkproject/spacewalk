@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.5
+Version: 1.4.6
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Mar 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.6-1
+- 688870 - also check whether cached repo is valid
+
 * Wed Mar 23 2011 Jan Pazdziora 1.4.5-1
 - remove every reference to "up2date --register" - even in comments
   (msuchy@redhat.com)
