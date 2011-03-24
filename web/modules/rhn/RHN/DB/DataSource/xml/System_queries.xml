@@ -132,7 +132,7 @@ SELECT DISTINCT S.id,
    AND USP.server_id = SS.server_id
    AND USP.server_id = S.id
 ) S
-ORDER BY UPPER(coalesce(S.NAME, '(none)')), S.ID
+ORDER BY UPPER(coalesce(S.SERVER_NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
 </mode>
