@@ -65,7 +65,8 @@ def init_hook(conduit):
        cachefile.close()
        for (repoid, reponame) in repolist:
            repodir = os.path.join(cachedir, repoid)
-           if os.path.isdir(repodir):
+           if os.path.isdir(repodir) and os.path.isfile(
+                        os.path.join(repodir, 'repodata', 'repomd.xml')):
                repo = YumRepository(repoid)
                repo.basecachedir = cachedir
                repo.baseurl = ['file:///' + repodir ]
