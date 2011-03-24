@@ -97,9 +97,11 @@ class FileProcessor:
         sectx_result = ''
         result = ''
 
-        if is_selinux_enabled():
+        try:
             cur_sectx = lgetfilecon(path)[1]
-        else:
+        except OSError: # workarounding BZ 690238
+            cur_sectx = None
+        if not is_selinux_enabled():
             cur_sectx = None
 
         if cur_sectx == None:
