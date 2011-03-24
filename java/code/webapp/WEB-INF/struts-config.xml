@@ -2411,7 +2411,7 @@
 
     <action path="/software/channels/Shared"
       scope="request"
-      input="/WEB-INF/pages/channel/all.jsp"
+      input="/WEB-INF/pages/channel/shared.jsp"
       type="com.redhat.rhn.frontend.action.channel.SharedChannelTreeAction">
       <forward name="default"
                path="/WEB-INF/pages/channel/shared.jsp" />
