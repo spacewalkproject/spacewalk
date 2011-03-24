@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.49
+Version: 5.9.50
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 24 2011 Jan Pazdziora 5.9.50-1
+- 688461 - try/except is workaround of BZ 690238 (msuchy@redhat.com)
+- 688461 - fixed python exception when comparing files using web UI and SELinux
+  disabled in RHEL6 (mmello@redhat.com)
+
 * Tue Feb 15 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.49-1
 - 675164 - do not traceback if file do not differ (msuchy@redhat.com)
 - 676317 - handle fs objects without selinux context correctly
