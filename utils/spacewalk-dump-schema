@@ -3,13 +3,22 @@
 use strict;
 use warnings FATAL => 'all';
 
+use Spacewalk::Setup ();
 use Getopt::Long ();
 use DBI ();
+
+my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
+my %options;
+Spacewalk::Setup::read_config($config_file, \%options);
+
+if ($options{db_backend} ne 'oracle') {
+	die "The $0 is can only dump Oracle database schema.\n";
+}
 
 my ($db, $user, $password);
 
 sub usage {
-	print "$0: --db=SID --user=USERNAME --password=PASSWORD [ --help ]\n";
+	print "$0: [--db=SID --user=USERNAME --password=PASSWORD] [ --help ]\n";
 	if ($@) {
 		exit shift;
 	}
@@ -23,12 +32,13 @@ Getopt::Long::GetOptions (
 	'help' => \&usage,
 ) or exit 1;
 
-if (grep { not defined $_ } $db, $user, $password) {
-	usage(2);
+if (grep { defined $_ } $db, $user, $password) {
+	# Some connect parameter was specified, let's use it as new connect info
+	@options{qw( db_name db_user db_password )} = ( $db, $user, $password );
 }
 
 $ENV{NLS_LANG} = 'AMERICAN_AMERICA.UTF8';
-my $dbh = DBI->connect("dbi:Oracle:$db", $user, $password, {
+my $dbh = DBI->connect("dbi:Oracle:$options{db_name}", $options{db_user}, $options{db_password}, {
 	RaiseError => 1,
 	FetchHashKeyName => 'NAME_lc',
 	LongReadLen => 10_000_000,
