@@ -140,7 +140,7 @@ class ConfigFile:
                 print _("%s was not found" % os.path.dirname(self.fileName))
                 return
         
-        f = open(self.fileName, "w")
+        f = open(self.fileName+'.new', "w")
         os.chmod(self.fileName, 0600)
 
         f.write("# Automatically generated Red Hat Update Agent "\
@@ -156,6 +156,7 @@ class ConfigFile:
                 f.write("%s=%s\n" % (key, val[1]))
             f.write("\n")
         f.close()
+        os.rename(self.fileName+'.new', self.fileName)
 
     # dictionary interface
     def has_key(self, name):
