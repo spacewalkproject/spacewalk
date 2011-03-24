@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.20
+Version: 1.4.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -535,6 +535,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 24 2011 Jan Pazdziora 1.4.21-1
+- automatically set focus on filter input field (msuchy@redhat.com)
+- implement common access keys (msuchy@redhat.com)
+
 * Wed Mar 23 2011 Tomas Lestach <tlestach@redhat.com> 1.4.20-1
 - make sure we work with long ids when removing packages (tlestach@redhat.com)
 
