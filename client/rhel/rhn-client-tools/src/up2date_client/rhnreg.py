@@ -494,13 +494,7 @@ def getServerType(serverUrl=None):
     
     """
     if serverUrl is None:
-
-        # serverURL may be a list in the config file, so by default, grab the
-        # first element.
-        if type(cfg['serverURL']) == type([]):
-            serverUrl = cfg['serverURL'][0]
-        else:
-            serverUrl = cfg['serverURL']
+        serverUrl = config.getServerlURL()[0]
 
     serverUrl = makeNiceServerUrl(serverUrl)
     protocol, host, path, parameters, query, fragmentIdentifier = \

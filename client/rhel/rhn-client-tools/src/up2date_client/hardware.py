@@ -402,9 +402,7 @@ def read_memory_2_6():
 
 def findHostByRoute():
     cfg = config.initUp2dateConfig()
-    sl = cfg['serverURL']
-    if type(sl) == type(""):
-        sl  = [sl]
+    sl = config.getServerlURL()
 
     st = {'https':443, 'http':80}
     hostname = None

@@ -80,7 +80,7 @@ def tui_call_wrapper(screen, func, *params):
     try:
         results = func(*params)
     except up2dateErrors.CommunicationError, e:
-        FatalErrorWindow(screen, HOSTED_CONNECTION_ERROR % cfg['serverURL'])
+        FatalErrorWindow(screen, HOSTED_CONNECTION_ERROR % config.getServerlURL()[0])
     except up2dateErrors.SSLCertificateVerifyFailedError, e:
         FatalErrorWindow(screen, e.errmsg)
     except up2dateErrors.NoBaseChannelError, e:
@@ -1146,13 +1146,7 @@ class Tui:
             ReviewWindow,
             FinishWindow
             ]
-
-        # if serverUrl is a list in the config, only reference the first one
-        # when we need it
-        if type(cfg['serverURL']) == type([]):
-            self.serverURL = cfg['serverURL'][0]
-        else:
-            self.serverURL = cfg['serverURL']
+        self.serverURL = config.getServerlURL()[0]
         
         if not cfg['sslCACert']:
             # Always use the path from the cert if available, else set to 

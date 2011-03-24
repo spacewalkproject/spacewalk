@@ -122,12 +122,7 @@ def getServer(refreshCallback=None):
     else:
         proxyHost = None
 
-    serverUrls = cfg["serverURL"]
-
-    # the standard is to be a string, so list-a-fy in that case
-    if type(serverUrls) == type(""):
-        serverUrls = [serverUrls]
-
+    serverUrls = config.getServerlURL()
     serverList = ServerList(serverUrls)
 
     proxyUser = None
