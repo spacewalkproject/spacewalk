@@ -85,6 +85,7 @@ cmdline_pkgs = []
 global selected_channels
 selected_channels = None
 def getChannels(force=None, label_whitelist=None):
+    """ return rhnChannelList containing list of channel we are subscribed to """
     cfg = config.initUp2dateConfig()
     global selected_channels
     if not selected_channels and not force:
