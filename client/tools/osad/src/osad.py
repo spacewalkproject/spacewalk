@@ -253,14 +253,10 @@ class Runner(jabber_lib.Runner):
         try:
             server_url = osad_config.get('server_url')
         except osad_config.InterpolationError, e:
-            # Have to read up2date's config files
-            c = self.get_up2date_config()
-            server_url = c['serverURL']
+            server_url = config.getServerlURL()[0]
         else:
             if server_url is None:
-                # Have to read up2date's config files
-                c = self.get_up2date_config()
-                server_url = c['serverURL']
+                server_url = config.getServerlURL()[0]
 
         ret['server_url'] = server_url
         

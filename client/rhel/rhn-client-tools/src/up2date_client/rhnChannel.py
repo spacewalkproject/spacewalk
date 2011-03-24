@@ -101,7 +101,7 @@ def getChannels(force=None, label_whitelist=None):
             if label_whitelist and not label_whitelist.has_key(chan['label']):
                 continue
                 
-            channel = rhnChannel(type = 'up2date', url = cfg["serverURL"])
+            channel = rhnChannel(type = 'up2date', url = config.getServerlURL())
             for key in chan.keys():
                 if key == "last_modified":
                     channel['version'] = chan['last_modified']

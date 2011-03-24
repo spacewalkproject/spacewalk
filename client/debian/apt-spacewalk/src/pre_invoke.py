@@ -39,8 +39,7 @@ def get_channels():
 
 def get_server():
     """Spacewalk server fqdn"""
-    up2date_cfg = config.initUp2dateConfig()
-    return urlparse(up2date_cfg['serverURL']).netloc
+    return urlparse(config.getServerlURL()[0]).netloc
 
 def get_conf_file():
     """Path to spacewalk.list configuration file"""

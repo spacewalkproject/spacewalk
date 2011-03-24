@@ -105,13 +105,9 @@ def read_cfg_val(obj, key):
     return None
         
 def update_applet_cfg():
-
+    server_url = config.getServerlURL()[0]
     # get up2date's conf vals...
-    server_url = read_cfg_val(cfg, 'serverURL')
     new_ca = read_cfg_val(cfg, 'sslCACert')
-
-    if type(server_url) == type([]):
-        server_url = server_url[0]
 
     # TODO: applet needs to support failover 
     # for now patch the ca

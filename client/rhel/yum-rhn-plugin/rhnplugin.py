@@ -245,7 +245,7 @@ class RhnRepo(YumRepository):
         if type(channel['url']) == list:
           for url in channel['url']:
             urls.append(url + '/GET-REQ/' + self.id)
-        else:
+        else: # type will be always list since Spacewalk 1.4, in future this will be dead coed
           urls.append(channel['url'] + '/GET-REQ/' + self.id)
 
         self.baseurl = urls 
