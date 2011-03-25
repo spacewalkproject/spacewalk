@@ -44,8 +44,8 @@ public class ChannelEditorTest extends RhnBaseTestCase {
         assertEquals(0, channel.getPackages().size());
 
         List pkgList = new ArrayList();
-        pkgList.add(pkg.getId());
-        Long bogusId = new Long(System.currentTimeMillis());
+        pkgList.add(pkg.getId().intValue());
+        Integer bogusId = new Integer((int) System.currentTimeMillis());
         pkgList.add(bogusId);
 
         ChannelEditor editor = ChannelEditor.getInstance();
