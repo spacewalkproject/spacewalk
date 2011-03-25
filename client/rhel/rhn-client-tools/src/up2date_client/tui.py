@@ -202,7 +202,7 @@ class ConnectWindow:
         #Save the config only if the url is different
         if fixed_server_url != self.server:
             self.server = fixed_server_url
-            cfg.set('serverURL', self.server)
+            config.setServerURL(self.server)
 
             cfg.save()
         
