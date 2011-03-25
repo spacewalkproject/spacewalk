@@ -574,7 +574,7 @@ def get_proxy_url(up2date_cfg):
         proxy_url = proxy_url + urllib.quote(up2date_cfg['proxyPassword'])
         proxy_url = proxy_url + '@'
    
-    netloc = up2date_cfg['httpProxy']
+    netloc = config.getProxySetting()
     if netloc == '':
         raise BadProxyConfig
 
