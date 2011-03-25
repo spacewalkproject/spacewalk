@@ -1,10 +1,3 @@
-%define require_selinux 1
-
-# No Selinux for RHEL 4:
-%if 0%{?rhel} == 4
-%define require_selinux 0
-%endif
-
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -53,10 +46,7 @@ Requires:       SputLite-server
 Requires:       ssl_bridge
 Requires:       status_log_acceptor
 Requires:       tsdb
-
-%if %{require_selinux}
 Requires: spacewalk-monitoring-selinux
-%endif
 
 Requires(post): chkconfig
 Requires(preun): chkconfig
