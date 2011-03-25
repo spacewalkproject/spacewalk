@@ -13,6 +13,8 @@ up2date agent to hold config info.
 
 import os
 import sys
+from urlparse import urlsplit, urlunsplit
+from rhn.connections import idn_ascii_to_pune
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -282,6 +284,11 @@ def getProxySetting():
 
     return proxy
 
+def convert_url_to_pune(url):
+    """ returns url where hostname is converted to Pune encoding """
+    s = urlsplit(url)
+    return urlunsplit([s.scheme, idn_ascii_to_pune(s.netloc), s.path, s.query, s.fragment])
+
 def getServerlURL():
     """ return list of serverURL from config
         Note: in config may be one value or more values, but this
@@ -291,9 +298,9 @@ def getServerlURL():
     # serverURL may be a list in the config file, so by default, grab the
     # first element.
     if type(cfg['serverURL']) == type([]):
-        return cfg['serverURL']
+        return map(convert_url_to_pune, cfg['serverURL'])
     else:
-        return [cfg['serverURL']]
+        return [convert_url_to_pune(cfg['serverURL'])]
 
 def setServerURL(serverURL):
     """ Set serverURL in config """
