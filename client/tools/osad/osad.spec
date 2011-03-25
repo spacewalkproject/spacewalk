@@ -57,13 +57,6 @@ OSA dispatcher is supposed to run on the Spacewalk server. It gets information
 from the Spacewalk server that some command needs to be execute on the client;
 that message is transported via jabber protocol to OSAD agent on the clients.
 
-%if 0%{?rhel} && 0%{?rhel} <= 4
-%define include_selinux_package 0
-%else
-%define include_selinux_package 1
-%endif
-
-%if %{include_selinux_package}
 %package -n osa-dispatcher-selinux
 %define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
@@ -91,15 +84,12 @@ Requires: osa-dispatcher
 %description -n osa-dispatcher-selinux
 SELinux policy module supporting osa-dispatcher.
 
-%endif
-
 %prep
 %setup -q
 
 %build
 make -f Makefile.osad all
 
-%if %{include_selinux_package}
 %{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
@@ -107,14 +97,12 @@ do
     mv osa-dispatcher-selinux/%{modulename}.pp osa-dispatcher-selinux/%{modulename}.pp.${selinuxvariant}
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
 
-%if %{include_selinux_package}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
@@ -133,7 +121,6 @@ install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
 # Install osa-dispatcher-selinux-enable which will be called in %post
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildroot}%{_sbindir}/osa-dispatcher-selinux-enable
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -160,7 +147,6 @@ if [ $1 = 0 ]; then
     /sbin/chkconfig --del osa-dispatcher
 fi
 
-%if %{include_selinux_package}
 %post -n osa-dispatcher-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/osa-dispatcher-selinux-enable
@@ -191,8 +177,6 @@ fi
 
 rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
-
-%endif
 
 %files
 %defattr(-,root,root)
@@ -232,7 +216,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
 
-%if %{include_selinux_package}
 %files -n osa-dispatcher-selinux
 %defattr(-,root,root,0755)
 %doc osa-dispatcher-selinux/%{modulename}.fc
@@ -243,9 +226,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
 %attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
-%endif
 
-# $Id$
 %changelog
 * Tue Mar 08 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.5-1
 - fixed osad last_message_time update (PG)
