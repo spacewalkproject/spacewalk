@@ -291,7 +291,7 @@ def getProxySetting():
 def convert_url_to_pune(url):
     """ returns url where hostname is converted to Pune encoding """
     s = urlsplit(url)
-    return urlunsplit([s.scheme, idn_ascii_to_pune(s.netloc), s.path, s.query, s.fragment])
+    return urlunsplit([s.scheme, idn_ascii_to_pune(s.netloc), s.path, s.query, s.fragment]).encode('utf-8')
 
 def getServerlURL():
     """ return list of serverURL from config
