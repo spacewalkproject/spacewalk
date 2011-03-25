@@ -93,18 +93,11 @@ def create_server_obj(server_url):
 
 
 def read_cfg_val(obj, key):
-    """given up2date's rhel 2.1 vs 3 config 'obj', return the value"""
-    if hasattr(obj, 'readEntry'):
-        # rhel 2.1 style, obj.readEntry("serverURL")
-        return obj.readEntry(key)
-    elif hasattr(obj, "__setitem__"):
-        # rhel 3 style, obj['serverURL']
-        if obj.has_key(key):
-            return obj[key]
-        else:
-            raise "unknown config option:  %s" % key
+    """ return obj[key] or None if key does not exists """
+    if obj.has_key(key):
+        return obj[key]
     else:
-        raise "unknown up2date config object"
+        raise "unknown config option:  %s" % key
 
 
 def read_username():

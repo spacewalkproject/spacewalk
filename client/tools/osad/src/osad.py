@@ -331,9 +331,6 @@ class Runner(jabber_lib.Runner):
     def get_up2date_config(self):
         if self._up2date_config is None:
             self._up2date_config = initUp2dateConfig()
-        if not hasattr(self._up2date_config, '__getitem__'):
-            # Old interface
-            self._up2date_config = OldUp2dateConfig(self._up2date_config)
         return self._up2date_config
         
     def build_rpclib_params(self, config):
@@ -362,13 +359,6 @@ class Runner(jabber_lib.Runner):
         auth_info = osad_config.get_auth_info(auth_info_file, 'osad-auth', force,
             username=username, password=password, resource=resource)
         return auth_info
-
-class OldUp2dateConfig:
-    def __init__(self, config_obj):
-        self._config_obj = config_obj
-
-    def __getitem__(self, name):
-        return self._config_obj.readEntry(name)
 
 if __name__ == '__main__':
     sys.exit(main() or 0)
