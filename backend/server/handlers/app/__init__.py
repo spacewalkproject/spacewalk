@@ -18,11 +18,9 @@
 __all__ = []
 
 import packages
-import channel
 
 rpcClasses = {
     "packages"          : packages.Packages,
-    "channel"           : channel.Channel,
     }
 
 getHandler = None
