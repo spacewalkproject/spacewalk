@@ -299,7 +299,7 @@ def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
     """This function is the right way to get at the up2date config."""
     global cfg
     try:
-        cfg = cfg
+        cfg
     except NameError:
         cfg = None
         
