@@ -272,15 +272,19 @@ class Config:
 
 
 def getProxySetting():
+    """ returns proxy string in format hostname:port
+    hostname is converted to Pune encoding if needed
+    """
     cfg = initUp2dateConfig()
     proxy = None
     proxyHost = cfg["httpProxy"]
 
     if proxyHost:
         if proxyHost[:7] == "http://":
-            proxy = proxyHost[7:]
-        else:
-            proxy = proxyHost
+            proxyHost = proxyHost[7:]
+        parts = proxyHost.split(':')
+        parts[0] = idn_ascii_to_pune(parts[0])
+        proxy = ':'.join(parts)
 
     return proxy
 
