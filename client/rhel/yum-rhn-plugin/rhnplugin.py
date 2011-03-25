@@ -577,12 +577,6 @@ def get_proxy_url(up2date_cfg):
     netloc = config.getProxySetting()
     if netloc == '':
         raise BadProxyConfig
-
-    # Check if a protocol is supplied. We'll ignore it.
-    proto_split = netloc.split('://')
-    if len(proto_split) > 1:
-       netloc = proto_split[1]
-
     return proxy_url + netloc
 
 
