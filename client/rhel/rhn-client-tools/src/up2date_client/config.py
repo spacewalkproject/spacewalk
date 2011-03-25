@@ -295,6 +295,12 @@ def getServerlURL():
     else:
         return [cfg['serverURL']]
 
+def setServerURL(serverURL):
+    """ Set serverURL in config """
+    cfg = initUp2dateConfig()
+    cfg.set('serverURL', serverURL)
+
+
 def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
     """This function is the right way to get at the up2date config."""
     global cfg
