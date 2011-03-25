@@ -2427,7 +2427,7 @@ public class SystemManager extends BaseManager {
         Map params = new HashMap();
         params.put("hw_id", hwId);
         DataResult<HardwareDeviceDto> dr = m.execute(params);
-        if (dr != null) {
+        if (dr != null && !dr.isEmpty()) {
             hwDto = dr.get(0);
         }
         return hwDto;
