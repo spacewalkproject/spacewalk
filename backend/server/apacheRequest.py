@@ -291,7 +291,7 @@ class apacheRequest:
         compress_response = rhnFlags.test("compress_response")
         # Init an output object; we'll use it for sending data in various
         # formats
-        if isinstance(response, rpclib.transports.File):
+        if isinstance(response, transports.File):
             if not hasattr(response.file_obj, 'fileno') and compress_response:
                 # This is a StringIO that has to be compressed, so read it in
                 # memory; mark that we don't have to do any xmlrpc encoding
