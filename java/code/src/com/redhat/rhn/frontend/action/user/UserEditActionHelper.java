@@ -40,16 +40,18 @@ public abstract class UserEditActionHelper extends RhnAction {
         //get validation errors
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
 
-        //Make sure password and passwordConfirm are equal
+        //Add an error in case of password mismatch
+        String pw = (String)form.get(UserActionHelper.DESIRED_PASS);
+        String conf = (String)form.get(UserActionHelper.DESIRED_PASS_CONFIRM);
+        if (!pw.equals(conf)) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("error.password_mismatch"));
+        }
+
+        //Make sure password is not the placeholder
         if (!UserActionHelper.PLACEHOLDER_PASSWORD.equals(
                 form.get(UserActionHelper.DESIRED_PASS))) {
-            String pw = (String)form.get(UserActionHelper.DESIRED_PASS);
-            String conf = (String)form.get(UserActionHelper.DESIRED_PASS_CONFIRM);
-            if (!pw.equals(conf)) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("error.password_mismatch"));
-            }
-            else if (errors.isEmpty()) {
+            if (errors.isEmpty()) {
                 //Set the password only if there are no errors at all
                 targetUser.setPassword(pw);
             }
