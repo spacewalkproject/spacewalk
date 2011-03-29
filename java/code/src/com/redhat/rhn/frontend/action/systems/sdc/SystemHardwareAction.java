@@ -129,7 +129,7 @@ public class SystemHardwareAction extends RhnAction {
             request.setAttribute("dmi_board", server.getDmi().getBoard());
         }
 
-        request.setAttribute("network_hostname", server.getHostname());
+        request.setAttribute("network_hostname", server.getDecodedHostname());
         request.setAttribute("network_ip_addr", server.getIpAddress());
 
         List<String> nicList = new ArrayList();

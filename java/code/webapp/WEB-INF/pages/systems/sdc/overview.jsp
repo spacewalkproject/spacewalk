@@ -89,7 +89,7 @@
             <bean:message key="sdc.details.overview.unknown"/>
           </c:when>
           <c:otherwise>
-            <c:out value="${system.hostname}" />
+            <c:out value="${system.decodedHostname}" />
           </c:otherwise>
         </c:choose>
         </td>

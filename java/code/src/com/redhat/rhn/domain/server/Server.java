@@ -44,6 +44,7 @@ import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.SystemRecord;
 
+import java.net.IDN;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Collections;
@@ -942,6 +943,15 @@ public class Server extends BaseDomainHelper implements Identifiable {
             return net.getHostname();
         }
         return null;
+    }
+
+    /**
+     * Get the primary hostname for this server
+     * If hostname is IDN, it is decoded from Pune encoding
+     * @return Returns the primary hostname for this server
+     */
+    public String getDecodedHostname() {
+        return IDN.toUnicode(getHostname());
     }
 
     /**
