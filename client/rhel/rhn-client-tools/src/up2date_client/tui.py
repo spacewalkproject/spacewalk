@@ -31,6 +31,7 @@ import up2dateUtils
 import rpmUtils
 import up2dateLog
 import config
+from config import convert_url_from_pune
 import up2dateAuth
 from rhn import rpclib
 from rhn.connections import idn_pune_to_unicode
@@ -123,7 +124,7 @@ class AlreadyRegisteredWindow:
 
         tb = snack.Textbox(size[0]-30, size[1]-20,
                             (SYSTEM_ALREADY_REGISTERED + "\n\n"
-                            + _("Red Hat Network Location:") + " " + self.tui.serverURL + "\n"
+                            + _("Red Hat Network Location:") + " " + convert_url_from_pune(self.tui.serverURL) + "\n"
                             + _("Login:") + " " + oldUsername + "\n"
                             + _("System ID:") + " " + oldsystemId + "\n\n"
                             + SYSTEM_ALREADY_REGISTERED_CONT + "\n").encode('utf-8'),
@@ -195,7 +196,7 @@ class ConnectWindow:
         self.tui = tui
         size = snack._snack.size()
 
-        self.server = self.tui.serverURL
+        self.server = convert_url_from_pune(self.tui.serverURL)
 
         fixed_server_url = rhnreg.makeNiceServerUrl(self.server)
 
@@ -341,7 +342,11 @@ class InfoWindow:
 
         # Satellite
         if self.tui.serverType == 'satellite':
-            login_prompt = LOGIN_PROMPT % self.server
+            decoded_server = convert_url_from_pune(self.server)
+            url = self.server
+            if decoded_server != self.server:
+                url += " (%s)" % decoded_server
+            login_prompt = LOGIN_PROMPT % url
             login_label = LOGIN
             login_tip = LOGIN_TIP
 
