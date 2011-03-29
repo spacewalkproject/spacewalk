@@ -864,7 +864,7 @@ class _PackageFilesDumper(BaseDumper):
         data['mtime'] = _dbtime2timestamp(data['mtime'])
         data['checksum-type'] = data['checksum-type'] or ""
         data['checksum'] = data['checksum'] or ""
-        if data['checksum-type'] == 'md5':
+        if data['checksum-type'] in ('md5', ''):
             # generate md5="..." attribute
             # for compatibility with older satellites
             data['md5'] = data['checksum']
