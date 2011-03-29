@@ -293,6 +293,11 @@ def convert_url_to_pune(url):
     s = urlsplit(url)
     return urlunsplit([s.scheme, idn_ascii_to_pune(s.netloc), s.path, s.query, s.fragment]).encode('utf-8')
 
+def convert_url_from_pune(url):
+    """ returns url where hostname is converted from Pune encoding. Returns unicode string. """
+    s = urlsplit(url)
+    return urlunsplit([s.scheme, idn_pune_to_unicode(s.netloc), s.path, s.query, s.fragment])
+
 def getServerlURL():
     """ return list of serverURL from config
         Note: in config may be one value or more values, but this
