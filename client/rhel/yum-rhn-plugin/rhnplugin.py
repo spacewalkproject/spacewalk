@@ -63,7 +63,7 @@ def init_hook(conduit):
        cachefile = open(cachefilename, 'r')
        repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
        cachefile.close()
-       for repoitem in repolist:
+       for repo_item in repolist:
            if len(repo_item) == 1:
                repo_item.append('')
            (repoid, reponame) = repo_item
