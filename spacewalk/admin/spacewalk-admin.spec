@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-service.8*
 
 %changelog
+* Wed Mar 30 2011 Jan Pazdziora 1.4.2-1
+- Fixing spacewalk-service start hang at waiting for tomcat.
+  (dale@fedoraproject.org)
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.1-1
 - Explicitly require lsof in spacewalk-admin (for spacewalk-service).
 
