@@ -23,77 +23,6 @@ class TestGetVersion(TestCase):
         assert res == "100"
 
 
-class TestIsObsoleted(TestCase):
-    def setUp(self):
-        self.obs1 = ['gcc', '3.4.3', '9.EL4', '', 'x86_64', 'libgnat', '3.4.3-9.EL4', '10']
-
-        # obsSense = 0 (all versions)
-        self.obs2 = ['any', '1.0', '1', '', 'x86_64', "older", "1.0-1", "0"]
-        self.obs3 = ['newer-than', '1.0', '1', '', 'x86_64', "older", "1.0-1", "4"]
-        self.obs4 = ['newer-than-or-equal', '1.0', '1', '', 'x86_64', "older", "1.0-1", "10"]
-        self.obs5 = ["older-than", "1.0", "1", '', "x86_64", "older", "1.0-1", "2"]
-        self.obs6 = ["newer-than-or-equal", "1.0", "1", '', "x86_64", "older", "1.0-1", "12"]
-        self.pkg1 = ['libgnat', '3.4.3', '9.EL4', '', 'i386']
-        self.pkg2 = ["older", "1.0", "1", "", "x86_64"]
-        self.pkg3 = ["older-noarch", "1.0", "1", "", "noarch"]
-        self.pkg4 = ["older", "0.9", "1", "", "x86_64"]
-        self.pkg5 = ["older", "1.3", "1", "", "x86_64"]
-
-        self.obsAspell = ['aspell', '0.50.5', '3.fc3', '12', 'i386', 'aspell-da', '0.50', '2']
-        self.pkgAspell =  ['aspell-da', '0.50', '10', "50", 'x86_64']
-
-	self.obsGcc = ['compat-libgcc-296', '2.96', '132.7.2', '', 'i386', 'gcc', '2.96', '10']
-	self.pkgGcc =  ['gcc', '3.4.3', '22', '', 'i386', '4545445', 'rhel-i386-as-4']
-
-    def testAnyObs(self):
-        """Verify that a package with no version sense obsolets all versions of
-        the package it is obsoleting"""
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs2, self.pkg2), 1)
-
-    def testNewerThanObs(self):
-        """Verify that a package with > 1.0-1 does not obsolete package 1.0-1"""
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs3, self.pkg2), 0)
-
-    def testNewerThanObsWorks(self):
-        """Verify that a package with >= 1.0-1 does  obsolete package 0.9-1"""
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs6, self.pkg4), 0)
-
-    def testNewerThanObsFails(self):
-        """Verify that a package with >= 1.0-1 does  obsolete package 1.3-1"""
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs6, self.pkg5), 1)
-
-    def testOlderThan(self):
-        """Verify that a obs: < 1.0-1  does not obsolete 1.0-1""" 
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs5, self.pkg2), 0)
-
-
-
-    def testOlderThanFail(self):
-        """Verify that < 1.0-1   does not obsolete package 1.3-1"""
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs5, self.pkg5), 0)
-    
-    def testOlderThanPass(self):
-        """Verify that a pacakage with < 1.0-1 does obsolete package 0.9-1"""
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs5, self.pkg4), 1)
-
-
-
-
-    def testOlderThanOrEqualObs(self):
-        """Verify that a package with <= 1.0-1 does obsolete package 1.0-1"""
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs4, self.pkg2), 1)
-
-    def testAspell(self):
-        self.assertEqual(up2dateUtils.isObsoleted(self.obsAspell, self.pkgAspell), 0)
-
-    def testGcc(self):
-        self.assertEqual(up2dateUtils.isObsoleted(self.obs1, self.pkg1), 1)
-        
-    def testGccCompat(self):
-	self.assertEqual(up2dateUtils.isObsoleted(self.obsGcc, self.pkgGcc), 0)
-        
-
-
 class TestTouchTimeStamp(TestCase):
     def setUp(self):
         import os
@@ -147,7 +76,6 @@ class TestTouchTimeStamp(TestCase):
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestTouchTimeStamp))
-    suite.addTest(unittest.makeSuite(TestIsObsoleted))
     suite.addTest(unittest.makeSuite(TestGetVersion))
     return suite
 
