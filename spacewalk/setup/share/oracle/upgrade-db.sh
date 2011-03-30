@@ -107,11 +107,12 @@ else
 	UPGRADE_TMPL=$ORACLE_ADMIN_DIR/embedded-upgradedb-10g.tmpl
 fi
 
+# sqlplus ... | cat ... is here to fool selinux, since oracle_sqlplus_t
 m4 $UPGRADE_TMPL -I$ORACLE_ADMIN_DIR \
    --define RHNORA_DBNAME=$ORACLE_SID \
-   --define RHNORA_LOG_PATH=/rhnsat/admin/rhnsat/logs \
    --define RHNORA_DATA_PATH=/rhnsat/data/rhnsat \
    --define RHNORA_DB_USER=$DB_USER \
-   | $ORACLE_HOME/bin/sqlplus /nolog
+   | $ORACLE_HOME/bin/sqlplus /nolog \
+   | cat /rhnsat/admin/rhnsat/logs/create_$ORACLE_SID.log
 
 set +x
