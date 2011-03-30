@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.21
+Version: 1.4.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -535,6 +535,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 30 2011 Jan Pazdziora 1.4.22-1
+- 664715 - catch exception, if no data found (tlestach@redhat.com)
+- hibernate 3.3 needs provider_class to be set (michael.mraka@redhat.com)
+- fix ChannelEditorTest.testAddRemovePackages test (tlestach@redhat.com)
+- 690767 - check that the result has some elements.
+- correct input attribute (mzazrivec@redhat.com)
+
 * Thu Mar 24 2011 Jan Pazdziora 1.4.21-1
 - automatically set focus on filter input field (msuchy@redhat.com)
 - implement common access keys (msuchy@redhat.com)
