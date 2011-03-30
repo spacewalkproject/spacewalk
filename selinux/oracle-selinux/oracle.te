@@ -199,6 +199,9 @@ tunable_policy(`oracle_11g_support',`
 ')
 
 role unconfined_r types oracle_sqlplus_t;
+role unconfined_r types oracle_lsnrctl_t;
+role unconfined_r types oracle_tnslsnr_t;
+role unconfined_r types oracle_db_t;
 
 optional_policy(`
 	gen_require(`
