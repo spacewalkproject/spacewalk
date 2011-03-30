@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.7
+Version: 1.4.8
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,11 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 1.4.8-1
+- 683200 - ssl cert can not be unicode string
+- fix variable typo
+- older yum do not have _repos_persistdir
+
 * Wed Mar 30 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.7-1
 - 683200 - support IDN
 
