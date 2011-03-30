@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.22
+Version: 1.4.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -535,6 +535,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 1.4.23-1
+- 683200 - convert IDN hostname in webUI from Pune encoding
+
 * Wed Mar 30 2011 Jan Pazdziora 1.4.22-1
 - 664715 - catch exception, if no data found (tlestach@redhat.com)
 - hibernate 3.3 needs provider_class to be set (michael.mraka@redhat.com)
