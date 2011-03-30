@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.23
+Version: 1.4.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.24-1
+- jakarta-commons-io is unused once jakarta-commons-fileupload is gone
+
 * Wed Mar 30 2011 Miroslav Suchý 1.4.23-1
 - 683200 - convert IDN hostname in webUI from Pune encoding
 
