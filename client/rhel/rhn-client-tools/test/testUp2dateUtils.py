@@ -10,25 +10,6 @@ import unittest
 TestCase = unittest.TestCase
 test_up2date = "etc-sysconfig-rhn/up2date"
 
-class TestGetProxySetting(TestCase):
-    def setUp(self):
-        from up2date_client import config
-        self.cfg = config.initUp2dateConfig(test_up2date)
-        self.proxy1 = "http://proxy.company.com:8080"
-        self.proxy2 = "proxy.company.com:8080"
-
-    def testHttpSpecified(self):
-        "Verify that http:// gets stripped from proxy settings"
-        self.cfg['httpProxy'] = self.proxy1
-        res = up2dateUtils.getProxySetting()
-        assert res == "proxy.company.com:8080"
-
-    def testHttpUnSpecified(self):
-        "Verify that proxies with no http:// work correctly"
-        self.cfg['httpProxy'] = self.proxy2
-        res = up2dateUtils.getProxySetting()
-        assert res == "proxy.company.com:8080"
-        
 
 class TestGetVersion(TestCase):
     def setUp(self):
@@ -207,7 +188,6 @@ def suite():
     suite.addTest(unittest.makeSuite(TestIsObsoleted))
     suite.addTest(unittest.makeSuite(TestPprint_pkglist))  
     suite.addTest(unittest.makeSuite(TestGetVersion))
-    suite.addTest(unittest.makeSuite(TestGetProxySetting))
     return suite
 
 if __name__ == "__main__":
