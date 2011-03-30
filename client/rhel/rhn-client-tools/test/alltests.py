@@ -31,6 +31,7 @@ import testTransactions
 import testUp2dateAuth
 import testUp2dateUtils
 import haltreetests
+import rhnPackageInfo
 ### import testrhnregGui
 
 from unittest import TestSuite
@@ -48,6 +49,7 @@ def suite():
         testTransactions.suite(),
         testUp2dateAuth.suite(),
         testUp2dateUtils.suite(),
+        rhnPackageInfo.suite(),
 ###        testrhnregGui.suite(),
         haltreetests.suite()
     ))

@@ -23,44 +23,6 @@ class TestGetVersion(TestCase):
         assert res == "100"
 
 
-class TestPprint_pkglist(TestCase):
-    def setUp(self):
-        self.pkgList1 = [["foo", "1.0", "1", "", "i386", "234234234", "some-channel"],
-                         ["bar", "2.0", "2", "9", "i686", "34234234234234", "some-channel"]]
-
-        self.pkgList2 = []
-        self.pkgList3 = map(lambda a: a+["othercruft", "morecruft"], self.pkgList1)
-
-        # send it a tuple
-        self.pkgList4 = ("foo", "1.0", "1", "", "i386", "234234234", "some-channel")
-        self.pkgList5 = list(self.pkgList4)
-
-    def testPprint_pkglist(self):
-        """Verify that pprint_pkglist properly formats a package list"""
-        res = up2dateUtils.pprint_pkglist(self.pkgList1)
-        assert res == ['foo-1.0-1', 'bar-2.0-2']
-
-    def testEmptyList(self):
-        """Verify that pprint_pkglist properly handles a empty list"""
-        res = up2dateUtils.pprint_pkglist(self.pkgList2)
-        assert res == []
-
-    def testTuple(self):
-        """Verify that pprint_pkglist properly handles a single tuple"""
-        res = up2dateUtils.pprint_pkglist(self.pkgList4)
-        assert res == "foo-1.0-1"
-
-    def testSingleList(self):
-        """Verify that pprint_pkglist proper handles a single list (IndexError)"""
-        try:
-            res = up2dateUtils.pprint_pkglist(self.pkgList5)
-            print res
-        except IndexError:
-            pass
-        else:
-            self.fail("expected a IndexError")
-
-
 class TestIsObsoleted(TestCase):
     def setUp(self):
         self.obs1 = ['gcc', '3.4.3', '9.EL4', '', 'x86_64', 'libgnat', '3.4.3-9.EL4', '10']
@@ -186,7 +148,6 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestTouchTimeStamp))
     suite.addTest(unittest.makeSuite(TestIsObsoleted))
-    suite.addTest(unittest.makeSuite(TestPprint_pkglist))  
     suite.addTest(unittest.makeSuite(TestGetVersion))
     return suite
 
