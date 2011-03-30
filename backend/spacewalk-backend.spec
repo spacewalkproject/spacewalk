@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.23
+Version: 1.4.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 1.4.24-1
+- always return RPC data in plain string (utf-8 encoded) (msuchy@redhat.com)
+- 683200 - support IDN
+
 * Wed Mar 30 2011 Jan Pazdziora 1.4.23-1
 - 688626 - export md5 attribute also for objects without a checksum
   (mzazrivec@redhat.com)
