@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.12
+Version:        1.4.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Mar 30 2011 Tomas Lestach <tlestach@redhat.com> 1.4.13-1
+- 671450 - delete rhel private channel families, if there're no certificate
+  entitlements available (tlestach@redhat.com)
+
 * Wed Mar 23 2011 Jan Pazdziora 1.4.12-1
 - In update, the column names should not contain table name (PostgreSQL).
 
