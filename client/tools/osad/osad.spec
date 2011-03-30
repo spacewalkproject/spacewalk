@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.6
+Version: 5.10.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -228,6 +228,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
 
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 5.10.7-1
+- utilize config.getServerlURL()
+- 683200 - use pune encoding when connecting to jabber
+
 * Wed Mar 30 2011 Jan Pazdziora 5.10.6-1
 - no need to support rhel2 (msuchy@redhat.com)
 - RHEL 4 is no longer a target version for osa-dispatcher, fixing .spec to
