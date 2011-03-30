@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.4.3
+Version:        1.4.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.4-1
+- fixed missing output redirection
+- oracle_sqlplus_t is not able to write to logs
+
 * Wed Mar 30 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.3-1
 - 683200 - convert db-host from IDN to ascii
 
