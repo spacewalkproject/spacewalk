@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.19
+Version:       5.5.20
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 5.5.20-1
+- 683200 - instead of encodings.idna use wrapper from rhn.connections, which
+  workaround corner cases
+- 683200 - rhnpush.py - convert servername from input to Pune encodings
+
 * Wed Mar 02 2011 Michael Mraka <michael.mraka@redhat.com> 5.5.19-1
 - Revertes "use size instead of archivesize"
 
