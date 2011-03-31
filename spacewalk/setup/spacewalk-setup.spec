@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.4.4
+Version:        1.4.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Mar 31 2011 Miroslav Suchý 1.4.5-1
+- 683200 - fix syntax error
+
 * Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.4-1
 - fixed missing output redirection
 - oracle_sqlplus_t is not able to write to logs
