@@ -17,15 +17,9 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
 def _getOSVersionAndRelease():
-    cfg = config.initUp2dateConfig()
     ts = transaction.initReadOnlyTransaction()
     for h in ts.dbMatch('Providename', "redhat-release"):
-        if cfg["versionOverride"]:
-            version = cfg["versionOverride"]
-        else:
-            version = h['version']
-
-        osVersionRelease = (h['name'], version, h['release'])
+        osVersionRelease = (h['name'], h['version'], h['release'])
         return osVersionRelease
     else:
        raise up2dateErrors.RpmError(
@@ -38,8 +32,11 @@ def getVersion():
     '''
     Returns the version of redhat-release rpm
     '''
+    cfg = config.initUp2dateConfig()
+    if cfg["versionOverride"]:
+        return str(cfg["versionOverride"])
     os_release, version, release = _getOSVersionAndRelease()
-    return str(version)
+    return version
 
 def getOSRelease():
     '''
