@@ -21,6 +21,7 @@ import sys
 
 # Adjust path so we can see the src modules running from branch as well
 # as test dir:
-sys.path.insert(0, './')
-sys.path.insert(0, '../')
-sys.path.insert(0, '../../')
+for path in ['./', './actions/']:
+  sys.path.insert(0, './' + path)
+  sys.path.insert(0, '../' + path)
+  sys.path.insert(0, '../../' + path)
