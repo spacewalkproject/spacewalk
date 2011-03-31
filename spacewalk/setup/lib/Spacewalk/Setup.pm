@@ -753,7 +753,7 @@ REDO_CONNECT:
 		-default => 'localhost',
 		-answer => \$answers->{'db-host'});
 
-    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'})
+    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
 	$data{'db-name'} = _oracle_make_dsn_string($answers);
 	if (defined $data{'db-name'}) {
 		# Try db-name as SID for host (//host:port/name).
