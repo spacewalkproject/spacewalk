@@ -11,6 +11,7 @@ SUBDIRS		= up2date_client actions firstboot firstboot-legacy-rhel5 bin
 # For subdirs, required exports 
 export PREFIX 
 export VERSION
+export PLATFORM
 
 all::
 

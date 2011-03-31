@@ -8,24 +8,34 @@
 
 import os
 import string
-
 import up2dateErrors
-import transaction
 import config
 import gettext
+from platform import getPlatform
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
-def _getOSVersionAndRelease():
-    ts = transaction.initReadOnlyTransaction()
-    for h in ts.dbMatch('Providename', "redhat-release"):
-        osVersionRelease = (h['name'], h['version'], h['release'])
-        return osVersionRelease
-    else:
-       raise up2dateErrors.RpmError(
-           "Could not determine what version of Red Hat Linux you "\
-           "are running.\nIf you get this error, try running \n\n"\
-           "\t\trpm --rebuilddb\n\n")
+if getPlatform() == 'deb':
+    import lsb_release
+    def _getOSVersionAndRelease():
+        dist_info = lsb_release.get_distro_information()
+        os_name = dist_info['ID']
+        os_version = dist_info['CODENAME']
+        os_release = dist_info['RELEASE']
+        return os_name, os_version, os_release
+
+else:
+    import transaction
+    def _getOSVersionAndRelease():
+        ts = transaction.initReadOnlyTransaction()
+        for h in ts.dbMatch('Providename', "redhat-release"):
+            osVersionRelease = (h['name'], h['version'], h['release'])
+            return osVersionRelease
+        else:
+            raise up2dateErrors.RpmError(
+                "Could not determine what version of Red Hat Linux you "\
+                "are running.\nIf you get this error, try running \n\n"\
+                "\t\trpm --rebuilddb\n\n")
 
 
 def getVersion():
