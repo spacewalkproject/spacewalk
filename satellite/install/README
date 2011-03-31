@@ -1,4 +1,4 @@
-README - Red Hat Network Satellite v. 5.2 Installation 
+README - Red Hat Network Satellite v. 5.4 Installation 
 ======================================================
 
 INSTALLATION: PRE-REQUISITES
@@ -8,8 +8,7 @@ Before beginning installation, make sure you have met the hardware, software,
 and database requirements necessary for Satellite installation as outlined
 in the RHN Satellite Installation Guide:
 
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Installation_Guide/ch-requirements.html
-
+http://docs.redhat.com/docs/en-US/Red_Hat_Network_Satellite/5.4/html/Installation_Guide/ch-requirements.html
 
 INSTALLATION METHODS - BASIC USAGE
 ----------------------------------
