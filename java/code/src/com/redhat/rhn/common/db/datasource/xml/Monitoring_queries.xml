@@ -239,7 +239,7 @@ SELECT C.description,
     AND P.recid = PS.probe_id
     AND PS.state = :state
     AND P.customer_id = :org_id
-    AND S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+    AND S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  USP.user_id = :user_id
    AND  USP.server_id = S.id
   GROUP BY CG.description, C.description
