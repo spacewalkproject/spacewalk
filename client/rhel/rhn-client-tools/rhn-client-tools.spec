@@ -32,6 +32,7 @@ Requires: hal >= 0.5.8.1-52
 Requires: newt
 Requires: python-dmidecode
 Requires: libxml2-python
+Requires: yum
 
 Conflicts: up2date < 5.0.0
 Conflicts: yum-rhn-plugin < 1.1.4-1

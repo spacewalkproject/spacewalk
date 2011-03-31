@@ -13,6 +13,7 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 import OpenSSL
 import config
+from yum.Errors import RepoError
 
 class Error:
     """base class for errors"""
@@ -188,9 +189,7 @@ class NoChannelsError(Error):
     def __repr__(self):
         return self.errmsg
 
-class SSLCertificateVerifyFailedError(Error):
-    # TODO This should be a subclass of OpenSSL.Error or whatever and raised
-    # from rhnlib.
+class SSLCertificateVerifyFailedError(RepoError):
     def __init__(self):
         # Need to override __init__ because the base class requires a message arg
         # and this exception shouldn't.
@@ -201,10 +200,10 @@ class SSLCertificateVerifyFailedError(Error):
         f.close()
         tempCert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, buf)
         if tempCert.has_expired():
-            Error.__init__(self ,"The certificate is expired. Please ensure you have the correct"
-                           " certificate and your system time is correct.")
+            RepoError.__init__(self ,"The certificate %s is expired. Please ensure you have the correct"
+                           " certificate and your system time is correct." % certFile)
         else:
-            Error.__init__(self, "The SSL certificate failed verification.")
+            RepoError.__init__(self, "The SSL certificate %s failed verification." % certFile)
 
 class SSLCertificateFileNotFound(Error):
     def __init__(self, errmsg):
