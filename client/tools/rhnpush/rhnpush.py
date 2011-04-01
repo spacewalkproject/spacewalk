@@ -156,7 +156,7 @@ def main():
     
 class UploadClass(uploadLib.UploadClass):
     def setURL(self):
-        server = idn_ascii_to_pune(self.options.server, 'utf-8')
+        server = idn_ascii_to_pune(self.options.server)
         if server is None:
             self.die(1, "Required parameter --server not supplied")
         scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
