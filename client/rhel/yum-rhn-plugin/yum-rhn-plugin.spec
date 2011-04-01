@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.9
+Version: 1.4.10
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Apr 01 2011 Miroslav Suchý 1.4.10-1
+- 690234 - do not re-create repo if it exist and is type of RhnRepo
+
 * Fri Apr 01 2011 Miroslav Suchý 1.4.9-1
 - name of attribute have to be in apostrophe
 
