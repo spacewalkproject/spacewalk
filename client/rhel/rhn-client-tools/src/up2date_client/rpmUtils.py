@@ -157,3 +157,11 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
     
     pkg_list.sort(key=lambda x:(x['name'], x['epoch'], x['version'], x['release']))
     return pkg_list
+
+def setDebugVerbosity():
+    """Set rpm's verbosity mode
+    """
+    try:
+        rpm.setVerbosity(rpm.RPMLOG_DEBUG)
+    except AttributeError:
+        print "extra verbosity not supported in this version of rpm"

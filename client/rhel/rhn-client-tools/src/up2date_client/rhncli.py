@@ -21,7 +21,6 @@
 import sys
 import os
 import xmlrpclib
-import rpm
 
 from optparse import Option
 from optparse import OptionParser
@@ -42,6 +41,7 @@ from up2date_client import up2dateAuth
 from up2date_client import up2dateErrors
 from up2date_client import up2dateLog
 from up2date_client import up2dateUtils
+from up2date_client import pkgUtils
 
 _optionsTable = [
     Option("-v", "--verbose", action="count", default=0,
@@ -198,11 +198,7 @@ class RhnCli(object):
         # figure out the debug level
         cfg["debug"] = cfg["debug"] + level 
         if cfg["debug"] > 2:
-            # Set rpm's verbosity mode
-            try:
-                rpm.setVerbosity(rpm.RPMLOG_DEBUG)
-            except AttributeError:
-                print "extra verbosity not supported in this version of rpm"
+            pkgUtils.setDebugVerbosity()
 
     @staticmethod
     def __exceptionHandler(type, value, tb):
