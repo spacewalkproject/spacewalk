@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.4.6
+Version:        1.4.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Apr 01 2011 Jan Pazdziora 1.4.7-1
+- 683200 - fixing broken commit 695e8f7a792996b7e51f9fd2b11789d26e625753.
+
 * Fri Apr 01 2011 Jan Pazdziora 1.4.6-1
 - 683200 - fix more syntax errors.
 
