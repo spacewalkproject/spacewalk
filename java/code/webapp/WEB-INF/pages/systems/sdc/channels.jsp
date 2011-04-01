@@ -44,7 +44,7 @@
                     <c:if test="${not channel.subscribed}">
                       <input ${disabledChannel} name="child_channel" value="${channel.id}" type="checkbox" id="unchecked">
                     </c:if>
-                    <c:if test="${not channel.freeForGuests && system.virtualGuest}">
+                    <c:if test="${not channel.freeForGuests && system.virtualGuest && channel.availableSubscriptions != null}">
                       <span class="asterisk">*&nbsp;</span>
                     </c:if>
                     <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
@@ -61,7 +61,7 @@
           </ul>
         </c:otherwise>
       </c:choose>
-      <c:if test="${system.virtualGuest}">
+      <c:if test="${system.virtualGuest && channel.availableSubscriptions != null}">
         <c:if test="${not empty system.virtualInstance.hostSystem.id}">
           <span class="asterisk">*&nbsp;</span><bean:message key="sdc.channels.edit.virtsubwarning" arg0="${system.virtualInstance.hostSystem.id}"
             arg1="${system.virtualInstance.hostSystem.name}"/>
