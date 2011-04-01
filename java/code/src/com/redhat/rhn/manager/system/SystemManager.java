@@ -112,7 +112,6 @@ public class SystemManager extends BaseManager {
     public static final String CAP_CONFIGFILES_DEPLOY = "configfiles.deploy";
     public static final String CAP_KICKSTART_INITIATE = "kickstart.initiate";
     public static final String CAP_SCRIPT_RUN = "script.run";
-    public static final String CAP_PACKAGES_VERIFYALL = "packages.verifyAll";
     public static final String CAP_RHNAPPLET_USE_SAT =
         "rhn_applet.use_satellite";
     public static final String CAP_PACKAGES_VERIFY = "packages.verify";

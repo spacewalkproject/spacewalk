@@ -84,19 +84,6 @@ class TestVerifyPackages(unittest.TestCase):
         data, missing_packages = rpmUtils.verifyPackages(packageList10)
         assert missing_packages == packageList10
 
-
-##class TestVerifyAllPackages(unittest.TestCase):
-##    def setUp(self):
-##	self.__setupData()
-
-##    def __setupData(self):
-##        pass
-
-##    def testVerifyAllPackages(self):
-##        "Verify that verifyAllPackages works"
-##        data = rpmUtils.verifyAllPackages()
-##        write(data)
-
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestVerifyPackages))

@@ -49,8 +49,7 @@ __rhnexport__ = [
     'fullUpdate',
     'checkNeedUpdate',
     'runTransaction',
-    'verify',
-    'verifyAll'
+    'verify'
 ]
 
 class YumAction(yum.YumBase):
@@ -575,17 +574,4 @@ def verify(packages, cache_only=None):
         data['missing_packages'] = missing_packages
         return(43, "packages requested to be verified are missing", data)
 
-    return (0, "packages verified", data)
-
-def verifyAll(cache_only=None):
-    log.log_debug("Called packages.verifyAll")
-    if cache_only:
-        return (0, "no-ops for caching", {})
-
-    data = {}
-    data['name'] = "packages.verifyAll"
-    data['version'] = 0
-
-    ret = rpmUtils.verifyAllPackages()
-    data['verify_info'] = ret
     return (0, "packages verified", data)

@@ -99,17 +99,6 @@ def verifyPackages(packages):
 
     return retlist, missing_packages
 
-def verifyAllPackages():
-    """ run the equiv of `rpm -Va`. It aint gonna
-        be fast, but...
-    """
-    data = {}
-
-    packages = getInstalledPackageList(getArch=1)
-
-    ret,missing_packages =  verifyPackages(packages)
-    return ret
-
 #FIXME: this looks like a good candidate for caching, since it takes a second
 # or two to run, and I can call it a couple of times
 def getInstalledPackageList(msgCallback = None, progressCallback = None,
