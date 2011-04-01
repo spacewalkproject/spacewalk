@@ -13,7 +13,7 @@ VERSION         := $(shell echo `grep ^Version: rhn-client-tools.spec | awk '{ p
 
 # Platfor could be defined via command line
 ifndef PLATFORM
-  PLATFORM='rpm'
+  PLATFORM=rpm
 endif
 
 # For subdirs, required exports 
