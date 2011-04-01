@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.8
+Version: 1.4.9
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Apr 01 2011 Miroslav Suchý 1.4.9-1
+- name of attribute have to be in apostrophe
+
 * Wed Mar 30 2011 Miroslav Suchý 1.4.8-1
 - 683200 - ssl cert can not be unicode string
 - fix variable typo
