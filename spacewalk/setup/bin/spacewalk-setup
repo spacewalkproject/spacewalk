@@ -1033,7 +1033,7 @@ sub populate_initial_configs {
      db_user => $answers->{'db-user'},
      db_password => $answers->{'db-password'},
      db_name => $answers->{'db-name'},
-     db_host => $answers->{'db-host'}),
+     db_host => $answers->{'db-host'},
      db_port => $answers->{'db-port'},
      hibernate_dialect => $hibernate_dialect,
      hibernate_driver => $hibernate_driver,
