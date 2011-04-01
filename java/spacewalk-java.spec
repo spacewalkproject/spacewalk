@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.25
+Version: 1.4.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 01 2011 Jan Pazdziora 1.4.26-1
+- 627791 - extending child channel selection area (tlestach@redhat.com)
+- Do not show success message when passwords don't match (jrenner@suse.de)
+
 * Thu Mar 31 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.25-1
 - replaced check_probe synonym with original table
 
