@@ -190,7 +190,7 @@ sub load_answer_file {
 
     close FH;
   }
-  $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'})
+  $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
   return;
 }
 
@@ -847,7 +847,7 @@ sub postgresql_get_database_answers {
         -answer => \$answers->{'db-host'});
 
     if ($answers->{'db-host'} ne '') {
-        $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'})
+        $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
         ask(
             -noninteractive => $opts->{"non-interactive"},
             -question => "Port",
