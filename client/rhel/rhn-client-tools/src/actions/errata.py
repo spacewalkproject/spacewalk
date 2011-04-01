@@ -10,7 +10,7 @@ import sys
 sys.path.append("/usr/share/rhn/")
 from up2date_client import rhnserver
 from up2date_client import up2dateAuth
-from up2date_client import rpmUtils
+from up2date_client import pkgUtils
 from actions import packages
 
 __rhnexport__ = [
@@ -35,7 +35,7 @@ def update(errataidlist, cache_only=None):
 
     current_packages_with_arch = {}
     current_packages ={}
-    for p in rpmUtils.getInstalledPackageList(getArch=1):
+    for p in pkgUtils.getInstalledPackageList(getArch=1):
         current_packages_with_arch[p['name']+p['arch']] = p
         current_packages[p['name']] = p
 

@@ -15,7 +15,7 @@ import sys
 import up2dateUtils
 import up2dateErrors
 import rhnserver
-import rpmUtils
+import pkgUtils
 import up2dateLog
 import urlparse
 import rhnreg_constants
@@ -511,7 +511,7 @@ def getServerType(serverUrl=None):
 
 def updatePackages(systemId):
     s = rhnserver.RhnServer()
-    s.registration.add_packages(systemId, rpmUtils.getInstalledPackageList())
+    s.registration.add_packages(systemId, pkgUtils.getInstalledPackageList())
 
 class ActivationResult:
     ACTIVATED_NOW = 0

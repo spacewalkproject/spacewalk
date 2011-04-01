@@ -31,7 +31,7 @@ sys.path.append("/usr/share/rhn/")
 
 from up2date_client import rhnreg
 from up2date_client import hardware
-from up2date_client import rpmUtils
+from up2date_client import pkgUtils
 from up2date_client import up2dateErrors
 from up2date_client import rhncli
 
@@ -92,7 +92,7 @@ class RegisterKsCli(rhncli.RhnCli):
             getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
                 getArch = 1
-            packageList = rpmUtils.getInstalledPackageList(getArch=getArch)
+            packageList = pkgUtils.getInstalledPackageList(getArch=getArch)
         else:
             packageList = []
 

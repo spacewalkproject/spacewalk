@@ -29,7 +29,7 @@ import signal
 import rhnreg, hardware
 import up2dateErrors
 import up2dateUtils
-import rpmUtils
+import pkgUtils
 import up2dateLog
 import config
 import up2dateAuth
@@ -753,7 +753,7 @@ class PackagesWindow:
             getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
                 getArch = 1
-            tui.packageList = rpmUtils.getInstalledPackageList(getArch=getArch)
+            tui.packageList = pkgUtils.getInstalledPackageList(getArch=getArch)
             self.screen.popWindow()
 
         for package in tui.packageList:

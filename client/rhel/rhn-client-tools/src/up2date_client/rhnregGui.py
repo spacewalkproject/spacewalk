@@ -50,7 +50,7 @@ import up2dateErrors
 import hardware
 import messageWindow
 import progress
-from up2date_client import rpmUtils
+from up2date_client import pkgUtils
 import up2dateAuth
 import up2dateUtils
 import config
@@ -823,7 +823,7 @@ class CreateProfilePage:
             getArch = 0
             if cfg['supportsExtendedPackageProfile']:
                 getArch = 1
-            packageList = rpmUtils.getInstalledPackageList(progressCallback = lambda amount,
+            packageList = pkgUtils.getInstalledPackageList(progressCallback = lambda amount,
                                                            total: gtk.main_iteration(False),
                                                            getArch=getArch)
 ##            selection = []
@@ -1256,7 +1256,7 @@ class PackageDialog:
     def getPackageList(self):
         pwin = progress.Progress()
         pwin.setLabel(_("Building a list of RPM packages installed on your system.  Please wait."))
-        packageDialogPackages = rpmUtils.getInstalledPackageList(progressCallback = pwin.setProgress, getArch=1)
+        packageDialogPackages = pkgUtils.getInstalledPackageList(progressCallback = pwin.setProgress, getArch=1)
         pwin.hide()
         return packageDialogPackages
     

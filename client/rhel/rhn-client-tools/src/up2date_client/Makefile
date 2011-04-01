@@ -14,7 +14,7 @@ FILES		:= config gui hardware progress \
 		   rhnregGui rhnserver \
 		   messageWindow rhncli \
 		   rhnreg_constants \
-                   platform debUtils
+                   platform debUtils pkgUtils
 
 PYFILES 	:= $(addsuffix .py, $(FILES))
 PYCFILES	:= $(addsuffix .pyc, $(FILES))
