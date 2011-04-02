@@ -190,6 +190,7 @@ class CheckCli(rhncli.RhnCli):
         """ Parse action data and returns (method, params) """
         data = action['action']
         parser, decoder = xmlrpclib.getparser()
+        parser._parser.returns_unicode = 0
         parser.feed(data)
         parser.close()
         params = decoder.close()

@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.12
+Version: 0.13
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -13,7 +13,8 @@ BuildRoot: %{_tmppath}/%{name}-buildroot
 Prefix: %{_prefix}
 #BuildArch: noarch
 Requires: pyOpenSSL python
-BuildRequires: python-devel binutils-devel 
+Requires: rhnlib >= 2.5.35
+BuildRequires: python-devel binutils-devel
 Url: http://rhn.redhat.com
 
 %description
@@ -64,6 +65,12 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 0.13-1
+- 683200 - instead of encodings.idna use wrapper from rhn.connections, which
+  workaround corner cases
+- 683200 - client/solaris - when making profile name from hostname, convert it
+  from Pune encoding
+
 * Tue Mar 08 2011 Miroslav Suchý <msuchy@redhat.com> 0.12-1
 - add binutils-devel as buildrequires
 

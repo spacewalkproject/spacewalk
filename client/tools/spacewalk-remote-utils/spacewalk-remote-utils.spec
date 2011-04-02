@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.4.4
+Version:     1.4.5
 Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
@@ -15,6 +15,7 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
+Requires:    rhnlib >= 2.5.31
 BuildRequires: python-devel
 BuildRequires: docbook-utils
 
@@ -52,6 +53,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 1.4.5-1
+- 683200 - support IDN
+
 * Wed Mar 16 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.4-1
 - allowing input of 0 insteado f 'gold' in spacewalk-create-channel
   (jsherril@redhat.com)

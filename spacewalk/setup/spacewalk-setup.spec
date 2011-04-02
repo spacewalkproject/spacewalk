@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.4.2
+Version:        1.4.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,22 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Apr 01 2011 Jan Pazdziora 1.4.7-1
+- 683200 - fixing broken commit 695e8f7a792996b7e51f9fd2b11789d26e625753.
+
+* Fri Apr 01 2011 Jan Pazdziora 1.4.6-1
+- 683200 - fix more syntax errors.
+
+* Thu Mar 31 2011 Miroslav Suchý 1.4.5-1
+- 683200 - fix syntax error
+
+* Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.4-1
+- fixed missing output redirection
+- oracle_sqlplus_t is not able to write to logs
+
+* Wed Mar 30 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.3-1
+- 683200 - convert db-host from IDN to ascii
+
 * Mon Mar 07 2011 Jan Pazdziora 1.4.2-1
 - Removing rhn-enable-push.pl as it is not referenced from anywhere.
 - Removing rhn-load-config.pl as it is not referenced from anywhere.

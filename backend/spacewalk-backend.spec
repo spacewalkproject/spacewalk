@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.22
+Version: 1.4.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -20,7 +20,7 @@ BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
-Requires: rhnlib >= 1.8
+Requires: rhnlib >= 2.5.35
 # for Debian support
 Requires: python-debian
 Requires: %{name}-libs >= 1.1.16-1
@@ -251,7 +251,7 @@ Requires: cobbler >= 1.4.3
 %if 0%{?rhel} && 0%{?rhel} < 5
 Requires: rhnlib  >= 2.1.4-14
 %else
-Requires: rhnlib  >= 2.5.22
+Requires: rhnlib  >= 2.5.35
 %endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
@@ -684,6 +684,19 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.25-1
+- make_evr should accept source parameter
+- call transports directly
+
+* Wed Mar 30 2011 Miroslav Suchý 1.4.24-1
+- always return RPC data in plain string (utf-8 encoded) (msuchy@redhat.com)
+- 683200 - support IDN
+
+* Wed Mar 30 2011 Jan Pazdziora 1.4.23-1
+- 688626 - export md5 attribute also for objects without a checksum
+  (mzazrivec@redhat.com)
+- use xmlrpclib directly (msuchy@redhat.com)
+
 * Wed Mar 23 2011 Jan Pazdziora 1.4.22-1
 - fixing stray comma breaking package profile sync (jsherril@redhat.com)
 - set envelope From to traceback email (msuchy@redhat.com)

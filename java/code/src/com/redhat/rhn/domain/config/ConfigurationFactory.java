@@ -29,6 +29,8 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -378,15 +380,20 @@ public class ConfigurationFactory extends HibernateFactory {
      */
     public static ConfigFile lookupConfigFileByChannelAndName(Long channel, Long name) {
         Session session = HibernateFactory.getSession();
-        return (ConfigFile)
+        Query query =
             session.getNamedQuery("ConfigFile.findByChannelAndName")
                     .setLong("channel_id", channel.longValue())
                     .setLong("name_id", name.longValue())
                     .setLong("state_id", ConfigFileState.normal().
                                                     getId().longValue())
                     //Retrieve from cache if there
-                    .setCacheable(true)
-                    .uniqueResult();
+                    .setCacheable(true);
+        try {
+            return (ConfigFile) query.uniqueResult();
+        }
+        catch (ObjectNotFoundException e) {
+            return null;
+        }
     }
 
     /**

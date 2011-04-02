@@ -295,7 +295,6 @@ function m4_macros() {
     if [ -z "$db" ] ; then return ; fi
     echo -I $Oracle/admin/$OracleVersionShort \
         --define RHNORA_ADMIN_PATH=$AdminDB \
-	--define RHNORA_LOG_PATH=RHNORA_ADMIN_PATH/logs \
 	--define RHNORA_DBNAME=$db \
 	--define RHNORA_DATA_PATH=$DataDB \
 	--define RHNORA_ORACLE_HOME=$ORACLE_HOME \
@@ -308,7 +307,9 @@ function CreateDatabase() {
     db=$2
     if [ -z "$db" ] ; then return ; fi
 
+    # sqlplus ... | cat ... is here to fool selinux, since oracle_sqlplus_t
     m4 $(m4_macros $db) $template | $ORACLE_HOME/bin/sqlplus /nolog \
+      | cat >$AdminDB/logs/create_$db.log \
       || exit $?
 }
 

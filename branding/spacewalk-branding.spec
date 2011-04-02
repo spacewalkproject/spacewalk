@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.4.2
+Version:    1.4.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 30 2011 Jan Pazdziora 1.4.3-1
+- update copyright years (msuchy@redhat.com)
+- implement common access keys (msuchy@redhat.com)
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.2-1
 - The LOGGED IN and SIGN OUT are not images since Satellite 5.0 (rhn-360.css),
   removing.

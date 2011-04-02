@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.36
+Version: 2.5.37
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Wed Mar 30 2011 Jan Pazdziora 2.5.37-1
+- string does not exist, str is the correct thing to use here...
+  (jsherril@redhat.com)
+
 * Wed Mar 16 2011 Miroslav Suchý <msuchy@redhat.com> 2.5.36-1
 - code cleanup - remove HTTPResponse.read() override
 

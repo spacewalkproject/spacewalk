@@ -63,7 +63,10 @@ def init_hook(conduit):
        cachefile = open(cachefilename, 'r')
        repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
        cachefile.close()
-       for (repoid, reponame) in repolist:
+       for repo_item in repolist:
+           if len(repo_item) == 1:
+               repo_item.append('')
+           (repoid, reponame) = repo_item
            repodir = os.path.join(cachedir, repoid)
            if os.path.isdir(repodir) and os.path.isfile(
                         os.path.join(repodir, 'repodata', 'repomd.xml')):
@@ -160,12 +163,22 @@ def prereposetup_hook(conduit):
     for channel in svrChannels:
         if channel['version']:
             repo = RhnRepo(channel)
+            already_exists_repos = repos.findRepos(repo.id)
+            if already_exists_repos:
+                # there will be nearly always only one, and even if there is more
+                # repos, we can ignore them
+                if type(already_exists_repos[0]) == type(repo): # repo is type of RhnRepo
+                    continue # repo has been already initialized
+                else: # YumRepository from _init, made for caching
+                    repos.delete(repo.id)
             repo.basecachedir = cachedir
             repo.gpgcheck = gpgcheck
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
             repo.metadata_expire = metadata_expire
+            if hasattr(conduit.getConf(), '_repos_persistdir'):
+                repo.base_persistdir = conduit.getConf()._repos_persistdir
             repoOptions = getRHNRepoOptions(conduit, repo.id)
             if repoOptions:
                 for o in repoOptions:
@@ -241,7 +254,7 @@ class RhnRepo(YumRepository):
         if type(channel['url']) == list:
           for url in channel['url']:
             urls.append(url + '/GET-REQ/' + self.id)
-        else:
+        else: # type will be always list since Spacewalk 1.4, in future this will be dead coed
           urls.append(channel['url'] + '/GET-REQ/' + self.id)
 
         self.baseurl = urls 
@@ -372,7 +385,7 @@ class RhnRepo(YumRepository):
                                       reget = reget,
                                       checkfunc=checkfunc,
                                       http_headers=headers,
-                                      ssl_ca_cert = self.sslcacert,
+                                      ssl_ca_cert = self.sslcacert.encode('utf-8'),
                                       timeout=self.timeout,
                                       size = size
                                       )
@@ -396,7 +409,7 @@ class RhnRepo(YumRepository):
                                           reget = reget,
                                           checkfunc=checkfunc,
                                           http_headers=headers,
-                                          ssl_ca_cert = self.sslcacert,
+                                          ssl_ca_cert = self.sslcacert.encode('utf-8'),
                                           timeout=self.timeout,
                                           size = size
                                           )
@@ -570,15 +583,9 @@ def get_proxy_url(up2date_cfg):
         proxy_url = proxy_url + urllib.quote(up2date_cfg['proxyPassword'])
         proxy_url = proxy_url + '@'
    
-    netloc = up2date_cfg['httpProxy']
+    netloc = config.getProxySetting()
     if netloc == '':
         raise BadProxyConfig
-
-    # Check if a protocol is supplied. We'll ignore it.
-    proto_split = netloc.split('://')
-    if len(proto_split) > 1:
-       netloc = proto_split[1]
-
     return proxy_url + netloc
 
 

@@ -25,7 +25,7 @@
     <table class="details">
       <tr>
         <td>
-          <select multiple="multiple" name="childChannels" size="6">
+          <select multiple="multiple" name="childChannels" size="20">
           <c:set var="first" scope="session" value="yes"/>
           <c:forEach items="${channels}" var="channel" varStatus="loop">
             <c:choose>

@@ -27,6 +27,7 @@ import types
 import exceptions
 import locale
 from optparse import Option, OptionParser
+from rhn.connections import idn_ascii_to_pune
 
 import gettext
 t = gettext.translation('spacewalk-backend-server', fallback=True)
@@ -2039,16 +2040,16 @@ def processCommandline():
     # process anything CFG related (db, debug, server, and print)
     #
     CFG.set("TRACEBACK_MAIL", OPTIONS.traceback_mail or CFG.TRACEBACK_MAIL)
-    CFG.set("RHN_PARENT", OPTIONS.iss_parent or OPTIONS.server or \
-             CFG.ISS_PARENT or CFG.RHN_PARENT)
+    CFG.set("RHN_PARENT", idn_ascii_to_pune(OPTIONS.iss_parent or OPTIONS.server or \
+             CFG.ISS_PARENT or CFG.RHN_PARENT))
     if OPTIONS.server and not OPTIONS.iss_parent:
         # server option on comman line should override ISS parent from config
         CFG.set("ISS_PARENT", None)
     else:
-        CFG.set("ISS_PARENT", OPTIONS.iss_parent or CFG.ISS_PARENT)
+        CFG.set("ISS_PARENT", idn_ascii_to_pune(OPTIONS.iss_parent or CFG.ISS_PARENT))
         CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or CFG.ISS_CA_CHAIN or CFG.CA_CHAIN)
 
-    CFG.set("HTTP_PROXY", OPTIONS.http_proxy or CFG.HTTP_PROXY)
+    CFG.set("HTTP_PROXY", idn_ascii_to_pune(OPTIONS.http_proxy or CFG.HTTP_PROXY))
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)

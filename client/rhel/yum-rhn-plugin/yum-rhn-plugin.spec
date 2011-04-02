@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.6
+Version: 1.4.10
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,20 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Apr 01 2011 Miroslav Suchý 1.4.10-1
+- 690234 - do not re-create repo if it exist and is type of RhnRepo
+
+* Fri Apr 01 2011 Miroslav Suchý 1.4.9-1
+- name of attribute have to be in apostrophe
+
+* Wed Mar 30 2011 Miroslav Suchý 1.4.8-1
+- 683200 - ssl cert can not be unicode string
+- fix variable typo
+- older yum do not have _repos_persistdir
+
+* Wed Mar 30 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.7-1
+- 683200 - support IDN
+
 * Thu Mar 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.6-1
 - 688870 - also check whether cached repo is valid
 

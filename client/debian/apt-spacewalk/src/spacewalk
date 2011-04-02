@@ -132,7 +132,7 @@ class spacewalk_method(pkg_acquire_method):
     def __load_config(self):
         if self.up2date_cfg == None:
             self.up2date_cfg = config.initUp2dateConfig()
-            self.up2date_server = urlparse(self.up2date_cfg['serverURL'])
+            self.up2date_server = urlparse(config.getServerlURL()[0])
         # TODO: proxy settings
 
 

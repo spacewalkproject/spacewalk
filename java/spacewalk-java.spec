@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.21
+Version: 1.4.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -51,7 +51,6 @@ Requires: jakarta-commons-codec
 Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
-Requires: jakarta-commons-io
 Requires: jakarta-taglibs-standard
 Requires: jcommon
 Requires: jpam
@@ -118,7 +117,6 @@ BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
-BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
 BuildRequires: jcommon
@@ -425,7 +423,6 @@ fi
 %{jardir}/commons-digester.jar
 %{jardir}/commons-discovery.jar
 %{jardir}/commons-el.jar
-%{jardir}/commons-io.jar
 %{jardir}/commons-lang.jar
 %{jardir}/commons-logging.jar
 %{jardir}/commons-validator.jar
@@ -535,6 +532,26 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 01 2011 Jan Pazdziora 1.4.26-1
+- 627791 - extending child channel selection area (tlestach@redhat.com)
+- Do not show success message when passwords don't match (jrenner@suse.de)
+
+* Thu Mar 31 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.25-1
+- replaced check_probe synonym with original table
+
+* Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.24-1
+- jakarta-commons-io is unused once jakarta-commons-fileupload is gone
+
+* Wed Mar 30 2011 Miroslav Suchý 1.4.23-1
+- 683200 - convert IDN hostname in webUI from Pune encoding
+
+* Wed Mar 30 2011 Jan Pazdziora 1.4.22-1
+- 664715 - catch exception, if no data found (tlestach@redhat.com)
+- hibernate 3.3 needs provider_class to be set (michael.mraka@redhat.com)
+- fix ChannelEditorTest.testAddRemovePackages test (tlestach@redhat.com)
+- 690767 - check that the result has some elements.
+- correct input attribute (mzazrivec@redhat.com)
+
 * Thu Mar 24 2011 Jan Pazdziora 1.4.21-1
 - automatically set focus on filter input field (msuchy@redhat.com)
 - implement common access keys (msuchy@redhat.com)

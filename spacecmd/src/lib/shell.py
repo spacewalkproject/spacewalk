@@ -28,7 +28,7 @@ class SpacewalkShell(Cmd):
     __module_list = [ 'activationkey', 'configchannel', 'cryptokey',
                       'custominfo', 'distribution', 'errata',
                       'filepreservation', 'group', 'kickstart',
-                      'misc', 'org', 'package', 'report', 'schedule',
+                      'misc', 'org', 'package', 'repo', 'report', 'schedule',
                       'snippet', 'softwarechannel', 'ssm',
                       'system', 'user', 'utils' ]
 
@@ -65,7 +65,7 @@ class SpacewalkShell(Cmd):
 
         # this is used when loading and saving caches
         self.conf_dir = conf_dir
-        
+
         self.history_file = os.path.join(self.conf_dir, 'history')
 
         try:
@@ -112,7 +112,7 @@ class SpacewalkShell(Cmd):
         if not self.session:
             self.do_login('')
             if self.session == '': return ''
-        
+
         parts = line.split()
 
         if len(parts):

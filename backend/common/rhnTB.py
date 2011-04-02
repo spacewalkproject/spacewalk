@@ -19,7 +19,8 @@ import sys
 import time
 import string
 import traceback
-from cStringIO import StringIO
+from StringIO import StringIO
+from rhn.connections import idn_pune_to_unicode
 
 from rhnConfig import CFG
 from rhnLog import log_error
@@ -122,8 +123,9 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
     e_type, e_value = sys.exc_info()[:2]
     t = time.ctime(time.time())
     exc = StringIO()
-   
-    exc.write("Exception reported from %s\nTime: %s\n" % (hostname, t))
+
+    unicode_hostname = idn_pune_to_unicode(hostname)
+    exc.write("Exception reported from %s\nTime: %s\n" % (unicode_hostname, t))
     exc.write("Exception type %s\n" % (e_type,))
     if method:
         exc.write("Exception while handling function %s\n" % method)
@@ -160,10 +162,12 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
             fr = string.strip(to[0])
             to = string.join(map(string.strip, to), ', ')
         headers = {
-            "Subject" : "RHN TRACEBACK from %s" % hostname,
+            "Subject" : "RHN TRACEBACK from %s" % unicode_hostname,
             "From"    : "%s <%s>" % (hostname, fr),
             "To"      : to,
             "X-RHN-Traceback-Severity"  : severity,
+            "Content-Type" : 'text/plain; charset="utf-8"',
+
             }
         QUIET_MAIL = QUIET_MAIL - 1     # count it no matter what
         

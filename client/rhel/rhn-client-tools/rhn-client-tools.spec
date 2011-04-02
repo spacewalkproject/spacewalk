@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.8
+Version: 1.4.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -12,7 +12,7 @@ BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
 
-Requires: rhnlib >= 2.5.20
+Requires: rhnlib >= 2.5.35
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
 %if 0%{?rhel} && 0%{?rhel} <= 5
@@ -32,6 +32,7 @@ Requires: hal >= 0.5.8.1-52
 Requires: newt
 Requires: python-dmidecode
 Requires: libxml2-python
+Requires: yum
 
 Conflicts: up2date < 5.0.0
 Conflicts: yum-rhn-plugin < 1.1.4-1
@@ -296,6 +297,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Mar 30 2011 Miroslav Suchý 1.4.9-1
+- 683200 - support IDN
+- 691837 - default to RHN Classic in firstboot (mzazrivec@redhat.com)
+
 * Thu Mar 24 2011 Miroslav Suchý <msuchy@redhat.com> 1.4.8-1
 - utilize config.getServerlURL()
 - atomic save of /etc/sysconfig/rhn/up2date

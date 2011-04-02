@@ -1,6 +1,5 @@
 include(`rhnora.m4')
 
-spool RHNORA_CREATELOG(RHNORA_DBNAME) replace
 set echo on
 set term on
 set pagesize 10000
@@ -86,33 +85,23 @@ set term off
 whenever sqlerror continue
 
 select 'rdbms/admin/catalog.sql' script from dual;
-spool RHNORA_CREATELOG(catalog)
 @?/rdbms/admin/catalog.sql
-spool RHNORA_CREATELOG(RHNORA_DBNAME) append
 
 select 'rdbms/admin/catblock.sql' script from dual;
-spool RHNORA_CREATELOG(catblock)
 @?/rdbms/admin/catblock.sql
-spool RHNORA_CREATELOG(RHNORA_DBNAME) append
 
 select 'rdbms/admin/catproc.sql' script from dual;
-spool RHNORA_CREATELOG(catproc)
 @?/rdbms/admin/catproc.sql
-spool RHNORA_CREATELOG(RHNORA_DBNAME) append
 
 select 'rdbms/admin/owminst.plb' script from dual;
-spool RHNORA_CREATELOG(owminst)
 @?/rdbms/admin/owminst.plb
-spool RHNORA_CREATELOG(RHNORA_DBNAME) append
 
 whenever sqlerror exit failure
 connect system/RHNORA_DB_PASSWORD
 whenever sqlerror continue
 
 select 'sqlplus/admin/pupbld.sql' script from dual;
-spool RHNORA_CREATELOG(pupbld)
 @?/sqlplus/admin/pupbld.sql
-spool RHNORA_CREATELOG(RHNORA_DBNAME) append
 
 -- back to our code
 set echo on
@@ -155,9 +144,7 @@ grant create trigger to RHNORA_DB_USER;
 connect RHNORA_DB_USER/RHNORA_DB_PASSWORD
 
 select 'rdbms/admin/utlxplan.sql' script from dual;
-spool RHNORA_CREATELOG(utlxplan)
 @?/rdbms/admin/utlxplan.sql
-spool RHNORA_CREATELOG(RHNORA_DBNAME) append
 
 disconnect
 

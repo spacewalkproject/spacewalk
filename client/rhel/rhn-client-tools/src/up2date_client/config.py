@@ -13,6 +13,8 @@ up2date agent to hold config info.
 
 import os
 import sys
+from urlparse import urlsplit, urlunsplit
+from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -87,7 +89,7 @@ class ConfigFile:
                 # or maybe error.
                 continue
             key = split[0].strip()
-            value = split[1].strip()
+            value = unicode(split[1].strip(), 'utf-8')
 
             # decode a comment line
             comment = None
@@ -149,11 +151,11 @@ class ConfigFile:
         f.write("")
         for key in self.dict.keys():
             val = self.dict[key]
-            f.write("%s[comment]=%s\n" % (key, val[0]))
+            f.write((u"%s[comment]=%s\n" % (key, val[0])).encode('utf-8'))
             if type(val[1]) == type([]):
-                f.write("%s=%s;\n" % (key, ';'.join(map(str, val[1]))))
+                f.write((u"%s=%s;\n" % (key, ';'.join(map(str, val[1])))).encode('utf-8'))
             else:
-                f.write("%s=%s\n" % (key, val[1]))
+                f.write((u"%s=%s\n" % (key, val[1])).encode('utf-8'))
             f.write("\n")
         f.close()
         os.rename(self.fileName+'.new', self.fileName)
@@ -270,17 +272,31 @@ class Config:
 
 
 def getProxySetting():
+    """ returns proxy string in format hostname:port
+    hostname is converted to Pune encoding if needed
+    """
     cfg = initUp2dateConfig()
     proxy = None
     proxyHost = cfg["httpProxy"]
 
     if proxyHost:
         if proxyHost[:7] == "http://":
-            proxy = proxyHost[7:]
-        else:
-            proxy = proxyHost
+            proxyHost = proxyHost[7:]
+        parts = proxyHost.split(':')
+        parts[0] = idn_ascii_to_pune(parts[0])
+        proxy = ':'.join(parts)
 
     return proxy
+
+def convert_url_to_pune(url):
+    """ returns url where hostname is converted to Pune encoding """
+    s = urlsplit(url)
+    return urlunsplit([s.scheme, idn_ascii_to_pune(s.netloc), s.path, s.query, s.fragment]).encode('utf-8')
+
+def convert_url_from_pune(url):
+    """ returns url where hostname is converted from Pune encoding. Returns unicode string. """
+    s = urlsplit(url)
+    return urlunsplit([s.scheme, idn_pune_to_unicode(s.netloc), s.path, s.query, s.fragment])
 
 def getServerlURL():
     """ return list of serverURL from config
@@ -291,9 +307,15 @@ def getServerlURL():
     # serverURL may be a list in the config file, so by default, grab the
     # first element.
     if type(cfg['serverURL']) == type([]):
-        return cfg['serverURL']
+        return map(convert_url_to_pune, cfg['serverURL'])
     else:
-        return [cfg['serverURL']]
+        return [convert_url_to_pune(cfg['serverURL'])]
+
+def setServerURL(serverURL):
+    """ Set serverURL in config """
+    cfg = initUp2dateConfig()
+    cfg.set('serverURL', serverURL)
+
 
 def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
     """This function is the right way to get at the up2date config."""

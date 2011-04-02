@@ -57,6 +57,7 @@ import config
 import OpenSSL
 import up2dateLog
 from rhn import rpclib
+from rhn.connections import idn_pune_to_unicode
 import rhnreg_constants
 
 cfg = config.initUp2dateConfig()
@@ -285,8 +286,7 @@ class ChooseServerPage:
         global serverType
         up2dateConfig = config.initUp2dateConfig()
         if self.hostedButton.get_active():
-            up2dateConfig.set('serverURL', 
-                              'https://xmlrpc.rhn.redhat.com/XMLRPC')
+            config.setServerURL('https://xmlrpc.rhn.redhat.com/XMLRPC')
             if not cfg['sslCACert']:
                 up2dateConfig.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
         else:
@@ -300,7 +300,7 @@ class ChooseServerPage:
 
             # If they changed the value, write it back to the config file.
             if customServer != self.server:
-                up2dateConfig.set('serverURL', customServer)
+                config.setServerURL(customServer)
             if not cfg['sslCACert']:
                 up2dateConfig.set('sslCACert', 
                                   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
@@ -1185,7 +1185,7 @@ class HardwareDialog:
             elif hw['class'] == 'NETINFO':
                 label = self.hwXml.get_widget("hostnameLabel")
                 try:
-                    label.set_text(hw['hostname'])
+                    label.set_text(idn_pune_to_unicode(hw['hostname']))
                 except:
                     pass
                 label = self.hwXml.get_widget("ipLabel")
