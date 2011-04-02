@@ -954,16 +954,7 @@ class SendingWindow:
 
         # enable yum-rhn-plugin
         try:
-            if rhnreg.YumRHNPluginPackagePresent():
-                if rhnreg.YumRHNPluginConfPresent():
-                    if not rhnreg.YumRhnPluginEnabled():
-                        rhnreg.enableYumRhnPlugin()
-                        self.tui.yum_plugin_conf_changed = 1
-                else:
-                    rhnreg.createDefaultYumRHNPluginConf()
-                    self.tui.yum_plugin_conf_changed = 1
-            else:
-                self.tui.yum_plugin_present = 0
+            self.tui.yum_plugin_present, self.tui.yum_plugin_conf_changed = rhnreg.pluginEnable()
         except IOError, e:
             WarningWindow(self.screen, _("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
             self.tui.yum_plugin_conf_error = 1

@@ -253,6 +253,7 @@ make -f Makefile.rhn-client-tools test
 %{_sbindir}/rhn-channel
 
 %{_datadir}/rhn/up2date_client/rhnreg.*
+%{_datadir}/rhn/up2date_client/yumPlugin.*
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
 

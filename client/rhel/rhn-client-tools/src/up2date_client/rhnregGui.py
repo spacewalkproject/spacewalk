@@ -865,16 +865,11 @@ class CreateProfilePage:
 
         # enable yum-rhn-plugin
         try:
-            if rhnreg.YumRHNPluginPackagePresent():
-                if rhnreg.YumRHNPluginConfPresent():
-                    if not rhnreg.YumRhnPluginEnabled():
-                        rhnreg.enableYumRhnPlugin()
-                        reviewLog.yum_plugin_conf_changed()
-                else:
-                    rhnreg.createDefaultYumRHNPluginConf()
-                    reviewLog.yum_plugin_conf_changed()
-            else:
+            present, conf_changed = rhnreg.pluginEnable()
+            if not present:
                 reviewLog.yum_plugin_warning()
+            if conf_changed:
+                reviewLog.yum_plugin_conf_changed()
         except IOError, e:
             errorWindow(_("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enable.\n") + e.errmsg)
             reviewLog.yum_plugin_conf_error()
