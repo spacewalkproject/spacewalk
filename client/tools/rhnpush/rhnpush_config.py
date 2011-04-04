@@ -22,10 +22,6 @@
 import sys
 import ConfigParser
 
-True = 1
-False = 0
-
-
 #Class that contains the options read in from the config file.
 #Uses a ConfigParser to create a dictionary of the configuration options.
 #That dictionary is then used to add instance variables to the object dynamically.
