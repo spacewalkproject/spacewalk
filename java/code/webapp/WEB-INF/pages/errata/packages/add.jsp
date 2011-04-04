@@ -46,7 +46,7 @@
               </option>
           </c:forEach>
       </select>
-      <html:submit property="view_click">
+      <html:submit property="view_clicked">
           <bean:message key="errata.edit.packages.add.viewsubmit"/>
       </html:submit>
   </p>
