@@ -11,11 +11,17 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: gettext
 
 Requires: rhn-check >= 0.0.8
+%if 0%{?suse_version}
+Requires(post): aaa_base
+Requires(preun): aaa_base
+BuildRequires: sysconfig
+%else
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
+%endif
 
 %description
 The Red Hat Update Agent that automatically queries the Red Hat
@@ -23,14 +29,18 @@ Network servers and determines which packages need to be updated on
 your machine, and runs any actions.
 
 %prep
-%setup -q 
+%setup -q
 
 %build
 make -f Makefile.rhnsd %{?_smp_mflags} CFLAGS="%{optflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
+make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} INIT_DIR=$RPM_BUILD_ROOT/%{_initrddir}
+
+%if 0%{?suse_version}
+install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
+%endif
 
 %find_lang %{name}
 
@@ -56,6 +66,7 @@ rm -fr $RPM_BUILD_ROOT
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
+%dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
 %{_initrddir}/rhnsd
