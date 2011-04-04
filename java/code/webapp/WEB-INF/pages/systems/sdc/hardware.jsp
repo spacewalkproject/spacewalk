@@ -144,7 +144,14 @@
           <bean:message key="sdc.details.hardware.network_hostname"/>
         </th>
         <td>
-          ${network_hostname}
+          <c:choose>
+            <c:when test="${network_hostname == null}">
+              <bean:message key="sdc.details.overview.unknown"/>
+            </c:when>
+            <c:otherwise>
+              <c:out value="${network_hostname}" />
+            </c:otherwise>
+          </c:choose>
         </td>
       </tr>
       <tr>
