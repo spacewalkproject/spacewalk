@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.8
+Version: 5.4.9
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -53,6 +53,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Tue Apr 05 2011 Miroslav Suchý 5.4.9-1
+- simplify read_username()
+- 683200 - utilize up2date_client.config
+
 * Wed Mar 30 2011 Miroslav Suchý 5.4.8-1
 - no need to support rhel2
 - Updating the copyright years to include 2010.
