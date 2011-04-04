@@ -82,19 +82,17 @@ def create_server_obj(server_url):
 
 
 def read_username():
-    tty = open("/dev/tty", "r+")
-    tty.write("Red Hat Network username: ")
+    print("Red Hat Network username: ")
     try:
-        username = tty.readline()
+        username = sys.stdin.readline().rstrip('\n')
     except KeyboardInterrupt:
-        tty.write("\n")
+        print
         sys.exit(0)
     if username is None:
         # EOF
-        tty.write("\n")
+        print
         sys.exit(0)
-    return string.strip(username)
-    
+    return username.strip()
 
 
 def system_exit(code, msgs=None):
