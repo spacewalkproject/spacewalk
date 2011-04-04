@@ -19,6 +19,7 @@ Requires:      up2date
 Requires:      rhn-client-tools
 %endif
 BuildRequires: docbook-utils, gettext
+BuildRequires: python-devel
 
 Summary: Package uploader for the Red Hat Network Satellite Server
 
