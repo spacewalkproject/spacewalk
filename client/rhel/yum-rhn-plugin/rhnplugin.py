@@ -193,6 +193,15 @@ def prereposetup_hook(conduit):
     if cachefile:
         cachefile.close()
 
+    # resolve --enablerepo/--disablerepo for RHN repos
+    opts = conduit.getCmdLine()[0]
+    for opt, repoexp in opts.repos:
+           if opt == '--enablerepo':
+               conduit._base.repos.enableRepo(repoexp)
+           elif opt == '--disablerepo':
+               conduit._base.repos.disableRepo(repoexp)
+
+
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
     global rhn_enabled
