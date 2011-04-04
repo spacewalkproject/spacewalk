@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.26
+Version: 1.4.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.27-1
+- fixed queries on Virtual system Overview page
+- correct form property
+- Fix to remove message on entitlement consumption for virt guest subscribed to
+  cloned channels
+
 * Fri Apr 01 2011 Jan Pazdziora 1.4.26-1
 - 627791 - extending child channel selection area (tlestach@redhat.com)
 - Do not show success message when passwords don't match (jrenner@suse.de)
