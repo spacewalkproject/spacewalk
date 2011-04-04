@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.9
+Version: 1.4.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -293,6 +293,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Apr 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.10-1
+- urlsplit returns tuple on RHEL5
+- 691188 - inherit SSLCertificateVerifyFailedError from RepoError
+
 * Wed Mar 30 2011 Miroslav Suchý 1.4.9-1
 - 683200 - support IDN
 - 691837 - default to RHN Classic in firstboot (mzazrivec@redhat.com)
