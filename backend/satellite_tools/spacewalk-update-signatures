@@ -81,6 +81,7 @@ _get_needed_pkgs_query = """
         rhnPackageKeyAssociation PA on PA.package_id = P.id inner join
         rhnChecksumView CV on CV.id = P.checksum_id
    where PA.key_id is null
+     and P.rpm_version is not null
 """
 
 
