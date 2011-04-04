@@ -29,35 +29,24 @@ sys.path.append("/usr/share/rhn")
 from up2date_client import config
 from up2date_client import up2dateAuth
 
-_config = None
-
-def get_config():
-    """send back a cross platform structure containing cfg info"""
-    global _config
-    if not _config:
-        _config = config.initUp2dateConfig()
-        
-    return _config
-
 
 def create_server_obj(server_url):
 
-    cfg = get_config()
+    cfg = initUp2dateConfig()
     
-    enable_proxy = read_cfg_val(cfg, 'enableProxy')
-    enable_proxy_auth = read_cfg_val(cfg, 'enableProxyAuth')
+    enable_proxy = cfg['enableProxy']
     proxy_host = None
     proxy_user = None
     proxy_password = None
     
     if enable_proxy:
-        proxy_host = read_cfg_val(cfg, 'httpProxy')
+        proxy_host = config.getProxySetting()
+
+        if cfg['enableProxyAuth']:
+            proxy_user = cfg['proxyUser']
+            proxy_password = cfg['proxyPassword']
                                                                                        
-        if enable_proxy_auth:
-            proxy_user = read_cfg_val(cfg, 'proxyUser')
-            proxy_password = read_cfg_val(cfg, 'proxyPassword')
-                                                                                       
-    ca = read_cfg_val(cfg, 'sslCACert')
+    ca = cfg['sslCACert']
         
     if type(ca) == type(""):
         ca = [ca]
@@ -90,14 +79,6 @@ def create_server_obj(server_url):
         server.add_trusted_cert(ca_cert)
 
     return server
-
-
-def read_cfg_val(obj, key):
-    """ return obj[key] or None if key does not exists """
-    if obj.has_key(key):
-        return obj[key]
-    else:
-        raise "unknown config option:  %s" % key
 
 
 def read_username():
@@ -205,8 +186,7 @@ def main():
     if options.url:
         url = options.url
     else:
-        cfg = get_config()
-        url = munge_server_url(read_cfg_val(cfg, 'serverURL'))
+        url = munge_server_url(config.getServerlURL())
 
     s = create_server_obj(url)
     
