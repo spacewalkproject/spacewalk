@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.27
+Version: 1.4.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 04 2011 Miroslav Suchý 1.4.28-1
+- when hostname is unknown print "unknown"
+- 683200 - IDN.toUnicode does not allow null value
+
 * Mon Apr 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.27-1
 - fixed queries on Virtual system Overview page
 - correct form property
