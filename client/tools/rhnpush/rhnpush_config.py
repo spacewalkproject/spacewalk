@@ -84,14 +84,8 @@ class rhnpushConfigParser:
     
     #Use the ConfigParser to read in the configuration file.
     def _read_config_files(self):   
-        #try:
-            #file = open(self.filename, 'r')
-        #except IOError:
-        #   sys.exit(1)
-
         try:
             self.settings.read([self.filename])
-            #file.close()
         except IOError,e:
             print "Config File Error: line %s, file %s: $s" % (e.lineno, e.filename, e)
             sys.exit(1)
