@@ -32,11 +32,17 @@ else:
             osVersionRelease = (h['name'], h['version'], h['release'])
             return osVersionRelease
         else:
-            raise up2dateErrors.RpmError(
-                "Could not determine what version of Red Hat Linux you "\
-                "are running.\nIf you get this error, try running \n\n"\
-                "\t\trpm --rebuilddb\n\n")
-
+            for h in ts.dbMatch('Providename', "distribution-release"):
+                osVersionRelease = (h['name'], h['version'], h['release'])
+                # zypper requires a exclusive lock on the rpmdb. So we need
+                # to close it here.
+                ts.ts.closeDB()
+                return osVersionRelease
+            else:
+                raise up2dateErrors.RpmError(
+                    "Could not determine what version of Red Hat Linux you "\
+                    "are running.\nIf you get this error, try running \n\n"\
+                    "\t\trpm --rebuilddb\n\n")
 
 def getVersion():
     '''
