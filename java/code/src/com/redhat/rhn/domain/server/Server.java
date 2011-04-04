@@ -951,7 +951,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return Returns the primary hostname for this server
      */
     public String getDecodedHostname() {
-        return IDN.toUnicode(getHostname());
+        String hostname = getHostname();
+        return (hostname == null) ? null : IDN.toUnicode(hostname);
     }
 
     /**
