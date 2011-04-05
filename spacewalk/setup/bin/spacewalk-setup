@@ -945,7 +945,7 @@ sub load_satellite_certificate {
   my $cert_contents = do { local $INPUT_RECORD_SEPARATOR; <FH> };
 
   if (not $cert_contents) {
-    print Spacewalk::Setup::loc("No data found in '%s'.\n", $answers->{'satellite-certificate-file'});
+    print Spacewalk::Setup::loc("No data found in '%s'.\n", $answers->{'satellite-cert-file'});
     exit 34;
   }
 
