@@ -78,8 +78,8 @@ echo "  - edit the values of the VARIABLES below (in this script) as"
 echo "    appropriate:"
 echo "    - ACTIVATION_KEYS needs to reflect the activation key(s) value(s)"
 echo "      from the website. XKEY or XKEY,YKEY"
-echo "    - ORG_GPG_KEY needs to be set to the name of the corporate public"
-echo "      GPG key filename (residing in /var/www/html/pub) if appropriate."
+echo "    - ORG_GPG_KEY needs to be set to the name(s) of the corporate public"
+echo "      GPG key filename(s) (residing in /var/www/html/pub) if appropriate. XKEY or XKEY,YKEY"
 echo
 echo "Verify that the script variable settings are correct:"
 echo "    - CLIENT_OVERRIDES should be only set differently if a customized"
@@ -131,7 +131,7 @@ PROFILENAME=""   # Empty by default to let it be set automatically.
 
 # an idea from Erich Morisse (of Red Hat).
 # use either wget *or* curl
-# Also check to see if the version on the 
+# Also check to see if the version on the
 # machine supports the insecure mode and format
 # command accordingly.
 
@@ -143,7 +143,7 @@ if [ -x /usr/bin/wget ] ; then
     else
         FETCH="/usr/bin/wget -q -r -nd"
     fi
-    
+
 else
     if [ -x /usr/bin/curl ] ; then
         output=`LANG=en_US /usr/bin/curl -k 2>&1`
@@ -161,9 +161,11 @@ if [ $USING_SSL -eq 0 ] ; then
     HTTPS_PUB_DIRECTORY=${HTTP_PUB_DIRECTORY}
 fi
 
-YUM=up2date
-if [ -x /usr/bin/yum ] ; then
-    YUM=yum
+INSTALLER=up2date
+if [ -x /usr/bin/zypper ] ; then
+    INSTALLER=zypper
+elif [ -x /usr/bin/yum ] ; then
+    INSTALLER=yum
 fi
 """
 
@@ -231,19 +233,21 @@ echo "  . up2date config file"
 
 def getGPGKeyImportSh():
     return """\
-if [ ! -z "$ORG_GPG_KEY" ] ; then 
+if [ ! -z "$ORG_GPG_KEY" ] ; then
     echo
     echo "* importing organizational GPG key"
-    rm -f ${ORG_GPG_KEY}
-    $FETCH ${HTTPS_PUB_DIRECTORY}/${ORG_GPG_KEY}
-    # get the major version of up2date
-    # this will also work for RHEL 5 and systems where no up2date is installed
-    res=$(LC_ALL=C rpm -q --queryformat '%{version}' up2date | sed -e 's/\..*//g')
-    if [ "x$res" == "x2" ] ; then
-        gpg $(up2date --gpg-flags) --import $ORG_GPG_KEY
-    else
-        rpm --import $ORG_GPG_KEY
-    fi
+    for GPG_KEY in $(echo "$ORG_GPG_KEY" | tr "," " "); do
+	rm -f ${GPG_KEY}
+	$FETCH ${HTTPS_PUB_DIRECTORY}/${GPG_KEY}
+	# get the major version of up2date
+	# this will also work for RHEL 5 and systems where no up2date is installed
+	res=$(LC_ALL=C rpm -q --queryformat '%{version}' up2date | sed -e 's/\..*//g')
+	if [ "x$res" == "x2" ] ; then
+	    gpg $(up2date --gpg-flags) --import $GPG_KEY
+	else
+	    rpm --import $GPG_KEY
+	fi
+    done
 fi
 
 """
@@ -255,11 +259,23 @@ echo
 echo "* attempting to install corporate public CA cert"
 if [ $USING_SSL -eq 1 ] ; then
     if [ $ORG_CA_CERT_IS_RPM_YN -eq 1 ] ; then
-        rpm -Uvh ${HTTP_PUB_DIRECTORY}/${ORG_CA_CERT}
+        rpm -Uvh --force --replacefiles --replacepkgs ${HTTP_PUB_DIRECTORY}/${ORG_CA_CERT}
     else
         rm -f ${ORG_CA_CERT}
         $FETCH ${HTTP_PUB_DIRECTORY}/${ORG_CA_CERT}
         mv ${ORG_CA_CERT} /usr/share/rhn/
+
+    fi
+    if [ "$INSTALLER" == zypper ] ; then
+	if [  $ORG_CA_CERT_IS_RPM_YN -eq 1 ] ; then
+	  # get name from config
+	  ORG_CA_CERT=$(basename $(sed -n 's/^sslCACert *= *//p' /etc/sysconfig/rhn/up2date))
+	fi
+	test -e "/etc/ssl/certs/${ORG_CA_CERT}.pem" || {
+	  test -d "/etc/ssl/certs" || mkdir -p "/etc/ssl/certs"
+	  ln -s "/usr/share/rhn/${ORG_CA_CERT}" "/etc/ssl/certs/${ORG_CA_CERT}.pem"
+	}
+	test -x /usr/bin/c_rehash && /usr/bin/c_rehash /etc/ssl/certs/ | grep "${ORG_CA_CERT}"
     fi
 fi
 
@@ -269,11 +285,13 @@ fi
 #5/16/05 wregglej 159437 - changed script to use rhn-actions-control
 def getAllowConfigManagement():
     return """\
-if [ $ALLOW_CONFIG_ACTIONS -eq 1 ] ; then 
+if [ $ALLOW_CONFIG_ACTIONS -eq 1 ] ; then
     echo
     echo "* setting permissions to allow configuration management"
     echo "  NOTE: use an activation key to subscribe to the tools"
-    if [ "$YUM" == yum ] ; then
+    if [ "$INSTALLER" == zypper ] ; then
+        echo "        channel and zypper install/update rhncfg-actions"
+    elif [ "$INSTALLER" == yum ] ; then
         echo "        channel and yum upgrade rhncfg-actions"
     else
         echo "        channel and up2date rhncfg-actions"
@@ -284,7 +302,9 @@ if [ $ALLOW_CONFIG_ACTIONS -eq 1 ] ; then
     else
         echo "Error setting permissions for configuration management."
         echo "    Please ensure that the activation key subscribes the"
-        if [ "$YUM" == yum ] ; then
+	if [ "$INSTALLER" == zypper ] ; then
+	    echo "    system to the tools channel and zypper install/update rhncfg-actions."
+	elif [ "$INSTALLER" == yum ] ; then
             echo "    system to the tools channel and yum updates rhncfg-actions."
         else
             echo "    system to the tools channel and up2dates rhncfg-actions."
@@ -299,11 +319,13 @@ fi
 #5/16/05 wregglej 158437 - changed script to use rhn-actions-control
 def getAllowRemoteCommands():
     return """\
-if [ $ALLOW_REMOTE_COMMANDS -eq 1 ] ; then 
+if [ $ALLOW_REMOTE_COMMANDS -eq 1 ] ; then
     echo
     echo "* setting permissions to allow remote commands"
     echo "  NOTE: use an activation key to subscribe to the tools"
-    if [ "$YUM" == yum ] ; then
+    if [ "$INSTALLER" == zypper ] ; then
+        echo "        channel and zypper update rhncfg-actions"
+    elif [ "$INSTALLER" == yum ] ; then
         echo "        channel and yum upgrade rhncfg-actions"
     else
         echo "        channel and up2date rhncfg-actions"
@@ -313,7 +335,9 @@ if [ $ALLOW_REMOTE_COMMANDS -eq 1 ] ; then
     else
         echo "Error setting permissions for remote commands."
         echo "    Please ensure that the activation key subscribes the"
-        if [ "$YUM" == yum ] ; then
+        if [ "$INSTALLER" == zypper ] ; then
+	    echo "    system to the tools channel and zypper updates rhncfg-actions."
+	elif [ "$INSTALLER" == yum ] ; then
             echo "    system to the tools channel and yum updates rhncfg-actions."
         else
             echo "    system to the tools channel and up2dates rhncfg-actions."
@@ -361,11 +385,19 @@ if [ $REGISTER_THIS_BOX -eq 1 ] ; then
         profilename_opt="--profilename=$PROFILENAME"
     fi
     /usr/sbin/rhnreg_ks --force --activationkey "$ACTIVATION_KEYS" $profilename_opt
+    RET="$?"
     [ -n "$files" ] && rm -f $files
-    [ -n "$directories" ] && rmdir $(echo $directories | rev)
-    echo
-    echo "*** this system should now be registered, please verify ***"
-    echo
+    [ -n "$directories" ] && rmdir $directories
+    if [ $RET -eq 0 ]; then
+      echo
+      echo "*** this system should now be registered, please verify ***"
+      echo
+    else
+      echo
+      echo "*** Error: Registering the system failed."
+      echo
+      exit 1
+    fi
 else
     echo "* explicitely not registering"
 fi
@@ -379,13 +411,17 @@ echo
 echo "OTHER ACTIONS"
 echo "------------------------------------------------------"
 if [ $FULLY_UPDATE_THIS_BOX -eq 1 ] ; then
-    if [ "$YUM" == yum ] ; then
+    if [ "$INSTALLER" == zypper ] ; then
+        echo "zypper --non-interactive up zypper zypp-plugin-spacewalk; rhn-profile-sync; zypper --non-interactive up (conditional)"
+    elif [ "$INSTALLER" == yum ] ; then
         echo "yum -y upgrade yum yum-rhn-plugin; rhn-profile-sync; yum upgrade (conditional)"
     else
         echo "up2date up2date; up2date -p; up2date -uf (conditional)"
     fi
 else
-    if [ "$YUM" == yum ] ; then
+    if [ "$INSTALLER" == zypper ] ; then
+        echo "zypper --non-interactive up zypper zypp-plugin-spacewalk; rhn-profile-sync"
+    elif [ "$INSTALLER" == yum ] ; then
         echo "yum -y upgrade yum yum-rhn-plugin; rhn-profile-sync"
     else
         echo "up2date up2date; up2date -p"
@@ -396,9 +432,21 @@ echo "------------------------------------------------------"
 if [ $FULLY_UPDATE_THIS_BOX -eq 1 ] ; then
     echo "* completely updating the box"
 else
-    echo "* ensuring $YUM itself is updated"
+    echo "* ensuring $INSTALLER itself is updated"
 fi
-if [ "$YUM" == yum ] ; then
+if [ "$INSTALLER" == zypper ] ; then
+    zypper ref -s
+    zypper --non-interactive up zypper zypp-plugin-spacewalk
+    if [ -x /usr/sbin/rhn-profile-sync ] ; then
+        /usr/sbin/rhn-profile-sync
+    else
+        echo "Error updating system info in RHN Satellite."
+        echo "    Please ensure that rhn-profile-sync in installed and rerun it."
+    fi
+    if [ $FULLY_UPDATE_THIS_BOX -eq 1 ] ; then
+        zypper --non-interactive up
+    fi
+elif [ "$INSTALLER" == yum ] ; then
     /usr/bin/yum -y upgrade yum yum-rhn-plugin
     if [ -x /usr/sbin/rhn-profile-sync ] ; then
         /usr/sbin/rhn-profile-sync
@@ -407,7 +455,7 @@ if [ "$YUM" == yum ] ; then
         echo "    Please ensure that rhn-profile-sync in installed and rerun it."
     fi
     if [ $FULLY_UPDATE_THIS_BOX -eq 1 ] ; then
-        /usr/bin/yum -y upgrade 
+        /usr/bin/yum -y upgrade
     fi
 else
     /usr/sbin/up2date up2date
