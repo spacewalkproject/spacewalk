@@ -29,7 +29,7 @@
 		           styleclass="center"
 		           headerclass="thin-column">
 
-	              <c:out value="<a href=\"/network/systems/groups/errata_list.pxt?sgid=${current.id}\""  escapeXml="false" />
+	              <c:out value="<a href=\"/network/systems/groups/errata_list.pxt?sgid=${current.id}\">"  escapeXml="false"/>
 
 	              <c:choose>
 			        <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
