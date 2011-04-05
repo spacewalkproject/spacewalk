@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.26
+Version: 1.4.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -20,7 +20,7 @@ BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
-Requires: rhnlib >= 2.5.35
+Requires: rhnlib >= 2.5.38
 # for Debian support
 Requires: python-debian
 Requires: %{name}-libs >= 1.1.16-1
@@ -251,7 +251,7 @@ Requires: cobbler >= 1.4.3
 %if 0%{?rhel} && 0%{?rhel} < 5
 Requires: rhnlib  >= 2.1.4-14
 %else
-Requires: rhnlib  >= 2.5.35
+Requires: rhnlib  >= 2.5.38
 %endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
@@ -684,6 +684,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Apr 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.27-1
+- idn_unicode_to_pune() has to return string
+
 * Tue Apr 05 2011 Jan Pazdziora 1.4.26-1
 - don't try to update signatures for non-rpm packages
   (michael.mraka@redhat.com)
