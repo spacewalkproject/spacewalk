@@ -5,13 +5,13 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.21
+Version:       5.5.22
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
 Requires:      rpm-python
-Requires:      rhnlib >= 2.5.35
+Requires:      rhnlib >= 2.5.38
 Requires:      spacewalk-backend-libs >= 0.8.3
 %if 0%{?rhel} && 0%{?rhel} < 5
 Requires:      up2date
@@ -56,6 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Tue Apr 05 2011 Michael Mraka <michael.mraka@redhat.com> 5.5.22-1
+- idn_unicode_to_pune() has to return string
+- no need to define built-in constants
+- delete dead code
+
 * Fri Apr 01 2011 Miroslav Suchý 5.5.21-1
 - pass only one argument to idn_ascii_to_pune (msuchy@redhat.com)
 
