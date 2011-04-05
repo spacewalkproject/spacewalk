@@ -9,13 +9,13 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.7
+Version: 5.10.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python-devel
 Requires: python
-Requires: rhnlib >= 2.5.31
+Requires: rhnlib >= 2.5.38
 Requires: jabberpy
 %if 0%{?rhel} <= 5
 Requires: python-hashlib
@@ -228,6 +228,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
 
 %changelog
+* Tue Apr 05 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.8-1
+- idn_unicode_to_pune() has to return string
+
 * Wed Mar 30 2011 Miroslav Suchý 5.10.7-1
 - utilize config.getServerlURL()
 - 683200 - use pune encoding when connecting to jabber
