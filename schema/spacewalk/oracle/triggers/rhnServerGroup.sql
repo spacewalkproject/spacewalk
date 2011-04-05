@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,9 +11,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
 --
 
 create or replace trigger
@@ -58,7 +55,8 @@ declare
 	cursor snapshots is
 		select	snapshot_id id
 		from	rhnSnapshotServerGroup
-		where	server_group_id = :old.id;
+		where	server_group_id = :old.id
+		order by snapshot_id;
 begin
 	for snapshot in snapshots loop
 		update rhnSnapshot
@@ -72,37 +70,3 @@ end;
 /
 show errors
 
---
---
--- Revision 1.12  2003/11/09 18:18:03  pjones
--- bugzilla: 109083 -- triggers for snapshot invalidation on confchan change
--- bugfix in server group snapshot invalidation
---
--- Revision 1.11  2003/11/09 18:13:20  pjones
--- bugzilla: 109083 -- re-enable snapshot invalidation
---
--- Revision 1.10  2003/11/07 18:05:42  pjones
--- bugzilla: 109083
--- kill old config file schema (currently just an exclude except for
---   rhnConfigFile which is replaced)
--- exclude the snapshot stuff, and comment it from triggers and procs
--- more to come, but the basic config file stuff is in.
---
--- Revision 1.9  2003/10/23 19:14:56  pjones
--- bugzilla: 105745
--- remove rhnSnapshotServerGroup after setting the snapshot invalid
---
--- Revision 1.8  2003/10/07 20:49:18  pjones
--- bugzilla: 106188
---
--- snapshot invalidation
---
--- Revision 1.7  2002/05/10 22:00:48  pjones
--- add rhnFAQClass, and make it a dep for rhnFAQ
--- add grants where appropriate
--- add cvs id/log where it's been missed
--- split data out where appropriate
--- add excludes where appropriate
--- make sure it still builds (at least as sat).
--- (really this time)
---

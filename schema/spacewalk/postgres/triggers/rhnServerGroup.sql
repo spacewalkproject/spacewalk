@@ -1,7 +1,6 @@
--- oracle equivalent source sha1 ff24d972d1672927bf481e2e7271b51952487b8d
--- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnServerGroup.sql
+-- oracle equivalent source sha1 71c265484207215eed2be2034a9c4940cf8dac0e
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,10 +13,6 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---
---
---
-
 
 create or replace function rhn_server_group_mod_trig_fun() returns trigger 
 as
@@ -81,6 +76,7 @@ begin
                 select  snapshot_id
                 from    rhnSnapshotServerGroup
                 where   server_group_id = old.id
+                order by snapshot_id
 	loop
 		update rhnSnapshot
                         set invalid = lookup_snapshot_invalid_reason('sg_removed')
