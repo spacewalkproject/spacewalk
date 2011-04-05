@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.37
+Version: 2.5.38
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Tue Apr 05 2011 Michael Mraka <michael.mraka@redhat.com> 2.5.38-1
+- idn_unicode_to_pune() has to return string
+
 * Wed Mar 30 2011 Jan Pazdziora 2.5.37-1
 - string does not exist, str is the correct thing to use here...
   (jsherril@redhat.com)
