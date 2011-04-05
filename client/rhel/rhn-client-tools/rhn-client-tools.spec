@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.10
+Version: 1.4.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -12,7 +12,7 @@ BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
 
-Requires: rhnlib >= 2.5.35
+Requires: rhnlib >= 2.5.38
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
 %if 0%{?rhel} && 0%{?rhel} <= 5
@@ -293,6 +293,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Apr 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
+- idn_unicode_to_pune() has to return string
+
 * Mon Apr 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.10-1
 - urlsplit returns tuple on RHEL5
 - 691188 - inherit SSLCertificateVerifyFailedError from RepoError
