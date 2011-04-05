@@ -5,7 +5,7 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.16
+Version:         10.2.0.17
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -116,6 +116,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Apr 05 2011 Jan Pazdziora 10.2.0.17-1
+- Making oracle_common_log_t into a logging type.
+
 * Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0.16-1
 - switched to default VersionTagger
 
