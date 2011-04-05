@@ -15,7 +15,7 @@ require {
 type oracle_dir_t;
 files_type(oracle_dir_t);
 type oracle_common_log_t;
-files_type(oracle_common_log_t);
+logging_log_file(oracle_common_log_t);
 type oracle_common_file_t;
 files_type(oracle_common_file_t);
 
