@@ -736,7 +736,7 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
 <mode name="base_eus_channels_by_version_release_server_arch"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
   <query params="product_name_label, version, server_arch, user_id, org_id">
-        select unique c.id,
+        select distinct c.id,
                c.label,
                c.name,
                rcm.release,
