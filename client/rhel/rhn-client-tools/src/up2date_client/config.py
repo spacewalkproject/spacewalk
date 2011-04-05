@@ -14,7 +14,7 @@ up2date agent to hold config info.
 import os
 import sys
 from urlparse import urlsplit, urlunsplit
-from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
+from rhn.connections import idn_unicode_to_pune, idn_pune_to_unicode
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -283,7 +283,7 @@ def getProxySetting():
         if proxyHost[:7] == "http://":
             proxyHost = proxyHost[7:]
         parts = proxyHost.split(':')
-        parts[0] = idn_ascii_to_pune(parts[0])
+        parts[0] = idn_unicode_to_pune(parts[0])
         proxy = ':'.join(parts)
 
     return proxy
@@ -291,7 +291,7 @@ def getProxySetting():
 def convert_url_to_pune(url):
     """ returns url where hostname is converted to Pune encoding """
     s = urlsplit(url)
-    return urlunsplit((s[0], idn_ascii_to_pune(s[1]), s[2], s[3], s[4])).encode('utf-8')
+    return urlunsplit((s[0], idn_unicode_to_pune(s[1]), s[2], s[3], s[4])).encode('utf-8')
 
 def convert_url_from_pune(url):
     """ returns url where hostname is converted from Pune encoding. Returns unicode string. """

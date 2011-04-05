@@ -219,11 +219,12 @@ def idn_pune_to_unicode(hostname):
     else:
         return u'.'.join([encodings.idna.ToUnicode(x) for x in hostname.split('.')])
 
-def idn_ascii_to_pune(hostname):
-    """ Convert domain name to Pune encoding. Hostname can be instance of string or Unicode """
+def idn_unicode_to_pune(hostname):
+    """ Convert domain name to Pune encoding. Hostname can be instance of string or
+        Unicode. Returns (ascii) string. """
     if hostname is None:
         return None
     else:
         if not isinstance(hostname, unicode):
             hostname = unicode(hostname, 'utf-8')
-        return u'.'.join([encodings.idna.ToASCII(x) for x in hostname.split('.')])
+        return '.'.join([encodings.idna.ToASCII(x) for x in hostname.split('.')])
