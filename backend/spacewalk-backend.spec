@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.25
+Version: 1.4.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Apr 05 2011 Jan Pazdziora 1.4.26-1
+- don't try to update signatures for non-rpm packages
+  (michael.mraka@redhat.com)
+
 * Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.25-1
 - make_evr should accept source parameter
 - call transports directly
