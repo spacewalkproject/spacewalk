@@ -15,7 +15,9 @@
 package com.redhat.rhn.taskomatic;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 
 import java.net.MalformedURLException;
@@ -115,6 +117,45 @@ public class TaskomaticApi {
                 scheduleParams);
     }
 
+    /**
+     * Creates a new single satellite schedule
+     * @param user shall be sat admin
+     * @param bunchName bunch name
+     * @return date of the first schedule
+     * @throws TaskomaticApiException if there was an error
+     */
+    public Date scheduleSingleSatBunch(User user, String bunchName)
+    throws TaskomaticApiException {
+        ensureSatAdminRole(user);
+        return (Date) invoke("tasko.scheduleSingleSatBunchRun", bunchName, new HashMap());
+    }
+
+    private void ensureSatAdminRole(User user) {
+        if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
+            ValidatorException.raiseException("satadmin.jsp.error.notsatadmin",
+                                user.getLogin());
+        }
+    }
+
+    /**
+     * Creates a new schedule, unschedules, if en existing is defined
+     * @param user shall be sat admin
+     * @param jobLabel name of the schedule
+     * @param bunchName bunch name
+     * @param cron cron expression
+     * @return date of the first schedule
+     * @throws TaskomaticApiException if there was an error
+     */
+    public Date scheduleSatBunch(User user, String jobLabel, String bunchName, String cron)
+    throws TaskomaticApiException {
+        ensureSatAdminRole(user);
+        Map task = findSatScheduleByBunchAndLabel(bunchName, jobLabel, user);
+        if (task != null) {
+            unscheduleSatTask(jobLabel, user);
+        }
+        return (Date) invoke("tasko.scheduleSatBunch", bunchName, jobLabel , cron,
+                new HashMap());
+    }
 
     /**
      * Unchedule a reposync task
@@ -126,14 +167,56 @@ public class TaskomaticApi {
     }
 
     private void unscheduleTask(String jobLabel, User user) {
+        ensureSatAdminRole(user);
         invoke("tasko.unscheduleBunch", user.getOrg().getId(), jobLabel);
     }
 
+    /**
+     * unschedule satellite task
+     * @param jobLabel schedule name
+     * @param user shall be satellite admin
+     */
+    public void unscheduleSatTask(String jobLabel, User user) {
+        ensureSatAdminRole(user);
+        invoke("tasko.unscheduleSatBunch", jobLabel);
+    }
 
+    /**
+     * Return list of active schedules
+     * @param user shall be sat admin
+     * @return list of schedules
+     */
+    public List findActiveSchedules(User user) {
+        List<Map> schedules = (List<Map>) invoke("tasko.listActiveSatSchedules");
+        return schedules;
+    }
+
+    /**
+     * Return list of bunch runs
+     * @param user shall be sat admin
+     * @param bunchName name of the bunch
+     * @return list of schedules
+     */
+    public List findRunsByBunch(User user, String bunchName) {
+        List<Map> runs = (List<Map>) invoke("tasko.listBunchSatRuns", bunchName);
+        return runs;
+    }
 
     private Map findScheduleByBunchAndLabel(String bunchName, String jobLabel, User user) {
         List<Map> schedules = (List<Map>) invoke("tasko.listActiveSchedulesByBunch",
                 user.getOrg().getId(), bunchName);
+        for (Map schedule : schedules) {
+            if (schedule.get("job_label").equals(jobLabel)) {
+                return schedule;
+            }
+         }
+        return null;
+    }
+
+    private Map findSatScheduleByBunchAndLabel(String bunchName, String jobLabel,
+            User user) {
+        List<Map> schedules = (List<Map>) invoke("tasko.listActiveSatSchedulesByBunch",
+                bunchName);
         for (Map schedule : schedules) {
             if (schedule.get("job_label").equals(jobLabel)) {
                 return schedule;
@@ -159,4 +242,45 @@ public class TaskomaticApi {
         }
     }
 
+    /**
+     * Return list of available bunches
+     * @param user shall be sat admin
+     * @return list of bunches
+     */
+    public List listSatBunchSchedules(User user) {
+        List<Map> bunches = (List<Map>) invoke("tasko.listSatBunches");
+        return bunches;
+    }
+
+    /**
+     * looks up schedule according to id
+     * @param user shall be sat admin
+     * @param scheduleId schedule id
+     * @return schedule
+     */
+    public Map lookupScheduleById(User user, Long scheduleId) {
+        return (Map) invoke("tasko.lookupScheduleById", scheduleId);
+    }
+
+    /**
+     * looks up schedule according to label
+     * @param user shall be sat admin
+     * @param bunchName bunch name
+     * @param scheduleLabel schedule label
+     * @return schedule
+     */
+    public Map lookupScheduleByBunchAndLabel(User user, String bunchName,
+            String scheduleLabel) {
+        return findSatScheduleByBunchAndLabel(bunchName, scheduleLabel, user);
+    }
+
+    /**
+     * looks up bunch according to name
+     * @param user shall be sat admin
+     * @param bunchName bunch name
+     * @return bunch
+     */
+    public Map lookupBunchByName(User user, String bunchName) {
+        return (Map) invoke("tasko.lookupBunchByName", bunchName);
+    }
 }

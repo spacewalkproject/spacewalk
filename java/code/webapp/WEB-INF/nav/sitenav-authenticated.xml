@@ -288,6 +288,13 @@
 	  </rhn-tab>
     </rhn-tab>
 
+    <rhn-tab name="Task Schedules" acl="user_role(satellite_admin)">
+        <rhn-tab-url>/rhn/admin/SatSchedules.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/admin/BunchDetail.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/admin/ScheduleDetail.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/admin/DeleteSchedule.do</rhn-tab-url>
+    </rhn-tab>
+
     <rhn-tab name="Task Engine Status" acl="user_role(satellite_admin)" url="/rhn/admin/TaskStatus.do">
     </rhn-tab>
 

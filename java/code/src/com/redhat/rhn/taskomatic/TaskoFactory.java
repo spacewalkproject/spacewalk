@@ -321,6 +321,30 @@ public class TaskoFactory extends HibernateFactory {
     }
 
     /**
+     * lookup schedule by label
+     * @param jobLabel schedule label
+     * @return schedule
+     */
+    public static TaskoSchedule lookupScheduleByLabel(String jobLabel) {
+        Map params = new HashMap();
+        params.put("job_label", jobLabel);
+        return (TaskoSchedule) singleton.lookupObjectByNamedQuery(
+                                       "TaskoSchedule.lookupByLabel", params);
+    }
+
+    /**
+     * lookup bunch by label
+     * @param bunchName bunch label
+     * @return bunch
+     */
+    public static TaskoBunch lookupBunchByName(String bunchName) {
+        Map params = new HashMap();
+        params.put("name", bunchName);
+        return (TaskoBunch) singleton.lookupObjectByNamedQuery(
+                                       "TaskoBunch.lookupByName", params);
+    }
+
+    /**
      * lists all schedules for an org
      * @param orgId organizational id
      * @return list of all schedules
@@ -448,6 +472,18 @@ public class TaskoFactory extends HibernateFactory {
             }
         }
         return runs;
+    }
+
+    /**
+     * lists runs by bunch
+     * @param bunchName bunch name
+     * @return list of runs
+     */
+    public static List<TaskoRun> listRunsByBunch(String bunchName) {
+        Map params = new HashMap();
+        params.put("bunch_name", bunchName);
+        return singleton.listObjectsByNamedQuery(
+                "TaskoRun.listByBunch", params);
     }
 
     private static boolean runBelongToOrg(Integer orgId, TaskoRun run) {

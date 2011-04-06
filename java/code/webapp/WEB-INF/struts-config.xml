@@ -1134,6 +1134,14 @@
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="updateTaskSchedule"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="schedulename" type="java.lang.String" />
+      <form-property name="bunch" type="java.lang.String" />
+      <form-property name="cronexpr" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -7249,8 +7257,46 @@
          type="com.redhat.rhn.frontend.action.satellite.TaskStatusAction">
         <forward name="default"
                  path="/WEB-INF/pages/admin/taskStatus.jsp" />
-        <forward name="confirm"
-                 path="/ssm/Packages.do"/>
+     </action>
+
+     <action path="/admin/SatSchedules"
+         scope="request"
+         input="/WEB-INF/pages/admin/schedules.jsp"
+         type="com.redhat.rhn.frontend.action.tasko.SatSchedulesAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/schedules.jsp" />
+     </action>
+
+     <action path="/admin/ScheduleDetail"
+         scope="request"
+         name="updateTaskSchedule"
+         input="/WEB-INF/pages/admin/scheduleDetail.jsp"
+         type="com.redhat.rhn.frontend.action.tasko.ScheduleDetailAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/scheduleDetail.jsp" />
+        <forward name="disable"
+                 path="/admin/DeleteSchedule.do" redirect="true" />
+        <forward name="success"
+                 path="/admin/ScheduleDetail.do" redirect="true" />
+     </action>
+
+     <action path="/admin/DeleteSchedule"
+         scope="request"
+         name="updateTaskSchedule"
+         input="/WEB-INF/pages/admin/deleteSchedule.jsp"
+         type="com.redhat.rhn.frontend.action.tasko.DeleteScheduleAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/deleteSchedule.jsp" />
+        <forward name="success"
+                 path="/admin/SatSchedules.do" redirect="true" />
+     </action>
+
+     <action path="/admin/BunchDetail"
+         scope="request"
+         input="/WEB-INF/pages/admin/bunchDetail.jsp"
+         type="com.redhat.rhn.frontend.action.tasko.BunchDetailAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/bunchDetail.jsp" />
      </action>
 
   </action-mappings>

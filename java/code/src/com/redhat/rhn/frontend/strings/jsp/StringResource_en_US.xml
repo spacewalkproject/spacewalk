@@ -22693,6 +22693,248 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="bunch.edit.jsp.toolbar">
+        <source>Bunch {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.edit.jsp.bunchdescription">
+        <source>Bunch Description</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.edit.jsp.button-schedule">
+        <source>Single Run Schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.generaldescription">
+        <source>Bellow is the list of runs of the specific bunch type. Several tasks may be run within a bunch in a predefined order. It's possible to see the schedule the task was scheduled within by following the start time link. A single run of the bunch may be scheduled here.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.daily-status-bunch">
+        <source>Sends daily report</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.clear-taskologs-bunch">
+        <source>Clears taskomatic run log history</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.cobbler-sync-bunch">
+        <source>Applies any cobbler configuration changes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.compare-configs-bunch">
+        <source>Schedules a comparison of config files on all systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.clean-alerts-bunch">
+        <source>Clears current monitoring alerts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.sync-probe-bunch">
+        <source>Synchronizes probe state</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.session-cleanup-bunch">
+        <source>Deletes expired rows from the PXTSessions table to keep it from growing too large</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.sandbox-cleanup-bunch">
+        <source>Cleans up sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.package-cleanup-bunch">
+        <source>Cleans up orphaned packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.kickstartfile-sync-bunch">
+        <source>Synchronizes kickstart profiles that were generated using the wizard</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.kickstart-cleanup-bunch">
+        <source>Cleans up stale kickstarts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.errata-queue-bunch">
+        <source>Processes errata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.errata-cache-bunch">
+        <source>Recalculates errata cache for a given server or channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.channel-repodata-bunch">
+        <source>Generates channel repodata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.satcert-check-bunch">
+        <source>Checks whether satellite certificate has not expired</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.cleanup-data-bunch">
+        <source>Cleans up orphaned and outdated data</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.jsp.noschedules">
+        <source>There're no schedules available.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.introparagraph">
+        <source>You can set a schedule of the selected bunch here.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.delete.jsp.introparagraph">
+        <source>Are you sure you want to delete the schedule? Associated bunch won't get scheduled any more. This can have a huge impact on satellite functionality. Proceed only if you know what you're doing.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/DeleteSchedule.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.toolbar">
+        <source>Schedule {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.create.schedule">
+        <source>create schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.delete.schedule">
+        <source>delete schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.basicscheduledetails">
+        <source>Basic Schedule Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.name">
+        <source>Schedule name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.bunch">
+        <source>Bunch</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/SatSchedules.do</context>
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.bunchdescription">
+        <source>Bunch Description</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.activefrom">
+        <source>Active From</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/SatSchedules.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.activetill">
+        <source>Active Till</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.notactive">
+        <source>Schedule isn't active any more.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.frequency">
+        <source>Frequency</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/SatSchedules.do</context>
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.createschedule">
+        <source>Create Schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.edit.jsp.editschedule">
+        <source>Edit Schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.delete.jsp.deleteschedule">
+        <source>Delete Schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/DeleteSchedule.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="task.edit.jsp.name">
+        <source>Task Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="task.edit.jsp.stattime">
+        <source>Start Time</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="task.edit.jsp.endtime">
+        <source>End Time</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="confirmprivate.jsp.confirmmsg">
         <source>Are you sure you want to set this channel to
         &lt;strong&gt;private&lt;/strong&gt;, accessible only by systems in your

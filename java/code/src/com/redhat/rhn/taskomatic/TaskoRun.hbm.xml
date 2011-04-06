@@ -41,6 +41,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE scheduleId = :schedule_id]]>
         </query>
 
+        <query name="TaskoRun.listByBunch">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE template.bunch.name = :bunch_name ORDER BY startTime DESC, template.ordering, endTime DESC]]>
+        </query>
+
         <query name="TaskoRun.listRunsWithStatus">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE template.task.id = :task_id AND (status = :status1 OR status = :status2)]]>
         </query>

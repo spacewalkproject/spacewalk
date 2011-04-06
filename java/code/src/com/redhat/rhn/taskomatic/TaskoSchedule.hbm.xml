@@ -36,6 +36,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE id = :schedule_id]]>
         </query>
 
+        <query name="TaskoSchedule.lookupByLabel">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE jobLabel = :job_label]]>
+        </query>
+
         <query name="TaskoSchedule.listOlderThan">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE activeTill < :limit_time]]>
         </query>

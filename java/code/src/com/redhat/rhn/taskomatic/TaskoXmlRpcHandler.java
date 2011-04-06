@@ -58,6 +58,33 @@ public class TaskoXmlRpcHandler {
     }
 
     /**
+     * lookup schedule by id
+     * @param scheduleId schedule id
+     * @return schedule
+     */
+    public TaskoSchedule lookupScheduleById(Integer scheduleId) {
+        return TaskoFactory.lookupScheduleById(scheduleId.longValue());
+    }
+
+    /**
+     * lookup schedule by label
+     * @param jobLabel schedule label
+     * @return schedule
+     */
+    public TaskoSchedule lookupScheduleByLabel(String jobLabel) {
+        return TaskoFactory.lookupScheduleByLabel(jobLabel);
+    }
+
+    /**
+     * lookup bunch by label
+     * @param bunchName bunch label
+     * @return bunch
+     */
+    public TaskoBunch lookupBunchByName(String bunchName) {
+        return TaskoFactory.lookupBunchByName(bunchName);
+    }
+
+    /**
      * start scheduling a organizational bunch
      * @param orgId organization id
      * @param bunchName bunch name
@@ -394,6 +421,15 @@ public class TaskoXmlRpcHandler {
      */
     public List<TaskoRun> listScheduleSatRuns(Integer scheduleId) {
         return listScheduleRuns(null, scheduleId);
+    }
+
+    /**
+     * lists all satellite runs of a give bunch
+     * @param bunchName bunch name
+     * @return list of runs
+     */
+    public List<TaskoRun> listBunchSatRuns(String bunchName) {
+        return TaskoFactory.listRunsByBunch(bunchName);
     }
 
     /**
