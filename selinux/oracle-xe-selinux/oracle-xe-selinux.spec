@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.19
+Version:         10.2.0.20
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -139,6 +139,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Apr 06 2011 Jan Pazdziora 10.2.0.20-1
+- 489548, 565417 - upon ORA-3136, database writes to network/log/sqlnet.log.
+
 * Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0.19-1
 - switched to default VersionTagger
 
