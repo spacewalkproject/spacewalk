@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.28
+Version: 1.4.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 06 2011 Jan Pazdziora 1.4.29-1
+- 693889 - fix the update status icon not displayed in Chrome browser
+  (mmello@redhat.com)
+- SELECT UNIQUE is not supported by PostgreSQL, fixing.
+
 * Mon Apr 04 2011 Miroslav Suchý 1.4.28-1
 - when hostname is unknown print "unknown"
 - 683200 - IDN.toUnicode does not allow null value
