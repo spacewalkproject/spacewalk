@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.12
+Version: 1.4.13
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,12 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Apr 06 2011 Simon Lukasik <slukasik@redhat.com> 1.4.13-1
+- Removing packages.verifyAll capability; it was never used.
+  (slukasik@redhat.com)
+- Moving unit test for touchTimeStamp() which was moved to yum-rhn-plugin
+  (slukasik@redhat.com)
+
 * Wed Apr 06 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.12-1
 - there're no opts when called from rhn_check
 
