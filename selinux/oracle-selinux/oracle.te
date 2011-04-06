@@ -221,3 +221,6 @@ require {
 
 allow oracle_sqlplus_t self:netlink_route_socket { write getattr read bind create nlmsg_read };
 dev_list_sysfs(oracle_sqlplus_t)
+
+filetrans_pattern(oracle_db_t, oracle_tnslsnr_log_t, oracle_db_log_t, { file })
+create_files_pattern(oracle_db_t, oracle_tnslsnr_log_t, oracle_db_log_t)

@@ -46,6 +46,9 @@
 # the listener writes to these locations
 /opt/apps/oracle/web/product/(.*/)?network/log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 
+# upon ORA-3136, database writes to network/log/sqlnet.log
+/opt/apps/oracle/web/product/(.*/)?network/log/sqlnet\.log(.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+
 # log directory for listener, startup and shutdown logs
 /opt/apps/oracle/web/product/(.*[0-9]/)?log(/.*)?          gen_context(user_u:object_r:oracle_common_log_t,s0)
 

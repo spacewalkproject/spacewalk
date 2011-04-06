@@ -52,6 +52,9 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*[0-9]/)?server/log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?network/log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 
+# upon ORA-3136, database writes to network/log/sqlnet.log
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?network/log/sqlnet\.log(.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+
 # otherwise this would be unlabeled
 /var/tmp/.oracle(/.*)?          gen_context(user_u:object_r:oracle_tmp_t,s0)
 
