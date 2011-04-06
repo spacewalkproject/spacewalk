@@ -380,20 +380,20 @@ ORDER BY  S.name
 
 	<query name="non_managed_elaborator">
 SELECT  S.id,
-        NVL2( (SELECT  DISTINCT 1
+        case when (SELECT  DISTINCT 1
                  FROM  rhnServerGroup SG, rhnServerGroupMembers SGM, rhnServerGroupType SGT
                 WHERE  S.id = SGM.server_id
                   AND  SGM.server_group_id = SG.id
                   AND  SG.group_type = SGT.id
-                  AND  SGT.label = 'provisioning_entitled'), 'Y', 'N') AS provisioning,
+                  AND  SGT.label = 'provisioning_entitled') is not null then 'Y' else 'N' end AS provisioning,
 <!-- The following three items will return with a character
      Y = package installed, P = package install pending, N = no package nor install -->
-        NVL2( (SELECT  DISTINCT 1
+        case when (SELECT  DISTINCT 1
                  FROM  rhnServerPackage SP, rhnPackageName PN
                 WHERE  S.id = SP.server_id
                   AND  SP.name_id = PN.id
-                  AND  PN.name = 'rhncfg'), 'Y',
-                 NVL2( (SELECT  DISTINCT 1
+                  AND  PN.name = 'rhncfg') is not null then 'Y'
+                 when (SELECT  DISTINCT 1
                           FROM  rhnServerAction SA, rhnActionPackage AP,
                                 rhnPackageName PN, rhnActionStatus PAS
                          WHERE  S.id = SA.server_id
@@ -401,13 +401,13 @@ SELECT  S.id,
                            AND  PAS.name IN ('Queued', 'Picked Up')
                            AND  SA.action_id = AP.action_id
                            AND  AP.name_id = PN.id
-                           AND  PN.name = 'rhncfg'), 'P', 'N')) AS rhncfg,
-        NVL2( (SELECT  DISTINCT 1
+                           AND  PN.name = 'rhncfg') is not null then 'P' else 'N' end AS rhncfg,
+        case when (SELECT  DISTINCT 1
                  FROM  rhnServerPackage SP, rhnPackageName PN
                 WHERE  S.id = SP.server_id
                   AND  SP.name_id = PN.id
-                  AND  PN.name = 'rhncfg-actions'), 'Y',
-                 NVL2( (SELECT  DISTINCT 1
+                  AND  PN.name = 'rhncfg-actions') is not null then 'Y'
+                 when (SELECT  DISTINCT 1
                           FROM  rhnServerAction SA, rhnActionPackage AP,
                                 rhnPackageName PN, rhnActionStatus PAS
                          WHERE  S.id = SA.server_id
@@ -415,13 +415,13 @@ SELECT  S.id,
                            AND  PAS.name IN ('Queued', 'Picked Up')
                            AND  SA.action_id = AP.action_id
                            AND  AP.name_id = PN.id
-                           AND  PN.name = 'rhncfg-actions'), 'P', 'N')) AS rhncfg_actions,
-        NVL2( (SELECT  DISTINCT 1
+                           AND  PN.name = 'rhncfg-actions') is not null then 'P' else 'N' end AS rhncfg_actions,
+        case when (SELECT  DISTINCT 1
                  FROM  rhnServerPackage SP, rhnPackageName PN
                 WHERE  S.id = SP.server_id
                   AND  SP.name_id = PN.id
-                  AND  PN.name = 'rhncfg-client'), 'Y',
-                 NVL2( (SELECT  DISTINCT 1
+                  AND  PN.name = 'rhncfg-client') is not null then 'Y'
+                 when (SELECT  DISTINCT 1
                           FROM  rhnServerAction SA, rhnActionPackage AP,
                                 rhnPackageName PN, rhnActionStatus PAS
                          WHERE  S.id = SA.server_id
@@ -429,12 +429,12 @@ SELECT  S.id,
                            AND  PAS.name IN ('Queued', 'Picked Up')
                            AND  SA.action_id = AP.action_id
                            AND  AP.name_id = PN.id
-                           AND  PN.name = 'rhncfg-client'), 'P', 'N')) AS rhncfg_client,
-        NVL2( (SELECT  DISTINCT 1
+                           AND  PN.name = 'rhncfg-client') is not null then 'P' else 'N' end AS rhncfg_client,
+        case when (SELECT  DISTINCT 1
                  FROM  rhnServerChannel SC, rhnChannel C
                 WHERE  S.id = SC.server_id
                   AND  SC.channel_id = C.id
-                  AND  C.label like 'rhn-tools%'), 'Y', 'N') AS rhn_tools
+                  AND  C.label like 'rhn-tools%') is not null then 'Y' else 'N' end AS rhn_tools
   FROM  rhnServer S
  WHERE  S.id IN (%s)
 </query>
