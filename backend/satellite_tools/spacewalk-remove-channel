@@ -79,7 +79,7 @@ def main():
     if args:
         for arg in args:
             sys.stderr.write("Not a valid option ('%s'), try --help\n" % arg)
-        return -1
+        sys.exit(-1)
 
     if not (options.channel or options.list):
         sys.stderr.write("Nothing to do\n")
@@ -98,7 +98,7 @@ def main():
             print c
             for sub in dict_parents[c]:
                 print "\t" + sub
-        return
+        sys.exit(0)
 
 
     # Verify if the channel is valid
@@ -110,7 +110,7 @@ def main():
     for channel in channels.keys():
         if not dict_label.has_key(channel):
             print "Unknown channel %s" % channel
-            return -1
+            sys.exit(-1)
         if not options.skip_channels:
             # Sanity check: verify subchannels are deleted as well if base
             # channels are selected
@@ -129,14 +129,14 @@ def main():
                     print "\t\t\t" + child
 
     if child_test_fail:
-        return -1
+        sys.exit(-1)
 
     if not options.skip_channels:
        if __serverCheck(channels.keys(), options.unsubscribe):
-           return -1
+           sys.exit(-1)
 
        if __kickstartCheck(channels.keys()):
-           return -1
+           sys.exit(-1)
 
 
     try:
