@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.11
+Version: 1.4.12
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Apr 06 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.12-1
+- there're no opts when called from rhn_check
+
 * Mon Apr 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
 - 688870 - resolve --enablerepo/--disablerepo for RHN repos
 
