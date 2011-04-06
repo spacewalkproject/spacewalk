@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.11
+Version: 1.4.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -297,6 +297,21 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Apr 06 2011 Simon Lukasik <slukasik@redhat.com> 1.4.12-1
+- Move code for enabling yum-rhn-plugin to separate module
+  (slukasik@redhat.com)
+- Extract method: setDebugVerbosity (slukasik@redhat.com)
+- Introduce pkgUtils as an abstraction of either debUtils or rpmUtils
+  (slukasik@redhat.com)
+- Introduce Debian equivalent of rpmUtils. (slukasik@redhat.com)
+- Removing packages.verifyAll capability; it was never used.
+  (slukasik@redhat.com)
+- OS information is platform dependent; introducing a platform interface.
+  (slukasik@redhat.com)
+- versionOverride applies only to version; moving to getVersion
+  (slukasik@redhat.com)
+- Updated unittests (slukasik@redhat.com)
+
 * Tue Apr 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
 - idn_unicode_to_pune() has to return string
 
