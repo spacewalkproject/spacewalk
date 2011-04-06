@@ -11,10 +11,16 @@ SUBDIRS		= data etc-conf man po setuptool.d src
 # Handy defines 
 VERSION         := $(shell echo `grep ^Version: rhn-client-tools.spec | awk '{ print $$2 }'`)
 
+# Platfor could be defined via command line
+ifndef PLATFORM
+  PLATFORM=rpm
+endif
+
 # For subdirs, required exports 
 export PREFIX 
 export MANPATH
 export VERSION
+export PLATFORM
 
 all::
 

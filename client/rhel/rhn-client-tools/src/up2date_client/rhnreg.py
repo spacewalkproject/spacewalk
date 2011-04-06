@@ -8,20 +8,19 @@
 #     Daniel Benamy <dbenamy@redhat.com>
 
 import os
-import re
-import rpm
 import sys
 
 import up2dateUtils
 import up2dateErrors
 import rhnserver
-import rpmUtils
+import pkgUtils
 import up2dateLog
 import urlparse
 import rhnreg_constants
 import hardware
 from rhnPackageInfo import convertPackagesFromHashToList
 from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
+from platform import getPlatform
 
 import xmlrpclib
 
@@ -35,7 +34,6 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
 # global variables
-YUM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'
 #SYSID_DIR = /tmp
 SYSID_DIR = "/etc/sysconfig/rhn"
 REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
@@ -511,7 +509,7 @@ def getServerType(serverUrl=None):
 
 def updatePackages(systemId):
     s = rhnserver.RhnServer()
-    s.registration.add_packages(systemId, rpmUtils.getInstalledPackageList())
+    s.registration.add_packages(systemId, pkgUtils.getInstalledPackageList())
 
 class ActivationResult:
     ACTIVATED_NOW = 0
@@ -636,69 +634,10 @@ def spawnRhnCheckForUI():
     else:
         log.log_me("Warning: unable to run rhn_check")
 
-def enableYumRhnPlugin():
-    """ enable yum-rhn-plugin by setting enabled=1 in file
-        /etc/yum/pluginconf.d/rhnplugin.conf
-        Can thrown IOError exception.
-    """
-    f = open(YUM_PLUGIN_CONF, 'r')
-    lines = f.readlines()
-    f.close()
-    main_section = False
-    f = open(YUM_PLUGIN_CONF, 'w')
-    for line in lines:
-        if re.match("^\[.*]", line):
-            if re.match("^\[main]", line):
-                main_section = True
-            else:
-                main_section = False
-        if main_section:
-            line = re.sub('^(\s*)enabled\s*=.+', r'\1enabled = 1', line)
-        f.write(line)
-    f.close()
+if getPlatform() == 'deb':
+    def pluginEnable():
+        """On Debian no extra action for plugin is needed"""
+        return 1, 0
+else:
+    from yumPlugin import pluginEnable
 
-def YumRhnPluginEnabled():
-    """ Returns True if yum-rhn-plugin is enabled
-        Can thrown IOError exception.
-    """
-    f = open(YUM_PLUGIN_CONF, 'r')
-    lines = f.readlines()
-    f.close()
-    main_section = False
-    result = False
-    for line in lines:
-        if re.match("^\[.*]", line):
-            if re.match("^\[main]", line):
-                main_section = True
-            else:
-                main_section = False
-        if main_section:
-            m = re.match('^\s*enabled\s*=\s*([0-9])', line)
-            if m:
-                if int(m.group(1)):
-                    result = True
-                else:
-                    result = False
-    return result
-
-def createDefaultYumRHNPluginConf():
-    """ Create file /etc/yum/pluginconf.d/rhnplugin.conf with default values """
-    f = open(YUM_PLUGIN_CONF, 'w')
-    f.write("""[main]
-enabled = 1
-gpgcheck = 1""")
-    f.close()
-
-def YumRHNPluginConfPresent():
-    """ Returns true if /etc/yum/pluginconf.d/rhnplugin.conf is presented """
-    try:
-        os.stat(YUM_PLUGIN_CONF)
-        return True
-    except OSError:
-        return False
-
-def YumRHNPluginPackagePresent():
-    """ Returns positive number if packaga yum-rhn-plugin is installed, otherwise it return 0 """
-    ts = rpm.TransactionSet()
-    headers = ts.dbMatch('providename', 'yum-rhn-plugin')
-    return headers.count()

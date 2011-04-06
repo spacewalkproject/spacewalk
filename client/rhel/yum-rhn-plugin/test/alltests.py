@@ -24,6 +24,7 @@ import profilesynctests
 import proxyconfigtests
 import gpgkeyurltests
 import sslcacertconfigtests
+import actionspackages
 
 from unittest import TestSuite
 
@@ -34,6 +35,7 @@ def suite():
         proxyconfigtests.suite(),
         gpgkeyurltests.suite(),
         sslcacertconfigtests.suite(),
+        actionspackages.suite(),
     ))
 
 if __name__ == "__main__":

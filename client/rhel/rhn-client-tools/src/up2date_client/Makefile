@@ -13,7 +13,9 @@ FILES		:= config gui hardware progress \
 		   clientCaps capabilities \
 		   rhnregGui rhnserver \
 		   messageWindow rhncli \
-		   rhnreg_constants
+		   rhnreg_constants \
+                   platform debUtils pkgUtils \
+                   yumPlugin
 
 PYFILES 	:= $(addsuffix .py, $(FILES))
 PYCFILES	:= $(addsuffix .pyc, $(FILES))
@@ -44,6 +46,8 @@ install:: all
 	# this is lame and should be dealt with in the code
 	sed -i -e "s|\@VERSION\@|$(VERSION)|" \
 		$(RHNSHARE_DIR)/up2date_client/up2dateUtils.py
+	sed -i -e "s|\@PLATFORM\@|$(PLATFORM)|" \
+		$(RHNSHARE_DIR)/up2date_client/platform.py
 
 # OTHER targets for internal use
 pychecker:: 

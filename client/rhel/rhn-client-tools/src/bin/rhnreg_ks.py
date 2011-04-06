@@ -32,7 +32,7 @@ sys.path.append("/usr/share/rhn/")
 
 from up2date_client import rhnreg
 from up2date_client import hardware
-from up2date_client import rpmUtils
+from up2date_client import pkgUtils
 from up2date_client import up2dateErrors
 from up2date_client import rhncli
 
@@ -93,7 +93,7 @@ class RegisterKsCli(rhncli.RhnCli):
             getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
                 getArch = 1
-            packageList = rpmUtils.getInstalledPackageList(getArch=getArch)
+            packageList = pkgUtils.getInstalledPackageList(getArch=getArch)
         else:
             packageList = []
 
@@ -173,13 +173,8 @@ class RegisterKsCli(rhncli.RhnCli):
             rhnreg.startRhnsd()
 
         try:
-            if rhnreg.YumRHNPluginPackagePresent():
-                if rhnreg.YumRHNPluginConfPresent():
-                    if not rhnreg.YumRhnPluginEnabled():
-                        rhnreg.enableYumRhnPlugin()
-                else:
-                    rhnreg.createDefaultYumRHNPluginConf()
-            else:
+            present, conf_changed = rhnreg.pluginEnable()
+            if not present:
                 sys.stderr.write(_("Warning: yum-rhn-plugin is not present, could not enable it."))
         except IOError, e:
             sys.stderr.write(_("Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)

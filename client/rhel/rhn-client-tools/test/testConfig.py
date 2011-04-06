@@ -170,9 +170,28 @@ class TestConfig(unittest.TestCase):
         nc.load()
         assert nc['serverURL'] == "http://www.hokeypokeyland.com/XMLRPC"
 
+class TestGetProxySetting(unittest.TestCase):
+    def setUp(self):
+        self.cfg = config.initUp2dateConfig(test_up2date)
+        self.proxy1 = "http://proxy.company.com:8080"
+        self.proxy2 = "proxy.company.com:8080"
+
+    def testHttpSpecified(self):
+        "Verify that http:// gets stripped from proxy settings"
+        self.cfg['httpProxy'] = self.proxy1
+        res = up2dateUtils.getProxySetting()
+        assert res == "proxy.company.com:8080"
+
+    def testHttpUnSpecified(self):
+        "Verify that proxies with no http:// work correctly"
+        self.cfg['httpProxy'] = self.proxy2
+        res = up2dateUtils.getProxySetting()
+        assert res == "proxy.company.com:8080"
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestConfig))
+    suite.addTest(unittest.makeSuite(TestGetProxySetting))
     return suite
 
 if __name__ == "__main__":

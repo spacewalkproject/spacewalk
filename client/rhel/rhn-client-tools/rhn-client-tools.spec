@@ -199,7 +199,9 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/up2dateAuth.*
 %{_datadir}/rhn/up2date_client/rpcServer.*
 %{_datadir}/rhn/up2date_client/rhnserver.*
+%{_datadir}/rhn/up2date_client/pkgUtils.*
 %{_datadir}/rhn/up2date_client/rpmUtils.*
+%{_datadir}/rhn/up2date_client/debUtils.*
 %{_datadir}/rhn/up2date_client/rhnPackageInfo.*
 %{_datadir}/rhn/up2date_client/rhnChannel.*
 %{_datadir}/rhn/up2date_client/rhnHardware.*
@@ -207,6 +209,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/clientCaps.*
 %{_datadir}/rhn/up2date_client/capabilities.*
 %{_datadir}/rhn/up2date_client/rhncli.*
+%{_datadir}/rhn/up2date_client/platform.*
 %{_datadir}/rhn/__init__.*
 
 %{_sbindir}/rhn-profile-sync
@@ -251,6 +254,7 @@ make -f Makefile.rhn-client-tools test
 %{_sbindir}/rhn-channel
 
 %{_datadir}/rhn/up2date_client/rhnreg.*
+%{_datadir}/rhn/up2date_client/yumPlugin.*
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
 
