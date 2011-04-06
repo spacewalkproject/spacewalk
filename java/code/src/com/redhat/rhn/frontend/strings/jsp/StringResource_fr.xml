@@ -21978,7 +21978,7 @@ fois pour un canal donné.</target></trans-unit>
 
       <trans-unit id="package.jsp.buildhost">
 			<source>Build Host</source>
-      <target>Créer hôte</target></trans-unit>
+      <target>Hôte de création</target></trans-unit>
 
       <trans-unit id="package.jsp.builddate">
 			<source>Build Date</source>
@@ -22050,7 +22050,7 @@ fois pour un canal donné.</target></trans-unit>
 
      <trans-unit id="package.jsp.menu.changelog">
 			<source>Change Log</source>
-      <target>Changer le journal</target></trans-unit>
+      <target>Historique</target></trans-unit>
 
      <trans-unit id="package.jsp.menu.map">
 			<source>Package Map</source>
