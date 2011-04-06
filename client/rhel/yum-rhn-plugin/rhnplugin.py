@@ -195,7 +195,8 @@ def prereposetup_hook(conduit):
 
     # resolve --enablerepo/--disablerepo for RHN repos
     opts = conduit.getCmdLine()[0]
-    for opt, repoexp in opts.repos:
+    if opts:
+        for opt, repoexp in opts.repos:
            if opt == '--enablerepo':
                conduit._base.repos.enableRepo(repoexp)
            elif opt == '--disablerepo':
