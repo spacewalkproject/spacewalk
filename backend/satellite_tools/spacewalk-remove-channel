@@ -51,7 +51,8 @@ options_table = [
            help="Remove only packages from channel not the channel itself."),
 ]
 
-LOCK = None
+LOCK = []
+LOCK_DIR = '/var/run'
 
 def main():
     global LOCK
@@ -60,11 +61,14 @@ def main():
         sys.stderr.write('ERROR: must be root to execute\n')
         sys.exit(8)
 
-    try:
-        LOCK = rhnLockfile.Lockfile('/var/run/satellite-sync.pid')
-    except rhnLockfile.LockfileLockedException:
-        print("ERROR: Either another instance of spacewalk-remove-channel is running, or a satellite-sync is currently taking place.")
-        sys.exit(-1)
+    for command in ['spacewalk-remove-channel', 'satellite-sync',
+                    'spacewalk-repo-sync']:
+        try:
+            LOCK.append(rhnLockfile.Lockfile(
+                                os.path.join(LOCK_DIR, "%s.pid" % command)))
+        except rhnLockfile.LockfileLockedException:
+            print("ERROR: An instance of %s is running, exiting." % command)
+            sys.exit(-1)
 
 
     global options_table
@@ -545,7 +549,7 @@ def _get_package_paths(package_ids, sources=0):
 
 def releaseLOCK():
     global LOCK
-    if LOCK:
+    for lock in LOCK:
         LOCK.release()
 
 
