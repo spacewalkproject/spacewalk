@@ -1,7 +1,0 @@
-AuthType Basic
-AuthName "RHN Custom Info Management"
-
-PerlModule PXT::ApacheHandler
-PerlModule PXT::ApacheAuth
-PerlAuthenHandler PXT::ApacheAuth
-require acl system_feature(ftr_custom_info)
