@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.16
+Version: 1.4.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Apr 07 2011 Jan Pazdziora 1.4.17-1
+- replace (+) with ANSI left join (PG) (michael.mraka@redhat.com)
+- Removing .pxt and methods since custominfo were migrated to Java by now.
+- Cleanup of use in Perl modules.
+- Removing .pxt and methods after all activation key pages were migrated
+  to Java by now.
+
 * Tue Apr 05 2011 Jan Pazdziora 1.4.16-1
 - Fixing PostgreSQL distinct/order by issue in
   tags_for_provisioning_entitled_in_set.
