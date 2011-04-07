@@ -32,7 +32,7 @@ from up2date_client import up2dateAuth
 
 def create_server_obj(server_url):
 
-    cfg = initUp2dateConfig()
+    cfg = config.initUp2dateConfig()
     
     enable_proxy = cfg['enableProxy']
     proxy_host = None
@@ -48,7 +48,7 @@ def create_server_obj(server_url):
                                                                                        
     ca = cfg['sslCACert']
         
-    if type(ca) == type(""):
+    if isinstance(ca, str) or isinstance(ca, unicode):
         ca = [ca]
  
     ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]
@@ -184,7 +184,7 @@ def main():
     if options.url:
         url = options.url
     else:
-        url = munge_server_url(config.getServerlURL())
+        url = munge_server_url(config.getServerlURL()[0])
 
     s = create_server_obj(url)
     
