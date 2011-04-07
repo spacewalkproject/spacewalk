@@ -106,17 +106,18 @@ SELECT CFN.path,
        CR.revision,
        ACR.id AS ACTION_REVISION_ID,
        CFF.name AS FAILURE_REASON
-  FROM rhnConfigFileFailure CFF,
+  FROM
        rhnConfigFileName CFN,
        rhnConfigFile CF,
        rhnConfigRevision CR,
        rhnActionConfigRevision ACR
+  LEFT JOIN rhnConfigFileFailure CFF
+    ON ACR.failure_id = CFF.id
  WHERE ACR.action_id = :aid
    AND ACR.server_id = :sid
    AND ACR.config_revision_id = CR.id
    AND CR.config_file_id = CF.id
    AND CF.config_file_name_id = CFN.id
-   AND ACR.failure_id = CFF.id (+)
 ORDER BY UPPER(CFN.path)
   </query>
 </mode>
