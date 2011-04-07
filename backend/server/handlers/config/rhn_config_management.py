@@ -187,8 +187,11 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             end as symlink
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
-               rhnConfigRevision cr,
-               rhnConfigContent ccont,
+               rhnConfigRevision cr
+          left join rhnConfigContent ccont
+            on cr.config_content_id = ccont.id
+          left join rhnChecksumView c
+            on ccont.checksum_id = c.id,
                rhnChecksumView c,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
@@ -201,10 +204,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
            and cf.latest_config_revision_id = cr.id
-           and cr.config_content_id = ccont.id (+)
 	   and cr.config_file_type_id = cft.id
 	   and cct.id = cc.confchan_type_id
-           and ccont.checksum_id = c.id (+)
          order by cct.priority, scc.position 
     """)
 
