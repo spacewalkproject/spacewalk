@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,12 +18,6 @@ use strict;
 package Sniglets::ActivationKeys;
 
 use RHN::Token;
-use RHN::Exception;
-use RHN::Form::Widget;
-use RHN::Form::Widget::CheckboxGroup;
-
-use PXT::HTML;
-use Storable qw/dclone/;
 
 sub register_tags {
   my $class = shift;
