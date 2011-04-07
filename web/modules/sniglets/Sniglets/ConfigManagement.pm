@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,18 +16,10 @@
 use RHN::Exception;
 use RHN::ConfigChannel;
 use RHN::ConfigRevision;
-use RHN::DataSource::ConfigChannel;
 
-use Sniglets::Forms;
-use Sniglets::Forms::Style;
-use Sniglets::ActivationKeys;
-use RHN::Form::ParsedForm;
-use RHN::Form::Widget::File;
-use RHN::Form::Widget::RadiobuttonGroup;
-
-use Params::Validate qw/validate/;
-
-use File::Spec;
+use RHN::DB;
+use RHN::Server;
+use RHN::Set;
 
 # constant representing the 16kb limit for editable config files
 use constant max_edit_size => 16384;
