@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.30
+Version: 1.4.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.31-1
+- 688509 - generate errata cache when cloning channel via API
+- fixed javax.servlet.ServletException: Cannot specify "styleId"
+
 * Thu Apr 07 2011 Jan Pazdziora 1.4.30-1
 - Removing packages.verifyAll capability; it was never used. (slukasik@redhat.com)
 - The nvl2 is not supported by PostgreSQL, replacing by case when in
