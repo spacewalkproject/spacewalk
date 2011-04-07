@@ -550,7 +550,7 @@ def _get_package_paths(package_ids, sources=0):
 def releaseLOCK():
     global LOCK
     for lock in LOCK:
-        LOCK.release()
+        lock.release()
 
 
 
