@@ -34,7 +34,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:edit_cik_cb' => \&edit_key_cb);
   $pxt->register_callback('rhn:edit_system_value_cb' => \&edit_value_cb);
   $pxt->register_callback('rhn:remove_system_value_cb' => \&remove_system_value);
   $pxt->register_callback('rhn:ssm_set_custom_values_cb' => \&ssm_set_values);
@@ -263,56 +262,6 @@ sub edit_key_details {
   }
 
   return PXT::Utils->perform_substitutions($block, \%subs);
-}
-
-sub edit_key_cb {
-  my $pxt = shift;
-
-  my $kid = $pxt->param('cikid');
-  my $key;
-
-  if ($kid) {
-    warn "loading key...";
-    $key = RHN::CustomInfoKey->lookup(-id => $kid);
-  }
-  else {
-    warn "creating from blank key...";
-    $key = RHN::CustomInfoKey->blank_key();
-    $key->created_by($pxt->user->id);
-    $key->last_modified_by($pxt->user->id);
-    $key->org_id($pxt->user->org_id);
-
-    # only allow label on initial key creation...
-    $key->label($pxt->dirty_param('key_label')) if not $kid;
-  }
-
-  $key->description($pxt->dirty_param('key:description'));
-  $key->last_modified_by($pxt->user->id);
-
-  eval {
-    $key->commit;
-  };
-
-  if ($@) {
-    my $E = $@;
-
-    if ($E->constraint_value('RHN_CDATAKEY_LABEL_UQ')) {
-      $pxt->push_message(local_alert => "A key already exists with that label.  Please choose another label.");
-      #$pxt->redirect("/network/systems/custominfo/edit.pxt");
-      return;
-    }
-
-    die $E;
-  }
-
-  if ($kid) {
-    $pxt->push_message(site_info => PXT::Utils->escapeHTML($key->label) . " details updated.");
-  }
-  else {
-    $pxt->push_message(site_info => "New key " . PXT::Utils->escapeHTML($key->label) . " created.");
-  }
-
-  $pxt->redirect('/rhn/systems/customdata/CustomDataList.do');
 }
 
 1;
