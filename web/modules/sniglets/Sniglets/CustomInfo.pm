@@ -31,7 +31,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:remove_system_value_cb' => \&remove_system_value);
   $pxt->register_callback('rhn:ssm_set_custom_values_cb' => \&ssm_set_values);
   $pxt->register_callback('rhn:ssm_remove_custom_values_cb' => \&ssm_remove_values);
 }
@@ -88,26 +87,6 @@ sub ssm_remove_values {
   $pxt->push_message(site_info => "Value removed for <strong>" . $key->label() . "</strong> from selected systems.");
 
   $pxt->redirect("/rhn/systems/ssm/misc/Index.do");
-}
-
-sub remove_system_value {
-  my $pxt = shift;
-
-  my $key_id = $pxt->param('cikid');
-  die "no key id" unless $key_id;
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server object" unless $server;
-
-  my $key = RHN::CustomInfoKey->lookup(-id => $key_id);
-  die "no key object" unless $key;
-
-  $server->remove_custom_value($key->id());
-
-  $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> removed for this system.");
-  $pxt->redirect("/rhn/systems/details/ListCustomData.do?$sid");
 }
 
 sub edit_key_details {
