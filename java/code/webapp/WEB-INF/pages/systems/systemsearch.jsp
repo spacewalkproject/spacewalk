@@ -71,6 +71,14 @@
            	   </div>
            </td>
         </tr>
+        <tr>
+           <th><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrainedlabel"/></label></th>
+           <td>
+                <div style="text-align: left">
+            <html:checkbox property="fineGrained" styleId="fineGrainedlabel"><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrained"/></label></html:checkbox>
+                </div>
+           </td>
+        </tr>
            		
 	</table>
     </div>
@@ -86,6 +94,7 @@
     <input type="hidden" name="view_mode" value="${view_mode}" />
     <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
     <input type="hidden" name="invert" value="${invert}" />
+    <input type="hidden" name="fineGrained" value="${fineGrained}" />
 
         <rl:list name="pageList" dataset="searchResults"
             emptykey="systemsearch.jsp.noresults" width="100%"

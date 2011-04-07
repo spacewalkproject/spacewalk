@@ -308,6 +308,7 @@
         <form-property name="view_mode" type="java.lang.String" />
         <form-property name="whereToSearch" type="java.lang.String" />
         <form-property name="invert" type="java.lang.Boolean" />
+        <form-property name="fineGrained" type="java.lang.Boolean" />
         <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
 

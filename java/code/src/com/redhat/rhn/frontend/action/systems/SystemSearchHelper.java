@@ -109,6 +109,7 @@ public class SystemSearchHelper {
      * @param invertResults whether the results should be inverted
      * @param whereToSearch whether to search through all user visible systems or the
      *        systems selected in the SSM
+     * @param isFineGrained fine grained search
      * @return DataResult of SystemSearchResults based on user's search criteria
      * @throws XmlRpcFault on xmlrpc error
      * @throws MalformedURLException on bad search server address
@@ -117,11 +118,12 @@ public class SystemSearchHelper {
                                           String searchString,
                                           String viewMode,
                                           Boolean invertResults,
-                                          String whereToSearch)
+                                          String whereToSearch, Boolean isFineGrained)
         throws XmlRpcFault, MalformedURLException {
         WebSession session = ctx.getWebSession();
         String key = session.getKey();
-        return systemSearch(key, searchString, viewMode, invertResults, whereToSearch);
+        return systemSearch(key, searchString, viewMode, invertResults, whereToSearch,
+                isFineGrained);
     }
 
     /**
@@ -133,6 +135,7 @@ public class SystemSearchHelper {
      * @param invertResults whether the results should be inverted
      * @param whereToSearch whether to search through all user visible systems or the
      *        systems selected in the SSM
+     * @param isFineGrained fine grained search
      * @return DataResult of SystemSearchResults based on user's search criteria
      * @throws XmlRpcFault on xmlrpc error
      * @throws MalformedURLException on bad search server address
@@ -141,7 +144,7 @@ public class SystemSearchHelper {
             String searchString,
             String viewMode,
             Boolean invertResults,
-            String whereToSearch)
+            String whereToSearch, Boolean isFineGrained)
         throws XmlRpcFault, MalformedURLException {
 
         WebSession session = SessionManager.loadSession(sessionKey);
@@ -163,7 +166,7 @@ public class SystemSearchHelper {
         /**
          * Contact the XMLRPC search server and get back the results
          */
-        List results = performSearch(sessionId, index, query);
+        List results = performSearch(sessionId, index, query, isFineGrained);
         /**
          * We need to translate these results into a fleshed out DTO object which
          * can be displayed.by the JSP
@@ -202,8 +205,8 @@ public class SystemSearchHelper {
         return retval;
     }
 
-    protected static List performSearch(Long sessionId, String index, String query)
-            throws XmlRpcFault, MalformedURLException {
+    protected static List performSearch(Long sessionId, String index, String query,
+                Boolean isFineGrained) throws XmlRpcFault, MalformedURLException {
 
         log.info("Performing system search: index = " + index + ", query = " +
                 query);
@@ -213,6 +216,7 @@ public class SystemSearchHelper {
         args.add(sessionId);
         args.add(index);
         args.add(query);
+        args.add(isFineGrained);
         List results = (List)client.invoke("index.search", args);
         if (log.isDebugEnabled()) {
             log.debug("results = [" + results + "]");

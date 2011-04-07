@@ -128,6 +128,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
     public static final String VIEW_MODE = "view_mode";
     public static final String WHERE_TO_SEARCH = "whereToSearch";
     public static final String INVERT_RESULTS = "invert";
+    public static final String FINE_GRAINED = "fineGrained";
 
     private static final String FORM = "FORM";
     private static final String MAPPING = "MAPPING";
@@ -284,6 +285,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             setupForm(request, daForm, null);
             request.setAttribute(VIEW_MODE, "systemsearch_name_and_description");
             daForm.set(WHERE_TO_SEARCH, "all");
+            daForm.set(FINE_GRAINED, true);
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("default"),
                     request.getParameterMap());
@@ -334,10 +336,9 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
         String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
         Boolean invertResults = StringUtils.defaultString(
                 context.getParam(INVERT_RESULTS, false)).equals("on");
+        Boolean isFineGrained = StringUtils.defaultString(
+                context.getParam(FINE_GRAINED, false)).equals("on");
 
-        if (invertResults == null) {
-            invertResults = Boolean.FALSE;
-        }
         ActionErrors errs = new ActionErrors();
         DataResult dr = null;
         try {
@@ -345,7 +346,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                     searchString,
                     viewMode,
                     invertResults,
-                    whereToSearch);
+                    whereToSearch, isFineGrained);
         }
         catch (MalformedURLException e) {
             log.info("Caught Exception :" + e);

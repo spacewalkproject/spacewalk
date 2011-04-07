@@ -6766,6 +6766,13 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      </trans-unit>
 
+     <trans-unit id="systemsearch.jsp.finegrainedlabel">
+		<source>Fine Grained Search:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
+
      <trans-unit id="systemsearch.jsp.systemname">
 		<source>System Name</source>
         <context-group name="ctx">
@@ -6782,6 +6789,13 @@ value for this entitlement, excluding the default organization's consumption.</s
 
      <trans-unit id="systemsearch.jsp.invertdescription">
 		<source>Invert search results</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
+
+     <trans-unit id="systemsearch.jsp.finegrained">
+		<source>Fine grained search results</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>

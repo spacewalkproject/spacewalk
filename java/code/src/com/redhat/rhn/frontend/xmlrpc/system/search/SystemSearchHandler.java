@@ -52,7 +52,7 @@ public class SystemSearchHandler extends BaseHandler {
                     searchString,
                     viewMode,
                     invertResults,
-                    whereToSearch);
+                    whereToSearch, true);
         }
         catch (MalformedURLException e) {
             log.info("Caught Exception :" + e);
