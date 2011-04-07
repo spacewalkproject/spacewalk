@@ -36,7 +36,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:edit_cik_cb' => \&edit_key_cb);
   $pxt->register_callback('rhn:edit_system_value_cb' => \&edit_value_cb);
-  $pxt->register_callback('rhn:delete_custominfo_key_cb' => \&delete_key);
   $pxt->register_callback('rhn:remove_system_value_cb' => \&remove_system_value);
   $pxt->register_callback('rhn:ssm_set_custom_values_cb' => \&ssm_set_values);
   $pxt->register_callback('rhn:ssm_remove_custom_values_cb' => \&ssm_remove_values);
@@ -222,48 +221,6 @@ sub system_value_details {
   }
 
   return $ret;
-}
-
-sub delete_key {
-  my $pxt = shift;
-
-  my $key_id = $pxt->param('cikid');
-  die "no key id" unless $key_id;
-
-  my $key = RHN::CustomInfoKey->lookup(-id => $key_id);
-
-  unless ($pxt->user->can_delete_custominfokey($key_id)) {
-    $pxt->push_message(local_alert => "Only org admins or a key's creator may delete a key.");
-    $pxt->redirect("/rhn/systems/customdata/UpdateCustomKey.do?cikid=$key_id");
-  }
-
-  my $transaction = RHN::DB->connect();
-
-  eval {
-    $transaction = RHN::CustomInfoKey->delete_key(key_id => $key_id,
-						  user_id => $pxt->user->id,
-						  transaction => $transaction,
-						 );
-  };
-
-  if ($@) {
-    my $E = $@;
-
-    $transaction->rollback();
-
-    if ($E->constraint_value eq 'RHN_SCDV_KID_FK') {
-      $pxt->push_message(local_alert => 'Other systems have values for this key; deletion request denied.');
-      $pxt->redirect("/rhn/systems/customdata/UpdateCustomKey.do?cikid=$key_id");
-    }
- 
-    die $E;
-  }
-
-  $transaction->commit();
-
-  $pxt->push_message(site_info => "Custom info key <strong>" . $key->label() . "</strong> deleted.");
-
-  $pxt->redirect("/rhn/systems/customdata/CustomDataList.do");
 }
 
 sub edit_key_details {

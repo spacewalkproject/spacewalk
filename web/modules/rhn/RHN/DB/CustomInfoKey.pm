@@ -52,34 +52,6 @@ foreach my $field ($cdk->method_names) {
   }
 }
 
-sub delete_key {
-  my $class = shift;
-  my %params = validate(@_, {key_id => 1, user_id => 1, transaction => 0});
-  my $key_id = $params{key_id};
-  my $dbh = $params{transaction} || RHN::DB->connect();
-
-  my $sth = $dbh->prepare(<<EOQ);
-DECLARE
-BEGIN
-
-DELETE FROM rhnServerCustomDataValue
-      WHERE server_id IN (SELECT server_id FROM rhnUserServerPerms WHERE user_id = :user_id)
-        AND key_id = :key_id;
-
-DELETE FROM rhnCustomDataKey WHERE ID = :key_id;
-END;
-EOQ
-
-  $sth->execute_h(key_id => $key_id, user_id => $params{user_id});
-
-  if (defined $params{transaction}) {
-    return $dbh;
-  }
-  else {
-    $dbh->commit;
-  }
-}
-
 sub blank_key {
   my $class = shift;
 
