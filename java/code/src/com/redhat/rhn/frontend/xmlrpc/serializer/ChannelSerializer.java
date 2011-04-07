@@ -27,6 +27,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
@@ -57,6 +58,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("dateTime.iso8601", "yumrepo_last_sync")
  *      #prop("string", "end_of_life")
  *      #prop("string", "parent_channel_label")
+ *      #prop("string", "clone_original")
  *  #struct_end()
  *
  */
@@ -128,6 +130,14 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         }
         else {
             helper.add("parent_channel_label", "");
+        }
+
+        Channel orig = ChannelFactory.lookupOriginalChannel(c);
+        if (orig != null) {
+            helper.add("clone_original", orig.getLabel());
+        }
+        else {
+            helper.add("clone_original", "");
         }
 
         helper.writeTo(output);
