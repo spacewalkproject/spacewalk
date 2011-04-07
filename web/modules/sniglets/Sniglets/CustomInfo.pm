@@ -34,7 +34,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:edit_system_value_cb' => \&edit_value_cb);
   $pxt->register_callback('rhn:remove_system_value_cb' => \&remove_system_value);
   $pxt->register_callback('rhn:ssm_set_custom_values_cb' => \&ssm_set_values);
   $pxt->register_callback('rhn:ssm_remove_custom_values_cb' => \&ssm_remove_values);
@@ -154,54 +153,6 @@ sub no_system_custom_info {
   my $data = $ds->execute_query(-sid => $pxt->param('sid'));
 
   return (scalar @{$data} ? '' : $attr{__block__});
-}
-
-sub edit_value_cb {
-  my $pxt = shift;
-
-  my $value = $pxt->dirty_param('value');
-  if (defined $value) {
-    $value =~ s/\r\n/\n/g; # wash textarea input
-  }
-
-  my $key_id = $pxt->param('cikid');
-  die "no key id" unless $key_id;
-
-  my $sid = $pxt->param('sid');
-  die "no system id" unless $sid;
-
-  # anti-jkt code...
-  if (length($value) > 4000) {
-    $pxt->push_message(local_alert => "Custom values must be fewer than 4000 characters.");
-    $pxt->redirect("/rhn/systems/details/UpdateCustomData.do?sid=$sid&cikid=$key_id");
-  }
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server object" unless $server;
-
-  my $key = RHN::CustomInfoKey->lookup(-id => $key_id);
-  die "no key object" unless $key;
-
-  if (Scalar::Util::tainted($pxt->user->id)) {
-    die "user id tainted!";
-  }
-
-  if (Scalar::Util::tainted($key->label())) {
-    die "key label tainted!!";
-  }
-
-  PXT::Utils->untaint(\$value);
-  if (Scalar::Util::tainted($value)) {
-    die "value tainted";
-  }
-
-  $server->set_custom_value(-user_id => $pxt->user->id,
-			    -key_label => $key->label(),
-			    -value => $value,
-			   );
-
-  $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> changed.");
-  $pxt->redirect("/rhn/systems/details/ListCustomData.do?sid=$sid");
 }
 
 sub system_value_details {
