@@ -183,6 +183,25 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * Clones the "newest" packages to the clone channel.
+     * The reason is to speed up the process, becasue calling
+     * rhn_channel.refresh_newest_package
+     * takes two minutes for channel with 11000 packages
+     *
+     * @param fromChannelId original channel id
+     * @param toChannel cloned channel
+     * @param label label for taskomatic repo_regen request
+     */
+    public static void cloneNewestPackages(Long fromChannelId, Channel toChannel,
+                                                                    String label) {
+        ChannelFactory.cloneNewestPackageCache(fromChannelId, toChannel.getId());
+         if (toChannel != null) {
+             ChannelManager.queueChannelChange(
+                     toChannel.getLabel(), label, "clone channel");
+         }
+    }
+
+    /**
      * Returns a list channel entitlements
      * @param orgId The users org ID
      * @param pc The PageControl

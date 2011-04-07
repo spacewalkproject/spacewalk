@@ -1782,7 +1782,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
         helper.setUser(loggedInUser);
         helper.setSummary(summary);
 
-        return helper.clone(originalState.booleanValue(), originalChan).getId().intValue();
+        Channel clone = helper.clone(originalState.booleanValue(), originalChan);
+        ChannelManager.cloneNewestPackages(originalChan.getId(), clone, "api");
+        return clone.getId().intValue();
     }
 
     /**

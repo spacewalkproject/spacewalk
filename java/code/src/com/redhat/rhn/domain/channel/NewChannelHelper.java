@@ -15,7 +15,6 @@
 package com.redhat.rhn.domain.channel;
 
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.Date;
@@ -130,10 +129,6 @@ public class NewChannelHelper {
 
         family.getChannels().add(cloned);
         cloned.setChannelFamily(family);
-
-        // Mark the affected channel to have it's metadata evaluated, where necessary
-        // (RHEL5+, mostly)
-        ChannelManager.queueChannelChange(label, "java::cloneChannel", null);
 
         return cloned;
     }

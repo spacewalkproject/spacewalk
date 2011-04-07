@@ -611,6 +611,21 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Clones the "newest" channel packages according to clone.
+     *
+     * @param fromChannelId original channel id
+     * @param toChannelId cloned channle id
+     */
+    public static void cloneNewestPackageCache(Long fromChannelId, Long toChannelId) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
+            "clone_newest_package");
+        Map params = new HashMap();
+        params.put("from_cid", fromChannelId);
+        params.put("to_cid", toChannelId);
+        m.executeUpdate(params);
+    }
+
+    /**
      * Returns true if the given label is in use.
      * @param label Label
      * @return true if the given label is in use.
