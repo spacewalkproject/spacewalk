@@ -18,6 +18,7 @@ use strict;
 package Sniglets::ActivationKeys;
 
 use RHN::Token;
+use PXT::Utils;
 
 sub register_tags {
   my $class = shift;
