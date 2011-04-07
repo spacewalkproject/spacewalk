@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,18 +16,6 @@
 use strict;
 
 package Sniglets::Forms;
-
-use File::Spec;
-use Digest::MD5;
-
-use RHN::Form;
-use RHN::Form::Parser;
-use RHN::Form::ParsedForm;
-use Sniglets::Forms::Style;
-
-use PXT::Utils;
-
-use PXT::ACL;
 
 sub load_params {
   my $pxt = shift;
