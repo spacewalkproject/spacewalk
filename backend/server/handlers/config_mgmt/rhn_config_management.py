@@ -259,10 +259,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             end as symlink
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
-               rhnConfigRevision cr,
+               rhnConfigRevision cr
+          left join rhnConfigContent ccont
+            on cr.config_content_id = ccont.id
+          left join rhnChecksumView c
+            on ccont.checksum_id = c.id,
                rhnConfigFile cf,
-               rhnConfigContent ccont,
-               rhnChecksumView c,
 	       rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
@@ -270,9 +272,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cf.config_file_name_id = lookup_config_filename(:path)
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
-           and cr.config_content_id = ccont.id(+)
 	   and cr.config_file_type_id = cft.id
-           and ccont.checksum_id = c.id(+)
     """)
     _query_get_file_latest = rhnSQL.Statement(_query_get_file + """
            and cf.latest_config_revision_id = cr.id
