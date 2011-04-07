@@ -11,8 +11,7 @@
 <body>
 	<%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>	
 	<html:form  method="post"
-					action="/systems/details/configuration/RankChannels.do?sid=${param.sid}"
-					styleId="ranksForm">
+					action="/systems/details/configuration/RankChannels.do?sid=${param.sid}">
 		<h2> <img src="${cfg:channelHeaderIcon('central')}"
 					alt="${cfg:channelAlt('central')}"/>
 			<bean:message key="sdc.config.rank.jsp.header"/></h2>
@@ -41,7 +40,7 @@
       <html:hidden property="dispatch" value="${rhn:localize('sdc.config.rank.jsp.update')}"/>
       <input type=submit name="dispatcher"
 			value="${rhn:localize('sdc.config.rank.jsp.update')}"
-                   onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','ranksForm');"/>
+                   onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','channelRanksForm');"/>
 	</div>
 	</html:form>
 </body>

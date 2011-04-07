@@ -26,8 +26,7 @@
 	</noscript>  				
 </div>
 <html:form method="POST"
-               action="/systems/ssm/config/Rank.do"
-               styleId="ranksForm">
+               action="/systems/ssm/config/Rank.do">
 		<h2><bean:message key="sdc.config.rank.jsp.subscribed_channels"/></h2>
 		<table style="width:60%;">
 			<tr>
@@ -56,7 +55,7 @@
       <html:hidden property="dispatch" value="${rhn:localize('ssm.config.rank.jsp.apply')}"/>
       <input type=submit name="dispatcher"
 			value="${rhn:localize('ssm.config.rank.jsp.apply')}"
-                   onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','ranksForm');"/>
+                   onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','channelRanksForm');"/>
     </div>
 	</html:form>
 </body>
