@@ -19,7 +19,6 @@ package Sniglets::CustomInfo;
 
 use PXT::Utils;
 use RHN::CustomInfoKey;
-use RHN::Access::CustomInfo;
 
 sub register_tags {
   my $class = shift;
