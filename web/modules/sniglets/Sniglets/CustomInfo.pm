@@ -26,7 +26,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-edit-custominfo-key' => \&edit_key_details);
   $pxt->register_tag('rhn-system-value-details' => \&system_value_details);
-  $pxt->register_tag('rhn-system-value-edit' => \&system_value_edit);
   $pxt->register_tag('rhn-no-system-custom-info' => \&no_system_custom_info);
 }
 
@@ -111,38 +110,6 @@ sub remove_system_value {
 
   $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> removed for this system.");
   $pxt->redirect("/rhn/systems/details/ListCustomData.do?$sid");
-}
-
-sub system_value_edit {
-  my $pxt = shift;
-  my %params = @_;
-
-  my %subs;
-
-  my $key_id = $pxt->param('cikid');
-  my $sid = $pxt->param('sid');
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  my $key = RHN::CustomInfoKey->lookup(-id => $key_id);
-
-  my $data_ref = RHN::Server->get_custom_value(-server_id => $sid,
-					       -key_id => $key_id);
-
-  if ($data_ref) {
-    $subs{value_created} = $data_ref->{CREATED} . " by " . PXT::Utils->escapeHTML($data_ref->{CREATED_BY});
-    $subs{value_modified} = $data_ref->{LAST_MODIFIED} . " by " . PXT::Utils->escapeHTML($data_ref->{LAST_MODIFIED_BY});
-    $subs{key_label} = PXT::Utils->escapeHTML($data_ref->{KEY});
-    $subs{value} = $data_ref->{VALUE};
-  }
-  else {
-    $server->set_custom_value(-user_id => $pxt->user->id,
-			      -key_label => $key->label(),
-			      -value => undef);
-
-    $pxt->redirect("/rhn/systems/details/UpdateCustomData.do?sid=$sid&cikid=$key_id");
-  }
-
-  return PXT::Utils->perform_substitutions($params{__block__}, \%subs);
 }
 
 sub no_system_custom_info {
