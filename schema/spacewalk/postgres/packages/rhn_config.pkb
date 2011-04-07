@@ -87,9 +87,9 @@ $$ LANGUAGE 'plpgsql';
 			where config_content_id = config_content_id_in;
 	begin
                 for snapshot in snapshots loop
-                    update rhnSnapshot s
-                        set s.invalid = lookup_snapshot_invalid_reason('cr_removed')
-                        where s.id = snapshot.id;
+                    update rhnSnapshot
+                        set invalid = lookup_snapshot_invalid_reason('cr_removed')
+                        where id = snapshot.id;
                 end loop;
 
 		if org_id_in < 0 then
