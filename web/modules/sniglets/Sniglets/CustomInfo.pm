@@ -26,7 +26,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-edit-custominfo-key' => \&edit_key_details);
   $pxt->register_tag('rhn-system-value-details' => \&system_value_details);
-  $pxt->register_tag('rhn-no-system-custom-info' => \&no_system_custom_info);
 }
 
 sub register_callbacks {
@@ -110,16 +109,6 @@ sub remove_system_value {
 
   $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> removed for this system.");
   $pxt->redirect("/rhn/systems/details/ListCustomData.do?$sid");
-}
-
-sub no_system_custom_info {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $ds = new RHN::DataSource::System(-mode => 'custom_vals_for_server');
-  my $data = $ds->execute_query(-sid => $pxt->param('sid'));
-
-  return (scalar @{$data} ? '' : $attr{__block__});
 }
 
 sub system_value_details {
