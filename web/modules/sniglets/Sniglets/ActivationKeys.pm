@@ -18,7 +18,6 @@ use strict;
 package Sniglets::ActivationKeys;
 
 use RHN::Token;
-use RHN::DataSource::Channel;
 use RHN::Exception;
 use RHN::Form::Widget;
 use RHN::Form::Widget::CheckboxGroup;
@@ -34,25 +33,6 @@ sub register_tags {
 
 
 
-#given an org_id, return a list of 'tokenable' channels.
-sub good_token_channels {
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::Channel (-mode => 'token_channels_tree');
-  my $all_channels = $ds->execute_query(-org_id => $org_id);
-
-  #filter out channels which require a license agreement:
-  my @channel_list = @{$all_channels};
-
-  #filter out proxy and satellite channels:
-  @channel_list = grep { ($_->{CHANNEL_FAMILY_LABEL} ne 'rhn-satellite')
-			  and ($_->{CHANNEL_FAMILY_LABEL} ne 'rhn-proxy') } @channel_list;
-
-  #filter out channels which have a parent that isn't in this list.
-  my %available = map { ($_->{ID}, 1) } @channel_list;
-  @channel_list = grep { not defined $_->{PARENT_CHANNEL} or $available{$_->{PARENT_CHANNEL}} } @channel_list;
-  return @channel_list;
-}
 sub create_token {
   my $class = shift;
   my $pxt = shift;
