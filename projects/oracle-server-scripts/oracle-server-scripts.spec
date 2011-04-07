@@ -8,7 +8,7 @@
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: 10.2.0.54
+Version: 10.2.0.55
 Release: 1%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
@@ -100,6 +100,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Thu Apr 07 2011 Tomas Lestach <tlestach@redhat.com> 10.2.0.55-1
+- fail the pipeline, if one of the pipeline commands fail (tlestach@redhat.com)
+
 * Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 10.2.0.54-1
 - oracle_sqlplus_t is not able to write to logs
 
