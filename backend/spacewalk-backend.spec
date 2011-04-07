@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.28
+Version: 1.4.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Apr 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.29-1
+- fixed variable name
+
 * Wed Apr 06 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.28-1
 - 663326 - return doesn't correctly trigger releaseLOCK()
 - 663326 - prevent spacewalk-remove-channel to run when spacewalk-repo-sync is
