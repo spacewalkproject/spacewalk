@@ -303,6 +303,7 @@ function m4_macros() {
 }
 
 function CreateDatabase() {
+    set -o pipefail
     template=$1
     db=$2
     if [ -z "$db" ] ; then return ; fi
@@ -311,6 +312,7 @@ function CreateDatabase() {
     m4 $(m4_macros $db) $template | $ORACLE_HOME/bin/sqlplus /nolog \
       | cat >$AdminDB/logs/create_$db.log \
       || exit $?
+    set +o pipefail
 }
 
 function OratabEntry() {
