@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.17
+Version:        1.4.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Apr 08 2011 Jan Pazdziora 1.4.18-1
+- Adding missing rhnErrataBuglistTmp schema upgrade scripts.
+
 * Fri Apr 08 2011 Jan Pazdziora 1.4.17-1
 - Add 'from' to Errata and 'href' to ErrataBuglist in database schema
   (ug@suse.de)
