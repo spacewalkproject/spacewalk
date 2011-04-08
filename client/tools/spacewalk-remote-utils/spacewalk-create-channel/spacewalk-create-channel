@@ -16,7 +16,7 @@ import string
 import os
 from os import path
 from optparse import OptionParser
-from rhn.connections import idn_unicode_to_pune
+from rhn.connections import idn_ascii_to_pune
 
 DATA_DIR = "./data/"
 DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
@@ -113,7 +113,7 @@ def main():
    validate_options(options)
 
    global server, user, password, filename, ssl, bundleSize, clone
-   server = idn_unicode_to_pune(options.server)
+   server = idn_ascii_to_pune(options.server)
    user = options.user
    password  = options.password
    if password == None:

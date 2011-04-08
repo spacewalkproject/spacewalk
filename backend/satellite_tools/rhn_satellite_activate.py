@@ -21,7 +21,7 @@ import gzip
 import string
 from optparse import Option, OptionParser
 from rhn import rpclib
-from rhn.connections import idn_unicode_to_pune
+from rhn.connections import idn_ascii_to_pune
 
 # Recent rhnlib has support for timing out, rather than hanging.
 try:
@@ -502,10 +502,10 @@ def processCommandline():
         if not CFG.RHN_PARENT:
             sys.stderr.write("ERROR: rhn_parent is not set in /etc/rhn/rhn.conf\n")
             sys.exit(1)
-        options.server = idn_unicode_to_pune(string.split(rhnLib.parseUrl(CFG.RHN_PARENT)[1], ':')[0])
+        options.server = idn_ascii_to_pune(string.split(rhnLib.parseUrl(CFG.RHN_PARENT)[1], ':')[0])
         print 'RHN_PARENT: %s' % options.server
 
-    options.http_proxy = idn_unicode_to_pune(CFG.HTTP_PROXY)
+    options.http_proxy = idn_ascii_to_pune(CFG.HTTP_PROXY)
     options.http_proxy_username = CFG.HTTP_PROXY_USERNAME
     options.http_proxy_password = CFG.HTTP_PROXY_PASSWORD
     options.ca_cert = CFG.CA_CHAIN

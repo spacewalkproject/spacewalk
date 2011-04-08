@@ -15,7 +15,7 @@
 # Satellite specific authentication xmlrpc method.
 
 import time
-from rhn.connections import idn_unicode_to_pune
+from rhn.connections import idn_ascii_to_pune
 
 from spacewalk.common import CFG, rhnFault, log_debug
 from spacewalk.common.rhnTranslate import _
@@ -44,9 +44,9 @@ class Authentication(rhnHandler):
 
         if CFG.ALLOWED_ISS_SLAVES:
             if not isinstance(CFG.ALLOWED_ISS_SLAVES, list):
-                allowed_iss_slaves = map(lambda x: idn_unicode_to_pune(x), [CFG.ALLOWED_ISS_SLAVES])
+                allowed_iss_slaves = map(lambda x: idn_ascii_to_pune(x), [CFG.ALLOWED_ISS_SLAVES])
             else:
-                allowed_iss_slaves = idn_unicode_to_pune(CFG.ALLOWED_ISS_SLAVES)
+                allowed_iss_slaves = idn_ascii_to_pune(CFG.ALLOWED_ISS_SLAVES)
         else:
             allowed_iss_slaves = []
 
