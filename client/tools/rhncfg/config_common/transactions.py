@@ -284,11 +284,11 @@ class DeployTransaction:
 			raise cfg_exceptions.DirectoryEntryIsFile(dirname)
                     if os.path.isdir(dirname):
                         s = os.stat(dirname)
-                        entry = {}
-                        entry["filemode"] = "%o" % (s[0] & 07777)
-                        entry["uid"] = s[4]
-                        entry["gid"] = s[5]
-			entry["filetype"] = 'directory'
+                        entry = { 'filemode': "%o" % (s[0] & 07777),
+                                  'uid': s[4],
+                                  'gid': s[5],
+                                  'filetype': 'directory',
+                                }
                         self.changed_dir_info[dirname] = entry
                         log_debug(3, "directory found, chowning and chmoding to %s as needed: %s" % (dirmode, dirname))
                         self._chown_chmod_chcon(dirname, dirname, directory)
