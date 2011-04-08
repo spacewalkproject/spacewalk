@@ -321,7 +321,7 @@ class DeployTransaction:
                 # which ones are created... then i could clean created
                 # dirs on rollback
                 (directory, filename) = os.path.split(path)
-		if os.path.isdir(path):
+		if os.path.isdir(path) and not os.path.islink(path):
 		    raise cfg_exceptions.FileEntryIsDirectory(path)
                 if not os.path.exists(directory) and os.path.isdir(directory):
                     log_debug(7, "creating directories for %s ..." % directory)
