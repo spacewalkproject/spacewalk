@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.16
+Version: 0.2.17
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Fri Apr 08 2011 Miroslav Suchý 0.2.17-1
+- update copyright years (msuchy@redhat.com)
+
 * Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 0.2.16-1
 - Fixed typo in import subprocess (mmello@redhat.com)
 
