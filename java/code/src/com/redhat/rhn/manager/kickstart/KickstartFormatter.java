@@ -639,12 +639,14 @@ public class KickstartFormatter {
 
         log.debug("adding perl -npe for /etc/sysconfig/rhn/up2date");
         if (this.ksdata.isRhel2()) {
-            retval.append("perl -npe 's|^(\\s*(noSSLS|s)erverURL\\s*=\\s*[^:]+://)[^/]*/|${1}" +
+            retval.append("perl -npe " +
+	             "'s|^(\\s*(noSSLS|s)erverURL\\s*=\\s*[^:]+://)[^/]*/|${1}" +
                      up2datehost +
                      "/|' -i /etc/sysconfig/rhn/rhn_register" + NEWLINE);
         }
         // both rhel 2 and rhel3/4 need the following
-        retval.append("perl -npe 's|^(\\s*(noSSLS|s)erverURL\\s*=\\s*[^:]+://)[^/]*/|\\${1}" +
+        retval.append("perl -npe " +
+	        "'s|^(\\s*(noSSLS|s)erverURL\\s*=\\s*[^:]+://)[^/]*/|\\${1}" +
                 up2datehost +
                 "/|' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
 
