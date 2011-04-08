@@ -20,3 +20,4 @@ source_lang = en
 file_filter = backend/po/<lang>.po
 source_file = backend/po/server.pot
 source_lang = en
+

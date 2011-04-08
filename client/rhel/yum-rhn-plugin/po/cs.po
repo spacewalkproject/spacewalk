@@ -2,28 +2,28 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-01-20 05:57-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: Skullman <skulliq@gmail.com>\n"
+"Language-Team: Czech <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 
 #: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
-msgstr ""
+msgstr "Nastala chyba ve spojení s RHN."
 
 #: ../rhnplugin.py:90
 msgid "RHN support will be disabled."
-msgstr ""
+msgstr "Podpora RHN vypnuta."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
@@ -31,44 +31,50 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
+"Upozornění: Repositáře Red Hat Network nejsou zobrazeny. Pro zobrazení "
+"repositářů musíte být přihlášen jako root."
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
-msgstr ""
+msgstr "Nastala chyba při zpracování nastavení RHN proxy."
 
 #: ../rhnplugin.py:122
 msgid "This system is not registered with RHN."
-msgstr ""
+msgstr "Tento systém není zaregistrován v RHN."
 
 #: ../rhnplugin.py:127
 msgid "RHN channel support will be disabled."
-msgstr ""
+msgstr "Podpora pro kanály RHN bude vypnuta."
 
 #: ../rhnplugin.py:131
 msgid "This system is not subscribed to any channels."
-msgstr ""
+msgstr "Tento systém není přihlášen do žádného kanálu."
 
 #: ../rhnplugin.py:135
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr ""
+"Tento systém pravděpodobně nebyl zaregistrován do RHN. Nepodařilo se získat "
+"jeho SystemId."
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
-msgstr ""
+msgstr "Nelze odeslat informace o balících."
 
 #. This is compensating for hosted/satellite returning back an error
 #. message instructing RHEL5 clients to run "up2date --register"
 #. bz: 438175
 #: ../rhnplugin.py:200
 msgid "Error Message:"
-msgstr ""
+msgstr "Chybové hlášení:"
 
 #: ../rhnplugin.py:201
 msgid "Please run rhn_register as root on this client"
 msgstr ""
+"Přihlaste se jako root a spusťte na tomto počítači program rhn_register"
 
 #: ../rhnplugin.py:280
 #, python-format
 msgid "Missing required login information for RHN: %s"
-msgstr ""
+msgstr "Chybí informace nutná pro přihlášení do RHN: %s"
