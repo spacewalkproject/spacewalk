@@ -4,7 +4,7 @@
 
 TOP	= ..
 SUBDIR	= locale
-localedir = $(PREFIX)/usr/share/locale
+localedir = /usr/share/locale
 
 include $(TOP)/Makefile.defs
 
