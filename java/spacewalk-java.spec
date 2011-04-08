@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.32
+Version: 1.4.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 08 2011 Miroslav Suchý 1.4.33-1
+- 679009 - fixing checkstyle issue (line length) with the previous commit.
+  (jpazdziora@redhat.com)
+- 679009 - update noSSLServerURL option as well, for RHEL 3 and 4.
+  (jpazdziora@redhat.com)
+
 * Thu Apr 07 2011 Jan Pazdziora 1.4.32-1
 - 694393 - provide original channel for cloned channels in
   channel.software.getDatails API (tlestach@redhat.com)
