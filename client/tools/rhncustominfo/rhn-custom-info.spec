@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.9
+Version: 5.4.10
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -53,6 +53,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Fri Apr 08 2011 Miroslav Suchý 5.4.10-1
+- both string and unicode are instance of basestring
+- fix rhn-custom-info (mc@suse.de)
+
 * Tue Apr 05 2011 Miroslav Suchý 5.4.9-1
 - simplify read_username()
 - 683200 - utilize up2date_client.config
