@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.19
+Version: 1.4.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 08 2011 Jan Pazdziora 1.4.20-1
+- use new database columns errata_from and bug url also in the perl code
+  (mc@suse.de)
+
 * Fri Apr 08 2011 Jan Pazdziora 1.4.19-1
 - Putting back use RHN::Exception (with explicit import of throw).
 
