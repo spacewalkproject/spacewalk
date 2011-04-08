@@ -56,7 +56,7 @@ msgid ""
 "acquired.\n"
 msgstr ""
 "Tento systém pravděpodobně nebyl zaregistrován do RHN. Nepodařilo se získat "
-"jeho SystemId."
+"jeho SystemId.\n"
 
 #: ../rhnplugin.py:193
 msgid "Package profile information could not be sent."
