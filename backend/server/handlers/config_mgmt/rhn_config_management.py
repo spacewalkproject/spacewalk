@@ -273,7 +273,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
 	   and cr.config_file_type_id = cft.id
-    """)
+    """
     _query_get_file_latest = rhnSQL.Statement(_query_get_file + """
            and cf.latest_config_revision_id = cr.id
            """)
