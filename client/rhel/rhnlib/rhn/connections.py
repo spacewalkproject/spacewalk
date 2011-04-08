@@ -226,4 +226,4 @@ def idn_ascii_to_pune(hostname):
     else:
         if not isinstance(hostname, unicode):
             hostname = unicode(hostname, 'utf-8')
-        return u'.'.join([encodings.idna.ToASCII(x) for x in hostname.split('.')])
+        return '.'.join([encodings.idna.ToASCII(x) for x in hostname.split('.')])
