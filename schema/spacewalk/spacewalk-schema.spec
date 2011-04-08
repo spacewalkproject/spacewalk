@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.4.15
+Version:        1.4.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Apr 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.16-1
+- fixed checksum
+
 * Fri Apr 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.15-1
 - added schema upgrade for rhn_config.pkb on postgresql (PG)
 - postgresql doesn't support aliases in update query
