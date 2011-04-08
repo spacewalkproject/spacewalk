@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.4.14
+Version: 1.4.15
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Apr 08 2011 Miroslav Suchý 1.4.15-1
+- fix cs translation (msuchy@redhat.com)
+
 * Fri Apr 08 2011 Miroslav Suchý 1.4.14-1
 - update copyright years (msuchy@redhat.com)
 - download spacewalk.yum-rhn-plugin from Transifex (msuchy@redhat.com)
