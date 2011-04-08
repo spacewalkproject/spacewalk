@@ -1,6 +1,6 @@
 #   yum-rhn-plugin - RHN support for yum
 #
-#   Copyright (C) 2006 Red Hat, Inc.
+# Copyright (c) 2006--2011 Red Hat, Inc.
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
