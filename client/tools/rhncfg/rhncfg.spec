@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.50
+Version: 5.9.51
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 08 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.51-1
+- don't rollback transaction if symlink already exists
+- fixed traceback during rollback
+- don't fail if link points to directory
+
 * Thu Mar 24 2011 Jan Pazdziora 5.9.50-1
 - 688461 - try/except is workaround of BZ 690238 (msuchy@redhat.com)
 - 688461 - fixed python exception when comparing files using web UI and SELinux
