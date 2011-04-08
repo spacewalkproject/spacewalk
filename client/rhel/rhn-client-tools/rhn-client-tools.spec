@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.4.13
+Version: 1.4.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -297,6 +297,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Apr 08 2011 Miroslav Suchý 1.4.14-1
+- Revert "idn_unicode_to_pune() have to return string" (msuchy@redhat.com)
+
 * Fri Apr 08 2011 Miroslav Suchý 1.4.13-1
 - update copyright years (msuchy@redhat.com)
 - download spacewalk.rhn-client-tools from Transifex (msuchy@redhat.com)
