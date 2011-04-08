@@ -80,7 +80,7 @@ class ClientRepository(repository.RPC_Repository):
         # assume file
         if result.get('filetype') == 'directory':
             if dest_directory:
-                result['path'] = dest_directory + result['path']
+                result['path'] = dest_directory.rstrip(os.path.sep) + result['path']
             if os.path.isfile(result['path']):
                 raise cfg_exceptions.DirectoryEntryIsFile(result['path'])
             else:

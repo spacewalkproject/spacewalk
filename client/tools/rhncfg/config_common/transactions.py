@@ -343,7 +343,7 @@ class DeployTransaction:
 
             # 2.
             for path in paths:
-		if os.path.isdir(path):
+		if os.path.isdir(path) and not os.path.islink(path):
 		    raise cfg_exceptions.FileEntryIsDirectory(path)	
 		else:
                     self._rename_to_backup(path)
