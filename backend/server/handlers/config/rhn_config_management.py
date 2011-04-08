@@ -192,7 +192,6 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             on cr.config_content_id = ccont.id
           left join rhnChecksumView c
             on ccont.checksum_id = c.id,
-               rhnChecksumView c,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
 	       rhnConfigFileType cft,
