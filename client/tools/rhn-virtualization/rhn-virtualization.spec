@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.20
+Version:        5.4.21
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -147,6 +147,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Apr 08 2011 Miroslav Suchý 5.4.21-1
+- update copyright years (msuchy@redhat.com)
+
 * Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 5.4.20-1
 - 683546 - optparse isn't friendly to translations in unicode
 
