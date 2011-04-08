@@ -238,7 +238,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             'revision'      : row['revision'],
         }
 
-    _query_get_file_latest = rhnSQL.Statement("""
+    _query_get_file = """
         select :path path,
                cc.label config_channel, 
                ccont.contents file_contents,
@@ -270,49 +270,16 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cf.config_file_name_id = lookup_config_filename(:path)
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
-           and cf.latest_config_revision_id = cr.id
            and cr.config_content_id = ccont.id(+)
 	   and cr.config_file_type_id = cft.id
            and ccont.checksum_id = c.id(+)
     """)
-    _query_get_file_revision = rhnSQL.Statement("""
-        select :path path,
-               cc.label config_channel, 
-               ccont.contents file_contents,
-               ccont.is_binary,
-               c.checksum_type,
-               c.checksum,
-               ccont.delim_start, ccont.delim_end,
-               cr.revision,
-               cf.modified,
-               ci.username,
-               ci.groupname,
-               ci.filemode,
-	       cft.label,
-	       ci.selinux_ctx,
-           case 
-                when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
-                else ''
-            end as symlink
-          from rhnConfigChannel cc,
-               rhnConfigInfo ci,
-               rhnConfigRevision cr,
-               rhnConfigFile cf,
-               rhnConfigContent ccont,
-               rhnChecksumView c,
- 	       rhnConfigFileType cft
-         where cf.config_channel_id = cc.id
-           and cc.label = :config_channel
-           and cc.org_id = :org_id
-           and cf.config_file_name_id = lookup_config_filename(:path)
-           and cr.config_file_id = cf.id
-           and cr.config_info_id = ci.id
+    _query_get_file_latest = rhnSQL.Statement(_query_get_file + """
+           and cf.latest_config_revision_id = cr.id
+           """)
+    _query_get_file_revision = rhnSQL.Statement(_query_get_file + """
            and cr.revision = :revision
-           and cr.config_content_id = ccont.id(+)
-           and cr.config_file_type_id = cft.id
-           and ccont.checksum_id = c.id(+)
-
-    """)
+           """)
 
     def _get_file(self, config_channel, path, revision=None):
         log_debug(2, config_channel, path)
