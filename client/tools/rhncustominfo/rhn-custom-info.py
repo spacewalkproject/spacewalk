@@ -48,7 +48,7 @@ def create_server_obj(server_url):
                                                                                        
     ca = cfg['sslCACert']
         
-    if isinstance(ca, str) or isinstance(ca, unicode):
+    if isinstance(ca, basestring):
         ca = [ca]
  
     ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]
