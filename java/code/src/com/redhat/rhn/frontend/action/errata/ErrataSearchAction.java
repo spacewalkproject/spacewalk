@@ -69,6 +69,7 @@ public class ErrataSearchAction extends RhnAction {
     private static final String OPT_PKG_NAME = "errata_search_by_package_name";
     private static final String OPT_CVE = "errata_search_by_cve";
     private static final String OPT_ALL_FIELDS = "errata_search_by_all_fields";
+    public static final String FINE_GRAINED = "fineGrained";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -142,6 +143,7 @@ public class ErrataSearchAction extends RhnAction {
 
         forwardParams.put("search_string", searchString);
         forwardParams.put("view_mode", viewMode);
+        forwardParams.put(FINE_GRAINED, request.getParameter(FINE_GRAINED));
 
         if (!errors.isEmpty()) {
             addErrors(request, errors);
@@ -318,6 +320,11 @@ public class ErrataSearchAction extends RhnAction {
             path = "db.search";
         }
         else {
+            Boolean fineGrained = (Boolean) formIn.get("fineGrained");
+            if (fineGrained == null) {
+                fineGrained = false;
+            }
+            args.add(fineGrained);
             // Tells search server to use the lucene index
             path = "index.search";
         }

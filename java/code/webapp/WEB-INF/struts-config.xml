@@ -253,6 +253,7 @@
             <form-property name="end_hour"    type="java.lang.Integer"/>
             <form-property name="end_minute"  type="java.lang.Integer"/>
             <form-property name="end_am_pm"   type="java.lang.Integer"/>
+            <form-property name="fineGrained" type="java.lang.Boolean"/>
 
         </form-bean>
         <form-bean name="errataCreateForm"

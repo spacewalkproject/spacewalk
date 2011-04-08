@@ -123,6 +123,14 @@
                     </div>
                 </td>
            </tr>
+           <tr>
+              <th><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrainedlabel"/></label></th>
+              <td>
+                   <div style="text-align: left">
+               <html:checkbox property="fineGrained" styleId="fineGrainedlabel"><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrained"/></label></html:checkbox>
+                   </div>
+              </td>
+           </tr>
          </table>
        </div> <!-- search choices group -->
    </div> <!-- search choices -->
@@ -254,6 +262,7 @@
     <input type="hidden" name="end_hour" value="<%= request.getParameter("end_hour") %>" />
     <input type="hidden" name="end_minute" value="<%= request.getParameter("end_minute") %>" />
     <input type="hidden" name="end_am_pm" value="<%= request.getParameter("end_am_pm") %>" />
+    <input type="hidden" name="fineGrained" value="${fineGrained}" />
 
   </rl:listset>
 
