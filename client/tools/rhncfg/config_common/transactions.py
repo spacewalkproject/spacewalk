@@ -73,7 +73,7 @@ class DeployTransaction:
 
         if os.path.exists(path):
             # race
-            if os.path.isfile(path):
+            if os.path.isfile(path) or os.path.islink(path):
                 new_path = self._generate_backup_path(path)
                 log_debug(6, "renaming %s to backup %s ..." % (path, new_path))
 	        # os.renames will fail if the path and the new_path are on different partitions
