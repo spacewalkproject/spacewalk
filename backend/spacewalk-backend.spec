@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.29
+Version: 1.4.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 08 2011 Miroslav Suchý 1.4.30-1
+- Revert "idn_unicode_to_pune() have to return string" (msuchy@redhat.com)
+- update copyright years (msuchy@redhat.com)
+- download spacewalk.spacewalk-backend from Transifex (msuchy@redhat.com)
+
 * Thu Apr 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.29-1
 - fixed variable name
 
