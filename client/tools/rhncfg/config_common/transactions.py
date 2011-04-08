@@ -331,7 +331,7 @@ class DeployTransaction:
                 
                 # write the new contents to a tmp file, and store the path of the
                 # new tmp file by it's eventual target path
-                self.newtemp_by_path[path], temp_new_dirs = fp.process(dep_file, directory=directory)
+                self.newtemp_by_path[path], temp_new_dirs = fp.process(dep_file, os.path.sep)
                 self.new_dirs.extend(temp_new_dirs or [])
                 
                 # properly chown and chmod it
