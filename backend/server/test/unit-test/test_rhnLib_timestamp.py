@@ -41,11 +41,11 @@ class Tests(unittest.TestCase):
         ttuple = time.localtime(t)
         return time.strftime(tformat, ttuple)
         
-    def _test(self, t):
+    def _test(self, t, dstshift=0):
         t = int(t)
         tstr = self._str(t)
         t2 = int(rhnLib.timestamp(tstr))
-        return (t == t2), t, tstr, t2
+        return (t+dstshift == t2), t, tstr, t2
 
     def _test_timestamp_2(self):
         y = 1969
@@ -65,7 +65,8 @@ class Tests(unittest.TestCase):
             
     def test_timestamp_3(self): 
         t = 57739297
-        is_eq, t1, tstr, t2 = self._test(t)
+        dstshift = (time.localtime(t)[8] - time.daylight) * 3600
+        is_eq, t1, tstr, t2 = self._test(t, dstshift)
         self.failUnless(is_eq, "Failed: %s, %s" % (t1, t2))
 
     def _test_timestamp_4(self): 
