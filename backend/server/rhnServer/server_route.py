@@ -18,7 +18,8 @@
 
 import string
 
-from spacewalk.common import rhnFlags, log_debug
+from spacewalk.common import rhnFlags
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL, apacheAuth
 
 def store_client_route(server_id):

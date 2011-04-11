@@ -19,7 +19,7 @@ import hashlib
 import string
 import base64
 
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
 
 # architecture work

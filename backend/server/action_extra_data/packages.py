@@ -18,7 +18,8 @@ import re
 
 from types import ListType, IntType
 
-from spacewalk.common import log_debug, log_error, rhnFlags
+from spacewalk.common import rhnFlags
+from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import server_kickstart

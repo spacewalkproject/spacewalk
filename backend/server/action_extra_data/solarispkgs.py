@@ -15,7 +15,7 @@
 # config file-related queuing functions
 #
 
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 
 # the "exposed" functions

@@ -15,7 +15,7 @@
 # Activation key related queuing functions
 #
 
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL, rhnAction, rhnServer
 from spacewalk.server.rhnLib import ShadowAction
 from spacewalk.server.rhnServer import server_kickstart

@@ -14,7 +14,7 @@
 #
 #
 
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 
 def schedule_action(action_type, action_name=None, delta_time=0,

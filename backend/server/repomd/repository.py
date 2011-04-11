@@ -25,7 +25,8 @@ import os.path
 from gzip import GzipFile
 from gzip import write32u
 
-from spacewalk.common import log_debug, rhnCache
+from spacewalk.common import rhnCache
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
 
 import mapper

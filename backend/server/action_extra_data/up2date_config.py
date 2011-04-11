@@ -15,7 +15,7 @@
 # errata-related error handling functions
 #
 
-from spacewalk.common import log_error
+from spacewalk.common.rhnLog import log_error
 
 # the "exposed" functions
 __rhnexport__ = ['get', 'update', ]

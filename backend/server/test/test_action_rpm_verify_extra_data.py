@@ -21,7 +21,7 @@ if len(sys.argv) != 3:
 system_id = sys.argv[1]
 action_id = sys.argv[2]
 
-from spacewalk.common import initLOG
+from spacewalk.common.rhnLog import initLOG
 from spacewalk.server import rhnSQL
 
 from spacewalk.server.action_extra_data import packages

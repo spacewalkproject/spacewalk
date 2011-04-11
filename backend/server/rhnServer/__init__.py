@@ -17,7 +17,8 @@
 
 
 # these are pretty much the only entry points
-from spacewalk.common import rhnFault, log_debug, log_error
+from spacewalk.common import rhnFault
+from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.server import rhnUser
 
 # Local imports

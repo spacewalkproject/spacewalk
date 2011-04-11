@@ -24,7 +24,4 @@ except ImportError:
     # no _apache available, not running under apache/mod_python
     pass
 
-# functions we want exposed
-from rhnLog import log_debug, log_error, log_clean, log_setreq, initLOG
-
 __all__ = []

@@ -30,7 +30,8 @@ import re
 import types
 
 from spacewalk.server import rhnSQL
-from spacewalk.common import log_debug, log_error, rhnConfig
+from spacewalk.common import rhnConfig
+from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
 from spacewalk.common.UserDictCase import UserDictCase
 from sql_base import adjust_type

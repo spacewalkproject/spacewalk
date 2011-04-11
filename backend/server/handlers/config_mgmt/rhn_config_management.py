@@ -18,7 +18,7 @@
 # $Id$
 
 import difflib
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnSQL, configFilesHandler
 from spacewalk.common.fileutils import f_date, ostr_to_sym

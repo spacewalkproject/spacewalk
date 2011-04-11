@@ -12,7 +12,8 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from spacewalk.common import log_debug, rhnFlags
+from spacewalk.common import rhnFlags
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server.rhnServer import server_kickstart
 
 __rhnexport__ = ['initiate', 'add_tools_channel', 'schedule_virt_guest_pkg_install']

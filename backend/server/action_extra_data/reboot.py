@@ -14,7 +14,8 @@
 #
 #
 
-from spacewalk.common import log_debug, rhnFlags
+from spacewalk.common import rhnFlags
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server.rhnServer import server_kickstart
 
 # the "exposed" functions

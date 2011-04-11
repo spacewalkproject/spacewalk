@@ -14,7 +14,7 @@
 #
 #
 
-from spacewalk.common import log_debug, log_error
+from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _

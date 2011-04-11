@@ -9,7 +9,7 @@ import hashlib
 from optparse import Option, OptionParser
 
 try:
-    from spacewalk.common import initLOG, log_debug
+    from spacewalk.common.rhnLog import initLOG, log_debug
     from spacewalk.common.rhnConfig import CFG, initCFG
     from spacewalk.server import rhnSQL
 except:

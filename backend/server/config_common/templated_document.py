@@ -18,7 +18,7 @@
 
 from base_templated_document import TemplatedDocument
 
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 
 from spacewalk.server.rhnServer.server_hardware import NetworkInformation
 from spacewalk.server.rhnServer.server_hardware import NetIfaceInformation

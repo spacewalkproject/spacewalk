@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 
 __rhnexport__ = ['schedule_virt_host_pkg_install', 'add_tools_channel']
 

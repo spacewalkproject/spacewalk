@@ -19,7 +19,8 @@ from datetime import datetime
 import traceback
 from optparse import OptionParser
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from spacewalk.common import rhnLog, log_debug
+from spacewalk.common import rhnLog
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_mpm import InvalidPackageError
 from spacewalk.common.rhnConfig import CFG, initCFG

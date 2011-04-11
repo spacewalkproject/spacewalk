@@ -14,7 +14,7 @@
 #
 
 
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server.rhnLib import InvalidAction, ShadowAction
 from spacewalk.server.action.utils import SubscribedChannel,\
                                 ChannelPackage, \

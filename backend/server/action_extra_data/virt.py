@@ -13,7 +13,8 @@
 # in this software or its documentation. 
 #
 
-from spacewalk.common import log_debug, rhnFlags
+from spacewalk.common import rhnFlags
+from spacewalk.common.rhnLog import log_debug
 
 
 __rhnexport__ = [   'schedulePoller',

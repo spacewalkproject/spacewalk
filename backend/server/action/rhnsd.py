@@ -17,7 +17,7 @@
 #
 
 from spacewalk.server import rhnSQL
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnException
 
 # the "exposed" functions

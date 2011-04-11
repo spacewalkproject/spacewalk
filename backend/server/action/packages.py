@@ -18,7 +18,7 @@
 # the DB.
 #
 
-from spacewalk.common import log_debug
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL, rhnCapability
 from spacewalk.server.rhnLib import InvalidAction
 

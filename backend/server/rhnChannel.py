@@ -22,8 +22,8 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, ListType, DictType
 
 # common module
-from spacewalk.common import log_debug, log_error, \
-    rhnCache, rhnFlags, CFG, rhn_rpm
+from spacewalk.common import rhnCache, rhnFlags, CFG, rhn_rpm
+from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common.rhnTranslate import _
 
