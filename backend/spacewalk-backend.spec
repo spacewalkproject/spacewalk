@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.2
+Version: 1.5.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -679,6 +679,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Apr 11 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.3-1
+- fixed sysdate (PG)
+- fixed non-numeric revision (PG)
+- unified_diff.next() throws StopIteration when there's no difference
+
 * Mon Apr 11 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.2-1
 - import blob directly (PG)
 - postgresql doesn't understand for update of column (PG)
