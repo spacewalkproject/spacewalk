@@ -450,15 +450,20 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             return ""
 
         diff = difflib.unified_diff(fsrc['file_content'], fdst['file_content'], path, path, fsrc['modified'], fdst['modified'], lineterm='')
-        first_row = diff.next()
-        if not first_row:
+        try:
+            first_row = diff.next()
+        except StopIteration:
             return ""
 
         if not first_row.startswith('---'):
             # Hmm, weird
             return first_row + '\n'.join(list(diff))
 
-        second_row = diff.next()
+        try:
+            second_row = diff.next()
+        except StopIteration:
+            second_row = ''
+
         if not second_row.startswith('+++'):
             # Hmm, weird
             return second_row + '\n'.join(list(diff))
