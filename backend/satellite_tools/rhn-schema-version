@@ -40,7 +40,7 @@ if _LIBPATH not in sys.path:
 
 try:
     from spacewalk.server import rhnSQL
-    from spacewalk.common import initCFG
+    from spacewalk.common.rhnConfig import initCFG
 except KeyboardInterrupt:
     sys.stderr.write("\nUser interrupted process.\n")
     sys.exit(0)

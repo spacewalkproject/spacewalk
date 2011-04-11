@@ -14,7 +14,8 @@
 #
 import sys
 import time
-from spacewalk.common import initCFG, rhnFlags
+from spacewalk.common import rhnFlags
+from spacewalk.common.rhnConfig import initCFG
 from spacewalk.server import rhnSQL, rhnChannel, rhnServer, rhnUser
 
 def test_server_search(use_key=0):

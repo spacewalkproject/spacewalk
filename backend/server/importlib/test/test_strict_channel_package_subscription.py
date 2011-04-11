@@ -30,7 +30,7 @@
 #   invalid should become non-null (2 in my tests)
 
 import sys
-from spacewalk.common import initCFG
+from spacewalk.common.rhnConfig import initCFG
 
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib import importLib, packageImport, backendOracle

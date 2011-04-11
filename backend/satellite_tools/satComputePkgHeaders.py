@@ -20,7 +20,7 @@
 import sys
 from optparse import OptionParser, Option
 
-from spacewalk.common import initCFG
+from spacewalk.common.rhnConfig import initCFG
 
 SERVER_RETURN = 0
 

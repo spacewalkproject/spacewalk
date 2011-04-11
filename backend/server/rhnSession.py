@@ -21,7 +21,7 @@ import hashlib
 import time
 import string
 
-from spacewalk.common import CFG
+from spacewalk.common.rhnConfig import CFG
 
 import rhnSQL
 

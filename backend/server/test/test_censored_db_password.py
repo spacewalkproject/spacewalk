@@ -20,7 +20,7 @@
 # $Id$
 
 from spacewalk.server import rhnSQL
-from spacewalk.common import initCFG
+from spacewalk.common.rhnConfig import initCFG
 from spacewalk.common.rhnTB import Traceback
 
 initCFG('server.xmlrpc')

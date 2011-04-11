@@ -21,7 +21,8 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, TupleType
 
 # Global modules
-from spacewalk.common import CFG, log_debug, log_error, rhnFlags
+from spacewalk.common import log_debug, log_error, rhnFlags
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _
 from spacewalk.common.rhnTB import Traceback

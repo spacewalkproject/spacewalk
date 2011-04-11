@@ -16,9 +16,6 @@
 #
 
 
-# classes we make publicly available
-from rhnConfig import CFG, initCFG
-
 # try to figure out if we're running under Apache or not
 try:
     from rhnApache import rhnApache

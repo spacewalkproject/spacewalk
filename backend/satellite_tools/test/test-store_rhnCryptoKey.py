@@ -25,7 +25,7 @@
 import os
 
 from spacewalk.server import rhnSQL
-from spacewalk.common import initCFG, CFG
+from spacewalk.common.rhnConfig import CFG, initCFG
 
 from spacewalk.satellite_tools.satCerts import store_rhnCryptoKey
 from spacewalk.satellite_tools.satCerts import _querySelectCryptoCertInfo

@@ -23,7 +23,8 @@ import xmlrpclib
 from rhn.rpclib import transports
 
 # common modules
-from spacewalk.common import apache, CFG, rhnFlags
+from spacewalk.common import apache, rhnFlags
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common import log_debug, log_error, byterange
 from spacewalk.common.rhnException import rhnFault, \
         redirectException #to catch redirect exception

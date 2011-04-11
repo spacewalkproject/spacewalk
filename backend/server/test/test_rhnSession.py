@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-from spacewalk.common import initCFG
+from spacewalk.common.rhnConfig import initCFG
 from spacewalk.server import rhnSQL, rhnUser
 
 rhnSQL.initDB("rhnuser/rhnuser@webdev")

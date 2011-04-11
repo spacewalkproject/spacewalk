@@ -17,7 +17,8 @@
 
 import sys
 
-from spacewalk.common import log_debug, CFG
+from spacewalk.common import log_debug
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnException
 from spacewalk.common.rhnTB import add_to_seclist
 

@@ -17,7 +17,7 @@
 import os
 import sys
 import time
-from spacewalk.common import initCFG
+from spacewalk.common.rhnConfig import initCFG
 from spacewalk.server import rhnFileDownload, rhnSQL
 
 def main():

@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-from spacewalk.common import initCFG
+from spacewalk.common.rhnConfig import initCFG
 from spacewalk.server.rhnSQL import initDB
 from spacewalk.server.xmlrpc import registration
 

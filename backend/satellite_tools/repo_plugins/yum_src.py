@@ -21,7 +21,7 @@ from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
 from yum.misc import cElementTree_iterparse as iterparse
 from spacewalk.satellite_tools.reposync import ContentPackage
-from spacewalk.common import CFG, initCFG
+from spacewalk.common.rhnConfig import CFG, initCFG
 
 class YumWarnings:
     def write(self, s):

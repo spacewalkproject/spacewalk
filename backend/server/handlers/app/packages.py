@@ -22,7 +22,8 @@ import string
 import tempfile
 from types import TupleType
 
-from spacewalk.common import log_debug, log_error, CFG
+from spacewalk.common import log_debug, log_error
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.RPC_Base import RPC_Base
 

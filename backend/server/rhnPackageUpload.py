@@ -17,7 +17,8 @@
 import os
 import tempfile
 
-from spacewalk.common import CFG, log_debug, rhn_mpm, rhn_deb
+from spacewalk.common import log_debug, rhn_mpm, rhn_deb
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhn_rpm import get_header_byte_range
 

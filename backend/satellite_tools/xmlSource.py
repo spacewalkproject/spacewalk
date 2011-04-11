@@ -21,7 +21,8 @@ import string
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
-from spacewalk.common import log_debug, rhnFlags, CFG
+from spacewalk.common import log_debug, rhnFlags
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.server.importlib import importLib, backendLib
 

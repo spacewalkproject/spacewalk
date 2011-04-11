@@ -21,7 +21,8 @@ import time
 from StringIO import StringIO
 
 # rhn imports:
-from spacewalk.common import CFG, log_clean, rhnLib
+from spacewalk.common import log_clean, rhnLib
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_time
 from spacewalk.common.fileutils import createPath, setPermsPath
 

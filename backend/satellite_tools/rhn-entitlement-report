@@ -6,7 +6,7 @@ from pprint import pprint
 
 try:
    from spacewalk.server import rhnSQL
-   from spacewalk.common import initCFG, CFG
+   from spacewalk.common.rhnConfig import CFG, initCFG
 except:
    print "Couldn't load needed libs, Are you sure you are running this on a satellite?"
    sys.exit(1)

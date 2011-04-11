@@ -20,7 +20,8 @@ import time
 import gzip
 import dumper
 import cStringIO
-from spacewalk.common import CFG, initCFG, rhnMail
+from spacewalk.common import rhnMail
+from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnTB import Traceback, exitWithTraceback
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError

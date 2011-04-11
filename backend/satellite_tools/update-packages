@@ -48,7 +48,7 @@ if os.getuid() != 0:
 
 try:
     from rhn import rhnLockfile
-    from spacewalk.common import CFG
+    from spacewalk.common.rhnConfig import CFG
     from spacewalk.common.rhnTB import fetchTraceback
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")

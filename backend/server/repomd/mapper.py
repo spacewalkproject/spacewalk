@@ -20,7 +20,8 @@ import os.path
 import re
 import time
 
-from spacewalk.common import CFG, rhnCache
+from spacewalk.common import rhnCache
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.server import rhnSQL
 
 import domain

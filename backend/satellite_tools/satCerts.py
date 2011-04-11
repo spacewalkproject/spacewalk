@@ -586,7 +586,7 @@ def verify_family_permissions(orgid=1):
 
 
 if __name__ == '__main__':
-    from spacewalk.common import initCFG, CFG
+    from spacewalk.common.rhnConfig import CFG, initCFG
     
     initCFG('server.satellite')
     print 'database: %s' % CFG.DEFAULT_DB

@@ -17,7 +17,8 @@
 import time
 from rhn.connections import idn_ascii_to_pune
 
-from spacewalk.common import CFG, log_debug
+from spacewalk.common import log_debug
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnHandler import rhnHandler

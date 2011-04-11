@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-from spacewalk.common import initCFG
+from spacewalk.common.rhnConfig import initCFG
 from spacewalk.server import rhnSQL, rhnServer
 
 
