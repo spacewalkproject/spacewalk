@@ -15,10 +15,6 @@ blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-se
 disttag = .el6
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm heirloom-pkgtools jabberd-selinux apt-spacewalk
 
-[dist-f13-sw-1.5-candidate]
-disttag = .fc13
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround apt-spacewalk
-
 [dist-f14-sw-1.5-candidate]
 disttag = .fc14
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm jabberd-selinux-workaround python-ethtool msv-workaround apt-spacewalk
