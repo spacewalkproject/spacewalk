@@ -27,8 +27,8 @@ class Handler(handler_base.HandlerBase):
     
         if type == 'symlink':
             #dst is a symlink, so just tell the user we're skipping the entry
-            srclink = os.path.abspath(os.readlink(src))
-            destlink = os.path.abspath(os.readlink(dst))
+            srclink = os.readlink(src)
+            destlink = os.readlink(dst)
             if srclink != destlink:
                 print "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink) 
     	elif type == 'file':

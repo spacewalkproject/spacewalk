@@ -113,8 +113,8 @@ class FileProcessor:
 
         if file_struct['filetype'] == 'symlink':
             try:
-                curlink = os.path.abspath(os.readlink(path))
-                newlink = os.path.abspath(os.readlink(temp_file))
+                curlink = os.readlink(path)
+                newlink = os.readlink(temp_file)
                 if curlink == newlink:
                     result = ''
                 else:
