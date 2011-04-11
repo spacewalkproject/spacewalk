@@ -446,7 +446,7 @@ class ConfigFilesHandler(rhnHandler):
                                       rhnSQL.types.NUMBER())
         file['config_revision_id'] = insert_call(file['revision'],
                                                  file['config_file_id'],
-                                                 file.get('config_content_id',''),
+                                                 file.get('config_content_id', None),
                                                  file['config_info_id'],
                                                  file['config_file_type_id'])
 
