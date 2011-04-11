@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.0
+Version: 1.5.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -679,6 +679,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Apr 11 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.1-1
+- fixed test_timestamp_3
+- fixed packaging after spacewalk/common removal
+- put spacewalk/common/* and common/* together
+- fixed some more imports from spacewalk.common
+- removed implicit import of rhnLog from spacewalk.common
+- removed implicit import of rhnConfig from spacewalk.common
+- removed duplicated import
+- removed implicit import of rhnException from spacewalk.common
+- removed implicit import of rhnTB from spacewalk.common
+- removed implicit import of rhnException from spacewalk.common
+- removed implicit import of RPC_Base from spacewalk.common
+- removed implicit import of UserDictCase from spacewalk.common
+- remove duplicate PREFIX for locale installation
+
 * Fri Apr 08 2011 Miroslav Suchý 1.4.35-1
 - fixed typo (michael.mraka@redhat.com)
 
