@@ -272,21 +272,7 @@ class ConfigFilesHandler(rhnHandler):
         insert into rhnConfigContent 
                (id, checksum_id, file_size, contents, is_binary, delim_start, delim_end)
         values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
-                :file_size, empty_blob(), :is_binary, :delim_start, :delim_end)
-    """)
-
-    _query_insert_null_content = rhnSQL.Statement("""
-        insert into rhnConfigContent 
-               (id, checksum_id, file_size, contents, is_binary, delim_start, delim_end)
-        values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
-                :file_size, NULL, :is_binary, :delim_start, :delim_end)
-    """)
-
-    _query_get_content_row = rhnSQL.Statement("""
-        select contents 
-          from rhnConfigContent 
-         where id = :config_content_id
-           for update
+                :file_size, :contents, :is_binary, :delim_start, :delim_end)
     """)
 
     def _push_contents(self, file):
@@ -341,28 +327,11 @@ class ConfigFilesHandler(rhnHandler):
         content_seq = rhnSQL.Sequence('rhn_confcontent_id_seq')
         config_content_id = content_seq.next()
         file['config_content_id'] = config_content_id
+        file['contents'] = file_contents
 
-        if file_contents:
-            h = rhnSQL.prepare(self._query_insert_content)
-        else:
-            h = rhnSQL.prepare(self._query_insert_null_content)
-
-        apply(h.execute, (), file)
-
-        # Row should be there now
-        h = rhnSQL.prepare(self._query_get_content_row)
-        apply(h.execute, (), file)
-
-        row = h.fetchone_dict()
-        if not row:
-            # Ouch
-            raise rhnException("Row should have been inserted but it's not")
-
-
-        if file_contents:
-            log_debug(5, "writing file contents to blob")
-            lob = row['contents']
-            lob.write(file_contents)
+        h = rhnSQL.prepare(self._query_insert_content,
+                           blob_map={'contents': 'contents'})
+        h.execute(**file)
 
     _query_lookup_symlink_config_info = rhnSQL.Statement("""
         select lookup_config_info(null, null, null, :selinux_ctx, lookup_config_filename(:symlink)) id
