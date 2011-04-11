@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
+* Mon Apr 11 2011 Miroslav Suchý 1.5-1
+- bump up version for Spacewalk 1.5
+
 * Wed Feb 02 2011 Tomas Lestach <tlestach@redhat.com> 1.4-1
 - Bumping spacewalk-repo package version for 1.4
 
