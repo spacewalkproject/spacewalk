@@ -432,7 +432,7 @@ class ConfigFilesHandler(rhnHandler):
 
     _query_update_revision = rhnSQL.Statement("""
         update rhnConfigRevision 
-           set modified = sysdate 
+           set modified = current_timestamp
          where id = :config_revision_id
     """)
 
