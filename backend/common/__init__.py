@@ -17,7 +17,6 @@
 
 
 # classes we make publicly available
-from UserDictCase import UserDictCase
 from RPC_Base import RPC_Base
 from rhnException import rhnFault, rhnException, xmlrpclib, redirectException
 from rhnTB import Traceback, fetchTraceback, exitWithTraceback, add_to_seclist, get_seclist

@@ -19,7 +19,8 @@
 
 import string
 
-from spacewalk.common import UserDictCase, log_debug, log_error, rhnFault, Traceback
+from spacewalk.common import log_debug, log_error, rhnFault, Traceback
+from spacewalk.common.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL
 
 def kudzu_mapping(dict = None):
