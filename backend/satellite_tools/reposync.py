@@ -26,7 +26,6 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.server.importlib.importLib import IncompletePackage, Erratum, Checksum, Bug, Keyword
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
-from spacewalk.common.rhn_mpm import InvalidPackageError
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
 
