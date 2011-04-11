@@ -19,7 +19,8 @@
 import copy
 import string
 
-from spacewalk.common import rhnFault, CFG, rhn_rpm
+from spacewalk.common import CFG, rhn_rpm
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnSQL, rhnChannel, taskomatic
 from importLib import Diff, Package, IncompletePackage, Erratum, \
         AlreadyUploadedError, InvalidPackageError, TransactionError, \

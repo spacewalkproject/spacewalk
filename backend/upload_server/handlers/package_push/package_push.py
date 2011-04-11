@@ -23,7 +23,8 @@ import base64
 import string
 from rhn import rpclib
 
-from spacewalk.common import apache, CFG, log_debug, log_error, rhnFault, rhnFlags
+from spacewalk.common import apache, CFG, log_debug, log_error, rhnFlags
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload, rhnSQL, basePackageUpload
 from spacewalk.common.checksum import getFileChecksum
 

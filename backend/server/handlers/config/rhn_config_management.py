@@ -16,7 +16,8 @@
 # Config file handler (client side)
 #
 
-from spacewalk.common import rhnFault, log_debug
+from spacewalk.common import log_debug
+from spacewalk.common.rhnException import rhnFault
 
 from spacewalk.server import rhnSQL, configFilesHandler
 from spacewalk.server.rhnHandler import rhnHandler

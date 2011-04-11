@@ -19,8 +19,9 @@ import tempfile
 from types import ListType
 from cStringIO import StringIO
 
-from spacewalk.common import log_debug, log_error, rhnFault, rhnCache, \
+from spacewalk.common import log_debug, log_error, rhnCache, \
     CFG, rhnLib, rhnFlags
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnSQL
 from spacewalk.satellite_tools import constants
 from spacewalk.satellite_tools.exporter import exportLib, xmlWriter

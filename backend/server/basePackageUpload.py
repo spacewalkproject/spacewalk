@@ -16,7 +16,8 @@
 
 from spacewalk.common import apache
 
-from spacewalk.common import log_debug, rhnFault
+from spacewalk.common import log_debug
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.UserDictCase import UserDictCase
 
 

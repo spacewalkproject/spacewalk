@@ -17,7 +17,8 @@ import os
 
 from types import ListType
 
-from spacewalk.common import log_debug, log_error, CFG, rhnFault, rhnFlags
+from spacewalk.common import log_debug, log_error, CFG, rhnFlags
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server import rhnSQL
 from rhnLib import parseRPMFilename

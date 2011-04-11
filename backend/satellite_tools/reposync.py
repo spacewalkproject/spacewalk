@@ -19,9 +19,10 @@ from datetime import datetime
 import traceback
 from optparse import OptionParser
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from spacewalk.common import CFG, initCFG, rhnLog, rhnFault, log_debug
+from spacewalk.common import CFG, initCFG, rhnLog, log_debug
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_mpm import InvalidPackageError
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.server.importlib.importLib import IncompletePackage, Erratum, Checksum, Bug, Keyword
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
