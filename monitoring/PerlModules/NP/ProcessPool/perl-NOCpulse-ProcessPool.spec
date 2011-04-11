@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-ProcessPool
-Version: 	  1.4.1
+Version: 	  1.5.0
 Release: 	  1%{?dist}
 Summary:      Perl implementation of a process pool
 URL:          https://fedorahosted.org/spacewalk
