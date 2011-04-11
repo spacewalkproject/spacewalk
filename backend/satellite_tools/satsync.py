@@ -34,8 +34,9 @@ t = gettext.translation('spacewalk-backend-server', fallback=True)
 _ = t.ugettext
 
 # __rhn imports__
-from spacewalk.common import CFG, initCFG, initLOG, exitWithTraceback, rhnMail, \
+from spacewalk.common import CFG, initCFG, initLOG, rhnMail, \
     rhnLib, rhnFlags
+from spacewalk.common.rhnTB import exitWithTraceback
 sys.path.append("/usr/share/rhn")
 from up2date_client import config
 from spacewalk.common import rhn_rpm

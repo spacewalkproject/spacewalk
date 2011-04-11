@@ -17,8 +17,10 @@
 #
 
 import time
-from spacewalk.common import rhnFault, log_debug, add_to_seclist
+from spacewalk.common import log_debug
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _
+from spacewalk.common.rhnTB import add_to_seclist
 
 from spacewalk.server import rhnSQL, rhnUser
 

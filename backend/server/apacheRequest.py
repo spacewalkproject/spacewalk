@@ -23,11 +23,13 @@ import xmlrpclib
 from rhn.rpclib import transports
 
 # common modules
-from spacewalk.common import apache, CFG, rhnFault, rhnFlags, \
-    redirectException #to catch redirect exception
-from spacewalk.common import log_debug, log_error, Traceback, byterange
+from spacewalk.common import apache, CFG, rhnFault, rhnFlags
+from spacewalk.common import log_debug, log_error, byterange
+from spacewalk.common.rhnException import rhnFault, \
+        redirectException #to catch redirect exception
 from spacewalk.common.rhnTranslate import _
 from spacewalk.common.rhnLib import setHeaderValue
+from spacewalk.common.rhnTB import Traceback
 
 # local modules
 import rhnRepository

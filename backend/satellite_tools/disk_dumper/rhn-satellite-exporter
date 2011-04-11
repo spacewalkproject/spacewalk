@@ -20,7 +20,7 @@ import sys
 
 from spacewalk.satellite_tools.disk_dumper import iss
 from spacewalk.satellite_tools.syncLib import log2stderr, log2email
-from spacewalk.common import Traceback
+from spacewalk.common.rhnTB import Traceback
 
 if __name__ == "__main__":
     try:

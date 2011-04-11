@@ -33,7 +33,8 @@ try:
     import os
     import socket
     from rhn import rhnLockfile
-    from spacewalk.common import CFG, fetchTraceback
+    from spacewalk.common import CFG
+    from spacewalk.common.rhnTB import fetchTraceback
     from spacewalk.satellite_tools import reposync
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
