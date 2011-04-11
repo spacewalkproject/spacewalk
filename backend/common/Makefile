@@ -23,7 +23,13 @@ SPACEWALK_FILES	=   __init__ \
             rhnTB \
             rhnTranslate \
             RPC_Base \
-            UserDictCase
+            UserDictCase \
+	    checksum \
+	    fileutils \
+	    rhn_deb \
+	    rhn_mpm \
+	    rhn_pkg \
+	    rhn_rpm
 SCRIPTS = spacewalk-cfg-get
 
 # check if we can build man pages

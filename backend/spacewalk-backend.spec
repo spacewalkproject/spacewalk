@@ -278,7 +278,6 @@ Libraries required by various exporting tools
 make -f Makefile.backend all
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
-%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -288,7 +287,6 @@ make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
     MANDIR=%{_mandir}
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
-%{__python} setup.py install -O1 --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 %if 0%{?rhel} && 0%{?rhel} < 6
 rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
