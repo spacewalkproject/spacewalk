@@ -335,9 +335,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
-%if ! (0%{?rhel} && 0%{?rhel} < 6)
-%{python_sitelib}/spacewalk_backend-%{version}-*.egg-info
-%endif
 %dir %{pythonrhnroot}
 %dir %{pythonrhnroot}/common
 %{pythonrhnroot}/common/apache.py*
