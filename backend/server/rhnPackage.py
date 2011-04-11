@@ -333,7 +333,7 @@ def _none2emptyString(foo):
 if __name__ == '__main__':
     """Test code.
     """
-    from spacewalk.common import initLOG
+    from spacewalk.common.rhnLog import initLOG
     initLOG("stdout", 1)
     rhnSQL.initDB('rhnuser/rhnuser@webqa')
     print

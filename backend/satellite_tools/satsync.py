@@ -2281,7 +2281,7 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, SystemExit), e:
         sys.exit(e)
     except Exception:
-        from spacewalk.common import fetchTraceback
+        from spacewalk.common.rhnTB import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)
         log2email(-1, tb)
