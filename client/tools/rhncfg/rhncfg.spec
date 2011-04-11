@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.52
+Version: 5.9.53
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -100,6 +100,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Apr 11 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.53-1
+- fixed moved imports
+- don't make link target absolute
+- 683264 - fixed extraneous directory creation via rhncfg-manager
+
 * Fri Apr 08 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.52-1
 - fixed symlink deployment via rhn_check
 - 683264 - rootdir is / when called from rhn_check
