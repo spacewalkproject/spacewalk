@@ -21,7 +21,9 @@ import sys
 
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
-from config_common.file_utils import diff, f_date, ostr_to_sym
+from config_common.file_utils import diff
+from spacewalk.common.fileutils import f_date, ostr_to_sym
+
 
 class Handler(handler_base.HandlerBase):
     _usage_options = "[options] file [ file ... ]"
