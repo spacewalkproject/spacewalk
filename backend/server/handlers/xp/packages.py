@@ -17,7 +17,8 @@
 # Package info checking routines.
 #
 
-from spacewalk.common import RPC_Base, log_debug
+from spacewalk.common import log_debug
+from spacewalk.common.RPC_Base import RPC_Base
 import sys
 sys.path.append("/usr/share/rhn")
 from server.handlers.app.packages import Packages as APP_Packages

@@ -18,7 +18,8 @@
 import time
 import string
 
-from spacewalk.common import RPC_Base, log_debug, rhn_rpm
+from spacewalk.common import log_debug, rhn_rpm
+from spacewalk.common.RPC_Base import RPC_Base
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.userAuth import UserAuth
 
