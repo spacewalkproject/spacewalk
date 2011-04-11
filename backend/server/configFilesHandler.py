@@ -286,7 +286,7 @@ class ConfigFilesHandler(rhnHandler):
         select contents 
           from rhnConfigContent 
          where id = :config_content_id
-           for update of contents
+           for update
     """)
 
     def _push_contents(self, file):
