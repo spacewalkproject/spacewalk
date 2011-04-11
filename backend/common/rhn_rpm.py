@@ -315,5 +315,3 @@ if __name__ == '__main__':
     hdr2 = headerLoad(hdr.unload())
     print hdr2
     print len(hdr2.keys())
-
-

@@ -72,5 +72,3 @@ def getStringChecksum(hashtype, s):
     """ compute checksum of an arbitrary string """
     ctx = hashlib.new(hashtype, s)
     return ctx.hexdigest()
-
-

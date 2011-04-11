@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -40,7 +40,7 @@ def load(filename=None, file=None, fd=None):
     """ Loads an MPM and returns its header and its payload """
     if (filename is None and file is None and fd is None):
         raise ValueError, "No parameters passed"
-    
+
     if filename is not None:
         f = open(filename)
     elif file is not None:
@@ -78,7 +78,7 @@ def load_rpm(stream):
 
     stream.flush()
     stream.seek(0, 0)
-        
+
     try:
         header = rhn_rpm.get_package_header(file=stream)
     except rhn_rpm.InvalidPackageError, e:
@@ -196,7 +196,7 @@ class MPM_Package:
         except:
             # XXX
             raise
-    
+
         self.header = MPM_Header(params[0])
 
     def _read_payload(self, payload_stream, payload_flags):
@@ -216,7 +216,7 @@ class MPM_Package:
 
         header_stream, header_size = self._encode_header()
         payload_stream, payload_size = self._encode_payload()
-        
+
         lead_arr = (self._magic, 1, "\0" * 3, self.header_flags,
             self.payload_flags, header_size, payload_size, '\0' * 92)
         # lead
@@ -227,7 +227,7 @@ class MPM_Package:
 
     def add_header_flag(self, flag):
         self.header_flags = self.header_flags | flag
-        
+
     def add_payload_flag(self, flag):
         self.payload_flags = self.payload_flags | flag
 
@@ -275,7 +275,7 @@ class MPM_Package:
             if not buf:
                 break
             dest.write(buf)
-        
+
 
 def _replace_null(obj):
     if obj is None:
