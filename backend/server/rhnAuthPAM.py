@@ -15,7 +15,8 @@
 
 import PAM
 
-from spacewalk.common import log_error, rhnException
+from spacewalk.common import log_error
+from spacewalk.common.rhnException import rhnException
 
 __username = None
 __password = None

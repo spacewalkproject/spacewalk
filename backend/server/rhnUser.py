@@ -21,8 +21,8 @@ import crypt
 import string
 
 # Global Modules
-from spacewalk.common import rhnFault, rhnException, \
-    CFG, log_debug, log_error
+from spacewalk.common import CFG, log_debug, log_error
+from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common.rhnTranslate import _
 from spacewalk.common.UserDictCase import UserDictCase
 

@@ -20,7 +20,8 @@ import hashlib
 import time
 import string
 
-from spacewalk.common import rhnFault, rhnException, log_error, log_debug
+from spacewalk.common import log_error, log_debug
+from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common import CFG
 
 from spacewalk.server import rhnSQL

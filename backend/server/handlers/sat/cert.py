@@ -15,7 +15,8 @@
 # Satellite only package downloading methods.
 
 # common imports
-from spacewalk.common import rhnException, log_debug
+from spacewalk.common import log_debug
+from spacewalk.common.rhnException import rhnException
 
 # server imports
 from spacewalk.server import rhnSQL

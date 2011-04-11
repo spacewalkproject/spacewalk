@@ -19,8 +19,9 @@
 import time
 import string
 
-from spacewalk.common import rhnException, rhnFault, log_debug, log_error, \
+from spacewalk.common import log_debug, log_error, \
     CFG, rhnFlags
+from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \
                    rhnVirtualization

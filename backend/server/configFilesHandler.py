@@ -20,8 +20,9 @@ import base64
 import os
 import xmlrpclib
 
-from spacewalk.common import rhnFault, rhnException, log_debug, CFG, rhnFlags
+from spacewalk.common import log_debug, CFG, rhnFlags
 from spacewalk.common.checksum import getStringChecksum
+from spacewalk.common.rhnException import rhnFault, rhnException
 
 from spacewalk.server import rhnSQL, rhnUser, rhnCapability
 from spacewalk.server.rhnHandler import rhnHandler
