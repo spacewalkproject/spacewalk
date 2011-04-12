@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.24
+Version:       5.5.25
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Tue Apr 12 2011 Miroslav Suchý 5.5.25-1
+- build rhnpush on SUSE (mc@suse.de)
+
 * Fri Apr 08 2011 Miroslav Suchý 5.5.24-1
 - Revert "idn_unicode_to_pune() have to return string" (msuchy@redhat.com)
 
