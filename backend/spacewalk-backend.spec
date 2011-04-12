@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.35
+Version: 1.4.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Apr 12 2011 Jan Pazdziora 1.4.36-1
+- CVE-2010-1171 / 584118 - removing the channel /APP handler.
+- As cElementTree_iterparse is not available on old yums, fallback to
+  cElementTree if needed.
+- fixed errata export / import (michael.mraka@redhat.com)
+- fixed errata_from export (michael.mraka@redhat.com)
+
 * Fri Apr 08 2011 Miroslav Suchý 1.4.35-1
 - fixed typo (michael.mraka@redhat.com)
 
