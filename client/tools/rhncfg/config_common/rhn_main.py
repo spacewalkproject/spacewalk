@@ -28,7 +28,6 @@ except:
     from socket import error
     gaierror = error
 
-from up2date_config_parser import ConfigFileAccessError
 from ConfigParser import InterpolationError
 
 sys.path.append('/usr/share/rhn')
