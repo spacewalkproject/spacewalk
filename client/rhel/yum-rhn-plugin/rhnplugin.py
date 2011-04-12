@@ -443,7 +443,6 @@ class RhnRepo(YumRepository):
                                    progress_obj=self.callback,
                                    interrupt_callback=self.interrupt_callback,
                                    copy_local=self.copy_local,
-                                   interrupt_callback=self.interrupt_callback,
                                    http_headers=headers,
                                    reget='simple',
                                    **ugopts)
