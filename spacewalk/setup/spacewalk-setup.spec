@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.5.0
+Version:        1.5.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,11 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Tue Apr 12 2011 Miroslav Suchý 1.5.1-1
+- fix rhnConfig namespace
+- suppress warning
+- Bumping package versions for 1.5
+
 * Tue Apr 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.8-1
 - fixed typo in answer file option name
 
