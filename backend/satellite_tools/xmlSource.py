@@ -690,6 +690,7 @@ class ErratumItem(BaseItem):
         'rhn-erratum-cve'           : 'cve',
         'rhn-erratum-last-modified' : 'last_modified',
         'rhn-erratum-files'         : 'files',
+        'rhn-erratum-errata-from'   : 'errata_from',
         'cve-names'                 : 'cve',
     }
 addItem(ErratumItem)

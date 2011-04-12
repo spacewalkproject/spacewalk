@@ -833,7 +833,8 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
                 TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
                 TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
                 e.refers_to,
-                e.notes
+                e.notes,
+                e.errata_from
             from rhnErrata e
             where e.id = :errata_id
         """)
