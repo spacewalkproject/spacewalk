@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Apr 12 2011 Miroslav Suchý 1.5.2-1
+- remove duplicate keyword (msuchy@redhat.com)
+
 * Tue Apr 12 2011 Miroslav Suchý 1.5.1-1
 - remove dead code
 - use default headers from yum class YumRepository
