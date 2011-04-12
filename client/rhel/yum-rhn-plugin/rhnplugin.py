@@ -187,8 +187,6 @@ def prereposetup_hook(conduit):
                     setattr(repo, o[0], o[1])
                     conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
                             (repo.id, o[0], o[1]))
-            if repos.findRepos(repo.id):
-                repos.delete(repo.id)
             repos.add(repo)
             if cachefile:
                 cachefile.write("%s %s\n" % (repo.id, repo.name))
