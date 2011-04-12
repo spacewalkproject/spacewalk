@@ -19,7 +19,11 @@ import sys
 import gzip
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
-from yum.misc import cElementTree_iterparse as iterparse
+try:
+    from yum.misc import cElementTree_iterparse as iterparse
+except ImportError:
+    import cElementTree
+    iterparse = cElementTree.iterparse
 from spacewalk.satellite_tools.reposync import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
