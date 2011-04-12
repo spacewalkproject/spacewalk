@@ -173,48 +173,6 @@ def sha1_file(file):
 
     return engine.hexdigest()
 
-def get_up2date_config():
-    c = up2date_config_parser.ConfigFile()
-    c.load()
-
-    result = {}
-
-    # load result with values from the parser
-    # in a way that works on RHEL 2.1 and 3
-    for key in c.keys():
-        result[key] = c[key]
-    
-    #6/29/05 wregglej 152388
-    # If there are multiple servers listing in the up2date config file, then serverURL is a list
-    # and has to be placed as the value for the 'server_list' key. The value for 'server_url' is
-    # pieced together from 'proto' and 'server_name', so those always have to be set to something.
-    # In this case I've grabbed their values from the first element in the serverURL list.
-    if c.has_key('serverURL'):
-        server_url = c['serverURL']
-        if server_url:
-            # Check to see if serverURL is a list, which means there were multiple servers in the up2date config.
-            if type(server_url) == type([]):
-                
-                #'server_list' is set. The rest of rhncfg should be smart enough to use this if it's present, unless
-                #the rhncfg config explicitly lists a server.
-                result['server_list'] = server_url 
-                
-                #set 'proto' and 'server_name', which will form 'server_url', which rhncfg needs.
-                arr = parse_url(server_url[0], scheme="https")
-                result['proto'] = arr[0]
-                result['server_name'] = arr[1]
-
-            # If we get here, then the serverURL was only a single a single server.
-            else:
-                ret = {}
-                arr = parse_url(server_url, scheme="https")
-                ret['proto'] = arr[0]
-                ret['server_name'] = arr[1]
-                result['serverURL'] = [ret]
-                result['proto'] = result['serverURL'][0]['proto']
-                result['server_name'] = result['serverURL'][0]['server_name']
-    return result
-
 def parse_url_list(server_url_list, scheme="https"):
     ret = []
     for i in range(len(server_url_list)):
