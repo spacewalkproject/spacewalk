@@ -31,6 +31,9 @@ except:
 from up2date_config_parser import ConfigFileAccessError
 from ConfigParser import InterpolationError
 
+sys.path.append('/usr/share/rhn')
+from up2date_client import config
+
 class BaseMain:
     modes = []
     repository_class_name = "Repository"
@@ -125,20 +128,12 @@ class BaseMain:
             handler.usage()
             return 0
 
-        up2date_cfg = {}
-        try:
-            up2date_cfg = utils.get_up2date_config()
-        except ConfigFileAccessError:
-            pass
-        except Exception:
-            raise
+        cfg = config.initUp2dateConfig()
+        up2date_cfg = dict(cfg.items())
 
+        server_name = config.getServerlURL
         if server_name:
-            sn = utils.parse_url(server_name)[1]
-            if sn:
-                # Passed a full URL in
-                server_name = sn
-
+            server_name = server_name[0]
             print "Using server name", server_name
             local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
         else:

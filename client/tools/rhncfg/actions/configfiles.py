@@ -24,6 +24,9 @@ from config_client import rpc_cli_repository
 
 from string import split
 
+sys.path.append('/usr/share/rhn')
+from up2date_client import config
+
 # this is a list of the methods that get exported by a module
 __rhnexport__ = [
     'mtime_upload',
@@ -401,8 +404,8 @@ def create_key_list():
     return key_list[:debug_levels[curr_debug]]
 
 def _init():
-    up2date_config = utils.get_up2date_config()
-    local_config.init('rhncfg-client', defaults=up2date_config)
+    cfg = config.initUp2dateConfig()
+    local_config.init('rhncfg-client', defaults=dict(cfg.items()))
     set_debug_level(int(local_config.get('debug_level') or 0))
     set_logfile("/var/log/rhncfg-actions")
 
