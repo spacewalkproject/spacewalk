@@ -190,7 +190,9 @@ sub load_answer_file {
 
     close FH;
   }
-  $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
+  if ($answers->{'db-host'}) {
+    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
+  }
   return;
 }
 
