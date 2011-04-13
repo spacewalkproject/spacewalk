@@ -130,7 +130,7 @@ class BaseMain:
         cfg = config.initUp2dateConfig()
         up2date_cfg = dict(cfg.items())
 
-        server_name = config.getServerlURL
+        server_name = config.getServerlURL()
         if server_name:
             server_name = server_name[0]
             print "Using server name", server_name
