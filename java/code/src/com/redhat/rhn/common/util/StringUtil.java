@@ -21,6 +21,7 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.xml.utils.XMLChar;
 import org.stringtree.json.JSONReader;
 import org.stringtree.json.JSONWriter;
 
@@ -787,4 +788,18 @@ public class StringUtil {
         return result;
     }
 
+
+    /**
+     * Checks, whether string contains invalid xml chars
+     * @param string to check
+     * @return true if there're xml invalid chars
+     */
+    public static Boolean containsInvalidXmlChars2(String string) {
+        for (int i = 0; i < string.length(); i++) {
+            if (!XMLChar.isValid(string.charAt(i))) {
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
 }

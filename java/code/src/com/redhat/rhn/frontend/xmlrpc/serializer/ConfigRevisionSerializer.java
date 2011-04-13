@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
@@ -118,7 +119,10 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
             helper.add(BINARY, rev.getConfigContent().isBinary());
             helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
             if (!rev.getConfigContent().isBinary()) {
-                helper.add(CONTENTS, rev.getConfigContent().getContentsString());
+                String content = rev.getConfigContent().getContentsString();
+                if (!StringUtil.containsInvalidXmlChars2(content)) {
+                    helper.add(CONTENTS, content);
+                }
                 helper.add(MACRO_START, rev.getConfigContent().getDelimStart());
                 helper.add(MACRO_END, rev.getConfigContent().getDelimEnd());
             }
