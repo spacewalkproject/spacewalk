@@ -292,8 +292,8 @@ def _get_device_desc(device):
         result = "%s|%s" % (pci.get_vendor(vendor_id), pci.get_device(vendor_id, device_id))
     elif subsystem == 'usb':
         vendor_id = device.get_property('ID_VENDOR_ID')
+        usb = USB()
         if vendor_id:
-            usb = USB()
             result = "%s|%s" % (usb.get_vendor(vendor_id), usb.get_device(vendor_id, device.get_property('ID_MODEL_ID')))
         elif device.get_devtype() == 'usb_interface':
             if device.get_driver() == 'usbhid':
