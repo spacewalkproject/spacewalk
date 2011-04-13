@@ -96,22 +96,21 @@ def mkdir_p(path, mode=None):
     made as a result
     """
     if not mode:
-	mode = 0700
+        mode = 0700
     dirs_created = []
 
     components = path_full_split(path)
     for i in range(1,len(components)):
-	d = apply(os.path.join, components[:i+1])
+        d = apply(os.path.join, components[:i+1])
         log_debug(8, "testing",d)
-	try:
-	    os.mkdir(d, mode)
-	except OSError, e:
-	    if e.errno != 17:
-		raise
-	else:
-            log_debug(8, "created",d)
-	    dirs_created.append(d)
-	    
+        try:
+            os.mkdir(d, mode)
+        except OSError, e:
+            if e.errno != 17:
+                raise
+            else:
+                log_debug(8, "created",d)
+        dirs_created.append(d)
 
     log_debug(6, "dirs_created:",dirs_created)
 	
