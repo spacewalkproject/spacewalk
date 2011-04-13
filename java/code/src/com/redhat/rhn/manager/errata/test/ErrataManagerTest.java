@@ -66,11 +66,13 @@ import java.util.Map;
 public class ErrataManagerTest extends RhnBaseTestCase {
 
     public static Bug createNewPublishedBug(Long id, String summary) {
-        return ErrataManager.createNewPublishedBug(id, summary, "https://bugzilla.redhat.com/show_bug.cgi?id=" + id);
+        return ErrataManager.createNewPublishedBug(id, summary,
+                "https://bugzilla.redhat.com/show_bug.cgi?id=" + id);
     }
 
     public static Bug createNewUnpublishedBug(Long id, String summary) {
-        return ErrataManager.createNewPublishedBug(id, summary, "https://bugzilla.redhat.com/show_bug.cgi?id=" + id);
+        return ErrataManager.createNewPublishedBug(id, summary,
+                "https://bugzilla.redhat.com/show_bug.cgi?id=" + id);
     }
 
     public void testPublish() throws Exception {
