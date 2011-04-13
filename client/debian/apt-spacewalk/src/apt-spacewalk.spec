@@ -3,7 +3,7 @@
 
 Name: apt-spacewalk
 Summary: Spacewalk plugin for Advanced Packaging tool.
-Version: 1.0.1
+Version: 1.0.2
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://example.com/%{name}-%{version}.tar.gz
@@ -20,6 +20,9 @@ to acquire content from Spacewalk server
 %defattr(-,root,root,-)
 
 %changelog
+* Wed Apr 13 2011 Jan Pazdziora 1.0.2-1
+- utilize config.getServerlURL() (msuchy@redhat.com)
+
 * Thu Mar 17 2011 Simon Lukasik <slukasik@redhat.com> 1.0.1-1
 - new package
 
