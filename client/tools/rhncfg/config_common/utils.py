@@ -172,17 +172,6 @@ def sha1_file(file):
 
     return engine.hexdigest()
 
-def parse_url_list(server_url_list, scheme="https"):
-    ret = []
-    for i in range(len(server_url_list)):
-        result = {}
-        arr = parse_url(server_url_list[i], scheme)
-        result['proto'] = arr[0]
-        result['server_name'] = arr[1]
-        ret.append(result)
-    return ret
-        
-
 def parse_url(server_url, scheme="https"):
     return urlparse.urlparse(server_url, scheme=scheme)
     
