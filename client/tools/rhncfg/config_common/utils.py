@@ -69,7 +69,7 @@ def copyfile_p(src, dst):
     directories as necessary. File permissions are not preserved.
     """
     
-    (directory, filename) = os.path.split(dst)
+    directory = os.path.split(dst)[0]
     try:
         os.makedirs(directory)
     except OSError, e:
