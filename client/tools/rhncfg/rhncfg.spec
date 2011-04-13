@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.0
+Version: 5.10.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -95,6 +95,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Apr 13 2011 Miroslav Suchý 5.10.1-1
+- bump up version (msuchy@redhat.com)
+
 * Wed Apr 13 2011 Miroslav Suchý 5.9.55-1
 - code cleanup
 * Wed Apr 13 2011 Miroslav Suchý 5.9.54-1
