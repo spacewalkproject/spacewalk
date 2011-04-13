@@ -1,7 +1,6 @@
 %define rhnroot /usr/share/rhn
 %define rhnconf /etc/sysconfig/rhn
 %define client_caps_dir /etc/sysconfig/rhn/clientCaps.d
-%{!?pythongen:%define pythongen %(%{__python} -c "import sys ; print sys.version[:3]")}
 
 Name: osad
 Summary: Open Source Architecture Daemon
@@ -22,9 +21,6 @@ Requires: python-hashlib
 %endif
 # This should have been required by rhnlib
 Requires: PyXML
-%if "%{pythongen}" == "1.5"
-Requires: python-iconv
-%endif
 Conflicts: osa-dispatcher < %{version}-%{release}
 Conflicts: osa-dispatcher > %{version}-%{release}
 Requires(post): chkconfig
