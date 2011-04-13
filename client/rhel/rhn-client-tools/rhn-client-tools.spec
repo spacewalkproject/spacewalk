@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -297,6 +297,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Apr 13 2011 Jan Pazdziora 1.5.2-1
+- Revert "some usb device may not return product" (msuchy@redhat.com)
+- fix typo in key "product" vs. "PRODUCT" (msuchy@redhat.com)
+- some usb device may not return product (msuchy@redhat.com)
+
 * Tue Apr 12 2011 Miroslav Suchý 1.5.1-1
 - enhance getOSVersionAndRelease to find SUSE distributions (mc@suse.de)
 - Bumping package versions for 1.5 (msuchy@redhat.com)
