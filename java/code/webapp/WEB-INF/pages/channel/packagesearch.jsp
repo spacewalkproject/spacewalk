@@ -46,7 +46,7 @@
              </td>
            </tr>
            <tr><th><bean:message key="packagesearch.jsp.wheresearch"/></th>
-             <td rowspan="2">
+             <td>
 
                  <div style="text-align: left;">
                     <input type="radio" name="whereCriteria" value="relevant" <c:if test="${whereCriteria eq 'relevant'}">checked</c:if> /><bean:message key="packagesearch.jsp.relevant"/>
@@ -76,6 +76,14 @@
                  </div>
 
              </td>
+           </tr>
+           <tr>
+              <th><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrainedlabel"/></label></th>
+              <td>
+                   <div style="text-align: left">
+               <html:checkbox property="fineGrained" styleId="fineGrainedlabel"><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrained"/></label></html:checkbox>
+                   </div>
+              </td>
            </tr>
          </table>
        </div>
@@ -128,6 +136,7 @@
     <input type="hidden" name="view_mode" value="${view_mode}" />
     <input type="hidden" name="whereCriteria" value="${whereCriteria}" />
     <input type="hidden" name="channel_filter" value="${channel_filter}" />
+    <input type="hidden" name="fineGrained" value="${fineGrained}" />
 
     <c:forEach items="${requestScope.channel_arch}" var="item">
     <input type="hidden" name="channel_arch" value="${item}" />

@@ -300,6 +300,7 @@
             <form-property name="filter_value" type="java.lang.String"/>
             <form-property name="prev_filter_value" type="java.lang.String"/>
             <form-property name="relevant" type="java.lang.String" />
+            <form-property name="fineGrained" type="java.lang.Boolean" />
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
 

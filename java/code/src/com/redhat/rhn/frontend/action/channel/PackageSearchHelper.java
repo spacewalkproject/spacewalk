@@ -57,15 +57,17 @@ public class PackageSearchHelper {
      * @param searchString search string
      * @param mode mode as in name only, name description, name and summary, free form
      * @param selectedArches list of archs
+     * @param fineGrained fine grained search
      * @return List of PackageOverview objects
      * @throws XmlRpcFault bad communication with search server
      * @throws MalformedURLException possibly bad configuration for search server address
      * @throws SearchServerIndexException error executing query
      */
     public static List<PackageOverview> performSearch(Long sessionId, String searchString,
-                               String mode, String[] selectedArches)
+                               String mode, String[] selectedArches, Boolean fineGrained)
         throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
-        return performSearch(sessionId, searchString, mode, selectedArches, true);
+        return performSearch(sessionId, searchString, mode, selectedArches, true,
+                fineGrained);
     }
 
     /**
@@ -77,14 +79,16 @@ public class PackageSearchHelper {
      * @param selectedArches list of archs
      * @param relevantFlag if set will force packages returned to be relevant to
      *  subscribed channels
+     * @param fineGrained fine grained search
      * @return List of PackageOverview objects
      * @throws XmlRpcFault bad communication with search server
      * @throws MalformedURLException possibly bad configuration for search server address
      * @throws SearchServerIndexException error executing query
      */
     public static List<PackageOverview> performSearch(Long sessionId, String searchString,
-                               String mode, String[] selectedArches, boolean relevantFlag)
-        throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
+            String mode, String[] selectedArches, boolean relevantFlag,
+            Boolean fineGrained)
+            throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
 
         log.warn("Performing pkg search: " + searchString + ", " + mode);
 
@@ -100,16 +104,7 @@ public class PackageSearchHelper {
         args.add(sessionId);
         args.add("package");
         args.add(preprocessSearchString(searchString, mode, pkgArchLabels));
-        Boolean freeFormSearch = false;
-        if (OPT_FREE_FORM.equals(mode)) {
-            // adding a boolean of true to signify we want the results to be
-            // constrained to closer matches, this will force the Lucene Queries
-            // to use a "MUST" instead of the default "SHOULD".  It will not
-            // allow fuzzy matches as in spelling errors, but it will allow
-            // free form searches to do more advanced options
-            freeFormSearch = true;
-        }
-        args.add(freeFormSearch);
+        args.add(fineGrained);
         List results = (List)client.invoke("index.search", args);
 
         if (log.isDebugEnabled()) {

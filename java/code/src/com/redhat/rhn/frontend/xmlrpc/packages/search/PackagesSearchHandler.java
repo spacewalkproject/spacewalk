@@ -311,7 +311,8 @@ public class PackagesSearchHandler extends BaseHandler {
         Long sessionId = session.getId();
         List<PackageOverview> pkgs = null;
         try {
-            pkgs = PackageSearchHelper.performSearch(sessionId, query, mode, null, false);
+            pkgs = PackageSearchHelper.performSearch(sessionId, query, mode, null, false,
+                    true);
         }
         catch (MalformedURLException e) {
             log.info("Caught Exception :" + e);

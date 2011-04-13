@@ -64,6 +64,7 @@ public class PackageSearchAction extends RhnAction {
                                                          "channel-iSeries",
                                                          "channel-pSeries"};
     public static final String WHERE_CRITERIA = "whereCriteria";
+    public static final String FINE_GRAINED = "fineGrained";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
@@ -162,6 +163,7 @@ public class PackageSearchAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         String searchString = form.getString("search_string");
         String viewmode = form.getString("view_mode");
+        Boolean fineGrained = (Boolean) form.get(FINE_GRAINED);
         String searchCriteria = request.getParameter(WHERE_CRITERIA);
         String[] selectedArches = null;
         Long filterChannelId = null;
@@ -193,6 +195,19 @@ public class PackageSearchAction extends RhnAction {
 
         if (viewmode.equals("")) { //first time viewing page
             viewmode = PackageSearchHelper.OPT_NAME_AND_SUMMARY;
+        }
+
+        if (fineGrained == null) {
+            fineGrained = false;
+        }
+        if (PackageSearchHelper.OPT_FREE_FORM.equals(viewmode)) {
+            // adding a boolean of true to signify we want the results to be
+            // constrained to closer matches, this will force the Lucene Queries
+            // to use a "MUST" instead of the default "SHOULD".  It will not
+            // allow fuzzy matches as in spelling errors, but it will allow
+            // free form searches to do more advanced options
+            fineGrained = true;
+            form.set(FINE_GRAINED, fineGrained);
         }
 
         List searchOptions = new ArrayList();
@@ -247,7 +262,7 @@ public class PackageSearchAction extends RhnAction {
                 PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
                                          searchString,
                                          viewmode,
-                                         selectedArches, relevantFlag);
+                                         selectedArches, relevantFlag, fineGrained);
 
             // Perform any post-search logic that wasn't done by the search server
             results = removeDuplicateNames(results);

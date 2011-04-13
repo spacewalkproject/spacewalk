@@ -116,7 +116,7 @@ public class SearchAction extends RhnAction {
                 defaultArches.add("channel-i386-sun-solaris");
 
                 attributes.put("channel_arch", defaultArches);
-
+                attributes.put(PackageSearchAction.FINE_GRAINED, "on");
                 performRedirect("/channels/software/Search.do",
                                 request.getContextPath(),
                                 response,
