@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.54
+Version: 5.9.55
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -95,6 +95,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Apr 13 2011 Miroslav Suchý 5.9.55-1
+- code cleanup
 * Wed Apr 13 2011 Miroslav Suchý 5.9.54-1
 - dead code - module up2date_config_parser is not used any more
 - dead code - get_up2date_config() is not used any more
