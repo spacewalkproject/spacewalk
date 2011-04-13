@@ -39,14 +39,15 @@ insert into rhnServerActionScriptResult (
     stop_date,
     return_code
   )
-select :server_id,
-       ascript.id,
+values (
+       :server_id,
+       (select ascript.id
+          from rhnActionScript ascript
+         where ascript.action_id = :action_id),
        :output,
        TO_DATE(:process_start, 'YYYY-MM-DD HH24:MI:SS'),
        TO_DATE(:process_end, 'YYYY-MM-DD HH24:MI:SS'),
-       :return_code
-  from rhnActionScript ascript
- where ascript.action_id = :action_id
+       :return_code)
 """)
 
 def run(server_id, action_id, data={}):
