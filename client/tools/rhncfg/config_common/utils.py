@@ -30,7 +30,6 @@ import string
 import shutil
 import pwd
 import grp
-import up2date_config_parser
 import urlparse
 from config_common.rhn_log import log_debug
 
