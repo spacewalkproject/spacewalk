@@ -214,10 +214,8 @@ def idn_pune_to_unicode(hostname):
     """ Convert Internationalized domain name from Pune encoding to Unicode """
     if hostname is None:
         return None
-    elif hostname == '':
-        return u''
     else:
-        return u'.'.join([encodings.idna.ToUnicode(x) for x in hostname.split('.')])
+        return hostname.decode('idna')
 
 def idn_ascii_to_pune(hostname):
     """ Convert domain name to Pune encoding. Hostname can be instance of string or Unicode """
@@ -226,4 +224,4 @@ def idn_ascii_to_pune(hostname):
     else:
         if not isinstance(hostname, unicode):
             hostname = unicode(hostname, 'utf-8')
-        return '.'.join([encodings.idna.ToASCII(x) for x in hostname.split('.')])
+        return hostname.encode('idna')
