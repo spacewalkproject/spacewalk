@@ -22,7 +22,10 @@ from yum.yumRepo import YumRepository
 try:
     from yum.misc import cElementTree_iterparse as iterparse
 except ImportError:
-    import cElementTree
+    try:
+        from xml.etree import cElementTree
+    except ImportError:
+        import cElementTree
     iterparse = cElementTree.iterparse
 from spacewalk.satellite_tools.reposync import ContentPackage
 from spacewalk.common import CFG, initCFG
