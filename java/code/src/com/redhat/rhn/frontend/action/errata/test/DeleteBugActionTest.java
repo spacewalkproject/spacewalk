@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.DeleteBugAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.manager.errata.test.ErrataManagerTest;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -59,7 +60,7 @@ public class DeleteBugActionTest extends RhnBaseTestCase {
         Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         Long bugId = new Long(42);
         String bugSummary = "This bug is tagged for destruction";
-        Bug bug = ErrataManager.createNewPublishedBug(bugId, bugSummary);
+        Bug bug = ErrataManagerTest.createNewPublishedBug(bugId, bugSummary);
         e.addBug(bug);
         ErrataManager.storeErrata(e);
         Long eid = e.getId();

@@ -65,6 +65,14 @@ import java.util.Map;
  */
 public class ErrataManagerTest extends RhnBaseTestCase {
 
+    public static Bug createNewPublishedBug(Long id, String summary) {
+        return ErrataManager.createNewPublishedBug(id, summary, "https://bugzilla.redhat.com/show_bug.cgi?id=" + id);
+    }
+
+    public static Bug createNewUnpublishedBug(Long id, String summary) {
+        return ErrataManager.createNewPublishedBug(id, summary, "https://bugzilla.redhat.com/show_bug.cgi?id=" + id);
+    }
+
     public void testPublish() throws Exception {
         User user = UserTestUtils.findNewUser();
         Errata e = ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());
@@ -89,10 +97,10 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         Errata e = ErrataManager.createNewErrata();
         assertTrue(e instanceof UnpublishedErrata);
 
-        Bug b = ErrataManager.createNewUnpublishedBug(new Long(87), "test bug");
+        Bug b = createNewUnpublishedBug(new Long(87), "test bug");
         assertTrue(b instanceof UnpublishedBug);
 
-        Bug b2 = ErrataManager.createNewPublishedBug(new Long(42), "test bug");
+        Bug b2 = ErrataManagerTest.createNewPublishedBug(new Long(42), "test bug");
         assertTrue(b2 instanceof PublishedBug);
     }
 
@@ -101,7 +109,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         // errata search is done by the search-server. The search
         // in ErrataManager is to load ErrataOverview objects from
         // the results of the search-server searches.
-        Bug b1 = ErrataManager.createNewPublishedBug(new Long(42), "test bug");
+        Bug b1 = ErrataManagerTest.createNewPublishedBug(new Long(42), "test bug");
         assertTrue(b1 instanceof PublishedBug);
         Errata e = ErrataManager.createNewErrata();
         assertTrue(e instanceof UnpublishedErrata);

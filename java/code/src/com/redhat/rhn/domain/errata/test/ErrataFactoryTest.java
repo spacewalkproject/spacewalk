@@ -21,6 +21,7 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.ClonedErrata;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
@@ -35,6 +36,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.manager.errata.test.ErrataManagerTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.TestUtils;
@@ -53,11 +55,19 @@ import java.util.Set;
  */
 public class ErrataFactoryTest extends BaseTestCaseWithUser {
 
+    public static Bug createUnpublishedBug(Long longIn, String stringIn) {
+        return ErrataFactory.createUnpublishedBug(longIn, stringIn, "https://bugzilla.redhat.com/show_bug.cgi?id=" + longIn);
+    }
+
+    public static Bug createPublishedBug(Long longIn, String stringIn) {
+        return ErrataFactory.createUnpublishedBug(longIn, stringIn, "https://bugzilla.redhat.com/show_bug.cgi?id=" + longIn);
+    }
+
     public void testPublish() throws Exception {
         Errata e = ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());
         //add bugs, keywords, and packages so we have something to work with...
-        e.addBug(ErrataManager.createNewUnpublishedBug(new Long(42), "test bug 1"));
-        e.addBug(ErrataManager.createNewUnpublishedBug(new Long(43), "test bug 2"));
+        e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(42), "test bug 1"));
+        e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(43), "test bug 2"));
         e.addPackage(PackageTest.createTestPackage());
         e.addKeyword("foo");
         e.addKeyword("bar");
@@ -103,8 +113,8 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
     public void testPublishToChannel()  throws Exception {
         Errata e = ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());
         //add bugs, keywords, and packages so we have something to work with...
-        e.addBug(ErrataManager.createNewUnpublishedBug(new Long(42), "test bug 1"));
-        e.addBug(ErrataManager.createNewUnpublishedBug(new Long(43), "test bug 2"));
+        e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(42), "test bug 1"));
+        e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(43), "test bug 2"));
         e.addPackage(PackageTest.createTestPackage());
         e.addKeyword("foo");
         e.addKeyword("bar");
@@ -176,13 +186,13 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         //test unpublished
         Errata e = createTestUnpublishedErrata(user.getOrg().getId());
         assertTrue(e.getBugs() == null || e.getBugs().size() == 0);
-        e.addBug(ErrataFactory.createUnpublishedBug(new Long(123), "test bug"));
+        e.addBug(ErrataFactoryTest.createUnpublishedBug(new Long(123), "test bug"));
         assertEquals(1, e.getBugs().size());
 
         //test published
         e = createTestPublishedErrata(user.getOrg().getId());
         assertTrue(e.getBugs() == null || e.getBugs().size() == 0);
-        e.addBug(ErrataFactory.createPublishedBug(new Long(123), "test bug"));
+        e.addBug(ErrataFactoryTest.createPublishedBug(new Long(123), "test bug"));
         assertEquals(1, e.getBugs().size());
     }
 
