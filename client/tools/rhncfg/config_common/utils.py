@@ -29,7 +29,6 @@ import re
 import string
 import shutil
 import pwd
-import grp
 import urlparse
 from config_common.rhn_log import log_debug
 
@@ -182,10 +181,3 @@ def get_home_dir():
     uid = os.getuid()
     ent = pwd.getpwuid(uid)
     return ent[5]
-
-def set_file_info(file, finfo):
-       os.chmod(file, int(str(finfo['filemode']),8))
-       uid = pwd.getpwnam(finfo['username'])[2]
-       gid = grp.getgrnam(finfo['groupname'])[2]
-       os.chown(file, uid, gid)
-
