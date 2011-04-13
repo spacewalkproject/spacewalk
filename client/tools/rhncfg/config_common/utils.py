@@ -156,10 +156,10 @@ def rm_trailing_slash(slashstring):
     return slashstring
 
 
-def sha1_file(file):
+def sha1_file(filename):
     engine = hashlib.new('sha1')
 
-    fh = open(file, "r")
+    fh = open(filename, "r")
     while 1:
         buf = fh.read(4096)
         if not buf:
