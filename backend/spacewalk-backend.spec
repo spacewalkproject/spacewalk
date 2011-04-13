@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.37
+Version: 1.4.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Apr 13 2011 Jan Pazdziora 1.4.38-1
+- Need to try cElementTree from xml.etree for RHEL 6.0 and SLES 11.
+
 * Wed Apr 13 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.37-1
 - made insert work both in postgresql and oracle
 
