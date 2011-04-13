@@ -26,7 +26,6 @@ except ImportError:
             else:
                 raise ValueError, "Incompatible checksum type"
 import re
-import string
 import shutil
 import pwd
 import urlparse
@@ -41,7 +40,7 @@ def normalize_path(path):
     return _normpath_re.sub(os.sep, os.path.normpath(path))
 
 def join_path(*args):
-    return normalize_path(string.join(args, os.sep))
+    return normalize_path(os.sep.join(args))
 
 def path_full_split(path):
     """
