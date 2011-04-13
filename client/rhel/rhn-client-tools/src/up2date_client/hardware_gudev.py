@@ -303,7 +303,7 @@ def _get_device_desc(device):
             else:
                 result = 'USB Interface'
         elif device.get_devtype() == 'usb_device' and device.get_property('PRODUCT'):
-            product = device.get_property('product')
+            product = device.get_property('PRODUCT')
             if product:
                 (vendor_id, model_id) = product.split('/')[:2]
                 # left pad it with 0 to 4 digits
