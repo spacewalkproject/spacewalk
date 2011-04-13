@@ -358,6 +358,7 @@ class RepoSync:
                 if to_download:
                     self.upload_package(pack)
                     finally_remove(localpath)
+                pack.payload_stream.close()
                 if to_link:
                     self.associate_package(pack)
             except KeyboardInterrupt:
@@ -386,7 +387,6 @@ class RepoSync:
                 header_start=package.header_start, header_end=package.header_end,
                 relative_path=rel_package_path,
                 org_id=self.channel['org_id'])
-        package.payload_stream.close()
 
     def associate_package(self, pack):
         caller = "server.app.yumreposync"
