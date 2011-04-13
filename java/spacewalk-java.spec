@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -532,6 +532,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 13 2011 Tomas Lestach <tlestach@redhat.com> 1.5.2-1
+- 644700 - do not return text file contents in case it contains xml invalid
+  chars (tlestach@redhat.com)
+
 * Wed Apr 13 2011 Jan Pazdziora 1.5.1-1
 - 648640 - introduce fine grained search (tlestach@redhat.com)
 
