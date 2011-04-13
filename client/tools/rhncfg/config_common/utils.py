@@ -72,7 +72,7 @@ def copyfile_p(src, dst):
     
     (directory, filename) = os.path.split(dst)
     try:
-        mkdir_p(directory)
+        os.makedirs(directory)
     except OSError, e:
         if e.errno != 17:
             # not File exists
