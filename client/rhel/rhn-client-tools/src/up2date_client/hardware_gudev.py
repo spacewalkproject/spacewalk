@@ -303,15 +303,7 @@ def _get_device_desc(device):
             else:
                 result = 'USB Interface'
         elif device.get_devtype() == 'usb_device' and device.get_property('PRODUCT'):
-            product = device.get_property('PRODUCT')
-            if product:
-                (vendor_id, model_id) = product.split('/')[:2]
-                # left pad it with 0 to 4 digits
-                vendor_id = '%.4x' % int(vendor_id, 16)
-                model_id = '%.4x' % int(model_id, 16)
-                result = "%s|%s" % (usb.get_vendor(vendor_id), usb.get_device(vendor_id, device.get_property('ID_MODEL_ID')))
-            else:
-                result = "unknown|unknown usb device"
+            (vendor_id, model_id) = device.get_property('PRODUCT').split('/')[:2]
             # left pad it with 0 to 4 digits
             vendor_id = '%.4x' % int(vendor_id, 16)
             model_id = '%.4x' % int(model_id, 16)
