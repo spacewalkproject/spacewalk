@@ -100,7 +100,7 @@ def mkdir_p(path, mode=None):
 
     components = path_full_split(path)
     for i in range(1,len(components)):
-        d = apply(os.path.join, components[:i+1])
+        d = os.path.join(*components[:i+1])
         log_debug(8, "testing",d)
         try:
             os.mkdir(d, mode)
