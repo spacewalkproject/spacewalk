@@ -52,6 +52,7 @@ Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
+Requires: jakarta-commons-io
 Requires: jakarta-taglibs-standard
 Requires: jcommon
 Requires: jpam
@@ -119,6 +120,7 @@ BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
+BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
 BuildRequires: jcommon
@@ -426,6 +428,7 @@ fi
 %{jardir}/commons-discovery.jar
 %{jardir}/commons-el.jar
 %{jardir}/commons-fileupload.jar
+%{jardir}/commons-io.jar
 %{jardir}/commons-lang.jar
 %{jardir}/commons-logging.jar
 %{jardir}/commons-validator.jar
