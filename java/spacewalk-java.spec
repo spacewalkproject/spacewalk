@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.35
+Version: 1.4.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 14 2011 Tomas Lestach <tlestach@redhat.com> 1.4.36-1
+- adding jakarta-commons-io Require (tlestach@redhat.com)
+- adding jakarta-commons-fileupload Require for spacewalk-java
+  (tlestach@redhat.com)
+
 * Fri Apr 08 2011 Jan Pazdziora 1.4.35-1
 - errata_from and bug url added to errata pages (ug@suse.de)
 
