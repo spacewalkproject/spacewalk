@@ -54,6 +54,7 @@ public class ErrataSearchActionTest extends RhnBaseTestCase {
         Map paramnames = new HashMap();
         paramnames.put("search_string", name);
         paramnames.put("view_mode", "errata_search_by_advisory");
+        paramnames.put("fineGrained", "on");
         paramnames.put(RhnAction.SUBMITTED, "true");
         ah.getRequest().setupGetParameterNames(
                 IteratorUtils.asEnumeration(paramnames.keySet().iterator()));
