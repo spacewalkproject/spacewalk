@@ -76,6 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?suse_version}
 %dir %{_sharedstatedir}
 %endif
+%dir %{_sharedstatedir}/rhncfg
 %{rhnroot}/config_common
 %{_sharedstatedir}/rhncfg/backups
 %doc LICENSE PYTHON-LICENSES.txt
@@ -96,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files actions
 %defattr(-,root,root,-)
-%{rhnroot}/actions/*
+%{rhnroot}/actions
 %{_bindir}/rhn-actions-control
 %config(noreplace) %{client_caps_dir}/*
 %{_mandir}/man8/rhn-actions-control.8*
