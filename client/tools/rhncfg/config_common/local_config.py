@@ -26,6 +26,9 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
 
     def __init__(self, section, defaults=None):
         """defaults is either None, or a dictionary of default values which can be overridden"""
+        for (k, v) in defaults.iteritems():
+            if type(v) == int:
+                defaults[k] = str(v)
         ConfigParser.ConfigParser.__init__(self, defaults)
         self.section = section
         self.overrides = {}
