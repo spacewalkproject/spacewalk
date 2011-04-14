@@ -17,7 +17,12 @@ BuildRequires: python
 Requires: python
 Requires: rhnlib >= 2.5.32
 Requires: rhn-client-tools
+%if 0%{?suse_version}
+# provide rhn directories and no selinux on suse
+BuildRequires: rhn-client-tools
+%else
 Requires: libselinux-python
+%endif
 
 %description 
 The base libraries and functions needed by all rhncfg-* packages.
@@ -68,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%if 0%{?suse_version}
+%dir %{_sharedstatedir}
+%endif
 %{rhnroot}/config_common
 %{_sharedstatedir}/rhncfg/backups
 %doc LICENSE PYTHON-LICENSES.txt
