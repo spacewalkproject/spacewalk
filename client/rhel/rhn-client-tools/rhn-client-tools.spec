@@ -22,17 +22,29 @@ Requires: python-ethtool >= 0.4
 %endif
 Requires: gnupg
 Requires: sh-utils
+%if 0%{?suse_version}
+Requires: dbus-1-python
+%else
 Requires: dbus-python
+%endif
 %if 0%{?fedora} > 12 || 0%{?rhel} > 5
 Requires: python-gudev
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
 %endif
+%if 0%{?suse_version}
+Requires: python-newt
+%else
 Requires: newt
+%endif
 Requires: python-dmidecode
 Requires: libxml2-python
+%if 0%{?suse_version}
+Requires: zypper
+%else
 Requires: yum
+%endif
 
 Conflicts: up2date < 5.0.0
 Conflicts: yum-rhn-plugin < 1.1.4-1
@@ -68,7 +80,11 @@ system to receive software updates from Red Hat Network or Spacewalk.
 Summary: Check for RHN actions
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
+%if 0%{?suse_version}
+Requires: zypp-plugin-spacewalk
+%else
 Requires: yum-rhn-plugin >= 1.1.2-1
+%endif
 
 %description -n rhn-check
 rhn-check polls a Red Hat Network or Spacewalk server to find and execute 
@@ -92,7 +108,11 @@ Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: rhn-setup = %{version}-%{release}
 Requires: pam >= 0.72
+%if 0%{?suse_version}
+Requires: python-gnome python-gtk
+%else
 Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
+%endif
 Requires: usermode-gtk
 %if 0%{?fedora} > 9 || 0%{?rhel} > 5
 Requires: gnome-python2-gnome gnome-python2-bonobo
@@ -135,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
 %if 0%{?suse_version}
-%suse_update_desktop_file rhn_register System
+%suse_update_desktop_file -r rhn_register "Settings;System;SystemSetup;"
 %endif
 
 %find_lang %{name}
@@ -260,6 +280,13 @@ make -f Makefile.rhn-client-tools test
 
 %{_datadir}/setuptool/setuptool.d/99rhn_register
 
+%if 0%{?suse_version}
+# on SUSE directories not owned by any package
+%dir %{_sysconfdir}/security/console.apps
+%dir %{_datadir}/setuptool
+%dir %{_datadir}/setuptool/setuptool.d
+%endif
+
 %files -n rhn-setup-gnome
 %defattr(-,root,root,-)
 %{_datadir}/rhn/up2date_client/messageWindow.*
@@ -294,6 +321,23 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/firstboot/rhn_create_profile_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_review_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_finish_gui.*
+%endif
+
+%if 0%{?suse_version}
+# on SUSE these directories are part of packages not installed
+# at buildtime. OBS failed with not owned by any package
+%dir %{_datadir}/icons/hicolor
+%dir %{_datadir}/icons/hicolor/16x16
+%dir %{_datadir}/icons/hicolor/16x16/apps
+%dir %{_datadir}/icons/hicolor/24x24
+%dir %{_datadir}/icons/hicolor/24x24/apps
+%dir %{_datadir}/icons/hicolor/32x32
+%dir %{_datadir}/icons/hicolor/32x32/apps
+%dir %{_datadir}/icons/hicolor/48x48
+%dir %{_datadir}/icons/hicolor/48x48/apps
+%dir %{_datadir}/rhn/up2date_client/firstboot
+%dir %{_datadir}/firstboot
+%dir %{_datadir}/firstboot/modules
 %endif
 
 %changelog
