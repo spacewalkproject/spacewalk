@@ -78,6 +78,7 @@ public class EditActionTest extends RhnBaseTestCase {
         //add empty buglistId & buglistSummary so validator doesn't freak out
         form.set("buglistId", "");
         form.set("buglistSummary", "");
+        form.set("buglistUrlNew", "");
 
         //make sure we still get validation errors
         request.setupAddParameter("eid", errata.getId().toString());
