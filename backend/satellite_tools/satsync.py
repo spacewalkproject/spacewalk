@@ -1922,7 +1922,10 @@ def _getImportedChannels():
     "Retrieves the channels already imported in the satellite's database"
 
     try:
-        h = rhnSQL.prepare("""select label from rhnChannel where org_id is null""")
+        if OPTIONS.include_custom_channels:
+            h = rhnSQL.prepare("""select label from rhnChannel""")
+        else:
+            h = rhnSQL.prepare("""select label from rhnChannel where org_id is null""")
         h.execute()
         return map(lambda x: x['label'], h.fetchall_dict() or [])
     except (SQLError, SQLSchemaError, SQLConnectError), e:
@@ -1971,6 +1974,8 @@ def processCommandline():
             help=_('process data for this channel only')),
         Option(     '--consider-full',       action='store_true',
             help=_('disk dump will be considered to be a full export; see "man satellite-sync" for more information.')),
+        Option(     '--include-custom-channels',       action='store_true',
+            help=_('existing custom channels will also be synced (unless -c is used)')),
         Option('-d','--db',                  action='store',
             help=_('alternative database connection string (username/password@sid)')),
         Option(     '--debug-level',         action='store',

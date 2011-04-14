@@ -213,6 +213,17 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--include-custom-channels</term>
+        <listitem>
+            <para>When satellite-sync is run without the -c/--channel options,
+            traditionally only Red Hat channels (with null org) are resynced.
+            With this option, existing custom channels are also synced from
+	    the channel dump, regardless of whether they were created by previous
+            satellite-sync run or manually.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--rhn-cert</term>
         <listitem>
             <para>satellite certificate to import(use only with -m option)</para>
