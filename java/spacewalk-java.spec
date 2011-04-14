@@ -51,6 +51,7 @@ Requires: jakarta-commons-codec
 Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
+Requires: jakarta-commons-fileupload
 Requires: jakarta-taglibs-standard
 Requires: jcommon
 Requires: jpam
