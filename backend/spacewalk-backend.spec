@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.7
+Version: 1.5.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -679,6 +679,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Apr 14 2011 Jan Pazdziora 1.5.8-1
+- 604175 - add option --include-custom-channels to satellite-sync which will
+  sync all existing custom channels as well (unless -c is used).
+
 * Wed Apr 13 2011 Jan Pazdziora 1.5.7-1
 - Need to try cElementTree from xml.etree for RHEL 6.0 and SLES 11.
 - made insert work both in postgresql and oracle (michael.mraka@redhat.com)
