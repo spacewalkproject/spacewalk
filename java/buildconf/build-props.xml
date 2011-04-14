@@ -61,7 +61,7 @@
   <property name="common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
-             commons-el commons-fileupload commons-lang commons-logging commons-validator hibernate3
+             commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator hibernate3
              mailapi smtp jdom jpam 
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
@@ -106,7 +106,7 @@
   <property name="install.common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
-             commons-el commons-fileupload commons-lang commons-logging commons-validator hibernate3
+             commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator hibernate3
              ${tomcat-jars} javamail jdom jpam
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
@@ -116,7 +116,7 @@
   <property name="dist.jar.dependencies"
       value="antlr ${asm} bcel c3p0 cglib
              commons-collections commons-beanutils commons-cli commons-codec
-             commons-digester commons-discovery commons-el commons-fileupload
+             commons-digester commons-discovery commons-el commons-fileupload commons-io
              commons-lang commons-logging
              commons-validator concurrent dom4j hibernate3 jta
              jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
