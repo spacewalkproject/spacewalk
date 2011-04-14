@@ -131,6 +131,7 @@ class BaseMain:
         up2date_cfg = dict(cfg.items())
 
         server_name = config.getServerlURL()
+        up2date_cfg['proto'] = 'http'
         if server_name:
             server_name = server_name[0]
             print "Using server name", server_name
