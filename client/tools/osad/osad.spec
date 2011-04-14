@@ -24,7 +24,7 @@ BuildRequires: python-devel
 Requires: python
 Requires: rhnlib >= 2.5.38
 Requires: jabberpy
-%if 0%{?rhel} <= 5
+%if 0%{?rhel} && 0%{?rhel} <= 5
 Requires: python-hashlib
 %endif
 %if 0%{?suse_version} >= 1140
@@ -48,7 +48,7 @@ Requires(preun): aaa_base
 BuildRequires: sysconfig syslog
 %endif
 
-%description 
+%description
 OSAD agent receives commands over jabber protocol from Spacewalk Server and
 commands are instantly executed.
 
