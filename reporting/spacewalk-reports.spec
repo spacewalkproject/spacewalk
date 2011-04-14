@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.4.5
+Version: 1.4.6
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Thu Apr 14 2011 Jan Pazdziora 1.4.6-1
+- The initCFG is no longer imported directly to spacewalk.common.
+
 * Tue Mar 22 2011 Jan Pazdziora 1.4.5-1
 - There is no cursor() function for inline cursors in PostgreSQL, using custom
   function get_hw_info_as_clob instead.
