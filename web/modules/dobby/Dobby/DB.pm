@@ -262,6 +262,30 @@ sub database_shutdown {
   $self->sqlplus_nolog("SHUTDOWN $mode");
 }
 
+sub get_optimizer_mode {
+  my $self = shift;
+
+  my $dbh = $self->connect;
+
+  my $sql = q{
+  select value
+    from v$system_parameter
+   where name = 'optimizer_mode'
+  };
+
+  my @mode = $dbh->selectrow_array($sql, {}, ());
+
+  return $mode[0];
+}
+
+sub set_optimizer_mode {
+  my $self = shift;
+  my $mode = shift;
+
+  my $dbh = $self->connect;
+  my @mode = $dbh->do("alter system set optimizer_mode = '" . $mode . "'");
+}
+
 sub sqlplus_nolog {
   my $self = shift;
   my @commands = @_;

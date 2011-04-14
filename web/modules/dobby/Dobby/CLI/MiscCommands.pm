@@ -47,6 +47,12 @@ sub register_dobby_commands {
   $cli->register_mode(-command => "reset-password",
                       -description => "Reset the user password and unlock account",
                       -handler => \&command_resetpassword);
+  $cli->register_mode(-command => "get-optimizer",
+                      -description => "Show database optimizer mode",
+                      -handler => \&command_get_optimizer);
+  $cli->register_mode(-command => "set-optimizer",
+                      -description => "Set database optimizer mode",
+                      -handler => \&command_set_optimizer);
 }
 
 sub command_startstop {
@@ -208,6 +214,44 @@ sub command_resetpassword {
     print "Failed to reset password\n";
     return 1;
   }
+  return 0;
+}
+
+sub command_get_optimizer {
+  my $cli = shift;
+
+  my $d = new Dobby::DB;
+
+  if (not $d->database_started) {
+    print "Error: The database must be running to get optimizer mode settings.\n";
+    return 1;
+  }
+
+  my $mode = $d->get_optimizer_mode();
+  print "Database optimizer mode: $mode\n";
+
+  if ($mode !~ /^.+ROWS.*$/) {
+    print "\nWarning: your database is using unsupported optimizer mode.\n";
+    print "Use \"db-control set-optimizer\" to restore supported optimzer settings.\n";
+  }
+
+  return 0;
+}
+
+sub command_set_optimizer {
+  my $cli = shift;
+
+  my $d = new Dobby::DB;
+
+  if (not $d->database_started) {
+    print "Error: The database must be running to set optimizer mode.\n";
+    return 1;
+  }
+
+  my $mode = 'ALL_ROWS';
+  $d->set_optimizer_mode($mode);
+  print "Database optimizer mode set to $mode\n";
+
   return 0;
 }
 
