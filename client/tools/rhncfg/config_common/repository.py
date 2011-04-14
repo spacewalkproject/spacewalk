@@ -256,7 +256,7 @@ class RPC_Repository(Repository):
                 self.__proxy_password = self._local_config.get('proxyPassword')
 
         ca = self._local_config.get('sslCACert')
-        if type(ca) == type(""):
+        if isinstance(ca, basestring):
             ca = [ca]
 
         ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]
