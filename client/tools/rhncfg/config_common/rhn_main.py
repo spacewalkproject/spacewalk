@@ -21,6 +21,7 @@ import local_config
 import rhn_log
 import utils
 import cfg_exceptions
+from urlparse import urlsplit
 
 try:
     from socket import gaierror
@@ -132,8 +133,9 @@ class BaseMain:
 
         server_name = config.getServerlURL()
         up2date_cfg['proto'] = 'http'
+        up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[1], server_name)
         if server_name:
-            server_name = server_name[0]
+            server_name = urlsplit(server_name[0])[1]
             print "Using server name", server_name
             local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
         else:
