@@ -2,6 +2,14 @@
 %define rhnconf /etc/sysconfig/rhn
 %define client_caps_dir /etc/sysconfig/rhn/clientCaps.d
 
+%if 0%{?suse_version}
+%define apache_group www
+%define include_selinux_package 0
+%else
+%define apache_group apache
+%define include_selinux_package 1
+%endif
+
 Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
@@ -19,14 +27,26 @@ Requires: jabberpy
 %if 0%{?rhel} <= 5
 Requires: python-hashlib
 %endif
+%if 0%{?suse_version} >= 1140
+Requires: python-xml
+%else
 # This should have been required by rhnlib
 Requires: PyXML
+%endif
 Conflicts: osa-dispatcher < %{version}-%{release}
 Conflicts: osa-dispatcher > %{version}-%{release}
+%if !0%{?suse_version}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
+%else
+# provides chkconfig on SUSE
+Requires(post): aaa_base
+Requires(preun): aaa_base
+# to make chkconfig test work during build
+BuildRequires: sysconfig syslog
+%endif
 
 %description 
 OSAD agent receives commands over jabber protocol from Spacewalk Server and
@@ -43,16 +63,23 @@ Requires: jabberpy
 Requires: lsof
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
+%if !0%{?suse_version}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
+%else
+# provides chkconfig on SUSE
+Requires(post): aaa_base
+Requires(preun): aaa_base
+%endif
 
 %description -n osa-dispatcher
 OSA dispatcher is supposed to run on the Spacewalk server. It gets information
 from the Spacewalk server that some command needs to be execute on the client;
 that message is transported via jabber protocol to OSAD agent on the clients.
 
+%if 0%{?include_selinux_package}
 %package -n osa-dispatcher-selinux
 %define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
@@ -79,13 +106,18 @@ Requires: osa-dispatcher
 
 %description -n osa-dispatcher-selinux
 SELinux policy module supporting osa-dispatcher.
+%endif
 
 %prep
 %setup -q
+%if 0%{?suse_version}
+cp prog.init.SUSE prog.init
+%endif
 
 %build
 make -f Makefile.osad all
 
+%if 0%{?include_selinux_package}
 %{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
@@ -93,12 +125,14 @@ do
     mv osa-dispatcher-selinux/%{modulename}.pp osa-dispatcher-selinux/%{modulename}.pp.${selinuxvariant}
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
-make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
+make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir}
 
+%if 0%{?include_selinux_package}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
@@ -117,6 +151,7 @@ install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
 # Install osa-dispatcher-selinux-enable which will be called in %post
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildroot}%{_sbindir}/osa-dispatcher-selinux-enable
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -143,6 +178,7 @@ if [ $1 = 0 ]; then
     /sbin/chkconfig --del osa-dispatcher
 fi
 
+%if 0%{?include_selinux_package}
 %post -n osa-dispatcher-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/osa-dispatcher-selinux-enable
@@ -173,6 +209,7 @@ fi
 
 rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
+%endif
 
 %files
 %defattr(-,root,root)
@@ -191,6 +228,12 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(755,root,root) %{_initrddir}/osad
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
+%if 0%{?suse_version}
+# provide directories not owned by any package during build
+%dir %{rhnroot}
+%dir %{_sysconfdir}/sysconfig/rhn
+%dir %{_sysconfdir}/sysconfig/rhn/clientCaps.d
+%endif
 
 %files -n osa-dispatcher
 %defattr(-,root,root)
@@ -207,11 +250,18 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
-%attr(770,root,apache) %dir %{_var}/log/rhn/oracle
+%attr(770,root,%{apache_group}) %dir %{_var}/log/rhn/oracle
 %attr(770,root,root) %dir %{_var}/log/rhn/oracle/osa-dispatcher
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
+%if 0%{?suse_version}
+%dir %{_sysconfdir}/rhn
+%dir %{_sysconfdir}/rhn/default
+%dir %{_sysconfdir}/rhn/tns_admin
+%dir %{_var}/log/rhn
+%endif
 
+%if 0%{?include_selinux_package}
 %files -n osa-dispatcher-selinux
 %defattr(-,root,root,0755)
 %doc osa-dispatcher-selinux/%{modulename}.fc
@@ -222,6 +272,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
 %attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
+%endif
 
 %changelog
 * Fri Apr 15 2011 Jan Pazdziora 5.10.11-1
