@@ -18,6 +18,10 @@ Requires:      up2date
 %else
 Requires:      rhn-client-tools
 %endif
+%if 0%{?suse_version}
+# provides rhn directories for filelist check in OBS
+BuildRequires:      rhn-client-tools
+%endif
 BuildRequires: docbook-utils, gettext
 BuildRequires: python-devel
 
