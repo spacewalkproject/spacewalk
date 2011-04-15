@@ -8,7 +8,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.10
+Version: 5.10.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -224,6 +224,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
 
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 5.10.11-1
+- Address the spacewalk.common.rhnLog and .rhnConfig castling in osa-dispacher.
+
 * Wed Apr 13 2011 Jan Pazdziora 5.10.10-1
 - utilize config.getProxySetting() (msuchy@redhat.com)
 
