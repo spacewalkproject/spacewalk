@@ -18,6 +18,10 @@ BuildArch:   noarch
 Requires:    rhnlib >= 2.5.38
 BuildRequires: python-devel
 BuildRequires: docbook-utils
+%if 0%{?suse_version}
+# provide directories for filelist check in OBS
+BuildRequires: rhn-client-tools
+%endif
 
 %description
 Utilities to interact with a RHN Satellite or Spacewalk server remotely over XMLRPC.
