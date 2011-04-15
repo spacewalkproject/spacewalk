@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.9
+Version: 4.9.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -74,6 +74,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 4.9.10-1
+- changes to build rhnsd on SUSE (mc@suse.de)
+
 * Fri Feb 18 2011 Jan Pazdziora 4.9.9-1
 - l10n: Updates to Estonian (et) translation (mareklaane@fedoraproject.org)
 
