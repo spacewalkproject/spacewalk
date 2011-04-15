@@ -168,14 +168,14 @@ function re-generate_server_ssl_certificate {
         ACTUAL_CERT_FILES=$(rpm -ql $ACTUAL_SSL_KEY_PAIR_PACKAGE)
         for cert_file in $ACTUAL_CERT_FILES
         do
-            if [[ "$cert_file" =~ "\.crt" ]]
+            if [[ "$cert_file" =~ \.crt ]]
             then
                 CERT_FILE="$cert_file"
                 # SUBJECT=`openssl x509 -in $CERT_FILE -noout -subject`
                 SUBJECT=`grep "Subject:" $CERT_FILE`
             fi
-            # [[ "$cert_file" =~ "\.key" ]] && CERT_KEY_FILE="$cert_file"
-            # [[ "$cert_file" =~ "\.scr" ]] && CERT_REQ_FILE="$cert_file"
+            # [[ "$cert_file" =~ \.key ]] && CERT_KEY_FILE="$cert_file"
+            # [[ "$cert_file" =~ \.scr ]] && CERT_REQ_FILE="$cert_file"
         done
 
         if [ ! -n "$CML_NEW_SSL_CERT_REQUEST" ]
