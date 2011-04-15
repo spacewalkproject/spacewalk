@@ -344,8 +344,8 @@ public class PackageManager extends BaseManager {
         //Setup params and execute query
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
         Map params = new HashMap();
-        params.put("target_eid", errata.getId().toString());
-        params.put("source_cid", cid.toString());
+        params.put("target_eid", errata.getId());
+        params.put("source_cid", cid);
 
         Map elabParams = new HashMap();
         elabParams.put("org_id", user.getOrg().getId());
