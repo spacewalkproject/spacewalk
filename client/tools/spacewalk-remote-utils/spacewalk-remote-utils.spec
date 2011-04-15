@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.5.0
+Version:     1.5.1
 Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
@@ -57,6 +57,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 1.5.1-1
+- build spacewalk-remote-utils on SUSE (mc@suse.de)
+
 * Fri Apr 08 2011 Miroslav Suchý 1.4.7-1
 - Revert "idn_unicode_to_pune() have to return string" (msuchy@redhat.com)
 
