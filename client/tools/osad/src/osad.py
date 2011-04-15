@@ -22,6 +22,7 @@ from rhn import rpclib
 import random
 
 from up2date_client.config import initUp2dateConfig
+from up2date_client import config
 
 from rhn_log import set_debug_level, log_debug, die, set_logfile
 
