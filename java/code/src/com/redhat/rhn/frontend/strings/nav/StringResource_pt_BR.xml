@@ -349,7 +349,7 @@
           <context-group name="ctx">
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
-      <target>Arquivos Gerenciados a partir do Centro</target></trans-unit>
+      <target>Gerenciamento Centralizado de Arquivos</target></trans-unit>
 
       <trans-unit id="config.nav.localfiles">
 <source>Locally Managed Files</source>

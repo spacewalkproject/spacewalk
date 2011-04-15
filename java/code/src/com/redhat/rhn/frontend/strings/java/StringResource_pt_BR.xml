@@ -5819,7 +5819,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All list pages that include a link to download list as CSV</context>
         </context-group>
-      <target>Download da CSV</target></trans-unit>
+      <target>Download CSV</target></trans-unit>
 
     <trans-unit id="listdisplay.sortyby">
         <source>Sort By This Column</source>
@@ -8537,7 +8537,7 @@ Follow this url to see the full list of inactive systems:
          <context-group name="ctx">
            <context context-type="sourcefile">/channels/manage/Edit</context>
          </context-group>
-      <target>Os canais da Red Hat requerem previlégios de admin</target></trans-unit>
+      <target>Os canais da Red Hat requerem privilégios de admin</target></trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.minlength">
          <source>Channel name must be at least {0} characters long</source>
          <context-group name="ctx">
@@ -8583,7 +8583,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-      <target>Os canais da Red Hat requerem previlégios de admin</target></trans-unit>
+      <target>Os canais da Red Hat requerem privilégios de admin</target></trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.minlength">
         <source>Channel label must be at least {0} characters long</source>
         <context-group name="ctx">

@@ -74,7 +74,7 @@
             <context-group name="ctx">
                 <context context-type="sourcefile">/rhn/profiles/Details</context>
             </context-group>
-        <target>Atualizado em</target></trans-unit>
+        <target>Atualizar</target></trans-unit>
 
     </group>
 
@@ -501,19 +501,19 @@
         <target>Você não pode remover a função {0} do último {0}.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.deleteuser">
           <source>You must be an organization administrator for a satellite to delete a user.</source>
-        <target>Você deve ser um administrador da empresa para um Satellite para remover um usuário.</target></trans-unit>
+        <target>Você deve ser um administrador da organização para remover um usuário.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.disableuser">
           <source>You must be an organization administrator to deactivate a user.</source>
         <target>Você deve ser um administrador da organização para desativar um usuário.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.enableuser">
           <source>You must be an organization administrator to reactivate a user.</source>
-        <target>Você deve ser um administrador da empresa para reativar um usuário.</target></trans-unit>
+        <target>Você deve ser um administrador da organização para reativar um usuário.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.userlist">
           <source>You must be an organization administrator to view this page. Contact your organization administrator to get information on the users in this system.</source>
-        <target>Você deve ser um administrador da empresa para visualizar esta página. Contate o administrador de sua empresa para obter informações sobre os usuários deste sistema. </target></trans-unit>
+        <target>Você deve ser um administrador da organização para visualizar esta página. Contate o administrador de sua organização para obter informações sobre os usuários deste sistema. </target></trans-unit>
         <trans-unit id="permission.jsp.summary.lookupuser">
           <source>You must be an organization administrator to view information on users in this organization.</source>
-        <target>Você deve ser um administrador da empresa para visualizar as informações de usuários desta empresa.</target></trans-unit>
+        <target>Você deve ser um administrador da organização para visualizar as informações de usuários desta organização.</target></trans-unit>
         <trans-unit id="permission.jsp.summary.createrev">
           <source>You must be a configuration administrator to create new configuration file revisions.</source>
         <target>Você deve ser um administrador de configuração para criar novas revisões de arquivo de configuração.</target></trans-unit>
@@ -761,7 +761,7 @@
           <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
           <context context-type="sourcefile">/rhn/channels/ChannelDetail</context>
         </context-group>
-      <target>Atualizado em</target></trans-unit>
+      <target>Atualizar</target></trans-unit>
       <trans-unit id="message.Create">
 		<source>Create</source>
         <context-group name="ctx">
@@ -1714,13 +1714,13 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/ChannelManagementPerms</context>
         </context-group>
-      <target> Abaixo encontra-se uma lista dos canais disponíveis à sua empresa. Você pode atribuir permissões específicas de administração a este usuário para cada um dos canais listados.</target></trans-unit>
+      <target> Abaixo encontra-se uma lista dos canais disponíveis à sua organização. Você pode atribuir permissões específicas de administração a este usuário para cada um dos canais listados.</target></trans-unit>
       <trans-unit id="channelManagementPerms.granted">
 <source> Management permission granted through org/channel admin status </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/ChannelManagementPerms</context>
         </context-group>
-      <target> Permissão de administração atribuída através do status de administrador da empresa/canal</target></trans-unit>
+      <target> Permissão de administração atribuída através do status de administrador da organização/canal</target></trans-unit>
       <trans-unit id="Channel admin status">
 <source>Channel admin status</source>
         <context-group name="ctx">
@@ -1826,13 +1826,13 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/ChannelManagementPerms</context>
         </context-group>
-      <target>Abaixo encontra-se uma lista de canais disponíveis à sua empresa. Você pode atribuir permissões explícitas de subscrição à este usuário para cada um dos canais listados</target></trans-unit>
+      <target>Abaixo encontra-se uma lista de canais disponíveis à sua organização. Você pode atribuir permissões explícitas de subscrição à este usuário para cada um dos canais listados</target></trans-unit>
       <trans-unit id="channelperms.jsp.permGranted">
 <source>Permission granted through org/channel admin status, or the channel is globally subscribable</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/ChannelManagementPerms</context>
         </context-group>
-      <target>Permissão atribuída através do status administrador da empresa/canal, ou o canal é globalmente registrável</target></trans-unit>
+      <target>Permissão atribuída através do status administrador da organização/canal, ou o canal é globalmente registrável</target></trans-unit>
       <trans-unit id="channelperms.jsp.permGranted.short">
 <source>Permission granted</source>
         <context-group name="ctx">
@@ -2664,7 +2664,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/newlogin</context>
         </context-group>
-      <target>Se a sua empresa já possui um login corporativo junto ao @@PRODUCT_NAME@@, você precisa contatar seu Administrador de Empresa no @@PRODUCT_NAME@@ para ele criar a sua conta e registrá-la sob sua empresa. </target></trans-unit>
+      <target>Se a sua organização já possui um login corporativo junto ao @@PRODUCT_NAME@@, você precisa contatar seu Administrador de Empresa no @@PRODUCT_NAME@@ para ele criar a sua conta e registrá-la sob sua organização. </target></trans-unit>
       <trans-unit id="usercreate.createCorpNew">
 <source>Create a new Business Login</source>
         <context-group name="ctx">
@@ -2732,7 +2732,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
-      <target>Sua empresa não possui grupos de sistemas.</target></trans-unit>
+      <target>Sua organização não possui grupos de sistemas.</target></trans-unit>
       <trans-unit id="assignedgroups.jsp.submitpermissions">
 <source>Update Permissions</source>
         <context-group name="ctx">
@@ -4271,13 +4271,13 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
-      <target>Abaixo, segue uma lista de todos os usuários neste @@PRODUCT_NAME@@ , em todas as empresas. Observe que você somente terá acesso para modificar os detalhes dos usuários que são membros desta empresa, a qual você está autenticado atualmente ({0}), e somente se você tiver os previlégios de administrador para esta empresa.</target></trans-unit>
+      <target>Abaixo, segue uma lista de todos os usuários neste @@PRODUCT_NAME@@ , em todas as organizações. Observe que você somente terá acesso para modificar os detalhes dos usuários que são membros desta organização, a qual você está autenticado atualmente ({0}), e somente se você tiver os privilégios de administrador para esta organização.</target></trans-unit>
       <trans-unit id="org.allusers.title">
 <source>Users Across @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
-      <target>Usuários em @@PRODUCT_NAME@@ </target></trans-unit>
+      <target>Usuários cadastrados no @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="orgdetails.jsp.header">
 <source>Organization Details</source>
         <context-group name="ctx">
@@ -4403,7 +4403,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>
-      <target>Segue uma lista de todos os usuários da empresa {0}. Observe que você poderá ter acesso somente para modificar os detalhes destes usuários se você estiver autenticado na empresa {0} e tiver previlégios de administrador da empresa.</target></trans-unit>
+      <target>Segue uma lista de todos os usuários da organização {0}. Observe que você poderá ter acesso somente para modificar os detalhes destes usuários se você estiver autenticado na organização {0} e tiver privilégios de administrador da organização.</target></trans-unit>
       <trans-unit id="orglist.jsp.noOrgs">
 <source>No Organizations.</source>
         <context-group name="ctx">
@@ -4451,7 +4451,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      <target>Segue uma lista de todos os serviços de canal de software neste @@PRODUCT_NAME@@, em todas as empresas, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
+      <target>Segue uma lista de todos os serviços de canal de software neste @@PRODUCT_NAME@@, em todas as organizações, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
       <trans-unit id="softwareentitlements.noentitlements">
 <source>No entitlements found.</source>
         <context-group name="ctx">
@@ -4539,10 +4539,10 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      <target>&lt;strong&gt;*Dica:&lt;/strong&gt; Os previlégios de administrador de empresa podem
+      <target>&lt;strong&gt;*Dica:&lt;/strong&gt; Os privilégios de administrador de organização podem
 permanecer sem modificações nesta página. Caso queira modificá-los, visite
- a aba  "Users" de busca avançada, para acessar os perfis dos usuários individuais em sua empresa. Você pode adicionar ou remover a função de
- administrador de empresa na seção "Funções" da aba "Detalhes" nos perfis de usuários individuais.</target></trans-unit>
+ a aba  "Usuários" de busca avançada, para acessar os perfis dos usuários individuais em sua organização. Você pode adicionar ou remover a função de
+ administrador da organização na seção "Funções" da aba "Detalhes" nos perfis de usuários individuais.</target></trans-unit>
       <trans-unit id="organizations.tip">
 <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization. Entitlements for this organization are linked to your @@PRODUCT_NAME@@ certificate file, so they are not modifiable. If you remove entitlements from a non-default
 organization above, those entitlements will be added back to the default organization,
@@ -4551,9 +4551,9 @@ deducted from the default organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      <target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a empresa padrão de seu @@PRODUCT_NAME@@. Os serviços para esta empresa estão ligados ao seu arquivo de certificado do @@PRODUCT_NAME@@, portanto não podem ser modificados. Caso você remova os serviços de uma empresa não-padrão acima
-estes serviços serão adicionados novamente à empresa padrão, e se você adicionar
-serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.</target></trans-unit>
+      <target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a organização padrão de seu @@PRODUCT_NAME@@. Os serviços para esta organização estão ligados ao seu arquivo de certificado do @@PRODUCT_NAME@@, portanto não podem ser modificados. Caso você remova os serviços de uma organização não-padrão acima,
+estes serviços serão adicionados novamente à organização padrão. Adicionando
+serviços de uma organização não-padrão, eles serão deduzidos da organização padrão.</target></trans-unit>
       <trans-unit id="softwareEntitlements.unlimited">
 <source>unlimited</source>
       <target>ilimitado</target></trans-unit>
@@ -4589,7 +4589,7 @@ serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; das empresas &lt;strong&gt;{1}&lt;/strong&gt; neste @@PRODUCT_NAME@@, possuem ao menos um sistema registrado usando este serviço.</target></trans-unit>
+      <target>&lt;strong&gt;{0}&lt;/strong&gt; das organizações &lt;strong&gt;{1}&lt;/strong&gt; neste @@PRODUCT_NAME@@, possuem ao menos um sistema registrado usando este serviço.</target></trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.accessGranted">
 <source>Access Granted by this Entitlement</source>
         <context-group name="ctx">
@@ -4674,7 +4674,7 @@ serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      <target>Não foi encontrada nenhuma empresa.</target></trans-unit>
+      <target>Não foi encontrada nenhuma organização.</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.column.orgName">
 <source>Organization Name</source>
         <context-group name="ctx">
@@ -4716,7 +4716,7 @@ serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      <target>Atualizado em</target></trans-unit>
+      <target>Atualizar</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.possibleValues">
 <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
         <context-group name="ctx">
@@ -4768,7 +4768,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      <target>{0} de {1} empresas({2}%) possuem acesso à este serviço</target></trans-unit>
+      <target>{0} de {1} organizações ({2}%) possuem acesso à este serviço</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.filterBy">
 <source>Organization Name</source>
         <context-group name="ctx">
@@ -4939,7 +4939,7 @@ value for this entitlement, excluding the default organization's consumption.</s
       <target>Data de Emissão</target></trans-unit>
       <trans-unit id="erratalist.jsp.ownederratapagesummary">
 <source> &lt;p&gt; The following errata list represents errata owned by your organization.&lt;/p&gt; &lt;p&gt; Click on an erratum's Advisory to edit the erratum details or the list of packages to which the erratum applies. &lt;/p&gt;</source>
-      <target> &lt;p&gt; A seguinte lista de erratas representa a errata de sua empresa.&lt;/p&gt; &lt;p&gt; Clique na sinopse de uma errata para editar seus detalhes ou a lista de pacotes aos quais a errata se aplica. &lt;/p&gt;</target></trans-unit>
+      <target> &lt;p&gt; A seguinte lista de erratas representa a errata de sua organização.&lt;/p&gt; &lt;p&gt; Clique na sinopse de uma errata para editar seus detalhes ou a lista de pacotes aos quais a errata se aplica. &lt;/p&gt;</target></trans-unit>
       <trans-unit id="erratalist.jsp.unpublishederrata">
 <source>Unpublished Errata</source>
       <target>Erratas Não Publicadas</target></trans-unit>
@@ -5211,7 +5211,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
-      <target>Os canais de software listados abaixo fazem parte da subscrição adquirida por sua empresa.</target></trans-unit>
+      <target>Os canais de software listados abaixo fazem parte da subscrição adquirida por sua organização.</target></trans-unit>
       <trans-unit id="entitlements.jsp.noentitlements">
 <source>No Channel Entitlements</source>
         <context-group name="ctx">
@@ -8660,7 +8660,7 @@ organization management tools if you choose to remove this role from your login.
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
         </context-group>
-      <target>A lista a seguir representa as erratas que podem ser clonadas pela sua empresa. &lt;p&gt; Somente as erratas potencialmente aplicáveis a um de seus canais podem ser clonadas. Uma errata é potencialmente aplicável a um canal se ele foi clonado de um canal ao qual a errata se aplica. &lt;/p&gt;&lt;p&gt; Selecione a errata que você deseja clonar e clique em 'Clonar Errata' para continuar. &lt;/p&gt;</target></trans-unit>
+      <target>A lista a seguir representa as erratas que podem ser clonadas por sua organização. &lt;p&gt; Somente as erratas potencialmente aplicáveis a um de seus canais podem ser clonadas. Uma errata é potencialmente aplicável a um canal se ele foi clonado de um canal ao qual a errata se aplica. &lt;/p&gt;&lt;p&gt; Selecione a errata que você deseja clonar e clique em 'Clonar Errata' para continuar. &lt;/p&gt;</target></trans-unit>
 
       <trans-unit id="cloneerrata.jsp.viewapplicableerrata">
 <source>View errata potentially applicable to</source>
@@ -8767,7 +8767,7 @@ organization management tools if you choose to remove this role from your login.
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/errata/manage/CloneConfirm.do</context>
         </context-group>
-      <target>As erratas listadas abaixo serão clonadas. Uma vez clonadas, elas aparecerão em sua &lt;a href="{0}"&gt;lista de errata não publicada&lt;/a&gt;. A partir desta lista, você poderá ver o texto e pacotes associados para cada errata. Quando estiver pronto, poderá publicar esta errata para que sejam disponibilizadas aos usuários de sua empresa. </target></trans-unit>
+      <target>As erratas listadas abaixo serão clonadas. Uma vez clonadas, elas aparecerão em sua &lt;a href="{0}"&gt;lista de errata não publicada&lt;/a&gt;. A partir desta lista, você poderá ver o texto e pacotes associados para cada errata. Quando estiver pronto, poderá publicar esta errata para que sejam disponibilizadas aos usuários de sua organização. </target></trans-unit>
 
       <trans-unit id="monitoring.status.ok">
 <source>Probe(s) assigned to system have an OK status</source>
@@ -9046,7 +9046,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Configure seu @@PRODUCT_NAME@@ abaixo. A configuração do proxy HTTP aborda a comunicação do servidor @@PRODUCT_NAME@@ com o servidor @@PRODUCT_NAME@@ pai, se houver. O proxy HTTP deve estar no formato: nome_de_host: porta, porém será utilizada  a porta padrão 8080 caso nenhuma outra seja provida. A configuração do proxy HTTP para sistemas clientes se conectarem a este @@PRODUCT_NAME@@ pode ser diferente e será configurada posteriormente. Se você ativar o Backend do Monitoring, também deve ativar o Agente de Monitoramento (Monitoring Scout) ou configurá-lo como um servidor separado. Se você ativar o agente de monitoramento, também deve ativar o backend de monitoramento.</target></trans-unit>
+      <target>A configuração do proxy HTTP aborda a comunicação do servidor @@PRODUCT_NAME@@ com o servidor @@PRODUCT_NAME@@ pai, se houver. O proxy HTTP deve estar no formato: nome_de_host: porta, porém será utilizada  a porta padrão 8080 caso nenhuma outra seja provida. A configuração do proxy HTTP para sistemas clientes se conectarem a este @@PRODUCT_NAME@@ pode ser diferente e será configurada posteriormente. Se você ativar o Backend do Monitoring, também deve ativar o Agente de Monitoramento (Monitoring Scout) ou configurá-lo como um servidor separado. Se você ativar o agente de monitoramento, também deve ativar o backend de monitoramento.</target></trans-unit>
       <trans-unit id="general.jsp.org.header">
 <source>@@PRODUCT_NAME@@ Organizations</source>
         <context-group name="ctx">
@@ -9074,7 +9074,7 @@ organization.
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>As organizações são uma maneira de colocar barreiras entre conjuntos de sistemas, grupso de
+      <target>As organizações são uma maneira de colocar barreiras entre conjuntos de sistemas, grupos de
 sistemas, canais de software, subscrições e nomeações, perfis kickstart,
 chaves de ativação, arquivos e canais de configuração, usuários - tudo
 o que você gerencia usando @@PRODUCT_NAME@@. Cada organização é gerenciada por pelo menos um
@@ -9154,8 +9154,8 @@ administrator privileges.</source>
             <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
       <target>Crie e gerencie as organizações em seu @@PRODUCT_NAME@@. Você pode não conseguir visualizar todos
-os usuários no @@PRODUCT_NAME@@ por aqui, mas você pode procurar pelos usuários com os previlégios do administrador da organização em todas as organizaçẽos em seu @@PRODUCT_NAME@@ e
-também pode atribuir ou tomar os previlégios do administrador de uma organização do satellite.</target></trans-unit>
+os usuários no @@PRODUCT_NAME@@ por aqui, mas você pode procurar pelos usuários com os privilégios do administrador da organização em todas as organizações em seu @@PRODUCT_NAME@@ e
+também pode atribuir ou tomar os privilégios do administrador de uma organização.</target></trans-unit>
       <trans-unit id="general.jsp.org.tbl.link3">
 <source>Go to Users now</source>
         <context-group name="ctx">
@@ -9234,7 +9234,7 @@ também pode atribuir ou tomar os previlégios do administrador de uma organiza�
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ Disconectado</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ Desconectado</target></trans-unit>
       <trans-unit id="general.jsp.monitoring_backend">
 <source>Enable Monitoring</source>
         <context-group name="ctx">
@@ -9252,7 +9252,7 @@ também pode atribuir ou tomar os previlégios do administrador de uma organiza�
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>Atualizado em</target></trans-unit>
+      <target>Atualizar</target></trans-unit>
 
       <trans-unit id="usercreate.createFirstLogin">
 <source>Create @@PRODUCT_NAME@@ Administrator</source>
@@ -9472,7 +9472,7 @@ Please note that some manual configuration of these scripts may still be require
 		<target>Para mais informações, procure a página man do 'cobbler'.</target></trans-unit>
 		<trans-unit id="update">
 		  <source>Update</source>
-		<target>Atualizado em</target></trans-unit>
+		<target>Atualizar</target></trans-unit>
     </group>
 
 <!-- Repo Sync -->
@@ -10010,7 +10010,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    <target>Os seguintes perfis de kickstart foram criados para o uso de sua empresa:</target></trans-unit>
+    <target>Os seguintes perfis de kickstart foram criados para o uso de sua organização:</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.inactive">
            <source>Inactive</source>
@@ -10290,7 +10290,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Está disponível uma lista completa de intervalos IP associados aos perfis de kickstart de sua empresa &lt;/span&gt;</target></trans-unit>
+    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Está disponível uma lista completa de intervalos IP associados aos perfis de kickstart de sua organização &lt;/span&gt;</target></trans-unit>
 
 
     <trans-unit id="kickstartips.jsp.baremetal_summary2">
@@ -12234,7 +12234,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
       <trans-unit id="channels.custom.jsp.header1">
         <source>The software channels listed below belong to your organization.</source>
-      <target>Os canais de software listados abaixo pertencem à  sua empresa.</target></trans-unit>
+      <target>Os canais de software listados abaixo pertencem à  sua organização.</target></trans-unit>
 
       <trans-unit id="channels.popular.jsp.header1">
         <source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
@@ -12242,7 +12242,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
       <trans-unit id="channels.popular.jsp.button">
         <source>Update</source>
-      <target>Atualizado em</target></trans-unit>
+      <target>Atualizar</target></trans-unit>
 
       <trans-unit id="channels.popular.jsp.label0">
         <source>Popularity</source>
@@ -12270,7 +12270,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
       <trans-unit id="channels.manage.jsp.header1">
         <source>The following software channels are owned by your organization.</source>
-      <target>Os seguintes canais de software fazem parte de sua empresa.</target></trans-unit>
+      <target>Os seguintes canais de software fazem parte de sua organização.</target></trans-unit>
 
       <trans-unit id="channels.manage.jsp.header2">
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
@@ -12542,11 +12542,11 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
        <trans-unit id="activation-keys.jsp.para2">
          <source>The following activation keys have been created for use by your organization.</source>
-       <target>As seguintes chaves de ativação foram criadas para o uso de sua empresa:</target></trans-unit>
+       <target>As seguintes chaves de ativação foram criadas para o uso de sua organização.</target></trans-unit>
 
        <trans-unit id="activation-keys.jsp.universal-default-text">
          <source>If a universal default activation key is set for your organization, then systems registered to your organization will inherit the properties of that key by default without the need to explicitly specify that key during registration.</source>
-       <target>Se uma chave de ativação padrão universal for configurada em sua empresa, os sistemas registrados na sua empresa herdarão as propriedades daquela chave por padrão, sem precisar especificar explicitamente esta chave durante o registro.</target></trans-unit>
+       <target>Se uma chave de ativação padrão universal for configurada em sua organização, os sistemas registrados na sua organização herdarão as propriedades daquela chave por padrão, sem precisar especificar explicitamente esta chave durante o registro.</target></trans-unit>
        <trans-unit id="activation-keys.jsp.description-tooltip">
          <source>Click on the description above to view the details for this key.</source>
      <target>Clique na descrição acima para visualizar os detalhes desta chave.</target></trans-unit>
@@ -12579,7 +12579,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
      <target>Você não possui um conjunto de chave padrão universal atualmente. Para definir uma chave como padrão universal, viste as páginas de detalhes desta chave e selecione o item 'Padrão Universal?'.</target></trans-unit>
      <trans-unit id="activation-keys.jsp.is-default-key-tip">
          <source>This key is your organization's universal default activation key.</source>
-       <target>A chave é sua chave de ativação padrão universal da empresa.</target></trans-unit>
+       <target>Esta chave de ativação é padrão para sua organização.</target></trans-unit>
 
      <trans-unit id="activation-key.jsp.base-channels">
          <source>Base Channels</source>
@@ -12764,7 +12764,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
        <trans-unit id="profile.list.summary">
          <source>The following stored profiles exist within your organization. To create a stored profile from a system, go to the Packages view for that system.</source>
-       <target>Existem os seguintes perfis armazenados dentro de sua empresa. Para criar um perfil armazenado de um sistema, vá para visualizar Pacotes neste sistema. </target></trans-unit>
+       <target>Existem os seguintes perfis armazenados dentro de sua organização. Para criar um perfil armazenado de um sistema, vá para visualizar Pacotes neste sistema. </target></trans-unit>
 
        <trans-unit id="profile.list.noprofiles">
          <source>No stored profiles.</source>
@@ -12920,7 +12920,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <context-group name="ctx">
             <context context-type="paramnotes">Your organization has 7 KB available for configuration files.</context>
           </context-group>
-        <target>Sua empresa possui {0} de disponibilidade para arquivos de configuração.</target></trans-unit>
+        <target>Sua organização possui {0} de disponibilidade para arquivos de configuração.</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>
@@ -13026,7 +13026,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>São necessárias certas ações para as capacidades de configuração.</target></trans-unit>
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
-        <target>Requer um administrador da empresa</target></trans-unit>
+        <target>Requer um administrador da organização</target></trans-unit>
         <trans-unit id="targetsystems.jsp.addprovisioning">
           <source>Add provisioning entitlement</source>
         <target>Adicionar Serviços de provisão</target></trans-unit>
@@ -13093,7 +13093,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>Nenhum Erro</target></trans-unit>
         <trans-unit id="summary.jsp.orgadmin">
           <source>Remaining actions require organization administrator.</source>
-        <target>Ações restantes requerem o administrador de empresa.</target></trans-unit>
+        <target>Ações restantes requerem o administrador da organização.</target></trans-unit>
         <trans-unit id="summary.jsp.provision">
           <source>Could not grant provisioning entitlement.</source>
         <target>Não foi possível obter serviço de provisão.</target></trans-unit>
@@ -15011,7 +15011,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
           <context context-type="paramnotes">Your organization is allowed 40 KB of space to store configuration files.</context>
         </context-group>
-    <target>Sua empresa possui espaço para armazenar  &lt;strong&gt;{0}&lt;/strong&gt;  arquivos de configuração.</target></trans-unit>
+    <target>Sua organização possui espaço para armazenar  &lt;strong&gt;{0}&lt;/strong&gt;  arquivos de configuração.</target></trans-unit>
 
     <trans-unit id="quota.jsp.used">
         <source>Your organization is currently using &lt;strong&gt;{0}&lt;/strong&gt; of space, leaving &lt;strong&gt;{1}&lt;/strong&gt; free.</source>
@@ -15019,7 +15019,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
           <context context-type="paramnotes">Your organization is currently using 30.3 KB of space, leaving 9.7 KB free.</context>
         </context-group>
-    <target>Sua empresa está usando &lt;strong&gt;{0}&lt;/strong&gt; de espaço atualmente, deixando &lt;strong&gt;{1}&lt;/strong&gt; livre.</target></trans-unit>
+    <target>Sua organização está usando &lt;strong&gt;{0}&lt;/strong&gt; de espaço atualmente, deixando &lt;strong&gt;{1}&lt;/strong&gt; livre.</target></trans-unit>
 
     <trans-unit id="quota.jsp.buybonus">
         <source>Need more space?</source>
@@ -15084,7 +15084,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalConfigFileList.do</context>
         </context-group>
-    <target>Arquivos de Configuração Gerenciado Centralmente</target></trans-unit>
+    <target>Gerenciamento Centralizado de Arquivos de Configuração</target></trans-unit>
 
     <trans-unit id="globalfilelist.jsp.summary">
         <source>The list below shows all of the configuration files that are managed centrally via configuration channels. Please note that files managed locally (via a system profile) can override centrally-managed configuration files on particular systems.</source>
@@ -15177,7 +15177,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-     <target>Os sistemas listados abaixo, possuem atualmente &lt;strong&gt;arquivos de configuração gerenciados pelo @@PRODUCT_NAME@@ &lt;/strong&gt;. Isto significa que cada sistema pode ter arquivos de configuração &lt;strong&gt;gerenciados localmente&lt;/strong&gt; através de seu perfil de sistema @@PRODUCT_NAME@@, pode ter arquivos de configuração &lt;strong&gt;gerenciados centralmente&lt;/strong&gt; através de canais de configuração central, ou ambos. O número de arquivos gerenciados localmente que sobrescrevem arquivos gerenciados centralmente é visível na coluna 'Arquivos Gerenciados Localmente' abaixo. </target></trans-unit>
+     <target>Os sistemas listados abaixo, possuem atualmente &lt;strong&gt;arquivos de configuração gerenciados pelo @@PRODUCT_NAME@@ &lt;/strong&gt;. Isto significa que cada sistema pode ter arquivos de configuração &lt;strong&gt;gerenciados localmente&lt;/strong&gt; através de seu perfil de sistema @@PRODUCT_NAME@@ ou então ter arquivos de configuração &lt;strong&gt;gerenciados centralmente&lt;/strong&gt; através de canais de configuração central ou ambos. O número de arquivos gerenciados localmente que sobrescrevem arquivos gerenciados centralmente é visível na coluna 'Arquivos Gerenciados Localmente' abaixo. </target></trans-unit>
 
      <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
@@ -15272,7 +15272,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
         <trans-unit id="configoverview.jsp.summary">
           <source>The list below shows all of the configuration files that are managed by your organization in @@PRODUCT_NAME@@. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
-        <target>A lista abaixo mostra todos os arquivos de configuração que são gerenciados pela sua empresa no @@PRODUCT_NAME@@. Esta lista inclui arquivos que sejam gerenciados centralmente nos canais de configuração e arquivos que são gerenciados localmente através de perfis de sistema individuais. </target></trans-unit>
+        <target>A lista abaixo mostra todos os arquivos de configuração que são gerenciados pela sua organização no @@PRODUCT_NAME@@. Esta lista inclui arquivos que sejam gerenciados centralmente nos canais de configuração e arquivos que são gerenciados localmente através de perfis de sistema individuais. </target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configsummary">
           <source>Configuration Summary</source>
@@ -20549,7 +20549,7 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         <context-group name="ctx">
          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
        </context-group>
-      <target>Segue uma lista de todos os serviços de canal de software neste @@PRODUCT_NAME@@, em todas as empresas, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
+      <target>Segue uma lista de todos os serviços de canal de software neste @@PRODUCT_NAME@@, em todas as organizações, e seus usos. Clique no nome dos serviços para maiores detalhes.</target></trans-unit>
 
       <trans-unit id="sys_entitlements.header">
         <source>System Entitlements Across @@PRODUCT_NAME@@</source>
@@ -20796,7 +20796,7 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
-      <target>Atualizado em</target></trans-unit>
+      <target>Atualizar</target></trans-unit>
       <trans-unit id="entitlementorgs.cancel">
 <source>Cancel Changes</source>
         <context-group name="ctx">
@@ -21656,7 +21656,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
-      <target>Este é o perfil do kickstart de sua empresa.</target></trans-unit>
+      <target>Este é o perfil do kickstart de sua organização.</target></trans-unit>
       <trans-unit id="help.jsp.refguide">
         <source>@@PRODUCT_NAME@@ Reference Guide</source>
       <target>@@PRODUCT_NAME@@ Guia de Referência </target></trans-unit>
@@ -21714,7 +21714,7 @@ given channel.</source>
       <target>Provedor de Conteúdo</target></trans-unit>
       <trans-unit id="channel.jsp.globallysub">
         <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target>Se este canal for selecionado, todos os usuários de sua empresa deveram se registrar nele.</target></trans-unit>
+      <target>Se este canal for selecionado, todos os usuários de sua organização deverão se registrar nele.</target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>Globalmente registrável</target></trans-unit>
@@ -21834,7 +21834,7 @@ given channel.</source>
        <target>Adicionar Pacotes</target></trans-unit>
       <trans-unit id="channel.jsp.errata.listtitle">
          <source>This channel contains the following errata:</source>
-       <target>Este canal contém a seguinte errata:</target></trans-unit>
+       <target>Este canal contém as seguintes erratas:</target></trans-unit>
       <trans-unit id="channel.jsp.errata.emptylist">
          <source>This channel contains no errata.</source>
        <target>Este canal não contém errata.</target></trans-unit>
@@ -21852,7 +21852,7 @@ given channel.</source>
        <target>As chaves de Informação de sistema padronizada, permite que seus administradores armazenem pares de valores/chaves padronizadas relevantes com seus perfis de sistema. A informação de sistema padronizada é totalmente {0} acessível {1}.</target></trans-unit>
       <trans-unit id="system.jsp.customkey.message2">
          <source>The following custom system info keys have been defined for your organization.</source>
-       <target>As seguintes chaves de informações de sistema padronizada foram criadas para o uso de sua empresa:</target></trans-unit>
+       <target>As seguintes chaves personalizadas de informações de sistema foram criadas para o uso em sua organização.</target></trans-unit>
       <trans-unit id="system.jsp.customkey.keylabel">
          <source>Key Label</source>
        <target>Etiqueta da Chave</target></trans-unit>
@@ -21885,7 +21885,7 @@ given channel.</source>
        <target>Administração de Pacote</target></trans-unit>
       <trans-unit id="channel.jsp.manage.package.message">
          <source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Confirm Deletion', below.</source>
-       <target>Você pode remover pacotes de posse de sua empresa.  A caixa de seleção  do  "visualizar pacote em canais" permite a você restringir o conjunto que irá visualizar. Para remover pacotes, selecione a caixa próxima a ele e clique em 'Confirmar a Remoção', abaixo.</target></trans-unit>
+       <target>Você pode remover pacotes de posse de sua organização.  A caixa de seleção  do  "visualizar pacote em canais" permite a você restringir o conjunto que irá visualizar. Para remover pacotes, selecione a caixa próxima a ele e clique em 'Confirmar a Remoção', abaixo.</target></trans-unit>
       <trans-unit id="channel.jsp.manage.package.subtitle">
          <source>Package List</source>
        <target>Lista de Pacotes</target></trans-unit>
@@ -22214,7 +22214,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-      <target>chave GPG Fingerprint</target></trans-unit>
+      <target>Fingerprint da Chave GPG</target></trans-unit>
       <trans-unit id="channel.edit.jsp.createchannel">
         <source>Create Channel</source>
         <context-group name="ctx">
@@ -22417,13 +22417,13 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-      <target>Todos os usuários dentro de sua empresa devem se registrar neste canal.</target></trans-unit>
+      <target>Todos os usuários dentro de sua organização devem se registrar neste canal.</target></trans-unit>
       <trans-unit id="channel.edit.jsp.selectedusers">
         <source>Only selected users within your organization may subscribe to this channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-      <target>Somente os usuários selecionados dentro de sua empresa devem se registrar neste canal.</target></trans-unit>
+      <target>Somente os usuários selecionados dentro de sua organização devem se registrar neste canal.</target></trans-unit>
       <trans-unit id="confirmprivate.jsp.title">
         <source>Confirm Channel Sharing Modification</source>
         <context-group name="ctx">
@@ -22443,7 +22443,7 @@ given channel.</source>
         </context-group>
       <target>Você tem certeza de que quer configurar este canal para
         &lt;strong&gt;privado&lt;/strong&gt;, acessível somente por sistemas em sua
-         empresa? Existem sistemas nesta empresa listados abaixo
+         organização? Existem sistemas nesta organização listados abaixo
          que são registrados neste conteúdo fornecido por este canal. Se você remover o acesso
         à este canal, poderá afetar seriamente estes sistemas. Por exemplo, estes
          sistemas podem não receber mais atualizações de segurança críticas para o conteúdo
@@ -22468,7 +22468,7 @@ given channel.</source>
         </context-group>
       <target>Você tem certeza de que deseja configurar esta política de acesso do canal para
           ser um canal &lt;strong&gt;protegido&lt;/strong&gt;, observe que as
-          empresas abaixo possuem sistemas que são registrados neste canal.
+          organizações abaixo possuem sistemas que são registrados neste canal.
           Se você remover o acesso à este canal, poderá afetar seriamente estes sistemas.
            Por exemplo, eles podem não receber mais atualizações de segurança críticas para o conteúdo
           fornecido por este canal.</target></trans-unit>
