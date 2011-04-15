@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.1
+Version: 5.10.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -104,6 +104,21 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 5.10.2-1
+- add missing directories to filelist (mc@suse.de)
+- build rhncfg build on SUSE (mc@suse.de)
+- 683200 - ca is now unicode, check for basestring, which is parent for both
+  str and unicode type (msuchy@redhat.com)
+- 683200 - set the protocol correctly (msuchy@redhat.com)
+- 683200 - server_name and server_list should contain just hostname, not url
+  (msuchy@redhat.com)
+- 683200 - if value is int ConfigParser fails with interpolation
+  (msuchy@redhat.com)
+- 683200 - variable %proto is not used in up2date_cfg (msuchy@redhat.com)
+- removing .rhncfgrc - it is not packed, probably forgotten for long time
+  (msuchy@redhat.com)
+- add () if you want to get result of function (msuchy@redhat.com)
+
 * Wed Apr 13 2011 Miroslav Suchý 5.10.1-1
 - bump up version (msuchy@redhat.com)
 
