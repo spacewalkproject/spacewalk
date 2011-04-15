@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.21
+Version:        5.4.22
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -172,6 +172,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 5.4.22-1
+- build rhn-virtualization on SUSE (mc@suse.de)
+
 * Fri Apr 08 2011 Miroslav Suchý 5.4.21-1
 - update copyright years (msuchy@redhat.com)
 
