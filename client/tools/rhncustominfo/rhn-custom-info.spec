@@ -21,7 +21,14 @@ Requires: rhnlib
 %if 0%{?rhel} >= 5 || 0%{?fedora} >= 1
 Requires: yum-rhn-plugin
 %else
+# rpm do not support elif
+%if 0%{?suse_version}
+Requires: zypp-plugin-spacewalk
+# provide rhn directories for filelist check
+BuildRequires: rhn-client-tools
+%else
 Requires: up2date
+%endif
 %endif
 
 %description 
