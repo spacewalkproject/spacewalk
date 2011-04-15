@@ -548,9 +548,6 @@ def populate_channel_family_permissions(cert):
         if flex is not None:
             flex = int(flex)
 
-        if quant is not None:
-            quant = int(quant)       
-        
         #we subtract flex from quantity since flex count is included
         #   in the full quantity for backwards compatibility
         cert_chfam_hash[cf.name] = [quant - flex, flex]
