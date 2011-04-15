@@ -582,7 +582,7 @@ SELECT P.id AS ID,
               FROM rhnErrataPackage EP
              WHERE EP.errata_id = :target_eid
                AND EP.package_id = P.id)
-ORDER BY UPPER(PACKAGE_NVRE)
+ORDER BY UPPER(PN.name || '-' || evr_t_as_vre_simple(PE.evr))
   </query>
   <elaborator name="package_channels" />
 </mode>
@@ -602,7 +602,7 @@ SELECT P.id AS ID,
               FROM rhnErrataPackagetmp EP
              WHERE EP.errata_id = :target_eid
                AND EP.package_id = P.id)
-ORDER BY UPPER(PACKAGE_NVRE)
+ORDER BY UPPER(PN.name || '-' || evr_t_as_vre_simple(PE.evr))
   </query>
   <elaborator name="package_channels" />
 </mode>
