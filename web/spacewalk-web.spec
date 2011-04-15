@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 1.5.2-1
+- show weak deps in Web UI (mc@suse.de)
+- 674806 - get / set oracle db optimizer (mzazrivec@redhat.com)
+
 * Mon Apr 11 2011 Miroslav Suchý 1.5.1-1
 - bump up version of Spacewalk - both in webUI and API version
 - Bumping package versions for 1.5
