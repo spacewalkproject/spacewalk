@@ -8,7 +8,7 @@ Summary:        Red Hat Network Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.8
+Version:        5.3.9
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -111,6 +111,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 5.3.9-1
+- add nocpulse config dir to filelist (mc@suse.de)
+- build rhnmd on SUSE (mc@suse.de)
+
 * Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 5.3.8-1
 - 538057 - add corresponding "Provides:" for the arch-specific packages
 - 538057 - versioned provides, substitute tabs with spaces
