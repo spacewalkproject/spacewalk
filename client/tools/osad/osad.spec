@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.11
+Version: 5.10.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 5.10.12-1
+- require python-hashlib only on rhel and rhel <= 5 (mc@suse.de)
+- build osad on SUSE (mc@suse.de)
+- provide config (mc@suse.de)
+
 * Fri Apr 15 2011 Jan Pazdziora 5.10.11-1
 - Address the spacewalk.common.rhnLog and .rhnConfig castling in osa-dispacher.
 
