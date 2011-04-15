@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.17
+Version: 0.2.18
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Fri Apr 15 2011 Jan Pazdziora 0.2.18-1
+- build spacewalk-koan on SUSE (mc@suse.de)
+
 * Fri Apr 08 2011 Miroslav Suchý 0.2.17-1
 - update copyright years (msuchy@redhat.com)
 
