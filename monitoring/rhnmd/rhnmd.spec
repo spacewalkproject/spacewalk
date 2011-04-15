@@ -100,6 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root,root,-)
+%dir %{_sysconfdir}/%{np_name}
 %config(noreplace) %{_sysconfdir}/pam.d/rhnmd
 %dir %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}
 %dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
