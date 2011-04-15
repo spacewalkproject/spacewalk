@@ -15,6 +15,10 @@ Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python
+%if 0%{?suse_version}
+# make chkconfig work in OBS
+BuildRequires: sysconfig syslog
+%endif
 
 %description
 rhn-virtualization provides various RHN/Spacewalk actions for manipulation 
@@ -24,7 +28,14 @@ virtual machine guest images.
 Summary: Files needed by rhn-virtualization-host
 Group: System Environment/Base
 Requires: rhn-client-tools
+%if 0%{?suse_version}
+# aaa_base provide chkconfig
+Requires: aaa_base
+# provide directories for filelist check in obs
+BuildRequires: rhn-client-tools rhn-check
+%else
 Requires: chkconfig
+%endif
 
 %description common
 This package contains files that are needed by the rhn-virtualization-host
@@ -35,7 +46,11 @@ Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Group: System Environment/Base
 Requires: libvirt-python
 Requires: rhn-virtualization-common = %{version}-%{release}
+%if 0%{?suse_version}
+Requires: cron
+%else
 Requires: /usr/sbin/crond
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 6
 # in RHEL5 we need libvirt, but in RHEV@RHEL5 there should not be libvirt
 # as there is vdsm and bunch of other packages, but we have no clue how to
@@ -51,7 +66,9 @@ that is specific to the Host system (a.k.a. Dom0).
 
 %prep
 %setup -q
-
+%if 0%{?suse_version}
+cp scripts/rhn-virtualization-host.SUSE scripts/rhn-virtualization-host
+%endif
 
 %build
 make -f Makefile.rhn-virtualization
@@ -59,22 +76,30 @@ make -f Makefile.rhn-virtualization
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT install
+make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} install
 
- 
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 
 %post host
 /sbin/chkconfig --add rhn-virtualization-host
+%if 0%{?suse_version}
+/sbin/service cron try-restart ||:
+%else
 /sbin/service crond condrestart
+%endif
 
 %preun host
 /sbin/chkconfig --del rhn-virtualization-host
 
 %postun host
+%if 0%{?suse_version}
+/sbin/service cron try-restart ||:
+%else
 /sbin/service crond condrestart
+%endif
 
 %files common
 %defattr(-,root,root,-)

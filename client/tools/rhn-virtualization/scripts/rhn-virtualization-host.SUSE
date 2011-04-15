@@ -1,0 +1,113 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:       rhn-virtualization-host
+# Required-Start: $network $syslog $remote_fs
+# Required-Stop:  $network $syslog $remote_fs
+# Default-Start:  3 5
+# Default-Stop: 0 1 6
+# Short-Description: Starts up xen domains when the host boots.
+# Description:    Starts up xen domains when the host boots.
+### END INIT INFO
+
+# chkconfig: 2345 99 99
+# description: Starts up xen domains when the host boots.
+
+. /etc/rc.status
+
+auto_dir="/etc/sysconfig/rhn/virt/auto"
+py_path="/usr/share/rhn:/usr/share/rhn/virtualization"
+script_path="/usr/share/rhn/virtualization"
+get_config_value="PYTHONPATH=$py_path python $script_path/get_config_value.py"
+get_uuid="$get_config_value uuid"
+get_name="$get_config_value name"
+init_action="PYTHONPATH=$py_path python $script_path/init_action.py"
+start_action="$init_action start"
+stop_action="$init_action shutdown"
+
+if [ -d $auto_dir ]; then
+    list_of_files=$(ls $auto_dir)
+else
+    list_of_files=
+fi
+
+start() {
+   echo -n "Starting Managed Xen Domains:"
+   for NAME in $list_of_files; do
+        dom_uuid=$(eval $get_uuid $auto_dir/$NAME)
+        eval $start_action $dom_uuid > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            rc_check
+        fi
+    done
+
+    touch /var/lock/subsys/rhn-virtualization
+    rc_status -v
+}
+
+stop() {
+    echo -n "Stopping Managed Xen Domains:"
+    for NAME in $list_of_files; do
+        dom_uuid=$(eval $get_uuid $auto_dir/$NAME)
+        eval $stop_action $dom_uuid > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            rc_check
+        fi
+    done
+
+    rm -f /var/lock/subsys/rhn-virtualization
+    rc_status -v
+}
+
+status() {
+    found_guests=0
+
+    for NAME in $list_of_files; do
+        found_guests=1
+        dom_name=$(eval $get_name $auto_dir/$NAME)
+        dom_state=$(virsh domstate $dom_name 2> /dev/null)
+
+        if [ $? -eq 0 ]; then
+            echo "$dom_name: $dom_state"
+        else
+            echo "Error getting the status for $dom_name."
+            rc_check
+        fi
+    done
+
+    if [ $found_guests -eq 0 ]; then
+        echo "No guest configurations symlinked in $auto_dir."
+    fi
+
+    rc_status -v
+}
+
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    reload)
+        stop
+        start
+        ;;
+    condrestart|try-restart)
+        if [ -f /var/lock/subsys/rhn-virtualization ]; then
+            stop
+	    start
+	fi
+        ;;
+    status)
+        status
+        ;;
+    *)
+        echo "Usage: service rhn-virtualization [start|stop|restart|condrestart|try-restart|reload|status]"
+        ;;
+esac
