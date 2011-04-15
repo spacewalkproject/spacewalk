@@ -817,7 +817,7 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
     hash_factor = 2
     key_template = 'xml-packages/%s/rhn-source-package-%s.xml'
 
-class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
+class ErrataDumper(exportLib.ErrataDumper):
     iterator_query = rhnSQL.Statement("""
             select
                 e.id,
@@ -840,9 +840,11 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
             from rhnErrata e
             where e.id = :errata_id
         """)
-    item_id_key = 'errata_id'
-    hash_factor = 1
-    key_template = 'xml-errata/%s/rhn-erratum-%s.xml'
+    def __init__(self, writer, params):
+        statement = rhnSQL.prepare(self.iterator_query)
+        iterator = QueryIterator(statement, params)
+        exportLib.ErrataDumper.__init__(self, writer, iterator)
+
 
 class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper):
     iterator_query = rhnSQL.Statement("""
