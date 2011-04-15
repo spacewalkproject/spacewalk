@@ -554,7 +554,6 @@ def populate_channel_family_permissions(cert):
 
     # Generate the channel family permissions data structure
     cfps = {}
-    curr_cfps = {}
     for cfp in _fetch_channel_family_permissions():
         cf_name = cfp['channel_family']
 
@@ -563,7 +562,6 @@ def populate_channel_family_permissions(cert):
 
         # Initially populate cf info with old limits from db
         cfps[(cf_name, org_id)] = [cfp['max_members'], cfp['max_flex']]
-	curr_cfps[(cf_name, org_id)] = [cfp['current_members'], cfp['current_flex']]
 
     # Now set max_members based on the cert's max_members
     for cf_name, max_tuple in cert_chfam_hash.items():
