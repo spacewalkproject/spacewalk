@@ -12,7 +12,10 @@ BuildArch:      noarch
 BuildRequires:  python
 Requires:       python >= 1.5
 Requires:       koan >= 1.4.3
-
+%if 0%{?suse_version}
+# provide directories for filelist check in OBS
+BuildRequires: rhn-client-tools
+%endif
 Conflicts: rhn-kickstart
 Conflicts: rhn-kickstart-common
 Conflicts: rhn-kickstart-virtualization
