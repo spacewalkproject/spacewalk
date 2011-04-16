@@ -79,8 +79,10 @@ def getArch():
         if replace.has_key(platform):
             platform = replace[platform]
         return platform
-    return os.uname()[4]
-
+    arch = os.uname()[4]
+    if getPlatform() == 'deb':
+        arch += '-debian-linux'
+    return arch
 
 def version():
     # substituted to the real version by the Makefile at installation time.
