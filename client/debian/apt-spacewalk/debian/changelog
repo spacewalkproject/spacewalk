@@ -1,6 +1,8 @@
-apt-spacewalk (1.0.1-1) unstable; urgency=low
+apt-spacewalk (1.0.2-1) unstable; urgency=low
 
   * Updated to the upstream version
+  * Refactoring related to international domain names
+  * Requires python-rhn-client-tools instead of rhn-client-tools
 
- -- Simon Lukasik <xlukas08@stud.fit.vutbr.cz>  Thu, 17 Mar 2010 18:43:00 +0200
+ -- Simon Lukasik <xlukas08@stud.fit.vutbr.cz>  Sat, 16 Apr 2011 16:25:04 +0200
 

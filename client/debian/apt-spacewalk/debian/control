@@ -8,7 +8,8 @@ Homepage: https://fedorahosted.org/spacewalk
 
 Package: apt-spacewalk
 Architecture: all
-Depends: ${python:Depends}, apt, python-apt, rhn-client-tools
+Depends: ${python:Depends}, ${misc:Depends}, apt, python-apt,
+ python-rhn-client-tools
 Provides: ${python:Provides}
 Recommends: rhnsd
 Suggests: rhncfg, rhnpush, osad

@@ -9,8 +9,6 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-clean:
-	rm -rf build
 %:
 	dh $@
 
