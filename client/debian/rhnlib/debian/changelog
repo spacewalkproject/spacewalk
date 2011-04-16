@@ -1,6 +1,6 @@
-python-rhnlib (2.5.32-2) unstable; urgency=low
+python-rhnlib (2.5.40-1) unstable; urgency=low
 
-  * Python-rhnlib now also provides rhnlib
+  * Rebased to upstream version
 
- -- Šimon Lukašík <xlukas08@stud.fit.vutbr.cz>  Sat, 16 Apr 2011 09:43:13 +0200
+ -- Šimon Lukašík <xlukas08@stud.fit.vutbr.cz>  Sat, 16 Apr 2011 17:43:13 +0200
 
