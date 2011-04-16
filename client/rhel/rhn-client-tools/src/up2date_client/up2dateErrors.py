@@ -13,7 +13,7 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 import OpenSSL
 import config
-from yum.Errors import RepoError
+from platform import getPlatform
 
 class Error:
     """base class for errors"""
@@ -188,6 +188,11 @@ class NoChannelsError(Error):
 
     def __repr__(self):
         return self.errmsg
+
+if getPlatform() == 'deb':
+    RepoError = Error
+else:
+    from yum.Errors import RepoError
 
 class SSLCertificateVerifyFailedError(RepoError):
     def __init__(self):
