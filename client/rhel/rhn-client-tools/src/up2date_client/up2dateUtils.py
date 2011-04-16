@@ -69,19 +69,17 @@ def getRelease():
     return release
 
 def getArch():
-    if not os.access("/etc/rpm/platform", os.R_OK):
-        return os.uname()[4]
+    if os.access("/etc/rpm/platform", os.R_OK):
+        fd = open("/etc/rpm/platform", "r")
+        platform = string.strip(fd.read())
 
-    fd = open("/etc/rpm/platform", "r")
-    platform = string.strip(fd.read())
-
-    #bz 216225
-    #handle some replacements..
-    replace = {"ia32e-redhat-linux": "x86_64-redhat-linux"}
-    if replace.has_key(platform):
-        platform = replace[platform]
-
-    return platform
+        #bz 216225
+        #handle some replacements..
+        replace = {"ia32e-redhat-linux": "x86_64-redhat-linux"}
+        if replace.has_key(platform):
+            platform = replace[platform]
+        return platform
+    return os.uname()[4]
 
 
 def version():
