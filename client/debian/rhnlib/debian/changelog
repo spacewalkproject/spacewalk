@@ -1,6 +1,6 @@
-python-rhnlib (2.5.27-1) unstable; urgency=low
+python-rhnlib (2.5.32-2) unstable; urgency=low
 
-  * Initial release (Closes: #597490) Package was created.
+  * Python-rhnlib now also provides rhnlib
 
- -- Miroslav Suchý <miroslav@suchy.cz>  Mon, 20 Sep 2010 10:38:44 +0200
+ -- Šimon Lukašík <xlukas08@stud.fit.vutbr.cz>  Sat, 16 Apr 2011 09:43:13 +0200
 
