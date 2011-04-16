@@ -81,6 +81,9 @@ def getArch():
         return platform
     arch = os.uname()[4]
     if getPlatform() == 'deb':
+        # On debian we only support i386
+        if arch in ['i486', 'i586', 'i686']:
+            arch = 'i386'
         arch += '-debian-linux'
     return arch
 
