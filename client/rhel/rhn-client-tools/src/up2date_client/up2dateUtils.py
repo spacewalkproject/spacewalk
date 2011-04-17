@@ -20,7 +20,9 @@ if getPlatform() == 'deb':
     def _getOSVersionAndRelease():
         dist_info = lsb_release.get_distro_information()
         os_name = dist_info['ID']
-        os_version = dist_info['CODENAME']
+        os_version = 'n/a'
+        if 'CODENAME' in dist_info:
+            os_version = dist_info['CODENAME']
         os_release = dist_info['RELEASE']
         return os_name, os_version, os_release
 
