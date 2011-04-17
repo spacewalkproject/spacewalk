@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.5.5
+Version: 1.5.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -341,6 +341,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Sun Apr 17 2011 Simon Lukasik <slukasik@redhat.com> 1.5.6-1
+- Codename might not be always present within lsb_release on Debian
+  (slukasik@redhat.com)
+
 * Sat Apr 16 2011 Simon Lukasik <slukasik@redhat.com> 1.5.5-1
 - Do not import yum on Debian platform (slukasik@redhat.com)
 
