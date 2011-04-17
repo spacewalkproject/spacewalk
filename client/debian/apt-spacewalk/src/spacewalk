@@ -45,6 +45,8 @@ class pkg_acquire_method:
             return None
         result = {};
         line = sys.stdin.readline()
+        while line == '\n':
+            line = sys.stdin.readline()
         if not line:
             self.__eof = True
             return None
