@@ -19,7 +19,7 @@ sys.path.append("/usr/share/rhn/")
 from up2date_client import up2dateAuth
 from up2date_client import up2dateErrors
 from up2date_client import rhnserver
-from up2date_client import rpmUtils
+from up2date_client import pkgUtils
 
 
 if __name__ == '__main__':
@@ -29,7 +29,7 @@ if __name__ == '__main__':
             print "Apt-Spacewalk: Updating package profile"
             s = rhnserver.RhnServer()
             s.registration.update_packages(systemid,
-                rpmUtils.getInstalledPackageList(getArch=1))
+                pkgUtils.getInstalledPackageList(getArch=1))
         except up2dateErrors.RhnServerException, e:
             print "Package profile information could not be sent."
             print str(e)
