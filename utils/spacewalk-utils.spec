@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.5.0
+Version:	1.5.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 18 2011 Jan Pazdziora 1.5.1-1
+- fix pattern bash matching (mzazrivec@redhat.com)
+
 * Thu Mar 24 2011 Jan Pazdziora 1.4.3-1
 - In spacewalk-dump-schema, use the default Oracle connect information from
   config file.
