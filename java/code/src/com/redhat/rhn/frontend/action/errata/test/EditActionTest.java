@@ -121,7 +121,8 @@ public class EditActionTest extends RhnBaseTestCase {
         request.setupGetParameterMap(params);
         request.setupAddParameter("buglistIdNew", "123");
         request.setupAddParameter("buglistSummaryNew", "test bug for a test errata");
-        request.setupAddParameter("buglistUrlNew", "https://bugzilla.redhat.com/show_bug.cgi?id=123");
+        request.setupAddParameter("buglistUrlNew",
+                "https://bugzilla.redhat.com/show_bug.cgi?id=123");
         result = action.update(mapping, form, request, response);
         assertEquals("default", result.getName());
 
