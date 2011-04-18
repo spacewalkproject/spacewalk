@@ -167,6 +167,13 @@ config_error () {
         fi
 }
 
+# Return 0 if rhnParent is Hosted. Otherwise return 1.
+is_hosted () {
+	[ "$1" = "xmlrpc.rhn.redhat.com" -o \
+	$( PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print  '$1' in cfg['hostedWhitelist']" ) = "True" ]
+    return $?
+}
+
 #do we have yum or up2date?
 YUM_OR_UPDATE="up2date -i"
 UPGRADE="up2date -u"
@@ -216,7 +223,8 @@ fi
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
 if [ 0$FORCE_OWN_CA -eq 0 ] && \
-	[ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && \
+    ! is_hosted "$RHN_PARENT" && \
+	[ ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && \
 	! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
 	cat <<CA_KEYS
 Please do copy your CA key and public certificate from $RHN_PARENT to 
@@ -302,7 +310,7 @@ if [ $? -ne 0 ]; then
 fi
 $UPGRADE
 
-if [ "$RHN_PARENT" == "xmlrpc.rhn.redhat.com" ]; then
+if is_hosted "$RHN_PARENT"; then
     #skip monitoring part for hosted
     MONITORING=1
     ENABLE_SCOUT=0
