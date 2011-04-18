@@ -101,7 +101,7 @@ def tab_completer(options, text):
 
 def filter_results(items, patterns, search = False):
     matches = []
-    
+
     compiled_patterns = []
     for pattern in patterns:
         compiled_patterns.append(re.compile(pattern, re.I))
@@ -211,10 +211,10 @@ def parse_time_input(userinput = ''):
     # handle YYYMMDDHHMM times
     if not timestamp:
         match = re.match('^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
-       
+
         if match:
             format = '%Y%m%d'
-    
+
             # YYYYMMDD
             if not match.group(4) and not match.group(5):
                 timestamp = time.strptime('%s%s%s' % (match.group(1),
@@ -224,7 +224,7 @@ def parse_time_input(userinput = ''):
             # YYYYMMDDHH
             elif not match.group(5):
                 format += '%H'
-    
+
                 timestamp = time.strptime('%s%s%s%s' % (match.group(1),
                                                         match.group(2),
                                                         match.group(3),
@@ -233,19 +233,19 @@ def parse_time_input(userinput = ''):
             # YYYYMMDDHHMM
             else:
                 format += '%H%M'
-    
+
                 timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
                                                           match.group(2),
                                                           match.group(3),
                                                           match.group(4),
                                                           match.group(5)),
                                           format)
-    
+
             if timestamp:
                 # 2.5 has a nice little datetime.strptime() function...
                 timestamp = datetime(*(timestamp)[0:7])
-     
-    # handle time differences (e.g., +1m, +2h) 
+
+    # handle time differences (e.g., +1m, +2h)
     if not timestamp:
         match = re.search('^(\+|-)?(\d+)(s|m|h|d)$', userinput, re.I)
 
@@ -370,12 +370,12 @@ def config_channel_order(all_channels=[], new_channels=[]):
         print '------------------'
         for i in range(len(new_channels)):
             print '%i. %s' % (i + 1, new_channels[i])
-  
-        print 
+
+        print
         action = prompt_user('a[dd], r[emove], c[lear], d[one]:')
 
         if re.match('a', action, re.I):
-            print 
+            print
             print 'Available Configuration Channels'
             print '--------------------------------'
             for c in sorted(all_channels):
@@ -383,11 +383,11 @@ def config_channel_order(all_channels=[], new_channels=[]):
 
             print
             channel = prompt_user('Channel:')
-            
+
             if channel not in all_channels:
                 logging.warning('Invalid channel')
                 continue
-        
+
             try:
                 rank = int(prompt_user('New Rank:'))
 
