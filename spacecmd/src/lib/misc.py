@@ -20,7 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-import logging, readline
+import logging, readline, shlex
 from getpass import getpass
 from ConfigParser import NoOptionError
 from spacecmd.utils import *
@@ -738,7 +738,7 @@ def expand_errata(self, args):
 
 def expand_systems(self, args):
     if not isinstance(args, list):
-        args = args.split()
+        args = shlex.split(args)
 
     systems = []
     system_ids = []
@@ -748,7 +748,7 @@ def expand_systems(self, args):
             systems.extend(self.ssm)
         elif re.match('group:', item):
             item = re.sub('group:', '', item)
-            members = self.do_group_listsystems(item, True)
+            members = self.do_group_listsystems("'%s'" % item, True)
 
             if len(members):
                 systems.extend(members)
