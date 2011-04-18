@@ -1730,4 +1730,48 @@ def do_kickstart_removescript(self, args):
                                                profile,
                                                script_id)
 
+####################
+
+def help_kickstart_clone(self):
+    print 'kickstart_clone: Clone a Kickstart profile'
+    print '''usage: kickstart_clone [options]
+
+options:
+  -n NAME
+  -c CLONE_NAME'''
+
+def complete_kickstart_clone(self, text, line, beg, end):
+    return tab_completer(self.do_kickstart_list('', True), text)
+
+def do_kickstart_clone(self, args):
+    options = [ Option('-n', '--name', action='store'),
+                Option('-c', '--clonename', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        profiles = self.do_kickstart_list('', True)
+        print
+        print 'Kickstart Profiles'
+        print '------------------'
+        print '\n'.join(sorted(profiles))
+        print
+
+        options.name = prompt_user('Origianl Profile:', noblank = True)
+
+        options.clonename = prompt_user('Cloned Profile:', noblank = True)
+    else:
+
+        if not options.name:
+            logging.error('The Kickstart name is required')
+            return
+
+        if not options.clonename:
+            logging.error('The Kickstart clone name is required')
+            return
+
+    self.client.kickstart.cloneProfile(self.session,
+                                        options.name,
+                                        options.clonename)
+
 # vim:ts=4:expandtab:
