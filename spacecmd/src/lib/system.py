@@ -1398,32 +1398,35 @@ def do_system_listcustomvalues(self, args):
 
 def help_system_addcustomvalue(self):
     print 'system_addcustomvalue: Set a custom value for a system'
-    print 'usage: system_addcustomvalue <SYSTEMS> KEY VALUE'
+    print 'usage: system_addcustomvalue KEY VALUE <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
 def complete_system_addcustomvalue(self, text, line, beg, end):
-    if len(line.split(' ')) == 2:
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_custominfo_listkeys('', True), text)
+    elif len(parts) >= 4:
         return self.tab_complete_systems(text)
-    elif len(line.split(' ')) == 3:
-        return tab_completer(self.do_custominfo_listkeys('', True),
-                                  text)
 
 def do_system_addcustomvalue(self, args):
-    (args, options) = parse_arguments(args)
+    if not isinstance(args, list):
+        (args, options) = parse_arguments(args)
 
     if len(args) < 3:
         self.help_system_addcustomvalue()
         return
 
+    key   = args[0]
+    value = args[1]
+
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
-        systems = self.expand_systems(args)
-
-    key   = args[1]
-    value = ' '.join(args[2:])
+        systems = self.expand_systems(args[2:])
 
     for system in systems:
         system_id = self.get_system_id(system)
@@ -1437,18 +1440,18 @@ def do_system_addcustomvalue(self, args):
 
 def help_system_updatecustomvalue(self):
     print 'system_updatecustomvalue: Update a custom value for a system'
-    print 'usage: system_updatecustomvalue <SYSTEMS> KEY VALUE'
+    print 'usage: system_updatecustomvalue KEY VALUE <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
 def complete_system_updatecustomvalue(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
 
     if len(parts) == 2:
+        return tab_completer(self.do_custominfo_listkeys('', True), text)
+    elif len(parts) >= 4:
         return self.tab_complete_systems(text)
-    elif len(parts) == 3:
-        return tab_completer(self.do_custominfo_listkeys('', True),
-                                  text)
 
 def do_system_updatecustomvalue(self, args):
     (args, options) = parse_arguments(args)
@@ -1457,7 +1460,7 @@ def do_system_updatecustomvalue(self, args):
         self.help_system_updatecustomvalue()
         return
 
-    return self.do_system_addcustomvalue(' '.join(args))
+    return self.do_system_addcustomvalue(args)
 
 ####################
 
