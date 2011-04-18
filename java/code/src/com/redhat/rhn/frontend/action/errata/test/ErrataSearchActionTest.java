@@ -49,6 +49,8 @@ public class ErrataSearchActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter("search_string", name);
         ah.getRequest().setupAddParameter("view_mode", "errata_search_by_advisory");
         ah.getRequest().setupAddParameter("view_mode", "errata_search_by_advisory");
+        ah.getRequest().setupAddParameter("fineGrained", "on");
+        ah.getRequest().setupAddParameter("fineGrained", "on");
 
         // I *HATE* Mockobjects
         Map paramnames = new HashMap();
