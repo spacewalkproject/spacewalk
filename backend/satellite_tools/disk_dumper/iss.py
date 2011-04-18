@@ -447,8 +447,8 @@ class Dumper(dumper.XML_Dumper):
 	        """
             if self.start_date:
                 query += """
-		       and rkt.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-		       and rkt.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+		       and rkt.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
+		       and rkt.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
                 """
             self.kickstart_files_query = rhnSQL.Statement(query)
             kickstart_files = rhnSQL.prepare(self.kickstart_files_query)
