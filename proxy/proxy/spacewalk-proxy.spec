@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.5.0
+Version: 1.5.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,10 @@ fi
 
 
 %changelog
+* Mon Apr 18 2011 Miroslav Suchý 1.5.1-1
+- 697447 - pass /rpc/* through broker
+- Bumping package versions for 1.5
+
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.11-1
 - updating Copyright years for year 2011 (tlestach@redhat.com)
 - remove redundant comment (msuchy@redhat.com)
