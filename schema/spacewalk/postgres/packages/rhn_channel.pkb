@@ -665,6 +665,21 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                            channel_family_id_val, org_id_in);
     END$$ language plpgsql;
 
+    CREATE OR REPLACE FUNCTION available_fve_chan_subs(channel_id_in IN NUMERIC,
+                                          org_id_in IN NUMERIC)
+    RETURNS NUMERIC
+    AS $$
+    declare
+            channel_family_id_val NUMERIC;
+    BEGIN
+        SELECT channel_family_id INTO STRICT channel_family_id_val
+            FROM rhnChannelFamilyMembers
+            WHERE channel_id = channel_id_in;
+
+            RETURN rhn_channel.available_fve_family_subs(
+                           channel_family_id_val, org_id_in);
+    END$$ language plpgsql;
+
     create or replace function unsubscribe_server_from_family(server_id_in in numeric, 
                                              channel_family_id_in in numeric)
     returns void
