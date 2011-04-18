@@ -751,7 +751,7 @@ def expand_systems(self, args):
             members = self.do_group_listsystems("'%s'" % item, True)
 
             if len(members):
-                systems.extend(members)
+                systems.extend( [re.escape(m) for m in members] )
             else:
                 logging.warning('No systems in group %s' % item)
         elif re.match('search:', item):
@@ -759,13 +759,13 @@ def expand_systems(self, args):
             results = self.do_system_search(query, True)
 
             if len(results):
-                systems.extend(results)
+                systems.extend( [re.escape(r) for r in results] )
         elif re.match('channel:', item):
             item = re.sub('channel:', '', item)
             members = self.do_softwarechannel_listsystems(item, True)
 
             if len(members):
-                systems.extend(members)
+                systems.extend( [re.escape(m) for m in members] )
             else:
                 logging.warning('No systems subscribed to %s' % item)
         else:
