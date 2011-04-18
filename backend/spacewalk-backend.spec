@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.9
+Version: 1.5.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -679,6 +679,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Apr 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.10-1
+- 620486 - errata xml caching doesn't work for cloned channels
+- fd's for already seen packages should be also closed
+- 694735 - export ks files based on ks tree's last_modified
+- removing curr_cfps since it is never used
+- remove duplicate code
+
 * Fri Apr 15 2011 Jan Pazdziora 1.5.9-1
 - use RPMTAG numbers instead of names. (mc@suse.de)
 - more weak deps stuff (mc@suse.de)
