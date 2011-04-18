@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.5.0
+Version:     1.5.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,16 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Apr 18 2011 Aron Parsons <aparsons@redhat.com> 1.5.1-1
+- 696681 - fix spaces in system names in system_updatecustomvalue and
+  system_addcustomvalue (aparsons@redhat.com)
+- 696681 - allow special characters in server names
+- whitespace cleanup (aparsons@redhat.com)
+- fix handling of group names with spaces when expanding with
+  'group:' (aparsons@redhat.com)
+- added kickstart_clone (aparsons@redhat.com)
+- Bumping package versions for 1.5 (msuchy@redhat.com)
+
 * Mon Mar 28 2011 Aron Parsons <aparsons@redhat.com> 1.4.5-1
 - added 'repo' module into shell (aparsons@redhat.com)
 - added repo_list and repo_details (tljohnsn@oreillyschool.com)
