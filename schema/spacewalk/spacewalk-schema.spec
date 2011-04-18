@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.5.2
+Version:        1.5.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Apr 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.3-1
+- added available_fve_chan_subs to postgresql rhn_channel.pkb
+
 * Mon Apr 18 2011 Jan Pazdziora 1.5.2-1
 - Need to have separate schema upgrade for PostgreSQL, we do not process schema
   upgrades with chameleon.
