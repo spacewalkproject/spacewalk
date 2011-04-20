@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.7
+Version: 1.5.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 20 2011 Jan Pazdziora 1.5.8-1
+- checkstyle fixes.
+
 * Wed Apr 20 2011 Jan Pazdziora 1.5.7-1
 - * added support for SUSE autoinstallation (kickstarts) and some cleanup
   (ug@suse.de)
