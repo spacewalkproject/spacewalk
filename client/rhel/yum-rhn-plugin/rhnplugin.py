@@ -435,7 +435,16 @@ class RhnRepo(YumRepository):
     def _setupGrab(self):
         """sets up the grabber functions. We don't want to use mirrors."""
 
-        ugopts = self._default_grabopts()
+        try:
+            ugopts = self._default_grabopts()
+        except AttributeError: # this method does not exist on RHEL5
+            ugopts = { 'keepalive': self.keepalive,
+                'bandwidth': self.bandwidth,
+                'retry': self.retries,
+                'throttle': self.throttle,
+                'proxies': self.proxy_dict,
+                'timeout': self.timeout,
+            }
         del(ugopts["http_headers"])
         headers = tuple(YumRepository._YumRepository__headersListFromDict(self))
 
