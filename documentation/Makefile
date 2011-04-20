@@ -13,7 +13,7 @@ BUILD_DIR := build
 EPYDOC_BIN := `which epydoc`
 EPYDOC_SWITCHES := --inheritance listed --graph all --html
 PYTHON_DOC_DIR := python-doc
-PYTHON_DIRS := ../proxy/proxy ../backend/ ../client/rhel/rhnlib/
+PYTHON_DIRS := ../proxy/proxy ../backend/ ../client/rhel/rhnlib/ ../client/rhel/rhn-client-tools ../client/tools/
 
 # Java doc related
 JAVA_DOC_BIN := `which javadoc`
