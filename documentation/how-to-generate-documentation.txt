@@ -1,5 +1,5 @@
 documentation for java and python:
-    yum install -y epidoc
+    yum install -y epydoc
     make all
 
 documentation for java:
