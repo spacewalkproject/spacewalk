@@ -110,9 +110,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="server.rhnServer.server_lib-module.html#getServerID" class="summary-sig-name">getServerID</a>(<span class="summary-sig-arg">server</span>,
-        <span class="summary-sig-arg">fields</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
-      Given a textual digitalid (old style or new style) or simply an ID
-      try to search in the database and return the numeric id (thus doing
+        <span class="summary-sig-arg">fields</span>=<span class="summary-sig-default">[]</span>)</span><br />
+      Given a textual digitalid (old style or new style) or simply an ID 
+      try to search in the database and return the numeric id (thus doing 
       validation in case you pass a numeric ID already)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#getServerID">source&nbsp;code</a></span>
@@ -148,7 +148,7 @@
         <tr>
           <td><span class="summary-sig"><a name="__create_server_group"></a><span class="summary-sig-name">__create_server_group</span>(<span class="summary-sig-arg">group_label</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">maxnum</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">maxnum</span>=<span class="summary-sig-default">''</span>)</span><br />
       create the initial server groups for a new server</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#__create_server_group">source&nbsp;code</a></span>
@@ -186,7 +186,7 @@
           <td><span class="summary-sig"><a name="create_server_setup"></a><span class="summary-sig-name">create_server_setup</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">org_id</span>)</span><br />
       This function makes sure the necessary server groups are in place for
-      a new server entry and also adds a new server to the required groups
+      a new server entry and also adds a new server to the required groups 
       and channels.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#create_server_setup">source&nbsp;code</a></span>
@@ -204,7 +204,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__special_server"></a><span class="summary-sig-name">__special_server</span>(<span class="summary-sig-arg">server_id</span>)</span><br />
-      checks if this server is a special kind so that we don't raise an
+      checks if this server is a special kind so that we don't raise an 
       abuse error for it</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#__special_server">source&nbsp;code</a></span>
@@ -257,7 +257,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="server.rhnServer.server_lib-module.html#throttle" class="summary-sig-name">throttle</a>(<span class="summary-sig-arg">server</span>)</span><br />
-      throttle - limits access to free users if a throttle file exists
+      throttle - limits access to free users if a throttle file exists 
       NOTE: We don't throttle anybody.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#throttle">source&nbsp;code</a></span>
@@ -278,24 +278,6 @@
       Stub</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#join_rhn">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="dbiDate2timestamp"></a><span class="summary-sig-name">dbiDate2timestamp</span>(<span class="summary-sig-arg">dateobj</span>)</span><br />
-      Given a dbiDate object, returns the UNIX representation (seconds
-      since epoch)</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#dbiDate2timestamp">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -424,36 +406,40 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_registration" class="summary-name" onclick="show_private();">_query_update_push_client_registration</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 45389368; stat\
-ement=
+        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_registration" class="summary-name" onclick="show_private();">_query_update_push_client_registration</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 declare
-    pragma autonomous_transaction;
+    updated_id numeric;
 begin
     update rhnPushClient 
-       set name = :name,
-           shared_key = :shared_key,
-...">&lt;spacewalk.server.rhn<code class="variable-ellipsis">...</code></code>
+       set name = :name_in,
+           shared_key = :shared_key_in,
+           state_id = :state_id_in,
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_jid" class="summary-name" onclick="show_private();">_query_update_push_client_jid</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 45389440; stat\
-ement=
+        <a href="server.rhnServer.server_lib-module.html#_query_delete_duplicate_client_jids" class="summary-name" onclick="show_private();">_query_delete_duplicate_client_jids</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+    update rhnPushClient
+       set jabber_id = null
+     where jabber_id = :jid and
+           server_id &lt;&gt; :server_id
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_jid" class="summary-name" onclick="show_private();">_query_update_push_client_jid</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     update rhnPushClient
        set jabber_id = :jid,
            next_action_time = NULL,
            last_ping_time = NULL
-     where server_id = :server_id;
-">&lt;spacewalk.server.rhnSQL.sql_b<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.rhnServer'"><code class="variable-quote">'</code><code class="variable-string">server.rhnServer</code><code class="variable-quote">'</code></code>
+     where server_id = :server_id
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -483,20 +469,20 @@ ement=
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">getServerID</span>(<span class="sig-arg">server</span>,
-        <span class="sig-arg">fields</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
+        <span class="sig-arg">fields</span>=<span class="sig-default">[]</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#getServerID">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-
+  
   <p>Given a textual digitalid (old style or new style) or simply an ID try
-  to search in the database and return the numeric id (thus doing
+  to search in the database and return the numeric id (thus doing 
   validation in case you pass a numeric ID already)</p>
-  <p>If found, it will return a dictionary with at least an &quot;id&quot;
+  <p>If found, it will return a dictionary with at least an &quot;id&quot; 
   member</p>
   <p>Additional fields can be requested by passing an array of strings with
-  field names from rhnServer check if all chars of a string are in a
+  field names from rhnServer check if all chars of a string are in a 
   set</p>
   <dl class="fields">
   </dl>
@@ -517,7 +503,7 @@ ement=
     ><span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#checkin">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-
+  
   <p>checkin - update the last checkin time</p>
   <ul>
     <li>
@@ -541,7 +527,7 @@ ement=
     ><span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#throttle">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-
+  
   <p>throttle - limits access to free users if a throttle file exists NOTE:
   We don't throttle anybody. Just stub.</p>
   <dl class="fields">
@@ -579,15 +565,38 @@ ement=
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 45389368; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
 declare
-    pragma autonomous_transaction;
+    updated_id numeric;
 begin
     update rhnPushClient 
-       set name = :name,
-           shared_key = :shared_key,
+       set name = :name_in,
+           shared_key = :shared_key_in,
+           state_id = :state_id_in,
 <code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_delete_duplicate_client_jids"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_delete_duplicate_client_jids</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+rhnSQL.Statement(&quot;&quot;&quot;
+    update rhnPushClient
+       set jabber_id = null
+     where jabber_id = :jid and
+           server_id &lt;&gt; :server_id
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -605,14 +614,13 @@ begin
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 45389440; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
     update rhnPushClient
        set jabber_id = :jid,
            next_action_time = NULL,
            last_ping_time = NULL
-     where server_id = :server_id;
-
+     where server_id = :server_id
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -642,7 +650,7 @@ ement=
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:00:10 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

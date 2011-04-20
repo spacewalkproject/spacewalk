@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
-        <a href="server.handlers.xmlrpc.errata-module.html" onclick="show_private();">Module&nbsp;errata</a> ::
+        server ::
+        handlers ::
+        xmlrpc ::
+        errata ::
+        Errata ::
         Class&nbsp;Errata
       </span>
     </td>
@@ -57,18 +58,14 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Errata</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_9" name="uml_class_diagram_for_server_h_9">
-<area shape="rect" id="node1239" href="server.handlers.xmlrpc.errata.Errata-class.html#__init__" title="server.handlers.xmlrpc.errata.Errata.__init__" alt="" coords="17,193,265,212"/>
-<area shape="rect" id="node1239" href="server.handlers.xmlrpc.errata.Errata-class.html#GetByPackage" title="Clients v1&#45; Get errata for a package given &quot;n&#45;v&#45;r&quot; format IN: &#160;pkg: &#160;&#160;&quot;n&#45;v&#45;r&quot; (old client call) &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;or [n,v,r] &#160;&#160;&#160;&#160;&#160;osRel: OS release RET: a hash by errata that applies to this package &#160;&#160;&#160;&#160;&#160;(ie, newer packages are available)." alt="" coords="17,212,265,231"/>
-<area shape="rect" id="node1239" href="server.handlers.xmlrpc.errata.Errata-class.html#getPackageErratum" title="Clients v2+ &#45; Get errata for a package given [n,v,r,e,a,...] format" alt="" coords="17,231,265,249"/>
-<area shape="rect" id="node1239" href="server.handlers.xmlrpc.errata.Errata-class.html#getErrataInfo" title="server.handlers.xmlrpc.errata.Errata.getErrataInfo" alt="" coords="17,249,265,268"/>
-<area shape="rect" id="node1" href="server.handlers.xmlrpc.errata.Errata-class.html" title="Errata class &#45;&#45;&#45; retrieve (via xmlrpc) package errata." alt="" coords="5,161,277,274"/>
-<area shape="rect" id="node1240" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler.auth_system" alt="" coords="21,116,260,135"/>
-<area shape="rect" id="node2" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler" alt="" coords="9,83,271,141"/>
-<area shape="rect" id="node1241" href="javascript:void(0);" title="??.RPC_Base&#45;1.get_function" alt="" coords="60,39,221,57"/>
-<area shape="rect" id="node3" href="javascript:void(0);" title="??.RPC_Base&#45;1" alt="" coords="48,6,232,63"/>
+<center>  <map id="uml_class_diagram_for_server_h_7" name="uml_class_diagram_for_server_h_7">
+<area shape="rect" id="node1215" href="server.handlers.xmlrpc.errata.Errata-class.html#__init__" title="server.handlers.xmlrpc.errata.Errata.__init__" alt="" coords="17,39,265,57"/>
+<area shape="rect" id="node1215" href="server.handlers.xmlrpc.errata.Errata-class.html#GetByPackage" title="Clients v1&#45; Get errata for a package given &quot;n&#45;v&#45;r&quot; format IN: &#160;pkg: &#160;&#160;&quot;n&#45;v&#45;r&quot; (old client call) &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;or [n,v,r] &#160;&#160;&#160;&#160;&#160;osRel: OS release RET: a hash by errata that applies to this package &#160;&#160;&#160;&#160;&#160;(ie, newer packages are available)." alt="" coords="17,57,265,76"/>
+<area shape="rect" id="node1215" href="server.handlers.xmlrpc.errata.Errata-class.html#getPackageErratum" title="Clients v2+ &#45; Get errata for a package given [n,v,r,e,a,...] format" alt="" coords="17,76,265,95"/>
+<area shape="rect" id="node1215" href="server.handlers.xmlrpc.errata.Errata-class.html#getErrataInfo" title="server.handlers.xmlrpc.errata.Errata.getErrataInfo" alt="" coords="17,95,265,113"/>
+<area shape="rect" id="node1" href="server.handlers.xmlrpc.errata.Errata-class.html" title="Errata class &#45;&#45;&#45; retrieve (via xmlrpc) package errata." alt="" coords="5,6,277,119"/>
 </map>
-  <img src="uml_class_diagram_for_server_h_9.png" alt='' usemap="#uml_class_diagram_for_server_h_9" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_server_h_7.png" alt='' usemap="#uml_class_diagram_for_server_h_7" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -97,7 +94,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.errata.Errata-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.__init__">source&nbsp;code</a></span>
             
@@ -168,16 +165,6 @@ RET: a hash by errata that applies to this package
       
     </td>
   </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.server.rhnHandler.rhnHandler</code></b>:
-      <code>auth_system</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>.RPC_Base</code></b>:
-      <code>get_function</code>
-      </p>
-    </td>
-  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -197,29 +184,6 @@ RET: a hash by errata that applies to this package
   </td>
 </tr>
 </table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-
-
-  <dl class="fields">
-    <dt>Overrides:
-        spacewalk.common.RPC_Base.RPC_Base.__init__
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
 <a name="GetByPackage"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -299,7 +263,7 @@ RET: a hash by errata that applies to this package
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:54 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:03 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

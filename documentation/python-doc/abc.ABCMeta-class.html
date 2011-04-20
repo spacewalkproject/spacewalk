@@ -78,7 +78,7 @@
 <area shape="rect" id="node1" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="77,295,209,313"/>
 <area shape="rect" id="node1" href="javascript:void(0);" title="x&gt;y" alt="" coords="77,313,209,332"/>
 <area shape="rect" id="node1" href="javascript:void(0);" title="hash(x)" alt="" coords="77,332,209,351"/>
-<area shape="rect" id="node1" href="javascript:void(0);" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="77,351,209,369"/>
+<area shape="rect" id="node1" href="javascript:void(0);" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="77,351,209,369"/>
 <area shape="rect" id="node1" href="javascript:void(0);" title="x&lt;=y" alt="" coords="77,369,209,388"/>
 <area shape="rect" id="node1" href="javascript:void(0);" title="x&lt;y" alt="" coords="77,388,209,407"/>
 <area shape="rect" id="node1" href="javascript:void(0);" title="x!=y" alt="" coords="77,407,209,425"/>
@@ -93,13 +93,13 @@
 </center>
 <hr />
 <p>Metaclass for defining Abstract Base Classes (ABCs).</p>
-  <p>Use this metaclass to create an ABC.  An ABC can be subclassed
-  directly, and then acts as a mix-in class.  You can also register
-  unrelated concrete classes (even built-in classes) and unrelated ABCs as
-  'virtual subclasses' -- these and their descendants will be considered
-  subclasses of the registering ABC by the built-in issubclass() function,
-  but the registering ABC won't show up in their MRO (Method Resolution
-  Order) nor will method implementations defined by the registering ABC be
+  <p>Use this metaclass to create an ABC.  An ABC can be subclassed 
+  directly, and then acts as a mix-in class.  You can also register 
+  unrelated concrete classes (even built-in classes) and unrelated ABCs as 
+  'virtual subclasses' -- these and their descendants will be considered 
+  subclasses of the registering ABC by the built-in issubclass() function, 
+  but the registering ABC won't show up in their MRO (Method Resolution 
+  Order) nor will method implementations defined by the registering ABC be 
   callable (not even via super()).</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -129,17 +129,17 @@
         <span class="summary-sig-arg">instance</span>)</span><br />
       Override for isinstance(instance, cls).</td>
           <td align="right" valign="top">
-
-
+            
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">check if a class is a subclass</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -147,12 +147,12 @@
         <span class="summary-sig-arg">subclass</span>)</span><br />
       Override for issubclass(subclass, cls).</td>
           <td align="right" valign="top">
-
-
+            
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 <tr class="private">
@@ -165,12 +165,12 @@
         <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">None</span>)</span><br />
       Debug helper to print the ABC registry.</td>
           <td align="right" valign="top">
-
-
+            
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 <tr>
@@ -183,12 +183,12 @@
         <span class="summary-sig-arg">subclass</span>)</span><br />
       Register a virtual subclass of an ABC.</td>
           <td align="right" valign="top">
-
-
+            
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
   <tr>
@@ -249,12 +249,12 @@
         <span class="summary-sig-arg">bases</span>,
         <span class="summary-sig-arg">namespace</span>)</span></td>
           <td align="right" valign="top">
-
-
+            
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 </table>
@@ -279,7 +279,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_abc_invalidation_counter"></a><span class="summary-name">_abc_invalidation_counter</span> = <code title="23">23</code>
+        <a name="_abc_invalidation_counter"></a><span class="summary-name">_abc_invalidation_counter</span> = <code title="18">18</code>
     </td>
   </tr>
 </table>
@@ -352,7 +352,7 @@
     >&nbsp;
     </td>
   </tr></table>
-
+  
   <p>Override for isinstance(instance, cls).</p>
   <dl class="fields">
     <dt>Returns: check if an object is an instance</dt>
@@ -379,8 +379,8 @@
     >&nbsp;
     </td>
   </tr></table>
-
-
+  
+  
   <dl class="fields">
     <dt>Returns: a new object with type S, a subtype of T</dt>
     <dt>Overrides:
@@ -404,9 +404,10 @@
     >&nbsp;
     </td>
   </tr></table>
-
+  
   <p>Override for issubclass(subclass, cls).</p>
   <dl class="fields">
+    <dt>Returns: check if a class is a subclass</dt>
     <dt>Overrides:
         type.__subclasscheck__
     </dt>
@@ -437,7 +438,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:39 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:00:12 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

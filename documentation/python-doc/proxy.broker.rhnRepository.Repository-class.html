@@ -57,19 +57,10 @@
 <h1 class="epydoc">Class Repository</h1><p class="nomargin-top"><span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_proxy_br_3" name="uml_class_diagram_for_proxy_br_3">
-<area shape="rect" id="node54" href="proxy.broker.rhnRepository.Repository-class.html#__init__" title="proxy.broker.rhnRepository.Repository.__init__" alt="" coords="17,287,1129,305"/>
-<area shape="rect" id="node54" href="proxy.broker.rhnRepository.Repository-class.html#getPackagePath" title="OVERLOADS getPackagePath in common/rhnRepository." alt="" coords="17,305,1129,324"/>
-<area shape="rect" id="node54" href="proxy.broker.rhnRepository.Repository-class.html#getSourcePackagePath" title="OVERLOADS getSourcePackagePath in common/rhnRepository." alt="" coords="17,324,1129,343"/>
-<area shape="rect" id="node1" href="proxy.broker.rhnRepository.Repository-class.html" title="Proxy local package repository lookup and manipulation code." alt="" coords="5,254,1141,349"/>
-<area shape="rect" id="node55" href="javascript:void(0);" title="spacewalk.common.rhnRepository.Repository.set_compress_headers" alt="" coords="437,116,708,135"/>
-<area shape="rect" id="node55" href="javascript:void(0);" title="spacewalk.common.rhnRepository.Repository.__del__" alt="" coords="437,135,708,153"/>
-<area shape="rect" id="node55" href="javascript:void(0);" title="OVERLOAD this in server and proxy rhnRepository." alt="" coords="437,153,708,172"/>
-<area shape="rect" id="node55" href="javascript:void(0);" title="Get rpm package." alt="" coords="437,172,708,191"/>
-<area shape="rect" id="node55" href="javascript:void(0);" title="Get srpm packrge." alt="" coords="437,191,708,209"/>
-<area shape="rect" id="node55" href="javascript:void(0);" title="Get rpm header." alt="" coords="437,209,708,228"/>
-<area shape="rect" id="node2" href="javascript:void(0);" title="Shared repository class, inherited by both the proxy and server specific Repository classes." alt="" coords="425,83,719,234"/>
-<area shape="rect" id="node56" href="javascript:void(0);" title="??.RPC_Base&#45;1.get_function" alt="" coords="492,39,653,57"/>
-<area shape="rect" id="node3" href="javascript:void(0);" title="??.RPC_Base&#45;1" alt="" coords="480,6,664,63"/>
+<area shape="rect" id="node289" href="proxy.broker.rhnRepository.Repository-class.html#__init__" title="proxy.broker.rhnRepository.Repository.__init__" alt="" coords="17,39,1129,57"/>
+<area shape="rect" id="node289" href="proxy.broker.rhnRepository.Repository-class.html#getPackagePath" title="OVERLOADS getPackagePath in common/rhnRepository." alt="" coords="17,57,1129,76"/>
+<area shape="rect" id="node289" href="proxy.broker.rhnRepository.Repository-class.html#getSourcePackagePath" title="OVERLOADS getSourcePackagePath in common/rhnRepository." alt="" coords="17,76,1129,95"/>
+<area shape="rect" id="node1" href="proxy.broker.rhnRepository.Repository-class.html" title="Proxy local package repository lookup and manipulation code." alt="" coords="5,6,1141,101"/>
 </map>
   <img src="uml_class_diagram_for_proxy_br_3.png" alt='' usemap="#uml_class_diagram_for_proxy_br_3" ismap="ismap" class="graph-without-title" />
 </center>
@@ -100,7 +91,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="proxy.broker.rhnRepository.Repository-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channelName</span>,
         <span class="summary-sig-arg">channelVersion</span>,
         <span class="summary-sig-arg">clientInfo</span>,
@@ -212,27 +203,6 @@
       
     </td>
   </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.common.rhnRepository.Repository</code></b>:
-      <code>__del__</code>,
-      <code>getPackage</code>,
-      <code>getPackageHeader</code>,
-      <code>getPackagePathNVRA</code>,
-      <code>getPackageSource</code>,
-      <code>set_compress_headers</code>
-      </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.common.rhnRepository.Repository</code></b> (private):
-      <code>_fileFeatures</code>,
-      <code>_getFile</code>,
-      <code>_getHeaderFromFile</code>,
-      <code>_set_last_modified</code>
-      </p></div>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>.RPC_Base</code></b>:
-      <code>get_function</code>
-      </p>
-    </td>
-  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -252,38 +222,6 @@
   </td>
 </tr>
 </table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">channelName</span>,
-        <span class="sig-arg">channelVersion</span>,
-        <span class="sig-arg">clientInfo</span>,
-        <span class="sig-arg">rhnParent</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">rhnParentXMLRPC</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">httpProxy</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">httpProxyUsername</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">httpProxyPassword</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">caChain</span>=<span class="sig-default">None</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-
-
-  <dl class="fields">
-    <dt>Overrides:
-        spacewalk.common.RPC_Base.RPC_Base.__init__
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
 <a name="getPackagePath"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -302,9 +240,6 @@
   <p>OVERLOADS getPackagePath in common/rhnRepository. Returns complete 
   path to an RPM file.</p>
   <dl class="fields">
-    <dt>Overrides:
-        spacewalk.common.rhnRepository.Repository.getPackagePath
-    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -327,9 +262,6 @@
   and nosrc.rpm from local repo, after ensuring we are authorized to fetch 
   it.</p>
   <dl class="fields">
-    <dt>Overrides:
-        spacewalk.common.rhnRepository.Repository.getSourcePackagePath
-    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -406,7 +338,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:39 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:00:22 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

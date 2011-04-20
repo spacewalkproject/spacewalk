@@ -55,7 +55,7 @@
 <h1 class="epydoc">Source Code for <a href="server.rhnSQL.sql_lib-module.html">Module server.rhnSQL.sql_lib</a></h1>
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2010 Red Hat, Inc.</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2011 Red Hat, Inc.</tt> </tt>
 <a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
 <a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
@@ -85,26 +85,37 @@
 <a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-docstring">        of 'items' into "table" indexed by "hash_name"</tt> </tt>
 <a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
 <a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">    <tt class="py-name">sql</tt> <tt class="py-op">=</tt> <tt class="py-string">"insert into %s ( %s, %s ) values ( :p0, %s )"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
-<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt id="link-0" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.table=satellite_tools.satComputePkgHeaders-module.html#table"><a title="satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-0', 'table', 'link-0');">table</a></tt><tt class="py-op">,</tt> <tt class="py-name">hash_name</tt><tt class="py-op">,</tt> </tt>
-<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-1" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method wsgi.wsgiRequest.WsgiMPtable.items()=wsgi.wsgiRequest.WsgiMPtable-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt id="link-0" class="py-name" targets="Variable _apache.table=_apache-module.html#table,Variable satellite_tools.satComputePkgHeaders.table=satellite_tools.satComputePkgHeaders-module.html#table"><a title="_apache.table
+satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-0', 'table', 'link-0');">table</a></tt><tt class="py-op">,</tt> <tt class="py-name">hash_name</tt><tt class="py-op">,</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-1" class="py-name" targets="Method common.UserDictCase.UserDictCase.items()=common.UserDictCase.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method up2date_client.config.Config.items()=up2date_client.config.Config-class.html#items,Method up2date_client.rhnChannel.rhnChannel.items()=up2date_client.rhnChannel.rhnChannel-class.html#items,Method wsgi.wsgiRequest.WsgiMPtable.items()=wsgi.wsgiRequest.WsgiMPtable-class.html#items"><a title="common.UserDictCase.UserDictCase.items
 common.rhnConfig.RHNOptions.items
 rhn.UserDictCase.UserDictCase.items
+up2date_client.config.Config.items
+up2date_client.rhnChannel.rhnChannel.items
 wsgi.wsgiRequest.WsgiMPtable.items" class="py-name" href="#" onclick="return doclink('link-1', 'items', 'link-1');">items</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">", "</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
-<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-string">":p_%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-string">":p_%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name"><a title="common.UserDictCase.UserDictCase.items
 common.rhnConfig.RHNOptions.items
 rhn.UserDictCase.UserDictCase.items
+up2date_client.config.Config.items
+up2date_client.rhnChannel.rhnChannel.items
 wsgi.wsgiRequest.WsgiMPtable.items" class="py-name" href="#" onclick="return doclink('link-2', 'items', 'link-1');">items</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">", "</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt class="py-name">pdict</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> <tt class="py-string">"p0"</tt> <tt class="py-op">:</tt> <tt class="py-name">None</tt> <tt class="py-op">}</tt> <tt class="py-comment"># This must be reset after we return from this call</tt> </tt>
-<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">pdict</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method common.UserDictCase'.UserDictCase.update()=common.UserDictCase%27.UserDictCase-class.html#update,Method rhn.UserDictCase.UserDictCase.update()=rhn.UserDictCase.UserDictCase-class.html#update,Method satellite_tools.progress_bar.ProgressBar.update()=satellite_tools.progress_bar.ProgressBar-class.html#update,Function server.action.errata.update()=server.action.errata-module.html#update,Function server.action.packages.update()=server.action.packages-module.html#update,Function server.action_extra_data.errata.update()=server.action_extra_data.errata-module.html#update,Function server.action_extra_data.packages.update()=server.action_extra_data.packages-module.html#update,Function server.action_extra_data.up2date_config.update()=server.action_extra_data.up2date_config-module.html#update"><a title="common.UserDictCase'.UserDictCase.update
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">pdict</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Function actions.errata.update()=actions.errata-module.html#update,Function actions.up2date_config.update()=actions.up2date_config-module.html#update,Method common.UserDictCase.UserDictCase.update()=common.UserDictCase.UserDictCase-class.html#update,Method config_common.up2date_config_parser.ConfigFile.update()=config_common.up2date_config_parser.ConfigFile-class.html#update,Method rhn.UserDictCase.UserDictCase.update()=rhn.UserDictCase.UserDictCase-class.html#update,Method satellite_tools.progress_bar.ProgressBar.update()=satellite_tools.progress_bar.ProgressBar-class.html#update,Function server.action.errata.update()=server.action.errata-module.html#update,Function server.action.packages.update()=server.action.packages-module.html#update,Function server.action_extra_data.errata.update()=server.action_extra_data.errata-module.html#update,Function server.action_extra_data.packages.update()=server.action_extra_data.packages-module.html#update,Function server.action_extra_data.up2date_config.update()=server.action_extra_data.up2date_config-module.html#update,Method up2date_client.config.ConfigFile.update()=up2date_client.config.ConfigFile-class.html#update"><a title="actions.errata.update
+actions.up2date_config.update
+common.UserDictCase.UserDictCase.update
+config_common.up2date_config_parser.ConfigFile.update
 rhn.UserDictCase.UserDictCase.update
 satellite_tools.progress_bar.ProgressBar.update
 server.action.errata.update
 server.action.packages.update
 server.action_extra_data.errata.update
 server.action_extra_data.packages.update
-server.action_extra_data.up2date_config.update" class="py-name" href="#" onclick="return doclink('link-3', 'update', 'link-3');">update</a></tt><tt class="py-op">,</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt> <tt class="py-op">:</tt> <tt class="py-op">{</tt> <tt class="py-string">"p_%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">}</tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+server.action_extra_data.up2date_config.update
+up2date_client.config.ConfigFile.update" class="py-name" href="#" onclick="return doclink('link-3', 'update', 'link-3');">update</a></tt><tt class="py-op">,</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt> <tt class="py-op">:</tt> <tt class="py-op">{</tt> <tt class="py-string">"p_%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">}</tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name"><a title="common.UserDictCase.UserDictCase.items
 common.rhnConfig.RHNOptions.items
 rhn.UserDictCase.UserDictCase.items
+up2date_client.config.Config.items
+up2date_client.rhnChannel.rhnChannel.items
 wsgi.wsgiRequest.WsgiMPtable.items" class="py-name" href="#" onclick="return doclink('link-4', 'items', 'link-1');">items</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">sql</tt><tt class="py-op">,</tt> <tt class="py-name">pdict</tt> </tt>
 </div><a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
@@ -113,25 +124,34 @@ wsgi.wsgiRequest.WsgiMPtable.items" class="py-name" href="#" onclick="return doc
 <a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-docstring">        of 'items' into "table" indexed by "hash_name"</tt> </tt>
 <a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
 <a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-name">sql</tt> <tt class="py-op">=</tt> <tt class="py-string">"update %s set %s where %s = :p0"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
-<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt id="link-5" class="py-name"><a title="satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-5', 'table', 'link-0');">table</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt id="link-5" class="py-name"><a title="_apache.table
+satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-5', 'table', 'link-0');">table</a></tt><tt class="py-op">,</tt> </tt>
 <a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-string">"%s = :p_%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">a</tt><tt class="py-op">,</tt> <tt class="py-name">a</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
-<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                        <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                        <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name"><a title="common.UserDictCase.UserDictCase.items
 common.rhnConfig.RHNOptions.items
 rhn.UserDictCase.UserDictCase.items
+up2date_client.config.Config.items
+up2date_client.rhnChannel.rhnChannel.items
 wsgi.wsgiRequest.WsgiMPtable.items" class="py-name" href="#" onclick="return doclink('link-6', 'items', 'link-1');">items</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
 <a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                    <tt class="py-string">", "</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
 <a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt class="py-name">hash_name</tt><tt class="py-op">)</tt> </tt>
 <a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt class="py-name">pdict</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> <tt class="py-string">"p0"</tt> <tt class="py-op">:</tt> <tt class="py-name">None</tt> <tt class="py-op">}</tt> <tt class="py-comment"># This must be reset after we return from this call</tt> </tt>
-<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">pdict</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="common.UserDictCase'.UserDictCase.update
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">pdict</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="actions.errata.update
+actions.up2date_config.update
+common.UserDictCase.UserDictCase.update
+config_common.up2date_config_parser.ConfigFile.update
 rhn.UserDictCase.UserDictCase.update
 satellite_tools.progress_bar.ProgressBar.update
 server.action.errata.update
 server.action.packages.update
 server.action_extra_data.errata.update
 server.action_extra_data.packages.update
-server.action_extra_data.up2date_config.update" class="py-name" href="#" onclick="return doclink('link-7', 'update', 'link-3');">update</a></tt><tt class="py-op">,</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt> <tt class="py-op">:</tt> <tt class="py-op">{</tt> <tt class="py-string">"p_%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">}</tt><tt class="py-op">,</tt> <tt id="link-8" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+server.action_extra_data.up2date_config.update
+up2date_client.config.ConfigFile.update" class="py-name" href="#" onclick="return doclink('link-7', 'update', 'link-3');">update</a></tt><tt class="py-op">,</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt> <tt class="py-op">:</tt> <tt class="py-op">{</tt> <tt class="py-string">"p_%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">}</tt><tt class="py-op">,</tt> <tt id="link-8" class="py-name"><a title="common.UserDictCase.UserDictCase.items
 common.rhnConfig.RHNOptions.items
 rhn.UserDictCase.UserDictCase.items
+up2date_client.config.Config.items
+up2date_client.rhnChannel.rhnChannel.items
 wsgi.wsgiRequest.WsgiMPtable.items" class="py-name" href="#" onclick="return doclink('link-8', 'items', 'link-1');">items</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">sql</tt><tt class="py-op">,</tt> <tt class="py-name">pdict</tt> </tt>
 </div><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt><script type="text/javascript">
@@ -164,7 +184,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:12 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:51 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.config-module.html">Package&nbsp;config</a> ::
-        <a href="server.handlers.config.rhn_config_management-module.html" onclick="show_private();">Module&nbsp;rhn_config_management</a> ::
+        server ::
+        handlers ::
+        config ::
+        rhn_config_management ::
+        ConfigManagement ::
         Class&nbsp;ConfigManagement
       </span>
     </td>
@@ -57,29 +58,20 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ConfigManagement</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.config.rhn_config_management-pysrc.html#ConfigManagement">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_5" name="uml_class_diagram_for_server_h_5">
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#__init__" title="server.handlers.config.rhn_config_management.ConfigManagement.__init__" alt="" coords="24,337,341,356"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#auth_system" title="server.handlers.config.rhn_config_management.ConfigManagement.auth_system" alt="" coords="24,356,341,375"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_maximum_file_size" title="server.handlers.config.rhn_config_management.ConfigManagement.client_get_maximum_file_size" alt="" coords="24,375,341,393"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_delimiters" title="server.handlers.config.rhn_config_management.ConfigManagement.client_get_delimiters" alt="" coords="24,393,341,412"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_list_channels" title="server.handlers.config.rhn_config_management.ConfigManagement.client_list_channels" alt="" coords="24,412,341,431"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_set_namespaces" title="server.handlers.config.rhn_config_management.ConfigManagement.client_set_namespaces" alt="" coords="24,431,341,449"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_list_files" title="Return array of files (its path), which we manage on that system." alt="" coords="24,449,341,468"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_file" title="Returns requested config file." alt="" coords="24,468,341,487"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_upload_file" title="server.handlers.config.rhn_config_management.ConfigManagement.client_upload_file" alt="" coords="24,487,341,505"/>
-<area shape="rect" id="node1223" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_upload_to_server_import" title="server.handlers.config.rhn_config_management.ConfigManagement.client_upload_to_server_import" alt="" coords="24,505,341,524"/>
-<area shape="rect" id="node1" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html" title="server.handlers.config.rhn_config_management.ConfigManagement" alt="" coords="12,305,353,530"/>
-<area shape="rect" id="node1224" href="javascript:void(0);" title="spacewalk.server.configFilesHandler.ConfigFilesHandler.get_function" alt="" coords="17,167,348,185"/>
-<area shape="rect" id="node1224" href="javascript:void(0);" title="spacewalk.server.configFilesHandler.ConfigFilesHandler.max_upload_file_size" alt="" coords="17,185,348,204"/>
-<area shape="rect" id="node1224" href="javascript:void(0);" title="spacewalk.server.configFilesHandler.ConfigFilesHandler.login" alt="" coords="17,204,348,223"/>
-<area shape="rect" id="node1224" href="javascript:void(0);" title="spacewalk.server.configFilesHandler.ConfigFilesHandler.test_session" alt="" coords="17,223,348,241"/>
-<area shape="rect" id="node1224" href="javascript:void(0);" title="spacewalk.server.configFilesHandler.ConfigFilesHandler.push_file" alt="" coords="17,241,348,260"/>
-<area shape="rect" id="node1224" href="javascript:void(0);" title="spacewalk.server.configFilesHandler.ConfigFilesHandler.new_config_channel_id" alt="" coords="17,260,348,279"/>
-<area shape="rect" id="node2" href="javascript:void(0);" title="spacewalk.server.configFilesHandler.ConfigFilesHandler" alt="" coords="5,134,360,285"/>
-<area shape="rect" id="node3" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler" alt="" coords="51,70,312,114"/>
-<area shape="rect" id="node4" href="javascript:void(0);" title="??.RPC_Base&#45;1" alt="" coords="121,6,241,50"/>
+<center>  <map id="uml_class_diagram_for_server_h_3" name="uml_class_diagram_for_server_h_3">
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#__init__" title="server.handlers.config.rhn_config_management.ConfigManagement.__init__" alt="" coords="17,39,335,57"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#auth_system" title="server.handlers.config.rhn_config_management.ConfigManagement.auth_system" alt="" coords="17,57,335,76"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_maximum_file_size" title="server.handlers.config.rhn_config_management.ConfigManagement.client_get_maximum_file_size" alt="" coords="17,76,335,95"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_delimiters" title="server.handlers.config.rhn_config_management.ConfigManagement.client_get_delimiters" alt="" coords="17,95,335,113"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_list_channels" title="server.handlers.config.rhn_config_management.ConfigManagement.client_list_channels" alt="" coords="17,113,335,132"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_set_namespaces" title="server.handlers.config.rhn_config_management.ConfigManagement.client_set_namespaces" alt="" coords="17,132,335,151"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_list_files" title="Return array of files (its path), which we manage on that system." alt="" coords="17,151,335,169"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_file" title="Returns requested config file." alt="" coords="17,169,335,188"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_upload_file" title="server.handlers.config.rhn_config_management.ConfigManagement.client_upload_file" alt="" coords="17,188,335,207"/>
+<area shape="rect" id="node1210" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_upload_to_server_import" title="server.handlers.config.rhn_config_management.ConfigManagement.client_upload_to_server_import" alt="" coords="17,207,335,225"/>
+<area shape="rect" id="node1" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html" title="server.handlers.config.rhn_config_management.ConfigManagement" alt="" coords="5,6,347,231"/>
 </map>
-  <img src="uml_class_diagram_for_server_h_5.png" alt='' usemap="#uml_class_diagram_for_server_h_5" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_server_h_3.png" alt='' usemap="#uml_class_diagram_for_server_h_3" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -106,7 +98,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.config.rhn_config_management-pysrc.html#ConfigManagement.__init__">source&nbsp;code</a></span>
             
@@ -122,7 +114,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#auth_system" class="summary-sig-name">auth_system</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="auth_system"></a><span class="summary-sig-name">auth_system</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">systemid</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.config.rhn_config_management-pysrc.html#ConfigManagement.auth_system">source&nbsp;code</a></span>
@@ -329,35 +321,6 @@
       
     </td>
   </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.server.configFilesHandler.ConfigFilesHandler</code></b>:
-      <code>get_function</code>,
-      <code>login</code>,
-      <code>max_upload_file_size</code>,
-      <code>new_config_channel_id</code>,
-      <code>push_file</code>,
-      <code>test_session</code>
-      </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.server.configFilesHandler.ConfigFilesHandler</code></b> (private):
-      <code>_add_author</code>,
-      <code>_check_user_role</code>,
-      <code>_format_file_results</code>,
-      <code>_get_delimiters</code>,
-      <code>_get_maximum_file_size</code>,
-      <code>_insert_revision</code>,
-      <code>_is_file</code>,
-      <code>_is_link</code>,
-      <code>_push_config_file</code>,
-      <code>_push_contents</code>,
-      <code>_push_file</code>,
-      <code>_push_revision</code>,
-      <code>_update_config_file</code>,
-      <code>_update_revision</code>,
-      <code>_validate_session</code>
-      </p></div>
-    </td>
-  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -380,104 +343,86 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_list_files" class="summary-name" onclick="show_private();">_query_client_list_files</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931024; stat\
-ement=
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_list_files" class="summary-name" onclick="show_private();">_query_client_list_files</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select cfn.path, cr.config_file_type_id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
                rhnConfigFileState cfs,
                rhnConfigFileName cfn,
                rhnConfigRevision cr,
-...">&lt;spacewalk.server.rhnSQL.sql_base.S<code class="variable-ellipsis">...</code></code>
+               rhnConfigFile cf
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_get_file" class="summary-name" onclick="show_private();">_query_client_get_file</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931096; stat\
-ement=
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_get_file" class="summary-name" onclick="show_private();">_query_client_get_file</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select :path path,
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary is_binary,
                c.checksum_type,
                c.checksum,
-...">&lt;spacewalk.server.rhnSQL.sql_base.Sta<code class="variable-ellipsis">...</code></code>
+               ccont.delim_start, ccont.delim_end,
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_config_channels" class="summary-name" onclick="show_private();">_query_client_config_channels</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931168; stat\
-ement=
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_config_channels" class="summary-name" onclick="show_private();">_query_client_config_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select cc.label,
                cc.name
           from rhnConfigChannelType cct,
                rhnConfigChannel cc, 
                rhnServerConfigChannel scc
          where scc.server_id = :server_id
-...">&lt;spacewalk.server.rhnSQL.sql_b<code class="variable-ellipsis">...</code></code>
+           and scc.config_channel_id = cc.id
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_upload_files" class="summary-name" onclick="show_private();">_query_client_upload_files</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931240; stat\
-ement=
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_upload_files" class="summary-name" onclick="show_private();">_query_client_upload_files</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select acc.config_channel_id, ast.name action_status
           from rhnServerAction sa,
                rhnActionStatus ast,
                rhnActionConfigChannel acc
          where acc.server_id = :server_id
            and acc.action_id = :action_id
-...">&lt;spacewalk.server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
+           and sa.server_id = :server_id
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_lookup_import_channel" class="summary-name" onclick="show_private();">_query_lookup_import_channel</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931312; stat\
-ement=
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_lookup_import_channel" class="summary-name" onclick="show_private();">_query_lookup_import_channel</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select cc.id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
                rhnServerConfigChannel scc
          where scc.server_id = :server_id
            and scc.config_channel_id = cc.id
-...">&lt;spacewalk.server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
+           and cc.confchan_type_id = cct.id
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_create_server_import_channel" class="summary-name" onclick="show_private();">_query_create_server_import_channel</a> = <code title="&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931384; stat\
-ement=
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_create_server_import_channel" class="summary-name" onclick="show_private();">_query_create_server_import_channel</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         insert into rhnServerConfigChannel
                (server_id, config_channel_id, position)
         values (:server_id, :config_channel_id, :position)
-    ">&lt;spacewalk.server.rhnSQL<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>spacewalk.server.configFilesHandler.ConfigFilesHandler</code></b> (private):
-      <code>_query_content_lookup</code>,
-      <code>_query_get_content_row</code>,
-      <code>_query_insert_content</code>,
-      <code>_query_insert_null_content</code>,
-      <code>_query_lookup_config_file</code>,
-      <code>_query_lookup_non_symlink_config_info</code>,
-      <code>_query_lookup_revision</code>,
-      <code>_query_lookup_symlink_config_info</code>,
-      <code>_query_update_config_file</code>,
-      <code>_query_update_revision</code>,
-      <code>_query_update_revision_add_author</code>
-      </p></div>
+    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -499,52 +444,6 @@ ement=
   </td>
 </tr>
 </table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.handlers.config.rhn_config_management-pysrc.html#ConfigManagement.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-
-
-  <dl class="fields">
-    <dt>Overrides:
-        spacewalk.common.RPC_Base.RPC_Base.__init__
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="auth_system"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">auth_system</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">systemid</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.handlers.config.rhn_config_management-pysrc.html#ConfigManagement.auth_system">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-
-
-  <dl class="fields">
-    <dt>Overrides:
-        spacewalk.server.rhnHandler.rhnHandler.auth_system
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
 <a name="client_get_file"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -602,14 +501,14 @@ ement=
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931024; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select cfn.path, cr.config_file_type_id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
                rhnConfigFileState cfs,
                rhnConfigFileName cfn,
                rhnConfigRevision cr,
+               rhnConfigFile cf
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -628,14 +527,14 @@ ement=
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931096; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select :path path,
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary is_binary,
                c.checksum_type,
                c.checksum,
+               ccont.delim_start, ccont.delim_end,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -654,14 +553,14 @@ ement=
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931168; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select cc.label,
                cc.name
           from rhnConfigChannelType cct,
                rhnConfigChannel cc, 
                rhnServerConfigChannel scc
          where scc.server_id = :server_id
+           and scc.config_channel_id = cc.id
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -680,14 +579,14 @@ ement=
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931240; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select acc.config_channel_id, ast.name action_status
           from rhnServerAction sa,
                rhnActionStatus ast,
                rhnActionConfigChannel acc
          where acc.server_id = :server_id
            and acc.action_id = :action_id
+           and sa.server_id = :server_id
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -706,14 +605,14 @@ ement=
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931312; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select cc.id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
                rhnServerConfigChannel scc
          where scc.server_id = :server_id
            and scc.config_channel_id = cc.id
+           and cc.confchan_type_id = cct.id
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -732,12 +631,11 @@ ement=
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;spacewalk.server.rhnSQL.sql_base.Statement instance at 65931384; stat<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ement=
+rhnSQL.Statement(&quot;&quot;&quot;
         insert into rhnServerConfigChannel
                (server_id, config_channel_id, position)
         values (:server_id, :config_channel_id, :position)
-
+    &quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -767,7 +665,7 @@ ement=
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:54 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:03 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

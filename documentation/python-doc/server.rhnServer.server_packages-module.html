@@ -76,7 +76,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="server.rhnServer.server_packages.dbPackage-class.html" class="summary-name">dbPackage</a><br />
-      A small class that helps us represent things about a database
+      A small class that helps us represent things about a database 
         package.
     </td>
   </tr>
@@ -112,8 +112,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="server.rhnServer.server_packages-module.html#update_errata_cache" class="summary-sig-name">update_errata_cache</a>(<span class="summary-sig-arg">server_id</span>)</span><br />
-      Function that updates rhnServerNeededPackageCache by deltas (as
-      opposed to calling queue_server which removes the old entries and
+      Function that updates rhnServerNeededPackageCache by deltas (as 
+      opposed to calling queue_server which removes the old entries and 
       inserts new ones).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_packages-pysrc.html#update_errata_cache">source&nbsp;code</a></span>
@@ -150,7 +150,7 @@
         <tr>
           <td><span class="summary-sig"><a name="package_delta"></a><span class="summary-sig-name">package_delta</span>(<span class="summary-sig-arg">list1</span>,
         <span class="summary-sig-arg">list2</span>)</span><br />
-      Compares list1 and list2 (each list is a tuple (n, v, r, e) returns
+      Compares list1 and list2 (each list is a tuple (n, v, r, e) returns 
       two lists (install, remove) XXX upgrades and downgrades are simulated
       by a removal and an install</td>
           <td align="right" valign="top">
@@ -170,9 +170,9 @@
         <tr>
           <td><span class="summary-sig"><a href="server.rhnServer.server_packages-module.html#_package_list_to_hash" class="summary-sig-name" onclick="show_private();">_package_list_to_hash</a>(<span class="summary-sig-arg">package_list</span>,
         <span class="summary-sig-arg">package_registry</span>)</span><br />
-      Converts package_list into a hash keyed by name package_registry
-      contains the canonical version of the package for instance, version
-      51 and 0051 are indentical, but that would break the list comparison
+      Converts package_list into a hash keyed by name package_registry 
+      contains the canonical version of the package for instance, version 
+      51 and 0051 are indentical, but that would break the list comparison 
       in Python.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_packages-pysrc.html#_package_list_to_hash">source&nbsp;code</a></span>
@@ -247,13 +247,6 @@
         <a name="UPDATED"></a><span class="summary-name">UPDATED</span> = <code title="3">3</code>
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.rhnServer'"><code class="variable-quote">'</code><code class="variable-string">server.rhnServer</code><code class="variable-quote">'</code></code>
-    </td>
-  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -286,11 +279,11 @@
     ><span class="codelink"><a href="server.rhnServer.server_packages-pysrc.html#update_errata_cache">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-
-  <p>Function that updates rhnServerNeededPackageCache by deltas (as
+  
+  <p>Function that updates rhnServerNeededPackageCache by deltas (as 
   opposed to calling queue_server which removes the old entries and inserts
-  new ones). It now also updates rhnServerNeededErrataCache, but as the
-  entries there are a subset of rhnServerNeededPackageCache's entries, it
+  new ones). It now also updates rhnServerNeededErrataCache, but as the 
+  entries there are a subset of rhnServerNeededPackageCache's entries, it 
   still gives statistics regarding only rhnServerNeededPackageCache.</p>
   <dl class="fields">
   </dl>
@@ -310,12 +303,12 @@
     ><span class="codelink"><a href="server.rhnServer.server_packages-pysrc.html#_package_list_to_hash">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-
-  <p>Converts package_list into a hash keyed by name package_registry
-  contains the canonical version of the package for instance, version 51
-  and 0051 are indentical, but that would break the list comparison in
-  Python. package_registry is storing representatives for each equivalence
-  class (where the equivalence relationship is rpm's version comparison
+  
+  <p>Converts package_list into a hash keyed by name package_registry 
+  contains the canonical version of the package for instance, version 51 
+  and 0051 are indentical, but that would break the list comparison in 
+  Python. package_registry is storing representatives for each equivalence 
+  class (where the equivalence relationship is rpm's version comparison 
   algorigthm Side effect: Modifies second argument!</p>
   <dl class="fields">
   </dl>
@@ -345,7 +338,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:00:10 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

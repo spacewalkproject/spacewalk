@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>rhnpush.archive</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="rhnpush-module.html">Package&nbsp;rhnpush</a> ::
+        Module&nbsp;archive
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="rhnpush.archive-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="rhnpush.archive-module.html">Module rhnpush.archive</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2010 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">"""Archive Parsing module"""</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">subprocess</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">shutil</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">tempfile</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Method server.rhnSQL.sql_table.Table.select()=server.rhnSQL.sql_table.Table-class.html#select"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-0', 'select', 'link-0');">select</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># exceptions -------------------------------------------------------------</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveException"></a><div id="ArchiveException-def"><a name="L26"></a><tt class="py-lineno"> 26</tt> <a class="py-toggle" href="#" id="ArchiveException-toggle" onclick="return toggle('ArchiveException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveException-class.html">ArchiveException</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveException-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ArchiveException-expanded"><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="DecompressionError"></a><div id="DecompressionError-def"><a name="L29"></a><tt class="py-lineno"> 29</tt> <a class="py-toggle" href="#" id="DecompressionError-toggle" onclick="return toggle('DecompressionError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.DecompressionError-class.html">DecompressionError</a><tt class="py-op">(</tt><tt class="py-base-class">ArchiveException</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DecompressionError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="DecompressionError-expanded"><a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="UnknownArchiveError"></a><div id="UnknownArchiveError-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="UnknownArchiveError-toggle" onclick="return toggle('UnknownArchiveError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.UnknownArchiveError-class.html">UnknownArchiveError</a><tt class="py-op">(</tt><tt class="py-base-class">ArchiveException</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UnknownArchiveError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="UnknownArchiveError-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="InvalidArchiveError"></a><div id="InvalidArchiveError-def"><a name="L35"></a><tt class="py-lineno"> 35</tt> <a class="py-toggle" href="#" id="InvalidArchiveError-toggle" onclick="return toggle('InvalidArchiveError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.InvalidArchiveError-class.html">InvalidArchiveError</a><tt class="py-op">(</tt><tt class="py-base-class">ArchiveException</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="InvalidArchiveError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="InvalidArchiveError-expanded"><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-comment"># base archive parsing class ---------------------------------------------</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser"></a><div id="ArchiveParser-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="ArchiveParser-toggle" onclick="return toggle('ArchiveParser');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html">ArchiveParser</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ArchiveParser-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-docstring">"""Explode an zip or (compressed) tar archive and parse files and</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">    directories contained therein"""</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt class="py-comment"># constructor --------------------------------------------------------</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.__init__"></a><div id="ArchiveParser.__init__-def"><a name="L46"></a><tt class="py-lineno"> 46</tt> <a class="py-toggle" href="#" id="ArchiveParser.__init__-toggle" onclick="return toggle('ArchiveParser.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">archive</tt><tt class="py-op">,</tt> <tt class="py-param">tempdir</tt><tt class="py-op">=</tt><tt class="py-string">"/tmp/"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.__init__-expanded"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-docstring">"""Initialize an archive parser"""</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Method server.action.utils.ChannelPackage.exists()=server.action.utils.ChannelPackage-class.html#exists,Method server.rhnChannel.BaseChannelObject.exists()=server.rhnChannel.BaseChannelObject-class.html#exists"><a title="server.action.utils.ChannelPackage.exists
+server.rhnChannel.BaseChannelObject.exists" class="py-name" href="#" onclick="return doclink('link-1', 'exists', 'link-1');">exists</a></tt><tt class="py-op">(</tt><tt id="link-2" class="py-name" targets="Module rhnpush.archive=rhnpush.archive-module.html"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-2', 'archive', 'link-2');">archive</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-3', 'archive', 'link-2');">archive</a></tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-comment"># bug 164756: allow optional working directory</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_parent_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">tempdir</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-comment"># bug: 171086: support for older versions of tempfile (ie python 2.2)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-name">tempfile</tt><tt class="py-op">.</tt><tt class="py-name">tempdir</tt> <tt class="py-op">=</tt> <tt class="py-name">tempdir</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">tempfile</tt><tt class="py-op">.</tt><tt class="py-name">mktemp</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">mkdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-number">0700</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method rhnpush.archive.ArchiveParser._explode()=rhnpush.archive.ArchiveParser-class.html#_explode"><a title="rhnpush.archive.ArchiveParser._explode" class="py-name" href="#" onclick="return doclink('link-4', '_explode', 'link-4');">_explode</a></tt><tt class="py-op">(</tt><tt id="link-5" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-5', 'archive', 'link-2');">archive</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-comment"># destructor ---------------------------------------------------------</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.__del__"></a><div id="ArchiveParser.__del__-def"><a name="L65"></a><tt class="py-lineno"> 65</tt> <a class="py-toggle" href="#" id="ArchiveParser.__del__-toggle" onclick="return toggle('ArchiveParser.__del__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#__del__">__del__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.__del__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.__del__-expanded"><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-docstring">"""Cleanup temporary files and directories"""</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-string">"_temp_dir"</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-name">shutil</tt><tt class="py-op">.</tt><tt class="py-name">rmtree</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-name">ignore_errors</tt><tt class="py-op">=</tt><tt id="link-6" class="py-name" targets="Variable actions.ModeController.True=actions.ModeController-module.html#True,Variable actions.Modes.True=actions.Modes-module.html#True,Variable rhnpush.rhnpush_cache.True=rhnpush.rhnpush_cache-module.html#True,Variable rhnpush.rhnpush_confmanager.True=rhnpush.rhnpush_confmanager-module.html#True,Variable src._ConfigParser.True=src._ConfigParser-module.html#True,Variable xmlrpclib.True=xmlrpclib-module.html#True"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-6', 'True', 'link-6');">True</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-comment"># methods called by constructor --------------------------------------</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser._get_archive_dir"></a><div id="ArchiveParser._get_archive_dir-def"><a name="L73"></a><tt class="py-lineno"> 73</tt> <a class="py-toggle" href="#" id="ArchiveParser._get_archive_dir-toggle" onclick="return toggle('ArchiveParser._get_archive_dir');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#_get_archive_dir">_get_archive_dir</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser._get_archive_dir-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser._get_archive_dir-expanded"><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-docstring">"""[internal] find the archive's top level directory name"""</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">(</tt><tt class="py-string">"ArchiveParser: abstract base class method '_get_archive_dir'"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser._explode_cmd"></a><div id="ArchiveParser._explode_cmd-def"><a name="L79"></a><tt class="py-lineno"> 79</tt> <a class="py-toggle" href="#" id="ArchiveParser._explode_cmd-toggle" onclick="return toggle('ArchiveParser._explode_cmd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#_explode_cmd">_explode_cmd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser._explode_cmd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser._explode_cmd-expanded"><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-docstring">"""[internal] find the appropriate command to open the archive"""</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">(</tt><tt class="py-string">"ArchiveParser: abstract base class method '_explode_cmd'"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser._explode"></a><div id="ArchiveParser._explode-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="ArchiveParser._explode-toggle" onclick="return toggle('ArchiveParser._explode');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#_explode">_explode</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">archive</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser._explode-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser._explode-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-docstring">"""[internal] Explode a archive for neutral parsing"""</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method rhnpush.archive.ArchiveParser._explode_cmd()=rhnpush.archive.ArchiveParser-class.html#_explode_cmd,Method rhnpush.archive.CpioParser._explode_cmd()=rhnpush.archive.CpioParser-class.html#_explode_cmd,Method rhnpush.archive.TarParser._explode_cmd()=rhnpush.archive.TarParser-class.html#_explode_cmd,Method rhnpush.archive.ZipParser._explode_cmd()=rhnpush.archive.ZipParser-class.html#_explode_cmd"><a title="rhnpush.archive.ArchiveParser._explode_cmd
+rhnpush.archive.CpioParser._explode_cmd
+rhnpush.archive.TarParser._explode_cmd
+rhnpush.archive.ZipParser._explode_cmd" class="py-name" href="#" onclick="return doclink('link-7', '_explode_cmd', 'link-7');">_explode_cmd</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt>        <tt class="py-comment"># assigned in _copy_archive</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt>    <tt class="py-comment"># assigned in _explode_cmd</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">cmd</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">            <tt id="link-8" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-8', 'status', 'link-8');">status</a></tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name" targets="Function rhnpush.archive._my_popen()=rhnpush.archive-module.html#_my_popen"><a title="rhnpush.archive._my_popen" class="py-name" href="#" onclick="return doclink('link-9', '_my_popen', 'link-9');">_my_popen</a></tt><tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-10" class="py-name" targets="Class rhnpush.archive.InvalidArchiveError=rhnpush.archive.InvalidArchiveError-class.html"><a title="rhnpush.archive.InvalidArchiveError" class="py-name" href="#" onclick="return doclink('link-10', 'InvalidArchiveError', 'link-10');">InvalidArchiveError</a></tt><tt class="py-op">(</tt><tt class="py-string">"Archive did not expand to %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-11" class="py-name"><a title="rhnpush.archive.InvalidArchiveError" class="py-name" href="#" onclick="return doclink('link-11', 'InvalidArchiveError', 'link-10');">InvalidArchiveError</a></tt><tt class="py-op">(</tt><tt class="py-string">"Could not find command to open archive: %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-comment"># private helper methods ---------------------------------------------</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser._find"></a><div id="ArchiveParser._find-def"><a name="L104"></a><tt class="py-lineno">104</tt> <a class="py-toggle" href="#" id="ArchiveParser._find-toggle" onclick="return toggle('ArchiveParser._find');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#_find">_find</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser._find-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser._find-expanded"><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-docstring">"""[internal] Returns the relative path to a file in the archive"""</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">file_path</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-name">contents</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Function rhnpush.uploadLib.listdir()=rhnpush.uploadLib-module.html#listdir"><a title="rhnpush.uploadLib.listdir" class="py-name" href="#" onclick="return doclink('link-12', 'listdir', 'link-12');">listdir</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-name">contents</tt><tt class="py-op">:</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">            <tt class="py-name">entry</tt> <tt class="py-op">=</tt> <tt class="py-name">contents</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method virtualization.batching_log_notifier.LockableLogMessageQueue.pop()=virtualization.batching_log_notifier.LockableLogMessageQueue-class.html#pop"><a title="virtualization.batching_log_notifier.LockableLogMessageQueue.pop" class="py-name" href="#" onclick="return doclink('link-13', 'pop', 'link-13');">pop</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt class="py-name">path</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">,</tt> <tt class="py-name">entry</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isdir</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                <tt class="py-name">p_contents</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="rhnpush.uploadLib.listdir" class="py-name" href="#" onclick="return doclink('link-14', 'listdir', 'link-12');">listdir</a></tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">                <tt class="py-name">e_contents</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">entry</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">e</tt> <tt class="py-keyword">in</tt> <tt class="py-name">p_contents</tt><tt class="py-op">]</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">                <tt class="py-comment"># this really is something of a hack, the newest contents will </tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">                <tt class="py-comment"># 'prepended' to the queue instead of 'appended' changing the </tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">                <tt class="py-comment"># search into depth-first when I think breadth-first would be </tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                <tt class="py-comment"># the expected behavior</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt class="py-comment"># that's what we get for programming in python which doesn't </tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">                <tt class="py-comment"># supply a nice way of adding real data-structure support</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                <tt class="py-comment"># I already tried extending e_contents with contents and then </tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">                <tt class="py-comment"># reassigning the contents reference to e_contents, but the </tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">                <tt class="py-comment"># damn while loop still had a hold of the original reference</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">                <tt class="py-name">contents</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method server.importlib.importLib.Collection.extend()=server.importlib.importLib.Collection-class.html#extend"><a title="server.importlib.importLib.Collection.extend" class="py-name" href="#" onclick="return doclink('link-15', 'extend', 'link-15');">extend</a></tt><tt class="py-op">(</tt><tt class="py-name">e_contents</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">entry</tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">                    <tt class="py-name">file_path</tt> <tt class="py-op">=</tt> <tt class="py-name">entry</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-comment">#            if __degug__: sys.stderr.write("[_find] '%s' not found\n" % file)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">            <tt class="py-keyword">pass</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">file_path</tt> </tt>
+</div><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">    <tt class="py-comment"># public api ---------------------------------------------------------</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.list"></a><div id="ArchiveParser.list-def"><a name="L140"></a><tt class="py-lineno">140</tt> <a class="py-toggle" href="#" id="ArchiveParser.list-toggle" onclick="return toggle('ArchiveParser.list');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#list">list</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">prefix</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.list-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.list-expanded"><a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-docstring">"""Return a tuple of directories and files in the archive at the given</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-docstring">        directory: prefix"""</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-name">dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">,</tt> <tt class="py-name">prefix</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isdir</tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="rhnpush.uploadLib.listdir" class="py-name" href="#" onclick="return doclink('link-16', 'listdir', 'link-12');">listdir</a></tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">d</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">l</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isdir</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-name">i</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">                <tt class="py-name">d</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append,Method src._ConfigParser.ParsingError.append()=src._ConfigParser.ParsingError-class.html#append"><a title="server.importlib.importLib.Collection.append
+src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-17', 'append', 'link-17');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">i</tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">                <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="server.importlib.importLib.Collection.append
+src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-18', 'append', 'link-17');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">i</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">d</tt><tt class="py-op">,</tt> <tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.contains"></a><div id="ArchiveParser.contains-def"><a name="L160"></a><tt class="py-lineno">160</tt> <a class="py-toggle" href="#" id="ArchiveParser.contains-toggle" onclick="return toggle('ArchiveParser.contains');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#contains">contains</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.contains-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.contains-expanded"><a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-docstring">"""Returns true iff the file is contained in the archive"""</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method rhnpush.archive.ArchiveParser._find()=rhnpush.archive.ArchiveParser-class.html#_find"><a title="rhnpush.archive.ArchiveParser._find" class="py-name" href="#" onclick="return doclink('link-19', '_find', 'link-19');">_find</a></tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.read"></a><div id="ArchiveParser.read-def"><a name="L164"></a><tt class="py-lineno">164</tt> <a class="py-toggle" href="#" id="ArchiveParser.read-toggle" onclick="return toggle('ArchiveParser.read');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#read">read</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.read-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.read-expanded"><a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-docstring">"""Returns the contents of the file, or None on error</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-docstring">           First occurence of that file in archive is returned</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="rhnpush.archive.ArchiveParser._find" class="py-name" href="#" onclick="return doclink('link-20', '_find', 'link-19');">_find</a></tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">f</tt><tt class="py-op">:</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method rhnpush.archive.ArchiveParser.direct_read()=rhnpush.archive.ArchiveParser-class.html#direct_read"><a title="rhnpush.archive.ArchiveParser.direct_read" class="py-name" href="#" onclick="return doclink('link-21', 'direct_read', 'link-21');">direct_read</a></tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.direct_read"></a><div id="ArchiveParser.direct_read-def"><a name="L175"></a><tt class="py-lineno">175</tt> <a class="py-toggle" href="#" id="ArchiveParser.direct_read-toggle" onclick="return toggle('ArchiveParser.direct_read');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#direct_read">direct_read</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.direct_read-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.direct_read-expanded"><a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-docstring">""" Returns the contens of the file, file is relative path in archive.</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"><tt class="py-docstring">            Top most level (_get_archive_dir) is automaticaly added.</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"><tt class="py-docstring">         """</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">        <tt class="py-name">contents</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isfile</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">access</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">R_OK</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">                <tt class="py-name">fd</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">                <tt class="py-name">contents</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.connections.HTTPResponse.read()=rhn.connections.HTTPResponse-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method rhnkickstart.lilo.LiloConfigFile.read()=rhnkickstart.lilo.LiloConfigFile-class.html#read,Method rhnpush.archive.ArchiveParser.read()=rhnpush.archive.ArchiveParser-class.html#read,Method src._ConfigParser.ConfigParser.read()=src._ConfigParser.ConfigParser-class.html#read,Method src.jabber_lib.JabberClient.read()=src.jabber_lib.JabberClient-class.html#read,Method wsgi.wsgiRequest.WsgiRequest.read()=wsgi.wsgiRequest.WsgiRequest-class.html#read"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-22', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">                <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method config_common.rpc_wrapper.Server.close()=config_common.rpc_wrapper.Server-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_Dumper.close()=satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.satsync.StreamProducer.close()=satellite_tools.satsync.StreamProducer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close,Method up2date_client.rhnregGui.NetworkConfigDialog.close()=up2date_client.rhnregGui.NetworkConfigDialog-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+config_common.rpc_wrapper.Server.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close
+up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-23', 'close', 'link-23');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">Exception</tt><tt class="py-op">:</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">                <tt class="py-name">contents</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">contents</tt> </tt>
+</div><a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.zip"></a><div id="ArchiveParser.zip-def"><a name="L192"></a><tt class="py-lineno">192</tt> <a class="py-toggle" href="#" id="ArchiveParser.zip-toggle" onclick="return toggle('ArchiveParser.zip');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#zip">zip</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">prefix</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.zip-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.zip-expanded"><a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt class="py-docstring">"""Create a zip archive of a (sub-)directory of the archive"""</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-name">dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">,</tt> <tt class="py-name">prefix</tt><tt class="py-op">)</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-name">zip_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-name">parent_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">dirname</tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-name">cwd</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">getcwd</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">parent_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-name">zip_file</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_parent_dir</tt><tt class="py-op">,</tt> <tt class="py-string">"%s.zip"</tt> <tt class="py-op">%</tt> <tt class="py-name">zip_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"zip -q -r %s %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">zip_file</tt><tt class="py-op">,</tt> <tt class="py-name">zip_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt id="link-24" class="py-name" targets="Variable _apache.stat=_apache-module.html#stat"><a title="_apache.stat" class="py-name" href="#" onclick="return doclink('link-24', 'stat', 'link-24');">stat</a></tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="rhnpush.archive._my_popen" class="py-name" href="#" onclick="return doclink('link-25', '_my_popen', 'link-9');">_my_popen</a></tt><tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">)</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">cwd</tt><tt class="py-op">)</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isfile</tt><tt class="py-op">(</tt><tt class="py-name">zip_file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">zip_file</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"> </tt>
+<a name="ArchiveParser.cpio"></a><div id="ArchiveParser.cpio-def"><a name="L214"></a><tt class="py-lineno">214</tt> <a class="py-toggle" href="#" id="ArchiveParser.cpio-toggle" onclick="return toggle('ArchiveParser.cpio');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ArchiveParser-class.html#cpio">cpio</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">prefix</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ArchiveParser.cpio-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ArchiveParser.cpio-expanded"><a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt class="py-docstring">"""Create a cpio archive of a (sub-)directory of the archive"""</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">        <tt class="py-name">cpio_file</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-string">"%s.pkg"</tt> <tt class="py-op">%</tt> <tt class="py-name">prefix</tt><tt class="py-op">)</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line"> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"pkgtrans -s %s %s %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">,</tt> <tt class="py-name">cpio_file</tt><tt class="py-op">,</tt> <tt class="py-name">prefix</tt><tt class="py-op">)</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">        <tt id="link-26" class="py-name"><a title="_apache.stat" class="py-name" href="#" onclick="return doclink('link-26', 'stat', 'link-24');">stat</a></tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="rhnpush.archive._my_popen" class="py-name" href="#" onclick="return doclink('link-27', '_my_popen', 'link-9');">_my_popen</a></tt><tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">)</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line"> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isfile</tt><tt class="py-op">(</tt><tt class="py-name">cpio_file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">cpio_file</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line"> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div></div><a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line"> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line"><tt class="py-comment"># parser for zip archives ------------------------------------------------</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line"> </tt>
+<a name="ZipParser"></a><div id="ZipParser-def"><a name="L229"></a><tt class="py-lineno">229</tt> <a class="py-toggle" href="#" id="ZipParser-toggle" onclick="return toggle('ZipParser');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.ZipParser-class.html">ZipParser</a><tt class="py-op">(</tt><tt class="py-base-class">ArchiveParser</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ZipParser-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ZipParser-expanded"><a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line"> </tt>
+<a name="ZipParser._get_archive_dir"></a><div id="ZipParser._get_archive_dir-def"><a name="L231"></a><tt class="py-lineno">231</tt> <a class="py-toggle" href="#" id="ZipParser._get_archive_dir-toggle" onclick="return toggle('ZipParser._get_archive_dir');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ZipParser-class.html#_get_archive_dir">_get_archive_dir</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ZipParser._get_archive_dir-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ZipParser._get_archive_dir-expanded"><a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">        <tt class="py-name">list_cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"unzip -l %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">popen</tt><tt class="py-op">(</tt><tt class="py-name">list_cmd</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">        <tt class="py-comment"># file is usually top most dir... but not always</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">        <tt class="py-comment"># take first directory from relative path</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line"> </tt>
+<a name="ZipParser._explode_cmd"></a><div id="ZipParser._explode_cmd-def"><a name="L238"></a><tt class="py-lineno">238</tt> <a class="py-toggle" href="#" id="ZipParser._explode_cmd-toggle" onclick="return toggle('ZipParser._explode_cmd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.ZipParser-class.html#_explode_cmd">_explode_cmd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ZipParser._explode_cmd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ZipParser._explode_cmd-expanded"><a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">        <tt class="py-docstring">"""Return the appropriate command for exploding a zip archive"""</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-28" class="py-name" targets="Function rhnpush.archive._has_executable()=rhnpush.archive-module.html#_has_executable"><a title="rhnpush.archive._has_executable" class="py-name" href="#" onclick="return doclink('link-28', '_has_executable', 'link-28');">_has_executable</a></tt><tt class="py-op">(</tt><tt class="py-string">"unzip"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-29" class="py-name" targets="Class rhnpush.archive.ArchiveException=rhnpush.archive.ArchiveException-class.html"><a title="rhnpush.archive.ArchiveException" class="py-name" href="#" onclick="return doclink('link-29', 'ArchiveException', 'link-29');">ArchiveException</a></tt><tt class="py-op">(</tt><tt class="py-string">"cannot open %s, 'unzip' not found"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">)</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line"> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method rhnpush.archive.ArchiveParser._get_archive_dir()=rhnpush.archive.ArchiveParser-class.html#_get_archive_dir,Method rhnpush.archive.CpioParser._get_archive_dir()=rhnpush.archive.CpioParser-class.html#_get_archive_dir,Method rhnpush.archive.TarParser._get_archive_dir()=rhnpush.archive.TarParser-class.html#_get_archive_dir,Method rhnpush.archive.ZipParser._get_archive_dir()=rhnpush.archive.ZipParser-class.html#_get_archive_dir"><a title="rhnpush.archive.ArchiveParser._get_archive_dir
+rhnpush.archive.CpioParser._get_archive_dir
+rhnpush.archive.TarParser._get_archive_dir
+rhnpush.archive.ZipParser._get_archive_dir" class="py-name" href="#" onclick="return doclink('link-30', '_get_archive_dir', 'link-30');">_get_archive_dir</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line"> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"unzip -q -n %s -d %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line"> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line"><tt class="py-comment"># parser for tar archives ------------------------------------------------</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line"> </tt>
+<a name="TarParser"></a><div id="TarParser-def"><a name="L250"></a><tt class="py-lineno">250</tt> <a class="py-toggle" href="#" id="TarParser-toggle" onclick="return toggle('TarParser');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.TarParser-class.html">TarParser</a><tt class="py-op">(</tt><tt class="py-base-class">ArchiveParser</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TarParser-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="TarParser-expanded"><a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"> </tt>
+<a name="TarParser._get_archive_dir"></a><div id="TarParser._get_archive_dir-def"><a name="L252"></a><tt class="py-lineno">252</tt> <a class="py-toggle" href="#" id="TarParser._get_archive_dir-toggle" onclick="return toggle('TarParser._get_archive_dir');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.TarParser-class.html#_get_archive_dir">_get_archive_dir</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TarParser._get_archive_dir-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TarParser._get_archive_dir-expanded"><a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">        <tt class="py-name">list_cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"tar -tf %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">popen</tt><tt class="py-op">(</tt><tt class="py-name">list_cmd</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">2</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line"> </tt>
+<a name="TarParser._explode_cmd"></a><div id="TarParser._explode_cmd-def"><a name="L256"></a><tt class="py-lineno">256</tt> <a class="py-toggle" href="#" id="TarParser._explode_cmd-toggle" onclick="return toggle('TarParser._explode_cmd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.TarParser-class.html#_explode_cmd">_explode_cmd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TarParser._explode_cmd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TarParser._explode_cmd-expanded"><a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">        <tt class="py-docstring">"""Return the appropriate command for exploding a tar archive"""</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line"> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-31" class="py-name"><a title="rhnpush.archive._has_executable" class="py-name" href="#" onclick="return doclink('link-31', '_has_executable', 'link-28');">_has_executable</a></tt><tt class="py-op">(</tt><tt class="py-string">"tar"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-32" class="py-name"><a title="rhnpush.archive.ArchiveException" class="py-name" href="#" onclick="return doclink('link-32', 'ArchiveException', 'link-29');">ArchiveException</a></tt><tt class="py-op">(</tt><tt class="py-string">"cannot open %s, 'tar' not found"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">)</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line"> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="rhnpush.archive.ArchiveParser._get_archive_dir
+rhnpush.archive.CpioParser._get_archive_dir
+rhnpush.archive.TarParser._get_archive_dir
+rhnpush.archive.ZipParser._get_archive_dir" class="py-name" href="#" onclick="return doclink('link-33', '_get_archive_dir', 'link-30');">_get_archive_dir</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"cd %s; tar xf %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line"><tt class="py-comment"># parser for cpio archives -----------------------------------------------</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line"> </tt>
+<a name="CpioParser"></a><div id="CpioParser-def"><a name="L268"></a><tt class="py-lineno">268</tt> <a class="py-toggle" href="#" id="CpioParser-toggle" onclick="return toggle('CpioParser');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhnpush.archive.CpioParser-class.html">CpioParser</a><tt class="py-op">(</tt><tt class="py-base-class">ArchiveParser</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CpioParser-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CpioParser-expanded"><a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line"> </tt>
+<a name="CpioParser._get_archive_dir"></a><div id="CpioParser._get_archive_dir-def"><a name="L270"></a><tt class="py-lineno">270</tt> <a class="py-toggle" href="#" id="CpioParser._get_archive_dir-toggle" onclick="return toggle('CpioParser._get_archive_dir');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.CpioParser-class.html#_get_archive_dir">_get_archive_dir</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CpioParser._get_archive_dir-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="CpioParser._get_archive_dir-expanded"><a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">:</tt><tt class="py-number">5</tt><tt class="py-op">]</tt> <tt class="py-comment"># arbitrary</tt> </tt>
+</div><a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line"> </tt>
+<a name="CpioParser._explode_cmd"></a><div id="CpioParser._explode_cmd-def"><a name="L273"></a><tt class="py-lineno">273</tt> <a class="py-toggle" href="#" id="CpioParser._explode_cmd-toggle" onclick="return toggle('CpioParser._explode_cmd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive.CpioParser-class.html#_explode_cmd">_explode_cmd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CpioParser._explode_cmd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="CpioParser._explode_cmd-expanded"><a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line">        <tt class="py-docstring">"""Return the appropriate command for exploding a cpio archive"""</tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line"> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="rhnpush.archive.ArchiveParser._get_archive_dir
+rhnpush.archive.CpioParser._get_archive_dir
+rhnpush.archive.TarParser._get_archive_dir
+rhnpush.archive.ZipParser._get_archive_dir" class="py-name" href="#" onclick="return doclink('link-34', '_get_archive_dir', 'link-30');">_get_archive_dir</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-35" class="py-name"><a title="rhnpush.archive._has_executable" class="py-name" href="#" onclick="return doclink('link-35', '_has_executable', 'link-28');">_has_executable</a></tt><tt class="py-op">(</tt><tt class="py-string">"pkgtrans"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-36" class="py-name"><a title="rhnpush.archive.ArchiveException" class="py-name" href="#" onclick="return doclink('link-36', 'ArchiveException', 'link-29');">ArchiveException</a></tt><tt class="py-op">(</tt><tt class="py-string">"cannot open %s, 'pkgtrans' not found"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">)</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line"> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"cd %s; mkdir %s; pkgtrans %s %s all"</tt> <tt class="py-op">%</tt> \ </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line">               <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_temp_dir</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_archive_dir</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line"> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line"><tt class="py-comment"># internal helper methods ------------------------------------------------</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line"> </tt>
+<a name="_has_executable"></a><div id="_has_executable-def"><a name="L286"></a><tt class="py-lineno">286</tt> <a class="py-toggle" href="#" id="_has_executable-toggle" onclick="return toggle('_has_executable');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive-module.html#_has_executable">_has_executable</a><tt class="py-op">(</tt><tt class="py-param">exc</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_has_executable-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_has_executable-expanded"><a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line">    <tt class="py-docstring">"""Return true if the executable is found in the $PATH"""</tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line"> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line">    <tt class="py-comment"># flag the error condition, this will evaluate to False</tt> </tt>
+<a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-string">"PATH"</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">environ</tt><tt class="py-op">:</tt> </tt>
+<a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line"> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">    <tt class="py-comment"># this is posix specific</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line">    <tt class="py-name">dirs</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">environ</tt><tt class="py-op">[</tt><tt class="py-string">"PATH"</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">':'</tt><tt class="py-op">)</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line"> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">dir</tt> <tt class="py-keyword">in</tt> <tt class="py-name">dirs</tt><tt class="py-op">:</tt> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line">        <tt class="py-name">path</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-name">exc</tt><tt class="py-op">)</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">access</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">X_OK</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-37" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-37', 'True', 'link-6');">True</a></tt> </tt>
+<a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line"> </tt>
+<a name="L301"></a><tt class="py-lineno">301</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-38" class="py-name" targets="Variable actions.ModeController.False=actions.ModeController-module.html#False,Variable actions.Modes.False=actions.Modes-module.html#False,Variable rhnpush.rhnpush_cache.False=rhnpush.rhnpush_cache-module.html#False,Variable rhnpush.rhnpush_confmanager.False=rhnpush.rhnpush_confmanager-module.html#False,Variable src._ConfigParser.False=src._ConfigParser-module.html#False,Variable xmlrpclib.False=xmlrpclib-module.html#False"><a title="actions.ModeController.False
+actions.Modes.False
+rhnpush.rhnpush_cache.False
+rhnpush.rhnpush_confmanager.False
+src._ConfigParser.False
+xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-38', 'False', 'link-38');">False</a></tt> </tt>
+</div><a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line"> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line"> </tt>
+<a name="_my_popen"></a><div id="_my_popen-def"><a name="L304"></a><tt class="py-lineno">304</tt> <a class="py-toggle" href="#" id="_my_popen-toggle" onclick="return toggle('_my_popen');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive-module.html#_my_popen">_my_popen</a><tt class="py-op">(</tt><tt class="py-param">cmd</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_my_popen-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_my_popen-expanded"><a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line">    <tt class="py-docstring">"""Execute a command as a subprocess and return its exit status"""</tt> </tt>
+<a name="L306"></a><tt class="py-lineno">306</tt>  <tt class="py-line"> </tt>
+<a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line">    <tt class="py-name">popen</tt> <tt class="py-op">=</tt> <tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">Popen</tt><tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">,</tt> <tt class="py-name">stdin</tt><tt class="py-op">=</tt><tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">PIPE</tt><tt class="py-op">,</tt> <tt class="py-name">stdout</tt><tt class="py-op">=</tt><tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">PIPE</tt><tt class="py-op">,</tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line">                 <tt class="py-name">stderr</tt><tt class="py-op">=</tt><tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">PIPE</tt><tt class="py-op">,</tt> <tt class="py-name">close_fds</tt><tt class="py-op">=</tt><tt id="link-39" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-39', 'True', 'link-6');">True</a></tt><tt class="py-op">,</tt> <tt class="py-name">shell</tt><tt class="py-op">=</tt><tt id="link-40" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-40', 'True', 'link-6');">True</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line">    <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">stdin</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+config_common.rpc_wrapper.Server.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close
+up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-41', 'close', 'link-23');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line"> </tt>
+<a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line">    <tt class="py-name">txt</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line">        <tt class="py-name">rd</tt><tt class="py-op">,</tt> <tt class="py-name">wr</tt><tt class="py-op">,</tt> <tt class="py-name">ex</tt> <tt class="py-op">=</tt> <tt id="link-42" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-42', 'select', 'link-0');">select</a></tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-43', 'select', 'link-0');">select</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt> <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">,</tt> <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt> <tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt> <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">,</tt> <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt> <tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+<a name="L314"></a><tt class="py-lineno">314</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ex</tt><tt class="py-op">:</tt> </tt>
+<a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">            <tt class="py-name">txt</tt> <tt class="py-op">+=</tt> <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-44', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">            <tt class="py-name">txt</tt> <tt class="py-op">+=</tt> <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-45', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">rd</tt><tt class="py-op">:</tt> </tt>
+<a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line">            <tt class="py-name">txt</tt> <tt class="py-op">+=</tt> <tt class="py-name">rd</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-46', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line">        <tt class="py-keyword">break</tt> </tt>
+<a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line"> </tt>
+<a name="L322"></a><tt class="py-lineno">322</tt>  <tt class="py-line">    <tt id="link-47" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-47', 'status', 'link-8');">status</a></tt> <tt class="py-op">=</tt> <tt class="py-name">popen</tt><tt class="py-op">.</tt><tt class="py-name">wait</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-48" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-48', 'status', 'link-8');">status</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L324"></a><tt class="py-lineno">324</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">Exception</tt><tt class="py-op">(</tt><tt class="py-string">"%s exited with status %s and error\n%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">,</tt> <tt id="link-49" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-49', 'status', 'link-8');">status</a></tt><tt class="py-op">,</tt> <tt class="py-name">txt</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L325"></a><tt class="py-lineno">325</tt>  <tt class="py-line"> </tt>
+<a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-50" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-50', 'status', 'link-8');">status</a></tt> </tt>
+</div><a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line"> </tt>
+<a name="L328"></a><tt class="py-lineno">328</tt>  <tt class="py-line"><tt class="py-comment"># NOTE these next two functions rely on file magic to determine the compression</tt> </tt>
+<a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line"><tt class="py-comment"># and archive types. some file magic information can be found here:</tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line"><tt class="py-comment"># http://www.astro.keele.ac.uk/oldusers/rno/Computing/File_magic.html</tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line"> </tt>
+<a name="_decompress"></a><div id="_decompress-def"><a name="L332"></a><tt class="py-lineno">332</tt> <a class="py-toggle" href="#" id="_decompress-toggle" onclick="return toggle('_decompress');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive-module.html#_decompress">_decompress</a><tt class="py-op">(</tt><tt class="py-param">archive</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_decompress-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_decompress-expanded"><a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line">    <tt class="py-docstring">"""[internal] Decompress compressed archives and return the new archive name"""</tt> </tt>
+<a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line"> </tt>
+<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line">    <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L336"></a><tt class="py-lineno">336</tt>  <tt class="py-line">    <tt class="py-name">sfx_list</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L337"></a><tt class="py-lineno">337</tt>  <tt class="py-line"> </tt>
+<a name="L338"></a><tt class="py-lineno">338</tt>  <tt class="py-line">    <tt class="py-comment"># determine which type of compression we're dealing with, if any</tt> </tt>
+<a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line">    <tt class="py-name">fd</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt id="link-51" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-51', 'archive', 'link-2');">archive</a></tt><tt class="py-op">,</tt> <tt class="py-string">'r'</tt><tt class="py-op">)</tt> </tt>
+<a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line">    <tt class="py-name">magic</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-52', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">)</tt> </tt>
+<a name="L341"></a><tt class="py-lineno">341</tt>  <tt class="py-line">    <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+config_common.rpc_wrapper.Server.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close
+up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-53', 'close', 'link-23');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L342"></a><tt class="py-lineno">342</tt>  <tt class="py-line"> </tt>
+<a name="L343"></a><tt class="py-lineno">343</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">magic</tt> <tt class="py-op">==</tt> <tt class="py-string">"BZ"</tt><tt class="py-op">:</tt> </tt>
+<a name="L344"></a><tt class="py-lineno">344</tt>  <tt class="py-line">        <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"bunzip2"</tt> </tt>
+<a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line">        <tt class="py-name">sfx_list</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-string">".bz2"</tt><tt class="py-op">,</tt> <tt class="py-string">".bz"</tt><tt class="py-op">)</tt> </tt>
+<a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line"> </tt>
+<a name="L347"></a><tt class="py-lineno">347</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">magic</tt> <tt class="py-op">==</tt> <tt class="py-string">"\x1F\x9D"</tt><tt class="py-op">:</tt> </tt>
+<a name="L348"></a><tt class="py-lineno">348</tt>  <tt class="py-line">        <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"uncompress"</tt> </tt>
+<a name="L349"></a><tt class="py-lineno">349</tt>  <tt class="py-line">        <tt class="py-name">sfx_list</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-string">".Z"</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+<a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line"> </tt>
+<a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">magic</tt> <tt class="py-op">==</tt> <tt class="py-string">"\x1F\x8B"</tt><tt class="py-op">:</tt> </tt>
+<a name="L352"></a><tt class="py-lineno">352</tt>  <tt class="py-line">        <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"gunzip"</tt> </tt>
+<a name="L353"></a><tt class="py-lineno">353</tt>  <tt class="py-line">        <tt class="py-name">sfx_list</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-string">".gz"</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+<a name="L354"></a><tt class="py-lineno">354</tt>  <tt class="py-line"> </tt>
+<a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line">    <tt class="py-comment"># decompress the archive if it is compressed</tt> </tt>
+<a name="L356"></a><tt class="py-lineno">356</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">cmd</tt><tt class="py-op">:</tt> </tt>
+<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line"> </tt>
+<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-54" class="py-name"><a title="rhnpush.archive._has_executable" class="py-name" href="#" onclick="return doclink('link-54', '_has_executable', 'link-28');">_has_executable</a></tt><tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-55" class="py-name"><a title="rhnpush.archive.ArchiveException" class="py-name" href="#" onclick="return doclink('link-55', 'ArchiveException', 'link-29');">ArchiveException</a></tt><tt class="py-op">(</tt><tt class="py-string">"Cannot decompress %s, '%s' not found"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt id="link-56" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-56', 'archive', 'link-2');">archive</a></tt><tt class="py-op">,</tt> <tt class="py-name">cmd</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line"> </tt>
+<a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Decompressing archive"</tt> </tt>
+<a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line"> </tt>
+<a name="L363"></a><tt class="py-lineno">363</tt>  <tt class="py-line">        <tt id="link-57" class="py-name"><a title="_apache.stat" class="py-name" href="#" onclick="return doclink('link-57', 'stat', 'link-24');">stat</a></tt> <tt class="py-op">=</tt> <tt id="link-58" class="py-name"><a title="rhnpush.archive._my_popen" class="py-name" href="#" onclick="return doclink('link-58', '_my_popen', 'link-9');">_my_popen</a></tt><tt class="py-op">(</tt><tt class="py-string">"%s %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">,</tt> <tt id="link-59" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-59', 'archive', 'link-2');">archive</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L364"></a><tt class="py-lineno">364</tt>  <tt class="py-line"> </tt>
+<a name="L365"></a><tt class="py-lineno">365</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-60" class="py-name"><a title="_apache.stat" class="py-name" href="#" onclick="return doclink('link-60', 'stat', 'link-24');">stat</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L366"></a><tt class="py-lineno">366</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-61" class="py-name" targets="Class rhnpush.archive.DecompressionError=rhnpush.archive.DecompressionError-class.html"><a title="rhnpush.archive.DecompressionError" class="py-name" href="#" onclick="return doclink('link-61', 'DecompressionError', 'link-61');">DecompressionError</a></tt><tt class="py-op">(</tt><tt class="py-string">"Error decompressing '%s'"</tt> <tt class="py-op">%</tt> <tt id="link-62" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-62', 'archive', 'link-2');">archive</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L367"></a><tt class="py-lineno">367</tt>  <tt class="py-line"> </tt>
+<a name="L368"></a><tt class="py-lineno">368</tt>  <tt class="py-line">        <tt class="py-comment"># remove the now invalid suffix from the archive name</tt> </tt>
+<a name="L369"></a><tt class="py-lineno">369</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">sfx</tt> <tt class="py-keyword">in</tt> <tt class="py-name">sfx_list</tt><tt class="py-op">:</tt> </tt>
+<a name="L370"></a><tt class="py-lineno">370</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-63" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-63', 'archive', 'link-2');">archive</a></tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">sfx</tt><tt class="py-op">)</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">sfx</tt><tt class="py-op">:</tt> </tt>
+<a name="L371"></a><tt class="py-lineno">371</tt>  <tt class="py-line">                <tt id="link-64" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-64', 'archive', 'link-2');">archive</a></tt> <tt class="py-op">=</tt> <tt id="link-65" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-65', 'archive', 'link-2');">archive</a></tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">sfx</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line">                <tt class="py-keyword">break</tt> </tt>
+<a name="L373"></a><tt class="py-lineno">373</tt>  <tt class="py-line"> </tt>
+<a name="L374"></a><tt class="py-lineno">374</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-66" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-66', 'archive', 'link-2');">archive</a></tt> </tt>
+</div><a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line"> </tt>
+<a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line"><tt class="py-comment"># archive parser factory -------------------------------------------------</tt> </tt>
+<a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line"> </tt>
+<a name="get_archive_parser"></a><div id="get_archive_parser-def"><a name="L378"></a><tt class="py-lineno">378</tt> <a class="py-toggle" href="#" id="get_archive_parser-toggle" onclick="return toggle('get_archive_parser');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="rhnpush.archive-module.html#get_archive_parser">get_archive_parser</a><tt class="py-op">(</tt><tt class="py-param">archive</tt><tt class="py-op">,</tt> <tt class="py-param">tempdir</tt><tt class="py-op">=</tt><tt class="py-string">"/tmp/"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_archive_parser-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_archive_parser-expanded"><a name="L379"></a><tt class="py-lineno">379</tt>  <tt class="py-line">    <tt class="py-docstring">"""Factory function that returns an ArchiveParser object for the given archive"""</tt> </tt>
+<a name="L380"></a><tt class="py-lineno">380</tt>  <tt class="py-line"> </tt>
+<a name="L381"></a><tt class="py-lineno">381</tt>  <tt class="py-line">    <tt class="py-comment"># decompress the archive</tt> </tt>
+<a name="L382"></a><tt class="py-lineno">382</tt>  <tt class="py-line">    <tt id="link-67" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-67', 'archive', 'link-2');">archive</a></tt> <tt class="py-op">=</tt> <tt id="link-68" class="py-name" targets="Function rhnpush.archive._decompress()=rhnpush.archive-module.html#_decompress"><a title="rhnpush.archive._decompress" class="py-name" href="#" onclick="return doclink('link-68', '_decompress', 'link-68');">_decompress</a></tt><tt class="py-op">(</tt><tt id="link-69" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-69', 'archive', 'link-2');">archive</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L383"></a><tt class="py-lineno">383</tt>  <tt class="py-line">    <tt class="py-name">Class</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L384"></a><tt class="py-lineno">384</tt>  <tt class="py-line">    <tt class="py-name">fd</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt id="link-70" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-70', 'archive', 'link-2');">archive</a></tt><tt class="py-op">,</tt> <tt class="py-string">'r'</tt><tt class="py-op">)</tt> </tt>
+<a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line"> </tt>
+<a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line">    <tt class="py-name">magic</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-71" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-71', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">)</tt> </tt>
+<a name="L387"></a><tt class="py-lineno">387</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">magic</tt> <tt class="py-op">==</tt> <tt class="py-string">"PK\x03\x04"</tt><tt class="py-op">:</tt> </tt>
+<a name="L388"></a><tt class="py-lineno">388</tt>  <tt class="py-line">        <tt class="py-name">Class</tt> <tt class="py-op">=</tt> <tt id="link-72" class="py-name" targets="Class rhnpush.archive.ZipParser=rhnpush.archive.ZipParser-class.html"><a title="rhnpush.archive.ZipParser" class="py-name" href="#" onclick="return doclink('link-72', 'ZipParser', 'link-72');">ZipParser</a></tt> </tt>
+<a name="L389"></a><tt class="py-lineno">389</tt>  <tt class="py-line"> </tt>
+<a name="L390"></a><tt class="py-lineno">390</tt>  <tt class="py-line">    <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name" targets="Method rhn.SSL.SSLSocket.seek()=rhn.SSL.SSLSocket-class.html#seek,Method rhn.SSL.SSLSocket.seek()=rhn.SSL.SSLSocket-class.html#seek"><a title="rhn.SSL.SSLSocket.seek
+rhn.SSL.SSLSocket.seek" class="py-name" href="#" onclick="return doclink('link-73', 'seek', 'link-73');">seek</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L391"></a><tt class="py-lineno">391</tt>  <tt class="py-line">    <tt class="py-name">magic</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-74', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-number">20</tt><tt class="py-op">)</tt> </tt>
+<a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">magic</tt> <tt class="py-op">==</tt> <tt class="py-string">"# PaCkAgE DaTaStReAm"</tt><tt class="py-op">:</tt> </tt>
+<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line">        <tt class="py-name">Class</tt> <tt class="py-op">=</tt> <tt id="link-75" class="py-name" targets="Class rhnpush.archive.CpioParser=rhnpush.archive.CpioParser-class.html"><a title="rhnpush.archive.CpioParser" class="py-name" href="#" onclick="return doclink('link-75', 'CpioParser', 'link-75');">CpioParser</a></tt> </tt>
+<a name="L394"></a><tt class="py-lineno">394</tt>  <tt class="py-line"> </tt>
+<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line">    <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="rhn.SSL.SSLSocket.seek
+rhn.SSL.SSLSocket.seek" class="py-name" href="#" onclick="return doclink('link-76', 'seek', 'link-73');">seek</a></tt><tt class="py-op">(</tt><tt class="py-number">257</tt><tt class="py-op">)</tt> </tt>
+<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line">    <tt class="py-name">magic</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-77" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+rhnkickstart.lilo.LiloConfigFile.read
+rhnpush.archive.ArchiveParser.read
+src._ConfigParser.ConfigParser.read
+src.jabber_lib.JabberClient.read
+wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-77', 'read', 'link-22');">read</a></tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+<a name="L397"></a><tt class="py-lineno">397</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">magic</tt> <tt class="py-op">==</tt> <tt class="py-string">"ustar"</tt><tt class="py-op">:</tt> </tt>
+<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line">        <tt class="py-name">Class</tt> <tt class="py-op">=</tt> <tt id="link-78" class="py-name" targets="Class rhnpush.archive.TarParser=rhnpush.archive.TarParser-class.html"><a title="rhnpush.archive.TarParser" class="py-name" href="#" onclick="return doclink('link-78', 'TarParser', 'link-78');">TarParser</a></tt> </tt>
+<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line"> </tt>
+<a name="L400"></a><tt class="py-lineno">400</tt>  <tt class="py-line">    <tt class="py-comment"># pre-posix tar doesn't have any standard file magic</tt> </tt>
+<a name="L401"></a><tt class="py-lineno">401</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-79" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-79', 'archive', 'link-2');">archive</a></tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt><tt class="py-string">".tar"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L402"></a><tt class="py-lineno">402</tt>  <tt class="py-line">        <tt class="py-name">Class</tt> <tt class="py-op">=</tt> <tt id="link-80" class="py-name"><a title="rhnpush.archive.TarParser" class="py-name" href="#" onclick="return doclink('link-80', 'TarParser', 'link-78');">TarParser</a></tt> </tt>
+<a name="L403"></a><tt class="py-lineno">403</tt>  <tt class="py-line"> </tt>
+<a name="L404"></a><tt class="py-lineno">404</tt>  <tt class="py-line">    <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-81" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+config_common.rpc_wrapper.Server.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close
+up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-81', 'close', 'link-23');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L405"></a><tt class="py-lineno">405</tt>  <tt class="py-line"> </tt>
+<a name="L406"></a><tt class="py-lineno">406</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">Class</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L407"></a><tt class="py-lineno">407</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-82" class="py-name" targets="Class rhnpush.archive.UnknownArchiveError=rhnpush.archive.UnknownArchiveError-class.html"><a title="rhnpush.archive.UnknownArchiveError" class="py-name" href="#" onclick="return doclink('link-82', 'UnknownArchiveError', 'link-82');">UnknownArchiveError</a></tt><tt class="py-op">(</tt><tt class="py-string">"Wasn't able to identify: '%s'"</tt> <tt class="py-op">%</tt> <tt id="link-83" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-83', 'archive', 'link-2');">archive</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L408"></a><tt class="py-lineno">408</tt>  <tt class="py-line"> </tt>
+<a name="L409"></a><tt class="py-lineno">409</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">Class</tt><tt class="py-op">(</tt><tt id="link-84" class="py-name"><a title="rhnpush.archive" class="py-name" href="#" onclick="return doclink('link-84', 'archive', 'link-2');">archive</a></tt><tt class="py-op">,</tt> <tt class="py-name">tempdir</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L410"></a><tt class="py-lineno">410</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:48 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

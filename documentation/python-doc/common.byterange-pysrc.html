@@ -72,13 +72,25 @@
 <a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
 <a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
 <a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># common module</tt> </tt>
-<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package spacewalk=spacewalk-module.html"><a title="spacewalk" class="py-name" href="#" onclick="return doclink('link-0', 'spacewalk', 'link-0');">spacewalk</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
-spacewalk.common" class="py-name" href="#" onclick="return doclink('link-1', 'common', 'link-1');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-2', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Class common.rhnException'.rhnException=common.rhnException%27.rhnException-class.html"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-3', 'rhnException', 'link-3');">rhnException</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package spacewalk=spacewalk-module.html"><a title="spacewalk" class="py-name" href="#" onclick="return doclink('link-0', 'spacewalk', 'link-0');">spacewalk</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Package common=common-module.html,Module rhnkickstart.common=rhnkickstart.common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+rhnkickstart.common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-1', 'common', 'link-1');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug,Method config_common.rhn_log.Logger.log_debug()=config_common.rhn_log.Logger-class.html#log_debug,Function config_common.rhn_log.log_debug()=config_common.rhn_log-module.html#log_debug,Method src.rhn_log.Logger.log_debug()=src.rhn_log.Logger-class.html#log_debug,Function src.rhn_log.log_debug()=src.rhn_log-module.html#log_debug,Method up2date_client.up2dateLog.Log.log_debug()=up2date_client.up2dateLog.Log-class.html#log_debug"><a title="common.rhnLog.log_debug
+config_common.rhn_log.Logger.log_debug
+config_common.rhn_log.log_debug
+src.rhn_log.Logger.log_debug
+src.rhn_log.log_debug
+up2date_client.up2dateLog.Log.log_debug" class="py-name" href="#" onclick="return doclink('link-2', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Module common.rhnException=common.rhnException-module.html,Class common.rhnException.rhnException=common.rhnException.rhnException-class.html"><a title="common.rhnException
+common.rhnException.rhnException" class="py-name" href="#" onclick="return doclink('link-3', 'rhnException', 'link-3');">rhnException</a></tt> </tt>
 <a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
 <a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># Parses the HTTP header value and stores in the flags  a list of (start, end)</tt> </tt>
 <a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># tuples that are more pythonic than the RFC semantics</tt> </tt>
 <a name="parse_byteranges"></a><div id="parse_byteranges-def"><a name="L24"></a><tt class="py-lineno"> 24</tt> <a class="py-toggle" href="#" id="parse_byteranges-toggle" onclick="return toggle('parse_byteranges');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="common.byterange-module.html#parse_byteranges">parse_byteranges</a><tt class="py-op">(</tt><tt class="py-param">byterange_header</tt><tt class="py-op">,</tt> <tt class="py-param">file_size</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="parse_byteranges-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parse_byteranges-expanded"><a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">    <tt id="link-4" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-4', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Parsing byte range"</tt><tt class="py-op">,</tt> <tt class="py-name">byterange_header</tt><tt class="py-op">)</tt> </tt>
+</div><div id="parse_byteranges-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parse_byteranges-expanded"><a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">    <tt id="link-4" class="py-name"><a title="common.rhnLog.log_debug
+config_common.rhn_log.Logger.log_debug
+config_common.rhn_log.log_debug
+src.rhn_log.Logger.log_debug
+src.rhn_log.log_debug
+up2date_client.up2dateLog.Log.log_debug" class="py-name" href="#" onclick="return doclink('link-4', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Parsing byte range"</tt><tt class="py-op">,</tt> <tt class="py-name">byterange_header</tt><tt class="py-op">)</tt> </tt>
 <a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt class="py-name">regexp</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">r"^bytes\s*=\s*(.*)$"</tt><tt class="py-op">)</tt> </tt>
 <a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt class="py-name">mo</tt> <tt class="py-op">=</tt> <tt class="py-name">regexp</tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">byterange_header</tt><tt class="py-op">)</tt> </tt>
 <a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">mo</tt><tt class="py-op">:</tt> </tt>
@@ -96,24 +108,54 @@ spacewalk.common" class="py-name" href="#" onclick="return doclink('link-1', 'co
 <a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-comment"># Invalid byterange</tt> </tt>
 <a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-7" class="py-name"><a title="common.byterange.InvalidByteRangeException" class="py-name" href="#" onclick="return doclink('link-7', 'InvalidByteRangeException', 'link-5');">InvalidByteRangeException</a></tt> </tt>
 <a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt id="link-8" class="py-name" targets="Function server.action.virt.start()=server.action.virt-module.html#start,Function server.action_extra_data.virt.start()=server.action_extra_data.virt-module.html#start"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-8', 'start', 'link-8');">start</a></tt><tt class="py-op">,</tt> <tt class="py-name">end</tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt id="link-9" class="py-name" targets="Function common.byterange._str2int()=common.byterange-module.html#_str2int"><a title="common.byterange._str2int" class="py-name" href="#" onclick="return doclink('link-9', '_str2int', 'link-9');">_str2int</a></tt><tt class="py-op">,</tt> <tt class="py-name">mo</tt><tt class="py-op">.</tt><tt class="py-name">groups</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt id="link-8" class="py-name" targets="Function server.action.virt.start()=server.action.virt-module.html#start,Function server.action_extra_data.virt.start()=server.action_extra_data.virt-module.html#start,Method src.dispatcher_client.Client.start()=src.dispatcher_client.Client-class.html#start,Method src.osad_client.Client.start()=src.osad_client.Client-class.html#start,Function virt.start()=virt-module.html#start,Method virtualization.batching_log_notifier.BatchingLogNotifier.start()=virtualization.batching_log_notifier.BatchingLogNotifier-class.html#start,Function virtualization.domain_control.start()=virtualization.domain_control-module.html#start,Function virtualization.support.start()=virtualization.support-module.html#start"><a title="server.action.virt.start
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-8', 'start', 'link-8');">start</a></tt><tt class="py-op">,</tt> <tt class="py-name">end</tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt id="link-9" class="py-name" targets="Function common.byterange._str2int()=common.byterange-module.html#_str2int"><a title="common.byterange._str2int" class="py-name" href="#" onclick="return doclink('link-9', '_str2int', 'link-9');">_str2int</a></tt><tt class="py-op">,</tt> <tt class="py-name">mo</tt><tt class="py-op">.</tt><tt class="py-name">groups</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">:</tt> </tt>
 <a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-comment"># Invalid</tt> </tt>
 <a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-10" class="py-name"><a title="common.byterange.InvalidByteRangeException" class="py-name" href="#" onclick="return doclink('link-10', 'InvalidByteRangeException', 'link-5');">InvalidByteRangeException</a></tt> </tt>
 <a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-11" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-11', 'start', 'link-8');">start</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-11', 'start', 'link-8');">start</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
 <a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-12" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-12', 'start', 'link-8');">start</a></tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-12', 'start', 'link-8');">start</a></tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
 <a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">            <tt class="py-comment"># Invalid</tt> </tt>
 <a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-13" class="py-name"><a title="common.byterange.InvalidByteRangeException" class="py-name" href="#" onclick="return doclink('link-13', 'InvalidByteRangeException', 'link-5');">InvalidByteRangeException</a></tt> </tt>
 <a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">file_size</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
 <a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-14" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-14', 'start', 'link-8');">start</a></tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">file_size</tt><tt class="py-op">:</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-14', 'start', 'link-8');">start</a></tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">file_size</tt><tt class="py-op">:</tt> </tt>
 <a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt id="link-15" class="py-name"><a title="common.byterange.UnsatisfyableByteRangeException" class="py-name" href="#" onclick="return doclink('link-15', 'UnsatisfyableByteRangeException', 'link-6');">UnsatisfyableByteRangeException</a></tt> </tt>
 <a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">end</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
 <a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-16" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-16', 'start', 'link-8');">start</a></tt> <tt class="py-op">&gt;</tt> <tt class="py-name">end</tt><tt class="py-op">:</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-16', 'start', 'link-8');">start</a></tt> <tt class="py-op">&gt;</tt> <tt class="py-name">end</tt><tt class="py-op">:</tt> </tt>
 <a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">                <tt class="py-comment"># Invalid</tt> </tt>
 <a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt id="link-17" class="py-name"><a title="common.byterange.InvalidByteRangeException" class="py-name" href="#" onclick="return doclink('link-17', 'InvalidByteRangeException', 'link-5');">InvalidByteRangeException</a></tt> </tt>
 <a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">            <tt class="py-name">end</tt> <tt class="py-op">=</tt> <tt class="py-name">end</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> </tt>
@@ -132,17 +174,40 @@ server.action_extra_data.virt.start" class="py-name" href="#" onclick="return do
 <a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">end</tt> <tt class="py-op">&gt;</tt> <tt class="py-name">file_size</tt><tt class="py-op">:</tt> </tt>
 <a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt id="link-20" class="py-name"><a title="common.byterange.UnsatisfyableByteRangeException" class="py-name" href="#" onclick="return doclink('link-20', 'UnsatisfyableByteRangeException', 'link-6');">UnsatisfyableByteRangeException</a></tt> </tt>
 <a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt id="link-21" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-21', 'start', 'link-8');">start</a></tt> <tt class="py-op">=</tt> <tt class="py-name">file_size</tt> <tt class="py-op">-</tt> <tt class="py-name">end</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-21', 'start', 'link-8');">start</a></tt> <tt class="py-op">=</tt> <tt class="py-name">file_size</tt> <tt class="py-op">-</tt> <tt class="py-name">end</tt> </tt>
 <a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-name">end</tt> <tt class="py-op">=</tt> <tt class="py-name">file_size</tt> </tt>
 <a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
 <a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">            <tt id="link-22" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-22', 'start', 'link-8');">start</a></tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-name">end</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-22', 'start', 'link-8');">start</a></tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-name">end</tt> </tt>
 <a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">            <tt class="py-name">end</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
 <a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
 <a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-name">byteranges</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-23', 'start', 'link-8');">start</a></tt><tt class="py-op">,</tt> <tt class="py-name">end</tt><tt class="py-op">)</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-23', 'start', 'link-8');">start</a></tt><tt class="py-op">,</tt> <tt class="py-name">end</tt><tt class="py-op">)</tt> </tt>
 <a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
-<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt id="link-24" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-24', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Request byterange"</tt><tt class="py-op">,</tt> <tt class="py-name">byteranges</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt id="link-24" class="py-name"><a title="common.rhnLog.log_debug
+config_common.rhn_log.Logger.log_debug
+config_common.rhn_log.log_debug
+src.rhn_log.Logger.log_debug
+src.rhn_log.log_debug
+up2date_client.up2dateLog.Log.log_debug" class="py-name" href="#" onclick="return doclink('link-24', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Request byterange"</tt><tt class="py-op">,</tt> <tt class="py-name">byteranges</tt><tt class="py-op">)</tt> </tt>
 <a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">byteranges</tt> </tt>
 </div><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
 <a name="_str2int"></a><div id="_str2int-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="_str2int-toggle" onclick="return toggle('_str2int');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="common.byterange-module.html#_str2int">_str2int</a><tt class="py-op">(</tt><tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -157,7 +222,13 @@ server.action_extra_data.virt.start" class="py-name" href="#" onclick="return do
 <a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-name">total_length</tt> <tt class="py-op">=</tt> <tt class="py-string">"*"</tt> </tt>
 <a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-name">end</tt> <tt class="py-op">=</tt> <tt class="py-name">end</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt> </tt>
 <a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">content_range</tt> <tt class="py-op">=</tt> <tt class="py-string">"bytes %d-%d/%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="server.action.virt.start
-server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-26', 'start', 'link-8');">start</a></tt><tt class="py-op">,</tt> <tt class="py-name">end</tt><tt class="py-op">,</tt> <tt class="py-name">total_length</tt><tt class="py-op">)</tt> </tt>
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-26', 'start', 'link-8');">start</a></tt><tt class="py-op">,</tt> <tt class="py-name">end</tt><tt class="py-op">,</tt> <tt class="py-name">total_length</tt><tt class="py-op">)</tt> </tt>
 <a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">content_range</tt> </tt>
 </div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
 <a name="InvalidByteRangeException"></a><div id="InvalidByteRangeException-def"><a name="L98"></a><tt class="py-lineno"> 98</tt> <a class="py-toggle" href="#" id="InvalidByteRangeException-toggle" onclick="return toggle('InvalidByteRangeException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="common.byterange.InvalidByteRangeException-class.html">InvalidByteRangeException</a><tt class="py-op">(</tt><tt class="py-base-class">rhnException</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -195,7 +266,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:38:20 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:02:11 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
