@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.6
+Version: 1.5.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 20 2011 Jan Pazdziora 1.5.7-1
+- * added support for SUSE autoinstallation (kickstarts) and some cleanup
+  (ug@suse.de)
+
 * Mon Apr 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.6-1
 - postgresql can't order by column alias (PG)
 - don't convert ids to strings
