@@ -83,7 +83,7 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
             ksmeta.put("org", tree.getOrgId().toString());
         }
 
-        if( tree.getInstallType().isSUSE() ) {
+        if (tree.getInstallType().isSUSE()) {
             ksmeta.put("autoyast", "true");
         }
 
