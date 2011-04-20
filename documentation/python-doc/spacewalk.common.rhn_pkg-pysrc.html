@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spacewalk.common.rhn_pkg</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spacewalk-module.html">Package&nbsp;spacewalk</a> ::
+        <a href="spacewalk.common-module.html">Package&nbsp;common</a> ::
+        Module&nbsp;rhn_pkg
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spacewalk.common.rhn_pkg-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="spacewalk.common.rhn_pkg-module.html">Module spacewalk.common.rhn_pkg</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2011 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module spacewalk.common.rhn_rpm=spacewalk.common.rhn_rpm-module.html"><a title="spacewalk.common.rhn_rpm" class="py-name" href="#" onclick="return doclink('link-0', 'rhn_rpm', 'link-0');">rhn_rpm</a></tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module spacewalk.common.rhn_mpm=spacewalk.common.rhn_mpm-module.html"><a title="spacewalk.common.rhn_mpm" class="py-name" href="#" onclick="return doclink('link-1', 'rhn_mpm', 'link-1');">rhn_mpm</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module spacewalk.common.rhn_deb=spacewalk.common.rhn_deb-module.html"><a title="spacewalk.common.rhn_deb" class="py-name" href="#" onclick="return doclink('link-2', 'rhn_deb', 'link-2');">rhn_deb</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="rhn_pkg"></a><div id="rhn_pkg-def"><a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="rhn_pkg-toggle" onclick="return toggle('rhn_pkg');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spacewalk.common.rhn_pkg-module.html#rhn_pkg">rhn_pkg</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">fd</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhn_pkg-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="rhn_pkg-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-3" class="py-name" targets="Variable satellite_tools.xmlDiskSource.ArchesDiskSource.filename=satellite_tools.xmlDiskSource.ArchesDiskSource-class.html#filename,Variable satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename=satellite_tools.xmlDiskSource.ArchesExtraDiskSource-class.html#filename,Variable virtualization.get_config_value.filename=virtualization.get_config_value-module.html#filename"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-3', 'filename', 'link-3');">filename</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-4" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-4', 'filename', 'link-3');">filename</a></tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt><tt class="py-string">'.deb'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-5" class="py-name"><a title="spacewalk.common.rhn_deb" class="py-name" href="#" onclick="return doclink('link-5', 'rhn_deb', 'link-2');">rhn_deb</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt id="link-6" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-6', 'filename', 'link-3');">filename</a></tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt><tt class="py-string">'.rpm'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-7" class="py-name"><a title="spacewalk.common.rhn_rpm" class="py-name" href="#" onclick="return doclink('link-7', 'rhn_rpm', 'link-0');">rhn_rpm</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-8" class="py-name"><a title="spacewalk.common.rhn_mpm" class="py-name" href="#" onclick="return doclink('link-8', 'rhn_mpm', 'link-1');">rhn_mpm</a></tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-comment"># XXX recognize backend also by file/fd</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-9" class="py-name"><a title="spacewalk.common.rhn_rpm" class="py-name" href="#" onclick="return doclink('link-9', 'rhn_rpm', 'link-0');">rhn_rpm</a></tt> </tt>
+</div><a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"> </tt>
+<a name="get_package_header"></a><div id="get_package_header-def"><a name="L31"></a><tt class="py-lineno">31</tt> <a class="py-toggle" href="#" id="get_package_header-toggle" onclick="return toggle('get_package_header');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spacewalk.common.rhn_pkg-module.html#get_package_header">get_package_header</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">fd</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_package_header-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="get_package_header-expanded"><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-10" class="py-name" targets="Module spacewalk.common.rhn_pkg=spacewalk.common.rhn_pkg-module.html,Function spacewalk.common.rhn_pkg.rhn_pkg()=spacewalk.common.rhn_pkg-module.html#rhn_pkg"><a title="spacewalk.common.rhn_pkg
+spacewalk.common.rhn_pkg.rhn_pkg" class="py-name" href="#" onclick="return doclink('link-10', 'rhn_pkg', 'link-10');">rhn_pkg</a></tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-11', 'filename', 'link-3');">filename</a></tt><tt class="py-op">=</tt><tt id="link-12" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-12', 'filename', 'link-3');">filename</a></tt><tt class="py-op">,</tt> <tt class="py-name">file</tt><tt class="py-op">=</tt><tt class="py-name">file</tt><tt class="py-op">,</tt> <tt class="py-name">fd</tt><tt class="py-op">=</tt><tt class="py-name">fd</tt><tt class="py-op">)</tt> \ </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Function spacewalk.common.rhn_deb.get_package_header()=spacewalk.common.rhn_deb-module.html#get_package_header,Function spacewalk.common.rhn_mpm.get_package_header()=spacewalk.common.rhn_mpm-module.html#get_package_header,Function spacewalk.common.rhn_pkg.get_package_header()=spacewalk.common.rhn_pkg-module.html#get_package_header,Function spacewalk.common.rhn_rpm.get_package_header()=spacewalk.common.rhn_rpm-module.html#get_package_header"><a title="spacewalk.common.rhn_deb.get_package_header
+spacewalk.common.rhn_mpm.get_package_header
+spacewalk.common.rhn_pkg.get_package_header
+spacewalk.common.rhn_rpm.get_package_header" class="py-name" href="#" onclick="return doclink('link-13', 'get_package_header', 'link-13');">get_package_header</a></tt><tt class="py-op">(</tt><tt id="link-14" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-14', 'filename', 'link-3');">filename</a></tt><tt class="py-op">=</tt><tt id="link-15" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-15', 'filename', 'link-3');">filename</a></tt><tt class="py-op">,</tt> <tt class="py-name">file</tt><tt class="py-op">=</tt><tt class="py-name">file</tt><tt class="py-op">,</tt> <tt class="py-name">fd</tt><tt class="py-op">=</tt><tt class="py-name">fd</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:43 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

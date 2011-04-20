@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>virtualization.support</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="virtualization-module.html">Package&nbsp;virtualization</a> ::
+        Module&nbsp;support
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="virtualization.support-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="virtualization.support-module.html">Module virtualization.support</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2011 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append,Method src._ConfigParser.ParsingError.append()=src._ConfigParser.ParsingError-class.html#append"><a title="server.importlib.importLib.Collection.append
+src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-0', 'append', 'link-0');">append</a></tt><tt class="py-op">(</tt><tt class="py-string">"/usr/share/rhn/"</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Package virtualization=virtualization-module.html"><a title="virtualization" class="py-name" href="#" onclick="return doclink('link-1', 'virtualization', 'link-1');">virtualization</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module virtualization.domain_control=virtualization.domain_control-module.html"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-2', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Module virtualization.poller=virtualization.poller-module.html"><a title="virtualization.poller" class="py-name" href="#" onclick="return doclink('link-3', 'poller', 'link-3');">poller</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Module virtualization.schedule_poller=virtualization.schedule_poller-module.html,Function virtualization.schedule_poller.schedule_poller()=virtualization.schedule_poller-module.html#schedule_poller"><a title="virtualization.schedule_poller
+virtualization.schedule_poller.schedule_poller" class="py-name" href="#" onclick="return doclink('link-4', 'schedule_poller', 'link-4');">schedule_poller</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-5" class="py-name"><a title="virtualization" class="py-name" href="#" onclick="return doclink('link-5', 'virtualization', 'link-1');">virtualization</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Module satellite_tools.constants=satellite_tools.constants-module.html,Module virtualization.constants=virtualization.constants-module.html"><a title="satellite_tools.constants
+virtualization.constants" class="py-name" href="#" onclick="return doclink('link-6', 'constants', 'link-6');">constants</a></tt>        <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name" targets="Class server.rhnVirtualization.IdentityType=server.rhnVirtualization.IdentityType-class.html,Class virtualization.constants.IdentityType=virtualization.constants.IdentityType-class.html"><a title="server.rhnVirtualization.IdentityType
+virtualization.constants.IdentityType" class="py-name" href="#" onclick="return doclink('link-7', 'IdentityType', 'link-7');">IdentityType</a></tt><tt class="py-op">,</tt>            \ </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">                                            <tt id="link-8" class="py-name" targets="Class server.rhnVirtualization.PropertyType=server.rhnVirtualization.PropertyType-class.html,Class virtualization.constants.PropertyType=virtualization.constants.PropertyType-class.html"><a title="server.rhnVirtualization.PropertyType
+virtualization.constants.PropertyType" class="py-name" href="#" onclick="return doclink('link-8', 'PropertyType', 'link-8');">PropertyType</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name"><a title="virtualization" class="py-name" href="#" onclick="return doclink('link-9', 'virtualization', 'link-1');">virtualization</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Module virtualization.notification=virtualization.notification-module.html"><a title="virtualization.notification" class="py-name" href="#" onclick="return doclink('link-10', 'notification', 'link-10');">notification</a></tt>     <tt class="py-keyword">import</tt> <tt id="link-11" class="py-name" targets="Class virtualization.notification.Plan=virtualization.notification.Plan-class.html"><a title="virtualization.notification.Plan" class="py-name" href="#" onclick="return doclink('link-11', 'Plan', 'link-11');">Plan</a></tt><tt class="py-op">,</tt>                    \ </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">                                            <tt id="link-12" class="py-name" targets="Class server.rhnVirtualization.EventType=server.rhnVirtualization.EventType-class.html,Class virtualization.notification.EventType=virtualization.notification.EventType-class.html"><a title="server.rhnVirtualization.EventType
+virtualization.notification.EventType" class="py-name" href="#" onclick="return doclink('link-12', 'EventType', 'link-12');">EventType</a></tt><tt class="py-op">,</tt>               \ </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">                                            <tt id="link-13" class="py-name" targets="Class server.rhnVirtualization.TargetType=server.rhnVirtualization.TargetType-class.html,Class virtualization.notification.TargetType=virtualization.notification.TargetType-class.html"><a title="server.rhnVirtualization.TargetType
+virtualization.notification.TargetType" class="py-name" href="#" onclick="return doclink('link-13', 'TargetType', 'link-13');">TargetType</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-14" class="py-name"><a title="virtualization" class="py-name" href="#" onclick="return doclink('link-14', 'virtualization', 'link-1');">virtualization</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Module virtualization.domain_config=virtualization.domain_config-module.html"><a title="virtualization.domain_config" class="py-name" href="#" onclick="return doclink('link-15', 'domain_config', 'link-15');">domain_config</a></tt>    <tt class="py-keyword">import</tt> <tt id="link-16" class="py-name" targets="Class virtualization.domain_config.DomainConfig=virtualization.domain_config.DomainConfig-class.html"><a title="virtualization.domain_config.DomainConfig" class="py-name" href="#" onclick="return doclink('link-16', 'DomainConfig', 'link-16');">DomainConfig</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-17" class="py-name"><a title="virtualization" class="py-name" href="#" onclick="return doclink('link-17', 'virtualization', 'link-1');">virtualization</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Module virtualization.domain_directory=virtualization.domain_directory-module.html"><a title="virtualization.domain_directory" class="py-name" href="#" onclick="return doclink('link-18', 'domain_directory', 'link-18');">domain_directory</a></tt> <tt class="py-keyword">import</tt> <tt id="link-19" class="py-name" targets="Class virtualization.domain_directory.DomainDirectory=virtualization.domain_directory.DomainDirectory-class.html"><a title="virtualization.domain_directory.DomainDirectory" class="py-name" href="#" onclick="return doclink('link-19', 'DomainDirectory', 'link-19');">DomainDirectory</a></tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-20" class="py-name" targets="Method common.rhnTranslate.i18n.gettext()=common.rhnTranslate.i18n-class.html#gettext"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-20', 'gettext', 'link-20');">gettext</a></tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt id="link-21" class="py-name" targets="Variable rhnreg_ks.t=rhnreg_ks-module.html#t,Variable satellite_tools.disk_dumper.iss.t=satellite_tools.disk_dumper.iss-module.html#t,Variable satellite_tools.satsync.t=satellite_tools.satsync-module.html#t,Variable script-rhn_profile_sync_py.t=script-rhn_profile_sync_py-module.html#t,Variable script-spacewalk_channel_py.t=script-spacewalk_channel_py-module.html#t,Variable up2date_client.capabilities.t=up2date_client.capabilities-module.html#t,Variable up2date_client.config.t=up2date_client.config-module.html#t,Variable up2date_client.debUtils.t=up2date_client.debUtils-module.html#t,Variable up2date_client.gui.t=up2date_client.gui-module.html#t,Variable up2date_client.hardware.t=up2date_client.hardware-module.html#t,Variable up2date_client.messageWindow.t=up2date_client.messageWindow-module.html#t,Variable up2date_client.pkgUtils.t=up2date_client.pkgUtils-module.html#t,Variable up2date_client.rhnChannel.t=up2date_client.rhnChannel-module.html#t,Variable up2date_client.rhncli.t=up2date_client.rhncli-module.html#t,Variable up2date_client.rhnreg.t=up2date_client.rhnreg-module.html#t,Variable up2date_client.rhnregGui.t=up2date_client.rhnregGui-module.html#t,Variable up2date_client.rhnreg_constants.t=up2date_client.rhnreg_constants-module.html#t,Variable up2date_client.rpcServer.t=up2date_client.rpcServer-module.html#t,Variable up2date_client.rpmUtils.t=up2date_client.rpmUtils-module.html#t,Variable up2date_client.tui.t=up2date_client.tui-module.html#t,Variable up2date_client.up2dateErrors.t=up2date_client.up2dateErrors-module.html#t,Variable up2date_client.up2dateUtils.t=up2date_client.up2dateUtils-module.html#t,Variable virtualization.poller.t=virtualization.poller-module.html#t,Variable virtualization.support.t=virtualization.support-module.html#t"><a title="rhnreg_ks.t
+satellite_tools.disk_dumper.iss.t
+satellite_tools.satsync.t
+script-rhn_profile_sync_py.t
+script-spacewalk_channel_py.t
+up2date_client.capabilities.t
+up2date_client.config.t
+up2date_client.debUtils.t
+up2date_client.gui.t
+up2date_client.hardware.t
+up2date_client.messageWindow.t
+up2date_client.pkgUtils.t
+up2date_client.rhnChannel.t
+up2date_client.rhncli.t
+up2date_client.rhnreg.t
+up2date_client.rhnregGui.t
+up2date_client.rhnreg_constants.t
+up2date_client.rpcServer.t
+up2date_client.rpmUtils.t
+up2date_client.tui.t
+up2date_client.up2dateErrors.t
+up2date_client.up2dateUtils.t
+virtualization.poller.t
+virtualization.support.t" class="py-name" href="#" onclick="return doclink('link-21', 't', 'link-21');">t</a></tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-22', 'gettext', 'link-20');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">translation</tt><tt class="py-op">(</tt><tt class="py-string">'rhn-virtualization'</tt><tt class="py-op">,</tt> <tt class="py-name">fallback</tt><tt class="py-op">=</tt><tt id="link-23" class="py-name" targets="Variable actions.ModeController.True=actions.ModeController-module.html#True,Variable actions.Modes.True=actions.Modes-module.html#True,Variable rhnpush.rhnpush_cache.True=rhnpush.rhnpush_cache-module.html#True,Variable rhnpush.rhnpush_confmanager.True=rhnpush.rhnpush_confmanager-module.html#True,Variable src._ConfigParser.True=src._ConfigParser-module.html#True,Variable xmlrpclib.True=xmlrpclib-module.html#True"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-23', 'True', 'link-23');">True</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt id="link-24" class="py-name" targets="Variable common.rhnTranslate._=common.rhnTranslate-module.html#_,Variable rhn_choose_channel._=rhn_choose_channel-module.html#_,Variable rhn_choose_server_gui._=rhn_choose_server_gui-module.html#_,Variable rhn_create_profile_gui._=rhn_create_profile_gui-module.html#_,Variable rhn_finish_gui._=rhn_finish_gui-module.html#_,Variable rhn_login_gui._=rhn_login_gui-module.html#_,Variable rhn_provide_certificate_gui._=rhn_provide_certificate_gui-module.html#_,Function rhn_register._()=rhn_register-module.html#_,Variable rhn_review_gui._=rhn_review_gui-module.html#_,Variable rhn_start_gui._=rhn_start_gui-module.html#_,Variable rhnreg_ks._=rhnreg_ks-module.html#_,Variable satellite_tools.disk_dumper.iss._=satellite_tools.disk_dumper.iss-module.html#_,Variable satellite_tools.satsync._=satellite_tools.satsync-module.html#_,Variable script-rhn_profile_sync_py._=script-rhn_profile_sync_py-module.html#_,Variable script-spacewalk_channel_py._=script-spacewalk_channel_py-module.html#_,Variable up2date_client.capabilities._=up2date_client.capabilities-module.html#_,Variable up2date_client.config._=up2date_client.config-module.html#_,Variable up2date_client.debUtils._=up2date_client.debUtils-module.html#_,Variable up2date_client.gui._=up2date_client.gui-module.html#_,Variable up2date_client.hardware._=up2date_client.hardware-module.html#_,Variable up2date_client.rhnChannel._=up2date_client.rhnChannel-module.html#_,Variable up2date_client.rhncli._=up2date_client.rhncli-module.html#_,Variable up2date_client.rhnreg._=up2date_client.rhnreg-module.html#_,Variable up2date_client.rhnregGui._=up2date_client.rhnregGui-module.html#_,Variable up2date_client.rpcServer._=up2date_client.rpcServer-module.html#_,Variable up2date_client.tui._=up2date_client.tui-module.html#_,Variable up2date_client.up2dateErrors._=up2date_client.up2dateErrors-module.html#_,Variable up2date_client.up2dateUtils._=up2date_client.up2dateUtils-module.html#_,Variable virtualization.poller._=virtualization.poller-module.html#_,Variable virtualization.support._=virtualization.support-module.html#_"><a title="common.rhnTranslate._
+rhn_choose_channel._
+rhn_choose_server_gui._
+rhn_create_profile_gui._
+rhn_finish_gui._
+rhn_login_gui._
+rhn_provide_certificate_gui._
+rhn_register._
+rhn_review_gui._
+rhn_start_gui._
+rhnreg_ks._
+satellite_tools.disk_dumper.iss._
+satellite_tools.satsync._
+script-rhn_profile_sync_py._
+script-spacewalk_channel_py._
+up2date_client.capabilities._
+up2date_client.config._
+up2date_client.debUtils._
+up2date_client.gui._
+up2date_client.hardware._
+up2date_client.rhnChannel._
+up2date_client.rhncli._
+up2date_client.rhnreg._
+up2date_client.rhnregGui._
+up2date_client.rpcServer._
+up2date_client.tui._
+up2date_client.up2dateErrors._
+up2date_client.up2dateUtils._
+virtualization.poller._
+virtualization.support._" class="py-name" href="#" onclick="return doclink('link-24', '_', 'link-24');">_</a></tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="rhnreg_ks.t
+satellite_tools.disk_dumper.iss.t
+satellite_tools.satsync.t
+script-rhn_profile_sync_py.t
+script-spacewalk_channel_py.t
+up2date_client.capabilities.t
+up2date_client.config.t
+up2date_client.debUtils.t
+up2date_client.gui.t
+up2date_client.hardware.t
+up2date_client.messageWindow.t
+up2date_client.pkgUtils.t
+up2date_client.rhnChannel.t
+up2date_client.rhncli.t
+up2date_client.rhnreg.t
+up2date_client.rhnregGui.t
+up2date_client.rhnreg_constants.t
+up2date_client.rpcServer.t
+up2date_client.rpmUtils.t
+up2date_client.tui.t
+up2date_client.up2dateErrors.t
+up2date_client.up2dateUtils.t
+virtualization.poller.t
+virtualization.support.t" class="py-name" href="#" onclick="return doclink('link-25', 't', 'link-21');">t</a></tt><tt class="py-op">.</tt><tt class="py-name">ugettext</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-26" class="py-name" targets="Variable virtualization.domain_control.libvirt=virtualization.domain_control-module.html#libvirt,Variable virtualization.poller.libvirt=virtualization.poller-module.html#libvirt,Variable virtualization.support.libvirt=virtualization.support-module.html#libvirt"><a title="virtualization.domain_control.libvirt
+virtualization.poller.libvirt
+virtualization.support.libvirt" class="py-name" href="#" onclick="return doclink('link-26', 'libvirt', 'link-26');">libvirt</a></tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-comment"># The libvirt library is not installed.  That's ok, we can't assume it will</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-comment"># be on every system.</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt id="link-27" class="py-name"><a title="virtualization.domain_control.libvirt
+virtualization.poller.libvirt
+virtualization.support.libvirt" class="py-name" href="#" onclick="return doclink('link-27', 'libvirt', 'link-26');">libvirt</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="_check_status"></a><div id="_check_status-def"><a name="L39"></a><tt class="py-lineno"> 39</tt> <a class="py-toggle" href="#" id="_check_status-toggle" onclick="return toggle('_check_status');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#_check_status">_check_status</a><tt class="py-op">(</tt><tt class="py-param">daemon</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_check_status-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_check_status-expanded"><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">     Checks to see if daemon is running.</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">commands</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">"/etc/init.d/%s status"</tt> <tt class="py-op">%</tt> <tt class="py-name">daemon</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt id="link-28" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-28', 'status', 'link-28');">status</a></tt><tt class="py-op">,</tt> <tt class="py-name">msg</tt> <tt class="py-op">=</tt> <tt class="py-name">commands</tt><tt class="py-op">.</tt><tt class="py-name">getstatusoutput</tt><tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-29" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-29', 'status', 'link-28');">status</a></tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-30" class="py-name" targets="Variable actions.ModeController.False=actions.ModeController-module.html#False,Variable actions.Modes.False=actions.Modes-module.html#False,Variable rhnpush.rhnpush_cache.False=rhnpush.rhnpush_cache-module.html#False,Variable rhnpush.rhnpush_confmanager.False=rhnpush.rhnpush_confmanager-module.html#False,Variable src._ConfigParser.False=src._ConfigParser-module.html#False,Variable xmlrpclib.False=xmlrpclib-module.html#False"><a title="actions.ModeController.False
+actions.Modes.False
+rhnpush.rhnpush_cache.False
+rhnpush.rhnpush_confmanager.False
+src._ConfigParser.False
+xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-30', 'False', 'link-30');">False</a></tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-31" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-31', 'True', 'link-23');">True</a></tt> </tt>
+</div><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt id="link-32" class="py-name" targets="Variable virtualization.support.vdsm_enabled=virtualization.support-module.html#vdsm_enabled"><a title="virtualization.support.vdsm_enabled" class="py-name" href="#" onclick="return doclink('link-32', 'vdsm_enabled', 'link-32');">vdsm_enabled</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-33" class="py-name" targets="Function virtualization.support._check_status()=virtualization.support-module.html#_check_status"><a title="virtualization.support._check_status" class="py-name" href="#" onclick="return doclink('link-33', '_check_status', 'link-33');">_check_status</a></tt><tt class="py-op">(</tt><tt class="py-string">"libvirtd"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-comment"># Only check for vdsm if libvirt is disabled.</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-comment"># sometimes due to manual intervention both could be running</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-comment"># in such case use libvirt as the system is now in </tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt class="py-comment"># un supported state.</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt id="link-34" class="py-name"><a title="virtualization.support.vdsm_enabled" class="py-name" href="#" onclick="return doclink('link-34', 'vdsm_enabled', 'link-32');">vdsm_enabled</a></tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="virtualization.support._check_status" class="py-name" href="#" onclick="return doclink('link-35', '_check_status', 'link-33');">_check_status</a></tt><tt class="py-op">(</tt><tt class="py-string">"vdsmd"</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-comment"># Public Interface</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="refresh"></a><div id="refresh-def"><a name="L64"></a><tt class="py-lineno"> 64</tt> <a class="py-toggle" href="#" id="refresh-toggle" onclick="return toggle('refresh');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#refresh">refresh</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="refresh-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="refresh-expanded"><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">    Refreshes the virtualization info for this host and any subdomains on the</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">    server.</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-36" class="py-name" targets="Function virtualization.support._is_host_domain()=virtualization.support-module.html#_is_host_domain"><a title="virtualization.support._is_host_domain" class="py-name" href="#" onclick="return doclink('link-36', '_is_host_domain', 'link-36');">_is_host_domain</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">domain_identity</tt> <tt class="py-op">=</tt> <tt id="link-37" class="py-name"><a title="server.rhnVirtualization.IdentityType
+virtualization.constants.IdentityType" class="py-name" href="#" onclick="return doclink('link-37', 'IdentityType', 'link-7');">IdentityType</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Variable server.rhnVirtualization.IdentityType.HOST=server.rhnVirtualization.IdentityType-class.html#HOST,Variable virtualization.constants.IdentityType.HOST=virtualization.constants.IdentityType-class.html#HOST"><a title="server.rhnVirtualization.IdentityType.HOST
+virtualization.constants.IdentityType.HOST" class="py-name" href="#" onclick="return doclink('link-38', 'HOST', 'link-38');">HOST</a></tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-name">my_uuid</tt> <tt class="py-op">=</tt> <tt id="link-39" class="py-name" targets="Function virtualization.support._fetch_host_uuid()=virtualization.support-module.html#_fetch_host_uuid"><a title="virtualization.support._fetch_host_uuid" class="py-name" href="#" onclick="return doclink('link-39', '_fetch_host_uuid', 'link-39');">_fetch_host_uuid</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-comment"># Not a host.  No-op.</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-comment"># Now that we've gathered some preliminary information, create a plan of</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-comment"># actions that we will eventually pass to the server.</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-name">plan</tt> <tt class="py-op">=</tt> <tt id="link-40" class="py-name"><a title="virtualization.notification.Plan" class="py-name" href="#" onclick="return doclink('link-40', 'Plan', 'link-11');">Plan</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt class="py-comment"># First, declare our own existence.</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-name">plan</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Method common.rhnTB.SecurityList.add()=common.rhnTB.SecurityList-class.html#add,Method config_common.transactions.DeployTransaction.add()=config_common.transactions.DeployTransaction-class.html#add,Method proxy.responseContext.ResponseContext.add()=proxy.responseContext.ResponseContext-class.html#add,Method satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add()=satellite_tools.repo_plugins.yum_src.YumUpdateMetadata-class.html#add,Method server.rhnServer.server_packages.dbPackage.add()=server.rhnServer.server_packages.dbPackage-class.html#add,Method server.taskomatic.RepodataQueue.add()=server.taskomatic.RepodataQueue-class.html#add,Method up2date_client.haltree.HalTree.add()=up2date_client.haltree.HalTree-class.html#add,Method virtualization.batching_log_notifier.LockableLogMessageQueue.add()=virtualization.batching_log_notifier.LockableLogMessageQueue-class.html#add,Method virtualization.notification.Plan.add()=virtualization.notification.Plan-class.html#add,Method wsgi.wsgiRequest.WsgiMPtable.add()=wsgi.wsgiRequest.WsgiMPtable-class.html#add"><a title="common.rhnTB.SecurityList.add
+config_common.transactions.DeployTransaction.add
+proxy.responseContext.ResponseContext.add
+satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+up2date_client.haltree.HalTree.add
+virtualization.batching_log_notifier.LockableLogMessageQueue.add
+virtualization.notification.Plan.add
+wsgi.wsgiRequest.WsgiMPtable.add" class="py-name" href="#" onclick="return doclink('link-41', 'add', 'link-41');">add</a></tt><tt class="py-op">(</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt id="link-42" class="py-name"><a title="server.rhnVirtualization.EventType
+virtualization.notification.EventType" class="py-name" href="#" onclick="return doclink('link-42', 'EventType', 'link-12');">EventType</a></tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Variable server.rhnVirtualization.EventType.EXISTS=server.rhnVirtualization.EventType-class.html#EXISTS,Variable virtualization.notification.EventType.EXISTS=virtualization.notification.EventType-class.html#EXISTS"><a title="server.rhnVirtualization.EventType.EXISTS
+virtualization.notification.EventType.EXISTS" class="py-name" href="#" onclick="return doclink('link-43', 'EXISTS', 'link-43');">EXISTS</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt id="link-44" class="py-name"><a title="server.rhnVirtualization.TargetType
+virtualization.notification.TargetType" class="py-name" href="#" onclick="return doclink('link-44', 'TargetType', 'link-13');">TargetType</a></tt><tt class="py-op">.</tt><tt id="link-45" class="py-name" targets="Variable server.rhnVirtualization.TargetType.SYSTEM=server.rhnVirtualization.TargetType-class.html#SYSTEM,Variable virtualization.notification.TargetType.SYSTEM=virtualization.notification.TargetType-class.html#SYSTEM"><a title="server.rhnVirtualization.TargetType.SYSTEM
+virtualization.notification.TargetType.SYSTEM" class="py-name" href="#" onclick="return doclink('link-45', 'SYSTEM', 'link-45');">SYSTEM</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-op">{</tt> <tt id="link-46" class="py-name"><a title="server.rhnVirtualization.PropertyType
+virtualization.constants.PropertyType" class="py-name" href="#" onclick="return doclink('link-46', 'PropertyType', 'link-8');">PropertyType</a></tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Variable server.rhnVirtualization.PropertyType.IDENTITY=server.rhnVirtualization.PropertyType-class.html#IDENTITY,Variable virtualization.constants.PropertyType.IDENTITY=virtualization.constants.PropertyType-class.html#IDENTITY"><a title="server.rhnVirtualization.PropertyType.IDENTITY
+virtualization.constants.PropertyType.IDENTITY" class="py-name" href="#" onclick="return doclink('link-47', 'IDENTITY', 'link-47');">IDENTITY</a></tt> <tt class="py-op">:</tt> <tt class="py-name">domain_identity</tt><tt class="py-op">,</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">          <tt id="link-48" class="py-name"><a title="server.rhnVirtualization.PropertyType
+virtualization.constants.PropertyType" class="py-name" href="#" onclick="return doclink('link-48', 'PropertyType', 'link-8');">PropertyType</a></tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Variable server.rhnVirtualization.PropertyType.UUID=server.rhnVirtualization.PropertyType-class.html#UUID,Variable virtualization.constants.PropertyType.UUID=virtualization.constants.PropertyType-class.html#UUID,Variable virtualization.domain_config.DomainConfig.UUID=virtualization.domain_config.DomainConfig-class.html#UUID"><a title="server.rhnVirtualization.PropertyType.UUID
+virtualization.constants.PropertyType.UUID
+virtualization.domain_config.DomainConfig.UUID" class="py-name" href="#" onclick="return doclink('link-49', 'UUID', 'link-49');">UUID</a></tt>     <tt class="py-op">:</tt> <tt class="py-name">my_uuid</tt>          <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">    <tt class="py-comment"># Now, crawl each of the domains on this host.</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-50" class="py-name"><a title="virtualization.support.vdsm_enabled" class="py-name" href="#" onclick="return doclink('link-50', 'vdsm_enabled', 'link-32');">vdsm_enabled</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">domains</tt> <tt class="py-op">=</tt> <tt id="link-51" class="py-name"><a title="virtualization.poller" class="py-name" href="#" onclick="return doclink('link-51', 'poller', 'link-3');">poller</a></tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Function virtualization.poller.poll_through_vdsm()=virtualization.poller-module.html#poll_through_vdsm"><a title="virtualization.poller.poll_through_vdsm" class="py-name" href="#" onclick="return doclink('link-52', 'poll_through_vdsm', 'link-52');">poll_through_vdsm</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-name">domains</tt> <tt class="py-op">=</tt> <tt id="link-53" class="py-name"><a title="virtualization.poller" class="py-name" href="#" onclick="return doclink('link-53', 'poller', 'link-3');">poller</a></tt><tt class="py-op">.</tt><tt id="link-54" class="py-name" targets="Function virtualization.poller.poll_hypervisor()=virtualization.poller-module.html#poll_hypervisor"><a title="virtualization.poller.poll_hypervisor" class="py-name" href="#" onclick="return doclink('link-54', 'poll_hypervisor', 'link-54');">poll_hypervisor</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">domains</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt id="link-55" class="py-name"><a title="virtualization.domain_control.libvirt
+virtualization.poller.libvirt
+virtualization.support.libvirt" class="py-name" href="#" onclick="return doclink('link-55', 'libvirt', 'link-26');">libvirt</a></tt><tt class="py-op">.</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">getType</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-string">'Xen'</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">           <tt class="py-comment"># On a KVM/QEMU host, libvirt reports no domain entry for host itself</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">           <tt class="py-comment"># On a Xen host, either there were no domains or xend might not be</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">           <tt class="py-comment"># running. Don't proceed further.</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">           <tt class="py-keyword">return</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-name">domain_list</tt> <tt class="py-op">=</tt> <tt class="py-name">domains</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name" targets="Method common.rhnConfig.RHNOptions.values()=common.rhnConfig.RHNOptions-class.html#values,Method config_common.up2date_config_parser.ConfigFile.values()=config_common.up2date_config_parser.ConfigFile-class.html#values,Method up2date_client.config.Config.values()=up2date_client.config.Config-class.html#values,Method up2date_client.config.ConfigFile.values()=up2date_client.config.ConfigFile-class.html#values,Method up2date_client.rhnChannel.rhnChannel.values()=up2date_client.rhnChannel.rhnChannel-class.html#values"><a title="common.rhnConfig.RHNOptions.values
+config_common.up2date_config_parser.ConfigFile.values
+up2date_client.config.Config.values
+up2date_client.config.ConfigFile.values
+up2date_client.rhnChannel.rhnChannel.values" class="py-name" href="#" onclick="return doclink('link-56', 'values', 'link-56');">values</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-name">domain_uuids</tt> <tt class="py-op">=</tt> <tt class="py-name">domains</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method common.UserDictCase.UserDictCase.keys()=common.UserDictCase.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Function config_common.local_config.keys()=config_common.local_config-module.html#keys,Method config_common.local_config.rhncfgConfigParser.keys()=config_common.local_config.rhncfgConfigParser-class.html#keys,Method config_common.up2date_config_parser.ConfigFile.keys()=config_common.up2date_config_parser.ConfigFile-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method rhnpush.rhnpush_config.rhnpushConfigParser.keys()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys,Method src.osad_config.ClientConfigParser.keys()=src.osad_config.ClientConfigParser-class.html#keys,Function src.osad_config.keys()=src.osad_config-module.html#keys,Method up2date_client.config.Config.keys()=up2date_client.config.Config-class.html#keys,Method up2date_client.config.ConfigFile.keys()=up2date_client.config.ConfigFile-class.html#keys,Method up2date_client.rhnChannel.rhnChannel.keys()=up2date_client.rhnChannel.rhnChannel-class.html#keys,Method wsgi.wsgiRequest.WsgiMPtable.keys()=wsgi.wsgiRequest.WsgiMPtable-class.html#keys"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-57', 'keys', 'link-57');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-58" class="py-name"><a title="virtualization.support.vdsm_enabled" class="py-name" href="#" onclick="return doclink('link-58', 'vdsm_enabled', 'link-32');">vdsm_enabled</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-comment"># We need this only for libvirt</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">domain_dir</tt> <tt class="py-op">=</tt> <tt id="link-59" class="py-name"><a title="virtualization.domain_directory.DomainDirectory" class="py-name" href="#" onclick="return doclink('link-59', 'DomainDirectory', 'link-19');">DomainDirectory</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-name">domain_dir</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name" targets="Method virtualization.domain_directory.DomainDirectory.save_unknown_domain_configs()=virtualization.domain_directory.DomainDirectory-class.html#save_unknown_domain_configs"><a title="virtualization.domain_directory.DomainDirectory.save_unknown_domain_configs" class="py-name" href="#" onclick="return doclink('link-60', 'save_unknown_domain_configs', 'link-60');">save_unknown_domain_configs</a></tt><tt class="py-op">(</tt><tt class="py-name">domain_uuids</tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-name">plan</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="common.rhnTB.SecurityList.add
+config_common.transactions.DeployTransaction.add
+proxy.responseContext.ResponseContext.add
+satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+up2date_client.haltree.HalTree.add
+virtualization.batching_log_notifier.LockableLogMessageQueue.add
+virtualization.notification.Plan.add
+wsgi.wsgiRequest.WsgiMPtable.add" class="py-name" href="#" onclick="return doclink('link-61', 'add', 'link-41');">add</a></tt><tt class="py-op">(</tt><tt id="link-62" class="py-name"><a title="server.rhnVirtualization.EventType
+virtualization.notification.EventType" class="py-name" href="#" onclick="return doclink('link-62', 'EventType', 'link-12');">EventType</a></tt><tt class="py-op">.</tt><tt id="link-63" class="py-name" targets="Variable server.rhnVirtualization.EventType.CRAWL_BEGAN=server.rhnVirtualization.EventType-class.html#CRAWL_BEGAN,Variable virtualization.notification.EventType.CRAWL_BEGAN=virtualization.notification.EventType-class.html#CRAWL_BEGAN"><a title="server.rhnVirtualization.EventType.CRAWL_BEGAN
+virtualization.notification.EventType.CRAWL_BEGAN" class="py-name" href="#" onclick="return doclink('link-63', 'CRAWL_BEGAN', 'link-63');">CRAWL_BEGAN</a></tt><tt class="py-op">,</tt> <tt id="link-64" class="py-name"><a title="server.rhnVirtualization.TargetType
+virtualization.notification.TargetType" class="py-name" href="#" onclick="return doclink('link-64', 'TargetType', 'link-13');">TargetType</a></tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="server.rhnVirtualization.TargetType.SYSTEM
+virtualization.notification.TargetType.SYSTEM" class="py-name" href="#" onclick="return doclink('link-65', 'SYSTEM', 'link-45');">SYSTEM</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">domain_properties</tt> <tt class="py-keyword">in</tt> <tt class="py-name">domain_list</tt><tt class="py-op">:</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-name">plan</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="common.rhnTB.SecurityList.add
+config_common.transactions.DeployTransaction.add
+proxy.responseContext.ResponseContext.add
+satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+up2date_client.haltree.HalTree.add
+virtualization.batching_log_notifier.LockableLogMessageQueue.add
+virtualization.notification.Plan.add
+wsgi.wsgiRequest.WsgiMPtable.add" class="py-name" href="#" onclick="return doclink('link-66', 'add', 'link-41');">add</a></tt><tt class="py-op">(</tt><tt id="link-67" class="py-name"><a title="server.rhnVirtualization.EventType
+virtualization.notification.EventType" class="py-name" href="#" onclick="return doclink('link-67', 'EventType', 'link-12');">EventType</a></tt><tt class="py-op">.</tt><tt id="link-68" class="py-name"><a title="server.rhnVirtualization.EventType.EXISTS
+virtualization.notification.EventType.EXISTS" class="py-name" href="#" onclick="return doclink('link-68', 'EXISTS', 'link-43');">EXISTS</a></tt><tt class="py-op">,</tt> <tt id="link-69" class="py-name"><a title="server.rhnVirtualization.TargetType
+virtualization.notification.TargetType" class="py-name" href="#" onclick="return doclink('link-69', 'TargetType', 'link-13');">TargetType</a></tt><tt class="py-op">.</tt><tt id="link-70" class="py-name" targets="Variable server.rhnVirtualization.TargetType.DOMAIN=server.rhnVirtualization.TargetType-class.html#DOMAIN,Variable virtualization.notification.TargetType.DOMAIN=virtualization.notification.TargetType-class.html#DOMAIN"><a title="server.rhnVirtualization.TargetType.DOMAIN
+virtualization.notification.TargetType.DOMAIN" class="py-name" href="#" onclick="return doclink('link-70', 'DOMAIN', 'link-70');">DOMAIN</a></tt><tt class="py-op">,</tt> <tt class="py-name">domain_properties</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-name">plan</tt><tt class="py-op">.</tt><tt id="link-71" class="py-name"><a title="common.rhnTB.SecurityList.add
+config_common.transactions.DeployTransaction.add
+proxy.responseContext.ResponseContext.add
+satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+up2date_client.haltree.HalTree.add
+virtualization.batching_log_notifier.LockableLogMessageQueue.add
+virtualization.notification.Plan.add
+wsgi.wsgiRequest.WsgiMPtable.add" class="py-name" href="#" onclick="return doclink('link-71', 'add', 'link-41');">add</a></tt><tt class="py-op">(</tt><tt id="link-72" class="py-name"><a title="server.rhnVirtualization.EventType
+virtualization.notification.EventType" class="py-name" href="#" onclick="return doclink('link-72', 'EventType', 'link-12');">EventType</a></tt><tt class="py-op">.</tt><tt id="link-73" class="py-name" targets="Variable server.rhnVirtualization.EventType.CRAWL_ENDED=server.rhnVirtualization.EventType-class.html#CRAWL_ENDED,Variable virtualization.notification.EventType.CRAWL_ENDED=virtualization.notification.EventType-class.html#CRAWL_ENDED"><a title="server.rhnVirtualization.EventType.CRAWL_ENDED
+virtualization.notification.EventType.CRAWL_ENDED" class="py-name" href="#" onclick="return doclink('link-73', 'CRAWL_ENDED', 'link-73');">CRAWL_ENDED</a></tt><tt class="py-op">,</tt> <tt id="link-74" class="py-name"><a title="server.rhnVirtualization.TargetType
+virtualization.notification.TargetType" class="py-name" href="#" onclick="return doclink('link-74', 'TargetType', 'link-13');">TargetType</a></tt><tt class="py-op">.</tt><tt id="link-75" class="py-name"><a title="server.rhnVirtualization.TargetType.SYSTEM
+virtualization.notification.TargetType.SYSTEM" class="py-name" href="#" onclick="return doclink('link-75', 'SYSTEM', 'link-45');">SYSTEM</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-comment"># Finally, execute the actions queued up in the plan.</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-name">plan</tt><tt class="py-op">.</tt><tt id="link-76" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute,Function spacewalkkoan.spacewalkkoan.execute()=spacewalkkoan.spacewalkkoan-module.html#execute,Method virtualization.notification.Plan.execute()=virtualization.notification.Plan-class.html#execute"><a title="server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute
+spacewalkkoan.spacewalkkoan.execute
+virtualization.notification.Plan.execute" class="py-name" href="#" onclick="return doclink('link-76', 'execute', 'link-76');">execute</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="shutdown"></a><div id="shutdown-def"><a name="L114"></a><tt class="py-lineno">114</tt> <a class="py-toggle" href="#" id="shutdown-toggle" onclick="return toggle('shutdown');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#shutdown">shutdown</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="shutdown-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="shutdown-expanded"><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-docstring">    Shuts down the domain with the given UUID.</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt id="link-77" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-77', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-78" class="py-name" targets="Function server.action.virt.shutdown()=server.action.virt-module.html#shutdown,Function server.action_extra_data.virt.shutdown()=server.action_extra_data.virt-module.html#shutdown,Function virt.shutdown()=virt-module.html#shutdown,Function virtualization.domain_control.shutdown()=virtualization.domain_control-module.html#shutdown,Function virtualization.support.shutdown()=virtualization.support-module.html#shutdown"><a title="server.action.virt.shutdown
+server.action_extra_data.virt.shutdown
+virt.shutdown
+virtualization.domain_control.shutdown
+virtualization.support.shutdown" class="py-name" href="#" onclick="return doclink('link-78', 'shutdown', 'link-78');">shutdown</a></tt><tt class="py-op">(</tt><tt id="link-79" class="py-name" targets="Variable virtualization.init_action.uuid=virtualization.init_action-module.html#uuid"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-79', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="start"></a><div id="start-def"><a name="L120"></a><tt class="py-lineno">120</tt> <a class="py-toggle" href="#" id="start-toggle" onclick="return toggle('start');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#start">start</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="start-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="start-expanded"><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">    Starts up the domain with the given UUID.</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt id="link-80" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-80', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-81" class="py-name" targets="Function server.action.virt.start()=server.action.virt-module.html#start,Function server.action_extra_data.virt.start()=server.action_extra_data.virt-module.html#start,Method src.dispatcher_client.Client.start()=src.dispatcher_client.Client-class.html#start,Method src.osad_client.Client.start()=src.osad_client.Client-class.html#start,Function virt.start()=virt-module.html#start,Method virtualization.batching_log_notifier.BatchingLogNotifier.start()=virtualization.batching_log_notifier.BatchingLogNotifier-class.html#start,Function virtualization.domain_control.start()=virtualization.domain_control-module.html#start,Function virtualization.support.start()=virtualization.support-module.html#start"><a title="server.action.virt.start
+server.action_extra_data.virt.start
+src.dispatcher_client.Client.start
+src.osad_client.Client.start
+virt.start
+virtualization.batching_log_notifier.BatchingLogNotifier.start
+virtualization.domain_control.start
+virtualization.support.start" class="py-name" href="#" onclick="return doclink('link-81', 'start', 'link-81');">start</a></tt><tt class="py-op">(</tt><tt id="link-82" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-82', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="suspend"></a><div id="suspend-def"><a name="L126"></a><tt class="py-lineno">126</tt> <a class="py-toggle" href="#" id="suspend-toggle" onclick="return toggle('suspend');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#suspend">suspend</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="suspend-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="suspend-expanded"><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-docstring">    Suspends the domain with the given UUID.</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">    <tt id="link-83" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-83', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-84" class="py-name" targets="Function server.action.virt.suspend()=server.action.virt-module.html#suspend,Function server.action_extra_data.virt.suspend()=server.action_extra_data.virt-module.html#suspend,Function virt.suspend()=virt-module.html#suspend,Function virtualization.domain_control.suspend()=virtualization.domain_control-module.html#suspend,Function virtualization.support.suspend()=virtualization.support-module.html#suspend"><a title="server.action.virt.suspend
+server.action_extra_data.virt.suspend
+virt.suspend
+virtualization.domain_control.suspend
+virtualization.support.suspend" class="py-name" href="#" onclick="return doclink('link-84', 'suspend', 'link-84');">suspend</a></tt><tt class="py-op">(</tt><tt id="link-85" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-85', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"> </tt>
+<a name="resume"></a><div id="resume-def"><a name="L132"></a><tt class="py-lineno">132</tt> <a class="py-toggle" href="#" id="resume-toggle" onclick="return toggle('resume');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#resume">resume</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="resume-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="resume-expanded"><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring">    Resumes the domain with the given UUID.</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt id="link-86" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-86', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-87" class="py-name" targets="Function server.action.virt.resume()=server.action.virt-module.html#resume,Function server.action_extra_data.virt.resume()=server.action_extra_data.virt-module.html#resume,Function virt.resume()=virt-module.html#resume,Function virtualization.domain_control.resume()=virtualization.domain_control-module.html#resume,Function virtualization.support.resume()=virtualization.support-module.html#resume"><a title="server.action.virt.resume
+server.action_extra_data.virt.resume
+virt.resume
+virtualization.domain_control.resume
+virtualization.support.resume" class="py-name" href="#" onclick="return doclink('link-87', 'resume', 'link-87');">resume</a></tt><tt class="py-op">(</tt><tt id="link-88" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-88', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"> </tt>
+<a name="reboot"></a><div id="reboot-def"><a name="L138"></a><tt class="py-lineno">138</tt> <a class="py-toggle" href="#" id="reboot-toggle" onclick="return toggle('reboot');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#reboot">reboot</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="reboot-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="reboot-expanded"><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">    Reboots the domain with the given UUID.</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">    <tt id="link-89" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-89', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-90" class="py-name" targets="Module actions.reboot=actions.reboot-module.html,Function actions.reboot.reboot()=actions.reboot-module.html#reboot,Module server.action.reboot=server.action.reboot-module.html,Function server.action.reboot.reboot()=server.action.reboot-module.html#reboot,Function server.action.virt.reboot()=server.action.virt-module.html#reboot,Module server.action_extra_data.reboot=server.action_extra_data.reboot-module.html,Function server.action_extra_data.reboot.reboot()=server.action_extra_data.reboot-module.html#reboot,Function server.action_extra_data.virt.reboot()=server.action_extra_data.virt-module.html#reboot,Function virt.reboot()=virt-module.html#reboot,Function virtualization.domain_control.reboot()=virtualization.domain_control-module.html#reboot,Function virtualization.support.reboot()=virtualization.support-module.html#reboot"><a title="actions.reboot
+actions.reboot.reboot
+server.action.reboot
+server.action.reboot.reboot
+server.action.virt.reboot
+server.action_extra_data.reboot
+server.action_extra_data.reboot.reboot
+server.action_extra_data.virt.reboot
+virt.reboot
+virtualization.domain_control.reboot
+virtualization.support.reboot" class="py-name" href="#" onclick="return doclink('link-90', 'reboot', 'link-90');">reboot</a></tt><tt class="py-op">(</tt><tt id="link-91" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-91', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="destroy"></a><div id="destroy-def"><a name="L144"></a><tt class="py-lineno">144</tt> <a class="py-toggle" href="#" id="destroy-toggle" onclick="return toggle('destroy');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#destroy">destroy</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="destroy-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="destroy-expanded"><a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-docstring">    Destroys the domain with the given UUID.</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt id="link-92" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-92', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-93" class="py-name" targets="Function server.action.virt.destroy()=server.action.virt-module.html#destroy,Function server.action_extra_data.virt.destroy()=server.action_extra_data.virt-module.html#destroy,Method up2date_client.progress.Progress.destroy()=up2date_client.progress.Progress-class.html#destroy,Function virt.destroy()=virt-module.html#destroy,Function virtualization.domain_control.destroy()=virtualization.domain_control-module.html#destroy,Function virtualization.support.destroy()=virtualization.support-module.html#destroy"><a title="server.action.virt.destroy
+server.action_extra_data.virt.destroy
+up2date_client.progress.Progress.destroy
+virt.destroy
+virtualization.domain_control.destroy
+virtualization.support.destroy" class="py-name" href="#" onclick="return doclink('link-93', 'destroy', 'link-93');">destroy</a></tt><tt class="py-op">(</tt><tt id="link-94" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-94', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"> </tt>
+<a name="setMemory"></a><div id="setMemory-def"><a name="L150"></a><tt class="py-lineno">150</tt> <a class="py-toggle" href="#" id="setMemory-toggle" onclick="return toggle('setMemory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#setMemory">setMemory</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">,</tt> <tt class="py-param">memory</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="setMemory-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="setMemory-expanded"><a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-docstring">    Sets the max memory usage for the domain with the given UUID.</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">    <tt class="py-name">domain_dir</tt> <tt class="py-op">=</tt> <tt id="link-95" class="py-name"><a title="virtualization.domain_directory.DomainDirectory" class="py-name" href="#" onclick="return doclink('link-95', 'DomainDirectory', 'link-19');">DomainDirectory</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">    <tt id="link-96" class="py-name" targets="Module rhnkickstart.config=rhnkickstart.config-module.html,Function server.action.rollback.config()=server.action.rollback-module.html#config,Function server.action_extra_data.rollback.config()=server.action_extra_data.rollback-module.html#config,Package server.handlers.config=server.handlers.config-module.html,Module up2date_client.config=up2date_client.config-module.html,Module wsgi.config=wsgi.config-module.html"><a title="rhnkickstart.config
+server.action.rollback.config
+server.action_extra_data.rollback.config
+server.handlers.config
+up2date_client.config
+wsgi.config" class="py-name" href="#" onclick="return doclink('link-96', 'config', 'link-96');">config</a></tt> <tt class="py-op">=</tt> <tt class="py-name">domain_dir</tt><tt class="py-op">.</tt><tt id="link-97" class="py-name" targets="Method virtualization.domain_directory.DomainDirectory.load_config()=virtualization.domain_directory.DomainDirectory-class.html#load_config"><a title="virtualization.domain_directory.DomainDirectory.load_config" class="py-name" href="#" onclick="return doclink('link-97', 'load_config', 'link-97');">load_config</a></tt><tt class="py-op">(</tt><tt id="link-98" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-98', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">    <tt id="link-99" class="py-name"><a title="rhnkickstart.config
+server.action.rollback.config
+server.action_extra_data.rollback.config
+server.handlers.config
+up2date_client.config
+wsgi.config" class="py-name" href="#" onclick="return doclink('link-99', 'config', 'link-96');">config</a></tt><tt class="py-op">.</tt><tt id="link-100" class="py-name" targets="Method virtualization.domain_config.DomainConfig.setConfigItem()=virtualization.domain_config.DomainConfig-class.html#setConfigItem"><a title="virtualization.domain_config.DomainConfig.setConfigItem" class="py-name" href="#" onclick="return doclink('link-100', 'setConfigItem', 'link-100');">setConfigItem</a></tt><tt class="py-op">(</tt><tt id="link-101" class="py-name"><a title="virtualization.domain_config.DomainConfig" class="py-name" href="#" onclick="return doclink('link-101', 'DomainConfig', 'link-16');">DomainConfig</a></tt><tt class="py-op">.</tt><tt id="link-102" class="py-name" targets="Variable server.rhnVirtualization.PropertyType.MEMORY=server.rhnVirtualization.PropertyType-class.html#MEMORY,Variable virtualization.constants.PropertyType.MEMORY=virtualization.constants.PropertyType-class.html#MEMORY,Variable virtualization.domain_config.DomainConfig.MEMORY=virtualization.domain_config.DomainConfig-class.html#MEMORY"><a title="server.rhnVirtualization.PropertyType.MEMORY
+virtualization.constants.PropertyType.MEMORY
+virtualization.domain_config.DomainConfig.MEMORY" class="py-name" href="#" onclick="return doclink('link-102', 'MEMORY', 'link-102');">MEMORY</a></tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt id="link-103" class="py-name"><a title="rhnkickstart.config
+server.action.rollback.config
+server.action_extra_data.rollback.config
+server.handlers.config
+up2date_client.config
+wsgi.config" class="py-name" href="#" onclick="return doclink('link-103', 'config', 'link-96');">config</a></tt><tt class="py-op">.</tt><tt id="link-104" class="py-name" targets="Method config_common.up2date_config_parser.ConfigFile.save()=config_common.up2date_config_parser.ConfigFile-class.html#save,Method server.rhnChannel.BaseDatabaseObject.save()=server.rhnChannel.BaseDatabaseObject-class.html#save,Method server.rhnSQL.sql_row.Row.save()=server.rhnSQL.sql_row.Row-class.html#save,Method server.rhnServer.server_class.Server.save()=server.rhnServer.server_class.Server-class.html#save,Method server.rhnServer.server_hardware.GenericDevice.save()=server.rhnServer.server_hardware.GenericDevice-class.html#save,Method server.rhnServer.server_hardware.NetIfaceInformation.save()=server.rhnServer.server_hardware.NetIfaceInformation-class.html#save,Method server.rhnSession.Session.save()=server.rhnSession.Session-class.html#save,Method server.rhnUser.User.save()=server.rhnUser.User-class.html#save,Method up2date_client.config.Config.save()=up2date_client.config.Config-class.html#save,Method up2date_client.config.ConfigFile.save()=up2date_client.config.ConfigFile-class.html#save,Method virtualization.domain_config.DomainConfig.save()=virtualization.domain_config.DomainConfig-class.html#save,Method virtualization.poller_state_cache.PollerStateCache.save()=virtualization.poller_state_cache.PollerStateCache-class.html#save"><a title="config_common.up2date_config_parser.ConfigFile.save
+server.rhnChannel.BaseDatabaseObject.save
+server.rhnSQL.sql_row.Row.save
+server.rhnServer.server_class.Server.save
+server.rhnServer.server_hardware.GenericDevice.save
+server.rhnServer.server_hardware.NetIfaceInformation.save
+server.rhnSession.Session.save
+server.rhnUser.User.save
+up2date_client.config.Config.save
+up2date_client.config.ConfigFile.save
+virtualization.domain_config.DomainConfig.save
+virtualization.poller_state_cache.PollerStateCache.save" class="py-name" href="#" onclick="return doclink('link-104', 'save', 'link-104');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt id="link-105" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-105', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-106" class="py-name" targets="Function server.action.virt.setMemory()=server.action.virt-module.html#setMemory,Function server.action_extra_data.virt.setMemory()=server.action_extra_data.virt-module.html#setMemory,Function virt.setMemory()=virt-module.html#setMemory,Function virtualization.domain_control.setMemory()=virtualization.domain_control-module.html#setMemory,Function virtualization.support.setMemory()=virtualization.support-module.html#setMemory"><a title="server.action.virt.setMemory
+server.action_extra_data.virt.setMemory
+virt.setMemory
+virtualization.domain_control.setMemory
+virtualization.support.setMemory" class="py-name" href="#" onclick="return doclink('link-106', 'setMemory', 'link-106');">setMemory</a></tt><tt class="py-op">(</tt><tt id="link-107" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-107', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"> </tt>
+<a name="setVCPUs"></a><div id="setVCPUs-def"><a name="L160"></a><tt class="py-lineno">160</tt> <a class="py-toggle" href="#" id="setVCPUs-toggle" onclick="return toggle('setVCPUs');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#setVCPUs">setVCPUs</a><tt class="py-op">(</tt><tt class="py-param">uuid</tt><tt class="py-op">,</tt> <tt class="py-param">vcpus</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="setVCPUs-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="setVCPUs-expanded"><a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-docstring">    Sets the number of vcpus for the domain with the given UUID.</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">    <tt class="py-name">domain_dir</tt> <tt class="py-op">=</tt> <tt id="link-108" class="py-name"><a title="virtualization.domain_directory.DomainDirectory" class="py-name" href="#" onclick="return doclink('link-108', 'DomainDirectory', 'link-19');">DomainDirectory</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">    <tt id="link-109" class="py-name"><a title="rhnkickstart.config
+server.action.rollback.config
+server.action_extra_data.rollback.config
+server.handlers.config
+up2date_client.config
+wsgi.config" class="py-name" href="#" onclick="return doclink('link-109', 'config', 'link-96');">config</a></tt> <tt class="py-op">=</tt> <tt class="py-name">domain_dir</tt><tt class="py-op">.</tt><tt id="link-110" class="py-name"><a title="virtualization.domain_directory.DomainDirectory.load_config" class="py-name" href="#" onclick="return doclink('link-110', 'load_config', 'link-97');">load_config</a></tt><tt class="py-op">(</tt><tt id="link-111" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-111', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">    <tt id="link-112" class="py-name"><a title="rhnkickstart.config
+server.action.rollback.config
+server.action_extra_data.rollback.config
+server.handlers.config
+up2date_client.config
+wsgi.config" class="py-name" href="#" onclick="return doclink('link-112', 'config', 'link-96');">config</a></tt><tt class="py-op">.</tt><tt id="link-113" class="py-name"><a title="virtualization.domain_config.DomainConfig.setConfigItem" class="py-name" href="#" onclick="return doclink('link-113', 'setConfigItem', 'link-100');">setConfigItem</a></tt><tt class="py-op">(</tt><tt id="link-114" class="py-name"><a title="virtualization.domain_config.DomainConfig" class="py-name" href="#" onclick="return doclink('link-114', 'DomainConfig', 'link-16');">DomainConfig</a></tt><tt class="py-op">.</tt><tt id="link-115" class="py-name" targets="Variable virtualization.domain_config.DomainConfig.VCPU=virtualization.domain_config.DomainConfig-class.html#VCPU"><a title="virtualization.domain_config.DomainConfig.VCPU" class="py-name" href="#" onclick="return doclink('link-115', 'VCPU', 'link-115');">VCPU</a></tt><tt class="py-op">,</tt> <tt class="py-name">vcpus</tt><tt class="py-op">)</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">    <tt id="link-116" class="py-name"><a title="rhnkickstart.config
+server.action.rollback.config
+server.action_extra_data.rollback.config
+server.handlers.config
+up2date_client.config
+wsgi.config" class="py-name" href="#" onclick="return doclink('link-116', 'config', 'link-96');">config</a></tt><tt class="py-op">.</tt><tt id="link-117" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.save
+server.rhnChannel.BaseDatabaseObject.save
+server.rhnSQL.sql_row.Row.save
+server.rhnServer.server_class.Server.save
+server.rhnServer.server_hardware.GenericDevice.save
+server.rhnServer.server_hardware.NetIfaceInformation.save
+server.rhnSession.Session.save
+server.rhnUser.User.save
+up2date_client.config.Config.save
+up2date_client.config.ConfigFile.save
+virtualization.domain_config.DomainConfig.save
+virtualization.poller_state_cache.PollerStateCache.save" class="py-name" href="#" onclick="return doclink('link-117', 'save', 'link-104');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">    <tt id="link-118" class="py-name"><a title="virtualization.domain_control" class="py-name" href="#" onclick="return doclink('link-118', 'domain_control', 'link-2');">domain_control</a></tt><tt class="py-op">.</tt><tt id="link-119" class="py-name" targets="Function server.action.virt.setVCPUs()=server.action.virt-module.html#setVCPUs,Function server.action_extra_data.virt.setVCPUs()=server.action_extra_data.virt-module.html#setVCPUs,Function virt.setVCPUs()=virt-module.html#setVCPUs,Function virtualization.domain_control.setVCPUs()=virtualization.domain_control-module.html#setVCPUs,Function virtualization.support.setVCPUs()=virtualization.support-module.html#setVCPUs"><a title="server.action.virt.setVCPUs
+server.action_extra_data.virt.setVCPUs
+virt.setVCPUs
+virtualization.domain_control.setVCPUs
+virtualization.support.setVCPUs" class="py-name" href="#" onclick="return doclink('link-119', 'setVCPUs', 'link-119');">setVCPUs</a></tt><tt class="py-op">(</tt><tt id="link-120" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-120', 'uuid', 'link-79');">uuid</a></tt><tt class="py-op">,</tt> <tt class="py-name">vcpus</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"> </tt>
+<a name="schedulePoller"></a><div id="schedulePoller-def"><a name="L170"></a><tt class="py-lineno">170</tt> <a class="py-toggle" href="#" id="schedulePoller-toggle" onclick="return toggle('schedulePoller');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#schedulePoller">schedulePoller</a><tt class="py-op">(</tt><tt class="py-param">minute</tt><tt class="py-op">,</tt> <tt class="py-param">hour</tt><tt class="py-op">,</tt> <tt class="py-param">dom</tt><tt class="py-op">,</tt> <tt class="py-param">month</tt><tt class="py-op">,</tt> <tt class="py-param">dow</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="schedulePoller-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="schedulePoller-expanded"><a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-docstring">    Sets when poller should run.</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-121" class="py-name"><a title="virtualization.schedule_poller
+virtualization.schedule_poller.schedule_poller" class="py-name" href="#" onclick="return doclink('link-121', 'schedule_poller', 'link-4');">schedule_poller</a></tt><tt class="py-op">.</tt><tt id="link-122" class="py-name"><a title="virtualization.schedule_poller
+virtualization.schedule_poller.schedule_poller" class="py-name" href="#" onclick="return doclink('link-122', 'schedule_poller', 'link-4');">schedule_poller</a></tt><tt class="py-op">(</tt><tt class="py-name">minute</tt><tt class="py-op">,</tt> <tt class="py-name">hour</tt><tt class="py-op">,</tt> <tt class="py-name">dom</tt><tt class="py-op">,</tt> <tt class="py-name">month</tt><tt class="py-op">,</tt> <tt class="py-name">dow</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"><tt class="py-comment"># Helper Routines</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"> </tt>
+<a name="_is_host_domain"></a><div id="_is_host_domain-def"><a name="L180"></a><tt class="py-lineno">180</tt> <a class="py-toggle" href="#" id="_is_host_domain-toggle" onclick="return toggle('_is_host_domain');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#_is_host_domain">_is_host_domain</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_is_host_domain-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_is_host_domain-expanded"><a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-docstring">    This function returns true if this system is currently a host domain.  </tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"><tt class="py-docstring">    Simply having virtualization enabled is sufficient.</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"><tt class="py-docstring">    We can figure out if Xen/Qemu is running by checking for the type</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-123" class="py-name"><a title="virtualization.support.vdsm_enabled" class="py-name" href="#" onclick="return doclink('link-123', 'vdsm_enabled', 'link-32');">vdsm_enabled</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-comment"># since vdsm is enabled, lets move further and </tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-comment"># see what we get</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-124" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-124', 'True', 'link-23');">True</a></tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-125" class="py-name"><a title="virtualization.domain_control.libvirt
+virtualization.poller.libvirt
+virtualization.support.libvirt" class="py-name" href="#" onclick="return doclink('link-125', 'libvirt', 'link-26');">libvirt</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-comment"># No libvirt, dont bother with the rest</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-126" class="py-name"><a title="actions.ModeController.False
+actions.Modes.False
+rhnpush.rhnpush_cache.False
+rhnpush.rhnpush_confmanager.False
+src._ConfigParser.False
+xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-126', 'False', 'link-30');">False</a></tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-name">conn</tt> <tt class="py-op">=</tt> <tt id="link-127" class="py-name"><a title="virtualization.domain_control.libvirt
+virtualization.poller.libvirt
+virtualization.support.libvirt" class="py-name" href="#" onclick="return doclink('link-127', 'libvirt', 'link-26');">libvirt</a></tt><tt class="py-op">.</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-128" class="py-name"><a title="virtualization.domain_control.libvirt
+virtualization.poller.libvirt
+virtualization.support.libvirt" class="py-name" href="#" onclick="return doclink('link-128', 'libvirt', 'link-26');">libvirt</a></tt><tt class="py-op">.</tt><tt class="py-name">libvirtError</tt><tt class="py-op">:</tt> <tt class="py-comment"># libvirtd is not running</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">.</tt><tt id="link-129" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method rhnkickstart.lilo.LiloConfigFile.write()=rhnkickstart.lilo.LiloConfigFile-class.html#write,Method rhnpush.rhnpush_config.rhnpushConfigParser.write()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method satellite_tools.repo_plugins.yum_src.YumWarnings.write()=satellite_tools.repo_plugins.yum_src.YumWarnings-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write,Method src._ConfigParser.ConfigParser.write()=src._ConfigParser.ConfigParser-class.html#write,Method wsgi.wsgiRequest.WsgiRequest.write()=wsgi.wsgiRequest.WsgiRequest-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-129', 'write', 'link-129');">write</a></tt><tt class="py-op">(</tt><tt id="link-130" class="py-name"><a title="common.rhnTranslate._
+rhn_choose_channel._
+rhn_choose_server_gui._
+rhn_create_profile_gui._
+rhn_finish_gui._
+rhn_login_gui._
+rhn_provide_certificate_gui._
+rhn_register._
+rhn_review_gui._
+rhn_start_gui._
+rhnreg_ks._
+satellite_tools.disk_dumper.iss._
+satellite_tools.satsync._
+script-rhn_profile_sync_py._
+script-spacewalk_channel_py._
+up2date_client.capabilities._
+up2date_client.config._
+up2date_client.debUtils._
+up2date_client.gui._
+up2date_client.hardware._
+up2date_client.rhnChannel._
+up2date_client.rhncli._
+up2date_client.rhnreg._
+up2date_client.rhnregGui._
+up2date_client.rpcServer._
+up2date_client.tui._
+up2date_client.up2dateErrors._
+up2date_client.up2dateUtils._
+virtualization.poller._
+virtualization.support._" class="py-name" href="#" onclick="return doclink('link-130', '_', 'link-24');">_</a></tt><tt class="py-op">(</tt><tt class="py-string">"Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-131" class="py-name"><a title="actions.ModeController.False
+actions.Modes.False
+rhnpush.rhnpush_cache.False
+rhnpush.rhnpush_confmanager.False
+src._ConfigParser.False
+xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-131', 'False', 'link-30');">False</a></tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">conn</tt> <tt class="py-keyword">and</tt> <tt class="py-name">conn</tt><tt class="py-op">.</tt><tt class="py-name">getType</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-string">'Xen'</tt><tt class="py-op">,</tt> <tt class="py-string">'QEMU'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-132" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-132', 'True', 'link-23');">True</a></tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-133" class="py-name"><a title="actions.ModeController.False
+actions.Modes.False
+rhnpush.rhnpush_cache.False
+rhnpush.rhnpush_confmanager.False
+src._ConfigParser.False
+xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-133', 'False', 'link-30');">False</a></tt> </tt>
+</div><a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"> </tt>
+<a name="_fetch_host_uuid"></a><div id="_fetch_host_uuid-def"><a name="L203"></a><tt class="py-lineno">203</tt> <a class="py-toggle" href="#" id="_fetch_host_uuid-toggle" onclick="return toggle('_fetch_host_uuid');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="virtualization.support-module.html#_fetch_host_uuid">_fetch_host_uuid</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_fetch_host_uuid-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_fetch_host_uuid-expanded"><a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"><tt class="py-docstring">    This function returns the UUID of the host system.  This will always be </tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"><tt class="py-docstring">    16 zeros.</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-string">'0000000000000000'</tt> </tt>
+</div><a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"><tt class="py-comment"># Test Routine</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">    <tt class="py-comment">#refresh()</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-name">_retrieve_virtual_domain_list</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:43 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

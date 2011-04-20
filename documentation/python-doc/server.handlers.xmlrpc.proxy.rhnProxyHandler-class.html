@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
-        <a href="server.handlers.xmlrpc.proxy-module.html" onclick="show_private();">Module&nbsp;proxy</a> ::
+        server ::
+        handlers ::
+        xmlrpc ::
+        proxy ::
+        rhnProxyHandler ::
         Class&nbsp;rhnProxyHandler
       </span>
     </td>
@@ -57,17 +58,13 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class rhnProxyHandler</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.proxy-pysrc.html#rhnProxyHandler">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_13" name="uml_class_diagram_for_server_h_13">
-<area shape="rect" id="node1252" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#__init__" title="server.handlers.xmlrpc.proxy.rhnProxyHandler.__init__" alt="" coords="47,180,227,199"/>
-<area shape="rect" id="node1252" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_system" title="System authentication." alt="" coords="47,199,227,217"/>
-<area shape="rect" id="node1252" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_client" title="Authenticate a system based on the same authentication tokens the client is sending for GET requests" alt="" coords="47,217,227,236"/>
-<area shape="rect" id="node1" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html" title="server.handlers.xmlrpc.proxy.rhnProxyHandler" alt="" coords="35,147,237,242"/>
-<area shape="rect" id="node3" href="server.handlers.xmlrpc.proxy.Proxy-class.html" title="this is the XML&#45;RPC receiver for proxy calls" alt="" coords="103,262,172,301"/>
-<area shape="rect" id="node2" href="javascript:void(0);" title="spacewalk.server.rhnHandler.rhnHandler" alt="" coords="5,83,267,127"/>
-<area shape="rect" id="node1254" href="javascript:void(0);" title="??.RPC_Base&#45;1.get_function" alt="" coords="56,39,217,57"/>
-<area shape="rect" id="node4" href="javascript:void(0);" title="??.RPC_Base&#45;1" alt="" coords="44,6,228,63"/>
+<center>  <map id="uml_class_diagram_for_server_h_12" name="uml_class_diagram_for_server_h_12">
+<area shape="rect" id="node1223" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#__init__" title="server.handlers.xmlrpc.proxy.rhnProxyHandler.__init__" alt="" coords="17,39,197,57"/>
+<area shape="rect" id="node1223" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_system" title="System authentication." alt="" coords="17,57,197,76"/>
+<area shape="rect" id="node1223" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#auth_client" title="Authenticate a system based on the same authentication tokens the client is sending for GET requests" alt="" coords="17,76,197,95"/>
+<area shape="rect" id="node1" href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html" title="server.handlers.xmlrpc.proxy.rhnProxyHandler" alt="" coords="5,6,208,101"/>
 </map>
-  <img src="uml_class_diagram_for_server_h_13.png" alt='' usemap="#uml_class_diagram_for_server_h_13" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_server_h_12.png" alt='' usemap="#uml_class_diagram_for_server_h_12" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -94,7 +91,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.proxy-pysrc.html#rhnProxyHandler.__init__">source&nbsp;code</a></span>
             
@@ -141,13 +138,6 @@
       
     </td>
   </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>.RPC_Base</code></b>:
-      <code>get_function</code>
-      </p>
-    </td>
-  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -167,29 +157,6 @@
   </td>
 </tr>
 </table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.handlers.xmlrpc.proxy-pysrc.html#rhnProxyHandler.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-
-
-  <dl class="fields">
-    <dt>Overrides:
-        spacewalk.common.RPC_Base.RPC_Base.__init__
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
 <a name="auth_system"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -209,9 +176,6 @@
   need to check additionally if this system_id is entitled for proxy 
   functionality.</p>
   <dl class="fields">
-    <dt>Overrides:
-        spacewalk.server.rhnHandler.rhnHandler.auth_system
-    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -239,7 +203,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:55 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:04 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

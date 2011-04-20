@@ -140,7 +140,7 @@
         <tr>
           <td><span class="summary-sig"><a href="spacewalk.common.fileutils-module.html#rotateFile" class="summary-sig-name">rotateFile</a>(<span class="summary-sig-arg">filepath</span>,
         <span class="summary-sig-arg">depth</span>=<span class="summary-sig-default">5</span>,
-        <span class="summary-sig-arg">suffix</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">.</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">suffix</span>=<span class="summary-sig-default">'.'</span>,
         <span class="summary-sig-arg">verbosity</span>=<span class="summary-sig-default">0</span>)</span><br />
       backup/rotate a file
 depth (-1==no limit) refers to num.</td>
@@ -180,7 +180,7 @@ depth (-1==no limit) refers to num.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="makedirs"></a><span class="summary-sig-name">makedirs</span>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">493</span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0755</span>,
         <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">None</span>)</span><br />
       makedirs function that also changes the owners</td>
@@ -200,9 +200,9 @@ depth (-1==no limit) refers to num.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="spacewalk.common.fileutils-module.html#createPath" class="summary-sig-name">createPath</a>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">apache</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">493</span>,
+        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'apache'</span>,
+        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'apache'</span>,
+        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">0755</span>,
         <span class="summary-sig-arg">logging</span>=<span class="summary-sig-default">1</span>)</span><br />
       advanced makedirs</td>
           <td align="right" valign="top">
@@ -221,9 +221,9 @@ depth (-1==no limit) refers to num.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="setPermsPath"></a><span class="summary-sig-name">setPermsPath</span>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">apache</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">488</span>)</span><br />
+        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'apache'</span>,
+        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
+        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">0750</span>)</span><br />
       chown user.group and set permissions to chmod</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="spacewalk.common.fileutils-pysrc.html#setPermsPath">source&nbsp;code</a></span>
@@ -263,11 +263,11 @@ depth (-1==no limit) refers to num.</td>
         <span class="summary-sig-arg">elseval</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="spacewalk.common.fileutils-pysrc.html#_ifelse">source&nbsp;code</a></span>
-
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 <tr>
@@ -278,16 +278,16 @@ depth (-1==no limit) refers to num.</td>
         <tr>
           <td><span class="summary-sig"><a name="ostr_to_sym"></a><span class="summary-sig-name">ostr_to_sym</span>(<span class="summary-sig-arg">octstr</span>,
         <span class="summary-sig-arg">ftype</span>)</span><br />
-      Convert filemode in octets (like '644') to string like &quot;ls
-      -l&quot; (&quot;-rwxrw-rw-&quot;) ftype is one of: file, directory,
+      Convert filemode in octets (like '644') to string like &quot;ls 
+      -l&quot; (&quot;-rwxrw-rw-&quot;) ftype is one of: file, directory, 
       symlink, chardev, blockdev.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="spacewalk.common.fileutils-pysrc.html#ostr_to_sym">source&nbsp;code</a></span>
-
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 <tr>
@@ -299,11 +299,11 @@ depth (-1==no limit) refers to num.</td>
           <td><span class="summary-sig"><a name="f_date"></a><span class="summary-sig-name">f_date</span>(<span class="summary-sig-arg">dbiDate</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="spacewalk.common.fileutils-pysrc.html#f_date">source&nbsp;code</a></span>
-
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 </table>
@@ -330,13 +330,6 @@ depth (-1==no limit) refers to num.</td>
     </td><td class="summary">
         <a href="spacewalk.common.fileutils-module.html#FILETYPE2CHAR" class="summary-name">FILETYPE2CHAR</a> = <code title="{'file': '-', 'directory': 'd', 'symlink': 'l', 'chardev': 'c', 'block\
 dev': 'b',}">{'file': '-', 'directory': 'd', 'symlink': 'l'<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'spacewalk.common'"><code class="variable-quote">'</code><code class="variable-string">spacewalk.common</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -420,7 +413,7 @@ NOTE: python 2.2 fixes a number of bugs with this and eliminates
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">rotateFile</span>(<span class="sig-arg">filepath</span>,
         <span class="sig-arg">depth</span>=<span class="sig-default">5</span>,
-        <span class="sig-arg">suffix</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">.</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">suffix</span>=<span class="sig-default">'.'</span>,
         <span class="sig-arg">verbosity</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -486,9 +479,9 @@ Behavior:
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">createPath</span>(<span class="sig-arg">path</span>,
-        <span class="sig-arg">user</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">apache</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">group</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">chmod</span>=<span class="sig-default">493</span>,
+        <span class="sig-arg">user</span>=<span class="sig-default">'apache'</span>,
+        <span class="sig-arg">group</span>=<span class="sig-default">'apache'</span>,
+        <span class="sig-arg">chmod</span>=<span class="sig-default">0755</span>,
         <span class="sig-arg">logging</span>=<span class="sig-default">1</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -529,7 +522,7 @@ Behavior:
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">FILETYPE2CHAR</h3>
-
+  
   <dl class="fields">
   </dl>
   <dl class="fields">
@@ -566,7 +559,7 @@ dev': 'b',}
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:00:11 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

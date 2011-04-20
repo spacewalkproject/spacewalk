@@ -127,24 +127,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="make_evr"></a><span class="summary-sig-name">make_evr</span>(<span class="summary-sig-arg">nvre</span>)</span><br />
-      IN: 'e:name-version-release' or 'name-version-release:e' OUT: 
-      {'name':name, 'version':version, 'release':release, 'epoch':epoch }</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnDependency-pysrc.html#make_evr">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="find_package_with_arch"></a><span class="summary-sig-name">find_package_with_arch</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">deps</span>)</span></td>
           <td align="right" valign="top">
@@ -192,11 +174,11 @@
         <span class="summary-sig-arg">all</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#_v2packages_to_v1list">source&nbsp;code</a></span>
-
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 <tr>
@@ -244,15 +226,15 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_avoid_compat_packages"></a><span class="summary-sig-name">_avoid_compat_packages</span>(<span class="summary-sig-arg">dict</span>)</span><br />
-      attempt to avoid giving out the compat-* packages if there are other
+      attempt to avoid giving out the compat-* packages if there are other 
       candidates</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#_avoid_compat_packages">source&nbsp;code</a></span>
-
+            
           </td>
         </tr>
       </table>
-
+      
     </td>
   </tr>
 <tr>
@@ -331,7 +313,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__packages_with_arch_and_id_sql" class="summary-name" onclick="show_private();">__packages_with_arch_and_id_sql</a> = <code title="'''
+        <a href="server.rhnDependency-module.html#__packages_with_arch_and_id_sql" class="summary-name" onclick="show_private();">__packages_with_arch_and_id_sql</a> = <code title="&quot;&quot;&quot;
 select distinct
     p.id id,
     pn.name name,
@@ -339,14 +321,14 @@ select distinct
     (pe.evr).release as release,
     (pe.evr).epoch as epoch,
     pa.label as arch,
-..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    p.id</code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__packages_sql" class="summary-name" onclick="show_private();">__packages_sql</a> = <code title="'''
+        <a href="server.rhnDependency-module.html#__packages_sql" class="summary-name" onclick="show_private();">__packages_sql</a> = <code title="&quot;&quot;&quot;
 select distinct
     pn.name name,
     (pe.evr).version as version,
@@ -354,14 +336,14 @@ select distinct
     (pe.evr).epoch as epoch,
     pa.label as arch,
     1 as preference
-..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name name,\n    (p</code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__packages_all_sql" class="summary-name" onclick="show_private();">__packages_all_sql</a> = <code title="'''
+        <a href="server.rhnDependency-module.html#__packages_all_sql" class="summary-name" onclick="show_private();">__packages_all_sql</a> = <code title="&quot;&quot;&quot;
 select distinct
     pn.name name,
     (pe.evr).version as version,
@@ -369,14 +351,14 @@ select distinct
     (pe.evr).epoch as epoch,
     pa.label as arch,
     1 as preference
-..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name name,\n  </code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__provides_sql" class="summary-name" onclick="show_private();">__provides_sql</a> = <code title="'''
+        <a href="server.rhnDependency-module.html#__provides_sql" class="summary-name" onclick="show_private();">__provides_sql</a> = <code title="&quot;&quot;&quot;
 select  distinct
     pn.name,
     (pe.evr).version as version,
@@ -384,14 +366,14 @@ select  distinct
     (pe.evr).epoch as epoch,
     pa.label as arch,
     2 as preference
-..."><code class="variable-quote">'</code><code class="variable-string">\nselect  distinct\n    pn.name,\n    (pe.ev</code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__provides_all_sql" class="summary-name" onclick="show_private();">__provides_all_sql</a> = <code title="'''
+        <a href="server.rhnDependency-module.html#__provides_all_sql" class="summary-name" onclick="show_private();">__provides_all_sql</a> = <code title="&quot;&quot;&quot;
 select  distinct
     pn.name,
     (pe.evr).version as version,
@@ -399,14 +381,14 @@ select  distinct
     (pe.evr).epoch as epoch,
     pa.label as arch,
     2 as preference
-..."><code class="variable-quote">'</code><code class="variable-string">\nselect  distinct\n    pn.name,\n    (p</code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__files_sql" class="summary-name" onclick="show_private();">__files_sql</a> = <code title="'''
+        <a href="server.rhnDependency-module.html#__files_sql" class="summary-name" onclick="show_private();">__files_sql</a> = <code title="&quot;&quot;&quot;
 select distinct
     pn.name,
     (pe.evr).version as version,
@@ -414,14 +396,14 @@ select distinct
     (pe.evr).epoch as epoch,
     pa.label as arch,
     3 as preference
-..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name,\n    (pe.evr).v</code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__files_all_sql" class="summary-name" onclick="show_private();">__files_all_sql</a> = <code title="'''
+        <a href="server.rhnDependency-module.html#__files_all_sql" class="summary-name" onclick="show_private();">__files_all_sql</a> = <code title="&quot;&quot;&quot;
 select distinct
     pn.name,
     (pe.evr).version as version,
@@ -429,14 +411,7 @@ select distinct
     (pe.evr).epoch as epoch,
     pa.label as arch,
     3 as preference
-..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name,\n    (pe.ev</code><code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
+..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -651,14 +626,14 @@ OUT:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">select distinct</code>
-<code class="variable-string">    p.id id,</code>
-<code class="variable-string">    pn.name name,</code>
-<code class="variable-string">    (pe.evr).version as version,</code>
-<code class="variable-string">    (pe.evr).release as release,</code>
-<code class="variable-string">    (pe.evr).epoch as epoch,</code>
-<code class="variable-string">    pa.label as arch,</code>
+&quot;&quot;&quot;
+select distinct
+    p.id id,
+    pn.name name,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -677,14 +652,14 @@ OUT:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">select distinct</code>
-<code class="variable-string">    pn.name name,</code>
-<code class="variable-string">    (pe.evr).version as version,</code>
-<code class="variable-string">    (pe.evr).release as release,</code>
-<code class="variable-string">    (pe.evr).epoch as epoch,</code>
-<code class="variable-string">    pa.label as arch,</code>
-<code class="variable-string">    1 as preference</code>
+&quot;&quot;&quot;
+select distinct
+    pn.name name,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    1 as preference
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -703,14 +678,14 @@ OUT:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">select distinct</code>
-<code class="variable-string">    pn.name name,</code>
-<code class="variable-string">    (pe.evr).version as version,</code>
-<code class="variable-string">    (pe.evr).release as release,</code>
-<code class="variable-string">    (pe.evr).epoch as epoch,</code>
-<code class="variable-string">    pa.label as arch,</code>
-<code class="variable-string">    1 as preference</code>
+&quot;&quot;&quot;
+select distinct
+    pn.name name,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    1 as preference
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -729,14 +704,14 @@ OUT:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">select  distinct</code>
-<code class="variable-string">    pn.name,</code>
-<code class="variable-string">    (pe.evr).version as version,</code>
-<code class="variable-string">    (pe.evr).release as release,</code>
-<code class="variable-string">    (pe.evr).epoch as epoch,</code>
-<code class="variable-string">    pa.label as arch,</code>
-<code class="variable-string">    2 as preference</code>
+&quot;&quot;&quot;
+select  distinct
+    pn.name,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    2 as preference
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -755,14 +730,14 @@ OUT:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">select  distinct</code>
-<code class="variable-string">    pn.name,</code>
-<code class="variable-string">    (pe.evr).version as version,</code>
-<code class="variable-string">    (pe.evr).release as release,</code>
-<code class="variable-string">    (pe.evr).epoch as epoch,</code>
-<code class="variable-string">    pa.label as arch,</code>
-<code class="variable-string">    2 as preference</code>
+&quot;&quot;&quot;
+select  distinct
+    pn.name,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    2 as preference
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -781,14 +756,14 @@ OUT:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">select distinct</code>
-<code class="variable-string">    pn.name,</code>
-<code class="variable-string">    (pe.evr).version as version,</code>
-<code class="variable-string">    (pe.evr).release as release,</code>
-<code class="variable-string">    (pe.evr).epoch as epoch,</code>
-<code class="variable-string">    pa.label as arch,</code>
-<code class="variable-string">    3 as preference</code>
+&quot;&quot;&quot;
+select distinct
+    pn.name,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    3 as preference
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -807,14 +782,14 @@ OUT:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">select distinct</code>
-<code class="variable-string">    pn.name,</code>
-<code class="variable-string">    (pe.evr).version as version,</code>
-<code class="variable-string">    (pe.evr).release as release,</code>
-<code class="variable-string">    (pe.evr).epoch as epoch,</code>
-<code class="variable-string">    pa.label as arch,</code>
-<code class="variable-string">    3 as preference</code>
+&quot;&quot;&quot;
+select distinct
+    pn.name,
+    (pe.evr).version as version,
+    (pe.evr).release as release,
+    (pe.evr).epoch as epoch,
+    pa.label as arch,
+    3 as preference
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -845,7 +820,7 @@ OUT:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Jan 20 13:37:38 2011
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:00:10 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

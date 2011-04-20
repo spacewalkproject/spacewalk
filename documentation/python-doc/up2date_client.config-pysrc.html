@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>up2date_client.config</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="up2date_client-module.html">Package&nbsp;up2date_client</a> ::
+        Module&nbsp;config
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="up2date_client.config-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="up2date_client.config-module.html">Module up2date_client.config</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># This file is a portion of the Red Hat Update Agent</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 1999 - 2002 Red Hat, Inc.  Distributed under GPL</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># Authors:</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#       Cristian Gafton &lt;gafton@redhat.com&gt;</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#       Adrian Likins   &lt;alikins@redhat.com&gt;</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">This module includes the Config and Up2date Config classes use by the</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">up2date agent to hold config info.</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">urlparse</tt> <tt class="py-keyword">import</tt> <tt class="py-name">urlsplit</tt><tt class="py-op">,</tt> <tt class="py-name">urlunsplit</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package rhn=rhn-module.html"><a title="rhn" class="py-name" href="#" onclick="return doclink('link-0', 'rhn', 'link-0');">rhn</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module rhn.connections=rhn.connections-module.html"><a title="rhn.connections" class="py-name" href="#" onclick="return doclink('link-1', 'connections', 'link-1');">connections</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function rhn.connections.idn_ascii_to_pune()=rhn.connections-module.html#idn_ascii_to_pune"><a title="rhn.connections.idn_ascii_to_pune" class="py-name" href="#" onclick="return doclink('link-2', 'idn_ascii_to_pune', 'link-2');">idn_ascii_to_pune</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Function rhn.connections.idn_pune_to_unicode()=rhn.connections-module.html#idn_pune_to_unicode"><a title="rhn.connections.idn_pune_to_unicode" class="py-name" href="#" onclick="return doclink('link-3', 'idn_pune_to_unicode', 'link-3');">idn_pune_to_unicode</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-4" class="py-name" targets="Method common.rhnTranslate.i18n.gettext()=common.rhnTranslate.i18n-class.html#gettext"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-4', 'gettext', 'link-4');">gettext</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable rhnreg_ks.t=rhnreg_ks-module.html#t,Variable satellite_tools.disk_dumper.iss.t=satellite_tools.disk_dumper.iss-module.html#t,Variable satellite_tools.satsync.t=satellite_tools.satsync-module.html#t,Variable script-rhn_profile_sync_py.t=script-rhn_profile_sync_py-module.html#t,Variable script-spacewalk_channel_py.t=script-spacewalk_channel_py-module.html#t,Variable up2date_client.capabilities.t=up2date_client.capabilities-module.html#t,Variable up2date_client.config.t=up2date_client.config-module.html#t,Variable up2date_client.debUtils.t=up2date_client.debUtils-module.html#t,Variable up2date_client.gui.t=up2date_client.gui-module.html#t,Variable up2date_client.hardware.t=up2date_client.hardware-module.html#t,Variable up2date_client.messageWindow.t=up2date_client.messageWindow-module.html#t,Variable up2date_client.pkgUtils.t=up2date_client.pkgUtils-module.html#t,Variable up2date_client.rhnChannel.t=up2date_client.rhnChannel-module.html#t,Variable up2date_client.rhncli.t=up2date_client.rhncli-module.html#t,Variable up2date_client.rhnreg.t=up2date_client.rhnreg-module.html#t,Variable up2date_client.rhnregGui.t=up2date_client.rhnregGui-module.html#t,Variable up2date_client.rhnreg_constants.t=up2date_client.rhnreg_constants-module.html#t,Variable up2date_client.rpcServer.t=up2date_client.rpcServer-module.html#t,Variable up2date_client.rpmUtils.t=up2date_client.rpmUtils-module.html#t,Variable up2date_client.tui.t=up2date_client.tui-module.html#t,Variable up2date_client.up2dateErrors.t=up2date_client.up2dateErrors-module.html#t,Variable up2date_client.up2dateUtils.t=up2date_client.up2dateUtils-module.html#t,Variable virtualization.poller.t=virtualization.poller-module.html#t,Variable virtualization.support.t=virtualization.support-module.html#t"><a title="rhnreg_ks.t
+satellite_tools.disk_dumper.iss.t
+satellite_tools.satsync.t
+script-rhn_profile_sync_py.t
+script-spacewalk_channel_py.t
+up2date_client.capabilities.t
+up2date_client.config.t
+up2date_client.debUtils.t
+up2date_client.gui.t
+up2date_client.hardware.t
+up2date_client.messageWindow.t
+up2date_client.pkgUtils.t
+up2date_client.rhnChannel.t
+up2date_client.rhncli.t
+up2date_client.rhnreg.t
+up2date_client.rhnregGui.t
+up2date_client.rhnreg_constants.t
+up2date_client.rpcServer.t
+up2date_client.rpmUtils.t
+up2date_client.tui.t
+up2date_client.up2dateErrors.t
+up2date_client.up2dateUtils.t
+virtualization.poller.t
+virtualization.support.t" class="py-name" href="#" onclick="return doclink('link-5', 't', 'link-5');">t</a></tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-6', 'gettext', 'link-4');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">translation</tt><tt class="py-op">(</tt><tt class="py-string">'rhn-client-tools'</tt><tt class="py-op">,</tt> <tt class="py-name">fallback</tt><tt class="py-op">=</tt><tt id="link-7" class="py-name" targets="Variable actions.ModeController.True=actions.ModeController-module.html#True,Variable actions.Modes.True=actions.Modes-module.html#True,Variable rhnpush.rhnpush_cache.True=rhnpush.rhnpush_cache-module.html#True,Variable rhnpush.rhnpush_confmanager.True=rhnpush.rhnpush_confmanager-module.html#True,Variable src._ConfigParser.True=src._ConfigParser-module.html#True,Variable xmlrpclib.True=xmlrpclib-module.html#True"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-7', 'True', 'link-7');">True</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable common.rhnTranslate._=common.rhnTranslate-module.html#_,Variable rhn_choose_channel._=rhn_choose_channel-module.html#_,Variable rhn_choose_server_gui._=rhn_choose_server_gui-module.html#_,Variable rhn_create_profile_gui._=rhn_create_profile_gui-module.html#_,Variable rhn_finish_gui._=rhn_finish_gui-module.html#_,Variable rhn_login_gui._=rhn_login_gui-module.html#_,Variable rhn_provide_certificate_gui._=rhn_provide_certificate_gui-module.html#_,Function rhn_register._()=rhn_register-module.html#_,Variable rhn_review_gui._=rhn_review_gui-module.html#_,Variable rhn_start_gui._=rhn_start_gui-module.html#_,Variable rhnreg_ks._=rhnreg_ks-module.html#_,Variable satellite_tools.disk_dumper.iss._=satellite_tools.disk_dumper.iss-module.html#_,Variable satellite_tools.satsync._=satellite_tools.satsync-module.html#_,Variable script-rhn_profile_sync_py._=script-rhn_profile_sync_py-module.html#_,Variable script-spacewalk_channel_py._=script-spacewalk_channel_py-module.html#_,Variable up2date_client.capabilities._=up2date_client.capabilities-module.html#_,Variable up2date_client.config._=up2date_client.config-module.html#_,Variable up2date_client.debUtils._=up2date_client.debUtils-module.html#_,Variable up2date_client.gui._=up2date_client.gui-module.html#_,Variable up2date_client.hardware._=up2date_client.hardware-module.html#_,Variable up2date_client.rhnChannel._=up2date_client.rhnChannel-module.html#_,Variable up2date_client.rhncli._=up2date_client.rhncli-module.html#_,Variable up2date_client.rhnreg._=up2date_client.rhnreg-module.html#_,Variable up2date_client.rhnregGui._=up2date_client.rhnregGui-module.html#_,Variable up2date_client.rpcServer._=up2date_client.rpcServer-module.html#_,Variable up2date_client.tui._=up2date_client.tui-module.html#_,Variable up2date_client.up2dateErrors._=up2date_client.up2dateErrors-module.html#_,Variable up2date_client.up2dateUtils._=up2date_client.up2dateUtils-module.html#_,Variable virtualization.poller._=virtualization.poller-module.html#_,Variable virtualization.support._=virtualization.support-module.html#_"><a title="common.rhnTranslate._
+rhn_choose_channel._
+rhn_choose_server_gui._
+rhn_create_profile_gui._
+rhn_finish_gui._
+rhn_login_gui._
+rhn_provide_certificate_gui._
+rhn_register._
+rhn_review_gui._
+rhn_start_gui._
+rhnreg_ks._
+satellite_tools.disk_dumper.iss._
+satellite_tools.satsync._
+script-rhn_profile_sync_py._
+script-spacewalk_channel_py._
+up2date_client.capabilities._
+up2date_client.config._
+up2date_client.debUtils._
+up2date_client.gui._
+up2date_client.hardware._
+up2date_client.rhnChannel._
+up2date_client.rhncli._
+up2date_client.rhnreg._
+up2date_client.rhnregGui._
+up2date_client.rpcServer._
+up2date_client.tui._
+up2date_client.up2dateErrors._
+up2date_client.up2dateUtils._
+virtualization.poller._
+virtualization.support._" class="py-name" href="#" onclick="return doclink('link-8', '_', 'link-8');">_</a></tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="rhnreg_ks.t
+satellite_tools.disk_dumper.iss.t
+satellite_tools.satsync.t
+script-rhn_profile_sync_py.t
+script-spacewalk_channel_py.t
+up2date_client.capabilities.t
+up2date_client.config.t
+up2date_client.debUtils.t
+up2date_client.gui.t
+up2date_client.hardware.t
+up2date_client.messageWindow.t
+up2date_client.pkgUtils.t
+up2date_client.rhnChannel.t
+up2date_client.rhncli.t
+up2date_client.rhnreg.t
+up2date_client.rhnregGui.t
+up2date_client.rhnreg_constants.t
+up2date_client.rpcServer.t
+up2date_client.rpmUtils.t
+up2date_client.tui.t
+up2date_client.up2dateErrors.t
+up2date_client.up2dateUtils.t
+virtualization.poller.t
+virtualization.support.t" class="py-name" href="#" onclick="return doclink('link-9', 't', 'link-5');">t</a></tt><tt class="py-op">.</tt><tt class="py-name">ugettext</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># XXX: This could be moved in a more "static" location if it is too</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># much of an eye sore</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable up2date_client.config.Defaults=up2date_client.config-module.html#Defaults"><a title="up2date_client.config.Defaults" class="py-name" href="#" onclick="return doclink('link-10', 'Defaults', 'link-10');">Defaults</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt class="py-string">'enableProxy'</tt>       <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Use a HTTP Proxy"</tt><tt class="py-op">,</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">                           <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt class="py-string">'serverURL'</tt>         <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Remote server URL"</tt><tt class="py-op">,</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">                           <tt class="py-string">"https://xmlrpc.rhn.redhat.com/XMLRPC"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">    <tt class="py-string">'debug'</tt>             <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Whether or not debugging is enabled"</tt><tt class="py-op">,</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">                           <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-string">'systemIdPath'</tt>      <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Location of system id"</tt><tt class="py-op">,</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">                           <tt class="py-string">"/etc/sysconfig/rhn/systemid"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-string">'versionOverride'</tt>   <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Override the automatically determined "</tt>\ </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">                           <tt class="py-string">"system version"</tt><tt class="py-op">,</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">                           <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-string">'httpProxy'</tt>         <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"HTTP proxy in host:port format, e.g. "</tt>\ </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">                           <tt class="py-string">"squid.redhat.com:3128"</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">                           <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-string">'proxyUser'</tt>         <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"The username for an authenticated proxy"</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">                           <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">    <tt class="py-string">'proxyPassword'</tt>     <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"The password to use for an authenticated proxy"</tt><tt class="py-op">,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">                           <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt class="py-string">'enableProxyAuth'</tt>   <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"To use an authenticated proxy or not"</tt><tt class="py-op">,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">                           <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-string">'networkRetries'</tt>    <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Number of attempts to make at network "</tt>\ </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">                           <tt class="py-string">"connections before giving up"</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">                           <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-string">'sslCACert'</tt>         <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"The CA cert used to verify the ssl server"</tt><tt class="py-op">,</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">                           <tt class="py-string">"/usr/share/rhn/RHNS-CA-CERT"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt class="py-string">'noReboot'</tt>          <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Disable the reboot action"</tt><tt class="py-op">,</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">                           <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-string">'disallowConfChanges'</tt><tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">"Config options that can not be overwritten by a config update action"</tt><tt class="py-op">,</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">                            <tt class="py-op">[</tt><tt class="py-string">'sslCACert'</tt><tt class="py-op">,</tt><tt class="py-string">'serverURL'</tt><tt class="py-op">,</tt><tt class="py-string">'disallowConfChanges'</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">                             <tt class="py-string">'noReboot'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-op">}</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-comment"># a peristent configuration storage class</tt> </tt>
+<a name="ConfigFile"></a><div id="ConfigFile-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="ConfigFile-toggle" onclick="return toggle('ConfigFile');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html">ConfigFile</a><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ConfigFile-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-docstring">"class for handling persistent config options for the client"</tt> </tt>
+<a name="ConfigFile.__init__"></a><div id="ConfigFile.__init__-def"><a name="L61"></a><tt class="py-lineno"> 61</tt> <a class="py-toggle" href="#" id="ConfigFile.__init__-toggle" onclick="return toggle('ConfigFile.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.__init__-expanded"><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method common.UserDictCase.UserDictCase.dict()=common.UserDictCase.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict,Method rhnkickstart.lilo.UserDictCase.dict()=rhnkickstart.lilo.UserDictCase-class.html#dict"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-11', 'dict', 'link-11');">dict</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Variable config_common.up2date_config_parser.ConfigFile.fileName=config_common.up2date_config_parser.ConfigFile-class.html#fileName"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-12', 'fileName', 'link-12');">fileName</a></tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name" targets="Variable satellite_tools.xmlDiskSource.ArchesDiskSource.filename=satellite_tools.xmlDiskSource.ArchesDiskSource-class.html#filename,Variable satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename=satellite_tools.xmlDiskSource.ArchesExtraDiskSource-class.html#filename,Variable virtualization.get_config_value.filename=virtualization.get_config_value-module.html#filename"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-13', 'filename', 'link-13');">filename</a></tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-14', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method config_common.up2date_config_parser.ConfigFile.load()=config_common.up2date_config_parser.ConfigFile-class.html#load,Method satellite_tools.xmlDiskSource.DiskSource.load()=satellite_tools.xmlDiskSource.DiskSource-class.html#load,Method server.rhnImport.Loader.load()=server.rhnImport.Loader-class.html#load,Function server.rhnImport.load()=server.rhnImport-module.html#load,Method server.rhnSQL.sql_row.Row.load()=server.rhnSQL.sql_row.Row-class.html#load,Method server.rhnServer.satellite_cert.SatelliteCert.load()=server.rhnServer.satellite_cert.SatelliteCert-class.html#load,Method server.rhnSession.Session.load()=server.rhnSession.Session-class.html#load,Function server.rhnSession.load()=server.rhnSession-module.html#load,Function spacewalk.common.rhn_deb.load()=spacewalk.common.rhn_deb-module.html#load,Method spacewalk.common.rhn_mpm.MPM_Package.load()=spacewalk.common.rhn_mpm.MPM_Package-class.html#load,Function spacewalk.common.rhn_mpm.load()=spacewalk.common.rhn_mpm-module.html#load,Method up2date_client.config.Config.load()=up2date_client.config.Config-class.html#load,Method up2date_client.config.ConfigFile.load()=up2date_client.config.ConfigFile-class.html#load"><a title="config_common.up2date_config_parser.ConfigFile.load
+satellite_tools.xmlDiskSource.DiskSource.load
+server.rhnImport.Loader.load
+server.rhnImport.load
+server.rhnSQL.sql_row.Row.load
+server.rhnServer.satellite_cert.SatelliteCert.load
+server.rhnSession.Session.load
+server.rhnSession.load
+spacewalk.common.rhn_deb.load
+spacewalk.common.rhn_mpm.MPM_Package.load
+spacewalk.common.rhn_mpm.load
+up2date_client.config.Config.load
+up2date_client.config.ConfigFile.load" class="py-name" href="#" onclick="return doclink('link-15', 'load', 'link-15');">load</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">             </tt>
+<a name="ConfigFile.load"></a><div id="ConfigFile.load-def"><a name="L67"></a><tt class="py-lineno"> 67</tt> <a class="py-toggle" href="#" id="ConfigFile.load-toggle" onclick="return toggle('ConfigFile.load');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#load">load</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.load-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.load-expanded"><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-16" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-16', 'filename', 'link-13');">filename</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-17', 'fileName', 'link-12');">fileName</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-18', 'filename', 'link-13');">filename</a></tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-19', 'fileName', 'link-12');">fileName</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">access</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-20', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">R_OK</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-comment">#            print "warning: can't access %s" % self.fileName</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">         </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-21', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">,</tt> <tt class="py-string">"r"</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">            <tt class="py-comment"># strip comments</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">find</tt><tt class="py-op">(</tt><tt class="py-string">'#'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">            <tt class="py-name">line</tt> <tt class="py-op">=</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.strip()=server.config_common.base_templated_document.TemplatedDocument-class.html#strip"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-22', 'strip', 'link-22');">strip</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>             </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">line</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-name">split</tt> <tt class="py-op">=</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'='</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">split</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-number">2</tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">                <tt class="py-comment"># not in 'a = b' format. we should log this</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                <tt class="py-comment"># or maybe error.</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">            <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">split</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-23', 'strip', 'link-22');">strip</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">split</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-24', 'strip', 'link-22');">strip</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">            <tt class="py-comment"># decode a comment line</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-name">comment</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-name">pos</tt> <tt class="py-op">=</tt> <tt class="py-name">key</tt><tt class="py-op">.</tt><tt class="py-name">find</tt><tt class="py-op">(</tt><tt class="py-string">"[comment]"</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">pos</tt> <tt class="py-op">!=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">key</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">pos</tt><tt class="py-op">]</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                <tt class="py-name">comment</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-comment"># figure out if we need to parse the value further</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">value</tt><tt class="py-op">:</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                <tt class="py-comment"># possibly split value into a list</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                <tt id="link-25" class="py-name" targets="Method common.rhnConfig.RHNOptions.values()=common.rhnConfig.RHNOptions-class.html#values,Method config_common.up2date_config_parser.ConfigFile.values()=config_common.up2date_config_parser.ConfigFile-class.html#values,Method up2date_client.config.Config.values()=up2date_client.config.Config-class.html#values,Method up2date_client.config.ConfigFile.values()=up2date_client.config.ConfigFile-class.html#values,Method up2date_client.rhnChannel.rhnChannel.values()=up2date_client.rhnChannel.rhnChannel-class.html#values"><a title="common.rhnConfig.RHNOptions.values
+config_common.up2date_config_parser.ConfigFile.values
+up2date_client.config.Config.values
+up2date_client.config.ConfigFile.values
+up2date_client.rhnChannel.rhnChannel.values" class="py-name" href="#" onclick="return doclink('link-25', 'values', 'link-25');">values</a></tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">";"</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-string">'proxyUser'</tt><tt class="py-op">,</tt> <tt class="py-string">'proxyPassword'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">                    <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="common.rhnConfig.RHNOptions.values
+config_common.up2date_config_parser.ConfigFile.values
+up2date_client.config.Config.values
+up2date_client.config.ConfigFile.values
+up2date_client.rhnChannel.rhnChannel.values" class="py-name" href="#" onclick="return doclink('link-26', 'values', 'link-25');">values</a></tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">                    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                        <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">                    <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">:</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">                        <tt class="py-keyword">pass</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt id="link-27" class="py-name"><a title="common.rhnConfig.RHNOptions.values
+config_common.up2date_config_parser.ConfigFile.values
+up2date_client.config.Config.values
+up2date_client.config.ConfigFile.values
+up2date_client.rhnChannel.rhnChannel.values" class="py-name" href="#" onclick="return doclink('link-27', 'values', 'link-25');">values</a></tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">""</tt><tt class="py-op">:</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">                    <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">                    <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name"><a title="common.rhnConfig.RHNOptions.values
+config_common.up2date_config_parser.ConfigFile.values
+up2date_client.config.Config.values
+up2date_client.config.ConfigFile.values
+up2date_client.rhnChannel.rhnChannel.values" class="py-name" href="#" onclick="return doclink('link-28', 'values', 'link-25');">values</a></tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-comment"># now insert the (comment, value) in the dictionary</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-name">newval</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">comment</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-29', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method common.UserDictCase.UserDictCase.has_key()=common.UserDictCase.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method config_common.up2date_config_parser.ConfigFile.has_key()=config_common.up2date_config_parser.ConfigFile-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method rhnkickstart.lilo.UserDictCase.has_key()=rhnkickstart.lilo.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key,Method src.osad_config.ClientConfigParser.has_key()=src.osad_config.ClientConfigParser-class.html#has_key,Method up2date_client.config.Config.has_key()=up2date_client.config.Config-class.html#has_key,Method up2date_client.config.ConfigFile.has_key()=up2date_client.config.ConfigFile-class.html#has_key,Method wsgi.wsgiRequest.WsgiMPtable.has_key()=wsgi.wsgiRequest.WsgiMPtable-class.html#has_key"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-30', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-comment"># do we need to update</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt class="py-name">newval</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-31', 'dict', 'link-11');">dict</a></tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">comment</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> <tt class="py-comment"># override comment</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                    <tt class="py-name">newval</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">comment</tt><tt class="py-op">,</tt> <tt class="py-name">newval</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">value</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> <tt class="py-comment"># override value</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">                    <tt class="py-name">newval</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">newval</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-32', 'dict', 'link-11');">dict</a></tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">newval</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method config_common.rpc_wrapper.Server.close()=config_common.rpc_wrapper.Server-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_Dumper.close()=satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.satsync.StreamProducer.close()=satellite_tools.satsync.StreamProducer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close,Method up2date_client.rhnregGui.NetworkConfigDialog.close()=up2date_client.rhnregGui.NetworkConfigDialog-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+config_common.rpc_wrapper.Server.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close
+up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-33', 'close', 'link-33');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="ConfigFile.save"></a><div id="ConfigFile.save-def"><a name="L129"></a><tt class="py-lineno">129</tt> <a class="py-toggle" href="#" id="ConfigFile.save-toggle" onclick="return toggle('ConfigFile.save');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#save">save</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.save-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.save-expanded"><a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-34', 'fileName', 'link-12');">fileName</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-comment"># this really shouldn't happen, since it means that the</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-comment"># /etc/sysconfig/rhn directory doesn't exist, which is way broken</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-comment"># and note the attempted fix breaks useage of this by the applet</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-comment"># since it reuses this code to create its config file, and therefore</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-comment"># tries to makedirs() the users home dir again (with a specific perms)</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-comment"># and fails (see #130391)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">access</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-35', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">R_OK</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">access</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">dirname</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-36', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">R_OK</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt id="link-37" class="py-name"><a title="common.rhnTranslate._
+rhn_choose_channel._
+rhn_choose_server_gui._
+rhn_create_profile_gui._
+rhn_finish_gui._
+rhn_login_gui._
+rhn_provide_certificate_gui._
+rhn_register._
+rhn_review_gui._
+rhn_start_gui._
+rhnreg_ks._
+satellite_tools.disk_dumper.iss._
+satellite_tools.satsync._
+script-rhn_profile_sync_py._
+script-spacewalk_channel_py._
+up2date_client.capabilities._
+up2date_client.config._
+up2date_client.debUtils._
+up2date_client.gui._
+up2date_client.hardware._
+up2date_client.rhnChannel._
+up2date_client.rhncli._
+up2date_client.rhnreg._
+up2date_client.rhnregGui._
+up2date_client.rpcServer._
+up2date_client.tui._
+up2date_client.up2dateErrors._
+up2date_client.up2dateUtils._
+virtualization.poller._
+virtualization.support._" class="py-name" href="#" onclick="return doclink('link-37', '_', 'link-8');">_</a></tt><tt class="py-op">(</tt><tt class="py-string">"%s was not found"</tt> <tt class="py-op">%</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">dirname</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-38', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">         </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-39', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">+</tt><tt class="py-string">'.new'</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chmod</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-40', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">,</tt> <tt class="py-number">0600</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method rhnkickstart.lilo.LiloConfigFile.write()=rhnkickstart.lilo.LiloConfigFile-class.html#write,Method rhnpush.rhnpush_config.rhnpushConfigParser.write()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method satellite_tools.repo_plugins.yum_src.YumWarnings.write()=satellite_tools.repo_plugins.yum_src.YumWarnings-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write,Method src._ConfigParser.ConfigParser.write()=src._ConfigParser.ConfigParser-class.html#write,Method wsgi.wsgiRequest.WsgiRequest.write()=wsgi.wsgiRequest.WsgiRequest-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-41', 'write', 'link-41');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">"# Automatically generated Red Hat Update Agent "</tt>\ </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">                <tt class="py-string">"config file, do not edit.\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-42', 'write', 'link-41');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">"# Format: 1.0\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-43', 'write', 'link-41');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">""</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-44', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-45" class="py-name" targets="Method common.UserDictCase.UserDictCase.keys()=common.UserDictCase.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Function config_common.local_config.keys()=config_common.local_config-module.html#keys,Method config_common.local_config.rhncfgConfigParser.keys()=config_common.local_config.rhncfgConfigParser-class.html#keys,Method config_common.up2date_config_parser.ConfigFile.keys()=config_common.up2date_config_parser.ConfigFile-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method rhnpush.rhnpush_config.rhnpushConfigParser.keys()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys,Method src.osad_config.ClientConfigParser.keys()=src.osad_config.ClientConfigParser-class.html#keys,Function src.osad_config.keys()=src.osad_config-module.html#keys,Method up2date_client.config.Config.keys()=up2date_client.config.Config-class.html#keys,Method up2date_client.config.ConfigFile.keys()=up2date_client.config.ConfigFile-class.html#keys,Method up2date_client.rhnChannel.rhnChannel.keys()=up2date_client.rhnChannel.rhnChannel-class.html#keys,Method wsgi.wsgiRequest.WsgiMPtable.keys()=wsgi.wsgiRequest.WsgiMPtable-class.html#keys"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-45', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">            <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-46', 'dict', 'link-11');">dict</a></tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">            <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-47', 'write', 'link-41');">write</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-string">u"%s[comment]=%s\n"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-48" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-48', 'type', 'link-48');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-49" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-49', 'type', 'link-48');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">                <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-50', 'write', 'link-41');">write</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-string">u"%s=%s;\n"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-string">';'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">                <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-51', 'write', 'link-41');">write</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-string">u"%s=%s\n"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">            <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+rhnkickstart.lilo.LiloConfigFile.write
+rhnpush.rhnpush_config.rhnpushConfigParser.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+satellite_tools.repo_plugins.yum_src.YumWarnings.write
+spacewalk.common.rhn_mpm.MPM_Package.write
+src._ConfigParser.ConfigParser.write
+wsgi.wsgiRequest.WsgiRequest.write" class="py-name" href="#" onclick="return doclink('link-52', 'write', 'link-41');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">"\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+config_common.rpc_wrapper.Server.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_Dumper.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.satsync.StreamProducer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close
+up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-53', 'close', 'link-33');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">rename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-54" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-54', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">+</tt><tt class="py-string">'.new'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.fileName" class="py-name" href="#" onclick="return doclink('link-55', 'fileName', 'link-12');">fileName</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">    <tt class="py-comment"># dictionary interface</tt> </tt>
+<a name="ConfigFile.has_key"></a><div id="ConfigFile.has_key-def"><a name="L164"></a><tt class="py-lineno">164</tt> <a class="py-toggle" href="#" id="ConfigFile.has_key-toggle" onclick="return toggle('ConfigFile.has_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#has_key">has_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.has_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.has_key-expanded"><a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-56', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-57', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-58" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-58', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"> </tt>
+<a name="ConfigFile.keys"></a><div id="ConfigFile.keys-def"><a name="L167"></a><tt class="py-lineno">167</tt> <a class="py-toggle" href="#" id="ConfigFile.keys-toggle" onclick="return toggle('ConfigFile.keys');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#keys">keys</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.keys-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.keys-expanded"><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-59', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-60', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"> </tt>
+<a name="ConfigFile.values"></a><div id="ConfigFile.values-def"><a name="L170"></a><tt class="py-lineno">170</tt> <a class="py-toggle" href="#" id="ConfigFile.values-toggle" onclick="return toggle('ConfigFile.values');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#values">values</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.values-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.values-expanded"><a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-61', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="common.rhnConfig.RHNOptions.values
+config_common.up2date_config_parser.ConfigFile.values
+up2date_client.config.Config.values
+up2date_client.config.ConfigFile.values
+up2date_client.rhnChannel.rhnChannel.values" class="py-name" href="#" onclick="return doclink('link-62', 'values', 'link-25');">values</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"> </tt>
+<a name="ConfigFile.update"></a><div id="ConfigFile.update-def"><a name="L173"></a><tt class="py-lineno">173</tt> <a class="py-toggle" href="#" id="ConfigFile.update-toggle" onclick="return toggle('ConfigFile.update');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">dict</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.update-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.update-expanded"><a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-63', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-64" class="py-name" targets="Function actions.errata.update()=actions.errata-module.html#update,Function actions.up2date_config.update()=actions.up2date_config-module.html#update,Method common.UserDictCase.UserDictCase.update()=common.UserDictCase.UserDictCase-class.html#update,Method config_common.up2date_config_parser.ConfigFile.update()=config_common.up2date_config_parser.ConfigFile-class.html#update,Method rhn.UserDictCase.UserDictCase.update()=rhn.UserDictCase.UserDictCase-class.html#update,Method satellite_tools.progress_bar.ProgressBar.update()=satellite_tools.progress_bar.ProgressBar-class.html#update,Function server.action.errata.update()=server.action.errata-module.html#update,Function server.action.packages.update()=server.action.packages-module.html#update,Function server.action_extra_data.errata.update()=server.action_extra_data.errata-module.html#update,Function server.action_extra_data.packages.update()=server.action_extra_data.packages-module.html#update,Function server.action_extra_data.up2date_config.update()=server.action_extra_data.up2date_config-module.html#update,Method up2date_client.config.ConfigFile.update()=up2date_client.config.ConfigFile-class.html#update"><a title="actions.errata.update
+actions.up2date_config.update
+common.UserDictCase.UserDictCase.update
+config_common.up2date_config_parser.ConfigFile.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update
+up2date_client.config.ConfigFile.update" class="py-name" href="#" onclick="return doclink('link-64', 'update', 'link-64');">update</a></tt><tt class="py-op">(</tt><tt id="link-65" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-65', 'dict', 'link-11');">dict</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">     </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">    <tt class="py-comment"># we return None when we reference an invalid key instead of</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">    <tt class="py-comment"># raising an exception</tt> </tt>
+<a name="ConfigFile.__getitem__"></a><div id="ConfigFile.__getitem__-def"><a name="L178"></a><tt class="py-lineno">178</tt> <a class="py-toggle" href="#" id="ConfigFile.__getitem__-toggle" onclick="return toggle('ConfigFile.__getitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#__getitem__">__getitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.__getitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.__getitem__-expanded"><a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-66', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-67" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-67', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-68" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-68', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-69', 'dict', 'link-11');">dict</a></tt><tt class="py-op">[</tt><tt id="link-70" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-70', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt>     </tt>
+</div><a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    </tt>
+<a name="ConfigFile.__setitem__"></a><div id="ConfigFile.__setitem__-def"><a name="L183"></a><tt class="py-lineno">183</tt> <a class="py-toggle" href="#" id="ConfigFile.__setitem__-toggle" onclick="return toggle('ConfigFile.__setitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#__setitem__">__setitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.__setitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.__setitem__-expanded"><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-71" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-71', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-72', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-73" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-73', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">            <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-74', 'dict', 'link-11');">dict</a></tt><tt class="py-op">[</tt><tt id="link-75" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-75', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">            <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-76', 'dict', 'link-11');">dict</a></tt><tt class="py-op">[</tt><tt id="link-77" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-77', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">    <tt class="py-comment"># we might need to expose the comments...</tt> </tt>
+<a name="ConfigFile.info"></a><div id="ConfigFile.info-def"><a name="L191"></a><tt class="py-lineno">191</tt> <a class="py-toggle" href="#" id="ConfigFile.info-toggle" onclick="return toggle('ConfigFile.info');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.ConfigFile-class.html#info">info</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ConfigFile.info-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ConfigFile.info-expanded"><a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-78" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-78', 'dict', 'link-11');">dict</a></tt><tt class="py-op">.</tt><tt id="link-79" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-79', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-80" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-80', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-81" class="py-name"><a title="common.UserDictCase.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict
+rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-81', 'dict', 'link-11');">dict</a></tt><tt class="py-op">[</tt><tt id="link-82" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-82', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+</div></div><a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"><tt class="py-comment"># a superclass for the ConfigFile that also handles runtime-only</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt class="py-comment"># config values</tt> </tt>
+<a name="Config"></a><div id="Config-def"><a name="L199"></a><tt class="py-lineno">199</tt> <a class="py-toggle" href="#" id="Config-toggle" onclick="return toggle('Config');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html">Config</a><tt class="py-op">:</tt> </tt>
+</div><div id="Config-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Config-expanded"><a name="Config.__init__"></a><div id="Config.__init__-def"><a name="L200"></a><tt class="py-lineno">200</tt> <a class="py-toggle" href="#" id="Config.__init__-toggle" onclick="return toggle('Config.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.__init__-expanded"><a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt> <tt class="py-op">=</tt> <tt id="link-83" class="py-name" targets="Class config_common.up2date_config_parser.ConfigFile=config_common.up2date_config_parser.ConfigFile-class.html,Class up2date_client.config.ConfigFile=up2date_client.config.ConfigFile-class.html"><a title="config_common.up2date_config_parser.ConfigFile
+up2date_client.config.ConfigFile" class="py-name" href="#" onclick="return doclink('link-83', 'ConfigFile', 'link-83');">ConfigFile</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-84" class="py-name"><a title="actions.errata.update
+actions.up2date_config.update
+common.UserDictCase.UserDictCase.update
+config_common.up2date_config_parser.ConfigFile.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update
+up2date_client.config.ConfigFile.update" class="py-name" href="#" onclick="return doclink('link-84', 'update', 'link-64');">update</a></tt><tt class="py-op">(</tt><tt id="link-85" class="py-name"><a title="up2date_client.config.Defaults" class="py-name" href="#" onclick="return doclink('link-85', 'Defaults', 'link-10');">Defaults</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-86" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-86', 'filename', 'link-13');">filename</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-87" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.load
+satellite_tools.xmlDiskSource.DiskSource.load
+server.rhnImport.Loader.load
+server.rhnImport.load
+server.rhnSQL.sql_row.Row.load
+server.rhnServer.satellite_cert.SatelliteCert.load
+server.rhnSession.Session.load
+server.rhnSession.load
+spacewalk.common.rhn_deb.load
+spacewalk.common.rhn_mpm.MPM_Package.load
+spacewalk.common.rhn_mpm.load
+up2date_client.config.Config.load
+up2date_client.config.ConfigFile.load" class="py-name" href="#" onclick="return doclink('link-87', 'load', 'link-15');">load</a></tt><tt class="py-op">(</tt><tt id="link-88" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-88', 'filename', 'link-13');">filename</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">    <tt class="py-comment"># classic dictionary interface: we prefer values from the runtime</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">    <tt class="py-comment"># dictionary over the ones from the stored config</tt> </tt>
+<a name="Config.has_key"></a><div id="Config.has_key-def"><a name="L209"></a><tt class="py-lineno">209</tt> <a class="py-toggle" href="#" id="Config.has_key-toggle" onclick="return toggle('Config.has_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#has_key">has_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.has_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.has_key-expanded"><a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">.</tt><tt id="link-89" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-89', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-90" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-90', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-91" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-91', 'True', 'link-7');">True</a></tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-92" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-92', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-93" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-93', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-94" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-94', 'True', 'link-7');">True</a></tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-95" class="py-name" targets="Variable actions.ModeController.False=actions.ModeController-module.html#False,Variable actions.Modes.False=actions.Modes-module.html#False,Variable rhnpush.rhnpush_cache.False=rhnpush.rhnpush_cache-module.html#False,Variable rhnpush.rhnpush_confmanager.False=rhnpush.rhnpush_confmanager-module.html#False,Variable src._ConfigParser.False=src._ConfigParser-module.html#False,Variable xmlrpclib.False=xmlrpclib-module.html#False"><a title="actions.ModeController.False
+actions.Modes.False
+rhnpush.rhnpush_cache.False
+rhnpush.rhnpush_confmanager.False
+src._ConfigParser.False
+xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-95', 'False', 'link-95');">False</a></tt> </tt>
+</div><a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"> </tt>
+<a name="Config.keys"></a><div id="Config.keys-def"><a name="L216"></a><tt class="py-lineno">216</tt> <a class="py-toggle" href="#" id="Config.keys-toggle" onclick="return toggle('Config.keys');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#keys">keys</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.keys-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.keys-expanded"><a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">.</tt><tt id="link-96" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-96', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">k</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-97" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-97', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">k</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ret</tt><tt class="py-op">:</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">                <tt class="py-name">ret</tt><tt class="py-op">.</tt><tt id="link-98" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append,Method src._ConfigParser.ParsingError.append()=src._ConfigParser.ParsingError-class.html#append"><a title="server.importlib.importLib.Collection.append
+src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-98', 'append', 'link-98');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">k</tt><tt class="py-op">)</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line"> </tt>
+<a name="Config.values"></a><div id="Config.values-def"><a name="L223"></a><tt class="py-lineno">223</tt> <a class="py-toggle" href="#" id="Config.values-toggle" onclick="return toggle('Config.values');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#values">values</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.values-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.values-expanded"><a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">k</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-99" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-99', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">            <tt class="py-name">ret</tt><tt class="py-op">.</tt><tt id="link-100" class="py-name"><a title="server.importlib.importLib.Collection.append
+src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-100', 'append', 'link-98');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-101" class="py-name" targets="Method common.UserDictCase.UserDictCase.__getitem__()=common.UserDictCase.UserDictCase-class.html#__getitem__,Method config_common.local_config.rhncfgConfigParser.__getitem__()=config_common.local_config.rhncfgConfigParser-class.html#__getitem__,Method config_common.up2date_config_parser.ConfigFile.__getitem__()=config_common.up2date_config_parser.ConfigFile-class.html#__getitem__,Method proxy.rhnProxyAuth.AuthLocalBackend.__getitem__()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#__getitem__,Method rhn.UserDictCase.UserDictCase.__getitem__()=rhn.UserDictCase.UserDictCase-class.html#__getitem__,Method rhnkickstart.lilo.UserDictCase.__getitem__()=rhnkickstart.lilo.UserDictCase-class.html#__getitem__,Method rhnpush.rhnpush_config.rhnpushConfigParser.__getitem__()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#__getitem__,Method server.rhnSQL.sql_row.Row.__getitem__()=server.rhnSQL.sql_row.Row-class.html#__getitem__,Method server.rhnSQL.sql_table.Table.__getitem__()=server.rhnSQL.sql_table.Table-class.html#__getitem__,Method server.rhnServer.server_certificate.Certificate.__getitem__()=server.rhnServer.server_certificate.Certificate-class.html#__getitem__,Method spacewalk.common.rhn_deb.deb_Header.__getitem__()=spacewalk.common.rhn_deb.deb_Header-class.html#__getitem__,Method spacewalk.common.rhn_mpm.MPM_Header.__getitem__()=spacewalk.common.rhn_mpm.MPM_Header-class.html#__getitem__,Method spacewalk.common.rhn_rpm.RPM_Header.__getitem__()=spacewalk.common.rhn_rpm.RPM_Header-class.html#__getitem__,Method src.osad_config.ClientConfigParser.__getitem__()=src.osad_config.ClientConfigParser-class.html#__getitem__,Method up2date_client.config.Config.__getitem__()=up2date_client.config.Config-class.html#__getitem__,Method up2date_client.config.ConfigFile.__getitem__()=up2date_client.config.ConfigFile-class.html#__getitem__,Method up2date_client.rhnChannel.rhnChannel.__getitem__()=up2date_client.rhnChannel.rhnChannel-class.html#__getitem__,Method wsgi.wsgiRequest.WsgiMPtable.__getitem__()=wsgi.wsgiRequest.WsgiMPtable-class.html#__getitem__"><a title="common.UserDictCase.UserDictCase.__getitem__
+config_common.local_config.rhncfgConfigParser.__getitem__
+config_common.up2date_config_parser.ConfigFile.__getitem__
+proxy.rhnProxyAuth.AuthLocalBackend.__getitem__
+rhn.UserDictCase.UserDictCase.__getitem__
+rhnkickstart.lilo.UserDictCase.__getitem__
+rhnpush.rhnpush_config.rhnpushConfigParser.__getitem__
+server.rhnSQL.sql_row.Row.__getitem__
+server.rhnSQL.sql_table.Table.__getitem__
+server.rhnServer.server_certificate.Certificate.__getitem__
+spacewalk.common.rhn_deb.deb_Header.__getitem__
+spacewalk.common.rhn_mpm.MPM_Header.__getitem__
+spacewalk.common.rhn_rpm.RPM_Header.__getitem__
+src.osad_config.ClientConfigParser.__getitem__
+up2date_client.config.Config.__getitem__
+up2date_client.config.ConfigFile.__getitem__
+up2date_client.rhnChannel.rhnChannel.__getitem__
+wsgi.wsgiRequest.WsgiMPtable.__getitem__" class="py-name" href="#" onclick="return doclink('link-101', '__getitem__', 'link-101');">__getitem__</a></tt><tt class="py-op">(</tt><tt class="py-name">k</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line"> </tt>
+<a name="Config.items"></a><div id="Config.items-def"><a name="L229"></a><tt class="py-lineno">229</tt> <a class="py-toggle" href="#" id="Config.items-toggle" onclick="return toggle('Config.items');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#items">items</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.items-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.items-expanded"><a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">k</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-102" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-102', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">            <tt class="py-name">ret</tt><tt class="py-op">.</tt><tt id="link-103" class="py-name"><a title="server.importlib.importLib.Collection.append
+src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-103', 'append', 'link-98');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">k</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-104" class="py-name"><a title="common.UserDictCase.UserDictCase.__getitem__
+config_common.local_config.rhncfgConfigParser.__getitem__
+config_common.up2date_config_parser.ConfigFile.__getitem__
+proxy.rhnProxyAuth.AuthLocalBackend.__getitem__
+rhn.UserDictCase.UserDictCase.__getitem__
+rhnkickstart.lilo.UserDictCase.__getitem__
+rhnpush.rhnpush_config.rhnpushConfigParser.__getitem__
+server.rhnSQL.sql_row.Row.__getitem__
+server.rhnSQL.sql_table.Table.__getitem__
+server.rhnServer.server_certificate.Certificate.__getitem__
+spacewalk.common.rhn_deb.deb_Header.__getitem__
+spacewalk.common.rhn_mpm.MPM_Header.__getitem__
+spacewalk.common.rhn_rpm.RPM_Header.__getitem__
+src.osad_config.ClientConfigParser.__getitem__
+up2date_client.config.Config.__getitem__
+up2date_client.config.ConfigFile.__getitem__
+up2date_client.rhnChannel.rhnChannel.__getitem__
+wsgi.wsgiRequest.WsgiMPtable.__getitem__" class="py-name" href="#" onclick="return doclink('link-104', '__getitem__', 'link-101');">__getitem__</a></tt><tt class="py-op">(</tt><tt class="py-name">k</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line"> </tt>
+<a name="Config.__len__"></a><div id="Config.__len__-def"><a name="L235"></a><tt class="py-lineno">235</tt> <a class="py-toggle" href="#" id="Config.__len__-toggle" onclick="return toggle('Config.__len__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#__len__">__len__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.__len__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.__len__-expanded"><a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-105" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-105', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line"> </tt>
+<a name="Config.__setitem__"></a><div id="Config.__setitem__-def"><a name="L238"></a><tt class="py-lineno">238</tt> <a class="py-toggle" href="#" id="Config.__setitem__-toggle" onclick="return toggle('Config.__setitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#__setitem__">__setitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.__setitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.__setitem__-expanded"><a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">[</tt><tt id="link-106" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-106', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+</div><a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">    <tt class="py-comment"># we return None when nothing is found instead of raising and exception</tt> </tt>
+<a name="Config.__getitem__"></a><div id="Config.__getitem__-def"><a name="L242"></a><tt class="py-lineno">242</tt> <a class="py-toggle" href="#" id="Config.__getitem__-toggle" onclick="return toggle('Config.__getitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#__getitem__">__getitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.__getitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.__getitem__-expanded"><a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">.</tt><tt id="link-107" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-107', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-108" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-108', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">[</tt><tt id="link-109" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-109', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-110" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-110', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-111" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-111', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">[</tt><tt id="link-112" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-112', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">         </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">    <tt class="py-comment"># These function expose access to the peristent storage for</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">    <tt class="py-comment"># updates and saves</tt> </tt>
+<a name="Config.info"></a><div id="Config.info-def"><a name="L251"></a><tt class="py-lineno">251</tt> <a class="py-toggle" href="#" id="Config.info-toggle" onclick="return toggle('Config.info');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#info">info</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-comment"># retrieve comments</tt> </tt>
+</div><a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-113" class="py-name" targets="Method config_common.up2date_config_parser.ConfigFile.info()=config_common.up2date_config_parser.ConfigFile-class.html#info,Method up2date_client.config.Config.info()=up2date_client.config.Config-class.html#info,Method up2date_client.config.ConfigFile.info()=up2date_client.config.ConfigFile-class.html#info"><a title="config_common.up2date_config_parser.ConfigFile.info
+up2date_client.config.Config.info
+up2date_client.config.ConfigFile.info" class="py-name" href="#" onclick="return doclink('link-113', 'info', 'link-113');">info</a></tt><tt class="py-op">(</tt><tt id="link-114" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-114', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt>     </tt>
+</div><a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line"> </tt>
+<a name="Config.save"></a><div id="Config.save-def"><a name="L254"></a><tt class="py-lineno">254</tt> <a class="py-toggle" href="#" id="Config.save-toggle" onclick="return toggle('Config.save');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#save">save</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.save-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.save-expanded"><a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-115" class="py-name" targets="Method config_common.up2date_config_parser.ConfigFile.save()=config_common.up2date_config_parser.ConfigFile-class.html#save,Method server.rhnChannel.BaseDatabaseObject.save()=server.rhnChannel.BaseDatabaseObject-class.html#save,Method server.rhnSQL.sql_row.Row.save()=server.rhnSQL.sql_row.Row-class.html#save,Method server.rhnServer.server_class.Server.save()=server.rhnServer.server_class.Server-class.html#save,Method server.rhnServer.server_hardware.GenericDevice.save()=server.rhnServer.server_hardware.GenericDevice-class.html#save,Method server.rhnServer.server_hardware.NetIfaceInformation.save()=server.rhnServer.server_hardware.NetIfaceInformation-class.html#save,Method server.rhnSession.Session.save()=server.rhnSession.Session-class.html#save,Method server.rhnUser.User.save()=server.rhnUser.User-class.html#save,Method up2date_client.config.Config.save()=up2date_client.config.Config-class.html#save,Method up2date_client.config.ConfigFile.save()=up2date_client.config.ConfigFile-class.html#save,Method virtualization.domain_config.DomainConfig.save()=virtualization.domain_config.DomainConfig-class.html#save,Method virtualization.poller_state_cache.PollerStateCache.save()=virtualization.poller_state_cache.PollerStateCache-class.html#save"><a title="config_common.up2date_config_parser.ConfigFile.save
+server.rhnChannel.BaseDatabaseObject.save
+server.rhnSQL.sql_row.Row.save
+server.rhnServer.server_class.Server.save
+server.rhnServer.server_hardware.GenericDevice.save
+server.rhnServer.server_hardware.NetIfaceInformation.save
+server.rhnSession.Session.save
+server.rhnUser.User.save
+up2date_client.config.Config.save
+up2date_client.config.ConfigFile.save
+virtualization.domain_config.DomainConfig.save
+virtualization.poller_state_cache.PollerStateCache.save" class="py-name" href="#" onclick="return doclink('link-115', 'save', 'link-115');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line"> </tt>
+<a name="Config.load"></a><div id="Config.load-def"><a name="L257"></a><tt class="py-lineno">257</tt> <a class="py-toggle" href="#" id="Config.load-toggle" onclick="return toggle('Config.load');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#load">load</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.load-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.load-expanded"><a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-116" class="py-name"><a title="config_common.up2date_config_parser.ConfigFile.load
+satellite_tools.xmlDiskSource.DiskSource.load
+server.rhnImport.Loader.load
+server.rhnImport.load
+server.rhnSQL.sql_row.Row.load
+server.rhnServer.satellite_cert.SatelliteCert.load
+server.rhnSession.Session.load
+server.rhnSession.load
+spacewalk.common.rhn_deb.load
+spacewalk.common.rhn_mpm.MPM_Package.load
+spacewalk.common.rhn_mpm.load
+up2date_client.config.Config.load
+up2date_client.config.ConfigFile.load" class="py-name" href="#" onclick="return doclink('link-116', 'load', 'link-15');">load</a></tt><tt class="py-op">(</tt><tt id="link-117" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename
+virtualization.get_config_value.filename" class="py-name" href="#" onclick="return doclink('link-117', 'filename', 'link-13');">filename</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">        <tt class="py-comment"># make sure the runtime cache is not polluted</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">k</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">.</tt><tt id="link-118" class="py-name"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-118', 'keys', 'link-45');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">.</tt><tt id="link-119" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-119', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">k</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line">            <tt class="py-comment"># allow this one to pass through</tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">[</tt><tt class="py-name">k</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">    <tt class="py-comment"># save straight in the persistent storage</tt> </tt>
+<a name="Config.set"></a><div id="Config.set-def"><a name="L267"></a><tt class="py-lineno">267</tt> <a class="py-toggle" href="#" id="Config.set-toggle" onclick="return toggle('Config.set');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config.Config-class.html#set">set</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Config.set-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Config.set-expanded"><a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stored</tt><tt class="py-op">[</tt><tt id="link-120" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-120', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">        <tt class="py-comment"># clean up the runtime cache</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">.</tt><tt id="link-121" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-121', 'has_key', 'link-30');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-122" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-122', 'name', 'link-58');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">runtime</tt><tt class="py-op">[</tt><tt id="link-123" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-123', 'name', 'link-58');">name</a></tt><tt class="py-op">]</tt> </tt>
+</div></div><a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line"> </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line"> </tt>
+<a name="getProxySetting"></a><div id="getProxySetting-def"><a name="L274"></a><tt class="py-lineno">274</tt> <a class="py-toggle" href="#" id="getProxySetting-toggle" onclick="return toggle('getProxySetting');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config-module.html#getProxySetting">getProxySetting</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getProxySetting-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getProxySetting-expanded"><a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">    <tt class="py-docstring">""" returns proxy string in format hostname:port</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line"><tt class="py-docstring">    hostname is converted to Pune encoding if needed</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">    <tt id="link-124" class="py-name" targets="Variable actions.reboot.cfg=actions.reboot-module.html#cfg,Variable actions.up2date_config.cfg=actions.up2date_config-module.html#cfg,Variable rhn_applet.cfg=rhn_applet-module.html#cfg,Variable rhn_check.cfg=rhn_check-module.html#cfg,Variable up2date_client.rhnreg.cfg=up2date_client.rhnreg-module.html#cfg,Variable up2date_client.rhnregGui.cfg=up2date_client.rhnregGui-module.html#cfg,Variable up2date_client.tui.cfg=up2date_client.tui-module.html#cfg"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-124', 'cfg', 'link-124');">cfg</a></tt> <tt class="py-op">=</tt> <tt id="link-125" class="py-name" targets="Function up2date_client.config.initUp2dateConfig()=up2date_client.config-module.html#initUp2dateConfig"><a title="up2date_client.config.initUp2dateConfig" class="py-name" href="#" onclick="return doclink('link-125', 'initUp2dateConfig', 'link-125');">initUp2dateConfig</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">    <tt id="link-126" class="py-name" targets="Package proxy=proxy-module.html,Module server.handlers.xmlrpc.proxy=server.handlers.xmlrpc.proxy-module.html"><a title="proxy
+server.handlers.xmlrpc.proxy" class="py-name" href="#" onclick="return doclink('link-126', 'proxy', 'link-126');">proxy</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">    <tt class="py-name">proxyHost</tt> <tt class="py-op">=</tt> <tt id="link-127" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-127', 'cfg', 'link-124');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">"httpProxy"</tt><tt class="py-op">]</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line"> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">proxyHost</tt><tt class="py-op">:</tt> </tt>
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">proxyHost</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">7</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"http://"</tt><tt class="py-op">:</tt> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line">            <tt class="py-name">proxyHost</tt> <tt class="py-op">=</tt> <tt class="py-name">proxyHost</tt><tt class="py-op">[</tt><tt class="py-number">7</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line">        <tt class="py-name">parts</tt> <tt class="py-op">=</tt> <tt class="py-name">proxyHost</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">':'</tt><tt class="py-op">)</tt> </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line">        <tt class="py-name">parts</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-128" class="py-name"><a title="rhn.connections.idn_ascii_to_pune" class="py-name" href="#" onclick="return doclink('link-128', 'idn_ascii_to_pune', 'link-2');">idn_ascii_to_pune</a></tt><tt class="py-op">(</tt><tt class="py-name">parts</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line">        <tt id="link-129" class="py-name"><a title="proxy
+server.handlers.xmlrpc.proxy" class="py-name" href="#" onclick="return doclink('link-129', 'proxy', 'link-126');">proxy</a></tt> <tt class="py-op">=</tt> <tt class="py-string">':'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">parts</tt><tt class="py-op">)</tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line"> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-130" class="py-name"><a title="proxy
+server.handlers.xmlrpc.proxy" class="py-name" href="#" onclick="return doclink('link-130', 'proxy', 'link-126');">proxy</a></tt> </tt>
+</div><a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line"> </tt>
+<a name="convert_url_to_pune"></a><div id="convert_url_to_pune-def"><a name="L291"></a><tt class="py-lineno">291</tt> <a class="py-toggle" href="#" id="convert_url_to_pune-toggle" onclick="return toggle('convert_url_to_pune');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config-module.html#convert_url_to_pune">convert_url_to_pune</a><tt class="py-op">(</tt><tt class="py-param">url</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="convert_url_to_pune-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="convert_url_to_pune-expanded"><a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line">    <tt class="py-docstring">""" returns url where hostname is converted to Pune encoding """</tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">    <tt class="py-name">s</tt> <tt class="py-op">=</tt> <tt class="py-name">urlsplit</tt><tt class="py-op">(</tt><tt id="link-131" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.url=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#url,Variable satellite_tools.xmlWireSource.BaseWireSource.url=satellite_tools.xmlWireSource.BaseWireSource-class.html#url"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-131', 'url', 'link-131');">url</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">urlunsplit</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-132" class="py-name"><a title="rhn.connections.idn_ascii_to_pune" class="py-name" href="#" onclick="return doclink('link-132', 'idn_ascii_to_pune', 'link-2');">idn_ascii_to_pune</a></tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line"> </tt>
+<a name="convert_url_from_pune"></a><div id="convert_url_from_pune-def"><a name="L296"></a><tt class="py-lineno">296</tt> <a class="py-toggle" href="#" id="convert_url_from_pune-toggle" onclick="return toggle('convert_url_from_pune');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config-module.html#convert_url_from_pune">convert_url_from_pune</a><tt class="py-op">(</tt><tt class="py-param">url</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="convert_url_from_pune-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="convert_url_from_pune-expanded"><a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line">    <tt class="py-docstring">""" returns url where hostname is converted from Pune encoding. Returns unicode string. """</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">    <tt class="py-name">s</tt> <tt class="py-op">=</tt> <tt class="py-name">urlsplit</tt><tt class="py-op">(</tt><tt id="link-133" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-133', 'url', 'link-131');">url</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">urlunsplit</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-134" class="py-name"><a title="rhn.connections.idn_pune_to_unicode" class="py-name" href="#" onclick="return doclink('link-134', 'idn_pune_to_unicode', 'link-3');">idn_pune_to_unicode</a></tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line"> </tt>
+<a name="getServerlURL"></a><div id="getServerlURL-def"><a name="L301"></a><tt class="py-lineno">301</tt> <a class="py-toggle" href="#" id="getServerlURL-toggle" onclick="return toggle('getServerlURL');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config-module.html#getServerlURL">getServerlURL</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getServerlURL-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getServerlURL-expanded"><a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line">    <tt class="py-docstring">""" return list of serverURL from config</tt> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line"><tt class="py-docstring">        Note: in config may be one value or more values, but this</tt> </tt>
+<a name="L304"></a><tt class="py-lineno">304</tt>  <tt class="py-line"><tt class="py-docstring">        function always return list</tt> </tt>
+<a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L306"></a><tt class="py-lineno">306</tt>  <tt class="py-line">    <tt id="link-135" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-135', 'cfg', 'link-124');">cfg</a></tt> <tt class="py-op">=</tt> <tt id="link-136" class="py-name"><a title="up2date_client.config.initUp2dateConfig" class="py-name" href="#" onclick="return doclink('link-136', 'initUp2dateConfig', 'link-125');">initUp2dateConfig</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line">    <tt class="py-comment"># serverURL may be a list in the config file, so by default, grab the</tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line">    <tt class="py-comment"># first element.</tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-137" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-137', 'type', 'link-48');">type</a></tt><tt class="py-op">(</tt><tt id="link-138" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-138', 'cfg', 'link-124');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'serverURL'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-139" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-139', 'type', 'link-48');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt id="link-140" class="py-name" targets="Function up2date_client.config.convert_url_to_pune()=up2date_client.config-module.html#convert_url_to_pune"><a title="up2date_client.config.convert_url_to_pune" class="py-name" href="#" onclick="return doclink('link-140', 'convert_url_to_pune', 'link-140');">convert_url_to_pune</a></tt><tt class="py-op">,</tt> <tt id="link-141" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-141', 'cfg', 'link-124');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'serverURL'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt id="link-142" class="py-name"><a title="up2date_client.config.convert_url_to_pune" class="py-name" href="#" onclick="return doclink('link-142', 'convert_url_to_pune', 'link-140');">convert_url_to_pune</a></tt><tt class="py-op">(</tt><tt id="link-143" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-143', 'cfg', 'link-124');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'serverURL'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line"> </tt>
+<a name="setServerURL"></a><div id="setServerURL-def"><a name="L314"></a><tt class="py-lineno">314</tt> <a class="py-toggle" href="#" id="setServerURL-toggle" onclick="return toggle('setServerURL');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config-module.html#setServerURL">setServerURL</a><tt class="py-op">(</tt><tt class="py-param">serverURL</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="setServerURL-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="setServerURL-expanded"><a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">    <tt class="py-docstring">""" Set serverURL in config """</tt> </tt>
+<a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">    <tt id="link-144" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-144', 'cfg', 'link-124');">cfg</a></tt> <tt class="py-op">=</tt> <tt id="link-145" class="py-name"><a title="up2date_client.config.initUp2dateConfig" class="py-name" href="#" onclick="return doclink('link-145', 'initUp2dateConfig', 'link-125');">initUp2dateConfig</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line">    <tt id="link-146" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-146', 'cfg', 'link-124');">cfg</a></tt><tt class="py-op">.</tt><tt id="link-147" class="py-name" targets="Method common.rhnCache.Cache.set()=common.rhnCache.Cache-class.html#set,Method common.rhnCache.CompressedCache.set()=common.rhnCache.CompressedCache-class.html#set,Method common.rhnCache.NullCache.set()=common.rhnCache.NullCache-class.html#set,Method common.rhnCache.ObjectCache.set()=common.rhnCache.ObjectCache-class.html#set,Function common.rhnCache.set()=common.rhnCache-module.html#set,Method common.rhnConfig.RHNOptions.set()=common.rhnConfig.RHNOptions-class.html#set,Function common.rhnFlags.set()=common.rhnFlags-module.html#set,Method common.rhnTranslate.i18n.set()=common.rhnTranslate.i18n-class.html#set,Method src._ConfigParser.ConfigParser.set()=src._ConfigParser.ConfigParser-class.html#set,Method up2date_client.config.Config.set()=up2date_client.config.Config-class.html#set"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+src._ConfigParser.ConfigParser.set
+up2date_client.config.Config.set" class="py-name" href="#" onclick="return doclink('link-147', 'set', 'link-147');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">'serverURL'</tt><tt class="py-op">,</tt> <tt class="py-name">serverURL</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line"> </tt>
+<a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line"> </tt>
+<a name="initUp2dateConfig"></a><div id="initUp2dateConfig-def"><a name="L320"></a><tt class="py-lineno">320</tt> <a class="py-toggle" href="#" id="initUp2dateConfig-toggle" onclick="return toggle('initUp2dateConfig');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.config-module.html#initUp2dateConfig">initUp2dateConfig</a><tt class="py-op">(</tt><tt class="py-param">cfg_file</tt> <tt class="py-op">=</tt> <tt class="py-string">"/etc/sysconfig/rhn/up2date"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="initUp2dateConfig-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="initUp2dateConfig-expanded"><a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line">    <tt class="py-docstring">"""This function is the right way to get at the up2date config."""</tt> </tt>
+<a name="L322"></a><tt class="py-lineno">322</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt id="link-148" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-148', 'cfg', 'link-124');">cfg</a></tt> </tt>
+<a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L324"></a><tt class="py-lineno">324</tt>  <tt class="py-line">        <tt id="link-149" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-149', 'cfg', 'link-124');">cfg</a></tt> </tt>
+<a name="L325"></a><tt class="py-lineno">325</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">NameError</tt><tt class="py-op">:</tt> </tt>
+<a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line">        <tt id="link-150" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-150', 'cfg', 'link-124');">cfg</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line">         </tt>
+<a name="L328"></a><tt class="py-lineno">328</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-151" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-151', 'cfg', 'link-124');">cfg</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line">        <tt id="link-152" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-152', 'cfg', 'link-124');">cfg</a></tt> <tt class="py-op">=</tt> <tt id="link-153" class="py-name" targets="Class up2date_client.config.Config=up2date_client.config.Config-class.html"><a title="up2date_client.config.Config" class="py-name" href="#" onclick="return doclink('link-153', 'Config', 'link-153');">Config</a></tt><tt class="py-op">(</tt><tt class="py-name">cfg_file</tt><tt class="py-op">)</tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line">        <tt id="link-154" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-154', 'cfg', 'link-124');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">"isatty"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-155" class="py-name"><a title="actions.ModeController.False
+actions.Modes.False
+rhnpush.rhnpush_cache.False
+rhnpush.rhnpush_confmanager.False
+src._ConfigParser.False
+xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-155', 'False', 'link-95');">False</a></tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">.</tt><tt id="link-156" class="py-name" targets="Method rhn.SSL.SSLSocket.isatty()=rhn.SSL.SSLSocket-class.html#isatty,Method rhn.SSL.SSLSocket.isatty()=rhn.SSL.SSLSocket-class.html#isatty"><a title="rhn.SSL.SSLSocket.isatty
+rhn.SSL.SSLSocket.isatty" class="py-name" href="#" onclick="return doclink('link-156', 'isatty', 'link-156');">isatty</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line">            <tt id="link-157" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-157', 'cfg', 'link-124');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">"isatty"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-158" class="py-name"><a title="actions.ModeController.True
+actions.Modes.True
+rhnpush.rhnpush_cache.True
+rhnpush.rhnpush_confmanager.True
+src._ConfigParser.True
+xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-158', 'True', 'link-7');">True</a></tt> </tt>
+<a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line">         </tt>
+<a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-159" class="py-name"><a title="actions.reboot.cfg
+actions.up2date_config.cfg
+rhn_applet.cfg
+rhn_check.cfg
+up2date_client.rhnreg.cfg
+up2date_client.rhnregGui.cfg
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-159', 'cfg', 'link-124');">cfg</a></tt> </tt>
+</div><a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:01:43 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

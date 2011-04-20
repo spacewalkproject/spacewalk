@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>actions.errata</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="actions-module.html">Package&nbsp;actions</a> ::
+        Module&nbsp;errata
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="actions.errata-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="actions.errata-module.html">Module actions.errata</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Client code for Update Agent</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPL.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># Author: Adrian Likins &lt;alikins@redhat.com</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append,Method src._ConfigParser.ParsingError.append()=src._ConfigParser.ParsingError-class.html#append"><a title="server.importlib.importLib.Collection.append
+src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-0', 'append', 'link-0');">append</a></tt><tt class="py-op">(</tt><tt class="py-string">"/usr/share/rhn/"</tt><tt class="py-op">)</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Package up2date_client=up2date_client-module.html"><a title="up2date_client" class="py-name" href="#" onclick="return doclink('link-1', 'up2date_client', 'link-1');">up2date_client</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module up2date_client.rhnserver=up2date_client.rhnserver-module.html"><a title="up2date_client.rhnserver" class="py-name" href="#" onclick="return doclink('link-2', 'rhnserver', 'link-2');">rhnserver</a></tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name"><a title="up2date_client" class="py-name" href="#" onclick="return doclink('link-3', 'up2date_client', 'link-1');">up2date_client</a></tt> <tt class="py-keyword">import</tt> <tt id="link-4" class="py-name" targets="Module up2date_client.up2dateAuth=up2date_client.up2dateAuth-module.html"><a title="up2date_client.up2dateAuth" class="py-name" href="#" onclick="return doclink('link-4', 'up2dateAuth', 'link-4');">up2dateAuth</a></tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-5" class="py-name"><a title="up2date_client" class="py-name" href="#" onclick="return doclink('link-5', 'up2date_client', 'link-1');">up2date_client</a></tt> <tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Module up2date_client.pkgUtils=up2date_client.pkgUtils-module.html"><a title="up2date_client.pkgUtils" class="py-name" href="#" onclick="return doclink('link-6', 'pkgUtils', 'link-6');">pkgUtils</a></tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name" targets="Package actions=actions-module.html,Variable virtualization.init_action.actions=virtualization.init_action-module.html#actions"><a title="actions
+virtualization.init_action.actions" class="py-name" href="#" onclick="return doclink('link-7', 'actions', 'link-7');">actions</a></tt> <tt class="py-keyword">import</tt> <tt id="link-8" class="py-name" targets="Method rhnpush.rhnpush.UploadClass.packages()=rhnpush.rhnpush.UploadClass-class.html#packages,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#packages,Module server.action.packages=server.action.packages-module.html,Module server.action_extra_data.packages=server.action_extra_data.packages-module.html,Module server.handlers.app.packages=server.handlers.app.packages-module.html,Module server.handlers.xp.packages=server.handlers.xp.packages-module.html"><a title="rhnpush.rhnpush.UploadClass.packages
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages
+server.action.packages
+server.action_extra_data.packages
+server.handlers.app.packages
+server.handlers.xp.packages" class="py-name" href="#" onclick="return doclink('link-8', 'packages', 'link-8');">packages</a></tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable actions.configfiles.__rhnexport__=actions.configfiles-module.html#__rhnexport__,Variable actions.errata.__rhnexport__=actions.errata-module.html#__rhnexport__,Variable actions.hardware.__rhnexport__=actions.hardware-module.html#__rhnexport__,Variable actions.reboot.__rhnexport__=actions.reboot-module.html#__rhnexport__,Variable actions.rhnsd.__rhnexport__=actions.rhnsd-module.html#__rhnexport__,Variable actions.script.__rhnexport__=actions.script-module.html#__rhnexport__,Variable actions.systemid.__rhnexport__=actions.systemid-module.html#__rhnexport__,Variable actions.up2date_config.__rhnexport__=actions.up2date_config-module.html#__rhnexport__,Variable kickstart.__rhnexport__=kickstart-module.html#__rhnexport__,Variable kickstart_guest.__rhnexport__=kickstart_guest-module.html#__rhnexport__,Variable rhn_applet.__rhnexport__=rhn_applet-module.html#__rhnexport__,Variable server.action.activation.__rhnexport__=server.action.activation-module.html#__rhnexport__,Variable server.action.configfiles.__rhnexport__=server.action.configfiles-module.html#__rhnexport__,Variable server.action.errata.__rhnexport__=server.action.errata-module.html#__rhnexport__,Variable server.action.hardware.__rhnexport__=server.action.hardware-module.html#__rhnexport__,Variable server.action.kickstart.__rhnexport__=server.action.kickstart-module.html#__rhnexport__,Variable server.action.kickstart_guest.__rhnexport__=server.action.kickstart_guest-module.html#__rhnexport__,Variable server.action.kickstart_host.__rhnexport__=server.action.kickstart_host-module.html#__rhnexport__,Variable server.action.packages.__rhnexport__=server.action.packages-module.html#__rhnexport__,Variable server.action.reboot.__rhnexport__=server.action.reboot-module.html#__rhnexport__,Variable server.action.rhn_applet.__rhnexport__=server.action.rhn_applet-module.html#__rhnexport__,Variable server.action.rhnsd.__rhnexport__=server.action.rhnsd-module.html#__rhnexport__,Variable server.action.rollback.__rhnexport__=server.action.rollback-module.html#__rhnexport__,Variable server.action.script.__rhnexport__=server.action.script-module.html#__rhnexport__,Variable server.action.solarispkgs.__rhnexport__=server.action.solarispkgs-module.html#__rhnexport__,Variable server.action.virt.__rhnexport__=server.action.virt-module.html#__rhnexport__,Variable server.action_extra_data.configfiles.__rhnexport__=server.action_extra_data.configfiles-module.html#__rhnexport__,Variable server.action_extra_data.errata.__rhnexport__=server.action_extra_data.errata-module.html#__rhnexport__,Variable server.action_extra_data.hardware.__rhnexport__=server.action_extra_data.hardware-module.html#__rhnexport__,Variable server.action_extra_data.kickstart.__rhnexport__=server.action_extra_data.kickstart-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_guest.__rhnexport__=server.action_extra_data.kickstart_guest-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_host.__rhnexport__=server.action_extra_data.kickstart_host-module.html#__rhnexport__,Variable server.action_extra_data.packages.__rhnexport__=server.action_extra_data.packages-module.html#__rhnexport__,Variable server.action_extra_data.reboot.__rhnexport__=server.action_extra_data.reboot-module.html#__rhnexport__,Variable server.action_extra_data.rhn_applet.__rhnexport__=server.action_extra_data.rhn_applet-module.html#__rhnexport__,Variable server.action_extra_data.rhnsd.__rhnexport__=server.action_extra_data.rhnsd-module.html#__rhnexport__,Variable server.action_extra_data.rollback.__rhnexport__=server.action_extra_data.rollback-module.html#__rhnexport__,Variable server.action_extra_data.script.__rhnexport__=server.action_extra_data.script-module.html#__rhnexport__,Variable server.action_extra_data.solarispkgs.__rhnexport__=server.action_extra_data.solarispkgs-module.html#__rhnexport__,Variable server.action_extra_data.up2date_config.__rhnexport__=server.action_extra_data.up2date_config-module.html#__rhnexport__,Variable server.action_extra_data.virt.__rhnexport__=server.action_extra_data.virt-module.html#__rhnexport__,Variable virt.__rhnexport__=virt-module.html#__rhnexport__"><a title="actions.configfiles.__rhnexport__
+actions.errata.__rhnexport__
+actions.hardware.__rhnexport__
+actions.reboot.__rhnexport__
+actions.rhnsd.__rhnexport__
+actions.script.__rhnexport__
+actions.systemid.__rhnexport__
+actions.up2date_config.__rhnexport__
+kickstart.__rhnexport__
+kickstart_guest.__rhnexport__
+rhn_applet.__rhnexport__
+server.action.activation.__rhnexport__
+server.action.configfiles.__rhnexport__
+server.action.errata.__rhnexport__
+server.action.hardware.__rhnexport__
+server.action.kickstart.__rhnexport__
+server.action.kickstart_guest.__rhnexport__
+server.action.kickstart_host.__rhnexport__
+server.action.packages.__rhnexport__
+server.action.reboot.__rhnexport__
+server.action.rhn_applet.__rhnexport__
+server.action.rhnsd.__rhnexport__
+server.action.rollback.__rhnexport__
+server.action.script.__rhnexport__
+server.action.solarispkgs.__rhnexport__
+server.action.virt.__rhnexport__
+server.action_extra_data.configfiles.__rhnexport__
+server.action_extra_data.errata.__rhnexport__
+server.action_extra_data.hardware.__rhnexport__
+server.action_extra_data.kickstart.__rhnexport__
+server.action_extra_data.kickstart_guest.__rhnexport__
+server.action_extra_data.kickstart_host.__rhnexport__
+server.action_extra_data.packages.__rhnexport__
+server.action_extra_data.reboot.__rhnexport__
+server.action_extra_data.rhn_applet.__rhnexport__
+server.action_extra_data.rhnsd.__rhnexport__
+server.action_extra_data.rollback.__rhnexport__
+server.action_extra_data.script.__rhnexport__
+server.action_extra_data.solarispkgs.__rhnexport__
+server.action_extra_data.up2date_config.__rhnexport__
+server.action_extra_data.virt.__rhnexport__
+virt.__rhnexport__" class="py-name" href="#" onclick="return doclink('link-9', '__rhnexport__', 'link-9');">__rhnexport__</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">    <tt class="py-string">'update'</tt><tt class="py-op">]</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-comment"># action version we understand</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable actions.configfiles.ACTION_VERSION=actions.configfiles-module.html#ACTION_VERSION,Variable actions.errata.ACTION_VERSION=actions.errata-module.html#ACTION_VERSION,Variable actions.reboot.ACTION_VERSION=actions.reboot-module.html#ACTION_VERSION,Variable actions.script.ACTION_VERSION=actions.script-module.html#ACTION_VERSION,Variable rhn_check.ACTION_VERSION=rhn_check-module.html#ACTION_VERSION"><a title="actions.configfiles.ACTION_VERSION
+actions.errata.ACTION_VERSION
+actions.reboot.ACTION_VERSION
+actions.script.ACTION_VERSION
+rhn_check.ACTION_VERSION" class="py-name" href="#" onclick="return doclink('link-10', 'ACTION_VERSION', 'link-10');">ACTION_VERSION</a></tt> <tt class="py-op">=</tt> <tt class="py-number">2</tt>  </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="__getErrataInfo"></a><div id="__getErrataInfo-def"><a name="L22"></a><tt class="py-lineno">22</tt> <a class="py-toggle" href="#" id="__getErrataInfo-toggle" onclick="return toggle('__getErrataInfo');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="actions.errata-module.html#__getErrataInfo">__getErrataInfo</a><tt class="py-op">(</tt><tt class="py-param">errata_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="__getErrataInfo-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="__getErrataInfo-expanded"><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">    <tt class="py-name">s</tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="up2date_client.rhnserver" class="py-name" href="#" onclick="return doclink('link-11', 'rhnserver', 'link-2');">rhnserver</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Class up2date_client.rhnserver.RhnServer=up2date_client.rhnserver.RhnServer-class.html"><a title="up2date_client.rhnserver.RhnServer" class="py-name" href="#" onclick="return doclink('link-12', 'RhnServer', 'link-12');">RhnServer</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Module actions.errata=actions.errata-module.html,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.errata()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#errata,Module server.action.errata=server.action.errata-module.html,Module server.action_extra_data.errata=server.action_extra_data.errata-module.html,Module server.handlers.xmlrpc.errata=server.handlers.xmlrpc.errata-module.html"><a title="actions.errata
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.errata
+server.action.errata
+server.action_extra_data.errata
+server.handlers.xmlrpc.errata" class="py-name" href="#" onclick="return doclink('link-13', 'errata', 'link-13');">errata</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method server.handlers.xmlrpc.errata.Errata.getErrataInfo()=server.handlers.xmlrpc.errata.Errata-class.html#getErrataInfo"><a title="server.handlers.xmlrpc.errata.Errata.getErrataInfo" class="py-name" href="#" onclick="return doclink('link-14', 'getErrataInfo', 'link-14');">getErrataInfo</a></tt><tt class="py-op">(</tt><tt id="link-15" class="py-name"><a title="up2date_client.up2dateAuth" class="py-name" href="#" onclick="return doclink('link-15', 'up2dateAuth', 'link-4');">up2dateAuth</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Function spacewalkkoan.spacewalkkoan.getSystemId()=spacewalkkoan.spacewalkkoan-module.html#getSystemId,Method up2date_client.rhnreg.RegistrationResult.getSystemId()=up2date_client.rhnreg.RegistrationResult-class.html#getSystemId,Function up2date_client.up2dateAuth.getSystemId()=up2date_client.up2dateAuth-module.html#getSystemId"><a title="spacewalkkoan.spacewalkkoan.getSystemId
+up2date_client.rhnreg.RegistrationResult.getSystemId
+up2date_client.up2dateAuth.getSystemId" class="py-name" href="#" onclick="return doclink('link-16', 'getSystemId', 'link-16');">getSystemId</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">errata_id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt>
+<a name="update"></a><div id="update-def"><a name="L26"></a><tt class="py-lineno">26</tt> <a class="py-toggle" href="#" id="update-toggle" onclick="return toggle('update');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="actions.errata-module.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">errataidlist</tt><tt class="py-op">,</tt> <tt class="py-param">cache_only</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="update-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="update-expanded"><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-name">packagelist</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-17" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-17', 'type', 'link-17');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">errataidlist</tt><tt class="py-op">)</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt id="link-18" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-18', 'type', 'link-17');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-19', 'type', 'link-17');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">errataidlist</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> <tt class="py-name">errataidlist</tt> <tt class="py-op">]</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">         </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">errataid</tt> <tt class="py-keyword">in</tt> <tt class="py-name">errataidlist</tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">tmpList</tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name" targets="Function actions.errata.__getErrataInfo()=actions.errata-module.html#__getErrataInfo"><a title="actions.errata.__getErrataInfo" class="py-name" href="#" onclick="return doclink('link-20', '__getErrataInfo', 'link-20');">__getErrataInfo</a></tt><tt class="py-op">(</tt><tt class="py-name">errataid</tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-name">packagelist</tt> <tt class="py-op">=</tt> <tt class="py-name">packagelist</tt> <tt class="py-op">+</tt> <tt class="py-name">tmpList</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-name">current_packages_with_arch</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-name">current_packages</tt> <tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt id="link-21" class="py-name"><a title="up2date_client.pkgUtils" class="py-name" href="#" onclick="return doclink('link-21', 'pkgUtils', 'link-6');">pkgUtils</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Function up2date_client.debUtils.getInstalledPackageList()=up2date_client.debUtils-module.html#getInstalledPackageList,Function up2date_client.rpmUtils.getInstalledPackageList()=up2date_client.rpmUtils-module.html#getInstalledPackageList"><a title="up2date_client.debUtils.getInstalledPackageList
+up2date_client.rpmUtils.getInstalledPackageList" class="py-name" href="#" onclick="return doclink('link-22', 'getInstalledPackageList', 'link-22');">getInstalledPackageList</a></tt><tt class="py-op">(</tt><tt id="link-23" class="py-name" targets="Function rhnkickstart.lilo.getArch()=rhnkickstart.lilo-module.html#getArch,Function up2date_client.up2dateUtils.getArch()=up2date_client.up2dateUtils-module.html#getArch"><a title="rhnkickstart.lilo.getArch
+up2date_client.up2dateUtils.getArch" class="py-name" href="#" onclick="return doclink('link-23', 'getArch', 'link-23');">getArch</a></tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-name">current_packages_with_arch</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-string">'name'</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-string">'arch'</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">p</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-name">current_packages</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-string">'name'</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">p</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-name">u</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt>    </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-comment"># only update packages that are currently installed</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt class="py-comment"># since an "applicable errata" may only contain some packages</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-comment"># that actually apply. aka kernel. Fun fun fun. </tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">packagelist</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">4</tt><tt class="py-op">:</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt class="py-comment"># Newer sats send down arch, filter using name+arch</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt class="py-name">packagelist</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">current_packages_with_arch</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method common.UserDictCase.UserDictCase.has_key()=common.UserDictCase.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method config_common.up2date_config_parser.ConfigFile.has_key()=config_common.up2date_config_parser.ConfigFile-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method rhnkickstart.lilo.UserDictCase.has_key()=rhnkickstart.lilo.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key,Method src.osad_config.ClientConfigParser.has_key()=src.osad_config.ClientConfigParser-class.html#has_key,Method up2date_client.config.Config.has_key()=up2date_client.config.Config-class.html#has_key,Method up2date_client.config.ConfigFile.has_key()=up2date_client.config.ConfigFile-class.html#has_key,Method wsgi.wsgiRequest.WsgiMPtable.has_key()=wsgi.wsgiRequest.WsgiMPtable-class.html#has_key"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-24', 'has_key', 'link-24');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">                <tt class="py-name">u</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">p</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">current_packages_with_arch</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-25', 'has_key', 'link-24');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt class="py-string">"noarch"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">                <tt class="py-name">u</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">p</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"noarch"</tt> <tt class="py-keyword">and</tt> <tt class="py-name">current_packages</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-26', 'has_key', 'link-24');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">                <tt class="py-name">u</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">p</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-comment"># 5.2 and older sats + hosted dont send arch</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt class="py-name">packagelist</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">current_packages</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+config_common.up2date_config_parser.ConfigFile.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+rhnkickstart.lilo.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnSQL.sql_table.Table.has_key
+src.osad_config.ClientConfigParser.has_key
+up2date_client.config.Config.has_key
+up2date_client.config.ConfigFile.has_key
+wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-27', 'has_key', 'link-24');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">                <tt class="py-name">u</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">p</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">    <tt class="py-comment"># XXX: Fix me - once we keep all errata packages around,</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">    <tt class="py-comment"># this is the WRONG thing to do - we want to keep the specific versions</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">    <tt class="py-comment"># that the user has asked for.</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">    <tt class="py-name">packagelist</tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">u</tt><tt class="py-op">[</tt><tt class="py-name">a</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">u</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method common.UserDictCase.UserDictCase.keys()=common.UserDictCase.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Function config_common.local_config.keys()=config_common.local_config-module.html#keys,Method config_common.local_config.rhncfgConfigParser.keys()=config_common.local_config.rhncfgConfigParser-class.html#keys,Method config_common.up2date_config_parser.ConfigFile.keys()=config_common.up2date_config_parser.ConfigFile-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method rhnpush.rhnpush_config.rhnpushConfigParser.keys()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys,Method src.osad_config.ClientConfigParser.keys()=src.osad_config.ClientConfigParser-class.html#keys,Function src.osad_config.keys()=src.osad_config-module.html#keys,Method up2date_client.config.Config.keys()=up2date_client.config.Config-class.html#keys,Method up2date_client.config.ConfigFile.keys()=up2date_client.config.ConfigFile-class.html#keys,Method up2date_client.rhnChannel.rhnChannel.keys()=up2date_client.rhnChannel.rhnChannel-class.html#keys,Method wsgi.wsgiRequest.WsgiMPtable.keys()=wsgi.wsgiRequest.WsgiMPtable-class.html#keys"><a title="common.UserDictCase.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+config_common.local_config.keys
+config_common.local_config.rhncfgConfigParser.keys
+config_common.up2date_config_parser.ConfigFile.keys
+rhn.UserDictCase.UserDictCase.keys
+rhnpush.rhnpush_config.rhnpushConfigParser.keys
+server.rhnSQL.sql_table.Table.keys
+src.osad_config.ClientConfigParser.keys
+src.osad_config.keys
+up2date_client.config.Config.keys
+up2date_client.config.ConfigFile.keys
+up2date_client.rhnChannel.rhnChannel.keys
+wsgi.wsgiRequest.WsgiMPtable.keys" class="py-name" href="#" onclick="return doclink('link-28', 'keys', 'link-28');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">    </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">packagelist</tt> <tt class="py-op">==</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">        <tt id="link-29" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-29', 'data', 'link-29');">data</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">        <tt id="link-30" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-30', 'data', 'link-29');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"0"</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">        <tt id="link-31" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-31', 'data', 'link-29');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'name'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"errata.update.no_packages"</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">        <tt id="link-32" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-32', 'data', 'link-29');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'erratas'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">errataidlist</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">         </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-number">39</tt><tt class="py-op">,</tt>  </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">                <tt class="py-string">"No packages from that errata are available"</tt><tt class="py-op">,</tt>  </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">                <tt id="link-33" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-33', 'data', 'link-29');">data</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">  </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-34" class="py-name"><a title="rhnpush.rhnpush.UploadClass.packages
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages
+server.action.packages
+server.action_extra_data.packages
+server.handlers.app.packages
+server.handlers.xp.packages" class="py-name" href="#" onclick="return doclink('link-34', 'packages', 'link-8');">packages</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name" targets="Function actions.errata.update()=actions.errata-module.html#update,Function actions.up2date_config.update()=actions.up2date_config-module.html#update,Method common.UserDictCase.UserDictCase.update()=common.UserDictCase.UserDictCase-class.html#update,Method config_common.up2date_config_parser.ConfigFile.update()=config_common.up2date_config_parser.ConfigFile-class.html#update,Method rhn.UserDictCase.UserDictCase.update()=rhn.UserDictCase.UserDictCase-class.html#update,Method satellite_tools.progress_bar.ProgressBar.update()=satellite_tools.progress_bar.ProgressBar-class.html#update,Function server.action.errata.update()=server.action.errata-module.html#update,Function server.action.packages.update()=server.action.packages-module.html#update,Function server.action_extra_data.errata.update()=server.action_extra_data.errata-module.html#update,Function server.action_extra_data.packages.update()=server.action_extra_data.packages-module.html#update,Function server.action_extra_data.up2date_config.update()=server.action_extra_data.up2date_config-module.html#update,Method up2date_client.config.ConfigFile.update()=up2date_client.config.ConfigFile-class.html#update"><a title="actions.errata.update
+actions.up2date_config.update
+common.UserDictCase.UserDictCase.update
+config_common.up2date_config_parser.ConfigFile.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update
+up2date_client.config.ConfigFile.update" class="py-name" href="#" onclick="return doclink('link-35', 'update', 'link-35');">update</a></tt><tt class="py-op">(</tt><tt class="py-name">packagelist</tt><tt class="py-op">,</tt> <tt class="py-name">cache_only</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">    </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"> </tt>
+<a name="main"></a><div id="main-def"><a name="L81"></a><tt class="py-lineno">81</tt> <a class="py-toggle" href="#" id="main-toggle" onclick="return toggle('main');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="actions.errata-module.html#main">main</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="main-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="main-expanded"><a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt id="link-36" class="py-name"><a title="actions.errata.update
+actions.up2date_config.update
+common.UserDictCase.UserDictCase.update
+config_common.up2date_config_parser.ConfigFile.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update
+up2date_client.config.ConfigFile.update" class="py-name" href="#" onclick="return doclink('link-36', 'update', 'link-35');">update</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-number">23423423</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line"> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line"> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line">        <tt id="link-37" class="py-name" targets="Function actions.errata.main()=actions.errata-module.html#main,Function actions.hardware.main()=actions.hardware-module.html#main,Function actions.reboot.main()=actions.reboot-module.html#main,Function actions.up2date_config.main()=actions.up2date_config-module.html#main,Function config_common.local_config.main()=config_common.local_config-module.html#main,Method config_common.rhn_main.BaseMain.main()=config_common.rhn_main.BaseMain-class.html#main,Function proxy.pm.rhn_package_manager.main()=proxy.pm.rhn_package_manager-module.html#main,Function pygettext.main()=pygettext-module.html#main,Function rhn.rhnLockfile.main()=rhn.rhnLockfile-module.html#main,Function rhn_applet.main()=rhn_applet-module.html#main,Method rhn_check.CheckCli.main()=rhn_check.CheckCli-class.html#main,Function rhnpush.rhnpush.main()=rhnpush.rhnpush-module.html#main,Function rhnpush.rpm2mpm.main()=rhnpush.rpm2mpm-module.html#main,Function rhnpush.solaris2mpm.main()=rhnpush.solaris2mpm-module.html#main,Method rhnreg_ks.RegisterKsCli.main()=rhnreg_ks.RegisterKsCli-class.html#main,Method satellite_tools.disk_dumper.iss.ExporterMain.main()=satellite_tools.disk_dumper.iss.ExporterMain-class.html#main,Function satellite_tools.geniso.main()=satellite_tools.geniso-module.html#main,Method satellite_tools.reposync.RepoSync.main()=satellite_tools.reposync.RepoSync-class.html#main,Function satellite_tools.rhn_satellite_activate.main()=satellite_tools.rhn_satellite_activate-module.html#main,Function satellite_tools.rhn_ssl_dbstore.main()=satellite_tools.rhn_ssl_dbstore-module.html#main,Method satellite_tools.satComputePkgHeaders.Runner.main()=satellite_tools.satComputePkgHeaders.Runner-class.html#main,Method satellite_tools.satsync.Runner.main()=satellite_tools.satsync.Runner-class.html#main,Function satellite_tools.updatePackages.main()=satellite_tools.updatePackages-module.html#main,Function script-db_checker_py.main()=script-db_checker_py-module.html#main,Function script-rhn_actions_control_py.main()=script-rhn_actions_control_py-module.html#main,Function script-rhn_custom_info_py.main()=script-rhn_custom_info_py-module.html#main,Method script-rhn_profile_sync_py.ProfileCli.main()=script-rhn_profile_sync_py.ProfileCli-class.html#main,Function script-spacewalk_channel_py.main()=script-spacewalk_channel_py-module.html#main,Method src.jabber_lib.Runner.main()=src.jabber_lib.Runner-class.html#main,Function src.osa_dispatcher.main()=src.osa_dispatcher-module.html#main,Function src.osad.main()=src.osad-module.html#main,Function src.osad_config.main()=src.osad_config-module.html#main,Function up2date_client.gui.main()=up2date_client.gui-module.html#main,Method up2date_client.rhncli.RhnCli.main()=up2date_client.rhncli.RhnCli-class.html#main,Function up2date_client.tui.main()=up2date_client.tui-module.html#main"><a title="actions.errata.main
+actions.hardware.main
+actions.reboot.main
+actions.up2date_config.main
+config_common.local_config.main
+config_common.rhn_main.BaseMain.main
+proxy.pm.rhn_package_manager.main
+pygettext.main
+rhn.rhnLockfile.main
+rhn_applet.main
+rhn_check.CheckCli.main
+rhnpush.rhnpush.main
+rhnpush.rpm2mpm.main
+rhnpush.solaris2mpm.main
+rhnreg_ks.RegisterKsCli.main
+satellite_tools.disk_dumper.iss.ExporterMain.main
+satellite_tools.geniso.main
+satellite_tools.reposync.RepoSync.main
+satellite_tools.rhn_satellite_activate.main
+satellite_tools.rhn_ssl_dbstore.main
+satellite_tools.satComputePkgHeaders.Runner.main
+satellite_tools.satsync.Runner.main
+satellite_tools.updatePackages.main
+script-db_checker_py.main
+script-rhn_actions_control_py.main
+script-rhn_custom_info_py.main
+script-rhn_profile_sync_py.ProfileCli.main
+script-spacewalk_channel_py.main
+src.jabber_lib.Runner.main
+src.osa_dispatcher.main
+src.osad.main
+src.osad_config.main
+up2date_client.gui.main
+up2date_client.rhncli.RhnCli.main
+up2date_client.tui.main" class="py-name" href="#" onclick="return doclink('link-37', 'main', 'link-37');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 20 15:02:15 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
