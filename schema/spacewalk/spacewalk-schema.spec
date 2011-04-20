@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.5.3
+Version:        1.5.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Apr 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.4-1
+- in postgres we should upgrade only the affected function
+
 * Mon Apr 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.3-1
 - added available_fve_chan_subs to postgresql rhn_channel.pkb
 
