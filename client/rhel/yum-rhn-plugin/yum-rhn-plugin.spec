@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.5.2
+Version: 1.5.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Apr 20 2011 Miroslav Suchý 1.5.3-1
+- rhel5 does not have _default_grabopts()
+
 * Tue Apr 12 2011 Miroslav Suchý 1.5.2-1
 - remove duplicate keyword (msuchy@redhat.com)
 
