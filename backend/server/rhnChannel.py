@@ -512,10 +512,12 @@ class ChannelFamily(BaseChannelObject):
 
 
 def _load_by_id(query, item_object, pattern=None):
+    qargs = {}
     if pattern:
         query += "and label like :pattern"
+        qargs['pattern'] = pattern
     h = rhnSQL.prepare(query)
-    h.execute()
+    h.execute(**qargs)
     ret = []
     while 1:
         row = h.fetchone_dict()
