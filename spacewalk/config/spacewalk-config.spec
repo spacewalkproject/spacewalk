@@ -75,7 +75,12 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
 %config(noreplace) %{_sysconfdir}/pki/tls/certs/spacewalk.crt
 %config(noreplace) %{_sysconfdir}/satname
-%{_var}/lib/rhn
+%dir %{_var}/lib/rhn
+%dir %{_var}/lib/rhn/rhn-satellite-prep
+%dir %{_var}/lib/rhn/rhn-satellite-prep/etc
+%attr(0750,root,apache) %dir %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn
+%attr(0640,root,apache) %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn/cluster.ini
+%attr(0640,root,apache) %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf
 %dir %{_prefix}/share/rhn
 %attr(0755,root,root) %{_prefix}/share/rhn/satidmap.pl
 %attr(0755,root,root) %{_prefix}/share/rhn/startup.pl
