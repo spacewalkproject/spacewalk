@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-        <head><title> Spacewalk DB Schema - Package - RPM </title>
+        <head><title> Spacewalk 1.4 DB Schema - Package - RPM </title>
         <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="author" content="Petr Vanek, petr@scribus.info" />
@@ -46,7 +46,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
 <pre>
      1<span class="operator">:</span> <span class="keyword">PACKAGE</span> <span class="keyword">BODY</span> rpm <span class="reserved">AS</span>
-     2<span class="operator">:</span>
+     2<span class="operator">:</span> 
      3<span class="operator">:</span>     <span class="keyword">FUNCTION</span> isdigit<span class="operator">(</span>ch <span class="keyword">CHAR</span><span class="operator">)</span>
      4<span class="operator">:</span>     <span class="keyword">RETURN</span> BOOLEAN
      5<span class="operator">:</span>     <span class="keyword">deterministic</span>
@@ -58,7 +58,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     11<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
     12<span class="operator">:</span>         <span class="keyword">return</span> FALSE;
     13<span class="operator">:</span>     <span class="reserved">END</span> isdigit;
-    14<span class="operator">:</span>
+    14<span class="operator">:</span> 
     15<span class="operator">:</span> 
     16<span class="operator">:</span>     <span class="keyword">FUNCTION</span> isalpha<span class="operator">(</span>ch <span class="keyword">CHAR</span><span class="operator">)</span>
     17<span class="operator">:</span>     <span class="keyword">RETURN</span> BOOLEAN
@@ -72,7 +72,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     25<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
     26<span class="operator">:</span>         <span class="keyword">return</span> FALSE;
     27<span class="operator">:</span>     <span class="reserved">END</span> isalpha;
-    28<span class="operator">:</span>
+    28<span class="operator">:</span> 
     29<span class="operator">:</span> 
     30<span class="operator">:</span>     <span class="keyword">FUNCTION</span> isalphanum<span class="operator">(</span>ch <span class="keyword">CHAR</span><span class="operator">)</span>
     31<span class="operator">:</span>     <span class="keyword">RETURN</span> BOOLEAN
@@ -87,7 +87,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     40<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
     41<span class="operator">:</span>         <span class="keyword">return</span> FALSE;
     42<span class="operator">:</span>     <span class="reserved">END</span> isalphanum;
-    43<span class="operator">:</span>
+    43<span class="operator">:</span> 
     44<span class="operator">:</span> 
     45<span class="operator">:</span>     <span class="keyword">FUNCTION</span> rpmstrcmp <span class="operator">(</span>string1 <span class="reserved">IN</span> VARCHAR2<span class="operator">,</span> string2 <span class="reserved">IN</span> VARCHAR2<span class="operator">)</span>
     46<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
@@ -115,7 +115,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     68<span class="operator">:</span>         <span class="comment">-- loop through each version segment of str1 and str2 and compare them</span>
     69<span class="operator">:</span>         one <span class="operator">:</span><span class="operator">=</span> str1;
     70<span class="operator">:</span>         two <span class="operator">:</span><span class="operator">=</span> str2;
-    71<span class="operator">:</span>
+    71<span class="operator">:</span> 
     72<span class="operator">:</span>         <span class="operator">&lt;</span><span class="operator">&lt;</span>segment_loop<span class="operator">&gt;</span><span class="operator">&gt;</span>
     73<span class="operator">:</span>         <span class="keyword">while</span> one <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> two <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
     74<span class="operator">:</span>         <span class="keyword">loop</span>
@@ -134,14 +134,14 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     87<span class="operator">:</span>                     two <span class="operator">:</span><span class="operator">=</span> substr<span class="operator">(</span>two<span class="operator">,</span> 2<span class="operator">)</span>;
     88<span class="operator">:</span>                 <span class="reserved">end</span> <span class="keyword">loop</span>;
     89<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('new params: ' || one || ',' || two);</span>
-    90<span class="operator">:</span>
+    90<span class="operator">:</span> 
     91<span class="operator">:</span>                 str1 <span class="operator">:</span><span class="operator">=</span> one;
     92<span class="operator">:</span>                 str2 <span class="operator">:</span><span class="operator">=</span> two;
-    93<span class="operator">:</span>
+    93<span class="operator">:</span> 
     94<span class="operator">:</span>                 <span class="comment">/* grab first completely alpha or completely numeric segment */</span>
     95<span class="operator">:</span>                 <span class="comment">/* leave one and two pointing to the start of the alpha or numeric */</span>
     96<span class="operator">:</span>                 <span class="comment">/* segment and walk str1 and str2 to end of segment */</span>
-    97<span class="operator">:</span>
+    97<span class="operator">:</span> 
     98<span class="operator">:</span>                 <span class="reserved">if</span> str1 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> isdigit<span class="operator">(</span>str1<span class="operator">)</span>
     99<span class="operator">:</span>                 <span class="reserved">then</span>
    100<span class="operator">:</span>                     str1 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>str1<span class="operator">,</span> digits<span class="operator">)</span>;
@@ -152,19 +152,19 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    105<span class="operator">:</span>                     str2 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>str2<span class="operator">,</span> alpha<span class="operator">)</span>;
    106<span class="operator">:</span>                     isnum <span class="operator">:</span><span class="operator">=</span> false;
    107<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
-   108<span class="operator">:</span>
+   108<span class="operator">:</span> 
    109<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('Len: ' || length(str1) || ',' || length(str2));</span>
    110<span class="operator">:</span>                 <span class="comment">-- Oracle trats the length of an empty string as null</span>
    111<span class="operator">:</span>                 <span class="reserved">if</span> str1 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
    112<span class="operator">:</span>                 <span class="reserved">then</span> segm1 <span class="operator">:</span><span class="operator">=</span> substr<span class="operator">(</span>one<span class="operator">,</span> 1<span class="operator">,</span> <span class="keyword">length</span><span class="operator">(</span>one<span class="operator">)</span> <span class="operator">-</span> <span class="keyword">length</span><span class="operator">(</span>str1<span class="operator">)</span><span class="operator">)</span>;
    113<span class="operator">:</span>                 <span class="reserved">else</span> segm1 <span class="operator">:</span><span class="operator">=</span> one;
    114<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
-   115<span class="operator">:</span>
+   115<span class="operator">:</span> 
    116<span class="operator">:</span>                 <span class="reserved">if</span> str2 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
    117<span class="operator">:</span>                 <span class="reserved">then</span> segm2 <span class="operator">:</span><span class="operator">=</span> substr<span class="operator">(</span>two<span class="operator">,</span> 1<span class="operator">,</span> <span class="keyword">length</span><span class="operator">(</span>two<span class="operator">)</span> <span class="operator">-</span> <span class="keyword">length</span><span class="operator">(</span>str2<span class="operator">)</span><span class="operator">)</span>;
    118<span class="operator">:</span>                 <span class="reserved">else</span> segm2 <span class="operator">:</span><span class="operator">=</span> two;
    119<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
-   120<span class="operator">:</span>
+   120<span class="operator">:</span> 
    121<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('Segments: ' || segm1 || ',' || segm2);</span>
    122<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('Rest: ' || str1 || ',' || str2);</span>
    123<span class="operator">:</span>                 <span class="comment">/* take care of the case where the two version segments are */</span>
@@ -177,17 +177,17 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    130<span class="operator">:</span> 						<span class="keyword">return</span> <span class="operator">-</span>1;
    131<span class="operator">:</span> 					<span class="reserved">end</span> <span class="reserved">if</span>;
    132<span class="operator">:</span> 				<span class="reserved">end</span> <span class="reserved">if</span>;
-   133<span class="operator">:</span>
+   133<span class="operator">:</span> 
    134<span class="operator">:</span>                 <span class="reserved">if</span> isnum
    135<span class="operator">:</span>                 <span class="reserved">then</span>
    136<span class="operator">:</span>                     <span class="comment">/* this used to be done by converting the digit segments */</span>
    137<span class="operator">:</span>                     <span class="comment">/* to ints using atoi() - it's changed because long */</span>
    138<span class="operator">:</span>                     <span class="comment">/* digit segments can overflow an int - this should fix that. */</span>
-   139<span class="operator">:</span>
+   139<span class="operator">:</span> 
    140<span class="operator">:</span>                     <span class="comment">/* throw away any leading zeros - it's a number, right? */</span>
    141<span class="operator">:</span>                     segm1 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>segm1<span class="operator">,</span> <span class="string">'0'</span><span class="operator">)</span>;
    142<span class="operator">:</span>                     segm2 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>segm2<span class="operator">,</span> <span class="string">'0'</span><span class="operator">)</span>;
-   143<span class="operator">:</span>
+   143<span class="operator">:</span> 
    144<span class="operator">:</span>                     <span class="comment">/* whichever number has more digits wins */</span>
    145<span class="operator">:</span>                     <span class="comment">-- length of empty string is null</span>
    146<span class="operator">:</span>                     <span class="reserved">if</span> segm1 <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">and</span> segm2 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
@@ -201,15 +201,15 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    154<span class="operator">:</span>                     <span class="reserved">if</span> <span class="keyword">length</span><span class="operator">(</span>segm1<span class="operator">)</span> <span class="operator">&gt;</span> <span class="keyword">length</span><span class="operator">(</span>segm2<span class="operator">)</span> <span class="reserved">then</span> <span class="keyword">return</span> 1; <span class="reserved">end</span> <span class="reserved">if</span>;
    155<span class="operator">:</span>                     <span class="reserved">if</span> <span class="keyword">length</span><span class="operator">(</span>segm2<span class="operator">)</span> <span class="operator">&gt;</span> <span class="keyword">length</span><span class="operator">(</span>segm1<span class="operator">)</span> <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>;
    156<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
-   157<span class="operator">:</span>
+   157<span class="operator">:</span> 
    158<span class="operator">:</span>                 <span class="comment">/* strcmp will return which one is greater - even if the two */</span>
    159<span class="operator">:</span>                 <span class="comment">/* segments are alpha or if they are numeric.  don't return  */</span>
    160<span class="operator">:</span>                 <span class="comment">/* if they are equal because there might be more segments to */</span>
    161<span class="operator">:</span>                 <span class="comment">/* compare */</span>
-   162<span class="operator">:</span>
+   162<span class="operator">:</span> 
    163<span class="operator">:</span>                 <span class="reserved">if</span> segm1 <span class="operator">&lt;</span> segm2 <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>;
    164<span class="operator">:</span>                 <span class="reserved">if</span> segm1 <span class="operator">&gt;</span> segm2 <span class="reserved">then</span> <span class="keyword">return</span> 1; <span class="reserved">end</span> <span class="reserved">if</span>;
-   165<span class="operator">:</span>
+   165<span class="operator">:</span> 
    166<span class="operator">:</span>                 one <span class="operator">:</span><span class="operator">=</span> str1;
    167<span class="operator">:</span>                 two <span class="operator">:</span><span class="operator">=</span> str2;
    168<span class="operator">:</span>             <span class="reserved">end</span>;
@@ -218,12 +218,12 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    171<span class="operator">:</span>         <span class="comment">/* compared identically but the segment sepparating characters were */</span>
    172<span class="operator">:</span>         <span class="comment">/* different */</span>
    173<span class="operator">:</span>         <span class="reserved">if</span> one <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">and</span> two <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span> <span class="keyword">return</span> 0; <span class="reserved">end</span> <span class="reserved">if</span>;
-   174<span class="operator">:</span>
+   174<span class="operator">:</span> 
    175<span class="operator">:</span>         <span class="comment">/* whichever version still has characters left over wins */</span>
    176<span class="operator">:</span>         <span class="reserved">if</span> one <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>;
    177<span class="operator">:</span>         <span class="keyword">return</span> 1;
    178<span class="operator">:</span>     <span class="reserved">END</span> rpmstrcmp;
-   179<span class="operator">:</span>
+   179<span class="operator">:</span> 
    180<span class="operator">:</span> 
    181<span class="operator">:</span>     <span class="keyword">FUNCTION</span> vercmp<span class="operator">(</span>
    182<span class="operator">:</span>         e1 VARCHAR2<span class="operator">,</span> v1 VARCHAR2<span class="operator">,</span> r1 VARCHAR2<span class="operator">,</span>
@@ -253,12 +253,12 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    206<span class="operator">:</span>             <span class="reserved">if</span> rc <span class="operator">!</span><span class="operator">=</span> 0 <span class="reserved">then</span> <span class="keyword">return</span> rc; <span class="reserved">end</span> <span class="reserved">if</span>;
    207<span class="operator">:</span>            <span class="keyword">return</span> rpmstrcmp<span class="operator">(</span>r1<span class="operator">,</span> r2<span class="operator">)</span>;
    208<span class="operator">:</span>          <span class="reserved">END</span>;
-   209<span class="operator">:</span>
+   209<span class="operator">:</span> 
    210<span class="operator">:</span>     <span class="reserved">END</span> vercmp;
    211<span class="operator">:</span> 
    212<span class="operator">:</span> <span class="reserved">END</span> rpm;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:01:00 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Apr 21 10:04:39 2011</div>
 </body></html>

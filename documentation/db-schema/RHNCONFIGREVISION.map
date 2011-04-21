@@ -1,6 +1,6 @@
-<area shape="rect" id="node1" href="table-RHNCONFIGREVISION.html#t-fk" title="RHNCONFIGREVISION" alt="" coords="225,148,393,177">
-<area shape="rect" id="node2" href="table-RHNCONFIGFILE.html#t-fk" title="RHNCONFIGFILE" alt="" coords="25,41,156,71">
-<area shape="rect" id="node3" href="table-RHNCONFIGCONTENT.html#t-fk" title="RHNCONFIGCONTENT" alt="" coords="7,95,175,124">
-<area shape="rect" id="node4" href="table-WEB_CONTACT.html#t-fk" title="WEB_CONTACT" alt="" coords="28,148,153,177">
-<area shape="rect" id="node5" href="table-RHNCONFIGINFO.html#t-fk" title="RHNCONFIGINFO" alt="" coords="23,201,159,231">
-<area shape="rect" id="node6" href="table-RHNCONFIGFILETYPE.html#t-fk" title="RHNCONFIGFILETYPE" alt="" coords="8,255,173,284">
+<area shape="rect" href="table&#45;RHNCONFIGREVISION.html#t&#45;fk" title="RHNCONFIGREVISION" alt="" coords="223,139,388,165">
+<area shape="rect" href="table&#45;RHNCONFIGFILE.html#t&#45;fk" title="RHNCONFIGFILE" alt="" coords="24,37,155,64">
+<area shape="rect" href="table&#45;RHNCONFIGCONTENT.html#t&#45;fk" title="RHNCONFIGCONTENT" alt="" coords="7,88,172,115">
+<area shape="rect" href="table&#45;WEB_CONTACT.html#t&#45;fk" title="WEB_CONTACT" alt="" coords="28,139,151,165">
+<area shape="rect" href="table&#45;RHNCONFIGINFO.html#t&#45;fk" title="RHNCONFIGINFO" alt="" coords="23,189,156,216">
+<area shape="rect" href="table&#45;RHNCONFIGFILETYPE.html#t&#45;fk" title="RHNCONFIGFILETYPE" alt="" coords="7,240,172,267">

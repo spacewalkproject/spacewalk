@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-        <head><title> Spacewalk DB Schema - Package - RHN_CHANNEL </title>
+        <head><title> Spacewalk 1.4 DB Schema - Package - RHN_CHANNEL </title>
         <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="author" content="Petr Vanek, petr@scribus.info" />
@@ -430,14 +430,14 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    265<span class="operator">:</span>               <span class="reserved">FROM</span> rhnVirtualInstance vi
    266<span class="operator">:</span>              <span class="reserved">WHERE</span> vi<span class="operator">.</span>virtual_system_id <span class="operator">=</span> server_id_in;
    267<span class="operator">:</span>         vi_count NUMBER;
-   268<span class="operator">:</span>
+   268<span class="operator">:</span> 
    269<span class="operator">:</span>     <span class="reserved">BEGIN</span>
    270<span class="operator">:</span>         <span class="reserved">FOR</span> vi_entry <span class="reserved">IN</span> VI_ENTRIES <span class="keyword">LOOP</span>
    271<span class="operator">:</span>             <span class="keyword">return</span> 1;
    272<span class="operator">:</span>         <span class="reserved">END</span> <span class="keyword">LOOP</span>;
    273<span class="operator">:</span>         <span class="keyword">RETURN</span> 0;
    274<span class="operator">:</span>     <span class="reserved">END</span>;
-   275<span class="operator">:</span>
+   275<span class="operator">:</span> 
    276<span class="operator">:</span>     <span class="keyword">function</span> guess_server_base<span class="operator">(</span>
    277<span class="operator">:</span>         server_id_in <span class="reserved">in</span> number
    278<span class="operator">:</span>     <span class="operator">)</span> <span class="keyword">RETURN</span> number <span class="reserved">is</span>
@@ -456,7 +456,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    291<span class="operator">:</span>         <span class="comment">-- Server not found, or no base channel applies to it</span>
    292<span class="operator">:</span>         <span class="keyword">return</span> <span class="reserved">null</span>;
    293<span class="operator">:</span>     <span class="reserved">end</span>;
-   294<span class="operator">:</span>
+   294<span class="operator">:</span> 
    295<span class="operator">:</span>     <span class="comment">-- Private function</span>
    296<span class="operator">:</span>     <span class="keyword">function</span> normalize_server_arch<span class="operator">(</span>server_arch_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
    297<span class="operator">:</span>     <span class="keyword">return</span> varchar2
@@ -475,7 +475,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    310<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
    311<span class="operator">:</span>         <span class="keyword">return</span> server_arch_in <span class="operator">|</span><span class="operator">|</span> suffix;
    312<span class="operator">:</span>     <span class="reserved">end</span> normalize_server_arch;
-   313<span class="operator">:</span>
+   313<span class="operator">:</span> 
    314<span class="operator">:</span>     <span class="comment">--</span>
    315<span class="operator">:</span>     <span class="comment">--</span>
    316<span class="operator">:</span>     <span class="comment">-- Raises:</span>
@@ -503,7 +503,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    338<span class="operator">:</span>         <span class="keyword">return</span> base_channel_rel_archid<span class="operator">(</span>release_in<span class="operator">,</span> server_arch_id<span class="operator">,</span>
    339<span class="operator">:</span>             org_id_in<span class="operator">,</span> user_id_in<span class="operator">)</span>;
    340<span class="operator">:</span>     <span class="reserved">end</span> base_channel_for_release_arch;
-   341<span class="operator">:</span>
+   341<span class="operator">:</span> 
    342<span class="operator">:</span>     <span class="keyword">function</span> base_channel_rel_archid<span class="operator">(</span>
    343<span class="operator">:</span>         release_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
    344<span class="operator">:</span>         server_arch_id_in <span class="reserved">in</span> number<span class="operator">,</span>
@@ -530,7 +530,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    365<span class="operator">:</span>                     valid_org_id <span class="operator">:</span><span class="operator">=</span> <span class="operator">-</span>1;
    366<span class="operator">:</span>             <span class="reserved">end</span>;
    367<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-   368<span class="operator">:</span>
+   368<span class="operator">:</span> 
    369<span class="operator">:</span>         <span class="reserved">for</span> <span class="keyword">c</span> <span class="reserved">in</span> base_channel_cursor<span class="operator">(</span>release_in<span class="operator">,</span> server_arch_id_in<span class="operator">,</span> valid_org_id<span class="operator">)</span>
    370<span class="operator">:</span>         <span class="keyword">loop</span>
    371<span class="operator">:</span>             <span class="comment">-- This row is a possible match</span>
@@ -539,27 +539,27 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    374<span class="operator">:</span>                 <span class="comment">-- check</span>
    375<span class="operator">:</span>                 <span class="keyword">return</span> <span class="keyword">c</span><span class="operator">.</span>id;
    376<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-   377<span class="operator">:</span>
+   377<span class="operator">:</span> 
    378<span class="operator">:</span>             <span class="comment">-- Check user to channel permissions</span>
    379<span class="operator">:</span>             <span class="reserved">select</span> loose_user_role_check<span class="operator">(</span><span class="keyword">c</span><span class="operator">.</span>id<span class="operator">,</span> user_id_in<span class="operator">,</span> <span class="string">'subscribe'</span><span class="operator">)</span>
    380<span class="operator">:</span>               <span class="reserved">into</span> channel_subscribable
    381<span class="operator">:</span>               <span class="reserved">from</span> dual;
-   382<span class="operator">:</span>
+   382<span class="operator">:</span> 
    383<span class="operator">:</span>             <span class="reserved">if</span> channel_subscribable <span class="operator">=</span> 1 <span class="reserved">then</span>
    384<span class="operator">:</span>                 <span class="keyword">return</span> <span class="keyword">c</span><span class="operator">.</span>id;
    385<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-   386<span class="operator">:</span>
+   386<span class="operator">:</span> 
    387<span class="operator">:</span>             <span class="comment">-- Base channel exists, but is not subscribable; keep trying</span>
    388<span class="operator">:</span>             denied_channel_id <span class="operator">:</span><span class="operator">=</span> <span class="keyword">c</span><span class="operator">.</span>id;
    389<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span> base_channel_fetch;
-   390<span class="operator">:</span>
+   390<span class="operator">:</span> 
    391<span class="operator">:</span>         <span class="reserved">if</span> denied_channel_id <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
    392<span class="operator">:</span>             rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'no_subscribe_permissions'</span><span class="operator">)</span>;
    393<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
    394<span class="operator">:</span>         <span class="comment">-- No base channel applies</span>
    395<span class="operator">:</span>         <span class="keyword">return</span> <span class="reserved">NULL</span>;
    396<span class="operator">:</span>     <span class="reserved">end</span> base_channel_rel_archid;
-   397<span class="operator">:</span>
+   397<span class="operator">:</span> 
    398<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> clear_subscriptions<span class="operator">(</span>server_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span> deleting_server <span class="reserved">IN</span> NUMBER <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
    399<span class="operator">:</span>                                 update_family_countsYN <span class="reserved">IN</span> NUMBER <span class="operator">:</span><span class="operator">=</span> 1<span class="operator">)</span>
    400<span class="operator">:</span>     <span class="reserved">IS</span>
@@ -594,7 +594,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    429<span class="operator">:</span>             update_family_counts<span class="operator">(</span>last_channel_family_id<span class="operator">,</span> last_channel_org_id<span class="operator">)</span>;
    430<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
    431<span class="operator">:</span>     <span class="reserved">END</span> clear_subscriptions;
-   432<span class="operator">:</span>
+   432<span class="operator">:</span> 
    433<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> unsubscribe_server<span class="operator">(</span>server_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span> channel_id_in NUMBER<span class="operator">,</span> immediate_in NUMBER <span class="operator">:</span><span class="operator">=</span> 1<span class="operator">,</span> unsubscribe_children_in number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
    434<span class="operator">:</span>                                  deleting_server <span class="reserved">IN</span> NUMBER <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
    435<span class="operator">:</span>                                  update_family_countsYN <span class="reserved">IN</span> NUMBER <span class="operator">:</span><span class="operator">=</span> 1<span class="operator">)</span>
@@ -640,21 +640,21 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    475<span class="operator">:</span>                 rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'channel_unsubscribe_child_exists'</span><span class="operator">)</span>;
    476<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
    477<span class="operator">:</span>         <span class="reserved">END</span> <span class="keyword">LOOP</span> child;
-   478<span class="operator">:</span>
+   478<span class="operator">:</span> 
    479<span class="operator">:</span>         server_already_in_chan <span class="operator">:</span><span class="operator">=</span> FALSE;
-   480<span class="operator">:</span>
+   480<span class="operator">:</span> 
    481<span class="operator">:</span>         <span class="reserved">FOR</span> check_subscription <span class="reserved">IN</span> check_server_subscription<span class="operator">(</span>server_id_in<span class="operator">,</span> channel_id_in<span class="operator">)</span>
    482<span class="operator">:</span>         <span class="keyword">LOOP</span>
    483<span class="operator">:</span>             server_already_in_chan <span class="operator">:</span><span class="operator">=</span> TRUE;
    484<span class="operator">:</span>         <span class="reserved">END</span> <span class="keyword">LOOP</span> check_subscription;
-   485<span class="operator">:</span>
+   485<span class="operator">:</span> 
    486<span class="operator">:</span>         <span class="reserved">IF</span> <span class="reserved">NOT</span> server_already_in_chan
    487<span class="operator">:</span>         <span class="reserved">THEN</span>
    488<span class="operator">:</span>             <span class="keyword">RETURN</span>;
    489<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   490<span class="operator">:</span>
+   490<span class="operator">:</span> 
    491<span class="operator">:</span>    <span class="reserved">if</span> deleting_server <span class="operator">=</span> 0 <span class="reserved">then</span>
-   492<span class="operator">:</span>
+   492<span class="operator">:</span> 
    493<span class="operator">:</span>       <span class="reserved">insert</span> <span class="reserved">into</span> rhnServerHistory <span class="operator">(</span>id<span class="operator">,</span>server_id<span class="operator">,</span>summary<span class="operator">,</span>details<span class="operator">)</span> <span class="operator">(</span>
    494<span class="operator">:</span>           <span class="reserved">select</span>  rhn_event_id_seq<span class="operator">.</span>nextval<span class="operator">,</span>
    495<span class="operator">:</span>                 server_id_in<span class="operator">,</span>
@@ -663,39 +663,39 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    498<span class="operator">:</span>           <span class="reserved">from</span>    rhnChannel <span class="keyword">c</span>
    499<span class="operator">:</span>           <span class="reserved">where</span>   <span class="keyword">c</span><span class="operator">.</span>id <span class="operator">=</span> channel_id_in
    500<span class="operator">:</span>       <span class="operator">)</span>;
-   501<span class="operator">:</span>
+   501<span class="operator">:</span> 
    502<span class="operator">:</span>         <span class="reserved">UPDATE</span> rhnServer <span class="keyword">SET</span> channels_changed <span class="operator">=</span> sysdate <span class="reserved">WHERE</span> id <span class="operator">=</span> server_id_in;
    503<span class="operator">:</span>    <span class="reserved">end</span> <span class="reserved">if</span>;
    504<span class="operator">:</span> 
    505<span class="operator">:</span>    <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhnServerChannel <span class="reserved">WHERE</span> server_id <span class="operator">=</span> server_id_in <span class="reserved">AND</span> channel_id <span class="operator">=</span> channel_id_in;
-   506<span class="operator">:</span>
+   506<span class="operator">:</span> 
    507<span class="operator">:</span>    <span class="reserved">if</span> deleting_server <span class="operator">=</span> 0 <span class="reserved">then</span>
    508<span class="operator">:</span>         queue_server<span class="operator">(</span>server_id_in<span class="operator">,</span> immediate_in<span class="operator">)</span>;
    509<span class="operator">:</span>    <span class="reserved">end</span> <span class="reserved">if</span>;
-   510<span class="operator">:</span>
+   510<span class="operator">:</span> 
    511<span class="operator">:</span>         channel_family_id_val <span class="operator">:</span><span class="operator">=</span> rhn_channel<span class="operator">.</span>family_for_channel<span class="operator">(</span>channel_id_in<span class="operator">)</span>;
    512<span class="operator">:</span>         <span class="reserved">IF</span> channel_family_id_val <span class="reserved">IS</span> <span class="reserved">NULL</span>
    513<span class="operator">:</span>         <span class="reserved">THEN</span>
    514<span class="operator">:</span>             rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'channel_unsubscribe_no_family'</span><span class="operator">)</span>;
    515<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   516<span class="operator">:</span>
+   516<span class="operator">:</span> 
    517<span class="operator">:</span>         <span class="reserved">for</span> ignore <span class="reserved">in</span> channel_family_is_satellite<span class="operator">(</span>channel_family_id_val<span class="operator">)</span> <span class="keyword">loop</span>
    518<span class="operator">:</span>                 <span class="reserved">delete</span> <span class="reserved">from</span> rhnSatelliteInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
    519<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-   520<span class="operator">:</span>
+   520<span class="operator">:</span> 
    521<span class="operator">:</span>         <span class="reserved">for</span> ignore <span class="reserved">in</span> channel_family_is_proxy<span class="operator">(</span>channel_family_id_val<span class="operator">)</span> <span class="keyword">loop</span>
    522<span class="operator">:</span>                 <span class="reserved">delete</span> <span class="reserved">from</span> rhnProxyInfo <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
    523<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
    524<span class="operator">:</span>         <span class="reserved">SELECT</span> org_id <span class="reserved">INTO</span> server_org_id_val
    525<span class="operator">:</span>           <span class="reserved">FROM</span> rhnServer
    526<span class="operator">:</span>          <span class="reserved">WHERE</span> id <span class="operator">=</span> server_id_in;
-   527<span class="operator">:</span>
+   527<span class="operator">:</span> 
    528<span class="operator">:</span>         <span class="reserved">if</span> update_family_countsYN <span class="operator">=</span> 1 <span class="reserved">then</span>
    529<span class="operator">:</span>             rhn_channel<span class="operator">.</span>update_family_counts<span class="operator">(</span>channel_family_id_val<span class="operator">,</span> server_org_id_val<span class="operator">)</span>;
    530<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
    531<span class="operator">:</span>     <span class="reserved">END</span> unsubscribe_server;
-   532<span class="operator">:</span>
-   533<span class="operator">:</span>
+   532<span class="operator">:</span> 
+   533<span class="operator">:</span> 
    534<span class="operator">:</span>     <span class="keyword">FUNCTION</span> family_for_channel<span class="operator">(</span>channel_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
    535<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
    536<span class="operator">:</span>     <span class="reserved">IS</span>
@@ -704,14 +704,14 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    539<span class="operator">:</span>         <span class="reserved">SELECT</span> channel_family_id <span class="reserved">INTO</span> channel_family_id_val
    540<span class="operator">:</span>           <span class="reserved">FROM</span> rhnChannelFamilyMembers
    541<span class="operator">:</span>          <span class="reserved">WHERE</span> channel_id <span class="operator">=</span> channel_id_in;
-   542<span class="operator">:</span>
+   542<span class="operator">:</span> 
    543<span class="operator">:</span>         <span class="keyword">RETURN</span> channel_family_id_val;
    544<span class="operator">:</span>     <span class="reserved">EXCEPTION</span>
    545<span class="operator">:</span>         <span class="reserved">WHEN</span> NO_DATA_FOUND
    546<span class="operator">:</span>         <span class="reserved">THEN</span>
    547<span class="operator">:</span>             <span class="keyword">RETURN</span> <span class="reserved">NULL</span>;
    548<span class="operator">:</span>     <span class="reserved">END</span> family_for_channel;
-   549<span class="operator">:</span>
+   549<span class="operator">:</span> 
    550<span class="operator">:</span>     <span class="keyword">FUNCTION</span> available_family_subscriptions<span class="operator">(</span>channel_family_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span> org_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
    551<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
    552<span class="operator">:</span>     <span class="reserved">IS</span>
@@ -724,13 +724,13 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    559<span class="operator">:</span>         <span class="reserved">THEN</span>
    560<span class="operator">:</span>             <span class="keyword">OPEN</span> channel_family_perm_cursor<span class="operator">(</span>channel_family_id_in<span class="operator">,</span> org_id_in<span class="operator">)</span>;
    561<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   562<span class="operator">:</span>
+   562<span class="operator">:</span> 
    563<span class="operator">:</span>         FETCH channel_family_perm_cursor <span class="reserved">INTO</span> cfp;
-   564<span class="operator">:</span>
+   564<span class="operator">:</span> 
    565<span class="operator">:</span>         <span class="keyword">WHILE</span> channel_family_perm_cursor<span class="operator">%</span>FOUND
    566<span class="operator">:</span>         <span class="keyword">LOOP</span>
    567<span class="operator">:</span>             found <span class="operator">:</span><span class="operator">=</span> 1;
-   568<span class="operator">:</span>
+   568<span class="operator">:</span> 
    569<span class="operator">:</span>             current_members_val <span class="operator">:</span><span class="operator">=</span> cfp<span class="operator">.</span>current_members;
    570<span class="operator">:</span>             max_members_val <span class="operator">:</span><span class="operator">=</span> cfp<span class="operator">.</span>max_members;
    571<span class="operator">:</span> 
@@ -741,7 +741,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    576<span class="operator">:</span>         <span class="reserved">THEN</span>
    577<span class="operator">:</span>             <span class="keyword">CLOSE</span> channel_family_perm_cursor;
    578<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   579<span class="operator">:</span>
+   579<span class="operator">:</span> 
    580<span class="operator">:</span>         <span class="comment">-- not found: either the channel fam doesn't have an entry in cfp, or the org doesn't have access to it.</span>
    581<span class="operator">:</span>         <span class="comment">-- either way, there are no available subscriptions</span>
    582<span class="operator">:</span> 
@@ -749,17 +749,17 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    584<span class="operator">:</span>         <span class="reserved">THEN</span>
    585<span class="operator">:</span>             <span class="keyword">RETURN</span> 0;
    586<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   587<span class="operator">:</span>
+   587<span class="operator">:</span> 
    588<span class="operator">:</span>         <span class="comment">-- null max members?  in that case, pass it on; NULL means infinite</span>
    589<span class="operator">:</span>         <span class="reserved">IF</span> max_members_val <span class="reserved">IS</span> <span class="reserved">NULL</span>
    590<span class="operator">:</span>         <span class="reserved">THEN</span>
    591<span class="operator">:</span>             <span class="keyword">RETURN</span> <span class="reserved">NULL</span>;
    592<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   593<span class="operator">:</span>
+   593<span class="operator">:</span> 
    594<span class="operator">:</span>         <span class="comment">-- otherwise, return the delta</span>
    595<span class="operator">:</span>         <span class="keyword">RETURN</span> max_members_val <span class="operator">-</span> current_members_val;
    596<span class="operator">:</span>     <span class="reserved">END</span> available_family_subscriptions;
-   597<span class="operator">:</span>
+   597<span class="operator">:</span> 
    598<span class="operator">:</span>     <span class="keyword">FUNCTION</span> available_fve_family_subs<span class="operator">(</span>channel_family_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span> org_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
    599<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
    600<span class="operator">:</span>     <span class="reserved">IS</span>
@@ -767,37 +767,37 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    602<span class="operator">:</span>         fve_current_members_val NUMBER;
    603<span class="operator">:</span>         fve_max_members_val     NUMBER;
    604<span class="operator">:</span>         found               NUMBER;
-   605<span class="operator">:</span>
+   605<span class="operator">:</span> 
    606<span class="operator">:</span>     <span class="reserved">BEGIN</span>
    607<span class="operator">:</span>         <span class="reserved">IF</span> <span class="reserved">NOT</span> channel_family_perm_cursor<span class="operator">%</span>ISOPEN <span class="reserved">THEN</span>
    608<span class="operator">:</span>             <span class="keyword">OPEN</span> channel_family_perm_cursor<span class="operator">(</span>channel_family_id_in<span class="operator">,</span> org_id_in<span class="operator">)</span>;
    609<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   610<span class="operator">:</span>
+   610<span class="operator">:</span> 
    611<span class="operator">:</span>         FETCH channel_family_perm_cursor <span class="reserved">INTO</span> cfp;
-   612<span class="operator">:</span>
+   612<span class="operator">:</span> 
    613<span class="operator">:</span>         <span class="keyword">WHILE</span> channel_family_perm_cursor<span class="operator">%</span>FOUND <span class="keyword">LOOP</span>
    614<span class="operator">:</span>             found <span class="operator">:</span><span class="operator">=</span> 1;
    615<span class="operator">:</span>             fve_current_members_val <span class="operator">:</span><span class="operator">=</span> cfp<span class="operator">.</span>fve_current_members;
    616<span class="operator">:</span>             fve_max_members_val <span class="operator">:</span><span class="operator">=</span> cfp<span class="operator">.</span>fve_max_members;
    617<span class="operator">:</span>             FETCH channel_family_perm_cursor <span class="reserved">INTO</span> cfp;
    618<span class="operator">:</span>         <span class="reserved">END</span> <span class="keyword">LOOP</span>;
-   619<span class="operator">:</span>
+   619<span class="operator">:</span> 
    620<span class="operator">:</span>         <span class="reserved">IF</span> channel_family_perm_cursor<span class="operator">%</span>ISOPEN <span class="reserved">THEN</span>
    621<span class="operator">:</span>             <span class="keyword">CLOSE</span> channel_family_perm_cursor;
    622<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   623<span class="operator">:</span>
+   623<span class="operator">:</span> 
    624<span class="operator">:</span>         <span class="reserved">IF</span> found <span class="reserved">IS</span> <span class="reserved">NULL</span> <span class="reserved">THEN</span>
    625<span class="operator">:</span>             <span class="keyword">RETURN</span> 0;
    626<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   627<span class="operator">:</span>
+   627<span class="operator">:</span> 
    628<span class="operator">:</span>         <span class="reserved">IF</span> fve_max_members_val <span class="reserved">IS</span> <span class="reserved">NULL</span> <span class="reserved">THEN</span>
    629<span class="operator">:</span>             <span class="keyword">RETURN</span> <span class="reserved">NULL</span>;
    630<span class="operator">:</span>         <span class="reserved">END</span> <span class="reserved">IF</span>;
-   631<span class="operator">:</span>
+   631<span class="operator">:</span> 
    632<span class="operator">:</span>         <span class="keyword">RETURN</span> fve_max_members_val <span class="operator">-</span> fve_current_members_val;
-   633<span class="operator">:</span>
+   633<span class="operator">:</span> 
    634<span class="operator">:</span>     <span class="reserved">END</span> available_fve_family_subs;
-   635<span class="operator">:</span>
+   635<span class="operator">:</span> 
    636<span class="operator">:</span> 
    637<span class="operator">:</span>     <span class="comment">-- *******************************************************************</span>
    638<span class="operator">:</span>     <span class="comment">-- FUNCTION: channel_family_current_members</span>
@@ -819,15 +819,15 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    654<span class="operator">:</span>            <span class="reserved">and</span>  cfsp<span class="operator">.</span>customer_id <span class="operator">=</span> org_id_in;
    655<span class="operator">:</span>         <span class="keyword">return</span> current_members_count;
    656<span class="operator">:</span>     <span class="reserved">end</span>;
-   657<span class="operator">:</span>
-   658<span class="operator">:</span>
+   657<span class="operator">:</span> 
+   658<span class="operator">:</span> 
    659<span class="operator">:</span>     <span class="keyword">function</span> cfam_curr_fve_members<span class="operator">(</span>
    660<span class="operator">:</span>         channel_family_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span>
    661<span class="operator">:</span>         org_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
    662<span class="operator">:</span>     <span class="keyword">return</span> number
    663<span class="operator">:</span>     <span class="reserved">is</span>
    664<span class="operator">:</span>         current_members_count number <span class="operator">:</span><span class="operator">=</span> 0;
-   665<span class="operator">:</span>
+   665<span class="operator">:</span> 
    666<span class="operator">:</span>     <span class="reserved">begin</span>
    667<span class="operator">:</span>         <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>sc<span class="operator">.</span>server_id<span class="operator">)</span>
    668<span class="operator">:</span>           <span class="reserved">into</span> current_members_count
@@ -844,7 +844,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    679<span class="operator">:</span>                  <span class="reserved">where</span> cfsp<span class="operator">.</span>CHANNEL_FAMILY_ID <span class="operator">=</span> channel_family_id_in
    680<span class="operator">:</span>                    <span class="reserved">and</span> cfsp<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
    681<span class="operator">:</span>                 <span class="operator">)</span>;
-   682<span class="operator">:</span>
+   682<span class="operator">:</span> 
    683<span class="operator">:</span>         <span class="keyword">return</span> current_members_count;
    684<span class="operator">:</span>     <span class="reserved">end</span>;
    685<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> update_family_counts<span class="operator">(</span>channel_family_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span>
@@ -857,7 +857,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    692<span class="operator">:</span>          <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in
    693<span class="operator">:</span>            <span class="reserved">and</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
    694<span class="operator">:</span>     <span class="reserved">END</span> update_family_counts;
-   695<span class="operator">:</span>
+   695<span class="operator">:</span> 
    696<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> update_group_family_counts<span class="operator">(</span>group_label_in <span class="reserved">IN</span> VARCHAR2<span class="operator">,</span>
    697<span class="operator">:</span>                                    org_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
    698<span class="operator">:</span>     <span class="reserved">IS</span>
@@ -880,7 +880,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    715<span class="operator">:</span>             rhn_channel<span class="operator">.</span>update_family_counts<span class="operator">(</span>i<span class="operator">.</span>channel_family_id<span class="operator">,</span> i<span class="operator">.</span>org_id<span class="operator">)</span>;
    716<span class="operator">:</span>         <span class="reserved">END</span> <span class="keyword">LOOP</span>;
    717<span class="operator">:</span>     <span class="reserved">END</span> update_group_family_counts;
-   718<span class="operator">:</span>
+   718<span class="operator">:</span> 
    719<span class="operator">:</span>     <span class="keyword">FUNCTION</span> available_chan_subscriptions<span class="operator">(</span>channel_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span>
    720<span class="operator">:</span>                                           org_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
    721<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
@@ -890,22 +890,22 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    725<span class="operator">:</span>         <span class="reserved">SELECT</span> channel_family_id <span class="reserved">INTO</span> channel_family_id_val
    726<span class="operator">:</span>             <span class="reserved">FROM</span> rhnChannelFamilyMembers
    727<span class="operator">:</span>             <span class="reserved">WHERE</span> channel_id <span class="operator">=</span> channel_id_in;
-   728<span class="operator">:</span>
+   728<span class="operator">:</span> 
    729<span class="operator">:</span>             <span class="keyword">RETURN</span> rhn_channel<span class="operator">.</span>available_family_subscriptions<span class="operator">(</span>
    730<span class="operator">:</span>                            channel_family_id_val<span class="operator">,</span> org_id_in<span class="operator">)</span>;
    731<span class="operator">:</span>     <span class="reserved">END</span> available_chan_subscriptions;
-   732<span class="operator">:</span>
+   732<span class="operator">:</span> 
    733<span class="operator">:</span> 	<span class="keyword">FUNCTION</span> available_fve_chan_subs<span class="operator">(</span>channel_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span>
    734<span class="operator">:</span>                                           org_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
    735<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
    736<span class="operator">:</span>     <span class="reserved">IS</span>
    737<span class="operator">:</span>         channel_family_id_val NUMBER;
-   738<span class="operator">:</span>
+   738<span class="operator">:</span> 
    739<span class="operator">:</span>     <span class="reserved">BEGIN</span>
    740<span class="operator">:</span>         <span class="reserved">SELECT</span> channel_family_id <span class="reserved">INTO</span> channel_family_id_val
    741<span class="operator">:</span>           <span class="reserved">FROM</span> rhnChannelFamilyMembers
    742<span class="operator">:</span>          <span class="reserved">WHERE</span> channel_id <span class="operator">=</span> channel_id_in;
-   743<span class="operator">:</span>
+   743<span class="operator">:</span> 
    744<span class="operator">:</span>         <span class="keyword">RETURN</span> rhn_channel<span class="operator">.</span>available_fve_family_subs<span class="operator">(</span> channel_family_id_val<span class="operator">,</span> org_id_in<span class="operator">)</span>;
    745<span class="operator">:</span>     <span class="reserved">END</span> available_fve_chan_subs;
    746<span class="operator">:</span> 
@@ -921,7 +921,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    756<span class="operator">:</span>                 <span class="reserved">from</span>    rhnChannelFamilyMembers rcfm
    757<span class="operator">:</span>                 <span class="reserved">where</span>   rcfm<span class="operator">.</span>channel_family_id <span class="operator">=</span> channel_family_id_in<span class="operator">)</span>;
    758<span class="operator">:</span>     <span class="reserved">end</span>;
-   759<span class="operator">:</span>
+   759<span class="operator">:</span> 
    760<span class="operator">:</span>     <span class="keyword">function</span> get_org_id<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span>
    761<span class="operator">:</span>     <span class="keyword">return</span> number
    762<span class="operator">:</span>     <span class="reserved">is</span>
@@ -930,7 +930,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    765<span class="operator">:</span>         <span class="reserved">select</span> org_id <span class="reserved">into</span> org_id_out
    766<span class="operator">:</span>             <span class="reserved">from</span> rhnChannel
    767<span class="operator">:</span>             <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
-   768<span class="operator">:</span>
+   768<span class="operator">:</span> 
    769<span class="operator">:</span>             <span class="keyword">return</span> org_id_out;
    770<span class="operator">:</span>     <span class="reserved">end</span> get_org_id;
    771<span class="operator">:</span> 
@@ -949,7 +949,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    784<span class="operator">:</span>                 <span class="reserved">end</span> <span class="keyword">loop</span>;
    785<span class="operator">:</span>                 <span class="keyword">return</span> 0;
    786<span class="operator">:</span>     <span class="reserved">end</span>;
-   787<span class="operator">:</span>
+   787<span class="operator">:</span> 
    788<span class="operator">:</span>     <span class="keyword">function</span> get_org_access<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">)</span>
    789<span class="operator">:</span>     <span class="keyword">return</span> number
    790<span class="operator">:</span>     <span class="reserved">is</span>
@@ -964,14 +964,14 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    799<span class="operator">:</span>            <span class="reserved">and</span> CFM<span class="operator">.</span>channel_family_id <span class="operator">=</span> CFP<span class="operator">.</span>channel_family_id
    800<span class="operator">:</span>            <span class="reserved">and</span> CFM<span class="operator">.</span>channel_id <span class="operator">=</span> channel_id_in
    801<span class="operator">:</span>            <span class="reserved">and</span> <span class="operator">(</span>CFP<span class="operator">.</span>max_members <span class="operator">&gt;</span> 0 <span class="reserved">or</span> CFP<span class="operator">.</span>max_members <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">or</span> CFP<span class="operator">.</span>org_id <span class="operator">=</span> 1<span class="operator">)</span>;
-   802<span class="operator">:</span>
+   802<span class="operator">:</span> 
    803<span class="operator">:</span>         <span class="keyword">return</span> 1;
    804<span class="operator">:</span>         <span class="reserved">exception</span>
    805<span class="operator">:</span>             <span class="reserved">when</span> no_data_found
    806<span class="operator">:</span>             <span class="reserved">then</span>
    807<span class="operator">:</span>             <span class="keyword">return</span> 0;
    808<span class="operator">:</span>     <span class="reserved">end</span>;
-   809<span class="operator">:</span>
+   809<span class="operator">:</span> 
    810<span class="operator">:</span>     <span class="comment">-- check if a user has a given role, or if such a role is inferrable</span>
    811<span class="operator">:</span>     <span class="keyword">function</span> user_role_check_debug<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span>
    812<span class="operator">:</span>                                    user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
@@ -982,31 +982,31 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    817<span class="operator">:</span>         org_id number;
    818<span class="operator">:</span>     <span class="reserved">begin</span>
    819<span class="operator">:</span>         org_id <span class="operator">:</span><span class="operator">=</span> rhn_user<span class="operator">.</span>get_org_id<span class="operator">(</span>user_id_in<span class="operator">)</span>;
-   820<span class="operator">:</span>
+   820<span class="operator">:</span> 
    821<span class="operator">:</span>         <span class="comment">-- channel might be shared</span>
    822<span class="operator">:</span>         <span class="reserved">if</span> role_in <span class="operator">=</span> <span class="string">'subscribe'</span> <span class="reserved">and</span>
    823<span class="operator">:</span>            rhn_channel<span class="operator">.</span>shared_user_role_check<span class="operator">(</span>channel_id_in<span class="operator">,</span> user_id_in<span class="operator">,</span> role_in<span class="operator">)</span> <span class="operator">=</span> 1 <span class="reserved">then</span>
    824<span class="operator">:</span>             <span class="keyword">return</span> 1;
    825<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-   826<span class="operator">:</span>
+   826<span class="operator">:</span> 
    827<span class="operator">:</span>         <span class="reserved">if</span> role_in <span class="operator">=</span> <span class="string">'manage'</span> <span class="reserved">and</span>
    828<span class="operator">:</span>            NVL<span class="operator">(</span>rhn_channel<span class="operator">.</span>get_org_id<span class="operator">(</span>channel_id_in<span class="operator">)</span><span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span> <span class="operator">&lt;</span><span class="operator">&gt;</span> org_id <span class="reserved">then</span>
    829<span class="operator">:</span>                 reason_out <span class="operator">:</span><span class="operator">=</span> <span class="string">'channel_not_owned'</span>;
    830<span class="operator">:</span>                <span class="keyword">return</span> 0;
    831<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-   832<span class="operator">:</span>
+   832<span class="operator">:</span> 
    833<span class="operator">:</span>         <span class="reserved">if</span> role_in <span class="operator">=</span> <span class="string">'subscribe'</span> <span class="reserved">and</span>
    834<span class="operator">:</span>            rhn_channel<span class="operator">.</span>get_org_access<span class="operator">(</span>channel_id_in<span class="operator">,</span> org_id<span class="operator">)</span> <span class="operator">=</span> 0 <span class="reserved">then</span>
    835<span class="operator">:</span>                 reason_out <span class="operator">:</span><span class="operator">=</span> <span class="string">'channel_not_available'</span>;
    836<span class="operator">:</span>                 <span class="keyword">return</span> 0;
    837<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-   838<span class="operator">:</span>
+   838<span class="operator">:</span> 
    839<span class="operator">:</span>         <span class="comment">-- channel admins have all roles</span>
    840<span class="operator">:</span>         <span class="reserved">if</span> rhn_user<span class="operator">.</span>check_role_implied<span class="operator">(</span>user_id_in<span class="operator">,</span> <span class="string">'channel_admin'</span><span class="operator">)</span> <span class="operator">=</span> 1 <span class="reserved">then</span>
    841<span class="operator">:</span>             reason_out <span class="operator">:</span><span class="operator">=</span> <span class="string">'channel_admin'</span>;
    842<span class="operator">:</span>             <span class="keyword">return</span> 1;
    843<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-   844<span class="operator">:</span>
+   844<span class="operator">:</span> 
    845<span class="operator">:</span>         <span class="comment">-- the subscribe permission is inferred</span>
    846<span class="operator">:</span>     <span class="comment">-- UNLESS the not_globally_subscribable flag is set</span>
    847<span class="operator">:</span>         <span class="reserved">if</span> role_in <span class="operator">=</span> <span class="string">'subscribe'</span>
@@ -1018,13 +1018,13 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    853<span class="operator">:</span>                     <span class="keyword">return</span> 1;
    854<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
    855<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-   856<span class="operator">:</span>
+   856<span class="operator">:</span> 
    857<span class="operator">:</span>         <span class="comment">-- all other roles (manage right now) are explicitly granted</span>
    858<span class="operator">:</span>         reason_out <span class="operator">:</span><span class="operator">=</span> <span class="string">'direct_permission'</span>;
    859<span class="operator">:</span>         <span class="keyword">return</span> rhn_channel<span class="operator">.</span>direct_user_role_check<span class="operator">(</span>channel_id_in<span class="operator">,</span>
    860<span class="operator">:</span>                                               user_id_in<span class="operator">,</span> role_in<span class="operator">)</span>;
    861<span class="operator">:</span>     <span class="reserved">end</span>;
-   862<span class="operator">:</span>
+   862<span class="operator">:</span> 
    863<span class="operator">:</span>     <span class="comment">-- same as above, but with no OUT param; useful in views, etc</span>
    864<span class="operator">:</span>     <span class="keyword">function</span> user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
    865<span class="operator">:</span>     <span class="keyword">return</span> number
@@ -1033,7 +1033,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    868<span class="operator">:</span>     <span class="reserved">begin</span>
    869<span class="operator">:</span>         <span class="keyword">return</span> rhn_channel<span class="operator">.</span>user_role_check_debug<span class="operator">(</span>channel_id_in<span class="operator">,</span> user_id_in<span class="operator">,</span> role_in<span class="operator">,</span> throwaway<span class="operator">)</span>;
    870<span class="operator">:</span>     <span class="reserved">end</span>;
-   871<span class="operator">:</span>
+   871<span class="operator">:</span> 
    872<span class="operator">:</span>     <span class="comment">--</span>
    873<span class="operator">:</span>     <span class="comment">-- For multiorg phase II, this function simply checks to see if the user's</span>
    874<span class="operator">:</span>     <span class="comment">-- has a trust relationship that includes this channel by id.</span>
@@ -1053,7 +1053,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    888<span class="operator">:</span>         <span class="reserved">when</span> no_data_found <span class="reserved">then</span>
    889<span class="operator">:</span>           <span class="keyword">return</span> 0;
    890<span class="operator">:</span>     <span class="reserved">end</span>;
-   891<span class="operator">:</span>
+   891<span class="operator">:</span> 
    892<span class="operator">:</span>     <span class="comment">-- same as above, but returns 1 if user_id_in is null</span>
    893<span class="operator">:</span>     <span class="comment">-- This is useful in queries where user_id is not specified</span>
    894<span class="operator">:</span>     <span class="keyword">function</span> loose_user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
@@ -1065,7 +1065,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    900<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
    901<span class="operator">:</span>         <span class="keyword">return</span> user_role_check<span class="operator">(</span>channel_id_in<span class="operator">,</span> user_id_in<span class="operator">,</span> role_in<span class="operator">)</span>;
    902<span class="operator">:</span>     <span class="reserved">end</span> loose_user_role_check;
-   903<span class="operator">:</span>
+   903<span class="operator">:</span> 
    904<span class="operator">:</span>     <span class="comment">-- directly checks the table, no inferred permissions</span>
    905<span class="operator">:</span>     <span class="keyword">function</span> direct_user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
    906<span class="operator">:</span>     <span class="keyword">return</span> number
@@ -1080,14 +1080,14 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    915<span class="operator">:</span>            <span class="reserved">and</span> CP<span class="operator">.</span>channel_id <span class="operator">=</span> channel_id_in
    916<span class="operator">:</span>            <span class="reserved">and</span> CPR<span class="operator">.</span>label <span class="operator">=</span> role_in
    917<span class="operator">:</span>            <span class="reserved">and</span> CP<span class="operator">.</span>role_id <span class="operator">=</span> CPR<span class="operator">.</span>id;
-   918<span class="operator">:</span>
+   918<span class="operator">:</span> 
    919<span class="operator">:</span>         <span class="keyword">return</span> 1;
    920<span class="operator">:</span>     <span class="reserved">exception</span>
    921<span class="operator">:</span>         <span class="reserved">when</span> no_data_found
    922<span class="operator">:</span>             <span class="reserved">then</span>
    923<span class="operator">:</span>             <span class="keyword">return</span> 0;
    924<span class="operator">:</span>     <span class="reserved">end</span>;
-   925<span class="operator">:</span>
+   925<span class="operator">:</span> 
    926<span class="operator">:</span>     <span class="comment">-- check if an org has a certain setting</span>
    927<span class="operator">:</span>     <span class="keyword">function</span> org_channel_setting<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">,</span> setting_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
    928<span class="operator">:</span>     <span class="keyword">return</span> number
@@ -1102,14 +1102,14 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    937<span class="operator">:</span>            <span class="reserved">and</span> OCS<span class="operator">.</span>channel_id <span class="operator">=</span> channel_id_in
    938<span class="operator">:</span>            <span class="reserved">and</span> OCST<span class="operator">.</span>label <span class="operator">=</span> setting_in
    939<span class="operator">:</span>            <span class="reserved">and</span> OCS<span class="operator">.</span>setting_id <span class="operator">=</span> OCST<span class="operator">.</span>id;
-   940<span class="operator">:</span>
+   940<span class="operator">:</span> 
    941<span class="operator">:</span>         <span class="keyword">return</span> 1;
    942<span class="operator">:</span>     <span class="reserved">exception</span>
    943<span class="operator">:</span>         <span class="reserved">when</span> no_data_found
    944<span class="operator">:</span>             <span class="reserved">then</span>
    945<span class="operator">:</span>             <span class="keyword">return</span> 0;
    946<span class="operator">:</span>     <span class="reserved">end</span>;
-   947<span class="operator">:</span>
+   947<span class="operator">:</span> 
    948<span class="operator">:</span>     <span class="keyword">FUNCTION</span> channel_priority<span class="operator">(</span>channel_id_in <span class="reserved">IN</span> number<span class="operator">)</span>
    949<span class="operator">:</span>     <span class="keyword">RETURN</span> number
    950<span class="operator">:</span>     <span class="reserved">IS</span>
@@ -1118,22 +1118,22 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    953<span class="operator">:</span>          end_of_life_val <span class="keyword">date</span>;
    954<span class="operator">:</span>          org_id_val number;
    955<span class="operator">:</span>     <span class="reserved">BEGIN</span>
-   956<span class="operator">:</span>
+   956<span class="operator">:</span> 
    957<span class="operator">:</span>         <span class="reserved">select</span> <span class="keyword">name</span><span class="operator">,</span> end_of_life<span class="operator">,</span> org_id
    958<span class="operator">:</span>         <span class="reserved">into</span> channel_name<span class="operator">,</span> end_of_life_val<span class="operator">,</span> org_id_val
    959<span class="operator">:</span>         <span class="reserved">from</span> rhnChannel
    960<span class="operator">:</span>         <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
-   961<span class="operator">:</span>
+   961<span class="operator">:</span> 
    962<span class="operator">:</span>         <span class="reserved">if</span> end_of_life_val <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
    963<span class="operator">:</span>           <span class="keyword">return</span> <span class="operator">-</span>400;
    964<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-   965<span class="operator">:</span>
+   965<span class="operator">:</span> 
    966<span class="operator">:</span>         <span class="reserved">if</span> channel_name <span class="reserved">like</span> <span class="string">'Red Hat Enterprise Linux%'</span> <span class="reserved">or</span> channel_name <span class="reserved">like</span> <span class="string">'RHEL%'</span> <span class="reserved">then</span>
    967<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> 1000;
    968<span class="operator">:</span>           <span class="reserved">if</span> channel_name <span class="reserved">not</span> <span class="reserved">like</span> <span class="string">'%Beta%'</span> <span class="reserved">then</span>
    969<span class="operator">:</span>             priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span> 1000;
    970<span class="operator">:</span>           <span class="reserved">end</span> <span class="reserved">if</span>;
-   971<span class="operator">:</span>
+   971<span class="operator">:</span> 
    972<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span>
    973<span class="operator">:</span>             <span class="reserved">case</span>
    974<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%v. 5%'</span> <span class="reserved">then</span> 600
@@ -1143,7 +1143,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    978<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%v. 1%'</span> <span class="reserved">then</span> 200
    979<span class="operator">:</span>               <span class="reserved">else</span> 0
    980<span class="operator">:</span>             <span class="reserved">end</span>;
-   981<span class="operator">:</span>
+   981<span class="operator">:</span> 
    982<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span>
    983<span class="operator">:</span>             <span class="reserved">case</span>
    984<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'Red Hat Enterprise Linux (v. 5%'</span> <span class="reserved">then</span> 60
@@ -1154,13 +1154,13 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    989<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%Extras%'</span> <span class="reserved">then</span> 10
    990<span class="operator">:</span>               <span class="reserved">else</span> 0
    991<span class="operator">:</span>             <span class="reserved">end</span>;
-   992<span class="operator">:</span>
+   992<span class="operator">:</span> 
    993<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span>
    994<span class="operator">:</span>             <span class="reserved">case</span>
    995<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%)'</span> <span class="reserved">then</span> 5
    996<span class="operator">:</span>               <span class="reserved">else</span> 0
    997<span class="operator">:</span>             <span class="reserved">end</span>;
-   998<span class="operator">:</span>
+   998<span class="operator">:</span> 
    999<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span>
   1000<span class="operator">:</span>             <span class="reserved">case</span>
   1001<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%32-bit x86%'</span> <span class="reserved">then</span> 4
@@ -1170,11 +1170,11 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1005<span class="operator">:</span>             <span class="reserved">end</span>;
   1006<span class="operator">:</span>         <span class="keyword">elsif</span> channel_name <span class="reserved">like</span> <span class="string">'Red Hat Desktop%'</span> <span class="reserved">then</span>
   1007<span class="operator">:</span>             priority <span class="operator">:</span><span class="operator">=</span> 900;
-  1008<span class="operator">:</span>
+  1008<span class="operator">:</span> 
   1009<span class="operator">:</span>             <span class="reserved">if</span> channel_name <span class="reserved">not</span> <span class="reserved">like</span> <span class="string">'%Beta%'</span> <span class="reserved">then</span>
   1010<span class="operator">:</span>                priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span> 50;
   1011<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-  1012<span class="operator">:</span>
+  1012<span class="operator">:</span> 
   1013<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span>
   1014<span class="operator">:</span>             <span class="reserved">case</span>
   1015<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%v. 4%'</span> <span class="reserved">then</span> 40
@@ -1183,7 +1183,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1018<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%v. 1%'</span> <span class="reserved">then</span> 10
   1019<span class="operator">:</span>               <span class="reserved">else</span> 0
   1020<span class="operator">:</span>             <span class="reserved">end</span>;
-  1021<span class="operator">:</span>
+  1021<span class="operator">:</span> 
   1022<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> priority <span class="operator">+</span>
   1023<span class="operator">:</span>             <span class="reserved">case</span>
   1024<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%32-bit x86%'</span> <span class="reserved">then</span> 4
@@ -1191,17 +1191,17 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1026<span class="operator">:</span>               <span class="reserved">when</span> channel_name <span class="reserved">like</span> <span class="string">'%64-bit AMD64/Intel EM64T%'</span> <span class="reserved">then</span> 2
   1027<span class="operator">:</span>               <span class="reserved">else</span> 0
   1028<span class="operator">:</span>             <span class="reserved">end</span>;
-  1029<span class="operator">:</span>
+  1029<span class="operator">:</span> 
   1030<span class="operator">:</span>         <span class="keyword">elsif</span> org_id_val <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
   1031<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> 600;
   1032<span class="operator">:</span>         <span class="reserved">else</span>
   1033<span class="operator">:</span>           priority <span class="operator">:</span><span class="operator">=</span> 500;
   1034<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1035<span class="operator">:</span>
+  1035<span class="operator">:</span> 
   1036<span class="operator">:</span>       <span class="keyword">return</span> <span class="operator">-</span>priority;
-  1037<span class="operator">:</span>
+  1037<span class="operator">:</span> 
   1038<span class="operator">:</span>     <span class="reserved">end</span> channel_priority;
-  1039<span class="operator">:</span>
+  1039<span class="operator">:</span> 
   1040<span class="operator">:</span>     <span class="comment">-- right now this only does the accounting changes; the cascade</span>
   1041<span class="operator">:</span>     <span class="comment">-- actually does the rhnServerChannel delete.</span>
   1042<span class="operator">:</span>     <span class="reserved">procedure</span> delete_server_channels<span class="operator">(</span>server_id_in <span class="reserved">in</span> number<span class="operator">)</span>
@@ -1243,7 +1243,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1078<span class="operator">:</span>                     <span class="operator">)</span>
   1079<span class="operator">:</span>                 <span class="operator">)</span>;
   1080<span class="operator">:</span>     <span class="reserved">end</span>;
-  1081<span class="operator">:</span>
+  1081<span class="operator">:</span> 
   1082<span class="operator">:</span>         <span class="comment">-- this could certainly be optimized to do updates if needs be</span>
   1083<span class="operator">:</span>         <span class="reserved">procedure</span> refresh_newest_package<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> caller_in <span class="reserved">in</span> varchar2 <span class="operator">:</span><span class="operator">=</span> <span class="string">'(unknown)'</span><span class="operator">)</span>
   1084<span class="operator">:</span>         <span class="reserved">is</span>
@@ -1263,11 +1263,11 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1098<span class="operator">:</span>                     <span class="keyword">set</span> last_modified <span class="operator">=</span> greatest<span class="operator">(</span>sysdate<span class="operator">,</span> last_modified <span class="operator">+</span> 1<span class="operator">/</span>86400<span class="operator">)</span>
   1099<span class="operator">:</span>                     <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
   1100<span class="operator">:</span>         <span class="reserved">end</span>;
-  1101<span class="operator">:</span>
+  1101<span class="operator">:</span> 
   1102<span class="operator">:</span>    <span class="reserved">procedure</span> update_channel <span class="operator">(</span> channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> invalidate_ss <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
   1103<span class="operator">:</span>                               date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
   1104<span class="operator">:</span>    <span class="reserved">is</span>
-  1105<span class="operator">:</span>
+  1105<span class="operator">:</span> 
   1106<span class="operator">:</span>    channel_last_modified <span class="keyword">date</span>;
   1107<span class="operator">:</span>    last_modified_value <span class="keyword">date</span>;
   1108<span class="operator">:</span> 
@@ -1275,20 +1275,20 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1110<span class="operator">:</span>    <span class="reserved">select</span>  snapshot_id id
   1111<span class="operator">:</span>    <span class="reserved">from</span>    rhnSnapshotChannel
   1112<span class="operator">:</span>    <span class="reserved">where</span>   channel_id <span class="operator">=</span> channel_id_in;
-  1113<span class="operator">:</span>
+  1113<span class="operator">:</span> 
   1114<span class="operator">:</span>    <span class="reserved">begin</span>
-  1115<span class="operator">:</span>
+  1115<span class="operator">:</span> 
   1116<span class="operator">:</span>       <span class="reserved">select</span> last_modified
   1117<span class="operator">:</span>       <span class="reserved">into</span> channel_last_modified
   1118<span class="operator">:</span>       <span class="reserved">from</span> rhnChannel
   1119<span class="operator">:</span>       <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
-  1120<span class="operator">:</span>
+  1120<span class="operator">:</span> 
   1121<span class="operator">:</span>       last_modified_value <span class="operator">:</span><span class="operator">=</span> date_to_use;
-  1122<span class="operator">:</span>
+  1122<span class="operator">:</span> 
   1123<span class="operator">:</span>       <span class="reserved">if</span> last_modified_value <span class="operator">&lt;</span><span class="operator">=</span> channel_last_modified <span class="reserved">then</span>
   1124<span class="operator">:</span>           last_modified_value <span class="operator">:</span><span class="operator">=</span> last_modified_value <span class="operator">+</span> 1<span class="operator">/</span>86400;
   1125<span class="operator">:</span>       <span class="reserved">end</span> <span class="reserved">if</span>;
-  1126<span class="operator">:</span>
+  1126<span class="operator">:</span> 
   1127<span class="operator">:</span>       <span class="reserved">update</span> rhnChannel <span class="keyword">set</span> last_modified <span class="operator">=</span> last_modified_value
   1128<span class="operator">:</span>       <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
   1129<span class="operator">:</span> 
@@ -1299,9 +1299,9 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1134<span class="operator">:</span>             <span class="reserved">where</span> id <span class="operator">=</span> snapshot<span class="operator">.</span>id;
   1135<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
   1136<span class="operator">:</span>       <span class="reserved">end</span> <span class="reserved">if</span>;
-  1137<span class="operator">:</span>
+  1137<span class="operator">:</span> 
   1138<span class="operator">:</span>    <span class="reserved">end</span> update_channel;
-  1139<span class="operator">:</span>
+  1139<span class="operator">:</span> 
   1140<span class="operator">:</span>    <span class="reserved">procedure</span> update_channels_by_package <span class="operator">(</span> package_id_in <span class="reserved">in</span> number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
   1141<span class="operator">:</span>    <span class="reserved">is</span>
   1142<span class="operator">:</span> 
@@ -1310,7 +1310,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1145<span class="operator">:</span>    <span class="reserved">from</span> rhnChannelPackage
   1146<span class="operator">:</span>    <span class="reserved">where</span> package_id <span class="operator">=</span> package_id_in
   1147<span class="operator">:</span>    <span class="reserved">order</span> <span class="reserved">by</span> channel_id;
-  1148<span class="operator">:</span>
+  1148<span class="operator">:</span> 
   1149<span class="operator">:</span>    <span class="reserved">begin</span>
   1150<span class="operator">:</span>       <span class="reserved">for</span> channel <span class="reserved">in</span> channels <span class="keyword">loop</span>
   1151<span class="operator">:</span>          <span class="comment">-- we want to invalidate the snapshot assocated with the channel when we</span>
@@ -1318,8 +1318,8 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1153<span class="operator">:</span>          rhn_channel<span class="operator">.</span>update_channel <span class="operator">(</span> channel<span class="operator">.</span>channel_id<span class="operator">,</span> 1<span class="operator">,</span> date_to_use <span class="operator">)</span>;
   1154<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
   1155<span class="operator">:</span>    <span class="reserved">end</span> update_channels_by_package;
-  1156<span class="operator">:</span>
-  1157<span class="operator">:</span>
+  1156<span class="operator">:</span> 
+  1157<span class="operator">:</span> 
   1158<span class="operator">:</span>    <span class="reserved">procedure</span> update_channels_by_errata <span class="operator">(</span> errata_id_in number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
   1159<span class="operator">:</span>    <span class="reserved">is</span>
   1160<span class="operator">:</span> 
@@ -1328,7 +1328,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1163<span class="operator">:</span>    <span class="reserved">from</span> rhnChannelErrata
   1164<span class="operator">:</span>    <span class="reserved">where</span> errata_id <span class="operator">=</span> errata_id_in
   1165<span class="operator">:</span>    <span class="reserved">order</span> <span class="reserved">by</span> channel_id;
-  1166<span class="operator">:</span>
+  1166<span class="operator">:</span> 
   1167<span class="operator">:</span>    <span class="reserved">begin</span>
   1168<span class="operator">:</span>       <span class="reserved">for</span> channel <span class="reserved">in</span> channels <span class="keyword">loop</span>
   1169<span class="operator">:</span>          <span class="comment">-- we won't invalidate snapshots, b/c just changing the errata associated with</span>
@@ -1336,7 +1336,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1171<span class="operator">:</span>          rhn_channel<span class="operator">.</span>update_channel <span class="operator">(</span> channel<span class="operator">.</span>channel_id<span class="operator">,</span> 0<span class="operator">,</span> date_to_use <span class="operator">)</span>;
   1172<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
   1173<span class="operator">:</span>    <span class="reserved">end</span> update_channels_by_errata;
-  1174<span class="operator">:</span>
+  1174<span class="operator">:</span> 
   1175<span class="operator">:</span>    <span class="reserved">procedure</span> update_needed_cache<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span>
   1176<span class="operator">:</span>    <span class="reserved">is</span>
   1177<span class="operator">:</span>        <span class="keyword">pragma</span> autonomous_transaction;
@@ -1355,10 +1355,10 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1190<span class="operator">:</span>          <span class="keyword">commit</span>;
   1191<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
   1192<span class="operator">:</span>    <span class="reserved">end</span> update_needed_cache;
-  1193<span class="operator">:</span>
+  1193<span class="operator">:</span> 
   1194<span class="operator">:</span> <span class="reserved">END</span> rhn_channel;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:00:59 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Apr 21 10:04:38 2011</div>
 </body></html>

@@ -1,5 +1,5 @@
-<area shape="rect" id="node1" href="table-WEB_CONTACT.html#t-fk" title="WEB_CONTACT" alt="" coords="44,41,169,71">
-<area shape="rect" id="node2" href="table-RHNAPPINSTALLSESSION.html#t-fk" title="RHNAPPINSTALLSESSION" alt="" coords="257,121,449,151">
-<area shape="rect" id="node3" href="table-RHNSERVER.html#t-fk" title="RHNSERVER" alt="" coords="53,95,160,124">
-<area shape="rect" id="node4" href="table-RHNAPPINSTALLINSTANCE.html#t-fk" title="RHNAPPINSTALLINSTANCE" alt="" coords="5,148,208,177">
-<area shape="rect" id="node5" href="table-RHNCHECKSUM.html#t-fk" title="RHNCHECKSUM" alt="" coords="41,201,172,231">
+<area shape="rect" href="table&#45;WEB_CONTACT.html#t&#45;fk" title="WEB_CONTACT" alt="" coords="43,37,165,64">
+<area shape="rect" href="table&#45;RHNAPPINSTALLSESSION.html#t&#45;fk" title="RHNAPPINSTALLSESSION" alt="" coords="251,113,440,140">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="52,88,156,115">
+<area shape="rect" href="table&#45;RHNAPPINSTALLINSTANCE.html#t&#45;fk" title="RHNAPPINSTALLINSTANCE" alt="" coords="7,139,201,165">
+<area shape="rect" href="table&#45;RHNCHECKSUM.html#t&#45;fk" title="RHNCHECKSUM" alt="" coords="41,189,167,216">

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:56:13 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:12 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELNEWESTPACKAGEVIEW" ("CHANNEL_ID", "NAME_ID", "EVR_ID", "PACKAGE_ARCH_ID", "PACKAGE_ID") AS 

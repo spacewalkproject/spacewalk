@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:48:23 2011
+-- created by Oraschemadoc Thu Apr 21 10:03:40 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHN_COMMAND_QUEUE_SESSIONS" 

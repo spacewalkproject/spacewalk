@@ -1,3 +1,3 @@
-<area shape="rect" id="node1" href="table-RHNCLIENTCAPABILITY.html#t-fk" title="RHNCLIENTCAPABILITY" alt="" coords="272,68,451,97">
-<area shape="rect" id="node2" href="table-RHNSERVER.html#t-fk" title="RHNSERVER" alt="" coords="61,41,168,71">
-<area shape="rect" id="node3" href="table-RHNCLIENTCAPABILITYNAME.html#t-fk" title="RHNCLIENTCAPABILITYNAME" alt="" coords="7,95,223,124">
+<area shape="rect" href="table&#45;RHNCLIENTCAPABILITY.html#t&#45;fk" title="RHNCLIENTCAPABILITY" alt="" coords="268,63,441,89">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="60,37,164,64">
+<area shape="rect" href="table&#45;RHNCLIENTCAPABILITYNAME.html#t&#45;fk" title="RHNCLIENTCAPABILITYNAME" alt="" coords="5,88,219,115">

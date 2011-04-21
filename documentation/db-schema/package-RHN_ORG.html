@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-        <head><title> Spacewalk DB Schema - Package - RHN_ORG </title>
+        <head><title> Spacewalk 1.4 DB Schema - Package - RHN_ORG </title>
         <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="author" content="Petr Vanek, petr@scribus.info" />
@@ -34,7 +34,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
      2<span class="operator">:</span> <span class="reserved">IS</span>
      3<span class="operator">:</span>     <span class="reserved">procedure</span> delete_org<span class="operator">(</span>org_id_in <span class="reserved">in</span> number<span class="operator">)</span>;
      4<span class="operator">:</span>     <span class="reserved">procedure</span> delete_user<span class="operator">(</span>user_id_in <span class="reserved">in</span> number<span class="operator">,</span> deleting_org <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">)</span>;
-     5<span class="operator">:</span>
+     5<span class="operator">:</span> 
      6<span class="operator">:</span> <span class="reserved">END</span> rhn_org;
 </pre>
 <h2>Package body source</h2>
@@ -51,7 +51,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
      8<span class="operator">:</span>         <span class="reserved">select</span> id
      9<span class="operator">:</span>         <span class="reserved">from</span> web_contact
     10<span class="operator">:</span>         <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in;
-    11<span class="operator">:</span>
+    11<span class="operator">:</span> 
     12<span class="operator">:</span>     <span class="keyword">cursor</span> servers<span class="operator">(</span>org_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="reserved">is</span>
     13<span class="operator">:</span>         <span class="reserved">select</span>    id
     14<span class="operator">:</span>         <span class="reserved">from</span>    rhnServer
@@ -61,28 +61,28 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     18<span class="operator">:</span>         <span class="reserved">select</span> id
     19<span class="operator">:</span>         <span class="reserved">from</span> rhnConfigChannel
     20<span class="operator">:</span>         <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in;
-    21<span class="operator">:</span>
+    21<span class="operator">:</span> 
     22<span class="operator">:</span>     <span class="keyword">cursor</span> custom_channels <span class="reserved">is</span>
     23<span class="operator">:</span>         <span class="reserved">select</span>    id
     24<span class="operator">:</span>         <span class="reserved">from</span>    rhnChannel
     25<span class="operator">:</span>         <span class="reserved">where</span>    org_id <span class="operator">=</span> org_id_in;
-    26<span class="operator">:</span>
+    26<span class="operator">:</span> 
     27<span class="operator">:</span>     <span class="keyword">cursor</span> errata <span class="reserved">is</span>
     28<span class="operator">:</span>         <span class="reserved">select</span>    id
     29<span class="operator">:</span>         <span class="reserved">from</span>    rhnErrata
     30<span class="operator">:</span>         <span class="reserved">where</span>    org_id <span class="operator">=</span> org_id_in;
-    31<span class="operator">:</span>
+    31<span class="operator">:</span> 
     32<span class="operator">:</span>     <span class="reserved">begin</span>
-    33<span class="operator">:</span>
+    33<span class="operator">:</span> 
     34<span class="operator">:</span>         <span class="reserved">if</span> org_id_in <span class="operator">=</span> 1 <span class="reserved">then</span>
     35<span class="operator">:</span>             rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'cannot_delete_base_org'</span><span class="operator">)</span>;
     36<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-    37<span class="operator">:</span>
+    37<span class="operator">:</span> 
     38<span class="operator">:</span>         <span class="comment">-- Delete all users.</span>
     39<span class="operator">:</span>         <span class="reserved">for</span> u <span class="reserved">in</span> users <span class="keyword">loop</span>
     40<span class="operator">:</span>             rhn_org<span class="operator">.</span>delete_user<span class="operator">(</span>u<span class="operator">.</span>id<span class="operator">,</span> 1<span class="operator">)</span>;
     41<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-    42<span class="operator">:</span>
+    42<span class="operator">:</span> 
     43<span class="operator">:</span>         <span class="comment">-- Delete all servers.</span>
     44<span class="operator">:</span>         <span class="reserved">for</span> s <span class="reserved">in</span> servers<span class="operator">(</span>org_id_in<span class="operator">)</span> <span class="keyword">loop</span>
     45<span class="operator">:</span>             delete_server<span class="operator">(</span>s<span class="operator">.</span>id<span class="operator">)</span>;
@@ -92,7 +92,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     49<span class="operator">:</span>         <span class="reserved">for</span> <span class="keyword">c</span> <span class="reserved">in</span> config_channels <span class="keyword">loop</span>
     50<span class="operator">:</span>             rhn_config<span class="operator">.</span>delete_channel<span class="operator">(</span><span class="keyword">c</span><span class="operator">.</span>id<span class="operator">)</span>;
     51<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-    52<span class="operator">:</span>
+    52<span class="operator">:</span> 
     53<span class="operator">:</span>         <span class="comment">-- Delete all custom channels.</span>
     54<span class="operator">:</span>         <span class="reserved">for</span> cc <span class="reserved">in</span> custom_channels <span class="keyword">loop</span>
     55<span class="operator">:</span>           <span class="reserved">delete</span> <span class="reserved">from</span> rhnServerChannel <span class="reserved">where</span> channel_id <span class="operator">=</span> cc<span class="operator">.</span>id;
@@ -109,7 +109,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     66<span class="operator">:</span> 
     67<span class="operator">:</span>         <span class="comment">-- Give the org's entitlements back to the main org.</span>
     68<span class="operator">:</span>         rhn_entitlements<span class="operator">.</span>remove_org_entitlements<span class="operator">(</span>org_id_in<span class="operator">)</span>;
-    69<span class="operator">:</span>
+    69<span class="operator">:</span> 
     70<span class="operator">:</span>         <span class="comment">-- Clean up tables where we don't have a cascading delete.</span>
     71<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhnChannel <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in;
     72<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhnDailySummaryQueue <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in;
@@ -124,12 +124,12 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     81<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhn_redirects <span class="reserved">where</span> customer_id <span class="operator">=</span> org_id_in;
     82<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_cluster <span class="reserved">where</span> customer_id <span class="operator">=</span> org_id_in;
     83<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhn_schedules <span class="reserved">where</span> customer_id <span class="operator">=</span> org_id_in;
-    84<span class="operator">:</span>
+    84<span class="operator">:</span> 
     85<span class="operator">:</span>         <span class="comment">-- Delete the org.</span>
     86<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> web_customer <span class="reserved">where</span> id <span class="operator">=</span> org_id_in;
-    87<span class="operator">:</span>
+    87<span class="operator">:</span> 
     88<span class="operator">:</span>     <span class="reserved">end</span> delete_org;
-    89<span class="operator">:</span>
+    89<span class="operator">:</span> 
     90<span class="operator">:</span>     <span class="reserved">procedure</span> delete_user<span class="operator">(</span>user_id_in <span class="reserved">in</span> number<span class="operator">,</span> deleting_org <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">)</span> <span class="reserved">is</span>
     91<span class="operator">:</span>         <span class="keyword">cursor</span> servergroups_needing_admins <span class="reserved">is</span>
     92<span class="operator">:</span>             <span class="reserved">select</span>    usgp<span class="operator">.</span>server_group_id    server_group_id
@@ -154,7 +154,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    111<span class="operator">:</span>         <span class="reserved">into</span>    our_org_id
    112<span class="operator">:</span>         <span class="reserved">from</span>    web_contact wc
    113<span class="operator">:</span>         <span class="reserved">where</span>    id <span class="operator">=</span> user_id_in;
-   114<span class="operator">:</span>
+   114<span class="operator">:</span> 
    115<span class="operator">:</span>         <span class="comment">-- find any other users</span>
    116<span class="operator">:</span>         <span class="reserved">begin</span>
    117<span class="operator">:</span>             <span class="reserved">select</span>    id<span class="operator">,</span> 1
@@ -204,14 +204,14 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    161<span class="operator">:</span>                             rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'cannot_delete_user'</span><span class="operator">)</span>;
    162<span class="operator">:</span>                         <span class="reserved">end</span> <span class="reserved">if</span>;
    163<span class="operator">:</span>                 <span class="reserved">end</span>;
-   164<span class="operator">:</span>
+   164<span class="operator">:</span> 
    165<span class="operator">:</span>                 <span class="reserved">for</span> sg <span class="reserved">in</span> servergroups_needing_admins <span class="keyword">loop</span>
    166<span class="operator">:</span>                     rhn_user<span class="operator">.</span>add_servergroup_perm<span class="operator">(</span>other_org_admin<span class="operator">,</span>
    167<span class="operator">:</span>                         sg<span class="operator">.</span>server_group_id<span class="operator">)</span>;
    168<span class="operator">:</span>                 <span class="reserved">end</span> <span class="keyword">loop</span>;
    169<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
    170<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-   171<span class="operator">:</span>
+   171<span class="operator">:</span> 
    172<span class="operator">:</span>         <span class="comment">-- and now things for every user</span>
    173<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhn_command_queue_sessions <span class="reserved">where</span> contact_id <span class="operator">=</span> user_id_in;
    174<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhn_contact_groups
@@ -243,7 +243,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    200<span class="operator">:</span>                 <span class="reserved">where</span>    org_id <span class="operator">=</span> our_org_id
    201<span class="operator">:</span>                     <span class="reserved">and</span> user_id <span class="operator">=</span> user_id_in;
    202<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-   203<span class="operator">:</span>
+   203<span class="operator">:</span> 
    204<span class="operator">:</span>         <span class="reserved">begin</span>
    205<span class="operator">:</span>             <span class="reserved">delete</span> <span class="reserved">from</span> web_contact <span class="reserved">where</span> id <span class="operator">=</span> user_id_in;
    206<span class="operator">:</span>         <span class="reserved">exception</span>
@@ -252,10 +252,10 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    209<span class="operator">:</span>         <span class="reserved">end</span>;
    210<span class="operator">:</span>         <span class="keyword">return</span>;
    211<span class="operator">:</span>     <span class="reserved">end</span> delete_user;
-   212<span class="operator">:</span>
+   212<span class="operator">:</span> 
    213<span class="operator">:</span> <span class="reserved">END</span> rhn_org;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:01:00 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Apr 21 10:04:38 2011</div>
 </body></html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-        <head><title> Spacewalk DB Schema - Package - RHN_ENTITLEMENTS </title>
+        <head><title> Spacewalk 1.4 DB Schema - Package - RHN_ENTITLEMENTS </title>
         <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="author" content="Petr Vanek, petr@scribus.info" />
@@ -1598,9 +1598,9 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1415<span class="operator">:</span>                        <span class="reserved">where</span> SERVER_ORG_ID <span class="operator">=</span> org_id_in <span class="reserved">and</span>
   1416<span class="operator">:</span>                              channel_family_id <span class="operator">=</span> cfam_id <span class="reserved">and</span>
   1417<span class="operator">:</span>                              rownum <span class="operator">&lt;</span><span class="operator">=</span> quantity;
-  1418<span class="operator">:</span>
+  1418<span class="operator">:</span> 
   1419<span class="operator">:</span>     <span class="reserved">begin</span>
-  1420<span class="operator">:</span>
+  1420<span class="operator">:</span> 
   1421<span class="operator">:</span>         <span class="comment">-- Fetch the current entitlement count for the org</span>
   1422<span class="operator">:</span>         <span class="comment">-- into prev_ent_count</span>
   1423<span class="operator">:</span>         <span class="reserved">begin</span>
@@ -1615,7 +1615,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1432<span class="operator">:</span>             <span class="reserved">when</span> NO_DATA_FOUND <span class="reserved">then</span>
   1433<span class="operator">:</span>                 prev_ent_count <span class="operator">:</span><span class="operator">=</span> 0;
   1434<span class="operator">:</span>         <span class="reserved">end</span>;
-  1435<span class="operator">:</span>
+  1435<span class="operator">:</span> 
   1436<span class="operator">:</span>         <span class="reserved">begin</span>
   1437<span class="operator">:</span>             <span class="reserved">select</span> pcf<span class="operator">.</span>fve_current_members
   1438<span class="operator">:</span>             <span class="reserved">into</span> prev_flex_count
@@ -1629,7 +1629,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1446<span class="operator">:</span>                 prev_flex_count <span class="operator">:</span><span class="operator">=</span> 0;
   1447<span class="operator">:</span>         <span class="reserved">end</span>;
   1448<span class="operator">:</span> 
-  1449<span class="operator">:</span>
+  1449<span class="operator">:</span> 
   1450<span class="operator">:</span>         <span class="reserved">begin</span>
   1451<span class="operator">:</span>             <span class="reserved">select</span> id
   1452<span class="operator">:</span>             <span class="reserved">into</span> cfam_id
@@ -1640,7 +1640,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1457<span class="operator">:</span>                 rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span>
   1458<span class="operator">:</span>                               <span class="string">'invalid_channel_family'</span><span class="operator">)</span>;
   1459<span class="operator">:</span>         <span class="reserved">end</span>;
-  1460<span class="operator">:</span>
+  1460<span class="operator">:</span> 
   1461<span class="operator">:</span>         <span class="comment">-- if there are too few flex entitlements</span>
   1462<span class="operator">:</span>         <span class="reserved">if</span> flex_in <span class="operator">&lt;</span> prev_flex_count <span class="reserved">then</span>
   1463<span class="operator">:</span>             <span class="comment">-- and if the extra we need is less than or equal to our extra regular entitlements</span>
@@ -1655,7 +1655,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1472<span class="operator">:</span>                                                           <span class="reserved">from</span> rhnChannelFamilyMembers cfm
   1473<span class="operator">:</span>                                                           <span class="reserved">where</span> cfm<span class="operator">.</span>channel_family_id <span class="operator">=</span> cfam_id<span class="operator">)</span>;
   1474<span class="operator">:</span>                    <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1475<span class="operator">:</span>
+  1475<span class="operator">:</span> 
   1476<span class="operator">:</span>                    <span class="comment">--reset previous counts</span>
   1477<span class="operator">:</span>                    prev_ent_count <span class="operator">:</span><span class="operator">=</span> prev_ent_count <span class="operator">+</span> reduce_quantity;
   1478<span class="operator">:</span>                    prev_flex_count <span class="operator">:</span><span class="operator">=</span> prev_flex_count <span class="operator">-</span> reduce_quantity;
@@ -1664,7 +1664,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1481<span class="operator">:</span>                           <span class="string">'not_enough_flex_entitlements_in_base_org'</span><span class="operator">)</span>;
   1482<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
   1483<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1484<span class="operator">:</span>
+  1484<span class="operator">:</span> 
   1485<span class="operator">:</span>         <span class="comment">-- if there are too few regular entitlements, and extra flex entitlements</span>
   1486<span class="operator">:</span>         <span class="reserved">if</span> quantity_in <span class="operator">&lt;</span> prev_ent_count <span class="reserved">and</span> prev_flex_count <span class="operator">&lt;</span> flex_in <span class="reserved">then</span>
   1487<span class="operator">:</span>                 <span class="comment">-- how many flex-capable systems (that aren't using flex) do we have</span>
@@ -1688,10 +1688,10 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1505<span class="operator">:</span>                     prev_flex_count <span class="operator">:</span><span class="operator">=</span> prev_flex_count <span class="operator">+</span> reduce_quantity;
   1506<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
   1507<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1508<span class="operator">:</span>
-  1509<span class="operator">:</span>
-  1510<span class="operator">:</span>
-  1511<span class="operator">:</span>
+  1508<span class="operator">:</span> 
+  1509<span class="operator">:</span> 
+  1510<span class="operator">:</span> 
+  1511<span class="operator">:</span> 
   1512<span class="operator">:</span>         <span class="comment">-- If we're setting the total entitlemnt count to a lower value,</span>
   1513<span class="operator">:</span>         <span class="comment">-- and that value is less than the count in that one org,</span>
   1514<span class="operator">:</span>         <span class="comment">-- we need to raise an exception.</span>
@@ -1705,10 +1705,10 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1522<span class="operator">:</span>             rhn_entitlements<span class="operator">.</span>set_family_count<span class="operator">(</span>org_id_in<span class="operator">,</span> cfam_id<span class="operator">,</span>
   1523<span class="operator">:</span>                                               quantity_in<span class="operator">,</span> flex_in<span class="operator">)</span>;
   1524<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1525<span class="operator">:</span>
+  1525<span class="operator">:</span> 
   1526<span class="operator">:</span>     <span class="reserved">end</span> activate_channel_entitlement;
-  1527<span class="operator">:</span>
-  1528<span class="operator">:</span>
+  1527<span class="operator">:</span> 
+  1528<span class="operator">:</span> 
   1529<span class="operator">:</span>     <span class="reserved">procedure</span> set_group_count <span class="operator">(</span>
   1530<span class="operator">:</span>         customer_id_in <span class="reserved">in</span> number<span class="operator">,</span>
   1531<span class="operator">:</span>         type_in <span class="reserved">in</span> <span class="keyword">char</span><span class="operator">,</span>
@@ -1723,7 +1723,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1540<span class="operator">:</span>         <span class="reserved">if</span> quantity <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> quantity <span class="operator">&lt;</span> 0 <span class="reserved">then</span>
   1541<span class="operator">:</span>             quantity <span class="operator">:</span><span class="operator">=</span> 0;
   1542<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1543<span class="operator">:</span>
+  1543<span class="operator">:</span> 
   1544<span class="operator">:</span>         <span class="reserved">if</span> type_in <span class="operator">=</span> <span class="string">'U'</span> <span class="reserved">then</span>
   1545<span class="operator">:</span>             <span class="reserved">select</span>    rug<span class="operator">.</span>id
   1546<span class="operator">:</span>             <span class="reserved">into</span>    group_id
@@ -1739,7 +1739,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1556<span class="operator">:</span>                 <span class="reserved">and</span> rsg<span class="operator">.</span>org_id <span class="operator">=</span> customer_id_in
   1557<span class="operator">:</span>                 <span class="reserved">and</span> rsg<span class="operator">.</span>group_type <span class="operator">=</span> group_type_in;
   1558<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1559<span class="operator">:</span>
+  1559<span class="operator">:</span> 
   1560<span class="operator">:</span>         rhn_entitlements<span class="operator">.</span>prune_group<span class="operator">(</span>
   1561<span class="operator">:</span>             group_id<span class="operator">,</span>
   1562<span class="operator">:</span>             type_in<span class="operator">,</span>
@@ -1772,7 +1772,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1589<span class="operator">:</span>                 <span class="operator">)</span>;
   1590<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
   1591<span class="operator">:</span>     <span class="reserved">end</span> set_group_count;
-  1592<span class="operator">:</span>
+  1592<span class="operator">:</span> 
   1593<span class="operator">:</span>     <span class="comment">-- *******************************************************************</span>
   1594<span class="operator">:</span>     <span class="comment">-- PROCEDURE: prune_family</span>
   1595<span class="operator">:</span>     <span class="comment">-- Unsubscribes servers consuming physical slots from the channel family</span>
@@ -1787,7 +1787,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1604<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
   1605<span class="operator">:</span>        is_fve_in <span class="keyword">char</span>;
   1606<span class="operator">:</span>        tmp_quantity number;
-  1607<span class="operator">:</span>
+  1607<span class="operator">:</span> 
   1608<span class="operator">:</span>         <span class="keyword">cursor</span> serverchannels <span class="reserved">is</span>
   1609<span class="operator">:</span>             <span class="reserved">select</span>    sc<span class="operator">.</span>server_id<span class="operator">,</span>
   1610<span class="operator">:</span>                     sc<span class="operator">.</span>channel_id
@@ -1833,7 +1833,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1650<span class="operator">:</span> 
   1651<span class="operator">:</span>         tmp_quantity <span class="operator">:</span><span class="operator">=</span> quantity_in;
   1652<span class="operator">:</span>         is_fve_in <span class="operator">:</span><span class="operator">=</span> <span class="string">'N'</span>;
-  1653<span class="operator">:</span>
+  1653<span class="operator">:</span> 
   1654<span class="operator">:</span>         <span class="reserved">for</span> sc <span class="reserved">in</span> serverchannels <span class="keyword">loop</span>
   1655<span class="operator">:</span>             rhn_channel<span class="operator">.</span>unsubscribe_server<span class="operator">(</span>sc<span class="operator">.</span>server_id<span class="operator">,</span> sc<span class="operator">.</span>channel_id<span class="operator">,</span> 1<span class="operator">,</span> 1<span class="operator">,</span>
   1656<span class="operator">:</span>                                                        update_family_countsYN <span class="operator">=</span><span class="operator">&gt;</span> 0<span class="operator">)</span>;
@@ -1844,13 +1844,13 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1661<span class="operator">:</span>             rhn_channel<span class="operator">.</span>unsubscribe_server<span class="operator">(</span>sc<span class="operator">.</span>server_id<span class="operator">,</span> sc<span class="operator">.</span>channel_id<span class="operator">,</span> 1<span class="operator">,</span> 1<span class="operator">,</span>
   1662<span class="operator">:</span>                                                         update_family_countsYN <span class="operator">=</span><span class="operator">&gt;</span> 0<span class="operator">)</span>;
   1663<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1664<span class="operator">:</span>
-  1665<span class="operator">:</span>
-  1666<span class="operator">:</span>
+  1664<span class="operator">:</span> 
+  1665<span class="operator">:</span> 
+  1666<span class="operator">:</span> 
   1667<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
   1668<span class="operator">:</span>                 rhn_channel<span class="operator">.</span>update_family_counts<span class="operator">(</span>channel_family_id_in<span class="operator">,</span> customer_id_in<span class="operator">)</span>;
   1669<span class="operator">:</span>     <span class="reserved">end</span> prune_family;
-  1670<span class="operator">:</span>
+  1670<span class="operator">:</span> 
   1671<span class="operator">:</span>     <span class="reserved">procedure</span> set_family_count <span class="operator">(</span>
   1672<span class="operator">:</span>         customer_id_in <span class="reserved">in</span> number<span class="operator">,</span>
   1673<span class="operator">:</span>         channel_family_id_in <span class="reserved">in</span> number<span class="operator">,</span>
@@ -1879,144 +1879,149 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1696<span class="operator">:</span>         <span class="reserved">if</span> flex <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> flex <span class="operator">&lt;</span> 0 <span class="reserved">then</span>
   1697<span class="operator">:</span>             flex <span class="operator">:</span><span class="operator">=</span> 0;
   1698<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1699<span class="operator">:</span>
-  1700<span class="operator">:</span>
+  1699<span class="operator">:</span> 
+  1700<span class="operator">:</span> 
   1701<span class="operator">:</span>         <span class="reserved">if</span> customer_id_in <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
   1702<span class="operator">:</span>             <span class="reserved">for</span> perm <span class="reserved">in</span> privperms <span class="keyword">loop</span>
   1703<span class="operator">:</span>                 rhn_entitlements<span class="operator">.</span>prune_family<span class="operator">(</span>customer_id_in<span class="operator">,</span> channel_family_id_in<span class="operator">,</span>
   1704<span class="operator">:</span>                     quantity<span class="operator">,</span> flex<span class="operator">)</span>;
-  1705<span class="operator">:</span>
-  1706<span class="operator">:</span>                <span class="reserved">update</span> rhnPrivateChannelFamily
-  1707<span class="operator">:</span>                     <span class="keyword">set</span> max_members <span class="operator">=</span> quantity
-  1708<span class="operator">:</span>                     <span class="reserved">where</span> org_id <span class="operator">=</span> customer_id_in
-  1709<span class="operator">:</span>                         <span class="reserved">and</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
-  1710<span class="operator">:</span>
-  1711<span class="operator">:</span>                <span class="reserved">update</span> rhnPrivateChannelFamily
-  1712<span class="operator">:</span>                     <span class="keyword">set</span> fve_max_members <span class="operator">=</span> flex
-  1713<span class="operator">:</span>                     <span class="reserved">where</span> org_id <span class="operator">=</span> customer_id_in
-  1714<span class="operator">:</span>                         <span class="reserved">and</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
-  1715<span class="operator">:</span>
-  1716<span class="operator">:</span>                 <span class="keyword">return</span>;
-  1717<span class="operator">:</span>             <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1718<span class="operator">:</span> 
-  1719<span class="operator">:</span>             <span class="reserved">insert</span> <span class="reserved">into</span> rhnPrivateChannelFamily <span class="operator">(</span>
-  1720<span class="operator">:</span>                     channel_family_id<span class="operator">,</span> org_id<span class="operator">,</span> max_members<span class="operator">,</span> current_members<span class="operator">,</span> fve_max_members<span class="operator">,</span> fve_current_members
-  1721<span class="operator">:</span>                 <span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
-  1722<span class="operator">:</span>                     channel_family_id_in<span class="operator">,</span> customer_id_in<span class="operator">,</span> quantity<span class="operator">,</span> 0<span class="operator">,</span> flex<span class="operator">,</span> 0 <span class="operator">)</span>;
-  1723<span class="operator">:</span>             <span class="keyword">return</span>;
-  1724<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1725<span class="operator">:</span>
-  1726<span class="operator">:</span>         <span class="reserved">for</span> perm <span class="reserved">in</span> pubperms <span class="keyword">loop</span>
-  1727<span class="operator">:</span>             <span class="reserved">if</span> quantity <span class="operator">=</span> 0 <span class="reserved">then</span>
-  1728<span class="operator">:</span>                 rhn_entitlements<span class="operator">.</span>prune_family<span class="operator">(</span>
-  1729<span class="operator">:</span>                     perm<span class="operator">.</span>org_id<span class="operator">,</span>
-  1730<span class="operator">:</span>                     channel_family_id_in<span class="operator">,</span>
-  1731<span class="operator">:</span>                     quantity<span class="operator">,</span>
-  1732<span class="operator">:</span>                     flex
-  1733<span class="operator">:</span>                 <span class="operator">)</span>;
-  1734<span class="operator">:</span>                 <span class="reserved">if</span> done <span class="operator">=</span> 0 <span class="reserved">then</span>
-  1735<span class="operator">:</span>                     <span class="reserved">delete</span> <span class="reserved">from</span> rhnPublicChannelFamily
-  1736<span class="operator">:</span>                         <span class="reserved">where</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
-  1737<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
-  1738<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-  1739<span class="operator">:</span>             done <span class="operator">:</span><span class="operator">=</span> 1;
-  1740<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1741<span class="operator">:</span>         <span class="comment">-- if done's not 1, then we don't have any entitlements</span>
-  1742<span class="operator">:</span>         <span class="reserved">if</span> done <span class="operator">!</span><span class="operator">=</span> 1 <span class="reserved">then</span>
-  1743<span class="operator">:</span>             <span class="reserved">insert</span> <span class="reserved">into</span> rhnPublicChannelFamily <span class="operator">(</span>
-  1744<span class="operator">:</span>                     channel_family_id
-  1745<span class="operator">:</span>                 <span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
-  1746<span class="operator">:</span>                     channel_family_id_in
-  1747<span class="operator">:</span>                 <span class="operator">)</span>;
-  1748<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-  1749<span class="operator">:</span>     <span class="reserved">end</span> set_family_count;
-  1750<span class="operator">:</span>
-  1751<span class="operator">:</span>     <span class="comment">-- this expects quantity_in to be the number of available slots, not the</span>
-  1752<span class="operator">:</span>     <span class="comment">-- max_members of the server group.  If you give it too many, it'll fail</span>
-  1753<span class="operator">:</span>     <span class="comment">-- and raise servergroup_max_members.</span>
-  1754<span class="operator">:</span>     <span class="comment">-- We should NEVER run this unless we're SURE that we won't</span>
-  1755<span class="operator">:</span>     <span class="comment">-- be violating the max.</span>
-  1756<span class="operator">:</span>     <span class="reserved">procedure</span> entitle_last_modified_servers <span class="operator">(</span>
-  1757<span class="operator">:</span>         customer_id_in <span class="reserved">in</span> number<span class="operator">,</span>
-  1758<span class="operator">:</span>         type_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
-  1759<span class="operator">:</span>         quantity_in <span class="reserved">in</span> number
-  1760<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
-  1761<span class="operator">:</span>         <span class="comment">-- find the servers that aren't currently in slots</span>
-  1762<span class="operator">:</span>         <span class="keyword">cursor</span> servers<span class="operator">(</span>cid_in <span class="reserved">in</span> number<span class="operator">,</span> quant_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="reserved">is</span>
-  1763<span class="operator">:</span>             <span class="reserved">select</span>    server_id
-  1764<span class="operator">:</span>             <span class="reserved">from</span>    <span class="operator">(</span>
-  1765<span class="operator">:</span>                         <span class="reserved">select</span>    rownum row_number<span class="operator">,</span>
-  1766<span class="operator">:</span>                                 server_id
-  1767<span class="operator">:</span>                         <span class="reserved">from</span>    <span class="operator">(</span>
-  1768<span class="operator">:</span>                                     <span class="reserved">select</span>    rs<span class="operator">.</span>id server_iD
-  1769<span class="operator">:</span>                                     <span class="reserved">from</span>    rhnServer rs
-  1770<span class="operator">:</span>                                     <span class="reserved">where</span>    1<span class="operator">=</span>1
-  1771<span class="operator">:</span>                                         <span class="reserved">and</span> rs<span class="operator">.</span>org_id <span class="operator">=</span> cid_in
-  1772<span class="operator">:</span>                                         <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
-  1773<span class="operator">:</span>                                             <span class="reserved">select</span>    1
-  1774<span class="operator">:</span>                                             <span class="reserved">from</span>    rhnServerGroup sg<span class="operator">,</span>
-  1775<span class="operator">:</span>                                                     rhnServerGroupMembers rsgm
-  1776<span class="operator">:</span>                                             <span class="reserved">where</span>    rsgm<span class="operator">.</span>server_id <span class="operator">=</span> rs<span class="operator">.</span>id
-  1777<span class="operator">:</span>                                                 <span class="reserved">and</span> rsgm<span class="operator">.</span>server_group_id <span class="operator">=</span> sg<span class="operator">.</span>id
-  1778<span class="operator">:</span>                                                 <span class="reserved">and</span> sg<span class="operator">.</span>group_type <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
-  1779<span class="operator">:</span>                                         <span class="operator">)</span>
-  1780<span class="operator">:</span>                                         <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
-  1781<span class="operator">:</span>                                             <span class="reserved">select</span> 1
-  1782<span class="operator">:</span>                                             <span class="reserved">from</span> rhnVirtualInstance vi
-  1783<span class="operator">:</span>                                             <span class="reserved">where</span> vi<span class="operator">.</span>virtual_system_id <span class="operator">=</span>
-  1784<span class="operator">:</span>                                                   rs<span class="operator">.</span>id
-  1785<span class="operator">:</span>                                         <span class="operator">)</span>                                                                           <span class="reserved">order</span> <span class="reserved">by</span> modified <span class="reserved">desc</span>
-  1786<span class="operator">:</span>                                 <span class="operator">)</span>
-  1787<span class="operator">:</span>                     <span class="operator">)</span>
-  1788<span class="operator">:</span>             <span class="reserved">where</span>    row_number <span class="operator">&lt;</span><span class="operator">=</span> quant_in;
-  1789<span class="operator">:</span>     <span class="reserved">begin</span>
-  1790<span class="operator">:</span>         <span class="reserved">for</span> server <span class="reserved">in</span> servers<span class="operator">(</span>customer_id_in<span class="operator">,</span> quantity_in<span class="operator">)</span> <span class="keyword">loop</span>
-  1791<span class="operator">:</span>             rhn_entitlements<span class="operator">.</span>entitle_server<span class="operator">(</span>server<span class="operator">.</span>server_id<span class="operator">,</span> type_label_in<span class="operator">)</span>;
-  1792<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1793<span class="operator">:</span>     <span class="reserved">end</span> entitle_last_modified_servers;
-  1794<span class="operator">:</span>
-  1795<span class="operator">:</span>     <span class="reserved">procedure</span> subscribe_newest_servers <span class="operator">(</span>
-  1796<span class="operator">:</span>         customer_id_in <span class="reserved">in</span> number
-  1797<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
-  1798<span class="operator">:</span>         <span class="comment">-- find servers without base channels</span>
-  1799<span class="operator">:</span>         <span class="keyword">cursor</span> servers<span class="operator">(</span>cid_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="reserved">is</span>
-  1800<span class="operator">:</span>             <span class="reserved">select</span>    s<span class="operator">.</span>id
-  1801<span class="operator">:</span>             <span class="reserved">from</span>    rhnServer            s
-  1802<span class="operator">:</span>             <span class="reserved">where</span>    1<span class="operator">=</span>1
-  1803<span class="operator">:</span>                 <span class="reserved">and</span> s<span class="operator">.</span>org_id <span class="operator">=</span> cid_in
-  1804<span class="operator">:</span>                 <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
-  1805<span class="operator">:</span>                         <span class="reserved">select</span> 1
-  1806<span class="operator">:</span>                         <span class="reserved">from</span>    rhnChannel            <span class="keyword">c</span><span class="operator">,</span>
-  1807<span class="operator">:</span>                                 rhnServerChannel    sc
-  1808<span class="operator">:</span>                         <span class="reserved">where</span>    sc<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
-  1809<span class="operator">:</span>                             <span class="reserved">and</span> sc<span class="operator">.</span>channel_id <span class="operator">=</span> <span class="keyword">c</span><span class="operator">.</span>id
-  1810<span class="operator">:</span>                             <span class="reserved">and</span> <span class="keyword">c</span><span class="operator">.</span>parent_channel <span class="reserved">is</span> <span class="reserved">null</span>
-  1811<span class="operator">:</span>                     <span class="operator">)</span>
-  1812<span class="operator">:</span>                 <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
-  1813<span class="operator">:</span>                         <span class="reserved">select</span> 1
-  1814<span class="operator">:</span>                         <span class="reserved">from</span> rhnVirtualInstance vi
-  1815<span class="operator">:</span>                         <span class="reserved">where</span> vi<span class="operator">.</span>virtual_system_id <span class="operator">=</span> s<span class="operator">.</span>id
+  1705<span class="operator">:</span> 
+  1706<span class="operator">:</span>                 <span class="reserved">if</span> quantity <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">and</span> flex <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+  1707<span class="operator">:</span>                     <span class="reserved">delete</span> <span class="reserved">from</span> rhnPrivateChannelFamily
+  1708<span class="operator">:</span>                         <span class="reserved">where</span> org_id <span class="operator">=</span> customer_id_in
+  1709<span class="operator">:</span>                             <span class="reserved">and</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
+  1710<span class="operator">:</span>                 <span class="reserved">else</span>
+  1711<span class="operator">:</span>                     <span class="reserved">update</span> rhnPrivateChannelFamily
+  1712<span class="operator">:</span>                         <span class="keyword">set</span> max_members <span class="operator">=</span> quantity
+  1713<span class="operator">:</span>                         <span class="reserved">where</span> org_id <span class="operator">=</span> customer_id_in
+  1714<span class="operator">:</span>                             <span class="reserved">and</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
+  1715<span class="operator">:</span> 
+  1716<span class="operator">:</span>                    <span class="reserved">update</span> rhnPrivateChannelFamily
+  1717<span class="operator">:</span>                         <span class="keyword">set</span> fve_max_members <span class="operator">=</span> flex
+  1718<span class="operator">:</span>                         <span class="reserved">where</span> org_id <span class="operator">=</span> customer_id_in
+  1719<span class="operator">:</span>                             <span class="reserved">and</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
+  1720<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
+  1721<span class="operator">:</span>                 <span class="keyword">return</span>;
+  1722<span class="operator">:</span>             <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1723<span class="operator">:</span> 
+  1724<span class="operator">:</span>             <span class="reserved">insert</span> <span class="reserved">into</span> rhnPrivateChannelFamily <span class="operator">(</span>
+  1725<span class="operator">:</span>                     channel_family_id<span class="operator">,</span> org_id<span class="operator">,</span> max_members<span class="operator">,</span> current_members<span class="operator">,</span> fve_max_members<span class="operator">,</span> fve_current_members
+  1726<span class="operator">:</span>                 <span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+  1727<span class="operator">:</span>                     channel_family_id_in<span class="operator">,</span> customer_id_in<span class="operator">,</span> quantity<span class="operator">,</span> 0<span class="operator">,</span> flex<span class="operator">,</span> 0 <span class="operator">)</span>;
+  1728<span class="operator">:</span>             <span class="keyword">return</span>;
+  1729<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+  1730<span class="operator">:</span> 
+  1731<span class="operator">:</span>         <span class="reserved">for</span> perm <span class="reserved">in</span> pubperms <span class="keyword">loop</span>
+  1732<span class="operator">:</span>             <span class="reserved">if</span> quantity <span class="operator">=</span> 0 <span class="reserved">then</span>
+  1733<span class="operator">:</span>                 rhn_entitlements<span class="operator">.</span>prune_family<span class="operator">(</span>
+  1734<span class="operator">:</span>                     perm<span class="operator">.</span>org_id<span class="operator">,</span>
+  1735<span class="operator">:</span>                     channel_family_id_in<span class="operator">,</span>
+  1736<span class="operator">:</span>                     quantity<span class="operator">,</span>
+  1737<span class="operator">:</span>                     flex
+  1738<span class="operator">:</span>                 <span class="operator">)</span>;
+  1739<span class="operator">:</span>                 <span class="reserved">if</span> done <span class="operator">=</span> 0 <span class="reserved">then</span>
+  1740<span class="operator">:</span>                     <span class="reserved">delete</span> <span class="reserved">from</span> rhnPublicChannelFamily
+  1741<span class="operator">:</span>                         <span class="reserved">where</span> channel_family_id <span class="operator">=</span> channel_family_id_in;
+  1742<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
+  1743<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
+  1744<span class="operator">:</span>             done <span class="operator">:</span><span class="operator">=</span> 1;
+  1745<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1746<span class="operator">:</span>         <span class="comment">-- if done's not 1, then we don't have any entitlements</span>
+  1747<span class="operator">:</span>         <span class="reserved">if</span> done <span class="operator">!</span><span class="operator">=</span> 1 <span class="reserved">then</span>
+  1748<span class="operator">:</span>             <span class="reserved">insert</span> <span class="reserved">into</span> rhnPublicChannelFamily <span class="operator">(</span>
+  1749<span class="operator">:</span>                     channel_family_id
+  1750<span class="operator">:</span>                 <span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+  1751<span class="operator">:</span>                     channel_family_id_in
+  1752<span class="operator">:</span>                 <span class="operator">)</span>;
+  1753<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+  1754<span class="operator">:</span>     <span class="reserved">end</span> set_family_count;
+  1755<span class="operator">:</span> 
+  1756<span class="operator">:</span>     <span class="comment">-- this expects quantity_in to be the number of available slots, not the</span>
+  1757<span class="operator">:</span>     <span class="comment">-- max_members of the server group.  If you give it too many, it'll fail</span>
+  1758<span class="operator">:</span>     <span class="comment">-- and raise servergroup_max_members.</span>
+  1759<span class="operator">:</span>     <span class="comment">-- We should NEVER run this unless we're SURE that we won't</span>
+  1760<span class="operator">:</span>     <span class="comment">-- be violating the max.</span>
+  1761<span class="operator">:</span>     <span class="reserved">procedure</span> entitle_last_modified_servers <span class="operator">(</span>
+  1762<span class="operator">:</span>         customer_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+  1763<span class="operator">:</span>         type_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+  1764<span class="operator">:</span>         quantity_in <span class="reserved">in</span> number
+  1765<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+  1766<span class="operator">:</span>         <span class="comment">-- find the servers that aren't currently in slots</span>
+  1767<span class="operator">:</span>         <span class="keyword">cursor</span> servers<span class="operator">(</span>cid_in <span class="reserved">in</span> number<span class="operator">,</span> quant_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="reserved">is</span>
+  1768<span class="operator">:</span>             <span class="reserved">select</span>    server_id
+  1769<span class="operator">:</span>             <span class="reserved">from</span>    <span class="operator">(</span>
+  1770<span class="operator">:</span>                         <span class="reserved">select</span>    rownum row_number<span class="operator">,</span>
+  1771<span class="operator">:</span>                                 server_id
+  1772<span class="operator">:</span>                         <span class="reserved">from</span>    <span class="operator">(</span>
+  1773<span class="operator">:</span>                                     <span class="reserved">select</span>    rs<span class="operator">.</span>id server_iD
+  1774<span class="operator">:</span>                                     <span class="reserved">from</span>    rhnServer rs
+  1775<span class="operator">:</span>                                     <span class="reserved">where</span>    1<span class="operator">=</span>1
+  1776<span class="operator">:</span>                                         <span class="reserved">and</span> rs<span class="operator">.</span>org_id <span class="operator">=</span> cid_in
+  1777<span class="operator">:</span>                                         <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+  1778<span class="operator">:</span>                                             <span class="reserved">select</span>    1
+  1779<span class="operator">:</span>                                             <span class="reserved">from</span>    rhnServerGroup sg<span class="operator">,</span>
+  1780<span class="operator">:</span>                                                     rhnServerGroupMembers rsgm
+  1781<span class="operator">:</span>                                             <span class="reserved">where</span>    rsgm<span class="operator">.</span>server_id <span class="operator">=</span> rs<span class="operator">.</span>id
+  1782<span class="operator">:</span>                                                 <span class="reserved">and</span> rsgm<span class="operator">.</span>server_group_id <span class="operator">=</span> sg<span class="operator">.</span>id
+  1783<span class="operator">:</span>                                                 <span class="reserved">and</span> sg<span class="operator">.</span>group_type <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
+  1784<span class="operator">:</span>                                         <span class="operator">)</span>
+  1785<span class="operator">:</span>                                         <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+  1786<span class="operator">:</span>                                             <span class="reserved">select</span> 1
+  1787<span class="operator">:</span>                                             <span class="reserved">from</span> rhnVirtualInstance vi
+  1788<span class="operator">:</span>                                             <span class="reserved">where</span> vi<span class="operator">.</span>virtual_system_id <span class="operator">=</span>
+  1789<span class="operator">:</span>                                                   rs<span class="operator">.</span>id
+  1790<span class="operator">:</span>                                         <span class="operator">)</span>                                                                           <span class="reserved">order</span> <span class="reserved">by</span> modified <span class="reserved">desc</span>
+  1791<span class="operator">:</span>                                 <span class="operator">)</span>
+  1792<span class="operator">:</span>                     <span class="operator">)</span>
+  1793<span class="operator">:</span>             <span class="reserved">where</span>    row_number <span class="operator">&lt;</span><span class="operator">=</span> quant_in;
+  1794<span class="operator">:</span>     <span class="reserved">begin</span>
+  1795<span class="operator">:</span>         <span class="reserved">for</span> server <span class="reserved">in</span> servers<span class="operator">(</span>customer_id_in<span class="operator">,</span> quantity_in<span class="operator">)</span> <span class="keyword">loop</span>
+  1796<span class="operator">:</span>             rhn_entitlements<span class="operator">.</span>entitle_server<span class="operator">(</span>server<span class="operator">.</span>server_id<span class="operator">,</span> type_label_in<span class="operator">)</span>;
+  1797<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1798<span class="operator">:</span>     <span class="reserved">end</span> entitle_last_modified_servers;
+  1799<span class="operator">:</span> 
+  1800<span class="operator">:</span>     <span class="reserved">procedure</span> subscribe_newest_servers <span class="operator">(</span>
+  1801<span class="operator">:</span>         customer_id_in <span class="reserved">in</span> number
+  1802<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+  1803<span class="operator">:</span>         <span class="comment">-- find servers without base channels</span>
+  1804<span class="operator">:</span>         <span class="keyword">cursor</span> servers<span class="operator">(</span>cid_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="reserved">is</span>
+  1805<span class="operator">:</span>             <span class="reserved">select</span>    s<span class="operator">.</span>id
+  1806<span class="operator">:</span>             <span class="reserved">from</span>    rhnServer            s
+  1807<span class="operator">:</span>             <span class="reserved">where</span>    1<span class="operator">=</span>1
+  1808<span class="operator">:</span>                 <span class="reserved">and</span> s<span class="operator">.</span>org_id <span class="operator">=</span> cid_in
+  1809<span class="operator">:</span>                 <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+  1810<span class="operator">:</span>                         <span class="reserved">select</span> 1
+  1811<span class="operator">:</span>                         <span class="reserved">from</span>    rhnChannel            <span class="keyword">c</span><span class="operator">,</span>
+  1812<span class="operator">:</span>                                 rhnServerChannel    sc
+  1813<span class="operator">:</span>                         <span class="reserved">where</span>    sc<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
+  1814<span class="operator">:</span>                             <span class="reserved">and</span> sc<span class="operator">.</span>channel_id <span class="operator">=</span> <span class="keyword">c</span><span class="operator">.</span>id
+  1815<span class="operator">:</span>                             <span class="reserved">and</span> <span class="keyword">c</span><span class="operator">.</span>parent_channel <span class="reserved">is</span> <span class="reserved">null</span>
   1816<span class="operator">:</span>                     <span class="operator">)</span>
-  1817<span class="operator">:</span>             <span class="reserved">order</span> <span class="reserved">by</span> s<span class="operator">.</span>modified <span class="reserved">desc</span>;
-  1818<span class="operator">:</span>         channel_id number;
-  1819<span class="operator">:</span>     <span class="reserved">begin</span>
-  1820<span class="operator">:</span>         <span class="reserved">for</span> server <span class="reserved">in</span> servers<span class="operator">(</span>customer_id_in<span class="operator">)</span> <span class="keyword">loop</span>
-  1821<span class="operator">:</span>             channel_id <span class="operator">:</span><span class="operator">=</span> rhn_channel<span class="operator">.</span>guess_server_base<span class="operator">(</span>server<span class="operator">.</span>id<span class="operator">)</span>;
-  1822<span class="operator">:</span>             <span class="reserved">if</span> channel_id <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
-  1823<span class="operator">:</span>                 <span class="reserved">begin</span>
-  1824<span class="operator">:</span>                     rhn_channel<span class="operator">.</span>subscribe_server<span class="operator">(</span>server<span class="operator">.</span>id<span class="operator">,</span> channel_id<span class="operator">)</span>;
-  1825<span class="operator">:</span>                     <span class="keyword">commit</span>;
-  1826<span class="operator">:</span>                 <span class="comment">-- exception is really channel_family_no_subscriptions</span>
-  1827<span class="operator">:</span>                 <span class="reserved">exception</span>
-  1828<span class="operator">:</span>                     <span class="reserved">when</span> <span class="keyword">others</span> <span class="reserved">then</span>
-  1829<span class="operator">:</span>                         <span class="reserved">null</span>;
-  1830<span class="operator">:</span>                 <span class="reserved">end</span>;
-  1831<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
-  1832<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1833<span class="operator">:</span>     <span class="reserved">end</span> subscribe_newest_servers;
-  1834<span class="operator">:</span> <span class="reserved">end</span> rhn_entitlements;
+  1817<span class="operator">:</span>                 <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+  1818<span class="operator">:</span>                         <span class="reserved">select</span> 1
+  1819<span class="operator">:</span>                         <span class="reserved">from</span> rhnVirtualInstance vi
+  1820<span class="operator">:</span>                         <span class="reserved">where</span> vi<span class="operator">.</span>virtual_system_id <span class="operator">=</span> s<span class="operator">.</span>id
+  1821<span class="operator">:</span>                     <span class="operator">)</span>
+  1822<span class="operator">:</span>             <span class="reserved">order</span> <span class="reserved">by</span> s<span class="operator">.</span>modified <span class="reserved">desc</span>;
+  1823<span class="operator">:</span>         channel_id number;
+  1824<span class="operator">:</span>     <span class="reserved">begin</span>
+  1825<span class="operator">:</span>         <span class="reserved">for</span> server <span class="reserved">in</span> servers<span class="operator">(</span>customer_id_in<span class="operator">)</span> <span class="keyword">loop</span>
+  1826<span class="operator">:</span>             channel_id <span class="operator">:</span><span class="operator">=</span> rhn_channel<span class="operator">.</span>guess_server_base<span class="operator">(</span>server<span class="operator">.</span>id<span class="operator">)</span>;
+  1827<span class="operator">:</span>             <span class="reserved">if</span> channel_id <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
+  1828<span class="operator">:</span>                 <span class="reserved">begin</span>
+  1829<span class="operator">:</span>                     rhn_channel<span class="operator">.</span>subscribe_server<span class="operator">(</span>server<span class="operator">.</span>id<span class="operator">,</span> channel_id<span class="operator">)</span>;
+  1830<span class="operator">:</span>                     <span class="keyword">commit</span>;
+  1831<span class="operator">:</span>                 <span class="comment">-- exception is really channel_family_no_subscriptions</span>
+  1832<span class="operator">:</span>                 <span class="reserved">exception</span>
+  1833<span class="operator">:</span>                     <span class="reserved">when</span> <span class="keyword">others</span> <span class="reserved">then</span>
+  1834<span class="operator">:</span>                         <span class="reserved">null</span>;
+  1835<span class="operator">:</span>                 <span class="reserved">end</span>;
+  1836<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
+  1837<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1838<span class="operator">:</span>     <span class="reserved">end</span> subscribe_newest_servers;
+  1839<span class="operator">:</span> <span class="reserved">end</span> rhn_entitlements;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:01:00 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Apr 21 10:04:38 2011</div>
 </body></html>

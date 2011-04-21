@@ -1,10 +1,11 @@
--- created by Oraschemadoc Thu Jan 20 13:46:10 2011
+-- created by Oraschemadoc Thu Apr 21 10:03:22 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHNERRATABUGLIST" 
    (	"ERRATA_ID" NUMBER NOT NULL ENABLE, 
 	"BUG_ID" NUMBER NOT NULL ENABLE, 
 	"SUMMARY" VARCHAR2(4000), 
+	"HREF" VARCHAR2(255), 
 	"CREATED" DATE DEFAULT (sysdate) NOT NULL ENABLE, 
 	"MODIFIED" DATE DEFAULT (sysdate) NOT NULL ENABLE, 
 	 CONSTRAINT "RHN_ERRATA_BUGLIST_ERRATA_FK" FOREIGN KEY ("ERRATA_ID")

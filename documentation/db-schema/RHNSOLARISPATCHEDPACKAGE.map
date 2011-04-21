@@ -1,4 +1,4 @@
-<area shape="rect" id="node1" href="table-RHNSOLARISPATCHEDPACKAGE.html#t-fk" title="RHNSOLARISPATCHEDPACKAGE" alt="" coords="219,95,459,124">
-<area shape="rect" id="node2" href="table-RHNPACKAGENEVRA.html#t-fk" title="RHNPACKAGENEVRA" alt="" coords="7,41,169,71">
-<area shape="rect" id="node3" href="table-RHNSERVER.html#t-fk" title="RHNSERVER" alt="" coords="35,95,141,124">
-<area shape="rect" id="node4" href="table-RHNPACKAGE.html#t-fk" title="RHNPACKAGE" alt="" coords="29,148,147,177">
+<area shape="rect" href="table&#45;RHNSOLARISPATCHEDPACKAGE.html#t&#45;fk" title="RHNSOLARISPATCHEDPACKAGE" alt="" coords="215,88,447,115">
+<area shape="rect" href="table&#45;RHNPACKAGENEVRA.html#t&#45;fk" title="RHNPACKAGENEVRA" alt="" coords="5,37,165,64">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="33,88,137,115">
+<area shape="rect" href="table&#45;RHNPACKAGE.html#t&#45;fk" title="RHNPACKAGE" alt="" coords="28,139,143,165">

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:58:48 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:20 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."EVR_T_AS_VRE" ( a evr_t )

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:56:09 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:11 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELFAMILYOVERVIEW" ("ORG_ID", "ID", "NAME", "URL", "LABEL", "CURRENT_MEMBERS", "MAX_MEMBERS", "FVE_CURRENT_MEMBERS", "FVE_MAX_MEMBERS", "HAS_SUBSCRIPTION") AS 

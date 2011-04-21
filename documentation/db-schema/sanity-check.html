@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-        <head><title> Spacewalk DB Schema - Sanity Check </title>
+        <head><title> Spacewalk 1.4 DB Schema - Sanity Check </title>
         <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="author" content="Petr Vanek, petr@scribus.info" />
@@ -35,7 +35,7 @@
                         <p>The sql file which will
                         generate these indexes is <a href="fk-indexes.sql">created for you</a></p><h3>"Unindexed" foreign keys</h3>
 <table>
-<tr><th>Table Name</th><th>Constraint name</th><th>Columns</th></tr><tr><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006582">SYS_C006582 </a>
+<tr><th>Table Name</th><th>Constraint name</th><th>Columns</th></tr><tr><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006558">SYS_C006558 </a>
 </td><td>JOB_NAME, JOB_GROUP</td></tr>
 <tr><td><a href="table-RHNACTION.html"> RHNACTION </a></td><td><a href="table-RHNACTION.html#cs-RHN_ACTION_AT_FK">RHN_ACTION_AT_FK </a>
 </td><td>ACTION_TYPE</td></tr>
@@ -71,12 +71,6 @@
 </td><td>CHECKSUM_ID</td></tr>
 <tr><td><a href="table-RHNARCHTYPEACTIONS.html"> RHNARCHTYPEACTIONS </a></td><td><a href="table-RHNARCHTYPEACTIONS.html#cs-RHN_ARCHTYPEACTS_ACTID_FK">RHN_ARCHTYPEACTS_ACTID_FK </a>
 </td><td>ACTION_TYPE_ID</td></tr>
-<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td><a href="table-RHNBLACKLISTOBSOLETES.html#cs-RHN_BL_OBS_EID_FK">RHN_BL_OBS_EID_FK </a>
-</td><td>EVR_ID</td></tr>
-<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td><a href="table-RHNBLACKLISTOBSOLETES.html#cs-RHN_BL_OBS_INID_FK">RHN_BL_OBS_INID_FK </a>
-</td><td>IGNORE_NAME_ID</td></tr>
-<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td><a href="table-RHNBLACKLISTOBSOLETES.html#cs-RHN_BL_OBS_PAID_FK">RHN_BL_OBS_PAID_FK </a>
-</td><td>PACKAGE_ARCH_ID</td></tr>
 <tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td><a href="table-RHNCHANNEL.html#cs-RHN_CHANNEL_CAID_FK">RHN_CHANNEL_CAID_FK </a>
 </td><td>CHANNEL_ARCH_ID</td></tr>
 <tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td><a href="table-RHNCHANNEL.html#cs-RHN_CHANNEL_CHECKSUM_FK">RHN_CHANNEL_CHECKSUM_FK </a>
@@ -259,7 +253,7 @@
 </td><td>PACKAGE_UPGRADE_ARCH_ID</td></tr>
 <tr><td><a href="table-RHNPROXYINFO.html"> RHNPROXYINFO </a></td><td><a href="table-RHNPROXYINFO.html#cs-RHN_PROXY_INFO_PEID_FK">RHN_PROXY_INFO_PEID_FK </a>
 </td><td>PROXY_EVR_ID</td></tr>
-<tr><td><a href="table-RHNPUSHCLIENT.html"> RHNPUSHCLIENT </a></td><td><a href="table-RHNPUSHCLIENT.html#cs-SYS_C005437">SYS_C005437 </a>
+<tr><td><a href="table-RHNPUSHCLIENT.html"> RHNPUSHCLIENT </a></td><td><a href="table-RHNPUSHCLIENT.html#cs-SYS_C005426">SYS_C005426 </a>
 </td><td>STATE_ID</td></tr>
 <tr><td><a href="table-RHNREGTOKENCHANNELS.html"> RHNREGTOKENCHANNELS </a></td><td><a href="table-RHNREGTOKENCHANNELS.html#cs-RHN_REG_TOK_CHN_SGS_FK">RHN_REG_TOK_CHN_SGS_FK </a>
 </td><td>CHANNEL_ID</td></tr>
@@ -313,11 +307,11 @@
 </td><td>LAST_MODIFIED_BY</td></tr>
 <tr><td><a href="table-RHNSERVERGROUPTYPEFEATURE.html"> RHNSERVERGROUPTYPEFEATURE </a></td><td><a href="table-RHNSERVERGROUPTYPEFEATURE.html#cs-RHN_SGT_FID_FK">RHN_SGT_FID_FK </a>
 </td><td>FEATURE_ID</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005711">SYS_C005711 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005700">SYS_C005700 </a>
 </td><td>NAME_ID</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005712">SYS_C005712 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005701">SYS_C005701 </a>
 </td><td>EVR_ID</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005713">SYS_C005713 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005702">SYS_C005702 </a>
 </td><td>PACKAGE_ARCH_ID</td></tr>
 <tr><td><a href="table-RHNSERVERPROFILE.html"> RHNSERVERPROFILE </a></td><td><a href="table-RHNSERVERPROFILE.html#cs-RHN_SERVER_PROFILE_PTYPE_FK">RHN_SERVER_PROFILE_PTYPE_FK </a>
 </td><td>PROFILE_TYPE_ID</td></tr>
@@ -433,16 +427,12 @@
 </td><td>PROBE_ID, PROBE_TYPE</td></tr>
 <tr><td><a href="table-RHN_SAT_NODE.html"> RHN_SAT_NODE </a></td><td><a href="table-RHN_SAT_NODE.html#cs-RHN_SATND_CMDTG_RID_TAR_TY_FK">RHN_SATND_CMDTG_RID_TAR_TY_FK </a>
 </td><td>RECID, TARGET_TYPE</td></tr>
-<tr><td><a href="table-RHN_SAT_NODE_PROBE.html"> RHN_SAT_NODE_PROBE </a></td><td><a href="table-RHN_SAT_NODE_PROBE.html#cs-RHN_SNDPB_PR_RECID_PR_TYP_FK">RHN_SNDPB_PR_RECID_PR_TYP_FK </a>
-</td><td>PROBE_ID, PROBE_TYPE</td></tr>
 <tr><td><a href="table-RHN_SERVER_MONITORING_INFO.html"> RHN_SERVER_MONITORING_INFO </a></td><td><a href="table-RHN_SERVER_MONITORING_INFO.html#cs-RHN_HOST_SERVER_NAME_FK">RHN_HOST_SERVER_NAME_FK </a>
 </td><td>OS_ID</td></tr>
 <tr><td><a href="table-RHN_URL_PROBE.html"> RHN_URL_PROBE </a></td><td><a href="table-RHN_URL_PROBE.html#cs-RHN_URLPB_PROBE_PR_ID_PR_FK">RHN_URLPB_PROBE_PR_ID_PR_FK </a>
 </td><td>PROBE_ID, PROBE_TYPE</td></tr>
 <tr><td><a href="table-VALID_COUNTRIES_TL.html"> VALID_COUNTRIES_TL </a></td><td><a href="table-VALID_COUNTRIES_TL.html#cs-VALID_COUNTRIES_TL_CODE">VALID_COUNTRIES_TL_CODE </a>
 </td><td>CODE</td></tr>
-<tr><td><a href="table-WEB_CUSTOMER_NOTIFICATION.html"> WEB_CUSTOMER_NOTIFICATION </a></td><td><a href="table-WEB_CUSTOMER_NOTIFICATION.html#cs-WEB_CUST_NOT_OID_FK">WEB_CUST_NOT_OID_FK </a>
-</td><td>ORG_ID</td></tr>
 <tr><td><a href="table-WEB_USER_CONTACT_PERMISSION.html"> WEB_USER_CONTACT_PERMISSION </a></td><td><a href="table-WEB_USER_CONTACT_PERMISSION.html#cs-CONTPERM_WBUSERID_FK">CONTPERM_WBUSERID_FK </a>
 </td><td>WEB_USER_ID</td></tr>
 <tr><td><a href="table-WEB_USER_PERSONAL_INFO.html"> WEB_USER_PERSONAL_INFO </a></td><td><a href="table-WEB_USER_PERSONAL_INFO.html#cs-PERSONAL_INFO_WEB_USER_ID_FK">PERSONAL_INFO_WEB_USER_ID_FK </a>
@@ -453,5 +443,5 @@
 </td><td>TYPE</td></tr>
 </table><div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:00:45 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Apr 21 10:04:24 2011</div>
 </body></html>
