@@ -1,3 +1,3 @@
-<area shape="rect" id="node1" href="table-RHNSERVERCONFIGCHANNEL.html#t-fk" title="RHNSERVERCONFIGCHANNEL" alt="" coords="225,68,449,97">
-<area shape="rect" id="node2" href="table-RHNSERVER.html#t-fk" title="RHNSERVER" alt="" coords="37,41,144,71">
-<area shape="rect" id="node3" href="table-RHNCONFIGCHANNEL.html#t-fk" title="RHNCONFIGCHANNEL" alt="" coords="7,95,175,124">
+<area shape="rect" href="table&#45;RHNSERVERCONFIGCHANNEL.html#t&#45;fk" title="RHNSERVERCONFIGCHANNEL" alt="" coords="223,63,441,89">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="37,37,141,64">
+<area shape="rect" href="table&#45;RHNCONFIGCHANNEL.html#t&#45;fk" title="RHNCONFIGCHANNEL" alt="" coords="7,88,172,115">

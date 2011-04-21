@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:59:15 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:21 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_ENTITLEMENTS" 
@@ -1852,16 +1852,21 @@ is
                 rhn_entitlements.prune_family(customer_id_in, channel_family_id_in,
                     quantity, flex);
 
-               update rhnPrivateChannelFamily
-                    set max_members = quantity
-                    where org_id = customer_id_in
-                        and channel_family_id = channel_family_id_in;
+                if quantity is null and flex is null then
+                    delete from rhnPrivateChannelFamily
+                        where org_id = customer_id_in
+                            and channel_family_id = channel_family_id_in;
+                else
+                    update rhnPrivateChannelFamily
+                        set max_members = quantity
+                        where org_id = customer_id_in
+                            and channel_family_id = channel_family_id_in;
 
-               update rhnPrivateChannelFamily
-                    set fve_max_members = flex
-                    where org_id = customer_id_in
-                        and channel_family_id = channel_family_id_in;
-
+                   update rhnPrivateChannelFamily
+                        set fve_max_members = flex
+                        where org_id = customer_id_in
+                            and channel_family_id = channel_family_id_in;
+                end if;
                 return;
             end loop;
 

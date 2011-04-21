@@ -1,3 +1,3 @@
-<area shape="rect" id="node1" href="table-RHNSERVER.html#t-fk" title="RHNSERVER" alt="" coords="15,41,121,71">
-<area shape="rect" id="node3" href="table-RHNSERVERLOCK.html#t-fk" title="RHNSERVERLOCK" alt="" coords="179,68,323,97">
-<area shape="rect" id="node2" href="table-WEB_CONTACT.html#t-fk" title="WEB_CONTACT" alt="" coords="5,95,131,124">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="16,37,120,64">
+<area shape="rect" href="table&#45;RHNSERVERLOCK.html#t&#45;fk" title="RHNSERVERLOCK" alt="" coords="179,63,320,89">
+<area shape="rect" href="table&#45;WEB_CONTACT.html#t&#45;fk" title="WEB_CONTACT" alt="" coords="7,88,129,115">

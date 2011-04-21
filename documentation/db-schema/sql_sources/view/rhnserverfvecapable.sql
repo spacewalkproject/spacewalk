@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:56:24 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:13 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERFVECAPABLE" ("SERVER_ID", "SERVER_ORG_ID", "CHANNEL_FAMILY_ID", "CURRENT_MEMBERS", "MAX_MEMBERS", "CHANNEL_FAMILY_NAME") AS 

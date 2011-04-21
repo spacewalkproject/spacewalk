@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:47:48 2011
+-- created by Oraschemadoc Thu Apr 21 10:03:35 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHNSOLARISPATCHSETMEMBERS" 

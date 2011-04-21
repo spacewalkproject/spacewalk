@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:58:46 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:19 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."CREATE_PXT_SESSION" (web_user_id in number, expires in number, value in varchar)

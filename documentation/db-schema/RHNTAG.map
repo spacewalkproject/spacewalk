@@ -1,3 +1,3 @@
-<area shape="rect" id="node1" href="table-WEB_CUSTOMER.html#t-fk" title="WEB_CUSTOMER" alt="" coords="7,41,143,71">
-<area shape="rect" id="node2" href="table-RHNTAG.html#t-fk" title="RHNTAG" alt="" coords="193,68,271,97">
-<area shape="rect" id="node3" href="table-RHNTAGNAME.html#t-fk" title="RHNTAGNAME" alt="" coords="16,95,133,124">
+<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="5,37,141,64">
+<area shape="rect" href="table&#45;RHNTAG.html#t&#45;fk" title="RHNTAG" alt="" coords="191,63,265,89">
+<area shape="rect" href="table&#45;RHNTAGNAME.html#t&#45;fk" title="RHNTAGNAME" alt="" coords="16,88,131,115">

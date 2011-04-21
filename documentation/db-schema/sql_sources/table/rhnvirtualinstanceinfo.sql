@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:48:10 2011
+-- created by Oraschemadoc Thu Apr 21 10:03:38 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHNVIRTUALINSTANCEINFO" 

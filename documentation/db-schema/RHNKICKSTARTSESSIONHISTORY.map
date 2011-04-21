@@ -1,4 +1,4 @@
-<area shape="rect" id="node1" href="table-RHNKICKSTARTSESSIONHISTORY.html#t-fk" title="RHNKICKSTARTSESSIONHISTORY" alt="" coords="285,95,533,124">
-<area shape="rect" id="node2" href="table-RHNKICKSTARTSESSION.html#t-fk" title="RHNKICKSTARTSESSION" alt="" coords="28,41,215,71">
-<area shape="rect" id="node3" href="table-RHNACTION.html#t-fk" title="RHNACTION" alt="" coords="71,95,172,124">
-<area shape="rect" id="node4" href="table-RHNKICKSTARTSESSIONSTATE.html#t-fk" title="RHNKICKSTARTSESSIONSTATE" alt="" coords="7,148,236,177">
+<area shape="rect" href="table&#45;RHNKICKSTARTSESSIONHISTORY.html#t&#45;fk" title="RHNKICKSTARTSESSIONHISTORY" alt="" coords="277,88,517,115">
+<area shape="rect" href="table&#45;RHNKICKSTARTSESSION.html#t&#45;fk" title="RHNKICKSTARTSESSION" alt="" coords="27,37,208,64">
+<area shape="rect" href="table&#45;RHNACTION.html#t&#45;fk" title="RHNACTION" alt="" coords="67,88,168,115">
+<area shape="rect" href="table&#45;RHNKICKSTARTSESSIONSTATE.html#t&#45;fk" title="RHNKICKSTARTSESSIONSTATE" alt="" coords="7,139,228,165">

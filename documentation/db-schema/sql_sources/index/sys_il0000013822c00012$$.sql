@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:55:41 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:09 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE UNIQUE INDEX "SPACEWALK"."SYS_IL0000013822C00012$$" ON "SPACEWALK"."RHNKSDATA" (

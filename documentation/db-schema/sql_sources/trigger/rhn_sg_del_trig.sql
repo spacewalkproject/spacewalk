@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Jan 20 13:58:15 2011
+-- created by Oraschemadoc Thu Apr 21 10:04:18 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_SG_DEL_TRIG" 
@@ -8,7 +8,8 @@ declare
 	cursor snapshots is
 		select	snapshot_id id
 		from	rhnSnapshotServerGroup
-		where	server_group_id = :old.id;
+		where	server_group_id = :old.id
+		order by snapshot_id;
 begin
 	for snapshot in snapshots loop
 		update rhnSnapshot

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-        <head><title> Spacewalk DB Schema - Indexes </title>
+        <head><title> Spacewalk 1.4 DB Schema - Indexes </title>
         <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="author" content="Petr Vanek, petr@scribus.info" />
@@ -129,8 +129,8 @@
 </td><td>NORMAL</td><td><a href="table-RHNACTIONCONFIGFILENAME.html"> RHNACTIONCONFIGFILENAME </a></td><td><a href="sql_sources/index/rhn_act_cnfg_fn_crid_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNACTIONCONFIGREVISION.html#ind-RHN_ACT_CR_CRID_IDX">RHN_ACT_CR_CRID_IDX </a>
 </td><td>NORMAL</td><td><a href="table-RHNACTIONCONFIGREVISION.html"> RHNACTIONCONFIGREVISION </a></td><td><a href="sql_sources/index/rhn_act_cr_crid_idx.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNACTIONERRATAUPDATE.html#ind-RHN_ACT_EU_AID_EID_IDX">RHN_ACT_EU_AID_EID_IDX </a>
-</td><td>NORMAL</td><td><a href="table-RHNACTIONERRATAUPDATE.html"> RHNACTIONERRATAUPDATE </a></td><td><a href="sql_sources/index/rhn_act_eu_aid_eid_idx.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONERRATAUPDATE.html#ind-RHN_ACT_EU_AID_EID_UQ">RHN_ACT_EU_AID_EID_UQ </a>
+</td><td>NORMAL</td><td><a href="table-RHNACTIONERRATAUPDATE.html"> RHNACTIONERRATAUPDATE </a></td><td><a href="sql_sources/index/rhn_act_eu_aid_eid_uq.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNACTIONERRATAUPDATE.html#ind-RHN_ACT_EU_EID_IDX">RHN_ACT_EU_EID_IDX </a>
 </td><td>NORMAL</td><td><a href="table-RHNACTIONERRATAUPDATE.html"> RHNACTIONERRATAUPDATE </a></td><td><a href="sql_sources/index/rhn_act_eu_eid_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNACTIVATIONKEY.html#ind-RHN_ACT_KEY_KSSID_RTID_IDX">RHN_ACT_KEY_KSSID_RTID_IDX </a>
@@ -213,8 +213,6 @@
 </td><td>NORMAL</td><td><a href="table-RHNACTIONVIRTSTART.html"> RHNACTIONVIRTSTART </a></td><td><a href="sql_sources/index/rhn_avstart_aid_uq.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNACTIONVIRTSUSPEND.html#ind-RHN_AVSUSPEND_AID_UQ">RHN_AVSUSPEND_AID_UQ </a>
 </td><td>NORMAL</td><td><a href="table-RHNACTIONVIRTSUSPEND.html"> RHNACTIONVIRTSUSPEND </a></td><td><a href="sql_sources/index/rhn_avsuspend_aid_uq.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html#ind-RHN_BL_OBS_NEPI_IDX">RHN_BL_OBS_NEPI_IDX </a>
-</td><td>NORMAL</td><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td><a href="sql_sources/index/rhn_bl_obs_nepi_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNCHANNELARCH.html#ind-RHN_CARCH_ID_PK">RHN_CARCH_ID_PK </a>
 </td><td>NORMAL</td><td><a href="table-RHNCHANNELARCH.html"> RHNCHANNELARCH </a></td><td><a href="sql_sources/index/rhn_carch_id_pk.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNCHANNELARCH.html#ind-RHN_CARCH_LABEL_UQ">RHN_CARCH_LABEL_UQ </a>
@@ -1147,10 +1145,6 @@
 </td><td>NORMAL</td><td><a href="table-RHNSERVERNEEDEDCACHE.html"> RHNSERVERNEEDEDCACHE </a></td><td><a href="sql_sources/index/rhn_snc_pid_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNSERVERNEEDEDCACHE.html#ind-RHN_SNC_SPEID_IDX">RHN_SNC_SPEID_IDX </a>
 </td><td>NORMAL</td><td><a href="table-RHNSERVERNEEDEDCACHE.html"> RHNSERVERNEEDEDCACHE </a></td><td><a href="sql_sources/index/rhn_snc_speid_idx.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHN_SAT_NODE_PROBE.html#ind-RHN_SNDPB_PROBE_ID_PK">RHN_SNDPB_PROBE_ID_PK </a>
-</td><td>NORMAL</td><td><a href="table-RHN_SAT_NODE_PROBE.html"> RHN_SAT_NODE_PROBE </a></td><td><a href="sql_sources/index/rhn_sndpb_probe_id_pk.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHN_SAT_NODE_PROBE.html#ind-RHN_SNDPB_SAT_NODE_ID_IDX">RHN_SNDPB_SAT_NODE_ID_IDX </a>
-</td><td>NORMAL</td><td><a href="table-RHN_SAT_NODE_PROBE.html"> RHN_SAT_NODE_PROBE </a></td><td><a href="sql_sources/index/rhn_sndpb_sat_node_id_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHN_SNMP_ALERT.html#ind-RHN_SNMPA_RECID_PK">RHN_SNMPA_RECID_PK </a>
 </td><td>NORMAL</td><td><a href="table-RHN_SNMP_ALERT.html"> RHN_SNMP_ALERT </a></td><td><a href="sql_sources/index/rhn_snmpa_recid_pk.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHN_SNMP_ALERT.html#ind-RHN_SNMP_ALRT_SCID_IDX">RHN_SNMP_ALRT_SCID_IDX </a>
@@ -1357,6 +1351,8 @@
 </td><td>NORMAL</td><td><a href="table-RHNVIRTUALINSTANCE.html"> RHNVIRTUALINSTANCE </a></td><td><a href="sql_sources/index/rhn_vi_hsid_vsid_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNVIRTUALINSTANCE.html#ind-RHN_VI_ID_PK">RHN_VI_ID_PK </a>
 </td><td>NORMAL</td><td><a href="table-RHNVIRTUALINSTANCE.html"> RHNVIRTUALINSTANCE </a></td><td><a href="sql_sources/index/rhn_vi_id_pk.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCE.html#ind-RHN_VI_UUID_IDX">RHN_VI_UUID_IDX </a>
+</td><td>NORMAL</td><td><a href="table-RHNVIRTUALINSTANCE.html"> RHNVIRTUALINSTANCE </a></td><td><a href="sql_sources/index/rhn_vi_uuid_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNVIRTUALINSTANCE.html#ind-RHN_VI_VSID_IDX">RHN_VI_VSID_IDX </a>
 </td><td>NORMAL</td><td><a href="table-RHNVIRTUALINSTANCE.html"> RHNVIRTUALINSTANCE </a></td><td><a href="sql_sources/index/rhn_vi_vsid_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNVIRTSUBLEVEL.html#ind-RHN_VSL_ID_PK">RHN_VSL_ID_PK </a>
@@ -1375,30 +1371,30 @@
 </td><td>NORMAL</td><td><a href="table-RHNSYSTEMMIGRATIONS.html"> RHNSYSTEMMIGRATIONS </a></td><td><a href="sql_sources/index/rsm_org_id_to_idx.sql">DDL script</a></td></tr>
 <tr><td><a href="table-STATE_CHANGE.html#ind-STATE_CHANGE_OID_ENTRY_IDX">STATE_CHANGE_OID_ENTRY_IDX </a>
 </td><td>NORMAL</td><td><a href="table-STATE_CHANGE.html"> STATE_CHANGE </a></td><td><a href="sql_sources/index/state_change_oid_entry_idx.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_JOB_DETAILS.html#ind-SYS_C006567">SYS_C006567 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_JOB_DETAILS.html"> QRTZ_JOB_DETAILS </a></td><td><a href="sql_sources/index/sys_c006567.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_JOB_LISTENERS.html#ind-SYS_C006571">SYS_C006571 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_JOB_LISTENERS.html"> QRTZ_JOB_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006571.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_TRIGGERS.html#ind-SYS_C006581">SYS_C006581 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006581.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html#ind-SYS_C006588">SYS_C006588 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html"> QRTZ_SIMPLE_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006588.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_CRON_TRIGGERS.html#ind-SYS_C006593">SYS_C006593 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_CRON_TRIGGERS.html"> QRTZ_CRON_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006593.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#ind-SYS_C006597">SYS_C006597 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_BLOB_TRIGGERS.html"> QRTZ_BLOB_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006597.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_TRIGGER_LISTENERS.html#ind-SYS_C006602">SYS_C006602 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_TRIGGER_LISTENERS.html"> QRTZ_TRIGGER_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006602.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_CALENDARS.html#ind-SYS_C006606">SYS_C006606 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_CALENDARS.html"> QRTZ_CALENDARS </a></td><td><a href="sql_sources/index/sys_c006606.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html#ind-SYS_C006608">SYS_C006608 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html"> QRTZ_PAUSED_TRIGGER_GRPS </a></td><td><a href="sql_sources/index/sys_c006608.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_FIRED_TRIGGERS.html#ind-SYS_C006617">SYS_C006617 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_FIRED_TRIGGERS.html"> QRTZ_FIRED_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006617.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_SCHEDULER_STATE.html#ind-SYS_C006621">SYS_C006621 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_SCHEDULER_STATE.html"> QRTZ_SCHEDULER_STATE </a></td><td><a href="sql_sources/index/sys_c006621.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_LOCKS.html#ind-SYS_C006623">SYS_C006623 </a>
-</td><td>NORMAL</td><td><a href="table-QRTZ_LOCKS.html"> QRTZ_LOCKS </a></td><td><a href="sql_sources/index/sys_c006623.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_JOB_DETAILS.html#ind-SYS_C006543">SYS_C006543 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_JOB_DETAILS.html"> QRTZ_JOB_DETAILS </a></td><td><a href="sql_sources/index/sys_c006543.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_JOB_LISTENERS.html#ind-SYS_C006547">SYS_C006547 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_JOB_LISTENERS.html"> QRTZ_JOB_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006547.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_TRIGGERS.html#ind-SYS_C006557">SYS_C006557 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006557.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html#ind-SYS_C006564">SYS_C006564 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html"> QRTZ_SIMPLE_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006564.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_CRON_TRIGGERS.html#ind-SYS_C006569">SYS_C006569 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_CRON_TRIGGERS.html"> QRTZ_CRON_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006569.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#ind-SYS_C006573">SYS_C006573 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_BLOB_TRIGGERS.html"> QRTZ_BLOB_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006573.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_TRIGGER_LISTENERS.html#ind-SYS_C006578">SYS_C006578 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_TRIGGER_LISTENERS.html"> QRTZ_TRIGGER_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006578.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_CALENDARS.html#ind-SYS_C006582">SYS_C006582 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_CALENDARS.html"> QRTZ_CALENDARS </a></td><td><a href="sql_sources/index/sys_c006582.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html#ind-SYS_C006584">SYS_C006584 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html"> QRTZ_PAUSED_TRIGGER_GRPS </a></td><td><a href="sql_sources/index/sys_c006584.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_FIRED_TRIGGERS.html#ind-SYS_C006593">SYS_C006593 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_FIRED_TRIGGERS.html"> QRTZ_FIRED_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006593.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_SCHEDULER_STATE.html#ind-SYS_C006597">SYS_C006597 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_SCHEDULER_STATE.html"> QRTZ_SCHEDULER_STATE </a></td><td><a href="sql_sources/index/sys_c006597.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_LOCKS.html#ind-SYS_C006599">SYS_C006599 </a>
+</td><td>NORMAL</td><td><a href="table-QRTZ_LOCKS.html"> QRTZ_LOCKS </a></td><td><a href="sql_sources/index/sys_c006599.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNCONFIGCONTENT.html#ind-SYS_IL0000013739C00002$$">SYS_IL0000013739C00002$$ </a>
 </td><td>LOB</td><td><a href="table-RHNCONFIGCONTENT.html"> RHNCONFIGCONTENT </a></td><td><a href="sql_sources/index/sys_il0000013739c00002$$.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNACTIONCONFIGREVISIONRESULT.html#ind-SYS_IL0000013760C00002$$">SYS_IL0000013760C00002$$ </a>
@@ -1417,42 +1413,42 @@
 </td><td>LOB</td><td><a href="table-RHNACTIONSCRIPT.html"> RHNACTIONSCRIPT </a></td><td><a href="sql_sources/index/sys_il0000013908c00005$$.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNAPPINSTALLSESSIONDATA.html#ind-SYS_IL0000013958C00005$$">SYS_IL0000013958C00005$$ </a>
 </td><td>LOB</td><td><a href="table-RHNAPPINSTALLSESSIONDATA.html"> RHNAPPINSTALLSESSIONDATA </a></td><td><a href="sql_sources/index/sys_il0000013958c00005$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNCRYPTOKEY.html#ind-SYS_IL0000014058C00005$$">SYS_IL0000014058C00005$$ </a>
-</td><td>LOB</td><td><a href="table-RHNCRYPTOKEY.html"> RHNCRYPTOKEY </a></td><td><a href="sql_sources/index/sys_il0000014058c00005$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNKICKSTARTSCRIPT.html#ind-SYS_IL0000014199C00008$$">SYS_IL0000014199C00008$$ </a>
-</td><td>LOB</td><td><a href="table-RHNKICKSTARTSCRIPT.html"> RHNKICKSTARTSCRIPT </a></td><td><a href="sql_sources/index/sys_il0000014199c00008$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNPACKAGEREPODATA.html#ind-SYS_IL0000014281C00002$$">SYS_IL0000014281C00002$$ </a>
-</td><td>LOB</td><td><a href="table-RHNPACKAGEREPODATA.html"> RHNPACKAGEREPODATA </a></td><td><a href="sql_sources/index/sys_il0000014281c00002$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNPACKAGEREPODATA.html#ind-SYS_IL0000014281C00003$$">SYS_IL0000014281C00003$$ </a>
-</td><td>LOB</td><td><a href="table-RHNPACKAGEREPODATA.html"> RHNPACKAGEREPODATA </a></td><td><a href="sql_sources/index/sys_il0000014281c00003$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNPACKAGEREPODATA.html#ind-SYS_IL0000014281C00004$$">SYS_IL0000014281C00004$$ </a>
-</td><td>LOB</td><td><a href="table-RHNPACKAGEREPODATA.html"> RHNPACKAGEREPODATA </a></td><td><a href="sql_sources/index/sys_il0000014281c00004$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSATELLITECERT.html#ind-SYS_IL0000014354C00003$$">SYS_IL0000014354C00003$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSATELLITECERT.html"> RHNSATELLITECERT </a></td><td><a href="sql_sources/index/sys_il0000014354c00003$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSATELLITEINFO.html#ind-SYS_IL0000014358C00003$$">SYS_IL0000014358C00003$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSATELLITEINFO.html"> RHNSATELLITEINFO </a></td><td><a href="sql_sources/index/sys_il0000014358c00003$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html#ind-SYS_IL0000014362C00004$$">SYS_IL0000014362C00004$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html"> RHNSERVERACTIONPACKAGERESULT </a></td><td><a href="sql_sources/index/sys_il0000014362c00004$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html#ind-SYS_IL0000014362C00005$$">SYS_IL0000014362C00005$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html"> RHNSERVERACTIONPACKAGERESULT </a></td><td><a href="sql_sources/index/sys_il0000014362c00005$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSERVERACTIONSCRIPTRESULT.html#ind-SYS_IL0000014368C00003$$">SYS_IL0000014368C00003$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSERVERACTIONSCRIPTRESULT.html"> RHNSERVERACTIONSCRIPTRESULT </a></td><td><a href="sql_sources/index/sys_il0000014368c00003$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSOLARISPACKAGE.html#ind-SYS_IL0000014499C00004$$">SYS_IL0000014499C00004$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSOLARISPACKAGE.html"> RHNSOLARISPACKAGE </a></td><td><a href="sql_sources/index/sys_il0000014499c00004$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSOLARISPATCH.html#ind-SYS_IL0000014506C00007$$">SYS_IL0000014506C00007$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSOLARISPATCH.html"> RHNSOLARISPATCH </a></td><td><a href="sql_sources/index/sys_il0000014506c00007$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNSOLARISPATCHSET.html#ind-SYS_IL0000014513C00002$$">SYS_IL0000014513C00002$$ </a>
-</td><td>LOB</td><td><a href="table-RHNSOLARISPATCHSET.html"> RHNSOLARISPATCHSET </a></td><td><a href="sql_sources/index/sys_il0000014513c00002$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNTASKOSCHEDULE.html#ind-SYS_IL0000014545C00008$$">SYS_IL0000014545C00008$$ </a>
-</td><td>LOB</td><td><a href="table-RHNTASKOSCHEDULE.html"> RHNTASKOSCHEDULE </a></td><td><a href="sql_sources/index/sys_il0000014545c00008$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_JOB_DETAILS.html#ind-SYS_IL0000015327C00009$$">SYS_IL0000015327C00009$$ </a>
-</td><td>LOB</td><td><a href="table-QRTZ_JOB_DETAILS.html"> QRTZ_JOB_DETAILS </a></td><td><a href="sql_sources/index/sys_il0000015327c00009$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_TRIGGERS.html#ind-SYS_IL0000015333C00016$$">SYS_IL0000015333C00016$$ </a>
-</td><td>LOB</td><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="sql_sources/index/sys_il0000015333c00016$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#ind-SYS_IL0000015341C00003$$">SYS_IL0000015341C00003$$ </a>
-</td><td>LOB</td><td><a href="table-QRTZ_BLOB_TRIGGERS.html"> QRTZ_BLOB_TRIGGERS </a></td><td><a href="sql_sources/index/sys_il0000015341c00003$$.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_CALENDARS.html#ind-SYS_IL0000015347C00002$$">SYS_IL0000015347C00002$$ </a>
-</td><td>LOB</td><td><a href="table-QRTZ_CALENDARS.html"> QRTZ_CALENDARS </a></td><td><a href="sql_sources/index/sys_il0000015347c00002$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCRYPTOKEY.html#ind-SYS_IL0000014056C00005$$">SYS_IL0000014056C00005$$ </a>
+</td><td>LOB</td><td><a href="table-RHNCRYPTOKEY.html"> RHNCRYPTOKEY </a></td><td><a href="sql_sources/index/sys_il0000014056c00005$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTSCRIPT.html#ind-SYS_IL0000014197C00008$$">SYS_IL0000014197C00008$$ </a>
+</td><td>LOB</td><td><a href="table-RHNKICKSTARTSCRIPT.html"> RHNKICKSTARTSCRIPT </a></td><td><a href="sql_sources/index/sys_il0000014197c00008$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEREPODATA.html#ind-SYS_IL0000014279C00002$$">SYS_IL0000014279C00002$$ </a>
+</td><td>LOB</td><td><a href="table-RHNPACKAGEREPODATA.html"> RHNPACKAGEREPODATA </a></td><td><a href="sql_sources/index/sys_il0000014279c00002$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEREPODATA.html#ind-SYS_IL0000014279C00003$$">SYS_IL0000014279C00003$$ </a>
+</td><td>LOB</td><td><a href="table-RHNPACKAGEREPODATA.html"> RHNPACKAGEREPODATA </a></td><td><a href="sql_sources/index/sys_il0000014279c00003$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEREPODATA.html#ind-SYS_IL0000014279C00004$$">SYS_IL0000014279C00004$$ </a>
+</td><td>LOB</td><td><a href="table-RHNPACKAGEREPODATA.html"> RHNPACKAGEREPODATA </a></td><td><a href="sql_sources/index/sys_il0000014279c00004$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSATELLITECERT.html#ind-SYS_IL0000014352C00003$$">SYS_IL0000014352C00003$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSATELLITECERT.html"> RHNSATELLITECERT </a></td><td><a href="sql_sources/index/sys_il0000014352c00003$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSATELLITEINFO.html#ind-SYS_IL0000014356C00003$$">SYS_IL0000014356C00003$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSATELLITEINFO.html"> RHNSATELLITEINFO </a></td><td><a href="sql_sources/index/sys_il0000014356c00003$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html#ind-SYS_IL0000014360C00004$$">SYS_IL0000014360C00004$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html"> RHNSERVERACTIONPACKAGERESULT </a></td><td><a href="sql_sources/index/sys_il0000014360c00004$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html#ind-SYS_IL0000014360C00005$$">SYS_IL0000014360C00005$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html"> RHNSERVERACTIONPACKAGERESULT </a></td><td><a href="sql_sources/index/sys_il0000014360c00005$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTIONSCRIPTRESULT.html#ind-SYS_IL0000014366C00003$$">SYS_IL0000014366C00003$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSERVERACTIONSCRIPTRESULT.html"> RHNSERVERACTIONSCRIPTRESULT </a></td><td><a href="sql_sources/index/sys_il0000014366c00003$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPACKAGE.html#ind-SYS_IL0000014497C00004$$">SYS_IL0000014497C00004$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSOLARISPACKAGE.html"> RHNSOLARISPACKAGE </a></td><td><a href="sql_sources/index/sys_il0000014497c00004$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCH.html#ind-SYS_IL0000014504C00007$$">SYS_IL0000014504C00007$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSOLARISPATCH.html"> RHNSOLARISPATCH </a></td><td><a href="sql_sources/index/sys_il0000014504c00007$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHSET.html#ind-SYS_IL0000014511C00002$$">SYS_IL0000014511C00002$$ </a>
+</td><td>LOB</td><td><a href="table-RHNSOLARISPATCHSET.html"> RHNSOLARISPATCHSET </a></td><td><a href="sql_sources/index/sys_il0000014511c00002$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTASKOSCHEDULE.html#ind-SYS_IL0000014543C00008$$">SYS_IL0000014543C00008$$ </a>
+</td><td>LOB</td><td><a href="table-RHNTASKOSCHEDULE.html"> RHNTASKOSCHEDULE </a></td><td><a href="sql_sources/index/sys_il0000014543c00008$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_JOB_DETAILS.html#ind-SYS_IL0000015318C00009$$">SYS_IL0000015318C00009$$ </a>
+</td><td>LOB</td><td><a href="table-QRTZ_JOB_DETAILS.html"> QRTZ_JOB_DETAILS </a></td><td><a href="sql_sources/index/sys_il0000015318c00009$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_TRIGGERS.html#ind-SYS_IL0000015324C00016$$">SYS_IL0000015324C00016$$ </a>
+</td><td>LOB</td><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="sql_sources/index/sys_il0000015324c00016$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#ind-SYS_IL0000015332C00003$$">SYS_IL0000015332C00003$$ </a>
+</td><td>LOB</td><td><a href="table-QRTZ_BLOB_TRIGGERS.html"> QRTZ_BLOB_TRIGGERS </a></td><td><a href="sql_sources/index/sys_il0000015332c00003$$.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_CALENDARS.html#ind-SYS_IL0000015338C00002$$">SYS_IL0000015338C00002$$ </a>
+</td><td>LOB</td><td><a href="table-QRTZ_CALENDARS.html"> QRTZ_CALENDARS </a></td><td><a href="sql_sources/index/sys_il0000015338c00002$$.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNTASKOBUNCH.html#ind-TASKO_BUNCH_NAME_UQ">TASKO_BUNCH_NAME_UQ </a>
 </td><td>NORMAL</td><td><a href="table-RHNTASKOBUNCH.html"> RHNTASKOBUNCH </a></td><td><a href="sql_sources/index/tasko_bunch_name_uq.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNTASKOTEMPLATE.html#ind-TASKO_TEMPLATE_ORDERING_UQ">TASKO_TEMPLATE_ORDERING_UQ </a>
@@ -1477,8 +1473,6 @@
 </td><td>NORMAL</td><td><a href="table-WEB_CUSTOMER.html"> WEB_CUSTOMER </a></td><td><a href="sql_sources/index/web_customer_id_pk.sql">DDL script</a></td></tr>
 <tr><td><a href="table-WEB_CUSTOMER.html#ind-WEB_CUSTOMER_NAME_UQ_IDX">WEB_CUSTOMER_NAME_UQ_IDX </a>
 </td><td>NORMAL</td><td><a href="table-WEB_CUSTOMER.html"> WEB_CUSTOMER </a></td><td><a href="sql_sources/index/web_customer_name_uq_idx.sql">DDL script</a></td></tr>
-<tr><td><a href="table-WEB_CUSTOMER_NOTIFICATION.html#ind-WEB_CUST_NOT_ID_PK">WEB_CUST_NOT_ID_PK </a>
-</td><td>NORMAL</td><td><a href="table-WEB_CUSTOMER_NOTIFICATION.html"> WEB_CUSTOMER_NOTIFICATION </a></td><td><a href="sql_sources/index/web_cust_not_id_pk.sql">DDL script</a></td></tr>
 <tr><td><a href="table-WEB_USER_SITE_INFO.html#ind-WEB_USER_SITE_INFO_WUID">WEB_USER_SITE_INFO_WUID </a>
 </td><td>NORMAL</td><td><a href="table-WEB_USER_SITE_INFO.html"> WEB_USER_SITE_INFO </a></td><td><a href="sql_sources/index/web_user_site_info_wuid.sql">DDL script</a></td></tr>
 <tr><td><a href="table-WEB_USER_PERSONAL_INFO.html#ind-WUPI_EMAIL_UC_IDX">WUPI_EMAIL_UC_IDX </a>
@@ -1493,5 +1487,5 @@
 </td><td>NORMAL</td><td><a href="table-WEB_USER_SITE_TYPE.html"> WEB_USER_SITE_TYPE </a></td><td><a href="sql_sources/index/wust_type_pk.sql">DDL script</a></td></tr>
 </table><div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Jan 20 14:00:44 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Apr 21 10:04:24 2011</div>
 </body></html>
