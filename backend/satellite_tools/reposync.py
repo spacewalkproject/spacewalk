@@ -450,10 +450,16 @@ class RepoSync:
             new_version = 0
             for n in notice['version'].split('.'):
                 new_version = (new_version + int(n)) * 100
-            notice['version'] = new_version / 100
+            try:
+                notice['version'] = new_version / 100
+            except TypeError: # yum in RHEL5 does not have __setitem__
+                notice._md['version'] = new_version / 100
         if "suse" in notice['from'].lower():
             # suse style; we need to append the version to id
-            notice['update_id'] = notice['update_id'] + '-' + notice['version']
+            try:
+                notice['update_id'] = notice['update_id'] + '-' + notice['version']
+            except TypeError: # yum in RHEL5 does not have __setitem__
+                notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
         return notice
 
     def get_errata(self, update_id):
