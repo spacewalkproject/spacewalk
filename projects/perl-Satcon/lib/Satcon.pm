@@ -15,8 +15,6 @@
 package Satcon;
 
 use strict;
-use File::Copy;
-use File::Temp;
 
 sub new {
   my $class = shift;
