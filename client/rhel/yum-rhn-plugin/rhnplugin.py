@@ -437,6 +437,8 @@ class RhnRepo(YumRepository):
 
         try:
             ugopts = self._default_grabopts()
+            if "http_headers" in ugopts:
+                del(ugopts["http_headers"])
         except AttributeError: # this method does not exist on RHEL5
             ugopts = { 'keepalive': self.keepalive,
                 'bandwidth': self.bandwidth,
@@ -445,7 +447,6 @@ class RhnRepo(YumRepository):
                 'proxies': self.proxy_dict,
                 'timeout': self.timeout,
             }
-        del(ugopts["http_headers"])
         headers = tuple(YumRepository._YumRepository__headersListFromDict(self))
 
         self._grabfunc = URLGrabber(
