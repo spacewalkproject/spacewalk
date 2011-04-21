@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2011 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,6 @@ use strict;
 use Satcon;
 use File::Find;
 use File::Path;
-use File::Copy;
 use Data::Dumper;
 use Getopt::Long;
 
@@ -79,7 +78,7 @@ sub process_file {
   else {
     if (-e "$destdir/$relative_path" && $backupdir && ! -e "$backupdir/$destdir/$relative_path") {
       print " * Making backup of $destdir$relative_path to $backupdir$destdir$relative_path\n";
-      copy ("$destdir/$relative_path", "$backupdir/$destdir/$relative_path")
+      system('/bin/cp', '-p', "$destdir/$relative_path", "$backupdir/$destdir/$relative_path") == 0
         or die "Cannot copy $destdir/$relative_path to $backupdir/$destdir/$relative_path";
     }
     open IF, "<$sourcedir/$relative_path"
