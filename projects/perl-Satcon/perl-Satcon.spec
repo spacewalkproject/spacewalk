@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.14
+Version:        1.15
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,6 +46,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Thu Apr 21 2011 Jan Pazdziora 1.15-1
+- When creating the backup directory, do not leave them open for other, just
+  owner and group should be enough.
+- Use cp -p instead of File::Copy::copy to preserve the access rights.
+
 * Fri Feb 18 2011 Jan Pazdziora 1.14-1
 - Localize the filehandle globs; also use three-parameter opens.
 
