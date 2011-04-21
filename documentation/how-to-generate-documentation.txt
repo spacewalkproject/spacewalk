@@ -22,4 +22,4 @@ documentation for the db schema:
     # update db-schema.readme
 
 DB Schema is created using http://oraschemadoc.sourceforge.net/
-Which requires cx_Oracle and graphviz.
+Which requires cx_Oracle, graphviz and graphviz-gd.
