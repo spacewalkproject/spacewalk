@@ -49,7 +49,7 @@ my $engine = new Satcon $open, $close;
 $engine->load_conf_file($conf_file);
 
 if ($backupdir){
-  mkdir $backupdir;
+  mkdir $backupdir, 0770;
 }
 
 find( { no_chdir => 1, wanted => sub { process_file($engine, $sourcedir, $destdir) } }, $sourcedir);
@@ -70,9 +70,9 @@ sub process_file {
 
   if (-d "$sourcedir/$relative_path") {
     if (-d "$destdir/$relative_path" && $backupdir) {
-      mkdir "$backupdir/$destdir/$relative_path";
+      mkdir "$backupdir/$destdir/$relative_path", 0770;
     } else {
-    mkdir "$destdir/$relative_path";
+    mkdir "$destdir/$relative_path", 0770;
     }
   }
   else {
