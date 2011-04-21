@@ -23,3 +23,9 @@ documentation for the db schema:
 
 DB Schema is created using http://oraschemadoc.sourceforge.net/
 Which requires cx_Oracle, graphviz and graphviz-gd.
+
+documentation of API:
+	cd java/
+    # install ivy
+    ant apidoc-html
+    # documentation is in build/reports/apidocs/html
