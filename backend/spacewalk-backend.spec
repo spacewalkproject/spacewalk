@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.4.38
+Version: 1.4.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -684,6 +684,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Apr 21 2011 Miroslav Suchý 1.4.39-1
+- workaround yum.update_md.UpdateNotice, which in rhel5 does not have
+  __setitem__
+
 * Wed Apr 13 2011 Jan Pazdziora 1.4.38-1
 - Need to try cElementTree from xml.etree for RHEL 6.0 and SLES 11.
 
