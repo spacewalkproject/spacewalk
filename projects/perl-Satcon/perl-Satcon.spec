@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.15
+Version:        1.16
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,6 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Mon Apr 25 2011 Jan Pazdziora 1.16-1
+- The File::Copy and File::Temp do not seem to be used in Satcon, removing the
+  use.
+
 * Thu Apr 21 2011 Jan Pazdziora 1.15-1
 - When creating the backup directory, do not leave them open for other, just
   owner and group should be enough.
