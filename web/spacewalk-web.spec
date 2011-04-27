@@ -296,7 +296,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Tue Mar 22 2011 Jan Pazdziora 1.4.13-1
 - Moving the Requires: httpd from sniglets to base-minimal, dobby, and pxt
-  which actually have %files with apache group in them.
+  which actually have %%files with apache group in them.
 - No need to require mod_perl explicitly in spacewalk-sniglets, we will get it
   via perl(Apache2::Cookie) and perl-libapreq2 from spacewalk-pxt.
 - Removing RHEL 4 specific Requires as we no longer support Spacewalk on RHEL 4.
