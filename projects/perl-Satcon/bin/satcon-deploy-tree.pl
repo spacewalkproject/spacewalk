@@ -87,6 +87,10 @@ sub process_file {
     open OF, ">$destdir/$relative_path"
       or die "Cannot open $destdir/$relative_path: $!";
 
+    # save permissions also but clear access for other
+    my $mode =  (stat("$sourcedir/$relative_path"))[2] & 07770;
+    chmod $mode, "$destdir/$relative_path";
+
     system '/sbin/restorecon', '-vv', "$destdir/$relative_path";
 
     while (<IF>) {
@@ -97,11 +101,6 @@ sub process_file {
     close IF;
     close OF;
   }
-
-  # save permissions also
-  my $mode =  (stat("$sourcedir/$relative_path"))[2] & 07777;
-  chmod $mode, "$destdir/$relative_path";
-
 }
 
 warn "Unsubstituted Tags:\n";
