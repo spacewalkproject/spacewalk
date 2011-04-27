@@ -103,7 +103,7 @@ sub process_file {
   }
 }
 
-warn "Unsubstituted Tags:\n";
+warn "Unsubstituted Tags:\n" if $engine->unsubstituted_tags;
 foreach my $kw (sort $engine->unsubstituted_tags) {
   warn "  $kw\n";
 }
