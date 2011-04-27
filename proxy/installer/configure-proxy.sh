@@ -489,8 +489,6 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
                 $SQUID_DIR/squid.conf \
                 $HTTPDCONFD_DIR/cobbler-proxy.conf \
                 $HTTPDCONF_DIR/httpd.conf \
-                $HTTPDCONFD_DIR/proxy_broker.conf \
-                $HTTPDCONFD_DIR/proxy_redirect.conf \
                 $JABBERD_DIR/c2s.xml \
                 $JABBERD_DIR/sm.xml
 fi
