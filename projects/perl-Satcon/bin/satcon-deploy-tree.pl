@@ -58,7 +58,7 @@ sub process_file {
   my ($engine, $sourcedir, $destdir) = @_;
   my $full_path = $File::Find::name;
 
-  if ($full_path =~ m(/CVS$)) {
+  if ($full_path =~ m(/CVS$|\.orig$)) {
     $File::Find::prune = 1;
     return;
   }
