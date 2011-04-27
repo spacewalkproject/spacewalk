@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.5.2
+Version:        1.5.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Wed Apr 27 2011 Simon Lukasik <slukasik@redhat.com> 1.5.3-1
+- Drop the schema only if exists (slukasik@redhat.com)
+
 * Fri Apr 15 2011 Jan Pazdziora 1.5.2-1
 - redirect upgrade log to correct file (mzazrivec@redhat.com)
 - move the m4 template at the end of cmd line parameters (mzazrivec@redhat.com)
