@@ -991,19 +991,19 @@ sub postgresql_test_db_schema {
 # Spacewalk might have created.
 
 my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
-	drop schema rpm cascade ;
-	drop schema rhn_exception cascade ;
-	drop schema rhn_quota cascade ;
-	drop schema rhn_config cascade ;
-	drop schema rhn_server cascade ;
-	drop schema rhn_entitlements cascade ;
-	drop schema rhn_bel cascade ;
-	drop schema rhn_cache cascade ;
-	drop schema rhn_channel cascade ;
-	drop schema rhn_config_channel cascade ;
-	drop schema rhn_org cascade ;
-	drop schema rhn_user cascade ;
-	drop schema public cascade ;
+	drop schema if exists rpm cascade ;
+	drop schema if exists rhn_exception cascade ;
+	drop schema if exists rhn_quota cascade ;
+	drop schema if exists rhn_config cascade ;
+	drop schema if exists rhn_server cascade ;
+	drop schema if exists rhn_entitlements cascade ;
+	drop schema if exists rhn_bel cascade ;
+	drop schema if exists rhn_cache cascade ;
+	drop schema if exists rhn_channel cascade ;
+	drop schema if exists rhn_config_channel cascade ;
+	drop schema if exists rhn_org cascade ;
+	drop schema if exists rhn_user cascade ;
+	drop schema if exists public cascade ;
 	create schema public authorization postgres ;
 EOS
 sub postgresql_clear_db {
