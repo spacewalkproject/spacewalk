@@ -808,17 +808,15 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return Returns the primary ip for this server
      */
     public String getIpAddress() {
-        // First search networkInterfaces because they are
-        // better defined (name and ip address)
-        NetworkInterface ni = findPrimaryNetworkInterface();
-        if (ni != null) {
-            log.debug("Found a NetworkInterface: " + ni.getIpaddr());
-            return ni.getIpaddr();
-        }
         Network n = findPrimaryNetwork();
         if (n != null) {
             log.debug("Found a Network: " + n.getIpaddr());
             return n.getIpaddr();
+        }
+        NetworkInterface ni = findPrimaryNetworkInterface();
+        if (ni != null) {
+            log.debug("Found a NetworkInterface: " + ni.getIpaddr());
+            return ni.getIpaddr();
         }
         return null;
     }
