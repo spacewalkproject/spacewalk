@@ -2028,6 +2028,11 @@ public class SystemManager extends BaseManager {
 
         Long availableSubscriptions = null;
 
+        /* Check if the channel is consumable for free */
+        if (ChannelManager.isChannelFreeForSubscription(serverIn, channelIn)) {
+            return availableSubscriptions;
+        }
+
         /* If serverIn is fve eligible, check number of flex guest entitlements available */
         if (m.execute(params).size() >= 1) {
             availableSubscriptions =
