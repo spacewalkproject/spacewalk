@@ -44,6 +44,10 @@ class Handler(handler_base.HandlerBase):
             '--delim-end',          action="store",
              help="End delimiter for variable interpolation",
          ),
+        handler_base.HandlerBase._option_class(
+            '-i', '--ignore-missing',       action="store_true",
+             help="Ignore missing local files",
+         ),
     ]
                                                     
     def run(self):
@@ -96,7 +100,11 @@ class Handler(handler_base.HandlerBase):
 
         for (local_file, remote_file) in files_to_push:
             if not os.path.exists(local_file):
-                die(9, "No such file `%s'" % local_file)
+                if self.options.ignore_missing:
+                    files_to_push.remove((local_file,remote_file))
+                    print "Local file %s does not exist. Ignoring file..." %(local_file)
+                else:
+                    die(9, "No such file `%s'" % local_file)
 
         print "Pushing to channel %s:" % (channel, )
 
