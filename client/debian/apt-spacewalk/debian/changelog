@@ -1,9 +1,7 @@
-apt-spacewalk (1.0.3-1) unstable; urgency=low
+apt-spacewalk (1.0.4-1) unstable; urgency=low
 
   * Updated to the upstream version
-  * Acquire method now consumes extra lines from Apt
-  * Fixed rpmUtils import
-  * Added actions.packages dispatcher
+  * The method can be killed by the keyboard interrupt
 
- -- Simon Lukasik <xlukas08@stud.fit.vutbr.cz>  Sun, 17 Apr 2011 18:03:07 +0200
+ -- Simon Lukasik <xlukas08@stud.fit.vutbr.cz>  Thu, 28 Apr 2011 12:53:49 +0200
 
