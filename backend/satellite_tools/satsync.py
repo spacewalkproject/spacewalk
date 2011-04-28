@@ -158,7 +158,7 @@ class Runner:
         timeStart = time.time()
 
         try:
-            locale.setlocale(locale.LC_ALL,  locale.getdefaultlocale())
+            locale.setlocale(locale.LC_ALL, '')
         except locale.Error: # unsupported locale setting - just ignore it
             pass
         actionDict, channels = processCommandline()
