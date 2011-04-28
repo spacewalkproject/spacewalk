@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -87,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Thu Apr 28 2011 Miroslav Suchý 1.5.2-1
+- 648868 - do not put proxy_broker.conf and proxy_redirect.conf to
+  configuration channel (mmello@redhat.com)
+
 * Mon Apr 18 2011 Miroslav Suchý 1.5.1-1
 - 696918 - honor hostedWhitelist during Proxy installation
 - Bumping package versions for 1.5
