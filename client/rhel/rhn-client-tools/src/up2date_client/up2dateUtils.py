@@ -86,6 +86,8 @@ def getArch():
         # On debian we only support i386
         if arch in ['i486', 'i586', 'i686']:
             arch = 'i386'
+        if arch == 'x86_64':
+            arch = 'amd64'
         arch += '-debian-linux'
     return arch
 
