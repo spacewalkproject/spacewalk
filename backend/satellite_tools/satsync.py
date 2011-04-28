@@ -249,8 +249,8 @@ class Runner:
         Begin time: %s
         End time:   %s
         Elapsed:    %s
-          """) % (time.strftime (locale.nl_langinfo(locale.D_T_FMT), time.localtime(timeStart)),
-                  time.strftime (locale.nl_langinfo(locale.D_T_FMT), time.localtime(timeEnd)), delta_str),
+          """) % (time.strftime ("%c", time.localtime(timeStart)),
+                  time.strftime ("%c", time.localtime(timeEnd)), delta_str),
             cleanYN=1)
 
         # mail out that log if appropriate
@@ -692,7 +692,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
     def _formatDateTime(self, datestring):
         """ Format the date time using your locale settings. This assume that your setlocale has been alread called. """
-        return time.strftime (locale.nl_langinfo(locale.D_T_FMT), time.strptime(datestring, '%Y%m%d%H%M%S'))
+        return time.strftime ("%c", time.strptime(datestring, '%Y%m%d%H%M%S'))
 
     def _formatChannelExportType(self, channel):
         """returns pretty formated text with type of channel export"""
