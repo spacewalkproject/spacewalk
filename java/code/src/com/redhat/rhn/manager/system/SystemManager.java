@@ -192,6 +192,20 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Gets the list of channels that this server is subscribed to
+     * @param sid The id of the server in question
+     * @return Returns a list of subscribed channels for this server.
+     */
+    public static DataResult systemChannelSubscriptions(Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+            "system_channel_subscriptions");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        return m.execute(params);
+    }
+
+
+    /**
      * Gets the latest upgradable packages for a system
      * @param sid The id for the system we want packages for
      * @return Returns a list of the latest upgradable packages for a system

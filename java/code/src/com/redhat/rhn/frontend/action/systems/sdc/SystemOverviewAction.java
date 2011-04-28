@@ -39,10 +39,11 @@ import org.apache.struts.action.ActionMapping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,11 +77,24 @@ public class SystemOverviewAction extends RhnAction {
             description = new String(s.getDescription()).replaceAll("\\n", "<br/>");
         }
 
-        // Secondary Channels
-        List secondaryChannelList = secondaryChannelList(s.getChannels(),
-                                                         s.getBaseChannel());
-        Collections.sort(secondaryChannelList,
-                new DynamicComparator("name", RequestContext.SORT_ASC));
+        // System Channels
+        Map baseChannel = new HashMap();
+        List childChannels = new ArrayList();
+        DataResult channelList = SystemManager.systemChannelSubscriptions(sid);
+
+        for (Iterator i = channelList.iterator(); i.hasNext();) {
+            Map ch = (HashMap) i.next();
+
+            if (s.getBaseChannel() != null &&
+                ch.get("id").equals(s.getBaseChannel().getId())) {
+                baseChannel.put("id", ch.get("id"));
+                baseChannel.put("name", ch.get("name"));
+                baseChannel.put("is_fve", ch.get("is_fve"));
+            }
+            else {
+                childChannels.add(ch);
+            }
+        }
 
         // Errata Counts
         int criticalErrataCount = SystemManager.countCriticalErrataForSystem(user, sid);
@@ -112,29 +126,14 @@ public class SystemOverviewAction extends RhnAction {
         request.setAttribute("nonCriticalErrataCount", nonCriticalErrataCount);
         request.setAttribute("upgradablePackagesCount", upgradablePackagesCount);
         request.setAttribute("hasUpdates", hasUpdates);
-        request.setAttribute("secondaryChannels", secondaryChannelList);
+        request.setAttribute("baseChannel", baseChannel);
+        request.setAttribute("childChannels", childChannels);
         request.setAttribute("description", description);
         request.setAttribute("prefs", findUserServerPreferences(user, s));
         request.setAttribute("system", s);
         request.setAttribute("hasLocation",
                 !(s.getLocation() == null || s.getLocation().isEmpty()));
         return mapping.findForward("default");
-    }
-
-    protected List secondaryChannelList(Set channels, Channel baseChannel) {
-        List list = new ArrayList();
-
-        Iterator i = channels.iterator();
-
-        while (i.hasNext()) {
-            Channel c = (Channel) i.next();
-
-            if (!c.equals(baseChannel)) {
-                list.add(c);
-            }
-        }
-
-        return list;
     }
 
     protected List findUserServerPreferences(User user, Server s) {

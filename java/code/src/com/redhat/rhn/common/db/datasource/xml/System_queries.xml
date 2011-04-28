@@ -1816,6 +1816,19 @@ SELECT 1
     </query>
 </mode>
 
+<mode name="system_channel_subscriptions">
+    <query params="sid">
+    select c.id,
+           c.name,
+           sc.is_fve
+      from rhnChannel c,
+           rhnServerChannel sc
+     where sc.server_id = :sid and
+           sc.channel_id = c.id
+  order by c.name
+    </query>
+</mode>
+
 <write-mode name="delete_note">
   <query params="id,server_id">
 delete from rhnServerNotes where id = :id and server_id = :server_id

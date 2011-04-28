@@ -323,10 +323,20 @@
 
     <c:if test="${system.baseChannel != null}">
     <ul class="channel-list">
-    <li><a href="/rhn/channels/ChannelDetail.do?cid=${system.baseChannel.id}">${system.baseChannel.name}</a></li>
+    <li>
+      <a href="/rhn/channels/ChannelDetail.do?cid=${baseChannel['id']}">${baseChannel['name']}</a>
+      <c:if test="${baseChannel['is_fve'] == 'Y'}">
+        &nbsp;(Flex)
+      </c:if>
+    </li>
 
-    <c:forEach items="${secondaryChannels}" var="secondaryChannel">
-    <li class="child-channel"><a href="/rhn/channels/ChannelDetail.do?cid=${secondaryChannel.id}">${secondaryChannel.name}</a></li>
+    <c:forEach items="${childChannels}" var="childChannel">
+    <li class="child-channel">
+      <a href="/rhn/channels/ChannelDetail.do?cid=${childChannel['id']}">${childChannel['name']}</a>
+      <c:if test="${childChannel['is_fve'] == 'Y'}">
+        &nbsp;(Flex)
+      </c:if>
+    </li>
     </c:forEach>
 
     </ul>
