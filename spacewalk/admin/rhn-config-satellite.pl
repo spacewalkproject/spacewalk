@@ -44,6 +44,8 @@ my %options = map { split(/=/,$_, 2) } @options;
 my $tmpfile = $target . ".bak.${PID}";
 
 open(TARGET, "< $target") or die "Could not open $target: $OS_ERROR";
+unlink $tmpfile if -e $tmpfile;
+umask 0027;
 open(TMP, "> $tmpfile") or die "Could not open $tmpfile for writing: $OS_ERROR";
 
 while (my $line = <TARGET>) {
