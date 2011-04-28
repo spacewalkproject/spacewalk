@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.16
+Version:        1.17
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,6 +46,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Thu Apr 28 2011 Jan Pazdziora 1.17-1
+- Do not confuse me by saying Unsubstituted Tags when there are none.
+- Do not deploy .orig files.
+- When creating config files in /etc/rhn, clear access for other (make it
+  -rw-r-----, in typical case).
+
 * Mon Apr 25 2011 Jan Pazdziora 1.16-1
 - The File::Copy and File::Temp do not seem to be used in Satcon, removing the
   use.
