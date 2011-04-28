@@ -259,6 +259,9 @@ class spacewalk_method(pkg_acquire_method):
 
 
 if __name__ == '__main__':
-    method = spacewalk_method()
-    ret = method.run()
-    sys.exit(ret)
+    try:
+        method = spacewalk_method()
+        ret = method.run()
+        sys.exit(ret)
+    except KeyboardInterrupt:
+        pass
