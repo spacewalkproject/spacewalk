@@ -249,8 +249,9 @@ class Runner:
         Begin time: %s
         End time:   %s
         Elapsed:    %s
-          """) % (time.strftime ("%c", time.localtime(timeStart)),
-                  time.strftime ("%c", time.localtime(timeEnd)), delta_str),
+          """) % (formatDateTime(dt=time.localtime(timeStart)),
+                  formatDateTime(dt=time.localtime(timeEnd)),
+                  delta_str),
             cleanYN=1)
 
         # mail out that log if appropriate
@@ -690,10 +691,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         log(1, _("Channel data complete"))
 
-    def _formatDateTime(self, datestring):
-        """ Format the date time using your locale settings. This assume that your setlocale has been alread called. """
-        return time.strftime ("%c", time.strptime(datestring, '%Y%m%d%H%M%S'))
-
     def _formatChannelExportType(self, channel):
         """returns pretty formated text with type of channel export"""
         if 'export-type' not in channel or channel['export-type'] is None:
@@ -709,9 +706,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         else:
             end_date = ''
         if end_date and not start_date:
-            return _("%10s import from %s") % (export_type, self._formatDateTime(end_date))
+            return _("%10s import from %s") % (export_type,
+                                               formatDateTime(end_date))
         elif end_date and start_date:
-            return _("%10s import from %s - %s") % (export_type, self._formatDateTime(start_date), self._formatDateTime(end_date))
+            return _("%10s import from %s - %s") % (export_type,
+                                                    formatDateTime(start_date),
+                                                    formatDateTime(end_date))
         else:
             return _("%10s") % export_type
 
@@ -2276,6 +2276,12 @@ def processCommandline():
 
     # return the dictionary of actions, channels
     return actionDict, channels
+
+def formatDateTime(dtstring=None, dt=None):
+    """ Format the date time using your locale settings. This assume that your setlocale has been alread called. """
+    if not dt:
+        dt = time.strptime(dtstring, '%Y%m%d%H%M%S')
+    return time.strftime("%c", dt)
 
 
 if __name__ == '__main__':
