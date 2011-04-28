@@ -3,7 +3,7 @@
 
 Name: apt-spacewalk
 Summary: Spacewalk plugin for Advanced Packaging tool.
-Version: 1.0.3
+Version: 1.0.4
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://example.com/%{name}-%{version}.tar.gz
@@ -20,6 +20,9 @@ to acquire content from Spacewalk server
 %defattr(-,root,root,-)
 
 %changelog
+* Thu Apr 28 2011 Simon Lukasik <slukasik@redhat.com> 1.0.4-1
+- The method can be killed by the keyboard interrupt (slukasik@redhat.com)
+
 * Sun Apr 17 2011 Simon Lukasik <slukasik@redhat.com> 1.0.3-1
 - Introducing actions.packages dispatcher (slukasik@redhat.com)
 - Do not use rpmUtils on Debian (slukasik@redhat.com)
