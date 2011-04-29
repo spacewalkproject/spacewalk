@@ -115,7 +115,9 @@ public class TaskoRun {
      * if task execution will be skipped (used for queue tasks)
      */
     public void skipped() {
-        setEndTime(new Date());
+        Date now = new Date();
+        setStartTime(now);
+        setEndTime(now);
         setStatus(STATUS_SKIPPED);
     }
 
