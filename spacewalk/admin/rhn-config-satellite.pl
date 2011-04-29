@@ -47,6 +47,9 @@ open(TARGET, "< $target") or die "Could not open $target: $OS_ERROR";
 unlink $tmpfile if -e $tmpfile;
 umask 0027;
 open(TMP, "> $tmpfile") or die "Could not open $tmpfile for writing: $OS_ERROR";
+if ($tmpfile =~ m!^/etc/rhn/!) {
+  chown 0, scalar(getgrnam("apache")), $tmpfile;
+}
 
 while (my $line = <TARGET>) {
   if ($line =~ /\[prompt\]/ or $line =~ /^#/) {
