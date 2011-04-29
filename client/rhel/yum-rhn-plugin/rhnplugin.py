@@ -18,7 +18,7 @@ from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
 try:
     from urlgrabber.grabber import pycurl
-except:
+except ImportError:
     pycurl = None
 
 from iniparse import INIConfig
