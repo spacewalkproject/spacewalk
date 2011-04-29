@@ -233,24 +233,6 @@ EOQ
   return $action;
 }
 
-sub remove_custom_value {
-  my $self = shift;
-  my $key_id = shift;
-
-  die "no key id" unless $key_id;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-DELETE FROM rhnServerCustomDataValue
-      WHERE server_id = :server_id
-        AND key_id = :key_id
-EOQ
-
-  $sth->execute_h(server_id => $self->id, key_id => $key_id);
-
-  $dbh->commit;
-}
-
 sub set_custom_value {
   my $self = shift;
 
