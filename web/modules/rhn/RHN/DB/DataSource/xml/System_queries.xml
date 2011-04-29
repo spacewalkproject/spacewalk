@@ -2,6 +2,7 @@
 
 <mode name="ssm_remote_commandable">
   <query params="user_id">
+select * from (
 SELECT DISTINCT S.id,
        S.name AS SERVER_NAME
   FROM rhnServer S,
@@ -18,7 +19,9 @@ SELECT DISTINCT S.id,
    AND CC.capability_name_id = CCN.id
    AND CCN.name = 'script.run'
    AND USP.server_id = S.id
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+) X
+ORDER BY UPPER(COALESCE(X.name, '(none)')), X.id
+
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements"/>
