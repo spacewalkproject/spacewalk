@@ -75,6 +75,8 @@ def init_hook(conduit):
                repo.baseurl = ['file:///' + repodir ]
                repo.urls = repo.baseurl
                repo.name = reponame
+               if hasattr(conduit.getConf(), '_repos_persistdir'):
+                   repo.base_persistdir = conduit.getConf()._repos_persistdir
                repo.enable()
                if not repos.findRepos(repo.id):
                    repos.add(repo)
