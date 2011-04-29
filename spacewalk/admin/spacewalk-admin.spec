@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-service.8*
 
 %changelog
+* Fri Apr 29 2011 Jan Pazdziora 1.5.2-1
+- For config files created in /etc/rhn, do chgrp apache.
+
 * Thu Apr 28 2011 Jan Pazdziora 1.5.1-1
 - Disable access of other to the satellite-local-rules.conf file, as it
   contains the database password.
