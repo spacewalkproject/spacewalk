@@ -361,7 +361,8 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
 <mode name="systems_with_package">
   <query params="pid, user_id">
  SELECT  SP.server_id AS id
-  FROM  rhnServerPackage SP
+  FROM  rhnServerPackage SP,
+        rhnPackage P
  WHERE P.id = :pid
    AND  P.name_id = SP.name_id
    AND  P.evr_id = SP.evr_id
