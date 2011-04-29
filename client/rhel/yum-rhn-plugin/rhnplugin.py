@@ -490,7 +490,7 @@ class RhnRepo(YumRepository):
         func = getattr(cfg, self.label)
         func.enabled = value
         f = open('/etc/yum/pluginconf.d/rhnplugin.conf', 'w')
-        print >>f, cfg
+        print >> f, cfg
         f.close()
 
     def enablePersistent(self):
