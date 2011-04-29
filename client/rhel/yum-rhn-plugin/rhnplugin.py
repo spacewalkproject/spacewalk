@@ -60,26 +60,26 @@ def init_hook(conduit):
     repos = conduit.getRepos()
     cachefilename = os.path.join(cachedir, cachedRHNReposFile)
     if os.access(cachefilename, os.R_OK):
-       cachefile = open(cachefilename, 'r')
-       repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
-       cachefile.close()
-       for repo_item in repolist:
-           if len(repo_item) == 1:
-               repo_item.append('')
-           (repoid, reponame) = repo_item
-           repodir = os.path.join(cachedir, repoid)
-           if os.path.isdir(repodir) and os.path.isfile(
+        cachefile = open(cachefilename, 'r')
+        repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
+        cachefile.close()
+        for repo_item in repolist:
+            if len(repo_item) == 1:
+                repo_item.append('')
+            (repoid, reponame) = repo_item
+            repodir = os.path.join(cachedir, repoid)
+            if os.path.isdir(repodir) and os.path.isfile(
                         os.path.join(repodir, 'repodata', 'repomd.xml')):
-               repo = YumRepository(repoid)
-               repo.basecachedir = cachedir
-               repo.baseurl = ['file:///' + repodir ]
-               repo.urls = repo.baseurl
-               repo.name = reponame
-               if hasattr(conduit.getConf(), '_repos_persistdir'):
-                   repo.base_persistdir = conduit.getConf()._repos_persistdir
-               repo.enable()
-               if not repos.findRepos(repo.id):
-                   repos.add(repo)
+                repo = YumRepository(repoid)
+                repo.basecachedir = cachedir
+                repo.baseurl = ['file:///' + repodir ]
+                repo.urls = repo.baseurl
+                repo.name = reponame
+                if hasattr(conduit.getConf(), '_repos_persistdir'):
+                    repo.base_persistdir = conduit.getConf()._repos_persistdir
+                repo.enable()
+                if not repos.findRepos(repo.id):
+                    repos.add(repo)
 
 def prereposetup_hook(conduit):
     """
@@ -199,10 +199,10 @@ def prereposetup_hook(conduit):
     opts = conduit.getCmdLine()[0]
     if opts:
         for opt, repoexp in opts.repos:
-           if opt == '--enablerepo':
-               conduit._base.repos.enableRepo(repoexp)
-           elif opt == '--disablerepo':
-               conduit._base.repos.disableRepo(repoexp)
+            if opt == '--enablerepo':
+                conduit._base.repos.enableRepo(repoexp)
+            elif opt == '--disablerepo':
+                conduit._base.repos.disableRepo(repoexp)
 
 
 def posttrans_hook(conduit):
@@ -264,10 +264,10 @@ class RhnRepo(YumRepository):
         # support failover urls, #232567
         urls = []
         if type(channel['url']) == list:
-          for url in channel['url']:
-            urls.append(url + '/GET-REQ/' + self.id)
+            for url in channel['url']:
+                urls.append(url + '/GET-REQ/' + self.id)
         else: # type will be always list since Spacewalk 1.4, in future this will be dead coed
-          urls.append(channel['url'] + '/GET-REQ/' + self.id)
+            urls.append(channel['url'] + '/GET-REQ/' + self.id)
 
         self.baseurl = urls 
         self.urls = self.baseurl
