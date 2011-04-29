@@ -791,30 +791,6 @@ class Backend:
         self.__processObjectCollection(channels, 'rhnChannel', childTables,
             'channel_id', uploadForce=4, ignoreUploaded=1, forceVerify=1)
 
-    def processReleaseChannelMap(self, relcms):
-        """
-        Process additional channel Mapping data for
-        X.Y channels based on version, arch, product
-        and release.
-        """
-        rcmTable = self.tables['rhnReleaseChannelMap']
-        lookup = TableLookup(rcmTable, self.dbmodule)
-        dmlobj = DML([rcmTable.name], self.tables)
-        
-        #for rcm in relcms:
-        if relcms.ignored:
-            # Skip it
-            pass 
-        h = lookup.query(relcms)
-        row = h.fetchone_dict()
-        if not row:
-            extObject = {}
-            _buildExternalValue(extObject, relcms, rcmTable)
-            addHash(dmlobj.insert[rcmTable.name], extObject)
-
-        self.__doDML(dmlobj)
-
-
     def processChannelFamilies(self, channels):
         childTables = []
         self.__processObjectCollection(channels, 'rhnChannelFamily',
