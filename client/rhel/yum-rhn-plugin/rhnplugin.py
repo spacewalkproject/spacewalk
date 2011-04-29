@@ -365,7 +365,7 @@ class RhnRepo(YumRepository):
                 self.http_headers[AuthUserH] = "\nX-libcurl-Empty-Header-Workaround: *"
 
         # Turn our dict into a list of 2-tuples
-        headers = YumRepository._YumRepository__headersListFromDict(self)
+        headers = YumRepository._YumRepository__headersListFromDict(self)   # pylint: disable-msg=E1101
 
         # We will always prefer to send no-cache.
         if not (cache or self.http_headers.has_key('Pragma')):
@@ -451,7 +451,7 @@ class RhnRepo(YumRepository):
                 'proxies': self.proxy_dict,
                 'timeout': self.timeout,
             }
-        headers = tuple(YumRepository._YumRepository__headersListFromDict(self))
+        headers = tuple(YumRepository._YumRepository__headersListFromDict(self)) # pylint: disable-msg=E1101
 
         self._grabfunc = URLGrabber(
                                    progress_obj=self.callback,
