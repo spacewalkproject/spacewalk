@@ -233,21 +233,6 @@ EOQ
   return $action;
 }
 
-sub set_custom_value {
-  my $self = shift;
-
-  foreach my $param (@_) {
-    die "$param tainted!" if Scalar::Util::tainted($param);
-  }
-
-  my %params = validate(@_, {user_id => 1, key_label => 1, value => 0, transaction => 0} );
-
-  my $dbh = $params{transaction} || RHN::DB->connect();
-  $dbh->call_procedure('rhn_server.set_custom_value', $self->id, $params{user_id}, $params{key_label}, $params{value});
-
-  $dbh->commit unless $params{transaction};
-}
-
 sub bulk_set_custom_value {
   my $class = shift;
   my %params = validate(@_, {set_label => 1, user_id => 1, key_label => 1, value => 0});
