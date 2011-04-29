@@ -687,7 +687,7 @@ def getRHNRepoOptions(conduit, repoid):
         if conduit:
             if hasattr(conduit, "_conf") and hasattr(conduit._conf, "items"):
                 return conduit._conf.items(repoid)
-    except NoSectionError, e:
+    except NoSectionError:
         pass
     return None
 
