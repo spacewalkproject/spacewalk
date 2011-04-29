@@ -487,9 +487,9 @@ class RhnRepo(YumRepository):
         cfg = INIConfig(file('/etc/yum/pluginconf.d/rhnplugin.conf'))
         # we cannot use directly cfg[channel].['enabled'], because
         # if that section do not exist it raise error
-        func=getattr(cfg, self.label)
-        func.enabled=value
-        f=open('/etc/yum/pluginconf.d/rhnplugin.conf', 'w')
+        func = getattr(cfg, self.label)
+        func.enabled = value
+        f = open('/etc/yum/pluginconf.d/rhnplugin.conf', 'w')
         print >>f, cfg
         f.close()
 
