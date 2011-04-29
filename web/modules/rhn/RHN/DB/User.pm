@@ -1781,48 +1781,6 @@ sub lock_web_contact {
 }
 
 
-sub can_delete_custominfokey {
-  my $self = shift;
-  my $key_id = shift;
-
-  my $key = RHN::CustomInfoKey->lookup(-id => $key_id);
-
-  throw 'no key' unless $key;
-
-  return 1 if $self->is('org_admin');
-
-#  unless (defined $key->creator_id) {
-#    return 0;
-#  }
-#
-#  unless ($key->creator_id == $self->id) {
-#    return 0;
-# }
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnServerCustomDataValue SCDV,
-       rhnServer S
- WHERE S.org_id = :org_id
-   AND S.id = SCDV.server_id
-   AND SCDV.key_id = :key_id
-   AND NOT EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE user_id = :user_id AND server_id = S.id)
-EOQ
-
-  $sth->execute_h(user_id => $self->id,
-		  org_id => $self->org_id,
-		  key_id => $key_id,
-		 );
-
-  my ($row) = $sth->fetchrow;
-  $sth->finish;
-
-  return 0 if defined $row;
-
-  return 1;
-}
-
 sub manages_a_channel {
   my $self = shift;
 
