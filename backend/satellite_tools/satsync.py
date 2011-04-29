@@ -25,7 +25,6 @@ import string
 import time
 import types
 import exceptions
-import locale
 from optparse import Option, OptionParser
 from rhn.connections import idn_ascii_to_pune
 
@@ -157,10 +156,6 @@ class Runner:
         # let's time the whole process
         timeStart = time.time()
 
-        try:
-            locale.setlocale(locale.LC_ALL, '')
-        except locale.Error: # unsupported locale setting - just ignore it
-            pass
         actionDict, channels = processCommandline()
 
         #5/24/05 wregglej - 156079 turn off an step's dependent steps if it's turned off.
