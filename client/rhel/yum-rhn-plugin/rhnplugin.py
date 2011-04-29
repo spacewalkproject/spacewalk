@@ -511,7 +511,7 @@ class RhnRepo(YumRepository):
         import yum.Errors
         try:
             return YumRepository._getRepoXML(self)
-        except yum.Errors.RepoError, e:
+        except yum.Errors.RepoError:
             # Refresh our loginInfo then try again
             # possibly it's out of date
             up2dateAuth.updateLoginInfo()
