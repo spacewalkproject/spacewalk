@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.10
+Version: 1.5.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 29 2011 Jan Pazdziora 1.5.11-1
+- 683539 - system overview: display flex entitlement usage
+  (mzazrivec@redhat.com)
+
 * Thu Apr 28 2011 Jan Pazdziora 1.5.10-1
 - 680176 - display unlimited subscriptions if applicable (mzazrivec@redhat.com)
 - 699753 - use the primary IP address from the rhnServerNetwork table
