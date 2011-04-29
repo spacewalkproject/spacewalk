@@ -104,9 +104,9 @@ def prereposetup_hook(conduit):
         return
 
     up2date_cfg = config.initUp2dateConfig()
+    proxy_dict = {}
     try:
         proxy_url = get_proxy_url(up2date_cfg)
-        proxy_dict = {}
         if up2date_cfg['useNoSSLForPackages']:
             proxy_dict = {'HTTP' : proxy_url}
         else:
@@ -181,6 +181,7 @@ def prereposetup_hook(conduit):
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
             repo.metadata_expire = metadata_expire
+            repo.proxy_dict = proxy_dict
             if hasattr(conduit.getConf(), '_repos_persistdir'):
                 repo.base_persistdir = conduit.getConf()._repos_persistdir
             repoOptions = getRHNRepoOptions(conduit, repo.id)
