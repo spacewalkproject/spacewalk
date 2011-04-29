@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.2
+Version: 5.10.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -104,6 +104,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 29 2011 Jan Pazdziora 5.10.3-1
+- 699966 - added --ignore-missing option in rhncfg-manager to ignore missing
+  local files when adding or uploading files (mmello@redhat.com)
+
 * Fri Apr 15 2011 Jan Pazdziora 5.10.2-1
 - add missing directories to filelist (mc@suse.de)
 - build rhncfg build on SUSE (mc@suse.de)
