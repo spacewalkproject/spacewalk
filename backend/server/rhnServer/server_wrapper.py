@@ -78,11 +78,6 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
         rhnSQL.commit()
         return ret
 
-    def reload_packages(self):
-        """ wrapper for the Packages.reload_packages_byid() which requires the sysid """
-        ret = self.reload_packages_byid(self.server["id"])
-        return ret
-
     ###
     ### HARDWARE
     ###
