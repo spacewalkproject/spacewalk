@@ -66,7 +66,7 @@ sub save {
 # You should not edit this file directly. All changes will be lost after 
 # Monitoring restart. Please use script NOCpulse-ini.
 WARNING
-  $fh->close();
+  $fh->close() or die "Error closing $filename: $!";
   # Be sure to make the file world-readable!
   chmod(0644, $filename) or die "Couldn't chmod $filename: $!";
 }
