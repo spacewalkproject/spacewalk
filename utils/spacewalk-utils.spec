@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.5.1
+Version:	1.5.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Apr 29 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.2-1
+- fixed base channel for spacewalk on F14
+- added spacewalk nightly entries
+- added spacewalk 1.4 entries
+
 * Mon Apr 18 2011 Jan Pazdziora 1.5.1-1
 - fix pattern bash matching (mzazrivec@redhat.com)
 
