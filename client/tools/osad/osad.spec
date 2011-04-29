@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.9
+Version: 5.10.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -228,6 +228,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
 
 %changelog
+* Fri Apr 29 2011 Miroslav Suchý 5.10.14-1
+- provide config
+
 * Fri Apr 08 2011 Miroslav Suchý 5.10.9-1
 - Revert "idn_unicode_to_pune() have to return string" (msuchy@redhat.com)
 - update copyright years (msuchy@redhat.com)
