@@ -10,21 +10,23 @@
 
 
 
-<input type="radio" name="${picker.name}_status" value="disabled" 
-		<c:if test="${picker.status == 'disabled'}">checked="true"</c:if> />  
-	<bean:message key="schedule.disabled"/>
+<input type="radio" name="${picker.name}_status" value="disabled" id="disabled"
+		<c:if test="${picker.status == 'disabled'}">checked="true"</c:if> />
+	<label for="disabled"><bean:message key="schedule.disabled"/></label>
 <br/>
 
-<input type="radio" name="${picker.name}_status" value="daily" <c:if test="${picker.status == 'daily'}">checked="true"</c:if> />
-	 <bean:message key="schedule.daily"/>: 
+<input type="radio" name="${picker.name}_status" value="daily" id="daily"
+<c:if test="${picker.status == 'daily'}">checked="true"</c:if> />
+	<label for="daily"><bean:message key="schedule.daily"/>:
 
 	  <c:set var="timeName" value="daily" />
       <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
-
+    </label>
 	<br/>
 
-<input type="radio" name="${picker.name}_status" value="weekly" <c:if test="${picker.status == 'weekly'}">checked="true"</c:if> />  
-	<bean:message key="schedule.weekly"/>:
+<input type="radio" name="${picker.name}_status" value="weekly" id="weekly"
+<c:if test="${picker.status == 'weekly'}">checked="true"</c:if> />
+	<label for="weekly"><bean:message key="schedule.weekly"/>:
 		<bean:message key="schedule.weekly.every"/>
 		<select name='${picker.name}_day_week' size="1">
 			<c:forEach var="day" begin="0" end="6">
@@ -36,33 +38,30 @@
 
 	  <c:set var="timeName" value="weekly" />
       <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
-
-      
-
-      
+    </label>
 	<br/>
 
-<input type="radio" name="${picker.name}_status" value="monthly" <c:if test="${picker.status == 'monthly'}">checked="true"</c:if> />
-	<bean:message key="schedule.monthly"/>: 
+<input type="radio" name="${picker.name}_status" value="monthly" id="monthly"
+<c:if test="${picker.status == 'monthly'}">checked="true"</c:if> />
+	<label for="monthly"><bean:message key="schedule.monthly"/>:
 	
-		  <bean:message key="schedule.monthly.day"/>
+                 <bean:message key="schedule.monthly.day"/>
 
 	<select name='${picker.name}_day_month' size="1">
 			<c:forEach var="day" begin="1" end="28">
-			  <option <c:if test="${picker.dayOfMonthLong == day}">selected="selected"</c:if> value='${day}'>${day}</option>
+                         <option <c:if test="${picker.dayOfMonthLong == day}">selected="selected"</c:if> value='${day}'>${day}</option>
 			</c:forEach>
-		</select>   
-		  <bean:message key="schedule.weekly.at"/>
-	  <c:set var="timeName" value="monthly" />
+               </select>
+                 <bean:message key="schedule.weekly.at"/>
+         <c:set var="timeName" value="monthly" />
       <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
-      
-   
-      
+    </label>
 	<br/>
 	
-
-<input type="radio" name="${picker.name}_status" value="cron" <c:if test="${picker.status == 'cron'}">checked="true"</c:if> />
-	 <bean:message key="schedule.cron"/>: 
+<input type="radio" name="${picker.name}_status" value="cron" id="cron"
+<c:if test="${picker.status == 'cron'}">checked="true"</c:if> />
+	<label for="cron"><bean:message key="schedule.cron"/>:
 	<input type="text" size="20" name="${picker.name}_cron" value="${picker.cronEntry}">
 
+    </label>
 
