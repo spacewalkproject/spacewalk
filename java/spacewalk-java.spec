@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.12
+Version: 1.5.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Apr 30 2011 Simon Lukasik <slukasik@redhat.com> 1.5.13-1
+- Remove the static comps file mapping for RHEL 5.0 trees (slukasik@redhat.com)
+
 * Fri Apr 29 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.5.12-1
 - remove unused imports
 
