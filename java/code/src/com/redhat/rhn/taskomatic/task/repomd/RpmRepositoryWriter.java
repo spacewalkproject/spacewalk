@@ -274,24 +274,18 @@ public class RpmRepositoryWriter extends RepositoryWriter {
     }
 
     private String getCompsRelativeFilename(Channel channel) {
-        String relativeFilename = null;
-
-        if (channel.getComps() == null) {
-            relativeFilename = getCompsFilePath(channel);
+        if (channel.getComps() != null) {
+            return channel.getComps().getRelativeFilename();
         }
-        else {
-            relativeFilename = channel.getComps().getRelativeFilename();
-        }
-
         // if we didn't find anything, let's check channel's original
-        if (relativeFilename == null && channel.isCloned()) {
+        if (channel.isCloned()) {
             // use a hack not to use ClonedChannel and it's getOriginal() method
             Long originalChannelId = ChannelManager.lookupOriginalId(channel);
             Channel originalChannel = ChannelFactory.lookupById(originalChannelId);
             return getCompsRelativeFilename(originalChannel);
         }
 
-        return relativeFilename;
+        return null;
     }
 
     /**
@@ -340,51 +334,6 @@ public class RpmRepositoryWriter extends RepositoryWriter {
 
         return new RepomdIndexData(StringUtil.getHexString(digestStream
                 .getMessageDigest().digest()), null, timeStamp);
-    }
-
-    /**
-     * TODO: This static comps paths should go away once
-     * we can get the paths directly from hosted through
-     * satellite-sync and only limit to supporting cloned.
-     * @param channel channel object
-     * @return compsPath comps file path
-    */
-    public String getCompsFilePath(Channel channel) {
-        String compsPath = null;
-
-        Map<String, String> compsMapping = new HashMap<String, String>();
-        String rootClientPath = "/rhn/kickstart/ks-rhel-x86_64-client-5";
-        String rootServerPath = "/rhn/kickstart/ks-rhel-x86_64-server-5";
-        compsMapping.put("rhel-x86_64-client-5",
-              rootClientPath + "/Client/repodata/comps-rhel5-client-core.xml");
-        compsMapping.put("rhel-x86_64-client-vt-5",
-              rootClientPath + "/VT/repodata/comps-rhel5-vt.xml");
-        compsMapping.put("rhel-x86_64-client-workstation-5",
-              rootClientPath + "/Workstation/repodata/comps-rhel5-client-workstation.xml");
-        compsMapping.put("rhel-x86_64-server-5",
-              rootServerPath + "/Server/repodata/comps-rhel5-server-core.xml");
-        compsMapping.put("rhel-x86_64-server-vt-5",
-              rootServerPath + "/VT/repodata/comps-rhel5-vt.xml");
-        compsMapping.put("rhel-x86_64-server-cluster-5",
-              rootServerPath + "/Cluster/repodata/comps-rhel5-cluster.xml");
-        compsMapping.put("rhel-x86_64-server-cluster-storage-5",
-              rootServerPath + "/ClusterStorage/repodata/comps-rhel5-cluster-st.xml");
-
-        String[] arches = {"i386", "ia64", "s390x", "ppc"};
-        Map<String, String> newCompsmap = new HashMap<String, String>();
-        for (String k : compsMapping.keySet()) {
-            for (String arch : arches) {
-                newCompsmap.put(k.replace("x86_64", arch),
-                    compsMapping.get(k).replace("x86_64", arch));
-            }
-        }
-        compsMapping.putAll(newCompsmap);
-
-        if (compsMapping.containsKey(channel.getLabel())) {
-            compsPath = compsMapping.get(channel.getLabel());
-        }
-
-        return compsPath;
     }
 
     /**

@@ -55,15 +55,6 @@ public abstract class RepositoryWriter {
    public abstract void writeRepomdFiles(Channel channel);
 
    /**
-    * TODO: This static comps paths should go away once
-    * we can get the paths directly from hosted through
-    * satellite-sync and only limit to supporting cloned.
-    * @param channel channel object
-    * @return compsPath comps file path
-   */
-   public abstract String getCompsFilePath(Channel channel);
-
-   /**
     * Deletes repository cache files
     * @param channelLabelToProcess channel label
     * @param deleteDir directory to delete

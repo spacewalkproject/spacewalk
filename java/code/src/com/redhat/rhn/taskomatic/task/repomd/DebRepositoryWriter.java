@@ -84,16 +84,4 @@ public class DebRepositoryWriter extends RepositoryWriter {
         }
         writer.generatePackagesGz();
     }
-
-    /**
-     * TODO: This static comps paths should go away once
-     * we can get the paths directly from hosted through
-     * satellite-sync and only limit to supporting cloned,
-     * there are no comps files for debian.
-     * @param channel channel object
-     * @return compsPath comps file path
-     */
-    public String getCompsFilePath(Channel channel) {
-        return null;
-    }
 }
