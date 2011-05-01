@@ -509,8 +509,8 @@ class Packages(RPC_Base):
             query_args = {
                 'pkg_name':     pkg_info['name'],
                 'pkg_epoch':    pkg_epoch,
-                'pkg_version':  pkg_info['version'],
-                'pkg_rel':      pkg_info['release'],
+                'pkg_version':  str(pkg_info['version']),
+                'pkg_rel':      str(pkg_info['release']),
                 'pkg_arch':     pkg_info['arch'],
                 'orgid':       org_id,
                     }
