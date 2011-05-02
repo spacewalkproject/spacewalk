@@ -569,11 +569,11 @@ public class ErrataSearchAction extends RhnAction {
             query = escapeSpecialChars(query);
             return "(description:(" + query + ") topic:(" + query + ") solution:(" +
                 query + ") notes:(" + query + ") product:(" + query + ")" +
-                " advisoryName:(" + query + ") synopsis:(" + query + "))";
+                " name:(" + query + ") synopsis:(" + query + "))";
         }
         else if (OPT_ADVISORY.equals(mode)) {
             query = escapeSpecialChars(query);
-            return "(advisoryName:(" + query + "))";
+            return "(name:(" + query + "))";
         }
         else if (OPT_PKG_NAME.equals(mode)) {
             // when searching the name field, we also want to include the filename

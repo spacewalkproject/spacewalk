@@ -26,9 +26,9 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ErrataDocumentBuilder implements DocumentBuilder {
-    
+
     // TODO: add some information about fields and their indexing states.
-    
+
     /**
      * {@inheritDoc}
      */
@@ -36,25 +36,29 @@ public class ErrataDocumentBuilder implements DocumentBuilder {
         Document doc = new Document();
         doc.add(new Field("id", objId.toString(), Field.Store.YES,
                 Field.Index.UN_TOKENIZED));
-        
 
         for (Iterator<String> iter = metadata.keySet().iterator(); iter.hasNext();) {
             Field.Store store = Field.Store.NO;
             Field.Index tokenize = Field.Index.TOKENIZED;
-            
+
             String name = iter.next();
             String value = metadata.get(name);
-            
-            if (name.equals("name")) {
+
+            if (name.equals("name") || name.equals("advisoryName")) {
                 store = Field.Store.YES;
             }
-            else if (name.equals("advisoryName")) {
-                store = Field.Store.YES;
+            else if (name.equals("synopsis") || name.equals("description") ||
+                    name.equals("topic") || name.equals("solution")) {
+                // index, but do not store
+            }
+            else {
+                // skip - do not store or index
+                continue;
             }
 
             doc.add(new Field(name, String.valueOf(value), store,
                     tokenize));
-        }        
+        }
         return doc;
     }
 }

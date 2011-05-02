@@ -455,6 +455,9 @@ public class IndexManager {
         else if (indexName.compareTo(BuilderFactory.SERVER_TYPE) == 0) {
             return getServerAnalyzer();
         }
+        else if (indexName.compareTo(BuilderFactory.ERRATA_TYPE) == 0) {
+            return getErrataAnalyzer();
+        }
         else if (indexName.compareTo(BuilderFactory.SNAPSHOT_TAG_TYPE) == 0) {
             return getSnapshotTagAnalyzer();
         }
@@ -569,7 +572,7 @@ public class IndexManager {
             }
         }
         else if (indexName.compareTo(BuilderFactory.ERRATA_TYPE) == 0) {
-            if (guessMainQueryTerm.compareTo("advisoryName") == 0) {
+            if (guessMainQueryTerm.compareTo("name") == 0) {
                 if (hits.score(x) < errata_advisory_score_threshold) {
                     if (log.isDebugEnabled()) {
                         log.debug("hits.score(" + x + ") is " + hits.score(x));
@@ -734,6 +737,18 @@ public class IndexManager {
         analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
         analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
 
+
+        return analyzer;
+    }
+
+    private Analyzer getErrataAnalyzer() {
+        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                NGramAnalyzer(min_ngram, max_ngram));
+        analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
+        analyzer.addAnalyzer("synopsis", new StandardAnalyzer());
+        analyzer.addAnalyzer("description", new StandardAnalyzer());
+        analyzer.addAnalyzer("topic", new StandardAnalyzer());
+        analyzer.addAnalyzer("solution", new StandardAnalyzer());
 
         return analyzer;
     }
