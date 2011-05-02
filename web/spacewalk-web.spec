@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.3
+Version: 1.5.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon May 02 2011 Jan Pazdziora 1.5.4-1
+- Patch to run remote commands on multiple machines on Spacewalk 1.4
+  PostgreSQL. (Ville.Salmela@csc.fi)
+- Removal of system_value_edit makes set_custom_value unused, dropping.
+- Removal of remove_system_value makes remove_custom_value unused, dropping.
+- The can_delete_custominfokey no longer used after previous removals,
+  removing.
+
 * Fri Apr 29 2011 Tomas Lestach <tlestach@redhat.com> 1.5.3-1
 - fixing system query systems_with_package (tlestach@redhat.com)
 - remove macro from changelog (msuchy@redhat.com)
