@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.5.5
+Version: 1.5.6
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon May 02 2011 Miroslav Suchý 1.5.6-1
+- set proxy_dict only if we have some proxy
+- proxy_dict is private attribute
+
 * Fri Apr 29 2011 Miroslav Suchý 1.5.5-1
 - code cleanup
 - 691283 - create persistdir in _repos_persistdir instead of PWD
