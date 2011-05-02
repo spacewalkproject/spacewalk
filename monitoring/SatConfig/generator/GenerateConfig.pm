@@ -24,7 +24,7 @@ sub handler {
 
         SatClusterRecord->LoadFromSqlWithBind(q{
             select sat_cluster.recid, sat_cluster.customer_id,
-                   location_name "physical_location_name",
+                   location_name as physical_location_name,
                    sat_node.max_concurrent_checks, sat_node.sched_log_level,
                    sat_node.sput_log_level, sat_node.dq_log_level
             from   sat_cluster, sat_node, physical_location
@@ -41,7 +41,7 @@ sub handler {
         my $satCluster = SatClusterRecord->InstancesList->[0];
 
         my $customerId = $satCluster->get_CUSTOMER_ID;
-        my $location = $satCluster->get_physical_location_name;
+        my $location = $satCluster->get_PHYSICAL_LOCATION_NAME;
 	
         # Get the auto_update flag
         CFDBRecord->LoadFromSqlWithBind(q{
