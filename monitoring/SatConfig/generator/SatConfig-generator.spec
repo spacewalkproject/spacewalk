@@ -2,7 +2,7 @@
 %define install_prefix %{perl_vendorlib}/NOCpulse/SatConfig
 
 Name:         SatConfig-generator
-Version:      2.29.12
+Version:      2.29.13
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
 URL:          https://fedorahosted.org/spacewalk
@@ -54,6 +54,11 @@ install -m 644 GenerateConfig.pm $RPM_BUILD_ROOT%{install_prefix}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 02 2011 Jan Pazdziora 2.29.13-1
+- No need to Disconnect, hopefully.
+- Since RHN::DB sets FetchHashKeyName to NAME_uc and monitoring now uses
+  RHN::DB, the column name is now uppercase.
+
 * Fri Oct 08 2010 Jan Pazdziora 2.29.12-1
 - Since the package SatConfig-dbsynch is gone, remove dependencies that were
   requiring it.
