@@ -181,7 +181,7 @@ def prereposetup_hook(conduit):
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
             repo.metadata_expire = metadata_expire
-            repo.proxy_dict = proxy_dict
+            repo._proxy_dict = proxy_dict
             if hasattr(conduit.getConf(), '_repos_persistdir'):
                 repo.base_persistdir = conduit.getConf()._repos_persistdir
             repoOptions = getRHNRepoOptions(conduit, repo.id)
