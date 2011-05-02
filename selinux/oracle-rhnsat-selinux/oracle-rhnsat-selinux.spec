@@ -5,7 +5,7 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.18
+Version:         10.2.0.19
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -116,6 +116,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon May 02 2011 Michael Mraka <michael.mraka@redhat.com> 10.2.0.19-1
+- 699979 - allow oracle to write to configuration manager files
+
 * Wed Apr 06 2011 Jan Pazdziora 10.2.0.18-1
 - 489548, 565417 - upon ORA-3136, database writes to network/log/sqlnet.log.
 
