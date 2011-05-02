@@ -275,6 +275,12 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon May 02 2011 Jan Pazdziora 5.10.15-1
+- Bumping up version to get above the one we backported to Spacewalk 1.4.
+- Revert "bump up epoch, and match version of osad with spacewalk version".
+- bump up epoch, and match version of osad with spacewalk version
+  (msuchy@redhat.com)
+
 * Fri Apr 15 2011 Jan Pazdziora 5.10.12-1
 - require python-hashlib only on rhel and rhel <= 5 (mc@suse.de)
 - build osad on SUSE (mc@suse.de)
