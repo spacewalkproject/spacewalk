@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.14
+Version: 1.5.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 02 2011 Tomas Lestach <tlestach@redhat.com> 1.5.15-1
+- removing unused imports (tlestach@redhat.com)
+
 * Mon May 02 2011 Tomas Lestach <tlestach@redhat.com> 1.5.14-1
 - 659138 - set start time for skipped queue jobs (tlestach@redhat.com)
 - 659138 - style id support for repeat-task-picker (tlestach@redhat.com)
