@@ -370,7 +370,7 @@ sub disconnect {
   my $dbh = shift;
 
   if ($dbh->{private_from_cache}) {
-    $dbh->set_err("Can't disconnect cache-loaded RHN::DB handle");
+    $dbh->set_err(99999, "Can't disconnect cache-loaded RHN::DB handle");
   }
   else {
     $dbh->SUPER::disconnect(@_);
@@ -533,7 +533,7 @@ sub execute_h {
   my $self = shift;
   my @params = @_;
 
-  $self->set_err("Odd number of params to execute_h") if @params % 2;
+  $self->set_err(99998, "Odd number of params to execute_h") if @params % 2;
 
   while (my ($k, $v) = (splice @params, 0, 2, ())) {
 
