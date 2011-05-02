@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.4
+Version: 1.5.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon May 02 2011 Jan Pazdziora 1.5.5-1
+- Fixing set_err invocation to match the prototype.
+
 * Mon May 02 2011 Jan Pazdziora 1.5.4-1
 - Patch to run remote commands on multiple machines on Spacewalk 1.4
   PostgreSQL. (Ville.Salmela@csc.fi)
