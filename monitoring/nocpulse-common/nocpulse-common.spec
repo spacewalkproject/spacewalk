@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.22
+Version:      2.1.23
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -146,6 +146,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 02 2011 Jan Pazdziora 2.1.23-1
+- The close of IO::AtomicFile can also die, we should catch it right there.
+
 * Fri Mar 18 2011 Michael Mraka <michael.mraka@redhat.com> 2.1.22-1
 - fixed ownership of NOCpulse/tmp directory
 - fixed function decode does not exist (PG)
