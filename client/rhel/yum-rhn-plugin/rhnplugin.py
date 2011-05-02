@@ -107,10 +107,11 @@ def prereposetup_hook(conduit):
     proxy_dict = {}
     try:
         proxy_url = get_proxy_url(up2date_cfg)
-        if up2date_cfg['useNoSSLForPackages']:
-            proxy_dict = {'HTTP' : proxy_url}
-        else:
-            proxy_dict = {'HTTPS' : proxy_url}
+        if proxy_url:
+            if up2date_cfg['useNoSSLForPackages']:
+                proxy_dict = {'HTTP' : proxy_url}
+            else:
+                proxy_dict = {'HTTPS' : proxy_url}
     except BadProxyConfig:
         rhn_enabled = False
         PROXY_ERROR =  _("There was an error parsing the RHN proxy settings.") 
