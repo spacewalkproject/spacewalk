@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.13
+Version: 1.5.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -679,6 +679,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon May 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.14-1
+- 701297 - don't try to read rpm header from mpm package
+
 * Mon May 02 2011 Jan Pazdziora 1.5.13-1
 - Method reload_packages not used in our code, removing.
 - Removal of ReleaseChannelMapImport makes processReleaseChannelMap unused,
