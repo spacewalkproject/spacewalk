@@ -21,6 +21,7 @@ import os.path
 from importLib import GenericPackageImport, IncompletePackage, \
     Import, InvalidArchError, InvalidChannelError, \
     IncompatibleArchError
+from mpmSource import mpmBinaryPackage
 from spacewalk.common import rhn_pkg
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.server import taskomatic
@@ -481,7 +482,8 @@ class PackageImport(ChannelPackageSubscription):
 
     def _import_signatures(self):
        for package in self.batch:
-           if package['path']:
+           # skip missing files and mpm packages
+           if package['path'] and not isinstance(package, mpmBinaryPackage):
                full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
                if os.path.exists(full_path):
                    header = rhn_pkg.get_package_header(filename=full_path)
