@@ -107,7 +107,6 @@ sub synch_nolog {
     my ($customer_id, $sat_cluster_id) = @_;
 
     # Log in to the nolog instance
-    NOCpulse::DBRecord->Disconnect();
     CSDBRecord->DatabaseConnection();
 
     my $sth;
@@ -153,7 +152,6 @@ sub synch_nolog {
     } else {
         CSDBRecord->DatabaseConnection->commit();
     }
-    NOCpulse::DBRecord->Disconnect();
     return $msg;
 }
 
