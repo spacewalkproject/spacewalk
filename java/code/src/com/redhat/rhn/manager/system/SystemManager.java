@@ -1992,6 +1992,25 @@ public class SystemManager extends BaseManager {
         }
     }
 
+
+    /**
+     * Check if a given Server is FVE eligible
+     * @param serverIn to check
+     * @return true if Server is FVE eligible, false otherwise
+     */
+    public static boolean isServerFveEligible(Server serverIn) {
+        SelectMode m = ModeFactory.getMode("System_queries", "is_server_fve_eligible");
+        Map params = new HashMap();
+        params.put("sid", serverIn.getId());
+
+        if (m.execute(params).size() >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     /**
      * Check to see if an attempt to subscribe the passed in server to the
      * passed in channel will succeed.  Checks available slots, if the channel is
@@ -2004,64 +2023,28 @@ public class SystemManager extends BaseManager {
      */
     public static boolean canServerSubscribeToChannel(Org orgIn, Server serverIn,
             Channel channelIn) {
-
         if (serverIn.isSubscribed(channelIn)) {
-            log.debug("already subscribed.  return true");
             return true;
         }
 
         // If channel is free for this guest, dont check avail subs
         if (ChannelManager.isChannelFreeForSubscription(serverIn, channelIn)) {
-            log.debug("its a free channel for this server, returning true");
             return true;
         }
 
-        Long availableSubscriptions = availableSystemChannelSubscriptions(serverIn,
-            channelIn, orgIn);
-
-        if (availableSubscriptions != null && (availableSubscriptions.longValue() < 1)) {
-            log.debug("avail subscriptions is to small : " + availableSubscriptions);
-            return false;
-        }
-        log.debug("canServerSubscribeToChannel true!");
-        return true;
-    }
-
-    /**
-     * For given Server, Channel and Org return number of available subscriptions
-     * @param serverIn Server to check
-     * @param channelIn Channel to check
-     * @param orgIn Org to check
-     * @return number of subscriptions available
-     */
-    public static Long availableSystemChannelSubscriptions(Server serverIn,
-        Channel channelIn, Org orgIn) {
-        SelectMode m = ModeFactory.getMode("System_queries", "is_server_fve_eligible");
-        Map params = new HashMap();
-        params.put("sid", serverIn.getId());
-
-        Long availableSubscriptions = null;
-
-        /* Check if the channel is consumable for free */
-        if (ChannelManager.isChannelFreeForSubscription(serverIn, channelIn)) {
-            return availableSubscriptions;
+        // Not free.  Check to see if we're a guest, and there are FVEs available.
+        // Note that for FVEs, NULL == NOT FOUND
+        if (isServerFveEligible(serverIn)) {
+            Long availableFVEs = ChannelManager.getAvailableFveEntitlements(orgIn, channelIn);
+            if (availableFVEs != null && (availableFVEs.longValue() > 0)) {
+                return true;
+            }
         }
 
-        /* If serverIn is fve eligible, check number of flex guest entitlements available */
-        if (m.execute(params).size() >= 1) {
-            availableSubscriptions =
-                ChannelManager.getAvailableFveEntitlements(orgIn, channelIn);
-        }
-
-        /* If the previous query did not result any data or the number of flex guest
-         * subscriptions is zero, check number of regular entitlements available
-         */
-        if ((availableSubscriptions == null) || (availableSubscriptions.longValue() < 1)) {
-            availableSubscriptions = ChannelManager.getAvailableEntitlements(orgIn,
-              channelIn);
-        }
-
-        return availableSubscriptions;
+        // Finally, check available physical subs
+        // Note that for PHYS SUBS, NULL == UNLIMITED
+        Long availableSubs = ChannelManager.getAvailableEntitlements(orgIn, channelIn);
+        return ((availableSubs == null) || (availableSubs.longValue() > 0));
     }
 
     /**

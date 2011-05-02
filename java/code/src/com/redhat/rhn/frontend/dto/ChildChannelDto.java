@@ -28,6 +28,7 @@ public class ChildChannelDto {
     private boolean isFreeForGuests;
     private boolean isSubscribable;
     private Long availableSubscriptions;
+    private Long availableFveSubscriptions;
     private Long systemCount;
 
     /**
@@ -146,6 +147,21 @@ public class ChildChannelDto {
      */
     public void setAvailableSubscriptions(Long availableSubscriptionsIn) {
         this.availableSubscriptions = availableSubscriptionsIn;
+    }
+
+    /**
+     * @return Returns the availableFveSubscriptions.
+     */
+    public Long getAvailableFveSubscriptions() {
+        return availableFveSubscriptions;
+    }
+
+
+    /**
+     * @param availableFveSubscriptionsIn The availableFveSubscriptions to set.
+     */
+    public void setAvailableFveSubscriptions(Long availableFveSubscriptionsIn) {
+        this.availableFveSubscriptions = availableFveSubscriptionsIn;
     }
 
 
