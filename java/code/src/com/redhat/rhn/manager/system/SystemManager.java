@@ -2003,12 +2003,7 @@ public class SystemManager extends BaseManager {
         Map params = new HashMap();
         params.put("sid", serverIn.getId());
 
-        if (m.execute(params).size() >= 1) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (m.execute(params).size() >= 1);
     }
 
 
