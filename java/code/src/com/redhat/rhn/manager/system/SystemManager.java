@@ -87,12 +87,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.net.IDN;
 
 /**
  * SystemManager
@@ -2764,8 +2766,15 @@ public class SystemManager extends BaseManager {
      * @return List of DuplicateSystemBucket objects
      */
     public static List listDuplicatesByHostname(User user, Long inactiveHours) {
-        return listDuplicates(user, "duplicate_system_ids_hostname",
+        List<DuplicateSystemGrouping> duplicateSystems = listDuplicates(user,
+                "duplicate_system_ids_hostname",
                 Collections.EMPTY_LIST, inactiveHours);
+        ListIterator litr = duplicateSystems.listIterator();
+        while (litr.hasNext()) {
+            DuplicateSystemGrouping element = (DuplicateSystemGrouping)litr.next();
+            element.setKey(IDN.toUnicode(element.getKey()));
+        }
+        return duplicateSystems;
     }
 
     /**

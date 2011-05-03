@@ -50,6 +50,13 @@ public class DuplicateSystemGrouping implements Expandable, Identifiable {
     }
 
     /**
+     * @param newKey String Set new key
+     */
+    public void setKey(String newKey) {
+        key = newKey;
+    }
+
+    /**
      * Add a object to the bucket if there is a match
      *
      * @param net the object to add
