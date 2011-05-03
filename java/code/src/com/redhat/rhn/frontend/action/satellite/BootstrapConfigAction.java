@@ -30,6 +30,7 @@ import org.apache.struts.action.DynaActionForm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.IDN;
 
 /**
  * BootstrapConfigAction - action to handle changing the bootstrap config file options.
@@ -73,7 +74,7 @@ public class BootstrapConfigAction extends BaseConfigAction {
 
                 ConfigureBootstrapCommand cmd = (ConfigureBootstrapCommand)
                 getCommand(requestContext.getCurrentUser());
-                cmd.setHostname(form.getString(HOSTNAME));
+                cmd.setHostname(IDN.toASCII(form.getString(HOSTNAME)));
                 cmd.setSslPath(form.getString(SSL_CERT));
                 cmd.setEnableSsl((Boolean) form.get(ENABLE_SSL));
                 cmd.setEnableGpg((Boolean) form.get(ENABLE_GPG));
@@ -96,7 +97,8 @@ public class BootstrapConfigAction extends BaseConfigAction {
             }
         }
         else {
-            form.set(HOSTNAME, Config.get().getString(ConfigDefaults.JABBER_SERVER));
+            form.set(HOSTNAME, IDN.toUnicode(
+                Config.get().getString(ConfigDefaults.JABBER_SERVER)));
             form.set(SSL_CERT, DEFAULT_CERT_PATH);
             form.set(ENABLE_SSL, Boolean.TRUE);
             form.set(ENABLE_GPG, Boolean.TRUE);
