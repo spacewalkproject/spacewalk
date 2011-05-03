@@ -98,7 +98,11 @@ if [ -f /etc/init.d/satellite-httpd ] ; then
     %{__perl} -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
-
+# Set the group to allow Apache to access the conf files ...
+chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini || :
+# ... once we restrict access to some files that were too open in
+# the past.
+chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* || :
 
 %changelog
 * Thu Apr 21 2011 Jan Pazdziora 1.5.2-1
