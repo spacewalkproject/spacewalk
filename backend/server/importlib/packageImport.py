@@ -238,7 +238,11 @@ class PackageImport(ChannelPackageSubscription):
         # Process files too
         fileList = package['files']
         for f in fileList:
-            nv = (f['name'], '')
+            try:
+                filename = f['name'].decode('utf8')
+            except UnicodeDecodeError:
+                filename = f['name'].decode('iso8859-1')
+            nv = (filename, '')
             del f['name']
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
