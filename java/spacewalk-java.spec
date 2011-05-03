@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.16
+Version: 1.5.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 03 2011 Miroslav Suchý 1.5.17-1
+- checkstyle - Line has trailing spaces (msuchy@redhat.com)
+
 * Tue May 03 2011 Miroslav Suchý 1.5.16-1
 - 673392 - alter channel subscriptions: display flex consumption
 
