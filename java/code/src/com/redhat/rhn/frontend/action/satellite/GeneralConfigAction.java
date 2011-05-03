@@ -31,6 +31,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import java.net.IDN;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -127,6 +128,9 @@ public class GeneralConfigAction extends BaseConfigAction {
                 else {
                     String value = (String)
                         form.get(translateFormPropertyName(configKey));
+                    if (configKey.equals("server.jabber_server")) {
+                        value = IDN.toASCII(value);
+                    }
                     csc.updateString(configKey, value);
                 }
             }
@@ -159,6 +163,11 @@ public class GeneralConfigAction extends BaseConfigAction {
                         form.set(
               translateFormPropertyName("server.satellite.http_proxy_password_confirm"),
               configValue);
+                    }
+                    else if (configKey.equals("server.jabber_server")) {
+                        form.set(
+                          translateFormPropertyName("server.jabber_server"),
+                          IDN.toUnicode(configValue));
                     }
                 }
             }
