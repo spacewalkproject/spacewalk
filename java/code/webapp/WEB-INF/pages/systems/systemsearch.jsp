@@ -160,6 +160,13 @@
                         </rhn:highlight>
                     </rl:column>
                 </c:when>
+                <c:when test="${view_mode == 'systemsearch_hostname'}">
+                    <rl:column bound="false" headerkey="${view_mode}">
+                        <rhn:highlight tag="strong" text="${search_string}">
+                            ${current.decodedHostname}
+                        </rhn:highlight>
+                    </rl:column>
+                </c:when>
                 <c:otherwise>
                   <rl:column bound="false" headerkey="${view_mode}">
                    <rhn:highlight tag="strong" text="${search_string}">

@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Calendar;
-
+import java.net.IDN;
 
 /**
  * SystemSearchResult
@@ -159,6 +159,13 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setHostname(String hostnameIn) {
         this.hostname = hostnameIn;
+    }
+
+    /**
+      * @return the hostname in IDN encoding
+      */
+    public String getDecodedHostname() {
+        return (hostname == null) ? null : IDN.toUnicode(hostname);
     }
 
     /**
