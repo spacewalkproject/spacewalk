@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.5.2
+Version: 1.5.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -105,6 +105,10 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* || :
 
 %changelog
+* Tue May 03 2011 Jan Pazdziora 1.5.3-1
+- We restrict access to some files that were too open in the past (some of them
+  are not tracked by rpm).
+
 * Thu Apr 21 2011 Jan Pazdziora 1.5.2-1
 - Explicitly setting attributes of .../rhn-satellite-prep/etc/rhn.
 
