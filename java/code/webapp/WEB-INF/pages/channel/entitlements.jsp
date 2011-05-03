@@ -43,7 +43,7 @@
             ${current.currentMembers}
         </c:if>
         <c:if test="${current.currentMembers > 0}">
-            <a href="/network/systems/system_list/in_channel_family.pxt?cfam_id=${current.id}">
+            <a href="/network/systems/system_list/regular_in_channel_family.pxt?cfam_id=${current.id}">
                 ${current.currentMembers}</a>
         </c:if>
     </rl:column>
@@ -58,7 +58,12 @@
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.subscribed_flex"  >
+        <c:if test="${current.currentFlex == 0}">
             ${current.currentFlex}
+        </c:if>
+        <c:if test="${current.currentFlex > 0}">
+            <a href="/network/systems/system_list/flex_in_channel_family.pxt?cfam_id=${current.id}">${current.currentFlex}</a>
+        </c:if>
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.avaible_flex" >

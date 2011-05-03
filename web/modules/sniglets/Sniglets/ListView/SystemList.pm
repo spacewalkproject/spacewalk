@@ -186,6 +186,12 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "systems_in_channel_family",
 			   -datasource => RHN::DataSource::System->new);
 
+  Sniglets::ListView::List->add_mode(-mode => "regular_systems_in_channel_family",
+			   -datasource => RHN::DataSource::System->new);
+
+  Sniglets::ListView::List->add_mode(-mode => "flex_systems_in_channel_family",
+			   -datasource => RHN::DataSource::System->new);
+
   Sniglets::ListView::List->add_mode(-mode => "systems_potentially_in_channel_family",
 			   -datasource => RHN::DataSource::System->new);
 

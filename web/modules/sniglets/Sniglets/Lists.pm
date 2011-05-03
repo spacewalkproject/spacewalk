@@ -218,6 +218,8 @@ my %pinfo_modes = (
 		     '/inactive.pxt' => {mode => 'inactive', name => 'Inactive Systems'},
 		     '/proxy.pxt' => {mode => 'proxy_servers', name => 'Proxy Servers'},
 		     '/in_channel_family.pxt' => {mode => 'systems_in_channel_family', name => 'Subscribed Systems'},
+		     '/flex_in_channel_family.pxt' => {mode => 'flex_systems_in_channel_family', name => 'Subscribed Systems'},
+		     '/regular_in_channel_family.pxt' => {mode => 'regular_systems_in_channel_family', name => 'Subscribed Systems'},
 		     '/potentially_in_channel_family.pxt' => {mode => 'systems_potentially_in_channel_family', name => 'Subscribable Systems'},
 		    },
           errata => {'/relevant.pxt' => {mode => 'relevant_errata', name => 'Errata Relevant to Your Systems'},

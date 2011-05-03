@@ -901,6 +901,42 @@ ORDER BY UPPER(NVL(X.NAME, '(none)')), X.ID
   <elaborator name="entitlements"/>
 </mode>
 
+<mode name="regular_systems_in_channel_family">
+  <query params="org_id, cfam_id, user_id">
+SELECT distinct S.id, S.name
+  FROM rhnServer S,
+       rhnServerChannel SC,
+       rhnChannelFamilyMembers CFM
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = CFM.channel_id
+   AND SC.is_flex = 'N'
+   AND CFM.channel_family_id = :cfam_id
+   AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="flex_systems_in_channel_family">
+  <query params="org_id, cfam_id, user_id">
+SELECT distinct S.id, S.name
+  FROM rhnServer S,
+       rhnServerChannel SC,
+       rhnChannelFamilyMembers CFM
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = CFM.channel_id
+   AND SC.is_flex = 'Y'
+   AND CFM.channel_family_id = :cfam_id
+   AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+</mode>
+
 <mode name="systems_potentially_in_channel_family">
   <query params="org_id, cfam_id, user_id">
 SELECT S.id, S.name
