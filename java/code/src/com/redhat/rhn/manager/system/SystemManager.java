@@ -2031,7 +2031,8 @@ public class SystemManager extends BaseManager {
         // Not free.  Check to see if we're a guest, and there are FVEs available.
         // Note that for FVEs, NULL == NOT FOUND
         if (isServerFveEligible(serverIn)) {
-            Long availableFVEs = ChannelManager.getAvailableFveEntitlements(orgIn, channelIn);
+            Long availableFVEs = ChannelManager.getAvailableFveEntitlements(orgIn, 
+                channelIn);
             if (availableFVEs != null && (availableFVEs.longValue() > 0)) {
                 return true;
             }
