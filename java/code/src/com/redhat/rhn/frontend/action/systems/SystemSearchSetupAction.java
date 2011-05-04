@@ -165,6 +165,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             request.setAttribute(VIEW_MODE, request.getParameter(VIEW_MODE));
             request.setAttribute(SEARCH_STRING, request.getParameter(SEARCH_STRING));
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
+            request.setAttribute(FINE_GRAINED, request.getParameter(FINE_GRAINED));
 
             if (invertResults) {
                 request.setAttribute(INVERT_RESULTS, "on");

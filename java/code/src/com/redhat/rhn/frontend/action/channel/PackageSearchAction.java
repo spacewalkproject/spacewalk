@@ -253,6 +253,7 @@ public class PackageSearchAction extends RhnAction {
         request.setAttribute("allChannels", allChannels);
         request.setAttribute("channel_filter", form.getString("channel_filter"));
         request.setAttribute("relevant", relevantFlag ? "yes" : "no");
+        request.setAttribute(FINE_GRAINED, fineGrained ? "yes" : "no");
 
         // Default where to search criteria
         request.setAttribute("whereCriteria", searchCriteria);
