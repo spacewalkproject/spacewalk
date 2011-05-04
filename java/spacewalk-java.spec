@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.18
+Version: 1.5.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed May 04 2011 Miroslav Suchý 1.5.19-1
+- sort inputs on the page
+- 683200 - encode hostname to IDN in MonitoringConfig.do page
+
 * Tue May 03 2011 Miroslav Suchý 1.5.18-1
 - 682112 - correct displayed systems consuming channel entitlements
 - 683200 - encode hostname to IDN in GeneralConfig.do page
