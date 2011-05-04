@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.3
+Version:        11.2.0.4
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -115,6 +115,10 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Wed May 04 2011 Jan Pazdziora 11.2.0.4-1
+- We unset LD_PRELOAD to force ldd to show the libldap line with => even if
+  LD_PRELOAD was already set.
+
 * Mon Jan 17 2011 Jan Pazdziora 11.2.0.3-1
 - Set diag_adr_enabled to off.
 
