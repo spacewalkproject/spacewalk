@@ -59,4 +59,4 @@
 /var/tmp/.oracle(/.*)?          gen_context(user_u:object_r:oracle_tmp_t,s0)
 
 # oracle configuration manager stuff
-/opt/apps/oracle/web/product/(.*/)?/ccr/state(/.*)?'         gen_context(system_u:object_r:oracle_dbfile_t,s0)
+/opt/apps/oracle/web/product/(.*/)?ccr/state(/.*)?         gen_context(system_u:object_r:oracle_dbfile_t,s0)
