@@ -33,6 +33,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
+import java.net.IDN;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
     private static Logger logger = Logger.getLogger(MonitoringConfigAction.class);
 
     public static final String IS_MONITORING_SCOUT = "is_monitoring_scout";
+    public static final String MDOM = "MDOM";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
@@ -90,9 +92,14 @@ public class MonitoringConfigAction extends BaseConfigAction {
                 logger.debug("execute() - Name: " + ci.getName() +
                         " value: " + ci.getDefinition());
             }
-            nameDescVals.add(new NameDescriptionValue(ci.getName(),
-                    LocalizationService.getInstance().getMessage(ci.getName()),
-                    ci.getDefinition()));
+            String value = ci.getDefinition();
+            String name = ci.getName();
+            if (MDOM.equals(name)) {
+                value = IDN.toUnicode(value);
+            }
+            nameDescVals.add(new NameDescriptionValue(name,
+                    LocalizationService.getInstance().getMessage(name),
+                    value));
 
         }
 
@@ -100,6 +107,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
             ConfigureSatelliteCommand csc = (ConfigureSatelliteCommand) getCommand(user);
             csc.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT,
                     (Boolean) form.get(IS_MONITORING_SCOUT));
+            csc.updateString(MDOM, IDN.toASCII(form.getString(MDOM)));
             if (csc.getKeysToBeUpdated().size() > 0) {
                 valuesChanged = true;
                 ValidatorError[] verrors = csc.storeConfiguration();
@@ -124,6 +132,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
             form.set(IS_MONITORING_SCOUT,
                     new Boolean(Config.get().getBoolean(
                             ConfigDefaults.WEB_IS_MONITORING_SCOUT)));
+            // form.set(MDOM, IDN.toUnicode((String) form.get(MDOM)));
         }
 
         req.setAttribute("configList", nameDescVals);

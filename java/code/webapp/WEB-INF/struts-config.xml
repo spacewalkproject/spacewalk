@@ -396,6 +396,7 @@
             <form-property name="squelch"  type="java.lang.String"/>
             <form-property name="is_monitoring_scout"  type="java.lang.Boolean"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="MDOM"  type="java.lang.String"/>
         </form-bean>
 
         <form-bean name="scheduleRemoteCmdForm"
