@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.5.3
+Version:        1.5.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Wed May 04 2011 Jan Pazdziora 1.5.4-1
+- On RHEL 6, tomcat6 no longer sources the setenv.sh so we need to source it
+  ourselves.
+
 * Wed Apr 27 2011 Simon Lukasik <slukasik@redhat.com> 1.5.3-1
 - Drop the schema only if exists (slukasik@redhat.com)
 
