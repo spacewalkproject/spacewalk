@@ -30,8 +30,11 @@ from rhn import SSL
 
 ## common imports
 from spacewalk.common.rhnLib import parseUrl
-from spacewalk.common import Traceback, log_debug, log_error, CFG, \
-    rhnCache, rhnFault
+from spacewalk.common.rhnTB import Traceback
+from spacewalk.common.rhnLog import log_debug, log_error
+from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.rhnException import rhnFault
+from spacewalk.common import rhnCache
 from spacewalk.common.rhnTranslate import _
 
 

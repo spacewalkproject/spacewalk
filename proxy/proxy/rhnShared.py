@@ -26,8 +26,11 @@ from rhn import connections
 from rhn.SSL import TimeoutException
 
 ## common imports
-from spacewalk.common import UserDictCase, rhnFlags, log_debug, log_error, \
-    Traceback, CFG, rhnException, rhnFault, rhnLib, apache
+from spacewalk.common.rhnTB import Traceback
+from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.rhnException import rhnFault, rhnException
+from spacewalk.common.rhnLog import log_debug, log_error
+from spacewalk.common import UserDictCase, rhnFlags, rhnLib, apache
 from spacewalk.common.rhnTranslate import _
 
 ## local imports

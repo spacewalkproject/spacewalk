@@ -26,8 +26,12 @@ from rhnConstants import *
 from rhn import rpclib, connections
 
 ## common imports
-from spacewalk.common import rhnApache, rhnFlags, log_debug, log_error, CFG, \
-                   UserDictCase, Traceback, rhnFault, rhnException, apache
+from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.rhnLog import initLOG, log_debug, log_error
+from spacewalk.common.rhnApache import rhnApache
+from spacewalk.common.rhnTB import Traceback
+from spacewalk.common.rhnException import rhnFault, rhnException
+from spacewalk.common import rhnFlags, UserDictCase, apache
 from spacewalk.common.rhnLib import setHeaderValue
 
 ## local imports

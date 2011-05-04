@@ -44,7 +44,7 @@ except ImportError:
     from optik import Option, OptionParser
 
 # RHN imports
-from spacewalk.common import CFG, initCFG
+from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnLib import parseUrl
 initCFG('proxy.package_manager')
 
