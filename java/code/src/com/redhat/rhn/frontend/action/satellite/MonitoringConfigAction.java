@@ -34,6 +34,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
 import java.net.IDN;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,6 +104,15 @@ public class MonitoringConfigAction extends BaseConfigAction {
                     value));
 
         }
+        // sort inputs in form using Description
+        Collections.sort(nameDescVals, new Comparator() {
+            public int compare(Object x, Object y) {
+                String xName = ((NameDescriptionValue)x).getName();
+                String yName = ((NameDescriptionValue)y).getName();
+                return xName.compareTo(yName);
+            }
+        }
+        );
 
         if (isSubmitted(form)) {
             ConfigureSatelliteCommand csc = (ConfigureSatelliteCommand) getCommand(user);
