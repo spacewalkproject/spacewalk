@@ -27,7 +27,7 @@ import time
 import types
 import exceptions
 from optparse import Option, OptionParser
-from rhn.connections import idn_ascii_to_pune
+from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
 
 import gettext
 t = gettext.translation('spacewalk-backend-server', fallback=True)
@@ -355,7 +355,7 @@ def sendMail(forceEmail=0):
         if body:
             print _("+++ sending log as an email +++")
             headers = {
-                'Subject' : _('RHN Management Satellite sync. report from %s') % os.uname()[1],
+                'Subject' : _('RHN Management Satellite sync. report from %s') % idn_pune_to_unicode(os.uname()[1]),
             }
             sndr = CFG.get('traceback_mail', 'root@localhost')
             rhnMail.send(headers, body, sender=sndr)
