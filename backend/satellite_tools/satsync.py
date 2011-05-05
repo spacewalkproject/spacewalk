@@ -18,6 +18,7 @@
 
 
 # __lang. imports__
+import datetime
 import os
 import sys
 import stat
@@ -1726,11 +1727,25 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         pkgs_total = len(missing_fs_packages)
         pkg_current = 0
         cfg = config.initUp2dateConfig()
+        total_size = 0
+        
+        #count size of missing packages
         for package_id, path in missing_fs_packages:
             pkg_current = pkg_current + 1
             timestamp = short_package_collection.get_package_timestamp(package_id)
             package = package_collection.get_package(package_id, timestamp)
+            total_size = total_size+package['package_size']
 
+        log(1, messages.package_fetch_total_size %
+            (self._bytes_to_fuzzy(total_size)))
+    
+        processed_size = 0
+        start_time = round(time.time())
+
+        for package_id, path in missing_fs_packages:
+            pkg_current = pkg_current + 1
+            timestamp = short_package_collection.get_package_timestamp(package_id)
+            package = package_collection.get_package(package_id, timestamp)
             checksum_type = package['checksum_type']
             checksum = package['checksum']
             package_size = package['package_size']
@@ -1791,7 +1806,15 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             # Package successfully saved
             filename = os.path.basename(rpmManip.relative_path)
+
+            # Determine downloaded size and remaining time
             size = package['package_size']
+            processed_size = processed_size + size
+            current_time = round(time.time())
+            remain_time = (datetime.timedelta(seconds=current_time-start_time))*(total_size/processed_size - 1)
+
+            log(1, messages.package_fetch_remain_size_time %
+                (self._bytes_to_fuzzy(processed_size), self._bytes_to_fuzzy(total_size), remain_time))
 
             log(1, messages.package_fetch_successful %
                 (pkg_current, pkgs_total, filename, size))
@@ -1817,6 +1840,22 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             notimeYN=1)
         log(2, messages.package_fetch_summary_extinct % extinct_count,
             notimeYN=1)
+
+    # Translate x bytes to string "x MB", "x GB" or "x kB"
+    def _bytes_to_fuzzy(self, bytes):
+        kilo=1024
+        mega=kilo*1024
+        giga=mega*1024
+        if (bytes/kilo == 0):
+            return "%d bytes" %(bytes)
+        elif (bytes/mega == 0):
+            return "%d kB" %(bytes / 1024)
+        elif (bytes/giga == 0):
+            mega_value=bytes / mega
+            return "%d.%d MB" %(mega_value, (bytes % mega) / kilo)
+        else:
+            giga_value=bytes / giga
+            return "%d.%d GB" %(giga_value, (bytes % giga) / mega)
 
     def _get_package_stream(self, channel, package_id, nvrea, sources):
         """ returns (filepath, stream), so in the case of a "wire source",

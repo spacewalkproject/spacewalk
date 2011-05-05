@@ -61,6 +61,8 @@ not_enough_diskspace = "  ERROR: not enough free space (%s KB) on device."
 
 package_fetch_successful = "    %3d/%s Fetch successful: %s (%s bytes)" 
 package_fetch_extinct =    "    %3d/%s Extinct package:  %s" 
+package_fetch_total_size = "   Total size: %s"
+package_fetch_remain_size_time = "      Downloaded %s of %s. Estimated remaining time: %s"
 package_fetch_failed  =    "    %3d/%s Fetch unsuccessful: %s"
 package_fetch_summary =         "   RPM fetch summary: %s"
 package_fetch_summary_success = "       success: %d"
