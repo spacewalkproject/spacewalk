@@ -68,15 +68,12 @@ public class TaskoQuartzHelper {
         if (isCronExpressionEmpty(schedule.getCronExpr())) {
             trigger = new SimpleTrigger(schedule.getJobLabel(),
                     getGroupName(schedule.getOrgId()), 1, 1);
-            trigger.setEndTime(new Date());
         }
         else {
             try {
                 trigger = new CronTrigger(schedule.getJobLabel(),
                         getGroupName(schedule.getOrgId()),
                             schedule.getCronExpr());
-                trigger.setStartTime(schedule.getActiveFrom());
-                trigger.setEndTime(schedule.getActiveTill());
             }
             catch (ParseException e) {
                 throw new InvalidParamException("Invalid cron expression " +
@@ -84,6 +81,8 @@ public class TaskoQuartzHelper {
             }
 
         }
+        trigger.setStartTime(schedule.getActiveFrom());
+        trigger.setEndTime(schedule.getActiveTill());
         // create job
         JobDetail jobDetail = new JobDetail(schedule.getJobLabel(),
                 getGroupName(schedule.getOrgId()), TaskoJob.class);
