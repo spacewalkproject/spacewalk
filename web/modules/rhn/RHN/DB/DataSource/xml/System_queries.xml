@@ -910,7 +910,7 @@ SELECT distinct S.id, S.name
  WHERE S.org_id = :org_id
    AND S.id = SC.server_id
    AND SC.channel_id = CFM.channel_id
-   AND SC.is_flex = 'N'
+   AND SC.is_fve = 'N'
    AND CFM.channel_family_id = :cfam_id
    AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
@@ -928,7 +928,7 @@ SELECT distinct S.id, S.name
  WHERE S.org_id = :org_id
    AND S.id = SC.server_id
    AND SC.channel_id = CFM.channel_id
-   AND SC.is_flex = 'Y'
+   AND SC.is_fve = 'Y'
    AND CFM.channel_family_id = :cfam_id
    AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
