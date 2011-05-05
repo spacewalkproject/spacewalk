@@ -499,7 +499,11 @@ public class TaskoXmlRpcHandler {
         List<TaskoSchedule> schedules = new ArrayList<TaskoSchedule>();
         for (TaskoSchedule schedule : TaskoFactory.listFuture()) {
             TaskoQuartzHelper.destroyJob(schedule.getOrgId(), schedule.getJobLabel());
-            schedule.setActiveFrom(new Date());
+            Date now = new Date();
+            schedule.setActiveFrom(now);
+            if (!schedule.isCronSchedule()) {
+                schedule.setActiveTill(now);
+            }
             TaskoFactory.save(schedule);
             try {
                 TaskoQuartzHelper.createJob(schedule);

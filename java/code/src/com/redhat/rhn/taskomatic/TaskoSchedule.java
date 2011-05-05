@@ -295,4 +295,12 @@ public class TaskoSchedule {
     public void setCronExpr(String cronExprIn) {
         cronExpr = cronExprIn;
     }
+
+    /**
+     * checks whether cron expression is defined
+     * @return true, if it's a cron schedule
+     */
+    public boolean isCronSchedule() {
+        return (cronExpr != null) && !cronExpr.isEmpty();
+    }
 }
