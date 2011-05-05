@@ -293,6 +293,18 @@ public class TaskoFactory extends HibernateFactory {
         }
     }
 
+
+    /**
+     * list schedules, that shall be run sometime in the future
+     * @return list of schedules to be run at least once
+     */
+    public static List<TaskoSchedule> listFuture() {
+        Map params = new HashMap();
+        params.put("timestamp", new Date());
+        return singleton.listObjectsByNamedQuery(
+                "TaskoSchedule.listFuture", params);
+    }
+
     private static TaskoBunch lookupBunchByOrgAndName(Integer orgId, String bunchName)
         throws NoSuchBunchTaskException {
         TaskoBunch bunch = null;

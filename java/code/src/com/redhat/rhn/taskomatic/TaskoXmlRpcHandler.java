@@ -19,6 +19,7 @@ import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -486,5 +487,29 @@ public class TaskoXmlRpcHandler {
     public String getSatRunStdErrorLog(Integer runId, Integer nBytes)
     throws InvalidParamException {
         return getRunStdErrorLog(null, runId, nBytes);
+    }
+
+    /**
+     * reinitialize all schedules
+     * meant to be called, when taskomatic has to be reinitialized
+     * (f.e. because of time shift)
+     * @return list of successfully reinitialized schedules
+     */
+    public List<TaskoSchedule> reinitializeAllSchedulesFromNow() {
+        List<TaskoSchedule> schedules = new ArrayList<TaskoSchedule>();
+        for (TaskoSchedule schedule : TaskoFactory.listFuture()) {
+            TaskoQuartzHelper.destroyJob(schedule.getOrgId(), schedule.getJobLabel());
+            schedule.setActiveFrom(new Date());
+            TaskoFactory.save(schedule);
+            try {
+                TaskoQuartzHelper.createJob(schedule);
+                schedules.add(schedule);
+            }
+            catch (InvalidParamException e) {
+                // Pech gehabt()
+            }
+        }
+        return schedules;
+
     }
 }
