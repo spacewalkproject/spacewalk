@@ -478,19 +478,15 @@ class UploadClass:
         else:
             self.setUsernamePassword()
 
-    #1/3/06 wregglej 173287 rhnpush needs to work against older satellites, so we need a way to see if they can handle
-    #session token authentication
     def new_sat_test(self):
+        """ test if we can use session caching
+
+            Historically this function was used to test if rhnParent can handle session token authentication.
+            All curent satellites (4.0.6+) can do that. So it only return False, if we use --no-session-cachine.
+        """
         if self.new_sat is None:
-            if self.options.no_session_caching:
-                self.new_sat = 0 
-            else:
-                self.new_sat = 1
-                try:
-                    self.server.packages.no_op()
-                except:
-                    self.new_sat = 0
-        return self.new_sat     
+            self.new_sat = not self.options.no_session_caching
+        return self.new_sat
  
     def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
         """ Processes a file

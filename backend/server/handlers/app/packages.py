@@ -85,7 +85,10 @@ class Packages(RPC_Base):
         self.functions.append('getSourcePackageMD5sumBySession')
         
     def no_op(self):
-        """ This is so the client can tell if the satellite supports session tokens or not. """
+        """ This is so the client can tell if the satellite supports session tokens or not.
+
+            This was used in rhnpush-5.5.26 and older. When there will be no such version of rhnpush in wild,
+            then this function can be safely removed."""
         return 1
 
     def uploadPackageInfo(self, username, password, info):

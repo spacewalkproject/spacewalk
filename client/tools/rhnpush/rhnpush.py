@@ -83,7 +83,7 @@ def main():
         Option(     '--no-cache',   action='store_true', help='Do not create a username/password cache'),
         Option(     '--extended-test',  action='store_true', help='Perform a more verbose test'),
         Option(     '--no-session-caching',  action='store_true', 
-            help='Disables session-token support. Useful for using rhnpush with pre-4.0.6 satellites.'),
+            help='Disables session-token authentication.'),
         Option(     '--tolerant',   action='store_true', 
             help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.')
     ]

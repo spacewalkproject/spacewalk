@@ -292,7 +292,7 @@ Utility to push binary and source RPMs into an RHN channel.
    <varlistentry>
         <term>--no-session-caching</term>
         <listitem>
-            <para>This option disabled session token support. Useful for satellites older than 4.0.6</para>
+            <para>This option disabled session token authentication. Useful if you want to push to two or more different servers.</para>
         </listitem>
     </varlistentry> 
     <varlistentry>
