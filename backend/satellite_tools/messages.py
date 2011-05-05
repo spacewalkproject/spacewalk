@@ -20,63 +20,67 @@
     All rights reserved.
 """
 
-failed_step = """
+import gettext
+t = gettext.translation('spacewalk-backend-server', fallback=True)
+_ = t.ugettext
+
+failed_step = _("""
 ERROR: executing step %s. Error is:
 %s
-"""
+""")
 
-file_dir_error = """
+file_dir_error = _("""
 ERROR: there was a problem accessing the channel data from your temporary
        repository. Did you migrate all of the data from the channel ISOs
        do this directory? If so, please recheck the channels ISOs, ensure
        that you have them all, and then iteratively remount and repopulate
        the temporary repository (%s).
-"""
+""")
 
-syncer_error = """
+syncer_error = _("""
 ERROR: there was a problem synchronizing the information.
        Error message: %s
-"""
+""")
 
-iss_not_available = """
+iss_not_available = _("""
 ERROR: The Server listed within iss-parent is not configured for ISS 
        capability.
        Please review your configuration before trying again.
-"""
+""")
             
-parent_channel_error = """
+parent_channel_error = _("""
 ERROR: a child-channel cannot be synced without its parent being synced as
        well. A parent needs to be either (a) previously synced or (b) synced
        in tandem with the desired child-channel. Missing parents for this
        transaction:
        %s
-"""
+""")
 
-invalid_channel_family_error = """
+invalid_channel_family_error = _("""
 ERROR: you are not entitled to sync a channel in this set of channels.
 Please contact your sales rep or RHN contact
-%s"""
+%s""")
 
-not_enough_diskspace = "  ERROR: not enough free space (%s KB) on device."
+not_enough_diskspace = _("  ERROR: not enough free space (%s KB) on device.")
 
-package_fetch_successful = "    %3d/%s Fetch successful: %s (%s bytes)" 
-package_fetch_extinct =    "    %3d/%s Extinct package:  %s" 
-package_fetch_total_size = "   Total size: %s"
-package_fetch_remain_size_time = "      Downloaded %s of %s. Estimated remaining time: %s"
-package_fetch_failed  =    "    %3d/%s Fetch unsuccessful: %s"
-package_fetch_summary =         "   RPM fetch summary: %s"
-package_fetch_summary_success = "       success: %d"
-package_fetch_summary_failed =  "       failed:  %d"
-package_fetch_summary_extinct = "       extinct: %d"
+package_fetch_successful = _("    %3d/%s Fetch successful: %s (%s bytes)")
+package_fetch_extinct =    _("    %3d/%s Extinct package:  %s")
+package_fetch_total_size = _("   Total size: %s")
+package_fetch_remain_size_time = _("      Downloaded %s of %s. Estimated remaining time: %s")
+package_fetch_failed  =    _("    %3d/%s Fetch unsuccessful: %s")
+package_fetch_summary =         _("   RPM fetch summary: %s")
+package_fetch_summary_success = _("       success: %d")
+package_fetch_summary_failed =  _("       failed:  %d")
+package_fetch_summary_extinct = _("       extinct: %d")
 
-package_parsing = "   Retrieving / parsing *relevant* package metadata: %s (%s)"
-erratum_parsing = "   Retrieving / parsing errata data: %s (%s)"
-kickstart_parsing = "   Retrieving / parsing kickstart data: %s (%s)"
-kickstart_downloading = "   Retrieving / parsing kickstart tree files: %s (%s)"
-package_importing = "   Importing *relevant* package metadata: %s (%s)"
-warning_slow = "   * WARNING: this may be a slow process."
-link_channel_packages = "Linking packages to channels"
-errata_importing = "   Importing *relevant* errata: %s (%s)"
-kickstart_import_nothing_to_do = "   No new kickstartable tree to import"
-kickstart_importing = "Importing kickstartable trees (%d)"
-kickstart_imported = "Imported kickstartable trees (%d)"
+package_parsing = 		_("   Retrieving / parsing *relevant* package metadata: %s (%s)")
+erratum_parsing = 		_("   Retrieving / parsing errata data: %s (%s)")
+kickstart_parsing = 	_("   Retrieving / parsing kickstart data: %s (%s)")
+kickstart_downloading = _("   Retrieving / parsing kickstart tree files: %s (%s)")
+package_importing = 	_("   Importing *relevant* package metadata: %s (%s)")
+warning_slow = 			_("   * WARNING: this may be a slow process.")
+link_channel_packages = _("Linking packages to channels")
+errata_importing = 		_("   Importing *relevant* errata: %s (%s)")
+kickstart_import_nothing_to_do = _("   No new kickstartable tree to import")
+kickstart_importing = 	_("Importing kickstartable trees (%d)")
+kickstart_imported = 	_("Imported kickstartable trees (%d)")
