@@ -22,6 +22,7 @@ import smtplib
 
 from rhnConfig import CFG
 from rhnLog import log_error
+from rhn.connections import idn_pune_to_unicode
 
 # check if the headers have the minimum required fields
 def __check_headers(h):
@@ -29,11 +30,13 @@ def __check_headers(h):
         # does not look like a dictionary
         h = {}
     if not h.has_key("Subject"):
-        h["Subject"] = "RHN System Mail From %s" % os.uname()[1]
+        h["Subject"] = "RHN System Mail From %s" % idn_pune_to_unicode(os.uname()[1])
     if not h.has_key("To"):
         to = CFG.TRACEBACK_MAIL
     else:
         to = h["To"]
+    if not ("Content-Type" in h):
+	h["Content-Type"] = "text/plain; charset=utf-8"
     if type(to) in [type([]), type(())]:
         toaddrs = to
         to = string.join(to, ', ')
@@ -49,8 +52,9 @@ def send(headers, body, sender = None, lazy = 0):
         sender = headers["From"]
     joined_headers = ''
     for h in headers.keys():
-        joined_headers += "%s: %s\n" % (h, headers[h])
+        joined_headers += "%s: %s\n" % (h, headers[h].encode('utf-8'))
 
     server = smtplib.SMTP('localhost')
-    server.sendmail(sender, toaddrs, "%s\n%s\n" % (joined_headers, body))
+    msg = "%s\n%s\n" % (joined_headers, body)
+    server.sendmail(sender, toaddrs, msg.encode('utf-8'))
     server.quit()
