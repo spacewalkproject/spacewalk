@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.20
+Version: 1.5.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 05 2011 Tomas Lestach <tlestach@redhat.com> 1.5.21-1
+- 659138 - fix ordering of runs (tlestach@redhat.com)
+- introduce taskomatic reinit schedules (tlestach@redhat.com)
+
 * Wed May 04 2011 Tomas Lestach <tlestach@redhat.com> 1.5.20-1
 - 648640 - keep fineGrained option when changing number of custom items
   (tlestach@redhat.com)
