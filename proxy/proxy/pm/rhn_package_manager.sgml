@@ -162,6 +162,12 @@ Manages RPM packages for the RHN proxy
             <para>Turn off SSL (not recommended).</para>
         </listitem>
     </varlistentry>
+   <varlistentry>
+        <term>--no-session-caching</term>
+        <listitem>
+            <para>This option disabled session token authentication. Useful if you want to push to two or more different servers.</para>
+        </listitem>
+    </varlistentry>
     <varlistentry>
         <term>-h, --help</term>
         <listitem>
