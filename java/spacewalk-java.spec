@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.21
+Version: 1.5.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 06 2011 Jan Pazdziora 1.5.22-1
+- 673392 - correct entitlement count logic for custom channels
+  (mzazrivec@redhat.com)
+
 * Thu May 05 2011 Tomas Lestach <tlestach@redhat.com> 1.5.21-1
 - 659138 - fix ordering of runs (tlestach@redhat.com)
 - introduce taskomatic reinit schedules (tlestach@redhat.com)
