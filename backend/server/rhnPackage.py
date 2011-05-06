@@ -280,7 +280,7 @@ def get_source_package_path_by_name(server_id, packageName):
     rhnFlags.set("Download-Accelerator-Path", rs['path'])
     return filePath
 
-def get_path_for_package(pkg, channel_label):
+def get_info_for_package(pkg, channel_label):
     log_debug(3, pkg)
     pkg = map(str, pkg)
     params = {'name': pkg[0],
@@ -295,7 +295,8 @@ def get_path_for_package(pkg, channel_label):
     else:
         epochStatement = "epoch = :epoch"
     statement = """
-    select p.path, c.label as channel_label
+    select p.path, c.label as channel_label,
+           cv.checksum_type, cv.checksum
       from rhnPackage p
       join rhnPackageName pn
         on p.name_id = pn.id
@@ -309,6 +310,8 @@ def get_path_for_package(pkg, channel_label):
         on cp.channel_id = c.id
        and p.org_id = c.org_id
        and c.label = :label
+      join rhnChecksumView cv
+        on p.checksum_id = cv.id
      where pn.name = :name
        and pe.version = :ver
        and pe.release = :rel
@@ -321,8 +324,12 @@ def get_path_for_package(pkg, channel_label):
 
     ret = h.fetchone_dict()
     if not ret:
-        return None, None
-    return ret['path'], ret['channel_label']
+        return {'path':          None,
+                'channel_label': None,
+                'checksum_type': None,
+                'checksum':      None,
+               }
+    return ret
 
 
 def _none2emptyString(foo):
