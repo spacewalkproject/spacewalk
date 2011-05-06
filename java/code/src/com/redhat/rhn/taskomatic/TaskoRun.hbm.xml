@@ -42,7 +42,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </query>
 
         <query name="TaskoRun.listByBunch">
-            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE template.bunch.name = :bunch_name ORDER BY startTime DESC, template.ordering DESC, endTime DESC]]>
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE template.bunch.name = :bunch_name ORDER BY startTime DESC, id DESC]]>
         </query>
 
         <query name="TaskoRun.listRunsWithStatus">
