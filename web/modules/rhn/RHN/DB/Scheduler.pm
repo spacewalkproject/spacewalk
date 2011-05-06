@@ -1511,7 +1511,7 @@ sub schedule_remote_command {
     # can't use the normal add_systems for the set...
     $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnServerAction (server_id, action_id, status)
-SELECT DISTINCT S.id, :action_id, :status
+SELECT DISTINCT S.id, :action_id + 0, :status + 0
   FROM rhnServer S,
        rhnClientCapabilityName CCN,
        rhnClientCapability CC,
