@@ -144,7 +144,10 @@ class DeployTransaction:
 
                 mode = '600'
                 if file_info.has_key('filemode'):
-                    mode = file_info['filemode']
+                    if file_info['filemode'] is "":
+                        mode='000'
+                    else:
+                        mode = file_info['filemode']
 
                 mode = string.atoi(str(mode), 8)
                 os.chmod(temp_file_path, mode)
