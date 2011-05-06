@@ -50,11 +50,11 @@ def send(headers, body, sender = None, lazy = 0):
     (headers, toaddrs) = __check_headers(headers)
     if sender is None:
         sender = headers["From"]
-    joined_headers = ''
+    joined_headers = u''
     for h in headers.keys():
-        joined_headers += "%s: %s\n" % (h, headers[h].encode('utf-8'))
+        joined_headers += u"%s: %s\n" % (h, headers[h])
 
     server = smtplib.SMTP('localhost')
-    msg = "%s\n%s\n" % (joined_headers, body)
+    msg = u"%s\n%s\n" % (joined_headers, body)
     server.sendmail(sender, toaddrs, msg.encode('utf-8'))
     server.quit()
