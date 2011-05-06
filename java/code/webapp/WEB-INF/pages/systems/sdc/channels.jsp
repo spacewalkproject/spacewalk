@@ -59,12 +59,22 @@
                         </c:when>
 
                         <c:otherwise>
-                          (<strong>${channel.availableSubscriptions}</strong> <bean:message key="sdc.channels.edit.available"/>)
+                          <c:if test="${channel.availableSubscriptions == null}">
+                            (<bean:message key="sdc.channels.edit.unlimited"/>)
+                          </c:if>
+                          <c:if test="${channel.availableSubscriptions != null}">
+                            (<strong>${channel.availableSubscriptions}</strong> <bean:message key="sdc.channels.edit.available"/>)
+                          </c:if>
                         </c:otherwise>
                       </c:choose>
                     </c:if>
                     <c:if test="${not system.virtualGuest}">
-                      (<strong>${channel.availableSubscriptions}</strong> <bean:message key="sdc.channels.edit.available"/>)
+                      <c:if test="${channel.availableSubscriptions == null}">
+                        (<bean:message key="sdc.channels.edit.unlimited"/>)
+                      </c:if>
+                      <c:if test="${channel.availableSubscriptions != null}">
+                        (<strong>${channel.availableSubscriptions}</strong> <bean:message key="sdc.channels.edit.available"/>)
+                      </c:if>
                     </c:if>
                   </li>
                 </c:forEach>
