@@ -58,10 +58,6 @@ public class BunchDetailAction extends RhnAction implements Listable {
         request.setAttribute("label", bunchLabel);
         request.setAttribute("bunchdescription", LocalizationService.getInstance().
                 getMessage("bunch.jsp.description." + bunchLabel));
-        ListHelper helper = new ListHelper(this, request);
-        helper.setListName(LIST_NAME);
-        helper.setParentUrl(request.getRequestURI() + "?label=" + bunchLabel);
-        helper.execute();
 
         if (ctx.isSubmitted()) {
             try {
@@ -78,7 +74,10 @@ public class BunchDetailAction extends RhnAction implements Listable {
                         "repos.jsp.message.taskomaticdown", null);
             }
         }
-
+        ListHelper helper = new ListHelper(this, request);
+        helper.setListName(LIST_NAME);
+        helper.setParentUrl(request.getRequestURI() + "?label=" + bunchLabel);
+        helper.execute();
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
