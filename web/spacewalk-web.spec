@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.6
+Version: 1.5.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri May 06 2011 Jan Pazdziora 1.5.7-1
+- Fix remote commands on Spacewalk 1.4 and PostgreSQL (Ville.Salmela@csc.fi)
+
 * Thu May 05 2011 Miroslav Suchý 1.5.6-1
 - 682112 - correct column name (mzazrivec@redhat.com)
 - 682112 - correct displayed systems consuming channel entitlements
