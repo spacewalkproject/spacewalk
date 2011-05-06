@@ -316,21 +316,17 @@ class RepoSync:
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
                    self.channel_label)
 
-            to_download = False
-            to_link     = False
-            if not path:
-                # package is not on disk
-                to_download = True
-            else:
-                # a different package is on disk
+            to_download = True
+            to_link     = True
+            if path:
                 pack.path = os.path.join(CFG.MOUNT_POINT, path)
-                if not self.match_package_checksum(pack.path,
+                if self.match_package_checksum(pack.path,
                                 pack.checksum_type, pack.checksum):
-                    to_download = True
-
-            if package_channel != self.channel_label:
-                # package is not in the channel
-                to_link = True
+                    # package is already on disk
+                    to_download = False
+                    if package_channel == self.channel_label:
+                        # package is already in the channel
+                        to_link = False
 
             if to_download or to_link:
                 to_process.append((pack, to_download, to_link))
