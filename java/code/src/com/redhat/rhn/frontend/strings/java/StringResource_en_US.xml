@@ -8655,7 +8655,7 @@ Follow this url to see the full list of inactive systems:
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
      </trans-unit>
      <trans-unit id="message.bunch.singlescheduled">
-        <source>Single run of &lt;strong&gt;{0}&lt;/strong&gt; bunch was scheduled.</source>
+        <source>Single run of &lt;strong&gt;{0}&lt;/strong&gt; bunch was scheduled for {1}.</source>
      </trans-unit>
      <trans-unit id="message.schedulecreated">
         <source>Schedule &lt;strong&gt;{0}&lt;/strong&gt; created.</source>

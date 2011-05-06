@@ -27,8 +27,11 @@ import com.redhat.rhn.taskomatic.TaskomaticApiException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -62,8 +65,13 @@ public class BunchDetailAction extends RhnAction implements Listable {
 
         if (ctx.isSubmitted()) {
             try {
-                new TaskomaticApi().scheduleSingleSatBunch(loggedInUser, bunchLabel);
-                createSuccessMessage(request, "message.bunch.singlescheduled", bunchLabel);
+                Date date = new TaskomaticApi().scheduleSingleSatBunch(loggedInUser,
+                        bunchLabel);
+                ActionMessages msgs = new ActionMessages();
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("message.bunch.singlescheduled", bunchLabel,
+                        LocalizationService.getInstance().formatCustomDate(date)));
+                saveMessages(request, msgs);
             }
             catch (TaskomaticApiException e) {
                 createErrorMessage(request,
