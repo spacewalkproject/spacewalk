@@ -3,6 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html:xhtml/>
 <html>
@@ -52,13 +53,15 @@
                 <rl:column bound="false"
                            headerkey="task.edit.jsp.stattime"
                            sortattr="start_time" >
-                        <a href="/rhn/admin/ScheduleDetail.do?schid=${current.schedule_id}">${current.start_time}</a>
+                        <a href="/rhn/admin/ScheduleDetail.do?schid=${current.schedule_id}">
+                          <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss z" value="${current.start_time}"/>
+                        </a>
                 </rl:column>
 
                 <rl:column bound="false"
                            headerkey="task.edit.jsp.endtime"
                            sortattr="end_time" >
-                        <c:out value="${current.end_time}" />
+                           <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss z" value="${current.end_time}"/>
                 </rl:column>
 
                 <rl:column bound="false"
