@@ -909,7 +909,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             row = None
             for r in (h.fetchall_dict() or []):
                 # let's check which checksum we have in database
-                if package['checksums'][r['checksum_type']] == r['checksum']:
+                if r['checksum_type'] in package['checksums'] and package['checksums'][r['checksum_type']] == r['checksum']:
                     row = r
                     break
 
