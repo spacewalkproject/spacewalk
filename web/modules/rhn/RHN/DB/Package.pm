@@ -351,11 +351,11 @@ sub recommends {
   my $sth;
 
   $query = <<EOQ;
-SELECT  DISTINCT C.name, C.version, P.sense
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
   FROM  rhnPackageCapability C, rhnPackageRecommends P
  WHERE  P.package_id = ?
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+ORDER BY name_upper, C.version
 EOQ
 
   $sth = $dbh->prepare($query);
@@ -378,11 +378,11 @@ sub suggests {
   my $sth;
 
   $query = <<EOQ;
-SELECT  DISTINCT C.name, C.version, P.sense
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
   FROM  rhnPackageCapability C, rhnPackageSuggests P
  WHERE  P.package_id = ?
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+ORDER BY name_upper, C.version
 EOQ
 
   $sth = $dbh->prepare($query);
@@ -405,11 +405,11 @@ sub supplements {
   my $sth;
 
   $query = <<EOQ;
-SELECT  DISTINCT C.name, C.version, P.sense
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
   FROM  rhnPackageCapability C, rhnPackageSupplements P
  WHERE  P.package_id = ?
    AND  P.capability_id = C.id
-ORDER BY UPPER(C.name), C.version
+ORDER BY name_upper, C.version
 EOQ
 
   $sth = $dbh->prepare($query);
