@@ -219,6 +219,12 @@ class PackageImport(ChannelPackageSubscription):
         # XXX
         package['copyright'] = package['license']
 
+        for tag in ('recommends', 'suggests', 'supplements'):
+            if type(package[tag]) != type([]):
+                # older spacewalk server do not export weak deps.
+                # lets create an empty list
+                package[tag] = []
+
         # Creates all the data structures needed to insert capabilities
         for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'recommends', 'suggests', 'supplements'):
             depList = package[tag]
