@@ -274,6 +274,10 @@ class PackageImport(ChannelPackageSubscription):
             else:
                 self.package_arches['i386-solaris-patch'] = None
 
+        # fix encoding issues in package summary and description
+        package['description'] = self._fix_encoding(package['description'])
+        package['summary'] = self._fix_encoding(package['summary'])
+
     def fix(self):
         # If capabilities are available, process them
         if self.capabilities:
@@ -499,6 +503,13 @@ class PackageImport(ChannelPackageSubscription):
                    header = rhn_pkg.get_package_header(filename=full_path)
                    server_packages.processPackageKeyAssociations(header,
                                    package['checksum_type'], package['checksum'])
+
+    def _fix_encoding(self, text):
+        try:
+            return text.decode('utf8')
+        except UnicodeDecodeError:
+            return text.decode('iso8859-1')
+
 
 class SourcePackageImport(Import):
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
