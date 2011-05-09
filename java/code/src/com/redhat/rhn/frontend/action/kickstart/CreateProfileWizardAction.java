@@ -202,7 +202,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                         vType, ctx.getLoggedInUser());
                 if (distro == null) {
                     ValidatorException.raiseException(
-                            "kickstart.cobbler.profile.invalidvirt");
+                            "kickstart.cobbler.profile.nodistribution");
                 }
 
                 if (form.get(DEFAULT_DOWNLOAD_PARAM) == null) {
