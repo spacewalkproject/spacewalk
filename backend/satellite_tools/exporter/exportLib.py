@@ -311,8 +311,8 @@ class _ChannelDumper(BaseRowDumper):
         select package_id as id
           from rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
-           and rcp.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-           and rcp.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+           and rcp.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and rcp.modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
      """)
 
     _query_get_package_ids_by_rhndate_limits = rhnSQL.Statement("""
@@ -320,8 +320,8 @@ class _ChannelDumper(BaseRowDumper):
           from rhnPackage rp, rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
            and rcp.package_id = rp.id
-           and rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-           and rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+           and rp.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and rp.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
      """)
 
 
@@ -375,14 +375,14 @@ class _ChannelDumper(BaseRowDumper):
 
     _query__get_errata_ids_by_limits = rhnSQL.Statement("""
          %s
-           and ce.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-           and ce.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+           and ce.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and ce.modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
     """ % _query__get_errata_ids)
 
     _query__get_errata_ids_by_rhnlimits = rhnSQL.Statement("""
          %s
-           and e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-           and e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+           and e.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and e.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
     """ % _query__get_errata_ids)
     
     def _get_errata_ids(self):
@@ -399,14 +399,14 @@ class _ChannelDumper(BaseRowDumper):
 
     _query_get_kickstartable_trees_by_rhnlimits = rhnSQL.Statement("""
          %s
-           and kt.last_modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
-           and kt.last_modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
+           and kt.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and kt.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
     """ % _query_get_kickstartable_trees)
 
     _query_get_kickstartable_trees_by_limits = rhnSQL.Statement("""
          %s
-           and kt.modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
-           and kt.modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
+           and kt.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and kt.modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
     """ % _query_get_kickstartable_trees)
 
     def _get_kickstartable_trees(self):

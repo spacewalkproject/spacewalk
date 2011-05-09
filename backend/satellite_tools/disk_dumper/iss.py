@@ -250,13 +250,13 @@ class Dumper(dumper.XML_Dumper):
             if self.start_date:
                 if self.use_rhn_date:
                     query += """
-                        and rp.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-                        and rp.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                        and rp.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                        and rp.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                         """
                 else:
                     query += """
-                        and rcp.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-                        and rcp.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                        and rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                        and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                         """
 	    self.brpm_query = rhnSQL.Statement(query)
             brpm_data = rhnSQL.prepare(self.brpm_query)
@@ -287,13 +287,13 @@ class Dumper(dumper.XML_Dumper):
 	    if self.start_date:
                 if self.use_rhn_date:
                     query += """
-                    and rp.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-                    and rp.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                    and rp.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                    and rp.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                     """
                 else:
                     query += """
-                    and rcp.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-                    and rcp.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                    and rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                    and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                     """
             self.package_query = rhnSQL.Statement(query)
             package_data = rhnSQL.prepare(self.package_query)
@@ -328,13 +328,13 @@ class Dumper(dumper.XML_Dumper):
             if self.start_date:
                 if self.use_rhn_date:
                    query += """
-	           where ps.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-	             and ps.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+	           where ps.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+	             and ps.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                    """
                 else:
                    query += """
-	           where ps.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-	             and ps.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+	           where ps.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+	             and ps.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                    """
             self.source_package_query = rhnSQL.Statement(query)
             source_package_data = rhnSQL.prepare(self.source_package_query)
@@ -366,13 +366,13 @@ class Dumper(dumper.XML_Dumper):
             if self.start_date:
                 if self.use_rhn_date:
                     query += """
-                      and e.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-                      and e.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                      and e.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                      and e.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                       """
                 else:
                     query += """
-                      and ce.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-                      and ce.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                      and ce.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                      and ce.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                       """
             self.errata_query = rhnSQL.Statement(query)
             errata_data = rhnSQL.prepare(self.errata_query)
@@ -403,14 +403,14 @@ class Dumper(dumper.XML_Dumper):
             if self.start_date:
                 if self.use_rhn_date:
                    query += """
-		   and kt.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-		   and kt.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+		   and kt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+		   and kt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
 		   and kt.org_id is Null
                    """
                 else:
                    query += """
-		   and kt.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-		   and kt.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+		   and kt.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+		   and kt.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
 		   and kt.org_id is Null
                    """
             self.kickstart_trees_query = rhnSQL.Statement(query)
@@ -447,8 +447,8 @@ class Dumper(dumper.XML_Dumper):
 	        """
             if self.start_date:
                 query += """
-		       and rkt.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-		       and rkt.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+		       and rkt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+		       and rkt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                 """
             self.kickstart_files_query = rhnSQL.Statement(query)
             kickstart_files = rhnSQL.prepare(self.kickstart_files_query)
