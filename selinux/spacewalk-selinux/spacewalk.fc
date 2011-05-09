@@ -22,3 +22,5 @@
 /var/log/spacewalk/schema-upgrade(/.*)? gen_context(user_u:object_r:spacewalk_db_install_log_t,s0)
 
 /usr/sbin/tanukiwrapper gen_context(system_u:object_r:java_exec_t,s0)
+
+/var/lib/rhn/kickstarts(/.*)? gen_context(unconfined_u:object_r:spacewalk_data_t,s0)
