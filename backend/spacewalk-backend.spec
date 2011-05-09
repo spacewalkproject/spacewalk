@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.16
+Version: 1.5.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -679,6 +679,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon May 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.17-1
+- only one package per NVREA can be in channel, unlink the old one first
+- link package also when the checksum has changed
+
 * Thu May 05 2011 Miroslav Suchý 1.5.16-1
 - 683200 - send emails as utf-8
 - 683200 - convert hostname in subject from pune to unicode
