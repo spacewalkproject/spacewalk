@@ -81,6 +81,16 @@ optional_policy(`
 	allow oracle_sqlplus_t spacewalk_db_install_log_t:file append;
 ')
 
+optional_policy(`
+        gen_require(`
+                type cobblerd_t;
+                type httpd_cobbler_content_t;
+        ')
+        read_files_pattern(cobblerd_t, spacewalk_data_t, spacewalk_data_t);
+        allow cobblerd_t spacewalk_data_t:file { getattr link unlink rename };
+        manage_dirs_pattern(cobblerd_t, spacewalk_data_t, spacewalk_data_t);
+')
+
 # rpm_dontaudit_search_db(httpd_t) is not available on RHELs
 dontaudit httpd_t rpm_var_lib_t:dir list_dir_perms;
 dontaudit httpd_t rpm_var_lib_t:file read_file_perms;
