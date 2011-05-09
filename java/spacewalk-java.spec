@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.22
+Version: 1.5.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 09 2011 Tomas Lestach <tlestach@redhat.com> 1.5.23-1
+- 659138 - change runs ordering (tlestach@redhat.com)
+- 659138 - first schedule, then display (tlestach@redhat.com)
+- 659138 - update single run action message (tlestach@redhat.com)
+- 659138 - display times in current timezone (tlestach@redhat.com)
+- 659138 - fix scheduling of single runs for specific time
+  (tlestach@redhat.com)
+- 659138 - reinit for possible single task schedules (tlestach@redhat.com)
+
 * Fri May 06 2011 Jan Pazdziora 1.5.22-1
 - 673392 - correct entitlement count logic for custom channels
   (mzazrivec@redhat.com)
