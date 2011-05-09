@@ -59,7 +59,7 @@ public class BunchDetailAction extends RhnAction implements Listable {
         request.setAttribute("bunchdescription", LocalizationService.getInstance().
                 getMessage("bunch.jsp.description." + bunchLabel));
 
-        if (ctx.isSubmitted()) {
+        if (ctx.wasDispatched("bunch.edit.jsp.button-schedule")) {
             try {
                 Date date = new TaskomaticApi().scheduleSingleSatBunch(loggedInUser,
                         bunchLabel);
