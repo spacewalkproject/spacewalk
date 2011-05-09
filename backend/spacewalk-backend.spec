@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.18
+Version: 1.5.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -679,6 +679,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon May 09 2011 Jan Pazdziora 1.5.19-1
+- rhn-satellite-exporter with start-date and end-date (jbrazdil@redhat.com)
+- fix utf-8 in emails (msuchy@redhat.com)
+
 * Mon May 09 2011 Jan Pazdziora 1.5.18-1
 - fix satsync with older spacewalk versions not providing weak deps
   (mc@suse.de)
