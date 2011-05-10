@@ -48,6 +48,7 @@ for selinuxvariant in mls strict targeted
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 /usr/sbin/setsebool -P httpd_can_network_connect 1
+/usr/sbin/setsebool -P httpd_can_sendmail 1
 
 if [ -z "$RUN_PURE" ] ; then
 	for dir in mount_point kickstart_mount_point; do
