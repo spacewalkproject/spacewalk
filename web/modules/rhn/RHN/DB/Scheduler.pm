@@ -108,7 +108,7 @@ EOQ
   # TODO:  fix sys_date => reasonable value later...
   my $query = <<EOQ;
 INSERT INTO rhnAction (id, org_id, action_type, scheduler, earliest_action, version, name, prerequisite)
-VALUES (?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), 2, ?, ?)
+VALUES (?, ?, ?, ?, TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'), 2, ?, ?)
 EOQ
 
   $sth = $dbh->prepare($query);
