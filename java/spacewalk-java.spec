@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.23
+Version: 1.5.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -538,6 +538,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 10 2011 Jan Pazdziora 1.5.24-1
+- 638571 - set correctly the Channels column (tlestach@redhat.com)
+- 636614 - mark system_groups of org.listOrgs API as optional
+  (tlestach@redhat.com)
+- 636614 - fix system_groups for org.listOrgs API (tlestach@redhat.com)
+- 703064 - changing WebUI message (tlestach@redhat.com)
+- 659138 - fix button submit detection (tlestach@redhat.com)
+- 659138 - schedule description strings update (tlestach@redhat.com)
+
 * Mon May 09 2011 Tomas Lestach <tlestach@redhat.com> 1.5.23-1
 - 659138 - change runs ordering (tlestach@redhat.com)
 - 659138 - first schedule, then display (tlestach@redhat.com)
