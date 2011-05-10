@@ -229,7 +229,9 @@ public class UpdateInfoWriter extends RepomdWriter {
             attr.addAttribute("id", Long.toString(bug.getId()));
             attr.addAttribute("type", "bugzilla");
             handler.startElement("reference", attr);
-            handler.addCharacters(bug.getSummary());
+            if (bug.getSummary() != null) {
+                handler.addCharacters(bug.getSummary());
+            }
             handler.endElement("reference");
         }
 
