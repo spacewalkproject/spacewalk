@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.24
+Version: 1.5.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -540,6 +540,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 10 2011 Jan Pazdziora 1.5.25-1
+- 678519 - moving MOTD into a separate kickstart snippent
+  (mario@mediatronix.de)
+
 * Tue May 10 2011 Jan Pazdziora 1.5.24-1
 - 638571 - set correctly the Channels column (tlestach@redhat.com)
 - 636614 - mark system_groups of org.listOrgs API as optional
