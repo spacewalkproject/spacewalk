@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.5.0
+Version:        1.5.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue May 10 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.1-1
+- 702274 - restore kickstart files context
+- 702274 - fixed context of kickstart configs
+- 702274 - allow cobblerd_t to read spacewalk_data_t
+
 * Thu Mar 03 2011 Jan Pazdziora 1.4.1-1
 - Apache should not be able to read the rpm database.
 
