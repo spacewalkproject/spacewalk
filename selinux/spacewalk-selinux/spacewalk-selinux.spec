@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.5.2
+Version:        1.5.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue May 10 2011 Jan Pazdziora 1.5.3-1
+- 702274 - fixing unconfined_u error.
+
 * Tue May 10 2011 Jan Pazdziora 1.5.2-1
 - 634989 - allow Apache to send emails, useful when mod_python/mod_perl is
   about to send traceback.
