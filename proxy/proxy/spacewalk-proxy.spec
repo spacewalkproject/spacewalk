@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.5.3
+Version: 1.5.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,10 @@ fi
 
 
 %changelog
+* Tue May 10 2011 Jan Pazdziora 1.5.4-1
+- 678053 - add option --no-session-caching to rhn_package_manager
+  (msuchy@redhat.com)
+
 * Wed May 04 2011 Miroslav Suchý 1.5.3-1
 - do not import modules through magic
 
