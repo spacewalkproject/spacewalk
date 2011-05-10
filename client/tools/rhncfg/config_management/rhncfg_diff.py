@@ -38,11 +38,11 @@ class Handler(handler_base.HandlerBase):
          ),
         handler_base.HandlerBase._option_class(
             '-d', '--dest-file',    action="store",
-             help="Upload the file as this path",
+             help="Remote file to compare to",
          ),
         handler_base.HandlerBase._option_class(
             '-t', '--topdir',       action="store",
-             help="Make all files relative to this string",
+             help="Directory to which all file paths are relative",
          ),
     ]
     def run(self):
