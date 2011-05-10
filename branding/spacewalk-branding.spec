@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.5.0
+Version:    1.5.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue May 10 2011 Jan Pazdziora 1.5.1-1
+- 484895 - Point the release notes dispatcher to fedorahosted.org.
+
 * Wed Mar 30 2011 Jan Pazdziora 1.4.3-1
 - update copyright years (msuchy@redhat.com)
 - implement common access keys (msuchy@redhat.com)
