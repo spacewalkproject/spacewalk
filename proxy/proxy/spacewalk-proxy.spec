@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.5.4
+Version: 1.5.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,11 @@ fi
 
 
 %changelog
+* Wed May 11 2011 Miroslav Suchý 1.5.5-1
+- 695651 - is_virtual is not exposed in mod_wsgi (msuchy@redhat.com)
+- 695651 - pass /ty handler through Broker (tlestach@redhat.com)
+- 695651 - pass /download handler through Broker (msuchy@redhat.com)
+
 * Tue May 10 2011 Jan Pazdziora 1.5.4-1
 - 678053 - add option --no-session-caching to rhn_package_manager
   (msuchy@redhat.com)
