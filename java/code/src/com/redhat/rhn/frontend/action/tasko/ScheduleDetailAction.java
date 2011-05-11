@@ -76,6 +76,7 @@ public class ScheduleDetailAction extends RhnAction {
             }
         }
 
+        prepDropdowns(ctx);
         if (!isSubmitted(form)) {
             setupForm(request, form);
             return getStrutsDelegate().forwardParams(
@@ -140,7 +141,6 @@ public class ScheduleDetailAction extends RhnAction {
     private void setupForm(HttpServletRequest request, DynaActionForm form) {
         RequestContext ctx = new RequestContext(request);
         User loggedInUser = ctx.getLoggedInUser();
-        prepDropdowns(ctx);
         Long schid = ctx.getParamAsLong("schid");
 
         if (schid != null) {
@@ -179,8 +179,7 @@ public class ScheduleDetailAction extends RhnAction {
             }
         }
         catch (TaskomaticApiException e) {
-            createErrorMessage(ctx.getRequest(),
-                    "repos.jsp.message.taskomaticdown", null);
+            // do not create error message, it was created before
         }
         ctx.getRequest().setAttribute("bunches", dropDown);
     }
