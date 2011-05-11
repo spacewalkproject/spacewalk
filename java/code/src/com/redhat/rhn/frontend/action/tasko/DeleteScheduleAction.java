@@ -59,36 +59,38 @@ public class DeleteScheduleAction extends RhnAction {
                         "repos.jsp.message.taskomaticdown", null);
             }
             String scheduleName = (String) schedule.get("job_label");
-            String bunchName = (String) schedule.get("bunch");
-            request.setAttribute("schedulename", scheduleName);
-            request.setAttribute("bunch", bunchName);
-            request.setAttribute("cronexpr", schedule.get("cron_expr"));
-            request.setAttribute("activetill", schedule.get("active_till"));
-            if (isActive(schedule)) {
-                if (ctx.isSubmitted()) {
-                    try {
-                        tapi.unscheduleSatTask(scheduleName, loggedInUser);
-                        // there's not a good way to check
-                        // whether the bunch was unscheduled
-                        schedule = tapi.lookupScheduleByBunchAndLabel(loggedInUser,
-                                bunchName, scheduleName);
-                        if (schedule == null) {
-                            createSuccessMessage(request, "message.scheduledeleted",
-                                    scheduleName);
+            if (scheduleName != null) {
+                String bunchName = (String) schedule.get("bunch");
+                request.setAttribute("schedulename", scheduleName);
+                request.setAttribute("bunch", bunchName);
+                request.setAttribute("cronexpr", schedule.get("cron_expr"));
+                request.setAttribute("activetill", schedule.get("active_till"));
+                if (isActive(schedule)) {
+                    if (ctx.isSubmitted()) {
+                        try {
+                            tapi.unscheduleSatTask(scheduleName, loggedInUser);
+                            // there's not a good way to check
+                            // whether the bunch was unscheduled
+                            schedule = tapi.lookupScheduleByBunchAndLabel(loggedInUser,
+                                    bunchName, scheduleName);
+                            if (schedule == null) {
+                                createSuccessMessage(request, "message.scheduledeleted",
+                                        scheduleName);
+                            }
+                            return getStrutsDelegate().forwardParams(
+                                    mapping.findForward("success"),
+                                    request.getParameterMap());
                         }
-                        return getStrutsDelegate().forwardParams(
-                                mapping.findForward("success"),
-                                request.getParameterMap());
-                    }
-                    catch (TaskomaticApiException e) {
-                        createErrorMessage(request,
-                                "repos.jsp.message.taskomaticdown", null);
+                        catch (TaskomaticApiException e) {
+                            createErrorMessage(request,
+                                    "repos.jsp.message.taskomaticdown", null);
 
+                        }
                     }
                 }
-            }
-            else {
-                createErrorMessage(request, "message.schedulenotactive", scheduleName);
+                else {
+                    createErrorMessage(request, "message.schedulenotactive", scheduleName);
+                }
             }
         }
         return getStrutsDelegate().forwardParams(
