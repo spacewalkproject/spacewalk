@@ -906,6 +906,82 @@ public class ErrataHandler extends BaseHandler {
         return toReturn.toArray();
     }
 
+    /**
+     * Clones a list of errata into a specified cloned channel
+     * according the original erratas
+     *
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel the cloned channel's label that we are cloning into
+     * @param advisoryNames an array of String objects containing the advisory name
+     *          of every errata you want to clone
+     * @throws InvalidChannelRoleException if the user perms are incorrect
+     * @return Returns an array of Errata objects, which get serialized into XMLRPC
+     *
+     * @xmlrpc.doc Clones a list of errata into a specified cloned channel
+     * according the original erratas
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "channel_label")
+     * @xmlrpc.param
+     *      #array_single("string", " advisory - The advisory name of the errata to clone.")
+     * @xmlrpc.returntype
+     *          #array()
+     *              $ErrataSerializer
+     *          #array_end()
+     */
+    public Object[] cloneAsOriginal(String sessionKey, String channelLabel,
+            List advisoryNames) throws InvalidChannelRoleException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel,
+                            loggedInUser);
+
+        if (channel == null) {
+            throw new NoSuchChannelException();
+        }
+
+        if (!channel.isCloned()) {
+            throw new InvalidChannelException("Cloned channel expected: " +
+                channel.getLabel());
+        }
+
+        Channel original = ChannelFactory.lookupOriginalChannel(channel);
+
+        if (original == null) {
+            throw new InvalidChannelException("Cannot access original " +
+                "of the channel: " + channel.getLabel());
+        }
+
+        // check access to the original
+        if (ChannelFactory.lookupByIdAndUser(original.getId(), loggedInUser) == null) {
+            throw new LookupException("User " + loggedInUser.getLogin() +
+                " does not have access to channel " + original.getLabel());
+        }
+
+        if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
+            throw new PermissionCheckFailureException();
+        }
+
+        List errataToClone = new ArrayList();
+        List toReturn = new ArrayList();
+
+        //We loop through once, making sure all the errata exist
+        for (Iterator itr = advisoryNames.iterator(); itr.hasNext();) {
+            Errata toClone = lookupErrata((String)itr.next(), loggedInUser.getOrg());
+            errataToClone.add(toClone);
+        }
+        //now that we know its all valid, we clone everything.
+        for (Iterator itr = errataToClone.iterator(); itr.hasNext();) {
+            Errata cloned = ErrataManager.createClone(loggedInUser, (Errata)itr.next());
+            Errata publishedClone = ErrataManager.publish(cloned);
+
+            publishedClone = ErrataFactory.publishToChannel(publishedClone, channel,
+                    loggedInUser, true);
+            ErrataFactory.save(publishedClone);
+
+            toReturn.add(publishedClone);
+        }
+        return toReturn.toArray();
+    }
 
 
     private Object getRequiredAttribute(Map map, String attribute) {
