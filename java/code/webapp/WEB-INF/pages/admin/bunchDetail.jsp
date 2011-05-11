@@ -38,7 +38,7 @@
     </div>
     <br/>
     <rl:list
-        emptykey="assignedgroups.jsp.nogroups"
+        emptykey="schedule.jsp.noruns"
         dataset="dataset" >
                 <rl:decorator name="PageSizeDecorator"/>
 

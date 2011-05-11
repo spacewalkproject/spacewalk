@@ -22819,6 +22819,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="schedule.jsp.noruns">
+        <source>There're no runs available.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/SatSchedules.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedules.jsp.introparagraph">
         <source>Bellow is a list of defined schedules. A schedule defines frequency, how often a predefined bunch shall be triggered.</source>
         <context-group name="ctx">
