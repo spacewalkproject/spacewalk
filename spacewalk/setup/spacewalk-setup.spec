@@ -63,6 +63,7 @@ install -m 0644 share/ssl.conf.5 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.6 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/tomcatX.conf.1 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/tomcatX.conf.2 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/tomcatX.conf.3 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/server.xml.xsl %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/web.xml.patch %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/old-jvm-list %{buildroot}/%{_datadir}/spacewalk/setup/
