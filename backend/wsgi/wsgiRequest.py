@@ -29,7 +29,7 @@ class WsgiRequest:
         self.start_response = start_response
         self.uri = self.unparsed_uri = env['REQUEST_URI']
         self.server = WsgiServer(env['SERVER_NAME'], env['SERVER_PORT'])
-        self.connection = WsgiConnection(env['REMOTE_ADDR'])
+        self.connection = WsgiConnection(env)
         self.options = {}
         self.main = 0
         self.proto_num = float(env['SERVER_PROTOCOL'].split('/')[1])
@@ -95,8 +95,9 @@ class WsgiServer:
         self.port = int(port)
 
 class WsgiConnection:
-    def __init__(self, remote_ip):
-        self.remote_ip = remote_ip
+    def __init__(self, env):
+        self.remote_ip = env['REMOTE_ADDR']
+        self.local_addr = (env['SERVER_NAME'], env['SERVER_PORT'])
 
 class WsgiMPtable:
     """ This class emulates mod_python's mp_table. See
