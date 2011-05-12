@@ -99,12 +99,13 @@ class BrokerHandler(SharedHandler):
 
         scheme = 'http'
         # self.{caChain,httpProxy*,rhnParent} initialized in rhnShared.py
+        effectiveURI = self._getEffectiveURI()
 
         if req.method == 'GET':
             scheme = 'http'
             self.httpProxy = CFG.SQUID
             self.caChain = self.httpProxyUsername = self.httpProxyPassword = ''
-            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^'+URI_PREFIX_KS_CHECKSUM, self._getEffectiveURI()):
+            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^'+URI_PREFIX_KS_CHECKSUM, effectiveURI):
                 # o if we need to go through an outside HTTP proxy, use the
                 #   redirect
                 # o if an SSL request, use the redirect
@@ -123,7 +124,7 @@ class BrokerHandler(SharedHandler):
         self.rhnParent = scheme + \
                          '://' + \
                          self.rhnParent + \
-                         self._getEffectiveURI()
+                         effectiveURI)
 
         log_debug(2, 'set self.rhnParent:       %s' % self.rhnParent)
         log_debug(2, 'set self.rhnParentXMLRPC: %s' % self.rhnParentXMLRPC)
