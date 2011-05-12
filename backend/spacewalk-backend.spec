@@ -84,6 +84,9 @@ Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = 1:%{version}-%{release}
 
+#this exists only on rhel5 and rhel6
+Conflicts: python-sgmlop
+
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: mod_python
 %else
