@@ -202,7 +202,15 @@ def get_package_header(filename=None, file=None, fd=None):
     if not SHARED_TS:
         SHARED_TS = rpm.ts()
     SHARED_TS.setVSFlags(-1)
-    hdr = SHARED_TS.hdrFromFdno(file_desc)
+
+    rpm.addMacro('_dbpath', '/var/cache/rhn/rhnpush-rpmdb')
+    try:
+        hdr = SHARED_TS.hdrFromFdno(file_desc)
+        rpm.delMacro('_dbpath')
+    except:
+        rpm.delMacro('_dbpath')
+        raise
+
     if hdr is None:
         raise InvalidPackageError
     is_source = hdr[rpm.RPMTAG_SOURCEPACKAGE]
