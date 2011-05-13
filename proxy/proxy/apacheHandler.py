@@ -171,8 +171,8 @@ class apacheHandler(rhnApache):
         # so that the content handler can use it later.
 
         log_debug(3, "Generated new kickstart URI: %s" % newURI)
-        req.headers_in.add(HEADER_ACTUAL_URI, req.uri)
-        req.headers_in.add(HEADER_EFFECTIVE_URI, newURI)
+        req.headers_in[HEADER_ACTUAL_URI] = req.uri
+        req.headers_in[HEADER_EFFECTIVE_URI] = newURI
 
         return apache.OK
 
