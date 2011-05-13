@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.5.5
+Version: 1.5.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,14 @@ fi
 
 
 %changelog
+* Fri May 13 2011 Miroslav Suchý 1.5.6-1
+- 695651 - in mod_wsgi the URI is full URI (incl. protocol, hostname...) and
+  not just the part beyond / (msuchy@redhat.com)
+- 695651 - headers_in under mod_wsgi is dict, which does not have add()
+  (msuchy@redhat.com)
+- do not call function twice, store it in variable (msuchy@redhat.com)
+- 695651 - pass /ty-cksm handler through Broker (msuchy@redhat.com)
+
 * Wed May 11 2011 Miroslav Suchý 1.5.5-1
 - 695651 - is_virtual is not exposed in mod_wsgi (msuchy@redhat.com)
 - 695651 - pass /ty handler through Broker (tlestach@redhat.com)
