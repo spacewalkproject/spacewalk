@@ -19,6 +19,7 @@
 import string
 import socket
 import re
+from urlparse import urlparse, urlunparse
 
 # common module imports
 from spacewalk.common.rhnConfig import CFG
@@ -60,13 +61,14 @@ class RedirectHandler(SharedHandler):
         """
 
         effectiveURI = self._getEffectiveURI()
+        effectiveURI_parts = urlparse(effectiveURI)
+        scheme = 'http'
         if CFG.USE_SSL:
-            self.rhnParentXMLRPC = 'https://' + self.rhnParent + '/XMLRPC'
-            self.rhnParent = 'https://' + self.rhnParent + effectiveURI
+            scheme = 'https'
         else:
-            self.rhnParentXMLRPC = 'http://' + self.rhnParent + '/XMLRPC'
-            self.rhnParent = 'http://' + self.rhnParent + effectiveURI
             self.caChain = ''
+        self.rhnParentXMLRPC = urlunparse((scheme, self.rhnParent, '/XMLRPC', '', '', ''))
+        self.rhnParent = urlunparse((scheme, self.rhnParent) + effectiveURI_parts[2:])
 
         log_debug(3, 'remapped self.rhnParent:       %s' % self.rhnParent)
         log_debug(3, 'remapped self.rhnParentXMLRPC: %s' % self.rhnParentXMLRPC)

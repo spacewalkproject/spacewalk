@@ -20,6 +20,7 @@ import time
 import string
 import socket
 import re
+from urlparse import urlsplit, urlparse, urlunparse
 
 # common module imports
 from spacewalk.common.rhnLib import parseUrl
@@ -100,12 +101,13 @@ class BrokerHandler(SharedHandler):
         scheme = 'http'
         # self.{caChain,httpProxy*,rhnParent} initialized in rhnShared.py
         effectiveURI = self._getEffectiveURI()
+        effectiveURI_parts = urlparse(effectiveURI)
 
         if req.method == 'GET':
             scheme = 'http'
             self.httpProxy = CFG.SQUID
             self.caChain = self.httpProxyUsername = self.httpProxyPassword = ''
-            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^'+URI_PREFIX_KS_CHECKSUM, effectiveURI):
+            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^'+URI_PREFIX_KS_CHECKSUM, effectiveURI_parts[2]):
                 # o if we need to go through an outside HTTP proxy, use the
                 #   redirect
                 # o if an SSL request, use the redirect
@@ -120,11 +122,8 @@ class BrokerHandler(SharedHandler):
                 scheme = 'http'
                 self.caChain = ''
 
-        self.rhnParentXMLRPC = scheme + '://' + self.rhnParent + '/XMLRPC'
-        self.rhnParent = scheme + \
-                         '://' + \
-                         self.rhnParent + \
-                         effectiveURI)
+        self.rhnParentXMLRPC = urlunparse((scheme, self.rhnParent, '/XMLRPC', '', '', ''))
+        self.rhnParent = urlunparse((scheme, self.rhnParent) + effectiveURI_parts[2:])
 
         log_debug(2, 'set self.rhnParent:       %s' % self.rhnParent)
         log_debug(2, 'set self.rhnParentXMLRPC: %s' % self.rhnParentXMLRPC)
