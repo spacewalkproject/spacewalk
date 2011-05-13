@@ -12,12 +12,3 @@
   PerlHandler PXT::ApacheHandler
 </Files>
 
-<Files oo.pxt>
-  AuthType Basic
-  AuthName "RHN Org Admin Area"
-
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-  require valid-user
-</Files>
