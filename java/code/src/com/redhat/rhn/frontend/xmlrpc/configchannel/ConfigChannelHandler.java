@@ -32,6 +32,7 @@ import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigRevisionDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchConfigFilePathException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchConfigRevisionException;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
 import com.redhat.rhn.manager.MissingCapabilityException;
@@ -384,6 +385,9 @@ public class ConfigChannelHandler extends BaseHandler {
         List <ConfigRevision> revisions = new LinkedList<ConfigRevision>();
         for (String path : paths) {
             ConfigFile cf = cm.lookupConfigFile(loggedInUser, channel.getId(), path);
+            if (cf == null) {
+                throw new NoSuchConfigFilePathException(path, channelLabel);
+            }
             revisions.add(cf.getLatestConfigRevision());
         }
         return revisions;
@@ -423,6 +427,9 @@ public class ConfigChannelHandler extends BaseHandler {
                                                                 channelLabel);
         ConfigurationManager cm = ConfigurationManager.getInstance();
         ConfigFile cf = cm.lookupConfigFile(loggedInUser, channel.getId(), path);
+        if (cf == null) {
+            throw new NoSuchConfigFilePathException(path, channelLabel);
+        }
         List<ConfigRevisionDto> revs = cm.listRevisionsForFile(loggedInUser, cf, null);
         for (ConfigRevisionDto rev : revs) {
             if (rev.getRevisionNumber().equals(revision)) {
@@ -510,8 +517,16 @@ public class ConfigChannelHandler extends BaseHandler {
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
                                                                 channelLabel);
         ConfigurationManager cm = ConfigurationManager.getInstance();
+        List<ConfigFile> cfList = new ArrayList<ConfigFile>();
+        // first pass to check, whethee config files are valid
         for (String path : paths) {
             ConfigFile cf = cm.lookupConfigFile(loggedInUser, channel.getId(), path);
+            if (cf == null) {
+                throw new NoSuchConfigFilePathException(path, channelLabel);
+            }
+            cfList.add(cf);
+        }
+        for (ConfigFile cf : cfList) {
             cm.deleteConfigFile(loggedInUser, cf);
         }
         return 1;
@@ -550,6 +565,9 @@ public class ConfigChannelHandler extends BaseHandler {
          // obtain the latest revision for the file provided by 'path'
          Set<Long> revisions = new HashSet<Long>();
          ConfigFile cf = cm.lookupConfigFile(loggedInUser, channel.getId(), path);
+         if (cf == null) {
+             throw new NoSuchConfigFilePathException(path, channelLabel);
+         }
          revisions.add(cf.getLatestConfigRevision().getRevision());
 
          // schedule the action for the servers specified

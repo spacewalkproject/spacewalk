@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchConfigFilePathException;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigFileNameDtoSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
@@ -356,16 +357,23 @@ public class ServerConfigHandler extends BaseHandler {
        XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
        ConfigurationManager cm = ConfigurationManager.getInstance();
        Server server = sysHelper.lookupServer(loggedInUser, sid);
+       List<ConfigFile> cfList = new ArrayList<ConfigFile>();
        for (String path : paths) {
            ConfigFile cf;
            if (deleteFromLocal) {
                cf = cm.lookupConfigFile(loggedInUser,
                                    server.getLocalOverride().getId(), path);
+               if (cf == null) {
+                   throw new NoSuchConfigFilePathException(path);
+               }
            }
            else {
                cf = cm.lookupConfigFile(loggedInUser,
                        server.getSandboxOverride().getId(), path);
            }
+           cfList.add(cf);
+       }
+       for (ConfigFile cf : cfList) {
            cm.deleteConfigFile(loggedInUser, cf);
        }
        return 1;
