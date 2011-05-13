@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.19
+Version: 1.5.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri May 13 2011 Miroslav Suchý 1.5.20-1
+- 695651 - mod_wsgi change header, flip it back to what we expect
+  (msuchy@redhat.com)
+- sgmlop parser could not return data in utf-8 (msuchy@redhat.com)
+- 695651 - mimic req.connection.local_addr from mod_python (msuchy@redhat.com)
+
 * Mon May 09 2011 Jan Pazdziora 1.5.19-1
 - rhn-satellite-exporter with start-date and end-date (jbrazdil@redhat.com)
 - fix utf-8 in emails (msuchy@redhat.com)
