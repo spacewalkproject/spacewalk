@@ -615,28 +615,16 @@ class ObsoletesItem(DependencyItem):
     item_name = 'rhn-package-obsoletes-entry'
 addItem(ObsoletesItem)
 
-class RecommendsItem(BaseItem):
+class RecommendsItem(DependencyItem):
     item_name = 'rhn-package-recommends-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(RecommendsItem)
 
-class SuggestsItem(BaseItem):
+class SuggestsItem(DependencyItem):
     item_name = 'rhn-package-suggests-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(SuggestsItem)
 
-class SupplementsItem(BaseItem):
+class SupplementsItem(DependencyItem):
     item_name = 'rhn-package-supplements-entry'
-    item_class = importLib.Dependency
-    tagMap = {
-        'sense'                     : 'flags',
-    }
 addItem(SupplementsItem)
 
 class FileItem(BaseChecksummedItem):
