@@ -123,7 +123,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
      */
     public ArrayList getValidTimezones() {
         DataResult dr = KickstartLister.getInstance()
-            .getValidTimezones(getKickstartData().getId().toString());
+            .getValidTimezones(getKickstartData().getId());
 
         Iterator iter = dr.iterator();
         ArrayList ret = new ArrayList();
@@ -149,7 +149,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
     public Boolean isValidTimezone(String timezone) {
 
         DataResult dr = KickstartLister.getInstance()
-        .getValidTimezones(getKickstartData().getId().toString());
+        .getValidTimezones(getKickstartData().getId());
 
         Iterator iter = dr.iterator();
         while (iter.hasNext()) {

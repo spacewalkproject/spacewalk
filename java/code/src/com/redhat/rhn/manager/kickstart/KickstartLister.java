@@ -354,9 +354,9 @@ public class KickstartLister extends BaseManager {
      * @param ksId kickstart profile
      * @return DataResult list of timezones.
      */
-    public DataResult getValidTimezones(String ksId) {
+    public DataResult getValidTimezones(Long ksId) {
         if (logger.isDebugEnabled()) {
-            logger.debug("getValidTimezones(ksId=" + ksId +
+            logger.debug("getValidTimezones(ksId=" + ksId.toString() +
                          ") - start");
         }
 
