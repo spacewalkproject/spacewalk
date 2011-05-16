@@ -7,14 +7,3 @@
   PerlAuthenHandler PXT::ApacheAuth
   require acl user_role(org_admin)
 </Files>
-
-<Files channel_*_perms.pxt>
-  AuthType Basic
-  AuthName "RHN Org Admin Area"
-
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-  require acl user_role(channel_admin)
-</Files>
-
