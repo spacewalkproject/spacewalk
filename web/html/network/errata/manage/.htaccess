@@ -7,10 +7,3 @@ PerlAuthenHandler PXT::ApacheAuth
 require acl user_role(channel_admin)
 
 PerlSetVar errata_context manage
-
-<Files list>
-  ForceType text/pxt
-  SetHandler perl-script
-  PerlModule PXT::ApacheHandler
-  PerlHandler PXT::ApacheHandler
-</Files>
