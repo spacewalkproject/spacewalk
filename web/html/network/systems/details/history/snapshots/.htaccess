@@ -1,7 +1,0 @@
-AuthType Basic
-AuthName "RHN Custom Info Management"
-
-PerlModule PXT::ApacheHandler
-PerlModule PXT::ApacheAuth
-PerlAuthenHandler PXT::ApacheAuth
-require acl mixin RHN::Access::System client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting)
