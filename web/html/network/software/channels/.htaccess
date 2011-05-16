@@ -5,9 +5,6 @@ PerlModule PXT::ApacheHandler
 PerlModule PXT::ApacheAuth
 PerlAuthenHandler PXT::ApacheAuth
 
-<Files downloads.pxt>
-</Files>
-
 <Files subscribers.pxt>
   require acl mixin RHN::Access::Channel org_entitlement(sw_mgr_enterprise);org_channel_setting(not_globally_subscribable);user_role(channel_admin) or user_can_admin_channel()
 </Files>
