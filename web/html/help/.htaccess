@@ -4,6 +4,3 @@
   PerlModule PXT::ApacheHandler
   PerlHandler PXT::ApacheHandler
 </Files>
-
-PerlSetVar pxt_make_vile off
-

@@ -40,7 +40,6 @@ sub translate {
 
   if (not $doc) {
     warn "I18N XML Parsing failed: $@";
-    $PXT::ApacheHandler::make_vile = "#ff98d6";
     return $input;
   }
 

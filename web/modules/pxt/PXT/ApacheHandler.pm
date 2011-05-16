@@ -46,13 +46,9 @@ use RHN::Mail;
 use PXT::Debug ();
 use RHN::DB ();
 
-our $make_vile;
-
 sub handler {
   my $r = shift;
 
-
-  local $make_vile = 0;
   $ENV{PATH} = "/bin:/usr/sbin";
 
   return DECLINED unless
@@ -168,16 +164,6 @@ sub handler {
     if (not $r->header_only) {
       if (PXT::Config->get("enable_i18n")) {
 	$file_contents = RHN::I18N->translate($file_contents);
-      }
-
-      if ($file_contents =~ '<((rhn|pxt)-.*?)>') {
-	warn "tag $1 seems to be unhandled?";
-	$make_vile = "green";
-      }
-
-      if ($r->dir_config("pxt_make_vile") and $r->dir_config("pxt_make_vile") eq 'on' and $make_vile) {
-	$file_contents =~ s/<body>/<body bgcolor="$make_vile">/;
-	$file_contents =~ s(<link[^>]*>)()g;
       }
 
       # Turn on byte pragma to get correct content length, and then turn it back off.

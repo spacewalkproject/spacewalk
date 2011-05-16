@@ -308,7 +308,6 @@ sub param {
       }
       else {
 	warn "Access to formvar '$var' not allowed: formvar not cleansed - ", join(", ", caller);
-	$PXT::ApacheHandler::make_vile = "#ffff00";
       }
     }
 
