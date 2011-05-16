@@ -1,6 +1,6 @@
 
 # To address bug 623115/627859, we need to override the ldap_* symbols
-# in libclntsh.so* upon tomcat5 startup with those from standard library.
+# in libclntsh.so* upon tomcat* startup with those from standard library.
 for i in /lib64/security/pam_ldap.so /lib/security/pam_ldap.so ; do
 	if [ -f $i ] ; then
 		# to force ldd to show the libldap line with => even if LD_PRELOAD was already set
