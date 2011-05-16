@@ -1,6 +1,0 @@
-<Files *.html>
-  ForceType text/pxt
-  SetHandler perl-script
-  PerlModule PXT::ApacheHandler
-  PerlHandler PXT::ApacheHandler
-</Files>
