@@ -58,7 +58,6 @@ if (%$localConfig) {
 }
 
 if ($delete_unmatched) {
-        $ini->dbh->begin_work;
         print "Deleting data from already deleted probes...\n";
         $sql = qq|
                 delete from time_series
@@ -110,7 +109,6 @@ if ($interval && $delta) {
 
 	foreach my $delete_date (@date_list) {
                 print UnixDate($delete_date,"Deleting probes data older than %T %b %e, %Y...\n");
-	        $ini->dbh->begin_work;
 	        $sth->execute(UnixDate($delete_date,"%s"));
 	        print "\t", $sth->rows, " record deleted.\n";
 	        $dry_run ? $ini->dbh->rollback : $ini->dbh->commit;
@@ -125,7 +123,6 @@ if ($interval && $delta) {
         }
         print UnixDate($date,"Deleting probes data older than %T %b %e, %Y...\n");
         $sql = qq|delete from time_series where entry_time < ?|;
-        $ini->dbh->begin_work;
         $sth = $ini->dbh->prepare($sql);
         $sth->execute(UnixDate($date,"%s"));
         print "\t", $sth->rows, " record deleted.\n";
