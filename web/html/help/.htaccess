@@ -1,37 +1,3 @@
-<Files RHN-channel-mgmt-en.pdf>
-  AuthType Basic
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-</Files>
-
-<Files RHN-proxy-en.pdf>
-  AuthType Basic
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-</Files>
-
-
-<Files RHN-satellite-en.pdf>
-  AuthType Basic
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-</Files>
-
-<Files RHN-client-config-en.pdf>
-  AuthType Basic
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-</Files>
-
-
 <Files *.html>
   ForceType text/pxt
   SetHandler perl-script
