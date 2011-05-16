@@ -76,7 +76,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Org.accessibleChannels">
         <![CDATA[SELECT  {c.*}
-                   FROM  rhnChannel {c},
+                   FROM  rhnChannel {c}
                    LEFT JOIN rhnChannelCloned c_1_
                      ON c.id = c_1_.original_id
                    JOIN rhnAvailableChannels cfp
