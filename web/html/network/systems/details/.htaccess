@@ -18,18 +18,6 @@
   require acl system_feature(ftr_agent_smith)
 </Files>
 
-
-<Files update_confirm.pxt>
-  AuthType Basic
-  AuthName "RHN Org Admin Area"
-
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-  require acl system_feature(ftr_package_updates)
-</Files>
-
 <Files remote_commands.pxt>
   AuthType Basic
   AuthName "RHN Org Admin Area"
