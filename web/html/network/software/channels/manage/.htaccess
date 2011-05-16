@@ -6,8 +6,4 @@ PerlModule PXT::ApacheAuth
 PerlAuthenHandler PXT::ApacheAuth
 require acl user_can_manage_channels()
 
-<Files users.pxt>
-require acl mixin RHN::Access::Channel user_role(channel_admin)
-</Files>
-
 PerlSetVar channel_context manage
