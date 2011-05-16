@@ -589,6 +589,7 @@ public class KickstartFactory extends HibernateFactory {
         List retval = null;
         String query = "KickstartableTree.findAccessibleToOrg";
         session = HibernateFactory.getSession();
+        session.evict(KickstartableTree.class);
         retval = session.getNamedQuery(query).
         setLong("org_id", org.getId().longValue()).list();
         return retval;
