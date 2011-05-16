@@ -7,15 +7,6 @@
   require acl mixin RHN::Access::System user_role(org_admin); system_feature(ftr_proxy_capable); org_channel_family(rhn-proxy); child_channel_candidate(rhn-proxy)
 </Files>
 
-<Files target_group_list.pxt>
-  ForceType text/pxt
-  SetHandler perl-script
-  PerlModule PXT::ApacheHandler
-  PerlHandler PXT::ApacheHandler
-
-  require acl user_role(org_admin) or user_role(system_group_admin); system_feature(ftr_system_grouping)
-</Files>
-
 <Files activation.pxt>
   AuthType Basic
   AuthName "RHN Org Admin Area"
