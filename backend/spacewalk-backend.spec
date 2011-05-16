@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.21
+Version: 1.5.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon May 16 2011 Michael Calmer <mc@suse.de> 1.5.22-1
+- inherit from DependencyItem like other dep classes (mc@suse.de)
+- test if checksum_type exists before accessing it (mc@suse.de)
+- use fix_encoding method (mc@suse.de)
+- fix encoding of package summary and description (mc@suse.de)
+
 * Fri May 13 2011 Jan Pazdziora 1.5.21-1
 - 698567 - give the transaction that we have to use to read the file header a
   sandbox database.
