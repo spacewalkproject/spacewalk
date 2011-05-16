@@ -253,7 +253,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n spacewalk-html
 %defattr(644,root,root,755)
 %{_var}/www/html/*
-%{_var}/www/html/.htaccess
 
 # $Id$
 %changelog
