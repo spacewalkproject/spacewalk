@@ -5,13 +5,3 @@ PerlModule PXT::ApacheHandler
 PerlModule PXT::ApacheAuth
 PerlAuthenHandler PXT::ApacheAuth
 require acl org_entitlement(rhn_provisioning)
-
-<Files namespaces.pxt>
-  ForceType text/pxt
-  SetHandler perl-script
-  PerlModule PXT::ApacheHandler
-  PerlHandler PXT::ApacheHandler
-
-  require acl mixin RHN::Access::System user_role(config_admin)
-</Files>
-
