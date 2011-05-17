@@ -55,9 +55,6 @@ class ModifiedError(ChannelException):
 class IncompatibilityError(Exception):
     pass
 
-class InvalidEntryError(Exception):
-    pass
-
 class InvalidDataError(Exception):
     pass
 
