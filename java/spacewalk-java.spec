@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.29
+Version: 1.5.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -540,6 +540,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 17 2011 Tomas Lestach <tlestach@redhat.com> 1.5.30-1
+- 643905 - make sure hibernate doesn't use cached kickstart trees, but takes
+  actual DB state (tlestach@redhat.com)
+
 * Mon May 16 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.29-1
 - 704446 - removed unnecessary cast to string
 - fixed SQL typo
