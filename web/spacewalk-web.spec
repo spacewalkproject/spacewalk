@@ -97,7 +97,7 @@ Provides:  rhn-pxt = 5.3.0
 %description -n spacewalk-pxt
 This package is the core software of the new Spacewalk site.  It is responsible
 for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
-equlivalent to things like Apache::ASP and Mason
+equivalent to things like Apache::ASP and Mason
 
 
 %package -n spacewalk-sniglets
