@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.10
+Version: 1.5.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue May 17 2011 Miroslav Suchý 1.5.11-1
+- spacewalk-pxt.noarch: W: spelling-error %description -l en_US equlivalent ->
+  equivalent, equivalence, univalent (msuchy@redhat.com)
+
 * Tue May 17 2011 Miroslav Suchý 1.5.10-1
 - add GPLv2 LICENSE
 - migrate .htaccess files to apache core configuration
