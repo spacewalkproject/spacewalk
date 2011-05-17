@@ -3,7 +3,7 @@
 %define cron_dir %{_sysconfdir}/cron.d
 
 Name:           rhn-virtualization 
-Summary:        RHN/Spacewalk action support for virualization
+Summary:        RHN/Spacewalk action support for virtualization
 
 Group:          System Environment/Base
 License:        GPLv2
