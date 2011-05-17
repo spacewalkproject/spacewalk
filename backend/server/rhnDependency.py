@@ -284,9 +284,6 @@ class SolveDependenciesError(Exception):
         self.deps = deps
         self.packages = packages
 
-class MakeEvrError(SolveDependenciesError):
-    pass
-
 def __single_query_with_arch_and_id(server_id, deps, query):
     """ Run one of the queries and return the results along with the arch. """
     ret = {}
