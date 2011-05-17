@@ -117,6 +117,9 @@ class MPM_Header:
     def checksum_type(self):
         return MPM_CHECKSUM_TYPE
 
+    def unload(self):
+        return None
+
 class InvalidPackageError(Exception):
     pass
 
