@@ -223,6 +223,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/DB.pm
 %{perl_vendorlib}/PXT/Config.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
+%doc LICENSE
 
 %files -n spacewalk-dobby
 %defattr(644,root,root,755)
