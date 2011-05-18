@@ -18,10 +18,10 @@
 
    <h2><bean:message key="schedule.edit.jsp.basicscheduledetails"/></h2>
    <div class="page-summary">
-      <c:if test="${active}">
+      <c:if test="${empty param.schid or active}">
           <bean:message key="schedule.edit.jsp.introparagraph"/>
       </c:if>
-      <c:if test="${not active}">
+      <c:if test="${not empty param.schid and not active}">
           <bean:message key="schedule.edit.jsp.notactive"/>
       </c:if>
    </div>
