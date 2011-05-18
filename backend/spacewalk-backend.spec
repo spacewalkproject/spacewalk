@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.22
+Version: 1.5.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed May 18 2011 Miroslav Suchý 1.5.23-1
+- do not remove /var/satellite/redhat directory, satellite-sync expect it
+- add missing function to pg Cursor
+- 217531 - fix package count
+- Refactoring of make_evr made MakeEvrError unused, removing.
+- Removal of create_channel_families and create_channels made InvalidEntryError
+  unused, removing.
+- 702684 - made MPM_Header compatible with RPM_Header
+
 * Mon May 16 2011 Michael Calmer <mc@suse.de> 1.5.22-1
 - inherit from DependencyItem like other dep classes (mc@suse.de)
 - test if checksum_type exists before accessing it (mc@suse.de)
