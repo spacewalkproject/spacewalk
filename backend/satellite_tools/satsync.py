@@ -1731,7 +1731,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         
         #count size of missing packages
         for package_id, path in missing_fs_packages:
-            pkg_current = pkg_current + 1
             timestamp = short_package_collection.get_package_timestamp(package_id)
             package = package_collection.get_package(package_id, timestamp)
             total_size = total_size+package['package_size']
@@ -1739,7 +1738,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log(1, messages.package_fetch_total_size %
             (self._bytes_to_fuzzy(total_size)))
     
-        processed_size = 0
+        real_processed_size = processed_size = 0
+        real_total_size = total_size
         start_time = round(time.time())
 
         for package_id, path in missing_fs_packages:
@@ -1765,6 +1765,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                                                 checksum_type, checksum)
             if errcode == 0:
                 # file is already there
+                # do not count this size to time estimate
+                real_total_size -= package['package_size']
+                processed_size += package['package_size']
                 continue
 
             rpmManip = RpmManip(package, path)
@@ -1809,10 +1812,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             # Determine downloaded size and remaining time
             size = package['package_size']
-            processed_size = processed_size + size
+            real_processed_size += size
+            processed_size += size
             current_time = round(time.time())
-            remain_time = (datetime.timedelta(seconds=current_time-start_time))*(total_size/processed_size - 1)
-
+            # timedalta could not be multiplicated by float
+            remain_time = (datetime.timedelta(seconds=current_time-start_time))*((real_total_size*100)/real_processed_size-100)/100
+            
             log(1, messages.package_fetch_remain_size_time %
                 (self._bytes_to_fuzzy(processed_size), self._bytes_to_fuzzy(total_size), remain_time))
 
