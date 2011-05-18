@@ -314,3 +314,6 @@ class Cursor(sql_base.Cursor):
         c = rhnSQL.prepare(sql)
         kwargs[column_name] = data
         apply(c.execute, (), kwargs)
+
+    def close(self):
+        pass
