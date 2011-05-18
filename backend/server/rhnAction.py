@@ -40,7 +40,7 @@ def schedule_action(action_type, action_name=None, delta_time=0,
         insert into rhnAction 
                (id, org_id, action_type, name, scheduler, earliest_action, prerequisite)
         values (:action_id, :org_id, :action_type_id, :action_name, :scheduler, 
-                sysdate + :delta / 86400, :prerequisite) 
+                current_timestamp + numtodsinterval(:delta, 'second'), :prerequisite)
     """)
     apply(h.execute, (), params)
 
