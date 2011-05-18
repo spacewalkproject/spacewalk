@@ -215,7 +215,7 @@ def not_in_db(path, options):
         log(0, "Removed file missing in db: %s" % (path))
         os.unlink(path)
         dirname = os.path.dirname(path)
-        while dirname != CFG.MOUNT_POINT:
+        while (dirname != CFG.MOUNT_POINT) and (dirname != CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR):
             try:
                 os.rmdir(dirname)
             except OSError, e:
