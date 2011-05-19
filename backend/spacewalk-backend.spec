@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.23
+Version: 1.5.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu May 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.24-1
+- 705002 - made query pg compatible
+
 * Wed May 18 2011 Miroslav Suchý 1.5.23-1
 - do not remove /var/satellite/redhat directory, satellite-sync expect it
 - add missing function to pg Cursor
