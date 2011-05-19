@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.22
+Version:        5.4.23
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -134,6 +134,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu May 19 2011 Miroslav Suchý 5.4.23-1
+- simplify spec
+- rhn-virtualization-host.noarch: E: incoherent-subsys /etc/rc.d/init.d/rhn-
+  virtualization-host rhn-virtualization
+- fix spelling error
+
 * Fri Apr 15 2011 Jan Pazdziora 5.4.22-1
 - build rhn-virtualization on SUSE (mc@suse.de)
 
