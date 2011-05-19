@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.31
+Version: 1.5.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -540,6 +540,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 19 2011 Tomas Lestach <tlestach@redhat.com> 1.5.32-1
+- 659138 - fix Custom Quartz format error handling (tlestach@redhat.com)
+- 659138 - fix repeat-task-picker input tag (tlestach@redhat.com)
+
 * Wed May 18 2011 Tomas Lestach <tlestach@redhat.com> 1.5.31-1
 - 659138 - fix message on the schedule create page (tlestach@redhat.com)
 
