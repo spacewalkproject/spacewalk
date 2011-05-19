@@ -31,7 +31,7 @@ start() {
         fi
     done
 
-    touch /var/lock/subsys/rhn-virtualization
+    touch /var/lock/subsys/rhn-virtualization-host
 
     echo -n "Starting RHN Managed Xen Domains:"
     if [ $RETVAL -eq 0 ]; then echo_success; else echo_failure; fi
@@ -51,7 +51,7 @@ stop() {
         fi
     done
 
-    rm -f /var/lock/subsys/rhn-virtualization
+    rm -f /var/lock/subsys/rhn-virtualization-host
 
     echo -n "Stopping RHN Managed Xen Domains:"
     if [ $RETVAL -eq 0 ]; then echo_success; else echo_failure; fi
