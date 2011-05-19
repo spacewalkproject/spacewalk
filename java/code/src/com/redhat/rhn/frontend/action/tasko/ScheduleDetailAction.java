@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.TaskomaticApiException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -87,7 +88,7 @@ public class ScheduleDetailAction extends RhnAction {
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
                 request, "date", null);
 
-        if (picker.isDisabled()) {
+        if (picker.isDisabled() || StringUtils.isEmpty(picker.getCronEntry())) {
             if (scheduleId == null) {
                 prepDropdowns(ctx);
                 createErrorMessage(request, "message.scheduledisabled", null);
@@ -122,8 +123,14 @@ public class ScheduleDetailAction extends RhnAction {
                     mapping.findForward("success"), params);
         }
         catch (TaskomaticApiException e) {
-            createErrorMessage(request,
-                    "repos.jsp.message.taskomaticdown", null);
+            if (e.getMessage().contains("InvalidParamException")) {
+                createErrorMessage(request,
+                        "repos.jsp.message.invalidcron", picker.getCronEntry());
+            }
+            else {
+                createErrorMessage(request,
+                        "repos.jsp.message.taskomaticdown", null);
+            }
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("default"), params);
         }
