@@ -60,8 +60,7 @@
 	
 <input type="radio" name="${picker.name}_status" value="cron" id="cron"
 <c:if test="${picker.status == 'cron'}">checked="true"</c:if> />
-	<label for="cron"><bean:message key="schedule.cron"/>:
-	<input type="text" size="20" name="${picker.name}_cron" value="${picker.cronEntry}">
+	<label for="cron"><bean:message key="schedule.cron"/>:</label>
+	<input type="text" size="20" name="${picker.name}_cron" value="${picker.cronEntry}" />
 
-    </label>
 
