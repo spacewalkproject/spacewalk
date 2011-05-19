@@ -23,7 +23,6 @@ SPACEWALK_FILES	=   __init__ \
             rhnTB \
             rhnTranslate \
             RPC_Base \
-            UserDictCase \
 	    checksum \
 	    fileutils \
 	    rhn_deb \

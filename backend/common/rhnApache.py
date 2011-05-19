@@ -26,7 +26,7 @@ from spacewalk.common import apache
 
 # Now local module imports
 import rhnFlags
-from UserDictCase import UserDictCase
+from rhn.UserDictCase import UserDictCase
 from rhnLog import log_debug
 from rhnLog import log_error
 from rhnTranslate import cat

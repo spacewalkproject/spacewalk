@@ -18,7 +18,7 @@ import sys
 import glob
 import stat
 
-from UserDictCase import UserDictCase
+from rhn.UserDictCase import UserDictCase
 
 
 _CONFIG_ROOT = '/etc/rhn'

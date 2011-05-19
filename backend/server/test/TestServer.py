@@ -15,9 +15,9 @@
 #
 
 import time
+from rhn.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL, rhnServer, rhnAction
 from spacewalk.common import rhnConfig, rhnFlags
-from spacewalk.common.UserDictCase import UserDictCase
 import server.xmlrpc.up2date
 from misc_functions import create_activation_key
 import misc_functions

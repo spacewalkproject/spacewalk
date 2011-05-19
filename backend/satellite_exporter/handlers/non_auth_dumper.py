@@ -19,6 +19,8 @@ Non-authenticated dumper
 import os
 import xmlrpclib
 import gzip
+
+from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.server import rhnSQL, rhnLib
@@ -27,7 +29,6 @@ from spacewalk.server.importlib.backendLib import localtime
 from spacewalk.common.rhnException import rhnFault
 
 from spacewalk.common.rhnTranslate import _
-from spacewalk.common.UserDictCase import UserDictCase
 
 from spacewalk.satellite_tools.exporter import exportLib
 from spacewalk.satellite_tools.disk_dumper import dumper

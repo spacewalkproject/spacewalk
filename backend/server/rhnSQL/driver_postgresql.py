@@ -28,12 +28,12 @@ if not hasattr(psycopg2, 'extensions'):
     import psycopg2.extensions
 
 import sql_base
+from rhn.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import sql_types
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
-from spacewalk.common.UserDictCase import UserDictCase
 from const import POSTGRESQL
 
 def convert_named_query_params(query):

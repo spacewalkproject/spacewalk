@@ -17,12 +17,12 @@
 import time
 
 # common module imports
+from rhn.UserDictCase import UserDictCase
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _
-from spacewalk.common.UserDictCase import UserDictCase
 
 # local module imports
 from spacewalk.server.rhnLib import computeSignature

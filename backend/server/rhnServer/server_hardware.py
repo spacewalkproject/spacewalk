@@ -19,9 +19,9 @@
 
 import string
 
+from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
-from spacewalk.common.UserDictCase import UserDictCase
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.server import rhnSQL
 

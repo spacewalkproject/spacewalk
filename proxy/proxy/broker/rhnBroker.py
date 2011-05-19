@@ -23,11 +23,12 @@ import re
 from urlparse import urlsplit, urlparse, urlunparse
 
 # common module imports
+from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnLib import parseUrl
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
-from spacewalk.common import UserDictCase, rhnFlags, apache
+from spacewalk.common import rhnFlags, apache
 from spacewalk.common.rhnTranslate import _
 
 # local module imports

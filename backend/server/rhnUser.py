@@ -21,11 +21,11 @@ import crypt
 import string
 
 # Global Modules
+from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common.rhnTranslate import _
-from spacewalk.common.UserDictCase import UserDictCase
 
 import rhnSQL
 import rhnSession
