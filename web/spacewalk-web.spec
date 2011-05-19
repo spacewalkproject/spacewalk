@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.11
+Version: 1.5.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu May 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.12-1
+- made queries PostgreSQL compatible
+
 * Tue May 17 2011 Miroslav Suchý 1.5.11-1
 - spacewalk-pxt.noarch: W: spelling-error %description -l en_US equlivalent ->
   equivalent, equivalence, univalent (msuchy@redhat.com)
