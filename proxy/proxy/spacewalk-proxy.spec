@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.5.6
+Version: 1.5.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.7-1
+- merged backend/common/UserDictCase.py into rhnlib/rhn/UserDictCase.py
+
 * Fri May 13 2011 Miroslav Suchý 1.5.6-1
 - 695651 - in mod_wsgi the URI is full URI (incl. protocol, hostname...) and
   not just the part beyond / (msuchy@redhat.com)
