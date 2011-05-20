@@ -115,7 +115,7 @@ def relative_path_from_nevra(nevra, org_id, package_type=None, checksum_type=Non
         is_source = 0
     log_debug(4, nevra, is_source)
     return get_package_path(nevra, org_id=org_id, source=is_source, 
-        prepend=CFG.PREPENDED_DIR, omit_epoch=1, package_type=package_type,
+        prepend=CFG.PREPENDED_DIR, omit_epoch=None, package_type=package_type,
         checksum_type=checksum_type, checksum=checksum)
 
 # bug #161989 - get the relative path from the nevra, but omit the package name
