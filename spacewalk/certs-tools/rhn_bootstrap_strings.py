@@ -257,12 +257,11 @@ def getCorpCACertSh():
     return """\
 echo
 echo "* attempting to install corporate public CA cert"
-if [ $USING_SSL -eq 1 ] ; then
     if [ $ORG_CA_CERT_IS_RPM_YN -eq 1 ] ; then
-        rpm -Uvh --force --replacefiles --replacepkgs ${HTTP_PUB_DIRECTORY}/${ORG_CA_CERT}
+        rpm -Uvh --force --replacefiles --replacepkgs ${HTTPS_PUB_DIRECTORY}/${ORG_CA_CERT}
     else
         rm -f ${ORG_CA_CERT}
-        $FETCH ${HTTP_PUB_DIRECTORY}/${ORG_CA_CERT}
+        $FETCH ${HTTPS_PUB_DIRECTORY}/${ORG_CA_CERT}
         mv ${ORG_CA_CERT} /usr/share/rhn/
 
     fi
@@ -277,7 +276,6 @@ if [ $USING_SSL -eq 1 ] ; then
 	}
 	test -x /usr/bin/c_rehash && /usr/bin/c_rehash /etc/ssl/certs/ | grep "${ORG_CA_CERT}"
     fi
-fi
 
 """
 
