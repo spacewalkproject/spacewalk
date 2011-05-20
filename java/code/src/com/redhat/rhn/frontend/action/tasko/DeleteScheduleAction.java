@@ -79,7 +79,7 @@ public class DeleteScheduleAction extends RhnAction {
                             }
                             return getStrutsDelegate().forwardParams(
                                     mapping.findForward("success"),
-                                    request.getParameterMap());
+                                    new HashMap());
                         }
                         catch (TaskomaticApiException e) {
                             createErrorMessage(request,
