@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.40
+Version: 2.5.41
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 2.5.41-1
+- merged backend/common/UserDictCase.py into rhnlib/rhn/UserDictCase.py
+
 * Wed Apr 13 2011 Jan Pazdziora 2.5.40-1
 - 683200 - simplify idn_pune_to_unicode and idn_ascii_to_pune
   (msuchy@redhat.com)
