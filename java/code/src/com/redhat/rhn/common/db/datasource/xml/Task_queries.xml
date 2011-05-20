@@ -140,7 +140,56 @@ SELECT DISTINCT
 SELECT DISTINCT
        S.id AS server_id, S.org_id org_id
   FROM rhnServer S
-  JOIN rhnServerNeededView SNV
+  JOIN (
+--
+select rhnChannelErrata.errata_id, rhnChannelErrata.channel_id, rhnServerChannel.server_id, rhnErrataPackage.package_id
+from rhnChannelErrata, rhnErrataPackage, rhnChannelNewestPackage, rhnPackageEVR,
+        rhnServerChannel, rhnServerPackage, rhnPackageUpgradeArchCompat
+where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
+--
+        and rhnChannelErrata.channel_id = rhnChannelNewestPackage.channel_id
+        and rhnErrataPackage.package_id = rhnChannelNewestPackage.package_id
+--
+        and rhnChannelErrata.channel_id = rhnServerChannel.channel_id
+        and rhnChannelNewestPackage.name_id = rhnServerPackage.name_id
+        and rhnServerChannel.server_id = rhnServerPackage.server_id
+--
+        and rhnChannelNewestPackage.evr_id = rhnPackageEVR.id
+--
+        and rhnServerPackage.package_arch_id = rhnPackageUpgradeArchCompat.package_arch_id
+        and rhnPackageUpgradeArchCompat.package_upgrade_arch_id = rhnChannelNewestPackage.package_arch_id
+--
+        and not exists (
+		-- rule out records where channels with lower id exist == get min
+                select 1 from rhnChannelPackage cp, rhnServerChannel csc
+                where cp.channel_id = csc.channel_id
+                        and rhnChannelNewestPackage.package_id = cp.package_id
+                        and rhnServerChannel.server_id = csc.server_id
+                        and cp.channel_id < rhnChannelNewestPackage.channel_id
+        )
+        and not exists (
+		-- rule out records where the server has the same package name with higher evr
+                select 1 from rhnServerPackage sp, rhnPackageEVR sevr, rhnPackageUpgradeArchCompat puac
+                where rhnServerPackage.server_id = sp.server_id
+                        and rhnServerPackage.name_id = sp.name_id
+                        and sp.evr_id = sevr.id
+                        and rhnPackageEVR.evr <= sevr.evr
+                        and rhnServerPackage.package_arch_id = puac.package_arch_id
+                        and puac.package_upgrade_arch_id = sp.package_arch_id
+        )
+        and not exists (
+		-- rule out records where other channel provides the same package name with higher evr
+                select 1 from rhnServerChannel csc, rhnChannelNewestPackage ocnp, rhnPackageEVR oevr, rhnPackageUpgradeArchCompat puac
+                where rhnServerChannel.server_id = csc.server_id
+                        and csc.channel_id = ocnp.channel_id
+                        and rhnServerPackage.name_id = ocnp.name_id
+                        and ocnp.evr_id = oevr.id
+                        and rhnPackageEVR.evr < oevr.evr
+                        and rhnServerPackage.package_arch_id = puac.package_arch_id
+                        and puac.package_upgrade_arch_id = ocnp.package_arch_id
+        )
+--
+  ) SNV
     on SNV.server_id = S.id
  WHERE SNV.channel_id = :channel_id
    AND SNV.errata_id = :errata_id
