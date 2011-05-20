@@ -446,10 +446,16 @@ class Dumper(dumper.XML_Dumper):
                        and rktf.checksum_id = c.id
 	        """
             if self.start_date:
-                query += """
-		       and rkt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-		       and rkt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
-                """
+                if self.use_rhn_date:
+                    query += """
+                        and rkt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                        and rkt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                    """
+                else:
+                    query += """
+                        and rkt.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                        and rkt.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                    """
             self.kickstart_files_query = rhnSQL.Statement(query)
             kickstart_files = rhnSQL.prepare(self.kickstart_files_query)
             self.kickstart_files = []
