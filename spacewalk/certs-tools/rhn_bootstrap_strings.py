@@ -257,25 +257,25 @@ def getCorpCACertSh():
     return """\
 echo
 echo "* attempting to install corporate public CA cert"
-    if [ $ORG_CA_CERT_IS_RPM_YN -eq 1 ] ; then
-        rpm -Uvh --force --replacefiles --replacepkgs ${HTTPS_PUB_DIRECTORY}/${ORG_CA_CERT}
-    else
-        rm -f ${ORG_CA_CERT}
-        $FETCH ${HTTPS_PUB_DIRECTORY}/${ORG_CA_CERT}
-        mv ${ORG_CA_CERT} /usr/share/rhn/
+if [ $ORG_CA_CERT_IS_RPM_YN -eq 1 ] ; then
+    rpm -Uvh --force --replacefiles --replacepkgs ${HTTPS_PUB_DIRECTORY}/${ORG_CA_CERT}
+else
+    rm -f ${ORG_CA_CERT}
+    $FETCH ${HTTPS_PUB_DIRECTORY}/${ORG_CA_CERT}
+    mv ${ORG_CA_CERT} /usr/share/rhn/
 
+fi
+if [ "$INSTALLER" == zypper ] ; then
+    if [  $ORG_CA_CERT_IS_RPM_YN -eq 1 ] ; then
+      # get name from config
+      ORG_CA_CERT=$(basename $(sed -n 's/^sslCACert *= *//p' /etc/sysconfig/rhn/up2date))
     fi
-    if [ "$INSTALLER" == zypper ] ; then
-	if [  $ORG_CA_CERT_IS_RPM_YN -eq 1 ] ; then
-	  # get name from config
-	  ORG_CA_CERT=$(basename $(sed -n 's/^sslCACert *= *//p' /etc/sysconfig/rhn/up2date))
-	fi
-	test -e "/etc/ssl/certs/${ORG_CA_CERT}.pem" || {
-	  test -d "/etc/ssl/certs" || mkdir -p "/etc/ssl/certs"
-	  ln -s "/usr/share/rhn/${ORG_CA_CERT}" "/etc/ssl/certs/${ORG_CA_CERT}.pem"
-	}
-	test -x /usr/bin/c_rehash && /usr/bin/c_rehash /etc/ssl/certs/ | grep "${ORG_CA_CERT}"
-    fi
+    test -e "/etc/ssl/certs/${ORG_CA_CERT}.pem" || {
+      test -d "/etc/ssl/certs" || mkdir -p "/etc/ssl/certs"
+      ln -s "/usr/share/rhn/${ORG_CA_CERT}" "/etc/ssl/certs/${ORG_CA_CERT}.pem"
+    }
+    test -x /usr/bin/c_rehash && /usr/bin/c_rehash /etc/ssl/certs/ | grep "${ORG_CA_CERT}"
+fi
 
 """
 
