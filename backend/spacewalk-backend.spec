@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.24
+Version: 1.5.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.25-1
+- merged backend/common/UserDictCase.py into rhnlib/rhn/UserDictCase.py
+
 * Thu May 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.24-1
 - 705002 - made query pg compatible
 
