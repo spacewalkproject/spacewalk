@@ -165,7 +165,7 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
                 where cp.channel_id = csc.channel_id
                         and rhnChannelNewestPackage.package_id = cp.package_id
                         and rhnServerChannel.server_id = csc.server_id
-                        and cp.channel_id < rhnChannelNewestPackage.channel_id
+                        and cp.channel_id &lt; rhnChannelNewestPackage.channel_id
         )
         and not exists (
 		-- rule out records where the server has the same package name with higher evr
@@ -173,7 +173,7 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
                 where rhnServerPackage.server_id = sp.server_id
                         and rhnServerPackage.name_id = sp.name_id
                         and sp.evr_id = sevr.id
-                        and rhnPackageEVR.evr <= sevr.evr
+                        and rhnPackageEVR.evr &lt;= sevr.evr
                         and rhnServerPackage.package_arch_id = puac.package_arch_id
                         and puac.package_upgrade_arch_id = sp.package_arch_id
         )
@@ -184,7 +184,7 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
                         and csc.channel_id = ocnp.channel_id
                         and rhnServerPackage.name_id = ocnp.name_id
                         and ocnp.evr_id = oevr.id
-                        and rhnPackageEVR.evr < oevr.evr
+                        and rhnPackageEVR.evr &lt; oevr.evr
                         and rhnServerPackage.package_arch_id = puac.package_arch_id
                         and puac.package_upgrade_arch_id = ocnp.package_arch_id
         )
