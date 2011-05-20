@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.33
+Version: 1.5.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -540,6 +540,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 20 2011 Tomas Lestach <tlestach@redhat.com> 1.5.34-1
+- 659138 - extend schedule creation error handling (tlestach@redhat.com)
+- 659138 - do not forward parameter map in case of success
+  (tlestach@redhat.com)
+- 706399 - "<" is not the best thing in xml (tlestach@redhat.com)
+
 * Fri May 20 2011 Jan Pazdziora 1.5.33-1
 - 706399 - replacing rhnServerNeededView with custom subselect
 
