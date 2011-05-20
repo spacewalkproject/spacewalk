@@ -22843,6 +22843,24 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/DeleteSchedule.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="schedule.jsp.schedulenameinuse">
+        <source>Schedule name {0} is already in use. Please choose another one.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.jsp.schedulenameregex">
+        <source>Schedule name must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule.jsp.schedulefailed">
+        <source>Setting of {0} schedule failed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedule.edit.jsp.toolbar">
         <source>Schedule {0}</source>
         <context-group name="ctx">

@@ -226,6 +226,22 @@ public class TaskomaticApi {
     }
 
     /**
+     * Check whether there's an active schedule of given job label
+     * @param jobLabel job label
+     * @param user the user
+     * @return true, if schedule exists
+     */
+    public boolean satScheduleActive(String jobLabel, User user) {
+        List<Map> schedules = (List<Map>) invoke("tasko.listActiveSatSchedules");
+        for (Map schedule : schedules) {
+            if (schedule.get("job_label").equals(jobLabel)) {
+                return Boolean.TRUE;
+            }
+         }
+        return Boolean.FALSE;
+    }
+
+    /**
      * Get the cron format for a single channel
      * @param chan the channel
      * @param user the user
