@@ -590,9 +590,11 @@ SELECT P2.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' ||
        rhnPackageName PN,
        rhnPackageEVR PE,
        rhnPackageEVR PE2,
-       rhnErrata E,
-       rhnErrataPackage EP,
-       rhnPackage P2,
+       rhnPackage P2
+  LEFT JOIN rhnErrataPackage EP
+    ON P2.id = EP.package_id
+  LEFT JOIN rhnErrata E
+    ON E.id = EP.errata_id,
        rhnAvailableChannels AC,
        rhnChannelPackage CP2,
        rhnChannelPackage CP1,
@@ -605,10 +607,8 @@ SELECT P2.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' ||
    and ac.channel_id = cp2.channel_id
    and p1.name_id = p2.name_id
    AND cp2.package_id = P2.id
-   AND P2.id = EP.package_id(+)
    AND p2.evr_id = PE.id
    AND PE2.id = P1.evr_id
-   AND E.id(+) = EP.errata_id
    and pe.id != pe2.id
    AND PE.evr >= PE2.evr
 -- after here is just for output
@@ -1421,11 +1421,12 @@ SELECT  P.id AS ID,
         E.advisory,
         E.id AS ADVISORY_ID,
         COUNT(DISTINCT SNPC.server_id) NUM_SYSTEMS
-  FROM  rhnErrata E,
+  FROM  rhnServerNeededPackageCache SNPC
+  LEFT  JOIN rhnErrata E
+    ON  SNPC.errata_id = E.id,
         rhnPackageEVR PE,
         rhnPackageName PN,
         rhnPackage P,
-        rhnServerNeededPackageCache SNPC,
         rhnSet S
  WHERE  S.user_id = :user_id
    AND  S.label = 'system_list'
@@ -1433,7 +1434,6 @@ SELECT  P.id AS ID,
    AND  SNPC.package_id = P.id
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
-   AND  SNPC.errata_id = E.id (+)
    AND NOT EXISTS (SELECT 1 FROM rhnSolarisPatch SP WHERE
                      SP.package_id = P.id)
    AND NOT EXISTS (SELECT 1 FROM rhnSolarisPatchSet SPS WHERE

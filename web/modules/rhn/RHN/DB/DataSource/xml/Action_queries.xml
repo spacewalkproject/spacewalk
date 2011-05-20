@@ -9,8 +9,9 @@ SELECT SA.action_id AS ID,
        AType.name AS history_type_name
   FROM rhnActionType AType,
        rhnActionStatus AStat,
-       rhnUser U,
-       rhnAction A,
+       rhnAction A
+  LEFT JOIN rhnUser U
+    ON A.scheduler = U.id,
        rhnServerAction SA,
        rhnSet ST
  WHERE ST.user_id = :user_id
@@ -20,7 +21,6 @@ SELECT SA.action_id AS ID,
    AND SA.action_id = A.id
    AND AType.id = A.action_type
    AND AStat.id = SA.status
-   AND A.scheduler = U.id (+)
    AND AStat.id = 0
   </query>
 </mode>
@@ -112,15 +112,15 @@ SELECT EVENT_ID, TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED, SUMMARY
                SA.created
           FROM rhnActionType AType,
                rhnActionStatus AStat,
-               rhnUser U,
-               rhnAction A,
+               rhnAction A
+          LEFT JOIN rhnUser U
+	    ON U.id = A.scheduler,
                rhnServerAction SA
          WHERE SA.server_id = :support_sid
            AND SA.action_id = A.id
            AND ATYPE.id = A.action_type
            AND AStat.id = SA.status
-           AND U.id(+) = A.scheduler
-       )
+       ) X
 ORDER BY CREATED DESC, EVENT_ID DESC
   </query>
 </mode>
