@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.32
+Version: 1.5.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -540,6 +540,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 20 2011 Jan Pazdziora 1.5.33-1
+- 706399 - replacing rhnServerNeededView with custom subselect
+
 * Thu May 19 2011 Tomas Lestach <tlestach@redhat.com> 1.5.32-1
 - 659138 - fix Custom Quartz format error handling (tlestach@redhat.com)
 - 659138 - fix repeat-task-picker input tag (tlestach@redhat.com)
