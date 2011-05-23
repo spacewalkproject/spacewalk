@@ -296,7 +296,7 @@ def convert_url_to_pune(url):
 def convert_url_from_pune(url):
     """ returns url where hostname is converted from Pune encoding. Returns unicode string. """
     s = urlsplit(url)
-    return urlunsplit((s[0], idn_pune_to_unicode(s[1]), s[2], s[3], s[4])).encode('utf-8')
+    return urlunsplit((s[0], idn_pune_to_unicode(s[1]), s[2], s[3], s[4])).decode('utf-8')
 
 def getServerlURL():
     """ return list of serverURL from config
