@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.5.7
+Version: 1.5.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -341,6 +341,12 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon May 23 2011 Miroslav Suchý 1.5.8-1
+- 683200 - u'foo'.decode('utf-8') does not work, while unicode(u'foo') works
+  and is idempotent (msuchy@redhat.com)
+- 683200 - if I want url in unicode, I must us decode - remember that
+  (msuchy@redhat.com)
+
 * Thu Apr 28 2011 Simon Lukasik <slukasik@redhat.com> 1.5.7-1
 - The Debian client on x86_64 should send amd64-debian-linux
   (slukasik@redhat.com)
