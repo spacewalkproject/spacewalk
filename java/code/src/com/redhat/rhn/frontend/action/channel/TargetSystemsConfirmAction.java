@@ -31,6 +31,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,8 +70,19 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
         request.setAttribute("cid", chan.getId());
         if (helper.isDispatched()) {
             RhnSet set = TargetSystemsAction.getSetDecl(chan).get(user);
+            List<Server> servers = new ArrayList<Server>();
             for (Long id : set.getElementValues()) {
                 Server s  = SystemManager.lookupByIdAndUser(id, user);
+                if (!SystemManager.canServerSubscribeToChannel(user.getOrg(), s, chan)) {
+                    createErrorMessage(request, "api.channel.software.channelsubscription",
+                            s.getHostname());
+                    // even if it's not success, the redirect is what we need
+                    return getStrutsDelegate().forwardParams(mapping.findForward("success"),
+                            request.getParameterMap());
+                }
+                servers.add(s);
+            }
+            for (Server s : servers) {
                 SystemManager.subscribeServerToChannel(user, s, chan);
             }
             Map params = new HashMap();
