@@ -274,6 +274,7 @@ public class ErrataFactory extends HibernateFactory {
            errata = publish(errata);
         }
         errata.addChannel(chan);
+        errata.addChannelNotification(chan, new Date());
 
         Set<Package> packagesToPush = new HashSet<Package>();
         DataResult<PackageOverview> packs;

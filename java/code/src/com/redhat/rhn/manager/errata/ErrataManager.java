@@ -192,6 +192,7 @@ public class ErrataManager extends BaseManager {
             Channel channel = ChannelManager.lookupByIdAndUser(channelId, user);
             if (channel != null) {
                 errata.addChannel(channel);
+                errata.addChannelNotification(channel, new Date());
             }
         }
 
@@ -1299,6 +1300,20 @@ public class ErrataManager extends BaseManager {
        params.put("eid", e.getId());
        WriteMode m = ModeFactory.getWriteMode(
                "Errata_queries",  "clear_errata_notification");
+       m.executeUpdate(params);
+   }
+
+   /**
+    * Delete all errata notifications for an errata in specified channel
+    * @param e the errata to clear notifications for
+    * @param c affected channel
+    */
+   public static void clearErrataChannelNotifications(Errata e, Channel c) {
+       Map params = new HashMap();
+       params.put("eid", e.getId());
+       params.put("cid", c.getId());
+       WriteMode m = ModeFactory.getWriteMode(
+               "Errata_queries",  "clear_errata_channel_notification");
        m.executeUpdate(params);
    }
 

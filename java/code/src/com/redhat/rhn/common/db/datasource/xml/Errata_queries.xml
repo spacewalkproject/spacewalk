@@ -1166,6 +1166,12 @@ SELECT  1
   </query>
 </write-mode>
 
+<write-mode name="clear_errata_channel_notification">
+  <query params="eid, cid">
+   delete from rhnErrataQueue where errata_id = :eid and channel_id = :cid
+  </query>
+</write-mode>
+
 <mode name="list_errata_notification">
   <query params="eid">
  SELECT errata_id, channel_id, next_action

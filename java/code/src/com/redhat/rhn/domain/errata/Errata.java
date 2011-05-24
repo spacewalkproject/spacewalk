@@ -384,6 +384,14 @@ public interface Errata {
     void addNotification(Date dateIn);
 
     /**
+     * Add a new notification for this errata
+     * in specified channel
+     * @param channelIn affected channel
+     * @param dateIn The notify date
+     */
+    void addChannelNotification(Channel channelIn, Date dateIn);
+
+    /**
      * List errata notifications that are queued
      * @return list of maps with channel_id and time
      */

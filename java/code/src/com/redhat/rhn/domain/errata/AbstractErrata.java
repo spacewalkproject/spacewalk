@@ -610,6 +610,14 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     /**
      * {@inheritDoc}
      */
+    public void addChannelNotification(Channel channelIn, Date dateIn) {
+        ErrataManager.clearErrataChannelNotifications(this, channelIn);
+        ErrataManager.addErrataNotification(this, channelIn, dateIn);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public List getNotificationQueue() {
         return ErrataManager.listErrataNotifications(this);
     }

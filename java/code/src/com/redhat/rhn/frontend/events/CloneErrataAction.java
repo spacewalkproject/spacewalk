@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +60,7 @@ public class CloneErrataAction
             if (errata instanceof PublishedClonedErrata) {
                 errata.addChannel(currChan);
                 ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
+                errata.addChannelNotification(currChan, new Date());
             }
             else {
                 Set<Channel> channelSet = new HashSet<Channel>();
@@ -72,6 +74,7 @@ public class CloneErrataAction
                             msg.getUser().getOrg());
                     published.setChannels(channelSet);
                     ErrataCacheManager.insertCacheForChannelErrata(cids, published);
+                    published.addChannelNotification(currChan, new Date());
                 }
                 else {
                     log.debug("Re-publishing clone");
