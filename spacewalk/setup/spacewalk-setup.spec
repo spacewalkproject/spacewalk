@@ -474,7 +474,7 @@ rm -rf %{buildroot}
 
 * Mon Apr 06 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
 - replace snail with worm (msuchy@redhat.com)
-- 391771 - removing usermod from install-db.sh, we should do it in %pre of some
+- 391771 - removing usermod from install-db.sh, we should do it in %%pre of some
   rpm. (jpazdziora@redhat.com)
 - bump Versions to 0.6.0 (jesusr@redhat.com)
 - 469413 - included build number to the installation log file
