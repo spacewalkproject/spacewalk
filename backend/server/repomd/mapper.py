@@ -273,7 +273,7 @@ class SqlPackageMapper:
         union all
         select
            'recommends',
-           pr.sense,
+           prec.sense,
            pc.name,
            pc.version
         from
@@ -285,7 +285,7 @@ class SqlPackageMapper:
         union all
         select
            'supplements',
-           pr.sense,
+           supp.sense,
            pc.name,
            pc.version
         from
@@ -297,7 +297,7 @@ class SqlPackageMapper:
         union all
         select
            'suggests',
-           pr.sense,
+           sugg.sense,
            pc.name,
            pc.version
         from
