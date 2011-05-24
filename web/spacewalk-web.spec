@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.12
+Version: 1.5.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue May 24 2011 Jan Pazdziora 1.5.13-1
+- replaced (+) with ANSI left join (je@rockenstein.de)
+
 * Thu May 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.12-1
 - made queries PostgreSQL compatible
 
