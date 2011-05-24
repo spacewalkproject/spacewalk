@@ -502,6 +502,8 @@ class PackageImport(ChannelPackageSubscription):
                                    package['checksum_type'], package['checksum'])
 
     def _fix_encoding(self, text):
+        if text is None:
+            return None
         try:
             return text.decode('utf8')
         except UnicodeDecodeError:
