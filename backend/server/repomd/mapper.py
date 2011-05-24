@@ -334,7 +334,7 @@ class SqlPackageMapper:
 
         self.last_modified_sql = rhnSQL.prepare("""
         select
-            last_modified
+            to_char(last_modified, 'YYYYMMDDHH24MISS') as last_modified
         from
             rhnPackage
         where id = :package_id
