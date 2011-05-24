@@ -35,6 +35,7 @@ class Errata(rhnHandler):
         self.functions.append('GetByPackage')      # Clients v1-
         self.functions.append('getPackageErratum') # Clients v2+
         self.functions.append('getErrataInfo')     # clients v2+
+        self.functions.append('getErrataNamesById')
         
     def GetByPackage(self, pkg, osRel):
         """ Clients v1- Get errata for a package given "n-v-r" format
@@ -242,6 +243,61 @@ class Errata(rhnHandler):
                             pkg_arch])
         return ret
 
+    def getErrataNamesById(self, system_id, errata_ids):
+        """Return a list of RhnErrata tuples of (id, advisory_name)
+
+        IN: system_id - id of the system requesting this info (must be
+            subscribed to the channel that contains the erratas)
+            errata_ids - a list of RhnErrata ids
+
+        Only the erratas that belong to channels that the client system
+        is subscribed to are returned. If no erratas match this
+        criterion, then an empty list is returned.
+
+        """
+        log_debug(5, system_id, errata_ids)
+        self.auth_system(system_id)
+
+        log_debug(1, self.server_id, errata_ids)
+
+        sql_list, bound_vars = _bind_list(errata_ids)
+        bound_vars.update({'server_id': self.server_id})
+
+        sql = """SELECT DISTINCT e.id, e.advisory_name
+                 FROM rhnErrata e,
+                      rhnPackage p,
+                      rhnChannelPackage cp,
+                      rhnServerChannel sc,
+                      rhnErrataPackage ep
+                 WHERE e.id in (%s) AND
+                       ep.errata_id = e.id AND
+                       ep.package_id = p.id AND
+                       sc.server_id = :server_id AND
+                       sc.channel_id = cp.channel_id AND
+                       cp.package_id = p.id"""
+        h = rhnSQL.prepare(sql % sql_list)
+        h.execute(**bound_vars)
+
+        return h.fetchall()
+
+
+def _bind_list(elems):
+    """Transform a list into an sql list with bound parameters
+
+    IN: elems - a list of elements
+
+    Returns a tuple of:
+     sql_list - a comma separated list of parameter numbers: 'p_0, p_1, p_2'
+     bound_vars - a dict of parameter names and values {'p_0': 42, 'p_1': 34}
+
+    """
+    bound_names = []
+    bound_vars = {}
+    for i, elem in enumerate(elems):
+        bound_vars['p_%s' % i] = elem
+        bound_names.append(':p_%s' % i)
+    sql_list = ', '.join(bound_names)
+    return sql_list, bound_vars
 
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
