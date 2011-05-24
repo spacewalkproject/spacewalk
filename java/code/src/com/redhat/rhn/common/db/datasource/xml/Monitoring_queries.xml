@@ -124,21 +124,22 @@ WHERE customer_id = :org_id
 <mode name="methods_in_org" class="com.redhat.rhn.frontend.dto.monitoring.MethodDto">
   <query params="org_id">
     <![CDATA[
-SELECT WC.id user_id,
-       WC.login login,
-       CM.recid recid,
-       CM.method_name method_name,
-       DECODE( MT.method_type_name,
-         'Email', CM.email_address,
-         'Pager', CM.pager_email,
-         'SNMP', CM.snmp_host) method_target,
+SELECT WC.id AS user_id,
+       WC.login AS login,
+       CM.recid AS recid,
+       CM.method_name AS method_name,
+       (CASE MT.method_type_name
+        WHEN 'Email' THEN CM.email_address
+        WHEN 'Pager' THEN CM.pager_email
+        WHEN 'SNMP' THEN CM.snmp_host
+       END) AS method_target,
        MT.method_type_name method_type
-  FROM rhn_contact_methods CM,
-       web_contact WC,
-       rhn_method_types MT
+  FROM rhn_contact_methods CM
+  LEFT JOIN rhn_method_types MT
+    ON CM.method_type_id = MT.recid,
+       web_contact WC
  WHERE WC.org_id = :org_id
    AND CM.contact_id = WC.id
-   AND CM.method_type_id = MT.recid (+)
 ORDER BY WC.login, CM.method_name
     ]]>
   </query>
@@ -147,13 +148,23 @@ ORDER BY WC.login, CM.method_name
 <mode name="servers_in_suite" class="com.redhat.rhn.frontend.dto.monitoring.MonitoredServerDto">
   <query params="suite_id"><![CDATA[
 SELECT distinct s.id, s.name,
-( SELECT  DECODE(
-                   MAX(DECODE(statps.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
-           FROM  rhn_check_probe statcp, rhn_probe_state statps
-          WHERE  statcp.probe_id = statps.probe_id
-            AND  s.id = statcp.host_id(+)
-         GROUP BY s.id ) status
+( SELECT  (CASE
+                   MAX(CASE statps.state
+                       WHEN 'OK' THEN 1
+                       WHEN 'PENDING' THEN 2
+                       WHEN 'UNKNOWN' THEN 3
+                       WHEN 'WARNING' THEN 4
+                       WHEN 'CRITICAL' THEN 5 END)
+           WHEN 1 THEN 'OK'
+           WHEN 2 THEN 'PENDING'
+           WHEN 3 THEN 'UNKNOWN'
+           WHEN 4 THEN 'WARNING'
+           WHEN 5 THEN 'CRITICAL' END ) ST
+           FROM  rhn_check_probe statcp
+           LEFT JOIN rhn_probe_state statps
+             ON s.id = statcp.host_id
+          WHERE statcp.probe_id = statps.probe_id
+          GROUP BY s.id ) status
 FROM rhn_check_suites cs,
      rhn_check_suite_probe csp,
      rhn_service_probe_origins spo,

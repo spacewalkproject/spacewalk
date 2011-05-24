@@ -501,15 +501,14 @@ ORDER BY  UPPER(COALESCE(X.server_name, '(none)')), X.id
 select  a.server_id             id,
         s.name                  server_name,
         COALESCE(sg.name,'Org Admin access')     group_name
-from    rhnServerGroup          sg,
-        rhnServer               s,
+from    rhnServer               s,
         (
         select  usg.user_id, sgm.server_id, sgm.server_group_id
         from    rhnServerGroupMembers sgm,
                 rhnUserServerGroupPerms usg
         where   usg.server_group_id = sgm.server_group_id
         union all
-        select  ugm.user_id, s.id server_id, TO_NUMBER(null) server_group_id
+        select  ugm.user_id, s.id server_id, TO_NUMBER(null,null) server_group_id
         from    rhnUserGroup ug,
                 rhnUserGroupMembers ugm,
                 rhnServer s,
@@ -522,9 +521,10 @@ from    rhnServerGroup          sg,
                     where label = 'org_admin')
             and s.org_id = u.org_id
         )                       a
+left join rhnServerGroup sg
+on a.server_group_id = sg.id
 where a.user_id = :formvar_uid
     and a.server_id in (%s)
-    and a.server_group_id = sg.id(+)
     and a.server_id = s.id
   </elaborator>
 </mode>

@@ -7,10 +7,10 @@ SELECT CDK.id,
        CDK.description,
        (
 SELECT COUNT(SCDV.server_id)
-  FROM rhnServerCustomDataValue SCDV,
-       rhnUserServerPerms USP
+  FROM rhnUserServerPerms USP
+  LEFT JOIN rhnServerCustomDataValue SCDV
+    ON USP.server_id = SCDV.server_id
  WHERE USP.user_id = :user_id
-   AND USP.server_id = SCDV.server_id (+)
    AND SCDV.key_id = CDK.id
        ) as system_count,
        TO_CHAR(CDK.modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
@@ -28,10 +28,10 @@ SELECT CDK.id,
        CDK.description,
        COUNT(SCDV.key_id) as system_count,
        TO_CHAR(CDK.modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnServerCustomDataValue SCDV,
-       rhnCustomDataKey CDK
+  FROM rhnCustomDataKey CDK
+  LEFT JOIN rhnServerCustomDataValue SCDV
+    ON CDK.id = SCDV.key_id
  WHERE CDK.org_id = :org_id
-   AND CDK.id = SCDV.key_id (+)
    AND NOT EXISTS (
 SELECT 1 FROM rhnServerCustomDataValue
  WHERE server_id = :sid

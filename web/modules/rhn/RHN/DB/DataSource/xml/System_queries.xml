@@ -458,15 +458,14 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 select  a.server_id             id,
         s.name                  server_name,
         NVL(sg.name,'Org Admin access')     group_name
-from    rhnServerGroup          sg,
-        rhnServer               s,
+from    rhnServer               s,
         (
         select  usg.user_id, sgm.server_id, sgm.server_group_id
         from    rhnServerGroupMembers sgm,
                 rhnUserServerGroupPerms usg
         where   usg.server_group_id = sgm.server_group_id
         union all
-        select  ugm.user_id, s.id server_id, TO_NUMBER(null) server_group_id
+        select  ugm.user_id, s.id server_id, TO_NUMBER(null,null) server_group_id
         from    rhnUserGroup ug,
                 rhnUserGroupMembers ugm,
                 rhnServer s,
@@ -479,9 +478,10 @@ from    rhnServerGroup          sg,
                     where label = 'org_admin')
             and s.org_id = u.org_id
         )                       a
+left join rhnServerGroup sg
+on a.server_group_id = sg.id
 where a.user_id = :some_user_id
     and a.server_id in (%s)
-    and a.server_group_id = sg.id(+)
     and a.server_id = s.id
   </elaborator>
   <elaborator name="system_overview" />
@@ -1060,18 +1060,22 @@ SELECT  DISTINCT ST.element AS ID
 </mode>
 
 <query name="available_to_user" params="user_id">
+select * from (
   SELECT  DISTINCT S.id,
                    S.name,
                    SI.server_id AS IS_RHN_SATELLITE,
                    PI.server_id AS IS_RHN_PROXY,
                    TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECKIN
-    FROM  rhnSatelliteInfo SI, rhnServerInfo SInfo, rhnProxyInfo PI, rhnServer S, rhnUserServerPerms USP
+    FROM rhnServer S
+    LEFT JOIN rhnSatelliteInfo SI
+      ON S.id = SI.server_id
+    LEFT JOIN rhnProxyInfo PI
+      ON S.id = PI.server_id,
+         rhnServerInfo SInfo, rhnUserServerPerms USP
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
-     AND  S.id = SI.server_id (+)
-     AND  S.id = PI.server_id (+)
-     AND  Sinfo.server_id = S.id
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+     AND  Sinfo.server_id = S.id ) X
+ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
 </query>
 
 
