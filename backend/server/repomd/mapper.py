@@ -62,7 +62,7 @@ class ChannelMapper:
 
         self.last_modified_sql = rhnSQL.prepare("""
         select
-            last_modified
+            to_char(last_modified, 'YYYYMMDDHH24MISS') as last_modified
         from
             rhnChannel
         where id = :channel_id
