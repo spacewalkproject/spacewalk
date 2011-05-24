@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.5.4
+Version:        1.5.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue May 24 2011 Jan Pazdziora 1.5.5-1
+- 679333 - update rhnPushClient when deleting server (mzazrivec@redhat.com)
+
 * Wed Apr 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.4-1
 - in postgres we should upgrade only the affected function
 
