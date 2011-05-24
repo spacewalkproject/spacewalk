@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.34
+Version: 1.5.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -540,6 +540,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 24 2011 Jan Pazdziora 1.5.35-1
+- 703273 - check, whether subscription is possible (tlestach@redhat.com)
+
 * Fri May 20 2011 Tomas Lestach <tlestach@redhat.com> 1.5.34-1
 - 659138 - extend schedule creation error handling (tlestach@redhat.com)
 - 659138 - do not forward parameter map in case of success
