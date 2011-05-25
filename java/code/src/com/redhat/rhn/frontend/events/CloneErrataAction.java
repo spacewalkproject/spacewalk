@@ -58,6 +58,7 @@ public class CloneErrataAction
             Errata errata = ErrataFactory.lookupById(eid);
             if (errata instanceof PublishedClonedErrata) {
                 errata.addChannel(currChan);
+                ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
             }
             else {
                 Set<Channel> channelSet = new HashSet<Channel>();
@@ -70,6 +71,7 @@ public class CloneErrataAction
                     Errata published = PublishErrataHelper.cloneErrataFast(errata,
                             msg.getUser().getOrg());
                     published.setChannels(channelSet);
+                    ErrataCacheManager.insertCacheForChannelErrata(cids, published);
                 }
                 else {
                     log.debug("Re-publishing clone");
@@ -78,7 +80,6 @@ public class CloneErrataAction
 
 
             }
-            ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
         }
     }
 
