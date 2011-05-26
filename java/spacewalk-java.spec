@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.36
+Version: 1.5.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -541,6 +541,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 26 2011 Tomas Lestach <tlestach@redhat.com> 1.5.37-1
+- adding jaf build require for spacewalk-java (tlestach@redhat.com)
+
 * Wed May 25 2011 Tomas Lestach <tlestach@redhat.com> 1.5.36-1
 - 707658 - generate errata cache for the correct erratum (tlestach@redhat.com)
 
