@@ -14,12 +14,16 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -120,7 +124,8 @@ public class NewChannelHelper {
         }
         else {
             cloned.getPackages().addAll(toClone.getPackages());
-            cloned.getErratas().addAll(toClone.getErratas());
+            ErrataManager.publishErrataToChannelAsync(cloned,
+                    getErrataIds(toClone.getErratas()), user);
         }
 
         //adopt the channel into the org's channelfamily
@@ -133,6 +138,13 @@ public class NewChannelHelper {
         return cloned;
     }
 
+    private Set<Long> getErrataIds(Set<Errata> errata) {
+        Set<Long> ids = new HashSet();
+        for (Errata erratum : errata) {
+            ids.add(erratum.getId());
+        }
+        return ids;
+    }
 
     /**
      * Verifies a potential name for a channel
