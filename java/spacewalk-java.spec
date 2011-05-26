@@ -272,10 +272,15 @@ This package contains the Java version of taskomatic.
 %setup -q
 
 # missing tomcat juli JAR (needed for JSP precompilation) - bug 661244
-if test -d /usr/share/tomcat6 -a ! -h /usr/share/java/tomcat6/tomcat-juli.jar; then
+if test -d /usr/share/tomcat6; then
     mkdir -p build/build-lib
-    ln -s /usr/share/tomcat6/bin/tomcat-juli.jar \
-        build/build-lib/tomcat-juli.jar
+    if test ! -h /usr/share/java/tomcat6/tomcat-juli.jar; then
+        ln -s /usr/share/tomcat6/bin/tomcat-juli.jar \
+            build/build-lib/tomcat-juli.jar
+    else
+        ln -s /usr/share/java/tomcat6/tomcat-juli.jar \
+                build/build-lib/tomcat-juli.jar
+    fi
 fi
 
 
