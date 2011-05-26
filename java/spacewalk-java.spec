@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.37
+Version: 1.5.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 26 2011 Tomas Lestach <tlestach@redhat.com> 1.5.38-1
+- 708083 - clone Red Hat errata, when associating them into a cloned channel
+  (tlestach@redhat.com)
+- create special symlink for f15 tomcat-juli.jar (tlestach@redhat.com)
+
 * Thu May 26 2011 Tomas Lestach <tlestach@redhat.com> 1.5.37-1
 - adding jaf build require for spacewalk-java (tlestach@redhat.com)
 
