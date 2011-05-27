@@ -161,14 +161,25 @@ class VirtDiskPathExistsError(Exception):
         return "Virt Disk Path %s already exists on the host system. Please provide another disk path for the virt guest and reschedule your guest kickstart." % self.value
 
 
+class BlockDeviceNonexistentError(Exception):
+    def __init__(self, device_path):
+        self.value = device_path
+    def __str__(self):
+        return "Block Device Path %s does not exist on the host system. Please create the device for the virtual guest and reschedule your guest kickstart." % self.value
+
+
 def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
                    vcpus, disk_gb, virt_bridge, disk_path, extra_append, log_notify_handler=None):
 
     error_messages = {}
     success = 0
     try:
-        if os.path.exists(disk_path):
-            raise VirtDiskPathExistsError(disk_path)
+        if disk_path.startswith('/dev/'):
+            if not os.path.exists(disk_path):
+               raise BlockDeviceNonexistentError(disk_path)
+        else:
+            if os.path.exists(disk_path):
+                raise VirtDiskPathExistsError(disk_path)
         k = Koan()
         k.list_items          = 0
         k.server              = kickstart_host
