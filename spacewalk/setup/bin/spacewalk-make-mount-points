@@ -51,6 +51,7 @@ for my $dir (sort { length $a <=> length $b } keys %dirs) {
 }
 if ($seen_nfs and Spacewalk::Setup::have_selinux()) {
 	system('/usr/sbin/setsebool', '-P', 'spacewalk_nfs_mountpoint', 1);
+	system('/usr/sbin/setsebool', '-P', 'cobbler_use_nfs', 1);
 }
 
 exit 0;
