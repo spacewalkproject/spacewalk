@@ -26,6 +26,9 @@ import string
 import time
 import types
 import exceptions
+import Queue
+import threading
+import itertools
 from optparse import Option, OptionParser
 from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
 
@@ -406,8 +409,8 @@ class Syncer:
         self._missing_channel_packages = None
         self._missing_fs_packages = None
 
-        self._failed_fs_packages = {}
-        self._extinct_packages = {}
+        self._failed_fs_packages = Queue.Queue()
+        self._extinct_packages = Queue.Queue()
 
         self._channel_errata = {}
         self._missing_channel_errata = {}
@@ -1712,7 +1715,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 # XXX misa: deal with source rpms
                 errata_file['pkgobj'] = None
 
-
     def _fetch_packages(self, channel, missing_fs_packages, sources=0):
         short_package_collection = sync_handlers.ShortPackageCollection()
         if sources:
@@ -1722,91 +1724,52 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         #    acronym = "RPM"
             package_collection = sync_handlers.PackageCollection()
 
-        self._failed_fs_packages.clear()
-        self._extinct_packages.clear()
+        self._failed_fs_packages = Queue.Queue()
+        self._extinct_packages = Queue.Queue()
         pkgs_total = len(missing_fs_packages)
         pkg_current = 0
-        cfg = config.initUp2dateConfig()
         total_size = 0
+        queue = Queue.Queue()
+        out_queue = Queue.Queue()
+        lock = threading.Lock()
+
         
         #count size of missing packages
         for package_id, path in missing_fs_packages:
             timestamp = short_package_collection.get_package_timestamp(package_id)
             package = package_collection.get_package(package_id, timestamp)
             total_size = total_size+package['package_size']
+            queue.put((package_id, path))
 
         log(1, messages.package_fetch_total_size %
             (self._bytes_to_fuzzy(total_size)))
-    
         real_processed_size = processed_size = 0
         real_total_size = total_size
         start_time = round(time.time())
 
-        for package_id, path in missing_fs_packages:
+        all_threads=[]
+        for i in range(4):
+            t = ThreadDownload(lock, queue, out_queue, short_package_collection, package_collection, self, self._failed_fs_packages, self._extinct_packages, sources, channel)
+            t.setDaemon(True)
+            t.start()
+            all_threads.append(t)
+
+        while list(itertools.ifilter(lambda x: x.isAlive(), all_threads)) or out_queue.qsize() > 0:
+            try:
+                (rpmManip, package, is_done) = out_queue.get_nowait()
+            except Queue.Empty:
+                time.sleep(0.1)
+                continue
             pkg_current = pkg_current + 1
-            timestamp = short_package_collection.get_package_timestamp(package_id)
-            package = package_collection.get_package(package_id, timestamp)
-            checksum_type = package['checksum_type']
-            checksum = package['checksum']
-            package_size = package['package_size']
-            if not path:
-                nevra = get_nevra(package)
-                orgid = None
-                if package['org_id']:
-                    orgid = OPTIONS.orgid or DEFAULT_ORG
-                path = self._get_rel_package_path(nevra, orgid, sources,
-                                                checksum_type, checksum)
 
-            # update package path
-            package['path'] = path
-            package_collection.add_item(package)
-
-            errcode = self._verify_file(path, rhnLib.timestamp(timestamp), package_size,
-                                                checksum_type, checksum)
-            if errcode == 0:
-                # file is already there
-                # do not count this size to time estimate
+            if not is_done: # package failed to download or already exist on disk
                 real_total_size -= package['package_size']
                 processed_size += package['package_size']
-                continue
-
-            rpmManip = RpmManip(package, path)
-            nvrea = rpmManip.nvrea()
-
-            # Retry a number of times, we may have network errors
-            for i in range(cfg['networkRetries']):
-                rpmFile, stream = self._get_package_stream(channel,
-                    package_id, nvrea, sources)
-                if stream is None:
-                    # Mark the package as extinct
-                    self._extinct_packages[package_id] = path
-                    log(1, messages.package_fetch_extinct %
-                        (pkg_current, pkgs_total, os.path.basename(path)))
-                    break # inner for
-
                 try:
-                    rpmManip.write_file(stream)
-                    break # inner for
-                except FileCreationError, e:
-                    msg = e[0]
-                    log2disk(-1, _("Unable to save file %s: %s") % (
-                        rpmManip.full_path, msg))
-                    # Try again
-                    continue
-
-            else: #for
-                # Ran out of iterations
-                # Mark the package as failed and move on
-                self._failed_fs_packages[package_id] = path
-                log(1, messages.package_fetch_failed %
-                    (pkg_current, pkgs_total, os.path.basename(path)))
-                # Move to the next package
+                    out_queue.task_done()
+                except AttributeError:
+                    pass
                 continue
-
-            if stream is None:
-                # Package is extinct. Move on
-                continue
-
             # Package successfully saved
             filename = os.path.basename(rpmManip.relative_path)
 
@@ -1823,19 +1786,13 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             log(1, messages.package_fetch_successful %
                 (pkg_current, pkgs_total, filename, size))
+            try:
+                out_queue.task_done()
+            except AttributeError:
+                pass
 
-            if self.mountpoint:
-                # Channel dumps import; try to unlink to preserve disk space
-                # rpmFile is always returned by _get_package_stream for
-                # disk-based imports
-                assert(rpmFile is not None)
-                try:
-                    os.unlink(rpmFile)
-                except:
-                    pass
-
-        extinct_count = len(self._extinct_packages.keys())
-        failed_count = len(self._failed_fs_packages.keys())
+        extinct_count = self._extinct_packages.qsize()
+        failed_count = self._failed_fs_packages.qsize()
 
         # Printing summary
         log(2, messages.package_fetch_summary % channel, notimeYN=1)
@@ -1888,6 +1845,120 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             stream = rpmServer.getPackageStream(channel, nvrea)
 
         return (None, stream)
+
+class ThreadDownload(threading.Thread):
+    def __init__(self, lock, queue, out_queue, short_package_collection, package_collection, syncer, failed_fs_packages, extinct_packages, sources, channel):
+        threading.Thread.__init__(self)
+        self.queue = queue
+        self.out_queue = out_queue
+        self.short_package_collection = short_package_collection
+        self.package_collection = package_collection
+        self.syncer = syncer
+        self.failed_fs_packages = failed_fs_packages
+        self.extinct_packages = extinct_packages
+        self.sources = sources
+        self.channel = channel
+        self.lock = lock
+
+    def run(self):
+        while not self.queue.empty():
+            #grabs host from queue
+            (package_id, path) = self.queue.get()
+            timestamp = self.short_package_collection.get_package_timestamp(package_id)
+            package = self.package_collection.get_package(package_id, timestamp)
+            checksum_type = package['checksum_type']
+            checksum = package['checksum']
+            package_size = package['package_size']
+            if not path:
+                nevra = get_nevra(package)
+                orgid = None
+                if package['org_id']:
+                    orgid = OPTIONS.orgid or DEFAULT_ORG
+                path = self.syncer._get_rel_package_path(nevra, orgid, self.sources,
+                                            checksum_type, checksum)
+
+            # update package path
+            package['path'] = path
+            self.package_collection.add_item(package)
+
+            errcode = self.syncer._verify_file(path, rhnLib.timestamp(timestamp), package_size,
+                                            checksum_type, checksum)
+            if errcode == 0:
+                # file is already there
+                # do not count this size to time estimate
+                try:
+                    self.queue.task_done()
+                except AttributeError:
+                    pass
+                self.out_queue.put((None, package, False))
+                continue
+
+            cfg = config.initUp2dateConfig()
+            rpmManip = RpmManip(package, path)
+            nvrea = rpmManip.nvrea()
+
+            # Retry a number of times, we may have network errors
+            for i in range(cfg['networkRetries']):
+                self.lock.acquire()
+                rpmFile, stream = self.syncer._get_package_stream(self.channel,
+                    package_id, nvrea, self.sources)
+                self.lock.release()
+                if stream is None:
+                    # Mark the package as extinct
+                    self.extinct_packages.put(package_id)
+                    log(1, messages.package_fetch_extinct %
+                        (pkg_current, pkgs_total, os.path.basename(path)))
+                    break # inner for
+
+                try:
+                    rpmManip.write_file(stream)
+                    break # inner for
+                except FileCreationError, e:
+                    msg = e[0]
+                    log2disk(-1, _("Unable to save file %s: %s") % (
+                        rpmManip.full_path, msg))
+                    # Try again
+                    continue # inner for
+
+            else: #for
+                # Ran out of iterations
+                # Mark the package as failed and move on
+                self.failed_fs_packages.put(package_id)
+                log(1, messages.package_fetch_failed %
+                    (pkg_current, pkgs_total, os.path.basename(path)))
+                # Move to the next package
+                try:
+                    self.queue.task_done()
+                except AttributeError:
+                    pass
+                self.out_queue.put((rpmManip, package, False))
+                continue
+
+            if stream is None:
+                # Package is extinct. Move on
+                try:
+                    self.queue.task_done()
+                except AttributeError:
+                    pass
+                self.out_queue.put((rpmManip, package, False))
+                continue
+
+            if self.syncer.mountpoint:
+                # Channel dumps import; try to unlink to preserve disk space
+                # rpmFile is always returned by _get_package_stream for
+                # disk-based imports
+                assert(rpmFile is not None)
+                try:
+                    os.unlink(rpmFile)
+                except:
+                    pass
+
+            #signals to queue job is done
+            try:
+                self.queue.task_done()
+            except AttributeError:
+                pass
+            self.out_queue.put((rpmManip, package, True))
 
 
 class StreamProducer:
