@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.5.6
+Version:        1.5.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri May 27 2011 Jan Pazdziora 1.5.7-1
+- 708357 - If the mountpoint is on NFS, set cobbler_use_nfs.
+
 * Mon May 16 2011 Jan Pazdziora 1.5.6-1
 - We only want to source the setenv.sh if it exists.
 
