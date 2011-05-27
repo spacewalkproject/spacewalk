@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.39
+Version: 1.5.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 27 2011 Tomas Lestach <tlestach@redhat.com> 1.5.40-1
+- 443126 - introduce notifications for custom errata (tlestach@redhat.com)
+
 * Fri May 27 2011 Jan Pazdziora 1.5.39-1
 - 703858 - virt. channel subscription: mimic the behavior of original channel
   (mzazrivec@redhat.com)
