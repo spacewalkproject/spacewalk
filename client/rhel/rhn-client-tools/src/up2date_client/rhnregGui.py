@@ -871,7 +871,7 @@ class CreateProfilePage:
             if conf_changed:
                 reviewLog.yum_plugin_conf_changed()
         except IOError, e:
-            errorWindow(_("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enable.\n") + e.errmsg)
+            errorWindow(_("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
             reviewLog.yum_plugin_conf_error()
         rhnreg.spawnRhnCheckForUI()
         pwin.setProgress(6,6)
