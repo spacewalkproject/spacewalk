@@ -36,7 +36,7 @@ if ($help) {
 }
 
 unless ($target and (@options)) {
-  die $usage;
+  die B$usage;
 }
 
 my %options = map { split(/=/,$_, 2) } @options;
@@ -93,4 +93,37 @@ rename($tmpfile, $target) or die "Could not rename $tmpfile to $target: $OS_ERRO
 
 exit 0;
 
+=pod
 
+=head1 NAME
+
+rhn-config-satellite.pl - generate config files for Spacewalk server
+
+=head1 SYNOPSIS
+
+B<rhn-config-satellite.pl> --target=<target_file> --option=<key,value> [ --option=<key,value> ...] [ --help ]
+
+=head1 DESCRIPTION
+
+This script will make sure that in F<target_file> are present configuration variables in format C<key=value>. If such key already exist there, it is removed and new variables are put at the end of the F<target_file>. Original file is preserved as F<target_file.orig>
+
+This script is used internally by B<spacewalk-setup>(1)
+=head1 OPTIONS
+
+=over 5
+
+=item B<--option=<key,value>>
+
+Specify configuration variable and its value. It will be written to config file as C<key=value>.
+
+=item B<--help>
+
+Write out short help.
+
+=back
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1)
+
+=cut
