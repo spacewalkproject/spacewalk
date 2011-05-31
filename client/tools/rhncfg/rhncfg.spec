@@ -77,6 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sharedstatedir}
 %endif
 %dir %{_sharedstatedir}/rhncfg
+%dir %{_localstatedir}/spool/rhn
 %{rhnroot}/config_common
 %{_sharedstatedir}/rhncfg/backups
 %doc LICENSE PYTHON-LICENSES.txt

@@ -31,6 +31,10 @@ except ImportError:
 
 # this is ugly, hopefully it will be natively supported in up2date
 from configfiles import _local_permission_check, _perm_error
+from config_common import local_config
+
+sys.path.append('/usr/share/rhn')
+from up2date_client import config
 
 
 # this is a list of the methods that get exported by a module
@@ -76,6 +80,11 @@ def _create_script_file(script, uid=None, gid=None):
 
 
 def run(action_id, params, cache_only=None):
+
+    cfg = config.initUp2dateConfig()
+    local_config.init('rhncfg-client', defaults=dict(cfg.items()))
+
+    tempfile.tempdir = local_config.get('script_tmp_dir')
     if cache_only:
         return (0, "no-ops for caching", {})
 
