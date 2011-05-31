@@ -19,13 +19,11 @@
 
 BINDIR	  = /usr/bin
 SBINDIR   = /usr/sbin
-INITDIR   = /etc/rc.d/init.d
 GPGKEYDIR = /usr/share/rhn
 
 VERSION = $(shell echo `awk '{ print $$1 }' version`)
 
 PERL_DEST   = $(PREFIX)/$(BINDIR)
-INIT_DEST   = $(PREFIX)/$(INITDIR)
 SBIN_DEST   = $(PREFIX)/$(SBINDIR)
 GPGKEY_DEST = $(PREFIX)/$(GPGKEYDIR)
 
@@ -49,18 +47,12 @@ DIR_INSTALL    = install -d -m 755
 # install scripts
 all:
 
-install: $(PERL_SCRIPTS) $(PERL_DEST) INIT_SCRIPT $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
+install: $(PERL_SCRIPTS) $(PERL_DEST) $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
 	$(BIN_INSTALL) $(PERL_SCRIPTS) $(PERL_DEST)
 	$(GPGKEY_INSTALL) $(GPGKEY_FILES) $(GPGKEY_DEST)
 	$(BIN_INSTALL) $(SBIN_SCRIPTS) $(SBIN_DEST)	
 
-INIT_SCRIPT: $(INIT_DEST)
-	$(BIN_INSTALL) rhn-satellite.obsolete $(INIT_DEST)/rhn-satellite
-
 $(PERL_DEST): 
-	$(DIR_INSTALL) $@
-
-$(INIT_DEST): 
 	$(DIR_INSTALL) $@
 
 $(GPGKEY_DEST): 
