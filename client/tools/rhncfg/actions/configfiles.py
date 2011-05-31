@@ -15,6 +15,7 @@
 
 import os
 import time
+import sys
 
 from config_common import local_config, file_utils, utils, cfg_exceptions
 from config_common.rhn_log import set_debug_level, get_debug_level, set_logfile, log_to_file
