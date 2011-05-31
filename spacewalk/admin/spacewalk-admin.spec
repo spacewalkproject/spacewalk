@@ -65,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-install-ssl-cert.pl
 %{_sbindir}/rhn-sat-restart-silent
 %{rhnroot}/RHN-GPG-KEY
-%{_mandir}/man8/validate-sat-cert.8.gz
+%{_mandir}/man8/validate-sat-cert.8*
 %{_mandir}/man8/validate-sat-cert.pl.8*
 %{_mandir}/man8/rhn-satellite.8*
 %{_mandir}/man8/rhn-config-schema.pl.8*
