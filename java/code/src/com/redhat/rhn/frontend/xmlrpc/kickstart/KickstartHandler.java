@@ -375,14 +375,13 @@ public class KickstartHandler extends BaseHandler {
      * delete a kickstart profile
      * @param sessionKey the session key
      * @param ksLabel the kickstart to remove an ip range from
-     * @return 1 on removal, 0 if not found, exception otherwise
+     * @return 1 if successful, exception otherwise.
      *
      * @xmlrpc.doc Delete a kickstart profile
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of
      * the kickstart profile you want to remove")
-     * @xmlrpc.returntype int - 1 on successful deletion, 0 if kickstart wasn't found
-     *  or couldn't be deleted.
+     * @xmlrpc.returntype #return_int_success()
      */
     public int deleteProfile(String sessionKey, String ksLabel) {
         User user = getLoggedInUser(sessionKey);
@@ -392,12 +391,8 @@ public class KickstartHandler extends BaseHandler {
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
         KickstartDeleteCommand com = new KickstartDeleteCommand(ksdata.getId(), user);
         ValidatorError error = com.store();
-        if (error == null) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
+
+        return 1;
     }
 
     /**
