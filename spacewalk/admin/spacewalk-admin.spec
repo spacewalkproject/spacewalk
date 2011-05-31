@@ -38,6 +38,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_bindir}/pod2man --section=8 rhn-config-schema.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-schema.pl.8
 %{_bindir}/pod2man --section=8 rhn-load-ssl-cert.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-load-ssl-cert.pl.8
 %{_bindir}/pod2man --section=8 man/spacewalk-service.pod > $RPM_BUILD_ROOT%{_mandir}/man8/spacewalk-service.8
+%{_bindir}/pod2man --section=8 rhn-sat-restart-silent > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-sat-restart-silent.8
 install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 install -p man/rhn-sudo-load-ssl-cert.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
@@ -68,6 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-load-ssl-cert.pl.8*
 %{_mandir}/man8/rhn-sudo-load-ssl-cert.8*
 %{_mandir}/man8/spacewalk-service.8*
+%{_mandir}/man8/rhn-sat-restart-silent.8*
 
 %changelog
 * Fri Apr 29 2011 Jan Pazdziora 1.5.2-1
