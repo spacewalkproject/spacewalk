@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.5
+Version: 5.10.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue May 31 2011 Jan Pazdziora 5.10.6-1
+- Fix python import (matteo.sessa@dbmsrl.com)
+
 * Tue May 10 2011 Jan Pazdziora 5.10.5-1
 - remove unused import, fix indentation and a minor typo (iartarisi@suse.cz)
 - fix usage documentation messages for topdir and dest-file (iartarisi@suse.cz)
