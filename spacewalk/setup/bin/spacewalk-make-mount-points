@@ -1,14 +1,7 @@
 #!/usr/bin/perl
 
-# Given a list of directories (for example, /var/satellite)
-# check if they exist and if they do not exist, create them
-# with apache as owner. Also run restorecon on them, and
-# if they are nfs_t mounted, set spacewalk_nfs_mountpoint boolean.
-
 use strict;
 use warnings FATAL => 'all';
-
-use Spacewalk::Setup ();
 
 my %dirs;
 @dirs{@ARGV} = @ARGV;
@@ -56,3 +49,34 @@ if ($seen_nfs and Spacewalk::Setup::have_selinux()) {
 
 exit 0;
 
+=pod
+
+=head1 NAME
+
+spacewalk-make-mount-points - prepare directories for Spacewalk
+
+=head1 SYNOPSIS
+
+spacewalk-make-mount-points [DIR1 [DIR2 ...]]
+
+=head1 DESCRIPTION
+
+Given a list of directories (for example, /var/satellite) this
+script will check if directories exist and if they do not exist,
+create them with apache as owner. Also run restorecon on them,
+and if they are nfs_t mounted, set spacewalk_nfs_mountpoint
+boolean.
+
+This script is not intended to be run directly by human.
+spacewalk-setup use this script internally.
+
+=head1 SEE ALSO
+
+spacewalk-setup(8)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2011 Red Hat, Inc.
+Released under GNU General Public License, version 2 (GPLv2).
+
+=cut
