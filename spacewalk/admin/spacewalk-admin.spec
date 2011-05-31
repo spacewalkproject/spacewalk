@@ -41,6 +41,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_bindir}/pod2man --section=8 rhn-sat-restart-silent > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-sat-restart-silent.8
 %{_bindir}/pod2man --section=8 rhn-config-satellite.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-satellite.pl.8
 install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
+install -p man/validate-sat-cert.pl.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 install -p man/rhn-sudo-load-ssl-cert.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
 ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
@@ -65,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sbindir}/rhn-sat-restart-silent
 %{rhnroot}/RHN-GPG-KEY
 %{_mandir}/man8/validate-sat-cert.8.gz
+%{_mandir}/man8/validate-sat-cert.pl.8*
 %{_mandir}/man8/rhn-satellite.8*
 %{_mandir}/man8/rhn-config-schema.pl.8*
 %{_mandir}/man8/rhn-load-ssl-cert.pl.8*
