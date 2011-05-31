@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.5.8
+Version: 1.5.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -341,6 +341,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue May 31 2011 Jan Pazdziora 1.5.9-1
+- fix typo (msuchy@redhat.com)
+
 * Mon May 23 2011 Miroslav Suchý 1.5.8-1
 - 683200 - u'foo'.decode('utf-8') does not work, while unicode(u'foo') works
   and is idempotent (msuchy@redhat.com)
