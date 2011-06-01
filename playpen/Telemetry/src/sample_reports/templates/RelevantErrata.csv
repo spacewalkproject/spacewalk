@@ -1,8 +1,0 @@
-system group name, system, advisory name, advisory type, advisory synopsis
-#for sGroup in $systemGroups
-#for system in $sGroup.systems	
-#for erratum in $system.errata
-$sGroup.name,$system.profile_name,$erratum.advisory_name,$erratum.advisory_type,$erratum.advisory_summary
-#end for
-#end for
-#end for

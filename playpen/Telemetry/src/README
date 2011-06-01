@@ -1,6 +1,0 @@
-Telemetry Requires:
-
-1. Django for webui -> Django
-2. Cheetah Templating -> python-cheetah
-3. Python Crontab -> python-crontab
-4. Yaml Parsing -> PyYAML

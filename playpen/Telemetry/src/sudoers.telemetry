@@ -1,5 +1,0 @@
-#TELEMETRY SETUP - ADDED
-#This file is used to grant permissions for the apache user to interact with the cron scheduler
-Cmnd_Alias MANAGE_CRONTAB = /usr/bin/crontab
-apache  ALL=(root)      NOPASSWD: MANAGE_CRONTAB
-Defaults:apache !requiretty
