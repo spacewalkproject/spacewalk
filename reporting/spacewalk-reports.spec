@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Wed Jun 01 2011 Jan Pazdziora 1.5.2-1
+- Fixing the SGML source of the spacewalk-report man page.
+
 * Thu Apr 14 2011 Jan Pazdziora 1.5.1-1
 - The initCFG is no longer imported directly to spacewalk.common.
 
