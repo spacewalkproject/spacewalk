@@ -22,18 +22,18 @@ Generate reports from Spacewalk server in csv format
     </cmdsynopsis>
     <cmdsynopsis>
         <command>spacewalk-report</command>
-        <sbr />
+        <sbr>
         <group>
           <arg>--multival-on-rows</arg>
           <arg>--multival-separator=<replaceable>separator-string</replaceable></arg>
         </group>
-        <sbr />
+        <sbr>
         <arg>--db=<replaceable>connect-string</replaceable></arg>
-        <sbr />
+        <sbr>
         <arg>--info</arg>
-        <sbr />
+        <sbr>
         <group><arg>--list-fields</arg><arg>--list-fields-info</arg></group>
-        <sbr />
+        <sbr>
         <arg choice='plain'><replaceable>report-name</replaceable></arg>
     </cmdsynopsis>
 </Synopsis>
@@ -51,6 +51,7 @@ Generate reports from Spacewalk server in csv format
     If the report name is not specified, list of available report
     names is printed, one name per line.
 </para>
+</RefSect1>
 
 <RefSect1><Title>Options</Title>
 <variablelist>
@@ -95,6 +96,7 @@ Generate reports from Spacewalk server in csv format
             <para>This option should be considered obsoleted and may
             not be available in next versions of
             <command>spacewalk-report</command>.
+            </para>
         </listitem>
     </varlistentry>
     <varlistentry>
