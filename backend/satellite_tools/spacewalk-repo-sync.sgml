@@ -1,50 +1,53 @@
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
-<!ENTITY RHNCHANRM "Spacewalk repository syncing tool" >
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V4.4//EN">
 
-]>
 <refentry>
 
-<RefMeta>
-<RefEntryTitle>spacewalk-repo-sync</RefEntryTitle><manvolnum>8</manvolnum>
-<RefMiscInfo>Version 3.5.0</RefMiscInfo>
-</RefMeta>
+<refmeta>
+<refentrytitle>spacewalk-repo-sync</refentrytitle><manvolnum>8</manvolnum>
+<refmiscinfo>Version 3.5.0</refmiscinfo>
+</refmeta>
 
-<RefNameDiv>
-<RefName><command>spacewalk-repo-sync</command></RefName>
-<RefPurpose>
+<refnamediv>
+<refname><command>spacewalk-repo-sync</command></refname>
+<refpurpose>
 Syncs the content from yum repos into Spacewalk or Satellite channels.
-</RefPurpose>
-</RefNameDiv>
+</refpurpose>
+</refnamediv>
 
-<RefSynopsisDiv>
-<Synopsis>
+<refsynopsisdiv>
+<synopsis>
     <cmdsynopsis>
-        <command>spaceawlk-remove-channel</command>
-        <arg>options <replaceable>...</replaceable></arg>
+        <command>spacewalk-repo-sync</command>
+        <sbr>
+        <group>
         <arg>-c<replaceable>CHANNEL_LABEL</replaceable></arg>
         <arg>--channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-         <arg>-u<replaceable>URL</replaceable></arg>
-         <arg>--url=<replaceable>URL</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-q</arg>
-        <arg>--quiet</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-f</arg>
-        <arg>--fail</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
+        </group>
+        <sbr>
+        <group>
+        <arg>-u<replaceable>URL</replaceable></arg>
+        <arg>--url=<replaceable>URL</replaceable></arg>
+        </group>
+        <sbr>
+        <group>
         <arg>-t<replaceable>TYPE</replaceable></arg>
         <arg>--type=<replaceable>TYPE</replaceable></arg>
+        </group>
+        <sbr>
+        <group>
+        <arg>-q</arg>
+        <arg>--quiet</arg>
+        </group>
+        <sbr>
+        <group>
+        <arg>-f</arg>
+        <arg>--fail</arg>
+        </group>
     </cmdsynopsis>
-</Synopsis>
-</RefSynopsisDiv>
+</synopsis>
+</refsynopsisdiv>
 
-<RefSect1><Title>Description</Title>
+<refsect1><title>Description</title>
 <para>
     The <emphasis>spacewalk-repo-sync</emphasis> tool is used to sync packages from
     external or local yum repositories. All the packages within the specified repository
@@ -56,9 +59,9 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     If the url is not supplied, the tool will look to see what repositories are associated
     with the specified channel and use those.
 </para>
-</RefSect1>
+</refsect1>
 
-<RefSect1><Title>Options</Title>
+<refsect1><title>Options</title>
 <variablelist>
     <varlistentry>
         <term>-h, --help</term>
@@ -97,23 +100,23 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
 </variablelist>
-</RefSect1>
+</refsect1>
 
-<RefSect1><Title>Examples</Title>
+<refsect1><title>Examples</title>
 <simplelist>
         <member><command>spacewalk-repo-sync --channel=my-custom-channel</command></member>
-        <member><command>spacewalk-remove-channel --channel=my-custom-channel --url=http://example.com/yum-repo/</command></member>
-        <member><command>spacewalk-remove-channel --channel=my-custom-channel --url=file:///var/share/localrepo/</command></member>
-        <member><command>spacewalk-remove-channel --channel=my-custom-channel --url=http://example.com/mirrorlist.xml/</command></member>
+        <member><command>spacewalk-repo-sync --crepo1 --url=http://example.com/yum-repo/</command></member>
+        <member><command>spacewalk-repo-sync --crepo2 --url=file:///var/share/localrepo/</command></member>
+        <member><command>spacewalk-repo-sync --crepom --url=http://example.com/mirrorlist.xml/</command></member>
 </simplelist>
-</RefSect1>
+</refsect1>
 
-<RefSect1><Title>Authors</Title>
+<refsect1><title>Authors</title>
 <simplelist>
     <member>Justin Sherrill <email>jsherril@redhat.com</email></member>
 </simplelist>
-</RefSect1>
-</RefEntry>
+</refsect1>
+</refentry>
 
 <!--
 vim: sw=4
