@@ -7,7 +7,7 @@ if [ "$(basename $0)" == "build-missing-builds-in-brew.sh" ] ; then
     TITO_BUILD_ARG="--cvs-release"
 else
     TAGS="dist-5E-sw-1.5-candidate dist-6E-sw-1.5-candidate dist-f14-sw-1.5-candidate dist-f15-sw-1.5-candidate"
-    TITO_BUILD_ARG="--koji-release"
+    TITO_BUILD_ARG="--release"
     FEDORA_UPLOAD=1
 fi
 
