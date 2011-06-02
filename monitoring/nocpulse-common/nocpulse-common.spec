@@ -52,7 +52,7 @@ install -m644 nocpulse.logrotate \
    $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
-install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_sysconfdir}/%{package_name}/NOCpulse.ini
+install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_sysconfdir}/NOCpulse.ini
 install -m755 -d $RPM_BUILD_ROOT/%{_sysconfdir}/%{package_name}/NOCpulse/tmp
 install -m644 forward $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/.forward
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test
@@ -129,7 +129,7 @@ fi
 %files
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
-%config(missingok,noreplace) %{_sysconfdir}/%{package_name}/NOCpulse.ini
+%config(missingok,noreplace) %{_sysconfdir}/NOCpulse.ini
 %{_sysconfdir}/%{package_name}/NOCpulse
 %attr(-, %{package_name},%{package_name}) %{_sysconfdir}/%{package_name}/NOCpulse/tmp
 %config(missingok,noreplace) %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}/.forward
