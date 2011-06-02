@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.23
+Version:      2.1.24
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -146,6 +146,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jun 02 2011 Miroslav Suchý 2.1.24-1
+- 710002 - create initial NOCpulse.ini on correct place
+
 * Mon May 02 2011 Jan Pazdziora 2.1.23-1
 - The close of IO::AtomicFile can also die, we should catch it right there.
 
