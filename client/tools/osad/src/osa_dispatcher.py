@@ -206,6 +206,7 @@ class Runner(jabber_lib.Runner):
         h = rhnSQL.prepare(self._query_fetch_clients_to_be_pinged)
         h.execute(online_id=online_id)
         clients = h.fetchall_dict() or []
+        rhnSQL.commit()
         if not clients:
             # Nothing to do
             return
@@ -332,6 +333,7 @@ class UpstreamServer(SocketServer.TCPServer):
             log_debug(4, "Notifying", jabber_id, row['server_id'])
             self.jabber_connection.send_message(jabber_id,
                 jabber_lib.NS_RHN_MESSAGE_REQUEST_CHECKIN)
+        rhnSQL.commit()
 
     # We need to drive this query by rhnPushClient since it's substantially
     # smaller than rhnAction
