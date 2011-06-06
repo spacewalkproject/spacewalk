@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.5.1
+Version:     1.5.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,20 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jun 06 2011 Aron Parsons <aparsons@redhat.com> 1.5.2-1
+- spacecmd: cosmetics (aparsons@redhat.com)
+- spacecmd: parse arguments the standard way in softwarechannel_list
+  (aparsons@redhat.com)
+- spacecmd: allow filtering of channels based on arguments in
+  softwarechannel_list (aparsons@redhat.com)
+- spacecmd: quote all arguments before passing them to precmd() when running a
+  single command (aparsons@redhat.com)
+- spacecmd: respect quoted arguments when looking at the line in precmd()
+  (aparsons@redhat.com)
+- spacecmd: be more precise when looking for '--help' in precmd()
+  (aparsons@redhat.com)
+- spacecmd: updated comment for precmd() (aparsons@redhat.com)
+
 * Mon Apr 18 2011 Aron Parsons <aparsons@redhat.com> 1.5.1-1
 - 696681 - fix spaces in system names in system_updatecustomvalue and
   system_addcustomvalue (aparsons@redhat.com)
