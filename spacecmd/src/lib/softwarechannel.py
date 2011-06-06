@@ -60,6 +60,10 @@ def do_softwarechannel_list(self, args, doreturn=False):
     channels = self.client.channel.listAllChannels(self.session)
     channels = [c.get('label') for c in channels]
 
+    # filter the list if arguments were passed
+    if args:
+        channels = filter_results(channels, args)
+
     if doreturn:
         return channels
     else:
