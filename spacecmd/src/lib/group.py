@@ -313,7 +313,7 @@ def help_group_list(self):
     print 'group_list: List available system groups'
     print 'usage: group_list'
 
-def do_group_list(self, args, doreturn=False):
+def do_group_list(self, args, doreturn = False):
     groups = self.client.systemgroup.listAllGroups(self.session)
     groups = [g.get('name') for g in groups]
 
@@ -332,7 +332,7 @@ def help_group_listsystems(self):
 def complete_group_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
-def do_group_listsystems(self, args, doreturn=False):
+def do_group_listsystems(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):

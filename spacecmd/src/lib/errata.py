@@ -29,7 +29,7 @@ def help_errata_list(self):
     print 'errata_list: List all errata'
     print 'usage: errata_list'
 
-def do_errata_list(self, args, doreturn=False):
+def do_errata_list(self, args, doreturn = False):
     self.generate_errata_cache()
 
     if doreturn:
@@ -411,7 +411,7 @@ def help_errata_search(self):
 def complete_errata_search(self, text, line, beg, end):
     return tab_completer(self.do_errata_list('', True), text)
 
-def do_errata_search(self, args, doreturn=False):
+def do_errata_search(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):

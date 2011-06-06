@@ -43,7 +43,7 @@ def help_kickstart_list(self):
     print 'kickstart_list: List the available Kickstart profiles'
     print 'usage: kickstart_list'
 
-def do_kickstart_list(self, args, doreturn=False):
+def do_kickstart_list(self, args, doreturn = False):
     kickstarts = self.client.kickstart.listKickstarts(self.session)
     kickstarts = [k.get('name') for k in kickstarts]
 
@@ -480,7 +480,7 @@ def complete_kickstart_listcryptokeys(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
 
-def do_kickstart_listcryptokeys(self, args, doreturn=False):
+def do_kickstart_listcryptokeys(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):
@@ -575,7 +575,7 @@ def complete_kickstart_listactivationkeys(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
 
-def do_kickstart_listactivationkeys(self, args, doreturn=False):
+def do_kickstart_listactivationkeys(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):
@@ -1366,7 +1366,7 @@ def complete_kickstart_listchildchannels(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
 
-def do_kickstart_listchildchannels(self, args, doreturn=False):
+def do_kickstart_listchildchannels(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):

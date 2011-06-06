@@ -26,7 +26,7 @@ def help_filepreservation_list(self):
     print 'filepreservation_list: List all file preservations'
     print 'usage: filepreservation_list'
 
-def do_filepreservation_list(self, args, doreturn=False):
+def do_filepreservation_list(self, args, doreturn = False):
     lists = \
         self.client.kickstart.filepreservation.listAllFilePreservations(\
             self.session)

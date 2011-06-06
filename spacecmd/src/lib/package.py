@@ -175,7 +175,7 @@ def help_package_listorphans(self):
     print 'package_listorphans: List packages that are not in a channel'
     print 'usage: package_listorphans'
 
-def do_package_listorphans(self, args, doreturn=False):
+def do_package_listorphans(self, args, doreturn = False):
     packages = self.client.channel.software.listPackagesWithoutChannel(\
                                             self.session)
 

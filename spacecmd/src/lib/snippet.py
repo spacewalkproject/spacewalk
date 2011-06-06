@@ -27,7 +27,7 @@ def help_snippet_list(self):
     print 'snippet_list: List the available Kickstart snippets'
     print 'usage: snippet_list'
 
-def do_snippet_list(self, args, doreturn=False):
+def do_snippet_list(self, args, doreturn = False):
     snippets = self.client.kickstart.snippet.listCustom(self.session)
     snippets = [s.get('name') for s in snippets]
 

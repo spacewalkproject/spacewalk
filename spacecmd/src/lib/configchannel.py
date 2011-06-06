@@ -29,7 +29,7 @@ def help_configchannel_list(self):
     print 'configchannel_list: List all configuration channels'
     print 'usage: configchannel_list'
 
-def do_configchannel_list(self, args, doreturn=False):
+def do_configchannel_list(self, args, doreturn = False):
     channels = self.client.configchannel.listGlobals(self.session)
     channels = [c.get('label') for c in channels]
 
@@ -79,7 +79,7 @@ def help_configchannel_listfiles(self):
 def complete_configchannel_listfiles(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
 
-def do_configchannel_listfiles(self, args, doreturn=False):
+def do_configchannel_listfiles(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):

@@ -75,7 +75,7 @@ def help_custominfo_listkeys(self):
     print 'custominfo_listkeys: List all custom keys'
     print 'usage: custominfo_listkeys'
 
-def do_custominfo_listkeys(self, args, doreturn=False):
+def do_custominfo_listkeys(self, args, doreturn = False):
     keys = self.client.system.custominfo.listAllKeys(self.session)
     keys = [k.get('label') for k in keys]
 

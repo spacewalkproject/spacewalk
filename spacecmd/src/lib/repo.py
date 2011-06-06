@@ -26,7 +26,7 @@ def help_repo_list(self):
     print 'repo_list: List all available user repos'
     print 'usage: repo_list'
 
-def do_repo_list(self, args, doreturn=False):
+def do_repo_list(self, args, doreturn = False):
     repos = self.client.channel.software.listUserRepos(self.session)
     repos = [c.get('label') for c in repos]
 

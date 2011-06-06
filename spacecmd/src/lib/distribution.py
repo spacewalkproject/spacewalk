@@ -123,7 +123,7 @@ def help_distribution_list(self):
     print 'distribution_list: List the available Kickstart trees'
     print 'usage: distribution_list'
 
-def do_distribution_list(self, args, doreturn=False):
+def do_distribution_list(self, args, doreturn = False):
     channels = self.client.kickstart.listKickstartableChannels(self.session)
 
     avail_trees = []

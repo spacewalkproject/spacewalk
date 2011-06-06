@@ -56,7 +56,7 @@ def help_softwarechannel_list(self):
     print 'softwarechannel_list: List all available software channels'
     print 'usage: softwarechannel_list'
 
-def do_softwarechannel_list(self, args, doreturn=False):
+def do_softwarechannel_list(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     channels = self.client.channel.listAllChannels(self.session)
@@ -106,7 +106,7 @@ def help_softwarechannel_listsystems(self):
 def complete_softwarechannel_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
-def do_softwarechannel_listsystems(self, args, doreturn=False):
+def do_softwarechannel_listsystems(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):
@@ -141,7 +141,7 @@ def complete_softwarechannel_listpackages(self, text, line, beg, end):
     else:
         return []
 
-def do_softwarechannel_listpackages(self, args, doreturn=False):
+def do_softwarechannel_listpackages(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):
@@ -174,7 +174,7 @@ def complete_softwarechannel_listallpackages(self, text, line, beg, end):
     else:
         return []
 
-def do_softwarechannel_listallpackages(self, args, doreturn=False):
+def do_softwarechannel_listallpackages(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if not len(args):

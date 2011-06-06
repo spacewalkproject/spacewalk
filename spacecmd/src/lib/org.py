@@ -269,7 +269,7 @@ def help_org_list(self):
     print 'org_list: List all organizations'
     print 'usage: org_list'
 
-def do_org_list(self, args, doreturn=False):
+def do_org_list(self, args, doreturn = False):
     orgs = self.client.org.listOrgs(self.session)
     orgs = [o.get('name') for o in orgs]
 

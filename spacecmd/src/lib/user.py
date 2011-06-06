@@ -167,7 +167,7 @@ def help_user_list(self):
     print 'user_list: List all users'
     print 'usage: user_list'
 
-def do_user_list(self, args, doreturn=False):
+def do_user_list(self, args, doreturn = False):
     users = self.client.user.listUsers(self.session)
     users = [u.get('login') for u in users]
 
@@ -183,7 +183,7 @@ def help_user_listavailableroles(self):
     print 'user_list: List all available roles for users'
     print 'usage: user_listavailableroles'
 
-def do_user_listavailableroles(self, args, doreturn=False):
+def do_user_listavailableroles(self, args, doreturn = False):
     roles = self.client.user.listAssignableRoles(self.session)
 
     if doreturn:

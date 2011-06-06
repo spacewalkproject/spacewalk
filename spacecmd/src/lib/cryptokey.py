@@ -111,7 +111,7 @@ def help_cryptokey_list(self):
     print 'cryptokey_list: List all cryptographic keys (SSL, GPG)'
     print 'usage: cryptokey_list'
 
-def do_cryptokey_list(self, args, doreturn=False):
+def do_cryptokey_list(self, args, doreturn = False):
     keys = self.client.kickstart.keys.listAllKeys(self.session)
     keys = [k.get('description') for k in keys]
 

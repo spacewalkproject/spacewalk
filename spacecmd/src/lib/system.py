@@ -136,7 +136,7 @@ def help_system_list(self):
     print 'system_list: List all system profiles'
     print 'usage: system_list'
 
-def do_system_list(self, args, doreturn=False):
+def do_system_list(self, args, doreturn = False):
     if doreturn:
         return self.get_system_names()
     else:
@@ -190,7 +190,7 @@ def help_system_search(self):
     print '> system_search device:vmware'
     print '> system_search ip:192.168.82'
 
-def do_system_search(self, args, doreturn=False):
+def do_system_search(self, args, doreturn = False):
     (args, options) = parse_arguments(args)
 
     if len(args) != 1:
@@ -2217,7 +2217,7 @@ def help_system_listpackageprofiles(self):
     print 'system_listpackageprofiles: List all package profiles'
     print 'usage: system_listpackageprofiles'
 
-def do_system_listpackageprofiles(self, args, doreturn=False):
+def do_system_listpackageprofiles(self, args, doreturn = False):
     profiles = self.client.system.listPackageProfiles(self.session)
     profiles = [ p.get('name') for p in profiles ]
 

@@ -666,7 +666,7 @@ def help_activationkey_list(self):
     print 'activationkey_list: List all activation keys'
     print 'usage: activationkey_list'
 
-def do_activationkey_list(self, args, doreturn=False):
+def do_activationkey_list(self, args, doreturn = False):
     all_keys = self.client.activationkey.listActivationKeys(self.session)
 
     keys = []
