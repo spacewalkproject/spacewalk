@@ -115,8 +115,14 @@ if __name__ == '__main__':
     # run a single command from the command line
     if len(args):
         try:
+            # rebuild the command and quote all arguments to be safe
+            command = args[0]
+
+            if len(args) > 1:
+                command += ' %s' % ' '.join("'%s'" % s for s in args[1:])
+
             # run the command
-            shell.onecmd(shell.precmd(' '.join(args)))
+            shell.onecmd(shell.precmd(command))
         except KeyboardInterrupt:
             print
             print 'User Interrupt'
