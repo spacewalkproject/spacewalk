@@ -90,7 +90,7 @@ class SpacewalkShell(Cmd):
             pass
 
 
-    # handle commands that exit the shell
+    # handle shell exits and history substitution
     def precmd(self, line):
         # remove leading/trailing whitespace
         line = re.sub('^\s+|\s+$', '', line)
