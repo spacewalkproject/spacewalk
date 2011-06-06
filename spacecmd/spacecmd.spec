@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.5.2
+Version:     1.5.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jun 06 2011 Aron Parsons <aparsons@redhat.com> 1.5.3-1
+- spacecmd: remove stray debug statement (aparsons@redhat.com)
+
 * Mon Jun 06 2011 Aron Parsons <aparsons@redhat.com> 1.5.2-1
 - spacecmd: cosmetics (aparsons@redhat.com)
 - spacecmd: parse arguments the standard way in softwarechannel_list
