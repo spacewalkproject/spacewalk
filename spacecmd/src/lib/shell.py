@@ -125,8 +125,9 @@ class SpacewalkShell(Cmd):
         else:
             args = ''
 
-        # print the help message if the user passes '--help'
-        if re.search('--help', line):
+        # print the help message for a command if the user passed --help
+        if '--help' in parts:
+            print parts
             return 'help %s' % command
 
         # should we look for an item in the history?
