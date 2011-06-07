@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.15
+Version: 5.10.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Jun 07 2011 Jan Pazdziora 5.10.16-1
+- 705935 - introduce rhnSQL.commit() after the both SELECT statements that seem
+  to be the main loop (a.rogge@solvention.de)
+
 * Mon May 02 2011 Jan Pazdziora 5.10.15-1
 - Bumping up version to get above the one we backported to Spacewalk 1.4.
 - Revert "bump up epoch, and match version of osad with spacewalk version".
