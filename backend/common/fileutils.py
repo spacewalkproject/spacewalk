@@ -113,7 +113,7 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
           getFileChecksum(checksum_type, pathNSuffix1):
         # nothing to do
         if verbosity:
-            sys.stderr.write("File '%s' is identical to it's rotation. "
+            sys.stderr.write("File '%s' is identical to its rotation. "
                              "Nothing to do.\n" % os.path.basename(filepath))
         return None
 
