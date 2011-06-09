@@ -584,6 +584,7 @@ public class DownloadFile extends DownloadAction {
         if (rpmPackage != null && rpmPackage.getChecksum() != null &&
                     rpmPackage.getChecksum().getChecksum() != null) {
             checksum = rpmPackage.getChecksum().getChecksum();
+            response.setContentLength(rpmPackage.getPackageSize());
         }
         else {
             File f = new File(diskPath);
@@ -593,9 +594,9 @@ public class DownloadFile extends DownloadAction {
                 return getStreamForText(new byte[0]);
             }
             checksum = MD5Sum.getFileMD5Sum(f);
+            response.setContentLength(f.length());
         }
         // Create some headers.
-        response.setContentLength(0);
         response.addHeader("X-RHN-Checksum", checksum);
         response.setStatus(HttpServletResponse.SC_OK);
         return getStreamForText("".getBytes());
