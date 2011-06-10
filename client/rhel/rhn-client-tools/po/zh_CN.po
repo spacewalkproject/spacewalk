@@ -25,7 +25,7 @@ msgstr ""
 msgid ""
 "This client requires the server to support %s, which the current server does "
 "not support"
-msgstr "该客户要求服务器支持 %s，但是当前的服务器不支持"
+msgstr "该客户端要求服务器支持 %s，但是当前的服务器不支持"
 
 #: ../src/up2date_client/config.py:139
 #, python-format
@@ -109,7 +109,7 @@ msgstr "指定在被验证的 http 代理上要使用的用户名"
 
 #: ../src/up2date_client/rhncli.py:53
 msgid "Specify a password to use with an authenticated http proxy"
-msgstr "指定在被验证了的 http 代理上要使用的口令"
+msgstr "指定在被验证了的 http 代理中要使用的密码"
 
 #: ../src/up2date_client/rhncli.py:76
 msgid ""
@@ -188,9 +188,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "查看 /var/log/up2date 来获得详悉信息"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-#, fuzzy
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "版权 © 2006  Red Hat, Inc. 版权所有。"
+msgstr "Copyright © 2006--2010 红帽公司，版权所有。"
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
@@ -228,7 +227,7 @@ msgstr ""
 "软件更新。您此时需要以下配置：\n"
 "\n"
 " * 一个网络联接\n"
-" * 您的红帽登录和口令\n"
+" * 您的红帽登录和密码\n"
 " * 红帽网络 Satellite 服务器或代理服务器的位置（可选）\n"
 "\n"
 
@@ -359,13 +358,13 @@ msgstr "登录："
 
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
-msgstr "口令："
+msgstr "密码："
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
-msgstr "忘记了您的用户名或口令？联系您的 Satellite 机构管理员。"
+msgstr "忘记了您的用户名或密码？联系您的 Satellite 机构管理员。"
 
 #: ../src/up2date_client/rhnreg_constants.py:76
 msgid "Please enter a desired login."
@@ -373,7 +372,7 @@ msgstr "请输入一个需要的登录。"
 
 #: ../src/up2date_client/rhnreg_constants.py:77
 msgid "Please enter and verify a password."
-msgstr "请输入并校验一个口令。"
+msgstr "请输入并校验一个密码。"
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80
@@ -612,10 +611,12 @@ msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
+"警告：没有显示 yum-rhn-plugin，可能没有启用它。\n"
+"无法进行自动更新。"
 
 #: ../src/up2date_client/rhnreg_constants.py:189
 msgid "Note: yum-rhn-plugin has been enabled."
-msgstr ""
+msgstr "备注：已经启用 yum-rhn-plugin。"
 
 #: ../src/up2date_client/rhnreg_constants.py:190
 msgid ""
@@ -623,6 +624,9 @@ msgid ""
 "yum-rhn-plugin is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
+"警告：在启用 yum-rhn-plugin 的过程中出错。\n"
+"没有启用 yum-rhn-plugin。\n"
+"自动更新无法工作。"
 
 #: ../src/up2date_client/rhnreg_constants.py:193
 msgid ""
@@ -1014,7 +1018,7 @@ msgstr "您必须输入一个登录。"
 
 #: ../src/up2date_client/rhnregGui.py:466
 msgid "You must enter a password."
-msgstr "您必须输入一个口令。"
+msgstr "您必须输入一个密码。"
 
 #: ../src/up2date_client/rhnregGui.py:480
 msgid "There was an error while logging in."
@@ -1110,6 +1114,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enable.\n"
 msgstr ""
+"无法打开 /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"没有启用 yum-rhn-plugin。\n"
 
 #: ../src/up2date_client/rhnregGui.py:907
 #: ../src/up2date_client/rhnregGui.py:924 ../src/up2date_client/tui.py:903
@@ -1376,6 +1382,18 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
+"\n"
+"    您的机构没有足够的管理授权在红帽网络中\n"
+"注册这个系统。请将此错误通知您的机构 管理员。\n"
+"    您的机构管理员释放现有授权或者购买额外授权后\n"
+"您就应该可以注册这个系统。您的机构管理员可登录到\n"
+"红帽网络并访问 RHN 中“您的 RHN”部分的“订阅管理”\n"
+"页面购买附加授权。\n"
+"    \n"
+"    通常导致此错误的原因是由于错误地将激活码设定\n"
+"为默认通用。如果将该帐户中\n"
+"的激活码设定为默认通用，您可以禁用这个密钥并重试\n"
+"即可不要求管理授权。"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:47
@@ -1544,13 +1562,15 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:181
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr ""
+msgstr "警告：没有出现 yum-rhn-plugin，不能启用它。"
 
 #: ../src/bin/rhnreg_ks.py:183
 msgid ""
 "Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"警告：无法打开 /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"没有启用 yum-rhn-plugin。\n"
 
 #: ../src/bin/rhnreg_ks.py:203
 msgid ""
@@ -1777,6 +1797,8 @@ msgid ""
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
 msgstr ""
+"将为这个系统提供<b>有限更新（_L）</b>以保持与以下有效红帽企业版 Linux 次要发"
+"行本软件频道兼容："
 
 #: ../data/rh_register.glade.h:20
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
@@ -1928,6 +1950,13 @@ msgid ""
 "Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
 "access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
+"看来这个系统已经使用 RHN 证书式授权技术在 RHN 注册。这个工具需要使用 RHN 传统"
+"技术注册。\n"
+"\n"
+"除少数情况外，红帽建议客户只在 RHN 注册一次。\n"
+"\n"
+"有关详情，包括备选工具，请查询知识库文章：https://access.redhat.com/kb/docs/"
+"DOC-45563"
 
 #: ../data/rh_register.glade.h:61
 msgid "Hardware Info"
@@ -1986,6 +2015,8 @@ msgid ""
 "Certificate-Based Entitlement technology. This tool requires registration "
 "using RHN Classic technology."
 msgstr ""
+"看来已经使用证书式授权技术在 RHN 注册了这个系统。这个工具需要使用 RHN 传统技"
+"术注册。"
 
 #: ../data/rh_register.glade.h:73
 #, fuzzy
@@ -2249,6 +2280,8 @@ msgid ""
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
 msgstr ""
+"将在基本软件频道中订阅您的系统。如果您继续，则无法将这个系统移动到之前的次要"
+"发行本（您可以将其移动到之后的发行本）。"
 
 #: ../data/rh_register.glade.h:137
 msgid ""
@@ -2373,18 +2406,16 @@ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• 您的红帽网络或红帽网络 Satellite 登录"
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "注册码(_n)"
+msgstr "RHN 注册"
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "在 Red Hat 网络上注册"
+msgstr "在 Spacewalk/Satellite/Red Hat 网络注册。"
 
 #~ msgid "Setting up Software updates"
 #~ msgstr "设置软件更新"
