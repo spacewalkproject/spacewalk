@@ -1,15 +1,4 @@
 # translation of spacewalk.rhn-client-tools.te.po to Telugu
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
-# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -537,6 +526,17 @@ msgid ""
 "For more information, including alternate tools, consult this Knowledge Base "
 "Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
+"RHN ధృవీకరణపత్ర-ఆధారిత యెంటైటిల్‌మెంట్ సాంకేతికతను వుపయోగించి RHN తో యీ "
+"సిస్టమ్ యిప్పిటికే నమోదైవున్నట్లు "
+"అనిపిస్తోంది. ఈ సాధనంకు RHN క్లాసిక్ సాంకేతికత వుపయోగించి నమోదు చేయవలసివుంది."
+"\n"
+"\n"
+"కొన్ని సందర్భాలలో తప్పించి, Red Hat వినియోగదారులను RHN తో వొకసారి మాత్రమే "
+"నమోదు కమ్మని చెబుతుంది.\n"
+"\n"
+"అధిక సమాచారము కొరకు, ప్రత్యామ్నాయ సాధనములతో కలిపి, యీ సమాచార నిధిని "
+"సంప్రదించుము ప్రకరణము: https://"
+"access.redhat.com/kb/docs/DOC-45563"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -649,10 +649,12 @@ msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
+"హెచ్చరిక: yum-rhn-plugin లేదు, దానిని చేతనము చేయలేదు.\n"
+"స్వయంచాలక నవీకరణలు పనిచేయవు."
 
 #: ../src/up2date_client/rhnreg_constants.py:189
 msgid "Note: yum-rhn-plugin has been enabled."
-msgstr ""
+msgstr "గమనిక: yum-rhn-plugin చేతనము చేయబడింది."
 
 #: ../src/up2date_client/rhnreg_constants.py:190
 msgid ""
@@ -660,6 +662,9 @@ msgid ""
 "yum-rhn-plugin is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
+"హెచ్చరిక: yum-rhn-plugin చేతనము చేయునప్పుడు వొక దోషము యెదురైంది.\n"
+"yum-rhn-plugin చేతనము కాలేదు.\n"
+"స్వయంచాలక నవీకరణలు పనిచేయవు."
 
 #: ../src/up2date_client/rhnreg_constants.py:193
 msgid ""
@@ -1166,6 +1171,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enable.\n"
 msgstr ""
+"/etc/yum/pluginconf.d/rhnplugin.conf తెరువలేక పోయింది\n"
+"yum-rhn-plugin చేతనముచేయబడి లేదు.\n"
 
 #: ../src/up2date_client/rhnregGui.py:907
 #: ../src/up2date_client/rhnregGui.py:924 ../src/up2date_client/tui.py:903
@@ -2002,13 +2009,17 @@ msgid ""
 "Except for a few cases, Red Hat recommends customers only register with RHN "
 "once.\n"
 msgstr ""
+"కొన్ని సందర్భాలలో తప్పించి, Red Hat వినియోగదారులను RHN తో వొక సారి మాత్రమే "
+"నమోదు కమ్మని చెబుతుంది.\n"
 
 #: ../data/rh_register.glade.h:59
 msgid ""
 "For more information, including alternate tools, consult this Knowledge Base "
 "Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
 "access.redhat.com/kb/docs/DOC-45563</a>\n"
-msgstr ""
+"ప్రత్యామ్నాయ సాధనాలతో సహా, అదిక సమాచారం కొరకు, యీ సమాచార నిధిని సంప్రదించండి "
+"ప్రకరణం: https://"
+"access.redhat.com/kb/docs/DOC-45563\n"
 
 #: ../data/rh_register.glade.h:61
 msgid "Hardware Info"
@@ -2069,6 +2080,9 @@ msgid ""
 "Certificate-Based Entitlement technology. This tool requires registration "
 "using RHN Classic technology."
 msgstr ""
+"RHN ధృవీకరణపత్ర-ఆధారిత యెంటైటిల్‌మెంట్ సాంకేతికతను వుపయోగించి RHN తో యీ "
+"సిస్టమ్ యిప్పిటికే నమోదైవున్నట్లు "
+"అనిపిస్తోంది. ఈ సాధనంకు RHN క్లాసిక్ సాంకేతికత వుపయోగించి నమోదు చేయవలసివుంది."
 
 #: ../data/rh_register.glade.h:73
 #, fuzzy
@@ -2129,7 +2143,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:86
 msgid "RHN Classic Mode"
-msgstr ""
+msgstr "RHN క్లాసిక్ రీతి"
 
 #: ../data/rh_register.glade.h:87
 msgid "RHN login field"
