@@ -70,6 +70,12 @@ class RPM_Header:
     def __getattr__(self, name):
         return getattr(self.hdr, name)
 
+    def __nonzero__(self):
+        if self.hdr:
+            return True
+        else:
+            return False
+
     def checksum_type(self):
         if self.hdr[rpm.RPMTAG_FILEDIGESTALGO] \
            and PGPHASHALGO.has_key(self.hdr[rpm.RPMTAG_FILEDIGESTALGO]):
