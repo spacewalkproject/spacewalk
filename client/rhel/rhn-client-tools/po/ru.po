@@ -193,9 +193,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "Дополнительную информацию можно найти в /var/log/up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-#, fuzzy
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "© 2006-2010 Red Hat, Inc. Все права защищены."
+msgstr "© 2006--2010 Red Hat, Inc. Все права защищены."
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
@@ -532,6 +531,13 @@ msgid ""
 "For more information, including alternate tools, consult this Knowledge Base "
 "Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
+"Система уже зарегистрирована в RHN c использованием полномочий сертификатов. "
+"Эта программа требует регистрации в режиме RHN Classic.\n"
+"\n"
+"Red Hat напоминает, что регистрацию стоит осуществлять всего один раз.\n"
+"\n"
+"За дальнейшей информацией обратитесь к следующей статье в базе данных: "
+"https://access.redhat.com/kb/docs/DOC-45563"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -645,10 +651,12 @@ msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
+"Предупреждение. yum-rhn-plugin не установлен. \n"
+"Автоматическое обновление осуществляться не будет."
 
 #: ../src/up2date_client/rhnreg_constants.py:189
 msgid "Note: yum-rhn-plugin has been enabled."
-msgstr ""
+msgstr "yum-rhn-plugin включен."
 
 #: ../src/up2date_client/rhnreg_constants.py:190
 msgid ""
@@ -656,6 +664,8 @@ msgid ""
 "yum-rhn-plugin is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
+"Предупреждение. Ошибка активации yum-rhn-plugin.\n"
+"Автоматическое обновление осуществляться не будет."
 
 #: ../src/up2date_client/rhnreg_constants.py:193
 msgid ""
@@ -1184,6 +1194,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enable.\n"
 msgstr ""
+"Не удалось открыть /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin не запущен.\n"
 
 #: ../src/up2date_client/rhnregGui.py:907
 #: ../src/up2date_client/rhnregGui.py:924 ../src/up2date_client/tui.py:903
@@ -1648,6 +1660,8 @@ msgid ""
 "Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"Не удалось открыть /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin не запущен.\n"
 
 #: ../src/bin/rhnreg_ks.py:203
 msgid ""
@@ -1840,9 +1854,8 @@ msgstr ""
 "выпуска."
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "Предупреждение"
+msgstr "<b>Предупреждение</b>"
 
 #: ../data/rh_register.glade.h:16
 msgid ""
@@ -2029,6 +2042,9 @@ msgid ""
 "Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
 "access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
+"Подробную информацию можно найти в базе знаний по "
+"<a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
+"access.redhat.com/kb/docs/DOC-45563</a>\n"
 
 #: ../data/rh_register.glade.h:61
 msgid "Hardware Info"
@@ -2089,6 +2105,8 @@ msgid ""
 "Certificate-Based Entitlement technology. This tool requires registration "
 "using RHN Classic technology."
 msgstr ""
+"Система уже зарегистрирована в RHN c учетом полномочий на основе "
+"сертификатов. Эта программа требует регистрации в режиме RHN Classic."
 
 #: ../data/rh_register.glade.h:73
 msgid "Limited updates"
@@ -2148,7 +2166,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:86
 msgid "RHN Classic Mode"
-msgstr ""
+msgstr "RHN Classic"
 
 #: ../data/rh_register.glade.h:87
 msgid "RHN login field"
