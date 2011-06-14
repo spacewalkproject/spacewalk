@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.43
+Version: 1.5.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 14 2011 Miroslav Suchý 1.5.44-1
+- fix content-length setting (msuchy@redhat.com)
+- 711377 - remove confusing 'create schedule' link (tlestach@redhat.com)
+
 * Mon Jun 13 2011 Jan Pazdziora 1.5.43-1
 - content-length should be sent even for HEAD (msuchy@redhat.com)
 
