@@ -1955,8 +1955,9 @@ msgstr ""
 "\n"
 "除少数情况外，红帽建议客户只在 RHN 注册一次。\n"
 "\n"
-"有关详情，包括备选工具，请查询知识库文章：https://access.redhat.com/kb/docs/"
-"DOC-45563"
+"有关详情，包括备选工具，请查询知识库文章："
+"<a href=\"https://access.redhat.com/kb/docs/DOC-45563\"https://"
+"access.redhat.com/kb/docs/DOC-45563</a>\n"
 
 #: ../data/rh_register.glade.h:61
 msgid "Hardware Info"
