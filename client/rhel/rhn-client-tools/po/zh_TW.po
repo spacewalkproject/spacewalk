@@ -1970,8 +1970,9 @@ msgstr ""
 "\n"
 "在某些情況下，Red Hat 會建議使用者僅向 RHN 註冊一遍。\n"
 "\n"
-"欲取得更多資訊，包括額外工具，請參閱此知識庫文件：https://access.redhat.com/"
-"kb/docs/DOC-45563"
+"欲取得更多資訊，包括額外工具，請參閱此知識庫文件："
+"<a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
+"access.redhat.com/kb/docs/DOC-45563</a>\n"
 
 #: ../data/rh_register.glade.h:61
 msgid "Hardware Info"
