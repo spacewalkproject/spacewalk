@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.5.10
+Version: 1.5.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -341,6 +341,13 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jun 14 2011 Miroslav Suchý 1.5.11-1
+- forward port translation from RHEL5 (msuchy@redhat.com)
+- forward port translation from RHEL5 (msuchy@redhat.com)
+- add missing \n and hyperlink to zh_TW (msuchy@redhat.com)
+- add missing \n and hyperlink to zh_CN (msuchy@redhat.com)
+- fix typo in te.po (msuchy@redhat.com)
+
 * Mon Jun 13 2011 Jan Pazdziora 1.5.10-1
 - forward port translation from RHEL5 (msuchy@redhat.com)
 - Download translations from Transifex for rhn-client-tools (msuchy@redhat.com)
