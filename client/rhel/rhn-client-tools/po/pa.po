@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2011-06-14 16:16+0200\n"
+"PO-Revision-Date: 2011-06-14 16:56+0200\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1372,7 +1372,7 @@ msgstr "ਚੇਤਾਵਨੀ: chkconfig ਨਾਲ rhnsd ਯੋਗ ਕਰਨ ਵ
 
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
-msgstr ""
+msgstr "त्रुटी: सर्व्हर अनुपलब्ध. कृपया पुनः प्रयत्न करा."
 
 #: ../src/up2date_client/rpcServer.py:165
 msgid "ERROR: can not find RHNS CA file"
