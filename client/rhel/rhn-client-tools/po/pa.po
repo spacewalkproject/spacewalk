@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2011-06-14 16:05+0200\n"
+"PO-Revision-Date: 2011-06-14 16:16+0200\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,7 @@ msgstr "ਹਾਂ/ਨਹੀਂ ਵਾਰਤਾਲਾਪ:"
 
 #: ../src/up2date_client/rhnChannel.py:97
 msgid "Unable to Locate SystemId"
-msgstr ""
+msgstr "SystemId କୁ ପାଇବାରେ ଅସମର୍ଥ"
 
 #: ../src/up2date_client/rhnChannel.py:114
 msgid "This system may not be updated until it is associated with a channel."
@@ -136,12 +136,14 @@ msgstr "ਇੱਕ ਅਸਧਾਰਨOS ਗਲਤੀ ਆਈ ਹੈ: %s\n"
 
 #: ../src/up2date_client/rhncli.py:83
 msgid "A connection was attempted with a malformed URI.\n"
-msgstr "ਗਲਤ URI ਨਾਲ ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ।\n"
+msgstr ""
+"ଗୋଟିଏ ବିକୃତ ୟୁ.ଆର.ଆଇ. ସହିତ ଗୋଟିଏ ସଂଯୋଗ କରିବା ପାଇଁ ପ୍ରଚେଷ୍ଟା କରାଯାଇଛି।\n"
 
 #: ../src/up2date_client/rhncli.py:85
 #, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
-msgstr "ਗਲਤ URI ਨਾਲ ਇੱਕ ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ: %s।\n"
+msgstr ""
+"ଗୋଟିଏ ବିକୃତ ୟୁ.ଆର.ଆଇ. ସହିତ ଗୋଟିଏ ସଂଯୋଗ କରିବା ପାଇଁ ପ୍ରଚେଷ୍ଟା କରାଯାଇଛି: %s।\n"
 
 #: ../src/up2date_client/rhncli.py:87
 #, python-format
@@ -518,8 +520,8 @@ msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"ਟਿੱਪਣੀ: ਆਪਣਾ ਲਾਗਇਨ ਜਾਂ ਗੁਪਤ-ਕੋਡ ਭੁੱਲ ਗਏ? ਇੱਥੇ ਵੇਖੋ: https://rhn.redhat."
-"com/rhn/sales/LoginInfo.do"
+"ପରାମର୍ଶ: ଆପଣଙ୍କର ଲଗଇନ ନାମ କିମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଭୂଲି ଯାଇଛନ୍ତି କି?https://rhn."
+"redhat.com/rhn/sales/LoginInfo.do ରେ ସନ୍ଧାନ କରନ୍ତୁ"
 
 #: ../src/up2date_client/rhnreg_constants.py:118
 msgid "*Email Address:"
@@ -690,8 +692,8 @@ msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
-"ਚੇਤਾਵਨੀ: yum-rhn-plugin ਮੌਜੂਦ ਨਹੀਂ ਹੈ, ਇਸਨੂੰ ਯੋਗ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।\n"
-"ਆਟੋਮੈਟਿਕ ਅੱਪਡੇਟ ਕੰਮ ਨਹੀਂ ਕਰੇਗਾ।"
+"ଚେତାବନୀ: yum-rhn-plugin ଉପସ୍ଥିତ ନାହିଁ, ଏହାକୁ ସକ୍ରିୟ କରିହେଲା ନାହିଁ।\n"
+"ସ୍ୱୟଂଚାଳିତ ଅଦ୍ୟତନ କାର୍ଯ୍ଯ କରିବ ନାହିଁ।"
 
 #: ../src/up2date_client/rhnreg_constants.py:189
 msgid "Note: yum-rhn-plugin has been enabled."
@@ -1463,6 +1465,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"/etc/yum/pluginconf.d/rhnplugin.conf କୁ ଖୋଲିପାରିଲା ନାହିଁ\n"
+"yum-rhn-plugin ଟି ସକ୍ରିୟ ନାହିଁ।\n"
 
 #: ../src/up2date_client/tui.py:1006
 msgid "Finish"
@@ -1729,7 +1733,7 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:181
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr "ਚੇਤਾਵਨੀ: yum-rhn-plugin ਮੌਜੂਦ ਨਹੀਂ ਹੈ, ਇਸਨੂੰ ਯੋਗ ਨਹੀਂ ਕਰ ਸਕਿਆ।"
+msgstr "ଟିପ୍ପଣୀ: yum-rhn-plugin କୁ ସକ୍ରିୟ କରାଯାଇଛି।"
 
 #: ../src/bin/rhnreg_ks.py:183
 msgid ""
@@ -1827,8 +1831,9 @@ msgstr ""
 "ਸਿਸਟਮ ਦਾ ਅੱਪਡੇਟ ਤਦ ਤੱਕ ਸੰਭਵ ਨਹੀਂ ਹੈ, ਜਦ ਤੱਕ ਇਹ ਇੱਕ ਚੈਨਲ ਨਾਲ ਜੁੜਦਾ ਨਹੀਂ ਹੈ।"
 
 #: ../src/bin/spacewalk-channel.py:133
+#, fuzzy
 msgid "Unable to locate SystemId file. Is this system registered?"
-msgstr ""
+msgstr "SystemId କୁ ପାଇବାରେ ଅସମର୍ଥ  Is this system registered?"
 
 #: ../src/bin/spacewalk-channel.py:141
 msgid "ERROR: you may want to specify --add, --remove or --list"
