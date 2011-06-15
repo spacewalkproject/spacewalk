@@ -25,23 +25,26 @@
 # translation of it.po to
 # translation of it.po to
 # Copyright (C) Red Hat, Inc 2001
+#
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Valentina Besi <valentina@redhat.it>, 2001.
 # Francesco Valente <fvalen@redhat.com>, 2003, 2004.
 # Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004, 2005, 2006, 2007.
-#
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2010-07-20 11:26+1000\n"
-"Last-Translator: \n"
-"Language-Team:  <it@li.org>\n"
+"PO-Revision-Date: 2011-06-15 15:25+0200\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: American English <spacewalk-devel@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -571,6 +574,15 @@ msgid ""
 "For more information, including alternate tools, consult this Knowledge Base "
 "Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
+"Questo sistema è stato già registrato con RHN tramite RHN Certificate-Based "
+"Entitlement. Questo tool necessita di una registrazione tramite RHN "
+"Classic.\n"
+"\n"
+"Ad eccezione di alcuni casi Red Hat consiglia agli utenti di eseguire una "
+"sola registrazione con RHN.\n"
+"\n"
+"Per maggiori informazioni, incluso i tool alternativi, consultare l'articolo "
+"relativo al Knowledge Base: https://access.redhat.com/kb/docs/DOC-45563"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -697,10 +709,12 @@ msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
+"Attenzione: yum-rhn-plugin non è presente, impossibile abilitarlo.\n"
+"Gli aggiornamenti automatici non funzioneranno."
 
 #: ../src/up2date_client/rhnreg_constants.py:189
 msgid "Note: yum-rhn-plugin has been enabled."
-msgstr ""
+msgstr "Nota Bene: yum-rhn-plugin è stato abilitato."
 
 #: ../src/up2date_client/rhnreg_constants.py:190
 msgid ""
@@ -708,6 +722,10 @@ msgid ""
 "yum-rhn-plugin is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
+"Attenzione: Si è verificato un errore durante l'abilitazione di yum-rhn-"
+"plugin.\n"
+"yum-rhn-plugin non risulta abilitato.\n"
+"Gli aggiornamenti automatici non funzioneranno."
 
 #: ../src/up2date_client/rhnreg_constants.py:193
 msgid ""
@@ -1465,6 +1483,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"Impossibile aprire /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin non è abilitato.\n"
 
 #: ../src/up2date_client/tui.py:1006
 msgid "Finish"
@@ -1735,13 +1755,15 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:181
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr ""
+msgstr "Attenzione: yum-rhn-plugin non è presente, impossibile abilitarlo."
 
 #: ../src/bin/rhnreg_ks.py:183
 msgid ""
 "Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"Attenzione: Impossibile aprire /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin non è abilitato.\n"
 
 #: ../src/bin/rhnreg_ks.py:203
 msgid ""
@@ -1944,9 +1966,8 @@ msgstr ""
 "seleziona questa opzione."
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "Avvertenza"
+msgstr "<b>Avvertenza</b>"
 
 #: ../data/rh_register.glade.h:16
 msgid ""
@@ -2139,6 +2160,8 @@ msgid ""
 "Except for a few cases, Red Hat recommends customers only register with RHN "
 "once.\n"
 msgstr ""
+"Ad eccezione di alcuni casi Red Hat consiglia ai propri utenti di eseguire "
+"una sola registrazione con RHN.\n"
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -2210,6 +2233,9 @@ msgid ""
 "Certificate-Based Entitlement technology. This tool requires registration "
 "using RHN Classic technology."
 msgstr ""
+"Questo sistema è stato già registrato con RHN tramite il RHN Certificate-"
+"Based Entitlement. Il suddetto tool richiede una registrazione tramite il "
+"RHN Classic."
 
 #: ../data/rh_register.glade.h:73
 #, fuzzy
@@ -2272,7 +2298,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:86
 msgid "RHN Classic Mode"
-msgstr ""
+msgstr "Modalità RHN Classic"
 
 #: ../data/rh_register.glade.h:87
 msgid "RHN login field"
