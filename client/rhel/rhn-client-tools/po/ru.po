@@ -6,20 +6,22 @@
 # Vladimir Lazarenko <vlad@lazarenko.net>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.
 # Yulia <ypoyarko@redhat.com>, 2006, 2007, 2010, 2011.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2011-02-16 12:30\n"
-"Last-Translator: Yulia <ypoyarko@redhat.com>\n"
-"Language-Team: Russian\n"
+"PO-Revision-Date: 2011-06-15 17:06+0200\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: American English <spacewalk-devel@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: en_US\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -350,9 +352,8 @@ msgstr "Зарегистрируюсь позже"
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Введите информацию о вашей учётной записи"
+msgstr "Введите информацию об учетной записи"
 
 #: ../src/up2date_client/rhnreg_constants.py:69
 #, python-format
@@ -429,9 +430,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Создать свой системный профиль"
+msgstr "Создание профиля. Оборудование"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
@@ -457,9 +457,8 @@ msgstr "Включите следующую информацию об обору
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Создать свой системный профиль"
+msgstr "Создание профиля. Пакеты"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
@@ -554,7 +553,8 @@ msgid ""
 msgstr ""
 "Сбор информации для системного профиля завершён.\n"
 "\n"
-"Нажмите «Далее», чтобы отправить профиль в Red Hat Network. Нажмите «Отменить» "
+"Нажмите «Далее», чтобы отправить профиль в Red Hat Network. Нажмите "
+"«Отменить» "
 "для отмены. Программу регистрации можно также запустить в любое время, "
 "выполнив команду «rhn_register»."
 
@@ -1390,6 +1390,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"Не удалось открыть /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin не включен.\n"
 
 #: ../src/up2date_client/tui.py:1006
 msgid "Finish"
@@ -1654,6 +1656,7 @@ msgstr ""
 #: ../src/bin/rhnreg_ks.py:181
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
 msgstr ""
+"Предупреждение: yum-rhn-plugin не обнаружен, и не удалось его включить."
 
 #: ../src/bin/rhnreg_ks.py:183
 msgid ""
@@ -2035,6 +2038,8 @@ msgid ""
 "Except for a few cases, Red Hat recommends customers only register with RHN "
 "once.\n"
 msgstr ""
+"За редкими исключениями, Red Hat рекомендует пройти регистрацию всего один "
+"раз.\n"
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -2307,7 +2312,6 @@ msgstr ""
 "подключения системы к Red Hat Network."
 
 #: ../data/rh_register.glade.h:123
-#, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2318,13 +2322,13 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"Получение программных обновлений для этой системы (в том числе обновлений "
-"безопасности) будет невозможно.\n"
+"Вы <b>не</b> сможете получать программные обновления, в том числе обновления "
+"безопасности для данной системы.\n"
 "\n"
 "Для запуска программы регистрации в меню <b>Система > Администрирование</b> "
-"выберите <b>Регистрация в RHN</b>.\n"
+"выберите <b>Регистрация в RHN</b> или <b>Менеджер подписки Red Hat</b>.\n"
 "Для запуска программы обновления в меню <b>Система > Администрирование</b> "
-"выберите <b>Обновление программ</b>."
+"выберите <b>Обновление ПО</b>."
 
 #: ../data/rh_register.glade.h:127
 msgid ""
