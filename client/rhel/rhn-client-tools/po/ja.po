@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2011-06-15 14:52+0200\n"
+"PO-Revision-Date: 2011-06-15 16:38+0200\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -55,12 +55,11 @@ msgstr "ソフトウェア更新の設定を終了"
 
 #: ../src/up2date_client/gui.py:315
 msgid "_Exit"
-msgstr ""
+msgstr "終了 (_E)"
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "ソフトウェア更新の設定は失敗です "
+msgstr "ソフトウェア更新の設定は成功しませんでした"
 
 # ../gui.py:600 ../wrapper.py:162
 #: ../src/up2date_client/gui.py:326
@@ -145,16 +144,12 @@ msgstr "予期せぬ OS エラー発生: %s\n"
 
 #: ../src/up2date_client/rhncli.py:83
 msgid "A connection was attempted with a malformed URI.\n"
-msgstr ""
-""
-"異常形成の URI で接続が試行されました。\n"
+msgstr "異常形成の URI で接続が試行されました。\n"
 
 #: ../src/up2date_client/rhncli.py:85
 #, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
-msgstr ""
-""
-"異常形成の URI で接続が試行されました: %s。\n"
+msgstr "異常形成の URI で接続が試行されました: %s。\n"
 
 # ../gui.py:691
 #: ../src/up2date_client/rhncli.py:87
@@ -340,12 +335,9 @@ msgstr ""
 "privacy_statement.html。"
 
 #: ../src/up2date_client/rhnreg_constants.py:56
-#, fuzzy
 #: ../data/rh_register.glade.h:103
 msgid "Take me back to the registration"
-msgstr ""
-""
-"登録に戻ります (_T)"
+msgstr "登録に戻ります"
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
@@ -353,22 +345,20 @@ msgid "Software update setup unsuccessful"
 msgstr "ソフトウェア更新の設定は失敗です "
 
 #: ../src/up2date_client/rhnreg_constants.py:60
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 "本当にシステムを Red Hat Network に接続しなくてよいですか? Red Hat "
-"Enterprise Linux のサブスクリプションを利用する機会を逃すことになります。"
+"Enterprise Linux のサブスクリプションの特典を逃すことになります:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
-"システムをRed Hat Network に接続しないとこれらサブスクリプションの利点をご利"
-"用頂くことが<b>できません</b>。"
+"システムを Red Hat Network に接続しないとこれらサブスクリプションの特権を ご"
+"利用頂くことができません。\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:64
 #: ../data/rh_register.glade.h:104
@@ -382,7 +372,6 @@ msgstr "後で登録します。"
 # gui.gladestrings:17 gui.gladestrings:24
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68
-#, fuzzy
 msgid "Enter you account information"
 msgstr "アカウント情報の入力"
 
@@ -462,9 +451,8 @@ msgstr ""
 # ../wrapper.py:453
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "システムプロフィールの作成"
+msgstr "システムプロファイルの作成 − ハードウェア"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
@@ -491,9 +479,8 @@ msgstr "ハードウェアとネットワークについて以下の情報を含
 # ../wrapper.py:453
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "システムプロフィールの作成"
+msgstr "システムプロファイルの作成 − パッケージ"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
@@ -937,7 +924,7 @@ msgstr ""
 "される機能をサポートしていません。 新しいサーバーでやりなおしてください。"
 
 #: ../src/up2date_client/rhnreg_constants.py:282
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -951,8 +938,9 @@ msgstr ""
 "<b><span size=\"16000\">非互換の証明書ファイル</span></b>\n"
 "\n"
 "入力された証明書 <b>%s</b> は <b>%s</b> にある Red Hat Network サーバーと互換"
-"性がありません。 正しい証明書ファイルを入力したか再確認することができます。 "
-"本当に正しい証明書を入力しましたか、その証明書ファイルは壊れていませんか?\n"
+"性がありません。 正しい証明書ファイルを入力したか再確認した方が良いでしょ"
+"う。 本当に正しい証明書を入力していて、その証明書ファイルは壊れていません"
+"か?\n"
 "\n"
 "別の証明書ファイルでやり直してください。"
 
@@ -1019,6 +1007,11 @@ msgid ""
 "(you will be able to move to a newer release).\n"
 "Are you sure you would like to continue?"
 msgstr ""
+"ご使用のシステムは %s のベース \n"
+"ソフトウェアチャンネルを購読します。 \n"
+"このシステムを以前のリリースに転換する  \n"
+"ことは出来ません（新しいリリースには転換可能）。 \n"
+"本当にこれを継続したいですか ?"
 
 # configdlg.gladestrings:47
 #. Navigation
@@ -1254,6 +1247,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enable.\n"
 msgstr ""
+"/etc/yum/pluginconf.d/rhnplugin.conf を開けませんでした。\n"
+"yum-rhn-plugin は有効になっていません。\n"
 
 # ../wrapper.py:50
 #: ../src/up2date_client/rhnregGui.py:907
@@ -1398,16 +1393,12 @@ msgstr "システムにインストール済みのパッケージ一覧を読み
 
 # configdlg.gladestrings:7
 #: ../src/up2date_client/tui.py:126
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network の場所 (_L):"
+msgstr "Red Hat Network の場所:"
 
 #: ../src/up2date_client/tui.py:128
-#, fuzzy
 msgid "System ID:"
-msgstr ""
-"\n"
-"System ID: "
+msgstr "システム ID: "
 
 #: ../src/up2date_client/tui.py:418
 msgid "The server indicated an error:\n"
@@ -1589,7 +1580,7 @@ msgstr "サーバーの選択"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:56
 msgid "Entitlement Platform Registration"
-msgstr ""
+msgstr "エンタイトルメントプラットフォームの登録"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:61
 #: ../src/firstboot/rhn_login_gui.py:41 ../src/firstboot/rhn_login_gui.py:42
@@ -1624,15 +1615,13 @@ msgstr "更新の設定を完了"
 # ../wrapper.py:325 ../wrapper.py:536
 #: ../src/firstboot/rhn_create_profile_gui.py:87
 #: ../src/firstboot/rhn_login_gui.py:99
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "サーバとの通信エラーが発生しました: %s"
+msgstr "サーバとの通信エラーが発生しました:"
 
 #: ../src/firstboot/rhn_create_profile_gui.py:89
 #: ../src/firstboot/rhn_login_gui.py:101
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "ネットワーク設定を変更し、再度試しますか?"
+msgstr "戻ってから再度試しますか?"
 
 #: ../src/firstboot/rhn_register.py:29 ../src/firstboot/rhn_register.py:30
 #: ../src/firstboot/rhn_start_gui.py:43 ../src/firstboot/rhn_start_gui.py:44
@@ -1890,13 +1879,12 @@ msgid "Progress Dialog"
 msgstr "進捗ダイアログ"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "進捗ダイアログ"
+msgstr "進捗バー"
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
-msgstr ""
+msgstr "進捗状況"
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1994,6 +1982,9 @@ msgid ""
 "release of Red Hat Enterprise Linux 6.  It will be registered to the main "
 "'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
+"<b>利用できるすべての更新 (_A)</b> がこのシステムに提供されます。 このシステムは更新を継続していれば常に Red Hat "
+"Enterprise Linux 6 の利用可能な最新のマイナーリリースと同等になります。 システムは主となる「Red Hat Enterprise "
+"Linux 6」ソフトウェアチャンネルに登録されます。"
 
 #: ../data/rh_register.glade.h:19
 msgid ""
@@ -2030,13 +2021,12 @@ msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>例</b>: XXXX-XXXX-XXXX-XXXX</small>"
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid ""
 "<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html.</small>"
 msgstr ""
-"ヒント: Red Hat はプライバシーを尊重しています、 http://www.redhat.com/legal/"
-"privacy_statement.html。"
+"<small><b>ヒント:</b> Red Hat は皆様のプライバシーを尊重しています (http://www.redhat."
+"com/legal/privacy_statement.html)。</small>"
 
 #: ../data/rh_register.glade.h:27
 msgid ""
@@ -2084,9 +2074,8 @@ msgstr "高度なネットワーク設定"
 
 # configdlg.gladestrings:7
 #: ../data/rh_register.glade.h:37
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "高度なネットワーク設定"
+msgstr "高度なネットワーク設定ボタン"
 
 # configdlg.gladestrings:7
 #: ../data/rh_register.glade.h:38
@@ -2095,7 +2084,7 @@ msgstr "高度な Network 設定 (_N) ..."
 
 #: ../data/rh_register.glade.h:40
 msgid "Aplet screenshot"
-msgstr ""
+msgstr "アプレットのスクリーンショット"
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -2123,12 +2112,11 @@ msgstr "チャンネルの選択"
 
 #: ../data/rh_register.glade.h:48
 msgid "Choose minor release"
-msgstr ""
+msgstr "マイナーリリースの選択"
 
 #: ../data/rh_register.glade.h:49
-#, fuzzy
 msgid "Close"
-msgstr "閉じる (_C)"
+msgstr "閉じる"
 
 #: ../data/rh_register.glade.h:50
 msgid "Confirm operation system release selection"
@@ -2166,6 +2154,9 @@ msgid ""
 "Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
 "access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
+"代替ツールなどの詳細についてはナレッジベースの記載をご覧ください (<a href=\"https://access.redhat."
+"com/kb/docs/DOC-45563\">https://"
+"access.redhat.com/kb/docs/DOC-45563</a>)。\n"
 
 # ../wrapper.py:453
 #: ../data/rh_register.glade.h:61
@@ -2234,9 +2225,8 @@ msgstr ""
 "です。"
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgid "Limited updates"
-msgstr "アメリカ合州国"
+msgstr "限定的な更新"
 
 #: ../data/rh_register.glade.h:74
 msgid "Link To Subscription"
@@ -2256,9 +2246,8 @@ msgid "Memory:"
 msgstr "メモリー:"
 
 #: ../data/rh_register.glade.h:77
-#, fuzzy
 msgid "No thanks, I'll connect later."
-msgstr "いいえ、後で接続します(_N)。"
+msgstr "いいえ、後で接続します。"
 
 # gui.gladestrings:17 gui.gladestrings:24
 #: ../data/rh_register.glade.h:79
@@ -2298,15 +2287,12 @@ msgid "RHN Classic Mode"
 msgstr "RHN クラッシックモード"
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgid "RHN login field"
-msgstr ""
-"\n"
-"RHN ログイン: "
+msgstr "RHN ログインのフィールド"
 
 #: ../data/rh_register.glade.h:88
 msgid "RHN password field"
-msgstr ""
+msgstr "RHN パスワードのフィールド"
 
 #: ../data/rh_register.glade.h:89
 msgid ""
@@ -2345,15 +2331,13 @@ msgstr "パッケージプロフィールの送信 (_P)"
 
 # ../wrapper.py:453
 #: ../data/rh_register.glade.h:96
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "ハードウェアプロフィールの送信 (_H)"
+msgstr "ハードウェアプロファイル送信のチェックボックス"
 
 # ../wrapper.py:72
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "パッケージプロフィールの送信 (_P)"
+msgstr "パッケージプロファイル送信のチェックボックス"
 
 #: ../data/rh_register.glade.h:98
 msgid "Software update setup has been completed for this system."
@@ -2376,7 +2360,6 @@ msgstr ""
 "Hat Network (RHN) に接続する方法を案内していきます。"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -2394,18 +2377,20 @@ msgstr ""
 "ティ更新などのソフトウェア更新を正しく受信することが<b>できません</b>。\n"
 "\n"
 "システムが安全且つ最新の状態でサポートされているよう維持するため、なるべく早"
-"くこのシステムを登録するようにしてください。 <b>アプリケーション > システム"
-"ツール</b>のメニューにある<b>ソフトウェアの更新</b>を実行するとこの登録ツール"
-"にアクセスできます。"
+"くこのシステムを登録するようにしてください。 \n"
+"\n"
+"<b>システム > 管理</b> メニュー内の <b>RHN に登録</b> を実行すると RHN 登録"
+"ツールにアクセスできます。\n"
+"<b>システム > 管理</b> メニュー内の <b>ソフトウェアの更新</b> を実行すると ソ"
+"フトウェア更新ツールにアクセスできます。"
 
 #: ../data/rh_register.glade.h:112
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "HTTP プロキシによる認証を使用する (_T):"
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "HTTP プロキシによる認証を使用する (_T):"
+msgstr "HTTP  Proxy による認証を使用する"
 
 # ../wrapper.py:453
 #: ../data/rh_register.glade.h:114
@@ -2414,15 +2399,13 @@ msgstr "パッケージプロフィールの表示 (_I)..."
 
 # ../wrapper.py:453
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "ハードウェアプロフィールの表示 (_V)..."
+msgstr "ハードウェアプロファイルの表示"
 
 # ../wrapper.py:453
 #: ../data/rh_register.glade.h:116
-#, fuzzy
 msgid "View Package Profile"
-msgstr "パッケージプロフィールの表示 (_I)..."
+msgstr "パッケージプロファイルの表示"
 
 #: ../data/rh_register.glade.h:119
 msgid ""
@@ -2449,7 +2432,6 @@ msgstr ""
 "用頂くことが<b>できません</b>。"
 
 #: ../data/rh_register.glade.h:123
-#, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2460,13 +2442,11 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"このシステム用のセキュリティ更新を含むソフトウェア更新を受信することができま"
-"せん。\n"
+"このシステムに対するセキュリティ更新などのソフトウェア更新を受信できなくなります。\n"
 "\n"
-"システムが安全且つ最新の状態でサポートされているよう維持するため、なるべく早"
-"くこのシステムを RHN に接続するようにしてください。 アプリケーション > システ"
-"ムツールのメニューにあるソフトウェアの更新を実行することでいつでもこの登録"
-"ツールにアクセスできます。"
+"<b>システム > 管理</b> メニュー内の <b>Red Hat サブスクリプションマネージャ</b> を実行すると RHN "
+"登録ツールにアクセスできます。\n"
+"<b>システム > 管理</b> メニュー内の <b>ソフトウェアの更新</b> を実行するとソフトウェア更新ツールにアクセスできます。"
 
 #: ../data/rh_register.glade.h:127
 msgid ""
@@ -2611,39 +2591,35 @@ msgstr "はい、 いますぐ登録します (_Y)"
 
 #: ../data/rh_register.glade.h:154
 msgid "icon of aplet"
-msgstr ""
+msgstr "アプレットのアイコン"
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "installation number field"
-msgstr "インストール番号が無効です"
+msgstr "インストール番号のフィールド"
 
 #: ../data/rh_register.glade.h:156
 msgid "label"
 msgstr "ラベル"
 
 #: ../data/rh_register.glade.h:157
-#, fuzzy
 msgid "proxy location"
-msgstr "Proxyの場所 (_P):"
+msgstr "Proxy の場所"
 
 #: ../data/rh_register.glade.h:158
-#, fuzzy
 msgid "proxy password field"
-msgstr "プロキシのパスワード  (_A):"
+msgstr "Proxy パスワードのフィールド"
 
 #: ../data/rh_register.glade.h:159
 msgid "proxy user field"
-msgstr ""
+msgstr "Proxy ユーザーのフィールド"
 
 #: ../data/rh_register.glade.h:160
 msgid "satellite server location"
-msgstr ""
+msgstr "Satellite サーバーの場所"
 
 #: ../data/rh_register.glade.h:161
-#, fuzzy
 msgid "system name"
-msgstr "システム名 (_N):"
+msgstr "システム名"
 
 #: ../data/rh_register.glade.h:162
 msgid "•"
