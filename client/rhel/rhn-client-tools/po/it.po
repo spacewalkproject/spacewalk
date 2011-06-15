@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2011-06-15 15:25+0200\n"
+"PO-Revision-Date: 2011-06-15 16:36+0200\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: American English <spacewalk-devel@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -223,9 +223,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "Vedi /var/log/up2date per ulteriori informazioni"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-#, fuzzy
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "Copyright © 2006--2010 Red Hat, Inc. Tutti i diritti riservati."
+msgstr "Copyright © 2006--2010 Red Hat, Inc. Tutti diritti riservati."
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
@@ -352,9 +351,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "(_T)Riportami al processo di registrazione"
+msgstr "Riportami al processo di registrazione"
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
@@ -389,9 +387,8 @@ msgstr "Eseguirò la registrazione più tardi."
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Inserire le informazioni del vostro account:"
+msgstr "Inserire le informazioni dell'account"
 
 #: ../src/up2date_client/rhnreg_constants.py:69
 #, python-format
@@ -469,9 +466,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Crea il vostro profilo del sistema"
+msgstr "Crea il profilo del sistema - Hardware"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
@@ -497,9 +493,8 @@ msgstr "Includere le seguenti informazioni su hardware e rete:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Crea il vostro profilo del sistema"
+msgstr "Crea il profilo del sistema - Pacchetti"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
@@ -1040,7 +1035,7 @@ msgstr ""
 "recente.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:318
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system will be subscribed to %s \n"
 "base software channel. You will not be\n"
@@ -1049,10 +1044,10 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 "Il sistema verrà sottoscritto al canale software\n"
-"di base %s. Non sarai in grado di modificare questo\n"
+"di base %s. Non sarà possibile modificare questo\n"
 "sistema ad una versione precedente\n"
-"(è possibile selezionare una versione più recente.)\n"
-"Sei sicuro di voler continuare?"
+"(è possibile selezionare una versione più recente).\n"
+"Si è sicuri di voler continuare?"
 
 #. Navigation
 #: ../src/up2date_client/rhnreg_constants.py:327
@@ -1282,6 +1277,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enable.\n"
 msgstr ""
+"Impossibile aprire /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin non è abilitato.\n"
 
 #: ../src/up2date_client/rhnregGui.py:907
 #: ../src/up2date_client/rhnregGui.py:924 ../src/up2date_client/tui.py:903
@@ -1589,7 +1586,7 @@ msgstr "Seleziona server"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:56
 msgid "Entitlement Platform Registration"
-msgstr ""
+msgstr "Registrazione piattaforma entitlement"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:61
 #: ../src/firstboot/rhn_login_gui.py:41 ../src/firstboot/rhn_login_gui.py:42
@@ -1621,15 +1618,13 @@ msgstr "Termina impostaz. aggiornam."
 
 #: ../src/firstboot/rhn_create_profile_gui.py:87
 #: ../src/firstboot/rhn_login_gui.py:99
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Si è verificato un errore di comunicazione con il server: %s"
+msgstr "Si è verificato un errore di comunicazione con il server:"
 
 #: ../src/firstboot/rhn_create_profile_gui.py:89
 #: ../src/firstboot/rhn_login_gui.py:101
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Si desidera modificare le impostazioni di rete e tentare ancora?"
+msgstr "Si desidera tornare indietro e riprovare?"
 
 #: ../src/firstboot/rhn_register.py:29 ../src/firstboot/rhn_register.py:30
 #: ../src/firstboot/rhn_start_gui.py:43 ../src/firstboot/rhn_start_gui.py:44
@@ -1886,13 +1881,12 @@ msgid "Progress Dialog"
 msgstr "Avanzare Dialog"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Avanzare Dialog"
+msgstr "barra di progresso"
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
-msgstr ""
+msgstr "stato del progresso"
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -2088,9 +2082,8 @@ msgid "Advanced Network Configuration"
 msgstr "Configurazione di rete avanzata"
 
 #: ../data/rh_register.glade.h:37
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Configurazione di rete avanzata"
+msgstr "Pulsante di configurazione di rete avanzata"
 
 #: ../data/rh_register.glade.h:38
 msgid "Advanced _Network Configuration ..."
@@ -2098,7 +2091,7 @@ msgstr "Configurazione di (_N)rete avanzata..."
 
 #: ../data/rh_register.glade.h:40
 msgid "Aplet screenshot"
-msgstr ""
+msgstr "Screenshot Aplet"
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -2126,14 +2119,12 @@ msgid "Choose Channel"
 msgstr "Seleziona canale"
 
 #: ../data/rh_register.glade.h:48
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Versione _Minore:"
+msgstr "Seleziona release minore"
 
 #: ../data/rh_register.glade.h:49
-#, fuzzy
 msgid "Close"
-msgstr "_Chiudi"
+msgstr "Chiudi"
 
 #: ../data/rh_register.glade.h:50
 msgid "Confirm operation system release selection"
@@ -2169,6 +2160,9 @@ msgid ""
 "Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
 "access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
+"Per maggiori informazioni, incluso i tool alternativi, consultate "
+"l'articolo di questo Knowledge Base: <a href=\"https://access.redhat.com/kb/"
+"docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 
 #: ../data/rh_register.glade.h:61
 msgid "Hardware Info"
@@ -2238,9 +2232,8 @@ msgstr ""
 "RHN Classic."
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgid "Limited updates"
-msgstr "Solo aggiornamenti limitati"
+msgstr "Aggiornamenti limitati"
 
 #: ../data/rh_register.glade.h:74
 msgid "Link To Subscription"
@@ -2260,9 +2253,8 @@ msgid "Memory:"
 msgstr "Memoria:"
 
 #: ../data/rh_register.glade.h:77
-#, fuzzy
 msgid "No thanks, I'll connect later."
-msgstr "_No grazie.  Mi collegherò più tardi."
+msgstr "No grazie.  Mi collegherò più tardi."
 
 #: ../data/rh_register.glade.h:79
 msgid "Package Information"
@@ -2302,11 +2294,11 @@ msgstr "Modalità RHN Classic"
 
 #: ../data/rh_register.glade.h:87
 msgid "RHN login field"
-msgstr ""
+msgstr "Campo di login di RHN"
 
 #: ../data/rh_register.glade.h:88
 msgid "RHN password field"
-msgstr ""
+msgstr "Campo password di RHN"
 
 #: ../data/rh_register.glade.h:89
 msgid ""
@@ -2342,14 +2334,12 @@ msgid "Send _package profile"
 msgstr "Invia profilo dei _pacchetti"
 
 #: ../data/rh_register.glade.h:96
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Invia profilo _hardware"
+msgstr "Casella invia profilo hardware"
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Invia profilo dei _pacchetti"
+msgstr "Casella invia profilo del pacchetto"
 
 #: ../data/rh_register.glade.h:98
 msgid "Software update setup has been completed for this system."
@@ -2374,7 +2364,6 @@ msgstr ""
 "Network (RHN) per ottenere gli aggiornamenti software, come ad esempio:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -2388,36 +2377,37 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"Questo sistema <b>non</b> sarà in grado di ricevere aggiornamenti software "
-"da Red Hat, senza collegarsi prima ad un server di Red Hat Network.\n"
+"Questo sistema <b>non</b> sarà in grado di ricevere aggiornamenti software, "
+"incluso gli aggiornamenti sulla sicurezza, da Red Hat senza collegarsi prima "
+"ad un server di Red Hat Network.\n"
 "\n"
-"Per mantenere il vostro sistema aggiornato, sicuro e supportato, vi "
-"preghiamo di registrarlo quanto prima. Potete accedere a questo tool di "
-"registrazione eseguendo <b>Software Updater</b> nel menu <b>Applicazioni > "
-"Tool del sistema.</b>"
+"Per mantenere il sistema aggiornato, sicuro e supportato, vi preghiamo di "
+"registrarlo quanto prima.\n"
+"\n"
+"È possibile accedere al tool di registrazione di RHN eseguendo <b>RHN "
+"Registration</b> nel menu <b>Sistema > Amministrazione</b>.\n"
+"Potrete accedere al tool di aggiornamento software eseguendo <b>Software "
+"Update</b> nel menu <b>Sistema > Amministrazione</b>."
 
 #: ../data/rh_register.glade.h:112
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "Utilizza au_tenticazione con proxy HTTP:"
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Utilizza au_tenticazione con proxy HTTP:"
+msgstr "Utilizza autenticazione con proxy HTTP"
 
 #: ../data/rh_register.glade.h:114
 msgid "V_iew Package Profile ..."
 msgstr "V_isualizza profilo del pacchetto..."
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "_Visualizza profilo hardware ..."
+msgstr "Visualizza profilo hardware"
 
 #: ../data/rh_register.glade.h:116
-#, fuzzy
 msgid "View Package Profile"
-msgstr "V_isualizza profilo del pacchetto..."
+msgstr "Visualizza profilo del pacchetto"
 
 #: ../data/rh_register.glade.h:119
 msgid ""
@@ -2445,7 +2435,6 @@ msgstr ""
 "sottoscrizioni se non collegate prima il vostro sistema a Red Hat Network."
 
 #: ../data/rh_register.glade.h:123
-#, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2456,13 +2445,14 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"Non sarete in grado di ricevere aggiornamenti software, incluso i security "
-"updates, per questo sistema.\n"
+"Questo sistema non sarà in grado di ricevere aggiornamenti software, "
+"incluso gli aggiornamenti sulla sicurezza.\n"
 "\n"
-"Per mantenere il vostro sistema aggiornato, sicuro e supportato, vi "
-"preghiamo di collegare questo sistema a RHN quanto prima. Potete accedere a "
-"questo tool di registrazione eseguendo Software Updater nel menu "
-"Applicazioni > Tool del sistema."
+"È possibile accedere al tool di registrazione di RHN eseguendo <b>RHN "
+"Registration</b> o <b>Red Hat Subscription Manager</b> nel menu <b>Sistema > "
+"Amministrazione</b>.\n"
+"Per accedere al tool di aggiornamento software eseguire <b>Software "
+"Update</b> nel menu <b>Sistema > Amministrazione</b>."
 
 #: ../data/rh_register.glade.h:127
 msgid ""
@@ -2608,39 +2598,35 @@ msgstr "(_Y)Si, vorrei registrarmi ora."
 
 #: ../data/rh_register.glade.h:154
 msgid "icon of aplet"
-msgstr ""
+msgstr "icona di aplet"
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "installation number field"
-msgstr "Il numero d'installazione non è valido"
+msgstr "campo numero di installazione"
 
 #: ../data/rh_register.glade.h:156
 msgid "label"
 msgstr "etichetta"
 
 #: ../data/rh_register.glade.h:157
-#, fuzzy
 msgid "proxy location"
-msgstr "Posizione _Proxy:"
+msgstr "Posizione Proxy"
 
 #: ../data/rh_register.glade.h:158
-#, fuzzy
 msgid "proxy password field"
-msgstr "P_assword proxy:"
+msgstr "Campo password di proxy"
 
 #: ../data/rh_register.glade.h:159
 msgid "proxy user field"
-msgstr ""
+msgstr "campo utente di proxy"
 
 #: ../data/rh_register.glade.h:160
 msgid "satellite server location"
-msgstr ""
+msgstr "posizione server satellite"
 
 #: ../data/rh_register.glade.h:161
-#, fuzzy
 msgid "system name"
-msgstr "_Nome sistema:"
+msgstr "Nome del sistema"
 
 #: ../data/rh_register.glade.h:162
 msgid "•"
