@@ -2,25 +2,28 @@
 # translation of zh_TW.po to
 # Translation of up2date to Chinese (traditional)
 # Copyright (C) 2002,2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+#
 # Ben Wu <hpwu@redhat.com>, 2002,2003.
 # Chester Cheng <ccheng@redhat.com>, 2004, 2005, 2006, 2007.
 # Leah Liu <weliu@redhat.com>, 2005.
 # Waika Liu <wliu@redhat.com>, 2005.
 # Walter Cheuk <wwycheuk@netvigator.com>, 2005.
 # Chester Cheng <ccheng@brisbane.redhat.com>, 2006.
-#
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2007-02-01 10:53+1000\n"
-"Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
-"Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
+"PO-Revision-Date: 2011-06-15 17:18+0200\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: American English <spacewalk-devel@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: Lokalize 1.2\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -46,12 +49,11 @@ msgstr "完成設定軟體升級"
 
 #: ../src/up2date_client/gui.py:315
 msgid "_Exit"
-msgstr ""
+msgstr "退出(_E)"
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "軟體更新的設定不成功"
+msgstr "軟體更新的設定失敗"
 
 #: ../src/up2date_client/gui.py:326
 msgid "You must run rhn_register as root."
@@ -149,8 +151,7 @@ msgstr "發生某種 SSL 錯誤：%s\n"
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
 "the time on this system is correct.\n"
-msgstr ""
-"導致這個錯誤的原因通常是因為系統時間不正確，請確認這部系統的時間是正確的。\n"
+msgstr "導致這個錯誤的原因通常是因為系統時間不正確，請確認這部系統的時間是正確的。\n"
 
 #: ../src/up2date_client/rhncli.py:98
 #, python-format
@@ -172,15 +173,15 @@ msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "無法開啟圖形用戶界面。請試著執行 `up2date --nox`"
 
 #: ../src/up2date_client/rhncli.py:190
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
 "Copyright (C) 1999--2010 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 "%%prog (Red Hat Network 用戶端工具) %s\n"
-"版權所有 (C) 1999-2006 Red Hat, Inc.\n"
-"基於 GPL 的使用條款提供授權。"
+"版權所有 (C) 1999-2010 Red Hat, Inc.\n"
+"基於 GPLv2 的使用條款提供授權。"
 
 #: ../src/up2date_client/rhncli.py:210
 msgid "An error has occurred:"
@@ -191,9 +192,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "如需更多資料，請瀏覽 /var/log/up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-#, fuzzy
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "版權所有 Â© 2006  Red Hat, Inc. 保留所有權利。"
+msgstr "版權所有 © 2006--2010 Red Hat, Inc. 保留所有權利。"
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
@@ -309,9 +309,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "帶我回到註冊過程（_T）"
+msgstr "帶我回到註冊過程"
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
@@ -319,20 +318,18 @@ msgid "Software update setup unsuccessful"
 msgstr "軟體更新的設定不成功"
 
 #: ../src/up2date_client/rhnreg_constants.py:60
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 "您確定不打算連上 Red Hat Network？您將會錯過 Red Hat Enterprise Linux 訂閱服"
-"務的好處："
+"務的好處：\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
-msgstr "不向 Red Hat Network 註冊系統，您將<b>無法</b>享受到這些訂閱權利。"
+msgstr "不向 Red Hat Network 註冊系統，您將無法享用到這些訂閱權利。\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:64
 #: ../data/rh_register.glade.h:104
@@ -345,9 +342,8 @@ msgstr "稍後註冊。"
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68
-#, fuzzy
 msgid "Enter you account information"
-msgstr "請輸入您的帳號資訊"
+msgstr "輸入您的帳號資訊"
 
 #: ../src/up2date_client/rhnreg_constants.py:69
 #, python-format
@@ -420,9 +416,8 @@ msgstr "您的系統將會訂閱基礎軟體頻道，以取得所有可用更新
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "請建立您的系統設定檔"
+msgstr "建立您的系統設定檔 - 硬體"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
@@ -445,9 +440,8 @@ msgstr "包含下列關於硬體與網路的資訊："
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "請建立您的系統設定檔"
+msgstr "建立您的系統設定檔 - 套件"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
@@ -516,6 +510,13 @@ msgid ""
 "For more information, including alternate tools, consult this Knowledge Base "
 "Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
+"這部系統似乎已透過使用 RHN Certificate-Based Entitlement 技術來向 RHN 註冊"
+"了。此工具需要透過使用 RHN Classic 技術來進行註冊。\n"
+"\n"
+"除了某些情況下，Red Hat 建議使用者只向 RHN 進行一次註冊。\n"
+"\n"
+"欲取得更多資訊（包括額外工具），請參閱此知識庫文件：https://access.redhat."
+"com/kb/docs/DOC-45563"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -835,7 +836,7 @@ msgstr ""
 "次。"
 
 #: ../src/up2date_client/rhnreg_constants.py:282
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -1127,6 +1128,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enable.\n"
 msgstr ""
+"無法開啟 /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin 尚未啟用。\n"
 
 #: ../src/up2date_client/rhnregGui.py:907
 #: ../src/up2date_client/rhnregGui.py:924 ../src/up2date_client/tui.py:903
@@ -1201,8 +1204,7 @@ msgstr "正在建立安裝在您系統的 RPM 套件清單。  請稍候。"
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"載入您的設定時發生錯誤。  請確定您有讀取 /etc/sysconfig/rhn 檔案的權限。"
+msgstr "載入您的設定時發生錯誤。  請確定您有讀取 /etc/sysconfig/rhn 檔案的權限。"
 
 #: ../src/up2date_client/rhnregGui.py:1346
 #, python-format
@@ -1246,16 +1248,12 @@ msgid "Getting list of packages installed on the system"
 msgstr "取得已安裝在系統的套件清單"
 
 #: ../src/up2date_client/tui.py:126
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network 的位置（_L）"
+msgstr "Red Hat Network 的位置："
 
 #: ../src/up2date_client/tui.py:128
-#, fuzzy
 msgid "System ID:"
-msgstr ""
-"\n"
-"系統 ID："
+msgstr "系統 ID："
 
 #: ../src/up2date_client/tui.py:418
 msgid "The server indicated an error:\n"
@@ -1416,7 +1414,7 @@ msgstr "選擇伺服器"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:56
 msgid "Entitlement Platform Registration"
-msgstr ""
+msgstr "權利平台註冊"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:61
 #: ../src/firstboot/rhn_login_gui.py:41 ../src/firstboot/rhn_login_gui.py:42
@@ -1448,15 +1446,13 @@ msgstr "完成更新設定"
 
 #: ../src/firstboot/rhn_create_profile_gui.py:87
 #: ../src/firstboot/rhn_login_gui.py:99
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "連接伺服器時發生錯誤：%s"
+msgstr "連接伺服器時發生錯誤："
 
 #: ../src/firstboot/rhn_create_profile_gui.py:89
 #: ../src/firstboot/rhn_login_gui.py:101
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "您願意試著變更網路設定，再試一次嗎？"
+msgstr "您希望返回並重新嘗試嗎？"
 
 #: ../src/firstboot/rhn_register.py:29 ../src/firstboot/rhn_register.py:30
 #: ../src/firstboot/rhn_start_gui.py:43 ../src/firstboot/rhn_start_gui.py:44
@@ -1704,13 +1700,12 @@ msgid "Progress Dialog"
 msgstr "進度視窗"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "進度視窗"
+msgstr "進度"
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
-msgstr ""
+msgstr "進度狀態"
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1760,21 +1755,21 @@ msgstr "<b>系統 ID：</b>"
 msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
-msgstr ""
-"<b>您系統的網路連線並未啟動。您的系統現在無法設定，以取得軟體更新。</b>"
+msgstr "<b>您系統的網路連線並未啟動。您的系統現在無法設定，以取得軟體更新。</b>"
 
 #: ../data/rh_register.glade.h:13
 msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
-msgstr ""
+msgstr "<b>提示：</b> 含有個 '*' 的部份更新目前受到了 Red Hat 的完整支援。"
 
 #: ../data/rh_register.glade.h:14
 msgid ""
 "<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
 "release that is older than the most recent minor release if you select this "
 "option."
-msgstr "<b>警告：</b> 警告：若您選擇此選項的話，您便<b>無法</b>將此系統限制為比目前最"
+msgstr ""
+"<b>警告：</b> 警告：若您選擇此選項的話，您便<b>無法</b>將此系統限制為比目前最"
 "新非重大發行版還要舊的版本。"
 
 #: ../data/rh_register.glade.h:15
@@ -1839,13 +1834,12 @@ msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>範例</b>：XXXX-XXXX-XXXX-XXXX</small>"
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid ""
 "<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html.</small>"
 msgstr ""
-"提示：Red Hat 注重您的隱私權：http://www.redhat.com/legal/privacy_statement."
-"html"
+"<small><b>提示：</b>Red Hat 注重您的隱私權：http://www.redhat."
+"com/legal/privacy_statement.html。</small>"
 
 #: ../data/rh_register.glade.h:27
 msgid ""
@@ -1888,9 +1882,8 @@ msgid "Advanced Network Configuration"
 msgstr "網路進階配置"
 
 #: ../data/rh_register.glade.h:37
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "網路進階設定"
+msgstr "進階網路配置按鈕"
 
 #: ../data/rh_register.glade.h:38
 msgid "Advanced _Network Configuration ..."
@@ -1898,7 +1891,7 @@ msgstr "網路進階配置（_N）   "
 
 #: ../data/rh_register.glade.h:40
 msgid "Aplet screenshot"
-msgstr ""
+msgstr "Aplet 畫面"
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -1926,12 +1919,11 @@ msgstr "選擇頻道"
 
 #: ../data/rh_register.glade.h:48
 msgid "Choose minor release"
-msgstr ""
+msgstr "選擇非重大發行版"
 
 #: ../data/rh_register.glade.h:49
-#, fuzzy
 msgid "Close"
-msgstr "關閉（_C）"
+msgstr "關閉"
 
 #: ../data/rh_register.glade.h:50
 msgid "Confirm operation system release selection"
@@ -2035,9 +2027,8 @@ msgstr ""
 "項工具需透過使用 RHN Classic 技術進行註冊。"
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgid "Limited updates"
-msgstr "美國"
+msgstr "受限的更新"
 
 #: ../data/rh_register.glade.h:74
 msgid "Link To Subscription"
@@ -2056,9 +2047,8 @@ msgid "Memory:"
 msgstr "記憶體："
 
 #: ../data/rh_register.glade.h:77
-#, fuzzy
 msgid "No thanks, I'll connect later."
-msgstr "不，謝謝。我以後再連線(_N)。"
+msgstr "不，謝謝。我以後再連線。"
 
 #: ../data/rh_register.glade.h:79
 msgid "Package Information"
@@ -2095,15 +2085,12 @@ msgid "RHN Classic Mode"
 msgstr "RHN Classic Mode"
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgid "RHN login field"
-msgstr ""
-"\n"
-"Red Hat 登入："
+msgstr "RHN 登錄名稱欄位"
 
 #: ../data/rh_register.glade.h:88
 msgid "RHN password field"
-msgstr ""
+msgstr "RHN 密碼欄位"
 
 #: ../data/rh_register.glade.h:89
 msgid ""
@@ -2138,14 +2125,12 @@ msgid "Send _package profile"
 msgstr "傳送套件設定檔（_p）"
 
 #: ../data/rh_register.glade.h:96
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "發送硬體資料檔（_h）"
+msgstr "發送硬體設定檔核取方塊"
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "傳送套件設定檔（_p）"
+msgstr "傳送套件設定檔核取方塊"
 
 #: ../data/rh_register.glade.h:98
 msgid "Software update setup has been completed for this system."
@@ -2166,7 +2151,6 @@ msgid ""
 msgstr "這能幫助您將系統連上 Red Hat Network (RHN)，以取得軟體更新，例如："
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -2180,34 +2164,33 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"如果系統不連上 Red Hat Network 伺服器的話，這系統將<b>無法</b>從 Red Hat，成"
-"功地收到軟體更新，包括安全性更新。\n"
+"如果系統不連上 Red Hat Network 伺服器的話，這部系統將<b>無法</b>由 Red Hat 成"
+"功地取得軟體更新，包括安全性更新。\n"
 "\n"
-"要讓您的系統保持在最新、最安全與受支援的狀態，請儘早註冊這台系統。您可以執行"
-"註冊工具，位於<b>應用程式 > 系統工具</b>的<b>軟體更新</b>中。"
+"要讓您的系統保持在最新、最安全與受支援的狀態，請儘早註冊這台系統。\n"
+"\n"
+"您可以透過<b>系統 > 管理</b>選單中的 <b>RHN 註冊</b>來執行 RHN 註冊工具。\n"
+"您可藉由執行<b>系統 > 管理</b>選單中的<b>軟體更新</b>來存取軟體更新工具。"
 
 #: ../data/rh_register.glade.h:112
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "使用 HTTP 代理伺服器來認證（_t）"
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "使用 HTTP 代理伺服器來認證（_t）"
+msgstr "使用 HTTP 代理伺服器來進行認證"
 
 #: ../data/rh_register.glade.h:114
 msgid "V_iew Package Profile ..."
 msgstr "檢視套件資料檔（_i）..."
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "檢視硬體資料檔（_V）..."
+msgstr "檢視硬體設定檔"
 
 #: ../data/rh_register.glade.h:116
-#, fuzzy
 msgid "View Package Profile"
-msgstr "檢視套件資料檔（_i）..."
+msgstr "檢視套件設定檔"
 
 #: ../data/rh_register.glade.h:119
 msgid ""
@@ -2232,7 +2215,6 @@ msgid ""
 msgstr "不向 Red Hat Network 註冊系統，您將<b>無法</b>享受到這些訂閱權利。"
 
 #: ../data/rh_register.glade.h:123
-#, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2243,11 +2225,13 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"這系統將無法收到軟體更新，包括安全性更新。\n"
+"如果系統不連上 Red Hat Network 伺服器的話，這部系統將<b>無法</b>由 Red Hat 成"
+"功地取得軟體更新，包括安全性更新。\n"
 "\n"
-"要讓您的系統保持在最新、最安全與受支援的狀態，請儘早向 RHN 註冊這台系統。您可"
-"以在任何時候執行軟體更新設定工具，方法是點選「應用程式」>「系統工具」的「軟體"
-"更新程式」。"
+"要讓您的系統保持在最新、最安全與受支援的狀態，請儘早註冊這台系統。\n"
+"\n"
+"您可以透過<b>系統 > 管理</b>選單中的 <b>RHN 註冊</b>來執行 RHN 註冊工具。\n"
+"您可藉由執行<b>系統 > 管理</b>選單中的<b>軟體更新</b>來存取軟體更新工具。"
 
 #: ../data/rh_register.glade.h:127
 msgid ""
@@ -2259,8 +2243,7 @@ msgstr "請將您系統的套件與硬體設定檔寄給我們，這樣我們可
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
-msgstr ""
-"您需要選擇這系統的名稱，這樣您就可以在 Red Hat Network 的介面中辨別出來。"
+msgstr "您需要選擇這系統的名稱，這樣您就可以在 Red Hat Network 的介面中辨別出來。"
 
 #: ../data/rh_register.glade.h:129
 msgid "Your system is not setup for software updates."
@@ -2282,7 +2265,6 @@ msgstr ""
 "請按下這圖示，它會引領您套用任何可用的更新："
 
 #: ../data/rh_register.glade.h:133
-#, fuzzy
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -2292,10 +2274,9 @@ msgid ""
 "circled below.) Clicking on this icon, when available, will guide you "
 "through applying any updates that are available:"
 msgstr ""
-"您的系統已經準備好接受軟體更新，這可確保系統安全並受到支援。\n"
+"您的系統已準備好取得使其維持安全性，並使其受到支援的軟體更新。\n"
 "\n"
-"當套件圖示出現在您桌面的提示區（多半位於右上角）時，這表示您的軟體需要更新。"
-"請按下這圖示，它會引領您套用任何可用的更新："
+"當套件圖像出現在您桌面上的通知部份（一般位於右上角）時，您便知道有可用的軟體更新。當此圖像出現時，請點選該圖像，這將會帶領您套用任何可使用的更新："
 
 #: ../data/rh_register.glade.h:136
 msgid ""
@@ -2380,39 +2361,35 @@ msgstr "是，我現在想要註冊（_Y）。"
 
 #: ../data/rh_register.glade.h:154
 msgid "icon of aplet"
-msgstr ""
+msgstr "aplet 圖示"
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "installation number field"
-msgstr "安裝號碼不符"
+msgstr "安裝號碼欄位"
 
 #: ../data/rh_register.glade.h:156
 msgid "label"
 msgstr "標籤"
 
 #: ../data/rh_register.glade.h:157
-#, fuzzy
 msgid "proxy location"
-msgstr "代理伺服器位置（_P）："
+msgstr "代理伺服器位置"
 
 #: ../data/rh_register.glade.h:158
-#, fuzzy
 msgid "proxy password field"
-msgstr "代理伺服器密碼（_a）："
+msgstr "代理伺服器密碼欄位"
 
 #: ../data/rh_register.glade.h:159
 msgid "proxy user field"
-msgstr ""
+msgstr "代理伺服器使用者欄位"
 
 #: ../data/rh_register.glade.h:160
 msgid "satellite server location"
-msgstr ""
+msgstr "衛星伺服器位置"
 
 #: ../data/rh_register.glade.h:161
-#, fuzzy
 msgid "system name"
-msgstr "系統名稱（_N）："
+msgstr "系統名稱"
 
 #: ../data/rh_register.glade.h:162
 msgid "•"
