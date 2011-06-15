@@ -9,18 +9,21 @@
 # David Barzilay <barzilay@redhat.com>, 2004.
 # Manuel Ospina <mospina@redhat.com>, 2005, 2006, 2007.
 # Gladys Guerrero  <gguerrer@redhat.com>, 2010.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.rhn-client-tools.es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2010-06-04 11:23+1000\n"
-"Last-Translator: Gladys Guerrero  <gguerrer@redhat.com>\n"
+"PO-Revision-Date: 2011-06-15 15:35+0200\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -544,6 +547,15 @@ msgid ""
 "For more information, including alternate tools, consult this Knowledge Base "
 "Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
+"Parece que este sistema ya ha sido registrado a RHN mediante la Tecnología "
+"de derechos basada en certificado de RHN.\n"
+"\n"
+"A excepción de algunos casos, Red Hat le recomienda a los usuarios "
+"registrarse a RHN una vez.\n"
+"\n"
+"Para obtener mayor información, incluyendo herramientas alternativas, "
+"consulte el artículo: https://access.redhat.com/kb/docs/DOC-45563 de la base "
+"de conocimientos"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -667,10 +679,12 @@ msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
+"Advertencia: yum-rhn-plugin no está presente, no se pudo activar.\n"
+"Las actualizaciones automáticas no funcionarán."
 
 #: ../src/up2date_client/rhnreg_constants.py:189
 msgid "Note: yum-rhn-plugin has been enabled."
-msgstr ""
+msgstr "Nota: yum-rhn-plugin ha sido activado."
 
 #: ../src/up2date_client/rhnreg_constants.py:190
 msgid ""
@@ -678,6 +692,9 @@ msgid ""
 "yum-rhn-plugin is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
+"Advertencia: Ha ocurrido un error durante la activación de yum-rhn-plugin.\n"
+"yum-rhn-plugin no está habilitado.\n"
+"Las actualizaciones automáticas no funcionarán."
 
 #: ../src/up2date_client/rhnreg_constants.py:193
 msgid ""
@@ -1414,6 +1431,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"No se pudo abrir /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin no está activado.\n"
 
 #: ../src/up2date_client/tui.py:1006
 msgid "Finish"
@@ -1687,13 +1706,15 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:181
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr ""
+msgstr "Advertencia: yum-rhn-plugin no está presente, no se pudo actualizar."
 
 #: ../src/bin/rhnreg_ks.py:183
 msgid ""
 "Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"Advertencia: No se pudo abrir /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"yum-rhn-plugin no está habilitado.\n"
 
 #: ../src/bin/rhnreg_ks.py:203
 msgid ""
@@ -1894,9 +1915,8 @@ msgstr ""
 "más reciente."
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "Advertencia"
+msgstr "<b>Advertencia</b>"
 
 #: ../data/rh_register.glade.h:16
 msgid ""
@@ -2084,6 +2104,8 @@ msgid ""
 "Except for a few cases, Red Hat recommends customers only register with RHN "
 "once.\n"
 msgstr ""
+"A excepción de unos pocos casos, Red Hat recomienda a los usuarios "
+"registrarse a RHN una vez.\n"
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -2152,6 +2174,9 @@ msgid ""
 "Certificate-Based Entitlement technology. This tool requires registration "
 "using RHN Classic technology."
 msgstr ""
+"Parece que este sistema ya ha sido registrado a RHN mediante la Tecnología "
+"de derechos basada en certificados de RHN. Esta herramienta requiere "
+"registro mediante tecnología de RHN Classic."
 
 #: ../data/rh_register.glade.h:73
 #, fuzzy
@@ -2213,7 +2238,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:86
 msgid "RHN Classic Mode"
-msgstr ""
+msgstr "Modo de RHN Classic"
 
 #: ../data/rh_register.glade.h:87
 msgid "RHN login field"
