@@ -584,7 +584,8 @@ public class DownloadFile extends DownloadAction {
         if (rpmPackage != null && rpmPackage.getChecksum() != null &&
                     rpmPackage.getChecksum().getChecksum() != null) {
             checksum = rpmPackage.getChecksum().getChecksum();
-            response.setHeader("Content-Length", String.valueOf(rpmPackage.getPackageSize()));
+            response.setHeader("Content-Length",
+                String.valueOf(rpmPackage.getPackageSize()));
         }
         else {
             File f = new File(diskPath);
