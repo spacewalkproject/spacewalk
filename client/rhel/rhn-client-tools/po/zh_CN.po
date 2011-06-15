@@ -7,18 +7,21 @@
 # Leah Liu <weliu@redhat.com>, 2005, 2006.
 # Xi HUANG <xhuang@redhat.com>, 2007.
 # Leah Liu <lliu@redhat.com>, 2010.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2010-06-10 13:14+1000\n"
-"Last-Translator: Leah Liu <lliu@redhat.com>\n"
-"Language-Team: Wei Liu\n"
+"PO-Revision-Date: 2011-06-15 17:15+0200\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: American English <spacewalk-devel@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -289,8 +292,7 @@ msgstr "联系红帽或红帽合作伙伴的技术支持专家来帮助您解决
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
-msgstr ""
-"遵循您的订阅协议并管理连接到您在 http://rhn.redhat.com 上的帐号的系统订阅。"
+msgstr "遵循您的订阅协议并管理连接到您在 http://rhn.redhat.com 上的帐号的系统订阅。"
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
@@ -300,9 +302,8 @@ msgstr "红帽尊重您的隐私权：http://www.redhat.com/legal/privacy_statem
 
 #: ../src/up2date_client/rhnreg_constants.py:56
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "(_T)返回到注册过程"
+msgstr "返回注册过程"
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
@@ -334,9 +335,8 @@ msgstr "我在以后注册。"
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68
-#, fuzzy
 msgid "Enter you account information"
-msgstr "输入您的帐号信息"
+msgstr "请输入您的帐户信息"
 
 #: ../src/up2date_client/rhnreg_constants.py:69
 #, python-format
@@ -409,9 +409,8 @@ msgstr "您的系统将订阅基本软件频道以便接收所有可用更新。
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "创建您的系统配置文件"
+msgstr "创建您的系统侧写 -- 硬件"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
@@ -434,9 +433,8 @@ msgstr "包括下列关于硬件和网络的信息："
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "创建您的系统配置文件"
+msgstr "创建您的系统侧写 -- 软件包"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
@@ -505,6 +503,13 @@ msgid ""
 "For more information, including alternate tools, consult this Knowledge Base "
 "Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
+"这个系统已经使用 RHN 证书式授权技术在 RHN 中注册。这个工具要求使用 RHN "
+"传统技术注册。\n"
+"\n"
+"除少数情况外，红帽建议客户只在 RHN 中注册一次。\n"
+"\n"
+"有关详情，包括备用工具，请参考知识库文章：https://access.redhat.com/kb/docs/"
+"DOC-45563"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -692,8 +697,7 @@ msgstr "管理模块：自动更新、系统组群、系统访问权限、软件
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
-msgstr ""
-"Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管理"
+msgstr "Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管理"
 
 #: ../src/up2date_client/rhnreg_constants.py:222
 msgid ""
@@ -893,7 +897,7 @@ msgstr ""
 "本。\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:318
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system will be subscribed to %s \n"
 "base software channel. You will not be\n"
@@ -901,10 +905,10 @@ msgid ""
 "(you will be able to move to a newer release).\n"
 "Are you sure you would like to continue?"
 msgstr ""
-"您的系统必须订阅 %s 基本\n"
-"软件频道。您将无法将该系统\n"
-"迁移到之前的版本\n"
-"（您将可以迁移到较新的版本。）\n"
+"您的系统将被订阅到 %s \n"
+"基本软件频道。您将无法将\n"
+"这个系统移动到更早的发行本\n"
+"（您可以将其移动到更新的版本）。\n"
 "您确定要继续吗？"
 
 #. Navigation
@@ -1307,6 +1311,8 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
+"无法打开 /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"没有启用 yum-rhn-plugin。\n"
 
 #: ../src/up2date_client/tui.py:1006
 msgid "Finish"
@@ -1402,7 +1408,7 @@ msgstr "选择服务器"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:56
 msgid "Entitlement Platform Registration"
-msgstr ""
+msgstr "授权平台注册"
 
 #: ../src/firstboot/rhn_choose_server_gui.py:61
 #: ../src/firstboot/rhn_login_gui.py:41 ../src/firstboot/rhn_login_gui.py:42
@@ -1434,15 +1440,13 @@ msgstr "完成更新设置"
 
 #: ../src/firstboot/rhn_create_profile_gui.py:87
 #: ../src/firstboot/rhn_login_gui.py:99
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "在与服务器联络时出现错误：%s"
+msgstr "在与服务器联络时出错："
 
 #: ../src/firstboot/rhn_create_profile_gui.py:89
 #: ../src/firstboot/rhn_login_gui.py:101
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "你是否希望更改网络设置,然后重试一次?"
+msgstr "您是否希望返回然后再试一次?"
 
 #: ../src/firstboot/rhn_register.py:29 ../src/firstboot/rhn_register.py:30
 #: ../src/firstboot/rhn_start_gui.py:43 ../src/firstboot/rhn_start_gui.py:44
@@ -1506,7 +1510,7 @@ msgstr "指定一个激活码"
 #: ../src/bin/rhnreg_ks.py:58
 msgid ""
 "Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr ""
+msgstr "将这个系统订阅到与系统 redhat-release 绑定的 EUS 频道"
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid "[Deprecated] Read contact info from stdin"
@@ -1689,13 +1693,12 @@ msgid "Progress Dialog"
 msgstr "进度对话框"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "进度对话框"
+msgstr "进度条"
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
-msgstr ""
+msgstr "进度状态"
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1763,9 +1766,8 @@ msgstr ""
 "本旧的次要版本。"
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "警告"
+msgstr "<b>警告</b>"
 
 #: ../data/rh_register.glade.h:16
 msgid ""
@@ -1802,7 +1804,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:20
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
-msgstr ""
+msgstr "<big><b>将无法移动到更早的发行本</b></big>"
 
 #: ../data/rh_register.glade.h:21
 msgid "<big><b>Profile Data</b></big>"
@@ -1825,18 +1827,18 @@ msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>例如：</b> XXXX-XXXX-XXXX-XXXX</small>"
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid ""
 "<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html.</small>"
-msgstr "红帽尊重您的隐私权：http://www.redhat.com/legal/privacy_statement.html"
+msgstr ""
+"<small><b>提示：</b>红帽尊重您的隐私：http://www.redhat.com/legal/"
+"privacy_statement.html。</small>"
 
 #: ../data/rh_register.glade.h:27
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
-msgstr ""
-"<small>忘记了您的用户名或口令？联系您的 Satellite <i>机构管理员</i>。</small>"
+msgstr "<small>忘记了您的用户名或口令？联系您的 Satellite <i>机构管理员</i>。</small>"
 
 #: ../data/rh_register.glade.h:28
 msgid ""
@@ -1871,9 +1873,8 @@ msgid "Advanced Network Configuration"
 msgstr "高级网络配置"
 
 #: ../data/rh_register.glade.h:37
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "高级网络配置"
+msgstr "高级网络配置按钮"
 
 #: ../data/rh_register.glade.h:38
 msgid "Advanced _Network Configuration ..."
@@ -1881,7 +1882,7 @@ msgstr "(_N)高级网络配置 ..."
 
 #: ../data/rh_register.glade.h:40
 msgid "Aplet screenshot"
-msgstr ""
+msgstr "Aplet 截图"
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -1904,23 +1905,20 @@ msgid "Certificate _Location:"
 msgstr "(_L)证书位置："
 
 #: ../data/rh_register.glade.h:46
-#, fuzzy
 msgid "Choose Channel"
-msgstr "选择机构"
+msgstr "选择频道"
 
 #: ../data/rh_register.glade.h:48
-#, fuzzy
 msgid "Choose minor release"
-msgstr "次要版本："
+msgstr "选择次要发行本"
 
 #: ../data/rh_register.glade.h:49
-#, fuzzy
 msgid "Close"
-msgstr "(_C)关闭"
+msgstr "关闭"
 
 #: ../data/rh_register.glade.h:50
 msgid "Confirm operation system release selection"
-msgstr ""
+msgstr "确认选择的操作系统发行本"
 
 #: ../data/rh_register.glade.h:52
 msgid "Create profile"
@@ -1942,7 +1940,7 @@ msgstr "输入格式化的主机名(:端口)"
 msgid ""
 "Except for a few cases, Red Hat recommends customers only register with RHN "
 "once.\n"
-msgstr ""
+msgstr "除少数情况外，红帽建议客户只在 RHN 注册一次。\n"
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -2020,9 +2018,8 @@ msgstr ""
 "术注册。"
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgid "Limited updates"
-msgstr "仅限有限更新"
+msgstr "有限更新"
 
 #: ../data/rh_register.glade.h:74
 msgid "Link To Subscription"
@@ -2041,9 +2038,8 @@ msgid "Memory:"
 msgstr "内存："
 
 #: ../data/rh_register.glade.h:77
-#, fuzzy
 msgid "No thanks, I'll connect later."
-msgstr "(_N)不，我将在以后注册。"
+msgstr "不，谢谢！以后再连接。"
 
 #: ../data/rh_register.glade.h:79
 msgid "Package Information"
@@ -2071,20 +2067,19 @@ msgstr "代理服务器用户名(_U)："
 msgid ""
 "Purchase an additional Red Hat Enterprise Linux subscription at http://www."
 "redhat.com/store/."
-msgstr ""
-"购买一个额外的红帽企业 Linux 订阅（通过 http://www.redhat.com/store/）。"
+msgstr "购买一个额外的红帽企业 Linux 订阅（通过 http://www.redhat.com/store/）。"
 
 #: ../data/rh_register.glade.h:86
 msgid "RHN Classic Mode"
-msgstr ""
+msgstr "RHN 传统模式"
 
 #: ../data/rh_register.glade.h:87
 msgid "RHN login field"
-msgstr ""
+msgstr "RHN 登录字段"
 
 #: ../data/rh_register.glade.h:88
 msgid "RHN password field"
-msgstr ""
+msgstr "RHN 密码字段"
 
 #: ../data/rh_register.glade.h:89
 msgid ""
@@ -2119,14 +2114,12 @@ msgid "Send _package profile"
 msgstr "发送软件包侧写(_p)"
 
 #: ../data/rh_register.glade.h:96
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "发送(_h)硬件侧写"
+msgstr "发送硬件侧写复选框"
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "发送软件包侧写(_p)"
+msgstr "发送软件包侧写复选框"
 
 #: ../data/rh_register.glade.h:98
 msgid "Software update setup has been completed for this system."
@@ -2147,7 +2140,6 @@ msgid ""
 msgstr "这个帮助程序将帮助您注册您的系统来进行软件更新，如："
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -2161,34 +2153,34 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"如果没有连接到一个红帽网络服务器，这个系统将 <b>不会</b> 成功地从红帽接收软件"
-"更新（包括安全更新）。\n"
+"如果没有连接到红帽网络服务器，这个系统将<b>不会</b>成功地从红帽接收软件更新，"
+"其中包括安全更新。\n"
 "\n"
 "要保持您的系统更新、安全并被支持，请尽快支持您的系统。您可以通过运行 <b>应用"
-"程序 > 系统工具</b> 菜单中的 <b>Software Updater</b> 来获得这个支持工具。"
+"程序 > 系统工具</b> 菜单中的 <b>软件更新程序</b> 获得这个支持工具。\n"
+"\n"
+"您可以在<b>系统 > 管理</b>菜单中运行<b> RHN 注册</b>访问 RHN 注册工具。\n"
+"您可以在<b>系统 > 管理</b>菜单中运行<b>软件更新</b>访问软件更新。"
 
 #: ../data/rh_register.glade.h:112
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "使用 HTTP 代理服务器进行验证(_t)"
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "使用 HTTP 代理服务器进行验证(_t)"
+msgstr "使用 HTTP Proxy 验证"
 
 #: ../data/rh_register.glade.h:114
 msgid "V_iew Package Profile ..."
 msgstr "查看软件包侧写(_i)"
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "(_V)查看硬件侧写 ..."
+msgstr "查看硬件侧写"
 
 #: ../data/rh_register.glade.h:116
-#, fuzzy
 msgid "View Package Profile"
-msgstr "查看软件包侧写(_i)"
+msgstr "查看软件包侧写"
 
 #: ../data/rh_register.glade.h:119
 msgid ""
@@ -2212,7 +2204,6 @@ msgid ""
 msgstr "没有在红帽网络上注册系统，您将 <b>无法</b> 获得这些订阅所提供的益处。"
 
 #: ../data/rh_register.glade.h:123
-#, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2223,10 +2214,11 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"您将无法为这个系统接收包括安全更新在内的软件更新。\n"
+"如果没有连接到红帽网络服务器，这个系统将<b>不会</b>成功地从红帽接收软件更新，"
+"其中包括安全更新。\n"
 "\n"
-"要使您的系统更新、安全并被支持，请尽早把这个系统连接到 RHN。您可以通过 应用程"
-"序 > 系统工具菜单运行软件更新来使用软件更新设置工具。"
+"您可以在<b>系统 > 管理</b>菜单中运行<b> RHN 注册</b>访问 RHN 订阅管理器访问 RHN 注册工具。\n"
+"您可以在<b>系统 > 管理</b>菜单中运行<b>软件更新</b>访问软件更新工具。"
 
 #: ../data/rh_register.glade.h:127
 msgid ""
@@ -2260,7 +2252,6 @@ msgstr ""
 "可以应用有效的更新："
 
 #: ../data/rh_register.glade.h:133
-#, fuzzy
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -2270,10 +2261,10 @@ msgid ""
 "circled below.) Clicking on this icon, when available, will guide you "
 "through applying any updates that are available:"
 msgstr ""
-"您的系统现在可以接收软件更新。\n"
+"您的系统现在就可以接收软件更新以便保证其安全和提供支持。\n"
 "\n"
-"当有新的软件更新时，一个软件包图标会出现在您的桌面的通知区域上。点这个图标将"
-"可以应用有效的更新："
+"当您的桌面通知区域（通常是在右上角，如下圆圈中所示）中出现软件包图标时，您就知道有可以使用的软件更新了。点击这个图标，如果可用，那么它将引导您完成应用可用的"
+"更新："
 
 #: ../data/rh_register.glade.h:136
 msgid ""
@@ -2304,7 +2295,7 @@ msgstr "(_L)登录："
 
 #: ../data/rh_register.glade.h:141
 msgid "_Minor release:"
-msgstr ""
+msgstr "次要发行本（_M）："
 
 #: ../data/rh_register.glade.h:142
 msgid "_No thanks, I'll connect later."
@@ -2320,7 +2311,7 @@ msgstr "(_N)不，我将在以后注册。"
 
 #: ../data/rh_register.glade.h:145
 msgid "_Operating system version:"
-msgstr ""
+msgstr "操作系统版本（_O）："
 
 #: ../data/rh_register.glade.h:146
 msgid "_Password:"
@@ -2356,34 +2347,31 @@ msgstr "(_Y)是，我现在注册。"
 
 #: ../data/rh_register.glade.h:154
 msgid "icon of aplet"
-msgstr ""
+msgstr "Aplet 图标"
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "installation number field"
-msgstr "安装号无效"
+msgstr "安装号字段"
 
 #: ../data/rh_register.glade.h:156
 msgid "label"
 msgstr "标签"
 
 #: ../data/rh_register.glade.h:157
-#, fuzzy
 msgid "proxy location"
-msgstr "(_P)代理服务器位置："
+msgstr "proxy 位置"
 
 #: ../data/rh_register.glade.h:158
-#, fuzzy
 msgid "proxy password field"
-msgstr "代理服务器口令(_a)："
+msgstr "proxy 密码字段"
 
 #: ../data/rh_register.glade.h:159
 msgid "proxy user field"
-msgstr ""
+msgstr "proxy 用户字段"
 
 #: ../data/rh_register.glade.h:160
 msgid "satellite server location"
-msgstr ""
+msgstr "satellite 服务器位置"
 
 #: ../data/rh_register.glade.h:161
 #, fuzzy
@@ -2412,7 +2400,7 @@ msgstr "RHN 注册"
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
-msgstr ""
+msgstr "在 Spacewalk/Satellite/红帽网络中注册软件更新"
 
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
