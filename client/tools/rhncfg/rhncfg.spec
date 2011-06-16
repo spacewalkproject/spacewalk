@@ -67,6 +67,7 @@ install -d $RPM_BUILD_ROOT/%{rhnroot}
 make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
 mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/rhncfg/backups
+mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/spool/rhn
 
 %clean
 rm -rf $RPM_BUILD_ROOT
