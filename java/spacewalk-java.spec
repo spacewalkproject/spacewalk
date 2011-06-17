@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.46
+Version: 1.5.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 17 2011 Jan Pazdziora 1.5.47-1
+- 709724 - check session validity first, security token next
+  (mzazrivec@redhat.com)
+- CVE-2009-4139 - cross site request forging vulnerability fix
+  (mzazrivec@redhat.com)
+
 * Wed Jun 15 2011 Jan Pazdziora 1.5.46-1
 - Make the line shorter to pass checkstyle.
 
