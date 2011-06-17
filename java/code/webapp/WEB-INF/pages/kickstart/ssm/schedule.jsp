@@ -47,6 +47,7 @@
 <c:set var="proxy_summary_key" value="ssm.kickstart.schedule.proxy.jsp.summary"/>
 
 <rl:listset name="form">
+        <rhn:csrf />
 		<c:if test="${empty requestScope.isIP}">
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
 		</c:if>

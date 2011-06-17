@@ -26,6 +26,7 @@
   </p>
 </div>
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/UnsubscribeConfirmSubmit.do">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="unsubscribeconfirm.jsp.noSystems">
     <rhn:listdisplay filterBy="unsubscribeconfirm.jsp.system"

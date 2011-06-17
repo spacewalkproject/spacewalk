@@ -16,6 +16,7 @@
   <div class="clearBoxBody">
 
     <html:form action="/LoginSubmit">
+        <rhn:csrf />
         <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
     </html:form>
   </div>

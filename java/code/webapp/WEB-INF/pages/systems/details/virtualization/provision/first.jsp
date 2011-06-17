@@ -31,6 +31,8 @@ function setStep(stepName) {
 <div>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <rl:listset name="wizard-form">
+    <rhn:csrf />
+    <rhn:submitted />
 	<rl:list width="100%" emptykey = "virtualization.provision.first.jsp.no.profiles" alphabarcolumn="label">
 			<rl:decorator name = "PageSizeDecorator"/>
         	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>

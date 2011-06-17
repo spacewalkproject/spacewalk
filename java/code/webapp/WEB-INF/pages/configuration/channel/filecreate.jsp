@@ -14,6 +14,8 @@
 <h2><bean:message key="addfiles.jsp.create.jspf.title" /> </h2>
 <html:form
 	action="/configuration/ChannelCreateFiles.do?ccid=${ccid}">
+<rhn:csrf />
+<rhn:submitted />
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/create.jspf" %>
 </html:form>
 </div>

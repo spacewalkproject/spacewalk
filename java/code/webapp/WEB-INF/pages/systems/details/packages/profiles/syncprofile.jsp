@@ -21,6 +21,7 @@
 </div>
 
 <rl:listset name="compareListSet">
+    <rhn:csrf />
     <rl:list width="100%"
         name="compareList"
         styleclass="list"

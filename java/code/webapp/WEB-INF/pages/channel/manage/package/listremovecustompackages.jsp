@@ -28,6 +28,7 @@
 
 
 <rl:listset name="packageSet">
+<rhn:csrf />
 <bean:message key="channel.jsp.manage.package.message"/>
 <h2><bean:message key="channel.jsp.manage.package.subtitle"/></h2>
 

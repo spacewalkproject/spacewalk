@@ -26,6 +26,7 @@
 </div>
 
 <form method="POST" name="rhn-list" action="/rhn/systems/details/virtualization/VirtualGuestsConfirmSubmit.do">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}" noDataText="virtualguests_confirm.jsp.nosystems"
           legend="system">
 

@@ -16,6 +16,7 @@
 </h2>
 
 <html:form action="/systems/details/packages/profiles/ShowProfiles">
+    <rhn:csrf />
     <div class="page-summary">
         <p>
         <c:choose>

@@ -9,6 +9,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
 <html:form action="/users/EditAddressSubmit">
+<rhn:csrf />
 <html:hidden property="type"/>
 <h2><bean:message key="message.Update"/> ${editAddressForm.map.typedisplay}</h2>
 

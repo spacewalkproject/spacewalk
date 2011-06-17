@@ -17,6 +17,7 @@
   <p><bean:message key="errata.publish.packagepush.description" arg0="${requestScope.channel_name}"/></p>
 <c:set var="pageList" value="${requestScope.pageList}" />
 <html:form action="/errata/manage/AddChannelPackagePushSubmit">
+<rhn:csrf />
 <%@ include file="/WEB-INF/pages/common/fragments/errata/packagepush.jspf" %>
 </html:form>
 </body>

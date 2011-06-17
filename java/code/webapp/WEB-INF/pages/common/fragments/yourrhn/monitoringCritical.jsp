@@ -7,6 +7,7 @@
   <c:when test="${requestScope.criticalReflinkkeyarg0 != null}">
 	<div class="full-width-wrapper" style="clear: both;" id="critical-probes-pane">
 		<rl:listset name="criticalProbesSet">
+            <rhn:csrf />
 			<rl:list dataset="monitoringCriticalList"
 	    		     name="criticalProbes"
 	         		 styleclass="list"

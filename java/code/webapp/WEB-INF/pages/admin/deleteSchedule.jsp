@@ -11,6 +11,7 @@
 
 <div>
     <html:form action="/admin/DeleteSchedule">
+        <rhn:csrf/>
 
         <h2><bean:message key="schedule.delete.jsp.deleteschedule"/></h2>
 

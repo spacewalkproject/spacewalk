@@ -16,6 +16,7 @@
 </div>
 
 <html:form action="/profiles/Delete">
+      <rhn:csrf />
       <div align="right">
         <hr />
         <html:hidden property="prid" value="${param.prid}" />

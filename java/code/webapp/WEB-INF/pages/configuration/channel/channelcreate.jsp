@@ -16,6 +16,7 @@
 
 <p><bean:message key="channelOverview.jsp.create-instruction" /></p>
 	<html:form action="/configuration/ChannelCreate">
+        <rhn:csrf />
 		<html:hidden property="creating" value="true"/>
 		<html:hidden property="submitted" value="true"/>
 		<%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/propertybody.jspf"%>

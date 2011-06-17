@@ -18,6 +18,8 @@
 </rhn:toolbar>
 
 <rl:listset name="ksSet">
+<rhn:csrf />
+<rhn:submitted />
 <div class="half-table half-table-left">
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-overview-summary.jspf" %>
 </div>

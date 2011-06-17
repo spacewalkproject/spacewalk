@@ -42,6 +42,7 @@
 
 <div>
 <rl:listset name="entitlementSet">
+    <rhn:csrf />
 	<rhn:submitted/>
 	<input type="hidden" name="oid" value="${param.oid}"/>
 	

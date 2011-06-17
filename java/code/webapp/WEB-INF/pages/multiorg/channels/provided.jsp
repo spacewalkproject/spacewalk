@@ -30,6 +30,8 @@ function showFiltered() {
 </p>
 
 <form method="post" name="rhn_list" action="/rhn/multiorg/channels/Provided.do">
+  <rhn:csrf />
+  <rhn:submitted />
   <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
   <input type="hidden" name="oid" value="${param.oid}"/>
 </form>

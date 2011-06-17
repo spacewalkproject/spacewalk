@@ -22,8 +22,10 @@
   <div class="uploadfragment">
     <!-- Upload file to channel  -->
     <html:form
-        action="/systems/details/configuration/addfiles/UploadFile.do?sid=${system.id}"
+        action="/systems/details/configuration/addfiles/UploadFile.do?sid=${system.id}&csrf_token=${csrfToken}"
         enctype="multipart/form-data">
+      <rhn:csrf />
+      <rhn:submitted />
       <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/upload.jspf" %>
     </html:form>
   </div>

@@ -6,9 +6,10 @@
 	<c:choose>
 	<c:when test="${empty requestScope.invalid}">
   <html:form method="post"
-  action="${param.url}"
+  action="${param.url}?csrf_token=${csrfToken}"
   enctype="multipart/form-data">
 <div class="page-summary">
+    <rhn:csrf />
 	<h2><bean:message key="${param.title_key}"/></h2>
     <p><bean:message key="${param.summary_key}"/></p>
     <table class="details">
@@ -117,6 +118,7 @@
 				 arg0="${rhn:localize(param.action_key)}"/></p>
 
 	  <html:form method="post" action="${param.url}">
+      <rhn:csrf />
     <table class="details">
         <tr>
             <th><rhn:required-field key="kickstart.jsp.create.wizard.kstree.label"/>:</th>

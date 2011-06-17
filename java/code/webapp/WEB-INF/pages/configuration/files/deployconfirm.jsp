@@ -19,6 +19,7 @@
 <p />
 <html:form
 	action="/configuration/file/GlobalRevisionDeployConfirmSubmit.do?cfid=${cfid}&amp;crid=${crid}">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true" />
 	<div>
 	<rhn:list pageList="${requestScope.pageList}"

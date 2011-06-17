@@ -25,6 +25,8 @@
 <bean:message key="softwareEntitlementDetails.header.accessGrantedDescription" arg0="${entitlementName}"/>
 
 <rl:listset name="channelSet">
+    <rhn:csrf />
+    <rhn:submitted />
     <rl:list dataset="pageList"
              width="100%"
              name="pageList"

@@ -26,6 +26,7 @@
 
 <div>
 <html:form action="/admin/config/Restart">
+    <rhn:csrf />
     <table class="details">
     <tr>
         <th>

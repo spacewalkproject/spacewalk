@@ -20,6 +20,7 @@
 	</div>
 
 <form method="POST" name="rhn_list" action="/rhn/systems/details/packages/patchsets/PatchSetListSubmit.do">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="patchsetlist.jsp.nopatchsets" >
   <rhn:listdisplay filterBy="patchsetlist.jsp.patchsetname">
     <rhn:column header="patchsetlist.jsp.patchsetname"

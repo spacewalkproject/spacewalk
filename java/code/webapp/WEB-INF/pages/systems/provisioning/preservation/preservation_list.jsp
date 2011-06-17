@@ -16,6 +16,7 @@
     <bean:message key="preservation_list.jsp.summary"/>
 </div>
     <form method="post" name="rhn_list" action="PreservationListDeleteSubmit.do">
+      <rhn:csrf />
       <rhn:list pageList="${requestScope.pageList}" noDataText="preservation_list.jsp.nokeys">
 
       <%@ include file="/WEB-INF/pages/common/fragments/systems/file_listdisplay.jspf" %>

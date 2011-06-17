@@ -29,6 +29,8 @@ function showFiltered() {
 
 
 <form method="post" name="rhn_list" action="/rhn/software/channels/Popular.do">
+        <rhn:csrf />
+        <rhn:submitted />
     	<table class="details">
     		<th>
     			<bean:message key="channels.popular.jsp.label0" />:

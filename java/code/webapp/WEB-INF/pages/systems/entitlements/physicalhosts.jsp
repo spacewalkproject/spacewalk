@@ -30,6 +30,8 @@
 
       <c:set var="pageList" value="${requestScope.pageList}" />
       <rl:listset name="systemSet">
+        <rhn:csrf />
+        <rhn:submitted />
         <rl:list name="hostList"
             dataset="pageList" emptykey="physicalhosts.jsp.nosystems"  width="100%">
 	  <rl:column bound="false"

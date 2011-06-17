@@ -15,6 +15,7 @@
 </h2>
 
 <rl:listset name="compareListSet">
+    <rhn:csrf />
     <div class="page-summary">
         <bean:message key="schedulesync.jsp.pagesummary"
                       arg0="${requestScope.system.name}"

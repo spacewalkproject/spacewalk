@@ -20,6 +20,7 @@
   <p><bean:message key="docsearch.jsp.instructions"/></p>
 
   <html:form action="/help/Search.do">
+  <rhn:csrf />
 
   <!-- Search Box -->
     <div class="search-choices">
@@ -58,6 +59,7 @@
   <c:set var="pageList" value="${requestScope.pageList}" />
   <!-- collapse the params into a string -->
   <rl:listset name="searchSet">
+    <rhn:csrf />
     <rl:list name="searchResults" dataset="pageList"
              emptykey="docsearch.jsp.nopages" width="100%">
       <rl:decorator name="PageSizeDecorator"/>

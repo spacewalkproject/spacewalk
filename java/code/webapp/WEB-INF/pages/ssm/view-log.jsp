@@ -25,6 +25,8 @@
 </div>
 
 <rl:listset name="groupSet">
+    <rhn:csrf />
+    <rhn:submitted />
 
     <rl:list dataset="pageList"
              width="100%"

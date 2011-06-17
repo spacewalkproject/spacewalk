@@ -30,6 +30,7 @@
 </p>
 </div>
 <rl:listset name="pageSet">
+   <rhn:csrf />
    <rl:list
       dataset="sysA"
       width="100%"

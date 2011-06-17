@@ -20,6 +20,7 @@
   </div>
 
 <form method="post" name="rhn_list" action="/rhn/systems/details/configuration/ConfigChannelListUnsubscribeSubmit.do?sid=${param.sid}">
+<rhn:csrf />
 <c:choose>
 <c:when test="${not empty requestScope.pageList}">
   <rhn:list pageList="${requestScope.pageList}"

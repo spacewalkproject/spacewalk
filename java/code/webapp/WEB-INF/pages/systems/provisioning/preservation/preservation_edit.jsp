@@ -18,6 +18,7 @@
 
 <div>
     <html:form action="/systems/provisioning/preservation/PreservationListEdit" method="POST">
+    <rhn:csrf />
     <%@ include file="preservation-form.jspf" %>
     <hr /><table align="right">
           <tr>

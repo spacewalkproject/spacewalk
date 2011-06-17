@@ -13,6 +13,7 @@
 	<c:when test="${channelOverviewForm.map.editing == 'true'}">
 		<p><bean:message key="channelOverview.jsp.edit-instruction" /></p>
 		<html:form action="/configuration/ChannelOverview.do?ccid=${ccid}">
+            <rhn:csrf />
 	        <html:hidden property="submitted" value="true"/>
 			<html:hidden property="creating" value="false"/>
 			<%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/propertybody.jspf"%>

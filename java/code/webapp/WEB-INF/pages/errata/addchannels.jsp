@@ -17,6 +17,7 @@
   <p><bean:message key="errata.publish.instructions"/></p>
 <c:set var="pageList" value="${requestScope.pageList}" />
 <form method="post" name="rhn_list" action="/rhn/errata/manage/SelectChannelsSubmit.do">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="errata.publish.nochannels">
   <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}"
                    button="errata.publish.publisherrata">

@@ -16,6 +16,7 @@
 </div>
 
 <form method="POST" action="/rhn/users/DeleteUserSubmit.do?uid=${param.uid}">
+<rhn:csrf />
 <div align="right">
       <hr />
       <html:submit>

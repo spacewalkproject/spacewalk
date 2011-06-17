@@ -26,6 +26,7 @@
   </div>
 
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/DiffConfirmSubmit.do">
+  <rhn:csrf />
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configconfirmlist.jspf"%>
 
   <c:if test="${not empty requestScope.pageList}">

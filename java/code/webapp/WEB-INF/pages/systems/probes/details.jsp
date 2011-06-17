@@ -108,6 +108,8 @@
   <c:if test="${requestScope.show_log}">
     <h2><bean:message key="probedetails.jsp.eventlog"/></h2>
 <rl:listset name="probeSet">
+<rhn:csrf />
+<rhn:submitted />
 <!-- Start of active probes list -->
 <rl:list width="100%"
          emptykey="probedetails.jsp.noevents">

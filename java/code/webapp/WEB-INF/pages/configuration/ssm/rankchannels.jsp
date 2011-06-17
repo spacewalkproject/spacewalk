@@ -27,6 +27,8 @@
 </div>
 <html:form method="POST"
                action="/systems/ssm/config/Rank.do">
+        <rhn:csrf />
+        <rhn:submitted />
 		<h2><bean:message key="sdc.config.rank.jsp.subscribed_channels"/></h2>
 		<table style="width:60%;">
 			<tr>

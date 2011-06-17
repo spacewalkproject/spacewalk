@@ -7,6 +7,7 @@
 <!-- Import file from another channel  -->
 <h2><bean:message key="addfiles.jsp.import.jspf.title" /> </h2>
 <html:form action="/configuration/ChannelImportFilesSubmit.do?ccid=${ccid}">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
 	<rhn:list
 	  pageList="${requestScope.pageList}"

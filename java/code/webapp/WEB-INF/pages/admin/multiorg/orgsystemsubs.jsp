@@ -42,6 +42,7 @@
 <bean:message key="orgsoftwaresubs.jsp.description" arg0="${org.name}"/>
 <p>
 <html:form action="/admin/multiorg/OrgSystemSubscriptions.do">
+ <rhn:csrf />
  <html:hidden property="submitted" value="true"/>
  <html:hidden property="oid" value="${param.oid}"/>
 

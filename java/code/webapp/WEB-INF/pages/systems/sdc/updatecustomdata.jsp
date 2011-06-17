@@ -27,6 +27,7 @@
   <hr />
 
   <form action="/rhn/systems/details/UpdateCustomData.do?sid=${system.id}&cikid=${cikid}" name="edit_token" method="post">
+    <rhn:csrf />
     <table class="details">
       <tr>
         <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>

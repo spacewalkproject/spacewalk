@@ -89,6 +89,8 @@
 </script>
 
 <html:form action="/audit/Search.do">
+<rhn:csrf />
+<rhn:submitted />
 
 <div class="search-choices">
     <div class="search-choices-group">

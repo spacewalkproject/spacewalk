@@ -17,6 +17,7 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CopyFileCentralSubmit.do?type=${requestScope.type}&amp;cfid=${file.id}&amp;crid=${revision.id}">
+  <rhn:csrf />
   <jsp:include page="/WEB-INF/pages/common/fragments/configuration/files/copyfile_rows.jsp" />
 </form>
 

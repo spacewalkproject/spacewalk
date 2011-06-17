@@ -33,6 +33,7 @@ function reloadForm(ctl) {
   </p>
 
     <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do">
+      <rhn:csrf />
       <table class="details">
           <tr>
             <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>

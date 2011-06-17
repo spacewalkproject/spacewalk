@@ -10,6 +10,7 @@
 <bean:message key="Locale Preferences"/>
 </rhn:toolbar>
 <html:form action="/account/LocalePreferences" method="post">
+<rhn:csrf />
 <%@ include file="/WEB-INF/pages/common/fragments/user/localepreferences.jspf" %>
 </html:form>
 </body>

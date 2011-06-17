@@ -19,6 +19,7 @@
   </p>
 </div>
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/UnsubscribeSubmit.do">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="unsubscribe.jsp.noChannels">
     <rhn:listdisplay filterBy="config.common.configChannel"

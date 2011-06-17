@@ -12,6 +12,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
 <html:form action="/users/UserDetailsSubmit?uid=${user.id}">
 
+ <rhn:csrf />
  <h2><bean:message key="userdetails.jsp.header"/></h2>
  <div class="page-summary">
  <p>

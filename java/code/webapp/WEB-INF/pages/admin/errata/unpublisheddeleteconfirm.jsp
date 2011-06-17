@@ -16,6 +16,7 @@
 </div>
 <c:set var="pageList" value="${requestScope.pageList}" />
 <form method="post" name="rhn_list" action="/rhn/errata/manage/UnpublishedDeleteConfirmSubmit.do">
+<rhn:csrf />
 <%@ include file="/WEB-INF/pages/common/fragments/errata/erratadelete.jspf" %>
 </form>
 </body>

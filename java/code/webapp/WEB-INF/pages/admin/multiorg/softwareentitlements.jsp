@@ -36,6 +36,8 @@
 
 
 <rl:listset name="entitlementSet">
+    <rhn:csrf />
+    <rhn:submitted />
     <rl:list alphabarcolumn="name"
              styleclass="list"
              emptykey="softwareentitlements.noentitlements">

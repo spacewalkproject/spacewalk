@@ -42,6 +42,7 @@
 
 <rl:listset name="FlexSet">
 
+<rhn:csrf />
 
 <input type="hidden" name="selected_family" value="${selected_family}" />
 

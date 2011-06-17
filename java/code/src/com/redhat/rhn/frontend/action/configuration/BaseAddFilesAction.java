@@ -42,6 +42,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class BaseAddFilesAction extends RhnAction {
 
     public static final String MAX_SIZE = "maxbytes";
+    public static final String CSRF_TOKEN = "csrfToken";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -53,6 +54,8 @@ public abstract class BaseAddFilesAction extends RhnAction {
         processRequest(request);
         request.setAttribute(MAX_SIZE,
                  StringUtil.displayFileSize(ConfigFile.getMaxFileSize()));
+
+        request.setAttribute(CSRF_TOKEN, request.getSession().getAttribute("csrf_token"));
 
         if (isSubmitted(cff)) {
             ConfigChannel channel = getConfigChannel(request);

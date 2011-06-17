@@ -33,6 +33,8 @@
 
     <rl:listset name="groupSet">
 
+    <rhn:csrf />
+
 
 
 

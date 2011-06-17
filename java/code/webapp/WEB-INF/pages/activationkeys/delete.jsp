@@ -43,6 +43,7 @@
     <form action="/rhn/activationkeys/Delete.do"
     	 id ="delete_confirm" name = "delete_confirm" method="POST">
     	 <input type="hidden" name="tid" value="${param.tid}"/>
+     <rhn:csrf />
 	 <input type="submit"  name="dispatch"
     	 			value="${rhn:localize('activation-key.jsp.delete-key')}" align="top" />
     	 <rhn:submitted/>

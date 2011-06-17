@@ -24,6 +24,7 @@
 
 <div>
 <html:form method="POST" action="/configuration/system/TargetSystemsSubmit">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="targetsystems.jsp.noSystems">
 

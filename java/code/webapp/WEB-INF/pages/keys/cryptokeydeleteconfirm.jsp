@@ -15,7 +15,9 @@
 <h2><bean:message key="keydelete.jsp.header2"/></h2>
 
 <div>
-    <html:form action="/keys/CryptoKeyDelete" enctype="multipart/form-data">
+    <html:form action="/keys/CryptoKeyDelete?csrf_token=${csrfToken}" enctype="multipart/form-data">
+    <rhn:csrf />
+    <rhn:submitted />
     <%@ include file="key-form-disabled.jspf" %>
     </html:form>
 </div>

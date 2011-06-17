@@ -20,6 +20,8 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rl:listset name="userListSet">
+    <rhn:csrf />
+    <rhn:submitted />
 	<rl:list
          width="100%"
          name="userList"

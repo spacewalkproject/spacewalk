@@ -21,6 +21,7 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
     <form method="post" name="rhn_list" action="/rhn/kickstart/KickstartFilePreservationListsSubmit.do">
+      <rhn:csrf />
       <rhn:submitted />
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.filelists.jsp.nolists">
 

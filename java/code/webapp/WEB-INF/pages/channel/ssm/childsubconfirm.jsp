@@ -19,6 +19,7 @@
   </div>
 
   <rl:listset name="channelchanges">
+    <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
 	<!-- Start of active users list -->
 	<rl:list

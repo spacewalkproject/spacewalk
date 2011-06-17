@@ -21,6 +21,8 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CompareRevision.do?cfid=${file.id}&amp;crid=${revision.id}">
+<rhn:csrf />
+<rhn:submitted />
 <rhn:list pageList="${requestScope.pageList}" noDataText="comparerevision.jsp.noRevisions">
   <rhn:listdisplay filterBy="comparerevision.jsp.revision">
     <rhn:column header="comparerevision.jsp.revision"

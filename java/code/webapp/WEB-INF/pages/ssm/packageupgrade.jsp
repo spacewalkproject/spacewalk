@@ -17,6 +17,7 @@
 </div>
 
 <rl:listset name="groupSet" legend="system-group">
+    <rhn:csrf />
     <rl:list dataset="pageList"
              width="100%"
              styleclass="list"

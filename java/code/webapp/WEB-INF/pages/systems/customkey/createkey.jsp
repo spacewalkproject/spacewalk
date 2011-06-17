@@ -40,6 +40,7 @@
 
 
       <form action="/rhn/systems/customdata/CreateCustomKey.do" name="edit_token" method="post">
+        <rhn:csrf />
         <table class="details">
             <tr>
               <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>

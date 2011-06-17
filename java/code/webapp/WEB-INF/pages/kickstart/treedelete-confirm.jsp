@@ -26,6 +26,7 @@
 <div>
   <p>
     <html:form method="post" action="/kickstart/TreeDelete.do?kstid=${kstree.id}">
+        <rhn:csrf />
         <p>
         <c:choose>
           <c:when test="${requestScope.pageList != null}">

@@ -14,7 +14,8 @@
 <h2><bean:message key="keycreate.jsp.header2"/></h2>
 
 <div>
-    <html:form action="/keys/CryptoKeyCreate" enctype="multipart/form-data">
+    <html:form action="/keys/CryptoKeyCreate?csrf_token=${csrfToken}" enctype="multipart/form-data">
+    <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
     <html:hidden property="key_id" value="${cryptoKey.id}"/>
     <%@ include file="key-form.jspf" %>

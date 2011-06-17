@@ -20,6 +20,7 @@
     <bean:message key="kickstart.partition.jsp.summary"/>
   </p>
     <html:form method="post" action="/kickstart/KickstartPartitionEdit.do">
+      <rhn:csrf />
       <table class="details">
           <tr>
               <th>

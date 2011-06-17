@@ -22,6 +22,7 @@
 
 
 <rl:listset name="systemSet" legend="system-group">
+<rhn:csrf />
 
 <input type="hidden" name="cid" value="${cid}" />
 

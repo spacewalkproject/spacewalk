@@ -31,6 +31,7 @@
     <html:form method="post" action="/systems/ssm/misc/HardwareRefresh.do">
 --%>
     <html:form action="/systems/ssm/misc/HardwareRefresh.do">
+      <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
         <div align="right">
           <html:submit>

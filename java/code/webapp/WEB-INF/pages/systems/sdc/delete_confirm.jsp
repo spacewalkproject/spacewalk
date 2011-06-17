@@ -13,6 +13,7 @@
     <hr/>
 
     <html:form method="post" action="/systems/details/DeleteConfirm.do?sid=${sid}">
+      <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
       <div align="right">
         <html:submit property="button">

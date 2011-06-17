@@ -20,6 +20,8 @@
 
 
     <rl:listset name="errataSet">
+    <rhn:csrf />
+    <rhn:submitted />
 
     <input type="hidden" name="cid" value="${cid}" />
 

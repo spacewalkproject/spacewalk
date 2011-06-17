@@ -12,6 +12,7 @@
     <bean:message key="sdc.details.hardware.refresh"/>
 
     <html:form method="post" action="/systems/details/SystemHardware.do?sid=${sid}">
+      <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
         <div align="right">
           <html:submit>

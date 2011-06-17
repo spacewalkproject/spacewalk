@@ -15,6 +15,7 @@
     </div>
 
     <form method="post" name="rhn_list" action="/rhn/account/AccountDeactivationSubmit.do">
+    <rhn:csrf />
     <div align="right">
     <html:submit>
         <bean:message key="disableself.jsp.deactivate"/>

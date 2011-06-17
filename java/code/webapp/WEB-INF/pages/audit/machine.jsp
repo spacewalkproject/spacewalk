@@ -19,6 +19,7 @@
 <div style="font-weight: bold; text-align: center;">Machine: <c:out value="${machine}" /></div>
 --%>
 <rl:listset name="auditList">
+    <rhn:csrf />
     <rl:list>
         <rl:column sortable="true"
                    sortattr="name"

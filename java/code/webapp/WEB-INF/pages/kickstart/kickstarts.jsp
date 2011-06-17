@@ -21,6 +21,8 @@
 <div>
     <bean:message key="kickstart.jsp.summary"/>
       <rl:listset name="ksSet">
+      <rhn:csrf />
+      <rhn:submitted />
 	<rl:list dataset="pageList" name="ksList" emptykey="kickstart.jsp.nokickstarts"
       			alphabarcolumn="label"
                 filter="com.redhat.rhn.frontend.action.kickstart.KickstartProfileFilter">      			

@@ -19,6 +19,8 @@
 
 
 <rl:listset name="erratConfirmListSet">
+    <rhn:csrf />
+    <rhn:submitted />
 	<rl:list
 			width="100%"
          	styleclass="list"

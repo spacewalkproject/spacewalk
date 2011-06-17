@@ -11,6 +11,7 @@
 <p><bean:message key="${param.description}"/></p>
 
 <rl:listset name="channelSet">
+    <rhn:csrf />
 	<!-- Start of Channels list -->
 	<rl:list dataset="pageList"
 	         name="channels"

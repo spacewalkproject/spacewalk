@@ -203,6 +203,7 @@
 
 <c:set var="resultList" value="${requestScope.result}" />
 <rl:listset name="auditList">
+    <rhn:csrf />
     <rl:list dataset="resultList" emptykey="auditview.jsp.norecords">
         <rl:column sortable="false"
                    bound="false"
@@ -266,6 +267,8 @@
 
     <c:otherwise>
         <form action="/rhn/audit/Machine.do" method="post">
+            <rhn:csrf />
+            <rhn:submitted />
             <input type="hidden" name="machine" value="${machine}" />
             <input type="hidden" name="startMilli" value="${startMilli}" />
             <input type="hidden" name="endMilli" value="${endMilli}" />

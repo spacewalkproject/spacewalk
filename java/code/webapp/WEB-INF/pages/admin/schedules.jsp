@@ -19,6 +19,8 @@
 </rhn:toolbar>
 
 <rl:listset name="scheduleList">
+    <rhn:csrf/>
+    <rhn:submitted/>
 
     <h2><bean:message key="schedule.edit.jsp.satschedules"/></h2>
     <div class="page-summary">

@@ -17,6 +17,7 @@
   </div>
 
   <rl:listset name="baselist">
+    <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
 
 	<!-- Start of active users list -->

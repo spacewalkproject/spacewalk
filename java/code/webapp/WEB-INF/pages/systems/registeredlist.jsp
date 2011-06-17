@@ -17,6 +17,7 @@
 </rhn:toolbar>
 
 <rl:listset name="registeredSystems" legend="system">
+  <rhn:csrf />
   <bean:message key="registeredlist.jsp.view"/>
   <select name="threshold">
    		<c:forEach var="option" items="${options}">

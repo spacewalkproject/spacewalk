@@ -661,6 +661,7 @@ public class ListTag extends BodyTagSupport {
                         makeFilterSearchParentLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.
                         makeParentIsAnElementLabel(getUniqueName()));
+                excludeParams.add("submitted");
 
                 ListTagUtil.write(pageContext,
                         ListTagUtil.makeParamsLink(pageContext.getRequest(), name,

@@ -16,6 +16,8 @@
 <bean:message key="channel.manage.errata.confirmmsg"/>
 <br><br>
  <rl:listset name="packageConfirm">
+     <rhn:csrf />
+     <rhn:submitted />
 	 <input type="hidden" name="cid" value="${cid}">
 
 			<div class="left-column">

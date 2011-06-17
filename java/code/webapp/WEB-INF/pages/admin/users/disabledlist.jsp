@@ -20,6 +20,8 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rl:listset name="disabledUserListSet">
+    <rhn:csrf />
+    <rhn:submitted />
 	<rl:list dataset="pageList"
          width="100%"
          name="disabledUserList"

@@ -26,6 +26,7 @@
 <p><bean:message key="org.trust.confirm.summary" arg0="${org.name}" /></p>
 </div>
 <rl:listset name="pageSet">
+   <rhn:csrf />
    <rl:list
       dataset="removed"
       width="100%"

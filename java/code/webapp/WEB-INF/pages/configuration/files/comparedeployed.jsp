@@ -21,6 +21,7 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CompareDeployedSubmit.do?cfid=${file.id}&amp;crid=${revision.id}">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="comparedeployed.jsp.noSystems">
   <rhn:listdisplay filterBy="system.common.systemName"
                    set="${requestScope.set}"

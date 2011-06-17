@@ -19,6 +19,7 @@
   </div>
 
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/DiffSubmit.do">
+  <rhn:csrf />
   <c:set scope="request" var="buttonname" value="ssmdiff.jsp.schedule" />
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configlist.jspf"%>
 </form>

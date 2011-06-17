@@ -27,6 +27,7 @@
 
 <html:form method="post"
 		action="/systems/details/configuration/addfiles/ImportFileSubmit.do?sid=${system.id}">
+  <rhn:csrf />
 
   <h2><bean:message key="sdcimportfile.jsp.new"/></h2>
   <p><bean:message key="sdcimportfile.jsp.newsummary"/></p>

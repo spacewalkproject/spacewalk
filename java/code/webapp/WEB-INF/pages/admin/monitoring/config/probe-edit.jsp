@@ -32,6 +32,7 @@ function refreshNotifFields() {
 
 <h2><bean:message key="probe-edit.jsp.header2"/></h2>
 <html:form action="/monitoring/config/ProbeSuiteProbeEdit" method="POST">
+  <rhn:csrf />
   <table class="details">
     <tr>
       <th><bean:message key="probeedit.jsp.probecommand" /></th>

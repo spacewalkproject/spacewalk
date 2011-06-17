@@ -142,4 +142,5 @@
 	        name="systemList"
 	        exportColumns="name,id,securityErrata,bugErrata,enhancementErrata,outdatedPackages,lastCheckin,entitlement"/>
 	</c:if>
+    <rhn:csrf />
 	<rhn:submitted/>

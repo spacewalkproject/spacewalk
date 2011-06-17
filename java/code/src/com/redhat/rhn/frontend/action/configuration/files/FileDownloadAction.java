@@ -38,11 +38,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FileDownloadAction extends RhnAction {
 
+    public static final String CSRF_TOKEN = "csrfToken";
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         Map params = makeParamMap(request);
         ConfigFileForm cff = (ConfigFileForm) form;
+
+        request.setAttribute(CSRF_TOKEN, request.getSession().getAttribute("csrf_token"));
 
         ConfigRevision cr = ConfigActionHelper.findRevision(request);
 

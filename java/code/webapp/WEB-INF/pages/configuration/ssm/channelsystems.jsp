@@ -26,6 +26,8 @@
   </div>
 
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/ChannelSystems.do?ccid=${param.ccid}">
+  <rhn:csrf />
+  <rhn:submitted />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="ssmchannelsystems.jsp.noSystems">
     <rhn:listdisplay filterBy="ssmchannelsystems.jsp.system">

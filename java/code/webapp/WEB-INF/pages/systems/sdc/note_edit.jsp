@@ -27,6 +27,7 @@
     </c:choose>
 
     <html:form method="post" action="/systems/details/EditNote.do?${urlParam}">
+      <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
       <table class="details">
         <tr>

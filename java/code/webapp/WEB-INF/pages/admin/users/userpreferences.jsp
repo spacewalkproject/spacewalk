@@ -7,6 +7,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
 <html:form action="/users/PrefSubmit">
+<rhn:csrf />
 <%@ include file="/WEB-INF/pages/common/fragments/user/preferences.jspf" %>
 </html:form>
 </body>

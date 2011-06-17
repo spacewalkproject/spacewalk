@@ -210,6 +210,9 @@ public class PxtSessionDelegateImpl implements PxtSessionDelegate {
         WebSession pxtSession = getPxtSession(request);
         pxtSession.setWebUserId(null);
 
+        // Invalidate csrf_token
+        request.getSession().setAttribute("csrf_token", null);
+
         refreshPxtSession(request, response, 0);
     }
 

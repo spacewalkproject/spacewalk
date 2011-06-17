@@ -9,6 +9,7 @@
     <h2><bean:message key="sdc.details.migrate.header"/></h2>
 
     <html:form method="post" action="/systems/details/SystemMigrate.do?sid=${system.id}">
+      <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
     <table class="details">
       <tr>

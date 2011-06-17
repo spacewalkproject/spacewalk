@@ -22,6 +22,8 @@
 
 <%-- Publish or Send notification --%>
   <html:form action="/errata/manage/Edit">
+  <rhn:csrf />
+  <rhn:submitted />
   <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
   <c:if test="${isPublished == true}">
       <h2><bean:message key="errata.edit.senderratamail"/></h2>
@@ -49,6 +51,8 @@
   </html:form>
 
   <html:form action="/errata/manage/Edit">
+  <rhn:csrf />
+  <rhn:submitted />
 <%-- Edit the errata details --%>
   <h2><bean:message key="errata.edit.editerrata" /></h2>
 

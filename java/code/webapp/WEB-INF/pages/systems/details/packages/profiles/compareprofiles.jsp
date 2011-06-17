@@ -20,6 +20,7 @@
     </div>
 
     <rl:listset name="compareListSet">
+        <rhn:csrf />
 
 	    <rl:list dataset="pageList"
             width="100%"

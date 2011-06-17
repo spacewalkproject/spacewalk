@@ -23,6 +23,7 @@
   <p><bean:message key="errata.edit.packages.confirm.remove.instructions"/></p>
 
 <form method="POST" name="rhn_list" action="/rhn/errata/manage/RemovePackagesSubmit.do">
+  <rhn:csrf />
 
   <%@ include file="/WEB-INF/pages/common/fragments/errata/package-confirm-list.jspf" %>
 

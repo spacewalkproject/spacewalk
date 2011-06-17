@@ -12,6 +12,7 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/errata/manage/CloneConfirmSubmit.do">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="erratalist.jsp.noerrata">
   <rhn:listdisplay button="deleteconfirm.jsp.confirm">
     <rhn:column header="erratalist.jsp.type">

@@ -24,6 +24,7 @@
 
 <html:form method="post"
 		action="/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do?sid=${system.id}">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdcimportconfirm.jsp.noFiles">
 

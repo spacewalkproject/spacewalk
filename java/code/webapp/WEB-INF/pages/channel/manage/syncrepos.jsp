@@ -17,6 +17,7 @@
 <h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="repos.jsp.channel.repos"/></h2>
 
 <rl:listset name="packageSet">
+<rhn:csrf />
 
 <input type="hidden" name="cid" value="${cid}" />
 

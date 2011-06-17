@@ -22,6 +22,7 @@
 </rhn:require>
 
 <form method="POST" name="rhn_list" action="/rhn/systems/details/packages/patches/PatchInstallConfirmSubmit.do">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopatches" >
   <rhn:listdisplay filterBy="packagelist.jsp.packagename" >
     <rhn:column header="packagelist.jsp.patchname"

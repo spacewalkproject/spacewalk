@@ -19,6 +19,8 @@
 
 
 <html:form action="/systems/SystemEntitlementsSubmit">
+    <rhn:csrf />
+    <rhn:submitted />
 
     <rhn:list pageList="${requestScope.pageList}"
     		  noDataText="systementitlements.jsp.nodata"

@@ -16,6 +16,7 @@
   </p>
 
 <html:form action="/monitoring/config/notification/MethodCreate" method="POST">
+    <rhn:csrf />
     <table class="details">
     <tr>
         <th>

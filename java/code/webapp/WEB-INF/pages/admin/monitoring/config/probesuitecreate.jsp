@@ -26,6 +26,8 @@
 
 
 <html:form action="/monitoring/config/ProbeSuiteCreate" method="POST">
+    <rhn:csrf />
+    <rhn:submitted />
     <%@ include file="suite-form.jspf" %>
     <tr>
       <td></td>

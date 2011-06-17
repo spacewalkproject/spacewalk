@@ -18,6 +18,7 @@
     <bean:message key="kickstart.troubleshooting.jsp.summary1"/>
   </p>
     <html:form method="post" action="/kickstart/TroubleshootingEdit.do">
+      <rhn:csrf />
       <table class="details">
 
         <tr>

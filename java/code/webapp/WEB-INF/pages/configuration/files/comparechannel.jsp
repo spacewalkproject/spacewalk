@@ -19,6 +19,8 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CompareChannel.do?cfid=${file.id}&amp;crid=${revision.id}">
+<rhn:csrf />
+<rhn:submitted />
 <rhn:list pageList="${requestScope.pageList}" noDataText="comparechannel.jsp.noChannels">
   <rhn:listdisplay filterBy="comparechannel.jsp.channel">
     <rhn:column header="comparechannel.jsp.channel"

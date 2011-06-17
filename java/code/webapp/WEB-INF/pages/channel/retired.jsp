@@ -30,6 +30,8 @@ function showFiltered() {
 
 
 <form method="post" name="rhn_list" action="/rhn/software/channels/Retired.do">
+    <rhn:csrf />
+    <rhn:submitted />
 	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
 </form>
 

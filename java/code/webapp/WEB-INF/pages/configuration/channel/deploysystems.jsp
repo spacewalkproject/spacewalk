@@ -21,6 +21,7 @@
 
 
 <html:form action="/configuration/channel/ChooseSystemsSubmit.do?ccid=${ccid}">
+    <rhn:csrf />
 	<rhn:submitted/>
 	<div>
 		<rhn:list pageList="${requestScope.pageList}" noDataText="deploy.jsp.noSystems">

@@ -20,6 +20,7 @@
   <p>
     <bean:message key="kickstart.scriptdelete.jsp.summary1"/>
     <html:form method="POST" action="/kickstart/KickstartScriptDelete.do">
+      <rhn:csrf />
       <table class="details">
 
           <tr>

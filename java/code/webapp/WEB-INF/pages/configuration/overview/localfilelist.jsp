@@ -17,6 +17,8 @@
 </div> <br />
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/LocalConfigFileList.do">
+  <rhn:csrf />
+  <rhn:submitted />
 
   <rhn:list pageList="${requestScope.pageList}" noDataText="localfilelist.jsp.noFiles">
     <rhn:listdisplay filterBy="localfilelist.jsp.path">

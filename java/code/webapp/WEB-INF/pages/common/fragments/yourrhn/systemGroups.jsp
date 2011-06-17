@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
   	<rl:listset name="systemGroupsSet">
+        <rhn:csrf />
   		<rl:list dataset="systemGroupList"
                  width="100%"
                  name="systemsGroupList"

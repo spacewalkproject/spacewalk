@@ -33,6 +33,7 @@
 
 <div>
     <html:form action="${url}">
+    <rhn:csrf />
     <rhn:submitted/>
 	<table class="details">
     <tr>

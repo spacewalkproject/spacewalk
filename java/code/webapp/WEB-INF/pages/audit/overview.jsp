@@ -17,6 +17,7 @@
 </rhn:toolbar>
 
 <rl:listset name="auditList">
+    <rhn:csrf />
     <rl:list>
         <rl:column sortable="true"
                    sortattr="name"

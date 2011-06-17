@@ -13,6 +13,7 @@
     </c:if>
   <br>
     <html:form method="post" action="${param.post_url}">
+      <rhn:csrf />
       <table class="details">
 		<c:if test= "${not empty param.show_netboot}">
 		      <tr>

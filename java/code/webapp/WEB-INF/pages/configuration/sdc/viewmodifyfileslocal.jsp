@@ -15,6 +15,8 @@
 		<p><bean:message key="sdc.config.file_list.local_description"/></p>
 
 <rl:listset name="fileSet">
+    <rhn:csrf />
+    <rhn:submitted />
 
 	<!-- Start of Files list -->
 	<rl:list decorator="SelectableDecorator"

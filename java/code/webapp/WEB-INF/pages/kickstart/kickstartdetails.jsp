@@ -16,6 +16,7 @@
 <c:choose><c:when test="${empty requestScope.invalid}">
     <bean:message key="kickstartdetails.jsp.summary1"/>
     <html:form method="post" action="/kickstart/KickstartDetailsEdit.do">
+      <rhn:csrf />
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>
       <table class="details">

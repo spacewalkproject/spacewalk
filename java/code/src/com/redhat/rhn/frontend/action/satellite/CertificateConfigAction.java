@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CertificateConfigAction extends BaseConfigAction {
     public static final String CERT_TEXT = "cert_text";
     public static final String CERT_FILE = "cert_file";
+    public static final String CSRF_TOKEN = "csrfToken";
 
     /** {@inheritDoc} */
     @Override
@@ -82,6 +83,8 @@ public class CertificateConfigAction extends BaseConfigAction {
                 }
             }
         }
+        request.setAttribute(CSRF_TOKEN,
+            request.getSession().getAttribute("csrf_token"));
         return mapping.findForward("default");
     }
 

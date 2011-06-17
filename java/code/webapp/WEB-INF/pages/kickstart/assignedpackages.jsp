@@ -21,6 +21,7 @@
   <bean:message key="kickstart.edit.pkgs.jsp.main2" />
   <br />
   <html:form method="post" action="/kickstart/KickstartPackagesEdit.do">
+    <rhn:csrf />
     <html:hidden property="ksid" />
     <html:hidden property="submitted" />
     <table width="80%" class="details">

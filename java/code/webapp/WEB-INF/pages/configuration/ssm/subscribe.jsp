@@ -22,6 +22,7 @@
 </noscript>
 </div>
 <html:form method="post" action="/systems/ssm/config/SubscribeSubmit.do">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="ssm.config.subscribe.jsp.noChannels">
     <rhn:listdisplay filterBy="config.common.configChannel"

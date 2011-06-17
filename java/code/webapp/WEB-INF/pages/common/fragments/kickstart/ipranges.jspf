@@ -44,6 +44,7 @@
         </table>
 
       <html:form method="post" action="${param.range_edit_url}">
+        <rhn:csrf />
         <table class="details">
           <tr>
             <th><bean:message key="kickstartips.jsp.label" />:</th>

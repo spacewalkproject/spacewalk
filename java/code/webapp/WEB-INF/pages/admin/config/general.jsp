@@ -21,6 +21,7 @@
 
 <div>
 <html:form action="/admin/config/GeneralConfig" method="post">
+    <rhn:csrf />
     <table class="details">
     <tr>
         <th>

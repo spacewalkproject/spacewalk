@@ -21,6 +21,7 @@
     <bean:message key="probesuitesystemsedit.jsp.summary"/>
 
     <form method="POST" name="rhn_list" action="/rhn/monitoring/config/ProbeSuiteSystemsEditSubmit.do">
+    <rhn:csrf />
     <rhn:list pageList="${requestScope.pageList}" noDataText="probesuitesystemsedit.jsp.nosystems">
       <rhn:listdisplay filterBy="probesuitesystemsedit.jsp.systemname"
             set="${requestScope.set}"

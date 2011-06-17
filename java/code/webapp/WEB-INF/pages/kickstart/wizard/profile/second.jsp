@@ -51,6 +51,8 @@ function movePrevious() {
 <br />
 <div>
   <html:form method="post" action="/kickstart/CreateProfileWizard.do">
+    <rhn:csrf />
+    <rhn:submitted />
     <html:hidden property="wizardStep" styleId="wizard-curstep" />
     <html:hidden property="nextStep" styleId="wizard-nextstep"/>
     <html:hidden property="prevStep" styleId="wizard-prevstep" />

@@ -15,6 +15,7 @@
 
 <div>
     <html:form action="/systems/provisioning/preservation/PreservationListCreate" method="post">
+    <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
     <html:hidden property="file_list_id" value="${fileList.id}"/>
     <%@ include file="preservation-form.jspf" %>

@@ -25,6 +25,7 @@
 
 	<rl:listset name="pendingList">
 
+        <rhn:csrf />
 		<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
 
 

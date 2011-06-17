@@ -18,6 +18,7 @@
     <bean:message key="kickstart.locale.jsp.summary1"/>
   </p>
     <html:form method="post" action="/kickstart/LocaleEdit.do">
+    <rhn:csrf />
     <html:hidden property="ksid" value="${ksdata.id}"/>
     <html:hidden property="submitted" value="true"/>
       <table class="details">

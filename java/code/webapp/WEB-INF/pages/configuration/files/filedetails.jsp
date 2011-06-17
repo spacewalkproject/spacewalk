@@ -13,6 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/header.jspf"%>
 
 <html:form action="/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
 	
 	<div class="details-column-left">

@@ -18,6 +18,8 @@
 <h2><bean:message key="filtercreate.jsp.header2"/></h2>
 
 <html:form action="/monitoring/config/notification/FilterCreate" method="POST">
+    <rhn:csrf />
+    <rhn:submitted />
     <%@ include file="filter-form.jspf" %>
 </html:form>
 

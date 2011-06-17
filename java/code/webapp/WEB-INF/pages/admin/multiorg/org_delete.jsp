@@ -15,6 +15,7 @@
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <html:form action="/admin/multiorg/DeleteOrg?oid=${oid}">
+ <rhn:csrf />
  <html:hidden property="submitted" value="true"/>
  <h2><bean:message key="orgdelete.jsp.header2"/></h2>
 

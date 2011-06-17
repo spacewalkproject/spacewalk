@@ -107,6 +107,7 @@
 	<bean:message key="activation-keys.jsp.para2"/>
 </p>
 <rl:listset name="activationKeysSet">
+    <rhn:csrf />
 	<!-- Start of Files list -->
 	<rl:list dataset="pageList"
 	         name="activationKeys"

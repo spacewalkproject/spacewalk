@@ -16,6 +16,7 @@
 </div>
 
 <html:form action="/systems/details/packages/ScheduleRemoteCommand">
+  <rhn:csrf />
   <table class="details" align="center">
     <tr>
       <th><bean:message key="scheduleremote.jsp.run"/></th>

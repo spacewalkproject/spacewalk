@@ -17,6 +17,7 @@
 
 
 <form method="POST" name="rhn_list" action="/rhn/schedule/FailedSystemsSubmit.do">
+<rhn:csrf />
 
 <rhn:list pageList="${requestScope.pageList}"
           noDataText="failedsystems.jsp.nosystems">

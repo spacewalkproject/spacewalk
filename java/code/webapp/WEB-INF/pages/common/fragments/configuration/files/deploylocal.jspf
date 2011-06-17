@@ -6,6 +6,7 @@
 <h2><bean:message key="deploy.jsp.filedetails" /></h2>
   <html:form
 	action="/configuration/file/RevisionDeploy.do?cfid=${cfid}&crid=${crid}">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
 	<table class="details">
 		<tr>

@@ -15,6 +15,7 @@
 <p><rhn:warning key= "repos.jsp.delete.warning"/></p>
 <div>
 	<form method="post" action="/rhn/channels/manage/repos/RepoDelete.do">
+    <rhn:csrf />
 <h2><bean:message key="repos.jsp.delete.info.header"/></h2>
     <table class="details">
     <tr>

@@ -33,6 +33,8 @@
 </div>
 
 <rl:listset name="confirmListSet">
+<rhn:csrf />
+<rhn:submitted />
 <!-- Start of system list -->
 <rl:list dataset="systemList"
          width="100%"
@@ -109,6 +111,8 @@
 </rl:listset>
 
 <html:form method="POST" action="/systems/ssm/config/SubscribeConfirm.do?position=${param.position}">
+    <rhn:csrf />
+    <rhn:submitted />
     <div align="right">
       <hr />
       <html:submit property="dispatch">

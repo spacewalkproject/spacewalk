@@ -23,6 +23,7 @@
 <h2><bean:message key="details.jsp.personal_info" /></h2>
 <html:form action="/account/UserDetailsSubmit">
 
+ <rhn:csrf />
  <table class="details" align="center">
 
    <%@ include file="/WEB-INF/pages/common/fragments/user/edit_user_table_rows.jspf"%>

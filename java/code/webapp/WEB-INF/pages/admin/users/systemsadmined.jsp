@@ -20,6 +20,7 @@
 
 <form method="post" name="rhn_list" action="/rhn/users/SystemsAdminedSubmit.do?uid=${user.id}">
 
+<rhn:csrf />
 <input type="hidden" name="uid" value="${user.id}" />
 
 <rhn:list pageList="${requestScope.pageList}" noDataText="nosystems.message" >

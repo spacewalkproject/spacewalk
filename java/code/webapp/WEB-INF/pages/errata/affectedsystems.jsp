@@ -27,6 +27,7 @@
   </div>
 
 	<rl:listset name="systemAffectedListSet">
+        <rhn:csrf />
 
 		<rl:list
 			dataset="pageList"

@@ -20,6 +20,7 @@
 
 <c:set var="pageList" value="${requestScope.all}" />
 <rl:listset name="channelListSet">
+<rhn:csrf />
 <c:choose>
 <c:when test="${not empty pageList}">
 	<rl:list dataset="pageList"

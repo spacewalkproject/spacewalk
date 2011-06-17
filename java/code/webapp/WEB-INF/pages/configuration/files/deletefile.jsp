@@ -13,6 +13,7 @@
 <bean:message key="deletefile.jsp.info" />
 <p />
 <html:form action="/configuration/file/DeleteFile.do?cfid=${cfid}">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
 	<table class="details">
 	<tr>
@@ -37,4 +38,4 @@
 </html:form>
 	
 </body>
-</html>	
+</html>

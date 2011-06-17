@@ -20,6 +20,7 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CopyFileLocalSubmit.do?type=${requestScope.type}&amp;cfid=${file.id}&amp;crid=${revision.id}">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}" noDataText="copycentral.jsp.noChannels">
     <rhn:listdisplay filterBy="copylocal.jsp.channel"
                      set="${requestScope.set}"

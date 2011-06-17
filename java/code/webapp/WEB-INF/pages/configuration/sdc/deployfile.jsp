@@ -27,6 +27,7 @@
 
 <form method="post" name="rhn_list"
 		action="/rhn/systems/details/configuration/DeployFileSubmit.do?sid=${system.id}">
+    <rhn:csrf />
     <c:set var="button" value="sdcdeployfile.jsp.confirm" />
     <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_list.jspf" %>
 </form>

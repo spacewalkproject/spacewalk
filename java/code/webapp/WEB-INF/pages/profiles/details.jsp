@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/profile/header.jspf" %>
 <div>
     <html:form action="/profiles/Details">
+    <rhn:csrf />
 
     <div class="page-summary">
         <bean:message key="profile.details.summary"/>

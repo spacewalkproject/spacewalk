@@ -14,6 +14,7 @@
 <p>
 
 <html:form method="POST" action="/systems/details/kickstart/SessionCancel.do">
+  <rhn:csrf />
   <table class="details">
     <tr>
       <th><bean:message key="kickstartdetails.jsp.label" /></th>

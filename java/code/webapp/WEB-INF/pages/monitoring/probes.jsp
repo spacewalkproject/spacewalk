@@ -26,6 +26,8 @@
 
 <div>
     <form method="POST" name="rhn_list" action="/rhn/monitoring/ProbeList.do">
+    <rhn:csrf />
+    <rhn:submitted />
     <rhn:list pageList="${requestScope.pageList}" noDataText="monitoring.probes.jsp.noprobes" legend="probes-list">
       <rhn:listdisplay exportColumns="id,description,stateString,stateOutputString,lastCheck">
         <%@ include file="/WEB-INF/pages/common/fragments/probes/probe-state-column.jspf" %>

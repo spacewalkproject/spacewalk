@@ -1,4 +1,5 @@
 <rl:listset name="groupSet" legend="errata">
+    <rhn:csrf />
 
     <rl:list>
 

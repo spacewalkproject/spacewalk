@@ -22,6 +22,7 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rl:listset name="profiles" >
+  <rhn:csrf />
   <rl:list emptykey="kickstart.packageprofiles.jsp.noprofiles">
 		<rl:decorator name = "PageSizeDecorator"/>
 		<rl:radiocolumn value="${current.id}" styleclass="first-column" useDefault='false'/>

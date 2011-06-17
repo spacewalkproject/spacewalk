@@ -29,6 +29,8 @@
 
 <rl:listset name="probeSet">
 
+<rhn:csrf />
+<rhn:submitted />
 <rl:list emptykey="probes.index.jsp.noprobes"
 		alphabarcolumn="description"
 		styleclass="list"

@@ -20,6 +20,8 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CompareCopy.do?cfid=${file.id}&amp;crid=${revision.id}">
+<rhn:csrf />
+<rhn:submitted />
 <rhn:list pageList="${requestScope.pageList}" noDataText="comparecopy.jsp.noAlternates">
   <rhn:listdisplay filterBy="comparecopy.jsp.channel">
     <rhn:column header="comparecopy.jsp.channel">

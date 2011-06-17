@@ -22,6 +22,8 @@
   </p>
   <div>
       <rl:listset name="ksDistros">
+      <rhn:csrf />
+      <rhn:submitted />
 	<rl:list emptykey="kickstart.distributions.jsp.nolists"
       			alphabarcolumn="label">      			
       		<rl:decorator name="PageSizeDecorator"/>

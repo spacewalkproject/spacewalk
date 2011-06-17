@@ -31,6 +31,7 @@
 
 
  <rl:listset name="suitSet">
+   <rhn:csrf />
 
    <rl:list emptykey="probesuites.jsp.nosuites">
 		<rl:decorator name="ElaborationDecorator"/>

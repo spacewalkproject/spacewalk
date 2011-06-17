@@ -26,6 +26,7 @@
     <div class="page-summary">${param.summary}</div>
     </p>
 <rl:listset name="systemListSet" legend="system">
+    <rhn:csrf />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
 
 <c:if test="${not empty requestScope.pageList}">

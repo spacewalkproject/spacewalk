@@ -26,6 +26,7 @@
   </div>
 
 <html:form method="post" action="/systems/ssm/config/DeployConfirmSubmit.do">
+  <rhn:csrf />
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configconfirmlist.jspf"%>
 
   <c:if test="${not empty requestScope.pageList}">

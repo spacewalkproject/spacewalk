@@ -17,6 +17,8 @@
 </p>
 
 <rl:listset name="fileSet">
+    <rhn:csrf />
+    <rhn:submitted />
 		
 	<!-- Start of Files list -->
 	<rl:list decorator="SelectableDecorator"

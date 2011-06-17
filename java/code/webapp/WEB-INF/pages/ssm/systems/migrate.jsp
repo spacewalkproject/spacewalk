@@ -23,6 +23,8 @@
   </c:when>
   <c:otherwise>
   <html:form method="post" action="/systems/ssm/MigrateSystems.do">
+    <rhn:csrf />
+    <rhn:submitted />
     <table class="details">
       <tr>
         <th>

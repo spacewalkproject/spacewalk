@@ -19,6 +19,8 @@
 </rhn:toolbar>
 
 <rl:listset name="groupSet" legend="system-group">
+  <rhn:csrf />
+  <rhn:submitted />
   <%@ include file="/WEB-INF/pages/common/fragments/systems/group_listdisplay.jspf" %>
 </rl:listset>
 

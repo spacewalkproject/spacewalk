@@ -21,6 +21,7 @@
 </div>
 
 <html:form action="/users/ChannelPermsSubmit">
+<rhn:csrf />
 <input type="hidden" name="role" value="${role}" />
 <input type="hidden" name="uid" value="${user.id}" />
 <input type="hidden" name="formvars" value="uid" />

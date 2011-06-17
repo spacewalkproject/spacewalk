@@ -31,6 +31,7 @@
 </c:choose>
 
 <rl:listset name="packageListSet">
+    <rhn:csrf />
 	<rl:list dataset="pageList"
          width="100%"
          name="packageList"

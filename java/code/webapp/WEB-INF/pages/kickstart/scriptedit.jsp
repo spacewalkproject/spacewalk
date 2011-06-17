@@ -29,6 +29,7 @@
     <p>
 
     <html:form method="POST" action="/kickstart/KickstartScriptEdit.do">
+      <rhn:csrf />
       <%@ include file="script-form.jspf" %>
       <html:hidden property="kssid" value="${kssid}"/>
       <html:hidden property="ksid" value="${ksdata.id}"/>

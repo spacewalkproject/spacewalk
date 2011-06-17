@@ -21,6 +21,7 @@
   <p>
     <bean:message key="filters.jsp.summary"/>
     <form method="POST" name="rhn_list" action="/rhn/monitoring/config/notification/FiltersSubmit.do">
+    <rhn:csrf />
 
     <rhn:dialogmenu mindepth="0" maxdepth="1"
     definition="/WEB-INF/nav/filters.xml"

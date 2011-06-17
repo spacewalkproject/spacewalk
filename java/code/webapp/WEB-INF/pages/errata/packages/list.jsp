@@ -23,6 +23,7 @@
   <p><bean:message key="errata.edit.packages.list.instructions"/></p>
 
 <form method="POST" name="rhn_list" action="/rhn/errata/manage/ListPackagesSubmit.do">
+<rhn:csrf />
 
 <rhn:list pageList="${requestScope.pageList}" noDataText="errata.edit.packages.add.nopackages">
   <rhn:listdisplay filterBy="errata.edit.packages.add.package"

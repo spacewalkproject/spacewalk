@@ -18,6 +18,8 @@
     </p>
 
     <rl:listset name="ipSet">
+        <rhn:csrf />
+        <rhn:submitted />
 
     	<rl:list dataset="pageList"
     	         name="ipList"

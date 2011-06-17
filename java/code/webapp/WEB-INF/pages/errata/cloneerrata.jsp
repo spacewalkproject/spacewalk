@@ -22,6 +22,8 @@
 
     <rl:listset name="groupList" legend="errata">
 
+        <rhn:csrf />
+
         <p>
             <bean:message key="cloneerrata.jsp.viewapplicableerrata"/>:
             <select name="channel">

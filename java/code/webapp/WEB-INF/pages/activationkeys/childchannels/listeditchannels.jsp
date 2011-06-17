@@ -13,6 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
 
 <html:form action="/activationkeys/channels/ChildChannels">
+  <rhn:csrf />
 
   <div class="page-summary">
     <p>

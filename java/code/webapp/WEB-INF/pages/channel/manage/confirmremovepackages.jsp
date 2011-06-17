@@ -23,6 +23,7 @@
 
 
 <rl:listset name="packageSet" legend="system-group">
+<rhn:csrf />
 
 <input type="hidden" name="cid" value="${cid}" />
 

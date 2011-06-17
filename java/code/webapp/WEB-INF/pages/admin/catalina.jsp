@@ -25,6 +25,7 @@ editAreaLoader.init({
 
    <div>
      <form action="/rhn/admin/Catalina.do">
+       <rhn:csrf />
        <table class="details">
          <tr>
            <th>

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <rl:listset name="rhnListSet">
+    <rhn:csrf />
 	<rl:list
 		dataset="mostCriticalList"
 		name="criticalSystems"

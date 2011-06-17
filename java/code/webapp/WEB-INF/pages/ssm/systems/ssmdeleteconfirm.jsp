@@ -18,6 +18,8 @@
 <c:set var="noErrata" value="true"/>
 
 <rl:listset name="systemListSet" legend="system">
+    <rhn:csrf />
+    <rhn:submitted />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
 	<div align="right">
       <hr />

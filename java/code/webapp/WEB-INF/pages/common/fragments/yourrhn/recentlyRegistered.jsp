@@ -9,6 +9,7 @@
   <c:when test="${showRecentlyRegisteredSystems == 'true'}">
 
 <rl:listset name="registeredSystemsSet">
+    <rhn:csrf />
 	<!-- Start of active users list -->
 	<rl:list dataset="recentlyRegisteredSystemsList"
 	         width="100%"

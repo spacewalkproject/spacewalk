@@ -24,6 +24,7 @@
     <bean:message key="probesuitesystems.jsp.summary"/>
 
     <form method="POST" name="rhn_list" action="/rhn/monitoring/config/ProbeSuiteSystemsSubmit.do">
+    <rhn:csrf />
     <rhn:list pageList="${requestScope.pageList}" noDataText="probesuitesystems.jsp.nosystems"
         legend="probes-list">
       <rhn:listdisplay   set="${requestScope.set}" exportColumns="id,name,status"

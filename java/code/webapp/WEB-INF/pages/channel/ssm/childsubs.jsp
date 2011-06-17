@@ -16,6 +16,7 @@
     <p />
 
   <rl:listset name="channellist">
+    <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
 
     <table width="100%">

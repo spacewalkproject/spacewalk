@@ -13,6 +13,7 @@
       <p><bean:message key="sdc.details.notes.delete.confirm"/></p>
     </div>
     <html:form method="post" action="/systems/details/DeleteNote.do?sid=${system.id}&nid=${n.id}">
+      <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
     <table class="details">
       <tr>

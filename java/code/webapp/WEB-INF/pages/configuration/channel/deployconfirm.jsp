@@ -25,6 +25,7 @@
 									type="global"/></c:set>
 <p><bean:message key="deploysystems.jsp.warning" arg0="${channel_name_display}"/></p>
 <rl:listset name="lists">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true" />
 	<div>
 	<rl:list dataset="selectedFiles" name="fileList"

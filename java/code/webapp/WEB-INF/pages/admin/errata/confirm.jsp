@@ -21,6 +21,7 @@
 
 <c:set var="pageList" value="${requestScope.pageList}" />
 <html:form method="POST" action="errata/details/ErrataConfirmSubmit.do">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="nosystems.message">
   <rhn:listdisplay>
     <rhn:column header="actions.jsp.system">

@@ -15,6 +15,7 @@
 </rhn:toolbar>
 
 <form method="POST" name="rhn_list" action="/rhn/systems/VirtualSystemsListSubmit.do">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}" noDataText="virtuallist.jsp.nosystems"
           legend="system">
 

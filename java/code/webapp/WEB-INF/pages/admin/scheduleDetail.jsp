@@ -15,6 +15,7 @@
 
 <div>
    <html:form action="/admin/ScheduleDetail">
+   <rhn:csrf/>
 
    <h2><bean:message key="schedule.edit.jsp.basicscheduledetails"/></h2>
    <div class="page-summary">

@@ -20,6 +20,7 @@
     <p><bean:message key="errata.create.jsp.instructions" /></p>
   </div>
 <html:form action="/errata/manage/CreateSubmit">
+  <rhn:csrf />
 
   <table class="details">
     <tr>

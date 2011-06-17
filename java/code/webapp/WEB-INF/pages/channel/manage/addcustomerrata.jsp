@@ -24,6 +24,7 @@
 <BR>
 
 <rl:listset name="errataSet">
+<rhn:csrf />
 <input type="hidden" name="cid" value="${cid}">
 
 

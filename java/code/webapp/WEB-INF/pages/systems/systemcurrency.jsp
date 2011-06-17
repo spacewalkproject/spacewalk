@@ -16,6 +16,8 @@
 </rhn:toolbar>
 
 <rl:listset name="registeredSystems" legend="system">
+<rhn:csrf />
+<rhn:submitted />
 
 <div class="full-width-wrapper" style="clear: both;">
 	<rl:list

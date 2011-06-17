@@ -13,6 +13,7 @@
 
 <div>
     <html:form action="/admin/multiorg/OrgCreate">
+        <rhn:csrf />
         <html:hidden property="submitted" value="true"/>
         <h2><bean:message key="orgdetails.jsp.header"/></h2>
 		<table class="details" align="center">

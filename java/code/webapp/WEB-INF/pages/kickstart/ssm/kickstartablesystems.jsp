@@ -18,6 +18,7 @@
   </div>
 
 <rl:listset name="systemListSet" legend="system">
+    <rhn:csrf />
 	<rl:list
 		emptykey="nosystems.message"
 		alphabarcolumn="name"

@@ -937,6 +937,9 @@ public class ListDisplayTag extends BodyTagSupport {
         if (formvars != null) { //get vars from form submission
             String[] keys = formvars.split(",\\s?");
             for (int j = 0; j < keys.length; j++) {
+                if (keys[j].equals("submitted")) {
+                    continue;
+                }
                 if (!PAGINATION_WASH_SET.contains(keys[j])) {
                     String encodedParam = StringUtil.urlEncode(rq.getParameter(keys[j]));
                     enabled.append("&amp;" + keys[j] + "=" + encodedParam);
@@ -949,6 +952,9 @@ public class ListDisplayTag extends BodyTagSupport {
             Iterator iter = qvars.keySet().iterator();
             while (iter.hasNext()) {
                 String key = (String) iter.next();
+                if (key.equals("submitted")) {
+                    continue;
+                }
                 if (!PAGINATION_WASH_SET.contains(key)) {
                     String encodedParam = StringUtil.urlEncode(rq.getParameter(key));
                     enabled.append("&amp;" + key + "=" + encodedParam);

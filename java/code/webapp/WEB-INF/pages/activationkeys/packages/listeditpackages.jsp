@@ -14,6 +14,7 @@
 
 <html:form action="/activationkeys/packages/Packages">
 
+    <rhn:csrf />
     <div class="page-summary">
         <p>
             <bean:message key="activation-key.packages.jsp.summary"/>

@@ -263,6 +263,13 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>csrf</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.CsrfTag</tag-class>
+        <body-content>JSP</body-content>
+    </tag>
+
     <tag>
         <name>messages</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.MessagesTag</tag-class>

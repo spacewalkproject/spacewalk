@@ -21,6 +21,7 @@
 
 <div>
 <html:form method="POST" action="/systems/ssm/config/EnableSubmit">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}"
           noDataText="targetsystems.jsp.noSystems">
 

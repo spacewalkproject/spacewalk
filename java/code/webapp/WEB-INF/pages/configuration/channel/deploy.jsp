@@ -16,6 +16,7 @@
 <bean:message key="deploy.jsp.description"/>
 <p />
 <html:form action="/configuration/channel/ChooseFilesSubmit.do?ccid=${ccid}">
+    <rhn:csrf />
 	<rhn:submitted/>
 	<rhn:list pageList="${requestScope.pageList}" noDataText="channelfiles.jsp.noFiles">
 		<rhn:listdisplay filterBy="deploy.jsp.filepath-header" set="${requestScope.set}">

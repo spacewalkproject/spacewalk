@@ -23,6 +23,7 @@
 
 <rl:listset name="packset">
 
+<rhn:csrf />
 <rl:list emptykey="packagelist.jsp.nopackages">
 
                 <rl:decorator name="ElaborationDecorator"/>

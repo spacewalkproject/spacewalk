@@ -33,6 +33,8 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  */
 public class ManageRevisionSetup extends BaseSetListAction {
 
+    public static final String CSRF_TOKEN = "csrfToken";
+
     /**
      * {@inheritDoc}
      */
@@ -46,6 +48,8 @@ public class ManageRevisionSetup extends BaseSetListAction {
 
         rctxIn.getRequest().setAttribute("max_size",
                 StringUtil.displayFileSize(max));
+        rctxIn.getRequest().setAttribute(CSRF_TOKEN,
+            rctxIn.getRequest().getSession().getAttribute("csrf_token"));
         ConfigActionHelper.processRequestAttributes(rctxIn);
         super.processRequestAttributes(rctxIn);
     }

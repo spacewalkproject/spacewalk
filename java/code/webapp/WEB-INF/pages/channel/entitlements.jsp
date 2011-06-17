@@ -25,6 +25,8 @@
 
 <c:set var="pageList" value="${requestScope.pageList}" />
 <form method="post" name="rhn_list" action="/rhn/channels/software/EntitlementsSubmit.do">
+<rhn:csrf />
+<rhn:submitted />
 <rl:listset  name="entitlements">
   <rl:list emptykey="entitlements.jsp.noentitlements">
 

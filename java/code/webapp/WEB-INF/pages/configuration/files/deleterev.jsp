@@ -15,6 +15,7 @@
 <bean:message key="deleterev.jsp.info" arg0="${channel.displayName}" arg1="/rhn/configuration/ChannelOverview.do?ccid=${ccid}"/>
 <p />
 <html:form action="/configuration/file/DeleteRevision.do?crid=${crid}&amp;cfid=${cfid}">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
 	<table class="details">
 	<tr>
@@ -37,4 +38,4 @@
 </html:form>
 	
 </body>
-</html>	
+</html>

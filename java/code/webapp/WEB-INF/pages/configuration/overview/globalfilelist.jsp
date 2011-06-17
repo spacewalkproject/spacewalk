@@ -18,6 +18,8 @@
 </div> <br />
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/GlobalConfigFileList.do">
+  <rhn:csrf />
+  <rhn:submitted />
 
   <rhn:list pageList="${requestScope.pageList}" noDataText="globalfilelist.jsp.noFiles">
     <rhn:listdisplay filterBy="globalfilelist.jsp.path">

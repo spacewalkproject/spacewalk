@@ -25,6 +25,7 @@
 <p><bean:message key="org.trust.summary" arg0="${org.name}" /></p>
 </div>
 <rl:listset name="trustedOrgs">
+   <rhn:csrf />
    <rl:list
       dataset="pageList"
       width="100%"

@@ -48,6 +48,7 @@
 
 <h2><bean:message key="duplicate.compare.jsp.header"/></h2>
 <rl:listset name="DupesCompareSet" legend="system">
+<rhn:csrf />
 		<p><bean:message key="duplicate.compares.jsp.message" arg0="${requestScope.maxLimit}"/>.</p>
 <rl:list
 	emptykey="nosystems.message"

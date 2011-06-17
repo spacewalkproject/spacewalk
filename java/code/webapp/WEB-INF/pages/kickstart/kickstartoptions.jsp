@@ -18,6 +18,7 @@
     <bean:message key="kickstartoptions.jsp.summary"/>
   </p>
     <form method="post" action="/rhn/kickstart/KickstartOptionsEdit.do">
+      <rhn:csrf />
       <table class="details">
 
           <c:forEach items="${options}" var="option">

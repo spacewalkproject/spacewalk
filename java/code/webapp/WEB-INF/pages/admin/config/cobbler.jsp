@@ -26,7 +26,8 @@
 <h2><bean:message key="cobbler.jsp.header2"/></h2>
 
 <div>
-<form action="/rhn/admin/config/Cobbler.do">
+<form action="/rhn/admin/config/Cobbler.do" method="POST">
+    <rhn:csrf />
     <table class="details">
     <tr>
         <th>

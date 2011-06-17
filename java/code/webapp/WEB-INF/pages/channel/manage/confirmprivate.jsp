@@ -28,6 +28,7 @@
     % -->
 
 <rl:listset name="pageSet">
+   <rhn:csrf />
    <rl:list dataset="pageList"
             width="100%"
             name="trustedOrgList"

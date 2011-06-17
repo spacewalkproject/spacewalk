@@ -58,6 +58,8 @@ function setStep(stepName) {
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <c:set var="regularKS" value="true"/>
 <rl:listset name="wizard-form">
+    <rhn:csrf />
+    <rhn:submitted />
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
 	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/ks-wizard.jspf" %>
 	</rl:listset>

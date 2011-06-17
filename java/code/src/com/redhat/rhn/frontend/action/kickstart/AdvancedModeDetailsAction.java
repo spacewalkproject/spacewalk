@@ -74,6 +74,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String UPLOAD_KEY_LABEL = "uploadKey";
     private static final String VALIDATION_XSD =
         "/com/redhat/rhn/frontend/action/kickstart/validation/kickstartFileForm.xsd";
+    public static final String CSRF_TOKEN = "csrfToken";
     /**
      *
      * {@inheritDoc}
@@ -86,6 +87,8 @@ public class AdvancedModeDetailsAction extends RhnAction {
 
 
         request.setAttribute(UPLOAD_KEY_LABEL, UPLOAD_KEY);
+        request.setAttribute(CSRF_TOKEN, request.getSession().getAttribute("csrf_token"));
+
         context.copyParamToAttributes(RequestContext.KICKSTART_ID);
         if (CREATE_MODE.equals(mapping.getParameter())) {
             context.getRequest().setAttribute(CREATE_MODE, Boolean.TRUE);

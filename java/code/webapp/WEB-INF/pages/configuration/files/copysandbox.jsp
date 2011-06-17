@@ -18,6 +18,7 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CopyFileSandboxSubmit.do?type=${requestScope.type}&amp;cfid=${file.id}&amp;crid=${revision.id}">
+  <rhn:csrf />
 
   <rhn:list pageList="${requestScope.pageList}" noDataText="copycentral.jsp.noChannels">
     <rhn:listdisplay filterBy="copysandbox.jsp.channel"

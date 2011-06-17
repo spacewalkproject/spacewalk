@@ -22,6 +22,7 @@
 <c:choose>
 <c:when test="${not empty pageList}">
 <html:form  method="POST" action="/systems/details/configuration/SubscriptionsSubmit.do?sid=${param.sid}">
+    <rhn:csrf />
 
     <rhn:list pageList="${requestScope.pageList}"
     		  noDataText="sdc.config.subscriptions.jsp.noChannels">

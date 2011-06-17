@@ -20,6 +20,7 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
     <form method="post" name="rhn_list" action="/rhn/kickstart/KickstartCryptoKeysListSubmit.do">
+      <rhn:csrf />
       <rhn:submitted />
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.cryptokeys.jsp.nokeys">
 

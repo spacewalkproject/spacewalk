@@ -17,6 +17,8 @@
 <div>
     <bean:message key="keys.jsp.summary"/>
     <form method="post" name="rhn_list" action="/rhn/keys/CryptoKeysList.do">
+    <rhn:csrf />
+    <rhn:submitted />
 
  <rl:listset name="keySet">
   <rl:list dataset="pageList"

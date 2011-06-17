@@ -16,6 +16,7 @@
 </h2>
 
 <rl:listset name="compareListSet">
+    <rhn:csrf />
     <div class="page-summary">
         <bean:message key="missingpkgs.jsp.pagesummary" />
     </div>

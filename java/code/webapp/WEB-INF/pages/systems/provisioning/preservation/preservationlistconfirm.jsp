@@ -19,6 +19,7 @@
     <bean:message key="preservationlistdeleteconfirm.jsp.summary"/>
 </div>
     <form method="POST" name="rhn_list" action="PreservationListDelete.do">
+      <rhn:csrf />
       <rhn:list pageList="${requestScope.pageList}"
        noDataText="preservation_list_delete.jsp.noneselected">
         	<rhn:listdisplay button="preservation_list.jsp.deletelist">

@@ -33,6 +33,8 @@
 
 <rl:listset name="DupesListSet" legend="system">
 
+        <rhn:csrf />
+
 		<p><bean:message key="duplicate.jsp.message"/><br/>
 			<bean:message key="duplicate-ip.jsp.inactive.header"/>
 			<select name="inactive_count" onChange="this.form.submit();">

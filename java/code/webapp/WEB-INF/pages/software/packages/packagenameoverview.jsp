@@ -21,6 +21,7 @@
     <c:set var="archparams" value="${archparams}&channel_arch=${item}"/>
   </c:forEach>
   <rl:listset name="nameoverview">
+    <rhn:csrf />
     <rl:list name="pkgResults" dataset="pageList"
              emptykey="packagesearch.jsp.nopackages" width="100%"
              filter="com.redhat.rhn.frontend.action.channel.PackageNVREAFilter">

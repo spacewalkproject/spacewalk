@@ -25,6 +25,7 @@
 
 <html:form method="post"
 		action="/systems/details/configuration/DeployFileConfirmSubmit.do?sid=${system.id}">
+    <rhn:csrf />
     <c:set var="button" value="sdcdeployconfirm.jsp.schedule" />
     <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_confirm.jspf" %>
 </html:form>

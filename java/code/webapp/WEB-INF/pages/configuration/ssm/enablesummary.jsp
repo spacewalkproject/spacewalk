@@ -26,6 +26,8 @@
 <div>
 <form method="post" name="rhn_list"
       action="/rhn/systems/ssm/config/EnableSummary.do">
+  <rhn:csrf />
+  <rhn:submitted />
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/enablesummary.jspf" %>
 </form>
 </div>

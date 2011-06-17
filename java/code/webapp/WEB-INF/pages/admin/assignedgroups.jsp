@@ -21,6 +21,7 @@
 
 
 <rl:listset name="groupSet">
+    <rhn:csrf />
 
 	<rl:list dataset="pageList" name="groupList" decorator="SelectableDecorator"
 	     emptykey="grouplist.jsp.nogroups"
@@ -68,6 +69,8 @@
 
 
 <html:form action="/users/AssignedSystemGroups">
+<rhn:csrf />
+<rhn:submitted />
 <div class="page-summary">
 <p><bean:message key="assignedgroups.jsp.youcanselect"/>
 </p>

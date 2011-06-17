@@ -18,6 +18,7 @@
   <bean:message key="channel.jsp.errata.sync.message"/>
 
   <rl:listset name="errata_list_set">
+          <rhn:csrf />
 		  <input type="hidden" name="cid" value="${cid}">
 
 		  <rl:list

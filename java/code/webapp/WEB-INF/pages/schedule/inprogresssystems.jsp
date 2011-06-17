@@ -11,6 +11,7 @@
 <h2><bean:message key="inprogresssystems.jsp.inprogresssystems"/></h2>
 
 <form method="POST" name="rhn_list" action="/rhn/schedule/InProgressSystemsSubmit.do">
+<rhn:csrf />
 
 
 <rhn:list pageList="${requestScope.pageList}"

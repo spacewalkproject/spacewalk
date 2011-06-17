@@ -24,6 +24,7 @@
   <p><bean:message key="errata.edit.packages.confirm.instructions"/></p>
 
   <rl:listset name="groupSet">
+      <rhn:csrf />
 
       <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
 

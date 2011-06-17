@@ -11,6 +11,7 @@
     <bean:message key="sdc.channels.edit.header2"/>
   </h2>
   <html:form method="post" action="/systems/details/SystemChannels.do?sid=${system.id}">
+    <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
       <div class="page-summary">
         <p>

@@ -37,6 +37,8 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rl:listset name="errataListSet" legend="errata">
+<rhn:csrf />
+<rhn:submitted />
 
 	<br/>
 	<select name="type">

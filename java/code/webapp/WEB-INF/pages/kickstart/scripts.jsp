@@ -27,6 +27,8 @@
     <bean:message key="kickstartscript.jsp.summary2"/>
     </p>
     <form method="post" name="rhn_list" action="/rhn/kickstart/Scripts.do">
+      <rhn:csrf />
+      <rhn:submitted />
 
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstartscript.jsp.noscripts">
 

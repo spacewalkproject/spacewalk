@@ -55,6 +55,7 @@
 
         <html:form method="post" action="/systems/details/SystemChannels.do?sid=${system.id}">
             <div align="right">
+                <rhn:csrf />
                 <html:hidden property="submitted" value="true"/>
                 <html:hidden property="new_base_channel_id" value="${new_base_channel_id}"/>
                 <html:submit property="dispatch">

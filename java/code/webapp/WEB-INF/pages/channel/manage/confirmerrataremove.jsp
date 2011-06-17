@@ -18,6 +18,7 @@
   <bean:message key="channel.jsp.errata.remove.confirmmessage"/>
 
   <rl:listset name="errata_list_set">
+          <rhn:csrf />
 
 		  <rl:list
 					emptykey="channel.jsp.errata.listempty"

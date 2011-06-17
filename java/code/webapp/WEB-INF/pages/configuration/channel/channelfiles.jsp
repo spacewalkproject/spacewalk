@@ -18,6 +18,7 @@
 <p />
 <div>
 <html:form action="/configuration/ChannelFilesSubmit.do?ccid=${ccid}">
+    <rhn:csrf />
 	<rhn:submitted/>
 	<rhn:list
 	  pageList="${requestScope.pageList}"

@@ -22,6 +22,7 @@
 <div>
 <html:form
 	action="/configuration/channel/TargetSystemsSubmit.do?ccid=${ccid}">
+    <rhn:csrf />
 	<html:hidden property="submitted" value="true" />
 	<rhn:list
 	  pageList="${requestScope.pageList}"

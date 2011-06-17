@@ -17,6 +17,8 @@
 
 <c:set var="pageList" value="${requestScope.pageList}" />
 <rl:listset name="systemSet">
+    <rhn:csrf />
+    <rhn:submitted />
 	<!-- Start of Systems list -->
 	<rl:list dataset="pageList"
 	         name="systems"

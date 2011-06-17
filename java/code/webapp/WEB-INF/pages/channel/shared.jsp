@@ -31,6 +31,8 @@ function showFiltered() {
 </p>
 
 <form method="post" name="rhn_list" action="/rhn/software/channels/Shared.do">
+  <rhn:csrf />
+  <rhn:submitted />
   <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
 </form>
 

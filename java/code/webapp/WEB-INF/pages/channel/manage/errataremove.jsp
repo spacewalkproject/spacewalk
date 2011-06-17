@@ -18,6 +18,7 @@
   <bean:message key="channel.jsp.errata.remove.message"/>
 
   <rl:listset name="errata_list_set">
+   <rhn:csrf />
    <input type="hidden" name="cid" value="${cid}">
 
 		  <rl:list  dataset="errata_data"

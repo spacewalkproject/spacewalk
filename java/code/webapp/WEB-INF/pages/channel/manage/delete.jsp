@@ -15,6 +15,7 @@
 
 <div>
     <html:form action="/channels/manage/Delete">
+    <rhn:csrf />
 
         <!--
             Channel Details

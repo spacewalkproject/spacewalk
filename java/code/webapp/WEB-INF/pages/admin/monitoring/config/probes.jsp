@@ -26,6 +26,7 @@
 
 
 <rl:listset name="probeSet">
+<rhn:csrf />
 
 
 <html:hidden property="suite_id" value="${suite_id}" />

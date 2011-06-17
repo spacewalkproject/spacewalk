@@ -7,6 +7,7 @@
   <c:when test="${requestScope.warningReflinkkeyarg0 != null}">
 	<div class="full-width-wrapper" style="clear: both;" id="warning-probes-pane">
 	 	<rl:listset name="warningProbesSet">
+            <rhn:csrf />
 			<rl:list dataset="monitoringWarningList"
 	    		     name="warningProbes"
 	         		 styleclass="list"

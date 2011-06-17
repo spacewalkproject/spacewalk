@@ -19,6 +19,7 @@
 </div>
 
 <html:form action="/systems/details/virtualization/VirtualGuestsListSubmit.do">
+  <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}" noDataText="virtualguestslist.jsp.nosystems"
           legend="system">
 

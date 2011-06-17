@@ -36,6 +36,7 @@
   <p><bean:message key="erratasearch.jsp.instructions"/></p>
 
   <html:form action="/errata/Search.do">
+  <rhn:csrf />
 
   <!-- Search Box -->
    <div class="search-choices">
@@ -142,6 +143,7 @@
 
   <c:set var="pageList" value="${requestScope.pageList}" />
   <rl:listset name="searchSet" legend="errata">
+    <rhn:csrf />
     <rl:list name="searchResults" dataset="pageList"
              emptykey="erratasearch.jsp.noerrata" width="100%">
 

@@ -17,6 +17,7 @@
  <bean:message key="probeedit.jsp.editprobe" />
 </rhn:toolbar>
 <html:form action="/systems/details/probes/ProbeCreate" method="POST">
+  <rhn:csrf />
   <c:set var="withSatCluster" value="true"/>
   <%@ include file="/WEB-INF/pages/common/fragments/probes/create-form-body.jspf" %>
   <html:hidden property="sid" value="${param.sid}"/>

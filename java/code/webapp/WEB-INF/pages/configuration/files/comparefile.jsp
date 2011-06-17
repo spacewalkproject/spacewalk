@@ -27,6 +27,8 @@
 </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/file/CompareFile.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ccid=${ochannel.id}">
+<rhn:csrf />
+<rhn:submitted />
 <rhn:list pageList="${requestScope.pageList}" noDataText="comparefile.jsp.noFiles">
   <rhn:listdisplay filterBy="comparefile.jsp.path">
     <rhn:column header="comparefile.jsp.path">

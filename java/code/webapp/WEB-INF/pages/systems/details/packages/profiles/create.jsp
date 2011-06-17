@@ -15,6 +15,7 @@
 </div>
 
 <html:form action="/systems/details/packages/profiles/Create">
+      <rhn:csrf />
       <table class="details" align="center">
         <tr>
           <th><bean:message key="create.jsp.profilename" />:</th>

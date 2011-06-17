@@ -21,7 +21,8 @@
 <h2><bean:message key="bootstrap.jsp.header2"/></h2>
 
 <div>
-<html:form action="/admin/config/BootstrapConfig" enctype="multipart/form-data">
+<html:form action="/admin/config/BootstrapConfig?csrf_token=${csrfToken}" enctype="multipart/form-data">
+    <rhn:csrf />
     <table class="details">
     <tr>
         <th>

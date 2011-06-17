@@ -17,6 +17,8 @@
 
 <rl:listset name="systemListSet" legend="system">
 
+    <rhn:csrf />
+    <rhn:submitted />
 	<c:if test="${not groups}">
 	  <h2><bean:message key="overview.jsp.systems"/></h2>
 	      <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>

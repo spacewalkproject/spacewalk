@@ -25,6 +25,8 @@
   </div>
 
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/DiffSystems.do?cfnid=${param.cfnid}">
+  <rhn:csrf />
+  <rhn:submitted />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="diffconfirm.jsp.noSystems">
     <rhn:listdisplay filterBy="system.common.systemName">

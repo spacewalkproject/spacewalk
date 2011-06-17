@@ -24,6 +24,7 @@
 
 
 	<rl:listset name="failedList">
+        <rhn:csrf />
 		<rl:list emptykey="failedactions.jsp.nogroups" styleclass="list">
 
 

@@ -22,6 +22,7 @@
 
  <bean:message key="channeltarget.confirm.jsp.header2"/>
 <rl:listset name="systemset">
+<rhn:csrf />
 
 <input type="hidden" name="cid" value="${cid}" />
 

@@ -17,7 +17,8 @@
 <h2><bean:message key="keyedit.jsp.header2"/></h2>
 
 <div>
-    <html:form action="/keys/CryptoKeyEdit" enctype="multipart/form-data">
+    <html:form action="/keys/CryptoKeyEdit?csrf_token=${csrfToken}" enctype="multipart/form-data">
+    <rhn:csrf />
     <%@ include file="key-form.jspf" %>
     <hr /><table align="right">
     	  <tr>

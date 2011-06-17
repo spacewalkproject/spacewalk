@@ -23,6 +23,7 @@
 <BR>
 
 <rl:listset name="packageSet">
+<rhn:csrf />
 <input type="hidden" name="cid" value="${cid}">
 <bean:message key="channel.jsp.package.addmessage"/>
 <h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="channel.jsp.package.addtitle"/></h2>

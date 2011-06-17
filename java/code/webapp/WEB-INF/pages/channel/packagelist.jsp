@@ -20,6 +20,8 @@
 
 
     <rl:listset name="packageSet">
+    <rhn:csrf />
+    <rhn:submitted />
 
     <input type="hidden" name="cid" value="${cid}" />
 

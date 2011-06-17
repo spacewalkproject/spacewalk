@@ -22,6 +22,8 @@
   </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/system/ManagedSystems.do">
+  <rhn:csrf />
+  <rhn:submitted />
 
   <rhn:list pageList="${requestScope.pageList}" noDataText="managedsystems.jsp.noSystems">
     <rhn:listdisplay filterBy="system.common.systemName">

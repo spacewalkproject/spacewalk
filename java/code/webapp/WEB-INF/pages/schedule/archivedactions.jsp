@@ -24,6 +24,7 @@
   <br/>
 
 	<rl:listset name="failedList">
+        <rhn:csrf />
 		<rl:list emptykey="archivedactions.jsp.nogroups" styleclass="list">
 
 

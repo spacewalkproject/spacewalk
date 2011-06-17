@@ -23,6 +23,7 @@
     </c:if>
 
     <html:form method="post" action="/groups/CreateGroup.do">
+      <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
 
       <table class="details">

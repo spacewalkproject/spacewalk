@@ -38,6 +38,7 @@
 <rhn:dialogmenu mindepth="0" maxdepth="2" definition="/WEB-INF/nav/org_tabs.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <form method="post" action="/rhn/admin/multiorg/OrgConfigDetails.do">
+<rhn:csrf />
 <rhn:submitted/>
 <input type="hidden" name="oid" value="${param.oid}"/>
  <h2><bean:message key="orgdetails.jsp.header"/></h2>

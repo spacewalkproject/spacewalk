@@ -50,6 +50,7 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
     public static final String CONTENTS = "contents";
     public static final String TYPE = "type";
     public static final String TYPES = "types";
+    public static final String CSRF_TOKEN = "csrfToken";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -84,6 +85,8 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
                 KickstartFactory.KEY_TYPE_SSL.getLabel()));
         request.setAttribute(TYPES, types);
         ActionForward retval = mapping.findForward("default");
+        request.setAttribute(CSRF_TOKEN, request.getSession().getAttribute("csrf_token"));
+
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);

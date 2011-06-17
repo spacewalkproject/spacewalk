@@ -23,6 +23,7 @@
 	<br/>
 
 	<rl:listset name="failedList">
+        <rhn:csrf />
 		<rl:list emptykey="completedactions.jsp.nogroups" styleclass="list">
 
 

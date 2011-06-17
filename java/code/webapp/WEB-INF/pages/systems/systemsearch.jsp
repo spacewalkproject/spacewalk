@@ -17,6 +17,9 @@
   <p><bean:message key="erratasearch.jsp.instructions"/></p>
 <html:form action="/systems/Search.do">
 
+<rhn:csrf />
+<rhn:submitted />
+
 <div class="search-choices">
 	<div class="search-choices-group">
 	<table class="details">

@@ -20,6 +20,7 @@
   <p><bean:message key="packagesearch.jsp.instructions"/></p>
 
   <html:form action="/channels/software/Search.do">
+  <rhn:csrf />
 
   <!-- Search Box -->
     <div class="search-choices">
@@ -101,6 +102,7 @@
     <c:set var="archparams" value="${archparams}&channel_arch=${item}"/>
   </c:forEach>
   <rl:listset name="searchSet">
+    <rhn:csrf />
     <rl:list name="searchResults" dataset="pageList"
              emptykey="packagesearch.jsp.nopackages" width="100%"
              filter="com.redhat.rhn.frontend.action.channel.PackageNameFilter">

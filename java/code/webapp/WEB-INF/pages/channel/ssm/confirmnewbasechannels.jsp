@@ -32,6 +32,7 @@
             <bean:message key="basesub.jsp.confirm.unmatchedDescription"/> *<p/>
 
             <rl:listset name="unmatchedChannelSet">
+                <rhn:csrf />
                 <rl:list dataset="unmatched_child_channels"
                          width="100%"
                          name="unmatchedChannels"
@@ -138,6 +139,7 @@
 
         <html:form method="post" action="/channel/ssm/BaseChannelSubscribe.do">
             <div align="right">
+                <rhn:csrf />
                 <html:hidden property="submitted" value="true"/>
 
                 <html:hidden property="base_channel_ids" value="${base_channel_ids}"/>

@@ -54,6 +54,7 @@ public class FileDetailsAction extends RhnAction {
     public static final String LAST_USER         = "lastUser";
     public static final String LAST_USER_ID      = "lastUserId";
     public static final String TOOLARGE          = "toolarge";
+    public static final String CSRF_TOKEN        = "csrfToken";
 
 
     public static final String VALIDATION_XSD =
@@ -108,6 +109,9 @@ public class FileDetailsAction extends RhnAction {
             totalBytes = ConfigurationManager.getInstance().
             getFileStorage(ctx.getLoggedInUser(), cr.getConfigFile());
         }
+
+        request.setAttribute(CSRF_TOKEN,
+            request.getSession().getAttribute("csrf_token"));
 
         request.setAttribute(MAX_SIZE,
                 StringUtil.displayFileSize(

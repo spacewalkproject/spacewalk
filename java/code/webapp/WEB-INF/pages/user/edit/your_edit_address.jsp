@@ -12,6 +12,7 @@
 <bean:message key="Addresses"/>
 </rhn:toolbar>
 <html:form action="/account/EditAddressSubmit">
+<rhn:csrf />
 <html:hidden property="type"/>
 
 <div class="page-summary">

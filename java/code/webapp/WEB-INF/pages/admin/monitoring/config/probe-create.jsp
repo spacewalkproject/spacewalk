@@ -18,6 +18,7 @@
 
 <h2><bean:message key="probe-create.jsp.header2"/></h2>
 <html:form action="/monitoring/config/ProbeSuiteProbeCreate" method="POST">
+    <rhn:csrf />
     <c:set var="withSatCluster" value="false"/>
     <%@ include file="/WEB-INF/pages/common/fragments/probes/create-form-body.jspf" %>
   <html:hidden property="suite_id" value="${param.suite_id}"/>

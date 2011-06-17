@@ -25,6 +25,7 @@
 
 <html:form method="post"
 		action="/systems/details/configuration/DiffFileConfirmSubmit.do?sid=${system.id}">
+    <rhn:csrf />
     <c:set var="button" value="sdcdiffconfirm.jsp.schedule" />
     <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_confirm.jspf" %>
 </html:form>

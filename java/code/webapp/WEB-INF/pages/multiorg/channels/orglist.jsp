@@ -28,6 +28,7 @@
 </p>
 
 <rl:listset name="orgChannelProtectionSet">
+    <rhn:csrf />
     <html:hidden property="cid" value="${param.cid}"/>
 
 	<!-- Start of Files list -->

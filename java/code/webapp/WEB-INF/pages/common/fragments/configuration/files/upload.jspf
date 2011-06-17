@@ -1,8 +1,9 @@
 <div id="upload-bar">
 	<strong><bean:message key="contents.jspf.upload"/></strong>
 	<html:form method="post"
-		action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}"
+		action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}&csrf_token=${csrfToken}"
         enctype="multipart/form-data">
+        <rhn:csrf />
   		<table class="details">
     		<tr>
       			<th><bean:message key="manage.jsp.uploadtab"/></th>

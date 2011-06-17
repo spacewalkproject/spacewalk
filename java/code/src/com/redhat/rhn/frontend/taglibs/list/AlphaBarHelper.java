@@ -18,7 +18,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,8 +136,10 @@ public class AlphaBarHelper {
         params.put(makeAlphaKey(listName), String.valueOf(alpha));
 
         StringBuilder enabled = new StringBuilder("<a href=\"");
+        List ignoreList = new ArrayList();
+        ignoreList.add("submitted");
         enabled.append(ListTagUtil.makeParamsLink(request, listName, params,
-                Collections.EMPTY_LIST));
+                ignoreList));
         enabled.append("\"");
         enabled.append(" class=\"list-alphabar-enabled\">" + alpha + "</a>");
         return enabled.toString();

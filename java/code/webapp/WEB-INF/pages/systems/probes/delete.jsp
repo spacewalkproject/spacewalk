@@ -15,6 +15,7 @@
 
 <h2><bean:message key="probdelete.jsp.header"/></h2>
 <html:form action="/systems/details/probes/ProbeDelete" method="POST">
+    <rhn:csrf />
 
     <p><bean:message key="probdelete.jsp.p1"/></p>
 

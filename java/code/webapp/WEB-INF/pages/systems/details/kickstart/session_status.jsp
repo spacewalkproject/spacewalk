@@ -220,6 +220,8 @@
 </table>
 </div>
 <form id="saveScrollPosition" method="POST" action="/rhn/systems/details/kickstart/SessionStatus.do?sid=${requestScope.sid}">
+    <rhn:csrf />
+    <rhn:submitted />
 	<input id="scrollPosX" type="hidden" name="xPosition" value="${requestScope.scrollX}" />
 	<input id="scrollPosY" type="hidden" name="yPosition" value="${requestScope.scrollY}" />
 </form>

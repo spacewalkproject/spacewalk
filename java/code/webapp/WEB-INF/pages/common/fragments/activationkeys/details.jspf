@@ -4,6 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <html:form action="${param.url}">
+    <rhn:csrf />
 <c:if test="${not empty param.tid}">
 <input type="hidden" name="tid" value="${param.tid}"/>
 </c:if>

@@ -16,6 +16,7 @@
 
 <html:form action="/channels/ChannelDetail">
 
+    <rhn:csrf />
 
     <table class="details" width="100%">
       <tr>

@@ -24,6 +24,8 @@
   </div>
 
 <form method="post" name="rhn_list" action="/rhn/configuration/GlobalConfigChannelList.do">
+  <rhn:csrf />
+  <rhn:submitted />
 
   <rhn:list pageList="${requestScope.pageList}" noDataText="globalconfiglist.jsp.noChannels">
     <rhn:listdisplay filterBy="globalconfiglist.jsp.name">

@@ -22,6 +22,7 @@
   <p><bean:message key="errata.edit.channels.instructions"/></p>
 <c:set var="pageList" value="${requestScope.pageList}" />
 <form method="POST" name="rhn_list" action="/rhn/errata/manage/ChannelsSubmit.do">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="errata.publish.nochannels">
   <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set value="${current.id}" />

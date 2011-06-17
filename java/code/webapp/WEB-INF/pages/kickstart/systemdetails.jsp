@@ -54,6 +54,7 @@ boolean staticIfDisabled = Boolean.valueOf(
 
 <div>
   <html:form method="post" action="/kickstart/SystemDetailsEdit.do">
+    <rhn:csrf />
     <html:hidden property="ksid" />
     <html:hidden property="submitted" />
     <h2><bean:message key="kickstart.systemdetails.jsp.header1"/></h2>

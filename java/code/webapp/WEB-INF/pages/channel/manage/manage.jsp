@@ -23,6 +23,8 @@
 <p><bean:message key="channels.manage.jsp.header2"/></p>
 
 <rl:listset name="groupSet">
+    <rhn:csrf />
+    <rhn:submitted />
 
     <rl:list emptykey="channels.overview.nochannels">
 

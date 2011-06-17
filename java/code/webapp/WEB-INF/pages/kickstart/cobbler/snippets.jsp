@@ -23,6 +23,8 @@
 
 
  <rl:listset name="keySet">
+  <rhn:csrf />
+  <rhn:submitted />
   <rl:list dataset="pageList"
          width="100%"
          name="keysList"

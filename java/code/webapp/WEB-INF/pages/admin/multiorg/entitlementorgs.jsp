@@ -32,6 +32,7 @@ imgAlt="users.jsp.imgAlt">
 <p/>
 
 <rl:listset name="entitlementSet">
+    <rhn:csrf />
     <!-- Reuse the form opened by the list tag -->
     <html:hidden property="submitted" value="true"/>
     <html:hidden property="orgClicked" value="0"/>

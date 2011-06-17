@@ -44,6 +44,8 @@
 
 <div>
 <rl:listset name="orgListSet">
+<rhn:csrf />
+<rhn:submitted />
 <!-- Start of org list -->
 <rl:list dataset="pageList"
          width="100%"

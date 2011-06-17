@@ -20,6 +20,7 @@
 <bean:message key="channel.jsp.package.add.confirm.msg"/>
 
 <rl:listset name="packageSet" legend="system-group">
+<rhn:csrf />
 
 <input type="hidden" name="cid" value="${cid}" />
 

@@ -27,6 +27,7 @@
 
 <bean:message key="softwareEntitlementSubs.viewModifyCounts.description" arg0="${channelFamily.name}"/>
 <rl:listset name="orgSet">
+    <rhn:csrf />
 
     <!-- Reuse the form opened by the list tag -->
     <html:hidden property="submitted" value="true"/>

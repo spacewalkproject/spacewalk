@@ -14,6 +14,7 @@
 <bean:message key="Your Preferences"/>
 </rhn:toolbar>
 <html:form action="/account/PrefSubmit">
+<rhn:csrf />
 <%@ include file="/WEB-INF/pages/common/fragments/user/preferences.jspf" %>
 </html:form>
 </body>

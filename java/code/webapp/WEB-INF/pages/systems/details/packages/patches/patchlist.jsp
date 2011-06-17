@@ -22,6 +22,7 @@
 </rhn:require>
 
 <form method="POST" name="rhn_list" action="/rhn/systems/details/packages/patches/PatchListSubmit.do">
+<rhn:csrf />
 <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopatches" >
   <rhn:listdisplay filterBy="packagelist.jsp.packagename" set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set element="${current.idOne}" elementTwo="${current.idTwo}" />

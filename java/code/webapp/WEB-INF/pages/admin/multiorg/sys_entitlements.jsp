@@ -33,6 +33,8 @@ imgAlt="users.jsp.imgAlt">
 
 
 <rl:listset name="entitlementSet">
+    <rhn:csrf />
+    <rhn:submitted />
     <rl:list dataset="pageList"
              width="100%"
              name="pageList"

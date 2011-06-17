@@ -15,6 +15,7 @@
 ${pageinstructions}
 </p>
 <html:form action="/users/ChangeEmailSubmit.do?uid=${param.uid}">
+  <rhn:csrf />
   <html:text property="email" size="32" maxlength="${emailLength}" />
   <html:submit value="${button_label}" />
   <html:hidden property="uid"/>
