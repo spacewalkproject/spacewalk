@@ -16,6 +16,8 @@
 package com.redhat.rhn.frontend.servlets;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.security.CSRFTokenException;
+import com.redhat.rhn.common.security.CSRFTokenValidator;
 import com.redhat.rhn.frontend.security.AuthenticationService;
 import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
 
@@ -77,9 +79,23 @@ public class AuthFilter implements Filter {
         if (authenticationService.validate((HttpServletRequest)request,
                 (HttpServletResponse)response)) {
 
-            //Check the referrer and redirect to YourRhn.do if it doesn't match
             HttpServletRequest hreq = new
                 RhnHttpServletRequest((HttpServletRequest)request);
+
+            // validate security token to prevent CSRF type of attacks
+            if (hreq.getMethod().equals("POST")) {
+                try {
+                    CSRFTokenValidator.validate(hreq);
+                }
+                catch (CSRFTokenException e) {
+                    // send HTTP 403 if security token validation failed
+                    HttpServletResponse hres = (HttpServletResponse) response;
+                    hres.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+                    return;
+                }
+            }
+
+            //Check the referrer and redirect to YourRhn.do if it doesn't match
             Enumeration em = hreq.getHeaders("referer");
             if (em.hasMoreElements()) {
                 String urlString = (String) em.nextElement();
