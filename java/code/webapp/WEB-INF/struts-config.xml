@@ -6999,7 +6999,7 @@
         input="/WEB-INF/pages/configuration/files/diff.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.DownloadDiffAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="not file_is_directory()"/>
+        <set-property property="acls" value="is_file()"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
         <forward name="default"
                  path="/configuration/file/Diff.do"/>
