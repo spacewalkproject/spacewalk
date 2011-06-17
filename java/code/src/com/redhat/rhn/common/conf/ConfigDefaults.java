@@ -108,7 +108,6 @@ public class ConfigDefaults {
     public static final String DOC_CLIENT_CONFIG_GUIDE = "docs.client_config_guide";
     public static final String DOC_CHANNEL_MGMT_GUIDE = "docs.channel_mgmt_guide";
     public static final String DOC_RELEASE_NOTES = "docs.release_notes";
-    public static final String DOC_PROXY_RELEASE_NOTES = "docs.proxy_release_notes";
 
     public static final String WEB_SUBSCRIBE_PROXY_CHANNEL = "web.subscribe_proxy_channel";
 

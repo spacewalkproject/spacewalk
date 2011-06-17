@@ -73,11 +73,6 @@ public class HelpAction extends RhnAction {
             request.setAttribute("release_notes", doc);
         }
 
-        doc = Config.get().getString(ConfigDefaults.DOC_PROXY_RELEASE_NOTES);
-        if (doc != null && doc.trim().length() > 0) {
-            request.setAttribute("proxy_release_notes", doc);
-        }
-
         return mapping.findForward("default");
     }
 }
