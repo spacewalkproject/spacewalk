@@ -80,9 +80,8 @@ Requires:       spacewalk-selinux
 %if 0%{?rhel} == 5
 Requires:       jabberd-selinux
 %endif
-# Work around for jabberd to work with stock RHEL-6.0 SELinux policy
 %if 0%{?rhel} == 6
-Requires:       jabberd-selinux-workaround
+Requires:       selinux-policy-base >= 3.7.19-93
 %endif
 
 
