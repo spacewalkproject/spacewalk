@@ -407,10 +407,12 @@ class SharedHandler:
         # output area.
 
         for k in fromResponse.msg.keys():
-
             # Get the value
-
             v = self._get_header(k, fromResponse.msg)
+
+            if (k == 'transfer-encoding') and ('chunked' in v):
+                log_debug(5, "Filtering header", k, v)
+                continue
 
             # Set the field in the response
 
