@@ -159,7 +159,10 @@ if __name__ == '__main__':
 					the_dict_where["p%d" % pi] = x
 					pi += 1
 
-				the_sql_where.append("%s in ( %s )" % (k, val))
+				if k == 'group':
+					the_sql_where.append('"%s" in ( %s )' % (k.upper(), val))
+				else:
+					the_sql_where.append('%s in ( %s )' % (k, val))
 
 			initCFG('server')
 			rhnSQL.initDB(options.db)
