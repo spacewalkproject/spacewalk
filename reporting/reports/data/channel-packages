@@ -20,6 +20,7 @@ columns:
 
 sql:
 
+	select * from (
 	select rhnchannel.label channel_label, rhnchannel.name channel_name,
 		rhnpackagename.name,
 		rhnpackageevr.version, rhnpackageevr.release, rhnpackageevr.epoch,
@@ -32,5 +33,7 @@ sql:
 		and rhnpackage.name_id = rhnpackagename.id
 		and rhnpackage.evr_id = rhnpackageevr.id
 		and rhnpackage.package_arch_id = rhnpackagearch.id
-	order by rhnchannel.label, rhnpackagename.name, rhnpackageevr.version, rhnpackageevr.release, rhnpackageevr.epoch, rhnpackagearch.label
+	) X
+	-- where placeholder
+	order by channel_label, name, version, release, epoch, arch
 

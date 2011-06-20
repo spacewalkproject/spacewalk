@@ -28,6 +28,7 @@ multival_columns:
 
 sql:
 
+	select * from (
 	select organization_id,
 		web_customer.name as organization,
 		entitlement_type,
@@ -59,7 +60,9 @@ sql:
 			and rhnservergroup.max_members > 0
 		) entitlements, web_customer
 	where entitlements.organization_id = web_customer.id
-	order by entitlements.organization_id,
+	) X
+	-- where placeholder
+	order by organization_id,
 		case when entitlement_type = 'channel' then 1 else 0 end,
 		entitlement
 

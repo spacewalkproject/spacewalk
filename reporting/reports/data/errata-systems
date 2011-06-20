@@ -17,6 +17,7 @@ columns:
 
 sql:
 
+	select * from (
 	select rhnErrata.advisory_name as advisory,
 		rhnServerNeededErrataCache.server_id,
 		rhnServer.name as profile_name,
@@ -35,5 +36,7 @@ sql:
 		on rhnServerNeededErrataCache.server_id = rhnservernetwork.server_id
 	where rhnErrata.id = rhnServerNeededErrataCache.errata_id
 		and rhnServerNeededErrataCache.server_id = rhnServer.id
-	order by rhnErrata.advisory_name, rhnServerNeededErrataCache.server_id
+	) X
+	-- where placeholder
+	order by advisory, server_id
 

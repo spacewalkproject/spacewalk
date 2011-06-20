@@ -40,6 +40,12 @@ multival_columns:
 
 sql:
 
+	select server_id, profile_name, hostname, ip_address, registered_by,
+		registration_time, last_checkin_time, kernel_version,
+		packages_out_of_date, errata_out_of_date,
+		software_channel, configuration_channel,
+		entitlements, system_group, organization, virtual_host, architecture, hardware
+	from (
 	select rhnserver.id as server_id, rhnserver.name as profile_name,
 		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
 		( select login from web_contact where rhnserver.creator_id = web_contact.id ) as registered_by,
@@ -51,9 +57,14 @@ sql:
 				and rhnserverneededpackagecache.package_id = rhnpackage.id ) as packages_out_of_date,
 		( select count(*) from rhnServerNeededErrataCache where rhnserver.id = server_id ) as errata_out_of_date,
 		rhnchannel.name as software_channel,
+		rhnchannel.parent_channel as parent_channel,
+		rhnchannel.id as channel_id,
 		rhnconfigchannel.name as configuration_channel,
+		rhnconfigchannel.id as configuration_channel_id,
 		entitlement_data.name as entitlements,
+		entitlement_data.server_group_id as entitlements_server_group_id,
 		group_data.name as system_group,
+		group_data.server_group_id as system_group_server_group_id,
 		(
 		select name from web_customer where rhnserver.org_id = web_customer.id
 		) as organization,
@@ -104,7 +115,9 @@ sql:
 		where host_system_id is not null
 		) virtual_data
 		on rhnserver.id = virtual_data.virtual_system_id
-	order by server_id, rhnchannel.parent_channel nulls first, rhnchannel.id,
-		rhnconfigchannel.id, entitlement_data.server_group_id, group_data.server_group_id,
-		virtual_data.host_system_id
+	) X
+	-- where placeholder
+	order by server_id, parent_channel nulls first, channel_id,
+		configuration_channel_id, entitlements_server_group_id, system_group_server_group_id,
+		virtual_host
 

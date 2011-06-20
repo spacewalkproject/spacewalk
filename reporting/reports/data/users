@@ -31,6 +31,7 @@ multival_columns:
 
 sql:
 
+	select * from (
 	select web_contact.org_id as organization_id,
 		web_customer.name as organization,
 		web_contact.id as user_id,
@@ -63,5 +64,7 @@ sql:
 	where web_contact.org_id = web_customer.id
 		and web_contact.id = web_user_personal_info.web_user_id
 		and web_contact.id = rhnUserInfo.user_id
-	order by web_customer.id, web_contact.id
+	) X
+	-- where placeholder
+	order by organization_id, user_id
 

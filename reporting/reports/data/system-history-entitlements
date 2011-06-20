@@ -23,9 +23,11 @@ multival_columns:
 
 sql:
 
+	select server_id, event_id, created_date, status, event, event_data from (
 	select rhnserverhistory.server_id,
 		rhnserverhistory.id as event_id,
 		to_char(rhnserverhistory.created, 'YYYY-MM-DD HH24:MI:SS') as created_date,
+		rhnserverhistory.created as created_raw_date,
 		'Done' as status,
 		case when rhnserverhistory.summary like 'Updated system release %' then 'Updated system release'
 			else trim(upper(substr(rhnserverhistory.summary, 1, 1)) || substr(rhnserverhistory.summary, 2)) end as event,
@@ -35,5 +37,7 @@ sql:
 	from rhnserverhistory
 	where rhnserverhistory.summary not like 'subscribed to channel %'
 		and rhnserverhistory.summary not like 'unsubscribed from channel %'
-	order by rhnserverhistory.server_id, rhnserverhistory.created, rhnserverhistory.id
+	) X
+	-- where placeholder
+	order by server_id, created_raw_date, event_id
 

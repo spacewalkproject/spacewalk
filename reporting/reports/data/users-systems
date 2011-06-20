@@ -26,6 +26,7 @@ multival_columns:
 # adapted query available_to_uid
 sql:
 
+	select * from (
 	select organization_id, web_contact_adm.user_id, username, server_id, group_name as "GROUP", admin_access
 	from (
 		select web_contact.org_id as organization_id,
@@ -54,5 +55,7 @@ sql:
 		on ( case when web_contact_adm.admin_access is null then 0 else web_contact_adm.admin_access end ) = rhn_contact_server_group.is_admin
 		and web_contact_adm.user_id = rhn_contact_server_group.user_id
 	where rhn_contact_server_group.server_id is not null
+	) X
+	-- where placeholder
 	order by organization_id, user_id, server_id
 

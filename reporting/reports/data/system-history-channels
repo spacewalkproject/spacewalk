@@ -23,9 +23,11 @@ multival_columns:
 
 sql:
 
+	select server_id, event_id, created_date, status, event, event_data from (
 	select rhnserverhistory.server_id,
 		rhnserverhistory.id as event_id,
 		to_char(rhnserverhistory.created, 'YYYY-MM-DD HH24:MI:SS') as created_date,
+		rhnserverhistory.created as created_raw_date,
 		'Done' as status,
 		case when rhnserverhistory.summary like 'subscribed to channel %' then 'Subscribed to channel'
 			when rhnserverhistory.summary like 'unsubscribed from channel %' then 'Unsubscribed from channel'
@@ -33,5 +35,7 @@ sql:
 		details as event_data
 	from rhnserverhistory
 	where (rhnserverhistory.summary like 'subscribed to channel %' or rhnserverhistory.summary like 'unsubscribed from channel %')
-	order by rhnserverhistory.server_id, rhnserverhistory.created, rhnserverhistory.id
+	) X
+	-- where placeholder
+	order by server_id, created_raw_date, event_id
 

@@ -26,9 +26,11 @@ multival_columns:
 
 sql:
 
+	select server_id, event_id, created_date, earliest_action, pickup_date, completed_date, status, event, event_data from (
 	select rhnserveraction.server_id,
 		rhnserveraction.action_id as event_id,
 		to_char(rhnaction.created, 'YYYY-MM-DD HH24:MI:SS') as created_date,
+		rhnaction.created as created_raw_date,
 		to_char(rhnaction.earliest_action, 'YYYY-MM-DD HH24:MI:SS') as earliest_action,
 		to_char(rhnserveraction.pickup_time, 'YYYY-MM-DD HH24:MI:SS') as pickup_date,
 		to_char(rhnserveraction.completion_time, 'YYYY-MM-DD HH24:MI:SS') as completed_date,
@@ -50,5 +52,7 @@ sql:
 		and rhnserveraction.action_id = rhnaction.id
 		and rhnaction.action_type = rhnactiontype.id
 		and rhnserveraction.status = rhnactionstatus.id
-	order by rhnserveraction.server_id, rhnaction.created, rhnserveraction.action_id
+	) X
+	-- where placeholder
+	order by server_id, created_raw_date, event_id
 

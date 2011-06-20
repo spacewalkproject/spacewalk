@@ -85,5 +85,6 @@ sql:
 			end
 		from rhnserverhistory
 	) X
+	-- where placeholder
 	order by server_id, time, event_id
 
