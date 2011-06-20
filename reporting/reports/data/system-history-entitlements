@@ -28,7 +28,7 @@ sql:
 		rhnserverhistory.id as event_id,
 		to_char(rhnserverhistory.created, 'YYYY-MM-DD HH24:MI:SS') as created_date,
 		rhnserverhistory.created as created_raw_date,
-		'Done' as status,
+		'D' || 'one' as status,
 		case when rhnserverhistory.summary like 'Updated system release %' then 'Updated system release'
 			else trim(upper(substr(rhnserverhistory.summary, 1, 1)) || substr(rhnserverhistory.summary, 2)) end as event,
 		case when summary in ( 'added system entitlement ', 'removed system entitlement ') then details
