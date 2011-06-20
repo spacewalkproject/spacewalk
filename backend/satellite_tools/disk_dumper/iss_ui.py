@@ -32,6 +32,8 @@ class UI:
                 help="List all of the steps that rhn-satellite-exporter takes while exporting data. These can be used as values for --step"),
             option("-c",    "--channel",                action="append",
                 help="Include this channel in the export."),
+            option("-a",    "--all-channels",            action="store_true",    default=0,
+                help="Export all channels."),
 	    option(         "--start-date",             action="store",
 	        help="The start date limit that the last modified dates are compared against. Should be in the format 'YYYYMMDDHH24MISS'."),
 	    option(         "--end-date",                action="store",

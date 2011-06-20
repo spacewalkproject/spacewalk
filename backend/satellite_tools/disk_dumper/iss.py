@@ -908,12 +908,18 @@ class ExporterMain:
             sys.exit(0)
 
         if self.options.list_channels:
-            self.list_channels()
+            self.print_list_channels()
             sys.exit(0)
 
         #From this point on everything should assume a list of channels, so it needs to be a list
         #even if there's only one entry. 
-        if self.options.channel:
+        if self.options.all_channels:
+            channel_dict = self.list_channels()
+            self.options.channel = []
+            for pc in channel_dict.keys():
+                self.options.channel.append(pc)
+                self.options.channel.extend(channel_dict[pc])
+        elif self.options.channel:
             if type(self.options.channel) != type([]):
                 self.options.channel = [self.options.channel]
         else:
@@ -989,6 +995,11 @@ class ExporterMain:
             sys.exit(-1)
 
     def list_channels(self):
+        """ return all available channels
+
+            the returned format is dictionary containing base_label as keys and value is list
+            of labels of child channels
+        """
         #The keys for channel_dict are the labels of the base channels.
         #The values associated with each key is a list of the labels of 
         #the child channels whose parent channel is the key.
@@ -1035,7 +1046,13 @@ class ExporterMain:
                     for child in child_channels:
                         child_label = child['label']
                         channel_dict[base_label].append(child_label)
-        
+        return channel_dict
+
+    def print_list_channels(self, channel_dict):
+        """ channel_dict is dictionary containing base_label as keys and value is list
+            of labels of child channels
+        """
+        if channel_dict:
             #Print the legend.
             print "Channel List:"
             print "B = Base Channel"

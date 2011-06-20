@@ -33,6 +33,10 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-a</arg>
+        <arg>--all-channels</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--hard-links</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -122,6 +126,13 @@ A tool that exports satellite content into a directory in an XML format. That co
             only.
             NOTE: the channel's *label* is NOT the same as the channel's
             *name*.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-a,
+            --all-channels</term>
+        <listitem>
+            <para>Export all channels.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
