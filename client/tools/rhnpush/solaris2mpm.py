@@ -253,7 +253,8 @@ def _close_mpm(mpm):
 
 def _is_patch_set_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch set archive"""
-    return archive_parser.contains("installcluster")
+    return (archive_parser.contains("installcluster")
+         or archive_parser.contains("install_cluster"))
 
 
 def _is_patch_archive(archive_parser):
