@@ -10,7 +10,7 @@ description:
 
 columns:
 
-	server_id	System identifier
+	server_id:i	System identifier
 	profile_name	Profile name, as stored on server
 	hostname	Hostname, as reported by the system
 	ip_address	IP address, as reported by the system
@@ -18,14 +18,14 @@ columns:
 	registration_time	Registration time
 	last_checkin_time	Last checkin time
 	kernel_version		Kernel version, as reported by the system
-	packages_out_of_date	Number of packages that can be upgraded
-	errata_out_of_date	Number of erratas that can be applied
+	packages_out_of_date:i	Number of packages that can be upgraded
+	errata_out_of_date:i	Number of erratas that can be applied
 	software_channel	List of channels to which the system is registered
 	configuration_channel	List of configuration channels
 	entitlements		List of entitlements
 	system_group		List of system group to which the system belongs
 	organization		Organization name
-	virtual_host		System identifier of host, if system is a guest
+	virtual_host:i		System identifier of host, if system is a guest
 	architecture		Architecture of the system
 	hardware		Hardware information
 

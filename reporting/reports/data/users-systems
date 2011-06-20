@@ -9,12 +9,12 @@ description:
 
 columns:
 
-	organization_id		Organization identifier
-	user_id			Internal user id
+	organization_id:i	Organization identifier
+	user_id:i		Internal user id
 	username		User name / login
-	server_id		System identifier
+	server_id:i		System identifier
 	group			Group through the user has access to the system
-	admin_access		1 if the user has access by being org administrator
+	admin_access:i		1 if the user has access by being org administrator
 
 multival_columns:
 

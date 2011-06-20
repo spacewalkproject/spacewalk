@@ -10,9 +10,9 @@ description:
 
 columns:
 
-	organization_id		Organization identifier
+	organization_id:i	Organization identifier
 	organization		Organization name
-	user_id			Internal user id
+	user_id:i		Internal user id
 	username		User name / login
 	last_name		Last name
 	first_name		First name(s)

@@ -12,7 +12,7 @@ columns:
 
 	channel_label		Channel label
 	channel_name		Channel name
-	number_of_packages	Number of packages in the channel
+	number_of_packages:i	Number of packages in the channel
 
 sql:
 

@@ -10,7 +10,7 @@ description:
 columns:
 
 	advisory	Advisory / errata identifier
-	server_id	System identifier
+	server_id:i	System identifier
 	profile_name	Profile name, as stored on server
 	hostname	Hostname, as reported by the system
 	ip_address	IP address, as reported by the system

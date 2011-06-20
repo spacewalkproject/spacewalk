@@ -15,6 +15,7 @@ class report:
 		self.synopsis = None
 		self.columns = None
 		self.column_indexes = None
+		self.column_types = None
 		self.column_descriptions = None
 		self.multival_column_names = {}
 		self.multival_columns_reverted = {}
@@ -74,6 +75,7 @@ class report:
 		if tag == 'columns':
 			self.columns = []
 			self.column_indexes = {}
+			self.column_types = {}
 			self.column_descriptions = {}
 			lines = filter(lambda x: x != '', re.split('\s*\n\s*', value))
 			i = 0
@@ -83,8 +85,13 @@ class report:
 					( c, description ) = re.split('\s+', l, 1)
 				except:
 					c = l
+				try:
+					( c, t ) = re.split(':', c, 1)
+				except:
+					t = 's'
 				self.columns.append(c)
 				self.column_indexes[c] = i
+				self.column_types[c] = t
 				if description != None:
 					self.column_descriptions[c] = description
 				i = i + 1

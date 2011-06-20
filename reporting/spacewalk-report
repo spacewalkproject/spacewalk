@@ -27,6 +27,7 @@ try:
 	import os
 	import csv
 	from optparse import Option, OptionParser
+	import re
 	import errno
 except KeyboardInterrupt:
 	systemExit(-1, "\nUser interrupted process.")
@@ -153,6 +154,8 @@ if __name__ == '__main__':
 					systemExit(-6, 'Unknown column [%s] in report [%s].' % (k, report_name))
 				val = ''
 				for x in where[k]:
+					if report.column_types[k] == 'i' and not re.match('^[0-9]+$', x):
+						systemExit(-7, 'Column [%s] in report [%s] only accepts integer value.' % (k, report_name))
 					if val != '':
 						val = val + ', '
 					val = val + ":p%d" % pi

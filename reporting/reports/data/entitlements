@@ -11,14 +11,14 @@ description:
 
 columns:
 
-	organization_id		Organization identifier
+	organization_id:i	Organization identifier
 	organization		Organization name
 	entitlement_type	'system' or 'channel'
 	entitlement		System entitlement name or channel name
-	used			How many entitlements are currently used
-	total			The total number of entitlements
-	flex_used		How many Flex entitlements are currently used
-	flex_total		The total number of Flex entitlements
+	used:i			How many entitlements are currently used
+	total:i			The total number of entitlements
+	flex_used:i		How many Flex entitlements are currently used
+	flex_total:i		The total number of Flex entitlements
 
 multival_columns:
 
