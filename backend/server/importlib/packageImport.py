@@ -220,7 +220,7 @@ class PackageImport(ChannelPackageSubscription):
         package['copyright'] = package['license']
 
         for tag in ('recommends', 'suggests', 'supplements'):
-            if type(package[tag]) != type([]):
+            if not package.has_key(tag) or type(package[tag]) != type([]):
                 # older spacewalk server do not export weak deps.
                 # lets create an empty list
                 package[tag] = []
