@@ -67,14 +67,43 @@ def processCommandline():
 	optionParser = OptionParser( \
 		usage="usage: %s [options] [report_name]" % sys.argv[0], \
 		option_list=optionsTable)
+
+	where = {}
+	i = 1
+	while i < len(sys.argv):
+		if sys.argv[i].startswith('--where-'):
+			o = sys.argv[i][len('--where-'):]
+			try:
+				(k, v) = o.split('=', 1)
+				del sys.argv[i]
+				i -= 1
+			except ValueError:
+				# we couldn't split, which means there is no
+				# equal sign -- need to grab the next parameter
+				if i == len(sys.argv) - 1:
+					optionParser.error('option %s has to have a parameter' % sys.argv[i] )
+				k = o
+				del sys.argv[i]
+				v = sys.argv[i]
+				del sys.argv[i]
+				i -= 2
+
+			k = k.replace('-', '_')
+			if where.has_key(k):
+				where[k].append(v)
+			else:
+				where[k] = [ v ]
+
+		i += 1
+
 	options, args = optionParser.parse_args()
 
 	sys.argv[1:] = args
 
-	return options
+	return options, where
 
 if __name__ == '__main__':
-	options = processCommandline()
+	(options, where) = processCommandline()
 
 	try:
 		if len(sys.argv) > 2:
@@ -116,13 +145,34 @@ if __name__ == '__main__':
 			if need_exit:
 				sys.exit(0)
 
+			the_sql_where = []
+			the_dict_where = {}
+			pi = 1
+			for k in where.keys():
+				if k not in report.columns:
+					systemExit(-6, 'Unknown column [%s] in report [%s].' % (k, report_name))
+				val = ''
+				for x in where[k]:
+					if val != '':
+						val = val + ', '
+					val = val + ":p%d" % pi
+					the_dict_where["p%d" % pi] = x
+					pi += 1
+
+				the_sql_where.append("%s in ( %s )" % (k, val))
+
 			initCFG('server')
 			rhnSQL.initDB(options.db)
 
 			writer = csv.writer(sys.stdout, lineterminator = "\n")
 
-			h = rhnSQL.prepare(report.sql)
-			h.execute()
+			the_sql = report.sql
+
+			if the_sql_where:
+				the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
+
+			h = rhnSQL.prepare(the_sql)
+			h.execute(**the_dict_where)
 
 			db_columns = map(lambda x: x[0].lower(), h.description)
 			if db_columns != report.columns:
