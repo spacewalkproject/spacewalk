@@ -2280,7 +2280,8 @@ public class SystemHandler extends BaseHandler {
         cmd.setMemoryAllocation(new Long(memoryMb));
         cmd.setVirtualCpus(new Long(vcpus.toString()));
         cmd.setLocalStorageSize(new Long(storageMb));
-
+        // setting an empty string generates a default virt path
+        cmd.setFilePath("");
         // Store the new KickstartSession to the DB.
         ValidatorError ve = cmd.store();
         if (ve != null) {
