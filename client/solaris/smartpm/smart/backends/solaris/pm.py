@@ -94,7 +94,12 @@ def solinstall(adminfile, path, pkg, prog=None):
             cmd = ""
 
             if pkg.name.startswith("patch-cluster-solaris-"):
-                cmd =  "%s/install_cluster -q" % pkgdir
+                if os.path.exists(os.path.join(pkgdir, 'install_cluster')):
+                    cmd =  "%s/install_cluster -q" % pkgdir
+                elif os.path.exists(os.path.join(pkgdir, 'installcluster')):
+                    cmd =  "%s/installcluster --s10cluster" % pkgdir
+                else:
+                    raise PatchaddException("Neither install_cluster nor installcluster script found.")
                 os.chdir(pkgdir)
             else:
                 cmd = "patchadd -u %s" % pkgdir
