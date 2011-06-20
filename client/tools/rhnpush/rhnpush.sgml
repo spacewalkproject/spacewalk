@@ -278,7 +278,7 @@ Utility to push binary and source RPMs into an RHN channel.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--new-cache</term>
+        <term>-N --new-cache</term>
         <listitem>
             <para>create a new username/password cache</para>
         </listitem>
