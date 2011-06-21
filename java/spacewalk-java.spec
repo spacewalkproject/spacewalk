@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.47
+Version: 1.5.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 21 2011 Jan Pazdziora 1.5.48-1
+- 690842 - fix check for existing activation key (tlestach@redhat.com)
+- 648483 - fix system.provisionVirtualGuest NPE (tlestach@redhat.com)
+- 710959 - rename acl: not file_is_directory -> is_file (tlestach@redhat.com)
+- 708957 - remove RHN Satellite Proxy Release Notes link (tlestach@redhat.com)
+
 * Fri Jun 17 2011 Jan Pazdziora 1.5.47-1
 - 709724 - check session validity first, security token next
   (mzazrivec@redhat.com)
