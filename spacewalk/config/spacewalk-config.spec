@@ -99,10 +99,10 @@ if [ -f /etc/init.d/satellite-httpd ] ; then
 fi
 
 # Set the group to allow Apache to access the conf files ...
-chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini || :
+chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 # ... once we restrict access to some files that were too open in
 # the past.
-chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* || :
+chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
 * Tue May 17 2011 Miroslav Suchý 1.5.4-1
