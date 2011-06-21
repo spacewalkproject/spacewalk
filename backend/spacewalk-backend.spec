@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.34
+Version: 1.5.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -681,6 +681,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jun 21 2011 Jan Pazdziora 1.5.35-1
+- 676937 - allow to export all channels (msuchy@redhat.com)
+- export from hosted does not know soft dependecies (msuchy@redhat.com)
+
 * Mon Jun 13 2011 Jan Pazdziora 1.5.34-1
 - 711805 - explicitly define the boolean behaviour of the object.
 
