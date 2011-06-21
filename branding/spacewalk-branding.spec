@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.5.1
+Version:    1.5.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Jun 21 2011 Jan Pazdziora 1.5.2-1
+- 708957 - remove RHN Satellite Proxy Release Notes link (tlestach@redhat.com)
+
 * Tue May 10 2011 Jan Pazdziora 1.5.1-1
 - 484895 - Point the release notes dispatcher to fedorahosted.org.
 
