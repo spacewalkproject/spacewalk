@@ -1779,8 +1779,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             processed_size += size
             current_time = round(time.time())
             # timedalta could not be multiplicated by float
-            remain_time = (datetime.timedelta(seconds=current_time-start_time))*((real_total_size*100)/real_processed_size-100)/100
-            
+            remain_time = (datetime.timedelta(seconds=current_time-start_time))*((real_total_size*10000)/real_processed_size-10000)/10000
             log(1, messages.package_fetch_remain_size_time %
                 (self._bytes_to_fuzzy(processed_size), self._bytes_to_fuzzy(total_size), remain_time))
 
