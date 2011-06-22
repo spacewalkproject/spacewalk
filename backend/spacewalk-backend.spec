@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.35
+Version: 1.5.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -681,6 +681,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jun 22 2011 Miroslav Suchý 1.5.36-1
+- in sat-sync ETA cut off miliseconds (msuchy@redhat.com)
+- make sat-sync ETA more precise (msuchy@redhat.com)
+
 * Tue Jun 21 2011 Jan Pazdziora 1.5.35-1
 - 676937 - allow to export all channels (msuchy@redhat.com)
 - export from hosted does not know soft dependecies (msuchy@redhat.com)
