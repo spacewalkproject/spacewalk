@@ -184,6 +184,8 @@ public class UserHandler extends BaseHandler {
      *     #prop("string", "created_date")
      *     #prop_desc("boolean", "enabled", "true if user is enabled,
      *     false if the user is disabled")
+     *     #prop_desc("boolean", "use_pam", "true if user is configured to use
+     *     PAM authentication")
      *   #struct_end()
      */
     public Map getDetails(String sessionKey, String login) throws FaultException {
@@ -216,6 +218,7 @@ public class UserHandler extends BaseHandler {
         else {
             ret.put("enabled", Boolean.TRUE);
         }
+        ret.put("use_pam", target.getUsePamAuthentication());
 
         return ret;
     }
