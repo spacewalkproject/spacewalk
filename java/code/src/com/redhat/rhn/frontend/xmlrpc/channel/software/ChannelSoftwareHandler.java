@@ -1013,6 +1013,54 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
     /**
+     * Set the managable flag for a given channel and user. If value is set to 'true',
+     * this method will give the user manage permissions to the channel. Otherwise, this
+     * method revokes that privilege.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel in question
+     * @param login The login for the user in question
+     * @param value The boolean value telling us whether to grant manage permission or
+     * revoke it.
+     * @return Returns 1 on success, FaultException otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The loggedInUser doesn't have permission to perform this action
+     *   - The login, sessionKey, or channelLabel is invalid
+     *
+     * @xmlrpc.doc Set the managable flag for a given channel and user.
+     * If value is set to 'true', this method will give the user
+     * manage permissions to the channel. Otherwise, that privilege is revoked.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
+     * @xmlrpc.param #param_desc("string", "login", "login of the target user")
+     * @xmlrpc.param #param_desc("boolean", "value", "value of the flag to set")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setUserManagable(String sessionKey, String channelLabel,
+                   String login, Boolean value) throws FaultException {
+        // Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
+
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        //Verify permissions
+        if (!(UserManager.verifyChannelAdmin(loggedInUser, channel) ||
+              loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN))) {
+            throw new PermissionCheckFailureException();
+        }
+
+        if (value) {
+            // Add the 'manage' role for the target user to the channel
+            ChannelManager.addManageRole(target, channel);
+        }
+        else {
+            // Remove the 'manage' role for the target user to the channel
+            ChannelManager.removeManageRole(target, channel);
+        }
+
+        return 1;
+    }
+
+    /**
      * Returns whether the channel may be subscribed to by the given user.
      * @param sessionKey The sessionKey containing the logged in user
      * @param channelLabel The label for the channel in question
@@ -1043,6 +1091,40 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
 
         boolean flag = ChannelManager.verifyChannelSubscribe(target, channel.getId());
+        return BooleanUtils.toInteger(flag);
+    }
+
+    /**
+     * Returns whether the channel may be managed by the given user.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel in question
+     * @param login The login for the user in question
+     * @return whether the channel may be managed by the given user.
+     * @throws FaultException thrown if
+     *   - The loggedInUser doesn't have permission to perform this action
+     *   - The login, sessionKey, or channelLabel is invalid
+     *
+     * @xmlrpc.doc Returns whether the channel may be managed by the given user.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
+     * @xmlrpc.param #param_desc("string", "login", "login of the target user")
+     * @xmlrpc.returntype int - 1 if subscribable, 0 if not
+     */
+    public int isUserManagable(String sessionKey, String channelLabel,
+            String login) throws FaultException {
+        // Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
+                loggedInUser, login);
+
+        Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
+        //Verify permissions
+        if (!(UserManager.verifyChannelAdmin(loggedInUser, channel) ||
+              loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN))) {
+            throw new PermissionCheckFailureException();
+        }
+
+        boolean flag = ChannelManager.verifyChannelManage(target, channel.getId());
         return BooleanUtils.toInteger(flag);
     }
 

@@ -982,6 +982,44 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * Adds the mange role for the passed in user for the passed in channel.
+     * @param user The user in question.
+     * @param channel The channel in question.
+     */
+    public static void addManageRole(User user, Channel channel) {
+        if (verifyChannelManage(user, channel.getId())) {
+            return; //user already has subscribe perms to this channel
+        }
+        //Insert row into rhnChannelPermission
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
+                                               "grant_channel_permission");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("cid", channel.getId());
+        params.put("role_label", QRY_ROLE_MANAGE);
+        m.executeUpdate(params);
+    }
+
+    /**
+     * Removes the manage role from the passed in user for the passed in channel.
+     * @param user The user in question.
+     * @param channel The channel in question.
+     */
+    public static void removeManageRole(User user, Channel channel) {
+        if (!verifyChannelManage(user, channel.getId())) {
+            return; //user doesn't have subscribe perms to begin with
+        }
+        //Delete row from rhnChannelPermission
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
+                                               "revoke_channel_permission");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("cid", channel.getId());
+        params.put("role_label", QRY_ROLE_MANAGE);
+        m.executeUpdate(params);
+    }
+
+    /**
      * Makes sure the passed in user has subscribe permissions to the channel with the
      * given id.
      * @param user The user in question
@@ -1008,6 +1046,38 @@ public class ChannelManager extends BaseManager {
             msg.append(" either does not have subscribe privileges to Channel: ");
             msg.append(cid);
             msg.append(" or ChannelManager.QRY_ROLE_SUBSCRIBE is defined wrong.");
+            log.debug(msg.toString(), e);
+            return false;
+        }
+    }
+
+    /**
+     * Makes sure the passed in user has manage permissions to the channel with the
+     * given id.
+     * @param user The user in question
+     * @param cid The id for the channel in question
+     * @return Returns true if the user has permission, false otherwise
+     */
+    public static boolean verifyChannelManage(User user, Long cid) {
+
+        if (user.hasRole(RoleFactory.RHN_SUPERUSER)) {
+            return true;
+        }
+
+        try {
+            return verifyChannelRole(user, cid, QRY_ROLE_MANAGE);
+        }
+        catch (InvalidChannelRoleException e) {
+            /*
+             * We don't really care what the reason is for why this user doesn't have
+             * access to this channel, so catch the exception, log it, and simply
+             * return false.
+             */
+            StringBuffer msg = new StringBuffer("User: ");
+            msg.append(user.getLogin());
+            msg.append(" either does not have subscribe privileges to Channel: ");
+            msg.append(cid);
+            msg.append(" or ChannelManager.QRY_ROLE_MANAGE is defined wrong.");
             log.debug(msg.toString(), e);
             return false;
         }
