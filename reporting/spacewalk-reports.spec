@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.2
+Version: 1.5.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Fri Jun 24 2011 Jan Pazdziora 1.5.3-1
+- Add support for the --where-column-id=value parameter.
+
 * Wed Jun 01 2011 Jan Pazdziora 1.5.2-1
 - Fixing the SGML source of the spacewalk-report man page.
 
