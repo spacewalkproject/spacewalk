@@ -85,10 +85,10 @@ public class DownloadFile extends DownloadAction {
     private static final String FILENAME = "filename";
     private static final String CHILD = "child";
     private static final String TREE = "tree";
-    private static final String PATH = "path";
     private static final String SESSION = "session";
     private static final String URL = "url";
-    private static final String CHANNEL = "cid";
+    private static final String CONTENT_TYPE_OCTET_STREAM = "application/octet-stream";
+    private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
 
     /** {@inheritDoc} */
     @Override
@@ -343,8 +343,7 @@ public class DownloadFile extends DownloadAction {
             else {
                 data = KickstartManager.getInstance().renderKickstart(url);
             }
-            //Must set content length or it doesn't quite work right
-            response.addHeader("Content-Length", data.length() + "");
+            setTextContentInfo(response, data.length());
             return getStreamForText(data.getBytes());
         }
         else {
@@ -353,7 +352,7 @@ public class DownloadFile extends DownloadAction {
             User user = UserFactory.lookupById(userid);
             if (type.equals(DownloadManager.DOWNLOAD_TYPE_PACKAGE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
-                response.addHeader("Content-Length", pack.getPackageSize() + "");
+                setBinaryContentInfo(response, pack.getPackageSize().intValue());
                 path = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
                     "/" + pack.getPath();
                 return getStreamForBinary(path);
@@ -362,7 +361,7 @@ public class DownloadFile extends DownloadAction {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
                 List<PackageSource> src = PackageFactory.lookupPackageSources(pack);
                 if (!src.isEmpty()) {
-                    response.addHeader("Content-Length", src.get(0).getPackageSize() + "");
+                    setBinaryContentInfo(response, src.get(0).getPackageSize().intValue());
                     path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
                         src.get(0).getPath();
                     return getStreamForBinary(path);
@@ -371,14 +370,14 @@ public class DownloadFile extends DownloadAction {
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_README)) {
                 Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId,
                         user.getOrg());
-                response.addHeader("Content-Length", patch.getPackageSize() + "");
+                setTextContentInfo(response, patch.getPackageSize().intValue());
                 return getStreamForText(patch.getReadme());
 
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README)) {
                 PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId,
                         user.getOrg());
-                response.addHeader("Content-Length", patch.getPackageSize() + "");
+                setTextContentInfo(response, patch.getPackageSize().intValue());
                 return getStreamForText(patch.getReadme());
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
@@ -394,7 +393,7 @@ public class DownloadFile extends DownloadAction {
                     output.append("\n");
                 }
 
-                response.addHeader("Content-Length", output.length() + "");
+                setTextContentInfo(response, output.length());
                 return getStreamForText(output.toString().getBytes());
             }
         }
@@ -403,7 +402,6 @@ public class DownloadFile extends DownloadAction {
                 " is not currently supported");
 
     }
-
 
     private StreamInfo getStreamInfoKickstart(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response,
@@ -545,10 +543,25 @@ public class DownloadFile extends DownloadAction {
         SimpleDateFormat formatter = new SimpleDateFormat(
                 "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+        setBinaryContentInfo(response, (int) actualFile.length());
         response.addHeader("last-modified", formatter.format(mtime));
-        response.addHeader("Content-Length", String.valueOf(actualFile.length()));
         log.debug("added last-modified and content-length values");
         return getStreamForBinary(diskPath);
+    }
+
+    private void setBinaryContentInfo(HttpServletResponse responseIn,
+            int lengthIn) {
+        // make sure content type is set first!!!
+        // otherwise content length gets ignored
+        responseIn.setContentType(CONTENT_TYPE_OCTET_STREAM);
+        responseIn.setContentLength(lengthIn);
+    }
+
+    private void setTextContentInfo(HttpServletResponse responseIn, int lengthIn) {
+        // make sure content type is set first!!!
+        // otherwise content length gets ignored
+        responseIn.setContentType(CONTENT_TYPE_TEXT_PLAIN);
+        responseIn.setContentLength(lengthIn);
     }
 
     private StreamInfo getStreamForText(byte[] text) {
@@ -558,7 +571,7 @@ public class DownloadFile extends DownloadAction {
 
     private StreamInfo getStreamForBinary(String path) {
         File file = new File(path);
-        FileStreamInfo stream = new FileStreamInfo("application/octet-stream", file);
+        FileStreamInfo stream = new FileStreamInfo(CONTENT_TYPE_OCTET_STREAM, file);
         return stream;
     }
 
@@ -577,7 +590,7 @@ public class DownloadFile extends DownloadAction {
     private StreamInfo manualServeChecksum(HttpServletResponse response,
             Package rpmPackage, String diskPath) throws IOException {
 
-        response.setContentType("application/octet-stream");
+        response.setContentType(CONTENT_TYPE_OCTET_STREAM);
         String checksum;
         // Obtain the checksum for the file in question and stick it in the
         // outgoing HTTP headers under "X-RHN-Checksum".
@@ -628,7 +641,7 @@ public class DownloadFile extends DownloadAction {
         if (size <= 0) {
             return getStreamForBinary(diskPath);
         }
-        response.setContentType("application/octet-stream");
+        setBinaryContentInfo(response, (int) size);
         response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
         Date mtime = new Date(actualFile.lastModified());
         // "EEE, dd MMM yyyy HH:mm:ss zzz";
@@ -637,7 +650,6 @@ public class DownloadFile extends DownloadAction {
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         String fdate = formatter.format(mtime);
         response.addHeader("last-modified", fdate);
-        response.addHeader("Content-Length", String.valueOf(size));
         response.addHeader("Content-Range", "bytes " + start + "-" + end +
                 "/" + totalSize);
         response.addHeader("Accept-Ranges", "bytes");
@@ -655,7 +667,7 @@ public class DownloadFile extends DownloadAction {
             log.debug("read chunk into byte array.  returning ByteArrayStreamInfo");
         }
         ByteArrayStreamInfo stream = new
-            ByteArrayStreamInfo("application/octet-stream", chunk);
+            ByteArrayStreamInfo(CONTENT_TYPE_OCTET_STREAM, chunk);
         return stream;
     }
 
