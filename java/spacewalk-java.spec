@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.48
+Version: 1.5.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 24 2011 Jan Pazdziora 1.5.49-1
+- 699523 - extend user.GetDetails by PAM usage info (tlestach@redhat.com)
+- let finish the kickstart profile creation by the Enter button
+  (tlestach@redhat.com)
+
 * Tue Jun 21 2011 Jan Pazdziora 1.5.48-1
 - 690842 - fix check for existing activation key (tlestach@redhat.com)
 - 648483 - fix system.provisionVirtualGuest NPE (tlestach@redhat.com)
