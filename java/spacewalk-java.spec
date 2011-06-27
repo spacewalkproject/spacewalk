@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.49
+Version: 1.5.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 27 2011 Tomas Lestach <tlestach@redhat.com> 1.5.50-1
+- 710433 - fix kickstart via proxy from RHEL6 Satellite (tlestach@redhat.com)
+
 * Fri Jun 24 2011 Jan Pazdziora 1.5.49-1
 - 699523 - extend user.GetDetails by PAM usage info (tlestach@redhat.com)
 - let finish the kickstart profile creation by the Enter button
