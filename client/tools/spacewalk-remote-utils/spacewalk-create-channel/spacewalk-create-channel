@@ -390,7 +390,8 @@ def gather(clear):
                   # RHEL-6/6.0/Server/x86_64/os/
                   repoDir = "RHEL-%s-%s/%s.%s/%s/os/" % (version, release, version, update_num, arch)
                   fullDir = GATHER_DIR + repoDir
-                  saveRpmList(fullDir +  release + "/Packages/", DATA_DIR + getFileName(version, update,release, arch))
+                  if not saveRpmList(fullDir +  release + "/listing", DATA_DIR + getFileName(version, update,release, arch)):
+                      saveRpmList(fullDir +  release + "/Packages/", DATA_DIR + getFileName(version, update,release, arch))
                   #now lets handle the other repos:
                   for subrepo in subrepos:
                      if subrepo == "Workstation":
@@ -401,10 +402,16 @@ def gather(clear):
                   fullDir = GATHER_DIR + "RHEL-%s-%s-%s/%s.%s/%s/os/Packages/" % (version, release, suppl, version, update_num, arch) 
                   saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl)) 
 
-def saveRpmList(directory, filename):
-   if path.exists(directory) and not path.exists(filename):
-      print directory
-      os.system("ls " + directory + " | grep rpm | sort > " + filename);
+def saveRpmList(source, filename):
+   if path.exists(source) and not path.exists(filename):
+      print source
+      if path.isfile(source):
+          os.system("cp %s %s" % (source, filename))
+      else: # isdir
+          os.system("ls " + source + " | grep rpm | sort > " + filename);
+      return True
+   else:
+      return False
 
 def getFileName(version, update, release, arch, additional=None):
    if additional == None:
