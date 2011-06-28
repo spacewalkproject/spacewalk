@@ -8297,7 +8297,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
        <trans-unit id="frontend.actions.systems.virt.invalidstoragevalue">
-          <source>Storage must be set to a value greater than 0.</source>
+          <source>Only natural numbers are accepted as storage values.</source>
       </trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.viewChannels">

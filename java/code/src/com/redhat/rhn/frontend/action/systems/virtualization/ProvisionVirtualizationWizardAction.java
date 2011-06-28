@@ -272,6 +272,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             catch (NumberFormatException e) {
                 errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                         "frontend.actions.systems.virt.invalidstoragevalue"));
+                form.set(LOCAL_STORAGE_GB, "");
             }
         }
 
