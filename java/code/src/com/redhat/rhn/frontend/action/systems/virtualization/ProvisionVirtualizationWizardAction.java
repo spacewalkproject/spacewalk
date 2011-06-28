@@ -51,7 +51,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String VIRTUAL_CPUS = "virtualCpus";
     public static final String VIRTUAL_BRIDGE = "virtBridge";
     public static final String VIRTUAL_FILE_PATH = "diskPath";
-    public static final String LOCAL_STORAGE_MB = "localStorageMegabytes";
+    public static final String LOCAL_STORAGE_GB = "localStorageGigabytes";
     public static final String PROFILE = "cobbler_profile";
 
     public static final String GUEST_NAME = "guestName";
@@ -74,8 +74,8 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             form.set(VIRTUAL_CPUS, "");
         }
 
-        if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
-                form.set(LOCAL_STORAGE_MB, "");
+        if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_GB))) {
+                form.set(LOCAL_STORAGE_GB, "");
         }
 
         return super.runFirst(mapping, form, ctx, response, step);
@@ -114,8 +114,8 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             form.set(VIRTUAL_CPUS, String.valueOf(pf.getVirtCpus()));
         }
 
-        if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
-            form.set(LOCAL_STORAGE_MB, String.valueOf(pf.getVirtFileSize()));
+        if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_GB))) {
+            form.set(LOCAL_STORAGE_GB, String.valueOf(pf.getVirtFileSize()));
         }
 
         if (StringUtils.isEmpty(form.getString(VIRTUAL_BRIDGE))) {
@@ -184,8 +184,8 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             cmd.setVirtualCpus(new Long(this.getCobblerProfile(ctx).getVirtCpus()));
         }
 
-        if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
-            cmd.setLocalStorageSize(new Long(form.getString(LOCAL_STORAGE_MB)));
+        if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_GB))) {
+            cmd.setLocalStorageSize(new Long(form.getString(LOCAL_STORAGE_GB)));
         }
         else {
             cmd.setLocalStorageSize(new Long(
@@ -262,9 +262,9 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             }
         }
 
-        if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
+        if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_GB))) {
             try {
-                Long storage = Long.parseLong(form.getString(LOCAL_STORAGE_MB));
+                Long storage = Long.parseLong(form.getString(LOCAL_STORAGE_GB));
                 if (storage <= 0) {
                     throw new NumberFormatException();
                 }

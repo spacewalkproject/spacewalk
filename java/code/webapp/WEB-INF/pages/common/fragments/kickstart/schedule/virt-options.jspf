@@ -27,7 +27,7 @@
         <th><bean:message key="virtualization.provision.first.jsp.storage"/></th>
         <td>
             <bean:message key="virtualization.provision.first.jsp.storage.local.message1"/>
-            <html:text styleId="localStorageMegabytesId" property="localStorageMegabytes"
+            <html:text styleId="localStorageGigabytesId" property="localStorageGigabytes"
             					maxlength="20" size="6"/>
             <bean:message key="virtualization.provision.first.jsp.storage.local.gigabytes"/>
         </td>

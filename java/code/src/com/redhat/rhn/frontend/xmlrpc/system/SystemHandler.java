@@ -2217,7 +2217,7 @@ public class SystemHandler extends BaseHandler {
      * @param profileName of Kickstart Profile to use.
      * @param memoryMb to allocate to the guest (maxMemory)
      * @param vcpus to assign
-     * @param storageMb to assign to disk
+     * @param storageGb to assign to disk
      * @return Returns 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Provision a guest on the host specified.  This schedules the guest
@@ -2231,11 +2231,11 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "memoryMb", "Memory to allocate to the guest")
      * @xmlrpc.param #param_desc("int", "vcpus", "Number of virtual CPUs to allocate to
      *                                          the guest.")
-     * @xmlrpc.param #param_desc("int", "storageMb", "Size of the guests disk image.")
+     * @xmlrpc.param #param_desc("int", "storageGb", "Size of the guests disk image.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int provisionVirtualGuest(String sessionKey, Integer sid, String guestName,
-            String profileName, Integer memoryMb, Integer vcpus, Integer storageMb) {
+            String profileName, Integer memoryMb, Integer vcpus, Integer storageGb) {
         log.debug("provisionVirtualGuest called.");
         User loggedInUser = getLoggedInUser(sessionKey);
         // Lookup the server so we can validate it exists and throw error if not.
@@ -2279,7 +2279,7 @@ public class SystemHandler extends BaseHandler {
         cmd.setGuestName(guestName);
         cmd.setMemoryAllocation(new Long(memoryMb));
         cmd.setVirtualCpus(new Long(vcpus.toString()));
-        cmd.setLocalStorageSize(new Long(storageMb));
+        cmd.setLocalStorageSize(new Long(storageGb));
         // setting an empty string generates a default virt path
         cmd.setFilePath("");
         // Store the new KickstartSession to the DB.

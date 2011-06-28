@@ -254,7 +254,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     }
 
     /**
-     * @return Returns the localStorageMb
+     * @return Returns the localStorage in GB
      */
     public Long getLocalStorageSize() {
         return localStorage;

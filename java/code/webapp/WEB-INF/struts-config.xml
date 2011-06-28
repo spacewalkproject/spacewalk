@@ -814,7 +814,7 @@
 		    <form-property name="virtBridge" type="java.lang.String" />
 		    <form-property name="diskPath" type="java.lang.String" />
 		    <form-property name="storageType" type="java.lang.String" />
-		    <form-property name="localStorageMegabytes" type="java.lang.String" />
+		    <form-property name="localStorageGigabytes" type="java.lang.String" />
 		    <form-property name="guestName" type="java.lang.String" />
 
 
