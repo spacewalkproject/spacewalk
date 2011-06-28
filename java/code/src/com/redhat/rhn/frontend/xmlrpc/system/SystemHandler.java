@@ -2079,7 +2079,7 @@ public class SystemHandler extends BaseHandler {
     /**
      *
      * Provision a guest on the server specified.  Defaults to: memory=256MB, vcpu=1,
-     * storage=2048MB.
+     * storage=2GB.
      *
      * @param sessionKey of user making call
      * @param sid of server to provision guest on
@@ -2088,7 +2088,7 @@ public class SystemHandler extends BaseHandler {
      * @return Returns 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Provision a guest on the host specified.  Defaults to:
-     * memory=256MB, vcpu=1, storage=2048MB.
+     * memory=256MB, vcpu=1, storage=2GB.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of host to provision guest on.
      * @xmlrpc.param #param("string", "guestName")
@@ -2098,7 +2098,7 @@ public class SystemHandler extends BaseHandler {
     public int provisionVirtualGuest(String sessionKey, Integer sid, String guestName,
             String profileName) {
         return provisionVirtualGuest(sessionKey, sid, guestName, profileName,
-                new Integer(256), new Integer(1), new Integer(2048));
+                new Integer(256), new Integer(1), new Integer(2));
     }
 
     /**
