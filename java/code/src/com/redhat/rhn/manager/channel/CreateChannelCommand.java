@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 public class CreateChannelCommand {
 
     public static final int CHANNEL_NAME_MIN_LENGTH = 6;
-    public static final int CHANNEL_NAME_MAX_LENGTH = 64;
+    public static final int CHANNEL_NAME_MAX_LENGTH = 256;
     public static final int CHANNEL_LABEL_MIN_LENGTH = 6;
 
     protected static final String CHANNEL_NAME_REGEX =
