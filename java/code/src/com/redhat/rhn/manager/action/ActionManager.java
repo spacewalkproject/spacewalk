@@ -1528,7 +1528,6 @@ public class ActionManager extends BaseManager {
 
         kad.setDiskGb(pcmd.getLocalStorageSize());
         kad.setMemMb(pcmd.getMemoryAllocation().longValue());
-        kad.setVirtBridge(pcmd.getVirtBridge());
         kad.setDiskPath(pcmd.getFilePath());
         kad.setVcpus(new Long(pcmd.getVirtualCpus()));
         kad.setGuestName(pcmd.getGuestName());
@@ -1536,6 +1535,13 @@ public class ActionManager extends BaseManager {
 
         Profile cProfile = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
            pcmd.getUser()), pcmd.getKsdata().getCobblerId());
+        if (pcmd.getVirtBridge() == null) {
+            kad.setVirtBridge(cProfile.getVirtBridge());
+        }
+        else {
+            kad.setVirtBridge(pcmd.getVirtBridge());
+        }
+
         CobblerVirtualSystemCommand vcmd = new CobblerVirtualSystemCommand(
                 pcmd.getServer(), cProfile.getName(), pcmd.getGuestName(),
                 pcmd.getKsdata());
