@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.5.6
+Version: 1.5.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Jun 28 2011 Miroslav Suchý 1.5.7-1
+- 707241 - create progressbar even during groupinstall and do not delete
+  rhnplugin.repos during groupinstall command (msuchy@redhat.com)
+
 * Mon May 02 2011 Miroslav Suchý 1.5.6-1
 - set proxy_dict only if we have some proxy
 - proxy_dict is private attribute
