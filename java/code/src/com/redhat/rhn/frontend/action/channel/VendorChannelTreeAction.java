@@ -24,12 +24,12 @@ import com.redhat.rhn.manager.channel.ChannelManager;
  * ChannelTreeRelevantSetupAction
  * @version $Rev$
  */
-public class RedHatChannelTreeAction extends BaseChannelTreeAction {
+public class VendorChannelTreeAction extends BaseChannelTreeAction {
 
     /** {@inheritDoc} */
     protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
         User user = requestContext.getCurrentUser();
-        DataResult dr = ChannelManager.redHatChannelTree(user, lc);
+        DataResult dr = ChannelManager.vendorChannelTree(user, lc);
         return  dr;
     }
 }

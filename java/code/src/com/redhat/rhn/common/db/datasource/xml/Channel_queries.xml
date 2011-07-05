@@ -438,7 +438,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 
 
 
-<mode name="redhat_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+<mode name="vendor_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id">
 	select Distinct C.id,
 		   C.name,

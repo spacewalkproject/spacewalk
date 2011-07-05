@@ -12233,7 +12233,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       <target>Les canaux de logiciels ci-dessous sont &lt;strong&gt;tous les canaux&lt;/strong&gt; auxquels votre entreprise a accès.</target></trans-unit>
 
-      <trans-unit id="channels.redhat.jsp.header1">
+      <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
       <target>Les canaux logiciels listés ci-dessous sont des canaux Red Hat ou des canaux enfants de canaux Red Hat.</target></trans-unit>
 

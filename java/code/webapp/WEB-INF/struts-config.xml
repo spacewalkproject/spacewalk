@@ -2468,12 +2468,12 @@
 
     <!-- ===== CHANNELS ===== -->
 
-    <action path="/software/channels/RedHat"
+    <action path="/software/channels/Vendor"
     	scope="request"
-    	input="/WEB-INF/pages/channel/redhat.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.RedHatChannelTreeAction">
+	input="/WEB-INF/pages/channel/vendor.jsp"
+	type="com.redhat.rhn.frontend.action.channel.VendorChannelTreeAction">
     	<forward name="default"
-    	         path="/WEB-INF/pages/channel/redhat.jsp" />
+	         path="/WEB-INF/pages/channel/vendor.jsp" />
     </action>
 
     <action path="/software/channels/Popular"

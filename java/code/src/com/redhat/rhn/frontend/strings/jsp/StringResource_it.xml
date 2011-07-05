@@ -12215,7 +12215,7 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       <target></target></trans-unit>
 
-      <trans-unit id="channels.redhat.jsp.header1">
+      <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
       <target>I canali software di seguito elencati sono i canali di Red Hat o canali figlio di Red Hat Channels.</target></trans-unit>
 

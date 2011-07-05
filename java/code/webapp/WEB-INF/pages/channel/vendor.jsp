@@ -1,5 +1,5 @@
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html:xhtml/>
@@ -18,17 +18,17 @@ function showFiltered() {
 
 <body onLoad="onLoadStuff(3); showFiltered();">
 <rhn:toolbar base="h1" img="/img/rhn-icon-software.gif" imgAlt="channels.overview.toolbar.imgAlt">
-  <bean:message key="channel.nav.redhat"/>
+  <bean:message key="channel.nav.vendor"/>
 </rhn:toolbar>
 
 <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tabs.jspf" %>
 
 <p>
-<bean:message key="channels.redhat.jsp.header1" />
+<bean:message key="channels.vendor.jsp.header1" />
 </p>
 
 
-<form method="post" name="rhn_list" action="/rhn/software/channels/RedHat.do">
+<form method="post" name="rhn_list" action="/rhn/software/channels/Vendor.do">
     <rhn:csrf />
     <rhn:submitted />
 	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>

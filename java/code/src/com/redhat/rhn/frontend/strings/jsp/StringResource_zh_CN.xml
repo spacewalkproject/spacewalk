@@ -12228,7 +12228,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       <target>下面列出的软件频道是您的组织可以访问的&lt;strong&gt;所有频道&lt;/strong&gt;。</target></trans-unit>
 
-      <trans-unit id="channels.redhat.jsp.header1">
+      <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
       <target>以下列出的软件包频道是红帽频道或者红帽频道的子频道。</target></trans-unit>
 

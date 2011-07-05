@@ -12218,7 +12218,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       <target></target></trans-unit>
 
-      <trans-unit id="channels.redhat.jsp.header1">
+      <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
       <target>கீழே பட்டியலிடப்பட்ட மென்பொருள் தடங்கள் Red Hat தடங்கள் அல்லது Red Hat தடங்களின் சேய் தடங்களாக இருக்கலாம்.கள் ஆகும்.</target></trans-unit>
 

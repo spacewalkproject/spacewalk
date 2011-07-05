@@ -12235,7 +12235,7 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       <target>Die unten aufgeführten Software-Channels sind &lt;strong&gt;alle Channels&lt;/strong&gt;, auf die Ihre Organisation Zugriff hat.</target></trans-unit>
 
-      <trans-unit id="channels.redhat.jsp.header1">
+      <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
       <target>Die unten aufgelisteten Software-Channels sind Red Hat Channels oder Sub-Channels von Red Hat Channels.</target></trans-unit>
 

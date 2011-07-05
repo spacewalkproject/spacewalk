@@ -136,7 +136,7 @@ public class ChannelHandler extends BaseHandler {
      */
     public Object[] listRedHatChannels(String sessionKey) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.redHatChannelTree(user, null);
+        DataResult<ChannelTreeNode> dr = ChannelManager.vendorChannelTree(user, null);
         dr.elaborate();
         return dr.toArray();
     }

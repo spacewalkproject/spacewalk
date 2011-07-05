@@ -157,14 +157,14 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
     }
 
-    public void testRedHatChannelTree() throws Exception {
+    public void testVendorChannelTree() throws Exception {
 
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         channel.setOrg(null);
 
         OrgFactory.save(user.getOrg());
         ChannelFactory.save(channel);
-        DataResult dr = ChannelManager.redHatChannelTree(user, null);
+        DataResult dr = ChannelManager.vendorChannelTree(user, null);
         assertNotEmpty(dr);
     }
 

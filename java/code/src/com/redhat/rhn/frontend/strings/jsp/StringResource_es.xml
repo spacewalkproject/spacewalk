@@ -12230,7 +12230,7 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       <target>Los canales software listados a continuación son &lt;strong&gt;todos los canales&lt;/strong&gt; a los que su organización tiene acceso. </target></trans-unit>
 
-      <trans-unit id="channels.redhat.jsp.header1">
+      <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
       <target>Los canales de software listados a continuación son canales de Red Hat o canales hijos de canales de Red Hat.</target></trans-unit>
 
