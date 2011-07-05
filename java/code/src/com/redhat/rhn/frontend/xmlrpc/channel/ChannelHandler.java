@@ -121,10 +121,33 @@ public class ChannelHandler extends BaseHandler {
     }
 
     /**
+     * Lists all the vendor software channels that the user's organization is
+     * entitled to.
+     * @param sessionKey session containing User information.
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, packages and systems.
+     *
+     * @xmlrpc.doc Lists all the vendor software channels that the user's organization
+     * is entitled to.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
+     */
+    public Object[] listVendorChannels(String sessionKey) {
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
+        DataResult<ChannelTreeNode> dr = ChannelManager.vendorChannelTree(user, null);
+        dr.elaborate();
+        return dr.toArray();
+    }
+
+    /**
      * Lists all Red Hat software channels that the user's organization is entitled to.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
+     * @deprecated being replaced by listVendorChannels(String sessionKey)
      *
      * @xmlrpc.doc List all Red Hat software channels that the user's organization is
      * entitled to.
@@ -134,11 +157,9 @@ public class ChannelHandler extends BaseHandler {
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
+    @Deprecated
     public Object[] listRedHatChannels(String sessionKey) {
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.vendorChannelTree(user, null);
-        dr.elaborate();
-        return dr.toArray();
+        return listVendorChannels(sessionKey);
     }
 
     /**
