@@ -52,7 +52,7 @@ def find_ip(device):
     return execute("ifconfig %s | perl -lne '/inet addr:([\d.]+)/ and print $1'" % device)[0]
 
 def find_name_servers():
-    servers = execute("cat /etc/resolv.conf | perl -lne '/^nameserver\s+(\S+)$/ and print $1'")
+    servers = execute("cat /etc/resolv.conf | perl -lne '/^nameserver\s+(\S+)/ and print $1'")
     ret = []
     for s in servers:
         if s != "127.0.0.1":
