@@ -92,6 +92,7 @@
     <c:if test="${search_string != null && search_string != ''}">
     <hr/>
     <rl:listset name="searchSet">
+    <rhn:csrf />
     <input type="hidden" name="submitted" value="true"/>
     <input type="hidden" name="search_string" value="${search_string}" />
     <input type="hidden" name="view_mode" value="${view_mode}" />
