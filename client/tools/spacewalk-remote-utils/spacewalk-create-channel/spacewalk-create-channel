@@ -337,6 +337,8 @@ def findSrcChan(version, release, arch, extra = None):
          return "redhat-ent-linux-i386-es-2.1"
       if release == "ws":
          return "redhat-ent-linux-i386-ws-2.1"
+   if low_release == "computenode":
+       low_release = "hpc-node"
    #if we don't have a subrepo/extras we're done
    if extra == None:
       return "rhel-%s-%s-%s" % (arch, low_release, version)
