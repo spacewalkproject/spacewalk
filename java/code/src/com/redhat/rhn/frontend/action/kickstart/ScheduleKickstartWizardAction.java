@@ -93,6 +93,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String POST_KERNEL_PARAMS = "postKernelParams";
     public static final String POST_KERNEL_PARAMS_TYPE = "postKernelParamsType";
     public static final String PROXY_HOST = "proxyHost";
+    public static final String PROXY_HOST_FREE_FORM = "proxyHostFreeForm";
     public static final String IS_VIRTUAL_GUEST = "isVirtualGuest";
     public static final String HOST_SID = "hostSid";
     public static final String VIRT_HOST_IS_REGISTERED = "virtHostIsRegistered";
@@ -586,8 +587,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             KickstartScheduleCommand cmd) {
         // if we need to go through a proxy, do it here.
         String phost = form.getString(PROXY_HOST);
+        String phostFreeForm = form.getString(PROXY_HOST_FREE_FORM);
 
-        if (!StringUtils.isEmpty(phost)) {
+        if (!StringUtils.isEmpty(phostFreeForm)) {
+            cmd.setProxyHost(phostFreeForm);
+        }
+        else if (!StringUtils.isEmpty(phost)) {
             cmd.setProxy(SystemManager.lookupByIdAndOrg(new Long(phost), ctx
                     .getCurrentUser().getOrg()));
         }

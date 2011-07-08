@@ -14,13 +14,14 @@
 
         </c:choose>
         <p>
-        <select name="proxyHost">
-			<c:forEach var="proxy" items="${proxies}">
-				<option
-				<c:if test="${proxy.value == param.proxyHost}">selected="selected"</c:if>
-				value='${proxy.value}'>${proxy.label}</option>
-			</c:forEach>
-		</select>
+        <input type="text" name="proxyHostFreeForm" /><br />
+		<c:forEach var="proxy" items="${proxies}">
+			<input type="radio"  name="proxyHost" id="${proxy.value}"
+			<c:choose>
+				<c:when test="${proxy.value == param.proxyHost}">checked</c:when>
+			</c:choose>
+			value='${proxy.value}'/> ${proxy.label}<br />
+		</c:forEach>
         <br />
         <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
         </p>
