@@ -410,13 +410,13 @@ def _check_dep(server_id, action_id, failed_dep):
 def refresh_list(server_id, action_id, data={}):
     if not data:
         return
-    log_error("action_extra_data.packages.refresh_list: Should do something "
+    log_debug(2, "action_extra_data.packages.refresh_list: Should do something "
         "useful with this data", server_id, action_id, data)
 
 def delta(server_id, action_id, data={}):
     if not data:
         return
-    log_error("action_extra_data.packages.delta: Should do something "
+    log_debug(2, "action_extra_data.packages.delta: Should do something "
         "useful with this data", server_id, action_id, data)
 
 def runTransaction(server_id, action_id, data={}):

@@ -14,7 +14,7 @@
 #
 #
 
-from spacewalk.common.rhnLog import log_error
+from spacewalk.common.rhnLog import log_debug
 
 # the "exposed" functions
 __rhnexport__ = ['config', 'listTransactions', 'rollback']
@@ -22,17 +22,17 @@ __rhnexport__ = ['config', 'listTransactions', 'rollback']
 def config(server_id, action_id, data={}):
     if not data:
         return
-    log_error("action_error.rollback.config: Should do something "
+    log_debug(2, "action_error.rollback.config: Should do something "
         "useful with this data", server_id, action_id, data)
 
 def listTransactions(server_id, action_id, data={}):
     if not data:
         return
-    log_error("action_error.rollback.listTransactions: Should do something "
+    log_debug(2, "action_error.rollback.listTransactions: Should do something "
         "useful with this data", server_id, action_id, data)
 
 def rollback(server_id, action_id, data={}):
     if not data:
         return
-    log_error("action_error.rollback.listTransactions: Should do something "
+    log_debug(2, "action_error.rollback.listTransactions: Should do something "
         "useful with this data", server_id, action_id, data)
