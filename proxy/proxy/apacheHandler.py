@@ -22,7 +22,9 @@ import os
 import base64
 import string
 import xmlrpclib
-from rhnConstants import *
+from rhnConstants import HEADER_ACTUAL_URI, HEADER_EFFECTIVE_URI,\
+    HEADER_CHECKSUM, SCHEME_HTTP, SCHEME_HTTPS, URI_PREFIX_KS,\
+    URI_PREFIX_KS_CHECKSUM, COMPONENT_BROKER, COMPONENT_REDIRECT
 from rhn import rpclib, connections
 
 ## common imports
