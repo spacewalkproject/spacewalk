@@ -62,7 +62,9 @@ class ResponseContext:
         self._getCurrentContext()[CXT_CONNECTION] = connection
 
     def add(self):
-        """ Add a new context to the stack.  The new context becomes the current one. """
+        """ Add a new context to the stack. The new context becomes the current
+            one.
+        """
         self._contextStack.append(self._createContext())
 
     def remove(self):
