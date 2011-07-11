@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.52
+Version: 1.5.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 11 2011 Jan Pazdziora 1.5.53-1
+- 719632 - include security token in system search filter
+  (mzazrivec@redhat.com)
+- Refactor and deprecate API method to listVendorChannels (jrenner@suse.de)
+- Refactor RedHat.do to Vendor.do (jrenner@suse.de)
+
 * Tue Jun 28 2011 Tomas Lestach <tlestach@redhat.com> 1.5.52-1
 - 646802 - Fix to have consistent channel name max length to 256
   (pmutha@redhat.com)
