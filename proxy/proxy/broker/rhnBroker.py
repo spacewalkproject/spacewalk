@@ -179,12 +179,12 @@ class BrokerHandler(SharedHandler):
         #    if good token, cache it.
         # 2. push into headers.
         authToken = self.proxyAuth.check_cached_token()
-        log_debug(5, 'XXX auth token for this machine only! %s' % authToken)
+        log_debug(5, 'Auth token for this machine only! %s' % authToken)
         tokens = []
 
         _oto = rhnFlags.get('outputTransportOptions')
         if _oto.has_key('X-RHN-Proxy-Auth'):
-            log_debug(5, 'XXX (auth token prior): %s'
+            log_debug(5, '    (auth token prior): %s'
                          % repr(_oto['X-RHN-Proxy-Auth']))
             tokens = string.split(_oto['X-RHN-Proxy-Auth'], ',')
 
@@ -193,7 +193,7 @@ class BrokerHandler(SharedHandler):
         tokens = filter(lambda token: token, tokens)
 
         _oto['X-RHN-Proxy-Auth'] = string.join(tokens, ',')
-        log_debug(5, 'XXX (auth token after): %s'
+        log_debug(5, '    (auth token after): %s'
                       % repr(_oto['X-RHN-Proxy-Auth']))
 
         log_debug(3, 'Trying to connect to parent')
