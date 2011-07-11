@@ -65,6 +65,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.cobbler.SystemRecord;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -837,22 +838,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             }
         }
 
-
-        KickstartData data = getKsdata();
-        if (!data.isRawData()) {
-            // Check that we have a tools channel.  The host server needs to contain the
-            // tools channel since it is the one performing the actions.
-
-            log.debug("** Checking for a Spacewalk tools channel");
-            Channel toolsChannel = getToolsChannel(this.ksdata, this.user, hostServer);
-            if (toolsChannel == null) {
-                Object[] args = new Object[2];
-                args[0] = this.getKsdata().getChannel().getId();
-                args[1] = this.getKsdata().getChannel().getName();
-                return new ValidatorError("kickstart.session.notoolschannel",
-                                          args);
-            }
-        }
+        // we already shall be subscribed to the tools channel
+        // (since validateKickstartPackage), so no other actions needed
         return null;
     }
 
@@ -1103,18 +1090,19 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
 
         Server hostServer = getHostServer();
-        Set channelIds = SystemManager.subscribableChannelIds(hostServer.getId(),
-                this.user.getId(), hostServer.getBaseChannel().getId());
-
-        // Add list of channels
+        List channelIds = new ArrayList();
         Set serverChannelIds = new HashSet();
         Iterator i = hostServer.getChannels().iterator();
         while (i.hasNext()) {
             Channel c = (Channel) i.next();
             serverChannelIds.add(c.getId());
         }
-
+        // first add channels, the system is currently subscribed to
         channelIds.addAll(serverChannelIds);
+        // then add all the other subscribable channels
+        channelIds.addAll(SystemManager.subscribableChannelIds(hostServer.getId(),
+                this.user.getId(), hostServer.getBaseChannel().getId()));
+
         i = channelIds.iterator();
         while (i.hasNext()) {
             Object id = i.next();
