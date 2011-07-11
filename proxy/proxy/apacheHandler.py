@@ -378,9 +378,9 @@ class apacheHandler(rhnApache):
 
         # find out the size of the file
         if response.length == 0:
-            response.file_obj.seek(0,2)
+            response.file_obj.seek(0, 2)
             size = response.file_obj.tell()
-            response.file_obj.seek(0,0)
+            response.file_obj.seek(0, 0)
         else:
             size = response.length
         req.headers_out["Content-Length"] = str(size)
@@ -398,7 +398,7 @@ class apacheHandler(rhnApache):
             req.headers_out["Accept-Ranges"] = "bytes"
             req.headers_out["Content-Range"] = get_content_range(start, end, size)
             size = end - start + 1
-            response.file_obj.seek(start,0)
+            response.file_obj.seek(start, 0)
             status = apache.HTTP_PARTIAL_CONTENT
         else:
             start = 0
