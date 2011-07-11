@@ -678,6 +678,9 @@ sub _oracle_check_connect_info {
 		# We were able to connect to the database. Good.
 		return 2;
 	}
+	if (not defined DBI->err()) {	# maybe we failed to load the DBD?
+		die $@;
+	}
 	if (DBI->err() == 1017 or DBI->err() == 1005) {
 		# We at least knew the connect string, so we
 		# were able to communicate with the database.
