@@ -16,7 +16,7 @@
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
-##-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # $Id: rhnAuthCacheClient.py,v 1.42 2004/09/20 15:21:25 misa Exp $
 
 ## language imports
@@ -99,7 +99,8 @@ class Shelf:
         except CommunicationError:
             wfile.close()
             sock.close()
-            Traceback("Shelf.__request", extra="Encountered a CommunicationError")
+            Traceback("Shelf.__request",
+                extra="Encountered a CommunicationError")
             raise
         except socket.error:
             wfile.close()
