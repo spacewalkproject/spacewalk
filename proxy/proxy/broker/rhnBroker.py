@@ -20,7 +20,7 @@ import time
 import string
 import socket
 import re
-from urlparse import urlsplit, urlparse, urlunparse
+from urlparse import urlparse, urlunparse
 
 # common module imports
 from rhn.UserDictCase import UserDictCase
