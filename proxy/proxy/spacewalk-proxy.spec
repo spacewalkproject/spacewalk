@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.5.8
+Version: 1.5.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,10 @@ fi
 
 
 %changelog
+* Mon Jul 11 2011 Miroslav Suchý 1.5.9-1
+- optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
+- code cleanup
+
 * Fri Jun 17 2011 Miroslav Suchý 1.5.8-1
 - 710433 - if we get data chunked, httplib of python will join them, so it is
   not correct to send chunked header when data may not be chunked
