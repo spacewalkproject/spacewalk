@@ -197,11 +197,11 @@ class apacheHandler(rhnApache):
         return apache.OK
 
     def _querySatelliteForChecksum(self, req):
-        """ Sends a HEAD request to the satellite for the purpose of obtaining the
-            checksum for the requested resource.  A (status, checksum) tuple is
-            returned.  If status is not apache.OK, checksum will be None.  If status
-            is OK, and a checksum is not returned, the old BZ 158236 behavior will
-            be used.
+        """ Sends a HEAD request to the satellite for the purpose of obtaining
+            the checksum for the requested resource.  A (status, checksum)
+            tuple is returned.  If status is not apache.OK, checksum will be
+            None.  If status is OK, and a checksum is not returned, the old
+            BZ 158236 behavior will be used.
         """
         scheme = SCHEME_HTTP
         if req.server.port == 443:
@@ -504,7 +504,8 @@ class apacheHandler(rhnApache):
 
 	if CFG.DEBUG == 4:
             # I wrap this in an "if" so we don't parse a large file for no reason.
-            log_debug(4, "The response: %s[...SNIP (for sanity) SNIP...]%s" % (response[:100], response[-100:]))
+            log_debug(4, "The response: %s[...SNIP (for sanity) SNIP...]%s" %
+                (response[:100], response[-100:]))
         elif CFG.DEBUG >= 5:
             # if you absolutely must have that whole response in the log file
             log_debug(5, "The response: %s" % response)
