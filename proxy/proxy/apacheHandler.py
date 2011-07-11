@@ -29,7 +29,7 @@ from rhn import rpclib, connections
 ## common imports
 from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnConfig import CFG
-from spacewalk.common.rhnLog import initLOG, log_debug, log_error
+from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnApache import rhnApache
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.common.rhnException import rhnFault, rhnException
