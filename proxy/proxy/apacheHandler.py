@@ -20,7 +20,6 @@
 ## language imports
 import os
 import base64
-import string
 import xmlrpclib
 from rhnConstants import HEADER_ACTUAL_URI, HEADER_EFFECTIVE_URI,\
     HEADER_CHECKSUM, SCHEME_HTTP, SCHEME_HTTPS, URI_PREFIX_KS,\
@@ -56,8 +55,8 @@ def getComponentType(req):
 
     # pull server id out of "t:o:k:e:n:hostname1,t:o:k:e:n:hostname2,..."
     proxy_auth = req.headers_in['X-RHN-Proxy-Auth']
-    last_auth = string.split(proxy_auth, ',')[-1]
-    last_visited = string.split(last_auth, ':')[0]
+    last_auth = proxy_auth.split(',')[-1]
+    last_visited = last_auth.split(':')[0]
     proxy_server_id = get_proxy_auth().getProxyServerId()
     # is it the same box?
     try:
@@ -498,7 +497,7 @@ class apacheHandler(rhnApache):
         output.process(response)
         # Copy the rest of the fields
         for k, v in output.headers.items():
-            if string.lower(k) == 'content-type':
+            if k.lower() == 'content-type':
                 # Content-type
                 req.content_type = v
             else:
@@ -528,10 +527,10 @@ class apacheHandler(rhnApache):
 
     def _response_fault_get(self, req, response):
         req.err_headers_out["X-RHN-Fault-Code"] = str(response.faultCode)
-        faultString = string.strip(base64.encodestring(response.faultString))
+        faultString = base64.encodestring(response.faultString).strip()
         # Split the faultString into multiple lines
-        for line in string.split(faultString, '\n'):
-            req.err_headers_out.add("X-RHN-Fault-String", string.strip(line))
+        for line in faultString.split('\n'):
+            req.err_headers_out.add("X-RHN-Fault-String", line.strip())
         # And then send all the other things
         for k, v in rhnFlags.get('outputTransportOptions').items():
             setHeaderValue(req.err_headers_out, k, v)
