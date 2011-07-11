@@ -502,7 +502,7 @@ class apacheHandler(rhnApache):
             else:
                 setHeaderValue(req.headers_out, k, v)
 
-	if CFG.DEBUG == 4:
+        if CFG.DEBUG == 4:
             # I wrap this in an "if" so we don't parse a large file for no reason.
             log_debug(4, "The response: %s[...SNIP (for sanity) SNIP...]%s" %
                 (response[:100], response[-100:]))
