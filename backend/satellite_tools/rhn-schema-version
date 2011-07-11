@@ -49,13 +49,7 @@ except KeyboardInterrupt:
 def processCommandline():
     """ process the commandline """
 
-    try:
-        from optparse import Option, OptionParser
-    except ImportError:
-        from optik import Option, OptionParser
-    except KeyboardInterrupt:
-        sys.stderr.write("\nUser interrupted process.\n")
-        sys.exit(0)
+    from optparse import Option, OptionParser
     optionsTable = [
         Option('--db', action='store', type="string",
                help='alternative database string (USERNAME/PASSWORD@SID). '+\

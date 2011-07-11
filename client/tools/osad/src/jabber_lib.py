@@ -22,10 +22,7 @@ import socket
 import jabber
 import random
 import string
-try:
-    from optparse import OptionParser, Option
-except ImportError:
-    from optik import OptionParser, Option
+from optparse import OptionParser, Option
 import traceback
 from cStringIO import StringIO
 from rhn import SSL

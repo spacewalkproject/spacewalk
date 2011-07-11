@@ -38,10 +38,7 @@ import string
 import shutil
 from operator import truth
 from rhnpush.uploadLib import UploadError, listChannel
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optik import Option, OptionParser
+from optparse import Option, OptionParser
 
 # RHN imports
 from spacewalk.common.rhnConfig import CFG, initCFG

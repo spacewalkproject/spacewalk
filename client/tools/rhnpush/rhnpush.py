@@ -38,10 +38,7 @@ import urlparse
 import rhnpush_confmanager
 from rhn.connections import idn_ascii_to_pune
 
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optik import Option, OptionParser
+from optparse import Option, OptionParser
 from rhn import rpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum

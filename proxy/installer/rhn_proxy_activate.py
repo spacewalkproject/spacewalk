@@ -34,10 +34,7 @@ import xmlrpclib
 
 ## lib imports
 from rhn import rpclib, SSL
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optik import Option, OptionParser
+from optparse import Option, OptionParser
 
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
 

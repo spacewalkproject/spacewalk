@@ -44,8 +44,7 @@ class HandlerBase:
 
     def _parse_args(self, args):
         # Parses the arguments and returns a tuple (options, args)
-        # For backwards compatibility with optik 1.3, pass usage: as well
-        usage = string.join(["usage:", "%prog", self.mode, self._usage_options])
+        usage = string.join(["%prog", self.mode, self._usage_options])
         self._parser = self._option_parser_class(
             option_list=self._options_table,
             usage=usage)
