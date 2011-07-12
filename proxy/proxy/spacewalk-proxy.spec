@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.5.9
+Version: 1.5.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Wed Jul 13 2011 Miroslav Suchý 1.5.10-1
+- 720837 - pass /ks handler through Broker
+
 * Mon Jul 11 2011 Miroslav Suchý 1.5.9-1
 - optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
 - code cleanup
