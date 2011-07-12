@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.5.38
+Version: 1.5.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -681,6 +681,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jul 13 2011 Miroslav Suchý 1.5.39-1
+- 695282 - censor password from registration.reserve_user if it appears in TB
+
 * Mon Jul 11 2011 Miroslav Suchý 1.5.38-1
 - optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
 
