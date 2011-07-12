@@ -175,7 +175,7 @@ def prereposetup_hook(conduit):
                 if type(already_exists_repos[0]) == type(repo): # repo is type of RhnRepo
                     # repo has been already initialized
                     if create_cache_even_second_time:
-                         cachefile_content += already_exists_repos.id + "\n"
+                         cachefile_content += already_exists_repos[0].id + "\n"
                     continue
                 else: # YumRepository from _init, made for caching
                     callback = already_exists_repos[0].callback
