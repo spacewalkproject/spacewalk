@@ -358,7 +358,7 @@ class SharedHandler:
         # At this point everything is sent to the server
         # We now wait for the response
         try:
-	    response = http_connection.getresponse() 
+            response = http_connection.getresponse() 
         except TimeoutException, e:
             log_error("Connection timed out")
             return apache.HTTP_GATEWAY_TIME_OUT, None, None     
