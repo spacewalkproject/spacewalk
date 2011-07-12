@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.53
+Version: 1.5.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 12 2011 Jan Pazdziora 1.5.54-1
+- Using http://struts.apache.org/tags-* uris, fixing build issue on Fedoras and
+  RHEL 6.
+
 * Mon Jul 11 2011 Jan Pazdziora 1.5.53-1
 - 719632 - include security token in system search filter
   (mzazrivec@redhat.com)
