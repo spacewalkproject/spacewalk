@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.54
+Version: 1.5.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jul 13 2011 Jan Pazdziora 1.5.55-1
+- 720533 - replacing rhnServerNeededView with custom subselect which is
+  generally equivalent, in the erratamailer_get_relevant_servers context.
+
 * Tue Jul 12 2011 Jan Pazdziora 1.5.54-1
 - Using http://struts.apache.org/tags-* uris, fixing build issue on Fedoras and
   RHEL 6.
