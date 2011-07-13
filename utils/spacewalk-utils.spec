@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.5.3
+Version:	1.5.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 13 2011 Jan Pazdziora 1.5.4-1
+- We get either undefined value or BLOB for the blob columns type.
+
 * Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.3-1
 - fix broken (non-utf8) changelog entries
 
