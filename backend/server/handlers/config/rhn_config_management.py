@@ -144,7 +144,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                     break
 
                 path = row['path']
-                result_hash[path] = (config_channel, path, row['config_file_type_id'])
+
+                if not path in result_hash:
+                    result_hash[path] = (config_channel, path, row['config_file_type_id'])
+
+                if config_channel == str(self.server.getid()):
+                    result_hash[path] = (config_channel, path, row['config_file_type_id'])
 
         result = result_hash.values()
         # Sort by path first since that's what the web site does
