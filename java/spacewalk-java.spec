@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.55
+Version: 1.5.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 14 2011 Miroslav Suchý 1.5.56-1
+- changing query to cursor mode - avoid loading all records (4M+ records) into
+  memory (msuchy@redhat.com)
+- 720282 - fix some issues when spacewalk-koan needs to be installed for
+  systems to kickstart (tlestach@redhat.com)
+
 * Wed Jul 13 2011 Jan Pazdziora 1.5.55-1
 - 720533 - replacing rhnServerNeededView with custom subselect which is
   generally equivalent, in the erratamailer_get_relevant_servers context.
