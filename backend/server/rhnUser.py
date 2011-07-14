@@ -18,7 +18,6 @@
 
 import re
 import crypt
-import string
 
 # Global Modules
 from rhn.UserDictCase import UserDictCase
@@ -131,7 +130,7 @@ class User:
     def set_contact_perm(self, name, value):
         """ handling of contact permissions """
         if not name: return -1
-        n = string.lower(name)
+        n = name.lower()
         v = 'N'
         if value:
             v = 'Y'
@@ -153,9 +152,9 @@ class User:
             }       
         if not name:
             return -1
-        name = string.lower(name)
+        name = name.lower()
         if type(value) == type(""):
-            value = string.strip(value)
+            value = value.strip()
         # We have to watch over carefully for different field names
         # being sent from rhn_register
         changed = 0
@@ -600,7 +599,7 @@ def __new_user_db(username, password, email, org_id, org_password):
         if not data: # wrong organization
             raise rhnFault(2, _("Invalid Organization Credentials"))
         # The org password is not encrypted, easy comparison
-        if string.lower(org_password) != string.lower(data["password"]):
+        if org_password.lower() != data["password"].lower():
             # Invalid org password
             raise rhnFault(2, _("Invalid Organization Credentials"))
         if is_real: # this is a real entry, don't clobber the org_id
@@ -661,7 +660,7 @@ def check_user_password(username, password):
 def check_email(email):
     """ Do some minimal checks on the e-mail address """
     if email is not None:
-        email = string.strip(email)
+        email = email.strip()
 
     if not email:
         # Still supported
@@ -779,6 +778,6 @@ def validate_new_username(username):
     log_debug(4, "Disallowed suffixes", disallowed_suffixes)
 
     for suffix in disallowed_suffixes:
-        if string.upper(username[-len(suffix):]) == string.upper(suffix):
+        if username[-len(suffix):].upper() == suffix.upper():
             raise rhnFault(106, _("Cannot register usernames ending with %s") %
                 suffix)

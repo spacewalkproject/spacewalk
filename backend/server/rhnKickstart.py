@@ -13,8 +13,6 @@
 # in this software or its documentation. 
 #
 
-import string
-
 # common module
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
@@ -139,7 +137,7 @@ class Kickstart:
             for channel_pkg in channel_pkgs:
 
                 # If we find the pkg, set found and break the loop.
-                if string.find(string.lower(channel_pkg[0]), string.lower(pkg)) > 0:
+                if channel_pkg[0].lower().find(pkg.lower()) > 0:
                     found = 1
                     break
                                 

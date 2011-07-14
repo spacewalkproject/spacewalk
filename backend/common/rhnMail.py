@@ -17,7 +17,6 @@
 
 import os
 import sys
-import string
 import smtplib
 
 from rhnConfig import CFG
@@ -39,7 +38,7 @@ def __check_headers(h):
 	h["Content-Type"] = "text/plain; charset=utf-8"
     if type(to) in [type([]), type(())]:
         toaddrs = to
-        to = string.join(to, ', ')
+        to = ', '.join(to)
     else:
         toaddrs = to.split(',')
     h["To"] = to

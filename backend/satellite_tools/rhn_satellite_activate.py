@@ -18,7 +18,6 @@ import os
 import sys
 import time
 import gzip
-import string
 from optparse import Option, OptionParser
 from rhn import rpclib
 from rhn.connections import idn_ascii_to_pune
@@ -114,7 +113,7 @@ def validateSatCert(certFilename, verbosity=0):
     # doesn't like).
     fd, certTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-')
     fo = os.fdopen(fd, 'wb')
-    fo.write(string.strip(openGzippedFile(certFilename).read()))
+    fo.write(openGzippedFile(certFilename).read().strip())
     fo.flush()
     fo.close()
 
@@ -122,7 +121,7 @@ def validateSatCert(certFilename, verbosity=0):
             DEFAULT_WEBAPP_GPG_KEY_RING, certTmpFile]
 
     if verbosity:
-        print "Checking cert XML sanity and GPG signature:", repr(string.join(args))
+        print "Checking cert XML sanity and GPG signature:", repr(' '.join(args))
 
     ret, out, err = fileutils.rhn_popen(args)
     err = err.read()
@@ -131,7 +130,7 @@ def validateSatCert(certFilename, verbosity=0):
     # nuke temp cert
     os.unlink(certTmpFile)
 
-    if string.find(err, 'verify err') != -1 or ret:
+    if err.find('verify err') != -1 or ret:
         msg = "%s Entitlement Certificate failed to validate.\n" % PRODUCT_NAME
         msg = msg + "MORE INFORMATION:\n"
         msg = msg + "  Return value: %s\n" % ret +\
@@ -169,7 +168,7 @@ def prepRhnCert(options):
                     'could not be opened and read:\n%s') % (options.rhn_cert, str(e))
             sys.stderr.write(msg+'\n')
             raise
-        cert = string.strip(cert)
+        cert = cert.strip()
         try:
             writeRhnCert(options, cert)
         except (IOError, OSError), e:
@@ -412,7 +411,7 @@ def populateChannelFamilies(options):
     #    args.extend(['--db', options.db])
 
     if options.verbose:
-        print "Executing: %s\n" % repr(string.join(args))
+        print "Executing: %s\n" % repr(' '.join(args))
     ret, out_stream, err_stream = fileutils.rhn_popen(args)
     if ret:
         msg_ = "Population of the Channel Family permissions failed."
@@ -436,7 +435,7 @@ def expiredYN(certPath):
         sys.stderr.write("ERROR: unable to open the cert: %s\n" % certPath)
         sys.exit(1)
 
-    cert = string.strip(fo.read())
+    cert = fo.read().strip()
     fo.close()
 
     ## parse it and snag "expires"
@@ -502,7 +501,7 @@ def processCommandline():
         if not CFG.RHN_PARENT:
             sys.stderr.write("ERROR: rhn_parent is not set in /etc/rhn/rhn.conf\n")
             sys.exit(1)
-        options.server = idn_ascii_to_pune(string.split(rhnLib.parseUrl(CFG.RHN_PARENT)[1], ':')[0])
+        options.server = idn_ascii_to_pune(rhnLib.parseUrl(CFG.RHN_PARENT)[1].split(':')[0])
         print 'RHN_PARENT: %s' % options.server
 
     options.http_proxy = idn_ascii_to_pune(CFG.HTTP_PROXY)

@@ -14,7 +14,6 @@
 #
 
 import time
-import string
 from types import StringType
 
 from spacewalk.common import rhnLib
@@ -223,9 +222,9 @@ class _ChannelDumper(BaseRowDumper):
             'label'         : self._row['label'],
             'org_id'        : self._row['org_id'] or "",
             'channel-arch'  : self._row['channel_arch'],
-            'packages'      : string.join(packages),
-            'channel-errata' : string.join(errata),
-            'kickstartable-trees'   : string.join(ks_trees),
+            'packages'      : ' '.join(packages),
+            'channel-errata' : ' '.join(errata),
+            'kickstartable-trees'   : ' '.join(ks_trees),
         }
 
     _query_channel_families = rhnSQL.Statement("""
@@ -638,15 +637,15 @@ class _ChannelFamilyDumper(BaseRowDumper):
             log_debug(3, cf_virt_data, channel_family_id)
 
             vsl_label = map(lambda x: x['label'], cf_virt_data)
-            cf_vsl_label = string.join(vsl_label)
+            cf_vsl_label = ' '.join(vsl_label)
 
             vsl_name = map(lambda x: x['name'], cf_virt_data)
-            cf_vsl_name = string.join(vsl_name, ',')
+            cf_vsl_name = ','.join(vsl_name)
         
         attributes = {
             'id'            : "rhn-channel-family-%s" % channel_family_id,
             'label'         : self._row['label'],
-            'channel-labels': string.join(channels),
+            'channel-labels': ' '.join(channels),
         }
         if not self._virt_filter and cf_virt_data != []:
             attributes['virt-sub-level-label'] = cf_vsl_label
@@ -678,7 +677,7 @@ class _PackageDumper(BaseRowDumper):
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
         for attr in attrs:
-            dict[string.replace(attr, '_', '-')] = self._row[attr]
+            dict[attr.replace('_', '-')] = self._row[attr]
         if self._row['checksum_type'] == 'md5':
             # compatibility with older satellite
             dict['md5sum'] = self._row['checksum']
@@ -807,7 +806,7 @@ class SourcePackagesDumper(BaseQueryDumper):
             "cookie", "package_size", "checksum_type", "checksum"
         ]
         for attr in attrs:
-            attributes[string.replace(attr, '_', '-')] = data[attr]
+            attributes[attr.replace('_', '-')] = data[attr]
         attributes['id'] = "rhn-source-package-%s" % data['id']
         attributes['build-time'] = _dbtime2timestamp(data['build_time'])
         attributes['last-modified'] = _dbtime2timestamp(data['last_modified'])
@@ -917,9 +916,9 @@ class _ErratumDumper(BaseRowDumper):
             'id'        : 'rhn-erratum-%s' % self._row['id'],
             'org_id'    : self._row['org_id'] or "",
             'advisory'  : self._row['advisory'],
-            'channels'  : string.join(channels),
-            'packages'  : string.join(packages),
-            'cve-names' : string.join(cves),
+            'channels'  : ' '.join(channels),
+            'packages'  : ' '.join(packages),
+            'cve-names' : ' '.join(cves),
         }
 
     type_id_column = ""
@@ -1034,7 +1033,7 @@ class _ErratumFileEntryDumper(BaseChecksumRowDumper):
             and efc.channel_id = c.id
         """)
         h.execute(errata_file_id=self._row['errata_file_id'])
-        channels = string.join(
+        channels = ' '.join(
             map(lambda x: x['label'], h.fetchall_dict() or []))
         if channels:
             attributes['channels'] = channels

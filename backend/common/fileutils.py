@@ -19,7 +19,6 @@ import pwd
 import grp
 import types
 import shutil
-import string
 import subprocess
 import select
 import stat
@@ -55,10 +54,10 @@ def cleanupNormPath(path, dotYN=0):
              os.path.expanduser(
                os.path.expandvars(path)))
     if dotYN and not (path and path[0] == '/'):
-        dirs = string.split(path, '/')
+        dirs = path.split('/')
         if dirs[:1] not in (['.'], ['..']):
             dirs = ['.'] + dirs
-        path = string.join(dirs, '/')
+        path = '/'.join(dirs)
     return path
 
 

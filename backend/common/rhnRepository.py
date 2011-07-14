@@ -17,7 +17,6 @@
 import os
 import stat
 import types
-import string
 import cStringIO
 from rhn import rpclib
 
@@ -109,11 +108,11 @@ class Repository(RPC_Base):
         """ Get srpm packrge. """
         log_debug(3, pkgFilename)
         # Sanity check:
-        l = string.split(pkgFilename, '.')
+        l = pkgFilename.split('.')
         #6/23/05 wregglej 154248, Don't mangle the filename if it's a nosrc package.
         if l[-2] != "nosrc":
             l[-2] = 'src'
-        pkgFilename = string.join(l, '.')
+        pkgFilename = '.'.join(l)
         filePath = self.getSourcePackagePath(pkgFilename)
         return self._getFile(filePath)
     
@@ -123,13 +122,13 @@ class Repository(RPC_Base):
             change the function name, or version the protocol
         """
         log_debug(3, pkgFilename)
-        pkg = string.split(pkgFilename, '.')
+        pkg = pkgFilename.split('.')
         # Basic sanity checks:
         if pkg[-1] not in ["hdr", 'rpm']:
             raise rhnFault(21, "'%s' not a valid RPM header name"
                                % pkgFilename)
         
-        pkgFilename = string.join(pkg[:-1], ".") + '.rpm'
+        pkgFilename = ".".join(pkg[:-1]) + '.rpm'
         filePath = self.getPackagePath(pkgFilename)
         data = self._getHeaderFromFile(filePath)
         # XXX: Interesting. Found that if returned just data, this
@@ -187,10 +186,10 @@ class Repository(RPC_Base):
         del h # XXX: not neccessary?
 
         pkgFilename = os.path.basename(filePath)
-        pkg = string.split(pkgFilename, '.')
+        pkg = pkgFilename.split('.')
         # Replace .rpm with .hdr
         pkg[-1] = "hdr"
-        pkgFilename = string.join(pkg, ".")
+        pkgFilename = ".".join(pkg)
         extra_headers = {
             'X-RHN-Package-Header' : pkgFilename,
         }

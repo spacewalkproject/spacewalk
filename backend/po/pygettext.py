@@ -131,13 +131,12 @@ import os
 import sys
 import time
 import getopt
-import string
 import tokenize
 
 __version__ = '1.1'
 
 default_keywords = ['_']
-DEFAULTKEYWORDS = string.join(default_keywords, ', ')
+DEFAULTKEYWORDS = ', '.join(default_keywords)
 
 EMPTYSTRING = ''
 
@@ -194,7 +193,7 @@ def escape(s):
     s = list(s)
     for i in range(len(s)):
         s[i] = escapes[ord(s[i])]
-    return string.join(s, '')
+    return ''.join(s)
 
 
 def safe_eval(s):
@@ -205,7 +204,7 @@ def safe_eval(s):
 def normalize(s):
     # This converts the various Python string types into a format that is
     # appropriate for .po files, namely much closer to C style.
-    lines = string.split(s, '\n')
+    lines = s.split('\n')
     if len(lines) == 1:
         s = '"' + escape(s) + '"'
     else:
@@ -215,7 +214,7 @@ def normalize(s):
         for i in range(len(lines)):
             lines[i] = escape(lines[i])
         lineterm = '\\n"\n"'
-        s = '""\n"' + string.join(lines, lineterm) + '"'
+        s = '""\n"' + lineterm.join(lines) + '"'
     return s
 
 
@@ -250,7 +249,7 @@ class TokenEater:
             # of messages seen.  Reset state for the next batch.  If there
             # were no strings inside _(), then just ignore this entry.
             if self.__data:
-                msg = string.join(self.__data,"")
+                msg = ''.join(self.__data)
                 if not msg in self.__options.toexclude:
                     entry = (self.__curfile, self.__lineno)
                     linenos = self.__messages.get(msg)

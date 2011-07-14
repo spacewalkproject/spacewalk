@@ -32,7 +32,6 @@
 # system module imports
 import os
 import sys
-import string
 import traceback
 import time
 import fcntl
@@ -193,13 +192,13 @@ class rhnLog:
         module = ''
         try:    # So one can debug from the commandline.
             module = tbStack[callid][0]
-            arr = string.split(module, '/')
+            arr = module.split('/')
             if len(arr) > 1:
                 lastDir = arr[-2] + "/"
             else:
                 lastDir = ""
             filename = arr[-1]
-            filename = filename[:string.rindex(filename, '.')]
+            filename = filename[:filename.rindex('.')]
             module = lastDir + filename
             del lastDir
         except:

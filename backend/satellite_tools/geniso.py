@@ -17,7 +17,6 @@
 import os
 import sys
 import time
-import string
 from stat import ST_SIZE
 from optparse import Option, OptionParser
 
@@ -147,7 +146,7 @@ def main(arglist):
             grafts.append("%s/=%s" % (relpath, f))
 
         # Generate the command line
-        cmd = mkisofsTemplate % (string.join(opts), filename, i+1, cdcount,
+        cmd = mkisofsTemplate % (' '.join(opts), filename, i+1, cdcount,
             empty_file_path)
 
         # Write the path specs in pathfiles
@@ -196,7 +195,7 @@ def sizeStrToInt(s):
 
     if s[-1] in ('k', 'K', 'm', 'M'):
         # Specified a multiplier
-        if string.lower(s[-1]) == 'k':
+        if s[-1].lower() == 'k':
             mult = 1024
         else:
             mult = 1024 * 1024

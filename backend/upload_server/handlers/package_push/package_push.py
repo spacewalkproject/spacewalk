@@ -20,7 +20,6 @@
 
 import os
 import base64
-import string
 from rhn import rpclib
 
 from spacewalk.common import apache, rhnFlags
@@ -163,7 +162,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         return apache.OK
 
     def get_auth_token(self, value):
-        s = string.join(map(string.strip, string.split(value, ',')), '')
-        arr = map(base64.decodestring, string.split(s, ':'))
+        s = ''.join(map(lambda x: x.strip(), value.split('')))
+        arr = map(base64.decodestring, s.split(':'))
         return arr
 
