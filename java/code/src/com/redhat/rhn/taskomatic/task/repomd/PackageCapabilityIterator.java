@@ -75,6 +75,7 @@ public class PackageCapabilityIterator {
             PreparedStatement ps = HibernateFactory.getSession().connection()
                     .prepareStatement(query);
             ps.setLong(1, ch.getId());
+            ps.setFetchSize(200);
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
         }
