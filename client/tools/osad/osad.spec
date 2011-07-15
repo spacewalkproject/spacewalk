@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.16
+Version: 5.10.17
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Jul 15 2011 Miroslav Suchý 5.10.17-1
+- optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
+
 * Tue Jun 07 2011 Jan Pazdziora 5.10.16-1
 - 705935 - introduce rhnSQL.commit() after the both SELECT statements that seem
   to be the main loop (a.rogge@solvention.de)
