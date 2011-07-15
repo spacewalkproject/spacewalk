@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -125,10 +125,10 @@ insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, requi
 values (sequence_nextval('rhn_kscommandname_id_seq'), 'graphical', 'N', 39, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (sequence_nextval('rhn_kscommandname_id_seq'), 'iscsi', 'Y', 40, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'iscsiname', 'Y', 40, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (sequence_nextval('rhn_kscommandname_id_seq'), 'iscsiname', 'Y', 41, 'N');
+values (sequence_nextval('rhn_kscommandname_id_seq'), 'iscsi', 'Y', 41, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (sequence_nextval('rhn_kscommandname_id_seq'), 'logging', 'Y', 42, 'N');
