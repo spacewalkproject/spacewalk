@@ -18,9 +18,6 @@ URL: http://www.smartpm.org/
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
-##BuildRequires: popt, rpm-devel >= 4.2.1, python-devel
-##BuildRequires: autoconf, automake
-
 Requires: python = %{python_version}
 
 %description
