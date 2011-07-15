@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.8
+Version: 5.10.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 15 2011 Miroslav Suchý 5.10.9-1
+- optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
+
 * Thu Jun 16 2011 Jan Pazdziora 5.10.8-1
 - Creating the /var/spool/rhn in %build.
 
