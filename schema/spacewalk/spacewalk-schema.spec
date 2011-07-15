@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.5.5
+Version:        1.5.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 15 2011 Jan Pazdziora 1.5.6-1
+- 711064 - flip the order of iscsi and iscsiname in the kickstart file.
+
 * Tue May 24 2011 Jan Pazdziora 1.5.5-1
 - 679333 - update rhnPushClient when deleting server (mzazrivec@redhat.com)
 
