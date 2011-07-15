@@ -73,7 +73,7 @@ oracle_management_role(sysadm_r)
 #
 
 # define oracle ports
-# The following two lines are not in oracle-port.te.
+# The following two lines are now in oracle-port.te.
 # type oracle_port_t;
 # corenet_port(oracle_port_t)
 gen_require(`
