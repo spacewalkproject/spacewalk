@@ -11,7 +11,7 @@ Name: smartpm
 Source0: smartpm-%{version}.tar.gz
 Epoch:   1 
 Version: 0.2
-Release: 3
+Release: 4
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -57,6 +57,11 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Fri Jul 15 2011 Michael Mraka <michael.mraka@redhat.com> 0.2-4
+- 559092 - fixed patchset installation on x86
+- 559092 - made patch cluster dir readable for nobody
+- 559092 - new solaris patches contain installcluster
+
 * Mon May 24 2010 Miroslav Suchý <msuchy@redhat.com> 0.2-3
 - return smartpm back to 0.2 version and bump up epoch
 - 555659 - do not freak out when SUNW_PATCHID do not have SUN format
