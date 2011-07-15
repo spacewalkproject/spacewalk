@@ -96,6 +96,8 @@ def solinstall(adminfile, path, pkg, prog=None):
             if pkg.name.startswith("patch-cluster-solaris-"):
                 if os.path.exists(os.path.join(pkgdir, 'install_cluster')):
                     cmd =  "%s/install_cluster -q" % pkgdir
+                elif os.path.exists(os.path.join(pkgdir, 'installpatchset')):
+                    cmd =  "%s/installpatchset --s10patchset" % pkgdir
                 elif os.path.exists(os.path.join(pkgdir, 'installcluster')):
                     cmd =  "%s/installcluster --s10cluster" % pkgdir
                 else:
