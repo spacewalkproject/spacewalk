@@ -19,7 +19,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.27
+Version:         0.1.23.28
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -232,6 +232,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Jul 18 2011 Jan Pazdziora 0.1.23.28-1
+- Fedora 15 uses oracledb_port_t instead of oracle_port_t.
+
 * Fri Jul 15 2011 Jan Pazdziora 0.1.23.27-1
 - Fixing typo -- they actually *are* there now.
 
