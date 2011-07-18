@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.5.2
+Version: 1.5.3
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -76,6 +76,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-config-satellite.pl.8*
 
 %changelog
+* Mon Jul 18 2011 Miroslav Suchý 1.5.3-1
+- it is recomended to not use .gz extension as this may change in future
+  (msuchy@redhat.com)
+- create man page for validate-sat-cert.pl.8 as alias for validate-sat-cert.8
+  (msuchy@redhat.com)
+- move pod documentation to man/ directory (msuchy@redhat.com)
+- add man page for rhn-config-satellite.pl (msuchy@redhat.com)
+- add man page for rhn-sat-restart-silent (msuchy@redhat.com)
+- remove warning about obsolete rhn-satellite service (msuchy@redhat.com)
+
 * Fri Apr 29 2011 Jan Pazdziora 1.5.2-1
 - For config files created in /etc/rhn, do chgrp apache.
 
