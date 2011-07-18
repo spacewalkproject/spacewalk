@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.17
+Version: 5.10.18
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -282,6 +282,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Jul 18 2011 Jan Pazdziora 5.10.18-1
+- Fedora 15 uses oracledb_port_t instead of oracle_port_t.
+
 * Fri Jul 15 2011 Miroslav Suchý 5.10.17-1
 - optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
 
