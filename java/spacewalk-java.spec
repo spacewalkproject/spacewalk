@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.56
+Version: 1.5.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -550,6 +550,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 18 2011 Jan Pazdziora 1.5.57-1
+- On Fedora 15, classpathx-jaf needs to be spelled out as Requires.
+- 722454 - let errata.listPackages return file attribute (tlestach@redhat.com)
+
 * Thu Jul 14 2011 Miroslav Suchý 1.5.56-1
 - changing query to cursor mode - avoid loading all records (4M+ records) into
   memory (msuchy@redhat.com)
