@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.5.8
+Version:        1.5.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -105,6 +105,11 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Mon Jul 18 2011 Jan Pazdziora 1.5.9-1
+- Fireworks for the spinning pattern.
+- add man page for spacewalk-make-mount-points (msuchy@redhat.com)
+- remove macro from changelog (msuchy@redhat.com)
+
 * Mon Jul 11 2011 Jan Pazdziora 1.5.8-1
 - Check for cases when loading of the DBD driver fails (so there is no DBI
   error itself).
