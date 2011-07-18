@@ -313,15 +313,25 @@ sub upgrade_stop_services {
 }
 
 my $spinning_callback_count;
-my @spinning_pattern = (
-    '|)      ( )',
-    '+)>     ( )',
-    '|) ->   ( )',
-    '|)  ->  ( )',
-    '|)   -> ( )',
-    '|)    ->( )',
-    '|)     -(>)',
-);
+my @spinning_pattern = split /\n/, <<EOF;
+.               
+ .              
+  o             
+   @            
+   (O)          
+    (*)         
+   ((%%))       
+    (( # ))     
+   ( ( # ) )    
+ (  (  #  )  )  
+    (  !  )     
+       :        
+       .        
+       _        
+      . .       
+    .     .     
+                
+EOF
 
 my $spinning_pattern_maxlength = 0;
 for (@spinning_pattern) {
