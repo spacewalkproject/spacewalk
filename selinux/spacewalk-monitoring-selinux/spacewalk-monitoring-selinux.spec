@@ -73,6 +73,13 @@ SELinux policy module supporting Spacewalk monitoring.
 %prep
 %setup -q
 
+# Fedora 15 uses oracledb_port_t instead of oracle_port_t
+%if 0%{?fedora} >= 15
+for i in * ; do
+	sed -i 's/\boracle_port_t\b/oracledb_port_t/' $i
+done
+%endif
+
 %build
 # Build SELinux policy modules
 perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te

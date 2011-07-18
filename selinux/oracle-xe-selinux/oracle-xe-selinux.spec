@@ -41,6 +41,13 @@ rm -rf %{name}-%{version}
 mkdir -p %{name}-%{version}
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{name}-%{version}
 
+# Fedora 15 uses oracledb_port_t instead of oracle_port_t
+%if 0%{?fedora} >= 15
+for i in %{name}-%{version}/* ; do
+	sed -i 's/\boracle_port_t\b/oracledb_port_t/' $i
+done
+%endif
+
 %build
 # Build SELinux policy modules
 cd %{name}-%{version}
