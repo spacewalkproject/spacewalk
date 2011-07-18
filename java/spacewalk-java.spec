@@ -157,6 +157,10 @@ Provides: rhn-java = %{version}-%{release}
 Provides: rhn-java-sat = %{version}-%{release}
 Provides: rhn-oracle-jdbc-tomcat5 = %{version}-%{release}
 
+%if 0%{?fedora} && 0%{?fedora} >= 15
+Requires: classpathx-jaf
+%endif
+
 %description
 This package contains the code for the Java version of the Spacewalk Web Site.
 
