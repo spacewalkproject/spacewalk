@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.5.3
+Version:        1.5.4
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -120,6 +120,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jul 18 2011 Jan Pazdziora 1.5.4-1
+- Fedora 15 uses oracledb_port_t instead of oracle_port_t.
+
 * Tue May 10 2011 Jan Pazdziora 1.5.3-1
 - 702274 - fixing unconfined_u error.
 
