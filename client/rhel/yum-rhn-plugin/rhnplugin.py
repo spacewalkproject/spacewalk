@@ -72,7 +72,7 @@ def init_hook(conduit):
             (repoid, reponame) = repo_item
             repodir = os.path.join(cachedir, repoid)
             if os.path.isdir(repodir) and os.path.isfile(
-                        os.path.join(repodir, 'repodata', 'repomd.xml')):
+                        os.path.join(repodir, 'repomd.xml')):
                 repo = YumRepository(repoid)
                 repo.basecachedir = cachedir
                 repo.baseurl = ['file:///' + repodir ]
