@@ -36,7 +36,7 @@ if ($help) {
 }
 
 unless ($target and (@options)) {
-  die B$usage;
+  die $usage;
 }
 
 my %options = map { split(/=/,$_, 2) } @options;
