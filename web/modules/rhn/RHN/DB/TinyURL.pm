@@ -35,7 +35,7 @@ sub lookup {
   my $sth = $dbh->prepare(<<EOS);
 SELECT url FROM rhnTinyURL
  WHERE token = :token
-   AND expires > sysdate
+   AND expires > current_timestamp
    AND enabled = 'Y'
 EOS
   $sth->execute_h(token => $token);
