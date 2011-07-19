@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.5.10
+Version:        1.5.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.5.11-1
+- Updating the copyright years.
+
 * Tue Jul 19 2011 Jan Pazdziora 1.5.10-1
 - We kinda need the use Spacewalk::Setup if we plan to call functions from it.
 
