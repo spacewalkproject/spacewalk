@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.58
+Version: 1.5.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -550,6 +550,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.5.59-1
+- Allow the 2010--2011 copyright year in the checkstyle.
+
 * Tue Jul 19 2011 Jan Pazdziora 1.5.58-1
 - Updating the copyright years.
 
