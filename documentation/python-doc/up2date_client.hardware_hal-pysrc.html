@@ -216,16 +216,16 @@ up2date_client.hardware_hal.PCI_CLASS_SERIAL_SMBUS" class="py-name" href="#" onc
 <a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">properties</tt> <tt class="py-op">=</tt> <tt class="py-name">device</tt><tt class="py-op">.</tt><tt class="py-name">GetAllProperties</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
 <a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">haldev</tt> <tt class="py-op">=</tt> <tt id="link-58" class="py-name"><a title="up2date_client.haltree.HalDevice" class="py-name" href="#" onclick="return doclink('link-58', 'HalDevice', 'link-2');">HalDevice</a></tt><tt class="py-op">(</tt><tt class="py-name">properties</tt><tt class="py-op">)</tt> </tt>
-<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">hal_tree</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name" targets="Method common.rhnTB.SecurityList.add()=common.rhnTB.SecurityList-class.html#add,Method config_common.transactions.DeployTransaction.add()=config_common.transactions.DeployTransaction-class.html#add,Method proxy.responseContext.ResponseContext.add()=proxy.responseContext.ResponseContext-class.html#add,Method satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add()=satellite_tools.repo_plugins.yum_src.YumUpdateMetadata-class.html#add,Method server.rhnServer.server_packages.dbPackage.add()=server.rhnServer.server_packages.dbPackage-class.html#add,Method server.taskomatic.RepodataQueue.add()=server.taskomatic.RepodataQueue-class.html#add,Method up2date_client.haltree.HalTree.add()=up2date_client.haltree.HalTree-class.html#add,Method virtualization.batching_log_notifier.LockableLogMessageQueue.add()=virtualization.batching_log_notifier.LockableLogMessageQueue-class.html#add,Method virtualization.notification.Plan.add()=virtualization.notification.Plan-class.html#add,Method wsgi.wsgiRequest.WsgiMPtable.add()=wsgi.wsgiRequest.WsgiMPtable-class.html#add"><a title="common.rhnTB.SecurityList.add
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">hal_tree</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name" targets="Method backend.common.rhnTB.SecurityList.add()=backend.common.rhnTB.SecurityList-class.html#add,Method backend.satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add()=backend.satellite_tools.repo_plugins.yum_src.YumUpdateMetadata-class.html#add,Method backend.server.rhnServer.server_packages.dbPackage.add()=backend.server.rhnServer.server_packages.dbPackage-class.html#add,Method backend.server.taskomatic.RepodataQueue.add()=backend.server.taskomatic.RepodataQueue-class.html#add,Method backend.wsgi.wsgiRequest.WsgiMPtable.add()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#add,Method config_common.transactions.DeployTransaction.add()=config_common.transactions.DeployTransaction-class.html#add,Method proxy.responseContext.ResponseContext.add()=proxy.responseContext.ResponseContext-class.html#add,Method up2date_client.haltree.HalTree.add()=up2date_client.haltree.HalTree-class.html#add,Method virtualization.batching_log_notifier.LockableLogMessageQueue.add()=virtualization.batching_log_notifier.LockableLogMessageQueue-class.html#add,Method virtualization.notification.Plan.add()=virtualization.notification.Plan-class.html#add"><a title="backend.common.rhnTB.SecurityList.add
+backend.satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add
+backend.server.rhnServer.server_packages.dbPackage.add
+backend.server.taskomatic.RepodataQueue.add
+backend.wsgi.wsgiRequest.WsgiMPtable.add
 config_common.transactions.DeployTransaction.add
 proxy.responseContext.ResponseContext.add
-satellite_tools.repo_plugins.yum_src.YumUpdateMetadata.add
-server.rhnServer.server_packages.dbPackage.add
-server.taskomatic.RepodataQueue.add
 up2date_client.haltree.HalTree.add
 virtualization.batching_log_notifier.LockableLogMessageQueue.add
-virtualization.notification.Plan.add
-wsgi.wsgiRequest.WsgiMPtable.add" class="py-name" href="#" onclick="return doclink('link-59', 'add', 'link-59');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">haldev</tt><tt class="py-op">)</tt> </tt>
+virtualization.notification.Plan.add" class="py-name" href="#" onclick="return doclink('link-59', 'add', 'link-59');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">haldev</tt><tt class="py-op">)</tt> </tt>
 <a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
 <a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-name">kudzu_list</tt> <tt class="py-op">=</tt> <tt id="link-60" class="py-name" targets="Function up2date_client.hardware_hal.process_hal_nodes()=up2date_client.hardware_hal-module.html#process_hal_nodes"><a title="up2date_client.hardware_hal.process_hal_nodes" class="py-name" href="#" onclick="return doclink('link-60', 'process_hal_nodes', 'link-60');">process_hal_nodes</a></tt><tt class="py-op">(</tt><tt class="py-name">hal_tree</tt><tt class="py-op">.</tt><tt class="py-name">head</tt><tt class="py-op">)</tt> </tt>
 <a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">kudzu_list</tt> </tt>
@@ -243,77 +243,69 @@ wsgi.wsgiRequest.WsgiMPtable.add" class="py-name" href="#" onclick="return docli
 <a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
 <a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-comment">#get scsi info</tt> </tt>
 <a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">dev</tt><tt class="py-op">[</tt><tt class="py-string">'bus'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'scsi'</tt><tt class="py-op">:</tt> </tt>
-<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name" targets="Method common.UserDictCase.UserDictCase.has_key()=common.UserDictCase.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method config_common.up2date_config_parser.ConfigFile.has_key()=config_common.up2date_config_parser.ConfigFile-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method rhnkickstart.lilo.UserDictCase.has_key()=rhnkickstart.lilo.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key,Method src.osad_config.ClientConfigParser.has_key()=src.osad_config.ClientConfigParser-class.html#has_key,Method up2date_client.config.Config.has_key()=up2date_client.config.Config-class.html#has_key,Method up2date_client.config.ConfigFile.has_key()=up2date_client.config.ConfigFile-class.html#has_key,Method wsgi.wsgiRequest.WsgiMPtable.has_key()=wsgi.wsgiRequest.WsgiMPtable-class.html#has_key"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name" targets="Method backend.common.rhnCache.Cache.has_key()=backend.common.rhnCache.Cache-class.html#has_key,Method backend.common.rhnCache.CompressedCache.has_key()=backend.common.rhnCache.CompressedCache-class.html#has_key,Method backend.common.rhnCache.NullCache.has_key()=backend.common.rhnCache.NullCache-class.html#has_key,Method backend.common.rhnCache.ObjectCache.has_key()=backend.common.rhnCache.ObjectCache-class.html#has_key,Function backend.common.rhnCache.has_key()=backend.common.rhnCache-module.html#has_key,Method backend.common.rhnConfig.RHNOptions.has_key()=backend.common.rhnConfig.RHNOptions-class.html#has_key,Method backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method backend.server.rhnSQL.sql_table.Table.has_key()=backend.server.rhnSQL.sql_table.Table-class.html#has_key,Method backend.wsgi.wsgiRequest.WsgiMPtable.has_key()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method rhnkickstart.lilo.UserDictCase.has_key()=rhnkickstart.lilo.UserDictCase-class.html#has_key,Method src.osad_config.ClientConfigParser.has_key()=src.osad_config.ClientConfigParser-class.html#has_key,Method up2date_client.config.Config.has_key()=up2date_client.config.Config-class.html#has_key,Method up2date_client.config.ConfigFile.has_key()=up2date_client.config.ConfigFile-class.html#has_key"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-63', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.host'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-63', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.host'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">                <tt class="py-name">dev</tt><tt class="py-op">[</tt><tt class="py-string">'prop1'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'scsi.host'</tt><tt class="py-op">]</tt> </tt>
-<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-64', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.target'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-64', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.target'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">                <tt class="py-name">dev</tt><tt class="py-op">[</tt><tt class="py-string">'prop2'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'scsi.target'</tt><tt class="py-op">]</tt> </tt>
-<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-65', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.bus'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-65', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.bus'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">                <tt class="py-name">dev</tt><tt class="py-op">[</tt><tt class="py-string">'prop3'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'scsi.bus'</tt><tt class="py-op">]</tt> </tt>
-<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-66', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.lun'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-66', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'scsi.lun'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">                <tt class="py-name">dev</tt><tt class="py-op">[</tt><tt class="py-string">'prop4'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'scsi.lun'</tt><tt class="py-op">]</tt> </tt>
 <a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
 <a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"> </tt>
@@ -328,69 +320,63 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">dev</tt><tt class="py-op">[</tt><tt class="py-string">'pciType'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-70" class="py-name" targets="Function up2date_client.hardware_hal.get_device_pcitype()=up2date_client.hardware_hal-module.html#get_device_pcitype"><a title="up2date_client.hardware_hal.get_device_pcitype" class="py-name" href="#" onclick="return doclink('link-70', 'get_device_pcitype', 'link-70');">get_device_pcitype</a></tt><tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
 <a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">dev</tt><tt class="py-op">[</tt><tt class="py-string">'detached'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
-<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">kudzu_list</tt><tt class="py-op">.</tt><tt id="link-71" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append,Method src._ConfigParser.ParsingError.append()=src._ConfigParser.ParsingError-class.html#append"><a title="server.importlib.importLib.Collection.append
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">kudzu_list</tt><tt class="py-op">.</tt><tt id="link-71" class="py-name" targets="Method backend.server.importlib.importLib.Collection.append()=backend.server.importlib.importLib.Collection-class.html#append,Method src._ConfigParser.ParsingError.append()=src._ConfigParser.ParsingError-class.html#append"><a title="backend.server.importlib.importLib.Collection.append
 src._ConfigParser.ParsingError.append" class="py-name" href="#" onclick="return doclink('link-71', 'append', 'link-71');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">dev</tt><tt class="py-op">)</tt> </tt>
 <a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"> </tt>
 <a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">child</tt> <tt class="py-keyword">in</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">:</tt> </tt>
 <a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-name">child_list</tt> <tt class="py-op">=</tt> <tt id="link-72" class="py-name"><a title="up2date_client.hardware_hal.process_hal_nodes" class="py-name" href="#" onclick="return doclink('link-72', 'process_hal_nodes', 'link-60');">process_hal_nodes</a></tt><tt class="py-op">(</tt><tt class="py-name">child</tt><tt class="py-op">)</tt> </tt>
-<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-name">kudzu_list</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name" targets="Method server.importlib.importLib.Collection.extend()=server.importlib.importLib.Collection-class.html#extend"><a title="server.importlib.importLib.Collection.extend" class="py-name" href="#" onclick="return doclink('link-73', 'extend', 'link-73');">extend</a></tt><tt class="py-op">(</tt><tt class="py-name">child_list</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-name">kudzu_list</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name" targets="Method backend.server.importlib.importLib.Collection.extend()=backend.server.importlib.importLib.Collection-class.html#extend"><a title="backend.server.importlib.importLib.Collection.extend" class="py-name" href="#" onclick="return doclink('link-73', 'extend', 'link-73');">extend</a></tt><tt class="py-op">(</tt><tt class="py-name">child_list</tt><tt class="py-op">)</tt> </tt>
 <a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt>
 <a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">kudzu_list</tt> </tt>
 </div><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
 <a name="classify_hal"></a><div id="classify_hal-def"><a name="L157"></a><tt class="py-lineno">157</tt> <a class="py-toggle" href="#" id="classify_hal-toggle" onclick="return toggle('classify_hal');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.hardware_hal-module.html#classify_hal">classify_hal</a><tt class="py-op">(</tt><tt class="py-param">node</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="classify_hal-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="classify_hal-expanded"><a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-comment"># NETWORK</tt> </tt>
-<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-74', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'net.interface'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-74', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'net.interface'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'NETWORK'</tt> </tt>
 <a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"> </tt>
-<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-75" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-75" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-75', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.product'</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-75', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.product'</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-76', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.category'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-76', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.category'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.category'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'input'</tt><tt class="py-op">:</tt> </tt>
 <a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">            <tt class="py-comment"># KEYBOARD &lt;-- do this before mouse, some keyboards have built-in mice</tt> </tt>
 <a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-string">'keyboard'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.product'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -399,23 +385,21 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-string">'mouse'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.product'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">'MOUSE'</tt> </tt>
 <a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
-<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-77" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-77" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-77', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'pci.device_class'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-77', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'pci.device_class'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-comment">#VIDEO</tt> </tt>
 <a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'pci.device_class'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt id="link-78" class="py-name"><a title="up2date_client.hardware_gudev.PCI_BASE_CLASS_DISPLAY
 up2date_client.hardware_hal.PCI_BASE_CLASS_DISPLAY" class="py-name" href="#" onclick="return doclink('link-78', 'PCI_BASE_CLASS_DISPLAY', 'link-16');">PCI_BASE_CLASS_DISPLAY</a></tt><tt class="py-op">:</tt> </tt>
@@ -480,23 +464,21 @@ up2date_client.hardware_hal.PCI_CLASS_BRIDGE_PCMCIA" class="py-name" href="#" on
 up2date_client.hardware_hal.PCI_CLASS_BRIDGE_CARDBUS" class="py-name" href="#" onclick="return doclink('link-96', 'PCI_CLASS_BRIDGE_CARDBUS', 'link-34');">PCI_CLASS_BRIDGE_CARDBUS</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">'SOCKET'</tt> </tt>
 <a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"> </tt>
-<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-97" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-97" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-97', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'storage.drive_type'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-97', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'storage.drive_type'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">        <tt class="py-comment">#CDROM</tt> </tt>
 <a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'storage.drive_type'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'cdrom'</tt><tt class="py-op">:</tt> </tt>
 <a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">'CDROM'</tt> </tt>
@@ -511,101 +493,91 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">'TAPE'</tt> </tt>
 <a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line"> </tt>
 <a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">    <tt class="py-comment">#PRINTER</tt> </tt>
-<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-98" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-98" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-98', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'printer.product'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-98', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'printer.product'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'PRINTER'</tt> </tt>
 <a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line"> </tt>
 <a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">    <tt class="py-comment">#Catchall for specific devices, only do this after all the others</tt> </tt>
-<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-99" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-99" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-99', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'pci.product_id'</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> </tt>
-<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">            <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-100" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-99', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'pci.product_id'</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">            <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-100" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-100', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'usb.product_id'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-100', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'usb.product_id'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'OTHER'</tt> </tt>
 <a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line"> </tt>
 <a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">    <tt class="py-comment"># No class found</tt> </tt>
 <a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
 </div><a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line"> </tt>
 <a name="get_device_bus"></a><div id="get_device_bus-def"><a name="L243"></a><tt class="py-lineno">243</tt> <a class="py-toggle" href="#" id="get_device_bus-toggle" onclick="return toggle('get_device_bus');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.hardware_hal-module.html#get_device_bus">get_device_bus</a><tt class="py-op">(</tt><tt class="py-param">node</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="get_device_bus-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_device_bus-expanded"><a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-101" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+</div><div id="get_device_bus-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_device_bus-expanded"><a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-101" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-101', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'storage.bus'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-101', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'storage.bus'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">        <tt class="py-name">bus</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'storage.bus'</tt><tt class="py-op">]</tt> </tt>
-<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-102" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-102" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-102', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.bus'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-102', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.bus'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.bus'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'platform'</tt><tt class="py-op">:</tt> </tt>
 <a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">            <tt class="py-name">bus</tt> <tt class="py-op">=</tt> <tt class="py-string">'MISC'</tt> </tt>
 <a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
@@ -616,41 +588,37 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">bus</tt> </tt>
 </div><a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line"> </tt>
 <a name="get_device_driver"></a><div id="get_device_driver-def"><a name="L256"></a><tt class="py-lineno">256</tt> <a class="py-toggle" href="#" id="get_device_driver-toggle" onclick="return toggle('get_device_driver');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.hardware_hal-module.html#get_device_driver">get_device_driver</a><tt class="py-op">(</tt><tt class="py-param">node</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="get_device_driver-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_device_driver-expanded"><a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-103" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+</div><div id="get_device_driver-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_device_driver-expanded"><a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-103" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-103', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.linux.driver'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-103', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.linux.driver'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-name">driver</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.linux.driver'</tt><tt class="py-op">]</tt> </tt>
-<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-104" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-104" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-104', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'net.linux.driver'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-104', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'net.linux.driver'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">        <tt class="py-name">driver</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'net.linux.driver'</tt><tt class="py-op">]</tt> </tt>
 <a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
 <a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">        <tt class="py-name">driver</tt> <tt class="py-op">=</tt> <tt class="py-string">'unknown'</tt> </tt>
@@ -669,60 +637,54 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
 <a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line">    <tt class="py-name">dev</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
 <a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"> </tt>
-<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-105" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-105" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-105', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'block.device'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-105', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'block.device'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">        <tt class="py-name">dev</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'block.device'</tt><tt class="py-op">]</tt> </tt>
-<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-106" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-106" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-106', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'linux.device_file'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-106', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'linux.device_file'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">        <tt class="py-name">dev</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'linux.device_file'</tt><tt class="py-op">]</tt> </tt>
 <a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">classification</tt> <tt class="py-op">==</tt> <tt class="py-string">'NETWORK'</tt> </tt>
-<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">            <tt class="py-keyword">and</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-107" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">            <tt class="py-keyword">and</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-107" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-107', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'net.interface'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-107', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'net.interface'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line">        <tt class="py-name">dev</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'net.interface'</tt><tt class="py-op">]</tt> </tt>
 <a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line"> </tt>
 <a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">dev</tt><tt class="py-op">:</tt> </tt>
@@ -734,76 +696,68 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">dev</tt> </tt>
 </div><a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line"> </tt>
 <a name="get_device_description"></a><div id="get_device_description-def"><a name="L294"></a><tt class="py-lineno">294</tt> <a class="py-toggle" href="#" id="get_device_description-toggle" onclick="return toggle('get_device_description');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.hardware_hal-module.html#get_device_description">get_device_description</a><tt class="py-op">(</tt><tt class="py-param">node</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="get_device_description-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_device_description-expanded"><a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-108" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+</div><div id="get_device_description-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_device_description-expanded"><a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-108" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-108', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.vendor'</tt><tt class="py-op">)</tt> </tt>
-<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line">            <tt class="py-keyword">and</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-109" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-108', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.vendor'</tt><tt class="py-op">)</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line">            <tt class="py-keyword">and</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-109" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-109', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.product'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-109', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.product'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line">        <tt class="py-name">desc</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.vendor'</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-string">'|'</tt> <tt class="py-op">+</tt>  <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.product'</tt><tt class="py-op">]</tt> </tt>
-<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-110" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-110" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-110', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.vendor'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-110', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.vendor'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">        <tt class="py-name">desc</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.vendor'</tt><tt class="py-op">]</tt> </tt>
-<a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-111" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-111" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-111', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.product'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-111', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.product'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L301"></a><tt class="py-lineno">301</tt>  <tt class="py-line">        <tt class="py-name">desc</tt> <tt class="py-op">=</tt>  <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.product'</tt><tt class="py-op">]</tt> </tt>
 <a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
 <a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line">        <tt class="py-name">desc</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
@@ -815,42 +769,38 @@ wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return d
 <a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line">    <tt class="py-name">PCI_TYPE_PCI</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
 <a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line">    <tt class="py-name">PCI_TYPE_NOT_PCI</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
 <a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line"> </tt>
-<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-112" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-112" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-112', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.bus'</tt><tt class="py-op">)</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-112', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'info.bus'</tt><tt class="py-op">)</tt> </tt>
 <a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line">            <tt class="py-keyword">and</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'info.bus'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'pci'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L314"></a><tt class="py-lineno">314</tt>  <tt class="py-line">        <tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> </tt>
-<a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-113" class="py-name"><a title="common.UserDictCase.UserDictCase.has_key
-common.rhnCache.Cache.has_key
-common.rhnCache.CompressedCache.has_key
-common.rhnCache.NullCache.has_key
-common.rhnCache.ObjectCache.has_key
-common.rhnCache.has_key
-common.rhnConfig.RHNOptions.has_key
-config_common.up2date_config_parser.ConfigFile.has_key
+<a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">.</tt><tt id="link-113" class="py-name"><a title="backend.common.rhnCache.Cache.has_key
+backend.common.rhnCache.CompressedCache.has_key
+backend.common.rhnCache.NullCache.has_key
+backend.common.rhnCache.ObjectCache.has_key
+backend.common.rhnCache.has_key
+backend.common.rhnConfig.RHNOptions.has_key
+backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+backend.server.rhnSQL.sql_table.Table.has_key
+backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
-satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
-server.rhnSQL.sql_table.Table.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key
-wsgi.wsgiRequest.WsgiMPtable.has_key" class="py-name" href="#" onclick="return doclink('link-113', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'pci.device_class'</tt><tt class="py-op">)</tt> </tt>
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-113', 'has_key', 'link-63');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'pci.device_class'</tt><tt class="py-op">)</tt> </tt>
 <a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">                <tt class="py-keyword">and</tt> <tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'pci.device_class'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-number">6</tt> </tt>
 <a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line">                <tt class="py-keyword">and</tt> <tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'pci.device_subclass'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-number">5</tt> </tt>
 <a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line">                <tt class="py-keyword">or</tt> <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">properties</tt><tt class="py-op">[</tt><tt class="py-string">'pci.device_subclass'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-number">7</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -906,7 +856,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Apr 20 15:02:28 2011
+    Generated by Epydoc 3.0.1 on Tue Jul 19 18:42:43 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
