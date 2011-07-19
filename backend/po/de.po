@@ -1,24 +1,25 @@
-# translation of spacewalk.spacewalk-server.de.po to
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# german translation of spacewalk-server
 #
-# Gerd Koenig <gkoenig@fedoraproject.org>, 2010.
-# Luc de Louw <luc@delouw.ch>, 2010, 2011.
+# Bernd Groh <bgroh@redhat.com>, 2003.
+# Timo Trinks <ttrinks@redhat.com>, 2006.
+# Verena <vfuehrer@redhat.com>, 2004, 2005.
+# sknirT omiT <moc.tahder@sknirtt>, 2010.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: spacewalk.spacewalk-server.de\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 11:40+0200\n"
-"PO-Revision-Date: 2011-02-05 14:47+0100\n"
-"Last-Translator: Luc de Louw <luc@delouw.ch>\n"
-"Language-Team: German <trans-de@lists.fedoraproject.org\" \">\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 14:57+0200\n"
+"PO-Revision-Date: 2011-03-22 15:47+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: German <trans-de@lists.fedoraproject.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../server/handlers/xmlrpc/queue.py:399
 #, python-format
@@ -1273,13 +1274,3 @@ msgstr "Erklärung: %s"
 #~ "Bitte führen Sie den Befehl rhn_register (oder up2date --register unter "
 #~ "Red Hat\n"
 #~ "Enterprise Linux 3 oder später) als Benutzer root auf diesem Rechner aus"
-
-#~ msgid ""
-#~ "A user with the supplied e-mail address (%s)\n"
-#~ "    is already registered with Red Hat Network"
-#~ msgstr ""
-#~ "Ein Benutzer mit der angegebenen EMail Adresse (%s)\n"
-#~ "ist bereits im Red Hat Network registriert"
-
-#~ msgid "Attempt to register a system failed"
-#~ msgstr "der Versuch ein System zu registrieren ist fehlgeschlagen"
