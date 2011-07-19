@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -117,6 +117,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.5.2-1
+- Updating the copyright years.
+
 * Wed May 04 2011 Tomas Lestach <tlestach@redhat.com> 1.5.1-1
 - 648640 - introduce errata analyzer for rhn-search (tlestach@redhat.com)
 - Bumping package versions for 1.5 (msuchy@redhat.com)
