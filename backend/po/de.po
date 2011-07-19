@@ -1,24 +1,25 @@
-# translation of spacewalk.spacewalk-server.de.po to
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# german translation of spacewalk-server
-#
-# Gerd Koenig <gkoenig@fedoraproject.org>, 2010.
-# Luc de Louw <luc@delouw.ch>, 2010, 2011.
+# 
+# Bernd Groh <bgroh@redhat.com>, 2003.
+# Timo Trinks <ttrinks@redhat.com>, 2006.
+# Verena <vfuehrer@redhat.com>, 2004, 2005.
+# sknirT omiT <moc.tahder@sknirtt>, 2010.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: spacewalk.spacewalk-server.de\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2010-11-02 11:19+0100\n"
-"PO-Revision-Date: 2011-02-05 14:47+0100\n"
-"Last-Translator: Luc de Louw <luc@delouw.ch>\n"
-"Language-Team: German <trans-de@lists.fedoraproject.org\" \">\n"
+"PO-Revision-Date: 2011-03-22 15:47+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: German <trans-de@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../server/handlers/xmlrpc/queue.py:400
 #, python-format
@@ -88,7 +89,8 @@ msgstr "Erforderliche Mitglieder fehlen"
 
 #: ../server/handlers/xmlrpc/registration.py:213
 msgid "Attempt to register a system to an invalid username"
-msgstr "Versuch, ein System mit einem ungültigen Benutzernamen zu registrieren"
+msgstr ""
+"Versuch, ein System mit einem ungültigen Benutzernamen zu registrieren"
 
 #: ../server/handlers/xmlrpc/registration.py:221
 #, python-format
@@ -149,15 +151,14 @@ msgstr "Ihr System wurde in der RHN Datenbank nicht gefunden"
 #: ../server/rhnChannel.py:1781
 #, python-format
 msgid ""
-"Your account does not have access to any channels matching (release='%"
-"(release)s', arch='%(arch)s')%(www_activation)s"
+"Your account does not have access to any channels matching "
+"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
 
 #: ../server/rhnChannel.py:1791
 msgid ""
 "\n"
-"If you have a registration number, please register with it first at http://"
-"www.redhat.com/apps/activate/ and then try again.\n"
+"If you have a registration number, please register with it first at http://www.redhat.com/apps/activate/ and then try again.\n"
 "\n"
 msgstr ""
 
@@ -167,7 +168,7 @@ msgid "Insufficient subscription permissions for release (%s, %s"
 msgstr "Ungenügende Berechtigung für Release (%s, %s"
 
 #. Various messages that can be reused
-#.
+#. 
 #. bretm 02/07/2007 -- when we have better old-client documentation, probably
 #. will be safe to get rid of all this crap
 #: ../server/rhnChannel.py:2073 ../server/rhnChannel.py:2084
@@ -190,8 +191,7 @@ msgid ""
 msgstr ""
 "\n"
 "Ungültige Kombination aus Architektur und Betriebssystemversion (%s, %s).\n"
-"Ihr System wurde registriert, wird aber keine Updates erhalten, da es "
-"keinen\n"
+"Ihr System wurde registriert, wird aber keine Updates erhalten, da es keinen\n"
 "Channel abonniert hat. Falls Sie Ihr System bislang nicht aktiviert haben,\n"
 "besuchen Sie bitte unsere Webseite unter:\n"
 "  \n"
@@ -229,8 +229,7 @@ msgstr ""
 msgid ""
 "\n"
 "  This system has been successfully registered, but no service entitlements\n"
-"  were available.  To entitle this system to service, login to the web site "
-"at:\n"
+"  were available.  To entitle this system to service, login to the web site at:\n"
 "\n"
 "  %(entitlement_url)s\n"
 msgstr ""
@@ -238,8 +237,7 @@ msgstr ""
 #: ../server/rhnChannel.py:2108
 msgid ""
 "\n"
-"  This system has been successfully registered, but the channel "
-"subscriptions\n"
+"  This system has been successfully registered, but the channel subscriptions\n"
 "  were exhausted\n"
 msgstr ""
 
@@ -372,12 +370,10 @@ msgstr "Ungültige URI %s"
 
 #: ../server/rhnHandler.py:58
 msgid ""
-"Please run rhn_register (or up2date --register on Red Hat Enterprise Linux 3 "
-"or later)\n"
+"Please run rhn_register (or up2date --register on Red Hat Enterprise Linux 3 or later)\n"
 "as root on this client"
 msgstr ""
-"Bitte führen Sie den Befehl rhn_register (oder up2date --register unter Red "
-"Hat\n"
+"Bitte führen Sie den Befehl rhn_register (oder up2date --register unter Red Hat\n"
 "Enterprise Linux 3 oder später) als Benutzer root auf diesem Rechner aus"
 
 #: ../server/rhnHandler.py:77
@@ -580,8 +576,7 @@ msgid ""
 "     (or up2date --register on Red Hat Enterprise Linux 3+) as root.\n"
 "     Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do\n"
 "     or login at https://%(hostname)s, and from the \"Overview\" tab,\n"
-"     select \"Subscription Management\" to enable RHN service for this "
-"system.\n"
+"     select \"Subscription Management\" to enable RHN service for this system.\n"
 "     "
 msgstr ""
 
@@ -600,8 +595,7 @@ msgid ""
 "     This system does not have a valid entitlement for Red Hat Network.\n"
 "     Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do\n"
 "     or login at https://%(hostname)s, and from the \"Overview\" tab,\n"
-"     select \"Subscription Management\" to enable RHN service for this "
-"system.\n"
+"     select \"Subscription Management\" to enable RHN service for this system.\n"
 "     "
 msgstr ""
 
@@ -655,10 +649,8 @@ msgid ""
 "     User group membership limits exceeded.\n"
 "\n"
 "     The current settings for your account do not allow you to add another\n"
-"     user account. Please check with the organization administrator for "
-"your\n"
-"     account if the maximum number of users allowed to subscribe to RHN "
-"needs\n"
+"     user account. Please check with the organization administrator for your\n"
+"     account if the maximum number of users allowed to subscribe to RHN needs\n"
 "     to be changed.\n"
 "     "
 msgstr ""
@@ -669,10 +661,8 @@ msgid ""
 "     System group membership limits exceeded.\n"
 "\n"
 "     The current settings for your account do not allow you to add another\n"
-"     system profile. Please check with the organization administrator for "
-"your\n"
-"     account for modifying the maximum number of system profiles that can "
-"be\n"
+"     system profile. Please check with the organization administrator for your\n"
+"     account for modifying the maximum number of system profiles that can be\n"
 "     subscribed to your RHN account.\n"
 "     "
 msgstr ""
@@ -688,8 +678,7 @@ msgstr ""
 "\n"
 "     Ungültige Architektur.\n"
 "\n"
-"     Die Architektur dieses Paketes ist vom Red Hat Network nicht "
-"unterstützt\n"
+"     Die Architektur dieses Paketes ist vom Red Hat Network nicht unterstützt\n"
 "     "
 
 #: ../common/rhnException.py:123
@@ -766,8 +755,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"     Access to Red Hat Network is currently limited to subscription "
-"customers.\n"
+"     Access to Red Hat Network is currently limited to subscription customers.\n"
 "     Please try again later.  If you would like to become a subscription\n"
 "     customer, go to https://%(hostname)s/preview/priority_service.pxt for\n"
 "     more information.\n"
@@ -831,8 +819,7 @@ msgstr "Aktivierungs-Tokens mit Konflikten"
 #: ../common/rhnException.py:185
 msgid ""
 "\n"
-"     All available subscriptions for the requested channel have been "
-"exhausted.\n"
+"     All available subscriptions for the requested channel have been exhausted.\n"
 "     Please contact a Red Hat Network Sales associate.\n"
 "     "
 msgstr ""
@@ -1028,13 +1015,11 @@ msgstr ""
 #: ../common/rhnException.py:275
 msgid ""
 "\n"
-"     This satellite server is not allowed to use Inter Satellite Sync on "
-"this satellite\n"
+"     This satellite server is not allowed to use Inter Satellite Sync on this satellite\n"
 "     "
 msgstr ""
 "\n"
-"     Diesem Satellite Server fehlt die Berechtigung für Inter Satellite Sync "
-"auf diesem Satellite\n"
+"     Diesem Satellite Server fehlt die Berechtigung für Inter Satellite Sync auf diesem Satellite\n"
 "     "
 
 #: ../common/rhnException.py:278
@@ -1230,14 +1215,10 @@ msgid ""
 "     details on how to reproduce this problem.\n"
 msgstr ""
 "\n"
-"     Bei der Bearbeitung Ihrer Anfrage trat ein Fehler auf. Falls dieses "
-"Problem\n"
-"     weiterhin auftritt, reichen Sie bitte einen Fehlerbericht unter "
-"bugzilla.redhat.com ein.\n"
-"     Falls Sie sich dazu entschließen, einen Fehlerbericht einzureichen, "
-"stellen Sie bitte sicher,\n"
-"     dass Sie Details zu den von Ihnen durchgeführten Schritten liefern, als "
-"dieser Fehler auftrat,\n"
+"     Bei der Bearbeitung Ihrer Anfrage trat ein Fehler auf. Falls dieses Problem\n"
+"     weiterhin auftritt, reichen Sie bitte einen Fehlerbericht unter bugzilla.redhat.com ein.\n"
+"     Falls Sie sich dazu entschließen, einen Fehlerbericht einzureichen, stellen Sie bitte sicher,\n"
+"     dass Sie Details zu den von Ihnen durchgeführten Schritten liefern, als dieser Fehler auftrat,\n"
 "     sowie Informationen, wie dieses Problem reproduziert werden kann.\n"
 
 #: ../common/rhnException.py:430
@@ -1264,12 +1245,4 @@ msgstr "Fehlerklasse-Information: %s\n"
 msgid "Explanation: %s"
 msgstr "Erklärung: %s"
 
-#~ msgid ""
-#~ "A user with the supplied e-mail address (%s)\n"
-#~ "    is already registered with Red Hat Network"
-#~ msgstr ""
-#~ "Ein Benutzer mit der angegebenen EMail Adresse (%s)\n"
-#~ "ist bereits im Red Hat Network registriert"
 
-#~ msgid "Attempt to register a system failed"
-#~ msgstr "der Versuch ein System zu registrieren ist fehlgeschlagen"
