@@ -1,28 +1,40 @@
-documentation for java and python:
-    yum install -y epydoc
-    make all
 
-documentation for java:
-    git rm -rf javadoc/*
-    make java	# javadoc needs to be installed, it needs java-1.6.0-openjdk-devel
-    git add javadoc/
+Documentation for java:
+    # javadoc needs to be installed, it needs java-1.6.0-openjdk-devel
+    # In the Spacewalk git repo checkout, in documentation/ directory:
+    git rm -rf javadoc
+    make java
+    git add javadoc
     # update javadoc.readme
+    git commit -m 'Updating javadoc documentation.' .
 
-documentation of python:
-    git rm -rf python-doc/*
-    make python	# epydoc needs to be installed, it needs texlive, ouch :-(
-    git add python-doc/*
+Documentation of python:
+    # epydoc needs to be installed, it needs texlive, ouch :-(
+    # In the Spacewalk git repo checkout, in documentation/ directory:
+    git rm -rf python-doc
+    make python
+    git add python-doc
     rm -rf build
     # update python-doc.readme
+    git commit -m 'Updating python documentation.' .
 
-documentation for the db schema:
-    git rm -rf db-schema/*
-    ORASCHEMADOC=/path/to/oraschemadoc.py DSN=user/pass@db make schema
-    git add db-schema/*
+Documentation for the db schema:
+    # On an installed Spacewalk with Oracle backend, install graphviz
+    # and graphviz-gd; you obviously already have cx_Oracle.
+    # Retrieve oraschemadoc from http://oraschemadoc.sourceforge.net/
+    # Namely, wget http://sourceforge.net/projects/oraschemadoc/files/oraschemadoc/0.31/oraschemadoc-0.31.tar.gz/download
+    # and unpack it and
+    chmod a+x oraschemadoc-0.31/oraschemadoc.py
+    # and copy over the documentation/Makefile from the Spacewalk git repo
+    rm -rf db-schema
+    ORASCHEMADOC=oraschemadoc-0.31/oraschemadoc.py DSN=user/pass@db make schema
+
+    # In the Spacewalk git repo checkout, in documentation/ directory:
+    git rm -rf db-schema
+    # Copy the resulting db-schema content from the installed Spacewalk
+    git add db-schema
     # update db-schema.readme
-
-DB Schema is created using http://oraschemadoc.sourceforge.net/
-Which requires cx_Oracle, graphviz and graphviz-gd.
+    git commit -m 'Updating db schema documentation.' .
 
 documentation of API:
 	cd java/
