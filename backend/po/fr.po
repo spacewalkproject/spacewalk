@@ -1,14 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Stephane Raimbault <stephane.raimbault@free.fr>, 2004.
+# Alain PORTAL <aportal@univ-montp2.fr>, 2006.
+# Audrey Simons <asimons@redhat.com>, 2004, 2005.
+# Bettina De Monti <bdemonti@redhat.it>, 2001.
+# Damien Durand <splinux@fedoraproject.org>, 2006.
+# Decroux Fabien <fdecroux@redhat.com>, 2006, 2007.
+# Myriam Malga <mmalga@redhat.com>, 2007.
+# jfenal <jfenal@gmail.com>, 2011.
+#   <jfenal@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 11:40+0200\n"
-"PO-Revision-Date: 2011-03-30 20:00+0000\n"
+"POT-Creation-Date: 2011-07-19 14:57+0200\n"
+"PO-Revision-Date: 2011-06-29 23:11+0000\n"
 "Last-Translator: jfenal <jfenal@gmail.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
 "Language: fr\n"
@@ -274,7 +282,7 @@ msgstr "Jeton d'authentification proxy incomplet : %s"
 #: ../server/apacheAuth.py:74
 #, python-format
 msgid "Sent proxy signature %s does not match ours %s."
-msgstr ""
+msgstr "La signature de proxy envoyée %s ne correspond pas à la nôtre : %s."
 
 #: ../server/apacheAuth.py:105
 msgid "declined proxy authentication"
@@ -369,6 +377,8 @@ msgid ""
 "While running '%s': caught\n"
 "%s : %s\n"
 msgstr ""
+"Lors de l'exécution de '%s': exception levée\n"
+"%s : %s\n"
 
 #: ../server/apacheRequest.py:558
 #, python-format
@@ -382,7 +392,7 @@ msgstr ""
 #: ../server/rhnHandler.py:78
 #, python-format
 msgid "Service not enabled for system profile: \"%s\""
-msgstr ""
+msgstr "Service désactivé pour le profil de système : \"%s\""
 
 #: ../server/rhnUser.py:383 ../server/rhnUser.py:386
 msgid "Invalid username/password combination"
@@ -801,15 +811,16 @@ msgstr ""
 
 #: ../common/rhnException.py:179
 msgid "Too many systems registered using this registration token"
-msgstr ""
+msgstr "Trop de systèmes enregistrés avec ce jeton d'enregistrement."
 
 #: ../common/rhnException.py:180
 msgid "Token contains invalid, obsoleted or insufficient settings"
 msgstr ""
+"Le jeton contient des configurations invalides, obsolètes ou insuffisantes."
 
 #: ../common/rhnException.py:181
 msgid "Conflicting activation tokens"
-msgstr ""
+msgstr "Jetons d'activation en conflit"
 
 #. 70-80: channel subscription errors
 #: ../common/rhnException.py:184
@@ -852,28 +863,28 @@ msgstr ""
 #. 100-109: e-mail and uuid related faults
 #: ../common/rhnException.py:204
 msgid "Maximum e-mail length violation."
-msgstr ""
+msgstr "Limite de taille de courriel dépassée."
 
 #: ../common/rhnException.py:205
 msgid "Changing e-mail address is not supported."
-msgstr ""
+msgstr "La modification d'adresse courriel n'est pas supportée."
 
 #: ../common/rhnException.py:206
 msgid "This system has been previously registered."
-msgstr ""
+msgstr "Ce système est déjà enregistré."
 
 #: ../common/rhnException.py:207
 msgid "Invalid username"
-msgstr ""
+msgstr "Nom d'utilisateur invalide"
 
 #. 110-129: disabled org errors
 #: ../common/rhnException.py:210
 msgid "Service for your account has been disabled."
-msgstr ""
+msgstr "Le service a été désactivé pour votre compte."
 
 #: ../common/rhnException.py:211
 msgid "Email address not validated; service disabled"
-msgstr ""
+msgstr "Adresse courriel invalide ; service désactivé"
 
 #: ../common/rhnException.py:212
 msgid "Survey not filled out; service disabled"
@@ -953,7 +964,7 @@ msgstr ""
 #. issued by an RHN Proxy to the client
 #: ../common/rhnException.py:244
 msgid "RHN Proxy error."
-msgstr ""
+msgstr "Erreur de RHN Proxy."
 
 #: ../common/rhnException.py:245
 msgid "RHN Proxy unable to login."
@@ -1045,15 +1056,15 @@ msgstr ""
 
 #: ../common/rhnException.py:290
 msgid "Unable to retrieve channel"
-msgstr ""
+msgstr "Impossible de récupérer le canal"
 
 #: ../common/rhnException.py:291
 msgid "Invalid package name"
-msgstr ""
+msgstr "Nom de paquetage invalide"
 
 #: ../common/rhnException.py:292
 msgid "Unable to retrieve package"
-msgstr ""
+msgstr "Impossible de récupérer le paquetage"
 
 #: ../common/rhnException.py:293
 msgid "Invalid erratum name"
