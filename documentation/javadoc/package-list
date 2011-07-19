@@ -185,6 +185,7 @@ com.redhat.rhn.frontend.action.systems.sdc.test
 com.redhat.rhn.frontend.action.systems.test
 com.redhat.rhn.frontend.action.systems.virtualization
 com.redhat.rhn.frontend.action.systems.virtualization.test
+com.redhat.rhn.frontend.action.tasko
 com.redhat.rhn.frontend.action.test
 com.redhat.rhn.frontend.action.token
 com.redhat.rhn.frontend.action.token.configuration
