@@ -1,21 +1,23 @@
-# translation of as.po to Assamese
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
+# Amitakhya Phukan <aphukan@redhat.com>, 2006, 2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: as\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2010-05-06 16:17+0200\n"
-"PO-Revision-Date: 2006-10-26 13:44+0530\n"
-"Last-Translator: Amitakhya Phukan <amitakhya.phukan@gmail.com>\n"
-"Language-Team: Assamese <assam@mm.assam-glug.org>\n"
+"PO-Revision-Date: 2011-03-22 15:44+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/team/as/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: as\n"
-"X-Generator: KBabel 1.11.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: rhnsd.c:116
 #, c-format
@@ -40,17 +42,4 @@ msgstr "প্ৰতিলিপি (C) %s Red Hat, Inc.\n"
 msgid "Written by %s.\n"
 msgstr "%s ৰ দ্বাৰা লিখা হৈছে ।\n"
 
-#~ msgid "MINS"
-#~ msgstr "MINS"
 
-#~ msgid "Connect to Red Hat Network every MINS minutes"
-#~ msgstr "প্ৰত্যেক MINS মিনিটত Red Hat নে'টৱৰ্কলৈ সংযোগ কৰক"
-
-#~ msgid "Log all actions to syslog"
-#~ msgstr "সকলো ক্ৰিয়া syslog লৈ কাৰ্য্যবৃত্তান্ত কৰক"
-
-#~ msgid "Run in foreground"
-#~ msgstr "পূৰ্বভূমিত চলাওক"
-
-#~ msgid "Red Hat Network Services Daemon"
-#~ msgstr "পৃষ্ঠভূমিত চলা Red Hat নে'টৱৰ্ক সেৱাৰ প্ৰক্ৰিয়া"

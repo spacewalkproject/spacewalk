@@ -1,20 +1,21 @@
-# Serbian(Latin) translations for rhnsd
-# Copyright (c) 2006--2011 Red Hat, Inc.
-# This file is distributed under the same license as the rhnsd package.
-# Miloš Komarčević <kmilos@gmail.com>, 2006.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: rhnsd\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2010-05-06 16:17+0200\n"
-"PO-Revision-Date: 2006-11-12 16:56+0100\n"
-"Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
-"Language-Team: Serbian (sr) <fedora@prevod.org>\n"
+"PO-Revision-Date: 2011-03-22 15:44+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: sr@latin\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: rhnsd.c:116
 #, c-format
@@ -39,17 +40,4 @@ msgstr "Autorska prava %s Red Hat, Inc.\n"
 msgid "Written by %s.\n"
 msgstr "Napisao je %s.\n"
 
-#~ msgid "MINS"
-#~ msgstr "MIN"
 
-#~ msgid "Connect to Red Hat Network every MINS minutes"
-#~ msgstr "Poveži se na Red Hat Network svakih MIN minuta"
-
-#~ msgid "Log all actions to syslog"
-#~ msgstr "Zapisuj sve radnje u sistemski dnevnik"
-
-#~ msgid "Run in foreground"
-#~ msgstr "Izvršavaj u prvom planu"
-
-#~ msgid "Red Hat Network Services Daemon"
-#~ msgstr "Demon Red Hat Network servisa"

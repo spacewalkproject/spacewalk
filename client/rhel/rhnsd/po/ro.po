@@ -1,22 +1,25 @@
-# Romanian translation of rhnsd.
-# Copyright (C) 2006 THE rhnsd'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the rhnsd package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Cristian Gafton <gafton@redhat.com>, 2000, 2001.
+# Mihai Ibanescu <misa@redhat.com>, 2005.
+# Mircea Daniel <daniel@reywind.tranceaddict>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Alexandru Szasz <alexxed@gmail.com>, 2006.
-# , fuzzy
-#
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: rhnsd cvs\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2010-05-06 16:17+0200\n"
-"PO-Revision-Date: 2006-11-16 21:51+0200\n"
-"Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
-"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2011-03-22 15:44+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Romanian (http://www.transifex.net/projects/p/fedora/team/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1))\n"
 
 #: rhnsd.c:116
 #, c-format
@@ -41,17 +44,4 @@ msgstr "Copyright (C) %s Red Hat, Inc.\n"
 msgid "Written by %s.\n"
 msgstr "Scris de %s.\n"
 
-#~ msgid "MINS"
-#~ msgstr "MINS"
 
-#~ msgid "Connect to Red Hat Network every MINS minutes"
-#~ msgstr "Conectare la Red Hat Network la fiecare MINS minute"
-
-#~ msgid "Log all actions to syslog"
-#~ msgstr "Loghează toate acţiunile în syslog"
-
-#~ msgid "Run in foreground"
-#~ msgstr "Rulează în faţă"
-
-#~ msgid "Red Hat Network Services Daemon"
-#~ msgstr "Demonul Red Hat Network Services"
