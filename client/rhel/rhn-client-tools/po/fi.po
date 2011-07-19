@@ -1,31 +1,31 @@
-# Finnish messages for up2date.
-#
-# KATSO SUMEAT KOHDAT ERITYISEN HUOLELLISESTI, koska ne ovat hyvin
-# tod.näk. väärin.
-# Pekka Harjamäki <pekka@mcfish.org>, 2005.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Esa Aaltonen <esa.aaltonen@pp.sonera.net>, 2004.
 # Lauri Nurmi <lanurmi@iki.fi>, 2003, 2005.
 # Mikko Ikola <ikola@iki.fi>, 2004.
-#
-# Esa Aaltonen <esa.aaltonen@pp.sonera.net>, 2004.
-# Läpikäyty sumeita kohtia ja käännetty uusia.
-#
+# Pekka Harjamäki <pekka@mcfish.org>, 2005.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: up2date\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2005-11-28 13:53+0200\n"
-"Last-Translator: Pekka Harjamäki <pekka@mcfish.org>\n"
-"Language-Team: Finnish <kde-i18n-fi-discussion@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Finnish (http://www.transifex.net/projects/p/fedora/team/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
-"This client requires the server to support %s, which the current server does "
-"not support"
+"This client requires the server to support %s, which the current server does"
+" not support"
 msgstr "Asiakas vaatii palvelimen tukevan %s, jota nykyinen palvelin ei tue"
 
 #: ../src/up2date_client/config.py:139
@@ -34,9 +34,8 @@ msgid "%s was not found"
 msgstr "%s ei löydy"
 
 #: ../src/up2date_client/gui.py:312
-#, fuzzy
 msgid "_Finish"
-msgstr "Lopeta"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/gui.py:313
@@ -45,19 +44,16 @@ msgid "Finish setting up software updates"
 msgstr ""
 
 #: ../src/up2date_client/gui.py:315
-#, fuzzy
 msgid "_Exit"
-msgstr "Muokkaa"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Rekisteröinti valmis"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:326
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Päivitysohjelma täytyy suorittaa pääkäyttäjänä."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:350
 #, python-format
@@ -77,9 +73,8 @@ msgid "Error reading networking information:"
 msgstr "Virhe luettaessa verkkotietoa:"
 
 #: ../src/up2date_client/hardware.py:732
-#, fuzzy
 msgid "Error reading install method information:"
-msgstr "Virhe luettaessa asennustapa tietoa:"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:740
 msgid "Error reading network interface information:"
@@ -151,8 +146,8 @@ msgstr "SSL-virhe: %s\n"
 
 #: ../src/up2date_client/rhncli.py:91
 msgid ""
-"A common cause of this error is the system time being incorrect. Verify that "
-"the time on this system is correct.\n"
+"A common cause of this error is the system time being incorrect. Verify that"
+" the time on this system is correct.\n"
 msgstr ""
 "Yleinen syy tähän virheilmoitukseen on väärä järjestelmän aika. Tarkista "
 "että aika järjestelmässä on oikein.\n"
@@ -185,16 +180,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:210
-#, fuzzy
 msgid "An error has occurred:"
 msgstr ""
-"Odottamaton OS-virhe tapahtunut:\n"
-"%s"
 
 #: ../src/up2date_client/rhncli.py:218
-#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr "Lähetä _laitteistotieto"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:13
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
@@ -202,14 +193,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Valitse käytettävä Red Hat Network -palvelin."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Valitse käytettävä Red Hat Network -palvelin."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:19
 #, python-format
@@ -218,16 +208,12 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:22 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "Käynnistetään up2date päivitysohjelma uudelleen"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:23
 msgid ""
-"This assistant will guide you through connecting your system to Red Hat "
-"Network (RHN) to receive software updates, including security updates, to "
-"keep your system supported and compliant.  You will need the following at "
-"this time:\n"
+"This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant.  You will need the following at this time:\n"
 "\n"
 " * A network connection\n"
 " * Your Red Hat Login & password\n"
@@ -243,9 +229,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:37
 #: ../data/rh_register.glade.h:117
-#, fuzzy
 msgid "Why Register"
-msgstr "Rekisteröinti on jo suoritettu"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:51
 msgid ""
@@ -266,9 +251,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:43
-#, fuzzy
 msgid "Compliance:"
-msgstr "Yhtiö:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
 msgid ""
@@ -284,28 +268,27 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:34
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:50
 #: ../data/rh_register.glade.h:100
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account at http://rhn.redhat.com/."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
-"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"Tip: Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Pakettiluettelo (rekisteröinti)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
@@ -315,7 +298,8 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:60
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux "
+"subscription:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:62
@@ -335,27 +319,24 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Tunnustiedot"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Rekisteröintitiedot kohteelle:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:71
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Red Hat Sisäänkirjautuminen"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Login:"
-msgstr "_Kirjautuminen:  "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
@@ -372,9 +353,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:77
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Salasana ja sen varmistus on annettava."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80
@@ -388,18 +368,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:82
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Versio"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84 ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "All available updates"
-msgstr "Saatavilla olevat pakettien päivitykset"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Confirm operating system release selection"
@@ -413,14 +391,13 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
-"A Profile Name is a descriptive name that you choose to identify this System "
-"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"A Profile Name is a descriptive name that you choose to identify this System"
+" Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
 "Profiilin nimi on kuvainnollinen nimi, jota käytetään tunnistettaessa tämä "
@@ -439,14 +416,13 @@ msgstr "Lisää seuraavat tiedot laitteistosta ja verkosta:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
-"RPM information is important to determine what updated software packages are "
-"relevant to this system."
+"RPM information is important to determine what updated software packages are"
+" relevant to this system."
 msgstr "RPM tieto on oleellinen määritettäessä päiviettäviä paketteja."
 
 #: ../src/up2date_client/rhnreg_constants.py:107
@@ -463,27 +439,20 @@ msgstr "Luodaan pakettiluetteloa"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:114
-#, fuzzy
 msgid ""
-"Please enter your login information for Red Hat Network (http://rhn.redhat."
-"com/):\n"
+"Please enter your login information for Red Hat Network (http://rhn.redhat.com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com/"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:116
-#, fuzzy
 msgid ""
-"Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
-"LoginInfo.do"
+"Tip: Forgot your login or password? Visit: "
+"https://rhn.redhat.com/rhn/sales/LoginInfo.do"
 msgstr ""
-"Red Hat -käyttäjänimi tai -salasana unohtunut? Lisätietoa\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../src/up2date_client/rhnreg_constants.py:118
-#, fuzzy
 msgid "*Email Address:"
-msgstr "Sähköpostiosoite:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:120
 #: ../data/rh_register.glade.h:102
@@ -502,15 +471,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:124
 msgid ""
-"It appears this system has already been registered with RHN using RHN "
-"Certificate-Based Entitlement technology. This tool requires registration "
-"using RHN Classic technology.\n"
+"It appears this system has already been registered with RHN using RHN Certificate-Based Entitlement technology. This tool requires registration using RHN Classic technology.\n"
 "\n"
-"Except for a few cases, Red Hat recommends customers only register with RHN "
-"once.\n"
+"Except for a few cases, Red Hat recommends customers only register with RHN once.\n"
 "\n"
-"For more information, including alternate tools, consult this Knowledge Base "
-"Article: https://access.redhat.com/kb/docs/DOC-45563"
+"For more information, including alternate tools, consult this Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
 
 #. Send Window
@@ -519,20 +484,11 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Lähetä profiilin tiedot Red Hat Networkiin"
 
 #: ../src/up2date_client/rhnreg_constants.py:134
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
-"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-"\"Cancel\" and no information will be sent.  You can run the registration "
-"program later by typing `rhn_register` at the command line."
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click \"Cancel\" and no information will be sent.  You can run the registration program later by typing `rhn_register` at the command line."
 msgstr ""
-"Järjestelmäprofiiliin tarvittavat tiedot ovat valmiina.\n"
-"\n"
-"Valitse \"Seuraava\" lähettääksesi järjestelmän profiili Red Hat Networkiin. "
-"Jos et halua lähettää mitään tietoja, valitse \"Peru\". Voit suorittaa "
-"rekisteröintiohjelman myöhemmin komennolla `up2date --register` "
-"komentoriviltä."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:141
@@ -546,8 +502,8 @@ msgid ""
 "periodically to get the latest updates. Alternatively, you may configure "
 "this system for automatic software updates (also known as 'auto errata "
 "update') via the Red Hat Network web interface.  (Instructions for this are "
-"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
-"the main Red Hat Network web interface.)"
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in"
+" the main Red Hat Network web interface.)"
 msgstr ""
 
 #. Review Window
@@ -561,28 +517,26 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:158
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Yhdistä Red Hat Networkiin"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:160
-#, fuzzy
 msgid ""
-"Subscriptions have been activated for the following Red Hat products/"
-"services:"
-msgstr "Tilausnumero on virheellinen"
+"Subscriptions have been activated for the following Red Hat "
+"products/services:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:162
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Kanavatiedot"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
 msgid ""
-"This system will receive updates from the following Red Hat Network software "
-"channels:"
+"This system will receive updates from the following Red Hat Network software"
+" channels:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:165
@@ -601,8 +555,8 @@ msgid ""
 "will not receive updates or support for that product. If you would like to "
 "receive updates for that product, please visit http://rhn.redhat.com/ and "
 "subscribe this system to the appropriate software channels to get updates "
-"for that product. See Kbase article 11313 for more details. (http://kbase."
-"redhat.com/faq/docs/DOC-11313)"
+"for that product. See Kbase article 11313 for more details. "
+"(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:187
@@ -630,17 +584,10 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:197
 msgid ""
-"This system was unable to subscribe to any software channels. Your system "
-"will not receive any software updates to keep it secure and supported. There "
-"are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface and subscribe "
-"this system to software channels via the software > software channels tab."
+"This system was unable to subscribe to any software channels. Your system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface and subscribe this system to software channels via the software > software channels tab."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:208
@@ -668,8 +615,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:218
 msgid ""
-"Management module: automatic updates, systems grouping, systems permissions, "
-"system package profiling"
+"Management module: automatic updates, systems grouping, systems permissions,"
+" system package profiling"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:220
@@ -709,30 +656,17 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:241
 msgid ""
-"This system was unable to be associated with any RHN service level modules. "
-"This system will not receive any software updates to keep it secure and "
-"supported. There are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface, delete the "
-"profile, and re-connect this system to Red Hat Network."
+"This system was unable to be associated with any RHN service level modules. This system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface, delete the profile, and re-connect this system to Red Hat Network."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:253
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
-"A universal default activation key was detected in your RHN organization. "
-"What this means is that a set of properties (software channel subscriptions, "
-"Red Hat Network service, package installations, system group memberships, "
-"etc.) for your system's connection to Red Hat Network have been determined "
-"by the activation key rather than your installation number.  You may also "
-"refer to the RHN Reference Guide, section 6.4.6 for more details about "
-"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"A universal default activation key was detected in your RHN organization. What this means is that a set of properties (software channel subscriptions, Red Hat Network service, package installations, system group memberships, etc.) for your system's connection to Red Hat Network have been determined by the activation key rather than your installation number.  You may also refer to the RHN Reference Guide, section 6.4.6 for more details about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
 "Universal Default activation key: %s"
 msgstr ""
 
@@ -757,8 +691,7 @@ msgid ""
 "\n"
 "Make sure that the network connection on this system is operational.\n"
 "\n"
-"This system will not be able to successfully receive software updates from "
-"Red Hat without connecting to a Red Hat Network server"
+"This system will not be able to successfully receive software updates from Red Hat without connecting to a Red Hat Network server"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:274
@@ -777,10 +710,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
-"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the "
-"correct certificate, and that the certificate file has not been corrupted?\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat Network server at <b>%s</b>. You may want to double-check that you have provided a valid certificate file. Are you sure you have provided the correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
@@ -789,8 +719,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
-" The certificate is expired. Please ensure you have the correct  certificate "
-"and your system time is correct."
+" The certificate is expired. Please ensure you have the correct  certificate and your system time is correct."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:294
@@ -801,12 +730,7 @@ msgstr ""
 msgid ""
 "Problem registering system.\n"
 "\n"
-"A universal default activation key limits the number of systems which can "
-"connect to the RHN organization associated with your login. To allow this "
-"system to connect, please contact your RHN organization administrator to "
-"increase the number of systems allowed to connect or to disable this "
-"universal default activation key. More details can be found in Red Hat "
-"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"A universal default activation key limits the number of systems which can connect to the RHN organization associated with your login. To allow this system to connect, please contact your RHN organization administrator to increase the number of systems allowed to connect or to disable this universal default activation key. More details can be found in Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:310
@@ -857,9 +781,8 @@ msgstr "Peru"
 
 #: ../src/up2date_client/rhnreg_constants.py:332
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Peru"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:120
@@ -872,14 +795,12 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:131
 #: ../src/up2date_client/rhnregGui.py:148
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:277
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Vakava virhe paketin asennuksessa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:302
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -887,14 +808,14 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:315
 msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Red Hat Network server."
+"You will not be able to successfully register this system without contacting"
+" a Red Hat Network server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Lähetä profiilin tiedot Red Hat Networkiin"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:342
 #: ../src/up2date_client/rhnregGui.py:355
@@ -903,8 +824,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:344
 msgid ""
-"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
-"can enter a Satellite or Proxy location instead."
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you"
+" can enter a Satellite or Proxy location instead."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:350
@@ -920,12 +841,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:365
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Virhe kommunikoitaessa rekisteröintipalvelimen kanssa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:366
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:368
@@ -933,26 +854,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:411
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Rekisteröintitiedot kohteelle:"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:460
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Sukunimi on annettava."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:466
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Salasana ja sen varmistus on annettava."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:480
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Ongelma järjestelmän rekisteröimisessä."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:505
 msgid ""
@@ -961,36 +879,32 @@ msgid ""
 msgstr "Virhe kommunikoitaessa rekisteröintipalvelimen kanssa:\n"
 
 #: ../src/up2date_client/rhnregGui.py:647
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Vakava virhe paketin asennuksessa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:668
 msgid "Error running hardware profile"
 msgstr "Virhe laitteistoprofiilia ajettaessa"
 
 #: ../src/up2date_client/rhnregGui.py:695
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Vakava virhe paketin asennuksessa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:715
 msgid "You must choose a name for this profile."
 msgstr "Valitse profiilille nimi."
 
 #: ../src/up2date_client/rhnregGui.py:730
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Vakava virhe paketin asennuksessa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:741
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "Lähetetään profiilia Red Hat Networkiin.  Odota."
 
 #: ../src/up2date_client/rhnregGui.py:760
-#, fuzzy
 msgid "Registering System"
-msgstr "Ongelma järjestelmän rekisteröimisessä."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:774
 #: ../src/up2date_client/rhnregGui.py:778
@@ -1000,11 +914,11 @@ msgid "Problem registering system:\n"
 msgstr "Ongelma järjestelmän rekisteröinnissä:\n"
 
 #: ../src/up2date_client/rhnregGui.py:785
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Kirjautumisnumero [ %s ] ei ole voimassa."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:795 ../src/up2date_client/tui.py:884
 msgid "Problem registering system."
@@ -1019,14 +933,12 @@ msgid "There was a problem registering this system."
 msgstr "Ongelma järjestelmän rekisteröimisessä."
 
 #: ../src/up2date_client/rhnregGui.py:824
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Lähetä _laitteistotieto"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:829
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Virhe luettaessa laitteistotietoja:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -1038,14 +950,12 @@ msgstr "Virhe luettaessa laitteistotietoja:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:853
-#, fuzzy
 msgid "Sending package information"
-msgstr "Lähetä _laitteistotieto"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:858
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Ongelma pakettiluettelon lähetyksessä."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:891
 msgid ""
@@ -1066,14 +976,12 @@ msgid "Problem registering personal information"
 msgstr "Ongelma henkilökohtaisten tietojen rekisteröimisessä"
 
 #: ../src/up2date_client/rhnregGui.py:971
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Vakava virhe paketin asennuksessa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:997
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Käyttäjänimi on annettava."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -1095,9 +1003,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1186
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Vakava virhe paketin asennuksessa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1198 ../src/up2date_client/tui.py:672
 #, python-format
@@ -1110,9 +1017,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1246
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Vakava virhe paketin asennuksessa:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1261
 msgid "Package"
@@ -1123,7 +1029,8 @@ msgid "Arch"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1273
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr "Luodaan luettelo järjestelmään asennetuista RPM-paketeista.  Odota."
 
 #: ../src/up2date_client/rhnregGui.py:1304
@@ -1152,84 +1059,72 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:57
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with chkconfig"
-msgstr "Varoitus: rhnsd:n käynnistäminen chkconfigilla epäonnistui"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:165
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "VIRHE: RHNS CA tiedostoa ei löydy:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:203
 msgid "Connection aborted by the user"
 msgstr "Käyttäjä katkaisi yhteyden"
 
 #: ../src/up2date_client/rpcServer.py:248
-#, fuzzy
 msgid "Server has refused connection due to high load"
-msgstr "Palvelimeen ei voida muodostaa yhteyttä suuren kuormituksen takia."
+msgstr ""
 
 #: ../src/up2date_client/rpmUtils.py:123
 msgid "Getting list of packages installed on the system"
 msgstr "Muodostetaan luetteloa järjestelmään asennetuista paketeista"
 
 #: ../src/up2date_client/tui.py:126
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hatin verkkokirjautuminen"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
-#, fuzzy
 msgid "System ID:"
-msgstr "Sukunimi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:418
 msgid "The server indicated an error:\n"
 msgstr "Palvelin havaitsi virheen:\n"
 
 #: ../src/up2date_client/tui.py:422
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "Virhe kommunikoitaessa rekisteröintipalvelimen kanssa:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:622
 msgid "Profile name:"
 msgstr "Profiilin nimi:"
 
 #: ../src/up2date_client/tui.py:644 ../src/up2date_client/tui.py:645
-#, fuzzy
 msgid "Version: "
-msgstr "Versio:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:651
-#, fuzzy
 msgid "CPU model: "
-msgstr "CPU:n malli:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:657
-#, fuzzy
 msgid "Hostname: "
-msgstr "Isäntänimi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:668
-#, fuzzy
 msgid "CPU speed: "
-msgstr "CPU:n nopeus:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "IP Address: "
-msgstr "IP-osoite:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "Memory: "
-msgstr "Muisti:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:684
 #, python-format
@@ -1306,9 +1201,8 @@ msgid "Error validating data at server:\n"
 msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:142
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Tilausnumero on virheellinen"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:149
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1317,22 +1211,16 @@ msgstr ""
 #: ../src/up2date_client/up2dateErrors.py:277
 msgid ""
 "\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Network. Please notify your organization administrator "
-"of this error. \n"
-"    You should be able to register this system after your organization frees "
-"existing \n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
+"    Your organization does not have enough Management entitlements to register this\n"
+"    system to Red Hat Network. Please notify your organization administrator of this error. \n"
+"    You should be able to register this system after your organization frees existing \n"
+"    or purchases additional entitlements. Additional entitlements may be purchased by your\n"
 "    organization administrator by logging into Red Hat Network and visiting\n"
 "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
 "    \n"
 "    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and "
-"retry to avoid\n"
+"    Activation Key which is set as the universal default.  If an activation key is set\n"
+"    on the account as a universal default, you can disable this key and retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 
@@ -1359,9 +1247,8 @@ msgstr ""
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
 #: ../src/firstboot/rhn_login_gui.py:71
-#, fuzzy
 msgid "Create Profile"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #. the user doesn't want to provide a cert right now
 #. TODO write a message to disk like the other cases? need to decide
@@ -1376,15 +1263,13 @@ msgstr ""
 
 #: ../src/firstboot/rhn_create_profile_gui.py:87
 #: ../src/firstboot/rhn_login_gui.py:99
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Virhe yhteydessä palvelimeen: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_create_profile_gui.py:89
 #: ../src/firstboot/rhn_login_gui.py:101
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Haluatko vaihtaa verkkoasetuksia, ja yrittää uudelleen?"
+msgstr ""
 
 #: ../src/firstboot/rhn_register.py:29 ../src/firstboot/rhn_register.py:30
 #: ../src/firstboot/rhn_start_gui.py:43 ../src/firstboot/rhn_start_gui.py:44
@@ -1392,18 +1277,14 @@ msgid "Set Up Software Updates"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Kuvaus"
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:34
-#, fuzzy
 msgid ""
-"You need to register this system by running `rhn_register` before using this "
-"option"
+"You need to register this system by running `rhn_register` before using this"
+" option"
 msgstr ""
-"Järjestelmä pitää rekisteröidä komennolla `up2date --register` ennen kuin "
-"tätä valitsinta voidaan käyttää."
 
 #: ../src/bin/rhn-profile-sync.py:42
 msgid "Updating package profile..."
@@ -1414,14 +1295,12 @@ msgid "Updating hardware profile..."
 msgstr "Päivitetään laitteistoprofiilia..."
 
 #: ../src/bin/rhn-profile-sync.py:49
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Päivitetään pakettiprofiilia..."
+msgstr ""
 
 #: ../src/bin/rhn_register.py:36
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "älä yritä käyttää X:ää"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:44
 msgid "Specify a profilename"
@@ -1440,19 +1319,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:52
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Määrittele käytettävä url-palvelin"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
-msgstr "    --sslCACert=<polku>         - määrittele "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Määrittele käytettävä http-välityspalvelin"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:58
 msgid ""
@@ -1460,19 +1336,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "    --contactinfo              - lue yhteystiedot stdin:stä "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
-msgstr "    --nohardware        - älä etsi tai siirrä mitään laitteistotietoa "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not profile or upload any package info"
-msgstr "    --nopackages       - älä profiloi tai siirrä mitään pakettitietoja"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:66
 msgid "Do not upload any virtualization info"
@@ -1483,17 +1356,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:70
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - rekisteröi järjestelmä, vaikka se olisi jo "
-"rekisteröity"
 
 #: ../src/bin/rhnreg_ks.py:80
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Käyttäjänimi, salasana ja sähköpostiosoite tarvitaan rekisteröitymiseen."
 
 #: ../src/bin/rhnreg_ks.py:85
 msgid "This system is already registered. Use --force to override"
@@ -1550,37 +1418,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Kanavat"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Asenna kaikki saatavilla olevat paketit. Määritelty --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Käyttäjänimi:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "* _Varmista salasana:  "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Käyttäjänimi:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1592,9 +1455,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Virhe otsikkotietojen lukemisessa"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1607,9 +1470,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "Järjestelmää ei voida päivittää ennenkuin se on liitetty kanavaan."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1628,28 +1490,24 @@ msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Tunnustiedot"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Käyttäjänimi on annettava."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Edistymisikkuna"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Edistymisikkuna"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1662,9 +1520,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid "<b>Compliance:</b>"
@@ -1675,19 +1532,16 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:6
-#, fuzzy
 msgid "<b>HTTP Proxy</b>"
-msgstr "Käytä HTTP-välityspalvelinta:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:7
-#, fuzzy
 msgid "<b>Login:</b>"
-msgstr "Rekisteröintitiedot"
+msgstr ""
 
 #: ../data/rh_register.glade.h:8
-#, fuzzy
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hatin verkkokirjautuminen"
+msgstr ""
 
 #: ../data/rh_register.glade.h:9
 msgid "<b>Security &amp; Updates:</b>"
@@ -1721,9 +1575,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "Varoitus"
+msgstr ""
 
 #: ../data/rh_register.glade.h:16
 msgid ""
@@ -1738,8 +1591,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:18
 msgid ""
-"<b>_All available updates</b> will be provided to this system.  This system, "
-"if kept updated, will always be equivalent to the latest available minor "
+"<b>_All available updates</b> will be provided to this system.  This system,"
+" if kept updated, will always be equivalent to the latest available minor "
 "release of Red Hat Enterprise Linux 6.  It will be registered to the main "
 "'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
@@ -1772,14 +1625,13 @@ msgid "<small><b>Example:</b> squid.example.com:3128</small>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:25
-#, fuzzy
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "esimerkki: XXXX-XXXX-XXXX-XXXX (viivat valinnaisia)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:26
 msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
+"<small><b>Tip:</b> Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html.</small>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:27
@@ -1789,24 +1641,17 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"Red Hat -käyttäjänimi tai -salasana unohtunut? Lisätietoa\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:31
 #, no-c-format
 msgid ""
-"A security certificate compatible with <b>%s</b> was not found on this "
-"system.\n"
+"A security certificate compatible with <b>%s</b> was not found on this system.\n"
 "\n"
-"A security certificate, using SSL technology, is necessary to ensure that "
-"data communicated between this system and Red Hat Network (including your "
-"login and password) is secure."
+"A security certificate, using SSL technology, is necessary to ensure that data communicated between this system and Red Hat Network (including your login and password) is secure."
 msgstr ""
 
 #: ../data/rh_register.glade.h:35
@@ -1815,19 +1660,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:36
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Red Hat Networkin asetukset"
+msgstr ""
 
 #: ../data/rh_register.glade.h:37
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Red Hat Networkin asetukset"
+msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Advanced _Network Configuration ..."
-msgstr "Red Hat Networkin asetukset"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Aplet screenshot"
@@ -1852,37 +1694,32 @@ msgid "Certificate _Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:46
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Kanava"
+msgstr ""
 
 #: ../data/rh_register.glade.h:48
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Versio"
+msgstr ""
 
 #: ../data/rh_register.glade.h:49
-#, fuzzy
 msgid "Close"
-msgstr "Sulje"
+msgstr ""
 
 #: ../data/rh_register.glade.h:50
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "Create profile"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:54
 msgid "ERROR"
 msgstr "VIRHE"
 
 #: ../data/rh_register.glade.h:55
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Tunnustiedot"
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid "Enter in the format hostname(:port)"
@@ -1896,9 +1733,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:59
 msgid ""
-"For more information, including alternate tools, consult this Knowledge Base "
-"Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
-"access.redhat.com/kb/docs/DOC-45563</a>\n"
+"For more information, including alternate tools, consult this Knowledge Base"
+" Article: <a "
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
@@ -1945,9 +1782,8 @@ msgid "IP Address:"
 msgstr "IP-osoite:"
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgid "Installation _Number:"
-msgstr "rekisteröintiNumero"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
 msgid ""
@@ -1957,14 +1793,12 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgid "Limited updates"
-msgstr "Yhdysvallat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Kuvaus"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 msgid ""
@@ -1985,30 +1819,27 @@ msgid "Package Information"
 msgstr "Pakettitiedot"
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgid ""
-"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
-"redhat.com/)"
-msgstr "https://rhn.redhat.com/"
+"Please enter your account information for <b>Red Hat Network</b> "
+"(http://rhn.redhat.com/)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:82
 msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:83
-#, fuzzy
 msgid "Proxy P_assword:"
-msgstr "Salasana:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:84
-#, fuzzy
 msgid "Proxy _Username:"
-msgstr "Käyttäjänimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:85
 msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
+"Purchase an additional Red Hat Enterprise Linux subscription at "
+"http://www.redhat.com/store/."
 msgstr ""
 
 #: ../data/rh_register.glade.h:86
@@ -2016,9 +1847,8 @@ msgid "RHN Classic Mode"
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgid "RHN login field"
-msgstr "Red Hat Sisäänkirjautuminen"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgid "RHN password field"
@@ -2035,9 +1865,8 @@ msgid "Red Hat Linux Version:"
 msgstr "Red Hat Linux versio:"
 
 #: ../data/rh_register.glade.h:91
-#, fuzzy
 msgid "Red Hat Network _Location:"
-msgstr "Red Hatin verkkokirjautuminen"
+msgstr ""
 
 #: ../data/rh_register.glade.h:92
 msgid "Review system..."
@@ -2048,24 +1877,20 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:94
-#, fuzzy
 msgid "Send _hardware profile"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:95
-#, fuzzy
 msgid "Send _package profile"
-msgstr "Lähetä _pakettiluettelo"
+msgstr ""
 
 #: ../data/rh_register.glade.h:96
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Lähetä _pakettiluettelo"
+msgstr ""
 
 #: ../data/rh_register.glade.h:98
 msgid "Software update setup has been completed for this system."
@@ -2076,9 +1901,8 @@ msgid "Start Window"
 msgstr ""
 
 #: ../data/rh_register.glade.h:101
-#, fuzzy
 msgid "System _Name:"
-msgstr "Sukunimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:105
 msgid ""
@@ -2088,43 +1912,33 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:106
 msgid ""
-"This system will <b>not</b> be able to successfully receive software "
-"updates, including security updates, from Red Hat without connecting to a "
-"Red Hat Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.\n"
 "\n"
-"To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
+"To keep your system updated, secure, and supported, please register this system at your earliest convenience.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Käytä todennusta"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Käytä todennusta"
+msgstr ""
 
 #: ../data/rh_register.glade.h:114
-#, fuzzy
 msgid "V_iew Package Profile ..."
-msgstr "Päivitetään pakettiprofiilia..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:116
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Päivitetään pakettiprofiilia..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:119
 msgid ""
@@ -2134,9 +1948,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:121
 msgid ""
-"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
-"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
-"b> in order to receive software updates."
+"You may connect your system to <b>Red Hat Network</b> "
+"(https://rhn.redhat.com/) or to a <b>Red Hat Network Satellite</b> or <b>Red"
+" Hat Network Proxy</b> in order to receive software updates."
 msgstr ""
 
 #: ../data/rh_register.glade.h:122
@@ -2147,20 +1961,16 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:123
 msgid ""
-"You won't be able to receive software updates, including security updates, "
-"for this system.\n"
+"You won't be able to receive software updates, including security updates, for this system.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> "
-"menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
 msgid ""
-"You'll need to send us a profile of what packages and hardware are installed "
-"on your system so we can determine what updates are available."
+"You'll need to send us a profile of what packages and hardware are installed"
+" on your system so we can determine what updates are available."
 msgstr ""
 
 #: ../data/rh_register.glade.h:128
@@ -2170,30 +1980,21 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:129
-#, fuzzy
 msgid "Your system is not setup for software updates."
-msgstr "Käynnistetään up2date päivitysohjelma uudelleen"
+msgstr ""
 
 #: ../data/rh_register.glade.h:130
 msgid ""
-"Your system is now ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is now ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:133
 msgid ""
-"Your system is ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:136
@@ -2210,19 +2011,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:138
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Aktivoi kirjautuminen"
+msgstr ""
 
 #: ../data/rh_register.glade.h:139
-#, fuzzy
 msgid "_Close"
-msgstr "Sulje"
+msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgid "_Login:"
-msgstr "_Kirjautuminen:  "
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgid "_Minor release:"
@@ -2233,9 +2031,8 @@ msgid "_No thanks, I'll connect later."
 msgstr ""
 
 #: ../data/rh_register.glade.h:143
-#, fuzzy
 msgid "_No, Cancel"
-msgstr "Peru"
+msgstr ""
 
 #: ../data/rh_register.glade.h:144
 msgid "_No, I prefer to register at a later time."
@@ -2246,32 +2043,28 @@ msgid "_Operating system version:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgid "_Password:"
-msgstr "Salasana:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
 msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:148
-#, fuzzy
 msgid "_Take me back to the registration"
-msgstr "Up2date - Pakettiluettelo (rekisteröinti)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:149
 msgid "_Take me back to the setup process."
 msgstr ""
 
 #: ../data/rh_register.glade.h:150
-#, fuzzy
 msgid "_View Hardware Profile ..."
-msgstr "Laitteistoprofiili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:151
-#, fuzzy
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Miksi rekisteröityä?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:152
 msgid "_Yes, Continue"
@@ -2286,23 +2079,20 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "installation number field"
-msgstr "Tilausnumero on virheellinen"
+msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgid "label"
-msgstr "label10"
+msgstr ""
 
 #: ../data/rh_register.glade.h:157
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:158
-#, fuzzy
 msgid "proxy password field"
-msgstr "Salasana:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:159
 msgid "proxy user field"
@@ -2313,9 +2103,8 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:161
-#, fuzzy
 msgid "system name"
-msgstr "Sukunimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:162
 msgid "•"
@@ -2334,2853 +2123,15 @@ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "rekisteröintiNumero"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Rekisteröidy Red Hat Networkiin"
+msgstr ""
 
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Yhdistä Red Hat Networkiin"
 
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Vaihe 3: Rekisteröi järjestelmän profiili - Laitteisto"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Vaihe 3: Rekisteröi järjestelmän profiili - Paketit"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "rekisteröintiNumero"
-
-#~ msgid "Warning:"
-#~ msgstr "Varoitus:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "OK-ikkuna:"
-
-#, fuzzy
-#~ msgid "Question dialog:"
-#~ msgstr "Kysymys ikkuna:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Aktivoiminen"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Varoitus: rhnsd:n käynnistäminen chkconfigilla epäonnistui"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Levyvirhe:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Vakava virhe paketin asennuksessa:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM-paketin ristiriitavirhe:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM-tiedoston ristiriitavirhe:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM-virhe:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM-riippuvaisuusvirhe:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Pakettiohitusluettelo-virhe:\n"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG:tä ei ole asennettu oikein."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "GPG avainrengas ei sisällä Red Hat Inc:n julkista pakettien "
-#~ "allekirjoitusavainta"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Paketin %s GPG-allekirjoitustarkistus epäonnistui. Tämä tarkoittaa, että "
-#~ "paketti on viallinen."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Paketilla %s ei ole GPG-allekirjoitusta.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Paketilla %s ei ole luotettavaa GPG-allekirjoitusta.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Paketilla %s on tuntematon GPG-allekirjoitus.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Valitse käytettävä Red Hat Network -palvelin."
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Yhdistä Red Hat Networkiin"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Rekisteröidy Red Hat Networkiin"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "Käynnistetään up2date päivitysohjelma uudelleen"
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Vaihe 1: Lue Red Hatin Tietosuojalausunto"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Lue Red Hat Networkin Ehdot ja määräykset"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Luo uusi tunnus"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Annetut salasanat eivät täsmää.\n"
-#~ "Ole hyvä ja anna salasanat uudestaan."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Luo uusi Red Hat Network tili"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "* _Salasana"
-
-#, fuzzy
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "Arvostamme yksityisyyttäsi:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Etunimi on annettava."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Sukunimi on annettava."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Sähköpostiosoite on annettava."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Sähköpostiosoitteen tulee olla oikea."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Rekisteröintitiedot kohteelle:"
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Salasana ja sen varmistus on annettava."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Salasana ja sen varmistus on annettava."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Rekisteröintitunnus on annettava."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Aktivoi kirjautuminen"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "rekisteröintiNumero"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "esimerkki: XXXX-XXXX-XXXX-XXXX (viivat valinnaisia)"
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "Tilausnumero on virheellinen"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Ongelma järjestelmän rekisteröimisessä."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Ongelma järjestelmän rekisteröimisessä."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Vakava virhe paketin asennuksessa:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Rekisteröintitunnus on annettava."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Virhe kommunikoitaessa rekisteröintipalvelimen kanssa:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Vakava virhe tietosuojalausunnon noutamisessa:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Rekisteröintitunnus on annettava."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Ongelma käyttäjänimen rekisteröinnissä:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Ongelma käyttäjänimen rekisteröinnissä."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Red Hatin verkkokirjautuminen"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Aktivoi kirjautuminen"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Sähköpostiosoite"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Määrittele käytettävä url-palvelin"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Tärkeää rekisteröinti tietoa"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Rekisteröintitiedot"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Rekisteröintitunnus on annettava."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Tietosuojalausunto"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Red Hat Tietosuojalausunto"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com/"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "Aktivoi kirjautuminen"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Virhe luettaessa laitteistotietoja:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Virhe luettaessa DMI tietoa:"
-
-#, fuzzy
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Tämä tili ja salasana eivät ole voimassa\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Käyttäjänimi on annettava."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Salasana ja sen varmistus on annettava."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Ongelma käyttäjänimen rekisteröinnissä:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Ongelma käyttäjänimen rekisteröinnissä."
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Rekisteröintitiedot"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Tunnustiedot"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Etunimi:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Sukunimi:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Yhtiö:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "* Osoite:"
-
-#~ msgid "City:"
-#~ msgstr "Kaupunki:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "Osavaltio / lääni:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Postinumero:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Maa:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  Osoite 2:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "  Osoite 2:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "* Kaupunki:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  Yhtiö:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "* Osavaltio/maakunta:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "* Postinumero:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* _Varmista salasana:  "
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "* Maa:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "Red Hat sisäänkirjautuminen:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "* _Salasana"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*Sukunimi:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "* _Sähköpostiosoite:"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*Etunimi:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Tunnustiedot"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Rekisteröintitiedot"
-
-#, fuzzy
-#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
-#~ msgstr "esimerkki: XXXX-XXXX-XXXX-XXXX (viivat valinnaisia)"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afganistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albania"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeria"
-
-#~ msgid "American Samoa"
-#~ msgstr "Amerikan Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Etelämanner"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua ja Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentiina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenia"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Australia"
-
-#~ msgid "Austria"
-#~ msgstr "Itävalta"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaidzan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamasaaret"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Valko-Venäjä"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgia"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosnia ja Herzegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet'n saari"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasilia"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "Brittiläinen Intian valtameren alue"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgaria"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Luo uusi tunnus"
-
-#~ msgid "Cambodia"
-#~ msgstr "Kambodša"
-
-#~ msgid "Cameroon"
-#~ msgstr "Kamerun"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Kap Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Caymansaaret"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Keski-Afrikan tasavalta"
-
-#~ msgid "Chad"
-#~ msgstr "Tšad"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "China"
-#~ msgstr "Kiina"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Joulusaari"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Kookossaaret"
-
-#~ msgid "Colombia"
-#~ msgstr "Kolumbia"
-
-#~ msgid "Comoros"
-#~ msgstr "Komorit"
-
-#~ msgid "Congo"
-#~ msgstr "Kongo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cooksaaret"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Norsunluurannikko"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Luo uusi tunnus"
-
-#, fuzzy
-#~ msgid "Create a new Red Hat Network login"
-#~ msgstr "Luo uusi Red Hat Network tili"
-
-#~ msgid "Croatia"
-#~ msgstr "Kroatia"
-
-#~ msgid "Cuba"
-#~ msgstr "Kuuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Kypros"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Tšekinmaa"
-
-#~ msgid "Denmark"
-#~ msgstr "Tanska"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominikaaninen tasavalta"
-
-#~ msgid "East Timor"
-#~ msgstr "Itä-Timor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecuador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egypti"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Päiväntasaajan Guinea"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Viro"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Etiopia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falklandsaaret (Malvinas)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Färsaaret"
-
-#~ msgid "Fiji"
-#~ msgstr "Fidzi"
-
-#~ msgid "Finland"
-#~ msgstr "Suomi"
-
-#~ msgid "France"
-#~ msgstr "Ranska"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Ranska, Metropolitan"
-
-#~ msgid "French Guiana"
-#~ msgstr "Ranskan Guyana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Ranskan Polynesia"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Ranskan eteläiset maa-alueet"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Saksa"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Kreikka"
-
-#~ msgid "Greenland"
-#~ msgstr "Grönlanti"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#, fuzzy
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Heard- ja McDonaldsaaret"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Unkari"
-
-#~ msgid "Iceland"
-#~ msgstr "Islanti"
-
-#~ msgid "India"
-#~ msgstr "Intia"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesia"
-
-#~ msgid "Iraq"
-#~ msgstr "Irak"
-
-#~ msgid "Ireland"
-#~ msgstr "Irlanti"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Italy"
-#~ msgstr "Italia"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaika"
-
-#~ msgid "Japan"
-#~ msgstr "Japani"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordania"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenia"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuwait"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kirgisia"
-
-#~ msgid "Latin America"
-#~ msgstr "Latinalainen Amerikka"
-
-#~ msgid "Latvia"
-#~ msgstr "Latvia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Libanon"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Liettua"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxemburg"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Makedonia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagaskar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malesia"
-
-#~ msgid "Maldives"
-#~ msgstr "Malediivit"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshallsaaret"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mahore"
-
-#~ msgid "Mexico"
-#~ msgstr "Meksiko"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolia"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Marokko"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mosambik"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Alankomaat"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Alankomaiden Antillit"
-
-#~ msgid "New Caledonia"
-#~ msgstr "Uusi-Kaledonia"
-
-#~ msgid "New Zealand"
-#~ msgstr "Uusi-Seelanti"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolkin saari"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Pohjois-Mariaanit"
-
-#~ msgid "Norway"
-#~ msgstr "Norja"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua-Uusi-Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Filippiinit"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Puola"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugali"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Red Hat tunnusten ja salasanojen täytyy sisältää vähintään 5 merkkiä"
-
-#~ msgid "Reunion"
-#~ msgstr "Réunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romania"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Venäjän federaatio"
-
-#~ msgid "Rwanda"
-#~ msgstr "Ruanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Saint Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "St. Kitts ja Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "St. Pierre ja Miquelon"
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "St. Vincent ja Grenadiinit"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome ja Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Saudi-Arabia"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychellit"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapore"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovakia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Salomosaaret"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "Etelä-Afrikka"
-
-#, fuzzy
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "S. Georgia ja S. Sandwich -saaret."
-
-#~ msgid "Spain"
-#~ msgstr "Espanja"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Surinam"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Svalbard- ja Jan Mayen -saaret"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swasimaa"
-
-#~ msgid "Sweden"
-#~ msgstr "Ruotsi"
-
-#~ msgid "Switzerland"
-#~ msgstr "Sveitsi"
-
-#, fuzzy
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Keski-Afrikan tasavalta"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tadzikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tansania"
-
-#~ msgid "Thailand"
-#~ msgstr "Thaimaa"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad ja Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisia"
-
-#~ msgid "Turkey"
-#~ msgstr "Turkki"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Turks- ja Cairossaaret"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukraina"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Yhdistyneet Arabiemiraatit"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Iso-Britannia"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "Yhdysvaltojen pienet syrjäiset saaret"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Vatikaanivaltio"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Vietnam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Neitsytsaaret (Britannia)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Neitsytsaaret (Yhdysvallat)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Wallis- ja Futunasaaret"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Länsi-Sahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Jemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Jugoslavia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Sambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    Järjestelmä ei tue SSL (suojattu) yhteyttä.\n"
-#~ "    Kaikki lähetettävä tai vastaanotettava tieto redhat.comiin\n"
-#~ "    siirretään suojaamattomana.\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Jatketaanko tästä huolimatta?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Noudettu."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Valitse käytettävä Red Hat Network -palvelin."
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Kanavatiedot"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com/"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Yhtiö:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Yhdistä Red Hat Networkiin"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com/"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Aktivoi kirjautuminen"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Red Hatin verkkokirjautuminen"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com/"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "päivitä tähän järjestelmäprofiiliin Red Hat Networkissa kytketyt paketit"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "RHN-rekisteröintiohjelma on suoritettava pääkäyttäjänä."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Aktivoi kirjautuminen"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com/"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Aktivoi kirjautuminen"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr "Järjestelmää ei voida päivittää ennenkuin se on liitetty kanavaan."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Aktivoi kirjautuminen"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr "Järjestelmää ei voida päivittää ennenkuin se on liitetty kanavaan."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Yhdistä Red Hat Networkiin"
-
-#, fuzzy
-#~ msgid "for your system's connection to Red Hat Network "
-#~ msgstr "Yhdistä Red Hat Networkiin"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Valitse käytettävä Red Hat Network -palvelin."
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Muuta pakettivalintoja ja yritä uudelleen."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Versio:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Aktivoi kirjautuminen"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Aktivoi kirjautuminen"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Ongelma pakettien lähetyksessä:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Ongelma pakettien lähetyksessä."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Käyttäjänimen tulee olla vähintään 5 merkkiä"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "Salasanan tulee olla vähintään 5 merkkiä"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Annetut salasanat eivät täsmää.\n"
-#~ "Ole hyvä ja kirjoita varmistus uudestaan."
-
-#~ msgid "Config modified"
-#~ msgstr "Asetuksia muutettu"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "Riippuvaisuudet pitäisi olla ratkaistu, mutta ne eivät ole."
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "rpm ei pystynyt noutamaan otsikkoa: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "rpm ei pystynyt noutamaan otsikkoa"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Etunimi on annettava."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Sukunimi on annettava."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Kaupunki on annettava."
-
-#~ msgid "SSL Warning"
-#~ msgstr "SSL-varoitus"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Järjestelmä ei tue SSL (suojattu) yhteyttä. Kaikki lähetettävä ja \n"
-#~ "vastaanotettava tieto Red Hat Networkiin siirretään suojaamattomana.\n"
-#~ "Jatketaanko tästä huolimatta?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Käyttäjänimi:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Virhe avattaessa kohdetta %s"
-
-#~ msgid "Installing"
-#~ msgstr "Asennetaan"
-
-#~ msgid "Installing %s"
-#~ msgstr "Asennetaan %s"
-
-#~ msgid "Repackaging"
-#~ msgstr "Uudelleenpaketoin"
-
-#~ msgid "Preparing"
-#~ msgstr "Valmistellaan"
-
-#~ msgid " Done."
-#~ msgstr " Valmis."
-
-#~ msgid "Retrieved."
-#~ msgstr "Noudettu."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr "Seuraavat paketit lisättiin riippuvaisuus syistä:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versio         Julk\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                          Versio         Julk            "
-#~ "Kanava      \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "Lisätietoa ei ole saatavilla\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versio        Julk    \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "Seuraavat paketit on merkitty ohitettaviksi asetusten mukaisesti:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versio         Julk    Syy\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "Seuraavat paketit ovat vanhentuineita uusista paketeista johtuen:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi-Versio-Julkaisu        tehnyt vanhaksi   Nimi-Versio-Julkaisu\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Seuraavia paketteja ei asennettu, koska ne ovat vanhentuineita "
-#~ "asennetuista paketeista johtuen:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi-Versio-Julkaisu       tehnyt vanhaksi   Nimi-Versio-Julkaisu\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "Seuraavia paketteja ei ole asennettu, mutta ne ovat noudettavissa Red Hat "
-#~ "Networkistä:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versio        Julkaisu  \n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr "    --noSSLServerURL=<url>     - määrittele url ei-ssl palvelimelle"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr ""
-#~ "    --useNoSSLForPackages     - älä käytä ssl:ää pakettien noutamiseen"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Käyttäjänimi:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "rekisteröintiNumero"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Luo uusi tunnus"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Peru"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "Red Hat sisäänkirjautuminen:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Lue _Tietosuojalausunto"
-
-#~ msgid "Package Name"
-#~ msgstr "Paketin nimi"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Ohittamisen syy"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Testataan pakettia / selvitetään RPM riippuvaisuudet"
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr "Seuraavat riippuvaisuudet lisättiin valintaan:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Paketti                                Ohjelma\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Red Hatin päivitysohjelma"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Tämä ohjelma on GPL-lisenssin alainen.\n"
-#~ "Raportoi ohjelmavioista Red Hatin vianjäljitysjärjestelmään: http://"
-#~ "bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr "Päivitysohjelma - Red Hat Linuxin pakettien päivittämiseen"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Tämä ohjelma on GPL-lisenssin alainen.  Raportoi ohjelmavioista Red Hatin "
-#~ "vikailmoitusjärjestelmään: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Versio"
-
-#~ msgid "Old Version"
-#~ msgstr "Vanha versio"
-
-#~ msgid "Size"
-#~ msgstr "Koko"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Ohittamisen syy"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Yksityisyyden suoja"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Ehdot ja määräykset"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Kirjautumissivu"
-
-#, fuzzy
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Red hat Network tietoa"
-
-#~ msgid "Up2date - Create New Account"
-#~ msgstr "Up2date - Luo uusi tili"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Tuotteen tietosivu"
-
-#~ msgid "All information is optional."
-#~ msgstr "Kaikki tiedot ovat valinnaisia."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Postin vastaanottamiseksi Red Hatilta täytyy antaa\n"
-#~ "koko nimi ja osoite."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Voidakseen ottaa yhteyttä puhelimitse, Red Hat tarvitsee vähintään\n"
-#~ "puhelinnumeron ja nimen."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Voidakseen ottaa yhteyttä faksilla, Red Hat tarvitsee vähintään\n"
-#~ "faksinumeron ja nimen."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Laitteistoprofiili"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Rekisteröintiohjelma luetteloi järjestelmään asennetut RPM-paketit.  "
-#~ "Odota."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "Pakettia ei ole valittuna. Valitse ensin paketti."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Lisätietoa ei ole saatavissa."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hatin päivitysohjelma luetteloi järjestelmään asennettuja paketteja.  "
-#~ "Odota."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Up2date päivitysohjelmasta on saatavilla uusi versio. Asennetaanko uusi "
-#~ "versio ja käynnistetään ohjelma uudelleen?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Vakava RPM-virhe:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr "Vakava virhe yhteydessä palvelimeen:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Odottamaton OS-virhe tapahtunut:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Ohitetut paketit"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Kanavat"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Pakettilista"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Vakava RPM-virhe:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr "Järjestelmä on päivitetty."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "RPM-virhe:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Vakava RPM-asennusvirhe:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Pakettiriippuvaisuus ongelma:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Vähintään yksi paketti on valittava.\n"
-#~ "Jos et halua päivittää mitään paketteja,\n"
-#~ "valitse \"Peru\" lopettaaksesi päivitysohjelman."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Pakettien vaatima tila on %d kt, mutta\n"
-#~ "vapaata tilaa on vain %d kt.\n"
-#~ "Poista joitain paketteja ja jatka."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Saatavilla olevat paketit"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Riippuvaisuudet"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Paketti on jo noudettu"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Virhe paketin %s noutamisessa:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Vakava RPM-virhe:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Pakettia %s ei ole GPG-allekirjoitettu.  Jatketaanko?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Paketilla %s ei ole voimassaolevaa GPG-allekirjoitusta.\n"
-#~ "Sitä on käsitelty tai se on viallinen.  Jatketaanko?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "Paketilla %s on epäluotettava GPG-allekirjoitus.  Jatketaanko?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "Paketilla %s on tuntematon GPG-allekirjoitus. Jatketaanko?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Kaikki valmista. Valitse \"Seuraava\"."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Pakettien noutaminen"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Uudelleenpaketoin..."
-
-#~ msgid "Installing..."
-#~ msgstr "Asennetaan..."
-
-#, fuzzy
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Kokonaisedistyminen:"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Kokonaisedistyminen:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Vakava RPM-asennusvirhe:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Pakettien asennus"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Viimeistely"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Red Hatin päivitysohjelma on valmis."
-
-#, fuzzy
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "noutaminen\n"
-#~ " seuraavat paketit onnistuneesti:\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "asentaminen\n"
-#~ " seuraavat paketit onnistuneesti:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Johtuen asetuksista, nämä paketit ainoastaan noudettiin, mutta niitä ei\n"
-#~ "asennettu. Jos haluat muuttaa asetuksia, suorita \"up2date-config\" "
-#~ "ohjelma."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Virhe asennettaessa lilo.conf tiedostoa:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "Virhe palautettaessa lilo.conf varmuuskopiota.  Varmuuskopio on:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Virhe asennettaessa uutta käynnistyslataajaa: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "Virhe luettaessa lilo.conf tiedostoa:\n"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "Noudetaan rpm otsikoita"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "Noudetaan rpm otsikkoa: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Poistetaan ohitettavaksi merkittyjä paketteja"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s ei ole hyväksyttävä hakemisto"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Käyttö: rhn_check [valitsimet]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Käyettävissä olevat komentorivivalitsimet:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - tämä ohje "
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose      - lisää tapahtumatietoa "
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Virhe noudettaessa saatavilla olevaa pakettiluetteloa"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Virhe tulkittaessa komentorivin argumentteja: %s"
-
-#~ msgid "Fetching package list for channel: %s"
-#~ msgstr "Noudan pakettilistaa kanavalle: %s"
-
-#~ msgid "You must enter your address."
-#~ msgstr "Osoite on annettava."
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Postinumero on annettava."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Käyttö: rhnreg_ks [valitsimet]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - tämä ohje "
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<arvo>       - määrittele profiilin nimi"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<arvo>          - määrittele käyttäjänimi "
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<arvo>          - määrittele salasana "
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgid=<arvo>            - määrittele organisaation tunnus "
-
-#, fuzzy
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr "    --orgpassword=<arvo>       - määrittele organisaation salasana "
-
-#, fuzzy
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr "    --serverUrl=<URL>     - määrittele url ei-ssl palvelimelle"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<arvo>             - määrittele sähköpostiosoite "
-
-#, fuzzy
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<arvo>         - määrittele aktivointiavain "
-
-#, fuzzy
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr "    --subscription=<arvo>         - määrittele kirjautumisnumero "
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --version                  - näyttää version "
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr ""
-#~ "    --proxy          - määrittele käytettäväksi http-välityspalvelinta"
-
-#, fuzzy
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<arvo>    - määrittele välityspalvelimen käyttäjänimi "
-
-#, fuzzy
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<arvo>    - määrittele välityspalvelimen salasana "
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Lisenssoitu GPL-lisenssin alle."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "ei voida poistaa kohdetta %s"
-
-#, fuzzy
-#~ msgid "Error parsing %s"
-#~ msgstr "Virhe avattaessa kohdetta %s"
-
-#~ msgid "at line: %s"
-#~ msgstr "rivillä: %s"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Vaihe 2: Käyttäjätunnuksen rekisteröinti"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "Oletko jo rekisteröitynyt redhat.com:iin?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Kyllä: Syötä nykyinen käyttäjänimi ja salasana alapuolelle."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr "Ei: Syötä uusi käyttäjä ja salasana alapuolelle."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Uudestaan, varmennusta varten:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr "Vaihe 2: Käyttäjätunnuksen rekisteröinti (\"*\"-kohdat pakollisia)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Vaihe 2: Käyttäjätunnuksen rekisteröinti (kohdat valinnaisia)"
-
-#~ msgid "*Title:"
-#~ msgstr "*Arvonimi:"
-
-#~ msgid "Title:"
-#~ msgstr "Arvonimi:"
-
-#~ msgid "First Name:"
-#~ msgstr "Etunimi:"
-
-#~ msgid "Position:"
-#~ msgstr "Asema:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Osoite:"
-
-#~ msgid "Address:"
-#~ msgstr "Osoite:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Osoite 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*Kaupunki:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Osavaltio/maakunta:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Osavaltio/lääni:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Postinumero:"
-
-#~ msgid "Country:"
-#~ msgstr "Maa:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Puhelin:"
-
-#~ msgid "Phone:"
-#~ msgstr "Puhelin:"
-
-#~ msgid "Fax:"
-#~ msgstr "Faksi:"
-
-#, fuzzy
-#~ msgid "Contact Preferences:"
-#~ msgstr "Yhteystiedot:"
-
-#~ msgid "E-mail"
-#~ msgstr "Sähköposti"
-
-#~ msgid "Regular mail"
-#~ msgstr "Tavallinen posti"
-
-#~ msgid "Telephone"
-#~ msgstr "Puhelin"
-
-#~ msgid "Fax"
-#~ msgstr "Faksi"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr ""
-#~ "Ottakaa minuun yhteyttä erikoistarjousten muodossa Red Hatin "
-#~ "yhteistyökumppaneilta"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Vastaanota Red Hatin sähköinen uutiskirje"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Postin vastaanottamiksi Red Hatilta on syötettävä koko nimi ja osoite."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Voidakseen ottaa yhteyttä puhelimitse, Red Hat tarvitsee vähintään "
-#~ "puhelinnumeron ja nimen."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Voidakseen ottaa yhteyttä faksilla, Red Hat tarvitsee vähintään "
-#~ "faksinumeron ja nimen."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Vaihe 3: Rekisteröi järjestelmän profiili - Paketit"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Järjestelmäprofiili on rekisteröity onnistuneesti Red Hat Networkiin.\n"
-#~ "\n"
-#~ "Ole hyvä ja tutustu http://www.redhat.com/network sivustoon. "
-#~ "Kirjautumalla sisään palveluun voit hyödyntää Red Hat Networkin edut.\n"
-#~ "\n"
-#~ "Järjestelmän päivittämiseksi viimeisimmillä tuotepäivityksillä, "
-#~ "parannuksilla ja tietoturvalisäyksillä, suorita up2date komentorivillä "
-#~ "tai valitse \"Update Agent\" paneelista."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "Tämä järjestelmä on jo rekisteröity.  Jatketaanko tästä huolimatta?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Pakettia %s ei ole GPG-allekirjoitettu. Keskeytetään..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Pakettilla %s ei ole voimassaolevaa GPG-allekirjoitusta.\n"
-#~ "Sitä on käsitelty tai se on viallinen.  Keskeytetään..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr "Paketilla %s on epäluotettava GPG-allekirjoitus.  Keskeytetään..."
-
-#, fuzzy
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr "Paketilla %s on tuntematon GPG-avain. Keskeytetään..."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "Et ole rekisteröitynyt Red Hat Networkiin. Käyttääksesi\n"
-#~ "päivitysohjelmaa sinun tulee rekisteröityä.\n"
-#~ "\n"
-#~ "Suorita \"up2date --register\" rekisteröityäksesi."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "GPG avainnippusi ei sisällä Red Hat Inc:n julkista avainta.\n"
-#~ "Ilman sitä, et voi varmistaa että paketit joita päivitysagentti imuroi\n"
-#~ "ovat Red Hat:n allekirjoittamia.\n"
-#~ "\n"
-#~ "Päivitysagenttisi asetukset määrittelevät, että haluat käyttää GPG:tä."
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "Nimi                                    Versio         Julk\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Testiasennus epäonnistui pakettiristiriitojen vuoksi:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "Otsikkotietoa ei löydy kohteelle %s"
-
-#, fuzzy
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Joitain paketteja tässä tapahtumassa ei ole käytettävissä."
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "muokkaa päivitysohjelman asetuksia"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr "nouda vain paketit, vaikka asetuksissa on määritelty asennus"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr "asenna paketit, vaikka asetuksissa on määritelty vain noutaminen"
-
-#, fuzzy
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Nouda src paketit sekä binääri rpms:t"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr "Älä lataa src paketteja (ohita asetus)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Määrittele hakemisto, josta löytyy vaihtoehtoinen rpm-tietokanta"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "luettelo noudettavissa olevista paketeista"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr ""
-#~ "Tee kaikki muu, paitsi pakettien noutaminen ja asentaminen "
-#~ "(riippuvaisuuksien näyttäminen ym.)"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "älä käytä GPG:tä varmistamaan paketin allekirjoitusta"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "rekisteröi järjestelmä (tai rekisteröi tarvittaessa)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Näytä kaikki noudettavissa olevat paketit"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "Näytä kaikki saatavilla olevat paketit, joita ei ole asennettu"
-
-#, fuzzy
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "Luetteloi kaikki äskettäin asennetut paketit, jotka eivät ole kanavissa\n"
-#~ "joihin järjestelmä on kirjautunut"
-
-#, fuzzy
-#~ msgid "List all the install components available to install"
-#~ msgstr "Näytä kaikki asennettavissa olevat asennusosat"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "etsii, noutaa ja asentaa paketit joita tarvitaan riippuvaisuuksien "
-#~ "selvittämiseen"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "mihin tallennetaan väliaikaiset tiedostot / RPM:t"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "päivitä järjestelmä kaikilla tarpeellisilla paketeilla"
-
-#~ msgid "show program version information"
-#~ msgstr "näytä ohjelman versiotiedot"
-
-#, fuzzy
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr "etsii, lataa ja asentaa paketit selvittääkseen riippuvuudet"
-
-#, fuzzy
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr "Luettelo paketeista joiden asentaminen ja päivitys on estetty"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Älä lataa paketteja ollenkaan. Testausta varten"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "Näytä pakettien asennusikkunna graafisessa tilassa."
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Nouda paketti ilman riippuvaisuuksien selvittämistä"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr ""
-#~ "Nouda määritellyn paketin lähdekoodipaketti ilman riippuvaisuuksien "
-#~ "selvittämistä"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Asennetaanko avain?"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "Päivitetään tapahtumahistoriaa..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Riippuvaisuuksiin tarvittavia paketteja ei löytynyt."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "Kanavan nimi on määriteltävä valitsimella --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr "Vakava virhe kommunikoitaessa palvelimen kanssa:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Pakettiin liittyvä riippuvaisuusongelma:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "Virhe asennettaessa paketteja:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Interaktiivinen tila ei ole käytettävissä"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Määrittele joko -l, -u, --nox tai pakettien nimet "
-#~ "komentoriviargumentteina."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr "Ei voida käyttää graafista tilaa. Kokeile \"--nox\""
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "Seuraavia paketteja ei ole saatavissa:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Kaikki paketit ovat tällä hetkellä päivitetty"
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "Seuraavia määriteltyjä paketteja ei löytynyt:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "Seuraavat määritellyt paketit on jo päivitetty:"
-
-#~ msgid "Activate"
-#~ msgstr "Aktivoi"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Asennus on suoritettu.\n"
-#~ "\n"
-#~ "Järjestelmä ei kuitenkaan ollut yhteydessä Red Hat Networkiin.\n"
-#~ "On tärkeää yhdistää järjestelmä verkkoon päivitysten ja korjausten\n"
-#~ "vastaanottamiseksi. Näin järjestelmä pysyy suojattuna ja toimivana.\n"
-#~ "\n"
-#~ "\n"
-#~ "Järjestelmän yhdistämiseksi Red Hat Networkiin valitse:\n"
-#~ "Sovellukset, Järjestelmätyökalut ja Red Hat Network tai\n"
-#~ "komentoriviltä pääkäyttäjänä: run /usr/bin/up2date\n"
-#~ "\n"
-#~ "Tarvitsetko apua? Lähimmän asiakaspalvelun löydät katsomalla\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "Onnittelut!\n"
-#~ "Asennus on suoritettu ja kirjautuminen hyväksytty.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Red Hatin rekisteröitymiseen sisältyvät palvelut ovat nyt käytettävissä."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Järjestelmän asennus on suoritettu.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Järjestelmä ei kuitenkaan ole yhteydessä verkkoon, ja näinollen\n"
-#~ "kirjatumista ei ole suoritettu.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Kirjautuminen on tärkeää päivitysten vastaanottamiseksi. Päivityksien\n"
-#~ "avulla järjestelmä pysyy suojattuna ja toimivana.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Ole hyvä ja kirjaudu verkossa olevasta järjestelmästä osoitteessa\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Tarvitsetko apua? Lähimmän asiakaspalvelun löydät katsomalla\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Asennus on suoritettu.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Valitettavasti kirjautumista ei ole aktivoitu.\n"
-#~ "Järjestelmä toimii, mutta päivityspalvelu joka pitää järjestelmän\n"
-#~ "suojattuna ja toimivana ei ole käytettävissä.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Päivityspalvelun käyttöönottamiseksi on syytä aktivoida kirjautuminen\n"
-#~ "mahdollisimman pian osoitteessa http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Tarvitsetko apua? Lähimmän asiakaspalvelun löydät katsomalla\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Lisää"
-
-#~ msgid "Add new:"
-#~ msgstr "Lisää uusi:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Pidä binääripaketit levyllä asennuksen jälkeen"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "Älä asenna paketteja noutamisen jälkeen"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "Älä päivitä paketteja jos paikallista asetustiedostoa on muokattu"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr "Käytä RPM-kumoamista (sallii \"kumoamisen\", mutta vie tilaa)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Syötä hakemisto, jonne ladatut paketit tallennetaan."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Ohitettavien tiedostojen nimet"
-
-#~ msgid "General"
-#~ msgstr "Yleiset"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Jos tarvitset HTTP-välityspalvelimen, syötä se tähän muodossa KONE:"
-#~ "PORTTI\n"
-#~ "esim. squid.kone.org:3128"
-
-#~ msgid "Network Settings"
-#~ msgstr "Verkkoasetukset"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Ylikirjoita järjestelmäprofiiliin tallennettu versio:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Pakettien poikkeukset"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Paketin asennusasetukset"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Ohitettavien pakettien nimet"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Paketin noutamisasetukset"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Paketin varmennusasetukset"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Paketin säilytyshakemisto:"
-
-#~ msgid "Remove"
-#~ msgstr "Poista"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Nouto / Asennus"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Nouda lähdekoodi-RPM binääripaketin kanssa"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Käytä GPG:tä varmistaaksesi paketin eheys"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Profiilinimi on kuvainnollinen nimi jolla tunnistetaan järjestelmä\n"
-#~ "Red Hat Networkin sivilla.  Valinnan mukaan sisällytä nimeen\n"
-#~ "tietokoneen sarja tai identifiointinumero."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Asetuksissa on määritelty että ylläolevia paketteja ei automaattisesti \n"
-#~ "päivitetä.  Jos asetukset halutaan ohittaa ja sisällyttää yllämainittuja\n"
-#~ "paketteja noudettaviin, voidaan ne valita tässä."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "Kaikki valmista"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr "Luettelo järjestelmässä olevista paketeista jotka RPM tunnistaa:"
-
-#~ msgid "British Columbia"
-#~ msgstr "Brittiläinen Kolumbia"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Oletuksena kaikki paketit jotka RPM tunnistaa sisällytetään "
-#~ "järjestelmä- \n"
-#~ "profiiliin.\n"
-#~ "Paketit joiden ei haluta sisältyvän profiiliin voidaan poistaa tässä."
-
-#~ msgid "California"
-#~ msgstr "Kalifornia"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Valitsemalla \"Seuraava\" hyväksyt nämä Ehdot ja määräykset.\n"
-#~ " Jos et hyväksy, valitse \"Peru\""
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#, fuzzy
-#~ msgid "Contact preferences"
-#~ msgstr "Yhteystiedot"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "Kolumbian seutu"
-
-#~ msgid "Dr."
-#~ msgstr "tri"
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "Punaisella merkityt kentät ovat pakollisia."
-
-#~ msgid "First name:"
-#~ msgstr "Etunimi:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "Laitteistotieto on tärkeä määritettäessä mitkä päivitykset ja ajurit\n"
-#~ "ovat sopivia järjestelmään.  Vähimmäistieto mitä on annettava sisältää\n"
-#~ "järjestelmän kokoonpanon ja Red Hat Linux version."
-
-#~ msgid "Hawaii"
-#~ msgstr "Havaiji"
-
-#~ msgid "IP address:"
-#~ msgstr "IP-osoite:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Sisällytä tietoa laitteistosta ja verkosta"
-
-#~ msgid "Included information"
-#~ msgstr "Sisällytetty tieto"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Asennetaan paketteja"
-
-#~ msgid "Installing:"
-#~ msgstr "Asennetaan:"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Sukunimi:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Micronesia"
-#~ msgstr "Mikronesia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "Neiti"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Mr."
-#~ msgstr "Herra"
-
-#~ msgid "Mrs."
-#~ msgstr "Rouva"
-
-#~ msgid "Ms."
-#~ msgstr "Neiti/rouva"
-
-#~ msgid "Name"
-#~ msgstr "Nimi"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#, fuzzy
-#~ msgid "Northern Marianas"
-#~ msgstr "Pohjois-Mariaanit"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "USA:n/Kanadan ulkopuolella"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Ohitettavaksi merkityt paketit"
-
-#, fuzzy
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Riippuvaisuuksien selvittämiseen tarvittavat paketit"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Quebec"
-#~ msgstr "Québec"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "RPM tietoa tarvitaan määrittelemään mitkä päivityspaketit ovat sopivia\n"
-#~ "tähän järjestelmään."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Red Hat Linux versio:"
-
-#~ msgid "Rel."
-#~ msgstr "Julk."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Noudetaan paketteja"
-
-#~ msgid "Retrieving:"
-#~ msgstr "Noudetaan:"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Valitse kaikki paketit"
-
-#~ msgid "Sir"
-#~ msgstr "Sir"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Erikoistarjouksia Red Hatin yhteistyökumppaneilta"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tenneesee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Ehdot ja määräykset"
-
-#~ msgid "Texas"
-#~ msgstr "Teksas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Seuraavat paketit tarvitaan koska eräät valitut paketit vaativat\n"
-#~ "toimiakseen niitä.  Ne lisätään valittuihin paketteihin."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Tämän päivitysohjelman avulla pidetään Red Hat Linux järjestelmä\n"
-#~ "ajantasalla uusimmilla Red Hat Networkin ohjelmistoilla.\n"
-#~ "\n"
-#~ "\n"
-#~ "Jatka valitsemalla \"Seuraava\". Poistu päivitysohjelmasta\n"
-#~ "valitsemalla \"Peru\"."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Sisään- tai uloskirjautuminen kanavista sekä lisätietoa\n"
-#~ "kanavista, katso:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Kokonaisedistyminen:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Noudettavaksi valittujen pakettien koko yhteensä:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Valittujen pakettien koko yhteensä:"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr "Päivitä Red Hatin päivitysohjelma kun uusi on saatavilla"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Neitsytsaaret"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "Järjestelmäprofiilia varten tarvittava tieto on valmis.\n"
-#~ "\n"
-#~ "Valitse \"Seuraava\" järjestelmäprofiilin lähettämiseksi Red Hat\n"
-#~ "Networkiin. Valitse \"Peru\" tietojen lähettämisen estämiseksi.\n"
-#~ "Rekisteröintiohjelma voidaan suorittaa myöhemmin komennolla\n"
-#~ "rhn_register komentoriviltä."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Tervetuloa Red Hatin päivitysohjelmaan"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Pakettivalintoja voidaan muokata valitsemalla \"Edellinen\" tai jatkaa "
-#~ "valitsemalla \"Seuraava\"."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "Laitteistoprofiili voidaan päivittää tai luoda uusi kirjautumalla \n"
-#~ "Red Hat Networkiin http://www.redhat.com/network."
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "Postinumero:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "Sähköinen uutiskirje"
-
-#~ msgid "    The _number is: "
-#~ msgstr "    _numero on: "
-
-#, fuzzy
-#~ msgid "(example, webserver1)"
-#~ msgstr "(esimerkiksi, palvelin1)"
-
-#~ msgid "* First name:"
-#~ msgstr "* Etunimi:"
-
-#~ msgid "* Last name:"
-#~ msgstr "* Sukunimi:"
-
-#~ msgid "* Required fields"
-#~ msgstr "* Pakolliset tiedot"
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Red Hat -käyttäjänimi tai -salasana unohtunut? Lisätietoa\n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Tarvitsetko apua? Ota yhteys asiakaspalveluun http://www.redhat.com/"
-#~ "contact/\n"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr "En voi rekisteröityä tällä kertaa. Muistuta myöhemmin."
-
-#, fuzzy
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "Jos olet ostanut tuotteen suoraan Red Hatin kautta tai aktivoinut\n"
-#~ "nettisivustomme kautta, kirjautuminen on jo voimassa."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Tarvitsetko apua? Ota yhteys lähimpään asiakapalveluun\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Tarvitsetko apua? Ota yhteys asiakaspalveluumme\n"
-#~ "http://www.redhat.com/contact/"
-
-#~ msgid "Network Configuration"
-#~ msgstr "Verkko konfigurointi"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "USA:n/Kanadan ulkopuolella"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "Anna asennettavalle järjestelmälle nimi"
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr "Miksi Red Hatiin tarvitsee rekisteröityä ja kirjautua."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "Järjestelmän nimi toimii tunnisteena Red Hat Networkin ylläpitoon. Jos "
-#~ "mitään nimeä ei anneta, asetetaan oletusnimi."
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "Tämä palvelu voidaan keskeyttää milloin tahansa. Katso "
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr "Tilausnumerosi sijaitsee paketissa, joka tuli tilauksesi mukana."
-
-#~ msgid "_Details"
-#~ msgstr "_Yksityiskohdat"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Salasana:  "
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
-
-#, fuzzy
-#~ msgid "sdfsdfsdfsdfProblem registering personal information"
-#~ msgstr "Ongelma henkilökohtaisten tietojen rekisteröimisessä:\n"
-
-#~ msgid "Use Existing Account"
-#~ msgstr "Käytä olemassa olevaa tunnusta"
-
-#~ msgid "Password (confirm):"
-#~ msgstr "Salasana (vahvistus):"
-
-#~ msgid "label11"
-#~ msgstr "label11"

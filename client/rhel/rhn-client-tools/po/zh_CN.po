@@ -1,33 +1,34 @@
-# translation of spacewalk.rhn-client-tools.po to Wei Liu
-# translation of zh_CN.po to
-# Copyright (C) 2002,2003, 2004, 2005, 2006, 2007, 2010 Free Software Foundation, Inc.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Xi Huang <xhuang@redhat.com>, 2006.
+# Leah Liu <weliu@redhat.com>, 2005, 2006.
+# Leah Liu <lliu@redhat.com>, 2010.
+# Sarah Smith <sarahs@redhat.com>, 2002.
 # Sarah Wang <sarahs@redhat.com>, 2003, 2004.
 # Tony Fu <tfu@redhat.com>, 2004, 2006.
-# Leah Liu <weliu@redhat.com>, 2005, 2006.
 # Xi HUANG <xhuang@redhat.com>, 2007.
-# Leah Liu <lliu@redhat.com>, 2010.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: spacewalk.rhn-client-tools\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-03-02 18:08+0100\n"
-"PO-Revision-Date: 2011-06-15 17:15+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: American English <spacewalk-devel@redhat.com>\n"
+"PO-Revision-Date: 2011-06-15 15:35+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.net/projects/p/fedora/team/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Language: en_US\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
-"This client requires the server to support %s, which the current server does "
-"not support"
+"This client requires the server to support %s, which the current server does"
+" not support"
 msgstr "该客户端要求服务器支持 %s，但是当前的服务器不支持"
 
 #: ../src/up2date_client/config.py:139
@@ -148,8 +149,8 @@ msgstr "出现了某种 SSL 错误：%s\n"
 
 #: ../src/up2date_client/rhncli.py:91
 msgid ""
-"A common cause of this error is the system time being incorrect. Verify that "
-"the time on this system is correct.\n"
+"A common cause of this error is the system time being incorrect. Verify that"
+" the time on this system is correct.\n"
 msgstr "导致该错误的常见原因是不正确的系统时间。请校验系统时间是否正确。\n"
 
 #: ../src/up2date_client/rhncli.py:98
@@ -216,18 +217,14 @@ msgstr "软件更新注册"
 
 #: ../src/up2date_client/rhnreg_constants.py:23
 msgid ""
-"This assistant will guide you through connecting your system to Red Hat "
-"Network (RHN) to receive software updates, including security updates, to "
-"keep your system supported and compliant.  You will need the following at "
-"this time:\n"
+"This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant.  You will need the following at this time:\n"
 "\n"
 " * A network connection\n"
 " * Your Red Hat Login & password\n"
 " * The location of a Red Hat Network Satellite or Proxy (optional)\n"
 "\n"
 msgstr ""
-"这个程序会引导您通过把您的系统与红帽网络（RHN）相连来接收　包括安全更新在内的"
-"软件更新。您此时需要以下配置：\n"
+"这个程序会引导您通过把您的系统与红帽网络（RHN）相连来接收　包括安全更新在内的软件更新。您此时需要以下配置：\n"
 "\n"
 " * 一个网络联接\n"
 " * 您的红帽登录和密码\n"
@@ -271,9 +268,7 @@ msgstr "承诺："
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
-msgstr ""
-"接收最新的软件更新，包括安全更新，保持这个红帽企业 Linux 系统更新并处于安全状"
-"态。"
+msgstr "接收最新的软件更新，包括安全更新，保持这个红帽企业 Linux 系统更新并处于安全状态。"
 
 #: ../src/up2date_client/rhnreg_constants.py:46 ../data/rh_register.glade.h:53
 msgid ""
@@ -283,21 +278,21 @@ msgstr "下载红帽企业 Linxu 发行的安装映像，包括新的发行。"
 
 #: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:34
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
 msgstr "联系红帽或红帽合作伙伴的技术支持专家来帮助您解决这个系统所遇到的问题。"
 
 #: ../src/up2date_client/rhnreg_constants.py:50
 #: ../data/rh_register.glade.h:100
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account at http://rhn.redhat.com/."
 msgstr "遵循您的订阅协议并管理连接到您在 http://rhn.redhat.com 上的帐号的系统订阅。"
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
-"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"Tip: Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html"
 msgstr "红帽尊重您的隐私权：http://www.redhat.com/legal/privacy_statement.html"
 
 #: ../src/up2date_client/rhnreg_constants.py:56
@@ -313,10 +308,9 @@ msgstr "软件更新设置不成功"
 #: ../src/up2date_client/rhnreg_constants.py:60
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
-msgstr ""
-"您确认不希望将您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供"
-"的：\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux "
+"subscription:\n"
+msgstr "您确认不希望将您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供的：\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
 msgid ""
@@ -414,12 +408,10 @@ msgstr "创建您的系统侧写 -- 硬件"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
-"A Profile Name is a descriptive name that you choose to identify this System "
-"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"A Profile Name is a descriptive name that you choose to identify this System"
+" Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
-msgstr ""
-"档案名是您选择用来在 Red Hat 网络网页上识别该系统档案的描述性名称。另外，您也"
-"可以包括一个计算机序列或识别号码。"
+msgstr "档案名是您选择用来在 Red Hat 网络网页上识别该系统档案的描述性名称。另外，您也可以包括一个计算机序列或识别号码。"
 
 #: ../src/up2date_client/rhnreg_constants.py:96
 msgid ""
@@ -438,8 +430,8 @@ msgstr "创建您的系统侧写 -- 软件包"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
-"RPM information is important to determine what updated software packages are "
-"relevant to this system."
+"RPM information is important to determine what updated software packages are"
+" relevant to this system."
 msgstr "RPM 信息对于决定哪些更新的软件包和您的系统有关来说至关重要。"
 
 #: ../src/up2date_client/rhnreg_constants.py:107
@@ -457,8 +449,7 @@ msgstr "建立软件包列表"
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:114
 msgid ""
-"Please enter your login information for Red Hat Network (http://rhn.redhat."
-"com/):\n"
+"Please enter your login information for Red Hat Network (http://rhn.redhat.com/):\n"
 "\n"
 msgstr ""
 "请输入您的红帽网络 (http://rhn.redhat.com) 的登录信息：\n"
@@ -466,11 +457,10 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:116
 msgid ""
-"Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
-"LoginInfo.do"
+"Tip: Forgot your login or password? Visit: "
+"https://rhn.redhat.com/rhn/sales/LoginInfo.do"
 msgstr ""
-"窍门：忘记您的登录或者密码？请访问 Visit: https://rhn.redhat.com/rhn/sales/"
-"LoginInfo.do"
+"窍门：忘记您的登录或者密码？请访问 Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do"
 
 #: ../src/up2date_client/rhnreg_constants.py:118
 msgid "*Email Address:"
@@ -493,23 +483,17 @@ msgstr "您确定要继续吗？"
 
 #: ../src/up2date_client/rhnreg_constants.py:124
 msgid ""
-"It appears this system has already been registered with RHN using RHN "
-"Certificate-Based Entitlement technology. This tool requires registration "
-"using RHN Classic technology.\n"
+"It appears this system has already been registered with RHN using RHN Certificate-Based Entitlement technology. This tool requires registration using RHN Classic technology.\n"
 "\n"
-"Except for a few cases, Red Hat recommends customers only register with RHN "
-"once.\n"
+"Except for a few cases, Red Hat recommends customers only register with RHN once.\n"
 "\n"
-"For more information, including alternate tools, consult this Knowledge Base "
-"Article: https://access.redhat.com/kb/docs/DOC-45563"
+"For more information, including alternate tools, consult this Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
-"这个系统已经使用 RHN 证书式授权技术在 RHN 中注册。这个工具要求使用 RHN "
-"传统技术注册。\n"
+"这个系统已经使用 RHN 证书式授权技术在 RHN 中注册。这个工具要求使用 RHN 传统技术注册。\n"
 "\n"
 "除少数情况外，红帽建议客户只在 RHN 中注册一次。\n"
 "\n"
-"有关详情，包括备用工具，请参考知识库文章：https://access.redhat.com/kb/docs/"
-"DOC-45563"
+"有关详情，包括备用工具，请参考知识库文章：https://access.redhat.com/kb/docs/DOC-45563"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:133
@@ -520,14 +504,11 @@ msgstr "把档案信息发送给 Red Hat 网络"
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
-"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-"\"Cancel\" and no information will be sent.  You can run the registration "
-"program later by typing `rhn_register` at the command line."
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click \"Cancel\" and no information will be sent.  You can run the registration program later by typing `rhn_register` at the command line."
 msgstr ""
 "我们已经完成了为系统侧写收集信息的过程。\n"
 "\n"
-"点 \"下一步\" 来把这个系统侧写发送到红帽网络。点 \"取消\" 则不会有任何信息被"
-"发送。您可以以后通过在命令行中输入 `rhn_register` 来运行注册程序。"
+"点 \"下一步\" 来把这个系统侧写发送到红帽网络。点 \"取消\" 则不会有任何信息被发送。您可以以后通过在命令行中输入 `rhn_register` 来运行注册程序。"
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:141
@@ -541,14 +522,12 @@ msgid ""
 "periodically to get the latest updates. Alternatively, you may configure "
 "this system for automatic software updates (also known as 'auto errata "
 "update') via the Red Hat Network web interface.  (Instructions for this are "
-"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
-"the main Red Hat Network web interface.)"
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in"
+" the main Red Hat Network web interface.)"
 msgstr ""
-"您现在可以在这个系统的命令行中运行 'yum update' 来从红帽网络获得最新的软件更"
-"新。您需要定期地运行这个程序；或者您可以通过红帽网络网站界面进行配置来使您的"
-"系统自动获得软件更新（这被称为 'auto errata update'）。（具体的步骤可以在"
-"《RHN 参考指南》的第6章获得。您可以点红帽网络网站界面的“帮助”按钮来获得这个文"
-"档。）"
+"您现在可以在这个系统的命令行中运行 'yum update' "
+"来从红帽网络获得最新的软件更新。您需要定期地运行这个程序；或者您可以通过红帽网络网站界面进行配置来使您的系统自动获得软件更新（这被称为 'auto "
+"errata update'）。（具体的步骤可以在《RHN 参考指南》的第6章获得。您可以点红帽网络网站界面的“帮助”按钮来获得这个文档。）"
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:156 ../data/gui.glade.h:6
@@ -569,8 +548,8 @@ msgstr "安装号 %s 在这个系统与红帽网络初始连接时已经被激�
 
 #: ../src/up2date_client/rhnreg_constants.py:160
 msgid ""
-"Subscriptions have been activated for the following Red Hat products/"
-"services:"
+"Subscriptions have been activated for the following Red Hat "
+"products/services:"
 msgstr "以下红帽产品或服务的订阅已经被激活："
 
 #: ../src/up2date_client/rhnreg_constants.py:162
@@ -579,8 +558,8 @@ msgstr "软件频道订阅："
 
 #: ../src/up2date_client/rhnreg_constants.py:163
 msgid ""
-"This system will receive updates from the following Red Hat Network software "
-"channels:"
+"This system will receive updates from the following Red Hat Network software"
+" channels:"
 msgstr "这个系统将从以下红帽网络软件频道中接收更新："
 
 #: ../src/up2date_client/rhnreg_constants.py:165
@@ -592,10 +571,9 @@ msgid ""
 "get updates for that product. See Kbase article 11313 for more details. "
 "(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"警告：如果有在这个系统上安装的产品没有在以上列出，您将无法接收到那些产品的更"
-"新和支持。如果您想为那些产品接收更新，请登录到您的 satellite 服务器的网络界"
-"面，并把这个系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 "
-"Kbase 的第11313号信息。(http://kbase.redhat.com/faq/docs/DOC-11313)"
+"警告：如果有在这个系统上安装的产品没有在以上列出，您将无法接收到那些产品的更新和支持。如果您想为那些产品接收更新，请登录到您的 satellite "
+"服务器的网络界面，并把这个系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 Kbase "
+"的第11313号信息。(http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:176
 msgid ""
@@ -603,13 +581,12 @@ msgid ""
 "will not receive updates or support for that product. If you would like to "
 "receive updates for that product, please visit http://rhn.redhat.com/ and "
 "subscribe this system to the appropriate software channels to get updates "
-"for that product. See Kbase article 11313 for more details. (http://kbase."
-"redhat.com/faq/docs/DOC-11313)"
+"for that product. See Kbase article 11313 for more details. "
+"(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"警告：如果有在这个系统上安装的产品没有在以上列出，您将无法接收到那些产品的更"
-"新和支持。如果您想为那些产品接收更新，请访问 http://rhn.redhat.com/，并把这个"
-"系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 Kbase 的第11313"
-"号信息。(http://kbase.redhat.com/faq/docs/DOC-11313)"
+"警告：如果有在这个系统上安装的产品没有在以上列出，您将无法接收到那些产品的更新和支持。如果您想为那些产品接收更新，请访问 "
+"http://rhn.redhat.com/，并把这个系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 Kbase "
+"的第11313号信息。(http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:187
 msgid ""
@@ -641,26 +618,15 @@ msgstr "您的帐号中没有足够的有效订阅，您将无法订阅到以下
 
 #: ../src/up2date_client/rhnreg_constants.py:197
 msgid ""
-"This system was unable to subscribe to any software channels. Your system "
-"will not receive any software updates to keep it secure and supported. There "
-"are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface and subscribe "
-"this system to software channels via the software > software channels tab."
+"This system was unable to subscribe to any software channels. Your system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface and subscribe this system to software channels via the software > software channels tab."
 msgstr ""
-"这个系统无法订阅到任何软件频道。您的系统将无法接收到任何软件更新来保持系统处"
-"于最新的、安全的状态。您可以尝试以下的方法来解决这个问题：\n"
-"(1) 登录到 http://rhn.redhat.com/ 并通过 您的 RHN > 订阅管理 > 系统权利 来使"
-"一个不活跃的系统释放一个权利。\n"
+"这个系统无法订阅到任何软件频道。您的系统将无法接收到任何软件更新来保持系统处于最新的、安全的状态。您可以尝试以下的方法来解决这个问题：\n"
+"(1) 登录到 http://rhn.redhat.com/ 并通过 您的 RHN > 订阅管理 > 系统权利 来使一个不活跃的系统释放一个权利。\n"
 "(2) 通过 http://www.redhat.com/store/ 购买新的权利。\n"
-"(3) 在 http://www.redhat.com/now/ 上激活一个新的安装码。一旦您的帐号中有了有"
-"效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > 软件"
-"频道 标签页来把这个系统订阅到软件频道。"
+"(3) 在 http://www.redhat.com/now/ 上激活一个新的安装码。一旦您的帐号中有了有效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > 软件频道 标签页来把这个系统订阅到软件频道。"
 
 #: ../src/up2date_client/rhnreg_constants.py:208
 msgid "RHN service level:"
@@ -671,9 +637,7 @@ msgid ""
 "Depending on what RHN modules are associated with a system, you'll enjoy "
 "different benefits of Red Hat Network. The following are the RHN modules "
 "associated with this system:"
-msgstr ""
-"根据与这个系统所关联的 RHN 模块的不同，您可以获得红帽网络所带来的不同的益处。"
-"以下模块与这个系统相关联："
+msgstr "根据与这个系统所关联的 RHN 模块的不同，您可以获得红帽网络所带来的不同的益处。以下模块与这个系统相关联："
 
 #: ../src/up2date_client/rhnreg_constants.py:213
 msgid ""
@@ -689,8 +653,8 @@ msgstr "更新模块：每个系统的更新，电子邮件勘误通知，勘误
 
 #: ../src/up2date_client/rhnreg_constants.py:218
 msgid ""
-"Management module: automatic updates, systems grouping, systems permissions, "
-"system package profiling"
+"Management module: automatic updates, systems grouping, systems permissions,"
+" system package profiling"
 msgstr "管理模块：自动更新、系统组群、系统访问权限、软件包侧写"
 
 #: ../src/up2date_client/rhnreg_constants.py:220
@@ -703,9 +667,7 @@ msgstr "Provision 模块：全新系统 provision、已存在状态 provision、
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
-msgstr ""
-"监测模块：预定义的和自定义的系统性能探测、系统性能电子邮件通知，系统性能的显"
-"示图"
+msgstr "监测模块：预定义的和自定义的系统性能探测、系统性能电子邮件通知，系统性能的显示图"
 
 #: ../src/up2date_client/rhnreg_constants.py:226
 msgid ""
@@ -718,9 +680,7 @@ msgid ""
 "Virtualization Platform module: software updates for an unlimited number "
 "virtual guests of this system, access to additional software channels for "
 "guests of this system."
-msgstr ""
-"虚拟化平台模块：对本系统上的不限制数量的客户机的软件进行更新，以及对其他软件"
-"通道的访问。"
+msgstr "虚拟化平台模块：对本系统上的不限制数量的客户机的软件进行更新，以及对其他软件通道的访问。"
 
 #: ../src/up2date_client/rhnreg_constants.py:233
 msgid ""
@@ -731,52 +691,31 @@ msgid ""
 "system entitlement to this system in RHN's web interface if you do not want "
 "virtual guests of this system to consume additional subscriptions."
 msgstr ""
-"<b>警告：</b>在本系统上创建并向 RHN 注册的任何客户机系统都将占用主机之外的红"
-"帽企业 Linux 的订阅。如果你不想客户机系统占用额外的订阅，你将需要：（1）获取"
-"一个虚拟化或者虚拟化平台的系统权利（system entitlement），（2）在 RHN 网站上"
-"应用这个系统权利。"
+"<b>警告：</b>在本系统上创建并向 RHN 注册的任何客户机系统都将占用主机之外的红帽企业 Linux "
+"的订阅。如果你不想客户机系统占用额外的订阅，你将需要：（1）获取一个虚拟化或者虚拟化平台的系统权利（system entitlement），（2）在 "
+"RHN 网站上应用这个系统权利。"
 
 #: ../src/up2date_client/rhnreg_constants.py:241
 msgid ""
-"This system was unable to be associated with any RHN service level modules. "
-"This system will not receive any software updates to keep it secure and "
-"supported. There are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface, delete the "
-"profile, and re-connect this system to Red Hat Network."
+"This system was unable to be associated with any RHN service level modules. This system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface, delete the profile, and re-connect this system to Red Hat Network."
 msgstr ""
-"这个系统无法与任何 RHN 服务级别模块相关联。您的系统将无法接收到任何软件更新来"
-"保持系统处于最新的、安全的状态。您可以尝试以下的方法来解决这个问题：\n"
-"(1) 登录到 http://rhn.redhat.com/ 并通过 您的 RHN > 订阅管理 > 系统权利 来使"
-"一个不活跃的系统释放一个权利。\n"
+"这个系统无法与任何 RHN 服务级别模块相关联。您的系统将无法接收到任何软件更新来保持系统处于最新的、安全的状态。您可以尝试以下的方法来解决这个问题：\n"
+"(1) 登录到 http://rhn.redhat.com/ 并通过 您的 RHN > 订阅管理 > 系统权利 来使一个不活跃的系统释放一个权利。\n"
 "(2) 通过 http://www.redhat.com/store/ 购买新的权利。\n"
-"(3) 在 http://www.redhat.com/now/ 上激活一个新的安装码。一旦您的帐号中有了有"
-"效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > 软件"
-"频道 标签页来把这个系统订阅到软件频道。"
+"(3) 在 http://www.redhat.com/now/ 上激活一个新的安装码。一旦您的帐号中有了有效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > 软件频道 标签页来把这个系统订阅到软件频道。"
 
 #: ../src/up2date_client/rhnreg_constants.py:253
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
-"A universal default activation key was detected in your RHN organization. "
-"What this means is that a set of properties (software channel subscriptions, "
-"Red Hat Network service, package installations, system group memberships, "
-"etc.) for your system's connection to Red Hat Network have been determined "
-"by the activation key rather than your installation number.  You may also "
-"refer to the RHN Reference Guide, section 6.4.6 for more details about "
-"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"A universal default activation key was detected in your RHN organization. What this means is that a set of properties (software channel subscriptions, Red Hat Network service, package installations, system group memberships, etc.) for your system's connection to Red Hat Network have been determined by the activation key rather than your installation number.  You may also refer to the RHN Reference Guide, section 6.4.6 for more details about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
 "Universal Default activation key: %s"
 msgstr ""
 "检测到通用的默认激活码\n"
-"在您的 RHN 机构中发现了一个通用的默认激活码。这意味着您的连接到红帽网络的系统"
-"的一些系统设置（软件频道订阅、红帽网络服务、软件包安装、系统组群成员等）是由"
-"这个激活码，而不是有安装号所决定的。关于激活码的详细信息，请参阅《RHN 参考指"
-"南》的第6.4.6节 (http://rhn.redhat.com/rhn/help/reference/)\n"
+"在您的 RHN 机构中发现了一个通用的默认激活码。这意味着您的连接到红帽网络的系统的一些系统设置（软件频道订阅、红帽网络服务、软件包安装、系统组群成员等）是由这个激活码，而不是有安装号所决定的。关于激活码的详细信息，请参阅《RHN 参考指南》的第6.4.6节 (http://rhn.redhat.com/rhn/help/reference/)\n"
 "通用的默认激活码：%s"
 
 #. Error Messages.
@@ -800,8 +739,7 @@ msgid ""
 "\n"
 "Make sure that the network connection on this system is operational.\n"
 "\n"
-"This system will not be able to successfully receive software updates from "
-"Red Hat without connecting to a Red Hat Network server"
+"This system will not be able to successfully receive software updates from Red Hat without connecting to a Red Hat Network server"
 msgstr ""
 "我们无法与红帽网络服务器进行联系。\n"
 "\n"
@@ -821,27 +759,20 @@ msgstr "体系结构：%s，OS 发行版本：%s, OS 版本：%s"
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
-msgstr ""
-"这个服务器不支持客户端系统所设置的软件更新所需要的功能。请尝试使用一个较新的"
-"服务器。"
+msgstr "这个服务器不支持客户端系统所设置的软件更新所需要的功能。请尝试使用一个较新的服务器。"
 
 #: ../src/up2date_client/rhnreg_constants.py:282
 #, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
-"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the "
-"correct certificate, and that the certificate file has not been corrupted?\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat Network server at <b>%s</b>. You may want to double-check that you have provided a valid certificate file. Are you sure you have provided the correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
 "<b><span size=\"16000\">不兼容的证书文件</span></b>\n"
 "\n"
-"您所提供的证书 <b>%s</b> 与 <b>%s</b> 中的红帽网络服务器不兼容。您可能希望确"
-"认您提供了有效的证书文件。您确定您所提供的证书是正确的，并且证书文件没有被破"
-"坏吗？\n"
+"您所提供的证书 <b>%s</b> 与 <b>%s</b> 中的红帽网络服务器不兼容。您可能希望确认您提供了有效的证书文件。您确定您所提供的证书是正确的，并且证书文件没有被破坏吗？\n"
 "\n"
 "请尝试使用一个不同的证书文件。"
 
@@ -849,8 +780,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
-" The certificate is expired. Please ensure you have the correct  certificate "
-"and your system time is correct."
+" The certificate is expired. Please ensure you have the correct  certificate and your system time is correct."
 msgstr ""
 "<b><span size=\"12000\">不兼容的证书文件</span></b>\n"
 "\n"
@@ -864,19 +794,11 @@ msgstr "请验证 /etc/sysconfig/rhn/up2date 中的 sslCACert 值"
 msgid ""
 "Problem registering system.\n"
 "\n"
-"A universal default activation key limits the number of systems which can "
-"connect to the RHN organization associated with your login. To allow this "
-"system to connect, please contact your RHN organization administrator to "
-"increase the number of systems allowed to connect or to disable this "
-"universal default activation key. More details can be found in Red Hat "
-"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"A universal default activation key limits the number of systems which can connect to the RHN organization associated with your login. To allow this system to connect, please contact your RHN organization administrator to increase the number of systems allowed to connect or to disable this universal default activation key. More details can be found in Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 msgstr ""
 "注册系统问题。\n"
 "\n"
-"一个通用的默认激活码限制了与连接到与您的登录相连的 RHN 机构的系统数量。要允许"
-"这个系统进行连接，请联系您的 RHN 机构管理员来增加可以连接的系统数量，或禁止使"
-"用这个通用的默认激活码。更多信息，请参阅红帽 Knowledgebase 的第7924号信息"
-"（http://kbase.redhat.com/faq/FAQ_61_7924.shtm）"
+"一个通用的默认激活码限制了与连接到与您的登录相连的 RHN 机构的系统数量。要允许这个系统进行连接，请联系您的 RHN 机构管理员来增加可以连接的系统数量，或禁止使用这个通用的默认激活码。更多信息，请参阅红帽 Knowledgebase 的第7924号信息（http://kbase.redhat.com/faq/FAQ_61_7924.shtm）"
 
 #: ../src/up2date_client/rhnreg_constants.py:310
 msgid ""
@@ -892,9 +814,7 @@ msgstr ""
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
-msgstr ""
-"警告：如果您选择这个选择，您将无法将这个系统限定为比最近次要版本旧的次要版"
-"本。\n"
+msgstr "警告：如果您选择这个选择，您将无法将这个系统限定为比最近次要版本旧的次要版本。\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:318
 #, python-format
@@ -963,8 +883,8 @@ msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
 
 #: ../src/up2date_client/rhnregGui.py:315
 msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Red Hat Network server."
+"You will not be able to successfully register this system without contacting"
+" a Red Hat Network server."
 msgstr "不联络红帽网络服务器您将无法成功注册这个系统。"
 
 #: ../src/up2date_client/rhnregGui.py:340
@@ -979,11 +899,9 @@ msgstr "确认这个系统的网络连接可以正常工作。"
 
 #: ../src/up2date_client/rhnregGui.py:344
 msgid ""
-"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
-"can enter a Satellite or Proxy location instead."
-msgstr ""
-"您是要注册到一个红帽网络 Satellite 或代理服务器吗？如果是，您需要输入一个 "
-"Satellite 或代理服务器的地址。"
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you"
+" can enter a Satellite or Proxy location instead."
+msgstr "您是要注册到一个红帽网络 Satellite 或代理服务器吗？如果是，您需要输入一个 Satellite 或代理服务器的地址。"
 
 #: ../src/up2date_client/rhnregGui.py:350
 #, python-format
@@ -1002,7 +920,8 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "在与红帽网络连接时出现错误。"
 
 #: ../src/up2date_client/rhnregGui.py:366
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr "服务器可能无法使用。您可以稍后再试图与它连接。"
 
 #: ../src/up2date_client/rhnregGui.py:368
@@ -1187,7 +1106,8 @@ msgid "Arch"
 msgstr "体系"
 
 #: ../src/up2date_client/rhnregGui.py:1273
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr "正在建立一个在您的系统上安装了的 RPM 软件包列表。  请稍候。"
 
 #: ../src/up2date_client/rhnregGui.py:1304
@@ -1214,8 +1134,7 @@ msgid ""
 "program, please file a bug at bugzilla.redhat.com. Including the relevant "
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
-"这个错误不应该发生。如果您希望帮助我们改进这个程序，请在 bugzilla.redhat.com "
-"上提交一个错误报告。请包括'%s' 的相关部分。谢谢！"
+"这个错误不应该发生。如果您希望帮助我们改进这个程序，请在 bugzilla.redhat.com 上提交一个错误报告。请包括'%s' 的相关部分。谢谢！"
 
 #: ../src/up2date_client/rhnreg.py:57
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1370,22 +1289,16 @@ msgstr "解析 oemInfo 文件时出错的字段：\n"
 #: ../src/up2date_client/up2dateErrors.py:277
 msgid ""
 "\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Network. Please notify your organization administrator "
-"of this error. \n"
-"    You should be able to register this system after your organization frees "
-"existing \n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
+"    Your organization does not have enough Management entitlements to register this\n"
+"    system to Red Hat Network. Please notify your organization administrator of this error. \n"
+"    You should be able to register this system after your organization frees existing \n"
+"    or purchases additional entitlements. Additional entitlements may be purchased by your\n"
 "    organization administrator by logging into Red Hat Network and visiting\n"
 "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
 "    \n"
 "    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and "
-"retry to avoid\n"
+"    Activation Key which is set as the universal default.  If an activation key is set\n"
+"    on the account as a universal default, you can disable this key and retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 "\n"
@@ -1459,8 +1372,8 @@ msgstr "查看订阅"
 
 #: ../src/bin/rhn-profile-sync.py:34
 msgid ""
-"You need to register this system by running `rhn_register` before using this "
-"option"
+"You need to register this system by running `rhn_register` before using this"
+" option"
 msgstr "在使用该选项前，您需要运行 `rhn_register` 来注册系统。"
 
 #: ../src/bin/rhn-profile-sync.py:42
@@ -1549,8 +1462,7 @@ msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
-"不支持在 --activationkey 中使用 --use-eus-channel 选项。请使用 username 和 "
-"password。"
+"不支持在 --activationkey 中使用 --use-eus-channel 选项。请使用 username 和 password。"
 
 #: ../src/bin/rhnreg_ks.py:122
 msgid "The server you are registering against does not support EUS."
@@ -1560,9 +1472,7 @@ msgstr "您订阅的服务器不支持 EUS。"
 msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
-msgstr ""
-"警告：--contactinfo 选项已经过时。请登录到服务器网页用户界面并更新您的联络信"
-"息。"
+msgstr "警告：--contactinfo 选项已经过时。请登录到服务器网页用户界面并更新您的联络信息。"
 
 #: ../src/bin/rhnreg_ks.py:181
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
@@ -1583,9 +1493,8 @@ msgid ""
 msgstr "没有指定档案名，并且无法判定主机名和 IP 地址来用作档案名，请指定一个。"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "您必须是根用户才能运行 %s"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
@@ -1604,32 +1513,28 @@ msgid "list channels"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "所有可用更新"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "指定一个用户名"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "指定一个口令"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "主机名："
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1656,9 +1561,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "该系统在和某频道关联前可能不会被更新。"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1761,9 +1665,7 @@ msgid ""
 "<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
 "release that is older than the most recent minor release if you select this "
 "option."
-msgstr ""
-"<b>警告：如果您选择这个选项，</b>您将<b>无法</b>将这个系统限制为比最新次要版"
-"本旧的次要版本。"
+msgstr "<b>警告：如果您选择这个选项，</b>您将<b>无法</b>将这个系统限制为比最新次要版本旧的次要版本。"
 
 #: ../data/rh_register.glade.h:15
 msgid "<b>Warning</b>"
@@ -1774,9 +1676,7 @@ msgid ""
 "<b>You have no active subscriptions available in your account.</b> You will "
 "need to do one of the following to create an active subscription in your "
 "account before this system can be registered:"
-msgstr ""
-"<b>您还没有激活您帐号内的订阅。</b>您将需要注册这个系统前，使用以下的方法之一"
-"在您帐号内创建一个激活的订阅："
+msgstr "<b>您还没有激活您帐号内的订阅。</b>您将需要注册这个系统前，使用以下的方法之一在您帐号内创建一个激活的订阅："
 
 #: ../data/rh_register.glade.h:17
 msgid "<b>Your system was registered for updates during installation.</b>"
@@ -1784,23 +1684,20 @@ msgstr "<b>在安装过程中已将您的系统注册了更新。</b>"
 
 #: ../data/rh_register.glade.h:18
 msgid ""
-"<b>_All available updates</b> will be provided to this system.  This system, "
-"if kept updated, will always be equivalent to the latest available minor "
+"<b>_All available updates</b> will be provided to this system.  This system,"
+" if kept updated, will always be equivalent to the latest available minor "
 "release of Red Hat Enterprise Linux 6.  It will be registered to the main "
 "'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
-"经为这个系统提供<b>所有可用更新（_A）</b>。如果一直更新则这个系统将总是等同于"
-"红帽企业版 Linux 6 的最新可用次要版本。要将其在主要‘红帽就企业版 Linux 6’软件"
-"频道中注册。"
+"经为这个系统提供<b>所有可用更新（_A）</b>。如果一直更新则这个系统将总是等同于红帽企业版 Linux 6 "
+"的最新可用次要版本。要将其在主要‘红帽就企业版 Linux 6’软件频道中注册。"
 
 #: ../data/rh_register.glade.h:19
 msgid ""
 "<b>_Limited updates</b> will be provided to this system to maintain "
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
-msgstr ""
-"将为这个系统提供<b>有限更新（_L）</b>以保持与以下有效红帽企业版 Linux 次要发"
-"行本软件频道兼容："
+msgstr "将为这个系统提供<b>有限更新（_L）</b>以保持与以下有效红帽企业版 Linux 次要发行本软件频道兼容："
 
 #: ../data/rh_register.glade.h:20
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
@@ -1828,11 +1725,10 @@ msgstr "<small><b>例如：</b> XXXX-XXXX-XXXX-XXXX</small>"
 
 #: ../data/rh_register.glade.h:26
 msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
+"<small><b>Tip:</b> Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html.</small>"
 msgstr ""
-"<small><b>提示：</b>红帽尊重您的隐私：http://www.redhat.com/legal/"
-"privacy_statement.html。</small>"
+"<small><b>提示：</b>红帽尊重您的隐私：http://www.redhat.com/legal/privacy_statement.html。</small>"
 
 #: ../data/rh_register.glade.h:27
 msgid ""
@@ -1851,17 +1747,13 @@ msgstr ""
 #: ../data/rh_register.glade.h:31
 #, no-c-format
 msgid ""
-"A security certificate compatible with <b>%s</b> was not found on this "
-"system.\n"
+"A security certificate compatible with <b>%s</b> was not found on this system.\n"
 "\n"
-"A security certificate, using SSL technology, is necessary to ensure that "
-"data communicated between this system and Red Hat Network (including your "
-"login and password) is secure."
+"A security certificate, using SSL technology, is necessary to ensure that data communicated between this system and Red Hat Network (including your login and password) is secure."
 msgstr ""
 "在这个系统上没有找到与 <b>%s</b> 兼容的安全证书。\n"
 "\n"
-"安全证书使用 SSL 技术，它可以保护这个系统和红帽网络间通信的数据（包括您的登录"
-"和口令）的安全。"
+"安全证书使用 SSL 技术，它可以保护这个系统和红帽网络间通信的数据（包括您的登录和口令）的安全。"
 
 #: ../data/rh_register.glade.h:35
 msgid ""
@@ -1888,9 +1780,7 @@ msgstr "Aplet 截图"
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-msgstr ""
-"您确认不希望把您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供"
-"的益处："
+msgstr "您确认不希望把您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供的益处："
 
 #: ../data/rh_register.glade.h:43
 msgid "CPU Model:"
@@ -1944,18 +1834,15 @@ msgstr "除少数情况外，红帽建议客户只在 RHN 注册一次。\n"
 
 #: ../data/rh_register.glade.h:59
 msgid ""
-"For more information, including alternate tools, consult this Knowledge Base "
-"Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
-"access.redhat.com/kb/docs/DOC-45563</a>\n"
+"For more information, including alternate tools, consult this Knowledge Base"
+" Article: <a "
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
-"看来这个系统已经使用 RHN 证书式授权技术在 RHN 注册。这个工具需要使用 RHN 传统"
-"技术注册。\n"
+"看来这个系统已经使用 RHN 证书式授权技术在 RHN 注册。这个工具需要使用 RHN 传统技术注册。\n"
 "\n"
 "除少数情况外，红帽建议客户只在 RHN 注册一次。\n"
 "\n"
-"有关详情，包括备选工具，请查询知识库文章："
-"<a href=\"https://access.redhat.com/kb/docs/DOC-45563\"https://"
-"access.redhat.com/kb/docs/DOC-45563</a>\n"
+"有关详情，包括备选工具，请查询知识库文章：<a href=\"https://access.redhat.com/kb/docs/DOC-45563\"https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 
 #: ../data/rh_register.glade.h:61
 msgid "Hardware Info"
@@ -1981,8 +1868,7 @@ msgid ""
 "Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
 "below:"
 msgstr ""
-"我使用<b>红帽网络 Satellite</b> 或<b>红帽代理服务器</b>。我希望从以下 "
-"Satellite 或代理服务器接收软件更新："
+"我使用<b>红帽网络 Satellite</b> 或<b>红帽代理服务器</b>。我希望从以下 Satellite 或代理服务器接收软件更新："
 
 #: ../data/rh_register.glade.h:66
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
@@ -1996,9 +1882,7 @@ msgstr "我将通过(_H)HTTP 代理服务器来与红帽网络连接。"
 msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
-msgstr ""
-"我希望从<b>红帽网络</b> 接收软件更新。（我没有使用红帽网络 Satellite 或代理服"
-"务器。）"
+msgstr "我希望从<b>红帽网络</b> 接收软件更新。（我没有使用红帽网络 Satellite 或代理服务器。）"
 
 #: ../data/rh_register.glade.h:69
 msgid "IP Address:"
@@ -2013,9 +1897,7 @@ msgid ""
 "It appears this system has already been registered with RHN using RHN "
 "Certificate-Based Entitlement technology. This tool requires registration "
 "using RHN Classic technology."
-msgstr ""
-"看来已经使用证书式授权技术在 RHN 注册了这个系统。这个工具需要使用 RHN 传统技"
-"术注册。"
+msgstr "看来已经使用证书式授权技术在 RHN 注册了这个系统。这个工具需要使用 RHN 传统技术注册。"
 
 #: ../data/rh_register.glade.h:73
 msgid "Limited updates"
@@ -2029,9 +1911,7 @@ msgstr "链接到订阅"
 msgid ""
 "Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
 "RHN > Subscription Management > System Entitlements."
-msgstr ""
-"登录到 http://rhn.redhat.com/ 并取消一个非活跃的系统（通过 RHN > 订阅管理 > "
-"系统权利）。"
+msgstr "登录到 http://rhn.redhat.com/ 并取消一个非活跃的系统（通过 RHN > 订阅管理 > 系统权利）。"
 
 #: ../data/rh_register.glade.h:76
 msgid "Memory:"
@@ -2047,8 +1927,8 @@ msgstr "软件包信息"
 
 #: ../data/rh_register.glade.h:80
 msgid ""
-"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
-"redhat.com/)"
+"Please enter your account information for <b>Red Hat Network</b> "
+"(http://rhn.redhat.com/)"
 msgstr "请输入您的 <b>红帽网络</b> (http://rhn.redhat.com) 帐号信息"
 
 #: ../data/rh_register.glade.h:82
@@ -2065,8 +1945,8 @@ msgstr "代理服务器用户名(_U)："
 
 #: ../data/rh_register.glade.h:85
 msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
+"Purchase an additional Red Hat Enterprise Linux subscription at "
+"http://www.redhat.com/store/."
 msgstr "购买一个额外的红帽企业 Linux 订阅（通过 http://www.redhat.com/store/）。"
 
 #: ../data/rh_register.glade.h:86
@@ -2085,9 +1965,7 @@ msgstr "RHN 密码字段"
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
-msgstr ""
-"接收最新的软件更新，包括安全更新，保持这个红帽企业 Linux 系统 <b>更新</b> 并 "
-"<b>处于安全状态</b>。"
+msgstr "接收最新的软件更新，包括安全更新，保持这个红帽企业 Linux 系统 <b>更新</b> 并 <b>处于安全状态</b>。"
 
 #: ../data/rh_register.glade.h:90
 msgid "Red Hat Linux Version:"
@@ -2141,23 +2019,16 @@ msgstr "这个帮助程序将帮助您注册您的系统来进行软件更新，
 
 #: ../data/rh_register.glade.h:106
 msgid ""
-"This system will <b>not</b> be able to successfully receive software "
-"updates, including security updates, from Red Hat without connecting to a "
-"Red Hat Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.\n"
 "\n"
-"To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
+"To keep your system updated, secure, and supported, please register this system at your earliest convenience.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
-"如果没有连接到红帽网络服务器，这个系统将<b>不会</b>成功地从红帽接收软件更新，"
-"其中包括安全更新。\n"
+"如果没有连接到红帽网络服务器，这个系统将<b>不会</b>成功地从红帽接收软件更新，其中包括安全更新。\n"
 "\n"
-"要保持您的系统更新、安全并被支持，请尽快支持您的系统。您可以通过运行 <b>应用"
-"程序 > 系统工具</b> 菜单中的 <b>软件更新程序</b> 获得这个支持工具。\n"
+"要保持您的系统更新、安全并被支持，请尽快支持您的系统。您可以通过运行 <b>应用程序 > 系统工具</b> 菜单中的 <b>软件更新程序</b> 获得这个支持工具。\n"
 "\n"
 "您可以在<b>系统 > 管理</b>菜单中运行<b> RHN 注册</b>访问 RHN 注册工具。\n"
 "您可以在<b>系统 > 管理</b>菜单中运行<b>软件更新</b>访问软件更新。"
@@ -2190,12 +2061,12 @@ msgstr "您想现在注册您的系统吗？<b>(强烈推荐。)</b>"
 
 #: ../data/rh_register.glade.h:121
 msgid ""
-"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
-"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
-"b> in order to receive software updates."
+"You may connect your system to <b>Red Hat Network</b> "
+"(https://rhn.redhat.com/) or to a <b>Red Hat Network Satellite</b> or <b>Red"
+" Hat Network Proxy</b> in order to receive software updates."
 msgstr ""
-"您可以把您的系统连接到<b>红帽网络</b> (https://rhn.redhat.com/) 或<b>红帽网"
-"络 Satellite</b> 或<b>红帽网络代理服务器</b> 来接收软件更新。"
+"您可以把您的系统连接到<b>红帽网络</b> (https://rhn.redhat.com/) 或<b>红帽网络 Satellite</b> "
+"或<b>红帽网络代理服务器</b> 来接收软件更新。"
 
 #: ../data/rh_register.glade.h:122
 msgid ""
@@ -2205,25 +2076,20 @@ msgstr "没有在红帽网络上注册系统，您将 <b>无法</b> 获得这些
 
 #: ../data/rh_register.glade.h:123
 msgid ""
-"You won't be able to receive software updates, including security updates, "
-"for this system.\n"
+"You won't be able to receive software updates, including security updates, for this system.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> "
-"menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
-"如果没有连接到红帽网络服务器，这个系统将<b>不会</b>成功地从红帽接收软件更新，"
-"其中包括安全更新。\n"
+"如果没有连接到红帽网络服务器，这个系统将<b>不会</b>成功地从红帽接收软件更新，其中包括安全更新。\n"
 "\n"
 "您可以在<b>系统 > 管理</b>菜单中运行<b> RHN 注册</b>访问 RHN 订阅管理器访问 RHN 注册工具。\n"
 "您可以在<b>系统 > 管理</b>菜单中运行<b>软件更新</b>访问软件更新工具。"
 
 #: ../data/rh_register.glade.h:127
 msgid ""
-"You'll need to send us a profile of what packages and hardware are installed "
-"on your system so we can determine what updates are available."
+"You'll need to send us a profile of what packages and hardware are installed"
+" on your system so we can determine what updates are available."
 msgstr "您需要发送给我们一个系统侧写，从而使我们可以决定哪些更新适用您的系统。"
 
 #: ../data/rh_register.glade.h:128
@@ -2238,42 +2104,30 @@ msgstr "这个系统没有设置软件更新。"
 
 #: ../data/rh_register.glade.h:130
 msgid ""
-"Your system is now ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is now ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 "您的系统现在可以接收软件更新。\n"
 "\n"
-"当有新的软件更新时，一个软件包图标会出现在您的桌面的通知区域上。点这个图标将"
-"可以应用有效的更新："
+"当有新的软件更新时，一个软件包图标会出现在您的桌面的通知区域上。点这个图标将可以应用有效的更新："
 
 #: ../data/rh_register.glade.h:133
 msgid ""
-"Your system is ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 "您的系统现在就可以接收软件更新以便保证其安全和提供支持。\n"
 "\n"
-"当您的桌面通知区域（通常是在右上角，如下圆圈中所示）中出现软件包图标时，您就知道有可以使用的软件更新了。点击这个图标，如果可用，那么它将引导您完成应用可用的"
-"更新："
+"当您的桌面通知区域（通常是在右上角，如下圆圈中所示）中出现软件包图标时，您就知道有可以使用的软件更新了。点击这个图标，如果可用，那么它将引导您完成应用可用的更新："
 
 #: ../data/rh_register.glade.h:136
 msgid ""
 "Your system will be subscribed to the base software channel.  You will not "
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
-msgstr ""
-"将在基本软件频道中订阅您的系统。如果您继续，则无法将这个系统移动到之前的次要"
-"发行本（您可以将其移动到之后的发行本）。"
+msgstr "将在基本软件频道中订阅您的系统。如果您继续，则无法将这个系统移动到之前的次要发行本（您可以将其移动到之后的发行本）。"
 
 #: ../data/rh_register.glade.h:137
 msgid ""
@@ -2374,9 +2228,8 @@ msgid "satellite server location"
 msgstr "satellite 服务器位置"
 
 #: ../data/rh_register.glade.h:161
-#, fuzzy
 msgid "system name"
-msgstr "系统名(_N)："
+msgstr ""
 
 #: ../data/rh_register.glade.h:162
 msgid "•"
@@ -2406,106 +2259,4 @@ msgstr "在 Spacewalk/Satellite/红帽网络中注册软件更新"
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "在 Spacewalk/Satellite/Red Hat 网络注册。"
 
-#~ msgid "Setting up Software updates"
-#~ msgstr "设置软件更新"
 
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "为什么需要连接到红帽网络？"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "设置软件更新"
-
-#~ msgid "Select Operating System Release"
-#~ msgstr "选择操作系统发行本"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "注册系统侧写 - 硬件"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "注册系统侧写 - 软件包"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "安装号(_N)："
-
-#, fuzzy
-#~ msgid "Only https and http are allowed."
-#~ msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
-
-#~ msgid "Warning:"
-#~ msgstr "警告："
-
-#~ msgid "OK dialog:"
-#~ msgstr "确定对话框："
-
-#~ msgid "Question dialog:"
-#~ msgstr "问题对话框："
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "自动订阅激活"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "订阅激活"
-
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "警告：无法运行 rhn_check"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "磁盘错误。 错误消息是：\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "在安装软件包时出现了一个致命错误：\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM 软件包冲突错误。 错误消息是：\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM 文件冲突错误。错误消息是：\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM 错误。错误消息是：\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM 依赖关系错误。错误消息是：\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "软件包跳过列表错误。  错误消息是：\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr "跳过文件列表或配置文件覆写错误。错误消息是：\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "无法删除软件包“%s”，它在 RemoveSkipList 列表中"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG 没有被正确安装。"
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG 钥匙圈不包括 Red Hat, Inc. 软件包签名公钥"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr "软件包 %s 的 GPG 签名校验失败。这意味着该软件包被损坏。"
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "软件包 %s 没有 GPG 签名。\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "软件包 %s 上有不被信任的 GPG 签名。\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "软件包 %s 上有未知的 GPG 签名。\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "选择一个红帽网络服务器"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "连接到 Red Hat 网络"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "在 Red Hat 网络上注册"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "为这个红帽网络服务器提供一个证书"
