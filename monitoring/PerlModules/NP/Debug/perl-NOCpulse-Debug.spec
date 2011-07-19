@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.16
+Version:      1.23.17
 Release:      1%{?dist}
 Summary:      Perl debug output package
 URL:          https://fedorahosted.org/spacewalk
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.23.17-1
+- Updating the copyright years.
+
 * Fri Feb 18 2011 Jan Pazdziora 1.23.16-1
 - Use three-parameter opens.
 
