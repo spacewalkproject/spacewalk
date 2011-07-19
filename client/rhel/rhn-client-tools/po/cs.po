@@ -878,7 +878,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:365
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Při komunikaci s Red Hat Network došlo k chybě.\n"
+msgstr "Při komunikaci s Red Hat Network došlo k chybě."
 
 #: ../src/up2date_client/rhnregGui.py:366
 msgid ""
