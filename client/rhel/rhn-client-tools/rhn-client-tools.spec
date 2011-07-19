@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.5.14
+Version: 1.5.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -341,6 +341,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.5.15-1
+- update .po and .pot files for rhn-client-tools
+
 * Tue Jun 21 2011 Jan Pazdziora 1.5.14-1
 - 714113 - handle writing unicode to log file (msuchy@redhat.com)
 
