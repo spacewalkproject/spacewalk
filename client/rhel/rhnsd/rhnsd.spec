@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.11
+Version: 4.9.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -74,6 +74,11 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 4.9.12-1
+- Merging Transifex changes for rhnsd.
+- New translations from Transifex for rhnsd.
+- Download translations from Transifex for rhnsd.
+
 * Tue Jul 19 2011 Jan Pazdziora 4.9.11-1
 - update .po and .pot files for rhnsd
 

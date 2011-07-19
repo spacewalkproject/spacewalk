@@ -1,21 +1,24 @@
-# Swedish messages for spacewalk-server.
-# Copyright © 2010 Free Software Foundation, Inc.
-# This file is distributed under the same license as the spacewalk package.
-# Göran Uddeborg <goeran@uddeborg.se>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-# $Revision: 1.2 $
+# Christian Rose <menthos@menthos.com>, 2002, 2003, 2004, 2005.
+# Magnus Larsson <fedoratrans@gmail.com>, 2006, 2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: spacewalk-server\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 11:40+0200\n"
-"PO-Revision-Date: 2010-08-07 10:56+0200\n"
-"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"POT-Creation-Date: 2011-07-19 14:57+0200\n"
+"PO-Revision-Date: 2011-03-22 15:47+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/team/"
+"sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../server/handlers/xmlrpc/queue.py:399
 #, python-format
@@ -1322,9 +1325,8 @@ msgid "Full path of file must be specified"
 msgstr "Fullständig sökväg till filen måste anges"
 
 #: ../common/rhnException.py:322
-#, fuzzy
 msgid "Invalid revision number"
-msgstr "Ogiltig sessionsnyckel"
+msgstr ""
 
 #: ../common/rhnException.py:323
 msgid "Cannot compare files of different file type"
@@ -1401,16 +1403,3 @@ msgstr "Förklaring: %s"
 #~ "Kör rhn_register (eller up2date --register på Red Hat Enterprise Linux 3 "
 #~ "eller senare)\n"
 #~ "som root på denna klient"
-
-#~ msgid ""
-#~ "A user with the supplied e-mail address (%s)\n"
-#~ "    is already registered with Red Hat Network"
-#~ msgstr ""
-#~ "En användare med den angivna e-postadressen (%s)\n"
-#~ "    är redan registrerad i Red Hat Network"
-
-#~ msgid "Unique e-mail address check failed."
-#~ msgstr "Kontrollen av att e-postadressen är unik misslyckades."
-
-#~ msgid "Attempt to register a system failed"
-#~ msgstr "Försök att registrera ett system misslyckades"

@@ -1,16 +1,21 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: yum-rhn-applet\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 12:06+0200\n"
-"PO-Revision-Date: 2006-11-29 11:25+0000\n"
-"Last-Translator: José Nuno Coelho Pires <jncp@netcabo.pt>\n"
-"Language-Team: pt <kde-i18n-pt@kde.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Portuguese <trans-pt@lists.fedoraproject.org>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POFile-SpellExtra: version RHN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
@@ -68,6 +73,3 @@ msgstr "Falta a informação necessária de autenticação da RHN: %s"
 
 #~ msgid "RHN support will be disabled."
 #~ msgstr "O suporte da RHN ficará desactivado."
-
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "Foi indicado o comando '--version' ou nenhum de todo"
