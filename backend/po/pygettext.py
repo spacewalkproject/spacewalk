@@ -143,7 +143,7 @@ EMPTYSTRING = ''
 # The normal pot-file header. msgmerge and EMACS' po-mode work better if
 # it's there.
 pot_header = '''# SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2002-2005, Red Hat, Inc.
+# Copyright (c) 2002--2011 Red Hat, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
