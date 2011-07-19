@@ -1,24 +1,27 @@
-# translation of ro.po to
-# Romanian translation of yum-rhn-plugin.
-# Copyright (C) 2006 yum-rhn-plugin
-# This file is distributed under the same license as the yum-rhn-plugin package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-#
-# Alexandru Szasz <alexxed@gmail.com>, 2006.
+# Cristian Gafton <gafton@redhat.com>, 2000, 2001.
+# Mihai Ibanescu <misa@redhat.com>, 2005.
 # Mircea Daniel <daniel@reywind.tranceaddict>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Alexandru Szasz <alexxed@gmail.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ro\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 12:06+0200\n"
-"PO-Revision-Date: 2006-12-02 21:27+0200\n"
-"Last-Translator: Mircea Daniel <daniel@reywind.tranceaddict>\n"
-"Language-Team:  <ro@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Romanian (http://www.transifex.net/projects/p/fedora/team/"
+"ro/)\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1))\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
@@ -76,6 +79,3 @@ msgstr "Informaţiile necesare logării la RHN sunt incomplete: %s"
 
 #~ msgid "RHN support will be disabled."
 #~ msgstr "Suportul RHN va fi dezactivat."
-
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "Ori --version, ori nici o comandă introdusă"

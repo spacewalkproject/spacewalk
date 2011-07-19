@@ -1,28 +1,30 @@
-# translation of tr.po to Turkish
-# Turkish translations for up2date messages.
-# Copyright (C) 2002, 2004 Free Software Foundation, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Ismail ASCI <ismail.asci@gmail.com>, 2006.
 # Nilgün Belma Bugüner <nilgun@fide.org>, 2002.
 # YILDIZ KARDEŞLER <turkishprogram@xposta.com>, 2004.
-#
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: tr\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2004-01-23 13:45+0200\n"
-"Last-Translator: YILDIZ KARDEŞLER <turkishprogram@xposta.com>\n"
-"Language-Team: Turkish <C@li.org>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Turkish (http://www.transifex.net/projects/p/fedora/team/"
+"tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -31,9 +33,8 @@ msgid "Warning"
 msgstr "Uyarı"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -46,9 +47,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Profil Bilgisini Red Hat Ağına Gönder"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -74,9 +75,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Kayıt sunucusu ile haberleşilirken bir hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -87,26 +87,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Kayıt bilgisi sahibi:"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Bir kullanıcı adı girmelisiniz."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Bir şifre girip onaylamalısınız."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Sorun kaydetme sistemi"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -116,37 +113,32 @@ msgstr ""
 "Kayıt sunucusu ile haberleşilirken ölümcül bir hata oluştu.  Hata iletisi:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
-#, fuzzy
 msgid "Error running hardware profile"
-msgstr "Donanım profili gönderilirken hata."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "Bu profil için bir ad belirlemelisiniz."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "Profil bilgin Red Hat ağına gönderiliyor. Lütfen bekleyin."
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "Sorun kaydetme sistemi"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -156,11 +148,11 @@ msgid "Problem registering system:\n"
 msgstr "Sistem kaydedilirken hata:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "    --activationkey=<value>    - bir aktivasyon şifresi belirtin "
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -171,19 +163,16 @@ msgid "Problem writing out system id to disk."
 msgstr "Sistem id'sini diske yazarken hata."
 
 #: ../src/up2date_client/rhnregGui.py:799
-#, fuzzy
 msgid "There was a problem registering this system."
-msgstr "Sorun kaydetme sistemi"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Başlık okunurken hata"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Başlık okunurken hata"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -195,14 +184,12 @@ msgstr "Başlık okunurken hata"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "Başlık okunurken hata"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Paket listesi gönderilirken hata."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -223,14 +210,12 @@ msgid "Problem registering personal information"
 msgstr "Kişisel bilgi kaydedilirken hata"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Bir kullanıcı adı girmelisiniz."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -252,9 +237,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -267,25 +251,20 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
-#, fuzzy
 msgid "Package"
-msgstr "Paket İsmi"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1246
 msgid "Arch"
 msgstr "Arş"
 
 #: ../src/up2date_client/rhnregGui.py:1253
-#, fuzzy
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
-"Kayıt Sihirbazı sisteminize kurulu RPM paketlerinin listesini oluşturuyor.  "
-"Lütfen bekleyin."
 
 #: ../src/up2date_client/rhnregGui.py:1284
 msgid ""
@@ -325,9 +304,8 @@ msgid "Connection aborted by the user"
 msgstr "Bağlantı kullanıcı tarafından kesildi"
 
 #: ../src/up2date_client/rpcServer.py:243
-#, fuzzy
 msgid "Server has refused connection due to high load"
-msgstr "Yüksek yükleme nedeniyle sunucu bağlantıyı reddetti"
+msgstr ""
 
 #: ../src/up2date_client/rhnChannel.py:96
 msgid "Unable to Locate SystemId"
@@ -342,20 +320,17 @@ msgid "Getting list of packages installed on the system"
 msgstr "Sistemde kurulu paketlerin listesi alınıyor"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Ağı Yapılandırması"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "Giriş"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Soyadı:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -373,44 +348,36 @@ msgid "OK"
 msgstr "TAMAM"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
-"Kayıt sunucusu ile haberleşilirken ölümcül bir hata oluştu.  Hata iletisi:\n"
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
 msgstr "Profil adı:"
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Sürüm:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "CPU modeli:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Makine Adı:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "CPU hızı:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "IP Adresi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "Hafıza:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -457,29 +424,24 @@ msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "Uyarı: rhnsd chkconfig ile etkinleştirilemedi"
 
 #: ../src/up2date_client/hardware.py:706
-#, fuzzy
 msgid "Error reading cpu information:"
-msgstr "Kişisel bilgiler kaydedilirken hata:\n"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:713
-#, fuzzy
 msgid "Error reading system memory information:"
-msgstr "Kişisel bilgiler kaydedilirken hata:\n"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:723
-#, fuzzy
 msgid "Error reading networking information:"
-msgstr "Kişisel bilgiler kaydedilirken hata:\n"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:744
-#, fuzzy
 msgid "Error reading install method information:"
-msgstr "Kişisel bilgiler kaydedilirken hata:\n"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:752
-#, fuzzy
 msgid "Error reading network interface information:"
-msgstr "Kişisel bilgiler kaydedilirken hata:\n"
+msgstr ""
 
 #: ../src/up2date_client/messageWindow.py:98
 msgid "Error:"
@@ -500,14 +462,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Kullanılacak Red Hat Ağ Sunucusunu seçin"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Kullanılacak Red Hat Ağ Sunucusunu seçin"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -516,9 +477,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "Up2date yeniden başlatılıyor"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -539,9 +499,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "Kayıt Mevcut"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -562,9 +521,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Şirket:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -597,9 +555,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Paket Listesi (kayıt)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -628,21 +585,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Hesap Bilgisi"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Kayıt bilgisi sahibi:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Red Hat Linux sürümü:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -659,9 +614,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Bir şifre girip onaylamalısınız."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -675,18 +629,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Dağıtım"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Mevcut Paket Güncellemeleri"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -700,9 +652,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -728,9 +679,8 @@ msgstr "Donanım ve ağ hakkındaki aşağıdaki bilgileri ekle:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -755,12 +705,11 @@ msgstr "Paket Listesi Oluşturuluyor"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 msgid ""
@@ -769,9 +718,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "E-mail adresi:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -805,7 +753,6 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Profil Bilgisini Red Hat Ağına Gönder"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -813,17 +760,11 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"Sistem Profili için gerekli bilgiyi toplamayı bitirdik\n"
-"\n"
-"Sistem Profilini Red Hat Ağına göndermek için \"İleri\" düğmesine, "
-"göndermemek için \"İptal\" düğmesine basın. Kayıt programını daha sonra "
-"`up2date --register` komutu ile çalıştırabilirsiniz."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
-#, fuzzy
 msgid "Sending Profile to Red Hat Network"
-msgstr "Profil Bilgisini Red Hat Ağına Gönder"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:145
@@ -852,23 +793,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Profil Red Hat Ağına Gönderiliyor"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "    --activationkey=<value>    - bir aktivasyon şifresi belirtin "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Kanal Bilgileri"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1131,9 +1070,8 @@ msgstr "İptal"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "İptal"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1173,9 +1111,8 @@ msgid "Error validating data at server:\n"
 msgstr "Veri sunucuda onaylanırken hata:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "    --activationkey=<value>    - bir aktivasyon şifresi belirtin "
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1288,16 +1225,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:206
-#, fuzzy
 msgid "An error has occurred:"
 msgstr ""
-"Umulmadık bir İS hatası oluştu:\n"
-"%s"
 
 #: ../src/up2date_client/rhncli.py:214
-#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr "Başlık okunurken hata"
+msgstr ""
 
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
@@ -1309,24 +1242,20 @@ msgstr ""
 "desteği yok"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Bitir"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Düzenle"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Kayıt Tamamlandı"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Güncelleme İstemcisini root olarak çalıştırmalısınız."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1355,9 +1284,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Açıklama"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1366,22 +1294,19 @@ msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:64
 #: ../src/firstboot/rhn_login_gui.py:41 ../src/firstboot/rhn_login_gui.py:42
-#, fuzzy
 msgid "Red Hat Login"
-msgstr "Red Hat Linux sürümü:"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Sunucu ile haberleşilirken ölümcül bir hata oluştu:%s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
@@ -1405,21 +1330,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Kullanılacak sunucu url'sini girin"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<path>         - ssl CA sertifikası olarak kullanılacak "
-"dosyayı belirtin"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Kullanmak için http proxy belirleyin"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1427,21 +1347,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "    --contactinfo              - stdin'den bağlantı bilgisini okur "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - her hangi bir donanım bilgisi araştırma ve "
-"göndeme  "
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
-msgstr "    --nopackages               - profil veya paket bilgisi gönderme "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1452,16 +1367,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - sistemi daha önce kaydedilmiş olsada kaydet"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Sistem kaydı için bir kullanıcı adı, şifre ve e-mail adresi gereklidir."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1502,9 +1413,8 @@ msgstr ""
 "kullanmak için çözümlenemedi, lütfen bir profil adı belirtin."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "X kullanmaya çalışılmaz"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1523,37 +1433,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Kanallar"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Kullanılabilir tüm paketleri kur. --channel ile kullanıldı"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Kullanıcı adı:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "Parola:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Kullanıcı:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1565,9 +1470,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Başlık okunurken hata"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1580,9 +1485,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "Sistem bir kanalla iliştirilene kadar güncellenmez"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1597,13 +1501,10 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"Bu seçeneği kullanmadan önce `up2date --register` komutunu çalıştırarak "
-"sisteminizi kayıt ettirmelisiniz"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1614,37 +1515,32 @@ msgid "Updating hardware profile..."
 msgstr "Donanım profili güncelleniyor..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Paket profili güncelleniyor..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Hesap Bilgisi"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Bir kullanıcı adı girmelisiniz."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "İlerleme Penceresi"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "İlerleme Penceresi"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1716,70 +1612,60 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Red Hat Ağı Yapılandırması"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Red Hat Ağı Yapılandırması"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Kanal"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Dağıtım"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "Close"
-msgstr "Kapat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Hesap Bilgisi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
 msgstr "makina_ismi(:port) biçeminde giriniz"
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid "Hardware Info"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:27
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "Birleşmiş Milletler"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Açıklama"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1794,9 +1680,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Red Hat Linux sürümü:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1811,14 +1696,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Paket listesi gönderilirken hata."
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1840,19 +1723,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Kimlik kanıtlama kullanılsın"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Up2date - Doanım Profili"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Paket profili güncelleniyor..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1862,9 +1742,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Açıklama"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1879,18 +1758,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "    --activationkey=<value>    - bir aktivasyon şifresi belirtin "
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Parola:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1901,15 +1778,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Soyadı:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "Şirket:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1917,22 +1792,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "Etkin HTTP Vekili:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "Kayıt bilgisi sahibi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hat Ağı Yapılandırması"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1940,16 +1812,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "Kayıt bilgisi sahibi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Soyadı:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -2018,10 +1888,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Red Hat Ağı Yapılandırması"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2036,22 +1905,19 @@ msgid "Are you sure you would like to continue?"
 msgstr ""
 
 #: ../data/rh_register.glade.h:90
-#, fuzzy
 msgctxt "yes"
 msgid "CPU Model:"
-msgstr "CPU modeli:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:91
-#, fuzzy
 msgctxt "yes"
 msgid "CPU Speed:"
-msgstr "CPU hızı:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Red Hat Ağı Yapılandırması"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2092,7 +1958,7 @@ msgstr ""
 #, fuzzy
 msgctxt "yes"
 msgid "Hardware Profile"
-msgstr "Up2date - Doanım Profili"
+msgstr "Donanım profili güncelleniyor..."
 
 #: ../data/rh_register.glade.h:99
 #, fuzzy
@@ -2116,16 +1982,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Kayıt sunucusu ile haberleşilirken bir hata oluştu:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Profil Red Hat Ağına Gönderiliyor"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2141,10 +2005,9 @@ msgid "IP Address:"
 msgstr "IP Adresi:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "Bir kullanıcı adı girmelisiniz."
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2155,10 +2018,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "Up2date yeniden başlatılıyor"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2180,12 +2042,11 @@ msgid "Package Information"
 msgstr "Paket Bilgileri"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2202,7 +2063,7 @@ msgstr "Parola:"
 #, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Kullanıcı:"
+msgstr "Profil adı:"
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2224,28 +2085,26 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:119
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Linux Version:"
-msgstr "Red Hat Linux sürümü:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:120
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Red Hat Ağı Yapılandırması"
+msgstr ""
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
 msgctxt "yes"
 msgid "Send _hardware profile"
-msgstr "Up2date - Doanım Profili"
+msgstr "Donanım profili gönderilirken hata."
 
 #: ../data/rh_register.glade.h:122
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Paket listesi gönderilirken hata."
+msgstr "Paket profili güncelleniyor..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2260,10 +2119,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Soyadı:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2273,10 +2131,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Kimlik kanıtlama kullanılsın"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2328,10 +2185,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "Up2date yeniden başlatılıyor"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2355,16 +2211,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:139
-#, fuzzy
 msgctxt "yes"
 msgid "_Close"
-msgstr "Kapat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "Giriş"
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2394,28 +2248,25 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - Paket Listesi (kayıt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - Paket Listesi (kayıt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
 msgctxt "yes"
 msgid "_View Hardware Profile ..."
-msgstr "Up2date - Doanım Profili"
+msgstr "Donanım profili güncelleniyor..."
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Kayıt Mevcut"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2428,10 +2279,9 @@ msgid "_Yes, I'd like to register now."
 msgstr ""
 
 #: ../data/rh_register.glade.h:152
-#, fuzzy
 msgctxt "yes"
 msgid "label"
-msgstr "etiket10"
+msgstr ""
 
 #: ../data/rh_register.glade.h:153
 msgctxt "yes"
@@ -2439,10 +2289,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Profil Red Hat Ağına Gönderiliyor"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2450,2977 +2299,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Up2date - Kayıt Bilgisi"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "Bir kullanıcı adı girmelisiniz."
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Red Hat Ağıan Kaydet"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Profil Red Hat Ağına Gönderiliyor"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Adım 3: Bir Sistem Profili Kaydedin - Donanım"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Adım 3: Bir Sistem Profili Kaydet - Paketler"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#~ msgid "Warning:"
-#~ msgstr "Uyarı:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Tamam penceresi:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Soru penceresi"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Yeni Hesap Oluşturma"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Uyarı: rhnsd chkconfig ile etkinleştirilemedi"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Disk hatası. Hata iletisi:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM paketi çelişki hatası. Hata iletisi:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM dosyası çelişki hatası. Hata iletisi:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM  hatası. Hata iletisi:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM bağımlılık hatası. Hata iletisi:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Atlanacak Paket Listesi hatası. Hata iletisi:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Atlanacak Dosya Listesi veya yapılandırma dosyası üzerine yazma hatası. "
-#~ "Hata mesajı:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "Paket \"%s\" silinemedi. RemoveSkipList'teydi."
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG düzgün olarak kurulmamış."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "GPG anahtar zinciri Red Hat, Inc. genel paket imzalama anahtarını "
-#~ "içermiyor"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Paket %s için imza doğrulaması başarısız. Bundan paketin bozuk olduğu "
-#~ "anlaşılıyor."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Paket %s bir GPG imzasına sahip değil.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Paket %s güvenilmeyen bir GPG imzasına sahip.\n"
-
-#, fuzzy
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Paket %s güvenilmeyen bir GPG imzasına sahip.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Kullanılacak Red Hat Ağ Sunucusunu seçin"
-
-#, fuzzy
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Profil Red Hat Ağına Gönderiliyor"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Red Hat Ağıan Kaydet"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "Up2date yeniden başlatılıyor"
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Adım 1: Red Hat Gizlilik Anlaşmasını Oku"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Red Hat Ağı Şartlarını Kontrol Et"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Yeni Hesap Oluştur"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Girdiğiniz iki şifre uyuşmuyor.\n"
-#~ "Lütfen şifrelerinizi tekrar yazın."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Up2date - Kayıt Bilgisi"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "Parola:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Geçerli bir e-mail adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Geçerli bir e-mail adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Kayıt bilgisi sahibi:"
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Bir şifre girip onaylamalısınız."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Bir şifre girip onaylamalısınız."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Açıklama"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "    --activationkey=<value>    - bir aktivasyon şifresi belirtin "
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Sorun kaydetme sistemi"
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Sorun kaydetme sistemi"
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Bu paket kurulurken bir ölümcül hata oluştu:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Kayıt sunucusu ile haberleşilirken bir hata oluştu:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Gizlilik anlaşması alınırken ölümcül hata:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Kullanıcı adı kaydında sorunla karşılaşıldı:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Kullanıcı adı kaydederken hata."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Red Hat Ağı Yapılandırması"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Açıklama"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Email adresi"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Kullanılacak sunucu url'sini girin"
-
-#, fuzzy
-#~ msgid "Important Registration Info"
-#~ msgstr "Up2date - Kayıt Bilgisi"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Kayıt Bilgisi"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Gizlilik Anlaşması"
-
-#, fuzzy
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Gizlilik Anlaşması"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Başlık okunurken hata"
-
-#, fuzzy
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Program sürüm bilgilerini göster"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Bir şifre girip onaylamalısınız."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Kullanıcı adı kaydında sorunla karşılaşıldı:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Kullanıcı adı kaydederken hata."
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Kayıt bilgisi sahibi:"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Hesap Bilgisi"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Ad:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Soyadı:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Şirket:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "*Adres:"
-
-#~ msgid "City:"
-#~ msgstr "Şehir:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "Eyalet:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Zip/Posta Kodu:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Ülke:"
-
-#, fuzzy
-#~ msgid "  Address 2:"
-#~ msgstr "Adres 2:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "Adres 2:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "*Şehir:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "Şirket:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "Eyalet:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "*Zip/Posta Kodu:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "Parola:"
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "*Ülke:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "Red Hat Linux sürümü:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "Parola:"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*Soyadı:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "E-mail adresi:"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*Ad:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Hesap Bilgisi"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Kayıt bilgisi sahibi:"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afganistan"
-
-#~ msgid "Albania"
-#~ msgstr "Arnavutluk"
-
-#~ msgid "Algeria"
-#~ msgstr "Cezayir"
-
-#~ msgid "American Samoa"
-#~ msgstr "American Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antartika"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua ve Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Arjantin"
-
-#~ msgid "Armenia"
-#~ msgstr "Ermenistan"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Avusturalya"
-
-#~ msgid "Austria"
-#~ msgstr "Avusturya"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaycan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamalar"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahreyn"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladeş"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Belarus"
-
-#~ msgid "Belgium"
-#~ msgstr "Belçika"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivya"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosna Hersek"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet Island"
-
-#~ msgid "Brazil"
-#~ msgstr "Brezilya"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "British Indian Ocean Territory"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgaristan"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Yeni Hesap Oluştur"
-
-#~ msgid "Cambodia"
-#~ msgstr "Kamboçya"
-
-#~ msgid "Cameroon"
-#~ msgstr "Kamerun"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cape Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Cayman Islands"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Merkez Afrika Cumhuriyeti"
-
-#~ msgid "Chad"
-#~ msgstr "Chad"
-
-#~ msgid "Chile"
-#~ msgstr "Şili"
-
-#~ msgid "China"
-#~ msgstr "Çin"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Christmas Island"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Cocos (Keeling) Islands"
-
-#~ msgid "Colombia"
-#~ msgstr "Kolombiya"
-
-#~ msgid "Comoros"
-#~ msgstr "Comoros"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cook Islands"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Kosta Rika"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Yeni Hesap Oluştur"
-
-#~ msgid "Croatia"
-#~ msgstr "Hırvatistan"
-
-#~ msgid "Cuba"
-#~ msgstr "Küba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Kıbrıs"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Çek Cumhuriyeti"
-
-#~ msgid "Denmark"
-#~ msgstr "Danimarka"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominik"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominik Cumhuriyeti"
-
-#~ msgid "East Timor"
-#~ msgstr "East Timor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ekvator"
-
-#~ msgid "Egypt"
-#~ msgstr "Mısır"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Ekvator Ginesi"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estonya"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Ütopya"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falkland Islands (Malvinas)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Faroe Islands"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Finlandiya"
-
-#~ msgid "France"
-#~ msgstr "Fransa"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Fransa, Metropolü"
-
-#~ msgid "French Guiana"
-#~ msgstr "Fransız Guianası"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Fransız Polinezyası"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Fransız Güney Bölgeleri"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambiya"
-
-#~ msgid "Georgia"
-#~ msgstr "Gürcistan"
-
-#~ msgid "Germany"
-#~ msgstr "Almanya"
-
-#~ msgid "Ghana"
-#~ msgstr "Gana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Cebelitarık"
-
-#~ msgid "Greece"
-#~ msgstr "Yunanistan"
-
-#~ msgid "Greenland"
-#~ msgstr "Grönlend"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Gine"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Gine-Bisau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Heard Island and McDonald Islands"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Macaristan"
-
-#~ msgid "Iceland"
-#~ msgstr "İslanda"
-
-#~ msgid "India"
-#~ msgstr "Hindistan"
-
-#~ msgid "Indonesia"
-#~ msgstr "Endonezya"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "İran (İslam Cumhuriyeti)"
-
-#~ msgid "Iraq"
-#~ msgstr "Irak"
-
-#~ msgid "Ireland"
-#~ msgstr "İrlanda"
-
-#~ msgid "Israel"
-#~ msgstr "İsrail"
-
-#~ msgid "Italy"
-#~ msgstr "İtalya"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Japan"
-#~ msgstr "Japonya"
-
-#~ msgid "Jordan"
-#~ msgstr "Ürdün"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakistan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Kore, Demokratik İnsanların Cumhuriyeti"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Kore, Cumhuriyeti"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuveyt"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kırgızistan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao İnsanlarının Demokratik Cumhuriyeti"
-
-#~ msgid "Latin America"
-#~ msgstr "Latin Amerika"
-
-#~ msgid "Latvia"
-#~ msgstr "Letonya"
-
-#~ msgid "Lebanon"
-#~ msgstr "Lübnan"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberya"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Libyan Arab Jamahiriya"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Litvanya"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxembourg"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Makedonya"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagaskar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malezya"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldives"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshall Islands"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Meksika"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Micronesia (Federated States of)"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Moğolistan"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Morocco"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambik"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Felemenk"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Felemenk Antilles"
-
-#~ msgid "New Caledonia"
-#~ msgstr "New Caledonia"
-
-#~ msgid "New Zealand"
-#~ msgstr "Yeni Zellanda"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nikaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Nijer"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nijerya"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolk Island"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Northern Mariana Islands"
-
-#~ msgid "Norway"
-#~ msgstr "Norveç"
-
-#~ msgid "Oman"
-#~ msgstr "Umman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua Yeni Gine"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Filipinler"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Polonya"
-
-#~ msgid "Portugal"
-#~ msgstr "Portekiz"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Katar"
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romanya"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Rusya Federasyonu"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Saint Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Saint Kitts and Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Saint Pierre and Miquelon    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Saint Vincent and the Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome and Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Suudi Arabistan"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapur"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovakya"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenya"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Solomon Islands"
-
-#~ msgid "Somalia"
-#~ msgstr "Somali"
-
-#~ msgid "South Africa"
-#~ msgstr "Güney Afrika"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "South Georgia and the South Sandwich Island"
-
-#~ msgid "Spain"
-#~ msgstr "İspanya"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Surinam"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Svalbard and Jan Mayen Islands"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "İsveç"
-
-#~ msgid "Switzerland"
-#~ msgstr "İsviçre"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Suriye Arap Cumhuriyeti"
-
-#~ msgid "Taiwan"
-#~ msgstr "Tayvan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tacikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzanya, Birleşik Cumhuriyeti"
-
-#~ msgid "Thailand"
-#~ msgstr "Tayland"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad and Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunus"
-
-#~ msgid "Turkey"
-#~ msgstr "Türkiye"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Türkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Turks and Caicos Islands"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukrayna"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Birleşik Arap Emirlikleri"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Birleşik Krallık"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "United States Minor Outlying Islands"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Özbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Vatikan Şehir Devleti"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Viet Nam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Virgin Islands (İngiliz)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Virgin Islands (U.S.)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Wallis and Futuna Islands"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Batı Sahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Yemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Yugoslavya"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambiya"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    Sistem kitaplıklarınız SSL (veri şifrelemeli) bağlantıları "
-#~ "desteklemiyor.\n"
-#~ "    redhat.com ile yapılacak haberleşme sırasında tüm veriler salt metin\n"
-#~ "    olarak aktarılacak.\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Yine de devam edilsin mi?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Alındı."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Kullanılacak Red Hat Ağ Sunucusunu seçin"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Kanal Bilgileri"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Şirket:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Profil Red Hat Ağına Gönderiliyor"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Red Hat Ağı Yapılandırması"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "Red Hat Ağını kullanarak bu Sistem Profili ile ilişkili paketleri güncelle"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "RHN kayıt programını root olarak çalıştırmalısınız."
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr "Sistem bir kanalla iliştirilene kadar güncellenmez"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr "Sistem bir kanalla iliştirilene kadar güncellenmez"
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Profil Red Hat Ağına Gönderiliyor"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Kullanılacak Red Hat Ağ Sunucusunu seçin"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Lütfen paket seçimlerinizi değiştirip tekrar deneyin."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Sürüm:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Açıklama"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Paketlerin kaldırılması başarısız:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Paketlerin gönderilmesi başarısız."
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Girdiğiniz iki şifre uyuşmuyor.\n"
-#~ "Lütfen ikinci şifrenizi tekrar yazın."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Dosya İsmi/Maske"
-
-#~ msgid "Config modified"
-#~ msgstr "Yapılandırma değiştirildi"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr ""
-#~ "Bağılılıklar zaten çözümlenmiş olmalıydı, ancak onlarınki yapılmamış"
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Peketlerin kurulumunda hata: %s"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#~ msgid "SSL Warning"
-#~ msgstr "SSL Uyarı"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Sistem kitaplıklarınız SSL (veri şifrelemeli) bağlantıları desteklemiyor."
-#~ "redhat.com ile yapılacak haberleşme sırasında tüm veriler salt "
-#~ "metinolarak aktarılacak. Devam edilsin mi?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Kullanıcı:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "%s açılırken hata"
-
-#~ msgid "Installing"
-#~ msgstr "Kuruluyor"
-
-#~ msgid "Installing %s"
-#~ msgstr "%s kuruluyor"
-
-#~ msgid "Repackaging"
-#~ msgstr "Tekrar Paketleniyor"
-
-#~ msgid "Preparing"
-#~ msgstr "Hazırlanıyor"
-
-#~ msgid " Done."
-#~ msgstr " Tamam."
-
-#~ msgid "Retrieved."
-#~ msgstr "Alındı."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Aşağıdaki paketler bağımlılık gereği olarak seçtiğiniz paketler listesine "
-#~ "eklendi:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "İsim                                    Sürüm          Dağıtım\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Ad                               Sürüm          Dağ            "
-#~ "Kanal         \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "Hiç uyarıcı bilgi yok\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "İsim                                    Sürüm          Dağ     \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "Aşağıdaki paketler yapılandırmanızda atlanması için imlenmiş:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "İsim                                    Sürüm         Dğt   Sebep\n"
-#~ "-------------------------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "Takip eden paketler yeni paketler tarafından eskitilmiş:"
-
-#, fuzzy
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "Takip eden paketler yeni paketler tarafından eskitilmiş:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "Takip eden paketler yeni paketler tarafından eskitilmiş:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Ad     -Sürüm  -Dağıtım              eskiten          Ad     -Sürüm  -"
-#~ "Dağıtım \n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Aşağıdaki paketler yüklenmeyecek çünkü kurulu paketler tarafından "
-#~ "eskitilmişler:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Ad     -Sürüm  -Dağıtım               eskiten        Ad     - Sürüm - "
-#~ "Dağıtım\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr "Aşağıdaki paketler kurulmamış fakat Red Hat ağında mevcut."
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "İsim                                       Sürüm           Dağıtım  \n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr ""
-#~ "    --noSSLServerURL=<url>     - ssl olmayan sunucu için bir url "
-#~ "belirleyin"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr "    --useNoSSLForPackages      - paketleri indirirken ssl kullanma"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Kullanıcı:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Yeni Hesap Oluştur"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "İptal"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Red Hat Ağ Kaydı (c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "Red Hat Linux sürümü:"
-
-#, fuzzy
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Gizlilik Anlaşması"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "/etc/sysconfig/rhn/up2date-uuid 'de rhnuuis yapılandırma seçeneği "
-#~ "bulunamadı.."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Seçtiğiniz RPMlerin bağımlılıkları, güncellenmemesi için imlediğiniz\n"
-#~ "    aşağıdaki paketlerinde güncellenmesini gerektiriyor:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Paket İsmi"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Atlama Sebebi"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Paketin kendinin ve diğerlerine bağımlılıkları denetleniyor"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Çelişki bağımlılıkları giderilemedi."
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "Aşağıdaki paketler bağımlılık gereği olarak seçtiğiniz paketler listesine "
-#~ "eklendi:"
-
-#, fuzzy
-#~ msgid "Package                                Required by\n"
-#~ msgstr ""
-#~ "\n"
-#~ "İsim                                    Sürüm          Dağıtım\n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s gerektiriyor\n"
-
-#, fuzzy
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s gerektiriyor\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "\"%s\" bağımlılığının nasıl halledileceği bilinmiyor"
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Giderilemeyen bağımlılıkların listesi:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "öntanımlı elilo.conf dosyasında up2date tarafından desteklenmeyen elilo "
-#~ "seçenekleri kullanılmış. Bu dosya değiştirilemeyecek. Bu seçenekler var:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "grubby doğru olarak çalıştırılamadı. İleti:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Red Hat Güncelleme İstemcisi"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Bu yazılım GPL altında dağıtılmaktadır.\n"
-#~ "Hataları lütfen Red Hat'ın Hata İzleme Sistemine bildiriniz: http://"
-#~ "bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr ""
-#~ "Güncelleme İstemcisi - Red Hat Linux'de paketleri güncellemek için olan "
-#~ "bir program"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Bu yazılım GĞL altında dağıtılmaktadır. Hataları lütfen Red Hat'ın Hata "
-#~ "İzleme Sistemine bildiriniz: http://bugzilla.redhat.com/bugzilla/\n"
-#~ "Çeviri hatalarını ise <nilgun@fide.org> adresine bildiriniz."
-
-#~ msgid "Version"
-#~ msgstr "Sürüm"
-
-#~ msgid "Old Version"
-#~ msgstr "Eski Sürüm"
-
-#~ msgid "Size"
-#~ msgstr "Boyut"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Sebep Atlandı"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Gizlilik Bilgisi"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Şartları"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Giriş Sayfası"
-
-#, fuzzy
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Kayıt Bilgisi"
-
-#, fuzzy
-#~ msgid "Up2date - Create New Account"
-#~ msgstr "Yeni Hesap Oluştur"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Ürün Bilgi Sayfası"
-
-#~ msgid "All information is optional."
-#~ msgstr "Tüm bilgiler isteğe bağlıdır."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Red Hat ile iletişim yapabilmeniz için Adınızı ve adresinizi tam olarak "
-#~ "belirtmelisiniz."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Red Hat ile telefon ile görüşmek için en azından adınız ve telefon\n"
-#~ "numaranızı doldurmalısınız."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Red Hat ile fax iletişimi kurmak istiyorsanız en azından adınızı ve\n"
-#~ "fax numaranızı doldurmanız gerekir."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Doanım Profili"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Kayıt Sihirbazı sisteminize kurulu RPM paketlerinin listesini "
-#~ "oluşturuyor.  Lütfen bekleyin."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "Seçili paket yok. Lütfen önce bir paket seçin."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Hiç uyarıcı bilgi yok."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat Güncelleme İstemcisi sisteminizde kurulu\n"
-#~ "güncel RPM paketlerinin listesini oluşturuyor.\n"
-#~ "Lütfen bekleyiniz."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Yeni up2date sürümü mevcut. Yeni sürüm yüklenip yeniden başlatılsın mı?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Bir ölümcül RPM hatası oluştu. Hata iletisi:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr "Sunucu ile haberleşilirken ölümcül bir hata oluştu. Hata iletisi:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Umulmadık bir İS hatası oluştu:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Atlanan Paketler"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Kanallar"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Paket Listesi"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Ölümcül bir RPM hatası oluştu. Hata iletisi:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr "Sisteminiz tamamen güncel. Yeni paketlere gerek yok."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "Bir RPM hatası oluştu. Hata iletisi:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Bir RPM kurulum hatası oluştu: Hata iletisi:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Bir paket bağımlılk sorunu var. İleti:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "En azından bir paket seçmelisiniz.\n"
-#~ "Hiçbir paketin güncellenmesini istemiyorsanız,\n"
-#~ "\"İptal\"e tıkayarak Güncelleme İstemcisinden çıkabilirsiniz."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Seçilmiş dosyaların toplam uzunluğu %d kb, ancak\n"
-#~ "sizin sadece %d kb boş alanınız var.\n"
-#~ "Lütfen bazı paketleri listeden kaldırın ve devam edin."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Mevcut Paketler"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Bağımlılıklar"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Paket zaten indirilmiş"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Paket %s indirilirken hata.\n"
-#~ "Hata iletisi:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Bir ölümcül RPM hatası oluştu. Hata iletisi:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Paket %s GPG imzası ile imzalanmamış. Yine de devam edilsin mi?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Paket %s geçerli bir GPG imzasına sahip değil.\n"
-#~ "Kurcalanmış ya da bozulmuş olabilir. Yine de devam edilsin mi?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "Paket %s güvenilmeyen GPG imzası ile imzalanmış. Devam edilsin mi?"
-
-#, fuzzy
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "Paket %s güvenilmeyen GPG imzası ile imzalanmış. Devam edilsin mi?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Tamamı bitti. Devam etmek için \"İleri\"ye tıklayınız."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Paket Alımı"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Tekrar paketleniyor..."
-
-#~ msgid "Installing..."
-#~ msgstr "Kuruluyor..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Toplam İlerleme (tekrar paketleme):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Toplam İlerleme:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Ölümcül bir RPM kurulum hatası oluştu. Hata iletisi:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Paket Kurulumu"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Bitiş Sayfası"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Red Hat Güncelleme İstemcisi işini bitirdi: "
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Aşağıdaki paketler sorunsuzca\n"
-#~ "indiriliyor\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Aşağıdaki paketler sorunsuzca\n"
-#~ "kuruluyor:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Ayarlarınızdan dolayı, bu paketler indirilecek ancak kurulmayacaktır.\n"
-#~ "Bu ayarları değiştirmek isterseniz lütfen \"up2date-config\"\n"
-#~ "uygulamasını çalıştırın."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "lilo.conf değiştirilirken hata:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "lilo.conf dosyası yedeğinden yerine konurken hata oluştu. Yedeği:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Yeni önyükleyici kurulurken hata: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "lilo.conf okunurken hata. Hata iletisi:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "öntanımlı lilo.conf dosyasında up2date tarafından desteklenmeyen lilo "
-#~ "seçenekleri kullanılmış. Bu dosya değiştirilemeyecek. Bu seçenekler var:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Paket ismi/maskesi"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "rpm başlıkları alınıyor"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "rpm başlıkları alınıyor: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Atlanacak olarak imli paketler listeden kaldırılıyor"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Kullanım: rhn_check [seçenekler]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Kullanılabilir komut satırı seçenekleri:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - yardım "
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose      - gereksizliği artırır "
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Mevcut paket listesi alınırken hata"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Komut listesi nesneleri çözümlenirken hata: %s"
-
-#, fuzzy
-#~ msgid "You must enter your address."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#, fuzzy
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Kullanım: rhnreg_ks [seçenekler]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - yardım "
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<value>      - bir profil adı belirtin"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<value>         - kullanıcı adı belirleyin "
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<value>         - bir şifre belirtin "
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgid=<value>            - şirketsel bir id belirleyin "
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr "    --orgpassword=<value>      - şirketsel bir şifre belirleyin"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr ""
-#~ "    --serverUrl=<URL>          - sunucu olarak kullanılacak bir url "
-#~ "belirleyin"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<value>            - bir email adresi belirtin "
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<value>    - bir aktivasyon şifresi belirtin "
-
-#, fuzzy
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr "    --activationkey=<value>    - bir aktivasyon şifresi belirtin "
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --sürüm                  -sürümü gösterir "
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr "    --proxy                    - kullanılacak http proxy belirtin "
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<value>        - kimlikli bir http proxy ile kullanmak "
-#~ "için bir kullanıcı adı belirtin"
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<value>    - kimlikli bir http proxy ile kullanmak "
-#~ "için bir şifre belirtin"
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "GPL koşulları altında lisanslıdır."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "%s silinemiyor"
-
-#, fuzzy
-#~ msgid "Error parsing %s"
-#~ msgstr "%s açılırken hata"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Adım 2: Bir Kullanıcı Hesabı Kaydet"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "redhat.com kayıtlı kullanıcısı mısınız?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Evet: Mevcut kullancı adınızı ve şifrenizi aşağıya yazınız."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr "Hayır: Yeni bir kullanıcı adı ve şifre seçip alta girin."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Tekrar onaylamak için:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr ""
-#~ "Adım 2: Bir Kullanıcı Hesabı Kaydet (\"*\" bulunan alanlar gereklidir)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Adım 2: Bir Kullanıcı Hesabı Kaydet (Tümü İşteğe Bağlı)"
-
-#~ msgid "*Title:"
-#~ msgstr "*Başlık:"
-
-#~ msgid "Title:"
-#~ msgstr "Başlık"
-
-#~ msgid "First Name:"
-#~ msgstr "Adı:"
-
-#~ msgid "Position:"
-#~ msgstr "Yer:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Adres:"
-
-#~ msgid "Address:"
-#~ msgstr "Adres:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Adres 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*Şehir:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Eyalet:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Eyalet:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Zip/Posta Kodu:"
-
-#~ msgid "Country:"
-#~ msgstr "Ülke:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Telefon:"
-
-#~ msgid "Phone:"
-#~ msgstr "Telefon"
-
-#~ msgid "Fax:"
-#~ msgstr "Fax:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "İletişim Ayarları:"
-
-#~ msgid "E-mail"
-#~ msgstr "E-mail"
-
-#~ msgid "Regular mail"
-#~ msgstr "Normal posta"
-
-#~ msgid "Telephone"
-#~ msgstr "Telefon"
-
-#~ msgid "Fax"
-#~ msgstr "Fax"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "Red Hat yöneticilerinin özel teklifleri ile benimler iletişime geç"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Red Hat e-Haber bültenine kayıt ol"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Red Hat ile posta iletişimi yapabilmek için adınızı ve adresinizi "
-#~ "doldurmalısınız."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Red Hat ile telefonla iletişim kurabilmek için, en azından adınız ve "
-#~ "telefon numaranızı doldurmalısınız."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Red Hat ile fax trafiğine girebilmeniz için en azından adınızı ve fax "
-#~ "numaranızı belirtmelisiniz."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Adım 3 : Bir Sistem Profili Kaydet - Paketler"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Bu Sistem Profilini Red Hat Ağına başarı ile kaydettiniz.\n"
-#~ "\n"
-#~ "Giriş yapmak ve Red Hat ağı özelliklerine ulaşmak için http://www.redhat."
-#~ "com/network adresine gidin.\n"
-#~ "\n"
-#~ "Sisteminizi en son ürün güncellemeleri, hata düzeltimleri ve güvenlik "
-#~ "artırımları ile güncellemek için up2date'i komut satırından çalıştırın "
-#~ "veya panelden \"Güncelleme İstemcisini\" seçin"
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "Bu sistem kayıtlı görünüyor.  Yine de devam edilsin mi?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Paket %s GPG imzası ile imzalanmamış.  İptal ediliyor..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Paket %s geçerli bir GPG imzasına sahip değil.\n"
-#~ "Kurcalanmış ya da bozulmuş olabilir. İptal ediliyor..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr ""
-#~ "Paket %s güvenilmeyen GPG imzası ile imzalanmamış. İptal ediliyor..."
-
-#, fuzzy
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr ""
-#~ "Paket %s güvenilmeyen GPG imzası ile imzalanmamış. İptal ediliyor..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr ""
-#~ "Saklama dizini %s bulunamadı, ya da\n"
-#~ "erişilebilir değil."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "Red Hat Ağının kayıtlı kullanıcısı değilsiniz. Güncelleme İstemcisini\n"
-#~ "kullanmak için kayıtlı olmalısınız.\n"
-#~ "\n"
-#~ "Kaydolmak için \"up2date --register\" uygulamasını çalıştırınız."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "GPG anahtar zinciriniz Red Hat, Inc. genel anahtarını içermiyor.\n"
-#~ "O olmaksızın, Güncelleme İstemcisi paketleri indirirken Red Hat "
-#~ "tarafından\n"
-#~ "imzalanıp imzalanmadığını kontrol edemeyecek.\n"
-#~ "\n"
-#~ "Güncelleme İstemcisi seçenekleri GPG kullanılmasını istediğiniz "
-#~ "belirtiyor."
-
-#, fuzzy
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "GPG anahtar zinciriniz Red Hat, Inc. genel anahtarını içermiyor.\n"
-#~ "O olmaksızın, Güncelleme İstemcisi paketleri indirirken Red Hat "
-#~ "tarafından\n"
-#~ "imzalanıp imzalanmadığını kontrol edemeyecek.\n"
-#~ "\n"
-#~ "Güncelleme İstemcisi seçenekleri GPG kullanılmasını istediğiniz "
-#~ "belirtiyor.\n"
-#~ "\n"
-#~ "Anahtarı zincire eklemek için aşağıdaki komutu root olarak "
-#~ "çalıştırmalısınız:\n"
-#~ "\n"
-#~ "    rpm --import /usr/share/rhn/RPM-GPG-KEY"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "Bağımlılık çözünürlüğü tamamlanamadı"
-
-#, fuzzy
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr ""
-#~ "\n"
-#~ "İsim                                    Sürüm          Dağıtım\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Bu paket çelişkilerinden dolayı kurulum testi başarısız oldu:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "%s için başlık bulunamadı"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Bu işlemdeki bazı paketler mevcut değil."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "Uyarı: Aşağıdaki paketler güncellenecek, fakat bu paketler tekrar "
-#~ "paketler\n"
-#~ "tekrar paketlenmiş ve bu şu anda desteklenmiyor. bu işlem için tekrar\n"
-#~ "paketleme desteği kapadılmış.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Komut satırı modunda çalışırken paket adlarını programa komut olarak "
-#~ "gönderin\n"
-#~ "böylece bu paketleri program alabilir. Sürüm, dağıtım, ve yapı detayları "
-#~ "Güncelleme\n"
-#~ "Yardımcısı tarafından otomatik olarak tamamlanır.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "Güncelleme İstemcisi seçeneklerini yapılandır"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr "yapılandırma kurulmasını gerektirse bile paketleri sadece indir"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr "yapılandırma sadece indirilmesini gerektirse bile paketleri kur"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Hen kaynak hem de çalıştırılabilir paketler indirilir"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr "Kaynak paketlerini indirme (yapılandırma ayarları içerse bile)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Alternatif RPM veritabanının bulunduğu yeri belirtin"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr "Paket ve dosya atlama listesine rağmen paketleri kur"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr "Paketleri sadece veritabanına ekle, dosya sistemine kurma"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "indirmek için mevcut paketleri listele"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr ""
-#~ "Herşeyi yap ve paketleri indir ve kur (gerekli bağımlılıkları göster)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Seçeneklerin özet açıklaması"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "paketler için bakılacak dizinlerin ':' ile ayrılmış arama yolu"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "Paket imzalarının denetimi için GPG kullanma"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr ""
-#~ "up2date donanım profili Red Hat ağındaki bu Sistem Profili ile "
-#~ "ilişkilendirildi."
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "sistemi kaydet (veya yeniden kaydet, gerekiyorsa)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "İndirilmesi mümkün tüm paketleri listele"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "Kurulmamış mevcut paketlerin tümünü listele"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "sistemin kayıtlı olduğu kanalda bulunmayan sisteme kurulu paketleri liste"
-
-#, fuzzy
-#~ msgid "List all the install components available to install"
-#~ msgstr "İndirilmesi mümkün tüm paketleri listele"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "bağımlılıklar listesinin çözülmesi için gerekli paketleri bulur, indirir "
-#~ "ve kurar"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "Geçici dosyaların /RPMlerin saklanacağı yer"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "ilişkili tüm paketlerle sistemi güncelle"
-
-#~ msgid "show program version information"
-#~ msgstr "Program sürüm bilgilerini göster"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "Paket isimlerine karşı düşen kanal isimlerini göster"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Bulunan rpm geridönüşlerini göster"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr "Virgül ayraçlı bağımlılık listesini çözümleyen paketleri göster"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Kanal etiketin kullanılacağı kanalları belirtin"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr ""
-#~ "gpg çalıştırılırken kullanılan seçenekleri göster. (anahtar zinciri, vs)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Paketlerin tümü indirilmez. Deneme amaçlı olarak"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Apletin ürettiği bir uuid'deki şifre"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "Paket kurulum penceresini gui modunda göster"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Belirtilen paketin bağımlılıkları çözmeden getir"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr "Bağlılıkları çözmeden belirtilen paket için kaynak paketi bul."
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Belirtilen kanala yükselt"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Anahtar eklensin mi?"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        Red Hat GPG anahtarı anahtar zincirinize\n"
-#~ "                        eklenirken sıralama hatası oluştu."
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "İşlem geçmişi güncelleniyor..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Bu bağımlılıkları giderecek paketler bulunamadı."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "--installall ile bir kanal adı belirtilmelidir."
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr "Sunucu ile haberleşilirken bir hata oluştu. Hata iletisi:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Bir paket bağımlılık sorunu var. Hata iletisi:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "Paketler kurulurken bir hata oluştu. Hata iletisi:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Etkileşimli kip mümkün değil"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Lütfen komut satırında ya -l, -u, --nox seçeneklerini ya da argüman "
-#~ "olarak paket isimlerini belirtiniz."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr ""
-#~ "Grafik kullanıcı arayüzü açılamıyor. \"--nox\" seçeneği ile çalıştırmayı "
-#~ "deneyin."
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "Aşağıdaki paketler kullanılamaz:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Tüm paketler güncel durumda."
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "İstediğiniz fakat bulunamayan paketler:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "İstediğiniz paketler zaten güncel:"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#, fuzzy
-#~ msgid "7.3"
-#~ msgstr "7.2"
-
-#, fuzzy
-#~ msgid "8.0"
-#~ msgstr "7.0"
-
-#~ msgid "Add"
-#~ msgstr "Ekle"
-
-#~ msgid "Add new:"
-#~ msgstr "Yeni ekle:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Kurulumdan sonra çalıştırılabilir paketleri silme"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "İndirildikten sonra paketler kurulmaz"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "Yerel yapılandırma dosyası değiştirilmişse paketler güncellenmez"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr ""
-#~ "RPM geri dönüşleri aktifleştir  (\"geri al\" işlemine izin verilir fakat "
-#~ "ek saklama alanı gerektirir)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "İndirilen paketlerin saklanacağı yeri belirtiniz."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Seçtiğiniz paketlerin saptanması sırasında atlanmasını istediğiniz bir "
-#~ "dosya varsa ismini yazınız. Dosya ismi yerine kalıp karakterlerini "
-#~ "kullanabilirsiniz. Örn: \"/boot/*\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Seçtiğiniz paketlerin saptanması sırasında atlanmasını istediğiniz bir "
-#~ "paket varsa ismini yazınız. Kalıp karakterlerini de kullanabilirsiniz. "
-#~ "Örn: \"kernel*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Atlanacak Dosya İsimleri"
-
-#~ msgid "General"
-#~ msgstr "Genel"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Bir HTTP vekilinde ihtiyacınız varsa onu buraya MAKİNA:PORT biçeminde\n"
-#~ "girebilirsiniz. örn: squid.mysite.org:3128"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Otomatik saptanan Red Hat Linux sürümü yerine başka bir sürümden "
-#~ "güncelleme yapmak istiyorsanız bunu buraya yazabilir veya önceden tanımlı "
-#~ "sürümlerden birini seçebilirsiniz."
-
-#~ msgid "Network Settings"
-#~ msgstr "Ağ Ayarları"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Sistem Profilinde kayıtlı sürüm yerine bu sürüm kullanılsın:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Paket Olağandışılıkları"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Paket Kurulum Seçenekleri"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Atlanacak Paket İsimleri"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Paket İndirme Seçenekleri"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Paket Onaylama Seçenekleri"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Paketlerin saklanacağı dizin:"
-
-#~ msgid "Remove"
-#~ msgstr "Kaldır"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "İndirme / Kurulum"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Çalıştırılabilir pakete karşı düşen kaynak RPM paketi indirilir"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Paket bütünlüğünü doğrulamak için GPG kullanılır"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Bir profil adı bu Sistem Profilini Red Hat ağında tanımlayan açıklayıcı "
-#~ "bir addır.\n"
-#~ "İsteğe bağlı olarak bilgisayar seri numarası veya kimlik numarası "
-#~ "olabilir."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Tercihlerinize bakıldığında yukardaki paketlerin otomatik olarak\n"
-#~ "güncellenmesini istemediğiniz anlaşılıyor. Bu ayarları değiştirmeden\n"
-#~ "yukardaki paketlerden güncellenmesini istedikleriniz varsa, onların\n"
-#~ "onay kutularını imli duruma getiriniz."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "Ek donanım bilgisi olarak PCI aygıtlar, disk boyutları, ve ekleme nokta "
-#~ "sayısı\n"
-#~ "profile eklenebilir."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "Tamamı bitti"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Silahlı Kuvvetler(AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Silahlı Kuvvetler(AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Silahlı Kuvvetler(AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "Mevcut Paket Kurulumları"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr "RPM'in tanıdığı sisteminize kurulu paketlerin listesi aşağıdadır:"
-
-#~ msgid "British Columbia"
-#~ msgstr "British Columbia"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Varsayılan olarak, RPM'in tanıdığı tüm paketler Sistem Profilinize "
-#~ "eklenir.\n"
-#~ "Eklenmesini istemediğiniz paketlerin işaretlerini kaldırarak "
-#~ "eklenmemesini sağlayabilirsiniz"
-
-#~ msgid "California"
-#~ msgstr "California"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "\"İleri\" tuşuna tıklayarak şartları okuyup anladığınızı ve kabul "
-#~ "ettiğinizi bildirmiş olursunuz\n"
-#~ "Kabul etmiyorsanız \"İptal\" tuşuna basın."
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Contact preferences"
-#~ msgstr "İletişim ayarları"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "Columbia Bölgesi"
-
-#~ msgid "Dr."
-#~ msgstr "Dr."
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "Kırmızı ile belirtilmiş alanlar gereklidir."
-
-#~ msgid "First name:"
-#~ msgstr "Ad:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "Donanım bilgisi sisteminiz için hangi yazılım ve donanımların "
-#~ "sürücülerinin güncellendiğini\n"
-#~ "anlamada önemlidir.  En alt seviye bilgi sistem yapınız ve Red Hat Linux "
-#~ "sürümünüz\n"
-#~ "olabilir."
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "IP address:"
-#~ msgstr "IP adresi:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Donanım ve ağ hakkında bilgileri içer"
-
-#~ msgid "Included information"
-#~ msgstr "Eklenen bilgi"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Paketler Kuruluyor"
-
-#~ msgid "Installing:"
-#~ msgstr "Kurulan:"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Soyad:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Micronesia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "Bayan"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "Bay"
-
-#~ msgid "Mrs."
-#~ msgstr "Bayan"
-
-#~ msgid "Ms."
-#~ msgstr "Bayan"
-
-#~ msgid "Name"
-#~ msgstr "İsim"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "New Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Newfoundland"
-
-#~ msgid "North Carolina"
-#~ msgstr "North Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "North Dakota"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Northern Marianas"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "Northwest Territory"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova Scotia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Amerika/Kanada Dışı"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Atlanması için İmlenmiş Paketler"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Bağımlılıkları Çözümlenmesi Gereken Paketler"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "Prince Edward Island"
-
-#~ msgid "Quebec"
-#~ msgstr "Quebec"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "RPM bilgisi hangi yazılımların sisteminizde kurulu olduğunu ve\n"
-#~ "güncellenmesi gerekenlerin hemen bulunmasında önemlidir."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Red Hat Linux sürümü:"
-
-#~ msgid "Rel."
-#~ msgstr "Dğt."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Paketler İndiriliyor"
-
-#~ msgid "Retrieving:"
-#~ msgstr "İndirilen:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Tüm paketleri seçer"
-
-#~ msgid "Sir"
-#~ msgstr "Bay"
-
-#~ msgid "South Carolina"
-#~ msgstr "South Carolina"
-
-#~ msgid "South Dakota"
-#~ msgstr "South Dakota"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Red Hat'tan özel istek"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Şartlar"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Seçtiğiniz paketlerin bağımlılıkları aşağıdaki paketleri de "
-#~ "gerektiriyor.\n"
-#~ "Bunlar seçili paketler listenize eklenecektir."
-
-#, fuzzy
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Bu bir Red Hat Güncelleme İstemcisidir ve Red Hat Linux\n"
-#~ "sisteminizin Red Hat Ağı üzerinden yazılımların en son\n"
-#~ "sürümleriyle güncellenmesine yardımcı olur.\n"
-#~ "\n"
-#~ "\n"
-#~ "Devam etmek için \"İleri\"ye, hiçbir güncelleme yapılmaksızın\n"
-#~ "uygulamadan çıkmak için \"İptal\"e tıklayınız."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Kanallara üye olmak, üyeliği iptal etmek, veya\n"
-#~ "kanallar hakkında bilgi almak için:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Biten:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "İndirilecek paketlerin toplam uzunluğu:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Seçili paketlerin toplam uzunluğu:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "Trust Territories"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#~ msgid "View Advisory"
-#~ msgstr "Uyarıcı Göster"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Virgin Islands"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "Sistem Profiliniz hakkında bilgi toplamayı bitirdik.\n"
-#~ "\n"
-#~ "Sistem profilinizi Red Hat Ağına göndermek için \"İleri\" düüğmesini "
-#~ "tıklayın.\n"
-#~ "Bilgi öndermek istemiyorsanız \"İptal\" düğmesine basın. Kayıt programını "
-#~ "daha\n"
-#~ "sonra başlatmak için komut satırına rhn_register yazabilirsiniz."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Red Hat Güncelleme İstemcisine Hoş Geldiniz"
-
-#~ msgid "West Virginia"
-#~ msgstr "West Virginia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Paket seçiminizde değişiklik yapmak istiyorsanız \"Geri\", devam etmek "
-#~ "için \"İleri\" düğmesine tıklayınız."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "Red Hat ağına http://www.redhat.com/network girerek donanım profilinizi\n"
-#~ "değiştirebilir veya yeni bir donanım profili oluşturabilirsiniz."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "Yukon Territory"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "ZIP / Posta kodu:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "e-Haber"
-
-#, fuzzy
-#~ msgid "* First name:"
-#~ msgstr "Ad:"
-
-#, fuzzy
-#~ msgid "* Last name:"
-#~ msgstr "Soyad:"
-
-#, fuzzy
-#~ msgid "Network Configuration"
-#~ msgstr "Red Hat Ağı Yapılandırması"
-
-#, fuzzy
-#~ msgid "Outside US/Canada"
-#~ msgstr "Amerika/Kanada Dışı"
-
-#, fuzzy
-#~ msgid "dialog1"
-#~ msgstr "Tamam penceresi:"
-
-#, fuzzy
-#~ msgid "sdfsdfsdfsdfProblem registering personal information"
-#~ msgstr "Kişisel bilgi kaydedilirken hata"
-
-#~ msgid "Use Existing Account"
-#~ msgstr "Mevcut Hesabı Kullan"
-
-#~ msgid "Password (confirm):"
-#~ msgstr "Parola (tekrar):"
-
-#~ msgid "label11"
-#~ msgstr "etiket11"
-
-#~ msgid "Advisory Information"
-#~ msgstr "Uyarıcı Bilgiler"
+msgstr ""

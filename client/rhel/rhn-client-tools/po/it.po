@@ -1,50 +1,25 @@
-# translation of rhn-client-tools.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# Copyright (C) Red Hat, Inc 2001
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
+# Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004, 2005, 2006, 2007.
 # Valentina Besi <valentina@redhat.it>, 2001.
 # Francesco Valente <fvalen@redhat.com>, 2003, 2004.
-# Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004, 2005, 2006, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: rhn-client-tools\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-06-15 16:36+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: American English <spacewalk-devel@redhat.com>\n"
-"Language: en_US\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-06-15 15:31+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -1728,9 +1703,8 @@ msgid "Do not attempt to use X"
 msgstr "Non cercate di utilizzare X"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "Bisogna essere un utente root per eseguire %s"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
@@ -1749,32 +1723,28 @@ msgid "list channels"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Tutti gli aggiornamenti disponibili"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Specificare un nome utente"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "Specificare una password"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Nome host: "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1801,11 +1771,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
 msgstr ""
-"Questo sitema potrebbe non essere aggiornato fino a quando non viene "
-"associato con un canale."
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -2911,116 +2878,3 @@ msgstr "Registrazione a Spacewalk/Satellite/Red Hat Network."
 #~ "nell'angolo in alto sulla destra.) Facendo clic su questa icona, se "
 #~ "presente, verrete guidati attraverso il processo di applicazione degli "
 #~ "aggiornamenti se disponibili:"
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "Impostazione aggiornamento software in corso"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Perchè collegarmi a Red Hat Network?"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "Impostazione aggiornamenti software in corso"
-
-#~ msgid "Select Operating System Release"
-#~ msgstr "Selezionare versione sistema operativo"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Registrare il profilo del sistema - Hardware"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Registrare un Profilo del Sistema - Pacchetti"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "_Numero d'installazione:"
-
-#, fuzzy
-#~ msgid "Only https and http are allowed."
-#~ msgstr ""
-#~ "Avete specificato un protocollo non valido. Sono disponibili solo https e "
-#~ "http."
-
-#~ msgid "Warning:"
-#~ msgstr "Avvertenza:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Finestra di dialogo OK:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Finestra di dialogo"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "Attivazione sottoscrizione automatica"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "Attivazione sottoscrizione"
-
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Avvertenza: impossibile eseguire rhn_check"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Errore sul disco fisso. Il messaggio è:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr ""
-#~ "C'è stato un errore irreversibile durante l'installazione del pacchetto:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "Errore di conflitto del pacchetto RPM. Il messaggio è:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "Errore di conflitto del file RPM. Il messaggio è:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "errore RPM. Il messaggio era:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Errore causato da una dipendenza RPM. Il messaggio è:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Errore nell'elenco dei pacchetti da ignorare. Il messaggio è:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Errore di sovrascrizione dell'elenco dei file da ignorare o del file di "
-#~ "configurazione.Il messaggio è:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr ""
-#~ "Impossibile rimuovere il pacchetto \"%s\". Si trovava su RemoveSkipList"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG non è installato correttamente."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "La chiave GPG non include la chiave di signature pubblica di Red Hat, Inc."
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Il pacchetto %s non ha completato la verifica della firma gpg. Ciò "
-#~ "significa che il pacchetto è corrotto. "
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Il pacchetto %s non è contrassegnato da una firma GPG.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Il pacchetto %s ha una firma non valida di GPG.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Il pacchetto %s ha una firma GPG sconosciuta.\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Selezionare un server Red Hat Network"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Connessione a Red Hat Network"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Registrazione a Red Hat Network"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "Fornire un certificato per questo server di Red Hat Network"

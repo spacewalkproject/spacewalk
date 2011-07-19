@@ -1,26 +1,26 @@
-# translation of spacewalk.rhn-client-tools.po to
-# translation of de.po to
-# Copyright (c) 2001--2011 Red Hat, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
 # Bernd Groh <bgroh@redhat.com>, 2003.
+# Luc de Louw <luc@delouw.ch>, 2011.
+# Timo Trinks <ttrinks@redhat.com>, 2006.
 # Verena <vfuehrer@redhat.com>, 2004, 2005.
 # sknirT omiT <moc.tahder@sknirtt>, 2010.
-# Luc de Louw <luc@delouw.ch>, 2011.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: spacewalk.rhn-client-tools\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-06-15 16:00+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-06-15 15:35+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
 "Language-Team: German <trans-de@lists.fedoraproject.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -2870,118 +2870,3 @@ msgstr "Registrieren Sie sich bei Spacewalk/Satellite/Red Hat Network."
 #~ "rechten, oberen Ecke, nachfolgend eingekreist.) erscheint. Ein Klick auf "
 #~ "dieses Symbol, sofern verfügbar, führt Sie durch die Anwendung jeglicher "
 #~ "verfügbarer Updates:"
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "Software-Updates einrichten"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Weshalb mit dem Red Hat Network verbinden?"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "Software-Updates einrichten"
-
-#~ msgid "Select Operating System Release"
-#~ msgstr "Release des Betriebssystems wählen"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Ein Systemprofil registrieren - Hardware"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Ein Systemprofil registrieren - Pakete"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Installations_nummer:"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr ""
-#~ "Sie haben ein ungültiges Protokoll angegeben. Es sind lediglich https und "
-#~ "http erlaubt."
-
-#~ msgid "Warning:"
-#~ msgstr "Achtung:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "OK-Dialog:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Frage-Dialog:"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "Automatische Aktivierung des Abonnements"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "Abonnement-Freischaltung"
-
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Warnung: rhn_check konnte nicht ausgeführt werden"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Plattenfehler. Die Meldung war:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Schwerwiegender Fehler beim Installieren des Pakets:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM Paketkonflikt-Fehler.   Die Meldung war:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM Dateikonflikt-Fehler. Die Meldung war:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM-Fehler. Die Meldung war:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Fehler aufgrund einer RPM-Abhängigkeit . Die Meldung war:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Fehler in der Paket-Auslass-Liste. Die Meldung war:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Fehler in der Datei-Auslass-Liste oder beim Überschreiben einer "
-#~ "Konfigurationsdatei. Die Meldung war:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr ""
-#~ "Das Paket \"%s\" konnte nicht entfernt werden. Es befand sich in der "
-#~ "RemoveSkipList."
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG ist nicht korrekt installiert."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "Der GPG-Schlüsselring enthält nicht den \n"
-#~ "öffentlichen Red Hat, Inc. Schlüssel, \n"
-#~ "mit dem die Pakete signiert werden."
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Die GPG-Signatur des Paketes %s ist falsch. Das bedeutet, dass das Paket "
-#~ "beschädigt ist."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Das Paket %s ist nicht mit einer GPG-Signatur signiert.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr ""
-#~ "Das Paket %s ist nicht mit einer vertrauten GPG-Signatur signiert.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Das Paket %s hat eine unbekannte GPG-Signatur.\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Wählen Sie einen Red Hat Network Server"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Verbindung zum Red Hat Network herstellen"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Registrieren Sie sich bei Red Hat Network"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "Ein Zertifikat für diesen Red Hat Network Server bereitstellen"

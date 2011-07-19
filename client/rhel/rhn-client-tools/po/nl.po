@@ -1,24 +1,24 @@
-# Dutch translation of rhn-client-tools.
-# Copyright (C) 2003 THE rhn-client-tools COPYRIGHT HOLDER
-# This file is distributed under the same license as the rhn-client-tools package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-# Petit Gregory <thunderbirds@pandora.be>, 2003.
 # Bart Couvreur <bercie23@yahoo.com>, 2005.
-# Peter van Egdom <p.van.egdom@gmail.com>, 2003, 2004, 2005, 2007.
-#
+# Peter van Egdom <p.van.egdom@gmail.com>, 2003, 2004, 2005, 2006, 2007.
+# Petit Gregory <thunderbirds@pandora.be>, 2003.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: rhn-client-tools\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2007-01-16 23:33+0100\n"
-"Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -101,9 +101,8 @@ msgid "You must enter a password."
 msgstr "U dient een wachtwoord in te voeren."
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Er trad een RPM fout op. De foutmelding was:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -130,9 +129,8 @@ msgid "You must choose a name for this profile."
 msgstr "U dient een naam te kiezen voor dit profiel."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Er trad een fout op tijdens het communiceren met Red Hat Network."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
@@ -214,9 +212,8 @@ msgid "Problem registering personal information"
 msgstr "Probleem bij het registreren van uw persoonlijke informatie"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Er deed zich een fout tijdens het installeren van het pakket:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
 msgid "You must select a certificate."
@@ -242,9 +239,8 @@ msgid "unknown"
 msgstr "onbekend"
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Er trad een fout op tijdens het communiceren met Red Hat Network."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -257,9 +253,8 @@ msgid "%s MB"
 msgstr "%s MB"
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Er deed zich een fout tijdens het installeren van het pakket:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -331,9 +326,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "Opmaken van een lijst met geïnstalleerde pakketten op het systeem"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network _locatie:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
@@ -341,11 +335,8 @@ msgid "Login:"
 msgstr "Login:"
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
 msgstr ""
-"\n"
-"Systeem ID: "
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -363,11 +354,8 @@ msgid "OK"
 msgstr "OK"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
-"Er trad een fout op tijdens het communiceren met de registratie-server.  De "
-"foutmelding was:\n"
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
@@ -605,9 +593,8 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Fout bij het inlezen van de processor-informatie:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
 #, python-format
@@ -650,18 +637,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Release"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Beschikbare updates"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -675,9 +660,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Registreer een systeemprofiel - Hardware"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -703,9 +687,8 @@ msgstr "Geef de volgende informatie over hardware en netwerk:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Registreer een systeemprofiel - Pakketten"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -738,13 +721,10 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"<small>Tip: Bent u uw login of password vergeten? Zoek deze op \n"
-"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
 #: ../src/up2date_client/rhnreg_constants.py:119
 msgid "*Email Address:"
@@ -1284,14 +1264,12 @@ msgid "_Finish"
 msgstr "_Voltooien"
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Bewerk"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Software update installatie niet-succesvol"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
 msgid "You must run rhn_register as root."
@@ -1345,15 +1323,13 @@ msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Er trad een fout op tijdens het communiceren met de server: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Wilt u de netwerkconfiguratie aanpassen en het opnieuw proberen?"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1478,37 +1454,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Kanalen"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Installeer alle beschikbare pakketten. Gebruikt met --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Gebruikersnaam:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "Wachtwoord:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Gebruikersnaam:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1520,9 +1491,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Fout tijdens het lezen van de header"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1535,11 +1506,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
 msgstr ""
-"Dit systeem mag niet worden bijgewerkt totdat het is geassocieerd met een "
-"kanaal."
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1594,9 +1562,8 @@ msgid "Progress Dialog"
 msgstr "Voortgangs-dialoogvenster"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Voortgangs-dialoogvenster"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1609,9 +1576,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1675,23 +1641,20 @@ msgid "Advanced Network Configuration"
 msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Netwerk configuratie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Kanaal"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Release"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
 msgid "Close"
@@ -1722,9 +1685,8 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "United States"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
 msgid "Link To Subscription"
@@ -1743,11 +1705,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
 msgstr ""
-"\n"
-"RHN login: "
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1762,14 +1721,12 @@ msgid "Select A File"
 msgstr "Selecteer een bestand"
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Hardware-profiel v_erzenden"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Hardware-profiel v_erzenden"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1795,14 +1752,12 @@ msgid "Use Authentication with HTTP Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Hardware-profiel"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Bijwerken van het pakketprofiel..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1828,19 +1783,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Het installatienummer is ongeldig"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
-#, fuzzy
 msgid "proxy location"
-msgstr "_Proxy locatie:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Proxy w_achtwoord:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1851,9 +1803,8 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Gebruikersnaam:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
 #, fuzzy
@@ -1898,12 +1849,9 @@ msgid "<b>Support:</b>"
 msgstr "Ondersteuning:"
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
 msgstr ""
-"\n"
-"Systeem ID: "
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -1976,10 +1924,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Netwerk configuratie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2080,10 +2027,9 @@ msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 msgstr "Er trad een fout op tijdens het communiceren met Red Hat Network."
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Verbinden met Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2216,10 +2162,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Gebruikersnaam:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2410,3267 +2355,13 @@ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Uw Red Hat Network of Red Hat Network Satellite login "
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registratie_nummer"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Registreer via Red Hat Network"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Waarom een verbinding maken met Red Hat Network?"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Installatie_nummer:"
-
-#~ msgid "Warning:"
-#~ msgstr "Waarschuwing:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Ok dialoogvenster:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Vraag dialoogvenster:"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Waarschuwing: kon rhnsd niet opstarten met chkconfig"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Schijffout.  De foutmelding was:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Er deed zich een fout tijdens het installeren van het pakket:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM pakketconflict.  De foutmelding was:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM bestandconflict fout. De foutmelding was:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM fout. De foutmelding was:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Fout door RPM-afhankelijkheden.  De foutmelding was:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Pakket-overslaan-lijst fout.  De foutmelding was:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Fout tijdens het overschrijven van de 'bestand overslaan lijst' of het "
-#~ "configuratiebestand. De foutmelding was:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr ""
-#~ "Kon het pakket \"%s\" niet verwijderen. Het komt voor in de "
-#~ "VerwijderOverslaanLijst"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG is niet correct geïnstalleerd."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "GPG sleutelbos (keyring) bevat niet de Red Hat, Inc. publieke pakket-"
-#~ "ondertekeningssleutel"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "De verificatie van de GPG-handtekening van het pakket %s is mislukt. Dit "
-#~ "betekent dat het pakket beschadigd is."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Pakket %s heeft geen GPG handtekening.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Pakket %s heeft een onbetrouwbare GPG handtekening.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Pakket %s heeft een onbekende GPG handtekening.\n"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Verbinden met Red Hat Network"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Registreer via Red Hat Network"
-
-#~ msgid "_Exit software update setup"
-#~ msgstr "Software update setup _beëindigen"
-
-#~ msgid "software updates setup unsuccessful"
-#~ msgstr "Software update installatie niet-succesvol"
-
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr ""
-#~ "Als u geen Red Hat login hebt, zal deze assistent het mogelijk maken voor "
-#~ "u om er een aan te maken."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Stap 1: Overzicht van Red Hat's privacy verklaring"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Bekijk de algemene voorwaarden van Red Hat Network"
-
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "De twee wachtwoorden die u opgaf komen niet overeen. Gelieve uw "
-#~ "wachtwoorden opnieuw in te typen."
-
-#~ msgid "Examples: user@domain.com"
-#~ msgstr "Bijvoorbeeld: gebruiker@domein.com"
-
-#~ msgid "Please enter your first name."
-#~ msgstr "U dient uw voornaam in te voeren."
-
-#~ msgid "Please enter your last name."
-#~ msgstr "U dient uw achternaam in te voeren."
-
-#~ msgid "Please enter your email address."
-#~ msgstr "U dient een e-mail adres in te voeren."
-
-#~ msgid "Please enter a valid email address."
-#~ msgstr "U dient een geldig e-mail adres in te voeren."
-
-#~ msgid "Please enter a longer password."
-#~ msgstr "U dient een langer wachtwoord in te voeren."
-
-#~ msgid "Please enter a shorter password."
-#~ msgstr "U dient een korter wachtwoord in voeren."
-
-#~ msgid "Select Organization"
-#~ msgstr "Organisatie selecteren"
-
-#~ msgid "You must select an organization."
-#~ msgstr "U dient een organisatie te selecteren."
-
-#~ msgid "Installation Number:"
-#~ msgstr "Installatienummer:"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "Bijvoorbeeld: XXXX-XXXX-XXXX-XXXX-XXXX"
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Er trad een fout op tijdens het communiceren met Red Hat Network."
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "U dient een installatienummer in te voeren."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Er trad een fout op tijdens het communiceren met Red Hat Network."
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Fout tijdens het ontvangen van de privacy verklaring:\n"
-
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "U dient een installatienummer in te voeren dat "
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network locatie: "
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "registratienummer"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Belangrijke registratie-informatie"
-
-#~ msgid "Registration information"
-#~ msgstr "Registratie informatie"
-
-#~ msgid "Select organization"
-#~ msgstr "Organisatie selecteren"
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Privacy verklaring"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Red Hat privacy verklaring"
-
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Fout bij het inlezen van de hardware-informatie:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Fout bij het inlezen van de DMI-informatie:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Dat gebruikersaccount en wachtwoord zijn niet geldig\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "U dient een gebruikersnaam op te geven."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "U dient een wachtwoord in te geven en te verifiëren."
-
-#~ msgid "Canada"
-#~ msgstr "Canada"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Voornaam:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Achternaam:"
-
-#~ msgid "*Company Name:"
-#~ msgstr "*Bedrijfsnaam:"
-
-#~ msgid "Street Address:"
-#~ msgstr "Adres:"
-
-#~ msgid "City:"
-#~ msgstr "Stad:"
-
-#~ msgid "State/Province:"
-#~ msgstr "Staat/Provincie:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Postcode:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Land:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  Adres 2:"
-
-#~ msgid "  Address:"
-#~ msgstr "  Adres:"
-
-#~ msgid "  C_ity:"
-#~ msgstr "  St_ad:"
-
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  B_edrijfsnaam:"
-
-#~ msgid "  _State/Province:"
-#~ msgstr "  _Staat/Provincie:"
-
-#~ msgid "* Co_untry:"
-#~ msgstr "* L_and:"
-
-#~ msgid "* Last _Name:"
-#~ msgstr "* Achternaam:"
-
-#~ msgid "* _Email Address: "
-#~ msgstr "* _E-mail adres: "
-
-#~ msgid "* _First Name:"
-#~ msgstr "* _Voornaam:"
-
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "<b>Account-informatie:</b>"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albanië"
-
-#~ msgid "Algeria"
-#~ msgstr "Algerije"
-
-#~ msgid "American Samoa"
-#~ msgstr "Amerikaans-Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antarctica"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua en Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentinië"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenië"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Australië"
-
-#~ msgid "Austria"
-#~ msgstr "Oostenrijk"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbeidzjan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahama's"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Belarus"
-
-#~ msgid "Belgium"
-#~ msgstr "België"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosnië en Herzegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet Island"
-
-#~ msgid "Brazil"
-#~ msgstr "Brazilië"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "British Indian Ocean Territory"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgarije"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#~ msgid "Cambodia"
-#~ msgstr "Cambodja"
-
-#~ msgid "Cameroon"
-#~ msgstr "Kameroen"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Kaapverdië"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Cayman Islands"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Central African Republic"
-
-#~ msgid "Chad"
-#~ msgstr "Chad"
-
-#~ msgid "Chile"
-#~ msgstr "Chili"
-
-#~ msgid "China"
-#~ msgstr "China"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Christmas Island"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Cocos (Keeling) Islands"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Comoros"
-#~ msgstr "Comoros"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cook Islands"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#~ msgid "Croatia"
-#~ msgstr "Kroatië"
-
-#~ msgid "Cuba"
-#~ msgstr "Cuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cyprus"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Czech Republic"
-
-#~ msgid "Denmark"
-#~ msgstr "Denemarken"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominicaanse Republiek"
-
-#~ msgid "East Timor"
-#~ msgstr "Oost-Timor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecuador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egypte"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Equatorial Guinea"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estland"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Ethiopië"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falklandeilanden (Malvinas)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Faeröer eilanden"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Finland"
-
-#~ msgid "France"
-#~ msgstr "Frankrijk"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Frankrijk, Metropolitan"
-
-#~ msgid "French Guiana"
-#~ msgstr "Frans-Guyana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Frans-Polynesië"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Franse Southern Territories"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Duitsland"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Griekenland"
-
-#~ msgid "Greenland"
-#~ msgstr "Groenland"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Heard Island en McDonald Islands"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Hongarije"
-
-#~ msgid "Iceland"
-#~ msgstr "IJsland"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesië"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Iran (Islamitische Republiek van)"
-
-#~ msgid "Iraq"
-#~ msgstr "Irak"
-
-#~ msgid "Ireland"
-#~ msgstr "Ierland"
-
-#~ msgid "Israel"
-#~ msgstr "Israël"
-
-#~ msgid "Italy"
-#~ msgstr "Italië"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Japan"
-#~ msgstr "Japan"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordanië"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazachstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Korea, Democratic People's Republic of"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Korea, Republiek van"
-
-#~ msgid "Kuwait"
-#~ msgstr "Koeweit"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgyzstan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao People's Democratic Republic"
-
-#~ msgid "Latin America"
-#~ msgstr "Latin America"
-
-#~ msgid "Latvia"
-#~ msgstr "Latvia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Libanon"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Libyan Arab Jamahiriya"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Lithuania"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxemburg"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedonië"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagascar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malaysia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldives"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshall Islands"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexico"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Micronesia (Federated States of)"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolia"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Morocco"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambique"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Nederland"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Nederlands Antillen"
-
-#~ msgid "New Caledonia"
-#~ msgstr "New Caledonia"
-
-#~ msgid "New Zealand"
-#~ msgstr "New Zealand"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolk Island"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Northern Mariana Islands"
-
-#~ msgid "Norway"
-#~ msgstr "Norway"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua New Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Philippines"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Poland"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugal"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Red Hat logins en wachtwoorden dienen tenminste 5 alfanumerieke tekens te "
-#~ "bevatten"
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Roemenië"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Russische Federatie"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Saint Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Saint Kitts en Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Saint Pierre en Miquelon    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Saint Vincent en de Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome en Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Saudi Arabia"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapore"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovakia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Solomon Islands"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "South Africa"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "South Georgia and the South Sandwich Island"
-
-#~ msgid "Spain"
-#~ msgstr "Spain"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Suriname"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Svalbard and Jan Mayen Islands"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Zweden"
-
-#~ msgid "Switzerland"
-#~ msgstr "Zwitserland"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Syrian Arab Republic"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tajikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzania, United Republic of"
-
-#~ msgid "Thailand"
-#~ msgstr "Thailand"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad en Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisia"
-
-#~ msgid "Turkey"
-#~ msgstr "Turkey"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Turks and Caicos Islands"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukraine"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "United Arab Emirates"
-
-#~ msgid "United Kingdom"
-#~ msgstr "United Kingdom"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "United States Minor Outlying Islands"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Vatican City State (Holy See)"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Viet Nam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Virgin Islands (British)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Virgin Islands (U.S.)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Wallis and Futuna Islands"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Western Sahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Yemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Joegoslavië"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "  Uw systeem-bibliotheken ondersteunen geen SSL (beveiligde) "
-#~ "verbindingen.\n"
-#~ "  Alle data die u zendt of ontvangt van redhat.com zal door iedereen\n"
-#~ "  onderschept kunnen worden.\n"
-#~ "  "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Toch doorgaan?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Ontvangen."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Selecteer een Red Hat Network server om te gebruiken"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Kanaal informatie"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Bedrijf:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Verbinden met Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Activeer uw inschrijving"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Red Hat Network login"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "werk pakketten bij die geassocieerd worden met dit systeemprofiel op Red "
-#~ "Hat Network"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "U dient het RHN registratie-programma op te starten als root."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Activeer uw inschrijving"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Activeer uw inschrijving"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr ""
-#~ "Dit systeem mag niet worden bijgewerkt totdat het is geassocieerd met een "
-#~ "kanaal."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Activeer uw inschrijving"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr ""
-#~ "Dit systeem mag niet worden bijgewerkt totdat het is geassocieerd met een "
-#~ "kanaal."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Verbinden met Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Selecteer een Red Hat Network server om te gebruiken"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Gelieve uw pakketselectie te wijzigen en probeer opnieuw."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Versie:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Activeer uw inschrijving"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Activeer uw inschrijving"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Probleem tijdens het verzenden van de pakketten:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Probleem tijdens het verzenden van de pakketten."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Gebruikersnamen moeten minimaal 5 karakters lang zijn"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "Wachtwoorden moeten minimaal 5 karakters lang zijn"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "De twee wachtwoorden die u opgaf, zijn niet hetzelfde.\n"
-#~ "Gelieve het tweede wachtwoord opnieuw in te typen."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Bestandsnaam/patroon"
-
-#~ msgid "Config modified"
-#~ msgstr "Configuratie veranderd"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr ""
-#~ "Afhankelijkheden hadden reeds opgelost moeten zijn, maar ze zijn het niet."
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Uitvoeren van de transactie faalde van de pakketten: %s"
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "rpm was niet in staat om de header te laden: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "rpm was niet in staat om een header te laden"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "U dient uw voornaam op te geven."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "U dient uw achternaam op te geven."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "U dient uw stad op te geven."
-
-#~ msgid "SSL Warning"
-#~ msgstr "SSL waarschuwing"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Uw systeembibliotheken ondersteunen geen SSL (beveiligde) verbindingen.  "
-#~ "Alle data die u zendt of ontvangt van Red Hat Network kan door iedereen "
-#~ "bekeken worden. Toch doorgaan?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Gebruikersnaam:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Fout tijdens het openen van %s"
-
-#~ msgid "Installing"
-#~ msgstr "Aan het installeren"
-
-#~ msgid "Installing %s"
-#~ msgstr "Het volgende aan het installeren %s"
-
-#~ msgid "Repackaging"
-#~ msgstr "Pakket opnieuw aan het samenstellen"
-
-#~ msgid "Preparing"
-#~ msgstr "Aan het voorbereiden"
-
-#~ msgid " Done."
-#~ msgstr " Voltooid."
-
-#~ msgid "Retrieved."
-#~ msgstr "Ontvangen."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "De volgende pakketten werden toegevoegd aan uw selectie om te voldoen aan "
-#~ "de afhankelijkheden:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Naam                                    Versie        Release\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Naam                          Versie         Rel             Kanaal     \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "Geen advies informatie beschikbaar\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Naam                                    Versie        Rel     \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr ""
-#~ "De volgende pakketten werden gemarkeerd om overgeslagen te worden bij uw "
-#~ "configuratie:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Naam                                    Versie        Rel  Reden\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "De volgende wildcards kwamen niet overeen met de pakketten:"
-
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "De volgende groepen kwamen niet overeen met de pakketten:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "De volgende pakketten zijn verouderd wegens nieuwere pakketten:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Naam-Versie-Release        verouderd door      Naam-Versie-Release\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "De volgende pakketten werden niet geïnstalleerd omdat ze verouderd zijn "
-#~ "door de volgende geïnstalleerde pakketten:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Naam-Versie-Release       verouderd door      Naam-Versie-Release\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "De volgende pakketten werden niet geïnstalleerd maar zijn beschikbaar "
-#~ "vanaf Red Hat Network:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Naam                                    Versie        Release  \n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr ""
-#~ "    --noSSLServerURL=<url>     - specificeer een url van een niet-ssl "
-#~ "server"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr ""
-#~ "    --useNoSSLForPackages      - gebruik geen SSL om de pakketten te "
-#~ "downloaden"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Gebruikersnaam:"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Up2date - Nieuw account aanmaken"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Annuleren"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Red Hat Network registratie (c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "* Red Hat login:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Lees onze _privacy verklaring"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "Geen rhnuuid configuratie-optie gevonden in /etc/sysconfig/rhn/up2date-"
-#~ "uuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Om alle afhankelijkheden op te lossen voor de gekozen RPMs, dienen "
-#~ "de\n"
-#~ "    volgende pakketten, die u hebt aangegeven om uitgesloten te worden,\n"
-#~ "    toegevoegd te worden aan de lijst:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Pakketnaam"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Reden wegens overslaan"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Testen van de pakketten / oplossen van de RPM-afhankelijkheden"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Kon het afhankelijkheidsprobleem niet oplossen."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "De volgende pakketten werden toegevoegd aan uw selectie om te voldoen aan "
-#~ "de afhankelijkheden:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Pakket                                Vereist door\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Kan niet overweg met de afhankelijkheid \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Onopgeloste keten van afhankelijkheden:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "elilo opties die niet ondersteund worden door up2date worden gebruikt in "
-#~ "de standaard elilo.conf. Dit bestand zal niet gewijzigd worden. De opties "
-#~ "omvatten:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "Kan grubby niet correct uitvoeren: de foutboodschap was:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Red Hat Update Agent"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Deze software wordt uitgebracht onder de GPL\n"
-#~ "Gelieve bugs te rapporteren naar Red Hat's Bug Tracking System: http://"
-#~ "bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr ""
-#~ "Update Agent - een programma om pakketten te updaten op Red Hat Linux"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Deze software wordt uitgebracht onder de GPL. Gelieve bugs te rapporteren "
-#~ "naar Red Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Versie"
-
-#~ msgid "Old Version"
-#~ msgstr "Oude versie"
-
-#~ msgid "Size"
-#~ msgstr "Grootte"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Reden overgeslagen"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Privacy informatie"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Algemene voorwaarden"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Login pagina"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Red Hat Network informatie"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Product informatie pagina"
-
-#~ msgid "All information is optional."
-#~ msgstr "Alle informatie is optioneel."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Indien u gegevens van Red Hat per post wilt ontvangen, dient u een naam "
-#~ "en\n"
-#~ "een adres op te geven."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Indien u wenst dat Red Hat contact met u opneemt per telefoon, dient u "
-#~ "een\n"
-#~ "telefoonnummer en een naam op te geven."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Indien u wenst dat Red Hat contact met u opneemt per fax, dient u een\n"
-#~ "faxnummer en een naam op te geven."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Hardware profiel"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "De Registratie Wizard is een lijst, met de op uw systeem geinstalleerde "
-#~ "RPM pakketten, aan het aanmaken. Gelieve te wachten."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "Geen pakket geselecteerd. Selecteer eerst een pakket."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Geen advies informatie beschikbaar."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat Update Agent is een lijst aan het genereren\n"
-#~ "met RPM pakketten die bijgewerkt werden.  Gelieve te wachten."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Er is een nieuwe versie van up2date beschikbaar. De nieuwe versie "
-#~ "installeren en herstarten?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Er trad een fatale RPM fout op.  De foutboodschap was:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr ""
-#~ "Er deed zich een fatale fout voor tijdens het communiceren met de "
-#~ "server.  De foutboodschap was:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Een onverwachte besturingssysteemfout deed zich voor:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Overgeslagen pakketten"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Kanalen"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Pakketlijst"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Er trad een RPM fout op. De foutboodschap was:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr ""
-#~ "Uw systeem is volledig bijgewerkt.  Er zijn geen nieuwe pakketten vereist."
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Er deed zich een RPM installatie-fout voor. De foutboodschap was:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Er was een afhankelijkheidsprobleem.  De foutboodschap was:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "U dient ten minste een pakket te kiezen.\n"
-#~ "Indien u wenst geen enkel pakket bij te werken,\n"
-#~ "klik op \"Annuleren\" om Update Agent af te sluiten."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "De totale grootte van de geselecteerde pakketten is %d kB, maar\n"
-#~ "u hebt slechts %d kB vrije schijfruimte.\n"
-#~ "Gelieve enkele pakketten af te vinken en door te gaan."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Beschikbare pakketten"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Pakketafhankelijkheden"
-
-#~ msgid "%d of %d kB transferred at %d kB/sec\n"
-#~ msgstr "%d van %d kB verzonden met %d kB/sec\n"
-
-#~ msgid "Package transfer time: %02d:%02d:%02d"
-#~ msgstr "Pakket verzendtijd: %02d:%02d:%02d"
-
-#~ msgid " (%02d:%02d:%02d remaining)"
-#~ msgstr " (%02d:%02d:%02d resterend)"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Pakket is reeds gedownload"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Er trad een fout op tijdens het downloaden van pakket %s.\n"
-#~ "De foutboodschap was:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Er deed zich een RPM-fout voor.  De foutmelding was:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr ""
-#~ "Het pakket %s is niet ondertekend met een GPG handtekening.  Doorgaan?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Het pakket %s heeft geen geldige GPG handtekening.\n"
-#~ "Er werd mee geknoeid of is beschadigd.  Doorgaan?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr ""
-#~ "Het pakket %s is ondertekend met een onbetrouwbare GPG handtekening. "
-#~ "Doorgaan?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr ""
-#~ "Het pakket %s is ondertekend met een onbekende GPG handtekening. Doorgaan?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Voltooid. Klik \"Volgende\" om door te gaan."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Pakket download"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Opnieuw aan het samenstellen..."
-
-#~ msgid "Installing..."
-#~ msgstr "Aan het installeren..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Totale voortgang (her-samenstellen):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Totale voortgang:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Er trad een fatale RPM installatie fout op. De foutboodschap was:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Pakket installatie"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Einde pagina"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "De Red Hat Update Agent is klaar"
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ontvangst\n"
-#~ " van de volgende pakketten geslaagd:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Installatie\n"
-#~ " van de volgende pakketten geslaagd:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Volgens uw voorkeur, werden deze pakketten enkel gedownload,\n"
-#~ "niet geïnstalleerd.  Als u deze voorkeur wilt veranderen, gelieve het\n"
-#~ "\"up2date-config\" programma op te starten."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Fout tijdens het installeren van lilo.conf  De foutmelding was:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr ""
-#~ "Fout tijdens het terugplaatsen van de backup van lilo.conf.  De backup "
-#~ "was:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Fout tijdens het installeren van de nieuwe bootloader: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr ""
-#~ "Er deed zich een fout voor tijdens het lezen van lilo.conf: De "
-#~ "foutmelding was:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "lilo opties die niet ondersteund worden door up2date worden gebruikt in "
-#~ "de standaard lilo.conf. Dit bestand zal niet gewijzigd worden. De opties "
-#~ "bevatten:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Pkg naam/patroon"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "Ophalen van de rpm-headers"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "Ophalen van de rpm-header: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr ""
-#~ "Pakketten aan het verwijderen die gemarkeerd zijn om overgeslagen te "
-#~ "worden uit de lijst"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s is geen geldige directory"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Gebruik: rhn_check [opties]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Beschikbare commandoregel opties:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - deze help "
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "v, --verbose      - verhoog het weergeven van berichten "
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Fout tijdens het verkrijgen van de lijst met beschikbare pakketten"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Fout tijdens het verwerken van de command list argumenten: %s"
-
-#~ msgid "Fetching package list for channel: %s"
-#~ msgstr "Ophalen van pakketlijst voor kanaal: %s"
-
-#~ msgid "Fetching all package list for channel: %s"
-#~ msgstr "Ophalen van lijst met alle pakketten voor kanaal: %s"
-
-#~ msgid "Fetching Obsoletes list for channel: %s"
-#~ msgstr "Ophalen van Obsoletes-lijst voor kanaal: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "Gebruik een van mijn bestaande, actieve inschrijvingen."
-
-#~ msgid "You must enter your address."
-#~ msgstr "U dient uw adres op te geven."
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "U dient uw postcode op te geven."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Gebruik: rhnreg_ks [opties]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - deze help "
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<waarde>      - specificeer een profielnaam"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<waarde>         - specificeer een gebruikersnaam "
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<waarde>         - specificeer een wachtwoord "
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgid=<waarde>            - specificeer een organisatie ID "
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr ""
-#~ "    --orgpassword=<waarde>      - specificeer een organisatie wachtwoord"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr ""
-#~ "    --serverUrl=<URL>          - specificeer een URL om te gebruiken als "
-#~ "server"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<waarde>            - specificeer een e-mailadres "
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr ""
-#~ "    --activationkey=<waarde>    - specificeer een activatie-sleutel "
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr ""
-#~ "    --subscription=<waarde>     - specificeer een te gebruiken "
-#~ "inschrijvingsnummer "
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --version                  - geef de versie weer "
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr ""
-#~ "    --proxy                    - specificeer een http proxy om te "
-#~ "gebruiken "
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<waarde>        - specificeer een gebruikersnaam om te "
-#~ "gebruiken via een authenticated http proxy"
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<waarde>    - specificeer een wachtwoord om te "
-#~ "gebruiken via een authenticated http proxy"
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Gelicentieerd onder de GPL."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "kan %s niet verwijderen"
-
-#~ msgid "Error parsing %s"
-#~ msgstr "Fout tijdens het verwerken van %s"
-
-#~ msgid "at line: %s"
-#~ msgstr "in regel: %s"
-
-#~ msgid "Unable to import repomd so repomd support will not be available"
-#~ msgstr ""
-#~ "Niet in staat om repomd te importeren, repomd ondersteuning zal niet "
-#~ "beschikbaar zijn"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Stap 2: Registreer een gebruikersaccount"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "Bent u reeds geregistreerd op redhat.com?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Ja: Geef uw huidige gebruikersnaam en wachtwoord hieronder op."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr ""
-#~ "Nee: Kies een nieuwe gebruiker en wachtwoord en vul het hieronder in."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Opnieuw, ter verificatie:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr ""
-#~ "Stap 2: Registreer een gebruikersaccount (\"*\" velden zijn verplicht)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Stap 2: Registreer een gebruikersaccount (allemaal optioneel)"
-
-#~ msgid "*Title:"
-#~ msgstr "*Titel:"
-
-#~ msgid "Title:"
-#~ msgstr "Titel:"
-
-#~ msgid "First Name:"
-#~ msgstr "Voornaam:"
-
-#~ msgid "Position:"
-#~ msgstr "Positie:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Adres:"
-
-#~ msgid "Address:"
-#~ msgstr "Adres:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Adres 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*Stad:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Staat/Provincie:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Staat/Provincie:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Postcode:"
-
-#~ msgid "Country:"
-#~ msgstr "Land:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Telefoon:"
-
-#~ msgid "Phone:"
-#~ msgstr "Telefoon:"
-
-#~ msgid "Fax:"
-#~ msgstr "Fax:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "Contact voorkeuren:"
-
-#~ msgid "E-mail"
-#~ msgstr "E-mail"
-
-#~ msgid "Regular mail"
-#~ msgstr "Per post"
-
-#~ msgid "Telephone"
-#~ msgstr "Telefoon"
-
-#~ msgid "Fax"
-#~ msgstr "Fax"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr ""
-#~ "Hou me op de hoogte van speciale aanbiedingen van Red Hat's partners"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Inschrijven op Red Hat's e-Nieuwsbrief"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Indien u de communicatie van Red Hat per post wilt ontvangen, dient u uw "
-#~ "naam en adres op te geven."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Indien u wenst dat Red Hat u contacteert per telefoon, dient u tenminste "
-#~ "een telefoonnummer en een naam op te geven."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Indien u wenst dat Red Hat u contacteert per fax, dient u tenminste een "
-#~ "fax-nummer en een naam op te geven."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Stap 3 : Registreer een systeemprofiel - Pakketten"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "U hebt dit systeemprofiel succesvol geregistreerd op Red Hat Network.\n"
-#~ "\n"
-#~ "Gelieve http://www.redhat.com/network te bezoeken, in te loggen en "
-#~ "toegang te krijgen tot uw Red Hat Network voordelen.\n"
-#~ "\n"
-#~ "Om uw systeem te upgraden met de laatste updates, bug fixes en "
-#~ "veiligheidsverbeteringen, start up2date vanaf de command line, of kies "
-#~ "\"Update Agent\" in het paneel."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr ""
-#~ "Het ziet er naar uit dat dit systeem reeds geregistreerd is.  Toch "
-#~ "doorgaan?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr ""
-#~ "Het pakket %s is niet ondertekend met een GPG handtekening.  Aan het "
-#~ "stoppen..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Het pakket %s heeft geen geldige GPG handtekening.\n"
-#~ "Er werd mee geknoeid of is beschadigd.  Aan het afbreken..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr ""
-#~ "Het pakket %s is ondertekend met een onbetrouwbare GPG handtekening.  Aan "
-#~ "het afbreken..."
-
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr ""
-#~ "Het pakket %s is ondertekend, maar met een onbekende GPG handtekening. "
-#~ "Aan het afbreken..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr ""
-#~ "De opslag-map %s kon niet gevonden worden, of was niet\n"
-#~ "toegankelijk."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "U bent niet geregistreerd bij Red Hat Network.  Om Update Agent te\n"
-#~ "gebruiken dient u zich te registreren.\n"
-#~ "\n"
-#~ "Om te registreren, voer \"up2date --register\" uit."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "Uw GPG sleutelbos (keyring) bevat geen publieke sleutel van Red Hat, "
-#~ "Inc. .\n"
-#~ "Zonder deze sleutel kunt u niet nagaan of de pakketten, gedownload door\n"
-#~ "Update Agent, veilig ondertekend zijn door Red Hat.\n"
-#~ "\n"
-#~ "Uw Update Agent opties voorzien dat u GPG wilt gebruiken."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "Uw GPG sleutelbos (keyring) bevat geen publieke sleutel van Red Hat, "
-#~ "Inc. .\n"
-#~ "Zonder deze sleutel kunt u niet nagaan of de pakketten, gedownload door\n"
-#~ "Update Agent, veilig ondertekend zijn door Red Hat.\n"
-#~ "\n"
-#~ "Uw Update Agent opties voorzien dat u GPG wilt gebruiken.\n"
-#~ "\n"
-#~ "Om de sleutel toe te voegen, voer het volgende uit als root:\n"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "Kon de afhankelijke pakketten niet nagaan"
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "Naam                                    Versie        Uitgave\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "De test-installatie mislukte omdat er een pakketconflict optrad:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "Kon de header niet vinden voor %s"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Sommige van de pakketten in deze transactie zijn niet beschikbaar."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "Waarschuwing: De volgende pakketten worden bijgewerkt, maar deze "
-#~ "pakketten\n"
-#~ "zijn reeds opnieuw samengesteld en dit wordt niet ondersteund op dit\n"
-#~ "moment. Het opnieuw samenstellen voor deze transactie is uitgeschakeld.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Tijdens het werken in de command line modus dient u pakketnamen op te "
-#~ "geven\n"
-#~ "als argumenten. Het programma zal proberen deze te ontvangen (en "
-#~ "eventueel\n"
-#~ "te installeren, afhankelijk van uw configuratie).  Details met "
-#~ "betrekking\n"
-#~ "tot de versie, de release en de architectuur zullen automatisch nagegaan\n"
-#~ "worden door Update Agent.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "configureer de opties van Update Agent"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr ""
-#~ "download enkel de pakketten, ook als de configuratie ingesteld is om ze "
-#~ "te installeren"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr ""
-#~ "installeer pakketten, ook als de configuratie ingesteld is om enkel te "
-#~ "downloaden"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Download zowel src pakketten als binaire rpms"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr ""
-#~ "Download geen src pakketten (overschrijft configuratie-voorkeuren als die "
-#~ "ingesteld zijn)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Geef het pad op waar zich een alternatieve rpm database bevindt"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr ""
-#~ "Forceer het installeren van het pakket, overschrijf het pakket en de "
-#~ "Bestand Overslaan Lijst"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr "Enkel pakketten aan de database toevoegen, installeer ze niet"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "Geef een lijst weer van beschikbare, te downloaden, pakketten"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr ""
-#~ "Doe alles, behalve downloaden en installeren van de pakketten (toon "
-#~ "afhankelijkheden, enz)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Beschrijf kort de opties"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr ""
-#~ "door dubbele punt gescheiden pad van mappen om in te zoeken naar pakketten"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "Gebruik geen GPG om de handtekening van een pakket te controleren"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr ""
-#~ "up2date hardware profiel geassocieerd met dit systeemprofiel op Red Hat "
-#~ "Network"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "registreer het systeem (of her-registreer het, indien nodig)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Toon alle pakket die beschikbaar zijn om te downloaden"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr ""
-#~ "Toon alle beschikbare pakketten die momenteel niet geïnstalleerd zijn"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "Toon alle huidig geïnstalleerde pakketten die niet voorkomen in de "
-#~ "kanalen waarop dit systeem ingeschreven is"
-
-#~ msgid "List all the install components available to install"
-#~ msgstr "Toon alle pakketten die beschikbaar zijn om te installeren"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "zoekt, download en installeert de pakketten die nodig zijn om alle "
-#~ "afhankelijkheden op te lossen"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "waar dienen tijdelijke bestanden / RPMs opgeslagen te worden"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "werk systeem bij met alle relevante pakketten"
-
-#~ msgid "show program version information"
-#~ msgstr "toon de versie-informatie van het programma"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "Toon de kanaalnamen, samen met de pakketnamen waar vereist"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Toon de beschikbare rpm rollbacks"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr ""
-#~ "Toon de pakketten die de comma separated list van afhankelijkheden oplost"
-
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr "Lijst van pakketten die niet geïnstalleerd of bijgewerkt worden"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Gelieve op te geven welk kanaal te gebruiken bij kanaallabel"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr ""
-#~ "Toon de argumenten die worden meegegeven met gpg (de sleutelbos "
-#~ "(keyring), enz)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Download geen enkel pakket. Enkel voor test doeleinden"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Geef een uuid in dat de applet genereert"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr ""
-#~ "Toon het dialoogvenster om pakketten te installeren in grafische modus"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr ""
-#~ "Ophalen van het gespecificeerde pakket zonder afhankelijkheden op te "
-#~ "lossen"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr ""
-#~ "Ophalen van het source pakket voor het gespecificeerde pakket zonder "
-#~ "afhankelijkheden op te lossen"
-
-#~ msgid ""
-#~ "Force up2date to install this arch of the package. Not valid with -u, --"
-#~ "list, or --dry-run"
-#~ msgstr ""
-#~ "Forceer up2date om deze architectuur van het pakket te installeren. Niet "
-#~ "geldig met -u, --list, of --dry-run"
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Upgrade naar het gekozen kanaal"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Installeer de sleutel?"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        Er trad een soort fout op tijdens het toevoegen "
-#~ "van\n"
-#~ "                        Red Hat's GPG sleutel aan uw sleutelbos (keyring)."
-
-#~ msgid ""
-#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
-#~ msgstr ""
-#~ "Pakket en hardware-vernieuwing niet toepasbaar als er geen gebruik wordt "
-#~ "gemaakt van Red Hat Network"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "Bijwerken van de transactie geschiedenis..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr ""
-#~ "Er werden geen pakketten gevonden die deze afhankelijkheden oplossen."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "Een kanaal naam dient opgegeven te worden met --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr ""
-#~ "Er deed zich een fout voor tijdens het communiceren met de server. De "
-#~ "foutboodschap was:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr ""
-#~ "Er was een probleem met de afhankelijkheid van een pakket. Het probleem "
-#~ "was:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr ""
-#~ "Er trad een fout op tijdens het installeren van de pakketten. De "
-#~ "foutboodschap was:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Geen interactieve modus beschikbaar"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Specificeer -l, -u, --nox, of pakketnamen als command line argumenten."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr "Kon de gui niet openen. Probeer \"--nox\" als optie"
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "De volgende pakketten zijn niet beschikbaar:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Alle pakketten zijn op dit moment bijgewerkt"
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "De volgende pakketten die u vroeg, werden niet gevonden:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "De volgende pakketten die u vroeg, zijn reeds bijgewerkt:"
-
-#~ msgid "Activate"
-#~ msgstr "Activeer"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "U heeft de installatie van uw systeem voltooid.\n"
-#~ "\n"
-#~ "Jammer genoeg heeft uw systeem geen verbinding kunnen maken met het\n"
-#~ "Red Hat Network. Het is belangrijk om uw systeem te verbinden zodat u\n"
-#~ "updates en verbeteringen kunt ontvangen om uw systeem veilig en\n"
-#~ "gewaarborgd te houden.\n"
-#~ "\n"
-#~ "\n"
-#~ "Om uw systeem met het Red Hat Network te verbinden, ga naar:\n"
-#~ "Hoofdmenu, selecteer Systeemgereedschap, selecteer dan Red Hat Network,\n"
-#~ "of in een terminalvenster: typ /usr/bin/up2date als de rootgebruiker om "
-#~ "te\n"
-#~ "registreren.\n"
-#~ "\n"
-#~ "Hulp nodig? Om onze locale klantendienst te bereiken, bezoek\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Unfortunately, your subscription was not activated because a valid\n"
-#~ "subscription number was not supplied.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Please contact a customer service representative to help get your\n"
-#~ "subscription activated.  To find a representative near you, visit\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-#~ msgstr ""
-#~ "U heeft de installatie van uw systeem voltooid.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "U abonnement is evenwel niet geactiveerd aangezien er geen correct\n"
-#~ "subscriptienummer was ingevoerd.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Het is belangrijk om uw abonnement te activeren zodat u de diensten\n"
-#~ "kan gebruiken om uw systeem veilig en gewaarborgd te houden.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Gelieve onze klantendienst te contacteren om te helpen bij het activeren\n"
-#~ "van uw abonnement. Om onze locale klantendienst te bereiken, bezoek\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "\n"
-#~ "Unfortunately, your subscription was not activated because a valid "
-#~ "subscription number was not supplied.\n"
-#~ "\n"
-#~ "It is important to activate your subscription so you can access the "
-#~ "services that keep your system secure and supported.\n"
-#~ "\n"
-#~ "Please contact a customer service representative to help get your "
-#~ "subscription activated.  To find a representative near you, visit http://"
-#~ "www.redhat.com/contact/"
-#~ msgstr ""
-#~ "U heeft de installatie van uw systeem voltooid.\n"
-#~ "\n"
-#~ "Uw abonnement is evenwel niet geactiveerd aangezien er geen correct "
-#~ "subscriptienummer was ingevoerd.\n"
-#~ "\n"
-#~ "Het is belangrijk om uw abonnement te activeren zodanig dat u de diensten "
-#~ "kan gebruiken om uw systeem veilig en gewaarborgd te houden.\n"
-#~ "\n"
-#~ "Gelieve onze klantendienst te contacteren om te helpen bij het activeren "
-#~ "van uw abonnement. Om onze locale klantendienst te bereiken, bezoek "
-#~ "http://www.redhat.com/contact/"
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "Gefeliciteerd!\n"
-#~ "U heeft de installatie van uw systeem voltooid en uw abonnement is\n"
-#~ "succesvol geactiveerd.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "U kunt nu volledig gebruik maken van de diensten die deel uitmaken van "
-#~ "uw\n"
-#~ "Red Hat abonnement."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "U heeft de installatie van uw systeem voltooid.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Uw computer is evenwel niet aangesloten op het internet, daardoor is uw\n"
-#~ "abonnement niet geactiveerd.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Het is belangrijk om uw abonnement te activeren zodat u de diensten kan\n"
-#~ "gebruiken om uw systeem veilig en gewaarborgd te houden.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Gelieve nu te activeren op een aangesloten computer door\n"
-#~ "http://www.redhat.com/activate/ te bezoeken\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Hulp nodig? Om onze locale klantendienst te bereiken, bezoek\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "U heeft de installatie van uw systeem voltooid.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Uw abonnement is evenwel niet geactiveerd.\n"
-#~ "Uw systeem zal werken, maar u zal niet in staat zijn de diensten\n"
-#~ "te gebruiken die uw systeem veilig en gewaarborgd houden.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Om zeker te zijn dat u toegang heeft tot deze belangrijke diensten, "
-#~ "activeer ze nu\n"
-#~ "door http://www.redhat.com/activate te bezoeken.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Hulp nodig? Om onze locale klantendienst te bereiken, bezoek\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Toevoegen"
-
-#~ msgid "Add new:"
-#~ msgstr "Nieuw toevoegen:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Bewaar de binaire pakketten op de schijf na het installeren"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "Installeer de pakketten niet na het downloaden"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr ""
-#~ "Upgrade geen pakketten als het lokale configuratiebestand gewijzigd is"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr ""
-#~ "Schakel RPM rollback in  (laat \"ongedaan maken\" toe, maar vereist "
-#~ "bijkomende opslagruimte)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Geef een plaats op waar u de gedownloade pakketten wilt opslaan."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Geef een bestandsnaam op die u wenst over te slaan tijdens het nagaan van "
-#~ "de pakketten waaruit u kunt kiezen. Wildcards zijn toegelaten, "
-#~ "bijvoorbeeld \"/boot/*\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Geef een pakketnaam op die u wenst over te slaan tijdens het nagaan van "
-#~ "de pakketten waaruit u kunt kiezen. Wildcards zijn toegelaten, "
-#~ "bijvoorbeeld \"kernel*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Bestandsnamen die overgeslagen dienen te worden"
-
-#~ msgid "General"
-#~ msgstr "Algemeen"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Indien u een HTTP proxy nodig hebt, vul dit hier in, volgens het formaat\n"
-#~ "HOST:POORT. Bijvoorbeeld squid.mijnsite.org:3128"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Indien u de automatisch gedetecteerde versie van Red Hat Linux wenst te "
-#~ "overschrijven, plaats dan hier de gewenste versie, of kies uit de "
-#~ "voorgedefinieerde versies."
-
-#~ msgid "Network Settings"
-#~ msgstr "Netwerk instellingen"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Overschrijf de versie opgeslagen in systeemprofiel:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Pakket uitzonderingen"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Pakket installatie opties"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Pakketnamen die overgeslagen zullen worden"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Pakket download opties"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Pakket verificatie opties"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Map waar pakketten worden opgeslagen:"
-
-#~ msgid "Remove"
-#~ msgstr "Verwijder"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Download / installatie"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Download zowel broncode RPM als binair pakket"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Gebruik GPG om de integriteit van het pakket na te gaan"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Een profielnaam is een beschrijvende naam die u kiest om dit "
-#~ "systeemprofiel te identificeren op de Red Hat Network web-pagina's. "
-#~ "Optioneel kunt u het serie- of identificatienummer van uw computer "
-#~ "meegeven."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Volgens uw voorkeur hebt u ervoor gekozen om de bovenstaande pakketten "
-#~ "niet\n"
-#~ "bij te werken.  Als u toch een bovenstaand pakket wilt selecteren om\n"
-#~ "bijgewerkt te worden, vink deze dan aan."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "Bijkomende hardware-informatie, zoals PCI apparaten, schijfgroottes en "
-#~ "mount points zullen\n"
-#~ "in het profiel worden opgenomen."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "Voltooid"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Armed Forces(AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Armed Forces(AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Armed Forces(AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "Beschikbare pakketten installeren"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr ""
-#~ "Hieronder vindt u een lijst van pakketten op uw systeem, die voor RPM "
-#~ "gekend zijn:"
-
-#~ msgid "British Columbia"
-#~ msgstr "British Columbia"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Standaard zullen alle pakketten waar RPM weet van heeft, in uw "
-#~ "systeemprofiel opgenomen worden.\n"
-#~ "Vink alle pakketten af, waarvan u wenst dat ze niet opgenomen worden."
-
-#~ msgid "California"
-#~ msgstr "California"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Klik op \"Doorgaan\" indien u de algemene voorwaarden begrijpt en "
-#~ "aanvaardt.\n"
-#~ "Indien u ze niet aanvaardt, druk op \"Annuleren\""
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Contact preferences"
-#~ msgstr "Contact voorkeuren"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "District of Columbia"
-
-#~ msgid "Dr."
-#~ msgstr "Doctor"
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "Rood gemarkeerde velden zijn verplicht."
-
-#~ msgid "First name:"
-#~ msgstr "Voornaam:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "Hardware-informatie is belangrijk om na te gaan welke updates van "
-#~ "software en drivers\n"
-#~ "relevant zijn voor dit systeem.  De minimale hoeveelheid informatie die u "
-#~ "kunt opgeven is\n"
-#~ "de architectuur van het systeem en de versie van Red Hat Linux."
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "IP address:"
-#~ msgstr "IP adres:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Geef de volgende informatie in verband met uw hardware en netwerk"
-
-#~ msgid "Included information"
-#~ msgstr "Ingevoegde informatie"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Pakketten aan het installeren"
-
-#~ msgid "Installing:"
-#~ msgstr "Installeren:"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Naam:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Micronesia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "juffrouw"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "De heer"
-
-#~ msgid "Mrs."
-#~ msgstr "Mevr."
-
-#~ msgid "Ms."
-#~ msgstr "Mevrouw"
-
-#~ msgid "Name"
-#~ msgstr "Naam"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "New Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Newfoundland"
-
-#~ msgid "North Carolina"
-#~ msgstr "North Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "North Dakota"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Northern Marianas"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "Northwest Territory"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova Scotia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Buiten de VS/Canada"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Pakketten geselecteerd om overgeslagen te worden"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Pakketten die nodig zijn om te voldoen aan afhankelijkheden"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "Prince Edward Island"
-
-#~ msgid "Quebec"
-#~ msgstr "Quebec"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "RPM informatie is belangrijk om na te gaan welke bijgewerkte "
-#~ "softwarepakketten relevant zijn\n"
-#~ "voor dit systeem."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Red Hat Linux versie:"
-
-#~ msgid "Rel."
-#~ msgstr "Rel."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Pakketten aan het ophalen"
-
-#~ msgid "Retrieving:"
-#~ msgstr "Ophalen:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Selecteer alle pakketten"
-
-#~ msgid "Sir"
-#~ msgstr "Heer"
-
-#~ msgid "South Carolina"
-#~ msgstr "South Carolina"
-
-#~ msgid "South Dakota"
-#~ msgstr "South Dakota"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Speciale aanbiedingen van Red Hat partners"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Algemene voorwaarden"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "De volgende pakketten zijn nodig omdat enkele van de door u "
-#~ "geselecteerde\n"
-#~ "pakketten hiervan afhankelijk zijn. Ze zullen worden toegevoegd aan uw\n"
-#~ "lijst van geselecteerde pakketten."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Dit is Red Hat Update Agent.  Het zal u bijstaan in het\n"
-#~ "bijwerken van uw Red Hat Enterprise Linux systeem met\n"
-#~ "de laatst beschikbare software van het Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "Om verder te gaan, klik op \"Volgende.\"  Om het bijwerken\n"
-#~ "te stoppen, klik op \"Annuleren.\""
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Om van een kanaal in- of uit te schrijven, of om meer\n"
-#~ "informatie in verband met de kanalen te verkrijgen, zie:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Totale voortgang:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr ""
-#~ "Totale grootte van de geselecteerde pakketten die gedownload zullen "
-#~ "worden:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Totale grootte van de geselecteerde pakketten:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "Trust Territories"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr ""
-#~ "Werk de Red Hat Network Update Agent bij als er een nieuwe beschikbaar is"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#~ msgid "View Advisory"
-#~ msgstr "Bekijk advies"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Virgin Islands"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "We hebben de nodige informatie verzameld voor het systeemprofiel.\n"
-#~ "\n"
-#~ "Klik \"Volgende\" om dit systeemprofiel te verzenden naar Red Hat "
-#~ "Network.\n"
-#~ "Klik \"Annuleren\" en er zal niets verzonden worden. U kunt het "
-#~ "registratie\n"
-#~ "programma later opstarten door rhn_register te typen op de command line."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Welkom bij Red Hat Update Agent"
-
-#~ msgid "West Virginia"
-#~ msgstr "West Virginia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "U kunt op \"Vorige\" klikken om uw pakketselectie te wijzigen, of "
-#~ "\"Volgende\" om door te gaan."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "U zult uw hardware profiel kunnen aanpassen of een nieuw hardware profiel "
-#~ "aanmaken als u zich aanmeld op\n"
-#~ "Red Hat Network op http://www.redhat.com/network."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "Yukon Territory"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "ZIP / Postcode:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "e-Nieuwsbrief"
-
-#~ msgid "    The _number is: "
-#~ msgstr "    Het _nummer is: "
-
-#~ msgid "(example, webserver1)"
-#~ msgstr "(voorbeeld, webserver1)"
-
-#~ msgid "* First name:"
-#~ msgstr "* Voornaam:"
-
-#~ msgid "* Last name:"
-#~ msgstr "* Achternaam:"
-
-#~ msgid "* Required fields"
-#~ msgstr "* Vereiste velden"
-
-#~ msgid ""
-#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
-#~ "code, and maintenance capabilities included in your subscription.\n"
-#~ "Red Hat uses your login and account information to communicate with you\n"
-#~ "about your subscription services and software."
-#~ msgstr ""
-#~ "Een Red Hat login creëren geeft u toegang tot de updates, de errata, de\n"
-#~ "broncode en de onderhoudsmogelijkheden inbegrepen in uw abonnement.\n"
-#~ "Red Hat gebruikt uw login en accountgegevens om met u over de diensten\n"
-#~ "en de software van uw abonnement te communiceren."
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Bent u uw Red Hat login of password vergeten? Zoek deze op \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Heeft u hulp nodig? Neem contact op met de klantenservice op http://www."
-#~ "redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
-#~ "(You may opt out at any time.)"
-#~ msgstr ""
-#~ "Ontvang een herinnering via e-mail over het maandelijkse Red Hat "
-#~ "Magazine.\n"
-#~ "(Dit kan steeds ongedaan gemaakt worden.)"
-
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "Ik heb _geen inschrijvingsnummer"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr ""
-#~ "Het lukt me op dit moment niet om de registratie te voltooien. Help me op "
-#~ "een later tijdstip herinneren."
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "Ik heb een bestaande Red Hat login."
-
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "Als u de aankoop direct via Red Hat hebt gedaan of via onze\n"
-#~ "website heeft geactiveerd, dan is uw inschrijving reeds actief."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Heeft u hulp nodig? Neem contact op met klantenservice bij u in de buurt "
-#~ "op\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Heeft u hulp nodig? Neem contact op met klantenservice op http://www."
-#~ "redhat.com/contact/"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "Buiten de VS/Canada"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "Geef een naam op voor het systeem dat u aan het installeren bent"
-
-#~ msgid "Take me back so I can provide or create a Red Hat login."
-#~ msgstr "Ga terug zodat ik een Red Hat login kan opgeven of aanmaken."
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr ""
-#~ "Vertel me waarom ik moet registreren en een Red Hat login moet opgeven."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "De naam van het systeem laat u toe dit systeem te identificeren in het "
-#~ "Red Hat Network voor onderhouds-doeleinden. Indien u geen naam opgeeft, "
-#~ "geven wij een standaardnaam."
-
-#~ msgid ""
-#~ "To activate the services included in your subscription, please register "
-#~ "with Red Hat and provide a Red Hat login."
-#~ msgstr ""
-#~ "Om de diensten verbonden aan uw abonnement te activeren, moet u zich "
-#~ "eerst registreren met Red Hat en een Red Hat login geven."
-
-#~ msgid ""
-#~ "Why do you need to register and provide a Red Hat login?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Your subscription includes support and software maintenance services. To\n"
-#~ "activate these services, you must register with Red Hat. Registration\n"
-#~ "includes these simple steps:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) provide a Red Hat login\n"
-#~ "2) provide a subscription number\n"
-#~ "3) connect your system to Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "If you do not complete these registration steps, you will not be able to\n"
-#~ "access the services included in your subscription. These services keep\n"
-#~ "your system current, reliable, secure and supported.\n"
-#~ msgstr ""
-#~ "Waarom dient u te registreren en een Red Hat login te geven?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Uw abonnement omvat ondersteuning en software onderhoudsdiensten. Om\n"
-#~ "deze diensten te activeren, moet u zich registreren bij Red Hat. "
-#~ "Registratie\n"
-#~ "bestaat uit de volgende stappen:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) geef een Red Hat login op\n"
-#~ "2) geef een subscriptienummer\n"
-#~ "3) verbind uw systeem met het Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Indien u deze registratiestappen niet vervolledigt, dan zal u geen "
-#~ "toegang\n"
-#~ "hebben tot de diensten van uw abonnement. Deze diensten houden uw\n"
-#~ "systeem recent, betrouwbaar en veilig.\n"
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "U kunt deze dienst op elk moment afsluiten. Zie "
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr ""
-#~ "Uw subscriptienummer is te vinden op de verpakking van uw bestelling"
-
-#~ msgid "_Details"
-#~ msgstr "_Details"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Wachtwoord:  "
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
+msgstr ""

@@ -1,33 +1,32 @@
-# translation of or.po to Oriya
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Subhransu Behera <sbehera@redhat.com>, 2006.
+# Subhransu Behera <sbehera@redhat.com>, 2006, 2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Manoj Kumar Giri <mgiri@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: or\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 12:06+0200\n"
-"PO-Revision-Date: 2011-02-21 16:54+0530\n"
-"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
-"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
+"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/team/or/)\n"
 "Language: or\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "RHN ସହିତ ସମ୍ବାଦ ବିନିମୟ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା।"
 
 #: ../rhnplugin.py:101
+#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN ସାଟେଲାଇଟ କିମ୍ବା RHN ଉତ୍କୃଷ୍ଟ ଶ୍ରେଣୀ ସହାୟତାକୁ ନିଷ୍କ୍ରିୟ କରି ଦିଆଯିବ।"
+msgstr "RHN ଉପପଥ ସହାୟତାକୁ ନିଷ୍କ୍ରିୟ କରି ଦିଆଯିବ।"
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -75,6 +74,3 @@ msgstr "rhn_register କୁ ମୂଖ୍ୟ ଚାଳକ ଭାବରେ ଏହ�
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN ପାଇଁ ଅନୁପସ୍ଥିତ ଥିବା ଆବଶ୍ଯକୀୟ ଲଗଇନ ସୂଚନା: %s"
-
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "ଅଥବା --version, କିମ୍ବା କୌଣସି ନିର୍ଦ୍ଦେଶକୁ ଭରଣ କରାଯାଇ ନାହିଁ।"

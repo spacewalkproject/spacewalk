@@ -1,29 +1,27 @@
-# Slovak translations for up2date package
-# Slovenské preklady pre balík up2date.
-# Copyright (C) 2005 Mike Karas
-# This file is distributed under the same license as the up2date package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
 # Mike Karas <zoliqe@gmail.com>, 2005.
-#
-#
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: up2date\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2005-10-20 11:30+0200\n"
-"Last-Translator: Mike Karas <zoliqe@gmail.com>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Slovak (http://www.transifex.net/projects/p/fedora/team/sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -32,9 +30,8 @@ msgid "Warning"
 msgstr "Varovanie"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -47,9 +44,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Odoslať informácie profilu do Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -75,9 +72,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Nastala chyba pri komunikácii s registračným serverom:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -88,26 +84,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Registračné informácie pre: "
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Musíte zadať vaše priezvisko."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Musíte zadať a overiť heslo."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Vyskytol sa problém pri registrácii systému."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -117,36 +110,32 @@ msgstr ""
 "Vyskytla sa chyba pri komunikácii s registračným serverom.  Ohlásená chyba:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
 msgstr "Chyba pri spúšťaní hardvérového profilu"
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "Musíte zvoliť meno pre prefil."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "Odosielam váš informačný profil do Red Hat Network.  Prosím počkajte."
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "Problém s registráciou systému."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -156,11 +145,11 @@ msgid "Problem registering system:\n"
 msgstr "Problém s registráciou systému:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Zadané prihlasovacie číslo [ %s ] nie je platným prihlasovacím číslom."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -175,14 +164,12 @@ msgid "There was a problem registering this system."
 msgstr "Vyskytol sa problém pri registrácii systému."
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Odoslať informácie o _hardvéri"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Chyba pri čítaní hardvérových informácii:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -194,14 +181,12 @@ msgstr "Chyba pri čítaní hardvérových informácii:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "Odoslať informácie o _hardvéri"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Problém pri odosielaní zoznamu balíčkov."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -222,14 +207,12 @@ msgid "Problem registering personal information"
 msgstr "Problém s registráciou osobných údajov"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Musíte zadať meno užívateľa."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -251,9 +234,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -266,9 +248,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -314,9 +295,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:160
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "CHYBA: nemožno nájsť RHNS CA súbor:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
@@ -340,20 +320,17 @@ msgid "Getting list of packages installed on the system"
 msgstr "Získavam zoznam balíčkov nainštalovaných v systéme"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network konto"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "_Login:  "
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -371,44 +348,36 @@ msgid "OK"
 msgstr "OK"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
-"Vyskytla sa chyba pri komunikácii s registračným serverom.  Ohlásená chyba:\n"
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
 msgstr "Meno profilu:"
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Verzia:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "Model CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Počítač:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Rýchlosť CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "IP adresa:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "Pamäť:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -492,14 +461,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Zvoľte Red Hat Network server, ktorý sa použije"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Zvoľte Red Hat Network server, ktorý sa použije"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -508,9 +476,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "Reštartujem up2date"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -531,9 +498,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "Už zaregistrovaný"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -554,9 +520,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Spoločnosť:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -589,9 +554,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Zoznam balíčkov (registrácia)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -620,21 +584,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Informácie o balíčku"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Registračné informácie pre: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Red Hat Login"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -651,9 +613,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Musíte zadať a overiť heslo."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -667,18 +628,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Vydanie"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Dostupné aktualizácie balíčkov"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -692,9 +651,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Pripojte Váš systém"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -720,9 +678,8 @@ msgstr "Vložiť následujúce informácie o hardvéri a sieti:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Pripojte Váš systém"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -747,27 +704,21 @@ msgstr "Vytváram zoznam balíčkov"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"Zabudli ste váš Red Hat login alebo heslo? Nájdete ich na\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "E-mailová adresa:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -801,7 +752,6 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Odoslať informácie profilu do Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -809,12 +759,6 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"Dokončili sme získavanie informácii pre systémový profil.\n"
-"\n"
-"Stlačte \"Ďalej\" pre odoslanie tohoto systémového profilu do Red Hat "
-"Network.  Kliknite na \"Zrušiť\" a žiadné informácie nebudú odoslané. "
-"Registračný program môžete spustiť aj neskôr napísaním `up2date --register` "
-"do príkazového riadku."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -848,23 +792,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Pripojiť sa do Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "Prihlasovacie číslo nie je správne"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Informácie o kanáli"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1127,9 +1069,8 @@ msgstr "Zrušiť"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Zrušiť"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1169,9 +1110,8 @@ msgid "Error validating data at server:\n"
 msgstr "Chyba potvrdzovania dát na serveri.\n"
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Prihlasovacie číslo nie je správne"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1300,24 +1240,20 @@ msgstr ""
 "nepodporuje."
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Dokončiť"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Upraviť"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Registrácia ukončená"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Update Agenta musíte spúšťať ako root."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1346,9 +1282,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Popis"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1363,21 +1298,18 @@ msgstr "Red Hat Login"
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Vyskytla sa chyba pri komunikácii so serverom: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Chcete skúsiť zmeniť nastavenia siete a pokúsiť sa o to znova?"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1396,21 +1328,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Zadať url servera, ktorý použiť"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<cesta>        - určuje súbor, ktorý sa použije ako ssl CA "
-"cert"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Zadať http proxy pre použitie"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1418,23 +1345,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "    --contactinfo              - čítať kontaktné informácie z stdin "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - nezisťovať a neposielať žiadné info o "
-"hardvéri"
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
-"    --nopackages               - nevytvárať a neposielať žiadné info o "
-"balíčkoch"
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1445,18 +1365,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - registrovať systém aj keď už je "
-"zaregistrovaný"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Úžívateľské meno, heslo a emailová adresa sú vyžadované pre zaregistrovanie "
-"systému."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1497,9 +1411,8 @@ msgstr ""
 "tak, aby mohli byť použité ako meno profilu. Prosím zadajte meno profilu."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "Nepokúšať sa použiť X"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1518,37 +1431,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Kanále"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Inštalovať všetky dostupné balíčky. Použité s --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Meno užívateľa:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "* _Potvrdiť heslo:  "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Úžívateľské meno:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1560,9 +1468,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Chyba pri čítaní hlavičky"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1575,10 +1483,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
 msgstr ""
-"Tento systém nemôže byť aktualizovaný, dokiaľ nebude priradený ku kanálu."
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1593,13 +1499,10 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"Predtým než použijete túto voľbu, "
-"musíte·zaregistrovať·tento·systém·spustením·\"up2date·--register\""
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1610,37 +1513,32 @@ msgid "Updating hardware profile..."
 msgstr "Aktualizujem hardvérový profil..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Aktualizujem profil balíčka..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Pripojte Váš systém"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Informácie o balíčku"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Musíte zadať meno užívateľa."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Okno priebehu"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Okno priebehu"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1653,9 +1551,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1707,38 +1604,30 @@ msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"Zabudli ste váš Red Hat login alebo heslo? Nájdete ich na\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Nastavenie Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Nastavenie Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Kanál"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Vydanie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
 msgid "Close"
@@ -1749,14 +1638,12 @@ msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Informácie o balíčku"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
@@ -1771,14 +1658,12 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "Spojené Štáty"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Popis"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1793,9 +1678,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Red Hat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1810,14 +1694,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Odoslať zoznam _balíčkov"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1839,19 +1721,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Použitť overenie totožnosti"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Aktualizujem profil balíčka..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1861,9 +1740,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Aktivovať vaše prihlásenie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1878,18 +1756,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Prihlasovacie číslo nie je správne"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Heslo:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1900,15 +1776,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "Spoločnosť:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1916,22 +1790,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "Povoliť HTTP Proxy:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "Informácie o registrácii"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hat Network konto"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1939,16 +1810,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "Informácie o registrácii"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -1967,22 +1836,19 @@ msgid "<big><b>System Name</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "napríklad: XXXX-XXXX-XXXX-XXXX (pomlčky nie sú povinné)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:79
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "napríklad: XXXX-XXXX-XXXX-XXXX (pomlčky nie sú povinné)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "napríklad: XXXX-XXXX-XXXX-XXXX (pomlčky nie sú povinné)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgctxt "yes"
@@ -1992,15 +1858,11 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"Zabudli ste váš Red Hat login alebo heslo? Nájdete ich na\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:84
 #, no-c-format
@@ -2024,10 +1886,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Nastavenie Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2054,10 +1915,9 @@ msgid "CPU Speed:"
 msgstr "Rýchlosť CPU:"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Red Hat Network konto"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2122,16 +1982,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Nastala chyba pri komunikácii s registračným serverom:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Pripojiť sa do Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2147,10 +2005,9 @@ msgid "IP Address:"
 msgstr "IP adresa:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "registračnéČíslo"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2161,10 +2018,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "Reštartujem up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2186,12 +2042,11 @@ msgid "Package Information"
 msgstr "Informácie o balíčku"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2208,7 +2063,7 @@ msgstr "Heslo:"
 #, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Úžívateľské meno:"
+msgstr "Meno profilu:"
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2239,7 +2094,7 @@ msgstr "Verzia Red Hat Linuxu:"
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Red Hat Network konto"
+msgstr "Red Hat Login"
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
@@ -2251,7 +2106,7 @@ msgstr "Hardvérový profil"
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Odoslať zoznam _balíčkov"
+msgstr "Aktualizujem profil balíčka..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2266,10 +2121,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2279,10 +2133,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Použitť overenie totožnosti"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2334,10 +2187,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "Reštartujem up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2366,10 +2218,9 @@ msgid "_Close"
 msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "_Login:  "
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2399,16 +2250,14 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - Zoznam balíčkov (registrácia)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - Zoznam balíčkov (registrácia)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
@@ -2417,10 +2266,9 @@ msgid "_View Hardware Profile ..."
 msgstr "Hardvérový profil"
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Prečo sa zaregistrovať?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2443,10 +2291,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Pripojiť sa do Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2454,3330 +2301,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Vytvoriť nové Red Hat Network konto"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registračnéČíslo"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Registrovať cez Red Hat Network"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Pripojiť sa do Red Hat Network"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Krok 3: Zaregistrovať systémový profil - Hardvér"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "3. krok: Registrácia systémového profilu - Balíčky"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "registračnéČíslo"
-
-#~ msgid "Warning:"
-#~ msgstr "Varovanie:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "OK okno:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Okno otázky:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Aktivácia"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Varovanie: nepodarilo sa povoliť rhnsd pomocou chkconfig"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Chyba disku.  Ohlásená chyba:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "Chyba konfliktu RPM balíčkov.  Ohlásená chyba:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "Chyba konfliktu RPM súborov. Ohlásená chyba:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "Chyba  RPM. Ohlásená chyba:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Chyba závislosti RPM.  Ohlásená chyba:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Chyba zoznamu vynechaných balíčkov.  Ohlásená chyba:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Chyba pri prepise zoznamu vynechaných súborov alebo súboru nastavení. "
-#~ "Ohlásená chyba:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr ""
-#~ "Nemožno odstrániť balíček \"%s\". Je v zozname vynechaných balíkov pre "
-#~ "odstránenie."
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG nie je správne nainštalované."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "Databáza GPG kľúčov neobsahuje verejný kľúč Red Hat, Inc. pre podpis "
-#~ "balíčkov"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Zlyhalo overenie GPG podpisu balíčka %s. Toto znamená, že balíček je "
-#~ "poškodený."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Balíček %s nemá GPG podpis.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Balíček %s má nedôverný GPG podpis.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Balíček %s má neznámy GPG podpis.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Zvoľte Red Hat Network server, ktorý sa použije"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Pripojiť sa do Red Hat Network"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Registrovať cez Red Hat Network"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "Reštartujem up2date"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr "Nemám Red Hat konto, potrebujem ho vytvoriť."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Krok 1: Prezrieť prehlásenie Red Hat-u o ochrane súkromia"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Prezrieť pojmy a podmienky Red Hat Network"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Vytvoriť konto"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Dve heslá, ktoré ste zadali sa nezhodujú.\n"
-#~ "Prosím zadajte heslá opäť."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Vytvoriť nové Red Hat Network konto"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "* _Heslo"
-
-#, fuzzy
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "Dbáme na vaše súkromie:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Musíte zadať vaše prvé meno."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Musíte zadať vaše priezvisko."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Musíte zadať emailovú adresu."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Musíte zadať správnu e-mailovú adresu."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Registračné informácie pre: "
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Musíte zadať a overiť heslo."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Musíte zadať a overiť heslo."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Musíte zadať registračné číslo."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "registračnéČíslo"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "napríklad: XXXX-XXXX-XXXX-XXXX (pomlčky nie sú povinné)"
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "Prihlasovacie číslo nie je správne"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Vyskytol sa problém pri registrácii systému."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Vyskytol sa problém pri registrácii systému."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Musíte zadať registračné číslo."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Nastala chyba pri komunikácii s registračným serverom:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Závažná chyba pri získavaní prehlásenia o ochrane súkromia:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Musíte zadať registračné číslo."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Problém s registráciou užívateľského mena:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Problém s registráciou užívateľského mena."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Red Hat Network konto"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Musíte zadať emailovú adresu."
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Mám prihlasovacie číslo pre aktiváciu"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Dôležité registračné informácie"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Informácie o registrácii"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Musíte zadať registračné číslo."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Prehlásenie o ochrane súkromia"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Prehlásenie Red Hat-u-o ochrane súkromia"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Chyba pri čítaní hardvérových informácii:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Chyba pri čítaní DMI informácii:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Toto užívateľské konto a heslo nie je správne\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Musíte zadať meno užívateľa."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Musíte zadať a overiť heslo."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Problém s registráciou užívateľského mena:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Problém s registráciou užívateľského mena."
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Informácie o registrácii"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Informácie o balíčku"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Prvé meno:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Priezvisko:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Spoločnosť:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "* Adresa:"
-
-#~ msgid "City:"
-#~ msgstr "Mesto:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "Štát / Provincia:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Zip/Psč:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Krajina:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  Adresa 2:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "  Adresa 2:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "* Mesto:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  Spoločnosť:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "* Štát/Provincia:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "* Zip/PSČ:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* _Potvrdiť heslo:  "
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "* Krajina:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "* Red Hat login:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "* _Heslo"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*Priezvisko:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "* _Emailová adresa: "
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*Prvé meno:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Informácie o balíčku"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Informácie o registrácii"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afganistán"
-
-#~ msgid "Albania"
-#~ msgstr "Albánsko"
-
-#~ msgid "Algeria"
-#~ msgstr "Alžírsko"
-
-#~ msgid "American Samoa"
-#~ msgstr "Americká Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antarktída"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua a Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentína"
-
-#~ msgid "Armenia"
-#~ msgstr "Arménsko"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Austrália"
-
-#~ msgid "Austria"
-#~ msgstr "Rakúsko"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbajdžan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamy"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrajn"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladéš"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Bielorusko"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgicko"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermudy"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhután"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolívia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosna a Hercegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvetov ostrov"
-
-#~ msgid "Brazil"
-#~ msgstr "Brazília"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "Územie Británie v Indickom oceáne"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunej Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulharsko"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Vytvoriť konto"
-
-#~ msgid "Cambodia"
-#~ msgstr "Kambodža"
-
-#~ msgid "Cameroon"
-#~ msgstr "Kamerun"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cape Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Ostrovy Cayman"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Stredná Africká republika"
-
-#~ msgid "Chad"
-#~ msgstr "Čad"
-
-#~ msgid "Chile"
-#~ msgstr "Čile"
-
-#~ msgid "China"
-#~ msgstr "Čína"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Vianočný ostrov"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Kokosové (lodné) ostrovy"
-
-#~ msgid "Colombia"
-#~ msgstr "Kolumbia"
-
-#~ msgid "Comoros"
-#~ msgstr "Komory"
-
-#~ msgid "Congo"
-#~ msgstr "Kongo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cookove ostrovy"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Kostarika"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Vytvoriť konto"
-
-#~ msgid "Croatia"
-#~ msgstr "Chorvátsko"
-
-#~ msgid "Cuba"
-#~ msgstr "Kuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cyprus"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Česká republika"
-
-#~ msgid "Denmark"
-#~ msgstr "Dánsko"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominika"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominikánska republika"
-
-#~ msgid "East Timor"
-#~ msgstr "Východný Timor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ekvádor"
-
-#~ msgid "Egypt"
-#~ msgstr "Egypt"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Rovníková Guinea"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estónsko"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Etiópia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falklandy (Malaviny)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Farské ostrovy"
-
-#~ msgid "Fiji"
-#~ msgstr "Fidži"
-
-#~ msgid "Finland"
-#~ msgstr "Fínsko"
-
-#~ msgid "France"
-#~ msgstr "Francúzko"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Francúzko, centrálne"
-
-#~ msgid "French Guiana"
-#~ msgstr "Francúzka Guayana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Francúzka Polynézia"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Francúzke južné územia"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabun"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Nemecko"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Grécko"
-
-#~ msgid "Greenland"
-#~ msgstr "Grónsko"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guayana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Heardov ostrov a McDonaldove ostrovy"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Maďarsko"
-
-#~ msgid "Iceland"
-#~ msgstr "Iceland"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonézia"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Irán (Islámska republika)"
-
-#~ msgid "Iraq"
-#~ msgstr "Irak"
-
-#~ msgid "Ireland"
-#~ msgstr "Írsko"
-
-#~ msgid "Israel"
-#~ msgstr "Izrael"
-
-#~ msgid "Italy"
-#~ msgstr "Taliansko"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamajka"
-
-#~ msgid "Japan"
-#~ msgstr "Japonsko"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordánsko"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazachsko"
-
-#~ msgid "Kenya"
-#~ msgstr "Keňa"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Kórejská Ľudovodemokratická republika"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Kórea"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuvajt"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgizsko"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao Ľudovodemokratická republika"
-
-#~ msgid "Latin America"
-#~ msgstr "Latinská Amerika"
-
-#~ msgid "Latvia"
-#~ msgstr "Lotyšsko"
-
-#~ msgid "Lebanon"
-#~ msgstr "Libanon"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesoto"
-
-#~ msgid "Liberia"
-#~ msgstr "Libéria"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Líbya Arabská Jamahiriya"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Lichtenštajsko"
-
-#~ msgid "Lithuania"
-#~ msgstr "Litva"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxembursko"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedónsko"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagaskar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malajzia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maledivy"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshallove ostrovy"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauretania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexiko"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Mikronézske Federatívne štáty"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldavsko"
-
-#~ msgid "Monaco"
-#~ msgstr "Monako"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolsko"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Moroko"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambik"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namíbia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepál"
-
-#~ msgid "Netherlands"
-#~ msgstr "Holandsko"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Holandské Antily"
-
-#~ msgid "New Caledonia"
-#~ msgstr "Nová Kaledónia"
-
-#~ msgid "New Zealand"
-#~ msgstr "Nový Zéland"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nikaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigéria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolkské ostrovy"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Severné Mariánske ostrovy"
-
-#~ msgid "Norway"
-#~ msgstr "Nórsko"
-
-#~ msgid "Oman"
-#~ msgstr "Omán"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua Nová Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguaj"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Filipíny"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Poľsko"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugalsko"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Portoriko"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Loginy a heslá pre Red Hat sa musia skladať z najmenej 5 alfanumerických "
-#~ "znakov"
-
-#~ msgid "Reunion"
-#~ msgstr "Réunion"
-
-#~ msgid "Romania"
-#~ msgstr "Rumunsko"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Ruská Federácia"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Svätá Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Svätý Krištof a Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Svätá Lucia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Svätý Pierre a Miquelon    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Svätý Vincent a Grenady"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome a Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Saudská Arábia"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychely"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapur"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovensko"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovinsko"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Šalamúnove ostrovy"
-
-#~ msgid "Somalia"
-#~ msgstr "Somálsko"
-
-#~ msgid "South Africa"
-#~ msgstr "Južná Afrika"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "Južná Georgia a Južný Sandwich ostrov"
-
-#~ msgid "Spain"
-#~ msgstr "Španielsko"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Srí Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudán"
-
-#~ msgid "Suriname"
-#~ msgstr "Surinam"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Ostrovy Svalbard a Jan Mayen"
-
-#~ msgid "Swaziland"
-#~ msgstr "Svazijsko"
-
-#~ msgid "Sweden"
-#~ msgstr "Švédsko"
-
-#~ msgid "Switzerland"
-#~ msgstr "Švajčiarsko"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Sýrska Arabská Republika"
-
-#~ msgid "Taiwan"
-#~ msgstr "Thajsko"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tadžikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzánia, Spojená Republika"
-
-#~ msgid "Thailand"
-#~ msgstr "Thaisko"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad a Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisko"
-
-#~ msgid "Turkey"
-#~ msgstr "Turecko"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkménsko"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Ostrovy Turks a Caicos"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukrajina"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Spojené Arabské Emiráty"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Spojené Kráľovstvo"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "Spojené Štáty menšie odľahlé ostrovy"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguaj"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbecko"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Štát mesta Vatikán (Svätá katedra)"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Vietnam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Panenské Ostrovy (Britské)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Panenské Ostrovy (U.S.)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Ostrovy Wallisové a Futuna"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Západná Sahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Jemensko"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Yuhoslávia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zair"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    Vaše systémové knižnice nepodporujú SSL (šifrované) spojenia.\n"
-#~ "    Akékoľvek dáta, ktoré odošlete alebo prijmete z redhat.com,\n"
-#~ "    budú prenesené nešifrované.\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Pokračovať napriek tomu?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Stiahnuté."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Zvoľte Red Hat Network server, ktorý sa použije"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Informácie o kanáli"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Spoločnosť:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Pripojiť sa do Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Red Hat Network konto"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "aktualizovať balíčky priradené k tomuto systémovému profilu v Red Hat "
-#~ "Network"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "Registračný program RHN·musíte spúšťať ako root."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr ""
-#~ "Tento systém nemôže byť aktualizovaný, dokiaľ nebude priradený ku kanálu."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr ""
-#~ "Tento systém nemôže byť aktualizovaný, dokiaľ nebude priradený ku kanálu."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Pripojiť sa do Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Zvoľte Red Hat Network server, ktorý sa použije"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Prosím zmeňte výber balíčkov a skúste to znovu."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Verzia:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Aktivovať vaše prihlásenie"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Problém pri odosielaní balíčkov:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Problém pri odosielaní balíčkov."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Užívateľské mená musia byť najmenej 5 znakov dlhé"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "Heslá musia byť najmenej 5 znakov dlhé"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Dve heslá, ktoré ste zadali sa nezhodujú.\n"
-#~ "Prosím zadajte znovu druhé heslo."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Meno súboru/reťazec"
-
-#~ msgid "Config modified"
-#~ msgstr "Nastavenie zmenené"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "Závislosti už mali byť vyriešené, ale ešte sa tak nestalo."
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Zlyhalo spustenie transakcie balíčkov: %s"
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "rpm nemohol načítať hlavičku: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "rpm nemohol načítať hlavičku"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Musíte zadať vaše prvé meno."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Musíte zadať vaše priezvisko."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Musíte zadať vaše mesto."
-
-#~ msgid "SSL Warning"
-#~ msgstr "SSL Varovanie"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Vaše systémové knižnice nepodporujú SSL (šifrované) spojenia.  Akékoľvek "
-#~ "dáta, ktoré odošlete alebo príjmete z Red Hat Network budú odoslané "
-#~ "nešiforvané. Pokračovať aj tak?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Úžívateľské meno:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Chyba pri otváraní %s"
-
-#~ msgid "Installing"
-#~ msgstr "Inštalujem"
-
-#~ msgid "Installing %s"
-#~ msgstr "Inštalujem %s"
-
-#~ msgid "Repackaging"
-#~ msgstr "Opäť balím balíčky"
-
-#~ msgid "Preparing"
-#~ msgstr "Pripravujem"
-
-#~ msgid " Done."
-#~ msgstr " Dokončené."
-
-#~ msgid "Retrieved."
-#~ msgstr "Stiahnuté."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Následujúce balíčky boli pridané do vášho výberu pre splnenie závislostí:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Meno                                    Verzia         Vydanie\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Meno                          Verzia         Vyd             "
-#~ "Kanál       \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "Nie je dostupná žiadná informácia o oznámeníi\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Meno                                    Verzia         Vyd     \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "Následujúce balíčky boli označené pre vynechanie vaším nastavením:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Meno                                    Verzia         Vyd  Dôvod \n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "Následujúce zástupné znaky nezodpovedali žiadným balíčkom:"
-
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "Následujúce skupiny nezodpovedali žiadným balíčkom:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "Následujúce balíčky sú nahradené novšími balíčkami:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Meno-Verzia -Vydanie        nahradené s       Meno-Verzia -Vydanie\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Následujúce balíčky neboli nainštalované, pretože boli nahradené "
-#~ "nainštalovanými balíčkami:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Meno-Verzia -Vydanie       nahradené s       Meno-Verzia -Vydanie\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "Následovné balíčky nie sú nainštalované, ale sú dostupné z Red Hat "
-#~ "Network:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Meno                                    Verzia         Vydanie  \n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr "    --noSSLServerURL=<url>     - url servera nepodporujúceho ssl"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr ""
-#~ "    --useNoSSLForPackages      - nepoužiť ssl pri sťahovaní balíčkov"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Úžívateľské meno:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "registračnéČíslo"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Up2date - Vytvoriť nové konto"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Zrušiť"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "* Red Hat login:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "_Prečítať náše prehlásenie o ochrane súkromia"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "Nenájdené žiadné nastavenie rhnuuid voľby v /etc/sysconfig/rhn/up2date-"
-#~ "uuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Pre vyriešenie závislostí všetkých RPMiek, ktoré ste vybrali, "
-#~ "následujúce\n"
-#~ "    balíčky, ktoré ste označili pre vyňatie, budú pridané do výberu:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Meno balíčku"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Príčina vynechania"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Testujem výber balíčkov / riešim vnútorné závislosti·RPM"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Nemožno vyriešiť nezhodu závislostí."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "Následujúce balíčky boli pridané do vášho výberu pre vyriešenie "
-#~ "závislostí:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Balíček                                Vyžadovaný pre\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Neviem ako vyriešiť závislosť \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Neriešiteľné závislostí:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "V pôvodnom elilo.conf sú použité elilo voľby, ktoré up2date nepodporuje. "
-#~ "Súbor nebude zmenený. Tieto voľby zahŕňajú:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "Nepodarilo sa korektne spustiť grubby: ohlásená chyba:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Red·Hat Update Agent"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Tento softvér je šírený pod GPL\n"
-#~ "Prosím hláste chyby na Bug Tracking System Red Hat-u: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr "Update Agent - program pre aktualizáciu balíčkov Red Hat Linuxu"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Tento softvér je šírený pod GPL.  Prosím hláste chyby na Bug Tracking "
-#~ "System Red Hat-u: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Verzia"
-
-#~ msgid "Old Version"
-#~ msgstr "Stará verzia"
-
-#~ msgid "Size"
-#~ msgstr "Veľkosť"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Dôvod vynechania"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Informácie o súkromí"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Pojmy a podmienky"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Stránka prihlásenia"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Informácie Red Hat Network"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Stránka s informáciami o produkte"
-
-#~ msgid "All information is optional."
-#~ msgstr "Všetky informácie sú voliteľné."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Aby Vás mohol Red Hat kontaktovať poštou, musíte vyplniť vaše\n"
-#~ "celé meno a adresu."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Aby Vás mohol Red Hat kontaktovať telefonicky, musíte poskytnúť\n"
-#~ "aspoň telefónne číslo a meno."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Aby Vás Red Hat mohol kontaktovať faxom, musíte poskytnúť\n"
-#~ "aspoň číslo faxu a meno."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Hardvérový profil"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Registračný poradca vytvára zoznam RPM balíčkov nainštalovaných v "
-#~ "systéme.  Prosím čakajte."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "Žiaden balík nebol zvolený. Prosím vyberte najskôr·balík."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Žiadné oznámenie nie je k dispozícii."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat Update Agent vytvára zoznam aktualizovaných\n"
-#~ "RPM balíčkov nainštalovaných v systéme.  Prosím čakajte."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Je dostupná nová verzia up2date. Nainštalovať novú verziu a spustiť znova?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Vyskytla sa závažná RPM chyba:  Ohlásená chyba:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr ""
-#~ "Vyskytla sa závažná chyba pri komunikácii so serverom:  Ohlásená chyba:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Vyskytla sa neočakávaná chyba OS:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Vynechané balíčky"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Kanály"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Zoznam balíčkov"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Vyskytla sa závažná chyba RPM: Ohlásená chyba:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr ""
-#~ "Váš systém je úplne aktualizovaný.  Nie sú potrebné žiadné nové balíčky."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "Vyskytla sa chyba RPM:  Ohlásená chyba:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Vyskytla sa chyba pri inštalácii RPM: Ohlásená chyba:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Vyskytol sa problém závislostí balíčka.  Ohlásený problém:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Musíte zvoliť aspoň jeden balíček.\n"
-#~ "Ak si neželáte aktualizovať žiaden balíček,\n"
-#~ "stlačte tlačítko \"Zrušiť\" pre ukončenie Update Agenta."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Celková veľkosť zvolených balíčkov je %d kB, ale\n"
-#~ "máte iba %d kB voľného miesta.\n"
-#~ "Prosím odznačte niektoré balíčky a pokračujte."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Dostupné balíčky"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Závislosti"
-
-#~ msgid "%d of %d kB transferred at %d kB/sec\n"
-#~ msgstr "Prenesených %d z %d kB rýchlosťou %d kB/sec\n"
-
-#~ msgid "Package transfer time: %02d:%02d:%02d"
-#~ msgstr "Doba prenosu balíka: %02d:%02d:%02d"
-
-#~ msgid " (%02d:%02d:%02d remaining)"
-#~ msgstr " (%02d:%02d:%02d zostáva)"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Balíček už je stiahnutý"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Chyba pri získavaní balíčku %s.\n"
-#~ "Ohlásená chyba:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Vyskytla sa závažná chyba RPM:  Ohlásená chyba:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Balíček %s nie je podpísaný GPG podpisom.  Pokračovať?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Balíček %s nemá správny GPG podpis.\n"
-#~ "Zrejme bol zmanipulovaný alebo poškodený.  Pokračovať?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "Balíček %s je podpísaný nedôverným GPG podpisom.  Pokračovať?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "Balíček %s je podpísaný neznámym GPG podpisom. Pokračovať?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Všetko dokončené.  Kliknite na \"Ďalej\" pre pokračovanie."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Získanie balíčkov"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Opäť zabaľujem..."
-
-#~ msgid "Installing..."
-#~ msgstr "Inštalujem..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Celkový priebeh (opäť zabaľujem):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Celkový postup:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Vyskytla sa závažná chyba inštalácie RPM: Ohlásená chyba:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Inštalácia balíčkov"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Stránka dokončenia"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Red Hat Update Agent dokončil aktualizáciu."
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "sťahovanie\n"
-#~ " následujúcich balíčkov bolo úspešné:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "inštalácia\n"
-#~ " následujúcich balíčkov prebehla úspešne:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Vzhľadom k vaším nastaveniam boli tieto balíčky iba stiahnuté,\n"
-#~ "nie inštalované.  Ak si želáte zmeniť vaše nastavenia, prosím\n"
-#~ "spustite program \"up2date-config\"."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Chyba pri inštalácii lilo.conf.  Ohlásená chyba:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "Chyba pri obnove lilo.conf zo zálohy.  Záloha bola:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Chyba inštalácie nového bootloadera:\n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "Chyba pri čítaní lilo.conf: Ohlásená chyba:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "V pôvodnom lilo.conf sú použité lilo voľby, ktoré up2date nepodporuje. "
-#~ "Tento súbor nebude zmenený. Tieto voľby zahŕňajú:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Meno balíčka/reťazec"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "Sťahujem rpm hlavičky"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "Sťahujem rpm hlavičky: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Odstraňujem zo zoznamu balíčky označené pre vynechanie"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s nie je správny adresár"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Použitie: rhn_check [možnosti]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Dostupné možnosti príkazového riadka:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - táto pomoc "
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose      - zvyšuje uvravenosť "
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Chyba pri získavaní zoznamu dostupných balíčkov"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Chyba pri analyzovaní parametrov príkazového riadka: %s"
-
-#~ msgid "Fetching package list for channel: %s"
-#~ msgstr "Získavam zoznam balíkov pre kanál: %s"
-
-#~ msgid "Fetching all package list for channel: %s"
-#~ msgstr "Získavam zoznam všetkých balíkov pre kanál: %s"
-
-#~ msgid "Fetching Obsoletes list for channel: %s"
-#~ msgstr "Získavam zoznam zastaraných balíkov pre kanál: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "Použiť jedno z mojich existujúcich, aktívnych prihlásení."
-
-#~ msgid "You must enter your address."
-#~ msgstr "Musíte zadať vašu adresu."
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Musíte zadať vaše zip/poštové číslo."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Použitie: rhnreg_ks [možnosti]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - táto pomoc "
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<hodnota>    - určuje meno profilu"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<hodnota>       - určuje meno užívateľa"
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<hodnota>       - určuje heslo "
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgid=<hodnota>          - určuje organizačné id "
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr "    --orgpassword=<hodnota>    - určuje organizačné heslo"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr "    --serverUrl=<URL>          - url servera, ktorý použiť"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<hodnota>          - určuje emailovú adresu "
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<hodnota>  - určuje aktivačný kľúč "
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr ""
-#~ "    --subscription=<hodnota>   - prihlasovacie číslo, ktoré sa použije"
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --version                  - zobraziť verziu "
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr "    --proxy                    - určuje http proxy pre použitie"
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<hodnota>      - určuje meno užívateľa pre "
-#~ "autentifikované http proxy"
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<hodnota>  - určuje heslo pre autentifikované http "
-#~ "proxy"
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Licencované podľa podmienok GPL."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "nemožno odstrániť %s"
-
-#~ msgid "Error parsing %s"
-#~ msgstr "Chyba pri parsovaní %s"
-
-#~ msgid "at line: %s"
-#~ msgstr "na riadku: %s"
-
-#~ msgid "Unable to import repomd so repomd support will not be available"
-#~ msgstr "Nemožno importovať repomd takže podpora repomd nebude dostupná"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Krok 2: Zaregistrovať užívateľské konto"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "Ste už zaregistrovaný cez redhat.com?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Áno: Nižšie zadajte vaše súčasné užívateľské meno a heslo."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr "Nie: Zvoľte nové užívateľské meno a heslo a zadajte ich nižšie."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Zopakovať, pre overenie:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr ""
-#~ "Krok 2: Zaregistrovať užívateľské konto (\"*\" - vyžadované položky)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Krok 2: Zaregistrovať užívateľské konto (všetko voliteľné)"
-
-#~ msgid "*Title:"
-#~ msgstr "*Titul:"
-
-#~ msgid "Title:"
-#~ msgstr "Titul:"
-
-#~ msgid "First Name:"
-#~ msgstr "Prvé meno:"
-
-#~ msgid "Position:"
-#~ msgstr "Postavenie:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Adresa:"
-
-#~ msgid "Address:"
-#~ msgstr "Adresa:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Adresa 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*Mesto:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Štát/Prov:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Štát/Prov:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Zip/Psč:"
-
-#~ msgid "Country:"
-#~ msgstr "Krajina:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Telefón:"
-
-#~ msgid "Phone:"
-#~ msgstr "Telefón:"
-
-#~ msgid "Fax:"
-#~ msgstr "Fax:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "Uprednostnený kontakt:"
-
-#~ msgid "E-mail"
-#~ msgstr "E-mail"
-
-#~ msgid "Regular mail"
-#~ msgstr "Normálna pošta"
-
-#~ msgid "Telephone"
-#~ msgstr "Telefón"
-
-#~ msgid "Fax"
-#~ msgstr "Fax"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "Kontaktovať ma so špeciálnymi ponukami od partnerov Red Hat-u."
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Prihlásiť sa do Red Hat Newsletter"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Aby Vás mohol Red Hat kontaktovať poštou, musíte vyplniť svoje celé meno "
-#~ "a adresu."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Aby Vás mohol Red Hat kontaktovať telefonicky, musíte poskytnúť aspoň "
-#~ "telefónne číslo a meno."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Aby Vás Red Hat mohol kontaktovať faxom, musíte poskytnúť aspoň číslo "
-#~ "faxu a meno."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Krok 3: Zaregistrovať systémový profil - Balíčky"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Vaša registrácia tohoto systémového profilu v Red Hat Network bola "
-#~ "uspešná.\n"
-#~ "\n"
-#~ "Prosím navštívte http://www.redhat.com/network pre prihlásenie a prístup "
-#~ "k vašej Red Hat Network podpore.\n"
-#~ "\n"
-#~ "Pre aktualizáciu vášho systému na najnovšie verzie produktov, opravy chýb "
-#~ "a bezpečnostné vylepšenia, spustite up2date z príkazového riadku, alebo "
-#~ "zvoľte \"Update Agent\" na paneli."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "Zdá sa, že tento systém už je zaregistrovaný.  Pokračovať aj tak?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Balíček %s nie je podpísaný GPG podpisom.  Prerušujem..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Balíček %s nemá správny GPG podpis.\n"
-#~ "Zrejme bol zmanipulovaný alebo poškodený.  Prerušujem..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr "Balíček %s je podpísaný nedôverným GPG podpisom.  Prerušujem..."
-
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr "Balíček %s je podpísaný, ale s neznámym GPG kľúčom. Prerušujem..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr "Úložný priečinok %s nebol nájdený, alebo nebol dostupný."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "Nie ste zaregistrovaný v Red Hat Network.  Pre používanie Update Agenta\n"
-#~ "musíte byť zaregistrovaný.\n"
-#~ "\n"
-#~ "Pre zaregistrovanie spustite \"up2date --register\","
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "Váš zoznam GPG kľúčov neobsahuje verejný kľúč Red Hat, Inc.\n"
-#~ "Bez neho nebudete môcť overiť, či balíčky stiahnuté Update Agentom\n"
-#~ "sú bezpečne podpísané spoločnosťou Red Hat.\n"
-#~ "\n"
-#~ "Vaše nastavenia Update Agenta určujú, že chcete používať GPG."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "Váš zoznam GPG kľúčov neobsahuje verejný kľúč Red Hat, Inc.\n"
-#~ "Bez neho nebudete môcť overiť, či balíčky stiahnuté Update Agentom\n"
-#~ "sú bezpečne podpísané spoločnosťou Red Hat.\n"
-#~ "\n"
-#~ "Vaše nastavenia Update Agenta určujú, že chcete používať GPG.\n"
-#~ "\n"
-#~ "Pre nainštalovanie kľúča spustite následovný príkaz ako root:\n"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "Nemožno dokončiť vyriešenie závislostí"
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "Meno                                    Verzia         Vydanie\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Test inštalácie zlyhal pre konflikty balíčkov:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "Nemožno nájsť hlavičku pre %s"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Niektoré balíčky v tejto transakcii nie sú dostupné."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "Varovanie: Následujúce balíčky sú aktualizované, ale tieto balíčky\n"
-#~ "už boli opäť zabalené a to momentálne nie je podporované.\n"
-#~ "Podpora opätovného zabalenia bola pre túto transakciu zakázaná.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Pri práci v režime príkazového riadku, zadanie názvu balíčkov\n"
-#~ "ako parametra programu spôsobí stiahnutie (a podľa vaších\n"
-#~ "nastavení, možno aj inštálaciu) týchto balíčkov.  Detaily o verzii,\n"
-#~ "vydaní a architektúre budú·automaticky určené Update Agentom.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "nastaviť voľby Update Agenta"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr "balíčky iba stiahnúť, aj keď nastavenia vyžadujú inštaláciu"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr "inštalovať balíčky, aj keď nastavenia vyžadujú len sťahovanie"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Sťahobvať zdrojové balíčky tak, ako binárne rpm"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr "Nesťahovať zdrojové balíčky (anuluje pôvodné nastavenie)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Zadajte cestu kde sa nachádza náhradná rpm databáza"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr ""
-#~ "Vnútiť inštaláciu balíčka, obchádza zoznam vynechaných balíčkov a súborov"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr "Balíčky iba pridať do databázy, neinštalovať ich do systému"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "zoznam balíčkov dostupných na stiahnutie"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr ""
-#~ "Vykonať všetko okrem stiahnutia a inštalácie balíčkov (zobraziť potrebné "
-#~ "závislosti, atď.)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Stručne popísať voľby"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "dvojbodkou oddelené cesty k priečinkom, v ktorých hľadať balíčky"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "nepoužívať GPG na overovanie podpisov balíčku"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr ""
-#~ "Aktualizovať hardvérový profil priradený k tomuto systémovému profilu v "
-#~ "Red Hat Network"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "zaregistrovať systém (alebo preregistrovať, ak je to potrebné)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Zoznam všetkých balíčkov dostupných na stiahnutie"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr ""
-#~ "Zoznam všetkých dostupných balíčkov, ktoré nie sú momentálne nainštalované"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "Zoznam momentálne nainštalovaých balíčkov, ktoré nie sú v žiadnom z "
-#~ "kanálov, do ktorých je systém prihlásený"
-
-#~ msgid "List all the install components available to install"
-#~ msgstr "Zoznam všetkých inštalačných komponentov dostupných na inštaláciu"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "hľadá, sťahuje a inštaluje všetky balíčky potrebné na vyriešenie zoznamu "
-#~ "závislostí"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "kam ukladať dočasné súbory / RPM"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "aktualizovať systém so všetkými príslušnými balíčkami"
-
-#~ msgid "show program version information"
-#~ msgstr "zobraziť informáciu o verzii programu"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "Ukázať názvy kanálov spolu s názvami balíčkov (ak sú k dispozícii)"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Ukázať dostupné rollback rpm"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr "Ukázať balíčky, ktoré riešia čiarkou oddelený zoznam závislostí"
-
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr ""
-#~ "Zoznam vyňatých balíčkov, ktoré nebudú inštalované ani aktualizované"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Vyberte kanály, ktoré majú byť použité"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr "Ukázať parametre, s ktorými bude zavolané gpg (napr. zoznam kľúčov)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Nesťahovať úplne všetky balíčky. Pre testovacie účely"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Poslať uuid, ktoré vygeneruje applet"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "Zobraziť okno inštalácie balíčkov v gui režime"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Stiahnúťť určený balíček bez riešenia závislostí"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr ""
-#~ "Stiahnúť zdrojový balíček pre určený balíček bez riešenia závislostí"
-
-#~ msgid ""
-#~ "Force up2date to install this arch of the package. Not valid with -u, --"
-#~ "list, or --dry-run"
-#~ msgstr ""
-#~ "Prinútiť up2date k inštalácii balíčku pre túto architektúru. Nie je "
-#~ "správne pre -u, --list, alebo --dry-run"
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Aktualizovať na určený kanál"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Inštalovať kľúč?"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        Pri pridávaní Red Hat GPG kľúča do vášho zoznamu\n"
-#~ "                        kľúčov došlo k nejakej chybe."
-
-#~ msgid ""
-#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
-#~ msgstr ""
-#~ "Obnovenie balíčkov a hardvéru nie je použiteľné ak nepoužívate Red Hat "
-#~ "Network"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "Aktualizujem históriu transakcie..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Nenájdené žiadné balíčky pre vyriešenie týchto závislostí."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "Musí byť zadané meno kanála s --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr ""
-#~ "Vyskytla sa závažná chyba pri komunikacii so serverom. Ohlásená chyba:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Vyskytol sa problém závislosti balíčka. Ohlásená chyba:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "Počas inštalácie balíčkov sa vyskytla chyba. Ohlásená chyba:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Žiaden interaktívny mód nie je dostupný."
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Prosím zadajte buď -l, -u, --nox, alebo názvy balíčkov ako parametre v "
-#~ "príkazovom riadku."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr "Nepodarilo sa otvoriť GUI. Skúste zadať \"--nox\" ako voľbu"
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "Následujúce balíčky nie sú dostupné:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Všetky balíčky sú momentálne aktuálne."
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "Následujúce balíčky, ktoré ste požadovali neboli nájdené:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "Následujúce balíčky, ktoré ste požadovali sú už aktualizované:"
-
-#~ msgid "Activate"
-#~ msgstr "Aktivovať"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Dokončili ste inštaláciu a nastavenie systému.\n"
-#~ "\n"
-#~ "Bohužial, váš systém nebol pripojený do Red Hat Network.\n"
-#~ "Je dôležité pripojiť váš systém, aby ste mohli prijmať aktualizácie\n"
-#~ "a opravy, ktoré udržujú váš systém bezpečný a podporovaný.\n"
-#~ "\n"
-#~ "\n"
-#~ "Pre pripojenie vášho systému do Red Hat Network choďte na:\n"
-#~ "Hlavné menu, zvoľte Systémové nástroje a potom zvoľte Red Hat Network,\n"
-#~ "alebo z príkazového riadku sa zaregistrujete spustením:\n"
-#~ "/usr/bin/up2date ako root\n"
-#~ "\n"
-#~ "Potrebujete pomoc? Pre kontaktovanie najbližšieho zástupcu služieb "
-#~ "zákazníkom,navštívte http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Unfortunately, your subscription was not activated because a valid\n"
-#~ "subscription number was not supplied.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Please contact a customer service representative to help get your\n"
-#~ "subscription activated.  To find a representative near you, visit\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Dokončili ste inštaláciu a nastavenie systému.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Bohužiaľ, vaše prihlásenie nebolo aktivované, pretože nebolo\n"
-#~ "zadané platné prihlasovacie číslo.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Je dôležité aktivovať vaše prihlásienie, aby ste mohli pristupovať\n"
-#~ "k službám, ktoré udržujú váš systém bezpečný a podporovaný.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Prosím kontaktujte zástupcu služieb zákazníkom, aby vám pomohol\n"
-#~ "aktivovať vaše prihlásenie.  Najbližšieho zástupcu nájdete navštívením\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "\n"
-#~ "Unfortunately, your subscription was not activated because a valid "
-#~ "subscription number was not supplied.\n"
-#~ "\n"
-#~ "It is important to activate your subscription so you can access the "
-#~ "services that keep your system secure and supported.\n"
-#~ "\n"
-#~ "Please contact a customer service representative to help get your "
-#~ "subscription activated.  To find a representative near you, visit http://"
-#~ "www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Dokončili ste inštaláciu a nastavenie systému.\n"
-#~ "\n"
-#~ "Bohužial, vaše prihlásenie nebolo aktivované, pretože nebolo zadané "
-#~ "platné prihlasovacie číslo.\n"
-#~ "\n"
-#~ "Je dôležité aktivovať vaše prihlásienie, aby ste mohli pristupovať k "
-#~ "službám, ktoré udržujú váš systém bezpečný a podporovaný.\n"
-#~ "\n"
-#~ "Prosím kontaktujte zástupcu služieb zákazníkom, aby vám pomohol aktivovať "
-#~ "vaše prihlásenie.  Najbližšieho zástupcu nájdete navštívením http://www."
-#~ "redhat.com/contact/"
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "Gratulujeme!\n"
-#~ "Dokončili ste nastavenie a vaše prihlasovanie bolo úspešne aktivované.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Môžete v plnom rozsahu využívať služby zahrnuté vo vašom Red Hat\n"
-#~ "prihlásení."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Dokončili ste inštaláciu a nastavenie systému.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Bohužiaľ, váš systém nie je pripojený k sieti, takže sme nemohli\n"
-#~ "aktivovať vaše prihlásenie.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Je dôležité aktivovať vaše prihlásienie, aby ste mohli pristupovať\n"
-#~ "k službám, ktoré udržujú váš systém bezpečný a podporovaný.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Aktivujte prosím zo systému pripojeného k sieti navštívením\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Potrebujete pomoc? Pre kontaktovanie najbližšieho zástupcu služieb "
-#~ "zákazníkom,navštívte http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Dokončili ste inštaláciu a nastavenie systému.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Bohužiaľ, vaše prihlásenie nebolo aktivované.\n"
-#~ "Váš systém bude fungovať, ale nebudete môcť využívať služby,\n"
-#~ "ktoré udržujú váš systém bezpečný a podporovaný.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Pre získanie prístupu k týmto dôležitým službám, prosím aktivujte "
-#~ "prihlásenie\n"
-#~ "navštívením http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Potrebujete pomoc? Pre kontaktovanie najbližšieho zástupcu služieb "
-#~ "zákazníkom,navštívte http://www.redhat.com/contact/\n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Pridať"
-
-#~ msgid "Add new:"
-#~ msgstr "Pridať nový:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Po nainštalovaní ponechať binárne balíčky na disku"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "Po stiahnutí balíčky neinštalovať"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "Neaktualizovať balíčky ak bol zmenený lokálny súbor nastavenia"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr ""
-#~ "Povoliť rollback RPM  (umožňuje \"návrat\", ale vyžaduje dodatočný úložný "
-#~ "priestor)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Zadajte cestu kam sa budú ukladať stiahnuté balíčky."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Zadajte meno súboru, ktorý chcete vynechať pri určovaní skupiny balíčkov, "
-#~ "z ktorej budete môcť vyberať.  Pomocné znaky sú povolené, napr. \"/boot/*"
-#~ "\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Zadajte meno balíčku, ktorý chcete vynechat pri určovaní skupiny "
-#~ "balíčkov, z ktorej budete môcť vybrať. Pomocné znaky sú povolené, napr. "
-#~ "\"kernel*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Mená súborov, ktoré sa vynechajú"
-
-#~ msgid "General"
-#~ msgstr "Všeobecné"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Ak máte HTTP proxy, zadajte ho tu vo formáte HOST:PORT\n"
-#~ "napr. squid.mysite.org:3128"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Ak potrebujete zmeniť automaticky určenú verziu Red Hat Linuxu, zadajte "
-#~ "verziu tu, alebo vyberte z preddefinovaných verzii."
-
-#~ msgid "Network Settings"
-#~ msgstr "Nastavenia siete"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Prepísať verziu uloženú v systémovom profile:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Výnimky balíčkov"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Voľby inštalácie balíčkov"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Mená balíčkov, ktoré sa vynechajú"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Voľby sťahovania balíčkov"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Voľby overovania balíčkov"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Priečinok pre ukladanie balíčkov:"
-
-#~ msgid "Remove"
-#~ msgstr "Odstrániť"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Stiahnúť / Inštalovať"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Stiahnúť zdrojový RPM zároveň s binárnym balíčkom"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Použiť GPG na overenie integrity balíčku"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Meno profilu je popisujúci názov, ktorý zvolíte pre identifikáciu tohoto "
-#~ "systémového profilu na\n"
-#~ "webstránkach Red Hat Network.  Môže obsahovať sériové alebo identifikačné "
-#~ "číslo počítača."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "V nastaveniach ste určili, aby sa následujúce balíčky automaticky \n"
-#~ "neaktualizovali.\n"
-#~ "Ak chcete napriek tomu niektorý balíček zo zonamu aktualizovať,\n"
-#~ "označte ho."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "Dodatočné informácie o hardvéri, ako PCI zariadenia, veľkosti diskov a "
-#~ "pripájacie body, budú\n"
-#~ "vložené do profilu."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Aljaška"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "Všetko dokončené"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Ozbrojené vojenské jednotky(AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Ozbrojené vojenské jednotky(AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Ozbrojené vojenské jednotky(AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "Balíčky dostupné pre inštaláciu"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr ""
-#~ "Nižšie je zoznam balíčkov nachádzajúcich sa vo vašom systéme, o ktorých "
-#~ "vie RPM:"
-
-#~ msgid "British Columbia"
-#~ msgstr "Britská Kolumbia"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Štandardne všetky balíčky, o ktorých RPM vie, budú vložené do vášho "
-#~ "systémového profilu.\n"
-#~ "Ak nechcete, aby niektorý balíček nebol vložený, odznačte ho."
-
-#~ msgid "California"
-#~ msgstr "Kalifornia"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Kliknutím na \"Ďalej\" dávate najavo, že rozumiete a súhlasíte s pojmami "
-#~ "a podmienkami.\n"
-#~ " Ak nesúhlasíte, kliknite na \"Zrušiť\""
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Contact preferences"
-#~ msgstr "Uprednostnený kontakt"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "Oblasť Kolumbie"
-
-#~ msgid "Dr."
-#~ msgstr "Dr."
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "Položky označené červenou farbou sú vyžadované."
-
-#~ msgid "First name:"
-#~ msgstr "Prvé meno:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "Informácie o hardvéri sú dôležité pre určenie softvéru a ovládačov, ktoré "
-#~ "sú významné\n"
-#~ "pre tento systém.  Najmenšia skupina informácii, ktorú môžete odoslať, "
-#~ "bude obsahovať\n"
-#~ "architektúru vášho systému a verziu Red Hat Linuxu."
-
-#~ msgid "Hawaii"
-#~ msgstr "Havaj"
-
-#~ msgid "IP address:"
-#~ msgstr "IP adresa:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Pridať informácie o hardvéri a sieti"
-
-#~ msgid "Included information"
-#~ msgstr "Vložené informácie"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Inštalácia balíčkov"
-
-#~ msgid "Installing:"
-#~ msgstr "Inštalácia:"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Priezvisko:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Mikronézia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "Slečna"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "Pán"
-
-#~ msgid "Mrs."
-#~ msgstr "Pani"
-
-#~ msgid "Ms."
-#~ msgstr "Slečna"
-
-#~ msgid "Name"
-#~ msgstr "Meno"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "Nový Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "Nové Mexiko"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Newfoundland"
-
-#~ msgid "North Carolina"
-#~ msgstr "Severná Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "Severná Dakota"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Severné Mariány"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "Severozápadná oblasť"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova Scotia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Mimo Spojených Štátov/Kanady"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Balíčky označené na vynechanie"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Balíčky vyžadované pre vyriešenie závislostí"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "Ostrov Princa Edwarda"
-
-#~ msgid "Quebec"
-#~ msgstr "Québec"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "Informácie o RPM sú potrebné na určenie potrebných aktualizácii balíčkov "
-#~ "softvéru,\n"
-#~ "ktoré sú dôležité pre tento systém."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Verzia Red Hat Linuxu:"
-
-#~ msgid "Rel."
-#~ msgstr "Vyd."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Sťahujem balíčky"
-
-#~ msgid "Retrieving:"
-#~ msgstr "Sťahujem:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Ostrov Rhode"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Vybrať všetky balíčky"
-
-#~ msgid "Sir"
-#~ msgstr "Sira"
-
-#~ msgid "South Carolina"
-#~ msgstr "Južná Karolína"
-
-#~ msgid "South Dakota"
-#~ msgstr "Južná Dakota"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Špeciálne ponuky od partnerov Red Hat-u"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Pojmy a podmienky"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Následujúce balíčky sú vyžadované pretože niektoré z vami zvolených\n"
-#~ "balíčkov sú na nich závislé.  Tieto budú pridané do vášho výberu balíčkov."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Toto je Red Hat Update·Agent.  Bude vám pomáhať pri aktualizácii\n"
-#~ "vášho Red Hat Enterprise Linux systému najnovším softvérom\n"
-#~ "dostupným z Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "Pre pokračovanie kliknite na \"Ďalej\".  Pre zrušenie aktualizácie\n"
-#~ "kliknite na \"Zrušiť\"."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Na prihlásenie alebo odhlásenie sa z kanálov, alebo pre\n"
-#~ "získanie viac informácii o dostupných kanáloch pozrite:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Celkový priebeh:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Celková veľkosť zvolených balíčkov na stiahnutie:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Celková veľkosť zvolených balíčkov:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "Zverené územia"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr "Aktualizoavať Red Hat Update Agenta ak je dostupná novšia verzia."
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#~ msgid "View Advisory"
-#~ msgstr "Zobraziť oznámenie"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Panenské Ostrovy"
-
-#~ msgid "Virginia"
-#~ msgstr "Virdžínja"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "Dokončili sme získavanie informácii pre systémový profil.\n"
-#~ "\n"
-#~ "Kliknite na \"Ďalej\" pre odoslanie systémového profilu do Red Hat "
-#~ "Network.  Kliknite\n"
-#~ "na \"Zrušiť\" a žiadné informácie nebudú odoslané.  Registračný program "
-#~ "môžete\n"
-#~ "spustiť neskôr zadaním rhn_register do príkazového riadku."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Vitajte v Red Hat Update Agent"
-
-#~ msgid "West Virginia"
-#~ msgstr "Západná Virdžínia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Môžete kliknúť na \"Späť\", ak chcete zmeniť výber balíčkov, alebo \"Ďalej"
-#~ "\" pre pokračovanie."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "Obnoviť alebo vytvoriť váš nový hardvérový profil budete môcť, keď sa "
-#~ "prihlásite do\n"
-#~ "Red Hat Network cez http://www.redhat.com/network."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "Oblasť Yukonu"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "ZIP / PSČ:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "e-Spravodaj"
-
-#~ msgid "    The _number is: "
-#~ msgstr "    Čí_slo je: "
-
-#~ msgid "(example, webserver1)"
-#~ msgstr "(napríklad, webserver1)"
-
-#~ msgid "* First name:"
-#~ msgstr "* Prvé meno:"
-
-#~ msgid "* Last name:"
-#~ msgstr "* Priezvisko:"
-
-#~ msgid "* Required fields"
-#~ msgstr "* Vyžadované polia"
-
-#~ msgid ""
-#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
-#~ "code, and maintenance capabilities included in your subscription.\n"
-#~ "Red Hat uses your login and account information to communicate with you\n"
-#~ "about your subscription services and software."
-#~ msgstr ""
-#~ "Vytvorením Red Hat konta získate prístup k aktualizáciam, errata, "
-#~ "zdrojovým\n"
-#~ "kódom a možnostiam správy zahrnutých vo vašom prihlásení.\n"
-#~ "Red Hat bude používať vaše prihlásenie a informácie o konte na "
-#~ "komunikáciu s vami\n"
-#~ "o službách vo vašom prihlásení a softvéri."
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Zabudli ste váš Red Hat login alebo heslo? Nájdete ich na \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Potrebujete pomoc? Kontaktujte zákaznícke služby na http://www.redhat.com/"
-#~ "contact/\n"
-
-#~ msgid ""
-#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
-#~ "(You may opt out at any time.)"
-#~ msgstr ""
-#~ "Dostávať upozornenia emailom na každomesačné vydanie Red Hat Magazine.\n"
-#~ "(Zrušiť upozornenia môžete kedykoľvek.)"
-
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "_Nemám prihlasovacie číslo"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr "Momentálne nemôžem dokončiť registráciu. Upozorni ma neskôr."
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "Už mám existujúce Red Hat konto."
-
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "Ak ste nakúpili priamo v Red Hat-e, alebo aktivovali prostredníctvom "
-#~ "našej\n"
-#~ "webstránky, vaše prihlásenie je už aktivované."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Potrebujete pomoc? Kontaktujte najbližšieho zástupcu služieb zákazníkom "
-#~ "na\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Potrebujete pomoc? Kontaktujte zákaznícke služby na http://www.redhat.com/"
-#~ "contact/"
-
-#~ msgid "Network Configuration"
-#~ msgstr "Nastavenia siete"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "Mimo US/Kanada"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "Prosím stanovte meno pre systém, ktorý inštalujete"
-
-#~ msgid "Take me back so I can provide or create a Red Hat login."
-#~ msgstr ""
-#~ "Vrátiť ma späť, aby som mohol poskytnúť alebo vytvoriť Red Hat konto."
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr "Povedzte mi prečo sa mám zaregistrovať a zriadiť si Red Hat konto."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "Meno systému vám umožní identifikovať tento systém v Red Hat Network za "
-#~ "účelom údržby. Ak žiadné nestanovíte, priradíme vám pôvodné meno."
-
-#~ msgid ""
-#~ "To activate the services included in your subscription, please register "
-#~ "with Red Hat and provide a Red Hat login."
-#~ msgstr ""
-#~ "Pre aktiváciu služieb nachádzajúcich sa vo vašom prihlásení sa prosím "
-#~ "zaregistrujte a zriaďte si Red Hat konto."
-
-#~ msgid ""
-#~ "Why do you need to register and provide a Red Hat login?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Your subscription includes support and software maintenance services. To\n"
-#~ "activate these services, you must register with Red Hat. Registration\n"
-#~ "includes these simple steps:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) provide a Red Hat login\n"
-#~ "2) provide a subscription number\n"
-#~ "3) connect your system to Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "If you do not complete these registration steps, you will not be able to\n"
-#~ "access the services included in your subscription. These services keep\n"
-#~ "your system current, reliable, secure and supported.\n"
-#~ msgstr ""
-#~ "Prečo by ste sa mali zaregistrovať a získať konto u Red Hat?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Vaše prihlásenie obsahuje podporu a služby na správu softvéru.\n"
-#~ "Pre aktiváciu týchto služieb sa musíte zaregistrovať u Red Hat. "
-#~ "Registrácia\n"
-#~ "pozostáva z týchto jednoduchých krokov:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) získanie konta Red Hat\n"
-#~ "2) získanie prihlasovacieho čísla\n"
-#~ "3) pripojenie vášho systému do Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Ak nedokončíte tieto kroky registrácie, nebudete môcť využívať služby\n"
-#~ "zahrnuté vo vašom prihlásení. Tieto služby udržujú váš systém\n"
-#~ "aktuálny, spoľahlivý, bezpečný a podporovaný.\n"
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "Túto službu môžete ukončiť kedykoľvek. Viď "
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr ""
-#~ "Vaše prihlasovacie číslo sa nachádza v krabici, ktorá prišla s vašou "
-#~ "objednávkou"
-
-#~ msgid "_Details"
-#~ msgstr "Po_drobnosti"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Heslo:  "
+msgstr ""

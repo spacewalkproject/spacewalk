@@ -1,28 +1,24 @@
-# translation of spacewalk.rhn-client-tools.te.po to Telugu
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 # Sree Ganesh <sthottem@redhat.com>, 2006, 2007.
-# Krishna Babu K <kkrothap@redhat.com>, 2010.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Krishna Babu K <kkrothap@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: spacewalk.rhn-client-tools.te\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-06-15 17:12+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Telugu <en@li.org>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-06-15 15:35+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/team/te/)\n"
 "Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -1594,9 +1590,8 @@ msgid "Do not attempt to use X"
 msgstr "Xని ఉపయోగించటానికి ప్రయత్నించకు"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "మీరు %s ఉపయోగించటానికి తప్పక రూటులో ఉండాలి"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
@@ -1615,32 +1610,28 @@ msgid "list channels"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "అందుబాటులో వున్న అన్ని నవీకరణలు"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "ఒక వినియోగదారుని పేరును తెల్పండి"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "ఒక అనుమతిపదాన్ని తెల్పండి"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "ఆతిధేయనామం: "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1667,9 +1658,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "ఈ కంప్యూటరు ఒక చానలుతో కూడి ఉండేదాకా నవీకరించలేదు."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -2722,107 +2712,3 @@ msgstr "Spacewalk/Satellite/Red Hat Network కు నమోదుకండి."
 #~ "మీరు ఎప్పుడు సాఫ్టువేరు అనువర్తనాలు అందుబాటులో ఉంటాయో డెస్కుటాప్ యొక్క సూచక ప్రాంతంలో ఎప్పుడు "
 #~ "ప్యాకేజీ రూపు కనిపిస్తుందో (సాధారణంగా పై-కుడి మూల, కింద గుర్తించబడింది.) ఈ రూపుమీద క్లిక్  "
 #~ "చేయటంద్వారా, అందుబాటులో ఉన్నప్పుదు, ఏ అనువర్తనాలైనా అందుబాటులో ఉన్నప్పుడు మీకు గైడ్ చేస్తుంది:"
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "సాఫ్టువేరు నవీకరణలను అమర్చు"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Red Hat నెట్వర్కుకి ఎందుకు అనుసంధించబడాలి?"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "సాఫ్టువేర్ నవీకరణలను అమర్చు"
-
-#~ msgid "Select Operating System Release"
-#~ msgstr "ఆపరేటింగ్ సిస్టమ్ విడుదలను యెంపికచేయుము"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "ఒక కంప్యూటరు రూపాన్ని నమోదుచేయి - హార్డువేరు"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "ఒక కంప్యూటరు ఆకృతి - ప్యాకేజీలను నమోదుచేయి"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "సంస్థాపక సం:"
-
-#, fuzzy
-#~ msgid "Only https and http are allowed."
-#~ msgstr "మీరు విలువలేని చట్టాన్ని తెలిపారు. కేవలం https మరియూ http మాత్రమే అనుమతించబడతాయి."
-
-#~ msgid "Warning:"
-#~ msgstr "హెచ్చరిక:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "సరే డైలాగ్:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "ప్రశ్నార్ధక డైలాగ్:"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "స్వయంచాలక సబ్ స్క్రిప్షన్"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "సబ్ స్క్రిప్షన్ క్రియాశీలత"
-
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "హెచ్చరిక: rhn_checkను నడుపలేక పోయింది"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "డిస్కు దోషం.  ఈ సమాచారం:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "ఈ ప్యాకేజీలను సంస్థాపించటంలో పెద్ద దోషం:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM ప్యాకేజీ విభేదక దోషం.  ఆ సమాచారం:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM ఫైలు విభేదక దోషం. ఆ సమాచారం:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM  దోషం. ఆ సమాచారం:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM ఆధార దోషం.  ఆ సమాచారం:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "ప్యాకేజీ దాటివేత దోషం.  ఆ సమాచారం:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr "ఫైలు దాటివేత దోషం లేదా ఆకృతి ఫైలును తిరిగ రాత దోషం. ఆ సమాచారం:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "ఈ \"%s\" ప్యాకేజీని తొలిగించకు. ఇది తొలగించే స్కిప్ జాబితాలో ఉంది"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG సరిగా సంస్థాపించబడలేదు."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG keyring Red Hatలో చేరదు, Inc. public ప్యాకేజీ-signing కీ"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr "%s ప్యాకేజీ దాని gpg సిగ్నేచర్ తనిఖీలో విఫలమైంది. అంటే ఆ ప్యాకేజీ చెడిపోయిందని అర్ధం."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "ప్యాకేజీ %s GPG సిగ్నేచరుని కలిగిలేదు.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "%s ప్యాకేజీ అవిశ్వాస GPG సిగ్నేచరును కలిగిఉంది.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "%s ప్యాకేజీ తెలియని GPG సిగ్నేచరుని కలిగిఉంది.\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Red Hat Network సర్వరును యెంచుకొనుము"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Red Hat నెట్వర్కుకి అనుసంధానించు"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Red Hat Network కు నమోదుకండి"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "Red Hat Network సేవిక కొరకు దృవీకరణపత్రమును అందించును"

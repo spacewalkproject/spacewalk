@@ -1,56 +1,25 @@
-# translation of bn_IN.po to Bengali India
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# translation of bn_IN.po to Bangla (INDIA)
-# This file is distributed under the same license as the up2date package.
-# Copyright (c) 2004--2011 Red Hat, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
 # Progga <progga@BengaLinux.Org>, 2004.
 # Salahuddin <salahuddin66@gmail.com>, 2004.
-# Runa Bhattacharjee <runab@redhat.com>, 2004, 2005, 2006, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Runa Bhattacharjee <runab@redhat.com>, 2004, 2005, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: bn_IN\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-06-15 15:58+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: American English <spacewalk-devel@redhat.com>\n"
-"Language: en_US\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-06-15 15:31+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
+"Language: bn_IN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-# FIXME
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
 msgid "Notice"
@@ -62,7 +31,6 @@ msgstr "সূচনা"
 msgid "Warning"
 msgstr "সতর্কবাণী"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:273
 msgid "There was an error while applying your choice."
 msgstr "আপনার নির্বাচিত মান প্রয়োগ করতে সমস্যা।"
@@ -79,7 +47,6 @@ msgstr ""
 "Red Hat Network-র সাথে যোগাযোগ না করা হলে সাফল্যকের সাথে সিস্টেম নিবন্ধন করা "
 "যাবে না।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:332
 #, python-format
 msgid "We could not contact Red Hat Network (%s)."
@@ -133,29 +100,24 @@ msgid ""
 msgstr ""
 "<b>%s</b> Red Hat Network-র জন্য অনুগ্রহ করে আপনার অ্যাকাউন্ট সংক্রান্ত তথ্য লিখুন:"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:448
 msgid "You must enter a login."
 msgstr "আপনার লগ-ইন লেখা আবশ্যক।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:454
 msgid "You must enter a password."
 msgstr "পাসওয়ার্ড লেখা আবশ্যক।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:468
 msgid "There was an error while logging in."
 msgstr "লগ-ইন করতে সমস্যা।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "নিবন্ধনকারী সার্ভারের সাথে যোগাযোগ করতে সমস্যা হয়েছে।  সংশ্লিষ্ট বার্তা:\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:635
 msgid "There was an error while assembling information for the profile."
 msgstr "প্রোফাইল সংক্রান্ত তথ্য একত্রিত করতে সমস্যা।"
@@ -164,22 +126,18 @@ msgstr "প্রোফাইল সংক্রান্ত তথ্য এক
 msgid "Error running hardware profile"
 msgstr "হার্ডওয়্যার প্রোফাইল সঞ্চালনে সমস্যা"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:683
 msgid "There was an error while populating the profile."
 msgstr "প্রোফাইলের মধ্যে মান পূরণ করতে সমস্যা।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "বর্তমান প্রোফাইলের জন্য একটি নাম নির্বাচন করা আবশ্যক।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:718
 msgid "There was an error while creating the profile."
 msgstr "প্রোফাইল নির্মাণ করতে ত্রুটি।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr ""
@@ -189,7 +147,6 @@ msgstr ""
 msgid "Registering System"
 msgstr "সিস্টেম নিবন্ধন"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
 #: ../src/up2date_client/rhnregGui.py:770 ../src/up2date_client/tui.py:878
@@ -197,7 +154,6 @@ msgstr "সিস্টেম নিবন্ধন"
 msgid "Problem registering system:\n"
 msgstr "সিস্টেম নিবন্ধনে সমস্যা:\n"
 
-# FIXME: শেষের অংশটা অদ্ভূত!
 #: ../src/up2date_client/rhnregGui.py:773
 #, python-format
 msgid ""
@@ -211,22 +167,18 @@ msgstr ""
 msgid "Problem registering system."
 msgstr "সিস্টেম নিবন্ধনে সমস্যা।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:793 ../src/up2date_client/tui.py:895
 msgid "Problem writing out system id to disk."
 msgstr "সিস্টেম id ডিস্কে লিখতে সমস্যা।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:799
 msgid "There was a problem registering this system."
 msgstr "এই সিস্টেম নিবন্ধন করতে সমস্যা।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:812
 msgid "Sending hardware information"
 msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য প্রেরণ করা হচ্ছে"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:817
 msgid "Problem sending hardware information."
 msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য প্রেরণে সমস্যা।"
@@ -256,7 +208,6 @@ msgstr ""
 "/etc/yum/pluginconf.d/rhnplugin.conf খুলতে ব্যর্থ\n"
 "yum-rhn-plugin সক্রিয় নয়।\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:890
 #: ../src/up2date_client/rhnregGui.py:907 ../src/up2date_client/tui.py:909
 #: ../src/up2date_client/tui.py:923
@@ -269,12 +220,10 @@ msgstr "ব্যক্তিগত তথ্য নিবন্ধন করত
 msgid "Problem registering personal information"
 msgstr "ব্যক্তিগত তথ্য নিবন্ধনে সমস্যা"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:954
 msgid "There was an error while installing the certificate."
 msgstr "সার্টিফিকেট ইনস্টল করতে ত্রুটি।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:980
 msgid "You must select a certificate."
 msgstr "সার্টিফিকেট নির্বাচন করা আবশ্যক।"
@@ -300,7 +249,6 @@ msgstr "নতুন সার্টিফিকেট ইনস্টলেশ�
 msgid "unknown"
 msgstr "অজানা"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:1166
 msgid "There was an error getting the list of hardware."
 msgstr "হার্ডওয়্যারের তালিকা প্রাপ্ত করতে ত্রুটি।"
@@ -315,7 +263,6 @@ msgstr "%d মেগাহার্টজ"
 msgid "%s MB"
 msgstr "%s মেগাবাইট"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:1226
 msgid "There was an error building the list of packages."
 msgstr "প্যাকেজের তালিকা প্রস্তুত করতে ত্রুটি।"
@@ -324,20 +271,16 @@ msgstr "প্যাকেজের তালিকা প্রস্তুত 
 msgid "Package"
 msgstr "প্যাকেজ"
 
-# FIXME
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:1246
 msgid "Arch"
 msgstr "আর্কিটেকচার"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:1253
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "আপনার সিস্টেমে ইনস্টল করা RPM প্যাকেজের তালিকা নির্মাণ করা হচ্ছে।  অনুগ্রহ করে "
 "অপেক্ষা করুন।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnregGui.py:1284
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
@@ -346,7 +289,6 @@ msgstr ""
 "আপনার কনফিগারেশন লোড করতে একটি সমস্যা হয়েছে।  /etc/sysconfig/rhn ফাইলটি\n"
 "পড়ার অনুমতি আপনার আছে কিনা তা পরীক্ষা করুন।"
 
-# modifid for RHEL
 #: ../src/up2date_client/rhnregGui.py:1326
 #, python-format
 msgid ""
@@ -371,18 +313,14 @@ msgstr ""
 msgid "Error: Server Unavailable. Please try later."
 msgstr "ত্রুটি: সার্ভার উপলব্ধ নয়। অনুগ্রহ করে পুনরায় চেষ্টা করুন।"
 
-# modified for RHEL
 #: ../src/up2date_client/rpcServer.py:160
 msgid "ERROR: can not find RHNS CA file"
 msgstr "সমস্যা: RHNS CA ফাইল পাওয়া যায়নি"
 
-# modified for RHEL
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
 msgstr "ব্যবহারকারীর দ্বারা সংযোগ বিচ্ছিন্ন করা হয়েছে"
 
-# FIXME
-# modified for RHEL
 #: ../src/up2date_client/rpcServer.py:243
 msgid "Server has refused connection due to high load"
 msgstr "অতিরিক্ত চাপের কারণে সার্ভারের দ্বারা সংযোগ প্রত্যাখ্যান করা হয়েছে"
@@ -391,24 +329,20 @@ msgstr "অতিরিক্ত চাপের কারণে সার্ভ
 msgid "Unable to Locate SystemId"
 msgstr "SystemId সনাক্ত করতে ব্যর্থ"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr ""
 "একটি চ্যানেলের সাথে যুক্ত না হওয়া পর্যন্ত সিস্টেমটিকে আপডেট না করতে পারার সম্ভাবনা "
 "রয়েছে।"
 
-# modified for RHEL
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:53
 msgid "Getting list of packages installed on the system"
 msgstr "সিস্টেমে ইনস্টল করা প্যাকেজের তালিকা আহরণ করা হচ্ছে"
 
-# modifed for RHEL
 #: ../src/up2date_client/tui.py:127
 msgid "Red Hat Network Location:"
 msgstr "Red Hat Network-র অবস্থান:"
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Login:"
@@ -433,7 +367,6 @@ msgstr "সার্ভার একটি সমস্যা নির্দে
 msgid "OK"
 msgstr "ঠিক আছে"
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:427
 msgid "There was an error communicating with the registration server:\n"
 msgstr "নিবন্ধনকারী সার্ভারের সাথে যোগাযোগ করতে সমস্যা হয়েছে:\n"
@@ -446,7 +379,6 @@ msgstr "প্রোফাইলের নাম:"
 msgid "Version: "
 msgstr "সংস্করণ: "
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:656
 msgid "CPU model: "
 msgstr "CPU'র মডেল: "
@@ -455,12 +387,10 @@ msgstr "CPU'র মডেল: "
 msgid "Hostname: "
 msgstr "হোস্ট-নেম: "
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:674
 msgid "CPU speed: "
 msgstr "CPU'র গতি: "
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:680
 msgid "IP Address: "
 msgstr "IP ঠিকানা: "
@@ -474,12 +404,10 @@ msgstr "মেমরি: "
 msgid "%s megabytes"
 msgstr "%s মেগাবাইট"
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:937
 msgid "Problem sending hardware profile:\n"
 msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা:\n"
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:941
 msgid "Problem sending hardware profile."
 msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা।"
@@ -500,24 +428,20 @@ msgstr "সম্পন্ন"
 msgid "You specified an invalid protocol."
 msgstr "উল্লিখিত প্রোটোকল বৈধ নয়।"
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:1163
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> বস্তুর মধ্যে চলাচল  |  <Space> নির্বাচন  |  <F12> পরবর্তী পর্দা"
 
-# modified for RHEL
 #: ../src/up2date_client/tui.py:1260
 msgid "You must run the RHN registration program as root."
 msgstr "RHN নিবন্ধন প্রোগ্রামটি root পরিচয়ে সঞ্চালন করা আবশ্যক।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg.py:55
 msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "সতর্কবাণী: chkconfig-র সাহায্যে rhnsd সক্রিয় করা যায়নি"
 
-# modified for RHEL
 #: ../src/up2date_client/hardware.py:706
 msgid "Error reading cpu information:"
 msgstr "cpu সংক্রান্ত তথ্য পড়তে সমস্যা:"
@@ -542,12 +466,10 @@ msgstr "নেটওয়ার্ক ইন্টারফেস সংক্র�
 msgid "Error:"
 msgstr "সমস্যা:"
 
-# modified for RHEL
 #: ../src/up2date_client/messageWindow.py:105
 msgid "Yes/No dialog:"
 msgstr "হ্যাঁ/না প্রদর্শনকারী ডায়লগ:"
 
-# modified for RHEL
 #: ../src/up2date_client/config.py:142
 #, python-format
 msgid "%s was not found"
@@ -557,13 +479,11 @@ msgstr "%s পাওয়া যায়নি"
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "স্বত্বাধিকার © ২০০৬-২০১০  Red Hat, Inc. সর্ব স্বত্ব সংরক্ষিত।"
 
-# modified for RHEL
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
 msgid "Attempting to contact the Red Hat Network server."
 msgstr "Red Hat Network সার্ভারের সাথে সংযোগ স্থাপনের প্রচেষ্টা করা হচ্ছে।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:18
 #, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
@@ -575,8 +495,6 @@ msgstr ""
 msgid "A proxy was specified at %s."
 msgstr "%s অবস্থানে একটি প্রক্সির উপস্থিতি চিহ্নিত করা হয়েছে।"
 
-# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
-# modfied for RHEL
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
 msgid "Registering for software updates"
@@ -632,7 +550,6 @@ msgstr "ডাউনলোড ও আপগ্রেড:"
 msgid "Support:"
 msgstr "সমর্থন:"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:44
 msgid "Compliance:"
 msgstr "সুসংগতি:"
@@ -744,7 +661,6 @@ msgstr ""
 msgid "Please enter a desired login."
 msgstr "অনুগ্রহ করে পছন্দসই লগ-ইন লিখুন।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:78
 msgid "Please enter and verify a password."
 msgstr "পাসওয়ার্ড লিখে, সেটির বৈধতা পরীক্ষা করা করুন।"
@@ -784,13 +700,11 @@ msgstr ""
 "সর্বধরনের আপডেট প্রাপ্ত করার উদ্দেশ্যে, আপনার সিস্টেমটি একটি বেস সফ্টওয়্যার চ্যানেলে "
 "সাবস্ক্রাইব করা হবে।"
 
-# modified for RHEL
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid "Create your system profile - Hardware"
 msgstr "সিস্টেম প্রোফাইল প্রস্তুত করুন - হার্ডওয়্যার"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
@@ -801,7 +715,6 @@ msgstr ""
 "প্রোফাইলের নাম ব্যবহৃত হয়। এই নামের পরিবর্তে কম্পিউটারের জন্য একটি ক্রমিক সংখ্যা "
 "অথবা সনাক্তকরণ সংখ্যাও ব্যবহার করা যেতে পারে।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:97
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
@@ -810,18 +723,15 @@ msgstr ""
 "হার্ডওয়্যার সংক্রান্ত অতিরিক্ত তথ্য যেমন, PCI ডিভাইস, ডিস্কের মাপ এবং মাউন্ট পয়েন্ট "
 "এই প্রোফাইলে অন্তর্ভুক্ত করা হবে।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:100
 msgid "Include the following information about hardware and network:"
 msgstr "নেটওয়ার্ক এবং হার্ডওয়্যার সংক্রান্ত নিম্নলিখিত তথ্যগুলি অন্তর্ভুক্ত করুন:"
 
-# modified for RHEL
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid "Create your system profile - Packages"
 msgstr "সিস্টেম প্রোফাইল প্রস্তুত করুন - প্যাকেজ"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
 "RPM information is important to determine what updated software packages are "
@@ -830,14 +740,12 @@ msgstr ""
 "বর্তমান সিস্টেমের জন্য যে সফ্টওয়্যারগুলি আপডেট করা প্রয়োজন তা নির্ধারণ করতে RPM "
 "সংক্রান্ত তথ্য অত্যন্ত গুরুত্বপূর্ণ।"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr ""
 "বর্তমান সিস্টেমে ইনস্টল করা RPM প্যাকেজগুলিকে আমার সিস্টেম প্রোফাইলের মধ্যে অন্তর্ভুক্ত "
 "করা হবে"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid "You may deselect individual packages by unchecking them below."
 msgstr ""
@@ -906,7 +814,6 @@ msgstr ""
 "অন্যান্য সামগ্রী প্রভৃতি অধিক বিবরণের জন্য Knowledge Base-র এই নথিটি পড়ুন: https://"
 "access.redhat.com/kb/docs/DOC-45563"
 
-# modified for RHEL
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:134
 msgid "Send Profile Information to Red Hat Network"
@@ -926,7 +833,6 @@ msgstr ""
 "হলে কোনো তথ্য প্রেরণ করা হবে না।  পরে কোনো সময়ে নিবন্ধন প্রোগ্রাম চালানোর জন্য "
 "কমান্ড-লাইনে `rhn_register` লিখুন।"
 
-# modified for RHEL
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
 msgid "Sending Profile to Red Hat Network"
@@ -965,7 +871,6 @@ msgstr "সিস্টেম সাবস্ক্রিপশনের বি�
 msgid "Please review the subscription details below:"
 msgstr "অনুগ্রহ করে নীচে সাবস্ক্রিপশনের বিবরণ পর্যালোচনা করুন:"
 
-# modified for RHEL
 #: ../src/up2date_client/rhnreg_constants.py:159
 #, python-format
 msgid ""
@@ -1374,7 +1279,6 @@ msgstr "হ্যাঁ, অগ্রসর"
 msgid "Press <space> to deselect the option."
 msgstr "বিকল্প থেকে নির্বাচন সরাতে <space> টিপুন।"
 
-# modified for RHEL
 #: ../src/up2date_client/up2dateErrors.py:31
 msgid "RPM error.  The message was:\n"
 msgstr "RPM জড়িত ত্রুটি।  সংশ্লিষ্ট বার্তা:\n"
@@ -1383,7 +1287,6 @@ msgstr "RPM জড়িত ত্রুটি।  সংশ্লিষ্ট ব�
 msgid "Password error. The message was:\n"
 msgstr "পাসওয়ার্ড সংক্রান্ত সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
 
-# modified for RHEL
 #: ../src/up2date_client/up2dateErrors.py:56
 msgid "RPM dependency error. The message was:\n"
 msgstr "RPM'র নির্ভরতা সংক্রান্ত সমস্যা। সংশ্লিষ্ট বার্তা :\n"
@@ -1392,12 +1295,10 @@ msgstr "RPM'র নির্ভরতা সংক্রান্ত সমস�
 msgid "Error communicating with server. The message was:\n"
 msgstr "সার্ভারের সাথে যোগাযোগে সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
 
-# modified for RHEL
 #: ../src/up2date_client/up2dateErrors.py:76
 msgid "File Not Found: \n"
 msgstr "ফাইল পাওয়া যায়নি: \n"
 
-# modified for RHEL
 #: ../src/up2date_client/up2dateErrors.py:87
 msgid "Delay error from server.  The message was:\n"
 msgstr "সার্ভারে বিলম্বজনীত সমস্যা হয়েছে।  সংশ্লিষ্ট বার্তা:\n"
@@ -1406,7 +1307,6 @@ msgstr "সার্ভারে বিলম্বজনীত সমস্য�
 msgid "Error validating data at server:\n"
 msgstr "সার্ভারের তথ্যের বৈধতা যাচাই করতে সমস্যা:\n"
 
-# modified for RHEL
 #: ../src/up2date_client/up2dateErrors.py:144
 msgid "The installation number is invalid"
 msgstr "ইনস্টলেশন সংখ্যা বৈধ নয়"
@@ -1459,18 +1359,14 @@ msgstr ""
 msgid "Show additional output"
 msgstr "অতিরিক্ত আউটপুট প্রদর্শন করুন"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:50
 msgid "Specify an http proxy to use"
 msgstr "ব্যবহারের জন্য একটি http প্রক্সি উল্লেখ করুন"
 
-# FIXME: ভাল শোনাচ্ছে না ;-(
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:52
 msgid "Specify a username to use with an authenticated http proxy"
 msgstr "পরিচয়-প্রমাণিত http প্রক্সিতে ব্যবহারের জন্য একটি ব্যবহারকারীর-নাম উল্লেখ করুন"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:54
 msgid "Specify a password to use with an authenticated http proxy"
 msgstr "পরিচয়-প্রমাণিত http প্রক্সি'র সাথে ব্যবহারের জন্য একটি পাসওয়ার্ড উল্লেখ করুন"
@@ -1483,7 +1379,6 @@ msgstr ""
 "\n"
 "পরিত্যাগ করা হয়েছে।\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:79
 #, python-format
 msgid "An unexpected OS error occurred: %s\n"
@@ -1498,19 +1393,16 @@ msgstr "ভুল গঠনের URI সহযোগে সংযোগ স্�
 msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr "ভুল গঠনের URI সহযোগে সংযোগ স্থাপনের প্রচেষ্টা করা হয়েছে: %s.\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:87
 #, python-format
 msgid "There was some sort of I/O error: %s\n"
 msgstr "কোনো ধরনের I/O ( ইনপুট/আউটপুট ) সমস্যা হয়েছে: %s\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:90
 #, python-format
 msgid "There was an SSL error: %s\n"
 msgstr "SSL জড়িত একটি সমস্যা হয়েছে: %s\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:91
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
@@ -1519,13 +1411,11 @@ msgstr ""
 "এই সমস্যার একটি প্রধান কারণ সিস্টেমের ভুল সময়।  সুতরাং এই সিস্টেমে সঠিক সময় ধার্য "
 "করা রয়েছে কিনা তা পরীক্ষা করুন।\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:98
 #, python-format
 msgid "There was a SSL crypto error: %s\n"
 msgstr "একটি SSL crypto জড়িত সমস্যা হয়েছে: %s\n"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:102
 #, python-format
 msgid "There was an authentication error: %s\n"
@@ -1536,8 +1426,6 @@ msgstr "পরিচয়-প্রমাণ প্রক্রিয়ায় এক
 msgid "You must be root to run %s"
 msgstr "%s সঞ্চালনের জন্য root পরিচয় আবশ্যক"
 
-# msgstr "GUI chalu kora jai ni. `up2date --nox`likhe cheshta korun"
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:148 ../src/up2date_client/rhncli.py:183
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr ""
@@ -1559,12 +1447,10 @@ msgstr ""
 msgid "An error has occurred:"
 msgstr "একটি সমস্যা উৎপন্ন হয়েছে:"
 
-# modified for RHEL
 #: ../src/up2date_client/rhncli.py:214
 msgid "See /var/log/up2date for more information"
 msgstr "অধিক বিবরণের জন্য /var/log/up2date দেখুন"
 
-# modified for RHEL
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
 msgid ""
@@ -1586,12 +1472,10 @@ msgstr "প্রস্থান (_E)"
 msgid "Software updates setup unsuccessful"
 msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপন করতে ব্যর্থ"
 
-# modified
 #: ../src/up2date_client/gui.py:327
 msgid "You must run rhn_register as root."
 msgstr "rhn_register চালানোর জন্য root পরিচয় আবশ্যক।"
 
-# modified for RHEL
 #: ../src/up2date_client/gui.py:351
 #, python-format
 msgid "There was some sort of I/O error: %s"
@@ -1632,7 +1516,6 @@ msgstr "সার্ভার নির্বাচন করুন"
 msgid "Red Hat Login"
 msgstr "Red Hat Login"
 
-# modified for RHEL
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
@@ -1665,17 +1548,14 @@ msgstr "পাসওয়ার্ড নির্ধারণ করুন"
 msgid "Specify an organizational id for this system"
 msgstr "সিস্টেমের জন্য প্রতিষ্ঠানিক id নির্ধারণ করুন"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:54
 msgid "Specify a url to use as a server"
 msgstr "সার্ভারের জন্য url নির্ধারণ করুন"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:56
 msgid "Specify a file to use as the ssl CA cert"
 msgstr "ssl CA cert হিসাবে ব্যবহারের জন্য একটি ফাইল উল্লেখ করুন"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:58
 msgid "Specify an activation key"
 msgstr "একটি অ্যাক্টিভেশন-কি নির্ধারণ করুন"
@@ -1690,12 +1570,10 @@ msgstr ""
 msgid "[Deprecated] Read contact info from stdin"
 msgstr "[অবচিত] stdin থেকে যোগাযোগের তথ্য পড়া হবে"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:64
 msgid "Do not probe or upload any hardware info"
 msgstr "হার্ডওয়্যার সংক্রান্ত কোনো তথ্য অনুসন্ধান অথবা আপলোড করা হবে না"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:66
 msgid "Do not profile or upload any package info"
 msgstr "প্যাকেজ সংক্রান্ত কোনো তথ্য, প্রোফাইল অথবা আপলোড করা হবে না"
@@ -1708,17 +1586,14 @@ msgstr "ভার্চুয়ালাইজেশন সংক্রান্�
 msgid "Do not start rhnsd after completion"
 msgstr "সমাপ্ত হওয়ার ফলে rhnsd আরম্ভ করা হবে না"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:72
 msgid "Register the system even if it is already registered"
 msgstr "সিস্টেমটি পূর্বে নিবন্ধিত হয়ে থাকলেও পুনরায় নিবন্ধন করুন"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:82
 msgid "A username and password are required to register a system."
 msgstr "সিস্টেম নিবন্ধনের জন্য ব্যবহারকারীর-নাম ও পাসওয়ার্ড প্রয়োজন।"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
 msgstr "এই সিস্টেমটি পূর্বেই নিবন্ধিত করা হয়েছে। --force ব্যবহার করে উপেক্ষা করুন"
@@ -1757,7 +1632,6 @@ msgstr ""
 "সতর্কবার্তা: /etc/yum/pluginconf.d/rhnplugin.conf খোলা যায়নি\n"
 "yum-rhn-plugin সক্রিয় নয়।\n"
 
-# modified for RHEL
 #: ../src/bin/rhnreg_ks.py:200
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
@@ -1767,15 +1641,13 @@ msgstr ""
 "হোস্ট-নেম অথবা IP ঠিকানা নির্ণয় করা যায়নি। অনুগ্রহ করে একটি প্রোফাইল-নাম উল্লেখ "
 "করুন।"
 
-# modfied for RHEL
 #: ../src/bin/rhn_register.py:37
 msgid "Do not attempt to use X"
 msgstr "X ব্যবহারের চেষ্টা করা হবে না"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "%s সঞ্চালনের জন্য root পরিচয় আবশ্যক"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
@@ -1801,25 +1673,21 @@ msgstr ""
 msgid "verbose output"
 msgstr ""
 
-# modified for RHEL
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "ব্যবহারকারীর নাম উল্লেখ করা আবশ্যক।"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "পাসওয়ার্ড নির্ধারণ করুন"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "হোস্ট-নেম: "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1845,13 +1713,9 @@ msgstr ""
 msgid "Error during removal of channel(s) %s"
 msgstr ""
 
-# modified for RHEL
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
 msgstr ""
-"একটি চ্যানেলের সাথে যুক্ত না হওয়া পর্যন্ত সিস্টেমটিকে আপডেট না করতে পারার সম্ভাবনা "
-"রয়েছে।"
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1865,7 +1729,6 @@ msgstr ""
 msgid "User interrupted process."
 msgstr ""
 
-# modified for RHEL
 #: ../src/bin/rhn-profile-sync.py:35
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
@@ -1878,7 +1741,6 @@ msgstr ""
 msgid "Updating package profile..."
 msgstr "প্যাকেজ প্রোফাইল আপডেট করা হচ্ছে..."
 
-# modified for RHEL
 #: ../src/bin/rhn-profile-sync.py:46
 msgid "Updating hardware profile..."
 msgstr "হার্ডওয়্যার প্রোফাইল আপডেট করা হচ্ছে..."
@@ -1891,7 +1753,6 @@ msgstr "ভার্চুয়ালাইজেশন প্রোফাইল �
 msgid "Choose an update location"
 msgstr "আপডেটের স্থান নির্বাচন করুন"
 
-# modified for RHEL
 #: ../data/gui.glade.h:2
 msgid "Create your system profile"
 msgstr "সিস্টেম প্রোফাইল নির্মাণ করুন"
@@ -1904,18 +1765,10 @@ msgstr "অ্যাকাউন্ট সংক্রান্ত তথ্য 
 msgid "Provide a security certificate"
 msgstr "নিরাপত্তা সংক্রান্ত সার্টিফিকেট উপলব্ধ করুন"
 
-# modified for RHEL
-#  * Translatable strings file generated by Glade.
-#  * Add this file to your project's POTFILES.in.
-#  * DO NOT compile it as part of your application.
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "কর্ম প্রগতিসূচক ডায়লগ"
 
-# modified for RHEL
-#  * Translatable strings file generated by Glade.
-#  * Add this file to your project's POTFILES.in.
-#  * DO NOT compile it as part of your application.
 #: ../data/progress.glade.h:2
 msgid "progress bar"
 msgstr "প্রগতিসূচক বার"
@@ -2009,12 +1862,10 @@ msgstr ""
 "<small>টিকা: লগ-ইন অথবা পাসওয়ার্ড ভুলে গেছেন কি? \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html'এ অনুসন্ধান করুন</small>"
 
-# modifed for RHEL
 #: ../data/rh_register.glade.h:14
 msgid "Advanced Network Configuration"
 msgstr "উন্নত নেটওয়ার্ক কনফিগারেশন"
 
-# modifed for RHEL
 #: ../data/rh_register.glade.h:15
 msgid "Advanced Network Configuration button"
 msgstr "উন্নত নেটওয়ার্ক কনফিগারেশন বাটন"
@@ -2039,7 +1890,6 @@ msgstr "বন্ধ করুন"
 msgid "Confirm operation system release selection"
 msgstr "অপারেটিং সিস্টেমের রিলিজ সংস্করণের নির্বাচন নিশ্চিত করুন"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:23
 msgid "Create profile"
 msgstr "প্রোফাইল নির্মাণ করুন"
@@ -2052,7 +1902,6 @@ msgstr "অ্যাকাউন্ট সংক্রান্ত তথ্য 
 msgid "Enter in the format hostname(:port)"
 msgstr "হোস্টের নাম(:পোর্ট) বিন্যাসে লিখুন"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:26
 msgid "Hardware Info"
 msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য"
@@ -2098,12 +1947,10 @@ msgstr "সিস্টেম পর্যালোচনা..."
 msgid "Select A File"
 msgstr "একটি ফাইল নির্বাচন করুন"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:38
 msgid "Send hardware profile checkbox"
 msgstr "হার্ডওয়্যার প্রোফাইল পাঠানোর চেকবক্স"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:39
 msgid "Send package profile checkbox"
 msgstr "প্যাকেজ প্রোফাইল পাঠানোর চেক-বক্স"
@@ -2137,12 +1984,10 @@ msgstr ""
 "<b>সিস্টেম > প্রশাসনিক কর্ম</b> মেনুর মধ্যে <b>সফ্টওয়্যার আপডেট</b> মেনুর সাহায্যে "
 "সফ্টওয়্যার আপডেট ব্যবস্থা ব্যবহার করা যাবে।"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:50
 msgid "Use Authentication with HTTP Proxy"
 msgstr "HTTP প্রক্সির মাধ্যমে পরিচয়-প্রমাণ প্রক্রিয়া ব্যবহার করা হবে"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:51
 msgid "View Hardware Profile"
 msgstr "হার্ডওয়্যার প্রোফাইল প্রদর্শন"
@@ -2161,7 +2006,6 @@ msgstr ""
 "কোনো ক্ষুদ্র রিলিজের চ্যানেলে সিস্টেমেটিকে সরানো সম্ভব হবে না (পরবর্তী রিলিজের "
 "চ্যানেলে স্থানান্তর করা যাবে)।"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:57
 msgid "_Activate a subscription now..."
 msgstr "সাবস্ক্রিপশন এখন সক্রিয় করুন...(_A)"
@@ -2178,7 +2022,6 @@ msgstr "অপারেটিং সিস্টেমের সংস্কর�
 msgid "icon of aplet"
 msgstr "aplet-র আইকন"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:61
 msgid "installation number field"
 msgstr "ইনস্টলেশন সংখ্যার ক্ষেত্র"
@@ -2199,7 +2042,6 @@ msgstr "প্রক্সি ব্যবহারকারীদের ক্�
 msgid "satellite server location"
 msgstr "satellite সার্ভারের অবস্থান"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:66
 msgid "system name"
 msgstr "সিস্টেমের নাম"
@@ -2216,8 +2058,6 @@ msgctxt "yes"
 msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr "<b>ডাউনলোড &amp; আপগ্রেড:</b>"
 
-# modified for RHEL
-# FIXME
 #: ../data/rh_register.glade.h:69
 #, fuzzy
 msgctxt "yes"
@@ -2230,7 +2070,6 @@ msgctxt "yes"
 msgid "<b>Login:</b>"
 msgstr "<b>লগ-ইন:</b>"
 
-# modifed for RHEL
 #: ../data/rh_register.glade.h:71
 #, fuzzy
 msgctxt "yes"
@@ -2285,7 +2124,6 @@ msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
 msgstr "<small><b>উদাহরণ:</b> squid.example.com:3128</small>"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:80
 #, fuzzy
 msgctxt "yes"
@@ -2337,7 +2175,6 @@ msgid ""
 "Activate a previously purchased subscription you have not yet activated."
 msgstr "সক্রিয় না করা পূর্বে ক্রয় করা সাবস্ক্রিপশন সক্রিয় করুন।"
 
-# modifed for RHEL
 #: ../data/rh_register.glade.h:87
 #, fuzzy
 msgctxt "yes"
@@ -2360,15 +2197,12 @@ msgctxt "yes"
 msgid "Are you sure you would like to continue?"
 msgstr "আপনি কি নিশ্চিতরূপে এগিয়ে যেতে ইচ্ছুক?"
 
-# modified for RHEL
-# modified for RHEL
 #: ../data/rh_register.glade.h:90
 #, fuzzy
 msgctxt "yes"
 msgid "CPU Model:"
 msgstr "CPU'র মডেল:"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:91
 #, fuzzy
 msgctxt "yes"
@@ -2428,7 +2262,6 @@ msgstr ""
 "প্রবন্ধটি পড়ুন: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
 "access.redhat.com/kb/docs/DOC-45563</a>\n"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:98
 #, fuzzy
 msgctxt "yes"
@@ -2488,14 +2321,12 @@ msgstr ""
 "<b>Red Hat Network</b> থেকে আপডেট প্রাপ্ত করতে ইচ্ছুক। (Red Hat Network "
 "Satellite অথবা Proxy ব্যবহারের অধিকার নেই।)"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:105
 #, fuzzy
 msgctxt "yes"
 msgid "IP Address:"
 msgstr "IP ঠিকানা:"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:106
 #, fuzzy
 msgctxt "yes"
@@ -2595,28 +2426,24 @@ msgstr ""
 "নিরাপত্তা সংক্রান্ত আপডেট সহ সর্বশেষ সফ্টওয়্যার আপডেট প্রাপ্ত করুন ও Red Hat "
 "Enterprise Linux সিস্টেমটি <b>নিরাপদ</b> ও <b>আপডেট</b> করা অবস্থায় রাখুন।"
 
-# modifed for RHEL
 #: ../data/rh_register.glade.h:119
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Linux Version:"
 msgstr "Red Hat Linux'র সংস্করণ:"
 
-# modifed for RHEL
 #: ../data/rh_register.glade.h:120
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
 msgstr "Red Hat Network'র অবস্থান (_L)"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:121
 #, fuzzy
 msgctxt "yes"
 msgid "Send _hardware profile"
 msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণ করুন (_h)"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:122
 #, fuzzy
 msgctxt "yes"
@@ -2639,7 +2466,6 @@ msgstr ""
 "সাবস্ক্রিপশনের চুক্তিপত্র অনুযায়ী http://rhn.redhat.com'এ আপনার অ্যাকাউন্টের সাথে "
 "যুক্ত সিস্টেমের সাবস্ক্রিপশন পরিচালনা করুন।"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:125
 #, fuzzy
 msgctxt "yes"
@@ -2656,7 +2482,6 @@ msgstr ""
 "এই সহায়তা ব্যবস্থার সাহায্যে Red Hat Network'র সাথে সিস্টেম সংযুক্ত করে সফ্টওয়্যার "
 "আপডেট প্রাপ্ত করা যাবে, যেমন:"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:127
 #, fuzzy
 msgctxt "yes"
@@ -2771,7 +2596,6 @@ msgctxt "yes"
 msgid "_Close"
 msgstr "বন্ধ করুন (_C)"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:140
 #, fuzzy
 msgctxt "yes"
@@ -2820,7 +2644,6 @@ msgctxt "yes"
 msgid "_Take me back to the setup process."
 msgstr "ব্যবস্থা নির্ধারণের কর্মে প্রত্যাবর্তন করা হবে (_T)"
 
-# modified for RHEL
 #: ../data/rh_register.glade.h:148
 #, fuzzy
 msgctxt "yes"
@@ -2875,7 +2698,6 @@ msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Red Hat Network অথবা Red Hat Network Satellite'র লগ-ইন নাম "
 
-# modified for RHEL
 #: ../rhn_register.desktop.in.h:1
 msgid "RHN Registration"
 msgstr "RHN নিবন্ধন"
@@ -2886,7 +2708,6 @@ msgstr ""
 "Spacewalk/Satellite/Red Hat Network থেকে সফ্টওয়্যার আপডেট প্রাপ্ত করার জন্য "
 "নিবন্ধন করুন"
 
-# modified for RHEL
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network-এ নিবন্ধন করুন।"
@@ -2964,1457 +2785,3 @@ msgstr "Spacewalk/Satellite/Red Hat Network-এ নিবন্ধন করু�
 #~ "সফ্টওয়্যার আপডেট উপলব্ধ থাকলে আপনার ডেস্কটপের সূচনাপ্রদানের অংশে (সাধারণত উপরে "
 #~ "ডান-দিকে) একটি প্যাকেজ আইকন প্রদর্শিত হবে। এই আইকনটি ক্লিক করে উপলব্ধ আপডেটগুলি "
 #~ "প্রয়োগ করার প্রয়োজনীয় পদ্ধতি অনুসরণ করা যাবে:"
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপনা"
-
-# modified for RHEL
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Red Hat Network'র সাথে সংযোগ কেন করা হবে?"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপনা"
-
-# modified for RHEL
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "সিস্টেম প্রোফাইল নিবন্ধন করুন - হার্ডওয়্যার"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "সিস্টেম প্রোফাইল নিবন্ধন করুন - প্যাকেজ"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "ইনস্টলেশন সংখ্যা: (_N)"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "শুধুমাত্র https ও http ব্যবহার করা যাবে।"
-
-#~ msgid "Warning:"
-#~ msgstr "সতর্কবাণী:"
-
-# modified for RHEL
-#~ msgid "OK dialog:"
-#~ msgstr "'ঠিক আছে' ডায়লগ:"
-
-# modified for RHEL
-#~ msgid "Question dialog:"
-#~ msgstr "প্রশ্নসূচক ডায়লগ:"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "স্বয়ংক্রিয় সাবস্ক্রিপশন সক্রিয়করণ"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "সাবস্ক্রিপশন সক্রিয়করণ"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "সতর্কবাণী: chkconfig-র সাহায্যে rhnsd সক্রিয় করা যায়নি"
-
-# modiffied for RHEL
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "ডিস্ক সম্বন্ধীয় ত্রুটি।  সংশ্লিষ্ট বার্তা:\n"
-
-# modified for RHEL
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "প্যাকেজ ইনস্টল করতে গুরুতর সমস্যা:\n"
-
-# modified for RHEL
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "বিভিন্ন RPM প্যাকেজের মধ্যে দ্বন্দ্বের দরুন সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
-
-# FIXME
-# modified for RHEL
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM ফাইলে দ্বন্দ্ব জড়িত সমস্যা। সংশ্লিষ্ট বার্তা:\n"
-
-# modified for RHEL
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM  সংক্রান্ত সমস্যা। সংশ্লিষ্ট বার্তা:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM'র নির্ভরতা সংক্রান্ত সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
-
-# modified for RHEL
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "উপেক্ষিত প্যাকেজ তালিকা সংক্রান্ত সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
-
-# FIXME
-# modified for RHEL
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "উপেক্ষিত ফাইলের তালিকা অথবা কনফিগ ফাইল পুনরায় লিখতে সমস্যা হয়েছে। সংশ্লিষ্ট "
-#~ "বার্তা:\n"
-
-# modified for RHEL
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr ""
-#~ "RemoveSkipList-এ উপস্থিত থাকার দরুন \"%s\" প্যাকেজটি মুছে ফেলা সম্ভব হয়নি।"
-
-# modified for RHEL
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG সঠিকভাবে ইনস্টল করা নেই।"
-
-# modified for RHEL
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "GPG কি-রিং'র মধ্যে Red Hat, Inc.-র প্যাকেজ-স্বাক্ষরকারী পাবলিক-কি উপস্থিত নেই"
-
-# modified for RHEL
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "%s প্যাকেজটি তার gpg স্বাক্ষরের বৈধতা প্রমাণে ব্যর্থ হয়েছে। প্যাকেজটি ক্ষতিগ্রস্ত "
-#~ "হওয়ার ফলে এটি ঘটেছে।"
-
-# modified for RHEL
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "%s প্যাকেজে কোনো GPG স্বাক্ষর উপস্থিত নেই\n"
-
-# modified for RHEL
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "%s প্যাকেজে একটি অবিশ্বস্ত GPG স্বাক্ষর রয়েছে।\n"
-
-# modified for RHEL
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "%s প্যাকেজে একটি অজ্ঞাত GPG স্বাক্ষর রয়েছে।\n"
-
-# modified for RHEL
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "একটি Red Hat Network সার্ভার নির্বাচন করুন"
-
-# modified for RHEL
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Red Hat Network'র সাথে সংযোগ করুন"
-
-# modified for RHEL
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Red Hat Network-এ নিবন্ধিত করুন"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "Red Hat Network সার্ভারের জন্য সার্টিফিকেট উপলব্ধ করুন"
-
-#~ msgid "_Exit software update setup"
-#~ msgstr "সফ্টওয়্যার আপডেট স্থাপনা থেকে প্রস্থান (_E)"
-
-#~ msgid "software updates setup unsuccessful"
-#~ msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপন করতে ব্যর্থ"
-
-# modified for RHEL
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr ""
-#~ "Red Hat লগ-ইন না থাকলে এই সহায়তা ব্যবস্থার সাহায্যে একটি তৈরি করতে পারবেন।"
-
-# modified for RHEL
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "প্রথম ধাপ: গোপনীয়তা সংক্রান্ত Red Hat'র বিবৃতি পড়ুন"
-
-# modified for RHEL
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Red Hat Network শর্তাবলী পর্যালোচনা করুন"
-
-#~ msgid ""
-#~ "Are you sure you don't want to connect your system to Red Hat Network? "
-#~ "You'll miss out on the benefits of a Red Hat Enterprise Linux "
-#~ "subscription:\n"
-#~ "\n"
-#~ "Security & Updates:\n"
-#~ "Receive the latest software updates, including security updates, keeping "
-#~ "this Red Hat Enterprise Linux system updated and secure.\n"
-#~ "\n"
-#~ "Downloads & Upgrades:\n"
-#~ "Download installation images for Red Hat Enterprise Linux releases, "
-#~ "including new releases.\n"
-#~ "\n"
-#~ "Support:\n"
-#~ "Access to the technical support experts at Red Hat or Red Hat's partners "
-#~ "for help with any issues you might encounter with this system.\n"
-#~ "\n"
-#~ "Compliance:\n"
-#~ "Stay in compliance with your subscription agreement and manage "
-#~ "subscriptions for systems connected to your account at http://rhn.redhat."
-#~ "com/.\n"
-#~ "\n"
-#~ "You will not be able to take advantage of these subscription privileges "
-#~ "without connecting your system to Red Hat Network.\n"
-#~ "\n"
-#~ "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-#~ "privacy_statement.html"
-#~ msgstr ""
-#~ "আপনি কি নিশ্চিতরূপে Red Hat Network'এ আপনার সিস্টেম সংযোগ না করতে ইচ্ছুক? Red "
-#~ "Hat Enterprise Linux সাবস্ক্রিপশনের সাথে প্রাপ্ত সুযোগ সুবিধার লাভ আপনি নিতে "
-#~ "পারবেন না:\n"
-#~ "\n"
-#~ "নিরাপত্তা ও আপডেট:\n"
-#~ "নিরাপত্তা সংক্রান্ত আপডেট সহ সর্বশেষ সফ্টওয়্যার আপডেট প্রাপ্ত করুন ও এই Red Hat "
-#~ "Enterprise Linux সিস্টমটি নিরাপদ ও আপডেট করা অবস্থায় রাখুন।\n"
-#~ "\n"
-#~ "ডাউনলোড ও আপগ্রেড:\n"
-#~ "Red Hat Enterprise Linux রিলিজের ইনস্টলেশন ইমেজ ডাউনলোড করুন, যেমন নতুন "
-#~ "রিলিজ।\n"
-#~ "\n"
-#~ "সহায়তা:\n"
-#~ "সিস্টেম সংক্রান্ত কোনো ধরনের সমস্যার সুরাহা করতে Red Hat অথবা Red Hat'র "
-#~ "সহযোগীদের প্রযুক্তিগত বিশেষজ্ঞদের সহায়তা প্রাপ্ত করুন। সুসংগতি:\n"
-#~ "সাবস্ক্রিপশন চুক্তিপত্রের শর্তানুযায়ী http://www.rhn.redhat.com'এ আপনার "
-#~ "অ্যাকাউন্টের সাথে যুক্ত সিস্টেমগুলির সাবস্ক্রিপশন পরিচালনা করুন।\n"
-#~ "\n"
-#~ "Red Hat Network'র সাথে সিস্টেমটি সংযুক্ত না করা হলে সাবস্ক্রিপশনের সাথে প্রাপ্ত "
-#~ "সুযোগ সুবিধার লাভ নেওয়া সম্ভব হবে না।\n"
-#~ "\n"
-#~ "টিকা: আপনার ব্যক্তিগত তথ্য আমরা গোপন রাখি: http://www.redhat.com/legal/"
-#~ "privacy_statement.html"
-
-#~ msgid "No thanks.  I'll connect later."
-#~ msgstr "না ধন্যবাদ।  পরে কোনো সময়ে নিবন্ধন করা হবে।"
-
-# modified for RHEL
-#~ msgid "Create a New Login ..."
-#~ msgstr "নতুন লগ-ইন নির্মাণ করুন ..."
-
-# modified for RHEL
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "আপনার লেখা পাসওয়ার্ড দুটিতে গরমিল রয়েছে।  অনুগ্রহ করে পুনরায় পাসওয়ার্ডগুলি লিখুন।"
-
-# modified for RHEL
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "একটি নতুন Red Hat লগ-ইন নির্মাণ করুন"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login for use with Red Hat "
-#~ "Network (http://rhn.redhat.com/).  Required information is marked with a "
-#~ "'*':"
-#~ msgstr ""
-#~ "Red Hat Network'এ (http://rhn.redhat.com) ব্যবহারের জন্য নতুন Red Hat লগ-ইন "
-#~ "নির্মাণের জন্য নিম্নলিখিত ফর্মে মান পূরণ করুন। '*' দ্বারা চিহ্নিত মান উল্লেখ করা "
-#~ "আবশ্যক:"
-
-#~ msgid "*Desired Login:"
-#~ msgstr "*পছন্দসই লগ-ইন নাম:"
-
-#~ msgid "Examples: user@domain.com"
-#~ msgstr "উদাহরণস্বরূপ: user@domain.com"
-
-# modified for RHEL
-#~ msgid "*Desired Password:"
-#~ msgstr "*পছন্দসই পাসওয়ার্ড:"
-
-# modified for RHEL
-#~ msgid "*Confirm Password:"
-#~ msgstr "* পাসওয়ার্ড নিশ্চায়ন:"
-
-#~ msgid "Tip: Leave blank if not with a company."
-#~ msgstr "টিকা: কোনো প্রতিষ্ঠানের সাথে যুক্ত না হলে অনুগ্রহ করে ফাঁকা রাখুন।"
-
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr ""
-#~ "টিকা: আপনার ব্যক্তিগত তথ্য আমরা গোপন রাখি।  গোপনীয়তা সংক্রান্ত নথি পড়ুন: http://"
-
-# modified for RHEL
-#~ msgid "Please enter your first name."
-#~ msgstr "আপনার নামের প্রথমাংশ লিখুন।"
-
-# modified for RHEL
-#~ msgid "Please enter your last name."
-#~ msgstr "আপনার পদবি লিখুন।"
-
-# modifid for RHEL
-#~ msgid "Please enter your email address."
-#~ msgstr "আপনার ই-মেইল ঠিকানা লিখুন।"
-
-# modfified for RHEL
-#~ msgid "Please enter a valid email address."
-#~ msgstr "একটি বৈধ ই-মেইল ঠিকানা লিখুন।"
-
-# FIXME
-#~ msgid "Please enter your country."
-#~ msgstr "আপনার দেশের নাম লিখুন।"
-
-#~ msgid "Please enter a longer login."
-#~ msgstr "অনুগ্রহ করে দীর্ঘ মাপের লগ-ইন লিখুন।"
-
-# modified for RHEL
-#~ msgid "Please enter a longer password."
-#~ msgstr "এর থেকে দীর্ঘ পাসওয়ার্ড লিখুন।"
-
-# modified for RHEL
-#~ msgid "Please enter a shorter password."
-#~ msgstr "ছোট পাসওয়ার্ড লিখুন।"
-
-#~ msgid ""
-#~ "It appears this system has attempted to register to the Red Hat Network.\n"
-#~ "The system may already be set up for software updates.\n"
-#~ "\n"
-#~ "Are you sure you would like to continue?"
-#~ msgstr ""
-#~ "এই সিস্টেমটি Red Hat Network'এ নিবন্ধন করার প্রচেষ্টা করা হয়েছিল।\n"
-#~ "সিস্টেমটি সম্ভবত সফ্টওয়্যার আপডেট প্রাপ্ত করার উদ্দেশ্যে প্রস্তুত করা হয়েছে। \n"
-#~ "\n"
-#~ "আপনি কি নিশ্চিতরূপে এগিয়ে যেতে ইচ্ছুক?"
-
-#~ msgid "Select Organization"
-#~ msgstr "প্রতিষ্ঠান নির্বাচন করুন"
-
-#~ msgid ""
-#~ "Your login, %s, is associated with multiple organizations.  You will need "
-#~ "to select an organization to connect this system to."
-#~ msgstr ""
-#~ "আপনার অ্যাকাউন্ট %s একাধিক প্রতিষ্ঠানের সাথে যুক্ত। সিস্টেমটি নিবন্ধনের উদ্দেশ্যে "
-#~ "একটি প্রতিষ্ঠান নির্বাচন করা আবশ্যক।"
-
-#~ msgid "Organization:"
-#~ msgstr "প্রতিষ্ঠান:"
-
-# modified for RHEL
-#~ msgid "You must select an organization."
-#~ msgstr "একটি প্রতিষ্ঠান নির্বাচন করা আবশ্যক।"
-
-# modified for RHEL
-#~ msgid "Access a subscription"
-#~ msgstr "একটি সাবস্ক্রিপশন ব্যবহার করুন"
-
-#~ msgid ""
-#~ "You have no active subscriptions available in your account.  You will "
-#~ "need to do one of the following to create an active subscription in your "
-#~ "account before this system can connect to Red Hat Network:"
-#~ msgstr ""
-#~ "আপনার অ্যাকাউন্টের সাথে কোনো সক্রিয় সাবস্ক্রিপশন উপস্থিত নেই।  এই সিস্টেমটিকে "
-#~ "Red Hat Network'র সাথে সংযুক্ত করার পূর্বে নিম্নলিখিত যে কোনো একটি কর্মের "
-#~ "সাহায্যে একটি সক্রিয় সাবস্ক্রিপশন নির্মাণ করুন:"
-
-#~ msgid "Activate a new subscription with an installation number:"
-#~ msgstr "ইনস্টলেশন সংখ্যা সহযোগে নতুন সাবস্ক্রিপশন সংখ্যা সক্রিয় করুন:"
-
-#~ msgid ""
-#~ "You have already activated this installation number during this "
-#~ "registration."
-#~ msgstr "নিবন্ধনের সময় এই ইনস্টলেশন সংখ্যা পূর্বে সক্রিয় করা হয়েছে।"
-
-# modified for RHEL
-#~ msgid "Installation Number:"
-#~ msgstr "ইনস্টলেশন সংখ্যা:"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "উদাহরণ: XXXX-XXXX-XXXX-XXXX-XXXX"
-
-#~ msgid ""
-#~ "Congratulations, you have successfully completed software updates set up "
-#~ "for this system.\n"
-#~ "\n"
-#~ "Your system is now ready to receive the software updates that will keep "
-#~ "it secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of you desktop (usually in the upper-"
-#~ "right corner.) Clicking on this icon, when available, will guide you "
-#~ "through applying any updates that are available."
-#~ msgstr ""
-#~ "অভিনন্দন, এই সিস্টেমের জন্য নির্ধারিত সফ্টওয়্যার আপডেট সাফল্যের সাথে সম্পন্ন করা "
-#~ "হয়েছে।\n"
-#~ "\n"
-#~ "সিস্টেমটি নিরাপদ ও সমর্থিত রাখতে প্রয়োজনীয় সফ্টওয়্যার আপডেট প্রাপ্ত করার উদ্দেশ্যে "
-#~ "আপনার সিস্টেমটি এখন প্রস্তুত।\n"
-#~ "\n"
-#~ "সফ্টওয়্যার আপডেট উপলব্ধ থাকলে আপনার ডেস্কটপের সূচনাপ্রদানের অংশে (সাধারণত উপরে "
-#~ "ডান-দিকে) একটি প্যাকেজ আইকন প্রদর্শিত হবে। এই আইকনটি ক্লিক করে উপলব্ধ আপডেটগুলি "
-#~ "প্রয়োগ করার প্রয়োজনীয় পদ্ধতি অনুসরণ করা যাবে:"
-
-#~ msgid "Subscriptions Activated:"
-#~ msgstr "সক্রিয় করা সাবস্ক্রিপশন:"
-
-#~ msgid ""
-#~ "A subscription-activating installation number was found on disk, but we "
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing active subscription slots available in the rhn account instead. "
-#~ "You may wish to contact Red Hat customer service regarding this issue: "
-#~ "http://www.redhat.com/apps/support/"
-#~ msgstr ""
-#~ "ডিস্কের মধ্যে সাবস্ক্রিপশন সক্রিয়করণের জন্য একটি ইনস্টলেশন সংখ্যা সনাক্ত করা গেলেও "
-#~ "এটি সক্রিয় করা যায়নি (অজানা সমস্যা)। পরিবর্তে rhn অ্যাকাউন্টে উপস্থিত সক্রিয় "
-#~ "সাবস্ক্রিশনের স্লট ব্যবহার করা হয়েছে। প্রয়োজনে এই সমস্যার জন্য Red Hat'র গ্রাহক "
-#~ "পরিসেবা ব্যবস্থায় যোগাযোগ করুন: http://www.redhat.com/apps/support/"
-
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr ""
-#~ "ডিস্কের মধ্যে সাবস্ক্রিপশন সক্রিয়করণের জন্য একটি ইনস্টলেশন সংখ্যা সনাক্ত করা "
-
-#~ msgid ""
-#~ "The installation number you have provided (%s) is invalid.\n"
-#~ "\n"
-#~ "Please check the number and try again or try another option listed on the "
-#~ "'Access a Subscription' screen."
-#~ msgstr ""
-#~ "প্রদত্ত ইনস্টলেশন সংখ্যা (%s) বৈধ নয়।\n"
-#~ "\n"
-#~ "অনুগ্রহ করে সংখ্যাটি পরীক্ষা করে পুনরায় প্রচেষ্টা করুন অথবা 'Access a "
-#~ "Subscription' পৃষ্ঠায় তালিকাভুক্ত একটি পৃথক বিকল্প প্রয়োগ করুন।"
-
-#~ msgid ""
-#~ "The installation number you provided is valid but was already activated "
-#~ "and the subscriptions have already been used by systems in your "
-#~ "organization or is not usable for this system.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed on the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "প্রদত্ত ইনস্টলেশন সংখ্যা বৈধ হলেও পূর্বেই সক্রিয় করা হয়েছে এবং আপনার প্রতিষ্ঠানের "
-#~ "সিস্টেমের দ্বারা সাবস্ক্রিপশন ব্যবহৃত হয়েছে অথবা এই সিস্টেমে এটি ব্যবহারযোগ্য নয়।\n"
-#~ "\n"
-#~ "অনুগ্রহ করে একটি পৃথক সংখ্যা উল্লেখ করুন অথবা 'Access a Subscription' পৃষ্ঠায় "
-#~ "তালিকাভুক্ত একটি পৃথক বিকল্প প্রয়োগ করুন।"
-
-#~ msgid ""
-#~ "The installation number you provided does not have subscriptions "
-#~ "associated with it.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed in the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "উল্লিখিত ইনস্টলেশন সংখ্যা কোনো সাবস্ক্রিপশনের সাথে যুক্ত নয়।\n"
-#~ "\n"
-#~ "অনুগ্রহ করে একটি পৃথক সংখ্যা উল্লেখ করুন অথবা 'Access a Subscription' পৃষ্ঠায় "
-#~ "তালিকাভুক্ত একটি পৃথক বিকল্প প্রয়োগ করুন।"
-
-# modified for RHEL
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "লগ-ইন করতে সমস্যা:\n"
-#~ "%s"
-
-# modified for RHEL
-#~ msgid "There was problem logging in."
-#~ msgstr "লগ-ইন করতে সমস্যা।"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "প্রোফাইলের মধ্যে মান পূরণ করতে সমস্যা।"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "একটি ইনস্টলেশন সংখ্যা উল্লেখ করা আবশ্যক।"
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Red Hat Network'র সাথে তথ্য বিনিময়ে সমস্যা।"
-
-#~ msgid "This installation number has already been activated."
-#~ msgstr "উল্লিখিত ইনস্টলেশন সংখ্যা পূর্বে সক্রিয় করা হয়েছে।"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "প্রোফাইলের মধ্যে মান পূরণ করতে সমস্যা।"
-
-#~ msgid "Unable to access the server. Please check your network settings."
-#~ msgstr ""
-#~ "সার্ভারের ব্যবহারের সমস্যা। অনুগ্রহ করে নেটওয়ার্ক সংক্রান্ত বৈশিষ্ট্য পরীক্ষা করুন।"
-
-#~ msgid ""
-#~ "The server you are attempting to register against does not support this "
-#~ "version of the client."
-#~ msgstr ""
-#~ "নিবন্ধনের জন্য যে সার্ভারের সাথে সংযোগের প্রয়াস করা হচ্ছে সেটির দ্বারা "
-#~ "ক্লায়েন্টের এই সংস্করণ সমর্থিত হয় না।"
-
-# modified for RHEL
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "আপনার অ্যাকাউন্টে সাবস্ক্রিপশন সক্রিয়কারী একটি "
-
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "লগ-ইন নাম নিবন্ধনে সমস্যা:\n"
-
-#~ msgid "Problem registering login name."
-#~ msgstr "লগ-ইন নাম নিবন্ধনে সমস্যা।"
-
-#~ msgid ", quantity:"
-#~ msgstr ", মাপ:"
-
-# modifed for RHEL
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network'র অবস্থান: "
-
-# modified for RHEL
-#~ msgid "Access Subscription"
-#~ msgstr "সাবস্ক্রিপশন প্রয়োগ করুন"
-
-#~ msgid "Choose Organization"
-#~ msgstr "প্রতিষ্ঠান নির্বাচন করুন"
-
-#~ msgid "Choose an organization to use with this username"
-#~ msgstr "এই ব্যবহারকারীর সাথে ব্যবহার করার জন্য প্রতিষ্ঠানের নাম নির্বাচন করুন"
-
-# modifid for RHEL
-#~ msgid "Specify an email address"
-#~ msgstr "একটি ই-মেইল ঠিকানা উল্লেখ করুন"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "ব্যবহারের জন্য সাবস্ক্রিপশন সংখ্যা উল্লেখ করুন"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "নিবন্ধন সংক্রান্ত গুরুত্বপূর্ণ তথ্য"
-
-# FIXME
-#~ msgid "Registration information"
-#~ msgstr "নিবন্ধন সংক্রান্ত তথ্য"
-
-#~ msgid "Select organization"
-#~ msgstr "প্রতিষ্ঠান নির্বাচন করুন"
-
-#~ msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
-#~ msgstr "<small><b>টিকা:</b> আপনার ব্যক্তিগত তথ্য আমরা গোপন রাখি।</small>"
-
-# modified for RHEL
-#~ msgid "Privacy Statement"
-#~ msgstr "গোপনীয়তা সংক্রান্ত বিবৃতি"
-
-# modified for RHEL
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Red Hat'র গোপনীয়তা সংক্রান্ত বিবৃতি"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your account is associated with multiple <b>organizations</b>. You will "
-#~ "need to select an organization to register this system to."
-#~ msgstr ""
-#~ "আপনার অ্যাকাউন্ট একাধিক <b>প্রতিষ্ঠানের</b> সাথে যুক্ত। সিস্টেমটি নিবন্ধনের "
-#~ "উদ্দেশ্যে একটি প্রতিষ্ঠান নির্বাচন করা আবশ্যক।"
-
-#~ msgid "_Organization:"
-#~ msgstr "প্রতিষ্ঠান:(_O)"
-
-#~ msgid ""
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing "
-#~ msgstr ""
-#~ "গেলেও এটি সক্রিয় করা যায়নি (অজানা সমস্যা)। পরিবর্তে rhn অ্যাকাউন্টে উপস্থিত "
-
-#~ msgid ""
-#~ "active subscription slots available in the rhn account instead. You may "
-#~ "wish "
-#~ msgstr ""
-#~ "সক্রিয় সাবস্ক্রিশনের স্লট ব্যবহার করা হয়েছে। প্রয়োজনে এই সমস্যার জন্য Red Hat'র "
-
-#~ msgid "to contact Red Hat customer service regarding this issue: "
-#~ msgstr "গ্রাহক পরিসেবা ব্যবস্থায় যোগাযোগ করুন: "
-
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "http://www.redhat.com/apps/support/"
-
-# modified for RHEL
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "ইনস্টলেশন সংখ্যা উল্লেখ করা আবশ্যক।"
-
-# modified for RHEL
-#~ msgid "Error reading hardware information:"
-#~ msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য পড়তে সমস্যা:"
-
-# modified for RHEL
-#~ msgid "Error reading DMI information:"
-#~ msgstr "DMI সংক্রান্ত তথ্য পড়তে সমস্যা:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "ঐ ব্যবহারকারীর-অ্যাকাউন্ট এবং পাসওয়ার্ড বৈধ নয়\n"
-
-# modified for RHEL
-#~ msgid "You must enter and verify a password."
-#~ msgstr "পাসওয়ার্ড লিখে, সেটির বৈধতা পরীক্ষা করা আবশ্যক।"
-
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "লগ-ইন নিবন্ধনে সমস্যা:\n"
-#~ "%s"
-
-#~ msgid "Problem registering login."
-#~ msgstr "লগ-ইন নিবন্ধনে সমস্যা।"
-
-#~ msgid "Canada"
-#~ msgstr "কানাডা"
-
-# FIXME
-#~ msgid "Login Information:"
-#~ msgstr "লগ-ইন সংক্রান্ত তথ্য:"
-
-#~ msgid "Account Information:"
-#~ msgstr "অ্যাকাউন্ট সংক্রান্ত তথ্য:"
-
-# modified for RHEL
-#~ msgid "*First Name:"
-#~ msgstr "*নাম:"
-
-# modified for RHEL
-#~ msgid "*Last Name:"
-#~ msgstr "*পদবি:"
-
-# modified for RHEL
-#~ msgid "*Company Name:"
-#~ msgstr "*কোম্পানি:"
-
-# modified for RHEL
-#~ msgid "Street Address:"
-#~ msgstr "ঠিকানা:"
-
-#~ msgid "City:"
-#~ msgstr "শহর:"
-
-#~ msgid "State/Province:"
-#~ msgstr "রাজ্য/প্রদেশ:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "জিপ/পোস্ট কোড:"
-
-#~ msgid "*Country:"
-#~ msgstr "*দেশ:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  দ্বিতীয় ঠিকানা:"
-
-#~ msgid "  Address:"
-#~ msgstr "  ঠিকানা:"
-
-# modified for RHEL
-#~ msgid "  C_ity:"
-#~ msgstr "  শহর:(_i)"
-
-# modified for RHEL
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "* প্রতিষ্ঠানের নাম:(_m)"
-
-# modified for RHEL
-#~ msgid "  _State/Province:"
-#~ msgstr "  রাজ্য/প্রদেশ:(_S)"
-
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "  জিপ/পোস্টাল কোড:(_Z)"
-
-# modified for RHEL
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* পাসওয়ার্ড নিশ্চায়ন:(_o)"
-
-# modified for RHEL
-#~ msgid "* Co_untry:"
-#~ msgstr "* দেশ:(_u)"
-
-# modified for RHEL
-#~ msgid "* Desired _Login:"
-#~ msgstr "* পছন্দসই লগ-ইন:(_L)"
-
-# modified for RHEL
-#~ msgid "* Desired _Password:"
-#~ msgstr "* পছন্দসই পাসওয়ার্ড: (_P)"
-
-# modified for RHEL
-#~ msgid "* Last _Name:"
-#~ msgstr "* পদবি:(_N"
-
-# modified for RHEL
-#~ msgid "* _Email Address: "
-#~ msgstr "* ই-মেইল ঠিকানা: (_E)"
-
-# modified for RHEL
-#~ msgid "* _First Name:"
-#~ msgstr "* নাম:(_F)"
-
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "<b>অ্যাকাউন্ট সংক্রান্ত তথ্য:</b>"
-
-# FIXME
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "<b>লগ-ইন সংক্রান্ত তথ্য:</b>"
-
-#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
-#~ msgstr "<small><b>উদাহরণ:</b> user@domain.com</small>"
-
-#~ msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
-#~ msgstr ""
-#~ "<small><b>টিকা:</b> কোনো প্রতিষ্ঠানের সাথে যুক্ত না হলে অনুগ্রহ করে ফাঁকা রাখুন।</"
-#~ "small>"
-
-#~ msgid "Afghanistan"
-#~ msgstr "আফগানিস্তান"
-
-#~ msgid "Albania"
-#~ msgstr "আলবেনিয়া"
-
-#~ msgid "Algeria"
-#~ msgstr "আলজেরিয়া"
-
-#~ msgid "American Samoa"
-#~ msgstr "আমেরিকান সামোয়া"
-
-#~ msgid "Andorra"
-#~ msgstr "অ্যান্ডোরা"
-
-#~ msgid "Angola"
-#~ msgstr "অ্যাঙ্গোলা"
-
-#~ msgid "Anguilla"
-#~ msgstr "অ্যাঙ্গুইল্লা"
-
-#~ msgid "Antarctica"
-#~ msgstr "অ্যান্টার্টিকা"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "অ্যান্টিগুয়া ও বারবুডা"
-
-#~ msgid "Argentina"
-#~ msgstr "আর্জেন্টিনা"
-
-#~ msgid "Armenia"
-#~ msgstr "আর্মেনিয়া"
-
-#~ msgid "Aruba"
-#~ msgstr "আরুবা"
-
-#~ msgid "Australia"
-#~ msgstr "অস্ট্রেলিয়া"
-
-#~ msgid "Austria"
-#~ msgstr "অস্ট্রিয়া"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "আজারবাইজান"
-
-#~ msgid "Bahamas"
-#~ msgstr "বাহামাস"
-
-#~ msgid "Bahrain"
-#~ msgstr "বাহরাইন"
-
-#~ msgid "Bangladesh"
-#~ msgstr "বাংলাদেশ"
-
-#~ msgid "Barbados"
-#~ msgstr "বার্বাডোস"
-
-#~ msgid "Belarus"
-#~ msgstr "বেলারুস"
-
-#~ msgid "Belgium"
-#~ msgstr "বেলজিয়াম"
-
-#~ msgid "Belize"
-#~ msgstr "বেলিজে"
-
-#~ msgid "Benin"
-#~ msgstr "বেনিন"
-
-#~ msgid "Bermuda"
-#~ msgstr "বারমুডা"
-
-#~ msgid "Bhutan"
-#~ msgstr "ভুটান"
-
-#~ msgid "Bolivia"
-#~ msgstr "বলিভিয়া"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "বসনিয়া ও হার্জেগভিনা"
-
-# modifed for RHEL
-#~ msgid "Botswana"
-#~ msgstr "বোতস্‍‌ওয়ানা"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "বুভে দ্বীপ"
-
-#~ msgid "Brazil"
-#~ msgstr "ব্রাজিল"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "ব্রিটিশ ভারতীয় মহাসাগরীয় অঞ্চল"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "ব্রুনেই দারুসলাম"
-
-#~ msgid "Bulgaria"
-#~ msgstr "বুলগেরিয়া"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "বারকিনা ফাসো"
-
-#~ msgid "Burundi"
-#~ msgstr "বুরুন্ডি"
-
-# modified for RHEL
-#~ msgid "C_reate new login"
-#~ msgstr "নতুন লগ-ইন তৈরি করুন (_r)"
-
-#~ msgid "Cambodia"
-#~ msgstr "কাম্বোডিয়া"
-
-#~ msgid "Cameroon"
-#~ msgstr "ক্যামেরুন"
-
-#~ msgid "Cape Verde"
-#~ msgstr "কেপ ভার্ডে"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "কেম্যান দ্বীপ"
-
-#~ msgid "Central African Republic"
-#~ msgstr "মধ্য আফ্রিকা প্রজাতন্ত্র"
-
-# modifed for RHEL
-#~ msgid "Chad"
-#~ msgstr "চাড"
-
-#~ msgid "Chile"
-#~ msgstr "চিলি"
-
-#~ msgid "China"
-#~ msgstr "চীন"
-
-#~ msgid "Christmas Island"
-#~ msgstr "ক্রিস্টমাস দ্বীপ"
-
-# msgstr "কোকোস (নেলিং) দ্বীপ"
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "কোকোস (কীলিং) দ্বীপপুঞ্জ"
-
-#~ msgid "Colombia"
-#~ msgstr "কলোম্বিয়া"
-
-#~ msgid "Comoros"
-#~ msgstr "কমোরোস"
-
-#~ msgid "Congo"
-#~ msgstr "কঙ্গো"
-
-#~ msgid "Cook Islands"
-#~ msgstr "কুক দ্বীপপুঞ্জ"
-
-#~ msgid "Costa Rica"
-#~ msgstr "কোস্টা রিকা"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "আইভরি কোস্ট"
-
-# modified for RHEL
-#~ msgid "Create a _New Login"
-#~ msgstr "নতুন লগ-ইন নির্মাণ করুন (_N)"
-
-# modified for RHEL
-#~ msgid "Create a new Red Hat Network login"
-#~ msgstr "একটি নতুন Red Hat Network লগ-ইন নির্মাণ করুন"
-
-#~ msgid "Croatia"
-#~ msgstr "ক্রোয়েশিয়া"
-
-#~ msgid "Cuba"
-#~ msgstr "কিউবা"
-
-#~ msgid "Cyprus"
-#~ msgstr "সাইপ্রাস"
-
-#~ msgid "Czech Republic"
-#~ msgstr "চেক প্রজাতন্ত্র"
-
-#~ msgid "Denmark"
-#~ msgstr "ডেনমার্ক"
-
-#~ msgid "Djibouti"
-#~ msgstr "জিবুতি"
-
-#~ msgid "Dominica"
-#~ msgstr "ডোমেনিকা"
-
-# FIXME
-#~ msgid "Dominican Republic"
-#~ msgstr "ডোমিনিকান প্রজাতন্ত্র"
-
-#~ msgid "East Timor"
-#~ msgstr "পূর্ব তিমূর"
-
-#~ msgid "Ecuador"
-#~ msgstr "ইকুয়েডর"
-
-#~ msgid "Egypt"
-#~ msgstr "মিশর"
-
-#~ msgid "El Salvador"
-#~ msgstr "এল সালভাডর"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "ইকুয়েটোরিয়েল গিনি"
-
-#~ msgid "Eritrea"
-#~ msgstr "ইরিত্রিয়া"
-
-#~ msgid "Estonia"
-#~ msgstr "এস্টোনিয়া"
-
-#~ msgid "Ethiopia"
-#~ msgstr "ইথিওপিয়া"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "ফকল্যান্ড দ্বীপপুঞ্জ (মালভিনাস)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "ফারাও দ্বীপপুঞ্জ"
-
-#~ msgid "Fiji"
-#~ msgstr "ফিজি"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login. Required "
-#~ "information is marked with a '*':"
-#~ msgstr ""
-#~ "নতুন Red Hat লগ-ইন নির্মাণের জন্য নিম্নলিখিত ফর্মে মান পূরণ করুন। '*' দ্বারা "
-#~ "চিহ্নিত মান উল্লেখ করা আবশ্যক:"
-
-#~ msgid "Finland"
-#~ msgstr "ফিনল্যান্ড"
-
-#~ msgid "France"
-#~ msgstr "ফ্রান্স"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "ফ্রান্স, মেট্রোপলিটান"
-
-#~ msgid "French Guiana"
-#~ msgstr "ফ্রেঞ্চ গিয়ানা"
-
-#~ msgid "French Polynesia"
-#~ msgstr "ফ্রেঞ্চ পলিনেশিয়া"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "ফ্রেঞ্চ দক্ষিণ অঞ্চল"
-
-#~ msgid "Gabon"
-#~ msgstr "গেবন"
-
-#~ msgid "Gambia"
-#~ msgstr "গাম্বিয়া"
-
-#~ msgid "Georgia"
-#~ msgstr "জর্জিয়া"
-
-#~ msgid "Germany"
-#~ msgstr "জার্মানি"
-
-#~ msgid "Ghana"
-#~ msgstr "ঘানা"
-
-#~ msgid "Gibraltar"
-#~ msgstr "জিব্রাল্টার"
-
-#~ msgid "Greece"
-#~ msgstr "গ্রিস"
-
-#~ msgid "Greenland"
-#~ msgstr "গ্রিনল্যান্ড"
-
-#~ msgid "Grenada"
-#~ msgstr "গ্রানাডা"
-
-# modifed for RHEL
-#~ msgid "Guadeloupe"
-#~ msgstr "গুয়াডিলুপ"
-
-#~ msgid "Guam"
-#~ msgstr "গুয়াম"
-
-#~ msgid "Guatemala"
-#~ msgstr "গুয়াতেমালা"
-
-#~ msgid "Guinea"
-#~ msgstr "গিনি"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "গিনি-বিসাউ"
-
-#~ msgid "Guyana"
-#~ msgstr "গায়ানা"
-
-#~ msgid "Haiti"
-#~ msgstr "হাইতি"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "হার্ড দ্বীপ এবং ম্যাকডোনাল্ড দ্বীপপুঞ্জ"
-
-#~ msgid "Honduras"
-#~ msgstr "হন্ডুরাস"
-
-#~ msgid "Hong Kong"
-#~ msgstr "হং কং"
-
-#~ msgid "Hungary"
-#~ msgstr "হাঙ্গেরি"
-
-#~ msgid "Iceland"
-#~ msgstr "আইসল্যান্ড"
-
-#~ msgid "India"
-#~ msgstr "ভারত"
-
-#~ msgid "Indonesia"
-#~ msgstr "ইন্দোনেশিয়া"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "ইরান (ইসলামিক প্রজাতন্ত্র)"
-
-#~ msgid "Iraq"
-#~ msgstr "ইরাক"
-
-#~ msgid "Ireland"
-#~ msgstr "আয়ারল্যান্ড"
-
-# modifed for RHEL
-#~ msgid "Israel"
-#~ msgstr "ইজরাইল"
-
-#~ msgid "Italy"
-#~ msgstr "ইটালি"
-
-#~ msgid "Jamaica"
-#~ msgstr "জামাইকা"
-
-#~ msgid "Japan"
-#~ msgstr "জাপান"
-
-#~ msgid "Jordan"
-#~ msgstr "জর্ডান"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "কাজাখস্তান"
-
-#~ msgid "Kenya"
-#~ msgstr "কেনিয়া"
-
-# modified for RHEL
-# this is definitely pronouncd as "kee-ree-bus
-#~ msgid "Kiribati"
-#~ msgstr "কিরিবাস"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "কোরিয়া, গণতন্ত্রী গণ প্রজাতন্ত্রী"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "কোরিয়া, প্রজাতন্ত্র"
-
-#~ msgid "Kuwait"
-#~ msgstr "কুয়েত"
-
-# modifed for RHEL
-#~ msgid "Kyrgyzstan"
-#~ msgstr "কির্গিজস্তান"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "গণ প্রজাতন্ত্রী গণতন্ত্রী লাওস"
-
-# modifed for RHEL
-#~ msgid "Latin America"
-#~ msgstr "লাতিন আমেরিকা"
-
-#~ msgid "Latvia"
-#~ msgstr "লাতভিয়া"
-
-#~ msgid "Lebanon"
-#~ msgstr "লেবানন"
-
-#~ msgid "Lesotho"
-#~ msgstr "লেসোথো"
-
-#~ msgid "Liberia"
-#~ msgstr "লাইবেরিয়া"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "লিবিয়ান আরব জামাহিরিয়া"
-
-# modifed for RHEL
-#~ msgid "Liechtenstein"
-#~ msgstr "লিখতেনস্টাইন"
-
-#~ msgid "Lithuania"
-#~ msgstr "লিথুয়ানিয়া"
-
-#~ msgid "Luxembourg"
-#~ msgstr "লুক্সেমবুর্গ"
-
-#~ msgid "Macau"
-#~ msgstr "ম্যাকাও"
-
-#~ msgid "Macedonia"
-#~ msgstr "মেসিডোনিয়া"
-
-#~ msgid "Madagascar"
-#~ msgstr "মাদাগাস্কার"
-
-#~ msgid "Malawi"
-#~ msgstr "মালাউই"
-
-#~ msgid "Malaysia"
-#~ msgstr "মালয়েশিয়া"
-
-#~ msgid "Maldives"
-#~ msgstr "মালদ্বীপ"
-
-#~ msgid "Mali"
-#~ msgstr "মালি"
-
-#~ msgid "Malta"
-#~ msgstr "মালটা"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "মার্শাল দ্বীপপুঞ্জ"
-
-#~ msgid "Martinique"
-#~ msgstr "মার্টিনিক"
-
-# modified for RHEL
-#~ msgid "Mauritania"
-#~ msgstr "মরিটানিয়া"
-
-#~ msgid "Mauritius"
-#~ msgstr "মরিশাস"
-
-#~ msgid "Mayotte"
-#~ msgstr "মেওটি"
-
-#~ msgid "Mexico"
-#~ msgstr "মেক্সিকো"
-
-# modified for RHEL
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "মাইক্রোনেশিয়া (যুক্তরাষ্ট্রীয়)"
-
-#~ msgid "Moldova"
-#~ msgstr "মলডোভা"
-
-#~ msgid "Monaco"
-#~ msgstr "মোনাকো"
-
-#~ msgid "Mongolia"
-#~ msgstr "মঙ্গোলিয়া"
-
-# msgstr "মনটেসরাত"
-#~ msgid "Montserrat"
-#~ msgstr "মন্টসেরাত"
-
-#~ msgid "Morocco"
-#~ msgstr "মরোক্কো"
-
-#~ msgid "Mozambique"
-#~ msgstr "মোজাম্বিক"
-
-#~ msgid "Myanmar"
-#~ msgstr "মায়ানমার"
-
-#~ msgid "Namibia"
-#~ msgstr "নামিবিয়া"
-
-#~ msgid "Nauru"
-#~ msgstr "নাউরু"
-
-#~ msgid "Nepal"
-#~ msgstr "নেপাল"
-
-#~ msgid "Netherlands"
-#~ msgstr "নেদারল্যান্ড"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "নেদারল্যান্ড অ্যান্টিলিস"
-
-#~ msgid "New Caledonia"
-#~ msgstr "নিউ ক্যালিডনিয়া"
-
-#~ msgid "New Zealand"
-#~ msgstr "নিউজিল্যান্ড"
-
-#~ msgid "Nicaragua"
-#~ msgstr "নিকারাগুয়া"
-
-#~ msgid "Niger"
-#~ msgstr "নাইজার"
-
-#~ msgid "Nigeria"
-#~ msgstr "নাইজেরিয়া"
-
-# FIXME
-#~ msgid "Niue"
-#~ msgstr "নিউ"
-
-# msgstr "নাইউ"
-#~ msgid "Norfolk Island"
-#~ msgstr "নরফোক দ্বীপ"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "উত্তর মারিয়ানা দ্বীপপুঞ্জ"
-
-#~ msgid "Norway"
-#~ msgstr "নরওয়ে"
-
-#~ msgid "Oman"
-#~ msgstr "ওমান"
-
-#~ msgid "Pakistan"
-#~ msgstr "পাকিস্তান"
-
-#~ msgid "Palau"
-#~ msgstr "পালাউ"
-
-#~ msgid "Panama"
-#~ msgstr "পানামা"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "পাপুয়া নিউ গিনি"
-
-#~ msgid "Paraguay"
-#~ msgstr "প্যারাগুয়ে"
-
-#~ msgid "Peru"
-#~ msgstr "পেরু"
-
-#~ msgid "Philippines"
-#~ msgstr "ফিলিপাইনস"
-
-#~ msgid "Pitcairn"
-#~ msgstr "পিটকেয়ার্ন"
-
-#~ msgid "Poland"
-#~ msgstr "পোল্যান্ড"
-
-#~ msgid "Portugal"
-#~ msgstr "পর্তুগাল"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "পুয়ের্তো রিকো"
-
-#~ msgid "Qatar"
-#~ msgstr "কাতার"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr "Red Hat লগ-ইন ও পাসওয়ার্ড অন্তত ৫ অক্ষর ও সংখ্যা বিশিষ্ট হওয়া আবশ্যক"
-
-# FIXME
-#~ msgid "Reunion"
-#~ msgstr "রিইউনিয়ন"
-
-#~ msgid "Romania"
-#~ msgstr "রুমানিয়া"
-
-#~ msgid "Russian Federation"
-#~ msgstr "রাশিয়ান ফেডারেশন"
-
-#~ msgid "Rwanda"
-#~ msgstr "রুয়ান্ডা"
-
-#~ msgid "Saint Helena"
-#~ msgstr "সেইন্ট হেলেনা"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "সেইন্ট কিটস এবং নেভিস"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "সেইন্ট লুসিয়া"
-
-# modified for RHEL
-# FIXME
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "সেইন্ট পিয়ের এবং মিকেলন    "
-
-# FIXME
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "সেইন্ট ভিনসেন্ট এবং গ্রেনাডাইন্সস্"
-
-#~ msgid "Samoa"
-#~ msgstr "সামোয়া"
-
-#~ msgid "San Marino"
-#~ msgstr "সান মারিনো"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "সাও টোমে এবং প্রিন্সিপে"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "সৌদি আরব"
-
-#~ msgid "Senegal"
-#~ msgstr "সেনেগাল"
-
-# modified for RHEL
-#~ msgid "Seychelles"
-#~ msgstr "সেশেলস"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "সিয়েরা লিয়ন"
-
-#~ msgid "Singapore"
-#~ msgstr "সিঙ্গাপুর"
-
-#~ msgid "Slovakia"
-#~ msgstr "স্লোভাকিয়া"
-
-#~ msgid "Slovenia"
-#~ msgstr "স্লোভেনিয়া"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "সলোমন দ্বীপপুঞ্জ"
-
-#~ msgid "Somalia"
-#~ msgstr "সোমালিয়া"
-
-#~ msgid "South Africa"
-#~ msgstr "দক্ষিণ আফ্রিকা"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "দক্ষিণ জর্জিয়া এবং দক্ষিণ স্যান্ডউইচ দ্বীপপুঞ্জ"
-
-#~ msgid "Spain"
-#~ msgstr "স্পেন"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "শ্রীলঙ্কা"
-
-#~ msgid "Sudan"
-#~ msgstr "সুদান"
-
-#~ msgid "Suriname"
-#~ msgstr "সুরিনাম"
-
-# modified for RHEL
-# FIXME
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "স্বয়ালবার্ড এবং জান মিয়েন দ্বীপপুঞ্জ"
-
-#~ msgid "Swaziland"
-#~ msgstr "সোয়াজিল্যান্ড"
-
-#~ msgid "Sweden"
-#~ msgstr "সুইডেন"
-
-#~ msgid "Switzerland"
-#~ msgstr "সুইৎজারল্যান্ড"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "সিরিয়ান আরব প্রজাতন্ত্র"
-
-#~ msgid "Taiwan"
-#~ msgstr "তাইওয়ান"
-
-#~ msgid "Tajikistan"
-#~ msgstr "তাজাকিস্তান"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "তানজানিয়া, সম্মিলিত প্রজাতন্ত্র"
-
-#~ msgid "Thailand"
-#~ msgstr "থাইল্যান্ড"
-
-#~ msgid "Togo"
-#~ msgstr "টোগো"
-
-# modified for RHEL
-#~ msgid "Tokelau"
-#~ msgstr "টকেলু"
-
-#~ msgid "Tonga"
-#~ msgstr "টোঙ্গা"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "ত্রিনিদাদ ও টোবাগো"
-
-# modified for RHEL
-#~ msgid "Tunisia"
-#~ msgstr "টিউনিশিয়া"
-
-#~ msgid "Turkey"
-#~ msgstr "তুর্কি"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "তুর্কমেনিস্তান"
-
-# modified for RHEL
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "তুর্কি এবং কেকস দ্বীপপুঞ্জ"
-
-#~ msgid "Tuvalu"
-#~ msgstr "টুভালু"
-
-#~ msgid "Uganda"
-#~ msgstr "উগান্ডা"
-
-#~ msgid "Ukraine"
-#~ msgstr "ইউক্রেইন"
-
-# modified for RHEL
-#~ msgid "United Arab Emirates"
-#~ msgstr "সংযুক্ত আরব আমিরশাহী"
-
-#~ msgid "United Kingdom"
-#~ msgstr "যুক্তরাজ্য"
-
-# modified for RHEL
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "যুক্তরাষ্ট্রের বহিস্থিত ক্ষুদ্র দ্বীপপুঞ্জ"
-
-#~ msgid "Uruguay"
-#~ msgstr "উরুগুয়ে"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "উজবেকিস্থান"
-
-#~ msgid "Vanuatu"
-#~ msgstr "ভানুয়াটু"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "ভেটিকান সিটি স্টেট (হোলি সি)"
-
-#~ msgid "Venezuela"
-#~ msgstr "ভেনিজুয়েলা"
-
-#~ msgid "Viet Nam"
-#~ msgstr "ভিয়েতনাম"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "ভার্জিন দ্বীপপুঞ্জ (ব্রিটিশ)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "ভার্জিন দ্বীপপুঞ্জ (যুক্তরাষ্ট্র)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "ওয়ালিস এবং ফুটুনা দ্বীপপুঞ্জ"
-
-#~ msgid "Western Sahara"
-#~ msgstr "দক্ষিণ সাহারা"
-
-#~ msgid "Yemen"
-#~ msgstr "ইয়েমেন"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "যুগোস্লাভিয়া"
-
-# modified for RHEL
-#~ msgid "Zaire"
-#~ msgstr "জায়ের"
-
-#~ msgid "Zambia"
-#~ msgstr "জাম্বিয়া"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "জিম্বাবুয়ে"

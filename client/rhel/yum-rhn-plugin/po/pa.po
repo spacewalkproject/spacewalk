@@ -1,32 +1,35 @@
-# translation of pa.po to Punjabi
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
-# Jaswinder Singh <jsingh@redhat.com>, 2006, 2011.
+# Amanpreet Singh Alam <aalam@redhat.com>, 2004.
+# Amanpreet Singh Brar <amanpreetalam@yahoo.com>, 2005.
+# Automatically generated <punjablinux@netscape.net>, 2004.
+# Harmeet Singh Phulewala <harmeetphulewala@yahoo.com>, 2005.
+# Jaswinder Singh <jsingh@redhat.com>, 2006, 2007, 2011.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: pa\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 12:06+0200\n"
-"PO-Revision-Date: 2011-02-15 15:31+0530\n"
-"Last-Translator: \n"
-"Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
+"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "RHN ਨਾਲ ਸੰਪਰਕ ਕਰਨ ਸਮੇਂ ਗਲਤੀ ਸੀ।"
 
 #: ../rhnplugin.py:101
+#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN ਸੈਟੇਲਾਈਟ ਜਾਂ RHN ਕਲਾਸਿਕ ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਏਗਾ।"
+msgstr "RHN ਚੈਨਲ ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਏਗਾ।"
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -74,6 +77,3 @@ msgstr "ਕਿਰਪਾ ਕਰਕੇ ਪਰਬੰਧਕ ਦੇ ਤੌਰ ਤੇ 
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN ਲਈ ਲੋੜੀਂਦੀ ਜਾਣਕਾਰੀ ਗੁੰਮ ਹੈ: %s"
-
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "ਜਾਂ --version, ਜਾਂ ਕੋਈ ਕਮਾਂਡ ਨਹੀਂ ਦਿੱਤੀ"

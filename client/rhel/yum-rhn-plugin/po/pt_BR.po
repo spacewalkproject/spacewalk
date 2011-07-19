@@ -1,30 +1,36 @@
-# translation of pt_BR.po to Portuguese
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Valnir Ferreira Jr. <vferreir@redhat.com>, 2006.
 # Glaucia Cintra <gcintra@redhat.com>, 2011.
+# Igor Pires Soares <igor@projetofedora.org>, 2007.
+# David Barzilay <barzilay@redhat.com>, 2004, 2005.
+# Pedro Fernandes Macedo <webmaster@margo.bijoux.nom.br>, 2004.
+# Pedro Macedo <pmacedo@intel.dcc.ufmg.br>, 2005.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: pt_BR\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 12:06+0200\n"
-"PO-Revision-Date: 2011-02-14 21:46+1000\n"
-"Last-Translator: Glaucia Cintra <gcintra@redhat.com>\n"
-"Language-Team: Portuguese <en@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Portuguese (Brazilian) <trans-pt_br@lists.fedoraproject.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "Houve um erro ao tentar a comunicação com o RHN."
 
 #: ../rhnplugin.py:101
+#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "Suporte a canais do RHN Satellite ou RHN Classic será desabilitado."
+msgstr "Suporte a canais do RHN será desabilitado."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105

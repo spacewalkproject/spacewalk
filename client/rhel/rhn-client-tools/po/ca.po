@@ -1,38 +1,27 @@
-# Catalan translation of up2date by Softcatalà
-# Copyright © 2004, 2005 The Free Software Foundation, In.
-# This file is distributed under the same license as the up2date package.
-# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004, 2005
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-# This file is translated according to the glossary and style guide of
-#   Softcatalà. If you plan to modify this file, please read first the page
-#   of the Catalan translation team for the Fedora project at:
-#   http://www.softcatala.org/projectes/fedora/
-#   and contact the previous translator.
-#
-# Aquest fitxer s'ha de traduir d'acord amb el recull de termes i la guia
-#   d'estil de Softcatalà. Si voleu modificar aquest fitxer, llegiu si
-#   us plau la pàgina de catalanització del projecte Fedora a:
-#   http://www.softcatala.org/projectes/fedora/
-#   i contacteu l'anterior traductor/a.
-#
+# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004, 2005.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: up2date\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2005-10-25 23:24+0200\n"
-"Last-Translator: Xavier Conde Rueda <xaviconde@eresmas.com>\n"
-"Language-Team: Catalan <fedora@softcatala.net>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -41,9 +30,8 @@ msgid "Warning"
 msgstr "Avís"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -56,9 +44,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Envia la informació de perfil a Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -84,9 +72,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "S'ha produït un error en communcar amb el servidor on registrar:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -97,26 +84,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Informació de registre per a: "
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Heu d'introduir el vostre cognom."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Heu d'introduir una contrasenya i verificar-la."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Hi ha hagut un problema en registrar aquests sistema."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -127,36 +111,32 @@ msgstr ""
 "era:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
 msgstr "S'ha produït un error en executar el perfil del maquinari"
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "Heu d'escollir un nom per a aquest perfil."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "S'està enviant la informació del perfil a Red Hat Network, espereu."
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "Hi ha hagut un problema en registrar el sistema."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -166,11 +146,11 @@ msgid "Problem registering system:\n"
 msgstr "Hi ha hagut un problema en registrar el sistema:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "El número de subscripció proporcionat [ %s ] no és vàlid."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -186,14 +166,12 @@ msgid "There was a problem registering this system."
 msgstr "Hi ha hagut un problema en registrar aquests sistema."
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Envia informació del _maquinari"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "S'ha produït un error en llegir informació del maquinari:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -205,14 +183,12 @@ msgstr "S'ha produït un error en llegir informació del maquinari:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "Envia informació del _maquinari"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Hi ha hagut un problema en enviar la llista de paquets."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -233,14 +209,12 @@ msgid "Problem registering personal information"
 msgstr "Hi ha hagut un problema en registrar la informació personal"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Heu d'introduir un nom d'usuari."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -262,9 +236,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -277,9 +250,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -325,9 +297,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:160
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "Error: no s'ha pogut trobar el fitxer RHNS CA:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
@@ -352,20 +323,17 @@ msgstr ""
 "S'està obtenint una llista dels paquets RPM instal·lats en aquest sistema"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Entrada de Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "_Entrada:  "
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Cognoms:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -383,45 +351,36 @@ msgid "OK"
 msgstr "D'acord"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
-"S'ha produït un error en comunicar amb el servidor de registre. El missatge "
-"era:\n"
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
 msgstr "Nom del perfil:"
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Versió:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "Model de processador:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Nom de màquina:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Velocitat del processador:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "Adreça IP:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "Memòria:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -506,14 +465,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Seleccioneu quin servidor de Red Hat Network es farà servir"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Seleccioneu quin servidor de Red Hat Network es farà servir"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -522,9 +480,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "S'està reiniciant up2date"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -544,11 +501,9 @@ msgstr ""
 msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
-# Nota: "ja està" (el sistema) no "ja esteu" (vós)
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "Ja està registrat"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -569,9 +524,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Empresa:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -604,9 +558,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Llista de paquets (registre)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -635,21 +588,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Informació del compte"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Informació de registre per a: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Compte a Red Hat"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -666,9 +617,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Heu d'introduir una contrasenya i verificar-la."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -682,18 +632,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Versió"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Actualitzacions de paquet disponibles"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -707,9 +655,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Connecteu el vostre sistema"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -735,9 +682,8 @@ msgstr "Inclou la següent informació quant al maquinari i la xarxa:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Connecteu el vostre sistema"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -763,27 +709,21 @@ msgstr "S'està creant la llista de paquets"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"Si heu perdut la vostra entrada o contrasenya, consulteu\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "Adreça de correu electrònic:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -817,7 +757,6 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Envia la informació de perfil a Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -825,12 +764,6 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"S'ha recollit tota la informació per al perfil de sistema.\n"
-"\n"
-"Cliqueu \"Endavant\" per enviar aquest perfil de sistema a Red Hat Network.\n"
-"Si cliqueu \"Cancel·la\" no s'enviarà cap informació. Podeu executar el\n"
-"programa de registre més endavant executant el rhn_register des de la línia "
-"d'ordres."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -864,23 +797,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Connecta a Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "El número de subscripció no és vàlid"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Informació de canals"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1143,9 +1074,8 @@ msgstr "Cancel·la"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Cancel·la"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1185,9 +1115,8 @@ msgid "Error validating data at server:\n"
 msgstr "S'ha produït un error en validar dades al servidor:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "El número de subscripció no és vàlid"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1320,24 +1249,20 @@ msgstr ""
 "actual no ho implementa"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Finalitza"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Edita"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "S'ha finalitzat el registre"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Heu d'executar l'agent d'actualització com a superusuari (root)."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1366,9 +1291,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Descripció"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1383,21 +1307,18 @@ msgstr "Compte a Red Hat"
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Perfil de maquinari"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "S'ha produït un error en la comunicació amb el servidor: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Voleu canviar la configuració de la xarxa i provar-ho de nou?"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1416,21 +1337,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Especifica quina URL del servidor fer servir"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<camí>         - especifica el fitxer a fer servir per \n"
-"                                 al certificat SSL de la CA"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Especifica quin servidor http intermediari fer servir"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1438,24 +1354,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
 msgstr ""
-"    --contactinfo              - llegeix la informació de contacte de stdin"
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - no prova ni envia informació sobre\n"
-"                                 el maquinari"
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
-"    --nopackages               - no fa el perfil ni envia informació sobre\n"
-"                                 els paquets"
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1466,18 +1374,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - registra el sistema fins i tot si\n"
-"                                 ja està registrat"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Calen un nom d'usurai, contrasenya i adreça de correu electrònic per poder "
-"registrar un sistema."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1518,9 +1420,8 @@ msgstr ""
 "màquina ni l'adreça IP per fer-la servir de perfil. Especifiqueu un nom."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "no intentis fer servir X"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1539,37 +1440,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Canals"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Instal·la tots els paquets disponibles. S'utilitza amb --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Nom d'usuari:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "* _Confirma la contrasenya:  "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Nom d'usuari:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1581,9 +1477,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "S'ha produït un error en llegir la capçalera"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1596,10 +1492,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
 msgstr ""
-"Fins que no s'associï a un canal, aquest sistema no es pot actualitzar."
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1614,13 +1508,10 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"Heu de registrar aquest sistema executant 'up2date --register' abans de "
-"poder fer servir aquesta opció"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1631,37 +1522,32 @@ msgid "Updating hardware profile..."
 msgstr "S'està actualitzant el perfil de maquinari..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "S'està actualitzant el perfil de paquets..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Connecteu el vostre sistema"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Informació del compte"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Heu d'introduir un nom d'usuari."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Diàleg de progrés"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Diàleg de progrés"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1674,9 +1560,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1728,58 +1613,46 @@ msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"Si heu perdut la vostra entrada o contrasenya, consulteu\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Configuració de Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Configuració de Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Canal"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Versió"
+msgstr ""
 
-# Winrar 2.9->Dialog Box Control:rarlng.dll
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "Close"
-msgstr "Tanca"
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Perfil de maquinari"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Informació del compte"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
@@ -1794,14 +1667,12 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "Estats Units"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Descripció"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1816,9 +1687,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Compte a Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1833,14 +1703,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Perfil de maquinari"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Envia la llista de _paquets"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1862,19 +1730,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Fes servir autenticació"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Perfil de maquinari"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "S'està actualitzant el perfil de paquets..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1884,9 +1749,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Activeu la vostra subscripció"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1901,18 +1765,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "El número de subscripció no és vàlid"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Contrasenya:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1923,15 +1785,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Cognoms:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "Empresa:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1939,22 +1799,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "Habilita el servidor intermediari HTTP:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "Informació del registre"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Entrada de Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1962,16 +1819,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "Informació del registre"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Cognoms:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -1990,22 +1845,19 @@ msgid "<big><b>System Name</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "exemple: XXXX-XXXX-XXXX-XXXX (guions opcionals)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:79
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "exemple: XXXX-XXXX-XXXX-XXXX (guions opcionals)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "exemple: XXXX-XXXX-XXXX-XXXX (guions opcionals)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgctxt "yes"
@@ -2015,15 +1867,11 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"Si heu perdut la vostra entrada o contrasenya, consulteu\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:84
 #, no-c-format
@@ -2047,10 +1895,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Configuració de Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2077,10 +1924,9 @@ msgid "CPU Speed:"
 msgstr "Velocitat del processador:"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Entrada de Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2145,16 +1991,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "S'ha produït un error en communcar amb el servidor on registrar:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Connecta a Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2170,10 +2014,9 @@ msgid "IP Address:"
 msgstr "Adreça IP:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2184,10 +2027,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "S'està reiniciant up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2209,12 +2051,11 @@ msgid "Package Information"
 msgstr "Informació del paquet"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2231,7 +2072,7 @@ msgstr "Contrasenya:"
 #, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Nom d'usuari:"
+msgstr "Nom del perfil:"
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2262,7 +2103,7 @@ msgstr "Versió de Red Hat Linux:"
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Entrada de Red Hat Network"
+msgstr "Compte a Red Hat"
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
@@ -2274,7 +2115,7 @@ msgstr "Perfil de maquinari"
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Envia la llista de _paquets"
+msgstr "S'està actualitzant el perfil de paquets..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2289,10 +2130,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Cognoms:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2302,10 +2142,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Fes servir autenticació"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2357,10 +2196,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "S'està reiniciant up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2383,18 +2221,15 @@ msgid ""
 "your system updated, secure, and supported."
 msgstr ""
 
-# Winrar 2.9->Dialog Box Control:rarlng.dll
 #: ../data/rh_register.glade.h:139
-#, fuzzy
 msgctxt "yes"
 msgid "_Close"
-msgstr "Tanca"
+msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "_Entrada:  "
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2424,16 +2259,14 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - Llista de paquets (registre)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - Llista de paquets (registre)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
@@ -2442,10 +2275,9 @@ msgid "_View Hardware Profile ..."
 msgstr "Perfil de maquinari"
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Perquè registrar-vos?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2458,10 +2290,9 @@ msgid "_Yes, I'd like to register now."
 msgstr ""
 
 #: ../data/rh_register.glade.h:152
-#, fuzzy
 msgctxt "yes"
 msgid "label"
-msgstr "etiqueta10"
+msgstr ""
 
 #: ../data/rh_register.glade.h:153
 msgctxt "yes"
@@ -2469,10 +2300,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Connecta a Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2480,3421 +2310,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Crea un compte Red Hat Network nou"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Registreu amb Red Hat Network"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Connecta a Red Hat Network"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Pas 3: registreu el maquinari d'un perfil de sistema"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Pas 3: registreu els paquets del perfil de sistema"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "registrationNumber"
-
-#~ msgid "Warning:"
-#~ msgstr "Avís:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Diàleg de d'acord:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Diàleg de preguntes:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Activació"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Avís: no s'ha pogut habilitar rhnsd amb chkconfig"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Error de disc. El missatge era:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error de conflicte de paquets RPM. El missatge era:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error de conflicte de fitxers RPM. El missatge era:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "S'ha produït un error d'RPM. El missatge era:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "S'ha produït un error de dependències d'RPM. El missatge era:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error en la llista de paquets ignorats. El missatge era:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error en la llista de fitxers ignorats o en la "
-#~ "sobreescriptura del fitxer de configuració. El missatge era:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr ""
-#~ "No s'ha pogut suprimir el paquet \"%s\". Era a la llista de paquets per "
-#~ "ignorar en suprimir."
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "El GPG no està degudament instal·lat."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "L'anell de claus GPG no inclou la clau pública de Red Hat, Inc. per "
-#~ "signar paquets"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Ha fallat la verficació de la signatura gpg del paquet %s. Això significa "
-#~ "que el paquet està corromput."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "El paquet %s no té cap signatura GPG.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "El paquet %s té una signatura GPG no fiable.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "El paquet %s té una signatura GPG desconeguda.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Seleccioneu quin servidor de Red Hat Network es farà servir"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Connecta a Red Hat Network"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Registreu amb Red Hat Network"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "S'està reiniciant up2date"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr "No tinc cap entrada a Red Hat. Necessito crear-ne una."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Pas 1: reviseu l'acord de privadesa de Red Hat"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Reviseu els termes i condicions de Red Hat Network"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Crea un compte nou"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Les dues contrasenyes que heu entrat no coincideixen.\n"
-#~ "Torneu a escriure les contrasenyes."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Crea un compte Red Hat Network nou"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "* Contrasen_ya:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "Nosaltres valorem la vostra privadesa:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Heu d'introduir el vostre nom."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Heu d'introduir el vostre cognom."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Heu d'introduir una adreça de correu electrònic."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Heu d'introduir una adreça de correu vàlida."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Informació de registre per a: "
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Heu d'introduir una contrasenya i verificar-la."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Heu d'introduir una contrasenya i verificar-la."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Heu d'introduir un número de registre."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Activeu la vostra subscripció"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "registrationNumber"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "exemple: XXXX-XXXX-XXXX-XXXX (guions opcionals)"
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "El número de subscripció no és vàlid"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Hi ha hagut un problema en registrar aquests sistema."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Hi ha hagut un problema en registrar aquests sistema."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "S'ha produït un error fatal en instal·lar el paquet:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Heu d'introduir un número de registre."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "S'ha produït un error en communcar amb el servidor on registrar:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "S'ha produït un error greu en obtenir el contracte de privadesa:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Heu d'introduir un número de registre."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Hi ha hagut un problema en registrar el nom d'usuari:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Hi ha hagut un problema en registrar el nom d'usuari."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Entrada de Red Hat Network"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Activeu la vostra subscripció"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Adreça de correu electrònic"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Tinc un número de subscripció per activar"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Informació important del registre"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Informació del registre"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Heu d'introduir un número de registre."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Acord de privadesa"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Acord de privadesa de Red Hat"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "Activeu la vostra subscripció"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "S'ha produït un error en llegir informació del maquinari:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "S'ha produït un error en llegir la informació DMI:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Aquests compte d'usuari i contrasenya no són vàlids\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Heu d'introduir un nom d'usuari."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Heu d'introduir una contrasenya i verificar-la."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Hi ha hagut un problema en registrar el nom d'usuari:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Hi ha hagut un problema en registrar el nom d'usuari."
-
-#~ msgid "Canada"
-#~ msgstr "Canadà"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Informació del registre"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Informació del compte"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Nom:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Cognoms:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Empresa:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "* Adreça:"
-
-#~ msgid "City:"
-#~ msgstr "Població:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "Estat/Província:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Codi postal:"
-
-#~ msgid "*Country:"
-#~ msgstr "*País:"
-
-#~ msgid "  Address 2:"
-#~ msgstr " Segona adreça:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr " Segona adreça:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "* Població:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr " Empresa:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "* Estat/Província:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "* Codi postal:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* _Confirma la contrasenya:  "
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "* País:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "* Compte a Red Hat:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "* Contrasen_ya:"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*Cognoms:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "* Adreça de correu _electrònic"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*Nom:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Informació del compte"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Informació del registre"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afganistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albània"
-
-#~ msgid "Algeria"
-#~ msgstr "Algèria"
-
-#~ msgid "American Samoa"
-#~ msgstr "Samoa Nord-americana"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antàrtida"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua i Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armènia"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Austràlia"
-
-#~ msgid "Austria"
-#~ msgstr "Àustria"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaidjan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahames"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Bielorússia"
-
-#~ msgid "Belgium"
-#~ msgstr "Bèlgica"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benín"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolívia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bòsnia i Hercegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Illa Bouvet"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasil"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "Territori britànic de l'oceà índic"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgària"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Crea un compte nou"
-
-#~ msgid "Cambodia"
-#~ msgstr "Cambodja"
-
-#~ msgid "Cameroon"
-#~ msgstr "Camerun"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cap verd"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Illes Caiman"
-
-#~ msgid "Central African Republic"
-#~ msgstr "República Centreafricana"
-
-#~ msgid "Chad"
-#~ msgstr "Txad"
-
-#~ msgid "Chile"
-#~ msgstr "Xile"
-
-#~ msgid "China"
-#~ msgstr "Xina"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Illes Christmas"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Illes Cocos (Keeling)"
-
-#~ msgid "Colombia"
-#~ msgstr "Colòmbia"
-
-#~ msgid "Comoros"
-#~ msgstr "Comores"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Illes Cook"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Costa d'Ivori"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Crea un compte nou"
-
-#~ msgid "Croatia"
-#~ msgstr "Croàcia"
-
-#~ msgid "Cuba"
-#~ msgstr "Cuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Xipre"
-
-#~ msgid "Czech Republic"
-#~ msgstr "República Txeca"
-
-#~ msgid "Denmark"
-#~ msgstr "Dinamarca"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "República Dominicana"
-
-#~ msgid "East Timor"
-#~ msgstr "Timor oriental"
-
-#~ msgid "Ecuador"
-#~ msgstr "Equador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egipte"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Guinea Equatorial"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estònia"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Etiòpia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Illes Falkland (Malvinas)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Illes Faroe"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Finlàndia"
-
-#~ msgid "France"
-#~ msgstr "França"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "França, Metropolitana"
-
-#~ msgid "French Guiana"
-#~ msgstr "Guaiana Francesa"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Polinèsia Francesa"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Territoris francesos del sud"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gàmbia"
-
-#~ msgid "Georgia"
-#~ msgstr "Geòrgia"
-
-#~ msgid "Germany"
-#~ msgstr "Alemanya"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Grècia"
-
-#~ msgid "Greenland"
-#~ msgstr "Grenlàndia"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadalupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haití"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Illa Heard i Illes McDonald"
-
-#~ msgid "Honduras"
-#~ msgstr "Hondures"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Hongria"
-
-#~ msgid "Iceland"
-#~ msgstr "Islàndia"
-
-#~ msgid "India"
-#~ msgstr "Índia"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonèsia"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Iran (República Islàmica de)"
-
-#~ msgid "Iraq"
-#~ msgstr "Iraq"
-
-#~ msgid "Ireland"
-#~ msgstr "Irlanda"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Italy"
-#~ msgstr "Itàlia"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Japan"
-#~ msgstr "Japó"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordània"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakhstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Corea, República Democràtica Popular"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Corea, República de"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuwait"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgyzstan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao, República Democràtica Popular"
-
-#~ msgid "Latin America"
-#~ msgstr "Amèrica Llatina"
-
-#~ msgid "Latvia"
-#~ msgstr "Letònia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Líban"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Libèria"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Libyan Arab Jamahiriya"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Lituània"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxemburg"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedònia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagascar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malàsia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldives"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Illes Marshal"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinica"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritània"
-
-#~ msgid "Mauritius"
-#~ msgstr "Maurici"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Mèxic"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Micronèsia (Estats Federats)"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldàvia"
-
-#~ msgid "Monaco"
-#~ msgstr "Mònaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongòlia"
-
-# Sí, un petit païs al cap i a la fí
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Marroc"
-
-#~ msgid "Mozambique"
-#~ msgstr "Moçambic"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namíbia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Paísos Baixos"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Antilles Neerlandeses"
-
-#~ msgid "New Caledonia"
-#~ msgstr "Nova Caledònia"
-
-#~ msgid "New Zealand"
-#~ msgstr "Nova Zelanda"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Níger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigèria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Illa Norfolk"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Illes Mariana del nord"
-
-#~ msgid "Norway"
-#~ msgstr "Noruega"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panamà"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua Nova Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguai"
-
-#~ msgid "Peru"
-#~ msgstr "Perú"
-
-#~ msgid "Philippines"
-#~ msgstr "Filipines"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Polònia"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugal"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Les entrades i les contrasenyes de Red Hat han de tenir almenys 5 "
-#~ "caràcters alfanumèrics."
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romania"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Federació Rusa"
-
-#~ msgid "Rwanda"
-#~ msgstr "Ruanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Santal Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Saint Kitts i Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Santa Llúcia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Saint Pierre and Miquelon"
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Saint Vincent and the Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome i Príncep"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Aràbia Saudita"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapur"
-
-#~ msgid "Slovakia"
-#~ msgstr "Eslovàquia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Eslovènia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Illes Salomó"
-
-#~ msgid "Somalia"
-#~ msgstr "Somàlia"
-
-#~ msgid "South Africa"
-#~ msgstr "Sud-àfrica"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "Geòrgia del Sud i Illes Sandwich del Sud"
-
-#~ msgid "Spain"
-#~ msgstr "Espanya"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Surinam"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Illes Svalbard i Jan Mayen"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swazilàndia"
-
-#~ msgid "Sweden"
-#~ msgstr "Suècia"
-
-#~ msgid "Switzerland"
-#~ msgstr "Suïssa"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "República Àrab de Síria"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tajikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzània, República Unida de"
-
-#~ msgid "Thailand"
-#~ msgstr "Tailàndia"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinitat i Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunísia"
-
-#~ msgid "Turkey"
-#~ msgstr "Turquia"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Turks and Caicos Islands"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ucrània"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Unió dels Emirats Àrabs"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Regne Unit"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "United States Minor Outlying Islands"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguai"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Estat de la Ciutat del Vaticà"
-
-#~ msgid "Venezuela"
-#~ msgstr "Veneçuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Vietnam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Illes Verges (Britàniques)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Illes Verges (EE. UU.)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Wallis and Futuna Islands"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Sàhara Occidental"
-
-#~ msgid "Yemen"
-#~ msgstr "Iemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Iugoslàvia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zàmbia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    Les biblioteques de sistema no permeten connexions segures SSL.\n"
-#~ "    Les dades que envieu i rebeu de redhat.com es transmetran sense "
-#~ "xifrar.\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Voleu continuar igualment?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "S'ha obtingut."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Seleccioneu quin servidor de Red Hat Network es farà servir"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Informació de canals"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Empresa:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Connecta a Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Activeu la vostra subscripció"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Entrada de Red Hat Network"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "actualitza paquets associats amb aquest perfil de sistema a la Red Hat "
-#~ "Network"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "Heu d'executar el programa de registre a RHN com a superusuari."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Activeu la vostra subscripció"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Activeu la vostra subscripció"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr ""
-#~ "Fins que no s'associï a un canal, aquest sistema no es pot actualitzar."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Activeu la vostra subscripció"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr ""
-#~ "Fins que no s'associï a un canal, aquest sistema no es pot actualitzar."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Connecta a Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Seleccioneu quin servidor de Red Hat Network es farà servir"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Modifiqueu la selecció de paquets, i torneu-ho a intentar."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Versió:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Activeu la vostra subscripció"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Activeu la vostra subscripció"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Hi ha hagut un problema en enviar els paquets:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Hi ha hagut un problema en enviar els paquets."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Els noms d'usuari han de tenir almenys 5 caràcters"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "La contrasenya ha de tenir almenys 5 caràcters"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Les dues contrasenyes que heu introduït no coincideixen.\n"
-#~ "Torneu a escriure la segona contrasenya."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Nom del fitxer/patró"
-
-#~ msgid "Config modified"
-#~ msgstr "S'ha modificat la configuració"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "Les dependències ja haurien d'estar resoltes, però no és així."
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Ha fallat la transacció dels paquets: %s"
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "l'rpm no ha pogut carregar la capçalera: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "l'rpm no ha pogut carregar la capçalera"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Heu d'introduir el vostre nom."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Heu d'introduir el vostre cognom."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Heu d'introduir la vostra ciutat."
-
-#~ msgid "SSL Warning"
-#~ msgstr "Avís SSL"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Les biblioteques de sistema no permeten connexions segures SSL. Les dades "
-#~ "que envieu i rebeu de Red Hat Network es transmetran sense xifrar. Voleu "
-#~ "continuar?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Nom d'usuari:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "S'ha produït un error en obrir %s"
-
-#~ msgid "Installing"
-#~ msgstr "S'està instal·lant"
-
-#~ msgid "Installing %s"
-#~ msgstr "S'està instal·lant %s"
-
-#~ msgid "Repackaging"
-#~ msgstr "S'està reempaquetant"
-
-#~ msgid "Preparing"
-#~ msgstr "S'està preparant"
-
-#~ msgid " Done."
-#~ msgstr " Fet."
-
-#~ msgid "Retrieved."
-#~ msgstr "S'ha obtingut."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Els paquets següents s'han afegit a la vostra selecció per poder satisfer "
-#~ "les dependències:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nom                                     Versió         LLançament\n"
-#~ "-----------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nom                           Versió         Lln             Canal     \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "No hi ha informació de l'avís\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nom                                     Versió         Lln     \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr ""
-#~ "Segons la vostra configuració, els següents paquets estan marcats per ser "
-#~ "ignorats:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nom                                     Versió         Lln  Motiu\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "Els següents comodins no han concordat amb cap paquet:"
-
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "Els següents grups no han concordat amb cap paquet:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "Els següents paquets són obsolets degut a nous paquets:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nom-Versió-Llançament       obsolet per       Nom-Versió-Llançament\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Els següents paquets no s'han instal·lat perquè són obsolets degut a "
-#~ "altres paquets instal·lats:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nom-Versió-Llançament      obsolet per       Nom-Versió-Llançament\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "Els següents paquets no estan instal·lats, però estan disponibles des de "
-#~ "Red Hat Network:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nom                                     Versió         Allib.   \n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr ""
-#~ "    --noSSLServerURL=<url>     - especifica una URL per a un servidor no "
-#~ "SSL"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr ""
-#~ "    --useNoSSLForPackages      - no utilitzis SSL per descarregar paquets"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Nom d'usuari:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "registrationNumber"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Crea un nou compte"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Cancel·la"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Registre del Red Hat Network (c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "* Compte a Red Hat:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Llegiu el nostre acord de _privadesa"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "No s'ha trobat l'opció de configuració rhnuuid a /etc/sysconfig/rhn/"
-#~ "up2date-uuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Per resoldre les dependències dels paquets RPM que heu seleccionat, "
-#~ "aquests\n"
-#~ "    paquets que heu marcat per excloure s'han d'incloure:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Nom del paquet"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Motiu de l'omissió"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr ""
-#~ "S'està provant el conjunt de paquets / resolent interdependències de RPM"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "No s'ha pogut solucionar el conflicte de dependències."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "Aquests paquets s'han afegit a la vostra selecció per satisfer\n"
-#~ "les dependències:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Paquet                                 Requerit per\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "No es pot gestionar el sentit de la dependència \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Cadena de dependències impossible de solucionar:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "Les opcions de l'elilo que no estan implementades en l'up2date s'usen en "
-#~ "el fitxer per defecte elilo.conf. No es modificarà aquest fitxer. Les "
-#~ "opcions inclouen:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "No s'ha pogut executar el grubby correctament: el missatge era:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Agent d'actualització de Red Hat"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Aquest paquet està distribuït d'acord amb la llicència GPL\n"
-#~ "Informeu d'errades al sistema de gestió d'errades de Red Hat: http://"
-#~ "bugzilla.redhat.com/bugzilla/\""
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr ""
-#~ "Agent d'actualització - un programa per actualitzar paquets a Red Hat "
-#~ "Linux"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Aquest paquet està distribuït d'acord amb la llicència GPL. Informeu "
-#~ "d'errades al sistema de gestió d'errades de Red Hat: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Versió"
-
-#~ msgid "Old Version"
-#~ msgstr "Versió anterior"
-
-#~ msgid "Size"
-#~ msgstr "Mida"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Motiu d'omissió"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Informació de la privadesa"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Termes i condicions"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Pàgina d'entrada"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Informació de la Red Hat Network"
-
-#~ msgid "Up2date - Create New Account"
-#~ msgstr "Up2date - Crea un nou compte"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Pàgina d'informació del producte"
-
-#~ msgid "All information is optional."
-#~ msgstr "Tota la informació és opcional."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Per poder rebre comunicats per correu de Red Hat, heu d'introduir el\n"
-#~ "vostre nom i adreça de correu."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Per tal que Red Hat us pugui contactar per fax, heu de proporcionar\n"
-#~ "el número de fax i el nom."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Heu de proporcionar un número de fax i un nom perquè Red Hat us pugui "
-#~ "contactar."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Perfil del maquinari"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "L'auxiliar per el registre està construint una llista dels paquets RPM "
-#~ "instal·lats en aquest sistema. Espereu."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "No s'ha seleccionat cap paquet, seleccioneu-ne un."
-
-#~ msgid "No advisory information available."
-#~ msgstr "No hi ha informació disponible sobre l'avís."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "L'agent d'actualització de Red Hat està fent una llista actualitzada\n"
-#~ "dels paquets RPM instal·lats en aquest sistema, espereu."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Hi ha una versió nova de l'up2date disponible. Voleu instal·lar-la i "
-#~ "reiniciar?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "S'ha produït un error en l'RPM. El missatge era:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error greu en comunicar amb el servidor. El missatge "
-#~ "era:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "S'ha produït un error inesperat del sistema operatiu:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Paquets omesos"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Canals"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Llista de paquets"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "S'ha produït un error greu d'RPM. El missatge era:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr "Aquest sistema està totalment actualitzat, no calen paquets nous."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "S'ha produït un error d'RPM. El missatge era:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "S'ha produït un error d'instal·lació d'RPM. El missatge era:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un problema amb les dependències dels paquets. El missatge "
-#~ "era:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Heu de seleccionar almenys un paquet.\n"
-#~ "Si no voleu actualitzar cap paquet, cliqueu\n"
-#~ "\"Cancel·la\" per sortir de l'agent de l'actualització."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "La mida total dels paquets seleccionats és %d kB,\n"
-#~ "però només teniu %d kB d'espai lliure.\n"
-#~ "Refeu la selecció dels paquets i continueu."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Paquets disponibles"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Dependències"
-
-#~ msgid "%d of %d kB transferred at %d kB/sec\n"
-#~ msgstr "%d de %d kB transferits a %d kB/s\n"
-
-#~ msgid "Package transfer time: %02d:%02d:%02d"
-#~ msgstr "Temps de transferència del paquet: %02d:%02d:%02d"
-
-#~ msgid " (%02d:%02d:%02d remaining)"
-#~ msgstr " (%02d:%02d:%02d restants)"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "El paquet ja està descarregat"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "S'ha produït un error en obtenir el paquet %s.\n"
-#~ "El missatge era:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "S'ha produït un error greu d'RPM. El missatge era:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "El paquet %s no està signat amb cap signatura GPG. Voleu continuar?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "El paquet %s no conté cap signatura GPG vàlida.\n"
-#~ "Pot ser que hagi estat modificat o corrumput. Voleu continuar?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr ""
-#~ "El paquet %s està signat amb una signatura GPG no fiable. Voleu continuar?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr ""
-#~ "El paquet %s està signat amb una signatura GPG desconeguda. Voleu "
-#~ "continuar?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "S'ha completat. Cliqueu \"Endavant\" per continuar."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Obtenció de paquets"
-
-#~ msgid "Repackaging..."
-#~ msgstr "S'està reempaquetant..."
-
-#~ msgid "Installing..."
-#~ msgstr "S'està instal·lant..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Progrés total (reempaquetant):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Progrés total:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "S'ha produït un error greu d'instal·lació d'RPM. El missatge era:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Instal·lació de paquets"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Pàgina final"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "L'agent d'actualització de Red Hat ha finalitzat "
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "S'està obtenint\n"
-#~ " aquests paquets amb èxit:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "S'està instal·lant\n"
-#~ " aquests paquets amb èxit:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Seguint les indicacions de la vostra configuració aquests paquets s'han\n"
-#~ "descarregat però no s'han instal·lat. Si voleu canviar la configuració,\n"
-#~ "executeu el programa \"up2date-config\"."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error en instal·lar el lilo.conf. El missatge era:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error en restaurar la còpia del lilo.conf. La còpia era:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr ""
-#~ "S'ha produït un error en instal·lar el nou carregador de l'arrencada:\n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "S'ha produït un error en llegir el lilo.conf: El missatge era:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "El lilo.conf predeterminat fa servir opcions no suportades per l'up2date. "
-#~ "Aquest fitxer no es modificarà. Les opcions inclouen:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Nom paquet/patró"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "S'està obtenint les capçaleres rpm"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "S'està obtenint la capçalera: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "S'està suprimit de la llista els paquets marcats per ser omesos"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s no és un directori vàlid"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Forma d'ús: rhn_check [opcions]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Opcions de la línia d'ordres disponibles:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - aquesta ajuda "
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose      - dóna més informació"
-
-#~ msgid "Error getting available package list"
-#~ msgstr "S'ha produït un error en obtenir la llista de paquets disponibles"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr ""
-#~ "S'ha produït un error en analitzar la llista d'arguments de l'ordre: %s"
-
-#~ msgid "Fetching package list for channel: %s"
-#~ msgstr "S'està obtenint la llista de paquets del canal: %s"
-
-#~ msgid "Fetching all package list for channel: %s"
-#~ msgstr "S'està obtenint tota la llista de paquets del canal: %s"
-
-#~ msgid "Fetching Obsoletes list for channel: %s"
-#~ msgstr "S'està obtenint la llista d'obsolets del canal: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "Fes servir una de les meves subscripcions actives existents."
-
-#~ msgid "You must enter your address."
-#~ msgstr "Heu d'introduir la vostra adreça."
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Heu d'introduir el vostre codi postal."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Forma d'ús: rhnreg_ks [opcions]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - Aquesta ajuda "
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<valor>      - especifica un nom de perfil"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<valor>         - specifica un nom d'usuari "
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<valor>         - especifica una contrasenya "
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgid=<valor>            - especifica un id de l'organització"
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr ""
-#~ "    --orgpassword=<valor>      - especifica la contrasenya de "
-#~ "l'organització"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr ""
-#~ "    --serverUrl=<URL>          - especifica una URL per fer servir de "
-#~ "servidor"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr ""
-#~ "    --email=<valor>            - especifica una adreça de correu "
-#~ "electrònic"
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<valor>    - especifica una clau d'activació "
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr ""
-#~ "    --subscription=<valor>     - especifica el número de subscripció\n"
-#~ "                                 a fer servir"
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --version                  - mostra la versió "
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr ""
-#~ "    --proxy                    - especifica el servidor intermediari "
-#~ "http\n"
-#~ "                                 que es farà servir"
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<valor>        - especifica el nom d'usuari que es farà "
-#~ "servir\n"
-#~ "                                 en un servidor inermediari que "
-#~ "requereixi\n"
-#~ "                                 autenticació"
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<valor>    - especifica la contrasenya que es farà "
-#~ "servir\n"
-#~ "                                 en un servidor intermediari que "
-#~ "requereixi\n"
-#~ "                                 autenticació"
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Llicenciat sota els termes de la GPL."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "no es pot suprimir %s"
-
-#~ msgid "Error parsing %s"
-#~ msgstr "S'ha produït un error en analitzar %s"
-
-#~ msgid "at line: %s"
-#~ msgstr "a la línia: %s"
-
-#~ msgid "Unable to import repomd so repomd support will not be available"
-#~ msgstr "Atès que no s'ha pogut importar repomd, no estarà disponible"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Pas 2: registreu un compte d'usuari"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "Ja esteu registrat a redhat.com?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Sí: introduïu el vostre nom d'usuari i contrasenya aquí sota."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr ""
-#~ "No: escolliu un nom d'usuari i una contrasenya i entreu-les aquí sota."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Repetiu, per verificar:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr "Pas 2: registreu un compte d'usuari (\"*\" camps requerits)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Pas 2: registreu un compte d'usuari (Tot opcional)"
-
-#~ msgid "*Title:"
-#~ msgstr "*Càrrec:"
-
-#~ msgid "Title:"
-#~ msgstr "Càrrec:"
-
-#~ msgid "First Name:"
-#~ msgstr "Nom:"
-
-#~ msgid "Position:"
-#~ msgstr "Posició:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Adreça:"
-
-#~ msgid "Address:"
-#~ msgstr "Adreça:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Segona adreça:"
-
-#~ msgid "*City:"
-#~ msgstr "*Població:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Província"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Província"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Codi postal:"
-
-#~ msgid "Country:"
-#~ msgstr "País:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Telèfon:"
-
-#~ msgid "Phone:"
-#~ msgstr "Telèfon:"
-
-#~ msgid "Fax:"
-#~ msgstr "Fax:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "Preferències de contacte:"
-
-#~ msgid "E-mail"
-#~ msgstr "Correu electrònic"
-
-#~ msgid "Regular mail"
-#~ msgstr "Correu tradicional"
-
-#~ msgid "Telephone"
-#~ msgstr "Telèfon"
-
-#~ msgid "Fax"
-#~ msgstr "Fax"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "Contacteu-me amb ofertes especials de col·laboradors de Red Hat"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Subscriu a les notícies per correu electrònic de Red Hat"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Per poder rebre comunicació de Red Hat per correu, heu d'introduir el "
-#~ "vostre nom i adreça."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Per tal que Red Hat us pugui contactar per telèfon, cal que introduïu el "
-#~ "vostre nom i número de telèfon."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Per tal que Red Hat us pugui contactar per fax, cal que indiqueu el "
-#~ "vostre nom i el número del fax."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Pas 3 : Registreu els paquets del perfil de sistema"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Heu registrat correctament aquest perfil de sistema a Red Hat Network.\n"
-#~ "\n"
-#~ "Visiteu http://www.redhat.com/network per accedir els vostres serveis.\n"
-#~ "\n"
-#~ "Per actualitzar aquest sistema amb les darreres actualitzacions dels "
-#~ "productes, correccions d'errors, i millores de seguretat, executeu "
-#~ "up2date des de la línia d'ordres o escolliu \"Agent d'actualització\" del "
-#~ "quadre."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "Sembla que aquest sistema ja està registrat. Voleu continuar?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "El paquet %s no està signat amb GPG. S'avortarà..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "El paquet %s no té una signatura GPG vàlida.\n"
-#~ "Ha estat modificat o s'ha corromput. S'avortarà..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr "El paquet %s està signat amb una clau GPG no fiable. S'avortarà..."
-
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr ""
-#~ "El paquet %s està signat, però no es pot determinar amb quina clau GPG. "
-#~ "S'avortarà..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr ""
-#~ "No s'ha trobat el directori d'emmagatzematge %s, o no era\n"
-#~ "accessible."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "No us heu registrat a Red Hat Network. Per usar l'agent d'actualització "
-#~ "heu\n"
-#~ "d'estar registrat.\n"
-#~ "\n"
-#~ "Per registrar-vos, executeu \"up2date --register\"."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "El vostre anell de claus GPG no conté la clau pública de Red Hat, Inc.\n"
-#~ "Sense la clau, no podreu verificar amb seguretat que els paquets "
-#~ "descarregats\n"
-#~ "per l'agent d'actualització han estat signats per Red Hat. \n"
-#~ "\n"
-#~ "Les vostres opcions de l'agent d'actualització especifican que voleu usar "
-#~ "GPG."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "El vostre anell de claus GPG no conté la clau pública de Red Hat, Inc.\n"
-#~ "Sense la clau, no podreu verificar amb seguretat que els paquets "
-#~ "descarregats\n"
-#~ "per l'agent d'actualització han estat signats per Red Hat. \n"
-#~ "\n"
-#~ "Les vostres opcions de l'agent d'actualització especifican que voleu usar "
-#~ "GPG.\n"
-#~ "Per instal·lar la clau, executeu com a superusuari:\n"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "No s'ha pogut completar la resolució de dependències"
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "Nom                                     Versió         Llançament\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr ""
-#~ "La prova d'instal·lació ha fallat degut als conflictes de paquets:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "No s'ha pogut trobar la capçalera per a %s"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Alguns dels paquets d'aquesta transacció no estan disponibles."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "Atenció: els següents paquets s'actualitzaran, però aquests paquets\n"
-#~ "s'han reempaquetat i això encara no està implementat.\n"
-#~ "S'ha inhabilitat el suport per reempaquetar per a aquesta transacció.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "En operar en mode de línia d'ordres, si especifiqueu noms de paquets\n"
-#~ "com a arguments al programa, s'intentarà obtenir (i possiblement\n"
-#~ "instal·lar, basat en la vostra configuració) aquests paquets.\n"
-#~ "L'agent d'actualització determinarà la versió, alliberament i "
-#~ "arquitectura.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "configura opcions de l'agent d'actualització"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr ""
-#~ "només descarrega els paquets, fins i tot si la configuració indica que "
-#~ "s'han d'instal·lar"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr ""
-#~ "instal·la els paquets, fins i tot si la configuració diu que només s'han "
-#~ "de descarregar"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Descarrega paquets rpm del codi font així com els binaris"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr ""
-#~ "No descarreguis paquets de codi font (substitueix el paràmetre si està "
-#~ "habilitat)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Especifica el camí on hi ha una base de dades rpm alternativa"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr ""
-#~ "Obliga a instal·lar els paquets i ignora la llista de paquets i fitxers "
-#~ "per ignorar"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr "Afegeix només paquets a la base de dades, no els instal·lis"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "llista els paquets disponibles per descarregar"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr ""
-#~ "Fes-ho tot, excepte descarregar i instal·lar paquets (mostra les "
-#~ "dependències necessàries, etc)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Descriu breument les opcions"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "camins de directori, separats per comes, on cercar paquets"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "no facis servir el GPG per verificar les signatures dels paquets"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr ""
-#~ "perfil up2date de maquinari associat amb aquest perfil de sistema a la "
-#~ "Red Hat Network"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "registra el sistema (o torna-ho a fer si cal)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Llista tots els paquets disponibles per descarregar"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "Llista tots els paquets disponibles que no estan instal·lats"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "Llista tots els paquets instal·lats que no estan a cap dels canals "
-#~ "subscrits"
-
-#~ msgid "List all the install components available to install"
-#~ msgstr ""
-#~ "Llista tots els components d'instal·lació disponibles per instal·lar"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "cerca, descarrega i instal·la els paquets necessaris per resoldre la "
-#~ "llista de dependències"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "on emmagatzemar fitxers temporals / RPMs"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "actualitza el sistema amb tots els paquets rellevants"
-
-#~ msgid "show program version information"
-#~ msgstr "mostra informació quant a la versió del programa"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr ""
-#~ "Mostra els noms de canal juntament amb el nom de paquet quan sigui "
-#~ "apropiat"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Mostra les accions d'rpm per desfer disponibles"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr ""
-#~ "Mostra els paquets que resolen la llista, separada per comes, de "
-#~ "dependències"
-
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr "Llista de paquets que no s'instal·laran o actualitzaran"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Especifica quins canals fer servir a l'etiqueta de canal"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr "Mostra els senyaladors per executar gpg (l'anell de claus, etc.)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "No descarreguis paquets. Només per fer proves"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Passa l'uuid que genera la miniaplicació"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "Mostra el diàleg d'instal·lació del paquet en mode gràfic"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Recull els paquets especificats, sense resoldre les dependències:"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr ""
-#~ "Recull els paquets de codi font per al paquet especificat sense resoldre "
-#~ "les dependències"
-
-#~ msgid ""
-#~ "Force up2date to install this arch of the package. Not valid with -u, --"
-#~ "list, or --dry-run"
-#~ msgstr ""
-#~ "Obliga up2date a instal·lar aquesta arquitectura del paquet. No és vàlid "
-#~ "amb -u, --list o --dry-run"
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Actualitza al canal especificat"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Voleu instal·lar la clau?"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        S'ha produït un error en afegir la clau GPG\n"
-#~ "                        al vostre anell de claus."
-
-#~ msgid ""
-#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
-#~ msgstr ""
-#~ "No es pot aplicar l'actualització dels paquets i el maquinari quan no "
-#~ "s'usa Red Hat Network"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "S'està actualitzant l'historial de transaccions..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr ""
-#~ "No s'han trobat els paquets necessaris per resoldre les dependències."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "S'ha d'indicar un nom de canal amb --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un error fatal en comunicar amb el servidor. El missatge "
-#~ "era:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un problema de dependències de paquets. El missatge era:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr ""
-#~ "S'ha produït un problema en instal·lar els paquets. El missatge era:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "No es disposa de mode interactiu"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Especifiqueu o bé -l, -u, --nox, o noms de paquet com a arguments de la "
-#~ "línia d'ordres."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr ""
-#~ "No es pot obrir la interfície gràfica. Especifiqueu l'opció \"--nox\""
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "Els següents paquets no estan disponibles:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Tots els paquets estan actualitzats"
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "Els següents paquets requerits no s'han pogut trobar:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "Els següents paquets requerits ja s'han actualitzat:"
-
-#~ msgid "Activate"
-#~ msgstr "Activa"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Heu completat la instal·lació i configuració del sistema.\n"
-#~ "\n"
-#~ "Malauradament, el sistema no estava connectat a Red Hat Network. És\n"
-#~ "important connectar el sistema per poder rebre les actualitzacions i\n"
-#~ "els pedaços per mantenir el sistema segur i suportat.\n"
-#~ "\n"
-#~ "\n"
-#~ "Per connectar aquest sistema a Red Hat Network aneu a:\n"
-#~ "Menú principal, seleccioneu Eines del sistema, i després seleccioneu Red "
-#~ "Hat\n"
-#~ "Network, o des de la línia d'ordres: executeu /usr/bin/up2date com a\n"
-#~ "superusuari per registrar-vos.\n"
-#~ "\n"
-#~ "Si necessiteu ajuda, contacteu el venedor de serveis de \n"
-#~ "http://www.redhat.com/contact/ que tingueu més a prop.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Unfortunately, your subscription was not activated because a valid\n"
-#~ "subscription number was not supplied.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Please contact a customer service representative to help get your\n"
-#~ "subscription activated.  To find a representative near you, visit\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Heu completat la instal·lació i la configuració del sistema.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Malauradament, no s'ha activat la vostra subscripció perquè no s'ha\n"
-#~ "proporcionat un nombre de subscripció.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "És important activar la vostra subscripció per accedir els serveis que\n"
-#~ "mantenen el vostre sistema segur i suportat.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Contacteu un venedor de serveis per ajudar-vos a activar la vostra\n"
-#~ "subscripció. Podeu trobar el representant que tingueu més a prop\n"
-#~ "si visiteu http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "\n"
-#~ "Unfortunately, your subscription was not activated because a valid "
-#~ "subscription number was not supplied.\n"
-#~ "\n"
-#~ "It is important to activate your subscription so you can access the "
-#~ "services that keep your system secure and supported.\n"
-#~ "\n"
-#~ "Please contact a customer service representative to help get your "
-#~ "subscription activated.  To find a representative near you, visit http://"
-#~ "www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Heu completat la instal·lació i la configuració del sistema.\n"
-#~ "\n"
-#~ "Malauradament, no s'ha activat la vostra subscripció perquè no s'ha "
-#~ "proporcionat un nombre de subscripció.\n"
-#~ "\n"
-#~ "És important activar la vostra subscripció per accedir els serveis que "
-#~ "mantenen el vostre sistema segur i suportat.\n"
-#~ "\n"
-#~ "Contacteu un venedor de serveis per ajudar-vos a activar la vostra "
-#~ "subscripció. Podeu trobar el representant que tingueu més a prop si "
-#~ "visiteu http://www.redhat.com/contact/"
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "Enhorabona!\n"
-#~ "Heu completat la configuració i la vostra subscripció s'ha activat "
-#~ "correctament.\n"
-#~ "\n"
-#~ "Ja podeu rebre els serveis inclosos en la vostra subscripció a Red Hat."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Heu completat la instal·lació i la configuració del sistema.\n"
-#~ "\n"
-#~ "Malauradament, el vostre sistema no té xarxa, per tant no s'ha pogut "
-#~ "activar\n"
-#~ "la subscripció.\n"
-#~ "\n"
-#~ "És important que activeu la vostra subscripció per poder accedir els "
-#~ "serveis\n"
-#~ "que faran que aquest sistema sigui segur i estigui ben suportat.\n"
-#~ "\n"
-#~ "Activeu la subscripció des d'un sistema amb xarxa i visiteu\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "\n"
-#~ "Si necessiteu ajuda, contacteu un venedor que tingueu a prop visitant\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Heu completat la instal·lació i la configuració del sistema.\n"
-#~ "\n"
-#~ "Malauradament, la vostra subscripció no s'ha activat.\n"
-#~ "El vostre sistema funcionarà, però no podreu accedir els serveis que\n"
-#~ "mantindran el vostre sistema segur i suportat.\n"
-#~ "\n"
-#~ "Per assegurar-vos que teniu accés a aquests importants serveis, activeu\n"
-#~ "la subscripció visitant \n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "\n"
-#~ "Si necessiteu ajuda, contacteu un venedor de serveis que tingueu a prop\n"
-#~ "de http://www.redhat.com/contact/\n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Afegeix"
-
-#~ msgid "Add new:"
-#~ msgstr "Afegeix-ne un de nou:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Manté els paquets binaris en el disc una vegada s'hagin instal·lat"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "No instal·lis els paquets quan els hagis obtingut"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr ""
-#~ "No actualitzis els paquets quan s'hagi modificat el fitxer de configuració"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr ""
-#~ "Permet desfer els canvis produïts en actualitzar un paquet RPM (es "
-#~ "necessita espai addicional)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Introduïu un camí on vulgueu emmagatzemar els paquets descarregats."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Introduïu el nom d'un fitxer que vulgueu ignorar quan es determini els "
-#~ "paquets que podeu escollir. Es poden fer servir asteriscos, com per "
-#~ "exemple \"/boot/*\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Introduïu el nom d'un paquet que vulgueu ometre quan es determini els "
-#~ "paquets que podeu escollir. Es poden fer servir asteriscos, com per "
-#~ "exemple \"kernel*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Nom dels fitxers a ometre"
-
-#~ msgid "General"
-#~ msgstr "General"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Si necessiteu un servidor intermediari HTTP, introduïu-lo aquí en format "
-#~ "màquina:port\n"
-#~ "p.e: squid.mysit.org:3128"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Si heu d'ignorar la versió de Red Hat Linux detectada automàticament, "
-#~ "introduïu aquí la versió, o escolliu una de les versions predefinides."
-
-#~ msgid "Network Settings"
-#~ msgstr "Configuració de la xarxa"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Ignora la versió emmagatzemada en el perfl del sistema:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Excepcions de paquets"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Opcions de la instal·lació de paquets"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Nom dels paquets que s'ignoraran"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Opcions per a l'obtenció de paquets"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Opcions de la verificació de paquets"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Directori per emmagatzemar els paquets:"
-
-#~ msgid "Remove"
-#~ msgstr "Suprimeix"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Obtenció i instal·lació"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Descarrega el paquet RPM de codi a més del paquet binari"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Fes servir el GPG per verificar la integritat dels paquets"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Un nom de perfil és un nom descriptiu que podeu escollir per identificar "
-#~ "aquest perfil de sistema en\n"
-#~ "les pàgines web de la Red Hat Network. Opcionalment, es pot incloure un "
-#~ "nombre de sèrie o d'identificació."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Segons les vostres preferències, heu escollit no actualitzar "
-#~ "automàticament\n"
-#~ "els paquets de dalt. Si voleu canviar la vostra configuració per "
-#~ "incloure\n"
-#~ "un dels paquets de dalt en la llista per descarregar, seleccioneu-lo ara."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "S'inclourà en el perfil informació addicional quant al programari, "
-#~ "incloent dispositius PCI,\n"
-#~ "mides de disc i punts de muntatge."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "S'ha finalitzat"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Forces armades (AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Forces armades (AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Forces armades (AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "Paquets disponibles per instal·lar"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr ""
-#~ "A sota hi ha una llista de paquets presents en el vostre sistema que RPM "
-#~ "coneix:"
-
-#~ msgid "British Columbia"
-#~ msgstr "British Columbia"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Per defecte, s'inclouran en el perfil de sistema tots els paquets que RPM "
-#~ "coneix.\n"
-#~ "Seleccioneu només els paquets que voleu incloure."
-
-#~ msgid "California"
-#~ msgstr "Califòrnia"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Si enteneu i accepteu aquestes condicions, cliqueu \"Endavant\".\n"
-#~ "Si no ho accepteu, premeu \"Cancel·la\"."
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Contact preferences"
-#~ msgstr "Preferències en contactar"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "Districte de Columbia"
-
-#~ msgid "Dr."
-#~ msgstr "Doctor"
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "El camps marcats en vermell són obligatoris."
-
-#~ msgid "First name:"
-#~ msgstr "Nom:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "És important tenir informació del maquinari per determinar quin "
-#~ "programari i quins controladors són necessaris per a aquest sistema. La "
-#~ "mínima informació que podeu incloure contindrà\n"
-#~ "l'arquitectura del vostre sistema i la versió de Red Hat Linux."
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "IP address:"
-#~ msgstr "Adreça IP:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Inclou informació quant al maquinari i la xarxa"
-
-#~ msgid "Included information"
-#~ msgstr "Informació inclosa"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "S'està instal·lant els paquets"
-
-#~ msgid "Installing:"
-#~ msgstr "S'està instal·lant:"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Cognoms:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Micronèsia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnessota"
-
-#~ msgid "Miss"
-#~ msgstr "Senyoreta"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "Sr."
-
-#~ msgid "Mrs."
-#~ msgstr "Sra."
-
-#~ msgid "Ms."
-#~ msgstr "Sra."
-
-#~ msgid "Name"
-#~ msgstr "Nom"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "New Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "Nova Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "Nou Mèxic"
-
-#~ msgid "New York"
-#~ msgstr "Nova York"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Newfoundland"
-
-#~ msgid "North Carolina"
-#~ msgstr "Carolina del nord"
-
-#~ msgid "North Dakota"
-#~ msgstr "Dakota del nord"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Marianas del nord"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "Territori nord-occidental"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova escòcia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontàrio"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Fora dels Estats Units/Canadà"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Paquets marcats per ser ignorats"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Paquets necessaris per resoldre les dependències:"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "Illes Príncep Edward"
-
-#~ msgid "Quebec"
-#~ msgstr "Quebec"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "La informació dels RPM és important per determinar quins paquets de "
-#~ "programari actualitzats\n"
-#~ "són necessaris per al vostre sistema."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Versió de Red Hat Linux:"
-
-#~ msgid "Rel."
-#~ msgstr "Allib."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "S'està obtenint els paquets"
-
-#~ msgid "Retrieving:"
-#~ msgstr "S'està obtenint:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Selecciona tots els paquets"
-
-#~ msgid "Sir"
-#~ msgstr "Sir"
-
-#~ msgid "South Carolina"
-#~ msgstr "Carolina del sud"
-
-#~ msgid "South Dakota"
-#~ msgstr "Dakota del sud"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Ofertes especials dels associats amb Red Hat"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Condicions"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Aquests paquets depenen d'alguns dels que heu seleccionat i per tant "
-#~ "també\n"
-#~ "són necessaris. S'afegiran a la vostra selecció de paquets actual."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "L'agent d'actualització de Red Hat us ajudarà amb l'actualització del\n"
-#~ "programari més recent per a aquest sistema Red Hat Enterprise Linux,\n"
-#~ "disponible des de Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "Per continuar, cliqueu \"Endavant\". Per cancel·lar sense actualitzar "
-#~ "res,\n"
-#~ "cliqueu \"Cancel·la\"."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Per subscriure-us a canals o anul·lar la subscripció,\n"
-#~ "o per obtenir més informació quant als canals disponibles, consulteu:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Progrés total:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Mida total dels paquets seleccionats que es descarregaran:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Mida total dels paquets seleccionats:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "Trust Territories"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr ""
-#~ "Actualitza l'agent d'actualització de Red Hat Network si n'hi ha un de "
-#~ "nou disponible"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#~ msgid "View Advisory"
-#~ msgstr "Mostra l'avís"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Illes Verges"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "S'ha recollit tota la informació per al perfil de sistema.\n"
-#~ "\n"
-#~ "Cliqueu \"Endavant\" per enviar aquest perfil de sistema a Red Hat "
-#~ "Network.\n"
-#~ "Si cliqueu \"Cancel·la\" no s'enviarà cap informació. Podeu executar el\n"
-#~ "programa de registre més endavant executant el rhn_register en la línia "
-#~ "d'ordres."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Benvingut a l'agent d'actualització de Red Hat"
-
-#~ msgid "West Virginia"
-#~ msgstr "Virginia occidental"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Premeu \"Endarrere\" per modificar la selecció de paquets, o \"Endavant\" "
-#~ "per continuar."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "Podeu actualitzar el vostre perfil de maquinari o crea nous perfils de "
-#~ "maquinari si entreu a\n"
-#~ "Red Hat Network a http://www.redhat.com/network."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "Territori Yukon"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "Codi postal:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "Carta electrònica"
-
-#~ msgid "    The _number is: "
-#~ msgstr "    El _número és: "
-
-#~ msgid "(example, webserver1)"
-#~ msgstr "(exemple, servidorweb1)"
-
-#~ msgid "* First name:"
-#~ msgstr "* Nom:"
-
-#~ msgid "* Last name:"
-#~ msgstr "* Cognoms:"
-
-#~ msgid "* Required fields"
-#~ msgstr "* Camps requerits"
-
-#~ msgid ""
-#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
-#~ "code, and maintenance capabilities included in your subscription.\n"
-#~ "Red Hat uses your login and account information to communicate with you\n"
-#~ "about your subscription services and software."
-#~ msgstr ""
-#~ "En crear una entrada de Red Hat tindreu accés a les actualitzacions, "
-#~ "errors,\n"
-#~ "codi font i capacitat de manteniment incloses en la vostra subscripció.\n"
-#~ "Red Hat usa la vostra entrada i la informació del compte per comunicar-"
-#~ "vos\n"
-#~ "novetats sobre els serveis de subscripció i programari."
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Si heu perdut la vostra entrada o contrasenya, consulteu\n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ " Necessiteu ajuda? Contacteu amb el servei dels clients a http://www."
-#~ "redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
-#~ "(You may opt out at any time.)"
-#~ msgstr ""
-#~ "Obtingues recordatoris mitjançant correu electrònic sobre el número "
-#~ "mensual de\n"
-#~ "Red Hat Magazine. Es pot esborrar la inscripció en qualsevol moment."
-
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "No tinc cap número _de subscripció"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr "No puc completar el registre en aquet moment. Recorda-m'ho després."
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "Tinc una entrada a Red Hat."
-
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "Si heu comprat directament des de Red Hat o vau realitzar l'activació\n"
-#~ "mitjançant el nostre lloc web, la vostra subscripció ja està activa."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Si necessiteu ajuda, contacteu amb el representat del servei dels clients "
-#~ "que tingueu més a prop, n'hi ha una llista a http://www.redhat.com/"
-#~ "contact/\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Si necessiteu ajuda, contacteu amb el servei dels clients a http://www."
-#~ "redhat.com/contact/"
-
-#~ msgid "Network Configuration"
-#~ msgstr "Configuració de xarxa"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "Fora dels Estats Units/Canadà"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "Proporcioneu un nom per al sistema que esteu instal·lant"
-
-#~ msgid "Take me back so I can provide or create a Red Hat login."
-#~ msgstr "Torna endarrere per proporcionar o crear una entrada de Red Hat."
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr ""
-#~ "Explica perquè he de registrar-me i proporcionar una entrada de Red Hat."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "El nom de sistema us permet identificar aquest sistema a Red Hat Network "
-#~ "per a assumptes de manteniment. Si no en proporcioneu cap, us en "
-#~ "proporcionarem un de predeterminat."
-
-#~ msgid ""
-#~ "To activate the services included in your subscription, please register "
-#~ "with Red Hat and provide a Red Hat login."
-#~ msgstr ""
-#~ "Per activar els serveis incloso en la vostra subscripció, registreu-vos a "
-#~ "Red Hat i proporcioneu una entrada de Red Hat."
-
-#~ msgid ""
-#~ "Why do you need to register and provide a Red Hat login?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Your subscription includes support and software maintenance services. To\n"
-#~ "activate these services, you must register with Red Hat. Registration\n"
-#~ "includes these simple steps:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) provide a Red Hat login\n"
-#~ "2) provide a subscription number\n"
-#~ "3) connect your system to Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "If you do not complete these registration steps, you will not be able to\n"
-#~ "access the services included in your subscription. These services keep\n"
-#~ "your system current, reliable, secure and supported.\n"
-#~ msgstr ""
-#~ "Perquè heu de registrar-vos i proporcionar una entrada de Red Hat?\n"
-#~ "\n"
-#~ "La vostra subscripció inclou suport i serveis de manteniment del "
-#~ "programari.\n"
-#~ "Per activar aquests serveis, heu de registrar-vos a Red Hat. El registre\n"
-#~ "inclou aquests passos senzills:\n"
-#~ "\n"
-#~ "1) proporcionar una entrada de Red Hat\n"
-#~ "2) proporcionar un número de subscripció\n"
-#~ "3) connectar el vostre sistema a Red Hat Network\n"
-#~ "\n"
-#~ "Si no completeu aquest registre, no podreu accedir els serveis inclosos\n"
-#~ "en la vostra subscripció. Aquests serveis mantenen el vostre sistema\n"
-#~ "actualitzat, segur i suportat.\n"
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "Podeu finalitzar aquest servei en qualsevol moment. Vegeu "
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr ""
-#~ "El vostre número de subscripció es troba en el paquet que venia amb la "
-#~ "vostra comanda"
-
-#~ msgid "_Details"
-#~ msgstr "_Detalls"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Contrasenya:  "
-
-#~ msgid "dialog1"
-#~ msgstr "diàleg1"
-
-#~ msgid "Use Existing Account"
-#~ msgstr "Usa un compte existent"
-
-# Projecte_Gnome_2.2 [gnome-system-tools.HEAD.ca.po]
-#~ msgid "Password (confirm):"
-#~ msgstr "Contrasenya (confirmeu-la):"
-
-#~ msgid "label11"
-#~ msgstr "etiqueta11"
-
-#~ msgid "Advisory Information"
-#~ msgstr "Informació d'avís"
+msgstr ""

@@ -1,31 +1,31 @@
-# translation of ar.po to Arabic
-# translation of up2date.po to Arabic
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ossama M. Khayat <okhayat@yahoo.com>, 2004.
+#
 # Mohammad Ghoniem <Mohammad.Ghoniem@laposte.net>, 2004.
 # Munzir Taha <munzir@kacst.edu.sa>, 2004.
 # Munzir Taha <munzirtaha@newhorizons.com.sa>, 2005.
-#
+# Ossama M. Khayat <okhayat@yahoo.com>, 2004.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: ar\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2005-05-19 13:45+0300\n"
-"Last-Translator: Munzir Taha <munzirtaha@newhorizons.com.sa>\n"
-"Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Arabic <trans-ar@lists.fedoraproject.org>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "ني"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -34,9 +34,8 @@ msgid "Warning"
 msgstr "تحذير"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -49,9 +48,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "أرسل السجلّ الشّخصيّ إلى شبكة ردهات"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -77,9 +76,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "كان هناك خطأ في الاتّصال مع خادم التّسجيل:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -90,26 +88,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "بيانات الاشتراك لحساب: "
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "يجب عليك إدخال اسم العائلة."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "حدث خطأ في تسجيل هذا النّظام."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -118,36 +113,32 @@ msgid ""
 msgstr "وقع خطأ في الاتّصال بمزود التّسجيل.  كانت الرّسالة:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
 msgstr "حدث خطأ أثناء تشغيل أداة السجلّ الشّخصي للعتاد"
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "يجب أن تختار اسماً لهذا السّجلّ الشخصيّ "
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "جاري إرسال معلومات سجلّك الشّخصيّ إلى شبكة ردهات.  رجاء الانتظار."
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "خطأ في تسجيل النّظام."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -157,11 +148,11 @@ msgid "Problem registering system:\n"
 msgstr "مشكلة في تسجيل النّظام:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "رقم الاشتراك المحدد [ %s ] غير صالح."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -176,14 +167,12 @@ msgid "There was a problem registering this system."
 msgstr "حدث خطأ في تسجيل هذا النّظام."
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "أرسل _بيانات العتاد"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "حدث خطأ في قراءة بيانات العتاد:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -195,14 +184,12 @@ msgstr "حدث خطأ في قراءة بيانات العتاد:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "أرسل _بيانات العتاد"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "خطأ في إرسال لائحة الحزم."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -223,14 +210,12 @@ msgid "Problem registering personal information"
 msgstr "خطأ في تسجيل المعلومات الشّخصيّة"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "يجب عليك إدخال اسم مستخدم."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -252,9 +237,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -267,9 +251,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -314,9 +297,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:160
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "خطأ: لم يتم العثور على ملف RHNS CA:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
@@ -339,20 +321,17 @@ msgid "Getting list of packages installed on the system"
 msgstr "جاري إحضار لائحة الحزم المُثبّتة على النّظام"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "اسم المشترك لدى شبكة ردهات"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "_اسم الدّخول:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "اسم العائلة:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -370,43 +349,36 @@ msgid "OK"
 msgstr "موافق"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "وقع خطأ في الاتّصال بمزود التّسجيل.  كانت الرّسالة:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
 msgstr "اسم السجلّ الشّخصيّ:"
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "الإصدار:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "طراز وحدة المعالجة المركزية:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "اسم المضيف:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "سرعة وحدة المعالجة المركزية:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "عنوان IP:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "الذاكرة:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -490,14 +462,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "اختر خادم شبكة ردهات لاستخدامه"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "اختر خادم شبكة ردهات لاستخدامه"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -506,9 +477,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "إعادة تشغيل up2date"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -529,9 +499,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "سبق التسجيل"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -552,9 +521,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "الشركة:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -587,9 +555,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - لائحة الحزم (التّسجيل)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -618,21 +585,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "معلومات الحزمة"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "بيانات الاشتراك لحساب: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "اسم المسخدم لدى ردهات:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -649,9 +614,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -665,18 +629,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "الإصدار"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "تحديثات الحزمة المتوفّرة"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -690,9 +652,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "وصل نظامك"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -717,9 +678,8 @@ msgstr "اشمل المعلومات التّالية حول العتاد وال�
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "وصل نظامك"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -741,27 +701,21 @@ msgstr "جاري بناء لائحة الحزم"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"هل نسيت اسم حسابك أو كلمة المرور ؟ استرجع\n"
-"هذه البيانات من http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "عنوان البريد الالكتروني:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -795,7 +749,6 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "أرسل السجلّ الشّخصيّ إلى شبكة ردهات"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -803,11 +756,6 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"لقد انتهينا من تجميع المعلومات لسجلّ النّظام الشّخصي.\n"
-"\n"
-"اضغط \"التّالي\" لتُرسل سجلّ النّظام الشّخصيّ إلى شبكة ردهات.  اضغط \"إلغاء\" ولن "
-"تُرسال أيّة معلومات.  يمكنك تشغيل برنامج التّسجيل لاحقاً بكتابة `up2date --"
-"register' على سطر الأوامر."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -841,23 +789,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "جاري الاتصال بشبكة ردهات"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "رقم الاشتراك غير صالح"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "بيانات القناة"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1120,9 +1066,8 @@ msgstr "إلغاء"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "إلغاء"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1162,9 +1107,8 @@ msgid "Error validating data at server:\n"
 msgstr "خطأ في التّحقّق من صلاحية البيانات على الخادم:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "رقم الاشتراك غير صالح"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1276,16 +1220,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:206
-#, fuzzy
 msgid "An error has occurred:"
 msgstr ""
-"حدث خطأ غير متوقّع بنظام التّشغيل :\n"
-"%s"
 
 #: ../src/up2date_client/rhncli.py:214
-#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr "أرسل _بيانات العتاد"
+msgstr ""
 
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
@@ -1295,24 +1235,20 @@ msgid ""
 msgstr "يتطلّب العميل أن يدعم الخادم %s، والذي لا يدعمه الخادم الحالي"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "انتهاء"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "تحرير"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "انتهى التّسجيل"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "يجب عليك تشغيل عميل التّحديث كمستخدم root"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1341,9 +1277,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "الوصف"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1358,21 +1293,18 @@ msgstr "اسم المسخدم لدى ردهات:"
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "سجلّ العتاد الشّخصي"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "حدث خطأ في الاتصال بالخادم: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "هل ترغب في محاولة تغيير إعدادات الشبكة والمحاولة مرّة أخرى؟"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1391,19 +1323,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "حدّد عنوان الخادم الواجب استخدامه"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
-msgstr "    --sslCACert=<path>         - حدّد ملفّاً لاستخدامه كشهادة ssl CA"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "حدّد http proxy لاستخدامه"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1411,21 +1340,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "    --contactinfo              - اقرأ معلومات الاتصال من stdin"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
-msgstr "    --nohardware               - لا تبحث في أو تحمّل أي معلومات عتاد"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
-"    --nopackages               - لا تقم بإضافة أو تحميل أي معلومات متعلقة "
-"بالحزم"
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1436,15 +1360,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
-msgstr "    --force                    - سجّل النّظام حتّى إن تم تسجيله مسبقاً"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"يجب تحديد اسم المستخدم وكلمة المرور وعنوان البريد الالكتروني لتسجيل نظام."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1485,9 +1406,8 @@ msgstr ""
 "لاستخدامها كاسم سجلّ شخصيّ، فرجاء قم بتحديد واحد."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "لا تحاول استخدام X"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1506,37 +1426,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "قنوات"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "ثبّت كلّ الحزم المتوفّرة. يستخدم مع --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "اسم المستخدم:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "*_تأكيد كلمة المرور: "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "اسم المستخدم:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1548,9 +1463,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "خطأ في قراءة التّرويسة"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1563,9 +1478,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1580,12 +1494,10 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"عليك بتسجيل هذا النّظام بتشغيل 'up2date --register' قبل استخدام هذا الخيار"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1596,37 +1508,32 @@ msgid "Updating hardware profile..."
 msgstr "جاري تحديث سجلّ العتاد الشّخصي..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "جاري تحديث السجلّ الشّخصي للحزم..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "وصل نظامك"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "معلومات الحزمة"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "يجب عليك إدخال اسم مستخدم."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "مربّع حوار التقدّم"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "مربّع حوار التقدّم"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1639,9 +1546,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1693,38 +1599,30 @@ msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"هل نسيت اسم حسابك أو كلمة المرور ؟ استرجع\n"
-"هذه البيانات من http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "إعداد شبكة ردهات"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "إعداد شبكة ردهات"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "القناة"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "الإصدار"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
 msgid "Close"
@@ -1735,14 +1633,12 @@ msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "سجلّ العتاد الشّخصي"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "معلومات الحزمة"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
@@ -1757,14 +1653,12 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "الولايات المتحدة"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "الوصف"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1779,9 +1673,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "اسم المسخدم لدى ردهات:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1796,14 +1689,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "سجلّ العتاد الشّخصي"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "أرسل _لائحة الحزم"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1825,19 +1716,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "استخدم التّوثيق"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "سجلّ العتاد الشّخصي"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "جاري تحديث السجلّ الشّخصي للحزم..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1847,9 +1735,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "فعل اشتراكك"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1864,18 +1751,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "رقم الاشتراك غير صالح"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "كلمة السّر:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1886,15 +1771,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "اسم العائلة:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "الشركة:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1902,22 +1785,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "مكّن وسيط HTTP:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "بيانات الاشتراك: "
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "اسم المشترك لدى شبكة ردهات"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1925,16 +1805,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "بيانات الاشتراك: "
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "اسم العائلة:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -1953,22 +1831,19 @@ msgid "<big><b>System Name</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
+msgstr ""
 
 #: ../data/rh_register.glade.h:79
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
+msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
+msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgctxt "yes"
@@ -1978,15 +1853,11 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"هل نسيت اسم حسابك أو كلمة المرور ؟ استرجع\n"
-"هذه البيانات من http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:84
 #, no-c-format
@@ -2010,10 +1881,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "إعداد شبكة ردهات"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2040,10 +1910,9 @@ msgid "CPU Speed:"
 msgstr "سرعة وحدة المعالجة المركزية:"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "اسم المشترك لدى شبكة ردهات"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2108,16 +1977,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "كان هناك خطأ في الاتّصال مع خادم التّسجيل:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "جاري الاتصال بشبكة ردهات"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2133,10 +2000,9 @@ msgid "IP Address:"
 msgstr "عنوان IP:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "رقم الاشتراك"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2147,10 +2013,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "إعادة تشغيل up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2172,12 +2037,11 @@ msgid "Package Information"
 msgstr "معلومات الحزمة"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2194,7 +2058,7 @@ msgstr "كلمة السّر:"
 #, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "اسم المستخدم:"
+msgstr "اسم السجلّ الشّخصيّ:"
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2225,7 +2089,7 @@ msgstr "إصدار ردهات لينكس:"
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "اسم المشترك لدى شبكة ردهات"
+msgstr "اسم المسخدم لدى ردهات:"
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
@@ -2237,7 +2101,7 @@ msgstr "سجلّ العتاد الشّخصي"
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "أرسل _لائحة الحزم"
+msgstr "جاري تحديث السجلّ الشّخصي للحزم..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2252,10 +2116,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "اسم العائلة:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2265,10 +2128,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "استخدم التّوثيق"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2320,10 +2182,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "إعادة تشغيل up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2352,10 +2213,9 @@ msgid "_Close"
 msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "_اسم الدّخول:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2385,16 +2245,14 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - لائحة الحزم (التّسجيل)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - لائحة الحزم (التّسجيل)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
@@ -2403,10 +2261,9 @@ msgid "_View Hardware Profile ..."
 msgstr "سجلّ العتاد الشّخصي"
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "ما فائدة الاشتراك؟"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2429,10 +2286,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "جاري الاتصال بشبكة ردهات"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2440,3236 +2296,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "أنشئ حساباً لدى شبكة ردهات"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "رقم الاشتراك"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "سجّل نفسك في شبكة ردهات"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "جاري الاتصال بشبكة ردهات"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "الخطوة 3: قم بتسجيل سجلّ شخصيّ للنّظام - العتاد"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "الخطوة 3: قم بتسجيل سجلّ النظام الخاص - الحزم"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "رقم الاشتراك"
-
-#~ msgid "Warning:"
-#~ msgstr "تحذير:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "حوار موافق:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "حوار سؤال:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - تفعيل"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "تحذير: لم يمكن تمكين rhnsd باستخدام chkconfig"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "خطأ في القرص.  كانت الرّسالة:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "خطأ تضارب حزم RPM.  كانت الرّسالة:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "خطأ تضارب بين ملفات RPM. كانت الرّسالة:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "خطأ  RPM. كانت الرّسالة:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "خطأ في معتمدات RPM. كانت الرّسالة:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "خطأ في لائحة تخطّي الحزم.  كانت الرّسالة:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr "خطأ في الكتابة فوق لائحة تخطّي الملفّات أو ملفّ التّهيئة:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "لم يمكن إزالة الحزمة \"%s\". لقد كانت في لائحة RemoveSkipList"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG ليس مُثبّتاً بشكل ملائم"
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "مجموعة مفاتيح GPG لا تحتوي على مفتاح ردهات المتّحدة العام لتوقيع الحزم."
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr "فشل التحقّق من توقيع gpg الخاص بالحزمة %s. هذا يعني أن الحزمة فاسدة."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "الحزمة %s لا تحتوي على توقيع GPG.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "الحزمة %s تحتوي على توقيع GPG غير موثوق.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "الحزمة %s تحتوي على توقيع GPG مجهول.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "جاري الاتصال بشبكة ردهات"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "سجّل نفسك في شبكة ردهات"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "إعادة تشغيل up2date"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr "لا أملك حسابا لدى ردهات. أحتاج أن أنشأ واحدا."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "الخطوة 1: راجع وثيقة الخصوصيّة من ردهات"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "راجع بنود وشروط شبكة ردهات"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "أنشئ حساباً"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "كلمتا المرور اللّتان أدخلتهما ليستا متطابقتين.\n"
-#~ "رجاء أعد إدخال كلمتي المرور."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "أنشئ حساباً لدى شبكة ردهات"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "*_كلمة المرور:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "يهمنا أن نحافظ على خصوصيتك:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "يجب عليك إدخال اسمك الفردي."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "يجب عليك إدخال اسم العائلة."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "يجب أن تدخل عنوان بريد الكتروني."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "يجب أن تدخل عنوان بريد الكتروني صالحا."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "بيانات الاشتراك لحساب: "
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "يجب عليك إدخال رقم مستخدم."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "فعل اشتراكك"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "رقم الاشتراك"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "رقم الاشتراك غير صالح"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "حدث خطأ في تسجيل هذا النّظام."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "حدث خطأ في تسجيل هذا النّظام."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "يجب عليك إدخال رقم مستخدم."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "كان هناك خطأ في الاتّصال مع خادم التّسجيل:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "خطأ حرج خلال جلب بيان الخصوصيّة:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "يجب عليك إدخال رقم مستخدم."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "خطأ في تسجيل اسم المستخدم:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "خطأ في تسجيل اسم المستخدم."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "اسم المشترك لدى شبكة ردهات"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "فعل اشتراكك"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "يجب أن تدخل عنوان بريد الكتروني."
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "لدي رقم حساب أريد تفعيله"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "معلومات هامة  تخص الاشتراك"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - بيانات التّسجيل"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "يجب عليك إدخال رقم مستخدم."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "بيان الخصوصيّة"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "بيان الخصوصيّة الخلص بردهات"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "فعل اشتراكك"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "حدث خطأ في قراءة بيانات العتاد:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "حدث خطأ أثناء قراءة بينات DMI:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "اسم المستخدم أو كلمة المرور غير صالحين \n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "يجب عليك إدخال اسم مستخدم."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "خطأ في تسجيل اسم المستخدم:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "خطأ في تسجيل اسم المستخدم."
-
-#~ msgid "Canada"
-#~ msgstr "كندا"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "بيانات الاشتراك: "
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "معلومات الحزمة"
-
-#~ msgid "*First Name:"
-#~ msgstr "*الاسم الفردي:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*اسم العائلة:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "الشركة:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "*العنوان:"
-
-#~ msgid "City:"
-#~ msgstr "المدينة:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "الولاية / المحافظة:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "الرّمز البريدي:"
-
-#~ msgid "*Country:"
-#~ msgstr "*الدولة:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  العنوان 2:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "  العنوان 2:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "*المدينة:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  الشركة:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "*الولاية / المحافظة:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "*الرّمز البريدي:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "*_تأكيد كلمة المرور: "
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "*الدولة:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "*اسم مشترك ردهات لينكس:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "*_كلمة المرور:"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*اسم العائلة:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "*_عنوان البريد الالكتروني:"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*الاسم الفردي:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "معلومات الحزمة"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "بيانات الاشتراك: "
-
-#~ msgid "Afghanistan"
-#~ msgstr "أفغانستان"
-
-#~ msgid "Albania"
-#~ msgstr "ألبانيا"
-
-#~ msgid "Algeria"
-#~ msgstr "الجزائر"
-
-#~ msgid "American Samoa"
-#~ msgstr "ساموا الأميركيّة"
-
-#~ msgid "Andorra"
-#~ msgstr "أندورا"
-
-#~ msgid "Angola"
-#~ msgstr "أنغولا"
-
-#~ msgid "Anguilla"
-#~ msgstr "انجولا"
-
-#~ msgid "Antarctica"
-#~ msgstr "القطب الجنوبي"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "أنتيجا وبربودا"
-
-#~ msgid "Argentina"
-#~ msgstr "الأرجنتين"
-
-#~ msgid "Armenia"
-#~ msgstr "أرمينيا"
-
-#~ msgid "Aruba"
-#~ msgstr "أروبا"
-
-#~ msgid "Australia"
-#~ msgstr "أستراليا"
-
-#~ msgid "Austria"
-#~ msgstr "النمسا"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "أذربيجان"
-
-#~ msgid "Bahamas"
-#~ msgstr "جزر البهاما"
-
-#~ msgid "Bahrain"
-#~ msgstr "البحرين"
-
-#~ msgid "Bangladesh"
-#~ msgstr "بنغلادش"
-
-#~ msgid "Barbados"
-#~ msgstr "بربدوس"
-
-#~ msgid "Belarus"
-#~ msgstr "بلاروسيا"
-
-#~ msgid "Belgium"
-#~ msgstr "بلجيكا"
-
-#~ msgid "Belize"
-#~ msgstr "بيليز"
-
-#~ msgid "Benin"
-#~ msgstr "البنين"
-
-#~ msgid "Bermuda"
-#~ msgstr "جزر البرمودا"
-
-#~ msgid "Bhutan"
-#~ msgstr "بوتان"
-
-#~ msgid "Bolivia"
-#~ msgstr "بوليفيا"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "البوسنة والهرسك"
-
-#~ msgid "Botswana"
-#~ msgstr "بتسوانا"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "جزيرة بوفي"
-
-#~ msgid "Brazil"
-#~ msgstr "البرازيل"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "أقليم المحيط الهندي البريطاني"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "بروناي دار السلام"
-
-#~ msgid "Bulgaria"
-#~ msgstr "بلغاريا"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "بوركينا فاصو"
-
-#~ msgid "Burundi"
-#~ msgstr "بوروندي"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "أنشئ حساباً"
-
-#~ msgid "Cambodia"
-#~ msgstr "كمبوديا"
-
-#~ msgid "Cameroon"
-#~ msgstr "الكامرون"
-
-#~ msgid "Cape Verde"
-#~ msgstr "كاب فيرد"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "جزر الكيمان"
-
-#~ msgid "Central African Republic"
-#~ msgstr "جمهورية افريقيا الوسطى"
-
-#~ msgid "Chad"
-#~ msgstr "التشاد"
-
-#~ msgid "Chile"
-#~ msgstr "تشيلي"
-
-#~ msgid "China"
-#~ msgstr "الصين"
-
-#~ msgid "Christmas Island"
-#~ msgstr "جزيرة الكريستمز"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "جزر جوز الهند"
-
-#~ msgid "Colombia"
-#~ msgstr "كولومبيا"
-
-#~ msgid "Comoros"
-#~ msgstr "جزر القمر"
-
-#~ msgid "Congo"
-#~ msgstr "الكنغو"
-
-#~ msgid "Cook Islands"
-#~ msgstr "جزر كوك"
-
-#~ msgid "Costa Rica"
-#~ msgstr "كوستا ريكا"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "ساحل العاج"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "أنشئ حساباً"
-
-#~ msgid "Croatia"
-#~ msgstr "كرواتيا"
-
-#~ msgid "Cuba"
-#~ msgstr "كوبا"
-
-#~ msgid "Cyprus"
-#~ msgstr "قبرص"
-
-#~ msgid "Czech Republic"
-#~ msgstr "جمهورية تشيكيا"
-
-#~ msgid "Denmark"
-#~ msgstr "الدنمارك"
-
-#~ msgid "Djibouti"
-#~ msgstr "جيبوتي"
-
-#~ msgid "Dominica"
-#~ msgstr "الدومنيكا"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "جمهورية الدومينيك"
-
-#~ msgid "East Timor"
-#~ msgstr "تيمور الشرقية"
-
-#~ msgid "Ecuador"
-#~ msgstr "الإكوادور"
-
-#~ msgid "Egypt"
-#~ msgstr "مصر"
-
-#~ msgid "El Salvador"
-#~ msgstr "السلفادور"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "غينيا الاستوائيّة"
-
-#~ msgid "Eritrea"
-#~ msgstr "ارتريا"
-
-#~ msgid "Estonia"
-#~ msgstr "إستونيا"
-
-#~ msgid "Ethiopia"
-#~ msgstr "اثيوبيا"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "جزر الفولكلاند )مالفيناس("
-
-#~ msgid "Faroe Islands"
-#~ msgstr "جزر فارو"
-
-#~ msgid "Fiji"
-#~ msgstr "فيجي"
-
-#~ msgid "Finland"
-#~ msgstr "فنلندا"
-
-#~ msgid "France"
-#~ msgstr "فرنسا"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "فرنسا، المركزية"
-
-#~ msgid "French Guiana"
-#~ msgstr "غينيا الفرنسية"
-
-#~ msgid "French Polynesia"
-#~ msgstr "بولينيزيا الفرنسية"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "الأقاليم الجنوبية الفرنسية"
-
-#~ msgid "Gabon"
-#~ msgstr "الغابون"
-
-#~ msgid "Gambia"
-#~ msgstr "غمبيا"
-
-#~ msgid "Georgia"
-#~ msgstr "جورجيا"
-
-#~ msgid "Germany"
-#~ msgstr "ألمانيا"
-
-#~ msgid "Ghana"
-#~ msgstr "غانا"
-
-#~ msgid "Gibraltar"
-#~ msgstr "جبل طارق"
-
-#~ msgid "Greece"
-#~ msgstr "اليونان"
-
-#~ msgid "Greenland"
-#~ msgstr "جرينلاند"
-
-#~ msgid "Grenada"
-#~ msgstr "غرناطة"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "جوادالوبّي"
-
-#~ msgid "Guam"
-#~ msgstr "جوام"
-
-#~ msgid "Guatemala"
-#~ msgstr "غواتيمالا"
-
-#~ msgid "Guinea"
-#~ msgstr "غينيا"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "غينيا بيساو"
-
-#~ msgid "Guyana"
-#~ msgstr "غويانا"
-
-#~ msgid "Haiti"
-#~ msgstr "هايتي"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "جزر هيرد وماكدونالد"
-
-#~ msgid "Honduras"
-#~ msgstr "هندوراس"
-
-#~ msgid "Hong Kong"
-#~ msgstr "هونغ كونغ"
-
-#~ msgid "Hungary"
-#~ msgstr "هنغاريا"
-
-#~ msgid "Iceland"
-#~ msgstr "ايسلندا"
-
-#~ msgid "India"
-#~ msgstr "الهند"
-
-#~ msgid "Indonesia"
-#~ msgstr "اندونيسيا"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "الجمهوريّة الإسلاميّة الإيرانيّة"
-
-#~ msgid "Iraq"
-#~ msgstr "العراق"
-
-#~ msgid "Ireland"
-#~ msgstr "ايرلندا"
-
-#~ msgid "Israel"
-#~ msgstr "إسرائيل"
-
-#~ msgid "Italy"
-#~ msgstr "ايطاليا"
-
-#~ msgid "Jamaica"
-#~ msgstr "جامايكا"
-
-#~ msgid "Japan"
-#~ msgstr "اليابان"
-
-#~ msgid "Jordan"
-#~ msgstr "الأردن"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "كزاخستان"
-
-#~ msgid "Kenya"
-#~ msgstr "كينيا"
-
-#~ msgid "Kiribati"
-#~ msgstr "كيريباتي"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "جمهورية كوريا الشّعبيّة"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "جمهوريّة كوريا "
-
-#~ msgid "Kuwait"
-#~ msgstr "الكويت"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "كرغيزستان"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "جمهوريّة لاو الدّيموقراطيّة الشّعبيّة"
-
-#~ msgid "Latin America"
-#~ msgstr "أمريكا اللّاتينيّة"
-
-#~ msgid "Latvia"
-#~ msgstr "لاتفيا"
-
-#~ msgid "Lebanon"
-#~ msgstr "لبنان"
-
-#~ msgid "Lesotho"
-#~ msgstr "لزوتو"
-
-#~ msgid "Liberia"
-#~ msgstr "ليبيريا"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "الجمهورية العربية الليبية"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "ليشتنشتاين"
-
-#~ msgid "Lithuania"
-#~ msgstr "لتوانيا"
-
-#~ msgid "Luxembourg"
-#~ msgstr "لكسمبورغ"
-
-#~ msgid "Macau"
-#~ msgstr "ماكاو"
-
-#~ msgid "Macedonia"
-#~ msgstr "مقدونيا"
-
-#~ msgid "Madagascar"
-#~ msgstr "مدغشقر"
-
-#~ msgid "Malawi"
-#~ msgstr "ملاوي"
-
-#~ msgid "Malaysia"
-#~ msgstr "ماليزيا"
-
-#~ msgid "Maldives"
-#~ msgstr "المالديف"
-
-#~ msgid "Mali"
-#~ msgstr "مالي"
-
-#~ msgid "Malta"
-#~ msgstr "مالطا"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "جزر المارشل"
-
-#~ msgid "Martinique"
-#~ msgstr "مارتينيك"
-
-#~ msgid "Mauritania"
-#~ msgstr "موريتانيا"
-
-#~ msgid "Mauritius"
-#~ msgstr "موريشيوس"
-
-#~ msgid "Mayotte"
-#~ msgstr "مايوت"
-
-#~ msgid "Mexico"
-#~ msgstr "المكسيك"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "ميكرونيسيا"
-
-#~ msgid "Moldova"
-#~ msgstr "مولدوفيا"
-
-#~ msgid "Monaco"
-#~ msgstr "موناكو"
-
-#~ msgid "Mongolia"
-#~ msgstr "منغوليا"
-
-#~ msgid "Montserrat"
-#~ msgstr "مونتسيرات"
-
-#~ msgid "Morocco"
-#~ msgstr "المغرب"
-
-#~ msgid "Mozambique"
-#~ msgstr "الموزمبيق"
-
-#~ msgid "Myanmar"
-#~ msgstr "مينمار"
-
-#~ msgid "Namibia"
-#~ msgstr "ناميبيا"
-
-#~ msgid "Nauru"
-#~ msgstr "نورو"
-
-#~ msgid "Nepal"
-#~ msgstr "نيبال"
-
-#~ msgid "Netherlands"
-#~ msgstr "هولندا"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "جزر الأنتيل الهولندية"
-
-#~ msgid "New Caledonia"
-#~ msgstr "نيو قلدونيا"
-
-#~ msgid "New Zealand"
-#~ msgstr "نيو زيلند"
-
-#~ msgid "Nicaragua"
-#~ msgstr "نيكاراجوا"
-
-#~ msgid "Niger"
-#~ msgstr "النيجر"
-
-#~ msgid "Nigeria"
-#~ msgstr "نيجيريا"
-
-#~ msgid "Niue"
-#~ msgstr "ني"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "جزيرة نورفولك"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "جزر ماريانا الشّماليّة"
-
-#~ msgid "Norway"
-#~ msgstr "النرويج"
-
-#~ msgid "Oman"
-#~ msgstr "عمان"
-
-#~ msgid "Pakistan"
-#~ msgstr "باكستان"
-
-#~ msgid "Palau"
-#~ msgstr "بالو"
-
-#~ msgid "Panama"
-#~ msgstr "باناما"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "بابوا نيو غينيا"
-
-#~ msgid "Paraguay"
-#~ msgstr "البراغواي"
-
-#~ msgid "Peru"
-#~ msgstr "بيرو"
-
-#~ msgid "Philippines"
-#~ msgstr "الفلبين"
-
-#~ msgid "Pitcairn"
-#~ msgstr "بتكيرن"
-
-#~ msgid "Poland"
-#~ msgstr "بولندا"
-
-#~ msgid "Portugal"
-#~ msgstr "البرتغال"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "بورتو ريكو"
-
-#~ msgid "Qatar"
-#~ msgstr "قطر"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr "اسماء الدخول وكلمات السر لدى ردهات يجب أن تزيد على 5 رموز"
-
-#~ msgid "Reunion"
-#~ msgstr "ريونيون"
-
-#~ msgid "Romania"
-#~ msgstr "رومانيا"
-
-#~ msgid "Russian Federation"
-#~ msgstr "الاتحاد الروسي"
-
-#~ msgid "Rwanda"
-#~ msgstr "روندا"
-
-#~ msgid "Saint Helena"
-#~ msgstr "سانت هيلينا"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "سانت كيتس نيفيس"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "سانت لوسيا"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "سانت بيير ميكيلون"
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "سانت فينسينت وجرينادين"
-
-#~ msgid "Samoa"
-#~ msgstr "صاموا"
-
-#~ msgid "San Marino"
-#~ msgstr "سان مارينو"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "ساو توم وبرنسيب"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "المملكة العربية السعودية"
-
-#~ msgid "Senegal"
-#~ msgstr "السينغال"
-
-#~ msgid "Seychelles"
-#~ msgstr "السيشال"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "سييرا ليون"
-
-#~ msgid "Singapore"
-#~ msgstr "سنغفورة"
-
-#~ msgid "Slovakia"
-#~ msgstr "سلوفاكيا"
-
-#~ msgid "Slovenia"
-#~ msgstr "سلوفينيا"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "جزر سليمان"
-
-#~ msgid "Somalia"
-#~ msgstr "الصومال"
-
-#~ msgid "South Africa"
-#~ msgstr "جنوب افريقيا"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "جورجيا الجنوبية وجزر الساندويش"
-
-#~ msgid "Spain"
-#~ msgstr "أسبانيا"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "سري لانكا"
-
-#~ msgid "Sudan"
-#~ msgstr "السودان"
-
-#~ msgid "Suriname"
-#~ msgstr "سورينام"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "جزر سفالبارد وجان ميين"
-
-#~ msgid "Swaziland"
-#~ msgstr "السوازيلاند"
-
-#~ msgid "Sweden"
-#~ msgstr "السويد"
-
-#~ msgid "Switzerland"
-#~ msgstr "سويسرا"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "الجمهوريّة العربيّة السّوريّة"
-
-#~ msgid "Taiwan"
-#~ msgstr "تايوان"
-
-#~ msgid "Tajikistan"
-#~ msgstr "طاجيكستان"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "جمهوريّة تانزانيا الاتّحاديّة"
-
-#~ msgid "Thailand"
-#~ msgstr "تايلندا"
-
-#~ msgid "Togo"
-#~ msgstr "طوغو"
-
-#~ msgid "Tokelau"
-#~ msgstr "توكيلاو"
-
-#~ msgid "Tonga"
-#~ msgstr "التونجا"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "ترنيداد و توباغو"
-
-#~ msgid "Tunisia"
-#~ msgstr "تونس"
-
-#~ msgid "Turkey"
-#~ msgstr "تركيا"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "تركمانستان"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "جزر كيكوس التركية"
-
-#~ msgid "Tuvalu"
-#~ msgstr "توفالو"
-
-#~ msgid "Uganda"
-#~ msgstr "اوغندا"
-
-#~ msgid "Ukraine"
-#~ msgstr "أكرانيا"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "الإمارات العربية المتحدة"
-
-#~ msgid "United Kingdom"
-#~ msgstr "المملكة المتحدة"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "الجزر الصغير البعيدة عن الولايات المتحدة"
-
-#~ msgid "Uruguay"
-#~ msgstr "الأوروغواي"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "اوزباكستان"
-
-#~ msgid "Vanuatu"
-#~ msgstr "فانواتو"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "الفاتيكان"
-
-#~ msgid "Venezuela"
-#~ msgstr "فينزويلا"
-
-#~ msgid "Viet Nam"
-#~ msgstr "فيتنام"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "جزر العذراء (البريطانيّة)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "جزر العذراء (الأميركيّة)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "جزر واليس و فوتونا"
-
-#~ msgid "Western Sahara"
-#~ msgstr "الصحراء الغربية"
-
-#~ msgid "Yemen"
-#~ msgstr "اليمن"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "يوغوسلافيا"
-
-#~ msgid "Zaire"
-#~ msgstr "زائير"
-
-#~ msgid "Zambia"
-#~ msgstr "زمبيا"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "زمبابوي"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    مكتبات نظامك لا تدعم اتّصالات SSL (الآمنة) .\n"
-#~ "    أي بيانات تقوم بإرسالها أو استلامها من redhat.com\n"
-#~ "    ستُرسل دون تشفير.\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "هل أستمرّ على كلّ حال؟"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "أُحضر."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "بيانات القناة"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "الشركة:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "جاري الاتصال بشبكة ردهات"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "فعل اشتراكك"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "اسم المشترك لدى شبكة ردهات"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr "قم بتحديث الحزم المرتبطة بسجلّ النّظام الشّخصي هذا على شبكة ردهات"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "يجب أن تقوم بتشغيل برنامج تسجيل RHN كمستخدم root."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "فعل اشتراكك"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "فعل اشتراكك"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "فعل اشتراكك"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "جاري الاتصال بشبكة ردهات"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "رجاءً عدّل اختيارات الحزم وحاول مرّة أخرى."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "الإصدار:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "فعل اشتراكك"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "فعل اشتراكك"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "مشكلة في إرسال الحزم:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "خطأ في إرسال الحزم."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "يجب أن يشتمل اسم المستخدم على 5 رموز على الأقل"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "كلمة السر لا يجب أن تقل عن 5 رموز"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "كلمتا المرور اللّتان أدخلتهما ليستا متطابقتين.\n"
-#~ "رجاء أعد إدخال كلمة المرور الثّانية."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "نمط/اسم الملفّ"
-
-#~ msgid "Config modified"
-#~ msgstr "تمّ تعديل التّهيئة"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "كان من المفترض أن تكون المعتمدات محلولة مسبقاً، إلا أنّها ليست كذلك."
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "فشل تشغيل معاملات الحزم: %s"
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "لم يتمكن rpm من تحميل ترويسة: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "لم يتمكن rpm من تحميل ترويسة"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "يجب عليك إدخال اسمك الفردي."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "يجب عليك إدخال اسم العائلة."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "يجب عليك إدخال اسم مدينتك."
-
-#~ msgid "SSL Warning"
-#~ msgstr "تحذير SSL"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "مكتبات نظامك لا تدعم اتّصالات SSL (مؤمّنة). أي معلومات ترسلها أو تستقبلها "
-#~ "من شبكة ردهات سوف ترسل بلا تشفير. هل استمر على كلّ حال؟"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "اسم المستخدم:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "خطأ في فتح %s"
-
-#~ msgid "Installing"
-#~ msgstr "جاري التّثبيت"
-
-#~ msgid "Installing %s"
-#~ msgstr "جاري تثبيت %s"
-
-#~ msgid "Repackaging"
-#~ msgstr "جاري إعادة التّحزيم"
-
-#~ msgid "Preparing"
-#~ msgstr "جاري التّحضير"
-
-#~ msgid " Done."
-#~ msgstr " تمّ."
-
-#~ msgid "Retrieved."
-#~ msgstr "أُحضر."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr "الحزم التالية أضيفت إلى اختيارك لإرضاء المعتمدات:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "الاسم                                    النّسخة        الإصدار\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "الاسم                          النّسخة        الإصدار             "
-#~ "القناة     \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "لا توجد معلومات تقرير \n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "الاسم                                    النّسخة        الإصدار     \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "الحزم التّالية محدّد تخطّيها حسب تهيئتك:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "الاسم                                    النّسخة        الإصدار  السّبب\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "الصيغ البديلة التالية لم تتوفر في أي حزمة :"
-
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "المجموعات التالية لم تطابق أي حزمة:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "الحزم التّالية تم إلغاؤها بحزم جديدة:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "الاسم-النّسخة-الإصدار        أهملتها      الاسم-النّسخة-الإصدار\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr "الحزم التّالية لم يتمّ تثبيتها لأنّ الحزم المُثبّتة أهملتها:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "الاسم-النّسخة-الإصدار       ألغتها      الاسم-النّسخة-الإصدار\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr "الحزم التّالية ليست مثبّتة ولكنّها متوفّرة على شبكة ردهات:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "الاسم                                    النّسخة        الإصدار  \n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr "    --noSSLServerURL=<url>     - حدّد عنوان مزود لا يستخدمssl"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr "    --useNoSSLForPackages      - لا تستخدم ssl لتنزيل الحزم"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "اسم المستخدم:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "رقم الاشتراك"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Up2date - أنشئ حساباً جديداً"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "إلغاء"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "تسجيل شبكة ردهات (c) 2000-2001 ردهات، Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "*اسم مشترك ردهات لينكس:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "راجع نص بيان الخصوصيّة"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "لم يُعثر على خيار التّهيئة rhnuuid في /etc/sysconfig/rhn/up2date-uuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    لحل كلّ المعتمدات لحزم RPM التي حدّدتها، قد يجب\n"
-#~ "    إضافة الحزم التّالية التي حدّدت استثنائها إلى المجموعة:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "اسم الحزمة"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "سبب التّخطّي"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "اختبار مجموعة الحزم / حلّ اعتمادات RPM المتبادلة"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "لم يمكن إرضاء المعتمدات المتضاربة."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr "الحزم التالية أضيفت إلى خياراتك لإرضاء المعتمدات:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "الحزمة                                مطلوبة من\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "لا أعرف كيفية التعامل مع اعتمادات \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "سلسلة المعتمدات الغير قابلة للحلّ:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "خيارات elilo التي لا يدعمها up2date تستخدم في elilo.conf الافتراضي. لن "
-#~ "يتمّ تعديل هذا الملفّ. تتضمّن الخيارات:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "لم يمكن تشغيل grubby بشكل صحيح: كانت الرّسالة:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "عميل تحديث ردهات"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "يوزّع هذا البرنامج ضمن رخصة GPL\n"
-#~ "رجاءً أرسل تقرير العلل إلى نظام متابعة العلل لردهات: http://bugzilla."
-#~ "redhat.com/bugzilla//"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr "عميل التّحديث - برنامج لتحديث الحزم على ردهات لينكس"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "يوزّع هذا البرنامج ضمن رخصة GPL.  رجاءً أرسل تقرير العلل إلى نظام متابعة "
-#~ "العلل لردهات: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "إصدار"
-
-#~ msgid "Old Version"
-#~ msgstr "الإصدار القديم"
-
-#~ msgid "Size"
-#~ msgstr "الحجم"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "سبب التّخطّي"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - معلومات الخصوصيّة"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - البنود والشّروط"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - صفحة الدّخول"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - معلومات التّسجيل بشبكة ردهات"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - صفحة معلومات المنتج"
-
-#~ msgid "All information is optional."
-#~ msgstr "كلّ المعلومات اختياريّة."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "من أجل التّواصل عبر البريد من ردهات، عليك أن تملأ\n"
-#~ "اسمك الكامل وعنوانك."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "كي تُمكّن ردهات من الاتصال بك عبر الهاتف، عليك بتزويد\n"
-#~ "رقم هاتف واحد على الأقل واسم."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "كي تُمكّن ردهات من الاتصال بك عبر الفاكس، عليك بتزويد\n"
-#~ "رقم فاكس واحد على الأقل واسم."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - سجلّ العتاد الشّخصي"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "يقوم معالج التّسجيل بتجميع لائحة بحزم RPM المثبّتة على نظامك.  رجاء "
-#~ "الانتظار."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "لم تُحدّد حزمة. رجاء اختر حزمة أوّلاً."
-
-#~ msgid "No advisory information available."
-#~ msgstr "معلومات تقرير غير متوفّرة."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "يقوم عميل تحديث ردهات ببناء قائمة من حزم RPM\n"
-#~ "المحدّثة المثبّة على نظامك.  رجاء الانتظار."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "هناك نسخة جديدة من up2date متوفّرة. هل أثبّت النّسخة الجديدة وأعيد التّشغيل؟"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "كان هناك خطأ RPM حرج.  كانت الرّسالة:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr "وقع خطأ حرج في الاتصال مع الخادم.  كانت الرّسالة:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "حدث خطأ غير متوقّع بنظام التّشغيل :\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - الحزم المُتخطّاة"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - القنوات"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - لائحة الحزم"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "كان هناك خطأ RPM حرج. كانت الرّسالة:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr "نظامك مُحدَّث بالكامل.  لا تحتاج إلى حزم جديدة."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "كان هناك خطأ RPM.  كانت الرّسالة:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "كانت هناك خطأ تثبيت RPM. كانت الرّسالة:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "كان هناك خطأ في معتمدات الحزم.  كانت الرّسالة:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "عليك اختيار حزمة واحدة على الأقل.\n"
-#~ "إن لم ترغب بتحديث أي حزمة،\n"
-#~ "إضغط الزّر \"إلغاء\" للخروج من عميل التّحديث."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "الحجم الكلّي للحزم المحدّدة هو %d كيلوبايت، لكن\n"
-#~ "لديك فقط %d من المساحة الفارغة.\n"
-#~ "رجاء أزل اختيار بعض الحزم واستمر."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - الحزم المتوفّرة"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - المعتمدات"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "تمّ تنزيل الحزمة مسبقاً"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "خطأ خلال جلْب الحزمة %s.\n"
-#~ "كانت الرّسالة:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "حدث خطأ RPM حرج.  كانت الرّسالة:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "الحزمة %s غير موقّعة باستخدام GPG.  هل أستمر؟"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "الحزمة %s لا تحتوي على توقيع GPG صالح.\n"
-#~ "لقد تمّ العبث بها أو أنّها فاسدة.  هل أستمر؟"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "الحزمة %s مُوقّعة بتوقيع GPG غير موثوق.  هل أستمر؟"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "الحزمة %s مُوقّعة بتوقيع GPG مجهول.  هل أستمر؟"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "انتهى كلّ شيء:  اضغط \"تقدّم\" للاستمرار."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - جلب الحزم"
-
-#~ msgid "Repackaging..."
-#~ msgstr "جاري إعادة تكوين الحزم..."
-
-#~ msgid "Installing..."
-#~ msgstr "جاري التّثبيت..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "التقدّم الإجمالي (إعادة تكوين الحزم):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "التّقدّم الكلّي:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "كان هناك خطأ تثبيت RPM حرج. كانت الرّسالة:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - تثبيت الحزم"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - صفحة النهاية"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "انتهى عميل تحديث ردهات"
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "جلب\n"
-#~ " الحزم التّالية بنجاح:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "تثبيت\n"
-#~ " الحزم التّالية بنجاح:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "بسبب إعداداتك، تم تنزيل هذه الحزم فقط،\n"
-#~ "ولم يتم تثبيتها.  إن رغبت بتغيير إعداداتك، رجاء قم بتشغيل\n"
-#~ "البرنامج \"up2date-config\"."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "خطأ في تثبيت lilo.conf.  كانت الرّسالة:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr ""
-#~ "خطأ في استعادة النّسخة الاحتياطيّة من lilo.conf  النّسخة الاحتياطيّة كانت:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "خطأ في تثبيت محمّل الإقلاع الجديد: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "خطأ في قراءة lilo.conf: كانت الرّسالة:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "خيارات lilo الغير مدعومة من قبل up2date تُستخدم في lilo.conf الافتراضي. لن "
-#~ "يتمّ تعديل هذا الملفّ. تتضمّن الخيارات:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "اسم الحزمة/النمط"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "إحضار ترويسات rpm"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "إحضار ترويسة rpm: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "جاري إزالة الحزم المُحدّد تخطّيها من اللائحة"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s ليس مجلّدا صالحاً"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "الاستخدام: rhn_check [options]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "خيارات سطر الأمر المتوفّرة:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - هذه المساعدة"
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose      - زيادة الإسهاب"
-
-#~ msgid "Error getting available package list"
-#~ msgstr "خطأ في إحضار لائحة الحزم المتوفّرة"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "خطأ في إعراب مُعطيات لائحة مُعطيات الأمر: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "يرجى استخدام أحد حساباتي الراهنة"
-
-#~ msgid "You must enter your address."
-#~ msgstr "يجب عليك إدخال عنوانك."
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "يجب عليك إدخال رمزك البريدي."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "الاستخدام: rhnreg_ks [options]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - هذه المساعدة"
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<value>      - حدّد اسم السجلّ الخاصّ"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<value>         - حدّد اسم مستخدم"
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<value>         - حدّد كلمة مرور"
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgid=<value>            - حدّد رقم الهويّة التّنظيمي"
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr "    --orgpassword=<value>      - عيّن كلمة مرور تنظيميّة"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr "    --serverUrl=<URL>          - حدّد عنوان لاستخدامه كمزود"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<value>            - حدّد عنوان بريد الكتروني"
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<value>    - حدّد مفتاح التّفعيل"
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr "    --subscription=<value>     - حدّد رقم اشتراك لاستخدامه "
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --version                  - أظهر الإصدار"
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr "    --proxy                    - حدّد http proxy لاستخدامه"
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<value>        - حدّد اسم مستخدم لاستخدامه مع وسيط http "
-#~ "موثّق"
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<value>    - حدّد كلمة مرور لاستخدامها مع http proxy "
-#~ "موثّق"
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "مرخّصة ضمن بنود GPL."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "لا يمكن إزالة %s"
-
-#, fuzzy
-#~ msgid "Error parsing %s"
-#~ msgstr "خطأ في فتح %s"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "الخطوة 2: سجّل حساب مستخدم"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "هل سبق أن مجّلت نفسك لدى ردهات؟"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "نعم: أدخل اسم المستخدم وكلمة المرور الحاليّين الخاصّين بك أدناه."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr "لا: اختر مستخدماً جديداً وكلمة مرور وأدخلها أدناه."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "مجّدداً، للتّحقّق:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr "الخطوة 2: سجّل حساب مستخدم (الحقول ذات العلامة \"*\" مطلوبة)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "الخطوة 2: قم بتسجيل حساب مستخدم (الكلّ اختياري)"
-
-#~ msgid "*Title:"
-#~ msgstr "*اللقب:"
-
-#~ msgid "Title:"
-#~ msgstr "اللقب:"
-
-#~ msgid "First Name:"
-#~ msgstr "الاسم الفردي:"
-
-#~ msgid "Position:"
-#~ msgstr "الوظيفة:"
-
-#~ msgid "*Address:"
-#~ msgstr "*العنوان:"
-
-#~ msgid "Address:"
-#~ msgstr "العنوان:"
-
-#~ msgid "Address 2:"
-#~ msgstr "العنوان 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*المدينة:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*الولاية/المقاطعة:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "الولاية/المقاطعة:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*الرّمز البريدي:"
-
-#~ msgid "Country:"
-#~ msgstr "الدّولة:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*الهاتف:"
-
-#~ msgid "Phone:"
-#~ msgstr "الهاتف:"
-
-#~ msgid "Fax:"
-#~ msgstr "الفاكس:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "الخيارات المفضلة للاتّصال:"
-
-#~ msgid "E-mail"
-#~ msgstr "البريد الإلكتروني"
-
-#~ msgid "Regular mail"
-#~ msgstr "البريد العادي"
-
-#~ msgid "Telephone"
-#~ msgstr "الهاتف"
-
-#~ msgid "Fax"
-#~ msgstr "الفاكس"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "أخطروني بتوفر عروض خاصّة من شركاء ردهات"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "اشترك في الجريدة الإلكترونيّة لردهات"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "كي تسمح لردهات بالاتصال بك عبر البريد، عليك تعبئة اسمك الكامل وعنوانك."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "كي تُمكّن ردهات من الاتصال بك عبر الهاتف، عليك بتزويد رقم هاتف واحد على "
-#~ "الأقل واسم."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "كي تُمكّن ردهات الاتصال بك عبر الفاكس، عليك بتزويدرقم فاكس واحد على الأقل "
-#~ "واسم."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "الخطوة 3: قم بتسجيل سجلّ شخصيّ للنّظام - الحزم"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "لقد قمت بتسجيل سجلّ النظام الشخصي بنجاح على شبكة ردهات.\n"
-#~ "\n"
-#~ " يرجى زيارة http://www.redhat.com/network لتدخل وتحوز بمنافع شبكة ردهات.\n"
-#~ "\n"
-#~ "كي تحدّث نظامك بآخر تحديثات المنتج، إصلاحات العلل وتحسينات الأمن، قم "
-#~ "بتشغيل up2date من سطر الأوامر، أو اختر \"عميل التّحديث\" من اللّوحة."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "يبدو أن النّظام مسجّل مسبقاً.  أأستمرّ على أيّ حال؟"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "الحزمة %s ليست موقّعة باستخدام GPG.  جاري الإجهاض..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "الحزمة %s لا تحتوي على توقيع GPG صالح.\n"
-#~ "لقد تمّ العبث بها أو أنّها فاسدة.  جاري الإجهاض..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr "الحزمة %s موقّعة بتوقيع GPG غير موثوق.  جاري الإجهاض..."
-
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr "الحزمة %s موقّعة بتوقيع GPG مجهول.  جاري الإيقاف..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr ""
-#~ "لم يُعثر على دليل التّخزين %s، أو أنّه لا يمكن\n"
-#~ "الوصول إليه."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "لست مسجّلاً في شبكة ردهات.  كي تستخدم عميل التّحديث،\n"
-#~ "يجب أن تكون مسجّلاً.\n"
-#~ "\n"
-#~ "كي تقوم بالتّسجيل، شغّل \"up2date --register\"."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "مجموعة مفاتيح GPG الخاصّة بك لا تحوي المفتاح العامّ لردهات المتّحدة.\n"
-#~ "دونه لن تكون قادراً على التحقّق من أن تنزيلات الحزم\n"
-#~ "موقّعة بواسطة ردهات بشكل آمن.\n"
-#~ "\n"
-#~ "خيارات عميل التّحديث تحدّد أنّك تريد استخدام GPG."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "مجموعة مفاتيح GPG الخاصّة بك لا تحوي المفتاح العامّ لردهات المتّحدة.\n"
-#~ "دونه لن تكون قادراً على التحقّق من أن تنزيلات الحزم \n"
-#~ "موقّعة بواسطة ردهات بشكل آمن.\n"
-#~ "\n"
-#~ "خيارات عميل التّحديث تحدّد أنّك تريد استخدام GPG.\n"
-#~ "\n"
-#~ "كي تقوم بتثبيت المفتاح، نفّذ التّالي كمستخدم root:\n"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "لم يمكن إكمال حلّ الاعتمادات"
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "الاسم                                    النّسخة        الإصدار\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "فشل التّثبيت الاختباري بسبب تعارض الحزم:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "لم يمكن العثور على ترويسة %s"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "بعض الحزم الداخلة في هذه المعاملة غير متوفّرة."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "تحذير: الحزم التّالية قيد التّحديث، إلا أنها\n"
-#~ "أعيد تحزيمها مسبقاً وهذا غير مدعوم حاليّاً.\n"
-#~ "تمّ تعطيل دعم إعادة التّحزيم لهذه امعاملةه.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "عند العمل في إطار سطر الأوامر، فإنّ تحديد أسماء الحزم\n"
-#~ "كمُعطيات إلى البرنامج سيأدي إلى محاولة جلب هذه الحزم )وعلى الأرجح "
-#~ "تثبيتها،\n"
-#~ "وفقا لتهيئتك(.  تفاصيل النّسخة،\n"
-#~ "والإصدار، وبُنية النّظام سوف يتمّ تقريرها بواسطة\n"
-#~ "عميل التّحديث تلقائيّاً.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "هيّء خيارات عميل التّحديث"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr "نزّل الحزم فقط، حتى إن ذكرت التّهيئة تثبيتها"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr "ثبّت الحزم، حتّى إن أخبرت التّهيئةُ بالتّنزيل فقط"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "نزّل الحزم المصدريّة بالإضافة إلى rpms المجمّعة"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr "لا تقم بتنزيل الحزم المصدريّة (يتخطّى إعدادات التّهيئة إن كانت محدّدة)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "حدّد المسار حيث يوجد قاعدة بيانات rpm بديلة"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr "أجبر تثبيت الحزم، متعدّياً ً لائحة تخطّي الحزم والملفّات "
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr ""
-#~ "قم فقط بإضافة الحزم إلى قاعدة البيانات، دون تثبيتها على نظام الملفّات"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "اسرد الحزم المتوفّرة للإحضار"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr "اعمل كلّ شيء عدا تنزيل وتثبيت الحزم (أظهر المعتمدات المطلوبة، إلخ)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "صِفْ الخيارات بإيجاز"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "مسار الأدلّة المحدد بالفواصل  للبحث فيها عن الحزم "
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "لا تستخدم GPG للتّحقّق من تواقيع الحزم"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr ""
-#~ "سجلّ العتاد الشّخصي لـup2date المُرتبط بسجلّ النّظام الشّخصيّ على شبكة ردهات"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "سجّل النّظام (أو أعد تسجيله، إن كان هناك حاجة)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "اسرد كلّ الحزم المتوفّرة للتّنزيل"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "اسرد كل الحزم المتوفّرة الغير مثبّتة حاليّاً"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "اسرد كلّ الحزم المثبّتة حاليّاً والتي ليست ضمن القنوات التي اشترك فيها النّظام"
-
-#~ msgid "List all the install components available to install"
-#~ msgstr "اسرد كلّ الحزم المتوفّرة للتّثبيت"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr "يعثر على، ينزّل، ويثبّت الحزم المطلوبة لحلّ لائحة المعتمدات"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "مكان تخزين الملفّات المؤقّتة / RPMs"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "حدّث النّظام بكلّ الحزم المتعلّقة"
-
-#~ msgid "show program version information"
-#~ msgstr "أظهر معلومات إصدار البرنامج"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "اعرض أسماء القنوات بجانب اسم الحزمة حيث يكون ذلك مناسباً"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "أظهر تراجعات rpm المتوفّرة"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr "أظهر الحزم التي تحلّ لائحة المعتمدات المفصولة بفواصل"
-
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr "قائمة الحزم المستثناة من عمليتي التثبيت والتحديث"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "اختر القنوات المُراد استخدامها باستخدام عنوان القناة"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr "أظهر العلامات التي سيُنفّذ بها gpg (الـkeyring، إلخ)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "لا تقم بتنزيل الحزم بتاتاً. بغرض الاختبار"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "أعط uuid التّي يولّدها البريمج"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "أظهر حوار تثبيت الحزمة في وضع الواجهة الرّسوميّة"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "أحضر الحزمة المحدّدة دون حلّ المعتمدات"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr "أحضر الحزمة المصدريّة للحزمة المحدّدة دون حلّ مشاكل المعتمدات"
-
-#~ msgid ""
-#~ "Force up2date to install this arch of the package. Not valid with -u, --"
-#~ "list, or --dry-run"
-#~ msgstr ""
-#~ "أجبر up2date على تثبيت هذا النظام من الحزمة. لا يصلح هذا الخيار مع u, --"
-#~ "list-, أو --dry-run"
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "قم بالتّحديث طبقاً للقناة المحدّدة"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "هل أثبّت المفتاح؟"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        خطأ ما حدث خلال إضافة\n"
-#~ "                        مفتاح GPG الخاص بردهات إلى مجموعة المفاتيح الخاصّة "
-#~ "بك."
-
-#~ msgid ""
-#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
-#~ msgstr "تجديد الرؤية لا ينطبق على الحزم والعتاد في إطار شبكة ردهات"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "جاري تحديث تاريخ المعاملات..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "لم يتمّ العثور على حزم ترضي تلك المعتمدات."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "يجب تحديد اسم قناة مع --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr "حدث خطأ فادح في التّواصل مع الخادم. كانت الرّسالة:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "حدث خطأ في معتمدات الحزم. كانت الرّسالة:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "حدث خطأ في تثبيت الحزم. كانت الرّسالة:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "لا وضع تفاعليّ متوفّر"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr "رجاءً حدّد إمّا -l، أو -u، --nox، أو أسماء الحزم كمُعطيات لسطر الأمر."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr "لم يمكن فتح الواجهة الرّسوميّة. حاول تحديد \"--nox\" كخيار"
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "الحزم التّالية غير متوفّرة:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "كلّ الحزم الموجودة حدّيثة "
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "لم يعثر على الحزم التّالية التي طلبتها:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "الحزم التّالية التي طلبتها سبق تحدّيثها:"
-
-#~ msgid "Activate"
-#~ msgstr "تفعيل"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "تم تثبيت وتهيئة النظام.\n"
-#~ "\n"
-#~ "لكن لم يتم توصيل نظامك بشبكة ردهات.  من المهم\n"
-#~ "توصيل نظامك للحصول على آخر التحديثات والتصويبات\n"
-#~ "حتى يظل نظامك آمنا ومدعوما.\n"
-#~ "\n"
-#~ "\n"
-#~ "لتوصيل نظامك بشبكة ردهات راجع: Main Menu واختر\n"
-#~ " System Tools ثم شبكة ردهات أو من خلال command line: run /usr/bin/"
-#~ "up2date \n"
-#~ "كمستخدم root لتسجيل نظامك.\n"
-#~ "\n"
-#~ "يلزمك مساعدة؟ للاتصال بأحد مندوبي خدمات المستخدمين\n"
-#~ "بجوارك راجع http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Unfortunately, your subscription was not activated because a valid\n"
-#~ "subscription number was not supplied.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Please contact a customer service representative to help get your\n"
-#~ "subscription activated.  To find a representative near you, visit\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-#~ msgstr ""
-#~ "تم تثبيت وتهيئة النظام.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "لسوء الحظ لم يتم تفعيل اشتراكك لعدم\n"
-#~ "توفر رقم مشترك صالح.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "من المهم أن تفعل اشتراكك للحصول على الخدمات\n"
-#~ "التي تحافظ على نظامك آمناً ومدعوماً.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "الرجاء الاتصال بأحد مندوبي خدمات العملاء ليعينك على تفعيل اشتراكك. للبحث\n"
-#~ "عن مندوب بجوارك راجع http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "\n"
-#~ "Unfortunately, your subscription was not activated because a valid "
-#~ "subscription number was not supplied.\n"
-#~ "\n"
-#~ "It is important to activate your subscription so you can access the "
-#~ "services that keep your system secure and supported.\n"
-#~ "\n"
-#~ "Please contact a customer service representative to help get your "
-#~ "subscription activated.  To find a representative near you, visit http://"
-#~ "www.redhat.com/contact/"
-#~ msgstr ""
-#~ "تم تثبيت وتهيئة النظام.\n"
-#~ "\n"
-#~ "لكن لم يتم تفعيل اشتراكك لعدم توفر رقم مشترك صالح.\n"
-#~ "من المهم أن تفعل اشتراكك للحصول على خدمات التحديث والدعم لنظامك.\n"
-#~ "\n"
-#~ " يرجى الاتصال بأحد مندوبي خدمات المستخدمين ليعينك على تفعيل اشتراكك. "
-#~ "للبحث عن مندوب بجوارك راجع http://www.redhat.com/contact/"
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "تهانينا!\n"
-#~ "اكتملت التهيئة وتم تفعيل اشتراكك بنجاح.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "يمكنك الآن الحصول على الخدمات المتعلقة باشتراكك لدى ردهات."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "تم تثبيت وتهيئة النظام.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "لكن نظامك معزول عن الشبكة، لذا لم نتمكن من\n"
-#~ "تفعيل اشتراكك.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "من المهم أن تفعل اشتراكك حتى تحصل على الخدمات  التي توفر أسباب "
-#~ "الأمان والدعم لنظامك.\n"
-#~ "\n"
-#~ "                                                                                                                                                                               يرجى "
-#~ "تفعيل اشتراكك الآن من أي نظام على الشبكة بمراجعة http://www.redhat.com/"
-#~ "activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "إذا احتجت مساعدة اتصل بأحد مندوبي خدمات المستخدمين\n"
-#~ " بجوارك من خلال  http://www.redhat.com/contact/ \n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "اكتمل تثبيت النظام وتمت تهيئته.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "لكن لم يتم تفعيل اشتراكك.\n"
-#~ "سوف يعمل نظامك لكنك لن تحصل على الخدمات التي توفر أسباب الأمان والصحة "
-#~ "لنظامك.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "للحصول على هذه الخدمات الهامة، يرجى تفعيل اشتراكك من خلال مراجعة http://"
-#~ "www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "إذا احتجت مساعدة اتصل بأحد مندوبي خدمات المستخدمين\n"
-#~ " بجوارك من خلال  http://www.redhat.com/contact/ \n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "أضف"
-
-#~ msgid "Add new:"
-#~ msgstr "أضف جديد:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "بعد التّثبيت، احتفظ بالحزم المُجمّعة على القرص"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "لا تثبّت الحزم بعد جلبها"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "لا تقم بتحديث الحزم عندما تكون التّهيئة المحلّيّة مُعدّلة"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr "مكّن تراجع RPM (يسمح الـ\"تراجع\" ولكن يتطلّب مساحة تخزين إضافيّة)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "أدخل مسار المكان الذي تريد تخزين الحزم المنزّلة فيه."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "أدخل اسم الملف الذي تريد تخطّيه عندما تقرّر ما هي الحزم التي تريد الاختيار "
-#~ "منها.  تُقبل شوامل القيم، مثال \"/boot/*\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "أدخل اسم الحزمة التي تريد أن تتخطّاها عندما تقرّر ما هي الحزم التي يمكنك "
-#~ "الاختيار منها. تُقبل شوامل القيم، مثال \"kernel*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "أسماء الملفّات المطلوب تخطّيها"
-
-#~ msgid "General"
-#~ msgstr "عام"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "إن كنت بحاجة إلى وسيط HTTP، أدخله هنا بتنسيق HOST:PORT\n"
-#~ "مثلاُ، squid.mysite.org:3128"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "إن احتجت اجتياز النّسخة المُقرّرة آليّاً من ردهات لينكس، أدخل رقم النّسخة هنا، "
-#~ "أو اختر من النّسخ المعرّفة مسبقاً."
-
-#~ msgid "Network Settings"
-#~ msgstr "إعدادات الشّبكة"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "تجاوز النّسخة المُخزّنة في سجلّ النّظام الشّخصي:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "استثناءات الحزم"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "خيارات تثبيت الحزم"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "أسماء الحزم المطلوب تخطّيها"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "خيارات جَلْب الحزم"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "خيارات التّحقّق من الحزم"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "دليل تخزين الحزم:"
-
-#~ msgid "Remove"
-#~ msgstr "أزل"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "الجلْب / التّثبيت"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "اجْلب حزمة RPM المصدريّة بالإضافة إلى المُجمّعة"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "استخدم GPG للتّحقّق من تكامل الحزمة"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "اسم السّجلّ الشّخصيّ هو اسم وصفيّ تختاره لتُعرّف السجلّ الشّخصيّ لهذا النّظام على\n"
-#~ "صفحات الوب لشبكة ردهات.  بشكل اختياري، يمكن أن يشتمل على تسلسل الحاسوب أو "
-#~ "رقم الهوية."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "بناءً على خياراتك المفضلة، اخترت أن لا تقوم آلياً\n"
-#~ "بتحديث الحزم أعلاه.  إن كنت تودّ تخطّي إعداداتك\n"
-#~ "وإدراج الحزم أعلاه في لائحة الحزم المطلوب جلبها،\n"
-#~ "حدّد مربّع الخيار الخاص بها."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "معلومات العتاد الإضافيّة بما يشمل أجهزة PCI، أحجام الأقراص وأماكن التّجهز "
-#~ "ستكون\n"
-#~ "مشمولة في السجلّ الشّخصيّ."
-
-#~ msgid "Alabama"
-#~ msgstr "ألاباما"
-
-#~ msgid "Alaska"
-#~ msgstr "ألاسكا"
-
-#~ msgid "Alberta"
-#~ msgstr "ألبيرتا"
-
-#~ msgid "All Finished"
-#~ msgstr "انتهى الكلّ"
-
-#~ msgid "Arizona"
-#~ msgstr "أريزونا"
-
-#~ msgid "Arkansas"
-#~ msgstr "أركانساس"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "القوات المسلحة(AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "القوات المسلحة(AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "القوات المسلحة(AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "تثبيتات الحزم المتوفّرة"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr "أدناه لائحة بالحزم الموجودة على نظامك المعروفة لدى RPM:"
-
-#~ msgid "British Columbia"
-#~ msgstr "كولومبيا البريطانيّة"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "بشكل افتراضي، كل الحزم المعروفة لدى RPM سوف تُضاف إلى سجلّ نظامك الشّخصيّ.\n"
-#~ "أزل الاختيار الموازي لأيّ حزمة لا تريد إضافتها."
-
-#~ msgid "California"
-#~ msgstr "كاليفورنيا"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "الضّغط على \"تقدّم\" يشير إلى فهمك وقبولك لهذه المصطلحات والشّروط.\n"
-#~ "إن لم تكن موافقاً، اضغط على \"إلغاء\"."
-
-#~ msgid "Colorado"
-#~ msgstr "كولورادو"
-
-#~ msgid "Connecticut"
-#~ msgstr "كونيكتيكت"
-
-#~ msgid "Contact preferences"
-#~ msgstr "الخيارات المفضلة للمُراسلة"
-
-#~ msgid "Delaware"
-#~ msgstr "ديلوار"
-
-#~ msgid "District of Columbia"
-#~ msgstr "مقاطعة كولومبيا"
-
-#~ msgid "Dr."
-#~ msgstr "الدكتور"
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "الحقول المحدّدة بالأحمر مطلوبة."
-
-#~ msgid "First name:"
-#~ msgstr "الاسم الفردي:"
-
-#~ msgid "Florida"
-#~ msgstr "فلوريدا"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "معلومات العتاد مهمّة لتحديد البرامج المُحدّثة و برامج التّعريف\n"
-#~ "المُتعلّقة بهذا النّظام.  أقل حجم من المعلومات يمكنك إدراجه سيتحوي\n"
-#~ "بنية نظامك ونسخة ردهات لينكس."
-
-#~ msgid "Hawaii"
-#~ msgstr "هاواي"
-
-#~ msgid "IP address:"
-#~ msgstr "عنوان IP:"
-
-#~ msgid "Idaho"
-#~ msgstr "إداهو"
-
-#~ msgid "Illinois"
-#~ msgstr "إلينوي"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "اشمل معلومات حول العتاد والشّبكة"
-
-#~ msgid "Included information"
-#~ msgstr "المعلومات المتضمّنَة"
-
-#~ msgid "Indiana"
-#~ msgstr "إنديانا"
-
-#~ msgid "Installing Packages"
-#~ msgstr "جاري تثبيت الحزم"
-
-#~ msgid "Installing:"
-#~ msgstr "جاري التّثبيت:"
-
-#~ msgid "Iowa"
-#~ msgstr "يووا"
-
-#~ msgid "Kansas"
-#~ msgstr "كانساس"
-
-#~ msgid "Kentucky"
-#~ msgstr "كنتاكي"
-
-#~ msgid "Last name:"
-#~ msgstr "اسم العائلة:"
-
-#~ msgid "Louisiana"
-#~ msgstr "لويزيانا"
-
-#~ msgid "Maine"
-#~ msgstr "ماين"
-
-#~ msgid "Manitoba"
-#~ msgstr "مانيتوبا"
-
-#~ msgid "Maryland"
-#~ msgstr "ميريلاند"
-
-#~ msgid "Massachusetts"
-#~ msgstr "ماسوتشوستس"
-
-#~ msgid "Michigan"
-#~ msgstr "مشيغان"
-
-#~ msgid "Micronesia"
-#~ msgstr "مكرونيسيا"
-
-#~ msgid "Minnesota"
-#~ msgstr "مينيسوتا"
-
-#~ msgid "Miss"
-#~ msgstr "الآنسة"
-
-#~ msgid "Mississippi"
-#~ msgstr "مسيسيبي"
-
-#~ msgid "Missouri"
-#~ msgstr "ميسسوري"
-
-#~ msgid "Montana"
-#~ msgstr "موناتا"
-
-#~ msgid "Mr."
-#~ msgstr "السيد"
-
-#~ msgid "Mrs."
-#~ msgstr "السيدة"
-
-#~ msgid "Ms."
-#~ msgstr "السيدة"
-
-#~ msgid "Name"
-#~ msgstr "الاسم"
-
-#~ msgid "Nebraska"
-#~ msgstr "نبراسكا"
-
-#~ msgid "Nevada"
-#~ msgstr "نيفادا"
-
-#~ msgid "New Brunswick"
-#~ msgstr "نيو برونزويك"
-
-#~ msgid "New Hampshire"
-#~ msgstr "نيو هامبسفير"
-
-#~ msgid "New Jersey"
-#~ msgstr "نيو جيرسي"
-
-#~ msgid "New Mexico"
-#~ msgstr "نيو ميكسيكو"
-
-#~ msgid "New York"
-#~ msgstr "نيو يورك"
-
-#~ msgid "Newfoundland"
-#~ msgstr "نيوفندلند"
-
-#~ msgid "North Carolina"
-#~ msgstr "كارولينا الشّماليّة"
-
-#~ msgid "North Dakota"
-#~ msgstr "داكوتا الشّماليّة"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "شماليّ ماريناز"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "مقاطعة نورثوست"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "نوفا سكوتيا"
-
-#~ msgid "Ohio"
-#~ msgstr "أوهايو"
-
-#~ msgid "Oklahoma"
-#~ msgstr "أوكلاهوما"
-
-#~ msgid "Ontario"
-#~ msgstr "أونتاريو"
-
-#~ msgid "Oregon"
-#~ msgstr "أوريغون"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "خارج الولايات المتّحدة/كندا"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "الحزم المحدّدة لتخطّيها"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "الحزم المطلوبة لحلّ الاعتمادات"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "بنسلفانيا"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "جزيرة الأمير إدوارد"
-
-#~ msgid "Quebec"
-#~ msgstr "كويبيك"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "معلومات RPM مهمّة لتحديد حزم البرامج المُحدّثة المتعلّقة\n"
-#~ "بهذا النّظام."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "إصدار ردهات لينكس:"
-
-#~ msgid "Rel."
-#~ msgstr "الإصدار"
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "جاري جلْب الحزم"
-
-#~ msgid "Retrieving:"
-#~ msgstr "جاري الجَلْب:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "رود آيلاند"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "ساسكاتشوان"
-
-#~ msgid "Select all packages"
-#~ msgstr "حدّد كل الحزم"
-
-#~ msgid "Sir"
-#~ msgstr "السيد"
-
-#~ msgid "South Carolina"
-#~ msgstr "جنوب كارولينا"
-
-#~ msgid "South Dakota"
-#~ msgstr "جنوب داكوتا"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "عروض خاصّة من شركاء ردهات"
-
-#~ msgid "Tennessee"
-#~ msgstr "تينيسي"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "البنود والشّروط"
-
-#~ msgid "Texas"
-#~ msgstr "تكساس"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "الحزم التّالية مطلوبة لأن بعض الحزم التي\n"
-#~ "اخترتها تعتمد عليها.  سوف تُضاف إلى مجموعة الحزم المُحدّدة."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "هذا هو عميل تحديث ردهات. سوف يعينك على تحديث\n"
-#~ "نظام ردهات لينكس بآخر البرامج المتوفّرة\n"
-#~ "من شبكة ردهات.\n"
-#~ "\n"
-#~ "\n"
-#~ "كي تستمر، اضغط \"تقدّم\". للإلغاء دون تحديث\n"
-#~ "أي شيء، اضغط \"إلغاء\"."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "لتشترك أو تلغي اشتراكك من القنوات، أو للمزيد\n"
-#~ "من المعلومات حول القنوات المتوفّرة، راجع:"
-
-#~ msgid "Total progress:"
-#~ msgstr "التّقدّم الإجمالي:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "الحجم الكلّي للحزم المُحدّدة للتنزيل:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "الحجم الكلّي للحزم المُحدّدة:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "مقاطعات ترست"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr "حدث عميل تحديث ردهات إذا توفر عميل جديد"
-
-#~ msgid "Utah"
-#~ msgstr "يوتاه"
-
-#~ msgid "Vermont"
-#~ msgstr "فرمونت"
-
-#~ msgid "View Advisory"
-#~ msgstr "اعرض التّقرير"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "جزر العذراء"
-
-#~ msgid "Virginia"
-#~ msgstr "فرجينيا"
-
-#~ msgid "Washington"
-#~ msgstr "واشنطن"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "لقد انتهينا من تجميع المعلومات لسجلّ النّظام الخاصّ.\n"
-#~ "\n"
-#~ "اضغط \"تقدّم\" لترسل سجلّ النّظام الخاصّ إلى شبكة ردهات.  اضغط\n"
-#~ "\"إلغاء\" ولن ترسل أي معلومات.  يمكنك تشغيل برنامج التّسجيل\n"
-#~ "لاحقاً بكتابة rhn_register على سطر الأوامر."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "أهلاً بك مع عميل ردهات"
-
-#~ msgid "West Virginia"
-#~ msgstr "غرب فرجينيا"
-
-#~ msgid "Wisconsin"
-#~ msgstr "وسكنسن"
-
-#~ msgid "Wyoming"
-#~ msgstr "ويومنج"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "يمكنك الضّغط على \"رجوع\" لتعدّل اختيارات الحزم، أو \"تقدّم\" كي تستمر."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "سوف تستطيع تحديث سجلّ عتادك الشّخصي أو إنشاء سجلّات جديدة عندما تدخل إلى\n"
-#~ "شبكة ردهات على http://www.redhat.com/network."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "مقاطعة يوكن"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "الرّمز البريدي:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "نشرة الأخبار الالكترونيّة"
-
-#~ msgid "    The _number is: "
-#~ msgstr "     الرقم:"
-
-#~ msgid "(example, webserver1)"
-#~ msgstr ")مثال, webserver1("
-
-#~ msgid "* First name:"
-#~ msgstr "الاسم الفردي:"
-
-#~ msgid "* Last name:"
-#~ msgstr "*اسم العائلة:"
-
-#~ msgid "* Required fields"
-#~ msgstr "* معلومات مطلوبة"
-
-#~ msgid ""
-#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
-#~ "code, and maintenance capabilities included in your subscription.\n"
-#~ "Red Hat uses your login and account information to communicate with you\n"
-#~ "about your subscription services and software."
-#~ msgstr ""
-#~ "إنشاء حساب لدى ردهات يوفر لك الحصول على التحديثات والتصويبات ومصادر "
-#~ "البرامج وإمكانيّات الصيانة التي يشتمل عليها اشتراكك.\n"
-#~ "ردهات تستخدم اسم المشترك الخاص بك والبيانات التي يشتمل عليها حسابك\n"
-#~ " للاتصال بك بخصوص الخدمات والبرامج المتعلقة باشتراكك."
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "هل نسيت اسم حسابك أو كلمة المرور؟ استرجع\n"
-#~ "هذه البيانات من http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "إذا احتجت مساعدة اتصل بأحد مندوبي خدمات المستخدمين من خلال http://www."
-#~ "redhat.com/contact/ \n"
-
-#~ msgid ""
-#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
-#~ "(You may opt out at any time.)"
-#~ msgstr ""
-#~ "أرغب في تلقي إخطارات بريدية عند صدور الأعداد الشهرية من  مجلة ردهات.\n"
-#~ "(يمكن إلغاء هذا الخيار في أي وقت.)"
-
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "ليس بحوزتي رقم اشتراك"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr "لا أستطيع إتمام التسجيل الآن. راجعني لاحقا."
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "لي حساب لدى  ردهات."
-
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "إذا قمت بالشراء لدى ردهات مباشرة أو أجريت التفعيل\n"
-#~ "من خلال مقرنا على الشبكة، فإن اشتراكك قد سبق تفعيله."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "يلزمك مساعدة؟ اتصل بأحد مندوبي خدمات المستخدمين \n"
-#~ "بجوارك من خلال http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "يلزمك مساعدة؟ اتصل  بخدمات المستخدمين من خلال http://www.redhat.com/"
-#~ "contact/"
-
-#~ msgid "Network Configuration"
-#~ msgstr "تهيئة شبكة ردهات"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "خارج الولايات المتّحدة/كندا"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "يرجى تسمية النظام الجاري تثبيته"
-
-#~ msgid "Take me back so I can provide or create a Red Hat login."
-#~ msgstr "راجع الخيار السابق حتى يتسنى لي تزويد أو إنشاء حساب لدى ردهات."
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr "أطلعني على سبب يجعلني أنشئ أو أحدد حسابا لدى ردهات."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "اسم النظام يسمح لك بتعريف هذا النظام لدى شبكة ردهات من أجل صيانته. إذا "
-#~ "كنت لا ترغب في تحديد اسم، سوف نختار اسما افتراضيا بدلا عنه."
-
-#~ msgid ""
-#~ "To activate the services included in your subscription, please register "
-#~ "with Red Hat and provide a Red Hat login."
-#~ msgstr ""
-#~ "لتفعيل الخدمات المدرجة في اشتراكك، يرجى التسجيل لدى ردهات و تحديد اسم "
-#~ "الحساب الخاص بك لدى ردهات."
-
-#~ msgid ""
-#~ "Why do you need to register and provide a Red Hat login?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Your subscription includes support and software maintenance services. To\n"
-#~ "activate these services, you must register with Red Hat. Registration\n"
-#~ "includes these simple steps:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) provide a Red Hat login\n"
-#~ "2) provide a subscription number\n"
-#~ "3) connect your system to Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "If you do not complete these registration steps, you will not be able to\n"
-#~ "access the services included in your subscription. These services keep\n"
-#~ "your system current, reliable, secure and supported.\n"
-#~ msgstr ""
-#~ "لماذا تحتاج أن تنشئ أو أن تدلي بحساب لدى ردهات؟\n"
-#~ "                                                                                                                                                                              \n"
-#~ "اشتراكك يشمل خدمات دعم وبرامج صيانة.\n"
-#~ "لتفعيل هذه الخدمات، يتعين عليك التسجيل لدى ردهات.\n"
-#~ "يشتمل التسجيل على الخطوات البسيطة التالية:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1( تحديد اسم حساب لدى ردهات \n"
-#~ "2( تحديد رقم اشتراك\n"
-#~ "3( توصيل نظامك بشبكة ردهات\n"
-#~ "                                                                                                                                                                              \n"
-#~ "في غياب إحدى هذه الخطوات، لن تتمكن\n"
-#~ "من الحصول على الخدمات الخاصة باشتراكك والتي\n"
-#~ "توفر أسباب الصحة والأمان والدعم لنظامك الحالي.\n"
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "بإمكانك إلغاء هذه الخدمة في أي وقت. راجع"
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr "رقم الاشتراك الخاص بك موجود داخل الطرد الذي تسلمته "
-
-#~ msgid "_Details"
-#~ msgstr "_تفصيل"
-
-#~ msgid "_Password:  "
-#~ msgstr "_كلمة المرور:"
+msgstr ""

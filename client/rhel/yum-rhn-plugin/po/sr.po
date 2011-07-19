@@ -1,20 +1,23 @@
-# Serbian translations for yum-rhn-plugin
-# Copyright (c) 2006--2011 Red Hat, Inc.
-# This file is distributed under the same license as the yum-rhn-plugin package.
-# Miloš Komarčević <kmilos@gmail.com>, 2006.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Miloš Komarčević <kmilos@gmail.com>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: yum-rhn-plugin\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 12:06+0200\n"
-"PO-Revision-Date: 2007-01-08 00:23-0000\n"
-"Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
-"Language-Team: Serbian (sr) <fedora@prevod.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Serbian <trans-sr@lists.fedoraproject.org>\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
@@ -72,6 +75,3 @@ msgstr "Недостају неопходни подаци за пријаву �
 
 #~ msgid "RHN support will be disabled."
 #~ msgstr "RHN подршка ће бити искључена."
-
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "Или --version, или никаква наредба нису унети"

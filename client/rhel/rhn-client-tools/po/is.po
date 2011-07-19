@@ -1,28 +1,29 @@
-# translation of up2date2-is.po to Icelandic
-# Íslensk þýðing up2date
-# This file is distributed under the same license as the PACKAGE package.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# Richard Allen <ra@ra.is>, 2002.
-# Magnús Gunnlaugsson <mgunnlaugs@simnet.is>, 2003.
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Magnús Gunnlaugsson <mgunnlaugs@simnet.is>, 2003.
+# Richard Allen <ra@ra.is>, 2002, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: up2date2-is\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2005-10-01 20:33+0000\n"
-"Last-Translator: Richard Allen <ra@ra.is>\n"
-"Language-Team: Icelandic <kde-isl@molar.is>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Icelandic (http://www.transifex.net/projects/p/fedora/team/"
+"is/)\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -31,9 +32,8 @@ msgid "Warning"
 msgstr "Viðvörun"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -46,9 +46,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Senda kerfislýsinguna til Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -74,9 +74,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Það kom upp villa í samskiptum skráningarþjón:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -87,26 +86,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Skráningarupplýsingar fyrir: "
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Þú verður að skrá eftirnafn."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Þú verður að skrá og staðfesta lykilorð."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Það kom upp vandamál við skráningu þessarar vélar."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -115,36 +111,32 @@ msgid ""
 msgstr "Það kom upp banvæn villa í samskiptum við þjóninn.  Skilaboðin voru:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
 msgstr "Villa við keyrslu vélbúnaðarsniðmáts"
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "Þú verður að velja heiti fyrir þessa kerfislýsingu."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "Sendi kerfisupplýsingar til Red Hat.  Vinsamlegast hinkrið"
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "Vandamál við skráningu kerfis."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -154,11 +146,11 @@ msgid "Problem registering system:\n"
 msgstr "Villa við skráningu kerfis:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Áskriftarnúmerið [ %s ] er ekki gilt áskriftarnúmer."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -173,14 +165,12 @@ msgid "There was a problem registering this system."
 msgstr "Það kom upp vandamál við skráningu þessarar vélar."
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Senda _vélbúnaðarlýsingu"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Villa við lestur vélbúnaðarupplýsinga:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -192,14 +182,12 @@ msgstr "Villa við lestur vélbúnaðarupplýsinga:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "Senda _vélbúnaðarlýsingu"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Villa kom upp við að ná í lista yfir tiltæka pakka."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -220,14 +208,12 @@ msgid "Problem registering personal information"
 msgstr "Villa við skráningu persónuupplýsinga"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Þú verður að skrá notandanafn."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -249,9 +235,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -264,9 +249,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -312,9 +296,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:160
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "VILLA: get ekki fundið RHNS CA skrána:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
@@ -338,20 +321,17 @@ msgid "Getting list of packages installed on the system"
 msgstr "Bý til lista yfir þá pakka sem þegar eru uppsettir"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Stillingar Red Hat Network notanda"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "_Notandi "
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Eftirnafn:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -369,43 +349,36 @@ msgid "OK"
 msgstr "Í lagi"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "Það kom upp banvæn villa í samskiptum við þjóninn.  Skilaboðin voru:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
 msgstr "Heiti Kerfislýsingar:"
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Útgáfa:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "Tegund örgjörva:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Vélarheiti:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Hraði örgjörva:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "IP vistfang:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "Minni:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -489,14 +462,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Veldu Red Hat þjón til að nota"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Veldu Red Hat þjón til að nota"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -505,9 +477,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "Endurræsi up2date"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -528,9 +499,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "Þegar skráð"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -551,9 +521,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Fyrirtæki:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -586,9 +555,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Pakkalisti (skráning)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -617,21 +585,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Upplýsingar um pakka"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Skráningarupplýsingar fyrir: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Tengjast Red Hat"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -648,9 +614,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Þú verður að skrá og staðfesta lykilorð."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -664,18 +629,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Útgáfa"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Tiltækar uppfærslur"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -689,9 +652,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Tengja vélina þína"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -717,9 +679,8 @@ msgstr "Hafa með eftirfarandi upplýsingar um vélbúnað og net:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Tengja vélina þína"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -744,27 +705,21 @@ msgstr "Bý til pakkalista"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"Búinn að gleyma Red Hat notandanafninu eða lykilorðinu?\n"
-"Þá finnur þú það aftur á http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "Netfang rafpósts:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -798,7 +753,6 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Senda kerfislýsinguna til Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -806,12 +760,6 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"Við höfum lokið gagnasöfnun fyrir kerfislýsinguna.\n"
-"\n"
-"Veldu \"Áfram\" hnappinn til að senda kerfislýsinguna til Red Hat Network. "
-"Veldu \"Hætta við\" hnappinn til að senda þær ekki. Þú getur keyrt "
-"skráninguna aftur síðar með því að gefa skipunina rhn_register í "
-"skeljarglugga."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -845,23 +793,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Tengist Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "Áskriftarnúmerið er ógilt"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Rásarupplýsingar"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1124,9 +1070,8 @@ msgstr "Hætta við"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Hætta við"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1166,9 +1111,8 @@ msgid "Error validating data at server:\n"
 msgstr "Villa við stafestingu gagna á þjóni:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Áskriftarnúmerið er ógilt"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1296,24 +1240,20 @@ msgstr ""
 "Þessi biðlari þarf að þjónninn styðji %s sem núverandi þjónn styður ekki"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Ljúka"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Sýsla"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Skráningu lokið"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Þú verður að keyra uppfærslutólið sem rót."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1342,9 +1282,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Lýsing"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1359,21 +1298,18 @@ msgstr "Tengjast Red Hat"
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Vélbúnaðarlýsing"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Það kom upp villa í samskiptum við þjóninn: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Viltu reyna að breyta netstillingunum og reyna aftur?"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1392,20 +1328,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Skráðu hvaða vefslóð á að nota"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<slóð>         - velja skrá til að nota sem ssl CA vottorð"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Gefðu upp vefsel (proxy) til að nota"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1413,20 +1345,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "    --contactinfo              - lesa kveðjumáta frá stdin  "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - ekki skanna né senda vélbúnaðarupplýsingar "
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
-msgstr "    --nopackages               - ekki skrá né senda pakkaupplýsingar"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1437,15 +1365,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - Skrá kerfið þó það sé þegar búið að skrá það"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
-msgstr "Notandanafn, lykilorð og netfang er nauðsyn til að skrá kerfi."
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1486,9 +1411,8 @@ msgstr ""
 "hægt að nýta sem heiti kerfislýsingu. Vinsamlegast skilgreindu nafn."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "ekki reyna að nota X"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1507,37 +1431,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Rásir"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Setja inn alla mögulega pakka. Notað með --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Notandanafn:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "* _Staðfesta lykilorð:  "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Notandanafn:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1549,9 +1468,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Villa við lestur hausa"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1564,10 +1483,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
 msgstr ""
-"Það er ekki hægt að uppfæra þessa vél fyrr en hún er tengd einhverri rás."
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1582,13 +1499,10 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"Þú verður að skrá þetta kerfi með því að keyra `up2date --register` áður en "
-"hægt er að nýta þennann valmöguleika"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1599,37 +1513,32 @@ msgid "Updating hardware profile..."
 msgstr "Uppfæri vélarlýsingu..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Uppfæri pakkalýsingu..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Tengja vélina þína"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Upplýsingar um pakka"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Þú verður að skrá notandanafn."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Framvinda"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Framvinda"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1642,9 +1551,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1696,38 +1604,30 @@ msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"Búinn að gleyma Red Hat notandanafninu eða lykilorðinu?\n"
-"Þá finnur þú það aftur á http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Stillingar Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Stillingar Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Rás"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Útgáfa"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
 msgid "Close"
@@ -1738,14 +1638,12 @@ msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Vélbúnaðarlýsing"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Upplýsingar um pakka"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
@@ -1760,14 +1658,12 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "Bandaríkin"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Lýsing"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1782,9 +1678,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Tengjast Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1799,14 +1694,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Vélbúnaðarlýsing"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Senda _pakkalista"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1828,19 +1721,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Nota auðkenningu"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Vélbúnaðarlýsing"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Uppfæri pakkalýsingu..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1850,9 +1740,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Virkja áskriftina"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1867,18 +1756,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Áskriftarnúmerið er ógilt"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Lykilorð:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1889,15 +1776,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Eftirnafn:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "Fyrirtæki:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1905,22 +1790,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "Nota vefsel (proxy):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "Skráningarupplýsingar "
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Stillingar Red Hat Network notanda"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1928,16 +1810,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "Skráningarupplýsingar "
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Eftirnafn:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -1956,22 +1836,19 @@ msgid "<big><b>System Name</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "til dæmis: XXXX-XXXX-XXXX-XXXX (mínusunum má sleppa)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:79
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "til dæmis: XXXX-XXXX-XXXX-XXXX (mínusunum má sleppa)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "til dæmis: XXXX-XXXX-XXXX-XXXX (mínusunum má sleppa)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgctxt "yes"
@@ -1981,15 +1858,11 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"Búinn að gleyma Red Hat notandanafninu eða lykilorðinu?\n"
-"Þá finnur þú það aftur á http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:84
 #, no-c-format
@@ -2013,10 +1886,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Stillingar Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2043,10 +1915,9 @@ msgid "CPU Speed:"
 msgstr "Hraði örgjörva:"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Stillingar Red Hat Network notanda"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2111,16 +1982,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Það kom upp villa í samskiptum skráningarþjón:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Tengist Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2136,10 +2005,9 @@ msgid "IP Address:"
 msgstr "IP vistfang:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "áskriftarNúmer"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2150,10 +2018,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "Endurræsi up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2175,12 +2042,11 @@ msgid "Package Information"
 msgstr "Upplýsingar um pakka"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2197,7 +2063,7 @@ msgstr "Lykilorð:"
 #, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Notandanafn:"
+msgstr "Heiti Kerfislýsingar:"
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2228,7 +2094,7 @@ msgstr "Útgáfa Red Hat Linux:"
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Stillingar Red Hat Network notanda"
+msgstr "Tengjast Red Hat"
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
@@ -2240,7 +2106,7 @@ msgstr "Vélbúnaðarlýsing"
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Senda _pakkalista"
+msgstr "Uppfæri pakkalýsingu..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2255,10 +2121,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Eftirnafn:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2268,10 +2133,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Nota auðkenningu"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2323,10 +2187,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "Endurræsi up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2355,10 +2218,9 @@ msgid "_Close"
 msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "_Notandi "
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2388,16 +2250,14 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - Pakkalisti (skráning)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - Pakkalisti (skráning)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
@@ -2406,10 +2266,9 @@ msgid "_View Hardware Profile ..."
 msgstr "Vélbúnaðarlýsing"
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Hversvegna skrá sig?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2432,10 +2291,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Tengist Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2443,3302 +2301,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Búa til nýjan Red Hat Network notanda"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "áskriftarNúmer"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Skrá vélina hjá Red Hat Network"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Tengist Red Hat Network"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Þrep 3: Skrá kerfislýsingu - Vélbúnað"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Þrep 3: Skrá kerfislýsingu - pakkar"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "áskriftarNúmer"
-
-#~ msgid "Warning:"
-#~ msgstr "Viðvörun:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Í lagi gluggi:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Spurningagluggi:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Virkjun"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Viðvörun: gat ekki notað rhnsd með chkconfig"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Diskvilla. Skilaboðin voru:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM pakkaskörunar villa. Skilaboðin voru:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM skráaskörunar villa. Skilaboðin voru:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM villa. Skilaboðin voru:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM pakkaþarfavilla. Skilaboðin voru:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Villa.  Skilaboðin voru:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Sleppilista eða villa við yfirskrift uppsetningarskrár. Skilaboðin voru:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "Gat ekki fjarlægt pakkann \"%s\". Hann var á RemoveSkipList"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG er ekki rétt uppsett."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG lyklakippan inniheldur ekki Red Hat dreyfilykilinn"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Pakkinn %s stóðst ekki gpg sannreyningu. Þetta þýðir að pakkinn er "
-#~ "skemmdur."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Pakkinn %s hefur ekki GPG undirskrift.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Pakkinn %s hefur ekki GPG undirskrift.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Pakkinn %s hefur óþekkta GPG undirskrift.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Veldu Red Hat þjón til að nota"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Tengist Red Hat Network"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Skrá vélina hjá Red Hat Network"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "Endurræsi up2date"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr "Ég er ekki með Red Hat notanda og þarf að búa hann til."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Þrep 1: Lesa skilmála Red Hat um friðhelgi persónuupplýsinga"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Skoða Red Hat Network skilmálana"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Búa til notanda"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Lykilorðin sem þú skráðir passa ekki.\n"
-#~ "vinsamlegast skráðu seinna lykilorðið aftur."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Búa til nýjan Red Hat Network notanda"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "* _Lykilorð"
-
-#, fuzzy
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "Okkur er annt um friðhelgi þína:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Þú verður að skrá eiginnafn."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Þú verður að skrá eftirnafn."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Þú verður að skrá gilt netfang."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Þú verður að skrá gilt netfang."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Skráningarupplýsingar fyrir: "
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Þú verður að skrá og staðfesta lykilorð."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Þú verður að skrá og staðfesta lykilorð."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Þú verður að gefa upp skráningarnúmer."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Virkja áskriftina"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "áskriftarNúmer"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "til dæmis: XXXX-XXXX-XXXX-XXXX (mínusunum má sleppa)"
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "Áskriftarnúmerið er ógilt"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Það kom upp vandamál við skráningu þessarar vélar."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Það kom upp vandamál við skráningu þessarar vélar."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Banvæn villa kom upp við að setja inn pakkann:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Þú verður að gefa upp skráningarnúmer."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Það kom upp villa í samskiptum skráningarþjón:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Alvarleg villa við birtingu friðhelgi persónuupplýsinga:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Þú verður að gefa upp skráningarnúmer."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Vandamál við skráningu notandanafns:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Villa við skráningu notandanafns."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Stillingar Red Hat Network notanda"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Virkja áskriftina"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Þú verður að skrá gilt netfang."
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Ég er með áskriftarnúmer sem þarf að virkja"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Mikilvægar skráningarupplýsingar"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Skráningarupplýsingar"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Þú verður að gefa upp skráningarnúmer."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Friðhelgi persónuupplýsinga"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Friðhelgi persónuupplýsinga hjá Red Hat"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "Virkja áskriftina"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Villa við lestur vélbúnaðarupplýsinga:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Villa við lestur upplýsinga um DMI:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Þetta notandanafn og lykilorð er ógilt\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Þú verður að skrá notandanafn."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Þú verður að skrá og staðfesta lykilorð."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Vandamál við skráningu notandanafns:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Villa við skráningu notandanafns."
-
-#~ msgid "Canada"
-#~ msgstr "Canada"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Skráningarupplýsingar "
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Upplýsingar um pakka"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Fornanfn:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Eftirnafn:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Fyrirtæki:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "* Póstfang:"
-
-#~ msgid "City:"
-#~ msgstr "Borg:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "Fylki / Sýsla:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Svæðisnúmer:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Land:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  Póstfang 2:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "  Póstfang 2:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "* Borg:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  Fyrirtæki:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "* Fylki/Sýsla:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "* Póstnúmer:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* _Staðfesta lykilorð:  "
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "* Land:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "* Red Hat notandi:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "* _Lykilorð"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*Eftirnafn:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "* Netfang _rafpósts: "
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*Fornanfn:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Upplýsingar um pakka"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Skráningarupplýsingar "
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albania"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeria"
-
-#~ msgid "American Samoa"
-#~ msgstr "American Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antarctica"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua and Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenia"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Australia"
-
-#~ msgid "Austria"
-#~ msgstr "Austria"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaijan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamas"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Belarus"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgium"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosnia and Herzegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet Island"
-
-#~ msgid "Brazil"
-#~ msgstr "Brazil"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "British Indian Ocean Territory"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgaria"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Búa til notanda"
-
-#~ msgid "Cambodia"
-#~ msgstr "Cambodia"
-
-#~ msgid "Cameroon"
-#~ msgstr "Cameroon"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cape Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Cayman Islands"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Central African Republic"
-
-#~ msgid "Chad"
-#~ msgstr "Chad"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "China"
-#~ msgstr "China"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Christmas Island"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Cocos (Keeling) Islands"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Comoros"
-#~ msgstr "Comoros"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cook Islands"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Búa til notanda"
-
-#~ msgid "Croatia"
-#~ msgstr "Croatia"
-
-#~ msgid "Cuba"
-#~ msgstr "Cuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cyprus"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Czech Republic"
-
-#~ msgid "Denmark"
-#~ msgstr "Denmark"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominican Republic"
-
-#~ msgid "East Timor"
-#~ msgstr "East Timor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecuador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egypt"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Equatorial Guinea"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estonia"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Ethiopia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falkland Islands (Malvinas)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Faroe Islands"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Finland"
-
-#~ msgid "France"
-#~ msgstr "France"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "France, Metropolitan"
-
-#~ msgid "French Guiana"
-#~ msgstr "French Guiana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "French Polynesia"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "French Southern Territories"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Germany"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Greece"
-
-#~ msgid "Greenland"
-#~ msgstr "Greenland"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Heard Island and McDonald Islands"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Hungary"
-
-#~ msgid "Iceland"
-#~ msgstr "Ísland"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesia"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Iran (Islamic Republic of)"
-
-#~ msgid "Iraq"
-#~ msgstr "Iraq"
-
-#~ msgid "Ireland"
-#~ msgstr "Ireland"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Italy"
-#~ msgstr "Italy"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Japan"
-#~ msgstr "Japan"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordan"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakhstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Korea, Democratic People's Republic of"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Korea, Republic of"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuwait"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgyzstan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao People's Democratic Republic"
-
-#~ msgid "Latin America"
-#~ msgstr "Latin America"
-
-#~ msgid "Latvia"
-#~ msgstr "Latvia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Lebanon"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Libyan Arab Jamahiriya"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Lithuania"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxembourg"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedonia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagascar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malaysia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldives"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshall Islands"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexico"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Micronesia (Federated States of)"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolia"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Morocco"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambique"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Netherlands"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Netherlands Antilles"
-
-#~ msgid "New Caledonia"
-#~ msgstr "New Caledonia"
-
-#~ msgid "New Zealand"
-#~ msgstr "New Zealand"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolk Island"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Northern Mariana Islands"
-
-#~ msgid "Norway"
-#~ msgstr "Norway"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua New Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Philippines"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Poland"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugal"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Red Hat notandanöfn og ykilorð verða að vera að minnsta kosti 5 stafir að "
-#~ "lengd"
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romania"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Russian Federation"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Saint Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Saint Kitts and Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Saint Pierre and Miquelon    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Saint Vincent and the Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome and Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Saudi Arabia"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapore"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovakia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Solomon Islands"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "South Africa"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "South Georgia and the South Sandwich Island"
-
-#~ msgid "Spain"
-#~ msgstr "Spain"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Suriname"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Svalbard and Jan Mayen Islands"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Sweden"
-
-#~ msgid "Switzerland"
-#~ msgstr "Switzerland"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Syrian Arab Republic"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tajikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzania, United Republic of"
-
-#~ msgid "Thailand"
-#~ msgstr "Thailand"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad and Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisia"
-
-#~ msgid "Turkey"
-#~ msgstr "Turkey"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Turks and Caicos Islands"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukraine"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "United Arab Emirates"
-
-#~ msgid "United Kingdom"
-#~ msgstr "United Kingdom"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "United States Minor Outlying Islands"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Vatican City State (Holy See)"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Viet Nam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Virgin Islands (British)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Virgin Islands (U.S.)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Wallis and Futuna Islands"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Western Sahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Yemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Yugoslavia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    Kerfið þitt er ekki með aðgerðasöfn sem styðja SSL tengingar. Allar "
-#~ "þær\n"
-#~ "    upplýsingar sem þú sendir og færð frá redhat.com verða ekki "
-#~ "dulkóðaðar.\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Halda áfram samt?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Sóttur."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Veldu Red Hat þjón til að nota"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Rásarupplýsingar"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Fyrirtæki:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Tengist Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Virkja áskriftina"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Stillingar Red Hat Network notanda"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "uppfæra pakka sem eru tengdir þessari kerfislýsingu á Red Hat Network"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "Þú verður að keyra uppfærslutólið sem rót."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Virkja áskriftina"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Virkja áskriftina"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr ""
-#~ "Það er ekki hægt að uppfæra þessa vél fyrr en hún er tengd einhverri rás."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Virkja áskriftina"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr ""
-#~ "Það er ekki hægt að uppfæra þessa vél fyrr en hún er tengd einhverri rás."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Tengist Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Veldu Red Hat þjón til að nota"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Vinsamlegast breyttu pakkavali þínu og reyndu aftur."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Útgáfa:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Virkja áskriftina"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Virkja áskriftina"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Villa við sendingu pakka:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Villa við sendingu pakka."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Notandanöfn verða að vera að minnsta kosti 5 stafir að lengd"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "Lykilorð verða að vera að minnsta kosti 5 stafir að lengd"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Lykilorðin sem þú skráðir passa ekki.\n"
-#~ "vinsamlegast skráðu seinna lykilorðið aftur."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Skráarheiti/mynstur"
-
-#~ msgid "Config modified"
-#~ msgstr "Stillingum breytt"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "Þarfir ætti að vera búið að leysa en svo er ekki."
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Ekki tókst að setja inn pakkana: %s"
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "rpm fann ekki hausinn: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "rpm gat ekki lesið haus"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Þú verður að skrá eiginnafn."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Þú verður að skrá eftirnafn."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Þú verður að skrá borg."
-
-#~ msgid "SSL Warning"
-#~ msgstr "SSL Viðvörun"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Kerfið þitt er ekki með aðgerðasöfn sem styðja SSL tengingar. Allar þær\n"
-#~ "upplýsingar sem þú sendir og færð frá redhat.com verða ekki dulkóðaðar.\n"
-#~ "Halda áfram?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Notandanafn:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Villa við opnun %s"
-
-#~ msgid "Installing"
-#~ msgstr "Set inn"
-
-#~ msgid "Installing %s"
-#~ msgstr "Set inn %s"
-
-#~ msgid "Repackaging"
-#~ msgstr "Endurpökkun"
-
-#~ msgid "Preparing"
-#~ msgstr "Undirbý"
-
-#~ msgid " Done."
-#~ msgstr " Búið."
-
-#~ msgid "Retrieved."
-#~ msgstr "Sóttur."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Eftirfarandi pökkum var bætt við pakkaval þitt til að uppfylla þarfir:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Heiti                                   Útgáfa         Undirútgáfa\n"
-#~ "------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Heiti                         Útgáfa         Undirútgáfa     "
-#~ "Rás         \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "Engin tilkynning tiltæk\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Heiti                                   Útgáfa         Undirútgáfa\n"
-#~ "------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "Eftirfarandi pakkar voru merktir hunsaðir af stillingum þínum:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Heiti                                   Útgáfa         Núm. Ástæða\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "Eftirfarandi algild tákn pössuðu ekki við neina pakka:"
-
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "Eftirfarandi pakkahópar passa ekki við neina pakka:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "Eftirfarandi pakkar eru úreltir af nýrri pökkum:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Heiti-útgáfa-undirútg.      úrelt af          Heiti-útgáfa-undirútg.\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Eftirfarandi pakkar voru ekki settir inn því þeir eru úreldir af pökkum "
-#~ "sem þegar eru inni:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Heiti-útgáfa-undirútg.     úrelt af          Heiti-útgáfa-undirútg.\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "Eftirfarandi pakkar er ekki uppsettir en eru fáanlegir frá Red Hat "
-#~ "Network:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Heiti                                   Útgáfa         Undirútgáfa\n"
-#~ "------------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr "    --noSSLServerURL=<url>     - skráðu ssl lausann þjón"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr "    --useNoSSLForPackages      - ekki nota ssl til að sækja pakkana"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Notandanafn:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "áskriftarNúmer"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Up2date - Búa til nýjann notanda"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Hætta við"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Red Hat Network Skráning (c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "* Red Hat notandi:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Lesa um _friðhelgi persónuupplýsinga"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr "Ekkert rhn notandaheiti fannst í /etc/sysconfig/rhn/up2date-uuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Til að leysa þarfir pakkana sem þú hefur valið, þarf að setja inn\n"
-#~ "    eftirfarandi pakka sem merktir hafa verið að eigi að sleppa:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Pakkaheiti"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Ástæða að sleppt er"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Yfirfer pakkaval / leysi pakkaþarfir"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Gat ekki lagfært þarfir skarandi pakka."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "Eftirfarandi pökkum var bætt við pakkaval þitt til að uppfylla þarfir:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Pakki                                  Nauðsynlegur fyrir\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Ég veit ekki hvernig ég á að meðhöndla þarfalýsinguna \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Gat ekki ákvarðað pakkaþarfir:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "elilo stillingar sem ekki eru studdar af up2date eru notaðar í sjálfgefnu "
-#~ "elilo.conf skránni, henni verdur ekki breytt. Stillingarnar innihalda:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "Gat ekki keyrt grubby rétt: skilaboðin voru:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Red Hat uppfærsluálfurinn"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Þessum hugbúnaði er dreift samkvæmt skilmálum GPL leyfisins. Vinsamlegast "
-#~ "tilkynnið villur á villuvef Red Hat: http://bugzilla.redhat.com/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr "Uppfærsluálfurinn - forrit til að uppfæra pakka á Red Hat Linux"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Þessum hugbúnaði er dreift samkvæmt skilmálum GPL leyfisins. Vinsamlegast "
-#~ "tilkynnið villur á villuvef Red Hat: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Útgáfa"
-
-#~ msgid "Old Version"
-#~ msgstr "Gömul útgáfa"
-
-#~ msgid "Size"
-#~ msgstr "Stærð"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Ástæða að sleppt sé"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Vernd persónuupplýsinga"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Notkunarskilmálar"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Auðkenningarsíða"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Skráningarupplýsingar"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Vöruupplýsingasíða"
-
-#~ msgid "All information is optional."
-#~ msgstr "Allar upplýsingar eru óþarfar."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Til að fá sendar tilkynningarbréf í pósti frá Red Hat, verður þú að "
-#~ "skráfullt nafn og póstfang"
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Svo Red Hat geti haft samband við þig í gegnum síma þarftu að\n"
-#~ "minnsta kosti að gefa upp nafn og símanúmer."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Svo Red Hat gefti haft samband við þig um fax þarftu að gefa\n"
-#~ "upp að minnsta kosti nafn og faxnúmer."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Vélbúnaðarlýsing"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat uppfærslutólið er að búa til lista yfir þá RPM pakka sem "
-#~ "uppsettir eru á vélinni. Vinsamlegast bíðið."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "Enginn pakki var valinn. Vinsamlegast veldu fyrst pakka."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Engin tilkynning tiltæk."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat uppfærslutólið er að búa til lista yfir þá\n"
-#~ "uppfærðu RPM pakka sem uppsettir eru á vélinni. Vinsamlegast bíðið."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Það er komin ný útgáfa af up2date. Viltu setja inn þá nýju og ræsa hana ?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Það kom upp banvæn RPM villa.  Skilaboðin voru:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr ""
-#~ "Það kom upp banvæn villa í samskiptum við þjóninn.  Skilaboðin voru:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Óvænt stýrikerfisvilla kom upp:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Pökkum sem var sleppt"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Rásir"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Pakkalisti"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Það kom upp banvæn RPM villa. Skilaboðin voru:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr "Vélin þín er uppfærð að fullu. Ekki er þörf á nýjum pökkum."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "Það kom upp RPM villa. Villan var:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Það kom upp RPM uppsetningavilla. Skilaboðin voru:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Það kom upp vandamál við þarfir pakka. Skilaboðin voru:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Þú verður að velja að minnsta kosti einn pakka.\n"
-#~ "Ef þú vilt ekki uppfæra neina pakka skaltu velja\n"
-#~ "\"Hætta við\" hnappinn til að hætta í þessu tóli."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Samanlögð stærð pakkanna sem valdir eru er %d kB, en\n"
-#~ "það eru einungis %d kB tiltæk á disk.\n"
-#~ "Vinsamlegast fækkaðu pökkunum til að halda áfram."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Tiltækar uppfærslur"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Pakkaþarfir"
-
-#~ msgid "%d of %d kB transferred at %d kB/sec\n"
-#~ msgstr "%d af %d kB flutt á %d kB/sek\n"
-
-#~ msgid "Package transfer time: %02d:%02d:%02d"
-#~ msgstr "Pakkaflutningstími: %02d:%02d:%02d"
-
-#~ msgid " (%02d:%02d:%02d remaining)"
-#~ msgstr " (%02d:%02d:%02d eftir)"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Þegar búið að sækja pakka"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Villa við að sækja pakkann %s.\n"
-#~ "Skilaboðin voru:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Alvarleg RPM villa kom upp. Skilaboðin voru:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Pakkinn %s er ekki með GPG undirskrift. Halda áfram?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Pakkinn %s er ekki með gilda GPG undirritun.\n"
-#~ "Einhver hefur breytt honum eða hann er skemmdur. Halda áfram?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "Pakkinn %s er ekki með GPG undirskrift. Halda áfram?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "Pakkinn %s er með óþekktri GPG undirskrift. Halda áfram?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Allt búið. Smelltu á \"Áfram\" til að halda áfram."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Sæki pakka"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Endurpakka..."
-
-#~ msgid "Installing..."
-#~ msgstr "Set inn..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Heildarframvinda (endurpökkun):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Heildarframvinda:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Það kom upp banvæn RPM villa. Skilaboðin voru:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date -  Pakkauppsetningar"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Lokasíða"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Red Hat uppfærsluálfurinn hefur lokið vinnslu "
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "sæki\n"
-#~ " eftirfarandi pakka:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "set inn\n"
-#~ " eftirfarandi pakka:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Eins og þetta forrit er stillt verða þessir pakkar einungis sóttir\n"
-#~ "en ekki settir inn.  Ef þú vilt breyta þessum stillingum getur þú\n"
-#~ "gera það í \"up2date-config\" tólinu."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Villa við að setja upp lilo.conf.  Skilaboðin voru:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "Villa kom upp við að ná í afrit af lilo.conf. Afritið var:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Villa við að setja inn nýjan ræsistjóra: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "Villa við lestur lilo.conf: Skilaboðin voru:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "lilo stillingar sem ekki eru studdar af up2date eru notaðar í sjálfgefnu "
-#~ "lilo.conf skránni, henni verdur ekki breytt. Stillingarnar innihalda:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Pakkaheiti/mynstur"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "Sæki RPM hausa"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "Sæki rpm haus: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Fjarlægi pakka merkta til þess að hunsa úr listanum."
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s er ekki gild mappa"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Notkun: rhn_check [valmöguleikar]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Tiltækir textahamsvalmöguleikar:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - þessi hjálp "
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v --verbose       - skila ýtarlegra frálagi "
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Villa kom upp við að ná í lista yfir tiltæka pakka"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Villa við að þátta skipanalínuna: %s"
-
-#~ msgid "Fetching package list for channel: %s"
-#~ msgstr "Sæki pakkalista fyrir rásina: %s"
-
-#~ msgid "Fetching all package list for channel: %s"
-#~ msgstr "Sæki alla pakkalista fyrir rásina: %s"
-
-#~ msgid "Fetching Obsoletes list for channel: %s"
-#~ msgstr "Sæki úreldingalista fyrir rásina: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "Nota einungis eina af virku áskriftunum mínum."
-
-#~ msgid "You must enter your address."
-#~ msgstr "Þú verður að gefa upp heimilisfang"
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Þú verður að skrá póstnúmer."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Notkun: rhnreg_ks [valmöguleikar]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help\t\t       - þessi hjálp "
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<gildi>      - tiltaka vélarlýsingu"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<gildi>         - skráðu notandanafn "
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<gildi>         - gefa upp lykilorð "
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgpassword=<gildi>      - gefa upp fyrirtækjalykilorð "
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr "    --orgpassword=<gildi>      - skráðu organizational lykilorð"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr ""
-#~ "    --serverUrl=<URL>          - gefa upp veffang til að nota sem þjón"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<gildi>            - gefa upp tölvupóstfang "
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --virkjunarlykill=<gildi>  -  gefa upp virkjunarlykil "
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr "    --subscription=<gildi>     -  gefa upp áskriftargildi "
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --version                  - sýna útgáfu"
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr ""
-#~ "    --proxy                    - gefa upp vefsel (proxy) til notkunar"
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<gildi>        - gefa upp lykilorð fyrir vefselið (proxy) "
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<gildi>    - gefa upp lykilorð fyrir vefselið (proxy) "
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Dreift samkvæmt skilmálum GPL."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "get ekki fjarlægt %s"
-
-#~ msgid "Error parsing %s"
-#~ msgstr "Villa við þáttun %s"
-
-#~ msgid "at line: %s"
-#~ msgstr "á línu: %s"
-
-#~ msgid "Unable to import repomd so repomd support will not be available"
-#~ msgstr "Gat ekki flutt inn repomd svo repomd-stuðningur verður ekki virkur"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Þrep 2: Skrá nýjann notanda"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "Ertu þegar skráður hjá redhat.com?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Já: Skráðu inn núverandi notandanafn og lykilorð fyrir neðan."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr ""
-#~ "Nei: Veldu nýtt notandanafn og lykilorð og skráðu það hér fyrir neðan"
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Aftur, til staðfestingar:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr "Þrep 2: Búa til notanda (\"*\" svæði eru nauðsynleg)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Þrep 2: Skrá notandaaðgang (Ekki nauðsyn)"
-
-#~ msgid "*Title:"
-#~ msgstr "*Titill:"
-
-#~ msgid "Title:"
-#~ msgstr "Titill:"
-
-#~ msgid "First Name:"
-#~ msgstr "Fornafn:"
-
-#~ msgid "Position:"
-#~ msgstr "Staða:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Póstfang:"
-
-#~ msgid "Address:"
-#~ msgstr "Póstfang:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Póstfang 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*Borg:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Fylki / Sýsla:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Fylki / Sýsla:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Svæðisnúmer:"
-
-#~ msgid "Country:"
-#~ msgstr "Land:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Sími:"
-
-#~ msgid "Phone:"
-#~ msgstr "Símanúmer:"
-
-#~ msgid "Fax:"
-#~ msgstr "Faxnúmer:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "Stillingar skráningar:"
-
-#~ msgid "E-mail"
-#~ msgstr "Netfang"
-
-#~ msgid "Regular mail"
-#~ msgstr "Almennt póstfang"
-
-#~ msgid "Telephone"
-#~ msgstr "Símí"
-
-#~ msgid "Fax"
-#~ msgstr "Faxnúmer"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "Hafið samband með tilboðum frá Red Hat"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Gerast áskrifandi að Red Hat e-Fréttabréfinu"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Svo Red Hat geti haft samband við þig gegnum póstinn þarftu að minnsta "
-#~ "kosti að slá inn fullt nafn og póstfang."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Svo Red Hat getu haft samband við þig í gegnum síma þarftu að minnsta "
-#~ "kosti að gefa upp nafn og símanúmer."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Svo Red Hat getu haft samband við þig með faxi þarftu að minnsta kosti að "
-#~ "gefa upp nafn og faxnúmer."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Þrep 3 : Skrá kerfislýsingu - Pakkar"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Þú hefur skráð þessa vél og kerfislýsingu hjá Red Hat Network.\n"
-#~ "\n"
-#~ "Vinsamlegast farðu á http://www.redhat.com/network til að fá frekari Red "
-#~ "Hat Network þjónustur.\n"
-#~ "\n"
-#~ "Með því að keyra forritið up2date úr skipanalínunni eða með því að velja "
-#~ "\"Red Hat uppfærsluálfinn\" úr valmyndum skjáborðsins getur þú uppfært "
-#~ "vélina þína með öryggisuppfærslum og öllum nýjustu pökkunum."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "Kerfið virðist vera þegar skráð. Viltu hunsa og halda áfram?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Pakkinn %s er ekki með GPG undirskrift. Hætti við..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Pakkinn %s er ekki með gilda GPG undirritun.\n"
-#~ "Einhver hefur breytt honum eða hann er skemmdur. Hætti við..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr "Pakkinn %s er ekki með GPG undirskrift. Hætt við..."
-
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr ""
-#~ "Pakkinn %s er undirritaður með óþekktri GPG undirskrift. Hætti við..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr "Geymslumappan %s fannst ekki eða var ekki aðgengileg."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "Þú ert ekki skráður hjá Red Hat Network.  Ef þú ætlar að nota "
-#~ "uppfærslutólið\n"
-#~ "þá verður þú að vera skráður.\n"
-#~ "\n"
-#~ "Til að skrá þig, keyrðu þá \"up2date --register\"."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "GPG lyklakippan þín inniheldur ekki Red Hat, Inc. dreyfilykilinn.\n"
-#~ "Án hans er ómögulegt tryggja að pakkarnir komi í raun frá Red Hat.\n"
-#~ "\n"
-#~ "Stillingar þínar tiltaka að GPG skuli notað."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "GPG lyklakippan þín inniheldur ekki Red Hat, Inc. dreyfilykilinn.\n"
-#~ "Án hans er ómögulegt tryggja að pakkarnir sem uppfærslutólið sækir komi í "
-#~ "raun frá Red Hat.\n"
-#~ "\n"
-#~ "Stillingar þínar tiltaka að GPG skuli notað.\n"
-#~ "\n"
-#~ "Til að setja inn dreyfilykilinn skaltu keyra eftirfarandi skipun sem "
-#~ "rót:\n"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "Gat ekki klárað greiningu þarfa"
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr ""
-#~ "Heiti                                   Útgáfa         Undirútgáfa\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Prufuinnsetning brást vegna skörunar pakka:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "Gat ekki fundið hausa fyrir %s"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Sumir pakkanna í þessari aðgerð eru ekki tiltækir."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "Aðvörun: Eftirfarandi pakka er verið að uppfæra, en þessir pakkar\n"
-#~ "hafa þegar verið endurpakkaðir, eins og er þá er þetta ekki stutt.\n"
-#~ "Endurpökkunarstuðningur fyrir þessa færslu hefur verið tekinn af.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Þegar unnið er í skeljarglugga, mun forritið sækja (og hugsanlega setja\n"
-#~ "upp samkvæmt stillingum þínum) þá pakka sem tilgreindir eru. Tegund "
-#~ "pakka\n"
-#~ "(örgjörvi, útgáfa...) mun verða ákvörðuð af uppfærslutólinu sjálfvirkt.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "stilla uppfærslutólið"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr ""
-#~ "sækja einungis pakkana þrátt fyrir að stillingarnar segja að setja skuli "
-#~ "þá upp"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr ""
-#~ "setja inn pakkana þrátt fyrir að stillingarnar tiltaki að sækja skuli "
-#~ "eingöngu"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Sækja frumkóðapakka ásamt venjulegum pökkum"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr "Ekki sækja frumkóðapakka (þetta hunsar stillingar)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Gefðu upp slóðina í annan rpm gangagrunn"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr "Setja inn pakkann og hunsa lista þeirra pakka sem á að sleppa"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr "Aðeins bæta við pökkum í gagnasafn, ekki setja upp í skráarkerfi"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "lista pakka sem til eru til uppfærslu"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr "Gera allt nema sækja og setja inn pakka (sýna pakkaþarfir, o.s.frv)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Sýna stutta lýsingu á valmöguleikum"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "listi, aðskilinn með tvípunktum, sem leita á í að pökkum"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "ekki nota GPG til að skoða undirskrift pakka"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr "up2date vélarlýsing tengd þessarri kerfislýsingu á Red Hat Network"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "Skráðu kerfið (eða endurskráðu, ef þess þarf)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Listi allra pakka sem tiltækir eru"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "Sýna alla pakka sem eru ekki þegar settir inn"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "Skráðu allra pakka sem þegar eru settir inn en eru ekki í rásum sem "
-#~ "kerfið er skráð í"
-
-#~ msgid "List all the install components available to install"
-#~ msgstr "Listi allra pakkahópa sem tiltækir eru"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "finnur, sækir og setur upp pakkana sem þarf til að uppfylla pakkaþarfir"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "staðsetning tímabundinna skráa / RPMa"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "uppfæra kerfið með öllum pökkum sem því henta"
-
-#~ msgid "show program version information"
-#~ msgstr "sýna útgáfuupplýsingar"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "Sýna rásaheiti ásamt pakkaheiti þar sem á við"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Sýna mögulegar rpm bakfærslur"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr "Sýnir pakkana sem leysa kommu afmarkaðar þarfir pakka"
-
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr "Listi þeirra pakka sem ekki á að setja inn eða uppfæra"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Skilgreindu hvaða rásir á að nota af rásamerkingu"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr "Sýna þau viðföng sem gefin verða gpg (hvaða lyklakyppu og svo frv.)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Ekki sækja pakka yfirhöfuð. Til prófana"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Setja inn uuid sem forritið býr til"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "Sýna uppsetningu pakka í grafísku viðmóti"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Sækja umbeðna pakka án þess að uppfylla pakkaþarfir"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr ""
-#~ "Sækja frumkóðapakka þess pakka sem var tiltekinn án þess að uppfylla "
-#~ "pakkaþarfir"
-
-#~ msgid ""
-#~ "Force up2date to install this arch of the package. Not valid with -u, --"
-#~ "list, or --dry-run"
-#~ msgstr ""
-#~ "Neyða up2date til að setja inn pakka fyrir þennan vélbúnað. Ekki gilt með "
-#~ "-u, --list eða --dry-run"
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Uppfæra að valdri rás"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Setja inn lykilinn?"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        Einhverskonar villa kom upp við að bæta inn Red "
-#~ "Hat\n"
-#~ "                        GPG lyklinum í lyklakippuna."
-
-#~ msgid ""
-#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
-#~ msgstr ""
-#~ "Að hressa pakkana eða vélbúnaðinn á ekki við þegar Red Hat Network er "
-#~ "ekki í notkun"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "Uppfæri skráningarsögu..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Engir pakkar fundust sem uppfylla þessar pakkaþarfir."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "Rásarnafn verður að skilgreina með --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr ""
-#~ "Það kom upp banvæn villa í samskiptum við þjóninn.  Skilaboðin voru:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Það kom upp vandamál við þarfir pakka. Skilaboðin voru:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "Banvæn villa kom upp við að setja inn pakkann. Skilaboðin voru:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Enginn gagnvirkur hamur tiltækur"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr "Þú verður að nota -l, -u, --nox eða pakkaheiti í skipanalínu."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr ""
-#~ "Get ekki opnað myndrænu notandaskilin. Reyndu að nota \"--nox\" viðfangið"
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "Eftirfarandi pakkar er ekki tiltækir:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Allir pakkar eru uppfærðir"
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "Eftirfarandi pakkar fundust ekki:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "Eftirfarandi pakkar sem þú baðst um er þegar búið að uppfæra:"
-
-#~ msgid "Activate"
-#~ msgstr "Virkja"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Þú hefur lokið uppsetningu stýrikerfisins.\n"
-#~ "\n"
-#~ "Því miður var vélin þín ekki skráð hjá Red Hat Network. Það er mikilvægt\n"
-#~ "að skrá vélina til að fá aðgang í uppfærslur sem tryggja öryggi og\n"
-#~ "stöðugleika vélarinnar.\n"
-#~ "\n"
-#~ "\n"
-#~ "Til að skrá vélina hjá Red Hat Network skaltu fara í:\n"
-#~ "aðalvalmyndina, velja kerfistól og velja svo Red Hat Network eða keyra\n"
-#~ "úr skipanalínunni: /usr/bin/up2date með rótarheimildum.\n"
-#~ "\n"
-#~ "Þarftu hjálp? Á http://www.redhat.com/contact/ getur þú komist í samband\n"
-#~ "við þjónustuaðila nálægt þér.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Unfortunately, your subscription was not activated because a valid\n"
-#~ "subscription number was not supplied.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Please contact a customer service representative to help get your\n"
-#~ "subscription activated.  To find a representative near you, visit\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Þú hefur lokið við uppsetningu stýrikerfisins.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Því miður var vélin þín ekki rétt skráð vegna þess að þú gafst ekki ekki "
-#~ "gilt áskriftarnúmer.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Það er mikilvægt að virkja áskriftina þína svo þú hafir aðgang í "
-#~ "þjónustur sem tryggja stöðugleika og öryggi vélarinnar þinnar.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Vinsamlega hafðu samband við þjónustuaðila til að virkja áskriftina "
-#~ "þína.\n"
-#~ "Þú getur notað http://www.redhat.com/contact/ til að finna þjónustuaðila\n"
-#~ "nálægt þér.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "\n"
-#~ "Unfortunately, your subscription was not activated because a valid "
-#~ "subscription number was not supplied.\n"
-#~ "\n"
-#~ "It is important to activate your subscription so you can access the "
-#~ "services that keep your system secure and supported.\n"
-#~ "\n"
-#~ "Please contact a customer service representative to help get your "
-#~ "subscription activated.  To find a representative near you, visit http://"
-#~ "www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Þú hefur lokið við uppsetningu stýrikerfisins.\n"
-#~ "\n"
-#~ "Því miður var vélin þín ekki rétt skráð vegna þess að þú gafst ekki ekki "
-#~ "gilt áskriftarnúmer.\n"
-#~ "\n"
-#~ "Það er mikilvægt að virkja áskriftina þína svo þú hafir aðgang í "
-#~ "þjónustur sem tryggja stöðugleika og öryggi vélarinnar þinnar.\n"
-#~ "\n"
-#~ "Vinsamlega notaðu http://www.redhat.com/contact/ til að finna "
-#~ "þjónustuaðila nálægt þér til að fá hjálp við að virkja áskriftina þína."
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "Til hamingju!\n"
-#~ "Þú hefur lokið uppsetningu vélarinnar og virkjað áskriftina þína.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Þú hefur núna aðgang í allar þjónustur sem fylgja Red Hat áskriftinni\n"
-#~ "þinni."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Þú hefur lokið uppsetningu stýrikerfisins.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Því miður fannst ekkert net í vélinni þinni svo ekki var hægt að\n"
-#~ "virkja áskriftina þína.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Það er mikilvægt að virkja áskriftina svo þú hafir aðgang í þjónusturnar\n"
-#~ "sem tryggja það að vélin þín er uppfærð og í lagi.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Vinsamlega virkjaðu áskriftina frá vél sem er með nettengingu á\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Þarftu hjálp? Á http://www.redhat.com/contact/ getur þú komist í samband\n"
-#~ "við þjónustuaðila nálægt þér.\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Þú hefur lokið uppsetningu stýrikerfisins.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Því miður var áskrift þín ekki virkjuð.\n"
-#~ "Vélin þín mun vinna rétt en þú færð ekki aðgang í þjónusturnar sem\n"
-#~ "tryggja öryggi og stöðugleika vélarinnar þinnar.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Til að tryggja að þú fáir aðgang í þessar þjónustur getur þú farið á\n"
-#~ "http://www.redhat.com/activate/ og virkjað áskriftina þína.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Þarftu hjálp? Á http://www.redhat.com/contact/ getur þú komist í samband\n"
-#~ "við þjónustuaðila nálægt þér.\n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Bæta við"
-
-#~ msgid "Add new:"
-#~ msgstr "Bæta við nýjum:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Halda pökkunum eftir á disk eftir að uppsetningu lýkur"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "Ekki setja pakkana inn eftir að þeir hafa verið sóttir"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "Ekki uppfæra pakka ef stillingaskrár þeirra hafa breyst"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr "Keyra RPM rollbacks (leyfir \"bakka\" en þarf auka diskpláss)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Sláðu inn hvar þú vilt vista pakkana sem náð verður í."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Sláðu inn heiti þeirra skráa sem þú vilt ekki uppfæra sjálfvirkt. Þú mátt "
-#~ "nota villispil eins og til dæmis \"/boot/*\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Sláðu inn heiti þeirra pakka sem þú vilt ekki uppfæra sjálfvirkt. Þú mátt "
-#~ "nota villispil eins og til dæmis \"/kernel/*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Skrár sem á að sleppa"
-
-#~ msgid "General"
-#~ msgstr "Almennt"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Ef þú þarft að nota vefsel (proxy) skaltu slá inn heiti þess hér á \n"
-#~ "sniðinu vél:gátt (t.d. squid.mittlen.is:3128)"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Ef þú þarft að velja aðra útgáfu af Red Hat Linux en þá sem þetta tól "
-#~ "fann sjálfvirkt getur þú gert það hér."
-
-#~ msgid "Network Settings"
-#~ msgstr "Stillingar nets"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Hunsa útgáfuupplýsingar í kerfislýsingunni:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Pökkum sleppt"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Valmöguleikar pakkauppsetningar"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Heiti pakka sem skal sleppa"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Valmöguleikar pakkaflutninga"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Valmöguleikar staðfestingu pakka"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Mappa til að vista pakka í:"
-
-#~ msgid "Remove"
-#~ msgstr "Fjarlægja"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Sækja / Setja upp"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Sækja frumkóðapakka með keyrsluskráapökkum"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Nota GPG til að sannreyna pakkana"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Heiti kerfislýsingar ætti að vera heiti sem er lýsandi fyrir þessa vél á "
-#~ "Red Hat Network\n"
-#~ "vefsíðunum. Þú getur látið það innihalda raðnúmer vélarinnar eða aðrar "
-#~ "einkenandi upplýsingar."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Þú hefur kosið að uppfæra ekki pakkana að ofan sjálfvirkt. Ef þú \n"
-#~ "vilt hunsa stillingarnar þínar og uppfæra einhvern af pökkunum að ofan \n"
-#~ "þarfu að merkja við þann pakka í listanum núna."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "Frekari upplýsingar um vélbúnað eins og til dæmis PCI tæki, diskstærðir "
-#~ "og tengipunkta verða\n"
-#~ "sendar með kerfislýsingunni."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "Allt búið"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Armed Forces(AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Armed Forces(AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Armed Forces(AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "Tiltækar uppfærslur"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr ""
-#~ "Fyrir neðan er listi af pökkum sem eru á vélinni þinni sem RPM veit um:"
-
-#~ msgid "British Columbia"
-#~ msgstr "British Columbia"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Sjálfgefið verða allir pakkar sem RPM veit um innifaldir í "
-#~ "kerfislýsingunni.\n"
-#~ "Þú getur afvalið þá pakka sem þú vilt ekki hafa skráða."
-
-#~ msgid "California"
-#~ msgstr "California"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Með því að smella á \"Áfram\" gefur þú til kynna að þú skiljir og "
-#~ "samþykkir skilmála þessa.\n"
-#~ " Samþykkir þú ekki skaltu smella á \"Hætta við\""
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Contact preferences"
-#~ msgstr "Hafa samband"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "District of Columbia"
-
-#~ msgid "Dr."
-#~ msgstr "Dr."
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "Svæði merkt í rauðu eru nauðsyn"
-
-#~ msgid "First name:"
-#~ msgstr "Nafn:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "Upplýsingar um vélbúnað eru mikilvægar svo unnt sé að vita hvaða "
-#~ "uppfærslur og reklar\n"
-#~ "eiga við þessa vél. Lágmarksupplýsingar munu innihalda hvaða örgjörfi er "
-#~ "í vélinni og hvaða\n"
-#~ "útgáfu af Red Hat Linux þú ert að keyra."
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "IP address:"
-#~ msgstr "IP vistfang:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Skráið upplýsingar um vélbúnað og net"
-
-#~ msgid "Included information"
-#~ msgstr "Upplýsingar sem fylgja"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Set inn pakka"
-
-#~ msgid "Installing:"
-#~ msgstr "Set inn:"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Eftirnafn:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Micronesia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "Frú"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "Hr."
-
-#~ msgid "Mrs."
-#~ msgstr "Frk."
-
-#~ msgid "Ms."
-#~ msgstr "Ms."
-
-#~ msgid "Name"
-#~ msgstr "Heiti"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "New Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Newfoundland"
-
-#~ msgid "North Carolina"
-#~ msgstr "North Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "North Dakota"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Northern Marianas"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "Northwest Territory"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova Scotia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Utan BNA/Kanada"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Pakkar sem á að sleppa"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Það vantar pakka til að uppfylla pakkaþarfir"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "Prince Edward Island"
-
-#~ msgid "Quebec"
-#~ msgstr "Quebec"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "RPM upplýsingar eru mikilvægar svo hægt sé að vita hvaða uppfærslur eiga "
-#~ "við\n"
-#~ "þessa tölvu."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Útgáfa Red Hat Linux:"
-
-#~ msgid "Rel."
-#~ msgstr "Rel."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Sæki pakka"
-
-#~ msgid "Retrieving:"
-#~ msgstr "Sæki:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Velja alla pakka"
-
-#~ msgid "Sir"
-#~ msgstr "Herra"
-
-#~ msgid "South Carolina"
-#~ msgstr "South Carolina"
-
-#~ msgid "South Dakota"
-#~ msgstr "South Dakota"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Sérstök tilboð frá félögum Red Hat"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Notkunarskilmálar"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Eftirfarandi pakkar eru nauðsynlegir því sumir af pökkunum sem þú\n"
-#~ "valdir þurfa á þeim að halda. Þeim verður því bætt við pakkaval þitt."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Þetta er Red Hat uppfærsluálfurinn. Með honum getur þú uppfært\n"
-#~ "Red Hat Linux kerfið þitt upp í nýjustu útgáfur sem eru til hjá\n"
-#~ "Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "Smelltu á \"Áfram\" til að halda áfram eða \"Hætta við\" til að\n"
-#~ "hætta við án þess að gera neitt."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Til að gerast áskrifandi að rásum, hætta áskrift\n"
-#~ "eða fá frekari upplýsingar um rásirnar, sjá:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Heildarframvinda:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Heildarstærð pakka sem á að sækja:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Heildarstærð valdra pakka:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "Trust Territories"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr "Uppfæra Red Hat Network uppfærsluálfinn er ný útgáfa er tiltæk"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#~ msgid "View Advisory"
-#~ msgstr "Birta tilkynningu"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Virgin Islands"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "Söfnun gagna fyrir kerfislýsinguna er lokið.\n"
-#~ "\n"
-#~ "Veldu \"Áfram\" til að senda þessa kerfislýsingu til Red Hat Network.  "
-#~ "Veldu\n"
-#~ "\"Hætta við\" til að senda  engar upplýsingar.  Þú getur keyrt "
-#~ "skráninguna\n"
-#~ "síðar með því að gefa skipunina rhn_register í skel."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Velkomin(n) í Red Hat uppfærslutólið"
-
-#~ msgid "West Virginia"
-#~ msgstr "West Virginia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Þú getur smellt á \"Til baka\" til að breyta pakkavalinu eða \"Áfram\" "
-#~ "til að halda áfram."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "Þú getur uppfært kerfislýsinguna eða búið til nýjar kerfislýsingar þegar "
-#~ "þú tengist á\n"
-#~ "Red Hat Network vefinn á http://www.redhat.com/network."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "Yukon Territory"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "Svæðisnúmer:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "e-Fréttabréf"
-
-#~ msgid "    The _number is: "
-#~ msgstr "    _Númerið er: "
-
-#~ msgid "(example, webserver1)"
-#~ msgstr "(til dæmis vefþjónn1)"
-
-#~ msgid "* First name:"
-#~ msgstr "* Nafn:"
-
-#~ msgid "* Last name:"
-#~ msgstr "* Eftirnafn:"
-
-#~ msgid "* Required fields"
-#~ msgstr "* Svæði sem verða að vera"
-
-#~ msgid ""
-#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
-#~ "code, and maintenance capabilities included in your subscription.\n"
-#~ "Red Hat uses your login and account information to communicate with you\n"
-#~ "about your subscription services and software."
-#~ msgstr ""
-#~ "Ef þú býrð til Red Hat notanda færðu aðgang í uppfærslur, "
-#~ "villuleiðréttingar, frumkóða og þau viðhaldstól sem fylgja áskriftinni "
-#~ "þinni.\n"
-#~ "Red Hat notar svo notandann þinn og þær upplýsingar sem fylgja til "
-#~ "samskipta\n"
-#~ "við þig um þjónusturnar og hugbúnaðinn sem þú átt rétt á."
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Þarftu hjálp? Hafðu samband við notandaþjónustuna á http://www.redhat.com/"
-#~ "contact/\n"
-
-#~ msgid ""
-#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
-#~ "(You may opt out at any time.)"
-#~ msgstr ""
-#~ "Fá áminningar í tölvupósti um útgáfu Red Hat tímaritsins.\n"
-#~ "(þú getur hætt við hvenær sem er.)"
-
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "Ég er _ekki með áskriftarnúmer"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr "Ég get ekki lokið skráningarferlinu núna. Minntu mig á það síðar."
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "Ég er þegar með Red Hat notanda."
-
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "Ef þú keyptir hugbúnaðinn beint frá Red Hat eða virkjaðir hann á\n"
-#~ "vefnum er áskriftin þín þegar virk."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Þarftu hjálp? Á http://www.redhat.com/contact/ getur þú fundið\n"
-#~ "þjónustuaðila nálægt þér.\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Þarftu hjálp? Hafðu samband við notandaþjónustuna á http://www.redhat.com/"
-#~ "contact/"
-
-#~ msgid "Network Configuration"
-#~ msgstr "Stillingar nets"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "Utan BNA/Kanada"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "Vinsamlega gefðu upp heiti vélarinnar sem þú ert að setja upp"
-
-#~ msgid "Take me back so I can provide or create a Red Hat login."
-#~ msgstr "Fara til baka svo ég geti gefið upp eða búið til Red Hat notanda."
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr ""
-#~ "Segðu mér hversvegna ég þarf að skrá mig og búa til Red Hat notanda."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "Kerfisheitið gerir þér kleift að þekkja vélina frá öðrum í Red Hat "
-#~ "Network. Gefir þú ekkert upp verður eitthvað sjálfgefið heiti notað."
-
-#~ msgid ""
-#~ "To activate the services included in your subscription, please register "
-#~ "with Red Hat and provide a Red Hat login."
-#~ msgstr ""
-#~ "Til að virkja áskriftina sem fylgir áskriftinni þinni skaltu skrá þig hjá "
-#~ "Red Hat og gefa upp Red Hat notanda."
-
-#~ msgid ""
-#~ "Why do you need to register and provide a Red Hat login?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Your subscription includes support and software maintenance services. To\n"
-#~ "activate these services, you must register with Red Hat. Registration\n"
-#~ "includes these simple steps:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) provide a Red Hat login\n"
-#~ "2) provide a subscription number\n"
-#~ "3) connect your system to Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "If you do not complete these registration steps, you will not be able to\n"
-#~ "access the services included in your subscription. These services keep\n"
-#~ "your system current, reliable, secure and supported.\n"
-#~ msgstr ""
-#~ "Hversvegna þarftu að skrá og búa til Red Hat notanda?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Með áskriftinni fylgir hjálp og aðgangur í uppfærsluþjónustur. Til að\n"
-#~ "virkja þessar þjónustur verður þú að skrá þig hjá Red Hat. Skráningin\n"
-#~ "samanstendur af eftirfarandi þrem skrefum:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) gefa upp Red Hat notanda\n"
-#~ "2) gefa upp áskriftarnúmer\n"
-#~ "3) tengja vélina við Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Ef þú framkvæmir ekki þessar aðgerðir færðu ekki aðgang í þjónusturnar\n"
-#~ "sem fylgja áskriftinni. Þessar þjónustur tryggja að uppfærslur sem\n"
-#~ "eiga við vélina þína komi inn og tryggja áreiðanleika vélarinnar þinnar.\n"
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "Þú getur hætt að nota þessa þjónustu hvenær sem er. Sjá "
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr "Áskriftarnúmerið þitt er í pakkanum sem kom með pöntuninni þinni"
-
-#~ msgid "_Details"
-#~ msgstr "_Smáatriði"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Lykilorð: "
+msgstr ""

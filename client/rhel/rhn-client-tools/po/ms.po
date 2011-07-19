@@ -1,27 +1,27 @@
-# up2date Bahasa Melayu (Malay) (ms).
-# This file is distributed under the same license as the up2date package.
-# Copyright (c) 2004--2011 Red Hat, Inc.
-# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2004
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2004.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: up2date\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2005-11-26 13:39+0800\n"
-"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
-"Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -30,12 +30,8 @@ msgid "Warning"
 msgstr "Amaran"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -48,9 +44,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Kirim Maklumat kepada Merah"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -76,10 +72,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -90,76 +84,57 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Anda mesti memasukkan Nama Sistem Pengoperasian"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Anda mesti masukkan dan sahkan katalaluan."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Terdapat ralat mendaftarkan sistem ini."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
-#, fuzzy
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
 msgstr "Ralat melaksanakan profil perkakasan"
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "Anda mesti memilih nama untuk profil ini."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:729
-#, fuzzy
 msgid "Sending your profile information to Red Hat Network.  Please wait."
-msgstr "Mengirim kepada Merah Rangkaian."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "Masalah mendaftarkan sistem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -169,11 +144,11 @@ msgid "Problem registering system:\n"
 msgstr "Masalah mendaftarkan sistem:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Nilai yang and amasukkan bukan nombor yang sah."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -188,14 +163,12 @@ msgid "There was a problem registering this system."
 msgstr "Terdapat ralat mendaftarkan sistem ini."
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "_Hantar maklumat perkakasan"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Ralat membaca maklumat perkakasan:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -207,14 +180,12 @@ msgstr "Ralat membaca maklumat perkakasan:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "_Hantar maklumat perkakasan"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -235,17 +206,12 @@ msgid "Problem registering personal information"
 msgstr "Masalah mendaftarkan maklumat peribadi"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Anda mesti masukkan nama pengguna."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -267,12 +233,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -285,12 +247,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -301,9 +259,8 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1253
-#, fuzzy
 msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr "on."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1284
 msgid ""
@@ -339,14 +296,12 @@ msgid "ERROR: can not find RHNS CA file"
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:198
-#, fuzzy
 msgid "Connection aborted by the user"
-msgstr "- Ia tidak dimiliki oleh pengguna '%s'."
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:243
-#, fuzzy
 msgid "Server has refused connection due to high load"
-msgstr "Pelayan kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhnChannel.py:96
 msgid "Unable to Locate SystemId"
@@ -359,25 +314,21 @@ msgstr ""
 "saluran."
 
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:53
-#, fuzzy
 msgid "Getting list of packages installed on the system"
-msgstr "on"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Logmasuk Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "_Logmasuk:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -395,45 +346,36 @@ msgid "OK"
 msgstr "OK"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/tui.py:627
-#, fuzzy
 msgid "Profile name:"
-msgstr "Nama profil telah wujud!"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Versi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "Model CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Namahos:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Kelajuan Failover"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "Alamat IP:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "Memori:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -449,14 +391,12 @@ msgid "Problem sending hardware profile."
 msgstr "Masalah menghantar profil perkakasan."
 
 #: ../src/up2date_client/tui.py:950
-#, fuzzy
 msgid "Problem sending package list:\n"
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:953
-#, fuzzy
 msgid "Problem sending package list."
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:1003
 msgid "Finish"
@@ -467,22 +407,17 @@ msgid "You specified an invalid protocol."
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1163
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin "
-"seterusnya "
 
 #: ../src/up2date_client/tui.py:1260
-#, fuzzy
 msgid "You must run the RHN registration program as root."
-msgstr "pengguna unama."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:55
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with chkconfig"
-msgstr "Amaran kepada"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:706
 msgid "Error reading cpu information:"
@@ -523,14 +458,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Pilih Merah Rangkaian Pelayan kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Pilih Merah Rangkaian Pelayan kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -539,9 +473,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "_Laksana up2date..."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -562,9 +495,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "%s telah wujud\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -585,9 +517,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Syarikat:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -620,9 +551,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -651,21 +581,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Maklumat Pakej"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -682,9 +610,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Anda mesti masukkan dan sahkan katalaluan."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -698,18 +625,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Keluaran"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "terdapat %d kemaskini (%d diabaikan)"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -723,66 +648,56 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Mempartisyen Sistem Anda"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
-#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
-msgstr "A Nama unama kepada Sistem on Merah Rangkaian bersiri atau."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:97
-#, fuzzy
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
-msgstr "Tambahan PCI dan point dalam."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:100
-#, fuzzy
 msgid "Include the following information about hardware and network:"
-msgstr "dan:"
+msgstr ""
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Mempartisyen Sistem Anda"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
-#, fuzzy
 msgid ""
 "RPM information is important to determine what updated software packages are "
 "relevant to this system."
-msgstr "kepada kepada."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:108
-#, fuzzy
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr "on dalam Sistem"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:110
-#, fuzzy
 msgid "You may deselect individual packages by unchecking them below."
-msgstr "oleh."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:112
-#, fuzzy
 msgid "Building Package List"
-msgstr "Up2date - Senarai Pakej"
+msgstr ""
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 msgid ""
@@ -791,9 +706,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "Alamat E-Mel"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -823,12 +737,10 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:134
-#, fuzzy
 msgid "Send Profile Information to Red Hat Network"
-msgstr "Kirim Maklumat kepada Merah"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -836,14 +748,11 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"for Sistem Seterusnya kepada Sistem kepada Merah Rangkaian Batal dan tidak "
-"oleh."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
-#, fuzzy
 msgid "Sending Profile to Red Hat Network"
-msgstr "Kirim Maklumat kepada Merah"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:145
@@ -872,23 +781,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Memulakan Daemon Red Hat Network: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "Fail laluan statik %s tidak sah"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Maklumat tidak sah"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1151,9 +1058,8 @@ msgstr "Batal"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Batal"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1165,51 +1071,40 @@ msgid "Press <space> to deselect the option."
 msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:31
-#, fuzzy
 msgid "RPM error.  The message was:\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:43
-#, fuzzy
 msgid "Password error. The message was:\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:56
-#, fuzzy
 msgid "RPM dependency error. The message was:\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:65
-#, fuzzy
 msgid "Error communicating with server. The message was:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:76
-#, fuzzy
 msgid "File Not Found: \n"
-msgstr "Fail tidak dijumpai"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:87
-#, fuzzy
 msgid "Delay error from server.  The message was:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:133
-#, fuzzy
 msgid "Error validating data at server:\n"
-msgstr "Data rosak/tidak lengkap atau ralat pelayan (%1)."
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Fail laluan statik %s tidak sah"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
-#, fuzzy
 msgid "Error parsing the oemInfo file at field:\n"
-msgstr "Ralat fail"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:282
 msgid ""
@@ -1234,24 +1129,20 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:48
-#, fuzzy
 msgid "Show additional output"
-msgstr "Hasilkan keluaran berjela"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:50
-#, fuzzy
 msgid "Specify an http proxy to use"
-msgstr "Katalaluan untuk digunakan bagi proksi berpengesahan"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:52
-#, fuzzy
 msgid "Specify a username to use with an authenticated http proxy"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:54
-#, fuzzy
 msgid "Specify a password to use with an authenticated http proxy"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:76
 msgid ""
@@ -1260,11 +1151,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:79
-#, fuzzy, python-format
+#, python-format
 msgid "An unexpected OS error occurred: %s\n"
 msgstr ""
-"Ralat OS yang tidak dijangka berlaku:\n"
-"%s"
 
 #: ../src/up2date_client/rhncli.py:83
 msgid "A connection was attempted with a malformed URI.\n"
@@ -1276,31 +1165,30 @@ msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:87
-#, fuzzy, python-format
+#, python-format
 msgid "There was some sort of I/O error: %s\n"
-msgstr "Terdapat seperti ralat I/O: %s"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:90
-#, fuzzy, python-format
+#, python-format
 msgid "There was an SSL error: %s\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:91
-#, fuzzy
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
 "the time on this system is correct.\n"
-msgstr "A ralat Tentusah on"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "There was a SSL crypto error: %s\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:102
-#, fuzzy, python-format
+#, python-format
 msgid "There was an authentication error: %s\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:118
 #, python-format
@@ -1308,9 +1196,8 @@ msgid "You must be root to run %s"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:148 ../src/up2date_client/rhncli.py:183
-#, fuzzy
 msgid "Unable to open gui. Try `up2date --nox`"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:190
 #, python-format
@@ -1321,14 +1208,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:206
-#, fuzzy
 msgid "An error has occurred:"
-msgstr "Ralat telah berlaku didalam modul %s."
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:214
-#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr "Ralat faks: lihat mesej log untuk maklumat lanjut."
+msgstr ""
 
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
@@ -1340,24 +1225,20 @@ msgstr ""
 "menyokongnya"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Tamat"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Sunting"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Lengkap pendaftaran sekarang"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Anda mesti laksanakan Update Agent sebagai root."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1386,9 +1267,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Huraian"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1397,22 +1277,19 @@ msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:64
 #: ../src/firstboot/rhn_login_gui.py:41 ../src/firstboot/rhn_login_gui.py:42
-#, fuzzy
 msgid "Red Hat Login"
-msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Terdapat ralat komunikasi dengan pelayan: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
@@ -1436,19 +1313,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
-msgstr "<path> fail kepada"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Katalaluan untuk digunakan bagi proksi berpengesahan"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1456,19 +1330,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "daripada "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
-msgstr "atau "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
-msgstr "atau "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1479,21 +1350,16 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - daftar sistem walaupun ia telahpun "
-"didaftarkan"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
-msgstr "A dan kepada."
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:87
-#, fuzzy
 msgid "This system is already registered. Use --force to override"
-msgstr "Guna kepada"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:121
 msgid ""
@@ -1522,16 +1388,14 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:200
-#, fuzzy
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
-msgstr "A dan dan IP kepada."
+msgstr ""
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "Anda tidak mempunyai keizinan untuk membaca %s."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1550,37 +1414,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Saluran"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Pasang"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Nama pengguna:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "Katalaluan (kepastian):"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Namapengguna:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1592,9 +1451,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "ralat membaca fail"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1607,11 +1466,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
 msgstr ""
-"Sistem ini mungkin tidak dikemaskinikan sehingga ia dipadankan dengan "
-"saluran."
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1626,54 +1482,46 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
-msgstr "kepada oleh"
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:43
-#, fuzzy
 msgid "Updating package profile..."
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:46
-#, fuzzy
 msgid "Updating hardware profile..."
-msgstr "Up2date - Profil Perkakasan"
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Mempartisyen Sistem Anda"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Maklumat Pakej"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Anda mesti masukkan nama pengguna."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Dialog Kemajuan"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Dialog Kemajuan"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1686,9 +1534,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1746,28 +1593,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Pendaftaran Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Pendaftaran Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Saluran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Keluaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
 msgid "Close"
@@ -1778,56 +1621,48 @@ msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Maklumat Pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
-#, fuzzy
 msgid "Enter in the format hostname(:port)"
-msgstr "Masukkan dalam format namahos(:port)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid "Hardware Info"
-msgstr "<i>info_label</i>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:27
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "Amerika Syarikat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Huraian"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
 msgstr ""
 
 #: ../data/rh_register.glade.h:32
-#, fuzzy
 msgid "Package Information"
-msgstr "Maklumat Pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:33
 msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1842,14 +1677,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Hantar senarai _pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1871,19 +1704,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Guna Pengesahan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1893,9 +1723,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Mempartisyen Sistem Anda"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1910,18 +1739,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Fail laluan statik %s tidak sah"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Katalaluan:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1932,15 +1759,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "Syarikat:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1948,22 +1773,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "Hidupkan Proksi HTTP:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Logmasuk Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1971,16 +1793,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -2049,10 +1869,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Pendaftaran Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2076,13 +1895,12 @@ msgstr "Model CPU:"
 #, fuzzy
 msgctxt "yes"
 msgid "CPU Speed:"
-msgstr "Kelajuan Failover"
+msgstr "Model CPU:"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Logmasuk Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2147,17 +1965,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Memulakan Daemon Red Hat Network: "
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2173,10 +1988,9 @@ msgid "IP Address:"
 msgstr "Alamat IP:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2187,10 +2001,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "_Laksana up2date..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2206,18 +2019,16 @@ msgid "Memory:"
 msgstr "Memori:"
 
 #: ../data/rh_register.glade.h:111
-#, fuzzy
 msgctxt "yes"
 msgid "Package Information"
-msgstr "Maklumat Pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2231,10 +2042,9 @@ msgid "Proxy P_assword:"
 msgstr "Katalaluan:"
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Namapengguna:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2262,10 +2072,9 @@ msgid "Red Hat Linux Version:"
 msgstr "Red Hat Linux Versi:"
 
 #: ../data/rh_register.glade.h:120
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Logmasuk Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
@@ -2274,10 +2083,9 @@ msgid "Send _hardware profile"
 msgstr "Profil Perkakasan"
 
 #: ../data/rh_register.glade.h:122
-#, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Hantar senarai _pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2292,10 +2100,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2305,16 +2112,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Guna Pengesahan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
-#, fuzzy
 msgctxt "yes"
 msgid "V_iew Package Profile ..."
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../data/rh_register.glade.h:129
 msgctxt "yes"
@@ -2360,10 +2165,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "_Laksana up2date..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2392,10 +2196,9 @@ msgid "_Close"
 msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "_Logmasuk:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2425,16 +2228,14 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
@@ -2443,10 +2244,9 @@ msgid "_View Hardware Profile ..."
 msgstr "Profil Perkakasan"
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Daftar dengan RHN"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2469,10 +2269,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Memulakan Daemon Red Hat Network: "
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2480,3104 +2279,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Merah Rangkaian"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Memulakan Daemon Red Hat Network: "
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Memulakan Daemon Red Hat Network: "
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Langkah Daftar Sistem"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Langkah Daftar Sistem"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "registrationNumber"
-
-#~ msgid "Warning:"
-#~ msgstr "Amaran:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Dialog OK:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Dialog soalan:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Pengaktifan"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Amaran kepada"
-
-#, fuzzy
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
-
-#, fuzzy
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr ""
-#~ "Tedapat ralat memasang pakej.\n"
-#~ "\n"
-#~ "Keluar."
-
-#, fuzzy
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "Terdapat ralat maut RPM.  Mesejnya ialah:\n"
-
-#, fuzzy
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "Terdapat ralat maut RPM.  Mesejnya ialah:\n"
-
-#, fuzzy
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
-
-#, fuzzy
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
-
-#, fuzzy
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr ""
-#~ "Ralat ketika mengambil pakej %s.\n"
-#~ "Mesejnya ialah:\n"
-#~ "%s"
-
-#, fuzzy
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr "Fail Langkah atau fail ralat"
-
-#, fuzzy
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "s on"
-
-#, fuzzy
-#~ msgid "GPG is not installed properly."
-#~ msgstr "radvd tidak (betul-betul) di'install', isyarat gagal dihantar"
-
-#, fuzzy
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG Merah awam"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr "s."
-
-#, fuzzy
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Pakej s GPG"
-
-#, fuzzy
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Pakej s GPG"
-
-#, fuzzy
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Pakej s GPG"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Pilih Merah Rangkaian Pelayan kepada"
-
-#, fuzzy
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Memulakan Daemon Red Hat Network: "
-
-#, fuzzy
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Memulakan Daemon Red Hat Network: "
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "_Laksana up2date..."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Langkah 1: Lihat Pernyataan Hak Peribadi Red Hat"
-
-#, fuzzy
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Merah Rangkaian"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Logmasuk default:"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Dua katalaluan yang anda masukkan tidak sepadan.\n"
-#~ "Sila taip semula katalaluan yang kedua."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Merah Rangkaian"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "Katalaluan:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Anda mesti memasukkan Nama Sistem Pengoperasian"
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Anda mesti memasukkan Nama Sistem Pengoperasian"
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Anda mesti masukkan nama pelayan."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Anda mesti masukkan maklumat IP yang sah untuk teruskan"
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Up2date - Maklumat Pendaftaran"
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Anda mesti masukkan dan sahkan katalaluan."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Anda mesti masukkan dan sahkan katalaluan."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Anda mesti masukkan nombor pendaftaran."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "registrationNumber"
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "Fail laluan statik %s tidak sah"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Terdapat ralat mendaftarkan sistem ini."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Terdapat ralat mendaftarkan sistem ini."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr ""
-#~ "Tedapat ralat memasang pakej.\n"
-#~ "\n"
-#~ "Keluar."
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Anda mesti masukkan nombor pendaftaran."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr ""
-#~ "Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya "
-#~ "ialah:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Ralat fatal ketika mengambil maklumat hak peribadi:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Anda mesti masukkan nombor pendaftaran."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Masalah mendaftarkan nama pengguna:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Masalah mendaftarkan namapengguna."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Logmasuk Red Hat Network"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Anda mesti masukkan nama pelayan."
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr ""
-#~ "    --subscription=<nilai>     - nyatakan nombor langganan untuk digunakan"
-
-#, fuzzy
-#~ msgid "Important Registration Info"
-#~ msgstr "Lengkap pendaftaran sekarang"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Maklumat Pendaftaran"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Anda mesti masukkan nombor pendaftaran."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Pernyataan Hak Peribadi"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Pernyataan Hak Peribadi Red Hat"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Ralat membaca maklumat perkakasan:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Ralat membaca maklumat DMI:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Akaun pengguna tersebut dan kata laluannya tidak sah\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Anda mesti masukkan nama pengguna."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Anda mesti masukkan dan sahkan katalaluan."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Masalah mendaftarkan nama pengguna:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Masalah mendaftarkan namapengguna."
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Up2date - Maklumat Pendaftaran"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Maklumat Pakej"
-
-#, fuzzy
-#~ msgid "*First Name:"
-#~ msgstr "Nama Pengguna"
-
-#, fuzzy
-#~ msgid "*Last Name:"
-#~ msgstr "Nama Pengguna"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Syarikat:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "Alamat"
-
-#~ msgid "City:"
-#~ msgstr "Bandar:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "keadaan tidak diketahui"
-
-#, fuzzy
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Kod keluar yang tidak diketahui."
-
-#, fuzzy
-#~ msgid "*Country:"
-#~ msgstr "Negara:"
-
-#, fuzzy
-#~ msgid "  Address 2:"
-#~ msgstr "Alamat"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "Alamat"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "Bandar:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "Syarikat:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "keadaan tidak diketahui"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "Kod keluar yang tidak diketahui."
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "Katalaluan (kepastian):"
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "Negara:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "Katalaluan:"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "Nama Pengguna"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "Alamat _emel webmaster:"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "Nama Pengguna"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Maklumat Pakej"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Up2date - Maklumat Pendaftaran"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albania"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeria"
-
-#~ msgid "American Samoa"
-#~ msgstr "Samoa Amerika"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antartika"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua dan Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenia"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Australia"
-
-#~ msgid "Austria"
-#~ msgstr "Austria"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaijan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamas"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Belarus"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgium"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosnia dan Herzegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Kepulauan Bouvet"
-
-#~ msgid "Brazil"
-#~ msgstr "Brazil"
-
-#, fuzzy
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "Kawasan Ocean India British"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgaria"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Logmasuk default:"
-
-#~ msgid "Cambodia"
-#~ msgstr "Kemboja"
-
-#~ msgid "Cameroon"
-#~ msgstr "Cameroon"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cape Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Kepulauan Cayman"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Republik Afrika Tengah"
-
-#~ msgid "Chad"
-#~ msgstr "Chad"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "China"
-#~ msgstr "China"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Kepulauan Krismas"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Kepulauan Cocos (Keeling)"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Comoros"
-#~ msgstr "Comoros"
-
-#~ msgid "Congo"
-#~ msgstr "Kongo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Kepulauan Cook"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Logmasuk default:"
-
-#~ msgid "Croatia"
-#~ msgstr "Croatia"
-
-#~ msgid "Cuba"
-#~ msgstr "Cuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cyprus"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Republik Czech"
-
-#~ msgid "Denmark"
-#~ msgstr "Denmark"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Republik Dominica"
-
-#~ msgid "East Timor"
-#~ msgstr "Timor Larose"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecuador"
-
-#~ msgid "Egypt"
-#~ msgstr "Mesir"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Equitorial Guinea"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estonia"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Ethiopia"
-
-#, fuzzy
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Queensland - Pulau Holiday"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Kepulauan Faroe"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Finland"
-
-#~ msgid "France"
-#~ msgstr "Perancis"
-
-#, fuzzy
-#~ msgid "France, Metropolitan"
-#~ msgstr "Perancis (Kawasan Eropah)"
-
-#~ msgid "French Guiana"
-#~ msgstr "French Guiana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "French Polynesia"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Kawasan Selatan Perancis"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Jerman"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Greek"
-
-#~ msgid "Greenland"
-#~ msgstr "Greenland"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#, fuzzy
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "dan"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Hungary"
-
-#~ msgid "Iceland"
-#~ msgstr "Iceland"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesia"
-
-#, fuzzy
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Republik Afrika Tengah"
-
-#~ msgid "Iraq"
-#~ msgstr "Iraq"
-
-#~ msgid "Ireland"
-#~ msgstr "Ireland"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Italy"
-#~ msgstr "Itali"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Japan"
-#~ msgstr "Jepun"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordan"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakhstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#, fuzzy
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "s"
-
-#, fuzzy
-#~ msgid "Korea, Republic of"
-#~ msgstr "Republik Korea"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuwait"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgyzstan"
-
-#, fuzzy
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao s"
-
-#~ msgid "Latin America"
-#~ msgstr "Amerika Latin"
-
-#~ msgid "Latvia"
-#~ msgstr "Latvia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Lebanon"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#, fuzzy
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Emiriah Arab Bersatu"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Lithuania"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxembourg"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedonia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagascar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malaysia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldives"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Kepulauan Marshall"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexico"
-
-#, fuzzy
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Amerika Syarikat"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolia"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Morocco"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambique"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Belanda"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Netherlands Antilles"
-
-#~ msgid "New Caledonia"
-#~ msgstr "New Caledonia"
-
-#~ msgid "New Zealand"
-#~ msgstr "New Zealand"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Kepulauan Norfolk"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Kepulauan Mariana Utara"
-
-#~ msgid "Norway"
-#~ msgstr "Norway"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua New Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Filipina"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Poland"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugal"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#, fuzzy
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr "Katalaluan mestilah sekurang-kurangnya 6 aksara panjang."
-
-#, fuzzy
-#~ msgid "Reunion"
-#~ msgstr "India/Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romania"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Persekutuan Rusia"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Saint Helena"
-
-#, fuzzy
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "St. Kitts dan Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#, fuzzy
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Santa Pierre dan Miquelon"
-
-#, fuzzy
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Name=St. Vincent dan Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#, fuzzy
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome and Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Arab Saudi"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapura"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovakia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Kepulauan Solomon"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "Afrika Selatan"
-
-#, fuzzy
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "Selatan Georgia dan Selatan"
-
-#~ msgid "Spain"
-#~ msgstr "Sepanyol"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Surinam"
-
-#, fuzzy
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Svalbard and Jan Mayen Islands"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Sweden"
-
-#~ msgid "Switzerland"
-#~ msgstr "Switzerland"
-
-#, fuzzy
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Republik Afrika Tengah"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tajikistan"
-
-#, fuzzy
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Republik Afrika Tengah"
-
-#~ msgid "Thailand"
-#~ msgstr "Thailand"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad dan Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisia"
-
-#~ msgid "Turkey"
-#~ msgstr "Turki"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Kepulauan Caicos dan Turks"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukraine"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Emiriah Arab Bersatu"
-
-#~ msgid "United Kingdom"
-#~ msgstr "United Kingdom"
-
-#, fuzzy
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "Amerika Syarikat, kepulauan Luar Minor"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#, fuzzy
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Bandar Keadaan"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Viet Nam"
-
-#, fuzzy
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "British Virgin Islands"
-
-#, fuzzy
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Kepulauan Virgin"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Kepulauan Futuna dan Wallis"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Sahara Barat"
-
-#~ msgid "Yemen"
-#~ msgstr "Yaman"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Yugoslavia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ " SSL\n"
-#~ " atau daripada\n"
-#~ " dalam "
-
-#, fuzzy
-#~ msgid "Continue anyway?"
-#~ msgstr "_Pasang juga"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Menerima:"
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Pilih Merah Rangkaian Pelayan kepada"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Maklumat tidak sah"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Syarikat:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Memulakan Daemon Red Hat Network: "
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Logmasuk Red Hat Network"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr "Sistem on Merah"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "pengguna unama."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr ""
-#~ "Sistem ini mungkin tidak dikemaskinikan sehingga ia dipadankan dengan "
-#~ "saluran."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr ""
-#~ "Sistem ini mungkin tidak dikemaskinikan sehingga ia dipadankan dengan "
-#~ "saluran."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Memulakan Daemon Red Hat Network: "
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Pilih Merah Rangkaian Pelayan kepada"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Sila ubahsuai pilihan pakej anda dan cuba kembali."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Versi:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Mempartisyen Sistem Anda"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Masalah menghantar pakej:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Masalah menghantar pakej."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Nama pengguna mestilah sekurang-kurangnya 5 aksara panjang"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Dua katalaluan yang anda masukkan tidak sepadan.\n"
-#~ "Sila taip semula katalaluan yang kedua."
-
-#, fuzzy
-#~ msgid "File Name/pattern"
-#~ msgstr "Nama/corak pakej"
-
-#, fuzzy
-#~ msgid "Config modified"
-#~ msgstr "Profil aktif: %s (diubahsuai)"
-
-#, fuzzy
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Gagal"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Anda mesti memasukkan Nama Sistem Pengoperasian"
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Anda mesti memasukkan Nama Sistem Pengoperasian"
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Anda mesti masukkan nama pelayan."
-
-#, fuzzy
-#~ msgid "SSL Warning"
-#~ msgstr "Amaran Pempartisyenan"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr "SSL atau daripada Merah Rangkaian dalam Teruskan?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Namapengguna:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Ralat membuka %s"
-
-#, fuzzy
-#~ msgid "Installing"
-#~ msgstr "Memasang %s-%s-%s... "
-
-#, fuzzy
-#~ msgid "Installing %s"
-#~ msgstr "Memasang %s-%s-%s... "
-
-#, fuzzy
-#~ msgid "Repackaging"
-#~ msgstr "Mempakej semula..."
-
-#, fuzzy
-#~ msgid "Preparing"
-#~ msgstr "Bersedia untuk memasang..."
-
-#, fuzzy
-#~ msgid " Done."
-#~ msgstr "Selesai [%d/%d]"
-
-#, fuzzy
-#~ msgid "Retrieved."
-#~ msgstr "Menerima:"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Pakej berikut telah ditambah kepada pilihan anda untuk memenuhi "
-#~ "kebergantungan:\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr "  -V, --version\t\t Cetak versi program"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr "Versi Saluran"
-
-#, fuzzy
-#~ msgid "No advisory information available\n"
-#~ msgstr "Tiada maklumat nasihat keselamatan didapati."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr "  -V, --version\t\t Cetak versi program"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "Pakej kepada oleh:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr "Versi Alasan"
-
-#, fuzzy
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "Pakej oleh:"
-
-#, fuzzy
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "Pakej oleh:"
-
-#, fuzzy
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "Pakej oleh:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr "Versi Keluaran oleh Nama Versi Keluaran"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr "oleh:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr "Versi Keluaran oleh Nama Versi Keluaran"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr "daripada Merah Rangkaian:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr "  -V, --version\t\t Cetak versi program"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr "<url> for"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr "kepada"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Namapengguna:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "registrationNumber"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Up2date - Cipta Akaun Baru"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Batal"
-
-#, fuzzy
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Merah Rangkaian Merah."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Baca _Pernyataan Hak Peribadi kami"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "Tiada pilihan tetapan rhnuuid dijumpai dalam /etc/sysconfig/rhn/up2date-"
-#~ "uuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Bagi menyelesaikan semua pergantungan untuk RPM yang telah anda "
-#~ "pilih, pakej\n"
-#~ "    berikut yang anda telah tanda untuk diabaikan perlu tambah kepada "
-#~ "set:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Nama Pakej"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Alasan Untuk Melangkau"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Menguji set pakej / menyelesaikan antara-pergantungan RPM"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Tidak dapat memenuhi konflik kebergantungan."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "Pakej berikut telah ditambah kepada pilihan anda untuk memenuhi "
-#~ "kebergantungan:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Pakej                                  Diperlukan oleh\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Tidak tahu bagaimana untuk mengawal kebergantungan \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Rantaian kebergantungan tidak dapat diselesaikan:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "Pilihan elilo yang tidak disokong oleh up2date telah digunakan dalam "
-#~ "elilo.conf default. Fail ini tidak akan diubahsuai. Pilihannya termasuk:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "Tidak dapat melaksanakan gubby dengan betul: mesejnya ialah:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Agen Kemaskini Red Hat"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Perisian ini disebarkan dibawah GPL\n"
-#~ "Sila lapor pepijat ke Sistem Penjejakan Pepijat Red Hat: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr ""
-#~ "Agen Kemaskini - program untuk mengemaskini pakej pada Red Hat Linux"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Perisian ini disebarkan dibawah GPL.  Sila lapor pepijat ke Sistem "
-#~ "Penjejakan Pepijat Red Hat: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Versi"
-
-#~ msgid "Old Version"
-#~ msgstr "Versi Lama"
-
-#~ msgid "Size"
-#~ msgstr "Saiz"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Alasan Dilangkau"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Maklumat Hak Peribadi"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Syarat dan Peraturan"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Halaman Logmasuk"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Maklumat Red Hat Network"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Halaman Maklumat Produk"
-
-#~ msgid "All information is optional."
-#~ msgstr "Semua maklumat adalah tidak wajib."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Untuk menerima komunikasi dengan surat dari Red Hat, anda mesti mengisi "
-#~ "nama penuh\n"
-#~ "anda dan alamat."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Untuk membolehkan Red Hat menghubungi anda dengan telefon, anda mesti "
-#~ "memberikan\n"
-#~ "sekurang-kurangnya nombor telefon dan nama."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Untuk membolehkan Red Hat menghubungi anda dengan faks, anda mesti "
-#~ "memberikan\n"
-#~ "sekurang-kurangnya nombor faks dan nama."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Profil Perkakasan"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Wizard Pendaftaran sedang membina senarai pakej RPM yang dipasang pada "
-#~ "sistem anda. Sila tunggu."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "Tiada pakej dipilih. Sila pilih pakej dahulu."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Tiada maklumat nasihat keselamatan didapati."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Agen Kemaskini Red Hat sedang membina senarai pakej RPM yang telah\n"
-#~ "dikemaskini yang telah dipasang pada sistem anda.  Sila tunggu."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Terdapat versi baru up2date wujud. Pasang versi baru dan ulanghidup?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Terdapat ralat maut RPM.  Mesejnya ialah:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr ""
-#~ "Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya "
-#~ "ialah:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ralat OS yang tidak dijangka berlaku:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Pakej Dilangkau"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Saluran"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Senarai Pakej"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Terdapat ralat maut RPM.  Mesejnya ialah:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr ""
-#~ "Sistem anda telah dikemaskinikan sepenuhnya.  Tiada pakej baru diperlukan."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Terdapat ralat memasang RPM.  Mesejnya ialah:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Terdapat masalah pergantungan pakej.  Mesejnya ialah:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Anda mesti memilih sekurang-kurangnya satu pakej.\n"
-#~ "Jika anda tidak mahu mengemaskinikan sebarang pakej,\n"
-#~ "tekan butang \"Batal\" untuk keluar dari Agen Kemaskini."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Jumlah saiz pakej yang dipilih ialah %d kB, tetapi\n"
-#~ "Anda hanya mempunyai %d kB ruang kosong.\n"
-#~ "Sila nyahpilih beberapa pakej dan teruskan."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Pakej Yang Ada"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Kebergantungan"
-
-#~ msgid " (%02d:%02d:%02d remaining)"
-#~ msgstr " (%02d:%02d:%02d yang tinggal)"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Pakej sudah dimuatturun"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ralat ketika mengambil pakej %s.\n"
-#~ "Mesejnya ialah:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ralat maut RPM telah berlaku.  Mesejnya ialah:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Pakej %s tidak ditandatangan dengan tandatangan GPG.  Teruskan?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Pakej %s tidak mengandungi tandatangan GPG yang sah.\n"
-#~ "Ia telah diubah atau telah rosak.  Teruskan?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr ""
-#~ "Pakej %s ditandatangan dengan tandatangan GPG yang tidak dipercayai.  "
-#~ "Teruskan?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr ""
-#~ "Pakej %s ditandatangani dengan tandatangan GPG yang tidak diketahui. "
-#~ "Teruskan?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Semua selesai. Klik \"Maju\" untuk meneruskan."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Pengambilan Pakej"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Mempakej semula..."
-
-#~ msgid "Installing..."
-#~ msgstr "Memasang..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Jumlah Kemajuan (ulang pakej):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Jumlah Kemajuan:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Terdapat ralat maut pemasangan RPM. Mesejnya ialah:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Pemasangan Pakej"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Halaman Penamat"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Agen Kemaskini Red Hat telah selesai"
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "mengambil\n"
-#~ " pakej berikut berjaya:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "memasang\n"
-#~ " pakej berikut berjaya:\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr "Jika kepada."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Ralat memasang lilo.conf  Mesejnya adalah:\n"
-
-#, fuzzy
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "Ralat memasang lilo.conf  Mesejnya adalah:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Ralat memasang pemuat boot baru: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "Ralat membaca lilo.conf: Mesejnya adalah:\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "Pilihan elilo yang tidak disokong oleh up2date telah digunakan dalam "
-#~ "elilo.conf default. Fail ini tidak akan diubahsuai. Pilihannya termasuk:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Nama/corak pakej"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "Mendapatkan pengepala rpm"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "Mendapatkan pengepala rpm: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Membuang pakej ditanda untuk lankau dari senarai"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s adalah direktori yang tidak sah"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Penggunaan: rhn_check [pilihan]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Pilihan arahan baris yang ada:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - bantuan ini"
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose       - tingkatkan keriuhan"
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Ralat mendapatkan senarai pakej yang ada"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Ralat menghurai hujah senarai arahan: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "Guna salah satu dari langganan saya yang aktif dan wujud."
-
-#, fuzzy
-#~ msgid "You must enter your address."
-#~ msgstr "Anda mesti masukkan nama pelayan."
-
-#, fuzzy
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "pengguna unama."
-
-#, fuzzy
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Penggunaan: rhn_check [pilihan]"
-
-#, fuzzy
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help         - bantuan ini"
-
-#, fuzzy
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "Mesti nyatakan nilai"
-
-#, fuzzy
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "Mesti nyatakan nilai"
-
-#, fuzzy
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "Mesti nyatakan nilai"
-
-#, fuzzy
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "<value> kepada"
-
-#, fuzzy
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr "<value> kepada"
-
-#, fuzzy
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr "<URL> kepada"
-
-#, fuzzy
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --activationkey=<nilai>    - nyatakan kekunci pengaktifan"
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<nilai>    - nyatakan kekunci pengaktifan"
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr ""
-#~ "    --subscription=<nilai>     - nyatakan nombor langganan untuk digunakan"
-
-#, fuzzy
-#~ msgid "    --version                  - display the version "
-#~ msgstr "Pengurus Paparan X."
-
-#, fuzzy
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr ""
-#~ "    --subscription=<nilai>     - nyatakan nombor langganan untuk digunakan"
-
-#, fuzzy
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr "<value> kepada"
-
-#, fuzzy
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr "<value> kepada"
-
-#, fuzzy
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Program ini diedarkan di bawah terma  %1."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "tidak dapat membuang %s"
-
-#, fuzzy
-#~ msgid "Error parsing %s"
-#~ msgstr "Ralat hujah penelitian: %s.\n"
-
-#, fuzzy
-#~ msgid "at line: %s"
-#~ msgstr "Talian chandev "
-
-#, fuzzy
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Ralat mencipta akaun pengguna untuk %s: %s\n"
-
-#, fuzzy
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Ya Enter pengguna unama dan."
-
-#, fuzzy
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr "Tidak pengguna dan dan."
-
-#, fuzzy
-#~ msgid "Again, for verification:"
-#~ msgstr "Mencari  pemasang %s ..."
-
-#, fuzzy
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr "Langkah Daftar Pengguna"
-
-#, fuzzy
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Langkah Daftar Pengguna Semua Pilihan"
-
-#, fuzzy
-#~ msgid "*Title:"
-#~ msgstr "<title></title>"
-
-#~ msgid "Title:"
-#~ msgstr "Tajuk:"
-
-#, fuzzy
-#~ msgid "First Name:"
-#~ msgstr "Nama Pengguna"
-
-#~ msgid "Position:"
-#~ msgstr "Posisi:"
-
-#, fuzzy
-#~ msgid "*Address:"
-#~ msgstr "Alamat"
-
-#~ msgid "Address:"
-#~ msgstr "Alamat:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Alamat 2:"
-
-#, fuzzy
-#~ msgid "*City:"
-#~ msgstr "Bandar:"
-
-#, fuzzy
-#~ msgid "*State/Prov:"
-#~ msgstr "keadaan tidak diketahui"
-
-#, fuzzy
-#~ msgid "State/Prov:"
-#~ msgstr "keadaan tidak diketahui"
-
-#, fuzzy
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "Kod keluar yang tidak diketahui."
-
-#~ msgid "Country:"
-#~ msgstr "Negara:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Telefon:"
-
-#~ msgid "Phone:"
-#~ msgstr "Telefon:"
-
-#~ msgid "Fax:"
-#~ msgstr "Faks:"
-
-#, fuzzy
-#~ msgid "Contact Preferences:"
-#~ msgstr "Lebih Keutamaan"
-
-#~ msgid "E-mail"
-#~ msgstr "E-mel"
-
-#, fuzzy
-#~ msgid "Regular mail"
-#~ msgstr "Pelayan Mel"
-
-#~ msgid "Telephone"
-#~ msgstr "Telefon"
-
-#~ msgid "Fax"
-#~ msgstr "Faks"
-
-#, fuzzy
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "daripada Merah s"
-
-#, fuzzy
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Selamat Datang ke Agen Kemaskini Red Hat"
-
-#, fuzzy
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Untuk menerima komunikasi dengan surat dari Red Hat, anda mesti mengisi "
-#~ "nama penuh\n"
-#~ "anda dan alamat."
-
-#, fuzzy
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Untuk membolehkan Red Hat menghubungi anda dengan telefon, anda mesti "
-#~ "memberikan\n"
-#~ "sekurang-kurangnya nombor telefon dan nama."
-
-#, fuzzy
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Untuk membolehkan Red Hat menghubungi anda dengan faks, anda mesti "
-#~ "memberikan\n"
-#~ "sekurang-kurangnya nombor faks dan nama."
-
-#, fuzzy
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Langkah Daftar Sistem"
-
-#, fuzzy
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Sistem on Merah Rangkaianhttp://www.redhat.com/network kepada dan Merah "
-#~ "Rangkaian dan atau Kemaskini saja daripada."
-
-#, fuzzy
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "kepada Teruskan?"
-
-#, fuzzy
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Pakej %s tidak ditandatangan dengan tandatangan GPG.  Teruskan?"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Pakej %s tidak mengandungi tandatangan GPG yang sah.\n"
-#~ "Ia telah diubah atau telah rosak.  Teruskan?"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr ""
-#~ "Pakej %s ditandatangan dengan tandatangan GPG yang tidak dipercayai.  "
-#~ "Teruskan?"
-
-#, fuzzy
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr "s GPG."
-
-#, fuzzy
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr "direktori s atau."
-
-#, fuzzy
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr "Merah Rangkaian Kepada Kemaskini saja."
-
-#, fuzzy
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "GPG Merah awam kepada Kemaskini saja oleh Merah Kemaskini saja kepada GPG."
-
-#, fuzzy
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "GPG Merah awam kepada Kemaskini saja oleh Merah Kemaskini saja kepada "
-#~ "GPG\n"
-#~ " GPG"
-
-#, fuzzy
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "kebergantungan."
-
-#, fuzzy
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "  -V, --version\t\t Cetak versi program"
-
-#, fuzzy
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Ujian konflik"
-
-#, fuzzy
-#~ msgid "Could not find header for %s"
-#~ msgstr "Tidak dapat menjumpai  konfigurasi X"
-
-#, fuzzy
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "dalam."
-
-#, fuzzy
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr "Amaran dan for dimatikan"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr "dalam kepada kepada dan on Versi dan rekabentuk oleh Kemaskini saja"
-
-#, fuzzy
-#~ msgid "configure Update Agent options"
-#~ msgstr "Agen Kemaskini Red Hat"
-
-#, fuzzy
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr "kepada"
-
-#, fuzzy
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr "kepada"
-
-#, fuzzy
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Muat Turun"
-
-#, fuzzy
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr "Daya dan fail"
-
-#, fuzzy
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr "kepada kepada"
-
-#, fuzzy
-#~ msgid "list packages available for retrieval"
-#~ msgstr "for"
-
-#, fuzzy
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr "dan kebergantungan"
-
-#, fuzzy
-#~ msgid "Briefly describe the options"
-#~ msgstr "Opsyen Saiz Tambahan"
-
-#, fuzzy
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "kepada dalam for"
-
-#, fuzzy
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "GPG kepada"
-
-#, fuzzy
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr "Sistem on Merah"
-
-#, fuzzy
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "atau"
-
-#, fuzzy
-#~ msgid "List all packages available for download"
-#~ msgstr "for"
-
-#, fuzzy
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "for"
-
-#, fuzzy
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr "dalam"
-
-#, fuzzy
-#~ msgid "List all the install components available to install"
-#~ msgstr "for"
-
-#, fuzzy
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr "dan kepada"
-
-#, fuzzy
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "kepada fail"
-
-#, fuzzy
-#~ msgid "show program version information"
-#~ msgstr "Papar maklumat versi dan keluar"
-
-#, fuzzy
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "unama"
-
-#, fuzzy
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Papar penanda pen&gikat (jika boleh)"
-
-#, fuzzy
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr "Tidak kebergantungan."
-
-#, fuzzy
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "kepada oleh"
-
-#, fuzzy
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Muat Turun"
-
-#, fuzzy
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Sebelumnya dalam"
-
-#, fuzzy
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "dalam"
-
-#, fuzzy
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "for"
-
-#, fuzzy
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr "for"
-
-#, fuzzy
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Mencari pakej untuk dinaiktaraf..."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr "_Kekunci Enkripsi"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ " ralat Merah\n"
-#~ " GPG kepada."
-
-#, fuzzy
-#~ msgid "Updating transaction history..."
-#~ msgstr "Menyediakan transaksi RPM..."
-
-#, fuzzy
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Tidak kebergantungan."
-
-#, fuzzy
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "A unama"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr ""
-#~ "Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya "
-#~ "ialah:\n"
-
-#, fuzzy
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Terdapat masalah pergantungan pakej.  Mesejnya ialah:\n"
-
-#, fuzzy
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr ""
-#~ "Tedapat ralat memasang pakej.\n"
-#~ "\n"
-#~ "Keluar."
-
-#, fuzzy
-#~ msgid "No interactive mode available"
-#~ msgstr "Tiada kemaskini didapati (%d diabaikan)"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr "atau."
-
-#, fuzzy
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr "kepada"
-
-#, fuzzy
-#~ msgid "The following packages are not available:"
-#~ msgstr "daripada Merah Rangkaian:"
-
-#, fuzzy
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Semua kepada"
-
-#, fuzzy
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "Pakej oleh:"
-
-#, fuzzy
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "Pakej oleh:"
-
-#~ msgid "Activate"
-#~ msgstr "Aktifkan"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Tambah"
-
-#, fuzzy
-#~ msgid "Add new:"
-#~ msgstr "Tambah alamat baru..."
-
-#, fuzzy
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "on"
-
-#, fuzzy
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "_Jangan pasang  pakej yang mempunyai kebergantungan"
-
-#, fuzzy
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "lokal fail"
-
-#, fuzzy
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr "Hidupkan"
-
-#, fuzzy
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Enter kepada."
-
-#, fuzzy
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr "Enter unama fail kepada daripada."
-
-#, fuzzy
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr "Enter unama kepada daripada."
-
-#, fuzzy
-#~ msgid "File Names to Skip"
-#~ msgstr "Tidak dapat memuatkan fail!"
-
-#~ msgid "General"
-#~ msgstr "Umum"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Jika anda memerlukan proksi HTTP, masukkannya disini dalam format HOS:"
-#~ "PORT\n"
-#~ "cth. squid.mysite.org:3128"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr "Jika kepada versi Merah versi atau daripada."
-
-#, fuzzy
-#~ msgid "Network Settings"
-#~ msgstr "Tetapan Rangkaian Lain-lain"
-
-#, fuzzy
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "versi dalam Sistem:"
-
-#, fuzzy
-#~ msgid "Package Exceptions"
-#~ msgstr "Pakej Hilang"
-
-#, fuzzy
-#~ msgid "Package Installation Options"
-#~ msgstr "Pemasangan Pakej Default"
-
-#, fuzzy
-#~ msgid "Package Names to Skip"
-#~ msgstr "nama pelayan untuk dilakukan pengesahan"
-
-#, fuzzy
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Up2date - Pengambilan Pakej"
-
-#, fuzzy
-#~ msgid "Package Verification Options"
-#~ msgstr "Opsyen Saiz Tambahan"
-
-#, fuzzy
-#~ msgid "Package storage directory:"
-#~ msgstr "Direktori mengendungi imej:"
-
-#~ msgid "Remove"
-#~ msgstr "Buang"
-
-#, fuzzy
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Jenis Pemasangan"
-
-#, fuzzy
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Guna GPG kepada"
-
-#, fuzzy
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr "A Nama unama kepada Sistem on Rangkaian bersiri atau."
-
-#, fuzzy
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr "kepada kepada Jika kepada dalam kepada."
-
-#, fuzzy
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr "Tambahan PCI dan point dalam."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#, fuzzy
-#~ msgid "All Finished"
-#~ msgstr "Semua Pakej"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#, fuzzy
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Armed Forces(AA)"
-
-#, fuzzy
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Armed Forces(AE)"
-
-#, fuzzy
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Armed Forces(AP)"
-
-#, fuzzy
-#~ msgid "Available Package Installs"
-#~ msgstr "Ralat mendapatkan senarai pakej yang ada"
-
-#, fuzzy
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr "on:"
-
-#~ msgid "British Columbia"
-#~ msgstr "British Columbia"
-
-#, fuzzy
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr "default dalam Sistem kepada."
-
-#~ msgid "California"
-#~ msgstr "California"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Menklik \"Maju\" menandakan kefahaman dan penerimaan syarat-syarat dan "
-#~ "peraturan.\n"
-#~ " Jika anda tidak menerima, tekan \"Batal\""
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#, fuzzy
-#~ msgid "Contact preferences"
-#~ msgstr "Lebih Keutamaan"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "Daerah Columbia"
-
-#~ msgid "Dr."
-#~ msgstr "Dr."
-
-#, fuzzy
-#~ msgid "Fields marked in red are required."
-#~ msgstr "dalam."
-
-#, fuzzy
-#~ msgid "First name:"
-#~ msgstr "Nama Pengguna"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr "Perkakasan kepada dan kepada s rekabentuk dan Merah versi."
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "IP address:"
-#~ msgstr "Alamat IP:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#, fuzzy
-#~ msgid "Include information about hardware and network"
-#~ msgstr "dan"
-
-#, fuzzy
-#~ msgid "Included information"
-#~ msgstr "Maklumat tidak sah"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Memasang Pakej"
-
-#, fuzzy
-#~ msgid "Installing:"
-#~ msgstr "Memasang %s-%s-%s... "
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#, fuzzy
-#~ msgid "Last name:"
-#~ msgstr "Nama Pengguna"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Micronesia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "Cik"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "En."
-
-#~ msgid "Mrs."
-#~ msgstr "Puan"
-
-#~ msgid "Ms."
-#~ msgstr "Cik/Puan"
-
-#~ msgid "Name"
-#~ msgstr "Nama"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "New Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Newfoundland"
-
-#~ msgid "North Carolina"
-#~ msgstr "Carolina Utara"
-
-#~ msgid "North Dakota"
-#~ msgstr "Dakota Utara"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Mariana Utara"
-
-#, fuzzy
-#~ msgid "Northwest Territory"
-#~ msgstr "Wilayah Utara"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova Scotia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#, fuzzy
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Luar AS/Kanada"
-
-#, fuzzy
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "_Personalisasikan pakej perisian untuk dipasang"
-
-#, fuzzy
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "_Pasang pakej untuk memuaskan kebergantungan"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#, fuzzy
-#~ msgid "Prince Edward Island"
-#~ msgstr "Kepulauan Lord Howe"
-
-#~ msgid "Quebec"
-#~ msgstr "Quebec"
-
-#, fuzzy
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr "kepada."
-
-#, fuzzy
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Red Hat Linux Versi:"
-
-#, fuzzy
-#~ msgid "Retrieving Packages"
-#~ msgstr ""
-#~ "mengambil\n"
-#~ " pakej berikut berjaya:\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid "Retrieving:"
-#~ msgstr "Menerima"
-
-#, fuzzy
-#~ msgid "Rhode Island"
-#~ msgstr "Kepulauan Newfoundland"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#, fuzzy
-#~ msgid "Select all packages"
-#~ msgstr "_Pilih pakej individu"
-
-#, fuzzy
-#~ msgid "South Carolina"
-#~ msgstr "Carolina Utara"
-
-#, fuzzy
-#~ msgid "South Dakota"
-#~ msgstr "Dakota Utara"
-
-#, fuzzy
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Khas daripada Merah"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Syarat dan Peraturan"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr "on kepada."
-
-#, fuzzy
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Ini adalah Agen Kemaskini Red Hat.  Ia akan membantu anda dalam "
-#~ "mengemaskinikan\n"
-#~ "sistem Red Hat Linux anda dengan perisian terkini yang boleh didapati "
-#~ "dari\n"
-#~ "Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "Untuk meneruskan, klik \"Maju.\"  Untuk membatalkan tanpa mengemaskini\n"
-#~ "apa-apa, klik \"Batal.\""
-
-#, fuzzy
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr "Kepada atau daripada atau for:"
-
-#, fuzzy
-#~ msgid "Total progress:"
-#~ msgstr "Jumlah Kemajuan:"
-
-#, fuzzy
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Jumlah saiz kepada:"
-
-#, fuzzy
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Jumlah saiz:"
-
-#, fuzzy
-#~ msgid "Trust Territories"
-#~ msgstr "Kawasan Selatan Perancis"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#, fuzzy
-#~ msgid "View Advisory"
-#~ msgstr "Paparan _Pepohon"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Kepulauan Virgin"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#, fuzzy
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "for Sistem Maju kepada Sistem kepada Merah Rangkaian Batal dan tidak oleh."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Selamat Datang ke Agen Kemaskini Red Hat"
-
-#, fuzzy
-#~ msgid "West Virginia"
-#~ msgstr "Kazakhstan Barat"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#, fuzzy
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr "Undur kepada atau Maju kepada."
-
-#, fuzzy
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr "kepada atau kepada Rangkaianhttp://www.redhat.com/network.."
-
-#, fuzzy
-#~ msgid "Yukon Territory"
-#~ msgstr "Wilayah Utara"
-
-#, fuzzy
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "Kod keluar yang tidak diketahui."
-
-#, fuzzy
-#~ msgid "    The _number is: "
-#~ msgstr "Hidupkan N_IS"
-
-#, fuzzy
-#~ msgid "(example, webserver1)"
-#~ msgstr "EXAMPLE.COM"
-
-#, fuzzy
-#~ msgid "* First name:"
-#~ msgstr "Nama Pengguna"
-
-#, fuzzy
-#~ msgid "* Last name:"
-#~ msgstr "Nama Pengguna"
-
-#, fuzzy
-#~ msgid "* Required fields"
-#~ msgstr "Kebenaran Diperlukan"
-
-#, fuzzy
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "Jumlah Maksimum Sambungan:"
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
-
-#~ msgid "Network Configuration"
-#~ msgstr "Tetapan Rangkaian"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "Luar AS/Kanada"
-
-#~ msgid "_Details"
-#~ msgstr "_Terperinci"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Katalaluan:"
+msgstr ""

@@ -1,32 +1,30 @@
-# translation of ja.po to
-# translation of ja-latest.po to Japanese
-# translation of ja-bak.po to Japanese
-# translation of ja.po to Japanese
-# up2date ja.po
-# Copyright (C) 2000,2002,2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-# Yukihiro Nakai <ynakai@redhat.com>, 2001.
-# James Hashida <khashida@redhat.com>, 2002 2003.
-# Noriko Mizumoto <noriko@redhat.com>, 2004, 2005, 2006, 2007.
 # Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004.
+# Noriko Mizumoto <noriko@redhat.com>, 2004, 2005, 2006, 2007.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2005.
-# Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# Yukihiro Nakai <ynakai@redhat.com>, 2001.
 # kiyoto james hashida <khashida@brisbane.redhat.com>, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# Noriko Mizumoto <noriko@fedoraproject.org>, 2011.
+# noriko <noriko@fedoraproject.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: ja\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-06-15 16:38+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-07-11 05:28+0000\n"
+"Last-Translator: noriko <noriko@fedoraproject.org>\n"
+"Language-Team: Japanese (http://www.transifex.net/projects/p/fedora/team/"
+"ja/)\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -39,8 +37,6 @@ msgstr "通知"
 msgid "Warning"
 msgstr "警告"
 
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
 #: ../src/up2date_client/rhnregGui.py:273
 msgid "There was an error while applying your choice."
 msgstr "選択された項目を適用中にエラーが発生しました。"
@@ -91,8 +87,6 @@ msgstr ""
 "場所を再確認してください、 「%s」は正しいですか? 正しくない場合、 修正してか"
 "らやり直してください。"
 
-# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
-# ../wrapper.py:325 ../wrapper.py:536
 #: ../src/up2date_client/rhnregGui.py:357
 msgid "There was an error communicating with Red Hat Network."
 msgstr "Red Hat Network との通信中にエラーが発生しました。"
@@ -127,43 +121,35 @@ msgstr "パスワードをする必要があります。"
 msgid "There was an error while logging in."
 msgstr "ログイン中にエラーが発生しました。"
 
-# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
-# ../wrapper.py:325 ../wrapper.py:536
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "登録サーバと通信中にエラーが発生しました。メッセージ:\n"
 
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
 #: ../src/up2date_client/rhnregGui.py:635
 msgid "There was an error while assembling information for the profile."
-msgstr "プロフィールの情報を収集中にエラーが発生しました。"
+msgstr "プロファイルの情報を収集中にエラーが発生しました。"
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
-msgstr "ハードウェアプロフィールを実行中に問題発生"
+msgstr "ハードウェアプロファイルを実行中に問題発生"
 
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
 #: ../src/up2date_client/rhnregGui.py:683
 msgid "There was an error while populating the profile."
-msgstr "プロフィールの移植中にエラーが発生しました。"
+msgstr "プロファイルの移植中にエラーが発生しました。"
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
-msgstr "このプロフィール用に名前を選択する必要があります。"
+msgstr "このプロファイル用に名前を選択する必要があります。"
 
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
 #: ../src/up2date_client/rhnregGui.py:718
 msgid "There was an error while creating the profile."
-msgstr "プロフィールの作成中にエラーが発生しました。"
+msgstr "プロファイルの作成中にエラーが発生しました。"
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
-msgstr "Red Hat Network にプロフィール情報を送っています。お待ちください。"
+msgstr "Red Hat Network にプロファイル情報を送っています。お待ちください。"
 
 #: ../src/up2date_client/rhnregGui.py:748
 msgid "Registering System"
@@ -197,17 +183,14 @@ msgstr "ディスクにシステムid書き込み中に問題発生。"
 msgid "There was a problem registering this system."
 msgstr "システムを登録中に問題発生。"
 
-# ../up2date.py:485
 #: ../src/up2date_client/rhnregGui.py:812
 msgid "Sending hardware information"
 msgstr "ハードウェア情報を送信中"
 
-# ../up2date.py:485
 #: ../src/up2date_client/rhnregGui.py:817
 msgid "Problem sending hardware information."
 msgstr "ハードウェア情報の送信中に問題が発生しました。"
 
-# gui.gladestrings:17 gui.gladestrings:24
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
 #. #                if rowData[0] == 1:
@@ -221,7 +204,6 @@ msgstr "ハードウェア情報の送信中に問題が発生しました。"
 msgid "Sending package information"
 msgstr "パッケージ情報を送信中"
 
-# ../wrapper.py:72
 #: ../src/up2date_client/rhnregGui.py:846
 msgid "Problem sending package information."
 msgstr "パッケージ情報の送信中に問題が発生しました。"
@@ -234,22 +216,18 @@ msgstr ""
 "/etc/yum/pluginconf.d/rhnplugin.conf を開くことが出来ません\n"
 "yum-rhn-plugin は有効になっていません。\n"
 
-# ../wrapper.py:50
 #: ../src/up2date_client/rhnregGui.py:890
 #: ../src/up2date_client/rhnregGui.py:907 ../src/up2date_client/tui.py:909
 #: ../src/up2date_client/tui.py:923
 msgid "Problem registering personal information:\n"
 msgstr "個人情報を登録中に問題発生:\n"
 
-# ../wrapper.py:50
 #: ../src/up2date_client/rhnregGui.py:895
 #: ../src/up2date_client/rhnregGui.py:912 ../src/up2date_client/tui.py:915
 #: ../src/up2date_client/tui.py:927
 msgid "Problem registering personal information"
 msgstr "個人情報を登録中に問題発生"
 
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
 #: ../src/up2date_client/rhnregGui.py:954
 msgid "There was an error while installing the certificate."
 msgstr "証明書のインストール中にエラーが発生しました。"
@@ -279,8 +257,6 @@ msgstr "新しい証明書のインストール中に問題が発生しました
 msgid "unknown"
 msgstr "不明"
 
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
 #: ../src/up2date_client/rhnregGui.py:1166
 msgid "There was an error getting the list of hardware."
 msgstr "ハードウェア一覧を取得中にエラーが発生しました。"
@@ -295,13 +271,10 @@ msgstr "%d MHz"
 msgid "%s MB"
 msgstr "%s MB"
 
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
 #: ../src/up2date_client/rhnregGui.py:1226
 msgid "There was an error building the list of packages."
 msgstr "パッケージ一覧を構成中にエラーが発生しました。"
 
-# ../gui.py:129 ../gui.py:149
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
 msgstr "パッケージ"
@@ -310,14 +283,12 @@ msgstr "パッケージ"
 msgid "Arch"
 msgstr "Arch"
 
-# ../gui.py:195
 #: ../src/up2date_client/rhnregGui.py:1253
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "システムにインストールされている RPM パッケージの一覧を構成しています。お待ち"
 "ください。"
 
-# ../configdlg.py:59
 #: ../src/up2date_client/rhnregGui.py:1284
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
@@ -326,7 +297,6 @@ msgstr ""
 "設定のロード中にエラーが発生しました。/etc/sysconfig/rhn \n"
 "への読み込み権限があることを確認してください。"
 
-# ../configdlg.py:167
 #: ../src/up2date_client/rhnregGui.py:1326
 #, python-format
 msgid ""
@@ -355,9 +325,6 @@ msgstr "エラー: サーバーは利用できません。後で試して下さ�
 msgid "ERROR: can not find RHNS CA file"
 msgstr "エラー: RHNS CA ファイルが見つかりません"
 
-# ../up2date.py:168 ../up2date.py:433 ../up2date.py:572 ../up2date.py:601
-# ../up2date.py:718 ../up2date.py:758 ../up2date.py:839 ../up2date.py:856
-# ../up2date.py:878 ../up2date.py:900
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
 msgstr "ユーザーによって接続が中断されました"
@@ -374,12 +341,10 @@ msgstr "SystemId が見付かりません"
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "チャンネルが指定されるまでこのシステムは更新されないかもしれません。"
 
-# ../up2date.py:919
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:53
 msgid "Getting list of packages installed on the system"
 msgstr "システムにインストール済みのパッケージ一覧を読み込んでいます"
 
-# configdlg.gladestrings:7
 #: ../src/up2date_client/tui.py:127
 msgid "Red Hat Network Location:"
 msgstr "Red Hat Network の場所:"
@@ -402,24 +367,20 @@ msgstr "エラー"
 msgid "The server indicated an error:\n"
 msgstr "サーバがエラーを表示しました。\n"
 
-# configdlg.gladestrings:47
 #. Navigation
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:328
 msgid "OK"
 msgstr "OK"
 
-# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
-# ../wrapper.py:325 ../wrapper.py:536
 #: ../src/up2date_client/tui.py:427
 msgid "There was an error communicating with the registration server:\n"
 msgstr "登録サーバーと通信中にエラーが発生しました。:\n"
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
-msgstr "プロフィール名:"
+msgstr "プロファイル名:"
 
-# gui.gladestrings:30
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
 msgid "Version: "
 msgstr "バージョン: "
@@ -451,23 +412,20 @@ msgstr "%s メガバイト"
 
 #: ../src/up2date_client/tui.py:937
 msgid "Problem sending hardware profile:\n"
-msgstr "ハードウェアプロフィールの送信に問題あり:\n"
+msgstr "ハードウェアプロファイルの送信に問題あり:\n"
 
 #: ../src/up2date_client/tui.py:941
 msgid "Problem sending hardware profile."
-msgstr "ハードウェアプロフィールを送信中に問題発生。"
+msgstr "ハードウェアプロファイルを送信中に問題発生。"
 
-# ../wrapper.py:72
 #: ../src/up2date_client/tui.py:950
 msgid "Problem sending package list:\n"
 msgstr "パッケージ一覧を送信中に問題発生:\n"
 
-# ../wrapper.py:72
 #: ../src/up2date_client/tui.py:953
 msgid "Problem sending package list."
 msgstr "パッケージリスト送信中に問題発生。"
 
-# gui.gladestrings:45
 #: ../src/up2date_client/tui.py:1003
 msgid "Finish"
 msgstr "終了"
@@ -482,7 +440,6 @@ msgid ""
 msgstr ""
 "  <Tab>/<Alt-Tab> 項目間を移動      |  <Space> 選択     |  <F12> 次の画面"
 
-# ../gui.py:600 ../wrapper.py:162
 #: ../src/up2date_client/tui.py:1260
 msgid "You must run the RHN registration program as root."
 msgstr "RHN 登録プログラムは root で実行する必要があります。"
@@ -491,27 +448,22 @@ msgstr "RHN 登録プログラムは root で実行する必要があります�
 msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "警告: chkconfig では rhnsd を有効に出来ません"
 
-# ../wrapper.py:50
 #: ../src/up2date_client/hardware.py:706
 msgid "Error reading cpu information:"
 msgstr "CPU 情報を読み込み中に問題発生:"
 
-# ../wrapper.py:50
 #: ../src/up2date_client/hardware.py:713
 msgid "Error reading system memory information:"
 msgstr "システムメモリ情報を読み込み中に問題発生:"
 
-# ../wrapper.py:50
 #: ../src/up2date_client/hardware.py:723
 msgid "Error reading networking information:"
 msgstr "ネットワーク情報を登録中に問題発生:"
 
-# ../wrapper.py:50
 #: ../src/up2date_client/hardware.py:744
 msgid "Error reading install method information:"
 msgstr "インストール方法に関する情報を読み込み中に問題発生:"
 
-# ../wrapper.py:50
 #: ../src/up2date_client/hardware.py:752
 msgid "Error reading network interface information:"
 msgstr "ネットワークインターフェース情報を読み込み中に問題発生:"
@@ -680,7 +632,6 @@ msgstr "設定のプロセスに戻ります。"
 msgid "I'll register later."
 msgstr "後で登録します。"
 
-# gui.gladestrings:17 gui.gladestrings:24
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
 msgid "Enter you account information"
@@ -708,8 +659,8 @@ msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
 msgstr ""
-"ヒント: ログインまたはパスワードを忘れてしまった場合は、 Satellite の "
-"Organization Administrator に連絡してください。"
+"ヒント: ログインまたはパスワードを忘れてしまった場合は、 Satellite の 組織管"
+"理者 に連絡してください。"
 
 #: ../src/up2date_client/rhnreg_constants.py:77
 msgid "Please enter a desired login."
@@ -754,7 +705,6 @@ msgstr ""
 "ご使用のシステムは全ての利用可能な更新を受け取る為にベースソフトウェアチャン"
 "ネルに サブスクライブされます。"
 
-# ../wrapper.py:453
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid "Create your system profile - Hardware"
@@ -766,7 +716,7 @@ msgid ""
 "Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"プロフィール名とは、 Red Hat Network の web ページでこのシステムプロフィール"
+"プロファイル名とは、 Red Hat Network の web ページでこのシステムプロファイル"
 "を識別するために選択する説明的な名前です。 オプションとしてコンピュータのシリ"
 "アル番号や識別番号を含みます。"
 
@@ -782,7 +732,6 @@ msgstr ""
 msgid "Include the following information about hardware and network:"
 msgstr "ハードウェアとネットワークについて以下の情報を含みます:"
 
-# ../wrapper.py:453
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid "Create your system profile - Packages"
@@ -795,17 +744,15 @@ msgid ""
 msgstr ""
 "RPM 情報は、このシステムに関連した更新ソフトウェアを決定するのに重要です。"
 
-# ../up2date.py:919
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr ""
-"システムにインストール済の RPM パッケージをシステムプロフィールに含める"
+"システムにインストール済の RPM パッケージをシステムプロファイルに含める"
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid "You may deselect individual packages by unchecking them below."
 msgstr "以下の項目からチェックを外せば個別パッケージの選択を解除できます。"
 
-# gui.gladestrings:33
 #: ../src/up2date_client/rhnreg_constants.py:112
 msgid "Building Package List"
 msgstr "パッケージ一覧を構成中"
@@ -872,7 +819,7 @@ msgstr ""
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:134
 msgid "Send Profile Information to Red Hat Network"
-msgstr "Red Hat Network へプロフィール情報を送ります"
+msgstr "Red Hat Network へプロファイル情報を送ります"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
 msgid ""
@@ -882,16 +829,16 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"システムプロフィールに関する情報収集が完了しました。\n"
+"システムプロファイルに関する情報収集が完了しました。\n"
 "\n"
-"「次へ」を押してこのシステムプロフィールを red Hat Network に送信してくださ"
+"「次へ」を押してこのシステムプロファイルを red Hat Network に送信してくださ"
 "い。 「取り消し」をクリックすると情報は送信されません。 登録プログラムは後で"
 "実行することもできます。コマンドラインで「rhn_register」と入力します。"
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
 msgid "Sending Profile to Red Hat Network"
-msgstr "プロフィール情報を Red Hat Network に送信中"
+msgstr "プロファイル情報を Red Hat Network に送信中"
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:145
@@ -1041,7 +988,7 @@ msgstr ""
 "プションを購入します。\n"
 "(3) http://www.redhat.com/now/ で新しいインストール番号をアクティブにしま"
 "す。 アカウント内でアクティブなサブスクリプションを利用できるようにしたら、 "
-"RHN ウェブインターフェースでこのシステムのプロフィールをブラウズして、 このシ"
+"RHN ウェブインターフェースでこのシステムのプロファイルをブラウズして、 このシ"
 "ステムをソフトウェア > ソフトウェアのチャンネルのタブを使ってソフトウェアチャ"
 "ンネルにサブスクライブさせます。。"
 
@@ -1081,7 +1028,7 @@ msgid ""
 "system package profiling"
 msgstr ""
 "Management モジュール: 自動更新、 システムのグループ化、システムのパーミッ"
-"ション、 システムパッケージのプロフィール化"
+"ション、 システムパッケージのプロファイル化"
 
 #: ../src/up2date_client/rhnreg_constants.py:221
 msgid ""
@@ -1159,8 +1106,8 @@ msgstr ""
 "プションを購入します。\n"
 "(3) http://www.redhat.com/now/ で新しいインストール番号をアクティブにしま"
 "す。 アカウント内でアクティブなサブスクリプションを利用できるようにしたら、 "
-"RHN ウェブインターフェースでこのシステムのプロフィールをブラウズして、 プロ"
-"フィールを削除しこのシステムを Red Hat Network に再度接続し直します。"
+"RHN ウェブインターフェースでこのシステムのプロファイルをブラウズして、 プロ"
+"ファイルを削除しこのシステムを Red Hat Network に再度接続し直します。"
 
 #: ../src/up2date_client/rhnreg_constants.py:254
 #, python-format
@@ -1279,10 +1226,10 @@ msgstr ""
 "\n"
 "ユニバーサルデフォルトのアクティベーションキーは、 このユーザーのログインで関"
 "連付けられる RHN 企業/組織に接続できるシステムの台数を制限しています。 このシ"
-"ステムを接続させるには、 RHN organization administrator に連絡して接続できる"
-"システム数を増やしてもらうか、ユニバーサルデフォルトのアクティベーションキー"
-"を無効にするよう依頼してください。 詳細については、 http://kbase.redhat.com/"
-"faq/FAQ_61_7924.shtm で Red Hat Knowledgebase Article #7924 をご覧ください。"
+"ステムを接続させるには、 RHN 組織管理者 に連絡して接続できるシステム数を増や"
+"してもらうか、ユニバーサルデフォルトのアクティベーションキーを無効にするよう"
+"依頼してください。 詳細については、 http://kbase.redhat.com/faq/FAQ_61_7924."
+"shtm で Red Hat Knowledgebase Article #7924 をご覧ください。"
 
 #: ../src/up2date_client/rhnreg_constants.py:311
 msgid ""
@@ -1312,7 +1259,7 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 "ご使用のシステムは %s のベース \n"
-"ソフトウェアチャンネルを購読します。 \n"
+"ソフトウェアチャンネルをサブスクリプションします。 \n"
 "このシステムを以前のリリースに転換する  \n"
 "ことは出来ません（新しいリリースには転換可能）。 \n"
 "本当にこれを継続したいですか ?"
@@ -1325,12 +1272,10 @@ msgstr "次へ"
 msgid "Back"
 msgstr "戻る"
 
-# configdlg.gladestrings:48
 #: ../src/up2date_client/rhnreg_constants.py:332
 msgid "Cancel"
 msgstr "取り消し"
 
-# configdlg.gladestrings:48
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
 msgid "No, Cancel"
@@ -1345,22 +1290,18 @@ msgstr "はい、 続行します"
 msgid "Press <space> to deselect the option."
 msgstr "<space> を押してオプションの選択を外します。"
 
-# ../up2date.py:72
 #: ../src/up2date_client/up2dateErrors.py:31
 msgid "RPM error.  The message was:\n"
 msgstr "RPM エラーです。メッセージ:\n"
 
-# ../up2date.py:72
 #: ../src/up2date_client/up2dateErrors.py:43
 msgid "Password error. The message was:\n"
 msgstr "パスワードエラーです。メッセージ:\n"
 
-# ../up2date.py:84
 #: ../src/up2date_client/up2dateErrors.py:56
 msgid "RPM dependency error. The message was:\n"
 msgstr "RPM の依存関係エラーです。メッセージ:\n"
 
-# ../up2date.py:89
 #: ../src/up2date_client/up2dateErrors.py:65
 msgid "Error communicating with server. The message was:\n"
 msgstr "サーバとの通信中にエラーが発生しました。メッセージ:\n"
@@ -1369,7 +1310,6 @@ msgstr "サーバとの通信中にエラーが発生しました。メッセー
 msgid "File Not Found: \n"
 msgstr "ファイルが見付かりません。: \n"
 
-# ../up2date.py:68
 #: ../src/up2date_client/up2dateErrors.py:87
 msgid "Delay error from server.  The message was:\n"
 msgstr "サーバからの遅延エラーです。メッセージ:\n"
@@ -1467,13 +1407,11 @@ msgstr "異常形成の URI で接続が試行されました。\n"
 msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr "異常形成の URI で接続が試行されました: %s。\n"
 
-# ../gui.py:691
 #: ../src/up2date_client/rhncli.py:87
 #, python-format
 msgid "There was some sort of I/O error: %s\n"
 msgstr "I/O エラーの一種が発生しました: %s\n"
 
-# ../gui.py:691
 #: ../src/up2date_client/rhncli.py:90
 #, python-format
 msgid "There was an SSL error: %s\n"
@@ -1487,13 +1425,11 @@ msgstr ""
 "このエラーの一般的な原因はシステムの不正確な時刻です。このシステムの時刻が正"
 "しいかどうか確認してください。\n"
 
-# ../gui.py:691
 #: ../src/up2date_client/rhncli.py:98
 #, python-format
 msgid "There was a SSL crypto error: %s\n"
 msgstr "SSL 暗号エラーが発生しました: %s\n"
 
-# ../gui.py:691
 #: ../src/up2date_client/rhncli.py:102
 #, python-format
 msgid "There was an authentication error: %s\n"
@@ -1504,7 +1440,6 @@ msgstr "認証エラーが発生しました: %s\n"
 msgid "You must be root to run %s"
 msgstr "root で %s を実行する必要があります"
 
-# ../wrapper.py:168 ../wrapper.py:185 ../wrapper.py:208
 #: ../src/up2date_client/rhncli.py:148 ../src/up2date_client/rhncli.py:183
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "GUI をオープンできません。「up2date --nox」を試してください。"
@@ -1524,7 +1459,6 @@ msgstr ""
 msgid "An error has occurred:"
 msgstr "エラーが発生しました:"
 
-# ../up2date.py:485
 #: ../src/up2date_client/rhncli.py:214
 msgid "See /var/log/up2date for more information"
 msgstr "詳細については、/var/log/up2date を参照してください"
@@ -1538,7 +1472,6 @@ msgstr ""
 "このクライアントは %s をサポートするサーバが必要です。現在のサーバはサポート"
 "していません。"
 
-# gui.gladestrings:45
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
 msgstr "終了(_F)"
@@ -1551,12 +1484,10 @@ msgstr "終了 (_E)"
 msgid "Software updates setup unsuccessful"
 msgstr "ソフトウェア更新の設定は成功しませんでした"
 
-# ../gui.py:600 ../wrapper.py:162
 #: ../src/up2date_client/gui.py:327
 msgid "You must run rhn_register as root."
 msgstr "root で rhn_register を実行してください。"
 
-# ../gui.py:691
 #: ../src/up2date_client/gui.py:351
 #, python-format
 msgid "There was some sort of I/O error: %s"
@@ -1597,15 +1528,12 @@ msgstr "サーバーの選択"
 msgid "Red Hat Login"
 msgstr "Red Hat ログイン"
 
-# ../wrapper.py:453
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
 msgid "Create Profile"
-msgstr "プロフィールの作成"
+msgstr "プロファイルの作成"
 
-# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
-# ../wrapper.py:325 ../wrapper.py:536
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
 msgid "There was a communication error with the server:"
@@ -1618,7 +1546,7 @@ msgstr "戻ってから再度試しますか?"
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
-msgstr "プロフィール名を指定する"
+msgstr "プロファイル名を指定する"
 
 #: ../src/bin/rhnreg_ks.py:48
 msgid "Specify a username"
@@ -1661,7 +1589,7 @@ msgstr "ハードウェア情報の検索もアップロードもしない"
 
 #: ../src/bin/rhnreg_ks.py:66
 msgid "Do not profile or upload any package info"
-msgstr "パッケージ情報のプロフィール化やアップロードをしない"
+msgstr "パッケージ情報のプロファイル化やアップロードをしない"
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1720,102 +1648,97 @@ msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
 msgstr ""
-"プロフィール名が指定されていませんので、プロフィール名として使うホスト名と "
+"プロファイル名が指定されていませんので、プロファイル名として使うホスト名と "
 "IP アドレスを決定が出来ません。ひとつ指定してください。"
 
-# ../wrapper.py:36
 #: ../src/bin/rhn_register.py:37
 msgid "Do not attempt to use X"
 msgstr "X を使用しないようにする"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "root で %s を実行する必要があります"
+msgstr "エラー: 実行する場合は root になる必要があります\n"
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
-msgstr ""
+msgstr "サブスクライブさせる (サブスクライブを解除する) チャンネル名"
 
 #: ../src/bin/spacewalk-channel.py:58
 msgid "subscribe to channel"
-msgstr ""
+msgstr "チャンネルにサブスクライブする"
 
 #: ../src/bin/spacewalk-channel.py:60
 msgid "unsubscribe from channel"
-msgstr ""
+msgstr "チャンネルからサブスクリプションを解除する"
 
 #: ../src/bin/spacewalk-channel.py:62
 msgid "list channels"
-msgstr ""
+msgstr "チャンネルの一覧"
 
 #: ../src/bin/spacewalk-channel.py:64
 msgid "list all available child channels"
-msgstr ""
+msgstr "利用できる全ての子チャンネルの一覧"
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
-msgstr ""
+msgstr "冗長な出力"
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "ユーザー名を入力する必要があります。"
+msgstr "使用するユーザー名"
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "パスワードを指定する"
+msgstr "使用するパスワード"
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
+"エラー: このコンテキストではこれらの引数は意味がありません (--help を参照)"
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "ホスト名: "
+msgstr "ユーザー名:"
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
-msgstr ""
+msgstr "エラー: 少なくともチャンネルをひとつ指定する必要があります"
 
 #: ../src/bin/spacewalk-channel.py:112
 #, python-format
 msgid "Channel(s): %s successfully added"
-msgstr ""
+msgstr "チャンネル: %s が正常に追加されました"
 
 #: ../src/bin/spacewalk-channel.py:114
 #, python-format
 msgid "Error during adding channel(s) %s"
-msgstr ""
+msgstr "チャンネル %s の追加中にエラーが発生"
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
 msgid "Channel(s): %s successfully removed"
-msgstr ""
+msgstr "チャンネル: %s が正常に削除されました"
 
 #: ../src/bin/spacewalk-channel.py:124
 #, python-format
 msgid "Error during removal of channel(s) %s"
-msgstr ""
+msgstr "チャンネル %s の削除中にエラーが発生"
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "チャンネルが指定されるまでこのシステムは更新されないかもしれません。"
+msgstr "このシステムはいずれのチャンネルにも関連付けられていません。"
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
-msgstr ""
+msgstr "SystemId ファイルが見つかりません。 このシステムは登録されていますか?"
 
 #: ../src/bin/spacewalk-channel.py:141
 msgid "ERROR: you may want to specify --add, --remove or --list"
-msgstr ""
+msgstr "エラー： --add、 --remove、 --list のいずれかを指定してください"
 
 #: ../src/bin/spacewalk-channel.py:147
 msgid "User interrupted process."
-msgstr ""
+msgstr "ユーザーによりプロセスが中断されました。"
 
 #: ../src/bin/rhn-profile-sync.py:35
 msgid ""
@@ -1825,31 +1748,26 @@ msgstr ""
 "このオプションを使用する前に、 「rhn_register」を実行してこのシステムを登録す"
 "る必要があります。"
 
-# ../wrapper.py:453
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
-msgstr "パッケージプロフィールを更新しています..."
+msgstr "パッケージプロファイルを更新しています..."
 
-# ../wrapper.py:453
 #: ../src/bin/rhn-profile-sync.py:46
 msgid "Updating hardware profile..."
-msgstr "ハードウェアプロフィールを更新しています..."
+msgstr "ハードウェアプロファイルを更新しています..."
 
-# ../wrapper.py:453
 #: ../src/bin/rhn-profile-sync.py:50
 msgid "Updating virtualization profile..."
-msgstr "仮想プロフィールを更新しています..."
+msgstr "仮想プロファイルを更新しています..."
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr "更新場所の選択"
 
-# ../wrapper.py:453
 #: ../data/gui.glade.h:2
 msgid "Create your system profile"
-msgstr "システムプロフィールの作成"
+msgstr "システムプロファイルの作成"
 
-# gui.gladestrings:17 gui.gladestrings:24
 #: ../data/gui.glade.h:3
 msgid "Enter your account information"
 msgstr "アカウント情報の入力"
@@ -1880,7 +1798,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:3
 msgid "       "
-msgstr ""
+msgstr "       "
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1956,12 +1874,10 @@ msgstr ""
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html をご覧ください。</"
 "small>"
 
-# configdlg.gladestrings:7
 #: ../data/rh_register.glade.h:14
 msgid "Advanced Network Configuration"
 msgstr "高度なネットワーク設定"
 
-# configdlg.gladestrings:7
 #: ../data/rh_register.glade.h:15
 msgid "Advanced Network Configuration button"
 msgstr "高度なネットワーク設定ボタン"
@@ -1986,12 +1902,10 @@ msgstr "閉じる"
 msgid "Confirm operation system release selection"
 msgstr "オペレーティングシステムリリース選択の確認"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:23
 msgid "Create profile"
-msgstr "プロフィールの作成"
+msgstr "プロファイルの作成"
 
-# gui.gladestrings:17 gui.gladestrings:24
 #: ../data/rh_register.glade.h:24
 msgid "Enter Your Account Information"
 msgstr "アカウント情報を入力"
@@ -2000,7 +1914,6 @@ msgstr "アカウント情報を入力"
 msgid "Enter in the format hostname(:port)"
 msgstr "ホスト名を形式で表示 (:ポート) "
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:26
 msgid "Hardware Info"
 msgstr "ハードウェア情報"
@@ -2021,7 +1934,6 @@ msgstr "サブスクリプションへのリンク"
 msgid "No thanks, I'll connect later."
 msgstr "いいえ、後で接続します。"
 
-# gui.gladestrings:17 gui.gladestrings:24
 #: ../data/rh_register.glade.h:32
 msgid "Package Information"
 msgstr "パッケージ情報"
@@ -2046,12 +1958,10 @@ msgstr "システムを確認しています..."
 msgid "Select A File"
 msgstr "ファイルを 1 つ選択"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:38
 msgid "Send hardware profile checkbox"
 msgstr "ハードウェアプロファイル送信のチェックボックス"
 
-# ../wrapper.py:72
 #: ../data/rh_register.glade.h:39
 msgid "Send package profile checkbox"
 msgstr "パッケージプロファイル送信のチェックボックス"
@@ -2089,12 +1999,10 @@ msgstr ""
 msgid "Use Authentication with HTTP Proxy"
 msgstr "HTTP  Proxy による認証を使用する"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:51
 msgid "View Hardware Profile"
 msgstr "ハードウェアプロファイルの表示"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:52
 msgid "View Package Profile"
 msgstr "パッケージプロファイルの表示"
@@ -2161,7 +2069,6 @@ msgctxt "yes"
 msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr "<b>ダウンロード &amp; アップグレード:</b>"
 
-# configdlg.gladestrings:9
 #: ../data/rh_register.glade.h:69
 #, fuzzy
 msgctxt "yes"
@@ -2174,7 +2081,6 @@ msgctxt "yes"
 msgid "<b>Login:</b>"
 msgstr "<b>ログイン:</b>"
 
-# configdlg.gladestrings:7
 #: ../data/rh_register.glade.h:71
 #, fuzzy
 msgctxt "yes"
@@ -2209,7 +2115,7 @@ msgstr "<b>警告</b>"
 #, fuzzy
 msgctxt "yes"
 msgid "<big><b>Profile Data</b></big>"
-msgstr "<big><b>プロフィールデータ</b></big>"
+msgstr "<big><b>プロファイルデータ</b></big>"
 
 #: ../data/rh_register.glade.h:77
 #, fuzzy
@@ -2281,7 +2187,6 @@ msgid ""
 msgstr ""
 "まだアクティブにしていない購入済のサブスクリプションをアクティブにします。"
 
-# configdlg.gladestrings:7
 #: ../data/rh_register.glade.h:87
 #, fuzzy
 msgctxt "yes"
@@ -2370,12 +2275,11 @@ msgstr ""
 "\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/"
 "docs/DOC-45563</a>)。\n"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:98
 #, fuzzy
 msgctxt "yes"
 msgid "Hardware Profile"
-msgstr "ハードウェアプロフィール"
+msgstr "ハードウェアプロファイル"
 
 #: ../data/rh_register.glade.h:99
 #, fuzzy
@@ -2474,7 +2378,6 @@ msgctxt "yes"
 msgid "Memory:"
 msgstr "メモリー:"
 
-# gui.gladestrings:17 gui.gladestrings:24
 #: ../data/rh_register.glade.h:111
 #, fuzzy
 msgctxt "yes"
@@ -2541,26 +2444,23 @@ msgctxt "yes"
 msgid "Red Hat Linux Version:"
 msgstr "Red Hat Linux バージョン:"
 
-# configdlg.gladestrings:7
 #: ../data/rh_register.glade.h:120
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
 msgstr "Red Hat Network の場所 (_L):"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:121
 #, fuzzy
 msgctxt "yes"
 msgid "Send _hardware profile"
-msgstr "ハードウェアプロフィールの送信 (_H)"
+msgstr "ハードウェアプロファイルの送信 (_H)"
 
-# ../wrapper.py:72
 #: ../data/rh_register.glade.h:122
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "パッケージプロフィールの送信 (_P)"
+msgstr "パッケージプロファイルの送信 (_P)"
 
 #: ../data/rh_register.glade.h:123
 #, fuzzy
@@ -2600,12 +2500,11 @@ msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "HTTP プロキシによる認証を使用する (_T):"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:128
 #, fuzzy
 msgctxt "yes"
 msgid "V_iew Package Profile ..."
-msgstr "パッケージプロフィールの表示 (_I)..."
+msgstr "パッケージプロファイルの表示 (_I)..."
 
 #: ../data/rh_register.glade.h:129
 #, fuzzy
@@ -2654,9 +2553,9 @@ msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
 msgstr ""
-"ご使用のシステムにインストールされているパッケージ及びハードウェアのプロ"
-"フィールを送信して頂く必要があります。これにより、 Red Hat は利用可能な更新を"
-"確定することができるようになります。"
+"ご使用のシステムにインストールされているパッケージ及びハードウェアのプロファ"
+"イルを送信して頂く必要があります。これにより、 Red Hat は利用可能な更新を確定"
+"することができるようになります。"
 
 #: ../data/rh_register.glade.h:134
 #, fuzzy
@@ -2725,7 +2624,6 @@ msgctxt "yes"
 msgid "_No thanks, I'll connect later."
 msgstr "いいえ、後で接続します(_N)。"
 
-# configdlg.gladestrings:48
 #: ../data/rh_register.glade.h:142
 #, fuzzy
 msgctxt "yes"
@@ -2762,12 +2660,11 @@ msgctxt "yes"
 msgid "_Take me back to the setup process."
 msgstr "設定のプロセスに戻ります (_T)"
 
-# ../wrapper.py:453
 #: ../data/rh_register.glade.h:148
 #, fuzzy
 msgctxt "yes"
 msgid "_View Hardware Profile ..."
-msgstr "ハードウェアプロフィールの表示 (_V)..."
+msgstr "ハードウェアプロファイルの表示 (_V)..."
 
 #: ../data/rh_register.glade.h:149
 #, fuzzy
@@ -2803,7 +2700,7 @@ msgstr "•"
 #, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "• ご使用のシステムの Red Hat Network プロフィール用の名前"
+msgstr "• ご使用のシステムの Red Hat Network プロファイル用の名前"
 
 #: ../data/rh_register.glade.h:155
 #, fuzzy
@@ -2905,1386 +2802,3 @@ msgstr "Spacewalk/Satellite/Red Hat Network に登録する"
 #~ "ンが表示されるとソフトウェア更新が利用可能になったことがわかります。表示さ"
 #~ "れている場合、このアイコンをクリックすると利用可能な更新の適用手順が案内さ"
 #~ "れます:"
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "ソフトウェア更新を設定"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "なぜ Red Hat Network に接続するのですか ?"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "ソフトウェア更新の設定中"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "システムプロフィールを登録 - ハードウェア"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "システムプロフィールを登録 - パッケージ"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "インストール番号(_N):"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "https または http しか使用できません。"
-
-#~ msgid "Warning:"
-#~ msgstr "警告:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "OK ダイアログ:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "質問のダイアログ:"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "サブスクリプションの自動アクティベーション"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "サブスクリプションのアクティベーション"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "警告: chkconfig では rhnsd を有効に出来ません"
-
-# ../up2date.py:68
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "ディスクエラーです。メッセージ:\n"
-
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "パッケージインストール中に致命的なエラーが発生しました:\n"
-
-# ../up2date.py:76
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM パッケージ競合エラーです。メッセージ:\n"
-
-# ../up2date.py:76
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM ファイル競合エラーです。メッセージ:\n"
-
-# ../up2date.py:72
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM エラーです。メッセージ:\n"
-
-# ../up2date.py:84
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM の依存関係に関するエラーです。メッセージ:\n"
-
-# ../up2date.py:68
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "パッケージスキップリストエラーです。メッセージ:\n"
-
-# ../up2date.py:76
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr "ファイルスキップ一覧又は設定ファイル上書のエラーです。メッセージ:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "パッケージ \"%s\" は RemoveSkipList に入っているので削除できません"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG は 正しくインストールされていません。"
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "GPG keyring は Red Hat, Inc の公開パッケージ署名鍵を含んでいません。"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "パッケージ %s は gpg 署名の検証が出来ませんでした。これはパッケージが破損"
-#~ "していることを意味します。"
-
-# ../gui.py:417
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "パッケージ %s には GPG 署名がありません。\n"
-
-# ../gui.py:417
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "パッケージ %s には信用できないGPG 署名があります。\n"
-
-# ../gui.py:417
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "パッケージ %s には不明な GPG 署名があります。\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Red Hat Network サーバを選択します"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Red Hat Network に接続"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Red Hat Network に登録します"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "この Red Hat Network サーバー用証明書を入力します"
-
-#~ msgid "_Exit software update setup"
-#~ msgstr "ソフトウェア更新の設定を終了する(_E)"
-
-#~ msgid "software updates setup unsuccessful"
-#~ msgstr "ソフトウェア更新の設定に失敗しました"
-
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr ""
-#~ "Red Hat ログインがないと、アシスタントが作成できるようにしてくれます。"
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "ステップ 1: Red Hat のプライバシー条項を読みます"
-
-# configdlg.gladestrings:7
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Red Hat Network の規定と条件を確認する"
-
-#~ msgid ""
-#~ "Are you sure you don't want to connect your system to Red Hat Network? "
-#~ "You'll miss out on the benefits of a Red Hat Enterprise Linux "
-#~ "subscription:\n"
-#~ "\n"
-#~ "Security & Updates:\n"
-#~ "Receive the latest software updates, including security updates, keeping "
-#~ "this Red Hat Enterprise Linux system updated and secure.\n"
-#~ "\n"
-#~ "Downloads & Upgrades:\n"
-#~ "Download installation images for Red Hat Enterprise Linux releases, "
-#~ "including new releases.\n"
-#~ "\n"
-#~ "Support:\n"
-#~ "Access to the technical support experts at Red Hat or Red Hat's partners "
-#~ "for help with any issues you might encounter with this system.\n"
-#~ "\n"
-#~ "Compliance:\n"
-#~ "Stay in compliance with your subscription agreement and manage "
-#~ "subscriptions for systems connected to your account at http://rhn.redhat."
-#~ "com/.\n"
-#~ "\n"
-#~ "You will not be able to take advantage of these subscription privileges "
-#~ "without connecting your system to Red Hat Network.\n"
-#~ "\n"
-#~ "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-#~ "privacy_statement.html"
-#~ msgstr ""
-#~ "本当にご使用のシステムを Red Hat Network に接続しなくてよいですか?Red Hat "
-#~ "Enterprise Linux のサブスクリプションで得られる利点を見逃すことになりま"
-#~ "す。\n"
-#~ "\n"
-#~ "セキュリティと更新:\n"
-#~ "この Red Hat Enterprise Linux システムを安全で最新の状態に維持するためのセ"
-#~ "キュリティ更新を含め、 最新のソフトウェア更新を取得する\n"
-#~ "\n"
-#~ "ダウンロードとアップグレード:\n"
-#~ "新しいリリースなど、 Red Hat Enterprise Linux リリース用のインストールイ"
-#~ "メージをダウンロードする\n"
-#~ "\n"
-#~ "サポート:\n"
-#~ "このシステムに関して遭遇する可能性があるあらゆる問題についてヘルプを求める"
-#~ "ため Red Hat または Red Hat パートナーのテクニカルサポートへアクセスする\n"
-#~ "\n"
-#~ "コンプライアンス:\n"
-#~ "ユーザーのサブスクリプション契約に準拠し、 http://rhn.redhat.com/ でユー"
-#~ "ザーのアカウントに接続されるシステムに対してサブスクリプションの管理を行"
-#~ "う\n"
-#~ "\n"
-#~ "ご使用のシステムを Red Hat Network に接続しないと、これらサブスクリプショ"
-#~ "ンの特典をお受け頂くことができません。\n"
-#~ "\n"
-#~ "ヒント: Red Hat はプライバシーを尊重しています、 http://www.redhat.com/"
-#~ "legal/privacy_statement.html。"
-
-#~ msgid "No thanks.  I'll connect later."
-#~ msgstr "いいえ、後で登録します。"
-
-#~ msgid "Create a New Login ..."
-#~ msgstr "新規ログインの作成 ..."
-
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "入力した 2 つのパスワードが一致しません。 パスワードを再度入力し直してくだ"
-#~ "さい。"
-
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "新規の Red Hat ログインを作成"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login for use with Red Hat "
-#~ "Network (http://rhn.redhat.com/).  Required information is marked with a "
-#~ "'*':"
-#~ msgstr ""
-#~ "以下のフォームに記入して、  Red Hat Network (http://rhn.redhat.com/) で使"
-#~ "用する新しい Red Hat ログインを作成します。 「*」マークの付いた事項は必須"
-#~ "事項になります:"
-
-#~ msgid "*Desired Login:"
-#~ msgstr "* 希望のログイン:"
-
-#~ msgid "Examples: user@domain.com"
-#~ msgstr "例: user@domain.com"
-
-#~ msgid "*Desired Password:"
-#~ msgstr "* 希望のパスワード:"
-
-#~ msgid "*Confirm Password:"
-#~ msgstr "* パスワードの確認:"
-
-#~ msgid "Tip: Leave blank if not with a company."
-#~ msgstr "ヒント: 会社と関係ない場合は、 空白のままにしてください。"
-
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr ""
-#~ "ヒント: Red Hat はプライバシーを尊重しています。 弊社のプライバシーポリ"
-#~ "シーは次をご覧ください: http://"
-
-#~ msgid "Please enter your first name."
-#~ msgstr "ファーストネーム(名)を入力してください。"
-
-#~ msgid "Please enter your last name."
-#~ msgstr "ラストネーム(姓)を入力してください。"
-
-#~ msgid "Please enter your email address."
-#~ msgstr "Email アドレスを入力してください。"
-
-#~ msgid "Please enter a valid email address."
-#~ msgstr "正しい Email アドレスを入力してください。"
-
-#~ msgid "Please enter your country."
-#~ msgstr "国名を入力してください。"
-
-#~ msgid "Please enter a longer login."
-#~ msgstr "長めのログインを入力してください。"
-
-#~ msgid "Please enter a longer password."
-#~ msgstr "長めのパスワードを入力してください。"
-
-#~ msgid "Please enter a shorter password."
-#~ msgstr "短めのパスワードを入力してください。"
-
-#~ msgid ""
-#~ "It appears this system has attempted to register to the Red Hat Network.\n"
-#~ "The system may already be set up for software updates.\n"
-#~ "\n"
-#~ "Are you sure you would like to continue?"
-#~ msgstr ""
-#~ "このシステムは Red Hat Network に登録を試行しているようです。\n"
-#~ "システムはすでにソフトウェア更新の設定が完了している可能性があります。\n"
-#~ "\n"
-#~ "本当に続行しますか?"
-
-#~ msgid "Select Organization"
-#~ msgstr "企業/組織の選択"
-
-#~ msgid ""
-#~ "Your login, %s, is associated with multiple organizations.  You will need "
-#~ "to select an organization to connect this system to."
-#~ msgstr ""
-#~ "あなたのログイン %s は複数の企業/組織に関連付けられています。 このシステム"
-#~ "を接続する企業/組織を選択する必要があります。"
-
-#~ msgid "Organization:"
-#~ msgstr "企業/組織:"
-
-#~ msgid "You must select an organization."
-#~ msgstr "企業/組織を選択する必要があります。"
-
-#~ msgid "Access a subscription"
-#~ msgstr "サブスクリプションへのアクセス"
-
-#~ msgid ""
-#~ "You have no active subscriptions available in your account.  You will "
-#~ "need to do one of the following to create an active subscription in your "
-#~ "account before this system can connect to Red Hat Network:"
-#~ msgstr ""
-#~ "アカウントに利用できるアクティブなサブスクリプションがありません。 次のい"
-#~ "ずれかを行ってアカウントにアクティブなサブスクリプションを作成してからこの"
-#~ "システムを Red Hat Network に接続してください。"
-
-#~ msgid "Activate a new subscription with an installation number:"
-#~ msgstr ""
-#~ "インストール番号を使用して新しいサブスクリプションをアクティブにします。"
-
-#~ msgid ""
-#~ "You have already activated this installation number during this "
-#~ "registration."
-#~ msgstr ""
-#~ "この登録手続中にこのインストール番号をすでにアクティブにしています。"
-
-#~ msgid "Installation Number:"
-#~ msgstr "インストール番号:"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "例: XXXX-XXXX-XXXX-XXXX-XXXX"
-
-#~ msgid ""
-#~ "Congratulations, you have successfully completed software updates set up "
-#~ "for this system.\n"
-#~ "\n"
-#~ "Your system is now ready to receive the software updates that will keep "
-#~ "it secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of you desktop (usually in the upper-"
-#~ "right corner.) Clicking on this icon, when available, will guide you "
-#~ "through applying any updates that are available."
-#~ msgstr ""
-#~ "おめでとうございます。 このシステムのソフトウェア更新の設定が正常に完了し"
-#~ "ました。\n"
-#~ "\n"
-#~ "これでシステムを安全でサポートされた状態に維持するソフトウェア更新の受信準"
-#~ "備が整いました。\n"
-#~ "\n"
-#~ "ご使用のデスクトップにある通知エリア(通常、画面の右上)にパッケージアイコン"
-#~ "が表示されるとソフトウェア更新が利用可能になったことがわかります。利用可能"
-#~ "になっている場合、このアイコンをクリックすると更新の適用手順に進むことがで"
-#~ "きます。"
-
-#~ msgid "Subscriptions Activated:"
-#~ msgstr "サブスクリプションがアクティブにされた日:"
-
-#~ msgid ""
-#~ "A subscription-activating installation number was found on disk, but we "
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing active subscription slots available in the rhn account instead. "
-#~ "You may wish to contact Red Hat customer service regarding this issue: "
-#~ "http://www.redhat.com/apps/support/"
-#~ msgstr ""
-#~ "サブスクリプションをアクティブにするインストール番号がディスクに検出されま"
-#~ "したが、アクティブにすることができませんでした(不明なエラーが発生)。 代わ"
-#~ "りに rhn アカウントで使用可能な既存のアクティブなサブスクリプションスロッ"
-#~ "トを使用しました。 この問題については Red Hat カスタマーサービスにご連絡く"
-#~ "ださい、 http://www.redhat.com/apps/support/。"
-
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "インストール番号がディスクに検出されましたが、"
-
-#~ msgid ""
-#~ "The installation number you have provided (%s) is invalid.\n"
-#~ "\n"
-#~ "Please check the number and try again or try another option listed on the "
-#~ "'Access a Subscription' screen."
-#~ msgstr ""
-#~ "入力されたインストール番号 (%s) は無効です。\n"
-#~ "\n"
-#~ "番号を確認してやり直すか、「サブスクリプションへのアクセス」画面に表示され"
-#~ "ている別のオプションを試してみてください。"
-
-#~ msgid ""
-#~ "The installation number you provided is valid but was already activated "
-#~ "and the subscriptions have already been used by systems in your "
-#~ "organization or is not usable for this system.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed on the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "入力されたインストール番号は有効ですが、すでにアクティブになっていてサブス"
-#~ "クリプションは企業/組織内のシステムですでに使用されているか、このシステム"
-#~ "の使用には適していません。\n"
-#~ "\n"
-#~ "別の番号でやり直すか、 「サブスクリプションへのアクセス」画面に表示されて"
-#~ "いる別のオプションを試してみてください。"
-
-#~ msgid ""
-#~ "The installation number you provided does not have subscriptions "
-#~ "associated with it.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed in the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "入力されたインストール番号は、関連付けられたサブスクリプションがありませ"
-#~ "ん。\n"
-#~ "\n"
-#~ "別の番号でやり直すか、 「サブスクリプションへのアクセス」画面に表示されて"
-#~ "いる別のオプションを試してみてください。"
-
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "ログイン中に問題が発生しました。\n"
-#~ "%s"
-
-#~ msgid "There was problem logging in."
-#~ msgstr "ログイン中に問題が発生しました。"
-
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "プロフィールの移植中にエラーが発生しました。"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "インストール番号を入力する必要があります。"
-
-# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
-# ../wrapper.py:325 ../wrapper.py:536
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Red Hat Network との通信中にエラーが発生しました。"
-
-#~ msgid "This installation number has already been activated."
-#~ msgstr "このインストール番号はすでにアクティブになっています。"
-
-# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
-# ../wrapper.py:328
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "プロフィールの移植中にエラーが発生しました。"
-
-#~ msgid "Unable to access the server. Please check your network settings."
-#~ msgstr "サーバーにアクセスできません。 ネットワーク設定を確認してください。"
-
-#~ msgid ""
-#~ "The server you are attempting to register against does not support this "
-#~ "version of the client."
-#~ msgstr ""
-#~ "試行している登録先サーバーはクライアントのこのバージョンをサポートしていま"
-#~ "せん。"
-
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "ユーザーのアカウント内でサブスクリプションをアクティブにする"
-
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "ログイン名を登録中に問題発生:\n"
-
-#~ msgid "Problem registering login name."
-#~ msgstr "ログイン名を登録中に問題が発生しました。"
-
-#~ msgid ", quantity:"
-#~ msgstr "、 数量:"
-
-# configdlg.gladestrings:7
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network の場所: "
-
-#~ msgid "Access Subscription"
-#~ msgstr "サブスクリプションにアクセス"
-
-#~ msgid "Choose Organization"
-#~ msgstr "企業/組織の選択"
-
-#~ msgid "Choose an organization to use with this username"
-#~ msgstr "このユーザー名で使用する企業/組織を選択します"
-
-#~ msgid "Specify an email address"
-#~ msgstr "Email アドレスを指定する"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "使用するサブスクリプション番号を指定する"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "重要な登録情報"
-
-#~ msgid "Registration information"
-#~ msgstr "登録情報"
-
-#~ msgid "Select organization"
-#~ msgstr "組織の選択"
-
-#~ msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
-#~ msgstr ""
-#~ "<small><b>ヒント:</b> Red Hat はプライバシーを尊重しています。</small>"
-
-#~ msgid "Privacy Statement"
-#~ msgstr "プライバシー条項"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Red Hat プライバシー条項"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your account is associated with multiple <b>organizations</b>. You will "
-#~ "need to select an organization to register this system to."
-#~ msgstr ""
-#~ "ユーザーのアカウントは複数の<b>企業/組織</b>に関連付けられています。このシ"
-#~ "ステムを登録する企業/組織を選択する必要があります。"
-
-#~ msgid "_Organization:"
-#~ msgstr "企業/組織 (_O):"
-
-#~ msgid ""
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing "
-#~ msgstr ""
-#~ "アクティブにすることができませんでした(不明なエラーが発生)。 代わりに rhn "
-#~ "アカウントで"
-
-#~ msgid ""
-#~ "active subscription slots available in the rhn account instead. You may "
-#~ "wish "
-#~ msgstr ""
-#~ "使用可能な既存のアクティブなサブスクリプションスロットを使用しました。 こ"
-#~ "の問題については "
-
-#~ msgid "to contact Red Hat customer service regarding this issue: "
-#~ msgstr "Red Hat カスタマーサービスにご連絡ください:"
-
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "インストール番号を入力する必要があります。"
-
-# ../up2date.py:485
-#~ msgid "Error reading hardware information:"
-#~ msgstr "ハードウェア情報の読み込み中にエラーが発生しました:"
-
-# ../wrapper.py:50
-#~ msgid "Error reading DMI information:"
-#~ msgstr "DMI 情報を読み込み中に問題発生:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "そのユーザーアカウントとパスワードは有効ではありません\n"
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "パスワードは入力と確証をする必要があります。"
-
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "ログインを登録中に問題発生:\n"
-#~ "%s"
-
-#~ msgid "Problem registering login."
-#~ msgstr "ログインを登録中に問題が発生しました。"
-
-#~ msgid "Canada"
-#~ msgstr "カナダ"
-
-#~ msgid "Login Information:"
-#~ msgstr "ログイン情報:"
-
-# gui.gladestrings:17 gui.gladestrings:24
-#~ msgid "Account Information:"
-#~ msgstr "アカウント情報:"
-
-#~ msgid "*First Name:"
-#~ msgstr "*名前:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*姓:"
-
-#~ msgid "*Company Name:"
-#~ msgstr "* 会社名:"
-
-#~ msgid "Street Address:"
-#~ msgstr "所番地:"
-
-#~ msgid "City:"
-#~ msgstr "区、市町村:"
-
-#~ msgid "State/Province:"
-#~ msgstr "都道府県:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "郵便番号:"
-
-#~ msgid "*Country:"
-#~ msgstr "* 国: "
-
-#~ msgid "  Address 2:"
-#~ msgstr "  住所 2:"
-
-#~ msgid "  Address:"
-#~ msgstr "  住所:"
-
-#~ msgid "  C_ity:"
-#~ msgstr "  区、市町村 (_I):"
-
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  会社名 (_M):"
-
-#~ msgid "  _State/Province:"
-#~ msgstr "  都道府県 (_S):"
-
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "  郵便番号 (_Z):"
-
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* パスワードの確認 (_O):  "
-
-#~ msgid "* Co_untry:"
-#~ msgstr "* 国 (_U):"
-
-#~ msgid "* Desired _Login:"
-#~ msgstr "* 希望のログイン (_L):"
-
-#~ msgid "* Desired _Password:"
-#~ msgstr "* 希望のパスワード(_P):"
-
-#~ msgid "* Last _Name:"
-#~ msgstr "* ラストネーム(名字) (_N):"
-
-#~ msgid "* _Email Address: "
-#~ msgstr "* Email アドレス (_E): "
-
-#~ msgid "* _First Name:"
-#~ msgstr "* ファーストネーム(名前) (_F):"
-
-# gui.gladestrings:17 gui.gladestrings:24
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "<b>アカウント情報:</b>"
-
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "<b>ログイン情報:</b>"
-
-#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
-#~ msgstr "<small><b>例:</b> user@domain.com</small>"
-
-#~ msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
-#~ msgstr ""
-#~ "<small><b>ヒント:</b> 会社と関係がない場合は空白のままにしておいてくださ"
-#~ "い。</small>"
-
-#~ msgid "Afghanistan"
-#~ msgstr "アフガニスタン"
-
-#~ msgid "Albania"
-#~ msgstr "アルバニア"
-
-#~ msgid "Algeria"
-#~ msgstr "アルジェリア"
-
-#~ msgid "American Samoa"
-#~ msgstr "アメリカン サモア"
-
-#~ msgid "Andorra"
-#~ msgstr "アンドラ"
-
-#~ msgid "Angola"
-#~ msgstr "アンゴラ"
-
-#~ msgid "Anguilla"
-#~ msgstr "アンギラ"
-
-#~ msgid "Antarctica"
-#~ msgstr "南極"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "アンティグア・バーブーダ"
-
-#~ msgid "Argentina"
-#~ msgstr "アルゼンチン"
-
-#~ msgid "Armenia"
-#~ msgstr "アルメニア"
-
-#~ msgid "Aruba"
-#~ msgstr "アルバ"
-
-#~ msgid "Australia"
-#~ msgstr "オーストラリア"
-
-#~ msgid "Austria"
-#~ msgstr "オーストリア"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "アゼルバイジャン"
-
-#~ msgid "Bahamas"
-#~ msgstr "バアマ諸島"
-
-#~ msgid "Bahrain"
-#~ msgstr "バーレーン"
-
-#~ msgid "Bangladesh"
-#~ msgstr "バングラディッシュ"
-
-#~ msgid "Barbados"
-#~ msgstr "バルバドス"
-
-#~ msgid "Belarus"
-#~ msgstr "ベラルーシ"
-
-#~ msgid "Belgium"
-#~ msgstr "ベルギー"
-
-#~ msgid "Belize"
-#~ msgstr "ベリーズ"
-
-#~ msgid "Benin"
-#~ msgstr "ベナン"
-
-#~ msgid "Bermuda"
-#~ msgstr "バミューダ"
-
-#~ msgid "Bhutan"
-#~ msgstr "ブータン"
-
-#~ msgid "Bolivia"
-#~ msgstr "ボリビア"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "ボスニア ヘルツェゴビナ"
-
-#~ msgid "Botswana"
-#~ msgstr "ボツワナ"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "ブーベ島"
-
-#~ msgid "Brazil"
-#~ msgstr "ブラジル"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "イギリス領インド洋地域"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "ブルネイ・ダルサラーム"
-
-#~ msgid "Bulgaria"
-#~ msgstr "ブルガリア"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "ブルキナファソ"
-
-#~ msgid "Burundi"
-#~ msgstr "ブルンジ"
-
-#~ msgid "C_reate new login"
-#~ msgstr "新規ログインの作成 (_R)"
-
-#~ msgid "Cambodia"
-#~ msgstr "カンボジア"
-
-#~ msgid "Cameroon"
-#~ msgstr "カメルーン"
-
-#~ msgid "Cape Verde"
-#~ msgstr "カーボベルデ"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "ケイマン諸島"
-
-#~ msgid "Central African Republic"
-#~ msgstr "中央アフリカ共和国"
-
-#~ msgid "Chad"
-#~ msgstr "チャド"
-
-#~ msgid "Chile"
-#~ msgstr "チリ"
-
-#~ msgid "China"
-#~ msgstr "中華人民共和国"
-
-#~ msgid "Christmas Island"
-#~ msgstr "クリスマス諸島"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "ココス諸島"
-
-#~ msgid "Colombia"
-#~ msgstr "コロンビア"
-
-#~ msgid "Comoros"
-#~ msgstr "コモロ"
-
-#~ msgid "Congo"
-#~ msgstr "コンゴ"
-
-#~ msgid "Cook Islands"
-#~ msgstr "クック諸島"
-
-#~ msgid "Costa Rica"
-#~ msgstr "コスタリカ"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "コートジボアール"
-
-#~ msgid "Create a _New Login"
-#~ msgstr "新規ログインの作成(_N)"
-
-#~ msgid "Create a new Red Hat Network login"
-#~ msgstr "新規の Red Hat Network ログインを作成"
-
-#~ msgid "Croatia"
-#~ msgstr "クロアチア"
-
-#~ msgid "Cuba"
-#~ msgstr "キューバ"
-
-#~ msgid "Cyprus"
-#~ msgstr "キプロス"
-
-#~ msgid "Czech Republic"
-#~ msgstr "チェコ共和国"
-
-#~ msgid "Denmark"
-#~ msgstr "デンマーク"
-
-#~ msgid "Djibouti"
-#~ msgstr "ジブチ"
-
-#~ msgid "Dominica"
-#~ msgstr "ドミニカ"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "ドミニカ共和国"
-
-#~ msgid "East Timor"
-#~ msgstr "東ティモール"
-
-#~ msgid "Ecuador"
-#~ msgstr "エクアドル"
-
-#~ msgid "Egypt"
-#~ msgstr "エジプト"
-
-#~ msgid "El Salvador"
-#~ msgstr "エルサルバドル"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "赤道ギニア共和国"
-
-#~ msgid "Eritrea"
-#~ msgstr "エリトリア"
-
-#~ msgid "Estonia"
-#~ msgstr "エストニア"
-
-#~ msgid "Ethiopia"
-#~ msgstr "エチオピア"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "フォークランド諸島"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "フェロー諸島"
-
-# gui.gladestrings:45
-#~ msgid "Fiji"
-#~ msgstr "フィージー"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login. Required "
-#~ "information is marked with a '*':"
-#~ msgstr ""
-#~ "以下のフォームに記入して、 新しい Red Hat ログインを作成します。 「*」マー"
-#~ "クの付いた事項は必須事項になります。"
-
-#~ msgid "Finland"
-#~ msgstr "フィンランド"
-
-# configdlg.gladestrings:48
-#~ msgid "France"
-#~ msgstr "フランス"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "フランス、都市圏"
-
-#~ msgid "French Guiana"
-#~ msgstr "フランス領ギアナ"
-
-#~ msgid "French Polynesia"
-#~ msgstr "フランス領ポリネシア"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "フランス南方領土"
-
-#~ msgid "Gabon"
-#~ msgstr "ガボン"
-
-#~ msgid "Gambia"
-#~ msgstr "ガンビア"
-
-#~ msgid "Georgia"
-#~ msgstr "ジョージア"
-
-#~ msgid "Germany"
-#~ msgstr "ドイツ"
-
-#~ msgid "Ghana"
-#~ msgstr "ガーナ"
-
-#~ msgid "Gibraltar"
-#~ msgstr "ジブラルタル"
-
-#~ msgid "Greece"
-#~ msgstr "ギリシャ"
-
-#~ msgid "Greenland"
-#~ msgstr "グリーンランド"
-
-#~ msgid "Grenada"
-#~ msgstr "グレナダ"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "グアドループ"
-
-#~ msgid "Guam"
-#~ msgstr "グアム"
-
-#~ msgid "Guatemala"
-#~ msgstr "グアテマラ"
-
-# configdlg.gladestrings:11
-#~ msgid "Guinea"
-#~ msgstr "ギニア"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "ギニア・ビサオ"
-
-#~ msgid "Guyana"
-#~ msgstr "ガイアナ"
-
-#~ msgid "Haiti"
-#~ msgstr "ハイチ"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "ハード・マクドナルド諸島"
-
-#~ msgid "Honduras"
-#~ msgstr "ホンデュラス"
-
-#~ msgid "Hong Kong"
-#~ msgstr "香港"
-
-#~ msgid "Hungary"
-#~ msgstr "ハンガリー"
-
-#~ msgid "Iceland"
-#~ msgstr "アイスランド"
-
-#~ msgid "India"
-#~ msgstr "インド"
-
-#~ msgid "Indonesia"
-#~ msgstr "インドネシア"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "イラン(イスラム共和国)"
-
-#~ msgid "Iraq"
-#~ msgstr "イラク"
-
-#~ msgid "Ireland"
-#~ msgstr "アイルランド"
-
-#~ msgid "Israel"
-#~ msgstr "イスラエル"
-
-#~ msgid "Italy"
-#~ msgstr "イタリア"
-
-#~ msgid "Jamaica"
-#~ msgstr "ジャマイカ"
-
-#~ msgid "Japan"
-#~ msgstr "日本"
-
-#~ msgid "Jordan"
-#~ msgstr "ヨルダン"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "カザフスタン"
-
-#~ msgid "Kenya"
-#~ msgstr "ケニア"
-
-#~ msgid "Kiribati"
-#~ msgstr "キリバス"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "朝鮮民主主義人民共和国"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "大韓民国"
-
-#~ msgid "Kuwait"
-#~ msgstr "クェート"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "キルギスタン"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "ラオス人民民主共和国"
-
-#~ msgid "Latin America"
-#~ msgstr "ラテンアメリカ"
-
-#~ msgid "Latvia"
-#~ msgstr "ラトビア"
-
-#~ msgid "Lebanon"
-#~ msgstr "レバノン"
-
-#~ msgid "Lesotho"
-#~ msgstr "レソト"
-
-#~ msgid "Liberia"
-#~ msgstr "リベリア"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "リビア・アラブ国"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "リヒテンュタイン"
-
-#~ msgid "Lithuania"
-#~ msgstr "リトアニア"
-
-#~ msgid "Luxembourg"
-#~ msgstr "ルクセンブルグ"
-
-#~ msgid "Macau"
-#~ msgstr "マカオ "
-
-#~ msgid "Macedonia"
-#~ msgstr "マケドニア"
-
-#~ msgid "Madagascar"
-#~ msgstr "マダガスカル"
-
-#~ msgid "Malawi"
-#~ msgstr "マラウイ"
-
-#~ msgid "Malaysia"
-#~ msgstr "マレーシア"
-
-#~ msgid "Maldives"
-#~ msgstr "モルディブ"
-
-#~ msgid "Mali"
-#~ msgstr "マリ"
-
-#~ msgid "Malta"
-#~ msgstr "マルタ"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "マーシャル諸島"
-
-#~ msgid "Martinique"
-#~ msgstr "マルチニーク"
-
-#~ msgid "Mauritania"
-#~ msgstr "モーリタニア"
-
-#~ msgid "Mauritius"
-#~ msgstr "モーリシャス"
-
-#~ msgid "Mayotte"
-#~ msgstr "マイヨット島"
-
-#~ msgid "Mexico"
-#~ msgstr "メキシコ"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "ミクロネシア連邦"
-
-#~ msgid "Moldova"
-#~ msgstr "モルドバ"
-
-#~ msgid "Monaco"
-#~ msgstr "モナコ"
-
-#~ msgid "Mongolia"
-#~ msgstr "モンゴル"
-
-#~ msgid "Montserrat"
-#~ msgstr "モントセラト"
-
-#~ msgid "Morocco"
-#~ msgstr "モロッコ"
-
-#~ msgid "Mozambique"
-#~ msgstr "モザンビーク"
-
-#~ msgid "Myanmar"
-#~ msgstr "ミャンマー"
-
-#~ msgid "Namibia"
-#~ msgstr "ナミビア"
-
-#~ msgid "Nauru"
-#~ msgstr "ナウル"
-
-#~ msgid "Nepal"
-#~ msgstr "ネパール"
-
-#~ msgid "Netherlands"
-#~ msgstr "オランダ"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "オランダ領アンティール"
-
-#~ msgid "New Caledonia"
-#~ msgstr "ニューカレドニア"
-
-#~ msgid "New Zealand"
-#~ msgstr "ニュージーランド"
-
-#~ msgid "Nicaragua"
-#~ msgstr "ニカラグァ"
-
-#~ msgid "Niger"
-#~ msgstr "ニジェール"
-
-#~ msgid "Nigeria"
-#~ msgstr "ナイジェリア"
-
-#~ msgid "Niue"
-#~ msgstr "ニウエ"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "ノーフォーク島"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "北マリアナ諸島"
-
-#~ msgid "Norway"
-#~ msgstr "ノルウェー"
-
-#~ msgid "Oman"
-#~ msgstr "オマーン"
-
-#~ msgid "Pakistan"
-#~ msgstr "パキスタン"
-
-#~ msgid "Palau"
-#~ msgstr "パラオ"
-
-#~ msgid "Panama"
-#~ msgstr "パナマ"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "パプアニューギニア"
-
-#~ msgid "Paraguay"
-#~ msgstr "パラグアイ"
-
-#~ msgid "Peru"
-#~ msgstr "ペルー"
-
-#~ msgid "Philippines"
-#~ msgstr "フィリピン"
-
-#~ msgid "Pitcairn"
-#~ msgstr "ピトケアン"
-
-#~ msgid "Poland"
-#~ msgstr "ポーランド"
-
-#~ msgid "Portugal"
-#~ msgstr "ポルトガル"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "プエルトリコ"
-
-#~ msgid "Qatar"
-#~ msgstr "カタール"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Red Hat のログインとパスワードは最低でも 5つの英数文字を必要とします。"
-
-#~ msgid "Reunion"
-#~ msgstr "レユニオン"
-
-#~ msgid "Romania"
-#~ msgstr "ルーマニア"
-
-#~ msgid "Russian Federation"
-#~ msgstr "ロシア連邦"
-
-#~ msgid "Rwanda"
-#~ msgstr "ルワンダ"
-
-#~ msgid "Saint Helena"
-#~ msgstr "セントヘレナ"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "セントキッツ･ネビス"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "セントルシア"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "サンピエール・ミクロン"
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "セントビンセント・グレナディーン諸島"
-
-#~ msgid "Samoa"
-#~ msgstr "サモア"
-
-#~ msgid "San Marino"
-#~ msgstr "サンマリノ"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "サントメ・プリンシペ"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "サウジアラビア"
-
-# configdlg.gladestrings:11
-#~ msgid "Senegal"
-#~ msgstr "セネガル"
-
-#~ msgid "Seychelles"
-#~ msgstr "セイシェル"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "シエラレオネ"
-
-#~ msgid "Singapore"
-#~ msgstr "シンガポール"
-
-#~ msgid "Slovakia"
-#~ msgstr "スロバキア"
-
-#~ msgid "Slovenia"
-#~ msgstr "スロベニア"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "ソロモン諸島"
-
-#~ msgid "Somalia"
-#~ msgstr "ソマリア"
-
-#~ msgid "South Africa"
-#~ msgstr "南アフリカ"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "南ジョージア・南サンドウィッチ諸島"
-
-#~ msgid "Spain"
-#~ msgstr "スペイン"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "スリランカ"
-
-#~ msgid "Sudan"
-#~ msgstr "スーダン"
-
-#~ msgid "Suriname"
-#~ msgstr "スリナム"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "スバールバル諸島・ヤンマイエン島"
-
-#~ msgid "Swaziland"
-#~ msgstr "スワジランド"
-
-#~ msgid "Sweden"
-#~ msgstr "スウェデーン"
-
-#~ msgid "Switzerland"
-#~ msgstr "スイス"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "シリア・アラブ共和国"
-
-#~ msgid "Taiwan"
-#~ msgstr "台湾"
-
-#~ msgid "Tajikistan"
-#~ msgstr "タジキスタン"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "タンザニア連合共和国"
-
-#~ msgid "Thailand"
-#~ msgstr "タイ"
-
-#~ msgid "Togo"
-#~ msgstr "トーゴ"
-
-#~ msgid "Tokelau"
-#~ msgstr "トケラウ"
-
-#~ msgid "Tonga"
-#~ msgstr "トンガ"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "トリニダード トバゴ"
-
-#~ msgid "Tunisia"
-#~ msgstr "チュニジア"
-
-#~ msgid "Turkey"
-#~ msgstr "トルコ"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "トルクメニスタン"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "タークス諸島・カイコス諸島"
-
-#~ msgid "Tuvalu"
-#~ msgstr "ツバル"
-
-#~ msgid "Uganda"
-#~ msgstr "ウガンダ"
-
-#~ msgid "Ukraine"
-#~ msgstr "ウクライナ"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "アラブ首長国連邦"
-
-#~ msgid "United Kingdom"
-#~ msgstr "英国"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "合衆国小離島"
-
-#~ msgid "Uruguay"
-#~ msgstr "ウルグアイ"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "ウズベキスタン"
-
-#~ msgid "Vanuatu"
-#~ msgstr "バヌアツ"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "ヴァチカン市国"
-
-#~ msgid "Venezuela"
-#~ msgstr "ベネズエラ"
-
-#~ msgid "Viet Nam"
-#~ msgstr "ベトナム"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "バージン諸島(英国領)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "バージン諸島(米国領)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "ワリス・フテュナ諸島"
-
-#~ msgid "Western Sahara"
-#~ msgstr "西サハラ"
-
-#~ msgid "Yemen"
-#~ msgstr "イエメン"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "ユーゴスラビア"
-
-#~ msgid "Zaire"
-#~ msgstr "ザイール"
-
-#~ msgid "Zambia"
-#~ msgstr "ザンビア"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "ジンバブエ"

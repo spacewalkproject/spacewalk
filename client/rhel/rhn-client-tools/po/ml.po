@@ -1,28 +1,22 @@
-# translation of ml.po to Malayalam
-# translation of test.po to
-# translation of ml.po to
-# Copyright (C) 2006, 2007, 2010 Free Software Foundation, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-# Ani Peter <apeter@redhat.com>, 2006, 2007, 2010.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Ani Peter <apeter@redhat.com>, 2006, 2007, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: ml\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-06-15 16:49+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Malayalam <smc-discuss@googlegorups.com>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-06-15 15:35+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
 "Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -1630,9 +1624,8 @@ msgid "Do not attempt to use X"
 msgstr "X ഉപയോഗിക്കുവാന്‍ ശ്റമിക്കരുത്"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "%s പ്രവര്‍ത്തിപ്പിക്കുന്നതിന് root ആയി പ്രവര്‍ത്തിക്കുക"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
@@ -1651,32 +1644,28 @@ msgid "list channels"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "ലഭ്യമായ എല്ലാ പരിഷ്കരണങ്ങള്‍"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "ഉപയോഗിക്കുവാനുളള പേര് നല്‍കുക"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "ഒരു രഹസ്യവാക്ക് നല്‍കുക"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "ഹോസ്റ്റ് നെയിം: "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1703,9 +1692,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "ഒരു ചാനലുമായി ബന്ധപ്പെടുന്നതു വരെ സിസ്റ്റം പുതുക്കുവാന്‍ പാടില്ല."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -2781,27 +2769,3 @@ msgstr "സ്പെയിസ്‌വോക്ക്/സാറ്റിലൈ�
 #~ "നിങ്ങളുടെ പണിയിടത്തിന്റെ (സാധാരണ മുകളില്‍-വലത് കോണില്‍, താഴെ വട്ടത്തില്‍ കാണിച്ചിരിക്കുന്നു) "
 #~ "അറിയിപ്പ് സ്ഥാനത്ത് ഐക്കണ്‍ കാണുമ്പോള്‍ സോഫ്റ്റ്‌വെയര്‍ പരിഷ്കരണങ്ങള്‍ ലഭ്യമാണു് എന്ന് നിങ്ങള്‍ക്ക് "
 #~ "മനസ്സിലാകുന്നു. ഈ ഐക്കണില്‍ ക്ളിക്ക് ചെയ്താല്‍, പുതിയ പരിഷ്കരണങ്ങള്‍ നിങ്ങള്‍ക്കു് ലഭ്യമാകുന്നതാണു്:ു."
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "സോഫ്റ്റ്‌വെയര്‍ പരിഷ്കരണങ്ങള്‍"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Red Hat നെറ്റ്‌വര്‍ക്കുമായി എന്തിന് കണക്ട് ചെയ്യണം?"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "സോഫ്റ്റ്‌വെയര്‍ പരിഷ്കരണങ്ങള്‍"
-
-#~ msgid "Select Operating System Release"
-#~ msgstr "ഓപ്പറേറ്റിങ് സിസ്റ്റം ലക്കം തെരഞ്ഞെടുക്കുക"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "ഒരു സിസ്റ്റം പ്രൊഫൈല്‍ രജിസ്ടര്‍ ചെയ്യുക - ഹാര്‍ഡ്‌വെയര്‍"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "ഒരു സിസ്റ്റം പ്രൊഫൈല്‍ രജിസ്ടര്‍ ചെയ്യുക - പാക്കേജുകള്‍"
-
-#~ msgid "registration_number"
-#~ msgstr "registration_number"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "https, http മാത്രമേ അനുവദിക്കൂ."

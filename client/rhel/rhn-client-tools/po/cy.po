@@ -1,30 +1,30 @@
-# translation of cy.po to Cymraeg
-# translation of up2date.pot to Cymraeg
-# This file is distributed under the same license as the up2date package.
-# Copyright (C) 2004 Alan Cox
-# Translation by Owain Green <owaing@oceanfree.net>, 2004.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
 # Dafydd Walters <dwalters@dragontechnology.com>, 2004.
 # Rhys Jones <rhys@sgwarnog.com>, 2005.
-#
+# Translation by Owain Green <owaing@oceanfree.net>, 2004.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: cy\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2005-04-26 22:40+0100\n"
-"Last-Translator: Rhys Jones <rhys@sgwarnog.com>\n"
-"Language-Team: Cymraeg <cy@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: cy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -33,9 +33,8 @@ msgid "Warning"
 msgstr "Rhybudd"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -48,9 +47,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Anfon Gwybodaeth Broffil at Rwydwaith Red Hat"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -76,9 +75,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -89,26 +87,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Gwybodaeth gofrestru ar gyfer: "
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Rhaid i chi roi eich enw olaf."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Rhaid i chi roi a gwirio cyfrinair."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Roedd problem wrth gofrestru'r system."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -117,36 +112,32 @@ msgid ""
 msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru.  Dyma oedd y neges:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
 msgstr "Problem wrth redeg proffil caledwedd."
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "Rhaid i chi ddewis enw ar gyfer y proffil yma."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "Yn anfon eich gwybodaeth broffil at Rwydwaith Red Hat.  Arhoswch."
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "Problem wrth gofrestru'r system."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -156,11 +147,11 @@ msgid "Problem registering system:\n"
 msgstr "Problem wrth gofrestru'r system:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Nid yw'r rhif tanysgrifiad [ %s] a roddwyd yn rhif tanysgrifiad dilys."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -175,14 +166,12 @@ msgid "There was a problem registering this system."
 msgstr "Roedd problem wrth gofrestru'r system."
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Anfon gwybodaeth _caledwedd"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Gwall wrth ddarllen gwybodaeth caledwedd:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -194,14 +183,12 @@ msgstr "Gwall wrth ddarllen gwybodaeth caledwedd:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "Anfon gwybodaeth _caledwedd"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Problem wrth anfon rhestr becynnau."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -222,14 +209,12 @@ msgid "Problem registering personal information"
 msgstr "Problem wrth gofrestru gwybodaeth bersonol"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Rhaid i chi roi enw defnyddiwr."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -251,9 +236,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -266,9 +250,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -312,9 +295,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:160
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "GWALL: Ni chafwyd ffeil RHNS CA:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
@@ -337,20 +319,17 @@ msgid "Getting list of packages installed on the system"
 msgstr "Yn nôl rhestr becynnau arsefydlog ar y system"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Mewngofnodiad Rhwydwaith Red Hat"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "_Mewngofnod: "
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Cyfenw:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -368,43 +347,36 @@ msgid "OK"
 msgstr "Iawn"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru.  Dyma oedd y neges:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
 msgstr "Enw proffil:"
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Fersiwn:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "Model CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Enw gwesteiwr:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Cyflymder CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "Cyfeiriad IP:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "Cof:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -489,14 +461,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Dewiswch Weinydd Rhwydwaith Red Hat i'w ddefnyddio"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Dewiswch Weinydd Rhwydwaith Red Hat i'w ddefnyddio"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -505,9 +476,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "Yn ailddechrau up2date"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -528,9 +498,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "Cofrestredig yn Barod"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -551,9 +520,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Cwmni:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -586,9 +554,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Rhestr Becynnau (cofrestru)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -617,21 +584,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Gwybodaeth Cyfrif"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Gwybodaeth gofrestru ar gyfer: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Mewngofnod Red Hat"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -648,9 +613,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Rhaid i chi roi a gwirio cyfrinair."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -664,18 +628,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Rhyddhad"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Diweddariadau Pecynnau Ar Gael"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -689,9 +651,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Cysylltu eich system"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -717,9 +678,8 @@ msgstr "Cynnwys y wybodaeth ganlynol am galedwedd a rhwydwaith:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Cysylltu eich system"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -743,27 +703,21 @@ msgstr "Yn Adeiladu Rhestr Becynnau"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"Wedi anghofio eich mewngofnod neu'ch cyfrinair Red Hat? Dewch o hyd iddo\n"
-"fan hyn: http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "Cyfeiriad e-bost:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -797,7 +751,6 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Anfon Gwybodaeth Broffil at Rwydwaith Red Hat"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -805,12 +758,6 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"Rydym wedi gorffen casglu gwybodaeth ar gyfer y Proffil System.\n"
-"\n"
-"Gwasgwch \"Nesaf\" i anfon y Proffil System yma at Rwydwaith Red Hat.  "
-"Cliciwch \"Diddymu\" ac ni anfonir unrhyw wybodaeth.  Gallwch redeg y "
-"rhaglen gofrestru nes ymlaen drwy deipio `up2date --register` ar y llinell "
-"orchymyn."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -844,23 +791,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Cysylltu â Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "Annilys yw'r rhif tanysgrifiad"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Gwybodaeth Sianeli"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1123,9 +1068,8 @@ msgstr "Diddymu"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Diddymu"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1165,9 +1109,8 @@ msgid "Error validating data at server:\n"
 msgstr "Gwall wrth wirio data wrth y gweinydd:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Annilys yw'r rhif tanysgrifiad"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1279,16 +1222,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:206
-#, fuzzy
 msgid "An error has occurred:"
 msgstr ""
-"Digwyddodd gwall OS annisgwyl:\n"
-"%s"
 
 #: ../src/up2date_client/rhncli.py:214
-#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr "Anfon gwybodaeth _caledwedd"
+msgstr ""
 
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
@@ -1300,24 +1239,20 @@ msgstr ""
 "cyfredol yn ei gynnal"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Gorffen"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Golygu"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Gorffennwyd Cofrestru"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Rhaid i chi redeg yr Asiant Diweddaru fel y gwraidd."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1346,9 +1281,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Disgrifiad"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1363,22 +1297,18 @@ msgstr "Mewngofnod Red Hat"
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Proffil Caledwedd"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Bu gwall cyfathrebu â'r gweinydd: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
 msgstr ""
-"Hoffech chi geisio newid cyfluniad y rhwydwaith a rhoi cynnig arall arni?"
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1397,21 +1327,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Penodwch ba url gweinydd i'w ddefnyddio"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<llwybr>       - penodwch ffeil i'w defnyddio fel y tyst ssl "
-"CA"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Penodwch ddirprwy http i'w ddefnyddio"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1419,23 +1344,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "    --contactinfo              - darllen gwybodaeth gysylltu o stdin "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - peidio ag archwilio na llwytho i fyny "
-"unrhyw wybodaeth caledwedd "
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
-"    --nopackages               - peidio â phroffilio na lanlwytho unrhyw "
-"wybodaeth pecynnau "
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1446,18 +1364,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - cofrestru'r system hyd yn oed os yw'n "
-"gofrestredig yn barod"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Mynnir enw defnyddiwr, cyfrinair a chyfeiriad e-bost ar gyfer cofrestru "
-"system."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1498,9 +1410,8 @@ msgstr ""
 "IP i'w defnyddio fel enw proffil, penodwch un os gwelwch yn dda."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "peidio â cheisio defnyddio X"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1519,37 +1430,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Sianeli"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Arsefydlu pob pecyn sydd ar gael. Defnyddir â --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Enw defnyddiwr:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "* _Cadarnhau cyfrinair: "
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Enw defnyddiwr:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1561,9 +1467,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Gwall wrth ddarllen pennawd"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1576,9 +1482,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "Ni cheir diweddaru'r system yma nes ei bod yn gysylltiedig â sianel."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1593,13 +1498,10 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"Mae angen i chi gofrestru'r system yma drwy redeg `up2date --register` cyn "
-"defnyddio'r dewisiad yma"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1610,37 +1512,32 @@ msgid "Updating hardware profile..."
 msgstr "Yn diweddaru proffil caledwedd..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Yn diweddaru proffil pecynnau..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Cysylltu eich system"
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Gwybodaeth Cyfrif"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Rhaid i chi roi enw defnyddiwr."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Ymgom Gynnydd"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Ymgom Gynnydd"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1653,9 +1550,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1707,57 +1603,46 @@ msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"Wedi anghofio eich mewngofnod neu'ch cyfrinair Red Hat? Dewch o hyd iddo\n"
-"fan hyn: http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Cyfluniad Rhwydwaith Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Cyfluniad Rhwydwaith Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Sianel"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Rhyddhad"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "Close"
-msgstr "Cau"
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Proffil Caledwedd"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Gwybodaeth Cyfrif"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
@@ -1772,14 +1657,12 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "Unol Daleithiau"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Disgrifiad"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1794,9 +1677,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Mewngofnod Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1811,14 +1693,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Proffil Caledwedd"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Anfon _rhestr becynnau"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1840,19 +1720,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Defnyddio Dilysiant"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Proffil Caledwedd"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Yn diweddaru proffil pecynnau..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1862,9 +1739,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Gwneud eich tanysgrifiad yn weithredol"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1879,18 +1755,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Annilys yw'r rhif tanysgrifiad"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Cyfrinair:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1901,15 +1775,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Cyfenw:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "Cwmni:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1917,22 +1789,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "Galluogi Dirprwy HTTP:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "Gwybodaeth gofrestru"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Mewngofnodiad Rhwydwaith Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1940,16 +1809,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "Gwybodaeth gofrestru"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Cyfenw:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -1968,22 +1835,19 @@ msgid "<big><b>System Name</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "esiampl: XXXX-XXXX-XXXX-XXXX (dim rhaid rhoi'r cysylltnodau)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:79
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "esiampl: XXXX-XXXX-XXXX-XXXX (dim rhaid rhoi'r cysylltnodau)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "esiampl: XXXX-XXXX-XXXX-XXXX (dim rhaid rhoi'r cysylltnodau)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgctxt "yes"
@@ -1993,15 +1857,11 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"Wedi anghofio eich mewngofnod neu'ch cyfrinair Red Hat? Dewch o hyd iddo\n"
-"fan hyn: http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:84
 #, no-c-format
@@ -2025,10 +1885,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Cyfluniad Rhwydwaith Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2055,10 +1914,9 @@ msgid "CPU Speed:"
 msgstr "Cyflymder CPU:"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Mewngofnodiad Rhwydwaith Red Hat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2123,16 +1981,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Cysylltu â Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2148,10 +2004,9 @@ msgid "IP Address:"
 msgstr "Cyfeiriad IP:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "rhifCofrestru"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2162,10 +2017,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "Yn ailddechrau up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2187,12 +2041,11 @@ msgid "Package Information"
 msgstr "Gwybodaeth Becynnau"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2209,7 +2062,7 @@ msgstr "Cyfrinair:"
 #, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Enw defnyddiwr:"
+msgstr "Enw proffil:"
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2240,7 +2093,7 @@ msgstr "Fersiwn Red Hat Linux:"
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Mewngofnodiad Rhwydwaith Red Hat"
+msgstr "Mewngofnod Red Hat"
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
@@ -2252,7 +2105,7 @@ msgstr "Proffil Caledwedd"
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Anfon _rhestr becynnau"
+msgstr "Yn diweddaru proffil pecynnau..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2267,10 +2120,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Cyfenw:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2280,10 +2132,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Defnyddio Dilysiant"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2335,10 +2186,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "Yn ailddechrau up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2362,16 +2212,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:139
-#, fuzzy
 msgctxt "yes"
 msgid "_Close"
-msgstr "Cau"
+msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "_Mewngofnod: "
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2401,16 +2249,14 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - Rhestr Becynnau (cofrestru)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - Rhestr Becynnau (cofrestru)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
@@ -2419,10 +2265,9 @@ msgid "_View Hardware Profile ..."
 msgstr "Proffil Caledwedd"
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Pam Cofrestru?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2435,10 +2280,9 @@ msgid "_Yes, I'd like to register now."
 msgstr ""
 
 #: ../data/rh_register.glade.h:152
-#, fuzzy
 msgctxt "yes"
 msgid "label"
-msgstr "label10"
+msgstr ""
 
 #: ../data/rh_register.glade.h:153
 msgctxt "yes"
@@ -2446,10 +2290,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Cysylltu â Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2457,3377 +2300,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Creu cyfrif Red Hat Network newydd"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "rhifCofrestru"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Cofrestru â Rhwydwaith Red Hat"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Cysylltu â Red Hat Network"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Cam 3: Cofrestru Proffil System - Caledwedd"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "Cam 3: Cofrestru Proffil System - Pecynnau"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "rhifCofrestru"
-
-#~ msgid "Warning:"
-#~ msgstr "Rhybudd:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Ymgom Iawn:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Ymgom cwestiwn:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Gweithredu"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Rhybudd: methu galluogi rhnsd â chkconfig"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Gwall disg.  Dyma oedd y neges:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "Gwall gwrthdaro pecyn RPM.  Dyma oedd y neges:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "Gwall gwrthdaro ffeil RPM. Dyma oedd y neges:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "Gwall RPM. Dyma oedd y neges:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Gwall dibyniaeth RPM.  Dyma oedd y neges:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Gwall Rhestr Hepgor Pecynnau.  Dyma oedd y neges:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Gwall trosysgrifo Rhestr Hepgor Ffeilio neu ffeil gyflunio. Dyma oedd y "
-#~ "neges:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "Methwyd gwaredu'r pecyn \"%s\". Roedd ar y RestrHepgorGwaredu"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "Nid yw GPG yn arsefydlog yn gywir."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "Nid yw'r cylch allweddi GPG yn cynnwys yr allwedd gyhoeddus llofnodi-"
-#~ "pecynnau Red Hat, Inc."
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Methodd y pecyn %s ei wiriad llofnod gpg. Golyga hyn fod y pecyn yn "
-#~ "llygredig."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Nid oes gan y pecyn %s lofnod GPG.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Mae gan becyn %s lofnod GPG heb ymddiriedaeth.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Mae gan y pecyn %s lofnod GPG anhysbys.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Dewiswch Weinydd Rhwydwaith Red Hat i'w ddefnyddio"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Cysylltu â Red Hat Network"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Cofrestru â Rhwydwaith Red Hat"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "Yn ailddechrau up2date"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr "Does dim mewngofnod Red Hat gyda fi. Mae rhaid i fi ei greu."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Cam 1: Adolygu Datganiad Preifatrwydd Red Hat"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Adolygu Termau ac Amodau Rhwydwaith Red Hat"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Creu Mewngofnod"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Nid yw'r ddau gyfrinair a roddoch yn cydweddu.\n"
-#~ "Ail-deipiwch eich cyfrineiriau os gwelwch yn dda."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Creu cyfrif Red Hat Network newydd"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "* _Cyfrinair:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "Parchwn eich preifatrwydd:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Rhaid i chi roi eich enw cyntaf."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Rhaid i chi roi eich enw olaf."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Rhaid i chi roi cyfeiriad e-bost."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Rhaid i chi roi cyfeiriad e-bost dilys."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Gwybodaeth gofrestru ar gyfer: "
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Rhaid i chi roi a gwirio cyfrinair."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Rhaid i chi roi a gwirio cyfrinair."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Rhaid i chi roi rhif cofrestru."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "rhifCofrestru"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "esiampl: XXXX-XXXX-XXXX-XXXX (dim rhaid rhoi'r cysylltnodau)"
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "Annilys yw'r rhif tanysgrifiad"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Roedd problem wrth gofrestru'r system."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Roedd problem wrth gofrestru'r system."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Rhaid i chi roi rhif cofrestru."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Gwall angheuol wrth nôl y datganiad preifatrwydd:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Rhaid i chi roi rhif cofrestru."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Problem wrth gofrestru enw defnyddiwr:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Problem wrth gofrestru enw defnyddiwr."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Mewngofnodiad Rhwydwaith Red Hat"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Cyfeiriad ebost"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Does dim rhif tanysgrifiad gyda fi i'w wneud yn weithredol."
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Gwybodaeth Gofrestru Pwysig"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Gwybodaeth Gofrestru"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Rhaid i chi roi rhif cofrestru."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Datganiad Preifatrwydd"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Datganiad Preifatrwydd Red Hat"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Gwall wrth ddarllen gwybodaeth caledwedd:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Gwall yn darllen gwybodaeth DMI:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Nid yw'r cyfrif defnyddiwr a'r cyfrinair yn ddilys\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Rhaid i chi roi enw defnyddiwr."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Rhaid i chi roi a gwirio cyfrinair."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Problem wrth gofrestru enw defnyddiwr:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Problem wrth gofrestru enw defnyddiwr."
-
-#~ msgid "Canada"
-#~ msgstr "Canada"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Gwybodaeth gofrestru"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Gwybodaeth Cyfrif"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Enw Cyntaf:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Cyfenw:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Cwmni:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "* Cyfeiriad:"
-
-#~ msgid "City:"
-#~ msgstr "Dinas:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "Talaith:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Côd Post/Zip:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Gwlad:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  Cyfeiriad 2:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "  Cyfeiriad 2:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "* Dinas:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  Cwmni:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "* Talaith:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "* Côd Post/Zip:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* _Cadarnhau cyfrinair: "
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "* Gwlad:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "* Mewngofnod Red Hat:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "* _Cyfrinair:"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*Cyfenw:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "* Cyfeiriad _e-bost:"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*Enw Cyntaf:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Gwybodaeth Cyfrif"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Gwybodaeth gofrestru"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albania"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeria"
-
-#~ msgid "American Samoa"
-#~ msgstr "Samoa Americanaidd"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Angwila"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antarctica"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigwa a Barbwda"
-
-#~ msgid "Argentina"
-#~ msgstr "Yr Ariannin"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenia"
-
-#~ msgid "Aruba"
-#~ msgstr "Arwba"
-
-#~ msgid "Australia"
-#~ msgstr "Awstralia"
-
-#~ msgid "Austria"
-#~ msgstr "Awstria"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaijan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamas"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Belarws"
-
-#~ msgid "Belgium"
-#~ msgstr "Gwlad Belg"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosnia a Herzegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Ynys Bouvet"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasil"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "Tiriogaeth Môr Indiaidd Brydeinig"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bwlgaria"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Creu Mewngofnod"
-
-#~ msgid "Cambodia"
-#~ msgstr "Cambodia"
-
-#~ msgid "Cameroon"
-#~ msgstr "Cameroon"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cape Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Ynysoedd Cayman"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Gweriniaeth Ganolog Affrica"
-
-#~ msgid "Chad"
-#~ msgstr "Tsiad"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "China"
-#~ msgstr "Tsieina"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Ynys y Nadolig"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Ynysoedd Cocos (Keeling)"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Comoros"
-#~ msgstr "Comoros"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Ynysoedd Cook"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Creu Mewngofnod"
-
-#~ msgid "Croatia"
-#~ msgstr "Croatia"
-
-#~ msgid "Cuba"
-#~ msgstr "Cuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cyprus"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Gweriniaeth Siec"
-
-#~ msgid "Denmark"
-#~ msgstr "Denmarc"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Gweriniaeth Dominica"
-
-#~ msgid "East Timor"
-#~ msgstr "Dwyrain Timor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecwador"
-
-#~ msgid "Egypt"
-#~ msgstr "Yr Aifft"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Gini Gyhydyddol"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estonia"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Ethiopia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Ynysoedd y Falklands (Malvinas)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Ynysoedd Faroe"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Y Ffindir"
-
-#~ msgid "France"
-#~ msgstr "Ffrainc"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Ffrainc, Fetropolitan"
-
-#~ msgid "French Guiana"
-#~ msgstr "Guyana Ffrengig"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Polynesia Ffrengig"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Tiriogaethau Deheuol Ffrengig"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Yr Almaen"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Gwlad Groeg"
-
-#~ msgid "Greenland"
-#~ msgstr "Y Lasynys"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Gwadelŵp"
-
-#~ msgid "Guam"
-#~ msgstr "Gwm"
-
-#~ msgid "Guatemala"
-#~ msgstr "Gwatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Gini"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Gini-Bisaw"
-
-#~ msgid "Guyana"
-#~ msgstr "Gaiana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Ynys Heard ac Ynysoedd McDonald"
-
-#~ msgid "Honduras"
-#~ msgstr "Hondwras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Hwngari"
-
-#~ msgid "Iceland"
-#~ msgstr "Gwlad yr Iâ"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesia"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Iran (Gweriniaeth Islamaidd)"
-
-#~ msgid "Iraq"
-#~ msgstr "Irac"
-
-#~ msgid "Ireland"
-#~ msgstr "Iwerddon"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Italy"
-#~ msgstr "Yr Eidal"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Japan"
-#~ msgstr "Japan"
-
-#~ msgid "Jordan"
-#~ msgstr "Iorddonen"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakhstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Korea, Gweriniaeth Ddemocrataidd y Bobl"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Korea, Gweriniaeth"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuwait"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgyzstan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Gweriniaeth Ddemocrataidd y Bobl Lao"
-
-#~ msgid "Latin America"
-#~ msgstr "America Ladin"
-
-#~ msgid "Latvia"
-#~ msgstr "Latfia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Libanys"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Jamahiria Arabaidd Libia"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Lithwania"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Lwcsembwrg"
-
-#~ msgid "Macau"
-#~ msgstr "Macaw"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedonia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagascar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Maleisia"
-
-#~ msgid "Maldives"
-#~ msgstr "Y Maldîfau"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Ynysoedd Marshall"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mawritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mawrisiws"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Mecsico"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Micronesia (Gwladwriaethau Cyfunol)"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldofa"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolia"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Moroco"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mosambîc"
-
-#~ msgid "Myanmar"
-#~ msgstr "Mianmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nawrw"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Yr Iseldiroedd"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Ynysoedd Iseldiraidd y Caribî"
-
-#~ msgid "New Caledonia"
-#~ msgstr "Caledonia Newydd"
-
-#~ msgid "New Zealand"
-#~ msgstr "Seland Newydd"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragwa"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolk Island"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Ynysoedd Mariana Gogleddol"
-
-#~ msgid "Norway"
-#~ msgstr "Norwy"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pacistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palaw"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papwa Gini Newydd"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paragwai"
-
-#~ msgid "Peru"
-#~ msgstr "Periw"
-
-#~ msgid "Philippines"
-#~ msgstr "Y Ffilipînau"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Gwald Pwyl"
-
-#~ msgid "Portugal"
-#~ msgstr "Portwgal"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Pwerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Rhaid i gyfrineiriau ac enwau mewngofnodi Red Hat fod o leiaf 5 nod o hyd"
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romania"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Y Cynghrair Rwsiaidd"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Sant Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Sant Kitts a Nefis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Santa Lwsia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Saint Pierre a Miquelon    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Sant Finsent a'r Grenadinau"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome a Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Sawdi Arabia"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapôr"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slofacia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slofenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Ynysoedd Solomon"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "De Affrica"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "De Georgia a'r Ynys Sandwich Ddeheuol"
-
-#~ msgid "Spain"
-#~ msgstr "Sbaen"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanca"
-
-#~ msgid "Sudan"
-#~ msgstr "Swdan"
-
-#~ msgid "Suriname"
-#~ msgstr "Swrinam"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Sfalbard ac Ynysoedd Jan Mayen"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Sweden"
-
-#~ msgid "Switzerland"
-#~ msgstr "Y Swisdir"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Gweriniaeth Arabaedd Syria"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tajikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzania, Gweriniaeth Gyfunol"
-
-#~ msgid "Thailand"
-#~ msgstr "Gwlad Thai"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tocelaw"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad a Thobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisia"
-
-#~ msgid "Turkey"
-#~ msgstr "Twrci"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Twrcmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Ynysoedd Twrc a Chaicos"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Twfalw"
-
-#~ msgid "Uganda"
-#~ msgstr "Wganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Wcráin"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Emiraethau Arabaidd Cyfunol"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Y Deyrnas Gyfunol"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "Ynysoedd Pellennig Bychan yr Unol Daleithiau"
-
-#~ msgid "Uruguay"
-#~ msgstr "Wrwgwai"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Wsbecistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Fanwatw"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Gweriniaeth Dinas y Fatican (Y Babaeth)"
-
-#~ msgid "Venezuela"
-#~ msgstr "Feneswela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Viet Nam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Ynysoedd yr Wyryf (Brydeinig)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Ynysoedd yr Wyryf (U.D.)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Ynysoedd Wallis a Ffwtwna"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Gorllewin Sahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Iemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Iwgoslafia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    Nid yw'ch llyfrgelloedd system yn cynnal cysylltiadau SSL (diogel).\n"
-#~ "    Trosglwyddir unrhyw ddata rydych yn ei anfon neu'i dderbyn oddi wrth\n"
-#~ "    redhat.com yn glir (ac amlwg).\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Parhau beth bynnag?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Wedi'i Nôl."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Dewiswch Weinydd Rhwydwaith Red Hat i'w ddefnyddio"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Gwybodaeth Sianeli"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Cwmni:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Cysylltu â Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Mewngofnodiad Rhwydwaith Red Hat"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "diweddaru pecynnau sy'n gysylltiedig â'r Proffil System yma ar Rwydwaith "
-#~ "Red Hat"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "Rhaid i chi redeg y rhaglen gofrestru RHN fel y gwraidd."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr ""
-#~ "Ni cheir diweddaru'r system yma nes ei bod yn gysylltiedig â sianel."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr ""
-#~ "Ni cheir diweddaru'r system yma nes ei bod yn gysylltiedig â sianel."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Cysylltu â Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Dewiswch Weinydd Rhwydwaith Red Hat i'w ddefnyddio"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Addaswch eich dewisiadau pecynnau a cheisiwch eto."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Fersiwn:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Problem wrth anfon pecynnau:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Problem wrth anfon pecynnau."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Rhaid bod enwau defnyddwyr o leiaf 5 nod o hyd"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "Rhaid i gyfrinair bod o leiaf 5 nod o hyd"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Nid yw'r ddau gyfrinair a roddoch yn cydweddu.\n"
-#~ "Ail-deipiwch yr ail gyfrinair os gwelwch yn dda."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Enw/patrwm ffeil"
-
-#~ msgid "Config modified"
-#~ msgstr "Addaswyd y cyfluniad"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "Dylai bod y dibyniaethau wedi eu datrys yn barod, ond nid ydynt."
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Methwyd wrth redeg trosglwyddiad o'r pecynnau: %s"
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "methodd rpm llwytho'r pennawd: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "methodd rpm llwytho'r ffeil"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Rhaid i chi roi eich enw cyntaf."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Rhaid i chi roi eich enw olaf."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Rhaid i chi roi eich dinas."
-
-#~ msgid "SSL Warning"
-#~ msgstr "Rhybudd SSL"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Nid yw'ch llyfrgelloedd system yn cynnal cysylltiadau SSL (diogel).  "
-#~ "Trosglwyddir unrhyw ddata rydych yn ei anfon neu'i dderbyn oddi wrth "
-#~ "Rhwydwaith Red Hat yn glir (ac amlwg). Parhau beth bynnag?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Enw defnyddiwr:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Gwall wrth agor %s"
-
-#~ msgid "Installing"
-#~ msgstr "Yn arsefydlu"
-
-#~ msgid "Installing %s"
-#~ msgstr "Yn arsefydlu %s"
-
-#~ msgid "Repackaging"
-#~ msgstr "Yn ailbecynnu"
-
-#~ msgid "Preparing"
-#~ msgstr "Yn paratoi"
-
-#~ msgid " Done."
-#~ msgstr " Wedi'i wneud."
-
-#~ msgid "Retrieved."
-#~ msgstr "Wedi'i Nôl."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Fe ychwanegwyd y pecynnau canlynol i'ch dewisiad i fodloni dibyniaethau:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Enw                                     Fersiwn       Rhyddhad\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Enw                           Fersiwn        Rhyddhad        "
-#~ "Sianel      \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "Nid oes gwybodaeth gynghorol ar gael\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Enw                                     Fersiwn        Rhdd    \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "Nodwyd y Pecynnau canlynol i'w hepgor gan eich cyfluniad:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Enw                                     Fersiwn       Rhdd  Rheswm\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "Dydy'r chwilnodau yma ddim yn cydweddu ag unrhyw becyn:"
-
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "Dydy'r grwpiau yma ddim yn cydweddu ag unrhyw becyn:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr ""
-#~ "Fe wneir y Pecynnau canlynol yn anarferedig gan becynnau mwy newydd:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Enw-Fersiwn-Rhyddhad       anarferwyd gan     Enw-Fersiwn-Rhyddhad\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Ni arsefydlwyd y pecynnau canlynol oherwydd eu bod yn anarferedig drwy "
-#~ "becynnau arsefydlog:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Enw-Fersiwn-Rhyddhad       anarferwyd gan     Enw-Fersiwn-Rhyddhad\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "Nid yw'r pecynnau canlynol yn arsefydlog ond maent ar gael oddi wrth Red "
-#~ "Hat Network:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Enw                                     Fersiwn       Rhyddhad \n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr ""
-#~ "    --noSSLServerURL=<url>     - penodwch url ar gyfer gweinydd di-ssl"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr ""
-#~ "    --useNoSSLForPackages      - peidio â defnyddio ssl i lawrlwytho "
-#~ "pecynnau"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Enw defnyddiwr:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "rhifCofrestru"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Creu Cyfrif Newydd"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Diddymu"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Cofrestru Rhwydwaith Red Hat (h)(c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "* Mewngofnod Red Hat:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Darllenwch ein _Datganiad Preifatrwydd"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "Ni chanfuwyd dewisiad cyflunio rhnuuid yn /etc/systconfig/rhn/up2date-"
-#~ "uuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    I ddatrys yr holl ddibyniaethau ar gyfer yr RPMau rydych wedi'u "
-#~ "dewis, byddai'n\n"
-#~ "    rhaid ychwanegu'r pecynnau canlynol rydych wedi nodi i'w gwahardd at "
-#~ "y set:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Enw Pecyn"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Rheswm Am Hepgor"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Yn profi set becynnau / datrys rhyng-ddibyniaethau RPM"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Methwyd bodloni dibyniaethau gwrthdaro."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "Fe ychwanegwyd y pecynnau canlynol i'ch dewisiad i fodloni dibyniaethau:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Enw                                    Mynnir gan\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Ddim yn gwybod sut i drin ystyr dibyniaeth \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Amhosib datrys cadwyn dibyniaethau:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "defnyddir dewisiadau elilo nas cynhelir gan up2date yn yr elilo.conf "
-#~ "rhagosodedig. Ni addasir y ffeil hon. Mae'r dewisiadau'n cynnwys:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "Methu rhedeg grubby'n gywir: dyma oedd y neges:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Asiant Diweddaru Red Hat"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Dosberthir y feddalwedd hon o dan y GPL.\n"
-#~ "Adroddwch namau at System Olrhain Namau Red Hat: http://bugzilla.redhat."
-#~ "com/bugzilla/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr ""
-#~ "Asiant Diweddaru - rhaglen ar gyfer diweddaru pecynnau ar Red Hat Linux"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Dosberthir y feddalwedd hon o dan y GPL.  Adroddwch namau at System "
-#~ "Olrhain Namau Red Hat: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Fersiwn"
-
-#~ msgid "Old Version"
-#~ msgstr "Hen Fersiwn"
-
-#~ msgid "Size"
-#~ msgstr "Maint"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Rheswm Hepgorwyd"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Gwybodaeth Breifatrwydd"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Termau Ac Amodau"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Tudalen Fewngofnodi"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Gwybodaeth am Red Hat Network"
-
-#~ msgid "Up2date - Create New Account"
-#~ msgstr "Up2date -Creu Cyfrif Newydd"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Tudalen Wybodaeth Gynnyrch"
-
-#~ msgid "All information is optional."
-#~ msgstr "Mae'r holl wybodaeth yn ddewisol."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Er mwyn derbyn cyfathrebiad post oddi wrth Red Hat, rhaid i chi lenwi'ch "
-#~ "enw llawn\n"
-#~ "a'ch cyfeiriad."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Er mwyn i Red Hat gysylltu â chi ar y ffôn, rhaid i chi ddarparu\n"
-#~ "rhif ffôn ac enw o leiaf."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Er mwyn i Red Hat gysylltu â chi drwy ffacs, rhaid i chi ddarparu\n"
-#~ "rhif ffacs ac enw o leiaf."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Proffil Caledwedd"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Mae'r Dewin Cofrestru yn adeiladu rhestr o becynnau RPM sydd wedi'u "
-#~ "sefydlu ar eich system.  Arhoswch."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr ""
-#~ "Dim pecyn wedi'i ddewis. Dewiswch becyn yn gyntaf os gwelwch yn dda."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Nid oes gwybodaeth gynghorol ar gael."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Mae Asiant Diweddaru Red Hat yn adeiladu rhestr o becynnau\n"
-#~ "RPM wedi'u diweddaru sydd ar eich system.  Arhoswch."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "Mae fersiwn newydd o up2date ar gael. Arsefydlu'r fersiwn newydd ac "
-#~ "ailddechrau?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Bu gwall RPM angheuol.  Dyma oedd y neges:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr ""
-#~ "Bu gwall angheuol wrth gyfathrebu â'r gweinydd.  Dyma oedd y neges:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Digwyddodd gwall OS annisgwyl:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Pecynnau Wedi Hepgor"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Sianeli"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Rhestr Becynnau"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Bu gwall RPM angheuol. Dyma oedd y neges:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr ""
-#~ "Mae'ch system wedi'i diweddaru'n llawn.  Nid oes angen unrhyw becynnau "
-#~ "newydd."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "Bu gwall RPM.  Dyma oedd y neges:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Bu gwall arsefydlu RPM. Dyma oedd y neges:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Roedd problem dibyniaeth pecynnau.  Dyma oedd y neges:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Rhaid i chi ddewis o leiaf un pecyn.\n"
-#~ "Os nad ydych am ddiweddaru unrhyw becynnau,\n"
-#~ "gwasgwch y botwm \"Diddymu\" i adael yr Asiant Diweddaru."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Mae cyfanswm maint y pecynnau dewisedig yn %d kB,\n"
-#~ "ond dim ond %d kB o le rhydd sydd gennych.\n"
-#~ "Dad-ddewiswch rhai pecynnau a pharhewch."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Pecynnau Ar Gael"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Dibyniaethau"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Pecyn wedi'i lwytho i lawr eisoes"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Gwall wrth nôl y pecyn %s.\n"
-#~ "Dyma oedd y neges:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Digwyddodd gwall RPM angheuol.  Dyma oedd y neges:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Nid yw'r pecyn %s wedi'i lofnodi â llofnod GPG.  Parhau?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Nid oes gan y pecyn %s lofnod GPG dilys.\n"
-#~ "Ymyrrwyd ag ef neu mae'n llygredig.  Parhau?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "Llofnodwyd y pecyn %s â llofnod GPG anymddiriedig.  Parhau?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "Llofnodwyd y pecyn %s â llofnod GPG anhysbys.  Parhau?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Popeth wedi gorffen.  Cliciwch \"Ymlaen\" i barhau."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - Nôl Pecynnau"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Yn ail-becynnu..."
-
-#~ msgid "Installing..."
-#~ msgstr "Yn arsefydlu..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Cyfanswm Cynnydd (ailbecynnu):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Cyfanswm Cynnydd:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Bu gwall arsefydlu RPM angheuol. Dyma'r neges:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Arsefydlu Pecynnau"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Tudalen Orffen"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Mae'r Asiant Diweddaru Red Hat wedi gorffen "
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "yn nôl\n"
-#~ " y pecynnau canlynol yn llwyddiannus:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "yn arsefydlu\n"
-#~ " y pecynnau canlynol yn llwyddiannus:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Oherwydd eich gosodiadau, lawrlwythwyd y pecynnau yma'n unig,\n"
-#~ "ac ni'u arsefydlwyd.  Os hoffech newid eich gosodiadau, rhedwch y\n"
-#~ "raglen \"up2date-config\"."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Gwall wrth arsefydlu lilo.conf  Dyma oedd y neges:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "Gwall wrth adfer copi cadw lilo.conf  Dyma oedd y copi cadw:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Gwall wrth arsefydlu'r cychwynnydd newydd: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "Gwall wrth ddarllen lilo.conf: Dyma oedd y neges:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "defnyddir dewisiadau lilo nas cynhelir gan up2date yn y lilo.conf "
-#~ "rhagosodedig. Ni addasir y ffeil hon. Mae'r dewisiadau'n cynnwys:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Enw/patrwm pecyn"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "Yn nôl penawdau rpm"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "Yn nôl pennawd rpm: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Yn gwaredu pecynnau a nodwyd i'w hepgor o'r rhestr"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "nid yw %s yn ffolder dilys."
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Defnydd: rhn_check [dewisiadau]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Dewisiadau llinell orchymyn ar gael:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - y cymorth yma "
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose      - mwyfwy amleiriog "
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Gwall wrth nôl rhestr pecynnau ar gael"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Gwall wrth ddyrannu ymresymiadau rhestr orchymyn: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "Yn defnyddio un o fy nhanysgrifiadau gweithredol presennol."
-
-#~ msgid "You must enter your address."
-#~ msgstr "Rhaid i chi roi eich cyfeiriad."
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Rhaid i chi roi eich cod post/zip."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Defnydd: rhnreg_ks [dewisiadau]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - y cymorth yma "
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<gwerth>      - penodwch enw proffil"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<gwerth>         - penodwch enw defnyddiwr "
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<gwerth>         - penodwch gyfrinair "
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr "    --orgid=<gwerth>            - penodwch ddynodiad sefydliadol "
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr "    --orgpassword=<gwerth>      - penodwch gyfrinair sefydliadol"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr ""
-#~ "    --serverUrl=<URL>          - penodwch url i'w ddefnyddio fel gweinydd"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<gwerth>            - penodwch gyfeiriad e-bost  "
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<gwerth>   - penodwch allwedd weithredoli "
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr ""
-#~ "    --subscription=<gwerth>   - penodwch rif tanysgrifiad i ddefnyddio "
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --fersiwn                  - dangos y fersiwn "
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr ""
-#~ "    --proxy                    - penodwch ddirprwy http i'w ddefnyddio "
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<gwerth>        - penodwch enw defnyddiwr i'w ddefnyddio "
-#~ "â dirprwy http dilysol"
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<gwerth>    - penodwch gyfrinair i'w ddefnyddio â "
-#~ "dirprwy http dilysol"
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Trwyddedir o dan dermau'r GPL."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "methu gwaredu %s"
-
-#, fuzzy
-#~ msgid "Error parsing %s"
-#~ msgstr "Gwall wrth agor %s"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "Cam 2: Cofrestru Cyfrif Defnyddiwr"
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "Ydych chi'n gofrestredig â redhat.com yn barod?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Ie: Rhowch eich enw defnyddiwr a'ch cyfrinair cyfredol isod."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr "Na: Dewiswch ddefnyddiwr a chyfrinair arall a'i roi isod."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Eto, er gwiriad:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr "Cam 2: Cofrestru Cyfrif Defnyddiwr (Meysydd \"*\" yn Orfodol)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "Cam 2: Cofrestru Cyfrif Defnyddiwr (Popeth yn Ddewisol)"
-
-#~ msgid "*Title:"
-#~ msgstr "*Teitl:"
-
-#~ msgid "Title:"
-#~ msgstr "Teitl:"
-
-#~ msgid "First Name:"
-#~ msgstr "Enw Cyntaf:"
-
-#~ msgid "Position:"
-#~ msgstr "Swydd:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Cyfeiriad:"
-
-#~ msgid "Address:"
-#~ msgstr "Cyfeiriad:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Cyfeiriad 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*Dinas:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Talaith:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Talaith:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Côd Post/Zip:"
-
-#~ msgid "Country:"
-#~ msgstr "Gwlad:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Ffôn:"
-
-#~ msgid "Phone:"
-#~ msgstr "Ffôn:"
-
-#~ msgid "Fax:"
-#~ msgstr "Ffacs:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "Hoffterau Cysylltu:"
-
-#~ msgid "E-mail"
-#~ msgstr "E-bost"
-
-#~ msgid "Regular mail"
-#~ msgstr "Post cyffredin"
-
-#~ msgid "Telephone"
-#~ msgstr "Teleffon"
-
-#~ msgid "Fax"
-#~ msgstr "Ffacs"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "Cysylltu â fi â chynigion arbennig oddi wrth bartneriaid Red Hat"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Tanysgrifio i e-Gylchlythyr Red Hat"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Er mwyn derbyn gwybodaeth drwy'r post oddi wrth Red Hat, rhaid i chi "
-#~ "lenwi'ch enw llawn a'ch cyfeiriad."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Er mwyn i Red Hat eich cysylltu ar y ffôn, rhaid i chi ddarparu rhif ffôn "
-#~ "ac enw o leiaf."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Er mwyn i Red Hat gysylltu â chi drwy ffacs, rhaid i chi ddarparu rhif "
-#~ "ffacs ac enw o leiaf."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Cam 3 : Cofrestru Proffil System - Pecynnau"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Rydych wedi cofrestru'r Proffil System yma ar Rwydwaith Red Hat yn "
-#~ "llwyddiannus.\n"
-#~ "\n"
-#~ "Ymwelwch â http://www.redhat.com/network i fewngofnodi a chyrchu'ch "
-#~ "manteision Rhwydwaith Red Hat.\n"
-#~ "\n"
-#~ "I uwchraddio'ch system â'r diweddariadau cynnyrch, trwsiadau namau, a "
-#~ "gwelliannau diogelwch diweddaraf, rhedwch up2date ar y llinell orchymyn, "
-#~ "neu ddewiswch \"Asiant Diweddaru\" o'r panel."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr ""
-#~ "Ymddengys fod y system yma wedi'i chofrestru'n barod.  Parhau beth bynnag?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Nid yw'r pecyn %s wedi'i lofnodi â llofnod GPG.  Yn erthylu..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Nid oes gan y pecyn %s lofnod GPG dilys.\n"
-#~ "Ymyrrwyd ag ef neu mae'n llygredig.  Yn erthylu..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr ""
-#~ "Mae'r pecyn %s wedi'i lofnodi gan lofnod GPG anymddiriedig.  Gadael..."
-
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr ""
-#~ "Mae'r pecyn %s wedi'i lofnodi, ond gan lofnod GPG anhysbys. Gadael..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr ""
-#~ "Nid oedd modd canfod y cyfeiriadur cadw %s, neu nid oedd\n"
-#~ "yn gyrchadwy."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "Nid ydych wedi'ch cofrestru â Red Hat Network.  I ddefnyddio'r Asiant\n"
-#~ "Diweddaru rhaid eich bod wedi'ch cofrestru.\n"
-#~ "\n"
-#~ "I gofrestru, rhedwch \"up2date --register\"."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "Nid yw'ch cylch allweddi GPG yn cynnwys allwedd gyhoeddus\n"
-#~ "Red Hat, Inc. Hebddi, ni fyddwch yn gallu gwirio bod y pecynnau y mae'r "
-#~ "Asiant\n"
-#~ "Diweddaru'n lawrlwytho wedi'u llofnodi'n ddiogel gan Red Hat.\n"
-#~ "\n"
-#~ "Mae'ch dewisiadau Asiant Diweddaru'n penodi'ch bod am ddefnyddio GPG."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "Nid yw'ch cylch allweddi GPG yn cynnwys allwedd gyhoeddus\n"
-#~ "Red Hat, Inc. Hebddi, ni fyddwch yn gallu gwirio bod y pecynnau y mae'r "
-#~ "Asiant\n"
-#~ "Diweddaru'n lawrlwytho wedi'u llofnodi'n ddiogel gan Red Hat.\n"
-#~ "\n"
-#~ "Mae'ch dewisiadau Asiant Diweddaru'n penodi'ch bod am ddefnyddio GPG.\n"
-#~ "\n"
-#~ "I arsefydlu’r allwedd, rhedwch y canlynol fel y gwraidd:\n"
-#~ "\n"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "Methwyd cyflawni datrysiad dibyniaeth"
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "Enw                                     Fersiwn       Rhyddhad\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Methodd yr arsefydliad prawf o achos gwrthdaro pecynnau:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "Methwyd canfod pennawd ar gyfer %s"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Nid yw rhai o'r pecynnau yn y trosglwyddiad yma ar gael."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "Rhybudd: Diweddarir y pecynnau canlynol, ond fe ailbecynnwyd y pecynnau\n"
-#~ "yma'n barod, ac nid yw hyn wedi'i gynnal yn gyfredol.\n"
-#~ "Analluogwyd cynhaliaeth ailbecynnu ar gyfer y trosglwyddiad yma.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Pan yn gweithredu ym modd llinell orchymyn, bydd penodi enwau pecynnau\n"
-#~ "fel ymresymiadau i'r raglen yn ceisio nôl y pecynnau hynny (ac o bosib "
-#~ "eu\n"
-#~ "harsefydlu, yn dibynnu ar eich cyfluniad).  Pennir manylion fersiwn,\n"
-#~ "rhyddhad, a saernïaeth gan yr Asiant Diweddaru'n awtomatig.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "cyflunio dewisiadau Asiant Diweddaru"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr ""
-#~ "lawrlwytho pecynnau'n unig, hyd yn oed os yw'r cyfluniad yn dweud i "
-#~ "arsefydlu"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr ""
-#~ "arsefydlu pecynnau, hyd yn oed os yw'r cyfluniad yn dweud am lawrlwytho'n "
-#~ "unig"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Lawrlwytho pecynnau tarddiad ynghyd ag rpmau deuol"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr ""
-#~ "Peidio â lawrlwytho pecynnau tarddiad (cymera flaenoriaeth dros osodiad "
-#~ "cyflunio os wedi'i osod)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Penodwch lwybr lle mae cronfa ddata rpm eiledol"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr ""
-#~ "Gorfodi arsefydlu pecyn, gan gymryd blaenoriaeth dros y rhestri hepgor "
-#~ "pecynnau a ffeiliau"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr ""
-#~ "Ychwanegu pecynnau at y gronfa ddata'n unig, peidio â'u harsefydlu i'r "
-#~ "system ffeil"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "rhestri pecynnau ar gael i'w nôl"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr ""
-#~ "Gwneud popeth ond lawrlwytho ac arsefydlu pecynnau (dangos dibyniaethau "
-#~ "sydd eu hangen, ayb)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Disgrifio'r dewisiadau'n gryno"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr ""
-#~ "llwybr gwahanedig gan orwahanodau o gyfeiriaduron i chwilio amdanynt mewn "
-#~ "pecynnau"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "peidio â defnyddio GPG i wirio llofnodau pecynnau"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr ""
-#~ "proffil caledwedd up2date cysylltiedig â'r Proffil System yma ar "
-#~ "Rwydwaith Red Hat"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "cofrestru'r system (neu ei hail-gofrestru, os oes angen)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Rhestri pob pecyn sydd ar gael i'w lawrlwytho"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "Rhestri pob pecyn sydd ar gael nad yw wedi'i arsefydlu'n gyfredol"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "Rhestri pob pecyn arsefydlog cyfredol nad ydynt mewn sianeli y mae'r "
-#~ "system wedi tanysgrifio iddynt"
-
-#~ msgid "List all the install components available to install"
-#~ msgstr "Rhestri pob cydrannau gosod sydd ar gael i'w lawrlwytho"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "yn canfod, lawrlwytho, ac arsefydlu'r pecynnau sydd eu hangen i ddatrys y "
-#~ "restr ddibyniaethau"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "lle i gadw ffeiliau / RPMau dros dro"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "diweddaru'r system â'r holl becynnau priodol"
-
-#~ msgid "show program version information"
-#~ msgstr "dangos gwybodaeth fersiwn rhaglen"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "Dangos enwau sianeli ynghyd ag enw'r pecyn pan yn briodol"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Dangos yr ôl-roliadau rpm sydd ar gael"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr ""
-#~ "Dangos y pecynnau sy'n datrys y rhestr wahanedig gan atalnodau o "
-#~ "ddibyniaethau"
-
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr "Rhestr o becynnau i beidio â diweddaru neu arsefydlu"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Penodwch ba sianeli i'w defnyddio gan label sianel"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr "Dangos y baneri y cychwynnir gpg â nhw (y cylch allweddi, ayb)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Peidio â lawrlwytho pecynnau o gwbl. At ddibenion profi"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Pasio uuid mae'r rhaglennig yn ei gynhyrchu i mewn"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "Dangos yr ymgom arsefydlu pecynnau ym modd gui"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Nôl y pecyn penodedig heb ddatrys dibyniaethau"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr ""
-#~ "Nôl y pecyn tarddiad ar gyfer y pecyn penodedig heb ddatrys dibyniaethau"
-
-#~ msgid ""
-#~ "Force up2date to install this arch of the package. Not valid with -u, --"
-#~ "list, or --dry-run"
-#~ msgstr ""
-#~ "Gorfodi up2date i arsefydlu saernïaeth yma o'r pecyn. Yn annilys gyda -u, "
-#~ "--list, neu --dry-run"
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Uwchraddio at y sianel benodedig"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Arsefydlu allwedd?"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        Digwyddodd rhyw fath o wall wrth ychwanegu’r "
-#~ "allwedd\n"
-#~ "                        GPG Red Hat at eich cylch allweddi."
-
-#~ msgid ""
-#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
-#~ msgstr ""
-#~ "Dydy ailfywio Pecynnau a Chaledwedd ddim yn gymwys pan na ddefnyddir Red "
-#~ "Hat Network"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "Yn diweddaru hanes trosglwyddiadau..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Ni chanfuwyd pecynnau sy'n bodloni'r dibyniaethau yna."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "Rhaid penodi enw sianel gyda --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr ""
-#~ "Bu gwall angheuol wrth gyfathrebu â'r gweinydd. Dyma oedd y neges:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Roedd problem dibyniaeth pecynnau. Dyma oedd y neges:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "Bu gwall wrth arsefydlu'r pecynnau. Dyma oedd y neges:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Dim modd rhyngweithiol ar gael"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Penodwch naill ai -l, -u, -nox, neu enwau pecynnau fel ymresymiadau "
-#~ "llinell orchymyn."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr "Methu agor gui. Ceisiwch benodi \"--nox\" fel dewisiad"
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "Nid yw'r pecynnau canlynol ar gael:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Mae pob pecyn yn ddiweddar yn gyfredol"
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "Ni chanfuwyd y pecynnau canlynol y gofynnoch amdanynt:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr ""
-#~ "Mae'r pecynnau canlynol a ofynnoch amdanynt wedi'u diweddaru'n barod:"
-
-#~ msgid "Activate"
-#~ msgstr "Gweithredoli"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Rydych wedi cwblhau arsefydlu'r system.\n"
-#~ "\n"
-#~ "Yn anffodus, doedd eich system ddim wedi'i gysylltu â Red Hat Network.\n"
-#~ "Mae'n bwysig i gysylltu eich system er mwyn derbyn y diweddariadau sy'n\n"
-#~ "cadw'ch system yn ddiogel ac wedi'i gynnal.\n"
-#~ "\n"
-#~ "\n"
-#~ "I gysylltu eich system â Red Hat Network, ewch i'r brif ddewislen,\n"
-#~ "dewiswch Offer System, ac wedyn dewiswch Red Hat Network, neu\n"
-#~ "o'r llinell orchymyn, rhedwch /usr/bin/up2date fel root i gofrestru.\n"
-#~ "\n"
-#~ "Eisiau cymorth? I gysylltu â chynrychiolydd cynhaliaeth cwsmer ar eich "
-#~ "bwys,\n"
-#~ "ewch i http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Unfortunately, your subscription was not activated because a valid\n"
-#~ "subscription number was not supplied.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Please contact a customer service representative to help get your\n"
-#~ "subscription activated.  To find a representative near you, visit\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Rydych wedi cwblhau arsefydlu'r system.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Yn anffodus, nid yw eich tanysgrifiad yn weithredol, achos ni ddarparwyd "
-#~ "rhif tanysgrifiad dilys.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Mae'n bwysig cael tanysgrifiad gweithredol er mwyn cyrchu'r gwasanaethau "
-#~ "sy'n diogelu ac yn sicrhau cynhaliaeth eich system o ddydd i ddydd.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Cysylltwch â chynrychiolydd gwasanaeth cwsmer am gymorth i weithredu'ch "
-#~ "tanysgrifiad. I ddod o hyd i gynrychiolydd agos atoch chi, ewch i http://"
-#~ "www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "\n"
-#~ "Unfortunately, your subscription was not activated because a valid "
-#~ "subscription number was not supplied.\n"
-#~ "\n"
-#~ "It is important to activate your subscription so you can access the "
-#~ "services that keep your system secure and supported.\n"
-#~ "\n"
-#~ "Please contact a customer service representative to help get your "
-#~ "subscription activated.  To find a representative near you, visit http://"
-#~ "www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Rydych wedi cwblhau arsefydlu'r system.\n"
-#~ "\n"
-#~ "Yn anffodus, nid yw eich tanysgrifiad yn weithredol, achos ni ddarparwyd "
-#~ "rhif tanysgrifiad dilys.\n"
-#~ "\n"
-#~ "Mae'n bwysig cael tanysgrifiad gweithredol er mwyn cyrchu'r gwasanaethau "
-#~ "sy'n diogelu ac yn sichrau cynhaliaeth eich system o ddydd i ddydd.\n"
-#~ "\n"
-#~ "Cysylltwch â chynrychiolydd gwasanaeth cwsmer am gymorth i weithredu'ch "
-#~ "tanysgrifiad. I ddod o hyd i gynrychiolydd agos atoch chi, ewch i http://"
-#~ "www.redhat.com/contact/"
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "Llongyfarchiadau!\n"
-#~ "Rydych wedi cwblhau'r cyfluniad, ac mae'ch tanysgrifiad wedi'i "
-#~ "weithredoli.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Byddwch yn gallu derbyn y gwasanaethau i gyd sydd wedi'u cynnwys yn eich\n"
-#~ "tanysgrifiad Red Hat."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Rydych wedi cwblhau arsefydlu'r system.\n"
-#~ "                                                                                                   \n"
-#~ "Yn anffodus, dydy'ch system chi ddim wedi'i gysylltu drwy rwydwaith,\n"
-#~ "felly methwyd gweithredu eich tanysgrifiad.\n"
-#~ "                                                                                                   \n"
-#~ "Mae'n bwysig gweithredu eich tanysgrifiad er mwyn cyrchu'r\n"
-#~ "gwasanaethau sy'n cadw eich system yn ddiogel ac wedi'i gynnal.\n"
-#~ "                                                                                                   \n"
-#~ "Gwnewch hynny nawr o system sydd wedi'i gysylltu drwy rwydwaith\n"
-#~ "wrth fynd i http://www.redhat.com/activate/\n"
-#~ "                                                                                                   \n"
-#~ "Eisiau cymorth? I gysylltu â chynrychiolydd cynhaliaeth cwsmer, ewch i "
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Rydych wedi cwblhau arsefydlu'r system.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Yn anffodus, ni weithredwyd eich tanysgrifiad.\n"
-#~ "Bydd eich system yn gweithio, ond ni fyddwch yn gallu cyrchu'r\n"
-#~ "gwasanaethau sy'n cadw eich system yn ddiogel ac wedi'i gynnal.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "I sicrhau'ch bod chi'n gallu cyrchu'r gwasanaethau pwysig yma, "
-#~ "gweithredwch\n"
-#~ "nawr wrth fynd i http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Eisiau cymorth? I gysylltu â chynrychiolydd cynhaliaeth cwsmer ar eich "
-#~ "bwys,\n"
-#~ "ewch i http://www.redhat.com/contact/\n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Ychwanegu"
-
-#~ msgid "Add new:"
-#~ msgstr "Ychwanegu newydd:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Ar ôl arsefydlu, cadw pecynnau deuol ar ddisg"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "Peidio ag arsefydlu pecynnau wedi'r nôl"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "Peidio ag uwchraddio pecynnau pan addaswyd y ffeil gyfluniad lleol"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr ""
-#~ "Galluogi ôl-rolio RPM  (yn caniatáu \"dadwneud\" ond yn mynnu rhagor o "
-#~ "storfa)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Rhowch lwybr i le hoffech gadw pecynnau wedi'u llwytho i lawr."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Rhowch enw ffeil yr ydych am ei hepgor wrth benderfynu pa becynnau "
-#~ "gallwch ddewis rhyngddynt.  Mae chwilnodau'n dderbyniol, e.e. \"/boot/*\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Rhowch enw pecyn yr ydych am ei hepgor wrth benderfynu pa becynnau i "
-#~ "ddewis ohonynt.  Mae chwilnodau'n dderbyniol, e.e. \"cnewyllyn*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Enwau Ffeil i'w Hepgor"
-
-#~ msgid "General"
-#~ msgstr "Cyffredinol"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Os oes angen dirprwy HTTP arnoch, rhowch ef yma yn y ffurf GWESTEIWR:"
-#~ "PORTH\n"
-#~ "h.y. squid.fysafle.org:3128"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Os oes angen i chi gymryd blaenoriaeth dros y fersiwn Red Hat Linux a "
-#~ "bennwyd yn awtomatig, rhowch fersiwn yma, neu dewiswch un o'r fersiynau "
-#~ "sydd wedi eu rhestru."
-
-#~ msgid "Network Settings"
-#~ msgstr "Gosodiadau Rhwydwaith"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Cymryd blaenoriaeth dros y fersiwn storiwyd yn y Proffil System:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Eithrio Pecynnau"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Dewisiadau Arsefydlu Pecynnau"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Enwau Pecynnau i'w Hepgor"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Dewisiadau Nôl Pecynnau"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Dewisiadau Gwirio Pecynnau"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Cyfeiriadur cadw pecynnau:"
-
-#~ msgid "Remove"
-#~ msgstr "Gwaredu"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Nôl / Arsefydlu"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Nôl RPM tarddiad ynghyd â'r pecyn deuol"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Defnyddio GPG i wirio cyfanrwydd pecynnau"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Mae Enw Proffil yn enw disgrifiol rydych yn dewis i ddynodi'r Proffil "
-#~ "System yma ar\n"
-#~ "dudalennau gwe Rhwydwaith Red Hat.  Yn ddewisol, gall gynnwys rhif "
-#~ "cyfresol neu ddynodiad cyfrifiadur."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Yn ôl eich hoffterau rydych wedi dewis peidio â diweddaru'r pecynnau \n"
-#~ "uchod yn awtomatig.  Os hoffech gymryd blaenoriaeth dros eich\n"
-#~ "gosodiadau a chynnwys un o'r pecynnau uchod yn y rhestr becynnau i'w\n"
-#~ "nôl, rhowch dic yn y blwch priodol."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "Fe gaiff gwybodaeth ychwanegol gan gynnwys dyfeisiau PCI, meintiau "
-#~ "disgiau a mannau gosod\n"
-#~ "eu cynnwys yn y proffil."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alasga"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "Popeth wedi Gorffen"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Lluoedd Arfog(AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Lluoedd Arfog(AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Lluoedd Arfog(AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "Arsefydliadau Pecynnau Ar Gael"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr ""
-#~ "Isod mae rhestr o becynnau sy'n bresennol ar eich system bod RPM yn "
-#~ "gwybod amdanynt:"
-
-#~ msgid "British Columbia"
-#~ msgstr "Columbia Brydeinig"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Fel arfer, fe gaiff bob pecyn y mae RPM yn gwybod amdano ei gynnwys yn "
-#~ "eich Proffil System.\n"
-#~ "Dad-ddewiswch unrhyw becynnau nad ydych am eu cynnwys."
-
-#~ msgid "California"
-#~ msgstr "California"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Mae clicio \"Ymlaen\" yn nodi eich bod yn deall a derbyn y termau ac "
-#~ "amodau yma.\n"
-#~ " Os nad ydych yn eu derbyn, gwasgwch \"Diddymu\""
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Contact preferences"
-#~ msgstr "Hoffterau cysylltu"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "Ardal Columbia"
-
-#~ msgid "Dr."
-#~ msgstr "Dr."
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "Mae meysydd a nodir yn goch yn angenrheidiol."
-
-#~ msgid "First name:"
-#~ msgstr "Enw cyntaf:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "Mae gwybodaeth caledwedd yn bwysig i bennu ba feddalwedd a gyrryddion "
-#~ "wedi'u diweddaru\n"
-#~ "sy'n berthnasol i'r system yma.  Bydd y set leiaf o wybodaeth gallwch ei "
-#~ "gynnwys yn cynnwys\n"
-#~ "saernïaeth eich system a fersiwn Red Hat Linux."
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "IP address:"
-#~ msgstr "Cyfeiriad IP:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Cynnwys gwybodaeth am galedwedd a rhwydwaith"
-
-#~ msgid "Included information"
-#~ msgstr "Gwybodaeth sydd wedi'i gynnwys"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Yn Arsefydlu Pecynnau"
-
-#~ msgid "Installing:"
-#~ msgstr "Yn arsefydlu:"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Cyfenw:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Micronesia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "Miss"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "Mr."
-
-#~ msgid "Mrs."
-#~ msgstr "Mrs."
-
-#~ msgid "Ms."
-#~ msgstr "Ms."
-
-#~ msgid "Name"
-#~ msgstr "Enw"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "New Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "Efrog Newydd"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Y Tir Newydd"
-
-#~ msgid "North Carolina"
-#~ msgstr "Gogledd Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "Gogledd Dakota"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Marianas Gogleddol"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "Tiriogaeth y Gogledd-Orllewin"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova Scotia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Tu allan i'r UD/Canada"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Pecynnau wedi Arwyddo i'w Hepgor"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Pecynnau a Fynnir i Ddatrys Dibyniaethau"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "Ynys y Tywysog Edward"
-
-#~ msgid "Quebec"
-#~ msgstr "Cwebéc"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "Mae gwybodaeth RPM yn bwysig i bennu pa becynnau meddalwedd wedi'u "
-#~ "diweddaru sy'n berthnasol\n"
-#~ "i'r system yma."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Fersiwn Red Hat Linux:"
-
-#~ msgid "Rel."
-#~ msgstr "Rhyddhad"
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Yn Nôl Pecynnau"
-
-#~ msgid "Retrieving:"
-#~ msgstr "Yn nôl:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Dewis pob pecyn"
-
-#~ msgid "Sir"
-#~ msgstr "Syr"
-
-#~ msgid "South Carolina"
-#~ msgstr "De Carolina"
-
-#~ msgid "South Dakota"
-#~ msgstr "De Dakota"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Cynigion arbennig oddi wrth bartneriaid Red Hat"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Termau ac Amodau"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Mynnir y pecynnau canlynol oherwydd bod rhai o'r pecynnau a ddewisoch\n"
-#~ "yn dibynnu arnynt.  Fe gânt eu hychwanegu at eich set becynnau dewisedig."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Dyma Asiant Diweddaru Red Hat.  Fe fydd yn eich cynorthwyo\n"
-#~ "i ddiweddaru eich system Red Hat Enterprise Linux â'r meddalwedd "
-#~ "diweddaraf\n"
-#~ "sydd ar gael oddi wrth Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "I barhau, cliciwch \"Ymlaen.\"  I ddiddymu heb ddiweddaru\n"
-#~ "unrhyw beth, cliciwch \"Diddymu.\""
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "I danysgrifio neu ddad-danysgrifio o sianeli, neu am\n"
-#~ "fwy o wybodaeth am y sianeli sydd ar gael, gweler:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Cyfanswm cynnydd:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Cyfanswm maint y pecynnau dewisedig i'w lawrlwytho:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Cyfanswm maint pecynnau dewisedig:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "Tiriogaethau Ymddiried"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr ""
-#~ "Diweddaru'r Asiant Diweddaru Red Hat Network os oes diweddariad ar gael"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#~ msgid "View Advisory"
-#~ msgstr "Gweld Cyngor"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Ynysoedd yr Wyryf"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "Rydym wedi gorffen casglu gwybodaeth ar gyfer y Proffil System.\n"
-#~ "\n"
-#~ "Cliciwch \"Ymlaen\" i anfon y Proffil System yma at Rwydwaith Red Hat. \n"
-#~ "  Cliciwch \"Diddymu\" ac ni anfonir unrhyw wybodaeth.  Gallwch redeg y\n"
-#~ "raglen gofrestru nes ymlaen drwy deipio rhn_register ar y llinell "
-#~ "orchymyn."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Croeso i Asiant Diweddaru Red Hat"
-
-#~ msgid "West Virginia"
-#~ msgstr "Gorllewin Virginia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Cewch wasgu \"Yn ôl\" i addasu'ch dewisiadau pecyn, neu \"Ymlaen\" i "
-#~ "barhau."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "Byddwch yn gallu diweddaru'ch proffil caledwedd neu greu proffiliau "
-#~ "caledwedd newydd pan fewngofnodwch i\n"
-#~ "Red Hat Network ar http://www.redhat.com/network."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "Tiriogaeth Yukon"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "Côd Post / ZIP:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "e-Gylchlythyr"
-
-#~ msgid "    The _number is: "
-#~ msgstr "    Y _rhif yw: "
-
-#~ msgid "(example, webserver1)"
-#~ msgstr "(enghraifft, gweinyddgwe1)"
-
-#~ msgid "* First name:"
-#~ msgstr "* Enw cyntaf:"
-
-#~ msgid "* Last name:"
-#~ msgstr "* Cyfenw:"
-
-#~ msgid "* Required fields"
-#~ msgstr "* Rhaid rhoi'r wybodaeth yma"
-
-#~ msgid ""
-#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
-#~ "code, and maintenance capabilities included in your subscription.\n"
-#~ "Red Hat uses your login and account information to communicate with you\n"
-#~ "about your subscription services and software."
-#~ msgstr ""
-#~ "Mae creu mewngofnod Red Hat yn gadael i chi gael y diweddariadau, y\n"
-#~ "cywiriadau, y cod craidd a'r gynhaliaeth sy'n rhan o'ch tanysgrifiad.\n"
-#~ "Mae Red Hat yn defnyddio'ch mewngofnod a'ch gwybodaeth cyfrif i gysylltu\n"
-#~ "â chi ynghylch gwasanaethau eich tanysgrifiad, a meddalwedd."
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Wedi anghofio eich mewngofnod neu'ch cyfrinair Red Hat? Dewch o hyd iddo\n"
-#~ "fan hyn: http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Angen cymorth? Cysylltwch â'n gwasanaethau cwsmeriaid:\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
-#~ "(You may opt out at any time.)"
-#~ msgstr ""
-#~ "Cael eich atgoffa drwy e-bost am rifynnau misol newydd Red Hat Magazine.\n"
-#~ "(Gallwch derfynu hyn unrhyw bryd.)"
-
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "Does _dim rhif tanysgrifiad gyda fi"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr ""
-#~ "Fedra i ddim cwblhau'r tanysgrifiad ar hyn o bryd. Atgoffwch fi'n hwyrach."
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "Mae gen i fewngofnod Red Hat eisoes."
-
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "Os wnaethoch chi brynu'n uniongyrchol oddi wrth Red Hat, neu os\n"
-#~ "wnaethoch chi weithredu drwy'n safle gwe, mae'ch tanysgrifiad wedi\n"
-#~ "ei weithredu'n barod."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Angen cymorth? Cysylltwch â chynrychiolydd gwasanaethau cwsmeriaid\n"
-#~ "yn y cyffiniau: http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Angen cymorth? Cysylltwch â'n gwasanaethau cwsmeriaid: http://www.redhat."
-#~ "com/contact/"
-
-#~ msgid "Network Configuration"
-#~ msgstr "Cyfluniad Rhwydwaith"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "Tu allan i'r UDA/Canada"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "Rhowch enw ar gyfer y system rydych yn ei gosod"
-
-#~ msgid "Take me back so I can provide or create a Red Hat login."
-#~ msgstr "Ewch â fi'n ôl i roi neu i greu mewngofnod Red Hat."
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr ""
-#~ "Dywedwch i mi pam fod angen i fi gofrestru a rhoi mewngofnod Red Hat."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "Mae enw system yn gadael i chi adnabod y system hon yn Red Hat Network er "
-#~ "mwyn ei chynnal. Os na rowch chi enw, fe fyddwn ni'n rhoi un rhagosodedig."
-
-#~ msgid ""
-#~ "To activate the services included in your subscription, please register "
-#~ "with Red Hat and provide a Red Hat login."
-#~ msgstr ""
-#~ "I wneud yn weithredol y gwasanaethau sydd wedi'u cynnwys yn eich "
-#~ "tanysgrifiad, cofrestrwch â Red Hat a rhowch fewngofnod Red Hat."
-
-#~ msgid ""
-#~ "Why do you need to register and provide a Red Hat login?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Your subscription includes support and software maintenance services. To\n"
-#~ "activate these services, you must register with Red Hat. Registration\n"
-#~ "includes these simple steps:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) provide a Red Hat login\n"
-#~ "2) provide a subscription number\n"
-#~ "3) connect your system to Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "If you do not complete these registration steps, you will not be able to\n"
-#~ "access the services included in your subscription. These services keep\n"
-#~ "your system current, reliable, secure and supported.\n"
-#~ msgstr ""
-#~ "Pam fod angen i chi gofrestru a rhoi mewngofnod Red Hat?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Mae'ch tanysgrifiad yn cynnwys gwasanaethau cynnal a chadw meddalwedd. I\n"
-#~ "wneud y rhain yn weithredol, rhaid i chi gofrestru gyda Red Hat. Nid yw\n"
-#~ "cofrestru'n golygu dim ond dilyn y camau syml yma:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) rhoi mewngofnod Red Hat\n"
-#~ "2) rhoi rhif tanysgrifiad\n"
-#~ "3) cysylltu'ch system â Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Os na wnewch chi gwblhau'r camau cofrestru, fedrwch chi ddim cysylltu "
-#~ "â'r\n"
-#~ "gwasanaethau sy'n cael eu cynnwys yn eich tanysgrifiad. Mae'r "
-#~ "gwasanaethau\n"
-#~ "hyn yn cadw'ch system yn gyfredol, dibynnol, diogel ac wedi'i chynnal.\n"
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "Gallwch derfynu'r gwasanaeth unrhyw bryd. Gweler "
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr "Mae'ch rhif tanysgrifiad o fewn y pecyn ddaeth gyda'ch archeb"
-
-#~ msgid "_Details"
-#~ msgstr "_Manylion"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Cyfrinair:"
-
-#, fuzzy
-#~ msgid "dialog1"
-#~ msgstr "Ymgom Iawn:"
-
-#, fuzzy
-#~ msgid "sdfsdfsdfsdfProblem registering personal information"
-#~ msgstr "Problem wrth gofrestru gwybodaeth bersonol"
-
-#~ msgid ""
-#~ "You have completed software installation, however you did not complete 1 "
-#~ "of the 3 Red Hat registration steps. Your Enterprise Linux software will "
-#~ "operate, but you will not be able to access all of your technical support "
-#~ "options, or updates that keep your systems reliable and secure. Please go "
-#~ "to http://www.redhat.com/register/ to complete subscription registration "
-#~ "now or visit http://www.redhat.com/contact/ to get registration help.\n"
-#~ "        \n"
-#~ "We will remind you to complete Red Hat registration later.\n"
-#~ msgstr ""
-#~ "Rydych wedi cwblhau arsefydliad eich meddalwedd, ond nid ydych wedi "
-#~ "cwblhau 1 o'r 3 cam cofrestru Red Hat. Bydd eich meddalwedd Enterprise "
-#~ "Linux yn gweithio, ond ni fyddwch yn gallu cyrchu eich dewisiadau "
-#~ "cynhaliaeth technegol i gyd, neu'r diweddariadau sy'n cadw'ch system yn "
-#~ "ddiogel a dibynadwy. Ewch nawr i http://www.redhat.com/register/ i orffen "
-#~ "cofrestru, neu ewch i http://www.redhat.com/contact/ i gael cymorth "
-#~ "cofrestru.\n"
-#~ "        \n"
-#~ "Atgofiwn ni chi i gwblhau cofrestruad Red Hat nes ymlaen.\n"
-
-#~ msgid "Use Existing Account"
-#~ msgstr "Defnyddio Cyfrif Gyfredol"
-
-#~ msgid "Password (confirm):"
-#~ msgstr "Cyfrinair (gwiriwch):"
-
-#~ msgid "label11"
-#~ msgstr "label11"
-
-#~ msgid "Advisory Information"
-#~ msgstr "Gwybodaeth Gynghorol"
+msgstr ""

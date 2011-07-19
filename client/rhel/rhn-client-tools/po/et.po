@@ -1,29 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Up2date\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2005-11-04 09:27+0200\n"
-"Last-Translator: Allan Sims <allan.sims@eau.ee>\n"
-"Language-Team: Estonian <et@li.org>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/fedora/team/"
+"et/)\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Estonian\n"
-"X-Poedit-Country: ESTONIA\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
-#, fuzzy
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
@@ -32,9 +30,8 @@ msgid "Warning"
 msgstr "Hoiatud"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -47,9 +44,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Profiili informatsioon saatmine Red Hat Network-i"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -75,9 +72,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Juhtus viga registreerimise serveriga ühendamisel:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -88,26 +84,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Registreerimise informatsioon:"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Vajalik on sisestada oma perekonnanimi."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Vajalik on sisestada ja kinnitada parool."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Süsteemi registeerimisel esines probleem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -116,36 +109,32 @@ msgid ""
 msgstr "Registreerimisserveriga ühendamisel juhtus viga. Teade oli järgmine:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
 msgstr "Viga riistvara profiili jooksutamisel"
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr "Antud profiilile on vajalik määrata nimi."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "Sinu profiili info saatmine Red Hat Network-i. Palun oota."
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "Süsteemi registreerimise probleem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
@@ -155,11 +144,11 @@ msgid "Problem registering system:\n"
 msgstr "Süsteemi registreerimise probleem:\n"
 
 #: ../src/up2date_client/rhnregGui.py:773
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Tellimuse number [ %s ], mis sisestati, ei ole kehtiv."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -174,14 +163,12 @@ msgid "There was a problem registering this system."
 msgstr "Süsteemi registeerimisel esines probleem."
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "_Riistvara informatsioon saatmine"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Viga riistvara informatsiooni lugemisel:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -193,14 +180,12 @@ msgstr "Viga riistvara informatsiooni lugemisel:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "_Riistvara informatsioon saatmine"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Paketi loendi saatmise probleem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -221,14 +206,12 @@ msgid "Problem registering personal information"
 msgstr "Personaalse informatsiooni registreerimise probleem"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Vajalik on sisestada kasutajanime."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -250,9 +233,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -265,9 +247,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -312,9 +293,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:160
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "Viga: RHNS CA faili pole võimalik leida:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:198
 msgid "Connection aborted by the user"
@@ -337,20 +317,17 @@ msgid "Getting list of packages installed on the system"
 msgstr "Süsteemi installeeritud pakettide loendi võtmine"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network kasutajanimi"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
-#, fuzzy
 msgid "Login:"
-msgstr "_Kasutajanimi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -368,43 +345,36 @@ msgid "OK"
 msgstr "Olgu"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "Registreerimisserveriga ühendamisel juhtus viga. Teade oli järgmine:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
 msgstr "Profiili nimi:"
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Versioon:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU model: "
-msgstr "Protsessori mudel:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Arvuti nimi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Protsessori kiirus:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "IP aadress:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
-#, fuzzy
 msgid "Memory: "
-msgstr "Mälu:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:690
 #, python-format
@@ -489,14 +459,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Red Hat Network serveri valimine kasutamiseks "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Red Hat Network serveri valimine kasutamiseks "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -505,9 +474,8 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:5
-#, fuzzy
 msgid "Registering for software updates"
-msgstr "Up2date taaskäivitamine"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -528,9 +496,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "Why Register"
-msgstr "Juba registreeritud"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -551,9 +518,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Ettevõte:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -586,9 +552,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Pakettide loend (registreerimine)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -617,21 +582,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Pakettide informatsioon"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Registreerimise informatsioon:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Red Hat kasutajanimi"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -648,9 +611,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Vajalik on sisestada ja kinnitada parool."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -664,18 +626,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Väljalase"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Kättesaadavate pakettide uuendamine"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -689,9 +649,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Oma süsteemi ühendamine "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -717,9 +676,8 @@ msgstr "Sisaldab järgnevat infot riistvarast ja võrgust:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Oma süsteemi ühendamine "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -743,27 +701,21 @@ msgstr "Paketi loendi koostamine"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"Oled unustanud Red Hat kasutajanime ja parooli? Võid leida selle\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "E-posti aadress:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -797,7 +749,6 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Profiili informatsioon saatmine Red Hat Network-i"
 
 #: ../src/up2date_client/rhnreg_constants.py:135
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -805,11 +756,6 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"Süsteemi profiili jaoks info kogumine on lõpetatud.\n"
-"\n"
-"Vajuta \"Edasi\" saatmaks süsteemi infot Red Hat Network-i. Vajuta \"Loobu\" "
-"ning infot ei saadeta. Hilisemaks registeerimiseks tuleb käsurealt käivitada "
-"programm `up2date --register`. "
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -843,23 +789,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Red Hat Network-iga ühendamine"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "Tellimuse number on vigane"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Ühenduskanali informatsioon"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1122,9 +1066,8 @@ msgstr "Loobu"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Loobu"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1164,9 +1107,8 @@ msgid "Error validating data at server:\n"
 msgstr "Viga andmete õigsuse kontrollil serveris:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Tellimuse number on vigane"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1293,24 +1235,20 @@ msgid ""
 msgstr "Kliendil on vaja, et server toetaks %s, mida antud server ei tee"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Valmis"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Redigeerimine"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Registreerimine on lõpetatud"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Uuendaja tuleb käivitada juurkasutajana."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1339,9 +1277,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Kirjeldus"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1356,21 +1293,18 @@ msgstr "Red Hat kasutajanimi"
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Juhtus serveriga ühendamise viga: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "Soovid sa muuta võrgu seadistusi ning proovida uuesti?"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1389,21 +1323,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Määra serveri url"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<rada>         - määratakse fail, mida kasutatakse kui ssl "
-"CA sertifikaati"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Määrata kasutamiseks http puhver"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1411,24 +1340,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
 msgstr ""
-"    --contactinfo              - loetakse kontakt info standard sisendist"
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - ei uurita või laeta üles mingit infot "
-"riistvarast "
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
-"    --nopackages               - ei esitata ega laeta üles mingit infot "
-"pakettidest "
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1439,18 +1360,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - registreeritakse süsteem isegi siis, kui "
-"see on juba registreeritud"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Süsteemi registreerimiseks on vajalikud kasutajanimi, parool ja eposti "
-"aadress."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1491,9 +1406,8 @@ msgstr ""
 "kasutada profiilinimena, palun määra see nimi."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "X-i ei üritata kasutada"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1512,37 +1426,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Ühenduskanalid"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Installeeritakse kõik saadaolevad paketid. Kasutatakse koos --channel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Kasutajanimi:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "* _Kinnita parool:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Kasutajanimi:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1554,9 +1463,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Viga päise lugemisel"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1569,9 +1478,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "Kuni ühenduskanali määramiseni seda süsteemi ei uuendata."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1586,13 +1494,10 @@ msgid "User interrupted process."
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"Süsteem on enne antud valiku kasutamist vajalik registreerida käivitades "
-"`up2date --register`"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1603,37 +1508,32 @@ msgid "Updating hardware profile..."
 msgstr "Uuendatakse riistvara kirjeldust..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Uuendatakse pakettide kirjeldusi..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Oma süsteemi ühendamine "
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Pakettide informatsioon"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Vajalik on sisestada kasutajanime."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Kulgemise dialoog"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Kulgemise dialoog"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
@@ -1646,9 +1546,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:3
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
 msgid ""
@@ -1700,38 +1599,30 @@ msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"Oled unustanud Red Hat kasutajanime ja parooli? Võid leida selle\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Red Hat Network seaded"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Red Hat Network seaded"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Ühenduskanal"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Väljalase"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
 msgid "Close"
@@ -1742,14 +1633,12 @@ msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Pakettide informatsioon"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
@@ -1764,14 +1653,12 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "Ühendriigid"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Kirjeldus"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1786,9 +1673,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Red Hat kasutajanimi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1803,14 +1689,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "_Pakettide loend saatmine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1832,19 +1716,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Tuvastamise kasutamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Uuendatakse pakettide kirjeldusi..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1854,9 +1735,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Oma tellimus aktiveerimine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1871,18 +1751,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Tellimuse number on vigane"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Parool:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1893,15 +1771,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "Ettevõte:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1909,22 +1785,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "HTTP puhvri lubamine:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "Registreerimise informatsioon"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hat Network kasutajanimi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1932,16 +1805,14 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "Registreerimise informatsioon"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
 #, fuzzy
@@ -1960,22 +1831,19 @@ msgid "<big><b>System Name</b></big>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "näiteks: XXXX-XXXX-XXXX-XXXX (kriipsud valikuliselt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:79
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "näiteks: XXXX-XXXX-XXXX-XXXX (kriipsud valikuliselt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "näiteks: XXXX-XXXX-XXXX-XXXX (kriipsud valikuliselt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:81
 msgctxt "yes"
@@ -1985,15 +1853,11 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"Oled unustanud Red Hat kasutajanime ja parooli? Võid leida selle\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:84
 #, no-c-format
@@ -2017,10 +1881,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Red Hat Network seaded"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2047,10 +1910,9 @@ msgid "CPU Speed:"
 msgstr "Protsessori kiirus:"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Red Hat Network kasutajanimi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2115,16 +1977,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Juhtus viga registreerimise serveriga ühendamisel:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Red Hat Network-iga ühendamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2140,10 +2000,9 @@ msgid "IP Address:"
 msgstr "IP aadress:"
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2154,10 +2013,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "Up2date taaskäivitamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
@@ -2179,12 +2037,11 @@ msgid "Package Information"
 msgstr "Pakettide informatsioon"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2201,7 +2058,7 @@ msgstr "Parool:"
 #, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Kasutajanimi:"
+msgstr "Profiili nimi:"
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2232,7 +2089,7 @@ msgstr "Red Hat Linuxi versioon:"
 #, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Red Hat Network kasutajanimi"
+msgstr "Red Hat kasutajanimi"
 
 #: ../data/rh_register.glade.h:121
 #, fuzzy
@@ -2244,7 +2101,7 @@ msgstr "Riistvara profiil"
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "_Pakettide loend saatmine"
+msgstr "Uuendatakse pakettide kirjeldusi..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2259,10 +2116,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2272,10 +2128,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Tuvastamise kasutamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2327,10 +2182,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "Up2date taaskäivitamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgctxt "yes"
@@ -2359,10 +2213,9 @@ msgid "_Close"
 msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "_Kasutajanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2392,16 +2245,14 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Up2date - Pakettide loend (registreerimine)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Up2date - Pakettide loend (registreerimine)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
 #, fuzzy
@@ -2410,10 +2261,9 @@ msgid "_View Hardware Profile ..."
 msgstr "Riistvara profiil"
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Miks registreerida?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2436,10 +2286,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Red Hat Network-iga ühendamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2447,3326 +2296,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Uue Red Hat Network konto loomine"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Red Hat Network-i registreerimine"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Red Hat Network-iga ühendamine"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "Samm 3: Süsteemi profiil registreerimine - riistvara"
-
-#, fuzzy
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "3. samm: Süsteemi profiili registreerimine - paketid"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "registrationNumber"
-
-#~ msgid "Warning:"
-#~ msgstr "Hoiatus:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "Olgu dialoog:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "Küsimuse dialoog:"
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Up2date - Aktiveerimine"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "Hoiatus: ei suudeta lubada rhnsd chkconfig-iga"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Ketta viga. Teade oli järgmine:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM-i paketi konflikti viga. Teade oli järgmine:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM-i faili konflikti viga. Teade oli järgmine:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM-i viga. Teade oli järgmine:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM-i sõltuvuse viga. Teade oli järgmine:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Vahele jäetavate pakettide viga. Teade oli järgmine:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Failide vahele jätmise loendi või seadete faili ülekirjutamise viga. "
-#~ "Teade oli järgmine:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr ""
-#~ "Paketti \"%s\" polnud võimalik eemaldada. See oli eemaldamise vahele "
-#~ "jätmise loendis"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG ei ole sobivalt installeeritud."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG keyring ei sisalda Red Hat, Inc. avalikku package-signing võtit"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Pakett %s ebaõnnestus gpg allkirja tõestamisel. See tähendab, et pakett "
-#~ "on vigane."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Paketil %s puudub GPG allkiri.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Paketil %s on usaldamatu GPG allkiri.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Paketil %s on tundmatu GPG allkiri.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Red Hat Network serveri valimine kasutamiseks "
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Red Hat Network-iga ühendamine"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Red Hat Network-i registreerimine"
-
-#, fuzzy
-#~ msgid "_Exit software update setup"
-#~ msgstr "Up2date taaskäivitamine"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr "Mul ei ole Red Hat-i kasutajanime. Mul on vaja seda luua."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "1. samm: Ülevaade Red Hat-i privaatsuse teatest"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Ülevaade Red Hat Network-i terminitest ja tingimustest"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Konto loomine"
-
-#, fuzzy
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Sisestatud paroolid ei ühtinud.\n"
-#~ "Palun sisesta need uuesti."
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Uue Red Hat Network konto loomine"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "* _Parool"
-
-#, fuzzy
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "Me hindame sinu privaatsust:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Vajalik on sisestada oma eesnimi."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Vajalik on sisestada oma perekonnanimi."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Vajalik on sisestada eposti aadress."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Vajalik on sisestada kehtiva e-posti aadress."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "Registreerimise informatsioon:"
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Vajalik on sisestada ja kinnitada parool."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Vajalik on sisestada ja kinnitada parool."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Vajalik on sisestada registreerimise number."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "registrationNumber"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "näiteks: XXXX-XXXX-XXXX-XXXX (kriipsud valikuliselt)"
-
-#, fuzzy
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "Tellimuse number on vigane"
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "Süsteemi registeerimisel esines probleem."
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "Süsteemi registeerimisel esines probleem."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Vajalik on sisestada registreerimise number."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Juhtus viga registreerimise serveriga ühendamisel:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Saatuslik viga privaatsuse teate tõmbamisel:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Vajalik on sisestada registreerimise number."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Kasutajanime registreerimise probleem:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "Kasutajanime registreerimise probleem."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Red Hat Network kasutajanimi"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Vajalik on sisestada eposti aadress."
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Mul on aktiveerimiseks olemas tellimuse number"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Tähtis registreerimise info"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Registreerimise informatsioon"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Vajalik on sisestada registreerimise number."
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Privaatsuse teade"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Red Hat-i privaatsuse teade"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Viga riistvara informatsiooni lugemisel:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Viga DMI informatsiooni lugemisel:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Antud kasutajanimi ja parool ei olnud sobivad\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Vajalik on sisestada kasutajanime."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Vajalik on sisestada ja kinnitada parool."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "Kasutajanime registreerimise probleem:\n"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "Kasutajanime registreerimise probleem."
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "Registreerimise informatsioon"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Pakettide informatsioon"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Eesnimi:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Perekonnanimi:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Ettevõte:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "* Aadress:"
-
-#~ msgid "City:"
-#~ msgstr "Linn:"
-
-#, fuzzy
-#~ msgid "State/Province:"
-#~ msgstr "Riik / Maakond:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "Siht-/Postiindeks:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Riik:"
-
-#~ msgid "  Address 2:"
-#~ msgstr " Aadress 2:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr " Aadress 2:"
-
-#, fuzzy
-#~ msgid "  C_ity:"
-#~ msgstr "* Linn:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr " Ettevõte:"
-
-#, fuzzy
-#~ msgid "  _State/Province:"
-#~ msgstr "* Maakond:"
-
-#, fuzzy
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "*Siht/postikood:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* _Kinnita parool:"
-
-#, fuzzy
-#~ msgid "* Co_untry:"
-#~ msgstr "* Riik:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "* Red Hat-i kasutajanimi:"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "* _Parool"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "*Perekonnanimi:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "* _E-posti aadress:"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "*Eesnimi:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Pakettide informatsioon"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "Registreerimise informatsioon"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albania"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeria"
-
-#~ msgid "American Samoa"
-#~ msgstr "American Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antarctica"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua and Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armeenia"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Austraalia"
-
-#~ msgid "Austria"
-#~ msgstr "Austria"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaijan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamas"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Valgevene"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgia"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosnia ja Hertsegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet Island"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasiilia"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "British Indian Ocean Territory"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgaaria"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Konto loomine"
-
-#~ msgid "Cambodia"
-#~ msgstr "Cambodia"
-
-#~ msgid "Cameroon"
-#~ msgstr "Kameroon"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cape Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Cayman Islands"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Central African Republic"
-
-#~ msgid "Chad"
-#~ msgstr "Chad"
-
-#~ msgid "Chile"
-#~ msgstr "Tsiili"
-
-#~ msgid "China"
-#~ msgstr "Hiina"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Christmas Island"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Cocos (Keeling) Islands"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Comoros"
-#~ msgstr "Comoros"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cook Islands"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Konto loomine"
-
-#~ msgid "Croatia"
-#~ msgstr "Horvaatia"
-
-#~ msgid "Cuba"
-#~ msgstr "Kuuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Küprus"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Tsehhi Vabariik"
-
-#~ msgid "Denmark"
-#~ msgstr "Taani"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominican Republic"
-
-#~ msgid "East Timor"
-#~ msgstr "East Timor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ekvador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egiptus"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Equatorial Guinea"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Eesti"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Ethiopia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falkland Islands (Malvinas)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Faroe Islands"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Soome"
-
-#~ msgid "France"
-#~ msgstr "Prantsusmaa"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Prantsusmaa, Metropolitan"
-
-#~ msgid "French Guiana"
-#~ msgstr "Prantsusmaa Guiana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Prantsusmaa Polynesia"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Prantsusmaa Southern Territories"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Saksamaa"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Kreeka"
-
-#~ msgid "Greenland"
-#~ msgstr "Gröönimaa"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Heard Island and McDonald Islands"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Ungari"
-
-#~ msgid "Iceland"
-#~ msgstr "Island"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indoneesia"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Iraan (Islami Vabariik)"
-
-#~ msgid "Iraq"
-#~ msgstr "Iraak"
-
-#~ msgid "Ireland"
-#~ msgstr "Iiri"
-
-#~ msgid "Israel"
-#~ msgstr "Iisrael"
-
-#~ msgid "Italy"
-#~ msgstr "Itaalia"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaika"
-
-#~ msgid "Japan"
-#~ msgstr "Jaapan"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordan"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kasakhstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Keenia"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Korea Demokraatlik Rahva Vabariik"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Korea Vabariik"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuveit"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kirgistan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao People's Democratic Republic"
-
-#~ msgid "Latin America"
-#~ msgstr "Ladina-Ameerika"
-
-#~ msgid "Latvia"
-#~ msgstr "Läti"
-
-#~ msgid "Lebanon"
-#~ msgstr "Lebanon"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Libeeria"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Libyan Arab Jamahiriya"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Leedu"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxembourg"
-
-#~ msgid "Macau"
-#~ msgstr "Macau"
-
-#~ msgid "Macedonia"
-#~ msgstr "Makedoonia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagaskar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malaisia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldives"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshall Islands"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexico"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Micronesia (Federated States of)"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongoolia"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Morocco"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambique"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namiibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Holland"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Netherlands Antilles"
-
-#~ msgid "New Caledonia"
-#~ msgstr "New Caledonia"
-
-#~ msgid "New Zealand"
-#~ msgstr "Uus-Meremaa"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nikaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolk Island"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Northern Mariana Islands"
-
-#~ msgid "Norway"
-#~ msgstr "Norra"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua New Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peruu"
-
-#~ msgid "Philippines"
-#~ msgstr "Filipiinid"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Poola"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugal"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr "Red Hat kasutajanimi ja parool peavad olema vähemalt 5 tähemärki"
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romania"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Vene Föderatsioon"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Saint Helena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Saint Kitts and Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Saint Pierre and Miquelon    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Saint Vincent and the Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome and Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Saudi Araabia"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapur"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovakia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Sloveenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Solomon Islands"
-
-#~ msgid "Somalia"
-#~ msgstr "Somaalia"
-
-#~ msgid "South Africa"
-#~ msgstr "Lõuna Aafrika"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "South Georgia and the South Sandwich Island"
-
-#~ msgid "Spain"
-#~ msgstr "Hispaania"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudaan"
-
-#~ msgid "Suriname"
-#~ msgstr "Suriname"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Svalbard ja Jan Mayen Islands"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Rootsi"
-
-#~ msgid "Switzerland"
-#~ msgstr "Sveits"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Süüria Araabia Vabariik"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taivan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tadzikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzania, Ühendvabariik"
-
-#~ msgid "Thailand"
-#~ msgstr "Tai"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad and Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tuneesia"
-
-#~ msgid "Turkey"
-#~ msgstr "Türgi"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Türkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Turks ja Caicos Islands"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukraina"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Ühendemiraadid"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Ühendkuningriik"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "Ühendriigid Minor Outlying Islands"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguai"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Usbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Vatican City State (Holy See)"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venetsueela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Vietnam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Virgin Islands (Briti)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Virgin Islands (US)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Wallis ja Futuna Islands"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Western Sahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Yemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Jugoslaavia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "    Süsteemi teegid ei toeta SSL (turvalist) ühendust.\n"
-#~ "    Kõik andmed saadetakse või võetakse vastu\n"
-#~ "    redhat.com-ist krüpteerimata.\n"
-#~ "    "
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Igal juhul jätkata?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Tõmmatud."
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Red Hat Network serveri valimine kasutamiseks "
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Ühenduskanali informatsioon"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Compliance:\n"
-#~ msgstr "Ettevõte:"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Red Hat Network-iga ühendamine"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "You have no active subscriptions available in your "
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Red Hat Network kasutajanimi"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr ""
-#~ "uuenda paketid, mis on seotud selle süsteemi profiiliga Red Hat Network-is"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "RHN registreerimise programm tuleb käivitada juurkasutajana."
-
-#, fuzzy
-#~ msgid "subscriptions available in your account:"
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "appropriate active subscriptions available in your account, you may "
-#~ "browse "
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with the "
-#~ msgstr "Kuni ühenduskanali määramiseni seda süsteemi ei uuendata."
-
-#, fuzzy
-#~ msgid "insufficient subscriptions available in your account:"
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#, fuzzy
-#~ msgid "This system was unable to be associated with "
-#~ msgstr "Kuni ühenduskanali määramiseni seda süsteemi ei uuendata."
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Red Hat Network-iga ühendamine"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Red Hat Network serveri valimine kasutamiseks "
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Palun muuda on pakettide valikut ja proovi uuesti."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Versioon:"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#, fuzzy
-#~ msgid "associated with any subscriptions."
-#~ msgstr "Oma tellimus aktiveerimine"
-
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Pakettide saatmisel probleem:\n"
-
-#~ msgid "Problem sending packages."
-#~ msgstr "Pakettide saatmisel probleem."
-
-#~ msgid "User names must be at least 5 characters long"
-#~ msgstr "Kasutajanimi peab olema vähemalt 5 tähemärki pikk"
-
-#~ msgid "Passwords must be at least 5 characters long"
-#~ msgstr "Parool peab olema vähemalt 5 tähemärki pikk"
-
-#~ msgid ""
-#~ "The two passwords you entered do not match.\n"
-#~ "Please re-type the second password."
-#~ msgstr ""
-#~ "Kaks sisestatud parooli ei ühtinud.\n"
-#~ "Palun sisesta uuesti teine parool."
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Failinimi/muster"
-
-#~ msgid "Config modified"
-#~ msgstr "Seadistus muudetud"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "Sõltuvused peaks olema juba lahendatud, kuid ei ole veel."
-
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Tegevuse käivitamine ebaõnnestus pakettidega: %s"
-
-#~ msgid "rpm was unable to load the header: %s"
-#~ msgstr "rpm ei suutnud laadida päist: %s"
-
-#~ msgid "rpm was unable to load a header"
-#~ msgstr "rpm ei suutnud päist laadida"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Vajalik on sisestada oma eesnimi."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Vajalik on sisestada oma perekonnanimi."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Vajalik on sisestada oma linn."
-
-#~ msgid "SSL Warning"
-#~ msgstr "SSL hoiatus"
-
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Süsteemi teegid ei toeta SSL (turvalist) ühendust. Kõik edastatav info "
-#~ "saadetakse Red Hat Networki krüpteerimata. Jätkata igal juhul? "
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Kasutajanimi:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Viga %s avamisel"
-
-#~ msgid "Installing"
-#~ msgstr "Installeerimine"
-
-#~ msgid "Installing %s"
-#~ msgstr "%s-i installeerimine"
-
-#~ msgid "Repackaging"
-#~ msgstr "Ümberpakkimine"
-
-#~ msgid "Preparing"
-#~ msgstr "Ettevalmistamine"
-
-#~ msgid " Done."
-#~ msgstr " Valmis."
-
-#~ msgid "Retrieved."
-#~ msgstr "Tõmmatud."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Järgnevad paketid on valitud sinu enda poolt sõltuvuste lahendamiseks:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versioon        Väljalase\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                          Versioon        Väljal.             "
-#~ "Kanal    \n"
-#~ "----------------------------------------------------------------------"
-
-#~ msgid "No advisory information available\n"
-#~ msgstr "Puudub nõuandev informatsioon\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versioon        Väljal.     \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr "Järgnevad paketid on märgitud seadetes vahele jätmiseks:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versioon     Väljal.  Põhjus\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr "Järgmised metamärgid ei ühtinud ühegi paketiga:"
-
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr "Järgmised grupid ei ühtinud ühegi paketiga:"
-
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr "Järgnevad paketid on kõrvale jäetud uuemate poolt:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi-Versioon-Väljalase        kõrvale jäetud      Nimi-Versioon-"
-#~ "Väljalase\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Järgnevaid pakette ei installeeritud kuna on kõrvale jäetud "
-#~ "installeeritud pakettide poolt:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi-Versioon-Väljalase       kõrvale jäetud      Nimi-Versioon-"
-#~ "Väljalase\n"
-#~ "-------------------------------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "Järgnevad paketid on Red Hat Network-is kättesaadavad kuid ei ole "
-#~ "installeeritud:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nimi                                    Versioon        Väljalase\n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "Specify a url for a non ssl server"
-#~ msgstr ""
-#~ "    --noSSLServerURL=<url>     - määratakse url mitte-ssl serveri jaoks"
-
-#, fuzzy
-#~ msgid "Don't use ssl to download packages"
-#~ msgstr ""
-#~ "    --useNoSSLForPackages      - ssl-i pakettide alla laadimiseks ei "
-#~ "kasutata"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Kasutajanimi:"
-
-#, fuzzy
-#~ msgid "Activate a new installation number:"
-#~ msgstr "registrationNumber"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "Up2date - Loo uus konto"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Loobu"
-
-#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
-#~ msgstr "Red Hat Network Registreerimine (c) 2000-2001 Red Hat, Inc."
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "* Red Hat-i kasutajanimi:"
-
-#~ msgid "Read our _Privacy Statement"
-#~ msgstr "Oma _privaatsuse teade lugemine"
-
-#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
-#~ msgstr ""
-#~ "Failist /etc/sysconfig/rhn/up2date-uuid ei leitud rhnuuid seadistuse "
-#~ "valikuid."
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Lahendamaks kõik sõltuvused valitud RPM-ide jaoks, on vaja "
-#~ "installeerida\n"
-#~ "    järgmised pakettide, millised oled valikust välja jätnud:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Paketi nimi"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Põhjus vahele jätmiseks"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Pakettide testimine / RPM-ide omavaheliste sõltuvuste lahendamine"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Sõltuvuste tülisid ei suudetud lahendada."
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr "Sõltuvuste rahuldamiseks on valikusse lisatud järgmised paketid:\n"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Pakett                                Vajalik järgmistele:\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Ei tea kuidas käsitleda sõltuvuse mõtet \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Lahendamatu sõltuvuste ahel:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "up2date poolt toetamata elilo valikud on failis elilo.conf. Seda faili ei "
-#~ "muudeta. Kaasaarvatud valikud on:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "Grubby ei suudeta käivitada korralikult: teade oli järgmine:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Red Hat-i Uuendaja"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Antud tarkvara on väljaantud GPL litsentsi alusel\n"
-#~ "Vigadest palun teatada Red Hat vigade teatamise süsteemi kaudu: http://"
-#~ "bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
-#~ msgstr "Uuendaja - programm Red Hat Linuxi pakettide uuendamiseks"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "See tarkvara on välja antud GPL litsentsi alusel. Vigadest teatatakse Red "
-#~ "Hat veajälitus süsteemi kaudu: http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Versioon"
-
-#~ msgid "Old Version"
-#~ msgstr "Vana versioon"
-
-#~ msgid "Size"
-#~ msgstr "Suurus"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Põhjus vahele jätmiseks"
-
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Up2date - Privaatsuse informatsioon"
-
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Up2date - Terminid ja tingimused"
-
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Up2date - Logimise leht"
-
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "Up2date - Red Hat Network informatsioon"
-
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Up2date - Toote informatsiooni leht"
-
-#~ msgid "All information is optional."
-#~ msgstr "Informatsioon on valikuline."
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your\n"
-#~ "full name and address."
-#~ msgstr ""
-#~ "Saamaks teavet Red Hat-ilt posti teel, on vajalik anda oma täisnimi ning "
-#~ "aadress."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide\n"
-#~ "at least phone number and a name."
-#~ msgstr ""
-#~ "Saamaks teavet Red Hat-ilt telefoni teel, on vaja anda vähemalt telefoni "
-#~ "number ning oma nimi."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide\n"
-#~ "at least fax number and a name."
-#~ msgstr ""
-#~ "Saamaks teavet Red Hat-ilt faksi kaudu, on vaja anda faksi number ning "
-#~ "oma nimi."
-
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Up2date - Riistvara kirjeldus"
-
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Registreerimise nõustaja moodustab installeeritud pakettide loendit. "
-#~ "Palun oota."
-
-#~ msgid "No package selected. Please select a package first."
-#~ msgstr "Pakette ei ole valitud. Esmalt vali paketid."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Puudub nõuandev informatsioon."
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat-i Uuendaja moodustab uuendatud\n"
-#~ " RPM pakettide loendit. Palun oota."
-
-#~ msgid ""
-#~ "There is a new version of up2date available. Install the new version and "
-#~ "restart?"
-#~ msgstr ""
-#~ "On olemas uuem versioon up2date-ist. Installeerida uuem versioon ja "
-#~ "käivitada uuesti?"
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Esines saatuslik RPM viga. Teade oli järgmine:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr "Juhtus saatuslik viga serveriga ühendamisel. Teade oli järgmine:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Esines tundmatu operatsioonisüsteemi viga:\n"
-#~ "%s"
-
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Up2date - Vahele jäetud paketid"
-
-#~ msgid "Up2date - Channels"
-#~ msgstr "Up2date - Ühenduskanalid"
-
-#~ msgid "Up2date - Package List"
-#~ msgstr "Up2date - Pakettide loend"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Esines saatuslik RPM viga. Teade oli järgmine:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr "Sinu süsteem on täielikult uuendatud. Uusi pakette ei ole vaja."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "Esines RPM-i viga. Teade on järgmine:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Esines RPM-i installeerimise viga. Teade oli järgmine:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Esines probleem paketi sõltuvusega. Teade oli järgmine:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Vajalik on valida vähemalt üks pakett.\n"
-#~ "Kui sa ei soovi uuendada ühtegi paketti,\n"
-#~ "vajuta Loobu \"Uuendajast\" väljumiseks."
-
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Kogu valitud pakettide maht on %d kB, kuid\n"
-#~ "arvutil on ainult %d kB vaba ruumi.\n"
-#~ "Jäta mõned paketid valikust välja ning jätka."
-
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Up2date - Kättesaadavad paketid"
-
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Up2date - Sõltuvused"
-
-#~ msgid "%d of %d kB transferred at %d kB/sec\n"
-#~ msgstr "%d / %d kB tiritud %d kB/sek\n"
-
-#~ msgid "Package transfer time: %02d:%02d:%02d"
-#~ msgstr "Pakettide vedamise aeg: %02d:%02d:%02d"
-
-#~ msgid " (%02d:%02d:%02d remaining)"
-#~ msgstr " (%02d:%02d:%02d allesjäänud)"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Pakett on juba alla laetud"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Viga paketi %s tirimisel.\n"
-#~ "Teade oli järgmine:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "On juhtunud saatuslik RPM-i viga. Teade oli järgmine:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Paketil %s puudub GPG allkiri. Jätkata?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Paketil %s puudub GPG allkiri.\n"
-#~ "Seda on kas muudetud või rikutud. Jätkata?"
-
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "Paketil %s on mitte-usaldatav GPG allkiri. Jätkata?"
-
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "Paketil %s on tundmatu GPG allkiri. Jätkata?"
-
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Kõik on lõpetatud. Jätkamiseks vajuta \"Edasi\"."
-
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Up2date - pakettide otsimine"
-
-#~ msgid "Repackaging..."
-#~ msgstr "Ümberpakkimine...."
-
-#~ msgid "Installing..."
-#~ msgstr "Installeerimine..."
-
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Kogu kulg (taaspakkimine):"
-
-#~ msgid "Total Progress:"
-#~ msgstr "Kogu kulg:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Esines saatuslik RPM-i installeerimise viga. Teade oli järgmine:\n"
-
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Up2date - Paketi installeerimine"
-
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Up2date - Lõpetamise leht"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Red Hat-i Uuendaja lõpetas"
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "järgmised paketid\n"
-#~ "tiriti edukalt:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "järgmised paketid\n"
-#~ "installeeriti edukalt:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Seadete tõttu laeti antud paketid ainult alla ning\n"
-#~ "ei installeeritud. Nende seadistuste muutmiseks on\n"
-#~ "vajalik käivitada programm \"up2date-config\". "
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Viga lilo.conf installeerimisel. Teade oli järgmine:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "Viga lilo.conf taastamisel varundist. Varund oli:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Viga uue alglaadija installeerimisel:\n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "Viga lilo.conf-i lugemisel. Teade oli järgmine:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "up2date poolt toetamata lilo valikuid kasutatakse failis lilo.conf. Seda "
-#~ "faili ei muudeta. Hõlmatud valikud on:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Paketi nimi/muster"
-
-#~ msgid "Fetching rpm headers"
-#~ msgstr "rpm-i päiste tirimine"
-
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "rpm-i päiste tirimine: %s-%s-%s"
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Eemaldatakse paketid, mis olid märgitud vahele jätmiseks"
-
-#~ msgid "%s is not a valid directory"
-#~ msgstr "%s ei ole sobiv kataloog"
-
-#~ msgid "Usage: rhn_check [options]"
-#~ msgstr "Kasutus: rhn_check [valikud]"
-
-#~ msgid "Available command line options:"
-#~ msgstr "Kättesaadavad käsurea valikud:"
-
-#~ msgid "-h, --help         - this help "
-#~ msgstr "-h, --help         - see abi"
-
-#~ msgid "-v, --verbose      - increasing verbosity "
-#~ msgstr "-v, --verbose      - suurendab teksti hulka"
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Viga pakutavate pakettide loendi saamisel"
-
-#~ msgid "Error parsing command list arguments: %s"
-#~ msgstr "Viga käsu argumentide analüüsimisel: %s"
-
-#~ msgid "Fetching package list for channel: %s"
-#~ msgstr "pakettide loendi tirimine kanalile: %s"
-
-#~ msgid "Fetching all package list for channel: %s"
-#~ msgstr "Kõikide pakettide loendi tirimine kanalile: %s"
-
-#~ msgid "Fetching Obsoletes list for channel: %s"
-#~ msgstr "Vananenud loendi tirimine kanalile: %s"
-
-#~ msgid "Use one of my existing, active subscriptions."
-#~ msgstr "Ühte minu olemasoleva aktiivse tellimuse kasutamine."
-
-#~ msgid "You must enter your address."
-#~ msgstr "Vajalik on sisestada oma aadress."
-
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Vajalik on sisestada siht-/postiindeks."
-
-#~ msgid "Usage: rhnreg_ks [options]"
-#~ msgstr "Kasutus: rhnreg_ks [valikud]"
-
-#~ msgid "-h, --help                     - this help "
-#~ msgstr "-h, --help                     - see abi"
-
-#~ msgid "    --profilename=<value>      - specify a profilename"
-#~ msgstr "    --profilename=<väärtus>      - määratakse profiili nimi"
-
-#~ msgid "    --username=<value>         - specify a username "
-#~ msgstr "    --username=<väärtus>         - määratakse kasutajanimi"
-
-#~ msgid "    --password=<value>         - specify a password "
-#~ msgstr "    --password=<väärtus>         - määratakse parool"
-
-#~ msgid "    --orgid=<value>            - specify a organizational id "
-#~ msgstr ""
-#~ "    --orgid=<väärtus>            - määratakse organisatsiooniline id"
-
-#~ msgid "    --orgpassword=<value>      - specify a organizational password"
-#~ msgstr ""
-#~ "    --orgpassword=<väärtus>      - määratakse organisatsiooniline parool"
-
-#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
-#~ msgstr ""
-#~ "    --serverUrl=<URL>          - määratakse url, mida kasutatakse "
-#~ "serverina"
-
-#~ msgid "    --email=<value>            - specify a email address "
-#~ msgstr "    --email=<väärtus>            - määratakse eposti aadress"
-
-#~ msgid "    --activationkey=<value>    - specify an activation key "
-#~ msgstr "    --activationkey=<väärtus>    - määratakse aktiveerimise võti"
-
-#~ msgid ""
-#~ "    --subscription=<value>     - specify a subscription number to use "
-#~ msgstr ""
-#~ "    --subscription=<väärtus>     - määratakse kasutamiseks tellimise "
-#~ "number"
-
-#~ msgid "    --version                  - display the version "
-#~ msgstr "    --version                  - näidatakse versiooni"
-
-#~ msgid "    --proxy                    - specify an http proxy to use "
-#~ msgstr ""
-#~ "    --proxy                    - määratakse kasutamiseks veebi puhver"
-
-#~ msgid ""
-#~ "    --proxyUser=<value>        - specify a username to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyUser=<value>        - määratakse kasutajanimi, mida "
-#~ "kasutatakse tuvastatava veebi puhvi korral"
-
-#~ msgid ""
-#~ "    --proxyPassword=<value>    - specify a password to use with an "
-#~ "authenticated http proxy"
-#~ msgstr ""
-#~ "    --proxyPassword=<value>    - määratakse parool, mida kasutatakse "
-#~ "tuvastatava veebi puhvi korral"
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Litsentseeritud GPL litsentsi alusel."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "%s-i ei suudeta eemaldada"
-
-#~ msgid "Error parsing %s"
-#~ msgstr "Viga %s avamisel"
-
-#~ msgid "at line: %s"
-#~ msgstr "real: %s"
-
-#~ msgid "Unable to import repomd so repomd support will not be available"
-#~ msgstr ""
-#~ "repomd importimine ei ole võimalik, nii et selle toetus ei ole kättesaadav"
-
-#~ msgid "Step 2: Register a User Account"
-#~ msgstr "2. samm: Kasutaja konto registreerimine "
-
-#~ msgid "Are you already registered with redhat.com?"
-#~ msgstr "Oled sa juba registreeritud redhat.com-is?"
-
-#~ msgid "Yes: Enter your current user name and password below."
-#~ msgstr "Jah: Sisesta oma praegune kasutajanimi ja parool allpoole."
-
-#~ msgid "No: Choose a new user and password and enter it below."
-#~ msgstr "Ei: Vali uus kasutajanimi ja parool ning sisesta need allpool."
-
-#~ msgid "Again, for verification:"
-#~ msgstr "Veelkord, kinnitamiseks:"
-
-#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
-#~ msgstr ""
-#~ "2. samm: Kasutaja konto registreerimine  (\"*\" väljad kohustuslikud)"
-
-#~ msgid "Step 2: Register a User Account (All Optional)"
-#~ msgstr "2. samm: Kasutaja konto registreerimine  (kõik valikulised)"
-
-#~ msgid "*Title:"
-#~ msgstr "Tiitel:"
-
-#~ msgid "Title:"
-#~ msgstr "*Tiitel:"
-
-#~ msgid "First Name:"
-#~ msgstr "Eesnimi:"
-
-#~ msgid "Position:"
-#~ msgstr "Positsioon:"
-
-#~ msgid "*Address:"
-#~ msgstr "*Aadress:"
-
-#~ msgid "Address:"
-#~ msgstr "Aadress:"
-
-#~ msgid "Address 2:"
-#~ msgstr "Aadress 2:"
-
-#~ msgid "*City:"
-#~ msgstr "*Linn:"
-
-#~ msgid "*State/Prov:"
-#~ msgstr "*Riik/maak:"
-
-#~ msgid "State/Prov:"
-#~ msgstr "Riik/maak:"
-
-#~ msgid "*Zip/Post Code:"
-#~ msgstr "*Siht-/Postiindeks:"
-
-#~ msgid "Country:"
-#~ msgstr "Riik:"
-
-#~ msgid "*Phone:"
-#~ msgstr "*Telefon:"
-
-#~ msgid "Phone:"
-#~ msgstr "Telefon:"
-
-#~ msgid "Fax:"
-#~ msgstr "Faks:"
-
-#~ msgid "Contact Preferences:"
-#~ msgstr "Kontakti eelistused:"
-
-#~ msgid "E-mail"
-#~ msgstr "E-post"
-
-#~ msgid "Regular mail"
-#~ msgstr "Tavapost"
-
-#~ msgid "Telephone"
-#~ msgstr "Telefon"
-
-#~ msgid "Fax"
-#~ msgstr "Faks"
-
-#~ msgid "Contact me with special offers from Red Hat's partners"
-#~ msgstr "Tee mulle eripakkumine Red Hat-i partneritelt"
-
-#~ msgid "Subscribe to Red Hat e-Newsletter"
-#~ msgstr "Red Hat e-Uudislehe tellimine"
-
-#~ msgid ""
-#~ "In order to receive communication by mail from Red Hat, you must fill out "
-#~ "your full name and address."
-#~ msgstr ""
-#~ "Saamaks teavet Red Hat-ilt posti teel, on vajalik anda oma täisnimi ja "
-#~ "aadress."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by phone, you must provide at least "
-#~ "phone number and a name."
-#~ msgstr ""
-#~ "Saamaks teavet Red Hat-ilt telefoni teel, on vajalik anda oma telefoni "
-#~ "number ning nimi."
-
-#~ msgid ""
-#~ "In order to have Red Hat contact you by fax, you must provide at least "
-#~ "fax number and a name."
-#~ msgstr ""
-#~ "Saamaks teavet Red Hat-ilt faksi teel, on vajalik anda oma faksi number "
-#~ "ja nimi."
-
-#~ msgid "Step 3 : Register a System Profile - Packages"
-#~ msgstr "Samm 3 : Süsteemi profiil registreerimine - paketid"
-
-#~ msgid ""
-#~ "You have successfully registered this System Profile on Red Hat Network.\n"
-#~ "\n"
-#~ "Please visit http://www.redhat.com/network to login and access your Red "
-#~ "Hat Network benefits.\n"
-#~ "\n"
-#~ "To upgrade your system with the latest product updates, bug fixes and "
-#~ "security enhancements, run up2date at the command line, or choose "
-#~ "\"Update Agent\" from the panel."
-#~ msgstr ""
-#~ "Oled edukalt registreeritud antud süsteemi profiiliga Red Hat Network-"
-#~ "is.\n"
-#~ "\n"
-#~ "Külasta palun http://www.redhat.com/network sisse logimiseks ning "
-#~ "ligipääsuks Red Hat Network toetusele.\n"
-#~ "\n"
-#~ "Süsteemi uuendamiseks uusima tarkvara, vigade paranduste ning turvalisuse "
-#~ "rikastustega, käivita up2date käsurealt või vali paneelilt \"Uuendaja\"."
-
-#~ msgid "This system appears to already be registered.  Continue anyway?"
-#~ msgstr "Süsteem tundub olevat juba registreeritud. Jätkata igal juhul?"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Pakett %s ei ole allkirjastatud GPG allkirjaga. Katkestamine..."
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Paketil %s puudub kehtiv PGP allkiri.\n"
-#~ "Seda on moonutatud või vigastatud. Katkestamine..."
-
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr "Paketil %s on mitte usaldatav GPG allkiri. Katkestamine..."
-
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr ""
-#~ "Pakett %s on allkirjastatud, kuid tundmatu GPG võtmega. Katkestamine..."
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr ""
-#~ "Ladustamise kataloogi %s polnud võimalik leida või oli see\n"
-#~ "ligipääsmatu."
-
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "Sa ei ole ennast registreerinud Red Hat Network-is. Uuendaja "
-#~ "kasutamiseks\n"
-#~ "on see vajalik.\n"
-#~ "\n"
-#~ "Registreerimiseks käivita \"up2date --register\"."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "Sinu GPG keyring ei sisalda Red Hat, Inc. avalikku võtit.\n"
-#~ "Ilma selleta pole võimalik tuvastada Uuendaja alla laetud pakettide\n"
-#~ "turvalist allkirjastamist Red Hat-i poolt.\n"
-#~ "\n"
-#~ "Sinu Uuendaja valikutes on määratud, et soovid kasutada GPG-d."
-
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "Sinu GPG keyring ei sisalda Red Hat, Inc. avalikku võtit.\n"
-#~ "Ilma selleta pole võimalik tuvastada Uuendaja alla laetud pakettide\n"
-#~ "turvalist allkirjastamist Red Hat-i poolt.\n"
-#~ "\n"
-#~ "Sinu Uuendaja valikutes on määratud, et soovid kasutada GPG-d.\n"
-#~ "\n"
-#~ "Selle installeerimiseks on vajalik käivita juurkasutajana:\n"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "Sõltuvuse lahendamist ei suudetud lõpetada"
-
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr "Nimi                                    Versioon        Väljalase\n"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Test installeerimine ebaõnnestus paketi konflikti tõttu:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "%s päist ei suudetud leida"
-
-#~ msgid "Some of the packages in this transaction are not available."
-#~ msgstr "Mõningad antud toimingu paketid ei ole kättesaadavad."
-
-#~ msgid ""
-#~ "Warning: The following packages are being updated, but these packages\n"
-#~ "have already been repackaged and this is currently not supported.\n"
-#~ "Repackage support for this transaction has been disabled.\n"
-#~ msgstr ""
-#~ "Hoiatus: Uuendati järgnevaid pakette, kuid need paketid on\n"
-#~ "ümberpakendatud ning see ei ole hetkel toetatud.\n"
-#~ "Ümberpakendamine antud tegevusele on keelatud.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Käsurea olekus opereerides on vajalik täpsustada pakettide nimed kui\n"
-#~ "argumendid, milliseid programm üritab tirida (ja võimalusel "
-#~ "installeerida\n"
-#~ "sõltuvalt seadistustest). Versiooni, väljalaske ning arhitektuuri "
-#~ "andmed \n"
-#~ "täpsustatakse Uuendaja poolt automaatselt.\n"
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "Uuendaja valikute seadistamine"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr ""
-#~ "laetakse ainult paketid alla, isegi kui seadistus näeb ette "
-#~ "installeerimist"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr ""
-#~ "installeeritakse paketid, isegi kui seadistus näeb ette ainult alla "
-#~ "laadimist"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Laetakse nii lähtekoodi paketid kui ka binaarsed rpms-id"
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr "Lähtekoodi pakette ei laeta (ignoreerib seadeid kui on seatud)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Radade määramine, kus võib alternatiivset rpm-i db-d leida"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr ""
-#~ "Pakettide installeerimiseks sundimine, alistab pakettide ja failide "
-#~ "vahele jätmise loendid"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr "Lisa paketid ainult andmebaasi, neid ei installeerita failisüsteemi"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "esita tirimiseks kättesaadavad paketid"
-
-#~ msgid ""
-#~ "Do everything but download and install packages (show dependencies  "
-#~ "needed, etc)"
-#~ msgstr ""
-#~ "Tehakse kõik muu välja arvatud alla laadimine ning pakettide "
-#~ "installeerimine (näidatakse sõltuvusi jms)"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Lühidalt kirjelda valikuid"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "kooloniga eraldatud kataloogide rajad, millistest otsitakse pakette"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "ei kasutata GPG-d pakettide allkirjade kontrollimiseks"
-
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr ""
-#~ "up2date riistvara profiil, mis on seotud selle süsteemi profiiliga Red "
-#~ "Hat Network-is"
-
-#~ msgid "register the system (or reregister it, if need be)"
-#~ msgstr "registreeri süsteem (või vajadusel registreeri uuesti)"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Kõikide alla laetavate pakettide nimede esitamine"
-
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "Esita kõik kättesaadavad paketid, mis hetkel on installeerimata"
-
-#~ msgid ""
-#~ "List all packages currently installed that are not in channels the system "
-#~ "is subscribed to"
-#~ msgstr ""
-#~ "Esita kõik paketid, mis on hetkel installeeritud kuid puuduvad tellitud "
-#~ "ühenduskanalites"
-
-#~ msgid "List all the install components available to install"
-#~ msgstr "Esita kõik kättesaadavad installeeritavad komponendid"
-
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "leitakse, laetakse alla ning installeeritakse kõik paketid lahendamaks "
-#~ "sõltuvusi"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr "koht kuhu ladustatakse ajutised failid / RPM-id"
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "süsteem uuendatakse kõikide oluliste pakettidega"
-
-#~ msgid "show program version information"
-#~ msgstr "programmi versiooni informatsiooni näitamine"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr "Näidatakse ühenduskanali nime koos paketi nimega kus vajalik"
-
-#~ msgid "Show the rpm rollbacks available"
-#~ msgstr "Näidatakse kättesaadavate rpm-ide tagasi pöördumisi"
-
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr ""
-#~ "Näidatakse pakette, millised lahendavad komaga eraldatud sõltuvuste "
-#~ "loendeid"
-
-#~ msgid "List of packages to exlude from being installed or updated"
-#~ msgstr "Pakettide loend, mida ei installeerita või uuendata"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Määrata ühenduskanali lipik, millis kasutatakse"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr "Näidatakse lippe, millega gpg käivitatakse (keyring, jms)"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Pakette ei laeta alla. Testimise eesmärgil"
-
-#~ msgid "Pass in a uuid that the applet generates"
-#~ msgstr "Luba läbi uuid, mille aplett moodustas"
-
-#~ msgid "Show the package installation dialog in gui mode"
-#~ msgstr "Näidatakse paketi installeerimise dialoogi graafilisel kujul"
-
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Tuuakse määratud paketid sõltuvuste lahendamiseta"
-
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr "Tuuakse määratud allika paketid sõltuvuste lahendamiseta"
-
-#~ msgid ""
-#~ "Force up2date to install this arch of the package. Not valid with -u, --"
-#~ "list, or --dry-run"
-#~ msgstr ""
-#~ "Sunnitakse up2date installeerima selle arhitektuuri pakette. Ei kehti "
-#~ "koos -u, --list või --dry-run"
-
-#~ msgid "Upgrade to the channel specified"
-#~ msgstr "Uuenda määratud ühenduskanal"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Installeerimise võti?"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "\n"
-#~ "                        Mingi tõrge tekkis lisades Red Hat\n"
-#~ "                        GPG võtit sinu keyring hulka."
-
-#~ msgid ""
-#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
-#~ msgstr ""
-#~ "Pakettide ja riistvara värskendamine ei rakendu kui ei kasutata Red Hat "
-#~ "Network-i"
-
-#~ msgid "Updating transaction history..."
-#~ msgstr "Uuendatakse toimingute ajalugu..."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Puuduvad paketid, millised rahuldaksid neid sõltuvusi."
-
-#~ msgid "A channel name must be specified with --installall"
-#~ msgstr "Ühenduskanali nimi määratakse koos --installall"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr "Juhtus viga serveriga ühendamisel. Teade oli järgmine:\n"
-
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Juhtus paketi sõltuvuse probleem. Teade oli järgmine:\n"
-
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "Paketi installeerimisel juhtus viga. Teade oli järgmine:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Interaktiivne viis ei ole kättesaadav"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr "Käsurea argumendina määra -l, -u, --nox või paketi nimi."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr "Graafilist liidest polnud võimalik avada. Proovi määrates \"--nox\""
-
-#~ msgid "The following packages are not available:"
-#~ msgstr "Järgmised paketid ei ole kättesaadavad:"
-
-#~ msgid "All packages are currently up to date"
-#~ msgstr "Kõik paketid on hetkel uuendatud"
-
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr "Järgnevaid sinu päritud pakette ei leitud:"
-
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr "Järgnevad sinu päritud paketid on juba uuendatud:"
-
-#~ msgid "Activate"
-#~ msgstr "Aktiivne"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "\n"
-#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
-#~ "important to connect your system so that you can receive the updates and\n"
-#~ "patches that keep your system secure and supported.\n"
-#~ "\n"
-#~ "\n"
-#~ "To connect your system to Red Hat Network go to:\n"
-#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
-#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
-#~ "\n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Oled lõpetanud installeerimise ja süsteemi seadistamise.\n"
-#~ "\n"
-#~ "Kahjuks sinu süsteem ei olnud ühendatud Red Hat Network-iga\n"
-#~ "On oluline ühendada, et saada uuendusi ja paikasid hoidmaks \n"
-#~ "süsteemi turvalisena ja toetatuna.\n"
-#~ "\n"
-#~ "\n"
-#~ "Ühendamaks süsteemi Red Hat Network-iga tuleb minna:\n"
-#~ "Peamenüü, valida Süsteemi vahendid, Red Hat Network või\n"
-#~ "käsurealt: käivitada juurkasutajana /usr/bin/up2date registreerimaks\n"
-#~ "\n"
-#~ "Abi vajamisel võta ühendust lähima klienditeenindusega, millised leiad\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Unfortunately, your subscription was not activated because a valid\n"
-#~ "subscription number was not supplied.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                     \n"
-#~ "                              \n"
-#~ "Please contact a customer service representative to help get your\n"
-#~ "subscription activated.  To find a representative near you, visit\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Oled lõpetanud installeerimise ja süsteemi seadistamise.\n"
-#~ "\n"
-#~ "\n"
-#~ "Kahjuks, sinu tellimust ei aktiveeritud kuna puudus kehtiv\n"
-#~ "aktiveerimise number.\n"
-#~ "\n"
-#~ "\n"
-#~ "Tellimuse aktiveerimine on oluline pääsemaks ligi\n"
-#~ "teenustele mis hoiavad süsteemi turvalise ja toetatud.\n"
-#~ "\n"
-#~ "\n"
-#~ "Palun kontakteeru klienditeenindusega aitamaks aktiveerida\n"
-#~ "tellimust. Lähima esindaja leidmiseks külasta\n"
-#~ "http://www.redhat.com/contact\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system set up.\n"
-#~ "\n"
-#~ "Unfortunately, your subscription was not activated because a valid "
-#~ "subscription number was not supplied.\n"
-#~ "\n"
-#~ "It is important to activate your subscription so you can access the "
-#~ "services that keep your system secure and supported.\n"
-#~ "\n"
-#~ "Please contact a customer service representative to help get your "
-#~ "subscription activated.  To find a representative near you, visit http://"
-#~ "www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Oled lõpetanud installeerimise ja süsteemi seadistamise.\n"
-#~ "\n"
-#~ "Kahjuks, sinu tellimust ei aktiveeritud kuna puudus kehtiv aktiveerimise "
-#~ "number.\n"
-#~ "\n"
-#~ "Tellimuse aktiveerimine on oluline pääsemaks ligi teenustele mis hoiavad "
-#~ "süsteemi turvalise ja toetatud.\n"
-#~ "\n"
-#~ "Palun kontakteeru klienditeenindusega aitamaks aktiveerida tellimust. "
-#~ "Lähima esindaja leidmiseks külasta http://www.redhat.com/contact"
-
-#~ msgid ""
-#~ "Congratulations!\n"
-#~ "You have completed setup and your subscription was successfully "
-#~ "activated.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "You are fully enabled to receive the services included in your Red Hat\n"
-#~ "subscription."
-#~ msgstr ""
-#~ "Õnnitleme!\n"
-#~ "Oled edukalt lõpetanud seadistused ning tellimus on aktiveeritud.\n"
-#~ "Oled täielikult lubatud saama teenuseid, mis on sinu Red Hat\n"
-#~ " tellimuses."
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your system is not networked, so we were unable to\n"
-#~ "activate your subscription.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "It is important to activate your subscription so you can access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Please activate from a networked system now by visiting\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Oled lõpetandu installeerimise ja süsteemi seadmise.\n"
-#~ "\n"
-#~ "Kahjuks sinu süsteem ei ole võrgus, nii et tellimuse aktiveerimine\n"
-#~ "ei olnud võimalik.\n"
-#~ "\n"
-#~ "Tellimuse aktiveerimine on oluline pääsemaks ligi teenustele\n"
-#~ "mis hoiavad süsteemi turvalise ning toetatuna.\n"
-#~ "\n"
-#~ "Palun aktiveeri võrgus oleva süsteemi kaudu külastades\n"
-#~ "http://www.redhat.com/activate/\n"
-#~ "\n"
-#~ "Abi vajamisel võta ühendust lähima klienditeenindusega, millise leiad\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You have completed installation and system setup.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Unfortunately, your subscription was not activated.\n"
-#~ "Your system will operate, but you will not be able to access the\n"
-#~ "services that keep your system secure and supported.\n"
-#~ "                                                                                                                                                                              \n"
-#~ "To ensure that you gain access to these important services, please "
-#~ "activate\n"
-#~ "now by visiting http://www.redhat.com/activate/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? To contact a customer service representative near you, visit\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Oled lõpetanud süsteemi installeerimise ja seadistamise.\n"
-#~ "\n"
-#~ "Kahjuks sinu tellimust ei aktiveeritud.\n"
-#~ "Süsteem töötab kuid ei pääse ligi teenustele, mis \n"
-#~ "hoiavad süsteemi turvase ja toetatuna.\n"
-#~ "\n"
-#~ "Kindlustamaks ligipääsu nendele tähtsatele teenustele, aktiveeri nüüd\n"
-#~ "külastedes http://www.redhat.com/activate/\n"
-#~ "\n"
-#~ "Abi vajamisel võta ühendust lähima klienditeenindusega, millise leiad\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Lisamine"
-
-#~ msgid "Add new:"
-#~ msgstr "Lisa uus:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "Pärast installeerimist hoitakse binaarsed paketid kettal"
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "Pakette peale tõmbamist ei installeerita"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr "Ära uuenda pakette kui kohalik seadistuste fail on muudetud"
-
-#~ msgid ""
-#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
-#~ "space)"
-#~ msgstr ""
-#~ "Luba RPM-i tagasi pöördumist (lubab \"tühistada\" kuid vajab täiendavat "
-#~ "ladustamise ruumi)"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr "Sisesta rada, kus alla laetud paketid on ladustatud."
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Sisesta failinimi, millist sa soovid vahele jätta määrates millised "
-#~ "paketi pärinevad kust. Metamärgid on lubatud, näiteks \"/boot/*\"."
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Sisesta paketi nimi, millist sa soovid vahele jätta määrates millised "
-#~ "paketi pärinevad kust. Metamärgid on lubatud, näiteks \"kernel*\"."
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Vahele jäetavate failide nimed"
-
-#~ msgid "General"
-#~ msgstr "Üldine"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Kui sul on vaja kasutada HTTP puhvrit, sisesta see siin kujul arvuti:"
-#~ "port\n"
-#~ "näiteks squid.minuleht.org:3128"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Kui sul on vaja eelistada muud versiooni automaatselt määratud Red Hat "
-#~ "Linuxile, sisesta see siin või vali eelnevalt defineeritud versioonide "
-#~ "hulgast."
-
-#~ msgid "Network Settings"
-#~ msgstr "Võrgu seaded"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Süsteemi profiili ladustatud versiooni eiramine:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Paketi erandid"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Pakettide installeerimise valikud"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Vahele jäetavate pakettide nimed"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Pakettide tõmbamise valikud"
-
-#~ msgid "Package Verification Options"
-#~ msgstr "Pakettide kontrollimise valikud"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Pakettide ladustamise kataloog:"
-
-#~ msgid "Remove"
-#~ msgstr "Eemalda"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Otsimine / Installeerimine"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Tiri allika RPM-id koos binaarsete pakettidega"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Kasuta GPG-d kontrollimaks pakettide terviklikkust"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on\n"
-#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
-#~ "identification number."
-#~ msgstr ""
-#~ "Profiili nimi on kirjeldav nimi, mida kasutatakse süsteemi profiili "
-#~ "tuvastamisel Red Hat Network-i \n"
-#~ "veebilehel. Valikuliselt lisa arvuti jada või identifitseerimise number."
-
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Vastavalt sinu eelistustele oled sa valinud ülal mainitud pakette mitte \n"
-#~ "automaatselt uuendama. Kui sa soovid eirata omi seadeid ning lisada \n"
-#~ "mõnda nendest, siis vali vastav pakett."
-
-#~ msgid ""
-#~ "Additional hardware information including PCI devices, disk sizes and "
-#~ "mount points will be\n"
-#~ "included in the profile."
-#~ msgstr ""
-#~ "Täiendav riistvara info, sisaldades PCI seadmeid, ketta suurus ning "
-#~ "ühenduspunktid, lisatakse\n"
-#~ "profiili."
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Alberta"
-#~ msgstr "Alberta"
-
-#~ msgid "All Finished"
-#~ msgstr "Kõik on lõpetatud"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "Armed Forces(AA)"
-#~ msgstr "Armed Forces(AA)"
-
-#~ msgid "Armed Forces(AE)"
-#~ msgstr "Armed Forces(AE)"
-
-#~ msgid "Armed Forces(AP)"
-#~ msgstr "Armed Forces(AP)"
-
-#~ msgid "Available Package Installs"
-#~ msgstr "Kättesaadavate pakettide installeerimine"
-
-#~ msgid ""
-#~ "Below is a list of packages present on your system that RPM knows about:"
-#~ msgstr "Allpool on süsteemis olevate pakettide loend, mida RPM tunneb:"
-
-#~ msgid "British Columbia"
-#~ msgstr "Briti Columbia"
-
-#~ msgid ""
-#~ "By default, all packages that RPM knows about will be included in your "
-#~ "System Profile.\n"
-#~ "Uncheck any packages which you do not want to be included."
-#~ msgstr ""
-#~ "Vaikimisi on kõik paketid, mida RPM tunneb, lisatud sinu süsteemi "
-#~ "profiili.\n"
-#~ "Eemalda valikust paketid, milliseid sa ei soovi."
-
-#~ msgid "California"
-#~ msgstr "Kalifornia"
-
-#~ msgid ""
-#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
-#~ "terms and conditions.\n"
-#~ " If you do not accept, press \"Cancel\""
-#~ msgstr ""
-#~ "Vajutades \"Edasi\" annad mõista, et oled arusaanud ja nõustud terminite "
-#~ "ja tingimustega.\n"
-#~ "Kui sa ei tunnista neid, vajuta \"Loobu\""
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Contact preferences"
-#~ msgstr "Kontakti eelistused"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "District of Columbia"
-
-#~ msgid "Dr."
-#~ msgstr "Dr."
-
-#~ msgid "Fields marked in red are required."
-#~ msgstr "Punasega tähistatud väljad on vajalikud."
-
-#~ msgid "First name:"
-#~ msgstr "Eesnimi:"
-
-#~ msgid "Florida"
-#~ msgstr "Florida"
-
-#~ msgid ""
-#~ "Hardware information is important to determine what updated software and "
-#~ "drivers\n"
-#~ "are relevant to this system.  The minimum set of information you can "
-#~ "include will contain\n"
-#~ "your system's architecture and Red Hat Linux version."
-#~ msgstr ""
-#~ "Riistvara info on vajalik määramaks, milline tarkvara ja draiverid on "
-#~ "olulised süsteemile. \n"
-#~ "Vähim info, mida on võimalik anda on süsteemi arhitektuur ning\n"
-#~ "Red Hat Linuxi versioon."
-
-#~ msgid "Hawaii"
-#~ msgstr "Havai"
-
-#~ msgid "IP address:"
-#~ msgstr "IP aadress:"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Include information about hardware and network"
-#~ msgstr "Täiendav informatsioon riistvarast ja võrgust"
-
-#~ msgid "Included information"
-#~ msgstr "Lisatud informatsioon"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Pakettide installeerimine:"
-
-#~ msgid "Installing:"
-#~ msgstr "Installeerimine:"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Last name:"
-#~ msgstr "Perekonnanimi:"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Manitoba"
-#~ msgstr "Manitoba"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Micronesia"
-#~ msgstr "Micronesia"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Miss"
-#~ msgstr "Miss"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Mr."
-#~ msgstr "Mr."
-
-#~ msgid "Mrs."
-#~ msgstr "Mrs."
-
-#~ msgid "Ms."
-#~ msgstr "Ms."
-
-#~ msgid "Name"
-#~ msgstr "Nimi"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Brunswick"
-#~ msgstr "New Brunswick"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "Newfoundland"
-#~ msgstr "Newfoundland"
-
-#~ msgid "North Carolina"
-#~ msgstr "Põhja Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "Põhja Dakota"
-
-#~ msgid "Northern Marianas"
-#~ msgstr "Northern Marianas"
-
-#~ msgid "Northwest Territory"
-#~ msgstr "Northwest Territory"
-
-#~ msgid "Nova Scotia"
-#~ msgstr "Nova Scotia"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Ontario"
-#~ msgstr "Ontario"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Outside the US/Canada"
-#~ msgstr "Väljaspool  US/Kanada"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Paketid märgitud vahele jätmiseks"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Sõltuvuste lahendamiseks vaja minevad paketid "
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Prince Edward Island"
-#~ msgstr "Prince Edward Island"
-
-#~ msgid "Quebec"
-#~ msgstr "Quebec"
-
-#~ msgid ""
-#~ "RPM information is important to determine what updated software packages "
-#~ "are relevant\n"
-#~ "to this system."
-#~ msgstr ""
-#~ "RPM info on vajalik määramaks, millised uuendatud tarkvara paketid on "
-#~ "olulised\n"
-#~ "süsteemile."
-
-#~ msgid "Red Hat Linux version:"
-#~ msgstr "Red Hat Linuxi versioon:"
-
-#~ msgid "Rel."
-#~ msgstr "Rel."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Pakettide otsimine"
-
-#~ msgid "Retrieving:"
-#~ msgstr "Otsimine:"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "Saskatchewan"
-#~ msgstr "Saskatchewan"
-
-#~ msgid "Select all packages"
-#~ msgstr "Kõikide paketide valimine"
-
-#~ msgid "Sir"
-#~ msgstr "Sir"
-
-#~ msgid "South Carolina"
-#~ msgstr "South Carolina"
-
-#~ msgid "South Dakota"
-#~ msgstr "Lõuna Dakota"
-
-#~ msgid "Special offers from Red Hat partners"
-#~ msgstr "Eripakkumine Red Hat-i partneritelt"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Terms and Conditions"
-#~ msgstr "Terminid ja tingimused"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Järgnevad paketid on vajalikud, kuna mõned valitud paketid sõltuvad \n"
-#~ "nendest. Need paketid lisatakse valikusse."
-
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "See on Red Hat-i Uuendaja. Ta juhendab sind Red Hat\n"
-#~ "Enterprise Linuxi süsteemi uuendamisel uusima tarkvaraga,\n"
-#~ "mis on Red Hat Network-ist kättesaadav.\n"
-#~ "\n"
-#~ "\n"
-#~ "Järkamiseks vajuta \"Edasi\". Uuendamiseta katkestamiseks\n"
-#~ "vajuta \"Loobu\"."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Ühenduskanalite tellimise ja mitte tellimise kohta ning \n"
-#~ "täiendavat infot ühenduskanalite vaata:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Kogu kulg:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Kogu alla laadimiseks valitud pakettide suurus:"
-
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Kogu valitud pakettide suurus:"
-
-#~ msgid "Trust Territories"
-#~ msgstr "Trust Territories"
-
-#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
-#~ msgstr "Red Hat Network Uuendaja uuendatakse, kui see on kättesaadav"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Vermont"
-#~ msgstr "Vermont"
-
-#~ msgid "View Advisory"
-#~ msgstr "Nõuande vaatamine"
-
-#~ msgid "Virgin Islands"
-#~ msgstr "Virgin Islands"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
-#~ "\"Cancel\" and no information will be sent.  You can run the "
-#~ "registration\n"
-#~ "program later by typing rhn_register at the command line."
-#~ msgstr ""
-#~ "Süsteemi profiili informatsiooni kogumine on lõpetatud.\n"
-#~ "\n"
-#~ "Süsteemi profiili saatmiseks Red Hat Network-i vajuta \"Edasi\".  "
-#~ "Vajutades\n"
-#~ "\"Loobu\" ei saadeta mingit informatsiooni.  Hiljem "
-#~ "registreerimisprogrammi \n"
-#~ "käivitamiseks trüki käsureale rhn_register."
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Tere tulemast Red Hat-i Uuendajasse"
-
-#~ msgid "West Virginia"
-#~ msgstr "Lääne Virginia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Wyoming"
-#~ msgstr "Wyoming"
-
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Valitud pakettide redigeerimiseks vajuta nuppu \"Tagasi\" ning "
-#~ "jätkamiseks \"Edasi\"."
-
-#~ msgid ""
-#~ "You will be able to update your hardware profile or create new hardware "
-#~ "profiles when you login to\n"
-#~ "Red Hat Network at http://www.redhat.com/network."
-#~ msgstr ""
-#~ "Sul on võimalus uuendada olemasolevat ning luua uut riistvara profiili  "
-#~ "kui sa logid\n"
-#~ " Red Hat Network-i aadressil http://www.redhat.com/network."
-
-#~ msgid "Yukon Territory"
-#~ msgstr "Yukon Territory"
-
-#~ msgid "ZIP / Postal code:"
-#~ msgstr "Postikood:"
-
-#~ msgid "e-Newsletter"
-#~ msgstr "e-Uudiskiri"
-
-#~ msgid "    The _number is: "
-#~ msgstr "    _Number on: "
-
-#~ msgid "(example, webserver1)"
-#~ msgstr "(näidis, veebiserver 1)"
-
-#~ msgid "* First name:"
-#~ msgstr "* Eesnimi:"
-
-#~ msgid "* Last name:"
-#~ msgstr "* Perekonnanimi"
-
-#~ msgid "* Required fields"
-#~ msgstr "* Vajalikud täita"
-
-#~ msgid ""
-#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
-#~ "code, and maintenance capabilities included in your subscription.\n"
-#~ "Red Hat uses your login and account information to communicate with you\n"
-#~ "about your subscription services and software."
-#~ msgstr ""
-#~ "Red Hat kasutajanime loomine annab ligipääsu uuendustele, veateadetele,\n"
-#~ "lähtekoodile ja hooduse võimalustele, mis sisalduvad sinu tellimuses.\n"
-#~ "Red Hat kasutab sinu kasutajanime ja konto informatsiooni sinuga "
-#~ "suhtlemiseks\n"
-#~ "teenuste ja tarkvara teemal."
-
-#~ msgid ""
-#~ "Forgot your Red Hat login or password? Find it at \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Oled unustanud Red Hat kasutajanime ja parooli? Võid leida selle \n"
-#~ "http://www.redhat.com/software/rhn/\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Abi vajamisel võta ühendust klienditeenindusega http://www.redhat.com/"
-#~ "contact/\n"
-
-#~ msgid ""
-#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
-#~ "(You may opt out at any time.)"
-#~ msgstr ""
-#~ "Saadetakse igakuiselt meeldetuletus Red Hat Magazine-i ajakirja kohta.\n"
-#~ "(Loobumine on võimalik igal ajal.)"
-
-#~ msgid "I _don't have a subscription number"
-#~ msgstr "Mul _ei ole tellimuse numbrit"
-
-#~ msgid "I can not complete registration at this time. Remind me later."
-#~ msgstr ""
-#~ "Ma ei ole võimalik registreerimise sel korral lõpetada. Tuleta mulle seda "
-#~ "hiljem meelde."
-
-#~ msgid "I have an existing Red Hat login."
-#~ msgstr "Mul on Red Hat-i kasutajanimi olemas."
-
-#~ msgid ""
-#~ "If you purchased directly from Red Hat or activated through our\n"
-#~ "website, your subscription is already active."
-#~ msgstr ""
-#~ "Kui sa ostsid Red Hat-ist otse või aktiveerisid veebi kaudu,\n"
-#~ "on sinu tellimus juba aktiivne."
-
-#~ msgid ""
-#~ "Need help? Contact a customer service representative near you at\n"
-#~ "http://www.redhat.com/contact/\n"
-#~ msgstr ""
-#~ "Abi vajamisel võta ühendust lähima klienditeenindusega\n"
-#~ "http://www.redhat.com/contact/\n"
-
-#~ msgid ""
-#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
-#~ msgstr ""
-#~ "Abi vajamisel võta ühendust klienditeenindusega http://www.redhat.com/"
-#~ "contact/"
-
-#~ msgid "Network Configuration"
-#~ msgstr "Võrgu seadistus"
-
-#~ msgid "Outside US/Canada"
-#~ msgstr "Väljaspool US/Kanadat"
-
-#~ msgid "Please provide a name for the system you are installing"
-#~ msgstr "Palun määra nimi oma süsteemile, mida installeerid"
-
-#~ msgid "Take me back so I can provide or create a Red Hat login."
-#~ msgstr "Mine tagasi, et saaksin lisada või luua Red Hat-i kasutajanime."
-
-#~ msgid "Tell me why I need to register and provide a Red Hat login."
-#~ msgstr "Selgita, miks mul on vaja Red Hat-i kasutajanime."
-
-#~ msgid ""
-#~ "The system name allows you to identify this system in Red Hat Network for "
-#~ "maintenance purposes. If you do not provide one, we will provide a "
-#~ "default name."
-#~ msgstr ""
-#~ "Süsteemi nimi lubab sul tuvastada seda süsteemi Red Hat Network-is "
-#~ "hoolduse eesmärgil. Kui sa ei varusta sellega, siis pannakse sinna "
-#~ "vaikimisi nimi. "
-
-#~ msgid ""
-#~ "To activate the services included in your subscription, please register "
-#~ "with Red Hat and provide a Red Hat login."
-#~ msgstr ""
-#~ "Teenuste, mis olid sinu tellimuses, aktiveerimiseks registreeri palun Red "
-#~ "Hat-is ning varusta Red Hat kasutajanimega."
-
-#~ msgid ""
-#~ "Why do you need to register and provide a Red Hat login?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Your subscription includes support and software maintenance services. To\n"
-#~ "activate these services, you must register with Red Hat. Registration\n"
-#~ "includes these simple steps:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) provide a Red Hat login\n"
-#~ "2) provide a subscription number\n"
-#~ "3) connect your system to Red Hat Network\n"
-#~ "                                                                                                                                                                              \n"
-#~ "If you do not complete these registration steps, you will not be able to\n"
-#~ "access the services included in your subscription. These services keep\n"
-#~ "your system current, reliable, secure and supported.\n"
-#~ msgstr ""
-#~ "Miks on sul vaja registreerida ja saada Red Hat kasutajanimi?\n"
-#~ "                                                                                                                                                                              \n"
-#~ "Sinu tellimus sisaldab toetust ja tarkvara  hoolduse teenust. Teenuse \n"
-#~ "aktiveerimiseks pead sa registreerima Red Hat-is.\n"
-#~ "Registreerimiseks on vaja:\n"
-#~ "                                                                                                                                                                              \n"
-#~ "1) muretseda Red Hat kasutajanimi\n"
-#~ "2) muretseda tellimuse number\n"
-#~ "3) ühendada oma süsteem Red Hat Network-iga \n"
-#~ "                                                                                                                                                                              \n"
-#~ "Kui sa neid tingimusi ei täida, siis sa ei saa ligipääsu\n"
-#~ "teenustele mis on sinu tellimuses. Need teenused hoiavad\n"
-#~ "sinu süsteemi värske, töökindla, turvalise ja toetatud.\n"
-
-#~ msgid "You may terminate this service at any time. See "
-#~ msgstr "Sa on võimalus igal ajal antud teenust lõpetada. Vaata"
-
-#~ msgid ""
-#~ "Your subscription number is located in the package that came with your "
-#~ "order"
-#~ msgstr "Sinu tellimuse number paikneb selle paki all, mille sa tellisid"
-
-#~ msgid "_Details"
-#~ msgstr "_Detailid"
-
-#~ msgid "_Password:  "
-#~ msgstr "_Parool:"
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
+msgstr ""

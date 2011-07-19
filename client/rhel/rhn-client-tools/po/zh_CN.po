@@ -1,27 +1,29 @@
-# translation of spacewalk.rhn-client-tools.po to Wei Liu
-# translation of zh_CN.po to
-# Copyright (C) 2002,2003, 2004, 2005, 2006, 2007, 2010 Free Software Foundation, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Xi Huang <xhuang@redhat.com>, 2006.
+# Leah Liu <weliu@redhat.com>, 2005, 2006.
+# Leah Liu <lliu@redhat.com>, 2010.
+# Sarah Smith <sarahs@redhat.com>, 2002.
 # Sarah Wang <sarahs@redhat.com>, 2003, 2004.
 # Tony Fu <tfu@redhat.com>, 2004, 2006.
-# Leah Liu <weliu@redhat.com>, 2005, 2006.
 # Xi HUANG <xhuang@redhat.com>, 2007.
-# Leah Liu <lliu@redhat.com>, 2010.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: spacewalk.rhn-client-tools\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-06-15 17:15+0200\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: American English <spacewalk-devel@redhat.com>\n"
-"Language: en_US\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-06-15 15:35+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.net/projects/p/fedora/"
+"team/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -1546,9 +1548,8 @@ msgid "Do not attempt to use X"
 msgstr "不要试图使用 X"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "您必须是根用户才能运行 %s"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
@@ -1567,32 +1568,28 @@ msgid "list channels"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "所有可用更新"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "指定一个用户名"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "指定一个口令"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "主机名："
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1619,9 +1616,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "该系统在和某频道关联前可能不会被更新。"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1936,9 +1932,8 @@ msgid "satellite server location"
 msgstr "satellite 服务器位置"
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "系统名(_N)："
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
 #, fuzzy
@@ -2643,107 +2638,3 @@ msgstr "在 Spacewalk/Satellite/Red Hat 网络注册。"
 #~ "当您的桌面通知区域（通常是在右上角，如下圆圈中所示）中出现软件包图标时，您"
 #~ "就知道有可以使用的软件更新了。点击这个图标，如果可用，那么它将引导您完成应"
 #~ "用可用的更新："
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "设置软件更新"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "为什么需要连接到红帽网络？"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "设置软件更新"
-
-#~ msgid "Select Operating System Release"
-#~ msgstr "选择操作系统发行本"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "注册系统侧写 - 硬件"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "注册系统侧写 - 软件包"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "安装号(_N)："
-
-#, fuzzy
-#~ msgid "Only https and http are allowed."
-#~ msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
-
-#~ msgid "Warning:"
-#~ msgstr "警告："
-
-#~ msgid "OK dialog:"
-#~ msgstr "确定对话框："
-
-#~ msgid "Question dialog:"
-#~ msgstr "问题对话框："
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "自动订阅激活"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "订阅激活"
-
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "警告：无法运行 rhn_check"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "磁盘错误。 错误消息是：\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "在安装软件包时出现了一个致命错误：\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM 软件包冲突错误。 错误消息是：\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM 文件冲突错误。错误消息是：\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM 错误。错误消息是：\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM 依赖关系错误。错误消息是：\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "软件包跳过列表错误。  错误消息是：\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr "跳过文件列表或配置文件覆写错误。错误消息是：\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "无法删除软件包“%s”，它在 RemoveSkipList 列表中"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG 没有被正确安装。"
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG 钥匙圈不包括 Red Hat, Inc. 软件包签名公钥"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr "软件包 %s 的 GPG 签名校验失败。这意味着该软件包被损坏。"
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "软件包 %s 没有 GPG 签名。\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "软件包 %s 上有不被信任的 GPG 签名。\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "软件包 %s 上有未知的 GPG 签名。\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "选择一个红帽网络服务器"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "连接到 Red Hat 网络"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "在 Red Hat 网络上注册"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "为这个红帽网络服务器提供一个证书"

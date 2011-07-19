@@ -1,19 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Cristian Gafton <gafton@redhat.com>, 2000, 2001.
+# Mihai Ibanescu <misa@redhat.com>, 2005.
+# Mircea Daniel <daniel@reywind.tranceaddict>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Alexandru Szasz <alexxed@gmail.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Up2date 2.8\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2002-04-15 18:35-04:00\n"
-"Last-Translator: Cristian Gafton\n"
-"Language-Team: Romanian <gafton+po@redhat.com>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Romanian (http://www.transifex.net/projects/p/fedora/team/"
+"ro/)\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1))\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -23,14 +31,12 @@ msgstr ""
 #: ../src/up2date_client/rhnregGui.py:142
 #: ../src/up2date_client/rhnregGui.py:156
 #: ../src/up2date_client/rhnreg_constants.py:267
-#, fuzzy
 msgid "Warning"
-msgstr "Pregătire..."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Eroare fatală la instalarea pachetului:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -43,9 +49,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "We could not contact Red Hat Network (%s)."
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
@@ -71,9 +77,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:357
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:358
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -84,74 +89,64 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:448
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:454
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
-#, fuzzy
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Eroare fatală la instalarea pachetului:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
-#, fuzzy
 msgid "Error running hardware profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:683
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Eroare fatală la instalarea pachetului:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:703
 msgid "You must choose a name for this profile."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Eroare fatală la instalarea pachetului:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:748
-#, fuzzy
 msgid "Registering System"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:762
 #: ../src/up2date_client/rhnregGui.py:766
 #: ../src/up2date_client/rhnregGui.py:770 ../src/up2date_client/tui.py:878
 #: ../src/up2date_client/tui.py:881 ../src/up2date_client/tui.py:884
-#, fuzzy
 msgid "Problem registering system:\n"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:773
 #, python-format
@@ -161,29 +156,24 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
-#, fuzzy
 msgid "Problem registering system."
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:793 ../src/up2date_client/tui.py:895
-#, fuzzy
 msgid "Problem writing out system id to disk."
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:799
-#, fuzzy
 msgid "There was a problem registering this system."
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:812
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Eroare la citire informaţii"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:817
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Eroare la citire informaţii"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -195,14 +185,12 @@ msgstr "Eroare la citire informaţii"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:841
-#, fuzzy
 msgid "Sending package information"
-msgstr "Eroare la citire informaţii"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:846
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Eroare la obţinerea listei de pachete disponibile"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:874 ../src/up2date_client/tui.py:965
 msgid ""
@@ -213,26 +201,22 @@ msgstr ""
 #: ../src/up2date_client/rhnregGui.py:890
 #: ../src/up2date_client/rhnregGui.py:907 ../src/up2date_client/tui.py:909
 #: ../src/up2date_client/tui.py:923
-#, fuzzy
 msgid "Problem registering personal information:\n"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:895
 #: ../src/up2date_client/rhnregGui.py:912 ../src/up2date_client/tui.py:915
 #: ../src/up2date_client/tui.py:927
-#, fuzzy
 msgid "Problem registering personal information"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Eroare fatală la instalarea pachetului:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -254,9 +238,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Eroare fatală la instalarea pachetului:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -269,26 +252,20 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Eroare fatală la instalarea pachetului:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
-#, fuzzy
 msgid "Package"
-msgstr "Nume Pachet"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1246
 msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1253
-#, fuzzy
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
-"Red Hat Update Agent construieşte o listă de pachete\n"
-"care au nevoie de actualizare instalate pe acest\n"
-"sistem. Vă rugăm aşteptaţi..."
 
 #: ../src/up2date_client/rhnregGui.py:1284
 msgid ""
@@ -299,13 +276,11 @@ msgstr ""
 "că aveţi acces la directorul /etc/sysconfig/rhn."
 
 #: ../src/up2date_client/rhnregGui.py:1326
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
 msgstr ""
-"S-a detectat o erorare la salvarea configuraţiei în fişierul\n"
-"%s."
 
 #: ../src/up2date_client/rhnregGui.py:1356
 #, python-format
@@ -344,9 +319,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "Se obţine o lista de pachete instalate pe acest sistem"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
@@ -354,9 +328,8 @@ msgid "Login:"
 msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -364,9 +337,8 @@ msgid "Error"
 msgstr ""
 
 #: ../src/up2date_client/tui.py:423
-#, fuzzy
 msgid "The server indicated an error:\n"
-msgstr "Eroare I/O: %s"
+msgstr ""
 
 #. Navigation
 #: ../src/up2date_client/tui.py:423
@@ -375,37 +347,32 @@ msgid "OK"
 msgstr "OK"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:627
-#, fuzzy
 msgid "Profile name:"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Versiune"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
 msgid "CPU model: "
 msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "Hostname: "
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:674
 msgid "CPU speed: "
 msgstr ""
 
 #: ../src/up2date_client/tui.py:680
-#, fuzzy
 msgid "IP Address: "
-msgstr "Adaugă nou:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:686
 msgid "Memory: "
@@ -417,29 +384,24 @@ msgid "%s megabytes"
 msgstr ""
 
 #: ../src/up2date_client/tui.py:937
-#, fuzzy
 msgid "Problem sending hardware profile:\n"
-msgstr "Eroare la obţinerea listei de pachete disponibile"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:941
-#, fuzzy
 msgid "Problem sending hardware profile."
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../src/up2date_client/tui.py:950
-#, fuzzy
 msgid "Problem sending package list:\n"
-msgstr "Eroare la obţinerea listei de pachete disponibile"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:953
-#, fuzzy
 msgid "Problem sending package list."
-msgstr "Eroare la obţinerea listei de pachete disponibile"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:1003
-#, fuzzy
 msgid "Finish"
-msgstr "Totul s-a terminal"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:1129
 msgid "You specified an invalid protocol."
@@ -451,38 +413,32 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1260
-#, fuzzy
 msgid "You must run the RHN registration program as root."
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:55
 msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr ""
 
 #: ../src/up2date_client/hardware.py:706
-#, fuzzy
 msgid "Error reading cpu information:"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:713
-#, fuzzy
 msgid "Error reading system memory information:"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:723
-#, fuzzy
 msgid "Error reading networking information:"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:744
-#, fuzzy
 msgid "Error reading install method information:"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/hardware.py:752
-#, fuzzy
 msgid "Error reading network interface information:"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/messageWindow.py:98
 msgid "Error:"
@@ -503,14 +459,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -597,9 +552,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Opţiuni de Instalare Pachete"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -628,21 +582,19 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "Buletin de Informaţie"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Red Hat Update Agent"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -659,9 +611,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:78
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:81
@@ -675,18 +626,16 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Release"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:16
-#, fuzzy
 msgid "All available updates"
-msgstr "Pachete Disponibile pentru Actualizare"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid "Confirm operating system release selection"
@@ -700,9 +649,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -723,9 +671,8 @@ msgstr ""
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -734,27 +681,24 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:108
-#, fuzzy
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr "Se obţine o lista de pachete instalate pe acest sistem"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid "You may deselect individual packages by unchecking them below."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:112
-#, fuzzy
 msgid "Building Package List"
-msgstr "Obţinere Pachete"
+msgstr ""
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
-#, fuzzy
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
 "\n"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 msgid ""
@@ -763,9 +707,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:119
-#, fuzzy
 msgid "*Email Address:"
-msgstr "Adaugă nou:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
@@ -809,9 +752,8 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
-#, fuzzy
 msgid "Sending Profile to Red Hat Network"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:145
@@ -840,11 +782,11 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:161
 msgid ""
@@ -853,9 +795,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Informaţii despre Colecţiile de Pachete"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1118,9 +1059,8 @@ msgstr "Abandon"
 
 #: ../src/up2date_client/rhnreg_constants.py:333
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "No, Cancel"
-msgstr "Abandon"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:334
 #: ../data/rh_register.glade.h:55
@@ -1140,14 +1080,12 @@ msgid "Password error. The message was:\n"
 msgstr "Eroare parolă:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:56
-#, fuzzy
 msgid "RPM dependency error. The message was:\n"
-msgstr "Eroare dependinţă RPM:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:65
-#, fuzzy
 msgid "Error communicating with server. The message was:\n"
-msgstr "Eroare la comunicarea cu serverul. Mesajul este:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:76
 msgid "File Not Found: \n"
@@ -1162,9 +1100,8 @@ msgid "Error validating data at server:\n"
 msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:144
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:151
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1215,9 +1152,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:79
-#, fuzzy, python-format
+#, python-format
 msgid "An unexpected OS error occurred: %s\n"
-msgstr "Eroare OS necunoscută: %s"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:83
 msgid "A connection was attempted with a malformed URI.\n"
@@ -1229,14 +1166,14 @@ msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:87
-#, fuzzy, python-format
+#, python-format
 msgid "There was some sort of I/O error: %s\n"
-msgstr "Eroare I/O: %s"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:90
-#, fuzzy, python-format
+#, python-format
 msgid "There was an SSL error: %s\n"
-msgstr "Eroare I/O: %s"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:91
 msgid ""
@@ -1245,14 +1182,14 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "There was a SSL crypto error: %s\n"
-msgstr "Eroare I/O: %s"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:102
-#, fuzzy, python-format
+#, python-format
 msgid "There was an authentication error: %s\n"
-msgstr "Eroare I/O: %s"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:118
 #, python-format
@@ -1272,16 +1209,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:206
-#, fuzzy
 msgid "An error has occurred:"
 msgstr ""
-"S-a detectat o eroare de sistem de operare:\n"
-"%s"
 
 #: ../src/up2date_client/rhncli.py:214
-#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr "Eroare la citire informaţii"
+msgstr ""
 
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
@@ -1291,24 +1224,20 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Totul s-a terminal"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Editează"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1337,9 +1266,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Descriere"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1348,22 +1276,19 @@ msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:64
 #: ../src/firstboot/rhn_login_gui.py:41 ../src/firstboot/rhn_login_gui.py:42
-#, fuzzy
 msgid "Red Hat Login"
-msgstr "Red Hat Update Agent"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
@@ -1468,9 +1393,8 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "fără interfaţa grafică X"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:42
 msgid "ERROR: must be root to execute\n"
@@ -1489,37 +1413,32 @@ msgid "unsubscribe from channel"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:62
-#, fuzzy
 msgid "list channels"
-msgstr "Colecţii Aplicaţii"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:64
-#, fuzzy
 msgid "list all available child channels"
-msgstr "Pachete Disponibile pentru Actualizare"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:66
 msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "Parola:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1531,9 +1450,9 @@ msgid "Channel(s): %s successfully added"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Error during adding channel(s) %s"
-msgstr "Eroare la citire informaţii"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:122
 #, python-format
@@ -1572,33 +1491,28 @@ msgid "Updating package profile..."
 msgstr "Se actualizează profilul acestui sistem pe RHN..."
 
 #: ../src/bin/rhn-profile-sync.py:46
-#, fuzzy
 msgid "Updating hardware profile..."
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/gui.glade.h:3
-#, fuzzy
 msgid "Enter your account information"
-msgstr "Buletin de Informaţie"
+msgstr ""
 
 #: ../data/gui.glade.h:4
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
@@ -1678,56 +1592,48 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:14
-#, fuzzy
 msgid "Advanced Network Configuration"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Colecţie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Release"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "Close"
-msgstr "Închide"
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Enter Your Account Information"
-msgstr "Buletin de Informaţie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
 msgid "Enter in the format hostname(:port)"
 msgstr "Introduceţi în format hostname[:port]"
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid "Hardware Info"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:27
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
@@ -1738,9 +1644,8 @@ msgid "Limited updates"
 msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Descriere"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1755,9 +1660,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Red Hat Update Agent"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1772,14 +1676,12 @@ msgid "Select A File"
 msgstr ""
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Eroare la obţinerea listei de pachete disponibile"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
@@ -1801,19 +1703,16 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Foloseşte autentificare"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1823,9 +1722,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Descriere"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1840,18 +1738,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "Parola:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1862,15 +1758,13 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
 msgctxt "yes"
@@ -1878,22 +1772,19 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "Activează Proxy HTTP:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1901,22 +1792,19 @@ msgid "<b>Security &amp; Updates:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Warning</b>"
-msgstr "Pregătire..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:76
 msgctxt "yes"
@@ -1979,10 +1867,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
 msgctxt "yes"
@@ -2007,10 +1894,9 @@ msgid "CPU Speed:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgctxt "yes"
@@ -2047,16 +1933,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:98
-#, fuzzy
 msgctxt "yes"
 msgid "Hardware Profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:99
-#, fuzzy
 msgctxt "yes"
 msgid "Hostname:"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:100
 msgctxt "yes"
@@ -2074,16 +1958,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
 msgctxt "yes"
@@ -2093,16 +1975,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:105
-#, fuzzy
 msgctxt "yes"
 msgid "IP Address:"
-msgstr "Adaugă nou:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2136,12 +2016,11 @@ msgid "Package Information"
 msgstr "Informaţii despre Pachet"
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
-msgstr "https://rhn.redhat.com"
+msgstr ""
 
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
@@ -2155,10 +2034,9 @@ msgid "Proxy P_assword:"
 msgstr "Parola:"
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:116
 msgctxt "yes"
@@ -2180,28 +2058,25 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:119
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Linux Version:"
-msgstr "Red Hat Update Agent"
+msgstr ""
 
 #: ../data/rh_register.glade.h:120
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:121
-#, fuzzy
 msgctxt "yes"
 msgid "Send _hardware profile"
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:122
 #, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Eroare la obţinerea listei de pachete disponibile"
+msgstr "Se actualizează profilul acestui sistem pe RHN..."
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2216,10 +2091,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "Nume cont:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
@@ -2229,10 +2103,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Foloseşte autentificare"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 #, fuzzy
@@ -2310,16 +2183,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:139
-#, fuzzy
 msgctxt "yes"
 msgid "_Close"
-msgstr "Închide"
+msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
 msgctxt "yes"
@@ -2349,22 +2220,19 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "Opţiuni de Instalare Pachete"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "Opţiuni de Instalare Pachete"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
-#, fuzzy
 msgctxt "yes"
 msgid "_View Hardware Profile ..."
-msgstr "Se actualizează profilul acestui sistem pe RHN..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:149
 msgctxt "yes"
@@ -2382,10 +2250,9 @@ msgid "_Yes, I'd like to register now."
 msgstr ""
 
 #: ../data/rh_register.glade.h:152
-#, fuzzy
 msgctxt "yes"
 msgid "label"
-msgstr "label10"
+msgstr ""
 
 #: ../data/rh_register.glade.h:153
 msgctxt "yes"
@@ -2393,10 +2260,9 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "Configurare Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
 msgctxt "yes"
@@ -2404,1631 +2270,18 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "arată versiunea programului"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "Trebuie să rulaţi Update Agent ca root."
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Warning:"
-#~ msgstr "Pregătire..."
-
-#, fuzzy
-#~ msgid "Subscription Activation"
-#~ msgstr "Informaţii despre Pachet"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "Eroare de disc:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "Eroare fatală la instalarea pachetului:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "Eroare conflict RPM:\n"
-
-#, fuzzy
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "Eroare conflict RPM:\n"
-
-#, fuzzy
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "Eroare RPM.  Mesajul de eroare este:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "Eroare dependinţă RPM:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "Eroare la Ignorarea Pachetelor:\n"
-
-#, fuzzy
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "Eroare cauzată de fişier protejat sau modificare de fişier de "
-#~ "configuraţie. Mesajul de eroare este:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "Nu se poate şterge pachetul \"%s\" prezent în RemoveSkipList"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "Programul GPG nu este instalat corespunzător."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr ""
-#~ "Cheia publică GPG a Red Hat, Inc. nu este inclusă în lista de chei "
-#~ "cunoscute acestui sistem."
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "Pachetul %s nu are o semnătură validă. Aceasta înseamnă ca pachetul este "
-#~ "corupt."
-
-#, fuzzy
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "Acest pachet nu are o semnătură GPG.\n"
-
-#, fuzzy
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "Acest pachet nu are o semnătură GPG.\n"
-
-#, fuzzy
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "Acest pachet nu are o semnătură GPG.\n"
-
-#, fuzzy
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "*Desired Password:"
-#~ msgstr "Parola:"
-
-#, fuzzy
-#~ msgid "Please enter your first name."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Please enter your last name."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Please enter your email address."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Please enter your country."
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Please enter a longer password."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "You must select an organization."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Descriere"
-
-#, fuzzy
-#~ msgid "Installation Number:"
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "There was problem logging in."
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Eroare fatală la instalarea pachetului:\n"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Eroare fatală la instalarea pachetului:\n"
-
-#, fuzzy
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Problem registering login name."
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Descriere"
-
-#, fuzzy
-#~ msgid "Specify an email address"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Important Registration Info"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Select organization"
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Red Hat Update Agent"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Eroare la citire informaţii"
-
-#, fuzzy
-#~ msgid "Error reading DMI information:"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "You must enter a user name."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Problem registering login."
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Login Information:"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Account Information:"
-#~ msgstr "Buletin de Informaţie"
-
-#, fuzzy
-#~ msgid "*First Name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "*Last Name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "*Company Name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "Street Address:"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "  Address 2:"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "  Address:"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "Parola:"
-
-#, fuzzy
-#~ msgid "* Desired _Login:"
-#~ msgstr "Red Hat Update Agent"
-
-#, fuzzy
-#~ msgid "* Desired _Password:"
-#~ msgstr "Parola:"
-
-#, fuzzy
-#~ msgid "* Last _Name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "* _Email Address: "
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "* _First Name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "Buletin de Informaţie"
-
-#, fuzzy
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "France"
-#~ msgstr "Abandon"
-
-#, fuzzy
-#~ msgid "Guinea"
-#~ msgstr "Generalităţi"
-
-#, fuzzy
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Generalităţi"
-
-#, fuzzy
-#~ msgid "Guyana"
-#~ msgstr "Generalităţi"
-
-#, fuzzy
-#~ msgid "Senegal"
-#~ msgstr "Generalităţi"
-
-#, fuzzy
-#~ msgid "Ukraine"
-#~ msgstr "Abandon"
-
-#, fuzzy
-#~ msgid "Viet Nam"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "        Your system libraries do not support SSL (secure) connections.\n"
-#~ "        Any data that you send or receive from redhat.com will be\n"
-#~ "        transmitted in the clear.\n"
-#~ "        "
-#~ msgstr ""
-#~ "Bibliotecile sistem nu suportă comnuicaţia prin SSL. Toate datele\n"
-#~ "transmise şi recepţionate de la / la Red Hat Network for fi transferate\n"
-#~ "în text clar.\n"
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Doriţi să continuaţi?"
-
-#, fuzzy
-#~ msgid "reserved."
-#~ msgstr "Se obţine:"
-
-#, fuzzy
-#~ msgid "We are attempting to contact the Red Hat "
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Informaţii despre Colecţiile de Pachete"
-
-#, fuzzy
-#~ msgid "http://www.rhn.redhat.com/"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid ""
-#~ "your system to Red Hat Network.\n"
-#~ "\n"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hat Network (http://rhn.redhat.com):\n"
-#~ "\n"
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Red Hat Network:"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "http://www.redhat.com/store/."
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
-#~ msgstr "actualizează profilul acestui sistem pe RHN"
-
-#, fuzzy
-#~ msgid "You can run the registration program later by "
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid ""
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new "
-#~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "re-connect this system to Red Hat Network."
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid ""
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Modificaţi lista de pachete selectate şi încercaţi din nou."
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Versiune"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Descriere"
-
-#, fuzzy
-#~ msgid "Problem sending packages:\n"
-#~ msgstr "Nu s-au putu şterge pachetele: %s"
-
-#, fuzzy
-#~ msgid "Problem sending packages."
-#~ msgstr "Nu s-au putu şterge pachetele: %s"
-
-#~ msgid "File Name/pattern"
-#~ msgstr "Nume fişier/Patern"
-
-#~ msgid "Config modified"
-#~ msgstr "Configuraţie"
-
-#~ msgid "Dependencies should have already been resolved, but they are not."
-#~ msgstr "Dependinţele ar fi trebuit să fie deja rezolvate, însă nu sînt..."
-
-#, fuzzy
-#~ msgid "Failed running transaction of  packages: %s"
-#~ msgstr "Nu s-au putu instala pachetele: %s"
-
-#, fuzzy
-#~ msgid "You must enter a first name."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "You must a company name."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "You must a country."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "SSL Warning"
-#~ msgstr "Pregătire..."
-
-#, fuzzy
-#~ msgid ""
-#~ "Your system libraries do not support SSL (secure) connections.  Any data "
-#~ "that you send or receive from Red Hat Network will be transmitted in the "
-#~ "clear. Continue anyway?"
-#~ msgstr ""
-#~ "Bibliotecile sistem nu suportă comnuicaţia prin SSL. Toate datele\n"
-#~ "transmise şi recepţionate de la / la Red Hat Network for fi transferate\n"
-#~ "în text clar.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "RHN Username: "
-#~ msgstr "Nume cont:"
-
-#~ msgid "Error opening %s"
-#~ msgstr "Eroare la desciderea %s"
-
-#, fuzzy
-#~ msgid "Installing"
-#~ msgstr "Se instalează:"
-
-#~ msgid "Installing %s"
-#~ msgstr "Instalare %s"
-
-#, fuzzy
-#~ msgid "Repackaging"
-#~ msgstr "Pregătire..."
-
-#, fuzzy
-#~ msgid "Preparing"
-#~ msgstr "Pregătire..."
-
-#, fuzzy
-#~ msgid "Retrieved."
-#~ msgstr "Se obţine:"
-
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost selectate adiţional pentru a rezolva "
-#~ "dependinţele"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release\n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Release\n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name                          Version        Rel             "
-#~ "Channel     \n"
-#~ "----------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Rel     \n"
-#~ "----------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "No advisory information available\n"
-#~ msgstr "Buletinul de Informaţii nu este disponibil"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel     \n"
-#~ "----------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Rel     \n"
-#~ "----------------------------------------------------------"
-
-#~ msgid ""
-#~ "The following Packages were marked to be skipped by your configuration:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Rel  Reason\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Rel  Motiv \n"
-#~ "-------------------------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "The following wildcards did not match any packages:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#, fuzzy
-#~ msgid "The following groups did not match any packages:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#, fuzzy
-#~ msgid "The following Packages are obsoleted by newer packages:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Rel  Motiv \n"
-#~ "-------------------------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages were not installed because they are obsoleted by "
-#~ "installed packages:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
-#~ "-------------------------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Rel  Motiv \n"
-#~ "-------------------------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages are not installed but available from Red Hat "
-#~ "Network:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Name                                    Version        Release  \n"
-#~ "--------------------------------------------------------------"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Release\n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "<b>RHN Username:</b>"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "Create a _New Account"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Abandon"
-
-#, fuzzy
-#~ msgid "Provide a Red Hat login."
-#~ msgstr "Red Hat Update Agent"
-
-#~ msgid ""
-#~ "\n"
-#~ "    To solve all dependencies for the RPMs you have selected, The "
-#~ "following\n"
-#~ "    packages you have marked to exclude would have to be added to the "
-#~ "set:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Pentru a rezolva toate dependinţele pentru pachetele selectate,\n"
-#~ "    Următoarele pachete marcate pentru excludere trebuie adăugate\n"
-#~ "    la lista de pachete selectate:\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Nume Pachet"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Motiv pentru Ignorare"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr "Se testează setul de pachete şi se rezolvă dependinţele"
-
-#~ msgid "Could not satisfy conflict dependencies."
-#~ msgstr "Nu s-au putut satisface dependinţele de conflict."
-
-#, fuzzy
-#~ msgid ""
-#~ "The following packages were added to your selection to satisfy "
-#~ "dependencies:\n"
-#~ msgstr ""
-#~ "Următoarele pachete au fost selectate adiţional pentru a rezolva "
-#~ "dependinţele"
-
-#, fuzzy
-#~ msgid "Package                                Required by\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Release\n"
-#~ "--------------------------------------------------------------"
-
-#, fuzzy
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s depinde de %s\n"
-
-#, fuzzy
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s depinde de %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Nu se poate procesa sensul se dependinţă \"%s\""
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Unresolvable chain of dependencies:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Nu s-au putut rezolva lista de dependinţe:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "elilo options that are not supported by up2date are used in the default "
-#~ "elilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "Opţiunile elilo folosite în acest fişier de configurare nu sînt suportate "
-#~ "de up2date. Acest fişier nu va fi modificat. Opţiunile nesuportate sînt:\n"
-
-#~ msgid "Unable to run grubby correctly: the message was:\n"
-#~ msgstr "Unable to run grubby correctly: the message was:\n"
-
-#~ msgid "Red Hat Update Agent"
-#~ msgstr "Red Hat Update Agent"
-
-#, fuzzy
-#~ msgid ""
-#~ "This software is distributed under the GPL\n"
-#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
-#~ "redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Acest program este distribuit sub licenţa GPL. Vă rugăm să raportaţi "
-#~ "probleme la adresa http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid ""
-#~ "This software is distributed under the GPL.  Please Report bugs to Red "
-#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
-#~ msgstr ""
-#~ "Acest program este distribuit sub licenţa GPL. Vă rugăm să raportaţi "
-#~ "probleme la adresa http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Version"
-#~ msgstr "Versiune"
-
-#, fuzzy
-#~ msgid "Old Version"
-#~ msgstr "Versiune"
-
-#~ msgid "Size"
-#~ msgstr "Mărime"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Motiv Ignorare"
-
-#, fuzzy
-#~ msgid "Up2date - Privacy Information"
-#~ msgstr "Informaţii despre Pachet"
-
-#, fuzzy
-#~ msgid "Up2date - Terms And Conditions"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "Up2date - Login Page"
-#~ msgstr "Progresul Update Agent"
-
-#, fuzzy
-#~ msgid "Up2date - Red Hat Network Information"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Up2date - Product Information Page"
-#~ msgstr "Informaţii despre Pachet"
-
-#, fuzzy
-#~ msgid "Up2date - Hardware Profile"
-#~ msgstr "Se actualizează profilul acestui sistem pe RHN..."
-
-#, fuzzy
-#~ msgid ""
-#~ "The Registration Wizard is building a list of RPM packages installed on "
-#~ "your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat Update Agent construieşte o listă de pachete\n"
-#~ "care au nevoie de actualizare instalate pe acest\n"
-#~ "sistem. Vă rugăm aşteptaţi..."
-
-#~ msgid "No advisory information available."
-#~ msgstr "Buletinul de Informaţii nu este disponibil"
-
-#~ msgid ""
-#~ "Red Hat Update Agent is building a list of updated\n"
-#~ "RPM packages installed on your system.  Please wait."
-#~ msgstr ""
-#~ "Red Hat Update Agent construieşte o listă de pachete\n"
-#~ "care au nevoie de actualizare instalate pe acest\n"
-#~ "sistem. Vă rugăm aşteptaţi..."
-
-#~ msgid "There was a fatal RPM error.  The message was:\n"
-#~ msgstr "Eroare fatala RPM:\n"
-
-#~ msgid ""
-#~ "There was a fatal error communicating with the server.  The message was:\n"
-#~ msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
-
-#~ msgid ""
-#~ "An unexpected OS error occurred:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "S-a detectat o eroare de sistem de operare:\n"
-#~ "%s"
-
-#, fuzzy
-#~ msgid "Up2date - Skipped Packages"
-#~ msgstr "Pachete Disponibile pentru Actualizare"
-
-#, fuzzy
-#~ msgid "Up2date - Channels"
-#~ msgstr "Colecţii Aplicaţii"
-
-#, fuzzy
-#~ msgid "Up2date - Package List"
-#~ msgstr "Obţinere Pachete"
-
-#~ msgid "There was a fatal RPM error. The message was:\n"
-#~ msgstr "Eroare fatală RPM:\n"
-
-#~ msgid "Your system is fully updated.  No new packages are needed."
-#~ msgstr "Acest sistem este complet actualizat. Nu sînt necesare noi pachete."
-
-#~ msgid "There was an RPM error.  The message was:\n"
-#~ msgstr "Eroare necunoscuta RPM:\n"
-
-#~ msgid "There was an RPM install error. The message was:\n"
-#~ msgstr "Eroare la instalarea cu RPM:\n"
-
-#~ msgid "There was a package dependency problem.  The message was:\n"
-#~ msgstr "Eroare dependinţă pachet:\n"
-
-#~ msgid ""
-#~ "You must select at least one package.\n"
-#~ "If you do not wish to update any packages,\n"
-#~ "press the \"Cancel\" button to exit Update Agent."
-#~ msgstr ""
-#~ "Trebuie să selectaţi cel puţin un pachet.\n"
-#~ "Dacă nu doriţi să actualizaţi nici un pachet,\n"
-#~ "selectaţi butonul \"Abandon\" pentru a ieşi din\n"
-#~ "Update Agent."
-
-#, fuzzy
-#~ msgid ""
-#~ "The total size of selected packages is %d kB, but\n"
-#~ "You only have %d kB of free space.\n"
-#~ "Please unselect some packages and continue."
-#~ msgstr ""
-#~ "Mărimea totală a pachetelor selectate este de %d KB, însă\n"
-#~ "acest sistem are numai %d KB spaţiu liber. Deselectaţi\n"
-#~ "cîteva pachete şi încercaţi din nou."
-
-#, fuzzy
-#~ msgid "Up2date - Available Packages"
-#~ msgstr "Pachete Disponibile pentru Actualizare"
-
-#, fuzzy
-#~ msgid "Up2date - Dependencies"
-#~ msgstr "Colecţii Aplicaţii"
-
-#~ msgid "Package already downloaded"
-#~ msgstr "Pachetul este deja obţinut"
-
-#~ msgid ""
-#~ "Error while retrieving package %s.\n"
-#~ "The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Eroare la obţinerea pachetului %s.\n"
-#~ "Mesajul de eroare este:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "A fatal RPM error has occurred.  The message was:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Eroare RPM fatală:\n"
-#~ "%s"
-
-#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
-#~ msgstr "Pachetul %s nu este semnat cu GPG. Doriţi să continuaţi?"
-
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Continue?"
-#~ msgstr ""
-#~ "Pachetul %s nu are o semnătură GPG validă. Acest pachet a fost modificat "
-#~ "neautorizat sau este corupt. Doriţi să continuaţi?"
-
-#, fuzzy
-#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
-#~ msgstr "Pachetul %s nu este semnat cu GPG. Doriţi să continuaţi?"
-
-#, fuzzy
-#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
-#~ msgstr "Pachetul %s nu este semnat cu GPG. Doriţi să continuaţi?"
-
-#, fuzzy
-#~ msgid "All finished.  Click \"Forward\" to continue."
-#~ msgstr "Totul s-a terminat. Selectaţi \"Înainte\" pentru a continua."
-
-#, fuzzy
-#~ msgid "Up2date - Package Retrieval"
-#~ msgstr "Opţiuni de Obţinere Pachete"
-
-#, fuzzy
-#~ msgid "Repackaging..."
-#~ msgstr "Pregătire..."
-
-#, fuzzy
-#~ msgid "Installing..."
-#~ msgstr "Se instalează:"
-
-#, fuzzy
-#~ msgid "Total Progress (repackaging):"
-#~ msgstr "Progres total:"
-
-#, fuzzy
-#~ msgid "Total Progress:"
-#~ msgstr "Progres total:"
-
-#~ msgid "There was a fatal RPM install error. The message was:\n"
-#~ msgstr "Eroare fatală de instalare RPM:\n"
-
-#, fuzzy
-#~ msgid "Up2date - Package Installation"
-#~ msgstr "Opţiuni de Instalare Pachete"
-
-#, fuzzy
-#~ msgid "Up2date - Finish Page"
-#~ msgstr "Dummy Finish Page"
-
-#~ msgid "The Red Hat Update Agent has finished "
-#~ msgstr "Red Hat Update Agent a terminat"
-
-#~ msgid ""
-#~ "retrieving\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "obţinere pachete\n"
-#~ " următoarele pachete au fost obţinute cu succes:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "installing\n"
-#~ " the following packages successfully:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "instalare\n"
-#~ " următoarele pachete au fost instalate cu succes:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Because of your settings, these packages were only downloaded,\n"
-#~ "not installed.  If you wish to change your settings, please run the\n"
-#~ "\"up2date-config\" program."
-#~ msgstr ""
-#~ "\n"
-#~ "Din cauza setărilor acestui sistem, aceste pachete au fost obţinute de pe "
-#~ "RHN, însă nu au fost instatalte. Dacă doriţi să modificaţi aceste setări, "
-#~ "rulaţi din nou programul \"up2date-config\"."
-
-#~ msgid "Error installing lilo.conf  The message was:\n"
-#~ msgstr "Eroare la instalarea lilo.conf. MEsajul de eroare este:\n"
-
-#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
-#~ msgstr "Eroare la restaurarea copiei de backup a lilo.conf:\n"
-
-#~ msgid "Error installing the new bootloader: \n"
-#~ msgstr "Eroare la instalarea încărcătorului de sistem de operare: \n"
-
-#~ msgid "Error reading lilo.conf: The messages was:\n"
-#~ msgstr "Eroare la citirea lilo.conf:\n"
-
-#~ msgid ""
-#~ "lilo options that are not supported by up2date are used in the default "
-#~ "lilo.conf. This file will not be modified. The options include:\n"
-#~ msgstr ""
-#~ "Opţiunile lilo folosite de acest calculator nu sînt suportate de up2date. "
-#~ "Acest fişier nu va fi actualizat. Opţiunile nesuportate sînt:\n"
-
-#~ msgid "Pkg name/pattern"
-#~ msgstr "Nume/Patern pkg"
-
-#, fuzzy
-#~ msgid "Fetching rpm headers"
-#~ msgstr "Se actualizează profilul acestui sistem pe RHN..."
-
-#, fuzzy
-#~ msgid "Fetching rpm header: %s-%s-%s"
-#~ msgstr "Se actualizează profilul acestui sistem pe RHN..."
-
-#~ msgid "Removing packages marked to skip from list"
-#~ msgstr "Se şterg pachetele ignorate din listă..."
-
-#, fuzzy
-#~ msgid "Available command line options:"
-#~ msgstr "Pachete Disponibile pentru Actualizare"
-
-#~ msgid "Error getting available package list"
-#~ msgstr "Eroare la obţinerea listei de pachete disponibile"
-
-#, fuzzy
-#~ msgid "You must enter your address."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#, fuzzy
-#~ msgid "You must enter your zip/postal code."
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
-
-#~ msgid "Licensed under terms of the GPL."
-#~ msgstr "Licenţiat sub termenii GPL."
-
-#~ msgid "cannot remove %s"
-#~ msgstr "nu se poate şterge %s"
-
-#, fuzzy
-#~ msgid "Error parsing %s"
-#~ msgstr "Eroare la desciderea %s"
-
-#, fuzzy
-#~ msgid "First Name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "*Address:"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "Address:"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "Address 2:"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
-#~ msgstr "Pachetul %s nu este semnat cu GPG. Doriţi să continuaţi?"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s does not have a valid GPG signature.\n"
-#~ "It has been tampered with or corrupted.  Aborting..."
-#~ msgstr ""
-#~ "Pachetul %s nu are o semnătură GPG validă. Acest pachet a fost modificat "
-#~ "neautorizat sau este corupt. Doriţi să continuaţi?"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
-#~ msgstr "Pachetul %s nu este semnat cu GPG. Doriţi să continuaţi?"
-
-#, fuzzy
-#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
-#~ msgstr "Pachetul %s nu este semnat cu GPG. Doriţi să continuaţi?"
-
-#~ msgid ""
-#~ "The storage directory %s could not be found, or was not\n"
-#~ "accessable."
-#~ msgstr "Directorul de stocare %s nu a fost găsit sau nu este accesibil."
-
-#, fuzzy
-#~ msgid ""
-#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
-#~ "You must be registered.\n"
-#~ "\n"
-#~ "To register, run \"up2date --register\"."
-#~ msgstr ""
-#~ "Acest sistem nu este înregistrat pe Red Hat Network. Pentru a folosi "
-#~ "Update Agent, trebuie să înregistraţi acest sistem pe Red Hat Network.\n"
-#~ "\n"
-#~ "Pentru a înregistra sistemul, rulaţi \"rhn_register\"."
-
-#, fuzzy
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG."
-#~ msgstr ""
-#~ "Cheia publică GPG a Red Hat, Inc. nu este inclusă în lista de chei "
-#~ "cunoscute acestui sistem. Fără aceasta nu veţi putea verifica dacă "
-#~ "pachetele obţinute de pe Red Hat Network au fost semnate şi autentificate "
-#~ "de Red Hat.\n"
-#~ "\n"
-#~ "Opţiunea de configurare a acestui Update Agent specifică folosirea "
-#~ "verificării GPG.\n"
-#~ "\n"
-#~ "Pentru a instala cheia, rulaţi următoarea comandă ca root:\n"
-#~ "\n"
-#~ "        /usr/bin/gpg %s --import /usr/share/rhn/RPM-GPG-KEY"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
-#~ "Without it, you will be unable to verify that packages Update Agent "
-#~ "downloads\n"
-#~ "are securely signed by Red Hat.\n"
-#~ "\n"
-#~ "Your Update Agent options specify that you want to use GPG.\n"
-#~ "\n"
-#~ "To install the key, run the following as root:\n"
-#~ msgstr ""
-#~ "Cheia publică GPG a Red Hat, Inc. nu este inclusă în lista de chei "
-#~ "cunoscute acestui sistem. Fără aceasta nu veţi putea verifica dacă "
-#~ "pachetele obţinute de pe Red Hat Network au fost semnate şi autentificate "
-#~ "de Red Hat.\n"
-#~ "\n"
-#~ "Opţiunea de configurare a acestui Update Agent specifică folosirea "
-#~ "verificării GPG.\n"
-#~ "\n"
-#~ "Pentru a instala cheia, rulaţi următoarea comandă ca root:\n"
-#~ "\n"
-#~ "        /usr/bin/gpg %s --import /usr/share/rhn/RPM-GPG-KEY"
-
-#~ msgid "Could not complete dependency resolution"
-#~ msgstr "Nu s-a putut finaliza lista de dependinţe"
-
-#, fuzzy
-#~ msgid "Name                                    Version        Release\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Nume                                    Versiune       Release\n"
-#~ "--------------------------------------------------------------"
-
-#~ msgid "Test install failed because of package conflicts:\n"
-#~ msgstr "Instalarea de test a eşuat din cauza conflictelor de pachete:\n"
-
-#~ msgid "Could not find header for %s"
-#~ msgstr "Nu se pot obţine informaţiile despre %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "When operating in command line mode, specifying package names as\n"
-#~ "arguments to the program will attempt to retrieve (and possibly\n"
-#~ "install, based on your configuration) those packages.  Version,\n"
-#~ "release, and architecture details will be determined by the Update\n"
-#~ "Agent automatically.\n"
-#~ msgstr ""
-#~ "Cînd programul operează în mod linie de comandă, specificarea de nume \n"
-#~ "de pachete ca argumente la program va cere obţinerea (şi eventual "
-#~ "instalarea,\n"
-#~ "în cazul în care configuraţia permite acest lucru) acelor pachete.\n"
-#~ "Versiunea, Release şi plaforma vor fi automat determinate de Update Agent."
-
-#~ msgid "configure Update Agent options"
-#~ msgstr "configurare opţiuni Update Agent"
-
-#~ msgid "download packages only, even if configuration says to install"
-#~ msgstr ""
-#~ "numai obţine pachetele, fără instalare (suprascrie opţiunea de "
-#~ "configurare)"
-
-#~ msgid "install packages, even if configuration says to download only"
-#~ msgstr "instalează pachetele, chiar dacă configuraţia interzice acest lucru"
-
-#~ msgid "Download src packages as well as binary rpms"
-#~ msgstr "Obţine pachetele sursă în acelaşi timp cu pachetele binare."
-
-#~ msgid "Do not download src packages (overrides config setting if set)"
-#~ msgstr ""
-#~ "Fără sursa pachetelor binare obţinute (suprascrie opţiunea de configurare)"
-
-#~ msgid "Specify a path where an alternate rpm db is found"
-#~ msgstr "Specificaţi o cale pentru o bază de date RPM secundară"
-
-#~ msgid "Force package installation, overriding package and file skip list"
-#~ msgstr "Forţează instalarea pachetelor (suprascrie opţiunea de configurare)"
-
-#~ msgid "Only add packages to database, do not install to the filesystem"
-#~ msgstr ""
-#~ "Adaugă pachetele numai în baza de date RPM, fără a instala fişierele"
-
-#~ msgid "list packages available for retrieval"
-#~ msgstr "listează pachetele disponibile pentru actualizare"
-
-#~ msgid "Briefly describe the options"
-#~ msgstr "Descrie opţiunile în mod sumar"
-
-#~ msgid "colon separated path of directories to look in for packages"
-#~ msgstr "lista de directoare pentru obţinut pachete, separate de :"
-
-#~ msgid "do not use GPG to check package signatures"
-#~ msgstr "nu folosi verificările GPG pentru pachete"
-
-#, fuzzy
-#~ msgid ""
-#~ "up2date hardware profile associated with this System Profile on Red Hat "
-#~ "Network"
-#~ msgstr "actualizează profilul acestui sistem pe RHN"
-
-#~ msgid "List all packages available for download"
-#~ msgstr "Listează toate pachetele disponibile pentru actualizare"
-
-#, fuzzy
-#~ msgid "List all packages available that are not currently installed"
-#~ msgstr "Listează toate pachetele disponibile pentru actualizare"
-
-#, fuzzy
-#~ msgid "List all the install components available to install"
-#~ msgstr "Listează toate pachetele disponibile pentru actualizare"
-
-#, fuzzy
-#~ msgid ""
-#~ "finds, downloads, and installs the packages needed to solve the list of "
-#~ "dependencies"
-#~ msgstr ""
-#~ "găseşte, onţine şi instalează pachetele necesare pentru a rezolva lista "
-#~ "de dependinţe"
-
-#~ msgid "where to store temporary files / RPMs"
-#~ msgstr ""
-#~ "unde se stochează fişierele temporare şi pachetele obţinute de pe reţea."
-
-#~ msgid "update system with all relevant packages"
-#~ msgstr "actualizează sistemul cu toate pachetele relevante"
-
-#~ msgid "show program version information"
-#~ msgstr "arată versiunea programului"
-
-#~ msgid "Show the channel names along with the package name where approriate"
-#~ msgstr ""
-#~ "Arată numele colecţiei împreună cu numele pachetului acolo unde este cazul"
-
-#, fuzzy
-#~ msgid ""
-#~ "Show the packages which solve the comma separated list of dependencies"
-#~ msgstr "arată pachetele care rezolvă lista de dependinţe cerută"
-
-#~ msgid "Specify which channels to use by channel label"
-#~ msgstr "Specificaţi ce colecţii doriţi să folosiţi după etichetă"
-
-#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
-#~ msgstr "Arată opţiunile de invocare pentru gpg"
-
-#~ msgid "Do not download packages at all. For testing purposes"
-#~ msgstr "Mod de testare, fără obţinere de pachete"
-
-#, fuzzy
-#~ msgid "Fetch the package specified without resolving dependencies"
-#~ msgstr "Se testează setul de pachete şi se rezolvă dependinţele"
-
-#, fuzzy
-#~ msgid ""
-#~ "Fetch the source package for the specified package without resolving "
-#~ "dependencies"
-#~ msgstr "Se testează setul de pachete şi se rezolvă dependinţele"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Install key?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Instalează cheia?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "                        Some sort of error occurred adding the Red Hat\n"
-#~ "                        GPG key to your keyring."
-#~ msgstr ""
-#~ "S-a detectat o eroare necunoscută la încercarea de a adăuga\n"
-#~ "cheiea publică Red Hat GPG Key la lista privată de chei \n"
-#~ "recunoscute."
-
-#~ msgid "No packages were found that satisfy those dependencies."
-#~ msgstr "Nu s-a găsit nici un pachet care satisface aceste dependinţe."
-
-#, fuzzy
-#~ msgid ""
-#~ "There was a fatal error communicating with the server. The message was:\n"
-#~ msgstr "Eroare fatală la comunicaţia cu serverul RHN:\n"
-
-#, fuzzy
-#~ msgid "There was a package dependency problem. The message was:\n"
-#~ msgstr "Eroare dependinţă pachet:\n"
-
-#, fuzzy
-#~ msgid "There was an error installing the packages. The message was:\n"
-#~ msgstr "Eroare fatală la instalarea pachetului:\n"
-
-#~ msgid "No interactive mode available"
-#~ msgstr "Nu exitstă suport penrtu modul interactiv"
-
-#~ msgid ""
-#~ "Please specify either -l, -u, --nox, or package names as command line "
-#~ "arguments."
-#~ msgstr ""
-#~ "Specificaţi una dintre opţiunile -l, -u, --nox sau o lista de nume de "
-#~ "pachete de pe command line."
-
-#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
-#~ msgstr ""
-#~ "Nu se poate porni interfaţa grafică. Încercaţi să specificaţi opţiunea "
-#~ "\"--nox\""
-
-#, fuzzy
-#~ msgid "The following packages are not available:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#, fuzzy
-#~ msgid "The following packages you requested were not found:"
-#~ msgstr ""
-#~ "Următoarele pachete au fost marcate pentru a fi ignorate conform "
-#~ "setărilor de configurare:"
-
-#, fuzzy
-#~ msgid "The following packages you requested are already updated:"
-#~ msgstr ""
-#~ "Nici unul dintre pachetele specificate nu a fost găsit, sau aceste "
-#~ "pachete sînt deja actualizate."
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#, fuzzy
-#~ msgid "7.1"
-#~ msgstr "6.1"
-
-#, fuzzy
-#~ msgid "7.2"
-#~ msgstr "6.2"
-
-#, fuzzy
-#~ msgid "7.3"
-#~ msgstr "6.2"
-
-#, fuzzy
-#~ msgid "8.0"
-#~ msgstr "7.0"
-
-#~ msgid "Add"
-#~ msgstr "Adaugă"
-
-#~ msgid "Add new:"
-#~ msgstr "Adaugă nou:"
-
-#~ msgid "After installation, keep binary packages on disk"
-#~ msgstr "După instalare, păstrează pachetele binare pe hard disc."
-
-#~ msgid "Do not install packages after retrieval"
-#~ msgstr "Nu instala pachetele după ce au fost obţinute de pe RHN"
-
-#~ msgid ""
-#~ "Do not upgrade packages when local configuration file has been modified"
-#~ msgstr ""
-#~ "Nu actualiza pachetele cînd au fost modificate fişierele de configuraţie "
-#~ "locale"
-
-#~ msgid "Enter a path where you want downloaded packages to be stored."
-#~ msgstr ""
-#~ "Introduceţi un director unde doriţi să depozitaţi pachetele obţinute de "
-#~ "pe RHN"
-
-#~ msgid ""
-#~ "Enter the name of a file which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
-#~ msgstr ""
-#~ "Introduceţi numele unui fişier care doriţi să fie protejat cînd se face "
-#~ "determinarea pachetelor disponibile pentru selectare. Sînt acceptate "
-#~ "wildcards (de exemplu \"/boot/*\")"
-
-#~ msgid ""
-#~ "Enter the name of a package which you want to skip when determining which "
-#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
-#~ msgstr ""
-#~ "Introduceţi numele unui pachet care va fi sărit la determinarea "
-#~ "pachetelor care sînt disponibile pentru selectare. Sînt acceptate "
-#~ "wildcards (de exemplu \"kernel*\")"
-
-#~ msgid "File Names to Skip"
-#~ msgstr "Nume Fişiere Protejate"
-
-#~ msgid "General"
-#~ msgstr "Generalităţi"
-
-#~ msgid ""
-#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
-#~ "e.g. squid.mysite.org:3128"
-#~ msgstr ""
-#~ "Dacă doriţi să folosiţi un proxy HTTP, introduceţi-l aici în formatul "
-#~ "HOST:PORT (de exemplu squid.mysite.org:3128)"
-
-#~ msgid ""
-#~ "If you need to override the automatically determined version of Red Hat "
-#~ "Linux, enter a version here, or choose from the predefined versions."
-#~ msgstr ""
-#~ "Dacă doriţi să suprascrieţi versiunea de Red Hat Linux determinată în mod "
-#~ "automat, introduceţi noua versiune aici, sau selectaţi din lista de "
-#~ "versiuni pre-determinate."
-
-#~ msgid "Network Settings"
-#~ msgstr "Setări de Reţea"
-
-#~ msgid "Override version stored in System Profile:"
-#~ msgstr "Suprascrie versiunea determinată de sistem:"
-
-#~ msgid "Package Exceptions"
-#~ msgstr "Excepţii Pachete"
-
-#~ msgid "Package Installation Options"
-#~ msgstr "Opţiuni de Instalare Pachete"
-
-#~ msgid "Package Names to Skip"
-#~ msgstr "Nume Pachete de Sărit"
-
-#~ msgid "Package Retrieval Options"
-#~ msgstr "Opţiuni de Obţinere Pachete"
-
-#, fuzzy
-#~ msgid "Package Verification Options"
-#~ msgstr "Opţiuni de Obţinere Pachete"
-
-#~ msgid "Package storage directory:"
-#~ msgstr "Director pentru stocare:"
-
-#~ msgid "Remove"
-#~ msgstr "Şterge"
-
-#~ msgid "Retrieval / Installation"
-#~ msgstr "Obţinere / Instalare"
-
-#~ msgid "Retrieve source RPM along with binary package"
-#~ msgstr "Obţine sursa pachetului împreună cu pachetul binar"
-
-#~ msgid "Use GPG to verify package integrity"
-#~ msgstr "Foloseşte GPG pentru verificarea integrităţii pachetelor"
-
-#, fuzzy
-#~ msgid ""
-#~ "According to your preferences you have chosen not to automatically \n"
-#~ "update the above packages.  If you would like to override your settings\n"
-#~ "and include one of the above packages in the list of packages to "
-#~ "retrieve,\n"
-#~ "select its checkbox."
-#~ msgstr ""
-#~ "Setările dumneavoastră indică faptul că aţi ales să nu efectuaţi "
-#~ "actualizări\n"
-#~ "automate pentru pachetele de mai sus. Dacă doriţi să suprascrieţi aceste\n"
-#~ "setări şi să includeţi pachete din lista de mai sus în lista pachetelor \n"
-#~ "care vor fi actualizate, selectaţi căsuţa de marcare din dreptul\n"
-#~ "pachetului respectiv."
-
-#~ msgid "All Finished"
-#~ msgstr "Totul s-a terminal"
-
-#, fuzzy
-#~ msgid "Available Package Installs"
-#~ msgstr "Pachete Disponibile pentru Actualizare"
-
-#, fuzzy
-#~ msgid "First name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "IP address:"
-#~ msgstr "Adaugă nou:"
-
-#, fuzzy
-#~ msgid "Included information"
-#~ msgstr "Informaţii despre Colecţiile de Pachete"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Instalare Pachete"
-
-#~ msgid "Installing:"
-#~ msgstr "Se instalează:"
-
-#, fuzzy
-#~ msgid "Last name:"
-#~ msgstr "Nume cont:"
-
-#~ msgid "Name"
-#~ msgstr "Nume"
-
-#~ msgid "Packages Flagged to be Skipped"
-#~ msgstr "Pachete marcate pentru a fi ignorate"
-
-#~ msgid "Packages Required to Solve Dependencies"
-#~ msgstr "Pachete Necesare pentru Rezolvarea Dependinţelor"
-
-#~ msgid "Rel."
-#~ msgstr "Rel."
-
-#~ msgid "Retrieving Packages"
-#~ msgstr "Obţinere Pachete"
-
-#~ msgid "Retrieving:"
-#~ msgstr "Se obţine:"
-
-#~ msgid "Select all packages"
-#~ msgstr "Selectează toate pachetele"
-
-#~ msgid ""
-#~ "The following packages are required because some of the packages you\n"
-#~ "selected depend on them.  They will be added to your selected package set."
-#~ msgstr ""
-#~ "Următoarele pachete sînt necesare pentru că unele dintre pachetele\n"
-#~ "selectate depind de acestea. Aceste pachete vor fi adăugate la lista\n"
-#~ "de pachete instalate de procesul de actualizare."
-
-#, fuzzy
-#~ msgid ""
-#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
-#~ "your Red Hat Enterprise Linux system with the latest software\n"
-#~ "available from Red Hat Network.\n"
-#~ "\n"
-#~ "\n"
-#~ "To continue, click \"Forward.\"  To cancel without updating\n"
-#~ "anything, click \"Cancel.\""
-#~ msgstr ""
-#~ "Acest program este Red Hat Update Agent. Acest program vă va asista\n"
-#~ "în actualizarea sistemului Red Hat Linux cu ultimile versiuni ale\n"
-#~ "aplicaţiilor pe care le aveţi instalate pe acest sistem disponibile\n"
-#~ "din Red Hat Network.\n"
-#~ "\n"
-#~ "Pentru a continua, selectaţi \"Înainte\". Pentru a abandona şi a ieşi\n"
-#~ "din acest program fără să actualizaţi nimic, selectaţi \"Abandon\"."
-
-#~ msgid ""
-#~ "To subscribe or unsubscribe from channels, or for\n"
-#~ "more information about the channels available, see:"
-#~ msgstr ""
-#~ "Pentru a înscrie acest sistem la colecţii noi de pachete,\n"
-#~ "sau pentru a modifica setările de subscriere, utilizaţi:"
-
-#~ msgid "Total progress:"
-#~ msgstr "Progres total:"
-
-#~ msgid "Total size of selected packages to download:"
-#~ msgstr "Mărimea totală a pachetelor selectate:"
-
-#, fuzzy
-#~ msgid "Total size of selected packages:"
-#~ msgstr "Mărimea totală a pachetelor selectate:"
-
-#, fuzzy
-#~ msgid "Vermont"
-#~ msgstr "Versiune"
-
-#~ msgid "View Advisory"
-#~ msgstr "Text Buletin"
-
-#~ msgid "Welcome to Red Hat Update Agent"
-#~ msgstr "Bine aţi venit în Red Hat Update Agent"
-
-#, fuzzy
-#~ msgid ""
-#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
-#~ "to continue."
-#~ msgstr ""
-#~ "Puteţi selecta \"Înapoi\" pentru a modifica lista de pachete selectate,\n"
-#~ "sau selectaţi \"Înainte\" pentru a continua."
-
-#, fuzzy
-#~ msgid "* First name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "* Last name:"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "Network Configuration"
-#~ msgstr "Configurare Red Hat Network"
-
-#, fuzzy
-#~ msgid "sdfsdfsdfsdfProblem registering personal information"
-#~ msgstr "arată versiunea programului"
-
-#, fuzzy
-#~ msgid "Password (confirm):"
-#~ msgstr "Parola:"
-
-#~ msgid "label11"
-#~ msgstr "label11"
+msgstr ""

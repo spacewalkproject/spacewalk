@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: up2date-4.3.47-5\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2004-12-16 09:56+0700\n"
-"Last-Translator: Erwien Samantha Y <erwiensamantha@sederhana.or.id>\n"
-"Language-Team: BlankOn <http://www.blankonlinux.or.id>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Indonesian <trans-id@lists.fedoraproject.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Indonesian\n"
-"X-Poedit-Country: INDONESIA\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -312,9 +311,8 @@ msgid "Getting list of packages installed on the system"
 msgstr ""
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
@@ -349,9 +347,8 @@ msgid "Profile name:"
 msgstr ""
 
 #: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
-#, fuzzy
 msgid "Version: "
-msgstr "Versi"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
 msgid "CPU model: "
@@ -588,9 +585,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid "Password:"
@@ -622,9 +618,8 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Rilis"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "Limited Updates Only"
@@ -646,9 +641,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -669,9 +663,8 @@ msgstr ""
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -794,9 +787,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
-#, fuzzy
 msgid "Software channel subscriptions:"
-msgstr "Diskripsi"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
@@ -1224,9 +1216,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Selesai"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
 msgid "_Exit"
@@ -1267,9 +1258,8 @@ msgid "Finish Updates Setup"
 msgstr ""
 
 #: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Diskripsi"
+msgstr ""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:42
 #: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:19
@@ -1284,9 +1274,8 @@ msgstr ""
 #: ../src/firstboot/rhn_login_gui.py:71
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_create_profile_gui.py:43
-#, fuzzy
 msgid "Create Profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
@@ -1506,9 +1495,8 @@ msgid "Choose an update location"
 msgstr ""
 
 #: ../data/gui.glade.h:2
-#, fuzzy
 msgid "Create your system profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/gui.glade.h:3
 msgid "Enter your account information"
@@ -1612,9 +1600,8 @@ msgid "Choose Channel"
 msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Rilis"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
 msgid "Close"
@@ -1625,9 +1612,8 @@ msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Create profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
 msgid "Enter Your Account Information"
@@ -1650,9 +1636,8 @@ msgid "Limited updates"
 msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Diskripsi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
 msgid "No thanks, I'll connect later."
@@ -1667,9 +1652,8 @@ msgid "Provide a Security Certificate"
 msgstr ""
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1715,14 +1699,12 @@ msgid "Use Authentication with HTTP Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1732,9 +1714,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Diskripsi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "_Minor release:"
@@ -1749,9 +1730,8 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "Up2date - Informasi Pendaftaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "proxy location"
@@ -1794,10 +1774,9 @@ msgid "<b>Login:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgctxt "yes"
@@ -1946,10 +1925,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:98
-#, fuzzy
 msgctxt "yes"
 msgid "Hardware Profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:99
 msgctxt "yes"
@@ -1994,10 +1972,9 @@ msgid "IP Address:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "Up2date - Informasi Pendaftaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2025,10 +2002,9 @@ msgid "Memory:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:111
-#, fuzzy
 msgctxt "yes"
 msgid "Package Information"
-msgstr "Up2date - Informasi Rahasia"
+msgstr ""
 
 #: ../data/rh_register.glade.h:112
 msgctxt "yes"
@@ -2072,28 +2048,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:119
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Linux Version:"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:120
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:121
-#, fuzzy
 msgctxt "yes"
 msgid "Send _hardware profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:122
-#, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:123
 msgctxt "yes"
@@ -2125,10 +2097,9 @@ msgid "Use Au_thentication with HTTP Proxy:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:128
-#, fuzzy
 msgctxt "yes"
 msgid "V_iew Package Profile ..."
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:129
 msgctxt "yes"
@@ -2215,10 +2186,9 @@ msgid "_No thanks, I'll connect later."
 msgstr ""
 
 #: ../data/rh_register.glade.h:142
-#, fuzzy
 msgctxt "yes"
 msgid "_No, Cancel"
-msgstr "Channel"
+msgstr ""
 
 #: ../data/rh_register.glade.h:143
 msgctxt "yes"
@@ -2246,16 +2216,14 @@ msgid "_Take me back to the setup process."
 msgstr ""
 
 #: ../data/rh_register.glade.h:148
-#, fuzzy
 msgctxt "yes"
 msgid "_View Hardware Profile ..."
-msgstr "Buat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "Kenapa Harus Mendaftar?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
 msgctxt "yes"
@@ -2288,15 +2256,13 @@ msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "Buat Login"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "Up2date - Informasi Pendaftaran"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
@@ -2305,116 +2271,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr ""
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Up2date - Informasi Pendaftaran"
-
-#, fuzzy
-#~ msgid "Create a New Login ..."
-#~ msgstr "Buat Login"
-
-#, fuzzy
-#~ msgid "Access a subscription"
-#~ msgstr "Diskripsi"
-
-#, fuzzy
-#~ msgid "Access Subscription"
-#~ msgstr "Diskripsi"
-
-#, fuzzy
-#~ msgid "C_reate new login"
-#~ msgstr "Buat Login"
-
-#, fuzzy
-#~ msgid "Create a _New Login"
-#~ msgstr "Buat Login"
-
-#, fuzzy
-#~ msgid "and manage subscriptions "
-#~ msgstr "Diskripsi"
-
-#, fuzzy
-#~ msgid "Version: %s"
-#~ msgstr "Versi"
-
-#, fuzzy
-#~ msgid "'Access a Subscription' screen."
-#~ msgstr "Diskripsi"
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Nama Paket"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Alasan Untuk Melewatinya"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr ""
-#~ "Melakukan tes pada paketnya/ Menyelesaikan inter-dependensi dari RPM"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Paket                                Diperlukan Oleh\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Tidak tahu bagaimana harus menyelesaikan dependensi dari \"%s\""
-
-#~ msgid "Old Version"
-#~ msgstr "Versi Lama"
-
-#~ msgid "Size"
-#~ msgstr "Ukuran"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Alasan Dilewati"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Tambah"
-
-#~ msgid "Add new:"
-#~ msgstr "Tambah baru:"

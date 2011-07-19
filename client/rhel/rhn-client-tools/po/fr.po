@@ -1,15 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Alain PORTAL <aportal@univ-montp2.fr>, 2006.
+# Audrey Simons <asimons@redhat.com>, 2004, 2005.
+# Bettina De Monti <bdemonti@redhat.it>, 2001.
+# Damien Durand <splinux@fedoraproject.org>, 2006.
+# Decroux Fabien <fdecroux@redhat.com>, 2006, 2007.
+# Myriam Malga <mmalga@redhat.com>, 2007.
+# Stephane Raimbault <stephane.raimbault@free.fr>, 2004.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# jfenal <jfenal@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2011-03-26 20:34+0000\n"
-"Last-Translator: jfenal <jfenal@gmail.com>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-06-10 14:19+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"

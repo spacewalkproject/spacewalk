@@ -1,22 +1,23 @@
-# Norwegian/Bokmaal translation of PACKAGE.
-# Copyright (C) 2006 THE PACKAGE'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+#
 # Espen Stefansen <espenas@gmail.com>, 2006.
-# , fuzzy
-#
-#
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Kjartan Maraas <kmaraas@gnome.org>, 2003.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 12:06+0200\n"
-"PO-Revision-Date: 2006-12-10 17:11+0100\n"
-"Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
-"Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
@@ -74,6 +75,3 @@ msgstr "Nødvendig innloggingsinformasjon for RHN mangler: %s"
 
 #~ msgid "RHN support will be disabled."
 #~ msgstr "Støtte for RHN vil bli deaktivert."
-
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "Enten --version, eller ingen kommandoer ble angitt."

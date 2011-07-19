@@ -1,26 +1,25 @@
-# translation of si.po to Sinhala
-# Sinhalese translations for up package.
-# Copyright (C) 2004 THE up'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the up package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Ankit Patel <ankit@redhat.com>, 2006, 2007.
 # Automatically generated, 2004.
 # Tyronne Wickramarathne <tywickra@redhat.com>, 2006, 2007.
-# Ankit Patel <ankit@redhat.com>, 2006, 2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: si\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:31+0200\n"
-"PO-Revision-Date: 2007-02-01 15:28+0530\n"
-"Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
-"Language-Team: Sinhala <en@li.org>\n"
+"POT-Creation-Date: 2011-07-19 18:03+0200\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Sinhala (http://www.transifex.net/projects/p/fedora/team/"
+"si/)\n"
 "Language: si\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -34,23 +33,18 @@ msgid "Warning"
 msgstr "අවවාදයයි"
 
 #: ../src/up2date_client/rhnregGui.py:273
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:297
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "ඔබ විසින් සපයා ඇත්තේ සාවද්‍ය වාහකයෙකි. https සහ http හට ඉඩ දී තිබේ"
 
 #: ../src/up2date_client/rhnregGui.py:310
-#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Red Hat Network server."
 msgstr ""
-"Red Hat Network වෙන සම්බන්ධ නොවී ඔබ සතුව තිබෙන ග්‍රාහකත්වයන් හී වරප්‍රසාද ලබා ගැනීමට "
-"<b>නොහැක</b>. එම වරප්‍රසාද   ලබාගැනීම සඳහා    Red Hat Network.  වෙත පිවිසීමට ඔබේ "
-"පද්ධතිය මානකරගත යුතුය"
 
 #: ../src/up2date_client/rhnregGui.py:332
 #, python-format
@@ -96,13 +90,11 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr "ඇතැම්විට ඔබ විසින් සේවා දායකය සමඟ නොගැලපෙන සේවා ග්‍රාහකයක් ක්‍රියාත්මක කර ඇත."
 
 #: ../src/up2date_client/rhnregGui.py:399
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
 msgstr ""
-"%s Red Hat Network Satellite සඳහා ඔබේ පිවිසුම් තොරතුරු ඇතුල් කරන්න:\n"
-"\n"
 
 #: ../src/up2date_client/rhnregGui.py:448
 msgid "You must enter a login."
@@ -113,9 +105,8 @@ msgid "You must enter a password."
 msgstr "ඔබ විසින් රහස්පදය ඇතුලත් කල යුතුමය"
 
 #: ../src/up2date_client/rhnregGui.py:468
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "ඇතුලට පිවිසීමේදී දෝශයක් ඇතිවිය"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:493
 msgid ""
@@ -124,9 +115,8 @@ msgid ""
 msgstr "ලියාපදිංචිකරණ සේවා දායකය හා සම්බන්ධ වීමේදී දෝශයක් ඇතිවිය.  පණිවිඩය වනුයේ:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:656
 msgid "Error running hardware profile"
@@ -141,9 +131,8 @@ msgid "You must choose a name for this profile."
 msgstr "මෙම පැතිකඩ සඳහා ඔබ විසින් නමක් තෝරාගත යුතුමය."
 
 #: ../src/up2date_client/rhnregGui.py:718
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
@@ -225,9 +214,8 @@ msgid "Problem registering personal information"
 msgstr "පුද්ගලික තොරතුරු ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය"
 
 #: ../src/up2date_client/rhnregGui.py:954
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:980
 msgid "You must select a certificate."
@@ -255,9 +243,8 @@ msgid "unknown"
 msgstr "හඳුනා නොගත්"
 
 #: ../src/up2date_client/rhnregGui.py:1166
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1178 ../src/up2date_client/tui.py:678
 #, python-format
@@ -270,9 +257,8 @@ msgid "%s MB"
 msgstr "%s MB"
 
 #: ../src/up2date_client/rhnregGui.py:1226
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "ඇසුරුම ස්ථාපනය කරන විටදී භයානක දෝශයක් ඇති විය:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1241
 msgid "Package"
@@ -343,9 +329,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "ඔබේ පද්ධතිය තුල ස්ථාපනය කල යුතු ඇසුරුම් ලයිස්තුව ලබා ගනිමින්"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network ස්ථානය(_L):"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:128
 #: ../src/up2date_client/rhnreg_constants.py:73
@@ -353,11 +338,8 @@ msgid "Login:"
 msgstr "පිවිසුම:"
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
 msgstr ""
-"\n"
-"පද්ධතියේ හඳුනාගැනීමේ අංකය: "
 
 #: ../src/up2date_client/tui.py:423
 #: ../src/up2date_client/rhnreg_constants.py:329
@@ -375,9 +357,8 @@ msgid "OK"
 msgstr "හරි"
 
 #: ../src/up2date_client/tui.py:427
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "ලියාපදිංචිකරණ සේවා දායකය හා සම්බන්ධ වීමේදී දෝශයක් ඇතිවිය.  පණිවිඩය වනුයේ:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:627
 msgid "Profile name:"
@@ -484,9 +465,8 @@ msgid "%s was not found"
 msgstr "%s සොයාගත නොහැකි විය"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
-#, fuzzy
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "© 2006  Red Hat, Inc. සියළුම හිමිකම් ඇවරිණි."
+msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
@@ -602,9 +582,8 @@ msgstr ""
 "privacy_statement.html"
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "මාව නැවතත් ලියාපදිංචි කිරීම වෙත රැගෙන යන්න(_T)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:60
@@ -612,23 +591,16 @@ msgid "Software update setup unsuccessful"
 msgstr "මෘදුකාංග නවීකරණ සැකසුම අසාර්ථකයි"
 
 #: ../src/up2date_client/rhnreg_constants.py:61
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
-"ඔබේ පද්ධතිය Red Hat Network සමඟ සම්බන්ධ වීමට අනවශ්‍ය බව ඔබට හොඳටම විශ්වාසද? Red Hat "
-"Enterprise Linux ග්‍රාහකත්වය සමඟ ලැබෙන වරප්‍රසාදයන් ඔබට අහිමි වනු ඇත:"
 
 #: ../src/up2date_client/rhnreg_constants.py:63
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
-"Red Hat Network වෙන සම්බන්ධ නොවී ඔබ සතුව තිබෙන ග්‍රාහකත්වයන් හී වරප්‍රසාද ලබා ගැනීමට "
-"<b>නොහැක</b>. එම වරප්‍රසාද   ලබාගැනීම සඳහා    Red Hat Network.  වෙත පිවිසීමට ඔබේ "
-"පද්ධතිය මානකරගත යුතුය"
 
 #: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:43
 msgid "Take me back to the setup process."
@@ -640,9 +612,8 @@ msgstr "මම පසුව ලියාපදිංචි වීමට කැ�
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy
 msgid "Enter you account information"
-msgstr "ඔබේ ගිණුමේ තොරතුරු ඇතුල්කරන්න"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:70
 #, python-format
@@ -712,9 +683,8 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid "Create your system profile - Hardware"
-msgstr "ඔබේ පද්ධතියේ පැතිකඩ සාදන්න"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
@@ -738,9 +708,8 @@ msgstr "දෘඪාංගයන් හී සහ ජාලය සම්බන�
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid "Create your system profile - Packages"
-msgstr "ඔබේ පද්ධතියේ පැතිකඩ සාදන්න"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
@@ -773,13 +742,10 @@ msgstr ""
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:117
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"<small>ඉඟිය: ඔබේ පිවිසුම හෝ රහස්පදය අමතකවීද? පහත සඳහන් වියුණ වෙත යොමුවන්න \n"
-"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
 #: ../src/up2date_client/rhnreg_constants.py:119
 msgid "*Email Address:"
@@ -1145,7 +1111,7 @@ msgstr ""
 "තිබෙන මෙම වෙළුම මඟින් සපයනු නොලැබේ. කරුණාකර නව සේවාදායකය් භාවිතා කර නැවත උත්සහකර බලන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:283
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -1156,13 +1122,6 @@ msgid ""
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
-"<b><span size=\"16000\">නොගැලපෙන සහතික පත්‍ර ගොනුව</span></b>\n"
-"\n"
-"ඔබ විසින් ලබාදුන් සහතික පත, <b>%s</b>, <b>%s</b> හි තිබෙන Red Hat Network server සමඟ "
-"සමරූපී නොවේ . ඔබ විසින් සපයා ඇති සහතිපත්‍ර ගොනුවේ නිරවද්‍යතාවය ඔබ විසින් නැවත වරක් විමසා බැලිය "
-"යුතුව ඇත. ඔබ විසින් නිවැරදි සහ පළුදු නොවූ සහතික පත්‍රයක් ලබා දුන් බව ඔබට විශ්වාසද?\n"
-"\n"
-"කරුණාකර වෙනත් සහතික පත්‍ර ගොනුවක් භාවිතා කර නැවත උත්සහ කර බලන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:291
 msgid ""
@@ -1333,14 +1292,13 @@ msgid "An unexpected OS error occurred: %s\n"
 msgstr "බලා පොරොත්තු නොවූ මෙහෙයුම් පද්ධතියේ දෝශයක් ඇතිවිය: %s\n"
 
 #: ../src/up2date_client/rhncli.py:83
-#, fuzzy
 msgid "A connection was attempted with a malformed URI.\n"
-msgstr "නිසි ලෙස සකසා නොමැති URI සමඟ සම්බන්ධතාවයක් සාදා ගැනීමට වෙර දැරීය.\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:85
-#, fuzzy, python-format
+#, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
-msgstr "නිසි ලෙස සකසා නොමැති URI සමඟ සම්බන්ධතාවයක් සාදා ගැනීමට වෙර දැරීය: %s.\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:87
 #, python-format
@@ -1380,15 +1338,12 @@ msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "විත්‍රක මුහුණත විවෘත කල නොහැක. `up2date --nox` උත්සහ කර බලන්න"
 
 #: ../src/up2date_client/rhncli.py:190
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
 "Copyright (C) 1999--2010 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
-"%%වැඩසටහන (Red Hat Network Client Tools) %s\n"
-"සියළුම හිමිකම් ඇවරිනි (C) 1999-2006 Red Hat, Inc.\n"
-"GPL හී කොන්දේසි වලට යටත්ව බලපත්‍ර ලබා ඇත."
 
 #: ../src/up2date_client/rhncli.py:206
 msgid "An error has occurred:"
@@ -1415,9 +1370,8 @@ msgid "_Exit"
 msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "මෘදුකාංග නවීකරණ සැකසුම අසාර්ථකයි"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
 msgid "You must run rhn_register as root."
@@ -1473,15 +1427,13 @@ msgstr "පැතිකඩ සාදන්න"
 
 #: ../src/firstboot/rhn_login_gui.py:99
 #: ../src/firstboot/rhn_create_profile_gui.py:87
-#, fuzzy
 msgid "There was a communication error with the server:"
-msgstr "සේවා දායකයත් සමඟ සන්නිවේදන දෝශයක් ඇතිවිය: %s"
+msgstr ""
 
 #: ../src/firstboot/rhn_login_gui.py:101
 #: ../src/firstboot/rhn_create_profile_gui.py:89
-#, fuzzy
 msgid "Would you like to go back and try again?"
-msgstr "ජාල මානකරනය වෙනස් කර නැවත උත්සහ කිරීමට ඔබ කැමතිද?"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1517,9 +1469,8 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "stdin මඟින් සම්බන්ධ විය හැකි ආකාරය සම්බන්ධව කියවන්න"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
 msgid "Do not probe or upload any hardware info"
@@ -1556,11 +1507,8 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:124
-#, fuzzy
 msgid "The server you are registering against does not support EUS."
 msgstr ""
-"ඔබ විසින් ලියාපදිංචි වීමට උත්සහ කරන සේවාදායකය මෙම සේවාග්‍රාහක වෙළුම සඳහා සහය දක්වනු "
-"නොලැබේ."
 
 #: ../src/bin/rhnreg_ks.py:154
 msgid ""
@@ -1591,9 +1539,8 @@ msgid "Do not attempt to use X"
 msgstr "X සේවා දායකයක් භාවිත කිරීමට උත්සහ නොකරන්න"
 
 #: ../src/bin/spacewalk-channel.py:42
-#, fuzzy
 msgid "ERROR: must be root to execute\n"
-msgstr "%s ක්‍රියාත්මක කිරීම සඳහා පද්ධතිය නැවත ආරම්භ කල යුතු වේ."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:56
 msgid "name of channel you want to (un)subscribe"
@@ -1620,23 +1567,20 @@ msgid "verbose output"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:68
-#, fuzzy
 msgid "your user name"
-msgstr "ඔබේ පරිශීලක නාමය ඇතුලත් කල යුතුය"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:70
-#, fuzzy
 msgid "your password"
-msgstr "රහස්පදයක් නිර්දේශ කරන්න"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:78
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:80
-#, fuzzy
 msgid "Username: "
-msgstr "ධාරක නම:"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:104
 msgid "ERROR: you have to specify at least one channel"
@@ -1663,9 +1607,8 @@ msgid "Error during removal of channel(s) %s"
 msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:131
-#, fuzzy
 msgid "This system is not associated with any channel."
-msgstr "ඕඩයක් සමඟ නිසි ලෙස සම්බන්ධ වන තුරු පද්ධතිය නවීකරණය නොවනු ඇත."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:133
 msgid "Unable to locate SystemId file. Is this system registered?"
@@ -1720,20 +1663,18 @@ msgid "Progress Dialog"
 msgstr "ප්‍රගති දර්ශකය"
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "ප්‍රගති දර්ශකය"
+msgstr ""
 
 #: ../data/progress.glade.h:3
 msgid "progress status"
 msgstr ""
 
 #: ../data/rh_register.glade.h:1
-#, fuzzy
 msgid ""
 "\n"
 "Are you sure you would like to continue?"
-msgstr "නිශ්චිතවම ඔබට දිගටම කරගෙන යාමට අවශ්‍යද ?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:3
 msgid "       "
@@ -1805,27 +1746,24 @@ msgid "Advanced Network Configuration"
 msgstr "සංකීර්ණ ජාල මානකරණය"
 
 #: ../data/rh_register.glade.h:15
-#, fuzzy
 msgid "Advanced Network Configuration button"
-msgstr "සංකීර්ණ ජාල මානකරණය"
+msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "Aplet screenshot"
 msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "Choose Channel"
-msgstr "සංවිධානය තොරාගන්න"
+msgstr ""
 
 #: ../data/rh_register.glade.h:20
 msgid "Choose minor release"
 msgstr ""
 
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "Close"
-msgstr "වසා දමන්න(_C)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
 msgid "Confirm operation system release selection"
@@ -1852,18 +1790,16 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr "_HTTP ප්‍රොක්සියක් භාවිතා කරමින් Red Hat Network වෙත සම්බන්ධ වීමට කැමැත්තෙමි."
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "Limited updates"
-msgstr "එක්සත් ජනපදය"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
 msgid "Link To Subscription"
 msgstr "ග්‍රාහකත්වය සඳහා වන පුරුක"
 
 #: ../data/rh_register.glade.h:30
-#, fuzzy
 msgid "No thanks, I'll connect later."
-msgstr "නැත, ස්තූතියි  මම පසුව ලියාපදිංචි වෙන්නම්(_N):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:32
 msgid "Package Information"
@@ -1874,11 +1810,8 @@ msgid "Provide a Security Certificate"
 msgstr "ආරක්‍ෂිත සහතිකපතක් ලබා දෙන්න"
 
 #: ../data/rh_register.glade.h:34
-#, fuzzy
 msgid "RHN login field"
 msgstr ""
-"\n"
-"Red Hat පිවිසුම:"
 
 #: ../data/rh_register.glade.h:35
 msgid "RHN password field"
@@ -1893,21 +1826,18 @@ msgid "Select A File"
 msgstr "ගොනුවක් තෝරාගන්න"
 
 #: ../data/rh_register.glade.h:38
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "දෘඪංග පැතිකඩ යවන්න(_h)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "ඇසුරුමේඑ පැතිකඩ යවන්න(_p)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
 msgid "Start Window"
 msgstr "කවුළුව ආරම්භ කරන්න"
 
 #: ../data/rh_register.glade.h:44
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1921,28 +1851,18 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"Red Hat Network සේවා දායකය හා සම්බන්ධ නොවී සාර්ථකව ආරක්‍ෂක මෘදුකාංග නවීකරණයන්ද ඇතුළුව "
-"කිසිදු නවීකරණයක් මෙම පද්ධතිය හට ලබා ගැනීමට <b>නොහැකි</b> වනු ඇත.\n"
-"\n"
-"මෙම පද්ධතිය නවීකරණය කර අදාල ආරක්‍ෂක නවීකරණයන් ඇතුළු නවීකරණ ඇසුරුම් සහ තාක්‍ෂණික සහය ලබා "
-"ගැනීමට මෙම පද්ධතිය හැකි විගස ලියාපදිංචි කරන්න. <b>Software Updater</b> in the "
-"<b>Applications > System Tools</b> යන ඉහත සඳහන් මෙනූ මාර්ගයෙන් ලියාපදිංචි කිරීමේ "
-"මෙවලම භාවිතා කර ඔබට මෙය සිදු කල හැක."
 
 #: ../data/rh_register.glade.h:50
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "අනන්යතාවය තහවුරු කරගැනීමට HTTP ප්‍රොක්සියක් භාවිත  කරන්න(_t):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "දෘඪාංග පැතිකඩ නරඹන්න(_V) ..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "View Package Profile"
-msgstr "ඇසුරුමේ පැතිකඩ බලන්න(_i) ..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:56
 msgid ""
@@ -1968,19 +1888,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "installation number field"
-msgstr "ස්ථාපන අංකය සාවද්‍යයි"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
-#, fuzzy
 msgid "proxy location"
-msgstr "_Proxy ස්ථානය:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:63
-#, fuzzy
 msgid "proxy password field"
-msgstr "ප්‍රොක්සියේ රහස්පදය(_a):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "proxy user field"
@@ -1991,9 +1908,8 @@ msgid "satellite server location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "system name"
-msgstr "පද්ධතියේ නම(_N):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
 #, fuzzy
@@ -2635,18 +2551,16 @@ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• ඔබේ Red Hat Network හෝ Red Hat Network Satellite සඳහා වන පිවිසුම"
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "ලියාපදිංචි අංකය(_n)"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Red Hat Network සමඟ ලියාපදිංචි වන්න"
+msgstr ""
 
 #~ msgid ""
 #~ "A security certificate compatible with <b>%s</b> was not found on this "
@@ -2662,23 +2576,6 @@ msgstr "Red Hat Network සමඟ ලියාපදිංචි වන්න"
 #~ "(ඔබේ පරිශීලක නාමය සහ රහස්පදය ඇතුළුව) සමඟ සිදුකෙරෙන දත්ත හුවමාරුව සඳහා භාවිත කිරීමට "
 #~ "අවශ්‍ය වේ."
 
-#, fuzzy
-#~ msgid ""
-#~ "You won't be able to receive software updates, including security "
-#~ "updates, for this system.\n"
-#~ "\n"
-#~ "You may access the RHN registration tool by running <b>RHN Registration</"
-#~ "b> or <b>Red Hat Subscription Manager</b> in the <b>System > "
-#~ "Administration</b> menu.\n"
-#~ "You may access the software update tool by running <b>Software Update</b> "
-#~ "in the <b>System > Administration</b> menu."
-#~ msgstr ""
-#~ "ආරක්‍ෂක ඇසුරුම් සහිතව කිසිදු නවීකරණයක් ඔබ හට මෙම පද්ධතිය සඳහා ලබාගත නොහැක.\n"
-#~ "\n"
-#~ "ඔබේ පද්ධතිය නවීකරණය, ආරක්‍ෂිතව සහ තාක්‍ෂණික සහය සමඟින් තබා ගැනීමට මෙම පද්ධතිය RHN සමඟ "
-#~ "හැකි විගස සම්බන්ධ කරගන්න. වැඩසටහන් > පද්ධති මෙවලම් හී තිබෙන මෘදුකාංග ප්‍රගමන මෙවලම භාවිත "
-#~ "කර ඔබට ඕනෑම මොහොතක මෘදුකාංග ප්‍රගමනයන් ලබාගත හැක."
-
 #~ msgid ""
 #~ "Your system is now ready to receive the software updates that will keep "
 #~ "it secure and supported.\n"
@@ -2693,1357 +2590,3 @@ msgstr "Red Hat Network සමඟ ලියාපදිංචි වන්න"
 #~ "ඔබේ පද්ධතිය සඳහා වන නව ඇසුරුම් නිකුත් කල විගස , ඔබේ පරිගණකය මත ඇසුරුම් සලකුණ දිස්වෙනු ඇත "
 #~ "(බොහෝ විට ඉහල දකුණු කෙලවරෙහී) ඒ මත ක්ලික් කිරීමෙන්, ඔබව එම ඇසුරුම් නිසි ලෙස ස්ථාපනය "
 #~ "කරගැනීමට අවශ්‍ය මඟ පෙන්වීම ලබා දෙනු ඇත:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your system is ready to receive the software updates that will keep it "
-#~ "secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of your desktop (usually in the upper-"
-#~ "right corner, circled below.) Clicking on this icon, when available, will "
-#~ "guide you through applying any updates that are available:"
-#~ msgstr ""
-#~ "ඔබේ පද්ධතිය ආරක්‍ෂිතව සහ අවශ්‍ය සහය ලැබීමට සුදුසු ලෙස සකසා ඇත.\n"
-#~ "\n"
-#~ "ඔබේ පද්ධතිය සඳහා වන නව ඇසුරුම් නිකුත් කල විගස , ඔබේ පරිගණකය මත ඇසුරුම් සලකුණ දිස්වෙනු ඇත "
-#~ "(බොහෝ විට ඉහල දකුණු කෙලවරෙහී) ඒ මත ක්ලික් කිරීමෙන්, ඔබව එම ඇසුරුම් නිසි ලෙස ස්ථාපනය "
-#~ "කරගැනීමට අවශ්‍ය මඟ පෙන්වීම ලබා දෙනු ඇත:"
-
-#~ msgid "Setting up Software updates"
-#~ msgstr "මෘදුකාංග නවීකරණය සකසමින්"
-
-#~ msgid "Why connect to Red Hat Network?"
-#~ msgstr "Red Hat Network හා සම්බන්ධ විය යුත්තේ කුමන හේතුවක් නිසාද?"
-
-#~ msgid "Setting up software updates"
-#~ msgstr "මෘදුකාංග නවීකරණය සකසමින්"
-
-#~ msgid "Register a System Profile - Hardware"
-#~ msgstr "පද්ධතියේ පැතිකඩ ලිියාදිංචි කරන්නද -දෘඪාංගe"
-
-#~ msgid "Register a System Profile - Packages"
-#~ msgstr "පද්ධතියේ පැතිකඩ ලියාපදිංචි කරන්න- ඇසුරුම්"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "ස්ථාපනය අංකය(_N):"
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "https සහ http හට පමණක් ඉඩ දී තිබේ"
-
-#~ msgid "Warning:"
-#~ msgstr "අවවාදයයි:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "OK සංවාදය:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "ප්‍රශ්ණ දෙබස:"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "ස්වයංක්‍රීය ග්‍රාහකත්ව සක්‍රීයකරණය"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "ග්‍රාහකත්ව සක්‍රීයකරණය"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "අවවාදයයි: chkconfig සමඟ rhnsd සක්‍රීය කිරීමට නොහැකි විය"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "තැටියේ දෝශයකි.  පණිවිඩය වන්නේ:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "ඇසුරුම ස්ථාපනය කරන විටදී භයානක දෝශයක් ඇති විය:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM ඇසුරුම් ඝට්ටන දෝශයකි.  පණිවිඩය වනුයේ:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM ඇසුරුම් ඝට්ටන දෝශයකි.  පණිවිඩය වනුයේ:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM  දෝශයකි. පණිවිඩය වන්නේ:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM පරායත්ත දෝශයකි. පණිවිඩය වනුයේ:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "ඇසුරුම් ලයිස්තුව මඟ හැර යාමේදී දෝශයක් ඇතිවිය  පණිවිඩය වනුයේ:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr ""
-#~ "ඇසුරුම් ලයිස්තුව මඟ හැර යාමේදී දෝශයක් හෝ මනකරනය නැවත ලිවීමේදී දෝශයක් ඇතිවිය. පණිවිඩය "
-#~ "වනුයේ:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "\"%s\"ඇසුරුම ඉවත් කල නොහැක. එය RemoveSkipList ලයිස්තුවේ ඇතුලත්වේ"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG නිසියාකාරව ස්ථාපනය කර නොමැත."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG යතුරු සමඟ Red Hat, Inc. ඇසුරුම් අත්සන් කර තිබෙන යතුර ඇතුලත් නොවේ"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr ""
-#~ "%s ඇසුරුම gpg අත්සන තහවුරු කරගැනීමට අසාර්ථක විය. මින් ගම්‍ය වන්නේ ඇසුරුම පළුදු වී තිබෙන බවයි"
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "%s ඇසුරුම සතුව GPG අත්සනක් නොමැත.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "%s ඇසුරුම සතුව විශ්වාස කල නොහැකි GPG අත්සනක් ඇත.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "%s ඇසුරුම සතුව හඳුනා නොගත් GPG අත්සනක් ඇත.\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "Red Hat Network සේවා දායකයක් තෝරාගන්න"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Red Hat Network සමඟ සම්බන්ධ වන්න"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Red Hat Network සමඟ ලියාපදිංචි වන්න"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "මෙම Red Hat Network සේවා දායකය සඳහා සහතිකපතක් ලබා දෙන්න"
-
-#~ msgid "_Exit software update setup"
-#~ msgstr "මෘදුකාංග ප්‍රගමන සැකසුමෙන් ඉවත් වන්න(_E)"
-
-#~ msgid "software updates setup unsuccessful"
-#~ msgstr "මෘදුකාංග නවීකරණ සැකසුම අසාර්ථකයි"
-
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr ""
-#~ "ඔබ සතුව Red Hat පිවිසුමක් නොමැති නම්, මෙම සහයක විසින් පිවිසුමක් සාදා ගැනීමට මඟ පෙන්වනු ඇත."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "පියවර1: Red Hat පුද්ගලික නිවේදනය සමාලෝචනය කරන්න"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Red Hat Network සීමාවන් සහ කොන්දේසි සමාලෝචනය කරන්න"
-
-#~ msgid ""
-#~ "Are you sure you don't want to connect your system to Red Hat Network? "
-#~ "You'll miss out on the benefits of a Red Hat Enterprise Linux "
-#~ "subscription:\n"
-#~ "\n"
-#~ "Security & Updates:\n"
-#~ "Receive the latest software updates, including security updates, keeping "
-#~ "this Red Hat Enterprise Linux system updated and secure.\n"
-#~ "\n"
-#~ "Downloads & Upgrades:\n"
-#~ "Download installation images for Red Hat Enterprise Linux releases, "
-#~ "including new releases.\n"
-#~ "\n"
-#~ "Support:\n"
-#~ "Access to the technical support experts at Red Hat or Red Hat's partners "
-#~ "for help with any issues you might encounter with this system.\n"
-#~ "\n"
-#~ "Compliance:\n"
-#~ "Stay in compliance with your subscription agreement and manage "
-#~ "subscriptions for systems connected to your account at http://rhn.redhat."
-#~ "com/.\n"
-#~ "\n"
-#~ "You will not be able to take advantage of these subscription privileges "
-#~ "without connecting your system to Red Hat Network.\n"
-#~ "\n"
-#~ "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-#~ "privacy_statement.html"
-#~ msgstr ""
-#~ "ඔබේ පද්ධතිය Red Hat Network හා සම්බන්ධවීමට අවශ්‍ය නොවන බව ඔබට විශ්වාසද? Red Hat "
-#~ "Enterprise Linux ග්‍රාහකත්වය සමඟ ඔබට ලැබෙන වරප්‍රසාදයන් ඔබහට අහිමිවනු ඇත:\n"
-#~ "\n"
-#~ "ආරක්‍ෂාව සහ ප්‍රගමනයන්:\n"
-#~ "Red Hat Enterprise Linux පද්ධතිය ප්‍රගමනය කර සුරක්‍ෂිතව තබා ගැනීම සඳහා ආරක්‍ෂිත "
-#~ "නවීකරණයන් ඇතුලත්ව  නවතම මෘදුකාංග ප්‍රගමනයන් ලබාගන්න.\n"
-#~ "\n"
-#~ "බාගතකිරීම් සහ ප්‍රගමනයන්:\n"
-#~ "නව නිකුතුවන් ඇතුලත්ව Red Hat Enterprise Linux ස්ථාපන පිළිඹුවන් ලබාගන්න.\n"
-#~ "\n"
-#~ " සහය:\n"
-#~ "ඔබේ පද්ධතිය තුල ඇතිවන ඕනෑම තත්වයක් සඳහා Red Hat හෝ Red Hat හී සහකරුවන් මඟින් "
-#~ "පිරිනැමෙනසහය ලබාගන්න.\n"
-#~ "\n"
-#~ "අනුකූලභාවය:\n"
-#~ "http://rhn.redhat.com/ තිබෙන ඔබේ ගිණුමට සමගාමීව ග්‍රාහකත්ව ගිවිසුමට අනුකූලව ඔබේ "
-#~ "ග්‍රාහකත්වයන් කළමණාකරනය කරන්න.\n"
-#~ "\n"
-#~ "Red Hat Network සමඟ සම්බන්ධ නොවී ග්‍රාහකත්වය සධා පිරිනැමෙන වරප්‍රසාදයන් ඔබහ ලබාගත "
-#~ "නොහැක.\n"
-#~ "\n"
-#~ "ඉඟිය: Red Hat ඔබේ පෞද්ගලිකත්වය අගය කරයි: http://www.redhat.com/legal/"
-#~ "privacy_statement.html ml"
-
-#~ msgid "No thanks.  I'll connect later."
-#~ msgstr "නැත, ස්තූතියි  මම පසුව සම්බන්ධ වෙන්නම්"
-
-#~ msgid "Create a New Login ..."
-#~ msgstr "නව පිවිසුමක් සාදන්න ..."
-
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "ඔබ විසින් ඇතුලත් කරන ලද රහස්පදයන් දෙක නොගැලපේ. කරුණාකර ඔබේ රහස්පදයන් නැවත ඇතුල් කරන්න."
-
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "නව Red Hat පිවිසුමක් සාදන්න"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login for use with Red Hat "
-#~ "Network (http://rhn.redhat.com/).  Required information is marked with a "
-#~ "'*':"
-#~ msgstr ""
-#~ "Red Hat Network (http://rhn.redhat.com) තුලට පිවිසීමට නව පිවිසුමක් සාදාගැනීම පිණිස "
-#~ "පහත සඳහන් ෆෝර්මය සම්පූර්ණ කරන්න. අත්‍යවශ්‍ය තොරතුරු '*' ලකුණ මඟින් දක්වා ඇත:"
-
-#~ msgid "*Desired Login:"
-#~ msgstr "*ඇළුම් කරන පිවිසුම:"
-
-#~ msgid "Examples: user@domain.com"
-#~ msgstr "උදාහරණ: user@domain.com"
-
-#~ msgid "*Desired Password:"
-#~ msgstr "*ඇලුම් කරන රහස්පදය:"
-
-#~ msgid "*Confirm Password:"
-#~ msgstr "*රහස්පදය තහවුරු කරන්න:"
-
-#~ msgid "Tip: Leave blank if not with a company."
-#~ msgstr "ඔබ ආයතනයක් හා සම්බන්ද නොවේ නම් ඉඟිය: කරුණාකර මෙය හිස්ව තබන්න."
-
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr ""
-#~ "ඉඟිය: Red Hat පෞද්ගලිකත්වය අගය කරයි.  අපගේ පෞද්ගලිකත්වය සම්බන්ධ ප්‍රතිපත්තිය  බලන්න: "
-#~ "http://"
-
-#~ msgid "Please enter your first name."
-#~ msgstr "කරුණාකර ඔබේ මුල් නම ඇතුල්කරන්න."
-
-#~ msgid "Please enter your last name."
-#~ msgstr "කරුණාකර ඔබේ දෙවන නම ඇතුල්කරන්න."
-
-#~ msgid "Please enter your email address."
-#~ msgstr "කරුණාකර ඔබේ විද්‍යුත් ලිපිනය ඇතුල්කරන්න"
-
-#~ msgid "Please enter a valid email address."
-#~ msgstr "ඔබේ වලංගු විද්‍යුත් ලිපිනය ඇතුල් කරන්න."
-
-#~ msgid "Please enter your country."
-#~ msgstr "කරුණාකර ඔබේ රට ඇතුලත් කරන්න."
-
-#~ msgid "Please enter a longer login."
-#~ msgstr "කරුණාකර දිගු පිවිසුමක් ඇතුල්කරන්න"
-
-#~ msgid "Please enter a longer password."
-#~ msgstr "කරුණාකර දිගු රහස්පදයක් ඇතුල්කරන්න."
-
-#~ msgid "Please enter a shorter password."
-#~ msgstr "කරුණාකර කෙටි රහස්පදයක් ඇතුල් කරන්න"
-
-#~ msgid ""
-#~ "It appears this system has attempted to register to the Red Hat Network.\n"
-#~ "The system may already be set up for software updates.\n"
-#~ "\n"
-#~ "Are you sure you would like to continue?"
-#~ msgstr ""
-#~ "මින් හැඩී යන්නේ මෙම පද්ධතිය Red Hat Network හා සමඟ ලියාපදිංචි වීමට උත්සහ දරා ඇති "
-#~ "බවයි.\n"
-#~ "ඔබේ පද්ධතිය මීට පෙර මෘදුකාංග නවීකරණයන් සිදුකරගත හැකි ලෙස සකසා තිබෙන බව පෙනී යයි.\n"
-#~ "\n"
-#~ "ඔබට දිගටම කරගෙන යාමට අවශ්‍ය බා ඔබට සහතිකද?"
-
-#~ msgid "Select Organization"
-#~ msgstr "සංවිධානය තෝරාගන්න"
-
-#~ msgid ""
-#~ "Your login, %s, is associated with multiple organizations.  You will need "
-#~ "to select an organization to connect this system to."
-#~ msgstr ""
-#~ "ඔබේ ගිණුම, %s ආයතන කිහිපයක් සමඟ සම්බන්ධ වී ඇත. පද්ධතිය ලියාපදිංචි කිරීම සඳහා ඔබ විසින් එක් "
-#~ "ආයතනයක් තෝරාගත යුතුව ඇත."
-
-#~ msgid "Organization:"
-#~ msgstr "සංවිධානය:"
-
-#~ msgid "You must select an organization."
-#~ msgstr "ඔබ විසින් සංවිදහානයක් තෝරාගත යුතු වෙයි."
-
-#~ msgid "Access a subscription"
-#~ msgstr "ග්‍රාහකත්වයක් ලබාගන්න"
-
-#~ msgid ""
-#~ "You have no active subscriptions available in your account.  You will "
-#~ "need to do one of the following to create an active subscription in your "
-#~ "account before this system can connect to Red Hat Network:"
-#~ msgstr ""
-#~ "ඔබේ ගිණුම තුල සක්‍රීය ග්‍රාහකත්ව කිසිවක් නොමැත. පහත සඳහන් කර ඇති ආකාරයට ක්‍රියා කර Red Hat "
-#~ "Network හා සම්බන්ධ වීමට ඔබේ ගිණුම යටතේ සක්‍රීය ග්‍රාහකත්වයක් සාදාගත යුතුවේ:"
-
-#~ msgid "Activate a new subscription with an installation number:"
-#~ msgstr "ස්ථාපන අංකයත් සමඟ නව ග්‍රාහකත්වය සක්‍රීය කරන්න:"
-
-#~ msgid ""
-#~ "You have already activated this installation number during this "
-#~ "registration."
-#~ msgstr "ඔබ විසින් මෙය ලියාපදිංචි කිරීමේදී මෙම ස්ථාපන අංකය සක්‍රීය කර ඇත."
-
-#~ msgid "Installation Number:"
-#~ msgstr "ස්ථාපනය අංකය:"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "උදාහරණ: XXXX-XXXX-XXXX-XXXX-XXXX"
-
-#~ msgid ""
-#~ "Congratulations, you have successfully completed software updates set up "
-#~ "for this system.\n"
-#~ "\n"
-#~ "Your system is now ready to receive the software updates that will keep "
-#~ "it secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of you desktop (usually in the upper-"
-#~ "right corner.) Clicking on this icon, when available, will guide you "
-#~ "through applying any updates that are available."
-#~ msgstr ""
-#~ "සුබපැතුම් ඔබේ පද්ධතිය නවීකරණයන් සහ අවශ්‍ය සහය ලැබීමට සුදුසු ලෙස සකසා ඇත.\n"
-#~ "\n"
-#~ "ඔබේ පද්ධතිය නවීකරණයන් සහ අවශ්‍ය සහය ලබාගැනීමට සූදානම් වේ.\n"
-#~ "\n"
-#~ "ඔබේ පද්ධතිය සඳහා වන නව ඇසුරුම් නිකුත් කල විගස , ඔබේ පරිගණකය මත ඇසුරුම් සලකුණ දිස්වෙනු ඇත "
-#~ "(බොහෝ විට ඉහල දකුණු කෙලවරෙහී) ඒ මත ක්ලික් කිරීමෙන්, ඔබව එම ඇසුරුම් නිසි ලෙස ස්ථාපනය "
-#~ "කරගැනීමට අවශ්‍ය මඟ පෙන්වීම ලබා දෙනු ඇත:"
-
-#~ msgid "Subscriptions Activated:"
-#~ msgstr "ග්‍රාහකත්වය සක්‍රීය කර ඇත:"
-
-#~ msgid ""
-#~ "A subscription-activating installation number was found on disk, but we "
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing active subscription slots available in the rhn account instead. "
-#~ "You may wish to contact Red Hat customer service regarding this issue: "
-#~ "http://www.redhat.com/apps/support/"
-#~ msgstr ""
-#~ "ග්‍රාහකත්වය සක්‍රීය කිරීම සඳහා වන ස්ථාපන අංකයක් තැටිය තුල තිබී සොයාගනු ලැබීය, නමුත් එය සක්‍රීය "
-#~ "කිරීමට නොහැක (හඳුනා නොගත් දෝශයක් ඇතිවිය.) එබැවින් දැනට rhn ගිණුම තුල භාවිතයේ තිබෙන, "
-#~ "ඉතිරිව ඇති ග්‍රාහකත්වයක් මේ සඳහා යොදාගනු ලැබේ. ඔබහට මේ සම්බන්ධයෙන් පහත දැක්වෙන වෙබ්‍ "
-#~ "අඩවිය භාවිතා කර පාරිභෝගික සේවා අංශයෙන් මේ සම්බන්ධව විමසිය හැක: http://www.redhat."
-#~ "com/apps/support/"
-
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "ග්‍රාහකත්වය සක්‍රීය කල හැකි ස්ථාපන අංකයක් තැටිය මත තිබී සොයා ගත හැකි විය, නමුත් අප "
-
-#~ msgid ""
-#~ "The installation number you have provided (%s) is invalid.\n"
-#~ "\n"
-#~ "Please check the number and try again or try another option listed on the "
-#~ "'Access a Subscription' screen."
-#~ msgstr ""
-#~ "ඔබ විසින් සපයා ඇති ස්ථාපන අංකය (%s) වලංඟු නොවේ.\n"
-#~ "\n"
-#~ "කරුණාකර වෙනත් අංකයක් උත්සහ කර බලන්න නැතහොත් 'ග්‍රාහකත්වයක් ලබාගැනීම' තිරයේ සඳහන්ව ඇති "
-#~ "විකල්පයක් තෝරාගන්න."
-
-#~ msgid ""
-#~ "The installation number you provided is valid but was already activated "
-#~ "and the subscriptions have already been used by systems in your "
-#~ "organization or is not usable for this system.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed on the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "ඔබ විසින් සපයා ඇති ස්ථාපන අංකය වලංගු වන නමුත් එය මේවන විට සක්‍රීය කර ඔබේ ආයතනය තුල "
-#~ "වෙනත් පද්ධතියක් සඳහා භාවිතා කරනු ලැබේ නැතහොත් එය ඔබේ පද්ධතිය සඳහා යෝග්‍ය නොවේ.\n"
-#~ "\n"
-#~ "කරුණාකර වෙනත් අංකයක් උත්සහ කර බලන්න නැතහොත් 'ග්‍රාහකත්වයක් ලබාගැනීම' තිරයේ සඳහන්ව ඇති "
-#~ "විකල්පයක් තෝරාගන්න."
-
-#~ msgid ""
-#~ "The installation number you provided does not have subscriptions "
-#~ "associated with it.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed in the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "ඔබ විසින් සපයා ඇති ස්ථාපන අංකය සමඟ සම්බන්ධ ග්‍රාහක අංකයක් නොමැත.\n"
-#~ "\n"
-#~ "කරුණාකර වෙනත් අංකයක් උත්සහ කරන්න නැතහොත් 'ග්‍රාහකත්වයක් ලබාගැනීම' තිරයේ සඳහන් වෙනත් "
-#~ "විකල්පයක් තෝරාගන්න."
-
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "ඇතුලට පිවිසීමේදී දෝශයක් ඇතිවිය:\n"
-#~ "%s"
-
-#~ msgid "There was problem logging in."
-#~ msgstr "ඇතුලට පිවිසීමේදී දෝශයක් ඇතිවිය"
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "ඔබ විසින් ස්ථාපන අංකය ඇතුලත් කලයුතුය"
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Red Hat Network සමඟ සන්නිවේදනය කිරීමේදී දෝශයක් ඇති විය"
-
-#~ msgid "This installation number has already been activated."
-#~ msgstr "ඔබ විසින් ඇතුලත් කරන ලද ලියාපදිංචි අංකය මීට පෙර සක්‍රීය කර ඇත"
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#~ msgid "Unable to access the server. Please check your network settings."
-#~ msgstr "සේවා දායකය වෙත ප්‍රවිශ්ඨ විය නොහැක. කරුණාකර ඔබේ ජාලයේ සැකසුම පරික්‍ෂා කරන්න."
-
-#~ msgid ""
-#~ "The server you are attempting to register against does not support this "
-#~ "version of the client."
-#~ msgstr ""
-#~ "ඔබ විසින් ලියාපදිංචි වීමට උත්සහ කරන සේවාදායකය මෙම සේවාග්‍රාහක වෙළුම සඳහා සහය දක්වනු "
-#~ "නොලැබේ."
-
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "ඔබ විසින් ස්ථාපන අංකයක් ඇතුලත් කල යුතුය එය "
-
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "පරිශීලක නම ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය:\n"
-
-#~ msgid "Problem registering login name."
-#~ msgstr "පිවිසුම ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය."
-
-#~ msgid ", quantity:"
-#~ msgstr ", ප්‍රමාණය:"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network ස්ථානය: "
-
-#~ msgid "Access Subscription"
-#~ msgstr "ග්‍රාහකත්වය වෙත පිවිසෙන්න"
-
-#~ msgid "Choose Organization"
-#~ msgstr "සංවිධානය තොරාගන්න"
-
-#~ msgid "Choose an organization to use with this username"
-#~ msgstr "පරිශීලක නම සමඟ භාවිත කිරීමට සංවිධානයේ නම තෝරාගන්න"
-
-#~ msgid "Specify an email address"
-#~ msgstr "විද්‍යුත් ලිපිනයක් නියම කරන්න"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "භාවිතය සඳහා ග්‍රාහක අංකයක් තෝරාගන්න"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "වැදගත් ලියාපදිංචි තොරතුරු"
-
-#~ msgid "Registration information"
-#~ msgstr "ලියාපදිංචියේ තොරතුරු:"
-
-#~ msgid "Select organization"
-#~ msgstr "සංවිධානය තෝරාගන්න"
-
-#~ msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
-#~ msgstr "<small><b>ඉඟිය:</b> Red Hat ඔබේ පෞද්ගලිකත්වය අගය කරයි.</small>"
-
-#~ msgid "Privacy Statement"
-#~ msgstr "රහස්‍ය නිවේදනය"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "අපගේ පුද්ගලික නිවේදනය කියවන්න(_P)"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your account is associated with multiple <b>organizations</b>. You will "
-#~ "need to select an organization to register this system to."
-#~ msgstr ""
-#~ "ඔබේ ගිණුම <b>ආයතන</b> කිහිපයක් සමඟ සම්බන්ධ වී ඇත. පද්ධතිය ලියාපදිංචි කිරීම සඳහා ඔබ විසින් "
-#~ "එක් ආයතනයක් තෝරාගත යුතුව ඇත."
-
-#~ msgid "_Organization:"
-#~ msgstr "ආයතනය(_O):"
-
-#~ msgid ""
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing "
-#~ msgstr ""
-#~ "හට එය සක්‍රීය කල නොහැක (හඳුනා නොගත් දෝශය් ඇති විය.) අප භාවිත කරන ලද්දේ දැනට තිබෙන"
-
-#~ msgid ""
-#~ "active subscription slots available in the rhn account instead. You may "
-#~ "wish "
-#~ msgstr "RHN ගිණුම තුල නිදහස්ව තිබූ සක්‍රීය ග්‍රාහකත්වයකි. ඔබට කැමති"
-
-#~ msgid "to contact Red Hat customer service regarding this issue: "
-#~ msgstr "නම් මේ සම්බන්ධව විමසීමට, Red Hat පාරිභෝගික සේවාව අමතන්න: "
-
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "ඔබේ ගිණුම තුල ග්‍රාහකත්වයන් සක්‍රීය කරයි"
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "දෘඪාංග තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "DMI තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "පරිශීලක ගිණුම සහ රහස්පදය වලංගු නොවේ\n"
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "ඔබේ රහස්පදය ඇතුලත් කර එය තහවුරු කරන්න"
-
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "පරිශීලක නාමය ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය:\n"
-#~ "%s"
-
-#~ msgid "Problem registering login."
-#~ msgstr "පිවිසුම ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය."
-
-#~ msgid "Canada"
-#~ msgstr "කැනඩාව"
-
-#~ msgid "Login Information:"
-#~ msgstr "පිවිසුම් තොරතුරු:"
-
-#~ msgid "Account Information:"
-#~ msgstr "ගිණුමේ තොරතුරු:"
-
-#~ msgid "*First Name:"
-#~ msgstr "*මුල් නම:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*දෙවන නම:"
-
-#~ msgid "*Company Name:"
-#~ msgstr "*ආයතනයේ නම:"
-
-#~ msgid "Street Address:"
-#~ msgstr "වීදි ලිපිනය:"
-
-#~ msgid "City:"
-#~ msgstr "නගරය:"
-
-#~ msgid "State/Province:"
-#~ msgstr "ප්‍රාන්තය/පළාත:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "සිප්/තැපැල් කේතය:"
-
-#~ msgid "*Country:"
-#~ msgstr "*රට:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  ලිපිනය 2:"
-
-#~ msgid "  Address:"
-#~ msgstr "  ලිපිනය:"
-
-#~ msgid "  C_ity:"
-#~ msgstr "  නගරය(_i):"
-
-#~ msgid "  Co_mpany Name:"
-#~ msgstr " සමාගමේ නම(_m):"
-
-#~ msgid "  _State/Province:"
-#~ msgstr "  ප්‍රාන්තය/පළාත(_S):"
-
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "සිප්(_Z)/තැපැල් කේතය:"
-
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* රහස්පදය තහවුරු කරන්න(_o):  "
-
-#~ msgid "* Co_untry:"
-#~ msgstr "* රට(_u):"
-
-#~ msgid "* Desired _Login:"
-#~ msgstr "* ඇලුම් කරන පිවිසුම(_L):"
-
-#~ msgid "* Desired _Password:"
-#~ msgstr "* ඇලුම් කරන රහස්පදය(_P):"
-
-#~ msgid "* Last _Name:"
-#~ msgstr "* දෙවන නම(_N):"
-
-#~ msgid "* _Email Address: "
-#~ msgstr "* විද්‍යුත් ලිපිනය(_E): "
-
-#~ msgid "* _First Name:"
-#~ msgstr "* මුල් නම(_F):"
-
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "<b>ගිණුමේ තොරතුරු:</b>"
-
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "<b>පිවිසුම් තොරතුරු:</b>"
-
-#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
-#~ msgstr "<small><b>උදාහරණය:</b> user@domain.com</small>"
-
-#~ msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
-#~ msgstr "<small><b>ඉඟිය:</b> ඔබ සමාගමක් සමඟ නොවේ නම් මෙය හිස්ව තබන්න.</small>"
-
-#~ msgid "Afghanistan"
-#~ msgstr "ඇෆ්ගනිස්ථානය"
-
-#~ msgid "Albania"
-#~ msgstr "ඇල්බේනියාව"
-
-#~ msgid "Algeria"
-#~ msgstr "ඇල්ජීරියාව"
-
-#~ msgid "American Samoa"
-#~ msgstr "ඇමරිකානු සැමෝව"
-
-#~ msgid "Andorra"
-#~ msgstr "ඇන්ඩෝරාව"
-
-#~ msgid "Angola"
-#~ msgstr "ඇන්ගෝලාව"
-
-#~ msgid "Anguilla"
-#~ msgstr "ඇන්ගියුලාව"
-
-#~ msgid "Antarctica"
-#~ msgstr "ඇන්ටාර්ක්ටිකාව"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "ඇන්ටිගුවා සහ බාර්බුඩා"
-
-#~ msgid "Argentina"
-#~ msgstr "ආර්ජෙන්ටිනාව"
-
-#~ msgid "Armenia"
-#~ msgstr "අර්මේනියාව"
-
-#~ msgid "Aruba"
-#~ msgstr "අරූබා"
-
-#~ msgid "Australia"
-#~ msgstr "ඕස්ට්‍රේලියාව"
-
-#~ msgid "Austria"
-#~ msgstr "ඔස්ට්‍රියාව"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "අසෙර්බයිජානය"
-
-#~ msgid "Bahamas"
-#~ msgstr "බහමාස්"
-
-#~ msgid "Bahrain"
-#~ msgstr "බහරේන්"
-
-#~ msgid "Bangladesh"
-#~ msgstr "බංගාලිදේශය"
-
-#~ msgid "Barbados"
-#~ msgstr "බාබෙඩෝස්"
-
-#~ msgid "Belarus"
-#~ msgstr "බෙලාරුස්"
-
-#~ msgid "Belgium"
-#~ msgstr "බෙල්ජියම්"
-
-#~ msgid "Belize"
-#~ msgstr "බෙලීස්"
-
-#~ msgid "Benin"
-#~ msgstr "බෙනින්"
-
-#~ msgid "Bermuda"
-#~ msgstr "බර්මියුඩාව"
-
-#~ msgid "Bhutan"
-#~ msgstr "භූතානය"
-
-#~ msgid "Bolivia"
-#~ msgstr "බොලීවියාව"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "බොස්නියාව සහ හෙර්සෙගෝනියාව"
-
-#~ msgid "Botswana"
-#~ msgstr "බොටස්වානාව"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "බෝවෙට් දූපත්"
-
-#~ msgid "Brazil"
-#~ msgstr "බ්‍රසීලය"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "බ්‍රිතාන්‍ය ඉන්දියානු සාගය කලාපය"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "බෲනායි ඩාරුස්සලම්"
-
-#~ msgid "Bulgaria"
-#~ msgstr "බල්ගේරියාව"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "බුර්කිනා ෆාසෝ"
-
-#~ msgid "Burundi"
-#~ msgstr "බුරුන්ඩි"
-
-#~ msgid "C_reate new login"
-#~ msgstr "නව පිවිසුමක් සාදන්න(_r)"
-
-#~ msgid "Cambodia"
-#~ msgstr "කාම්බෝජියාව"
-
-#~ msgid "Cameroon"
-#~ msgstr "කැමරූන්"
-
-#~ msgid "Cape Verde"
-#~ msgstr "කේප් වාර්ඩේ"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "කේමන් දූපත්"
-
-#~ msgid "Central African Republic"
-#~ msgstr "මධ්‍යම අප්‍රිකානු සමූහාණ්ඩුව"
-
-#~ msgid "Chad"
-#~ msgstr "චැඩ්"
-
-#~ msgid "Chile"
-#~ msgstr "චිලී"
-
-#~ msgid "China"
-#~ msgstr "චීනය"
-
-#~ msgid "Christmas Island"
-#~ msgstr "ක්‍රස්ට්මස් දූපත්"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "කොකොස්(කීලිං) දූපත්"
-
-#~ msgid "Colombia"
-#~ msgstr "කොලොම්බියාව"
-
-#~ msgid "Comoros"
-#~ msgstr "කොමොරොස්"
-
-#~ msgid "Congo"
-#~ msgstr "කොංගෝව"
-
-#~ msgid "Cook Islands"
-#~ msgstr "කුක් දූපත්"
-
-#~ msgid "Costa Rica"
-#~ msgstr "කොස්ටා රිකාව"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "කෝටෙ ඩි අයිවොයර්"
-
-#~ msgid "Create a _New Login"
-#~ msgstr "නව පිවිසුමක් සාදන්න( _N)"
-
-#~ msgid "Create a new Red Hat Network login"
-#~ msgstr "නව Red Hat ජාල පිවිසුමක් සාදන්න"
-
-#~ msgid "Croatia"
-#~ msgstr "ක්‍රොයේෂියාව"
-
-#~ msgid "Cuba"
-#~ msgstr "කියුබාව"
-
-#~ msgid "Cyprus"
-#~ msgstr "සයිප්‍රසය"
-
-#~ msgid "Czech Republic"
-#~ msgstr "චෙක් සමූහාණ්ඩුව"
-
-#~ msgid "Denmark"
-#~ msgstr "ඩෙන්මාර්කය"
-
-#~ msgid "Djibouti"
-#~ msgstr "ජිබවුටි"
-
-#~ msgid "Dominica"
-#~ msgstr "ඩොමිනිකාව"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "ඩොමිනිකානු සමූහාණ්ඩුව"
-
-#~ msgid "East Timor"
-#~ msgstr "නැගෙනහිර ටිමෝරය"
-
-#~ msgid "Ecuador"
-#~ msgstr "ඉක්වදෝරය"
-
-#~ msgid "Egypt"
-#~ msgstr "ඊජිප්තුව"
-
-#~ msgid "El Salvador"
-#~ msgstr "එල් සැල්වදෝරය"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "ඉක්වටෝරියල් ගියුනියා"
-
-#~ msgid "Eritrea"
-#~ msgstr "ඉරිත්‍රියාව"
-
-#~ msgid "Estonia"
-#~ msgstr "එස්තෝනියාව"
-
-#~ msgid "Ethiopia"
-#~ msgstr "ඉතියෝපියාව"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "ෆෝක්ලන්ඩ් දූපත්(මැල්විනාස්)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "පාරාවෝ දූපත්"
-
-#~ msgid "Fiji"
-#~ msgstr "ෆීජි"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login. Required "
-#~ "information is marked with a '*':"
-#~ msgstr ""
-#~ "Red Hat තුලට පිවිසීමට නව පිවිසුමක් සාදාගැනීම පිණිස පහත සඳහන් ෆෝර්මය සම්පූර්ණ කරන්න. අත්‍යවශ්‍ය "
-#~ "තොරතුරු '*' ලකුණ මඟින් දක්වා ඇත:"
-
-#~ msgid "Finland"
-#~ msgstr "ෆින්ලන්තය"
-
-#~ msgid "France"
-#~ msgstr "ප්‍රංශය"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "ප්‍රංශය, නාගරික"
-
-#~ msgid "French Guiana"
-#~ msgstr "ප්‍රංශ ගූයානා"
-
-#~ msgid "French Polynesia"
-#~ msgstr "ප්‍රංශ පොලිනේසියාව"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "දකුණු ප්‍රංශ කලාපයන්"
-
-#~ msgid "Gabon"
-#~ msgstr "ගාබොන්"
-
-#~ msgid "Gambia"
-#~ msgstr "ගැම්බියාව"
-
-#~ msgid "Georgia"
-#~ msgstr "ජෝර්ජියාව"
-
-#~ msgid "Germany"
-#~ msgstr "ජර්මනිය"
-
-#~ msgid "Ghana"
-#~ msgstr "ඝානාව"
-
-#~ msgid "Gibraltar"
-#~ msgstr "ගිබ්‍රාල්ටාර්"
-
-#~ msgid "Greece"
-#~ msgstr "ග්‍රීසිය"
-
-#~ msgid "Greenland"
-#~ msgstr "ග්‍රීන්ලන්තය"
-
-#~ msgid "Grenada"
-#~ msgstr "ග්‍රෙනඩාව"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "ගෝඩිලෝපය"
-
-#~ msgid "Guam"
-#~ msgstr "ගෝම්"
-
-#~ msgid "Guatemala"
-#~ msgstr "ගෝතමාලව"
-
-#~ msgid "Guinea"
-#~ msgstr "ගියුනියා"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "ගියුනියා-බිස්සාවු"
-
-#~ msgid "Guyana"
-#~ msgstr "ගයානාව"
-
-#~ msgid "Haiti"
-#~ msgstr "හයිටි"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "හර්ඩ් දූපත් සහ මැක්ඩොනල්ඩ් දූපත්"
-
-#~ msgid "Honduras"
-#~ msgstr "හොන්ඩුරාස්"
-
-#~ msgid "Hong Kong"
-#~ msgstr "හොං කොං"
-
-#~ msgid "Hungary"
-#~ msgstr "හංගේරියාව"
-
-#~ msgid "Iceland"
-#~ msgstr "අයිස්ලන්තය"
-
-#~ msgid "India"
-#~ msgstr "ඉන්දියාව"
-
-#~ msgid "Indonesia"
-#~ msgstr "ඉන්දුනීසියාව"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "ඉරානය (ඉස්ලාමීය සමූහාණ්ඩුව)"
-
-#~ msgid "Iraq"
-#~ msgstr "ඉරාකය"
-
-#~ msgid "Ireland"
-#~ msgstr "අයර්ලන්තය"
-
-#~ msgid "Israel"
-#~ msgstr "ඊශ්‍රායලය"
-
-#~ msgid "Italy"
-#~ msgstr "ඉතාලිය"
-
-#~ msgid "Jamaica"
-#~ msgstr "ජැමෙයිකාව"
-
-#~ msgid "Japan"
-#~ msgstr "ජපානය"
-
-#~ msgid "Jordan"
-#~ msgstr "ජෝර්දානය"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "කසකස්තානය"
-
-#~ msgid "Kenya"
-#~ msgstr "කෙන්යාව"
-
-#~ msgid "Kiribati"
-#~ msgstr "කිරිබාටි"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "ප්‍රජාතන්ත්‍රවාදි ජනතා කොරියානු සමූහාණ්ඩුව"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "කොරියානු සමූහාණ්ඩුව"
-
-#~ msgid "Kuwait"
-#~ msgstr "කුවේටය"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "කිර්ගිස්තානය"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "ලාඕ ප්‍රජාතන්ත්‍ර වාදී මහජන සමූහාණ්ඩුව"
-
-#~ msgid "Latin America"
-#~ msgstr "ලතින් ඇමරිකාව"
-
-#~ msgid "Latvia"
-#~ msgstr "ලැට්වියාව"
-
-#~ msgid "Lebanon"
-#~ msgstr "ලෙබනනය"
-
-#~ msgid "Lesotho"
-#~ msgstr "ලෙස්තෝව"
-
-#~ msgid "Liberia"
-#~ msgstr "ලයිබීරියාව"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "ලිබිබියා අරාබි ජමාරියාවනු"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "ලීස්ටන්ෂන්"
-
-#~ msgid "Lithuania"
-#~ msgstr "ලිතිවේනියාව"
-
-#~ msgid "Luxembourg"
-#~ msgstr "ලක්සම්බර්ග්"
-
-#~ msgid "Macau"
-#~ msgstr "මැකෝව"
-
-#~ msgid "Macedonia"
-#~ msgstr "මැසදෝනියාව"
-
-#~ msgid "Madagascar"
-#~ msgstr "මැඩගස්කරය"
-
-#~ msgid "Malawi"
-#~ msgstr "මාලාවි"
-
-#~ msgid "Malaysia"
-#~ msgstr "මලයාසියාව"
-
-#~ msgid "Maldives"
-#~ msgstr "මාලදිවයින"
-
-#~ msgid "Mali"
-#~ msgstr "මාලි"
-
-#~ msgid "Malta"
-#~ msgstr "මෝල්ටාව"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "මාෂල් දූපත්"
-
-#~ msgid "Martinique"
-#~ msgstr "මාටිනික්"
-
-#~ msgid "Mauritania"
-#~ msgstr "මරුටේනියාව"
-
-#~ msgid "Mauritius"
-#~ msgstr "මරූටිස්"
-
-#~ msgid "Mayotte"
-#~ msgstr "මයෝට්ටෙ"
-
-#~ msgid "Mexico"
-#~ msgstr "මෙක්සිකෝව"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "මයික්‍රෝනීසියාව (ෆෙඩරල් ප්‍රාන්තය)"
-
-#~ msgid "Moldova"
-#~ msgstr "මෝල්ඩෝව"
-
-#~ msgid "Monaco"
-#~ msgstr "මොනාකෝව"
-
-#~ msgid "Mongolia"
-#~ msgstr "මොන්ගෝලියාව"
-
-#~ msgid "Montserrat"
-#~ msgstr "මොන්සෙර්රාට්"
-
-#~ msgid "Morocco"
-#~ msgstr "මොරොක්කෝව"
-
-#~ msgid "Mozambique"
-#~ msgstr "මොසැම්බික්"
-
-#~ msgid "Myanmar"
-#~ msgstr "මියන්මාරය"
-
-#~ msgid "Namibia"
-#~ msgstr "නැමිබියාව"
-
-#~ msgid "Nauru"
-#~ msgstr "නාවුරු"
-
-#~ msgid "Nepal"
-#~ msgstr "නේපාලය"
-
-#~ msgid "Netherlands"
-#~ msgstr "නෙදර්ලන්තය"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "නෙදර්ලනඩ්ස් ඇන්ටිල්ලෙස්"
-
-#~ msgid "New Caledonia"
-#~ msgstr "නව කැලෙඩෝනියාව"
-
-#~ msgid "New Zealand"
-#~ msgstr "නව සීලන්තය"
-
-#~ msgid "Nicaragua"
-#~ msgstr "නිකරගුවාව"
-
-#~ msgid "Niger"
-#~ msgstr "නිගරය"
-
-#~ msgid "Nigeria"
-#~ msgstr "නයිජීරියාව"
-
-#~ msgid "Niue"
-#~ msgstr "නියූ"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "නෝෆෝක් දූපත්"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "උතුරු මරියානා දූපත්"
-
-#~ msgid "Norway"
-#~ msgstr "නෝර්වේ"
-
-#~ msgid "Oman"
-#~ msgstr "ඕමානය"
-
-#~ msgid "Pakistan"
-#~ msgstr "පකිස්තානය"
-
-#~ msgid "Palau"
-#~ msgstr "පාලාවූ"
-
-#~ msgid "Panama"
-#~ msgstr "පැනමාව"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "පැපුවා නිව් ගීනියාව"
-
-#~ msgid "Paraguay"
-#~ msgstr "පැරගුවේ"
-
-#~ msgid "Peru"
-#~ msgstr "පීරු"
-
-#~ msgid "Philippines"
-#~ msgstr "පිලිපීනය"
-
-#~ msgid "Pitcairn"
-#~ msgstr "පිට්කේන්"
-
-#~ msgid "Poland"
-#~ msgstr "පෝලන්තය"
-
-#~ msgid "Portugal"
-#~ msgstr "පෘතුගාලය"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "පෝර්ටෝ රිකෝ"
-
-#~ msgid "Qatar"
-#~ msgstr "කටාර්"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Red Hat පිවිසුම් සහ රහස්පදයන් අවම වශයෙන් අක්‍ෂර 5 කින් වත් සමන්විත යුතු වන අතර ඊට අකුරු "
-#~ "මෙන්න අංකද ඇතුලත්ව තිබිය යුතුය"
-
-#~ msgid "Reunion"
-#~ msgstr "රියූනියනය"
-
-#~ msgid "Romania"
-#~ msgstr "රුමේනියාව"
-
-#~ msgid "Russian Federation"
-#~ msgstr "රුසියානු සමූහාණ්ඩුව"
-
-#~ msgid "Rwanda"
-#~ msgstr "රුවන්ඩාව"
-
-#~ msgid "Saint Helena"
-#~ msgstr "සාන්ත හෙලේනා"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "සාන්ත කිට්ස් සහ නේවිස්"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "සාන්ත ලුසියා"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "සාන්ත පියරෙ සහ මික්වෝලන්    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "සාන්ත වින්සන් සහ ග්‍රෙනෙඩීනය"
-
-#~ msgid "Samoa"
-#~ msgstr "සැමෝවා"
-
-#~ msgid "San Marino"
-#~ msgstr "සැන් මැරීනෝව"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "සාඕ ටෝම් සහ ප්‍රින්සිපෙ"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "සවුදි අරාබිය"
-
-#~ msgid "Senegal"
-#~ msgstr "සෙනගෝලය"
-
-#~ msgid "Seychelles"
-#~ msgstr "සීෂෙල්ස්"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "සියෙරා ලියොන්"
-
-#~ msgid "Singapore"
-#~ msgstr "සිංගප්පූරුව"
-
-#~ msgid "Slovakia"
-#~ msgstr "ස්ලෝවෙකියාව"
-
-#~ msgid "Slovenia"
-#~ msgstr "ස්ලෝවෙනියා"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "සොලොමන් දූපත්"
-
-#~ msgid "Somalia"
-#~ msgstr "සෝමාලියාව"
-
-#~ msgid "South Africa"
-#~ msgstr "දකුණු අප්‍රිකාව"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "දකුණු ජෝජියාව සහ දකුණු සැන්ඩ්විච් දූපත්"
-
-#~ msgid "Spain"
-#~ msgstr "ස්පාඤ්ඤය"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "ශ්‍රී ලංකාව"
-
-#~ msgid "Sudan"
-#~ msgstr "සුඩානය"
-
-#~ msgid "Suriname"
-#~ msgstr "සූරිනේම්"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "ස්වැල්බාඩ් සහ ජෑන් මේයෙන් දූපත්"
-
-#~ msgid "Swaziland"
-#~ msgstr "ස්වාසිලන්තය"
-
-#~ msgid "Sweden"
-#~ msgstr "ස්වීඩනය"
-
-#~ msgid "Switzerland"
-#~ msgstr "ස්විට්සර්ලන්තය"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "සිරියානු අරාබි සමූහාණ්ඩුව"
-
-#~ msgid "Taiwan"
-#~ msgstr "තායිවානය"
-
-#~ msgid "Tajikistan"
-#~ msgstr "තජිකිස්තානය"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "එක්සත් ප්‍රජාතන්ත්‍රවාදී ටියුනීසියාව"
-
-#~ msgid "Thailand"
-#~ msgstr "තායිලන්තය"
-
-#~ msgid "Togo"
-#~ msgstr "ටෝගෝ"
-
-#~ msgid "Tokelau"
-#~ msgstr "ටොකෙලු"
-
-#~ msgid "Tonga"
-#~ msgstr "ටොන්ගෝව"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "ට්‍රිනිඩෑඩ් සහ ටුබෑගෝ"
-
-#~ msgid "Tunisia"
-#~ msgstr "ටියුනීසියාව"
-
-#~ msgid "Turkey"
-#~ msgstr "තුර්කිය"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "ටර්ක්මෙනිස්ටාන්"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "ටර්ක්ස් සහ කායිකොස් දූපත්"
-
-#~ msgid "Tuvalu"
-#~ msgstr "ටුවාලු"
-
-#~ msgid "Uganda"
-#~ msgstr "උගන්ඩාව"
-
-#~ msgid "Ukraine"
-#~ msgstr "යූක්රේනය"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "එක්සත් අරාබි එමිරේටය"
-
-#~ msgid "United Kingdom"
-#~ msgstr "එක්සත් රාජධානිය"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "එක්සත් ජනපදය අවට කුඩා දූපත්"
-
-#~ msgid "Uruguay"
-#~ msgstr "උරුගුවේ"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "උස්බෙකිස්තානය"
-
-#~ msgid "Vanuatu"
-#~ msgstr "වනාටු"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "වතිකානු නගර පලාත(හෝලි සී)"
-
-#~ msgid "Venezuela"
-#~ msgstr "වෙනුසියෙලාව"
-
-#~ msgid "Viet Nam"
-#~ msgstr "වියට්නාමය"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "වර්ජින් දූපත්(බ්‍රිතාන්‍ය)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "වර්ජින් දූපත්(එ.ජ.)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "වොලිස් සහ ෆූටුනා දූපත්"
-
-#~ msgid "Western Sahara"
-#~ msgstr "බටහිර සහරාව"
-
-#~ msgid "Yemen"
-#~ msgstr "යේමනය"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "යුගොස්ලාවියාව"
-
-#~ msgid "Zaire"
-#~ msgstr "සයරය"
-
-#~ msgid "Zambia"
-#~ msgstr "සැම්බියාව"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "සිම්බාබ්වෙ"
