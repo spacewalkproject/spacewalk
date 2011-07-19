@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Xi Huang <xhuang@redhat.com>, 2006.
 # Leah Liu <weliu@redhat.com>, 2005, 2006.
 # Leah Liu <lliu@redhat.com>, 2010.
@@ -13,15 +13,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2011-03-22 15:44+0000\n"
 "Last-Translator: msuchy <msuchy@redhat.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.net/projects/p/fedora/team/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.net/projects/p/fedora/"
+"team/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: rhnsd.c:116
@@ -46,5 +47,3 @@ msgstr "Copyright (C) %s Red Hat, Inc.\n"
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s 编写。\n"
-
-
