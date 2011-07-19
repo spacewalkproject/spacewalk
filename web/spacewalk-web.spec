@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.15
+Version: 1.5.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.5.16-1
+- Updating the copyright years.
+
 * Mon Jul 11 2011 Jan Pazdziora 1.5.15-1
 - Refactor RedHat.do to Vendor.do (jrenner@suse.de)
 
