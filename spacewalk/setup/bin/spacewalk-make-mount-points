@@ -1,7 +1,14 @@
 #!/usr/bin/perl
 
+# Given a list of directories (for example, /var/satellite)
+# check if they exist and if they do not exist, create them
+# with apache as owner. Also run restorecon on them, and
+# if they are nfs_t mounted, set spacewalk_nfs_mountpoint boolean.
+
 use strict;
 use warnings FATAL => 'all';
+
+use Spacewalk::Setup ();
 
 my %dirs;
 @dirs{@ARGV} = @ARGV;
