@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.8
+Version:      1.184.9
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -146,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.184.9-1
+- Updating the copyright years.
+
 * Mon May 16 2011 Jan Pazdziora 1.184.8-1
 - The database handle now has AutoCommit turned off, so begin_work is not
   needed anymore.
