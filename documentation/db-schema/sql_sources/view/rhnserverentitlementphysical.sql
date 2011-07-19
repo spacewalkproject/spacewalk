@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Apr 21 10:04:13 2011
+-- created by Oraschemadoc Tue Jul 19 17:31:29 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERENTITLEMENTPHYSICAL" ("SERVER_ID", "SERVER_GROUP_ID", "SERVER_GROUP_TYPE_ID", "LABEL", "PERMANENT", "IS_BASE", "MODIFIED") AS 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Apr 21 10:04:15 2011
+-- created by Oraschemadoc Tue Jul 19 17:31:31 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNVISSERVERGROUPOVERVIEWLITE" ("ORG_ID", "SECURITY_ERRATA", "BUG_ERRATA", "ENHANCEMENT_ERRATA", "GROUP_ID", "GROUP_NAME", "GROUP_ADMINS", "SERVER_COUNT", "NOTE_COUNT", "MODIFIED", "MAX_MEMBERS") AS 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Apr 21 10:04:12 2011
+-- created by Oraschemadoc Tue Jul 19 17:31:28 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNHISTORYVIEW_REFRESH" ("EVENT_ID", "SERVER_ID", "SUMMARY", "DETAILS", "CREATED", "MODIFIED") AS 

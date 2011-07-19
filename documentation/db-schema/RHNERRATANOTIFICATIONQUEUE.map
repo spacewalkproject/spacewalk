@@ -1,4 +1,4 @@
-<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="5,37,141,64">
-<area shape="rect" href="table&#45;RHNERRATANOTIFICATIONQUEUE.html#t&#45;fk" title="RHNERRATANOTIFICATIONQUEUE" alt="" coords="191,88,431,115">
-<area shape="rect" href="table&#45;RHNERRATA.html#t&#45;fk" title="RHNERRATA" alt="" coords="23,88,124,115">
-<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="16,139,131,165">
+<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="5,37,141,61">
+<area shape="rect" href="table&#45;RHNERRATANOTIFICATIONQUEUE.html#t&#45;fk" title="RHNERRATANOTIFICATIONQUEUE" alt="" coords="191,85,431,109">
+<area shape="rect" href="table&#45;RHNERRATA.html#t&#45;fk" title="RHNERRATA" alt="" coords="23,85,124,109">
+<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="16,133,131,157">

@@ -1,5 +1,5 @@
-<area shape="rect" href="table&#45;RHNCONFIGREVISION.html#t&#45;fk" title="RHNCONFIGREVISION" alt="" coords="8,37,173,64">
-<area shape="rect" href="table&#45;RHNCONFIGFILE.html#t&#45;fk" title="RHNCONFIGFILE" alt="" coords="224,113,355,140">
-<area shape="rect" href="table&#45;RHNCONFIGFILESTATE.html#t&#45;fk" title="RHNCONFIGFILESTATE" alt="" coords="5,88,176,115">
-<area shape="rect" href="table&#45;RHNCONFIGFILENAME.html#t&#45;fk" title="RHNCONFIGFILENAME" alt="" coords="7,139,175,165">
-<area shape="rect" href="table&#45;RHNCONFIGCHANNEL.html#t&#45;fk" title="RHNCONFIGCHANNEL" alt="" coords="8,189,173,216">
+<area shape="rect" href="table&#45;RHNCONFIGREVISION.html#t&#45;fk" title="RHNCONFIGREVISION" alt="" coords="8,37,173,61">
+<area shape="rect" href="table&#45;RHNCONFIGFILE.html#t&#45;fk" title="RHNCONFIGFILE" alt="" coords="224,109,355,133">
+<area shape="rect" href="table&#45;RHNCONFIGFILESTATE.html#t&#45;fk" title="RHNCONFIGFILESTATE" alt="" coords="5,85,176,109">
+<area shape="rect" href="table&#45;RHNCONFIGFILENAME.html#t&#45;fk" title="RHNCONFIGFILENAME" alt="" coords="7,133,175,157">
+<area shape="rect" href="table&#45;RHNCONFIGCHANNEL.html#t&#45;fk" title="RHNCONFIGCHANNEL" alt="" coords="8,181,173,205">

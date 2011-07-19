@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-        <head><title> Spacewalk 1.4 DB Schema - Constraints </title>
+        <head><title> Spacewalk DB Schema - Constraints </title>
         <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="author" content="Petr Vanek, petr@scribus.info" />
@@ -1107,10 +1107,22 @@
 </td><td>Referential</td><td><a href="table-RHNPACKAGEPROVIDES.html"> RHNPACKAGEPROVIDES </a></td><td>&nbsp;</td></tr>
 <tr><td><a href="table-RHNPACKAGEPROVIDES.html#cs-RHN_PKG_PROVIDES_PACKAGE_FK">RHN_PKG_PROVIDES_PACKAGE_FK </a>
 </td><td>Referential</td><td><a href="table-RHNPACKAGEPROVIDES.html"> RHNPACKAGEPROVIDES </a></td><td>&nbsp;</td></tr>
+<tr><td><a href="table-RHNPACKAGERECOMMENDS.html#cs-RHN_PKG_REC_CAPABILITY_FK">RHN_PKG_REC_CAPABILITY_FK </a>
+</td><td>Referential</td><td><a href="table-RHNPACKAGERECOMMENDS.html"> RHNPACKAGERECOMMENDS </a></td><td>&nbsp;</td></tr>
+<tr><td><a href="table-RHNPACKAGERECOMMENDS.html#cs-RHN_PKG_REC_PACKAGE_FK">RHN_PKG_REC_PACKAGE_FK </a>
+</td><td>Referential</td><td><a href="table-RHNPACKAGERECOMMENDS.html"> RHNPACKAGERECOMMENDS </a></td><td>&nbsp;</td></tr>
 <tr><td><a href="table-RHNPACKAGEREQUIRES.html#cs-RHN_PKG_REQUIRES_CAPABILITY_FK">RHN_PKG_REQUIRES_CAPABILITY_FK </a>
 </td><td>Referential</td><td><a href="table-RHNPACKAGEREQUIRES.html"> RHNPACKAGEREQUIRES </a></td><td>&nbsp;</td></tr>
 <tr><td><a href="table-RHNPACKAGEREQUIRES.html#cs-RHN_PKG_REQUIRES_PACKAGE_FK">RHN_PKG_REQUIRES_PACKAGE_FK </a>
 </td><td>Referential</td><td><a href="table-RHNPACKAGEREQUIRES.html"> RHNPACKAGEREQUIRES </a></td><td>&nbsp;</td></tr>
+<tr><td><a href="table-RHNPACKAGESUGGESTS.html#cs-RHN_PKG_SUGG_CAPABILITY_FK">RHN_PKG_SUGG_CAPABILITY_FK </a>
+</td><td>Referential</td><td><a href="table-RHNPACKAGESUGGESTS.html"> RHNPACKAGESUGGESTS </a></td><td>&nbsp;</td></tr>
+<tr><td><a href="table-RHNPACKAGESUGGESTS.html#cs-RHN_PKG_SUGG_PACKAGE_FK">RHN_PKG_SUGG_PACKAGE_FK </a>
+</td><td>Referential</td><td><a href="table-RHNPACKAGESUGGESTS.html"> RHNPACKAGESUGGESTS </a></td><td>&nbsp;</td></tr>
+<tr><td><a href="table-RHNPACKAGESUPPLEMENTS.html#cs-RHN_PKG_SUPP_CAPABILITY_FK">RHN_PKG_SUPP_CAPABILITY_FK </a>
+</td><td>Referential</td><td><a href="table-RHNPACKAGESUPPLEMENTS.html"> RHNPACKAGESUPPLEMENTS </a></td><td>&nbsp;</td></tr>
+<tr><td><a href="table-RHNPACKAGESUPPLEMENTS.html#cs-RHN_PKG_SUPP_PACKAGE_FK">RHN_PKG_SUPP_PACKAGE_FK </a>
+</td><td>Referential</td><td><a href="table-RHNPACKAGESUPPLEMENTS.html"> RHNPACKAGESUPPLEMENTS </a></td><td>&nbsp;</td></tr>
 <tr><td><a href="table-RHNPACKAGENAME.html#cs-RHN_PN_ID_PK">RHN_PN_ID_PK </a>
 </td><td>Primary key</td><td><a href="table-RHNPACKAGENAME.html"> RHNPACKAGENAME </a></td><td><a href="sql_sources/index/rhn_pn_id_pk.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHN_PROBE_PARAM_VALUE.html#cs-RHN_PPVAL_CHKPB_PROBE_ID_FK">RHN_PPVAL_CHKPB_PROBE_ID_FK </a>
@@ -1847,52 +1859,52 @@
 </td><td>Referential</td><td><a href="table-RHNWEBCONTACTCHANGELOG.html"> RHNWEBCONTACTCHANGELOG </a></td><td>&nbsp;</td></tr>
 <tr><td><a href="table-RHN_WIDGET.html#cs-RHN_WDGET_NAME_PK">RHN_WDGET_NAME_PK </a>
 </td><td>Primary key</td><td><a href="table-RHN_WIDGET.html"> RHN_WIDGET </a></td><td><a href="sql_sources/index/rhn_wdget_name_pk.sql">DDL script</a></td></tr>
-<tr><td><a href="table-RHNPUSHCLIENT.html#cs-SYS_C005426">SYS_C005426 </a>
+<tr><td><a href="table-RHNPUSHCLIENT.html#cs-SYS_C005447">SYS_C005447 </a>
 </td><td>Referential</td><td><a href="table-RHNPUSHCLIENT.html"> RHNPUSHCLIENT </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005699">SYS_C005699 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005720">SYS_C005720 </a>
 </td><td>Referential</td><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005700">SYS_C005700 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005721">SYS_C005721 </a>
 </td><td>Referential</td><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005701">SYS_C005701 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005722">SYS_C005722 </a>
 </td><td>Referential</td><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005702">SYS_C005702 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005723">SYS_C005723 </a>
 </td><td>Referential</td><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-QRTZ_JOB_DETAILS.html#cs-SYS_C006543">SYS_C006543 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_JOB_DETAILS.html"> QRTZ_JOB_DETAILS </a></td><td><a href="sql_sources/index/sys_c006543.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_JOB_LISTENERS.html#cs-SYS_C006547">SYS_C006547 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_JOB_LISTENERS.html"> QRTZ_JOB_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006547.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_JOB_LISTENERS.html#cs-SYS_C006548">SYS_C006548 </a>
+<tr><td><a href="table-QRTZ_JOB_DETAILS.html#cs-SYS_C006564">SYS_C006564 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_JOB_DETAILS.html"> QRTZ_JOB_DETAILS </a></td><td><a href="sql_sources/index/sys_c006564.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_JOB_LISTENERS.html#cs-SYS_C006568">SYS_C006568 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_JOB_LISTENERS.html"> QRTZ_JOB_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006568.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_JOB_LISTENERS.html#cs-SYS_C006569">SYS_C006569 </a>
 </td><td>Referential</td><td><a href="table-QRTZ_JOB_LISTENERS.html"> QRTZ_JOB_LISTENERS </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006557">SYS_C006557 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006557.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006558">SYS_C006558 </a>
+<tr><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006578">SYS_C006578 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006578.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006579">SYS_C006579 </a>
 </td><td>Referential</td><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html#cs-SYS_C006564">SYS_C006564 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html"> QRTZ_SIMPLE_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006564.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html#cs-SYS_C006565">SYS_C006565 </a>
+<tr><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html#cs-SYS_C006585">SYS_C006585 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html"> QRTZ_SIMPLE_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006585.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html#cs-SYS_C006586">SYS_C006586 </a>
 </td><td>Referential</td><td><a href="table-QRTZ_SIMPLE_TRIGGERS.html"> QRTZ_SIMPLE_TRIGGERS </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-QRTZ_CRON_TRIGGERS.html#cs-SYS_C006569">SYS_C006569 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_CRON_TRIGGERS.html"> QRTZ_CRON_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006569.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_CRON_TRIGGERS.html#cs-SYS_C006570">SYS_C006570 </a>
+<tr><td><a href="table-QRTZ_CRON_TRIGGERS.html#cs-SYS_C006590">SYS_C006590 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_CRON_TRIGGERS.html"> QRTZ_CRON_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006590.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_CRON_TRIGGERS.html#cs-SYS_C006591">SYS_C006591 </a>
 </td><td>Referential</td><td><a href="table-QRTZ_CRON_TRIGGERS.html"> QRTZ_CRON_TRIGGERS </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#cs-SYS_C006573">SYS_C006573 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_BLOB_TRIGGERS.html"> QRTZ_BLOB_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006573.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#cs-SYS_C006574">SYS_C006574 </a>
+<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#cs-SYS_C006594">SYS_C006594 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_BLOB_TRIGGERS.html"> QRTZ_BLOB_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006594.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_BLOB_TRIGGERS.html#cs-SYS_C006595">SYS_C006595 </a>
 </td><td>Referential</td><td><a href="table-QRTZ_BLOB_TRIGGERS.html"> QRTZ_BLOB_TRIGGERS </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-QRTZ_TRIGGER_LISTENERS.html#cs-SYS_C006578">SYS_C006578 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_TRIGGER_LISTENERS.html"> QRTZ_TRIGGER_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006578.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_TRIGGER_LISTENERS.html#cs-SYS_C006579">SYS_C006579 </a>
+<tr><td><a href="table-QRTZ_TRIGGER_LISTENERS.html#cs-SYS_C006599">SYS_C006599 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_TRIGGER_LISTENERS.html"> QRTZ_TRIGGER_LISTENERS </a></td><td><a href="sql_sources/index/sys_c006599.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_TRIGGER_LISTENERS.html#cs-SYS_C006600">SYS_C006600 </a>
 </td><td>Referential</td><td><a href="table-QRTZ_TRIGGER_LISTENERS.html"> QRTZ_TRIGGER_LISTENERS </a></td><td>&nbsp;</td></tr>
-<tr><td><a href="table-QRTZ_CALENDARS.html#cs-SYS_C006582">SYS_C006582 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_CALENDARS.html"> QRTZ_CALENDARS </a></td><td><a href="sql_sources/index/sys_c006582.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html#cs-SYS_C006584">SYS_C006584 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html"> QRTZ_PAUSED_TRIGGER_GRPS </a></td><td><a href="sql_sources/index/sys_c006584.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_FIRED_TRIGGERS.html#cs-SYS_C006593">SYS_C006593 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_FIRED_TRIGGERS.html"> QRTZ_FIRED_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006593.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_SCHEDULER_STATE.html#cs-SYS_C006597">SYS_C006597 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_SCHEDULER_STATE.html"> QRTZ_SCHEDULER_STATE </a></td><td><a href="sql_sources/index/sys_c006597.sql">DDL script</a></td></tr>
-<tr><td><a href="table-QRTZ_LOCKS.html#cs-SYS_C006599">SYS_C006599 </a>
-</td><td>Primary key</td><td><a href="table-QRTZ_LOCKS.html"> QRTZ_LOCKS </a></td><td><a href="sql_sources/index/sys_c006599.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_CALENDARS.html#cs-SYS_C006603">SYS_C006603 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_CALENDARS.html"> QRTZ_CALENDARS </a></td><td><a href="sql_sources/index/sys_c006603.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html#cs-SYS_C006605">SYS_C006605 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_PAUSED_TRIGGER_GRPS.html"> QRTZ_PAUSED_TRIGGER_GRPS </a></td><td><a href="sql_sources/index/sys_c006605.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_FIRED_TRIGGERS.html#cs-SYS_C006614">SYS_C006614 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_FIRED_TRIGGERS.html"> QRTZ_FIRED_TRIGGERS </a></td><td><a href="sql_sources/index/sys_c006614.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_SCHEDULER_STATE.html#cs-SYS_C006618">SYS_C006618 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_SCHEDULER_STATE.html"> QRTZ_SCHEDULER_STATE </a></td><td><a href="sql_sources/index/sys_c006618.sql">DDL script</a></td></tr>
+<tr><td><a href="table-QRTZ_LOCKS.html#cs-SYS_C006620">SYS_C006620 </a>
+</td><td>Primary key</td><td><a href="table-QRTZ_LOCKS.html"> QRTZ_LOCKS </a></td><td><a href="sql_sources/index/sys_c006620.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNTASKOBUNCH.html#cs-TASKO_BUNCH_NAME_UQ">TASKO_BUNCH_NAME_UQ </a>
 </td><td>Unique key</td><td><a href="table-RHNTASKOBUNCH.html"> RHNTASKOBUNCH </a></td><td><a href="sql_sources/index/tasko_bunch_name_uq.sql">DDL script</a></td></tr>
 <tr><td><a href="table-RHNTASKOTEMPLATE.html#cs-TASKO_TEMPLATE_ORDERING_UQ">TASKO_TEMPLATE_ORDERING_UQ </a>
@@ -1941,5 +1953,5 @@
 </td><td>Primary key</td><td><a href="table-WEB_USER_SITE_TYPE.html"> WEB_USER_SITE_TYPE </a></td><td><a href="sql_sources/index/wust_type_pk.sql">DDL script</a></td></tr>
 </table><div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Thu Apr 21 10:04:24 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Tue Jul 19 17:31:37 2011</div>
 </body></html>

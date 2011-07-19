@@ -1,4 +1,4 @@
-<area shape="rect" href="table&#45;RHNSERVERPROFILE.html#t&#45;fk" title="RHNSERVERPROFILE" alt="" coords="251,88,413,115">
-<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="36,37,172,64">
-<area shape="rect" href="table&#45;RHNSERVERPROFILETYPE.html#t&#45;fk" title="RHNSERVERPROFILETYPE" alt="" coords="5,88,203,115">
-<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="47,139,161,165">
+<area shape="rect" href="table&#45;RHNSERVERPROFILE.html#t&#45;fk" title="RHNSERVERPROFILE" alt="" coords="251,85,413,109">
+<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="36,37,172,61">
+<area shape="rect" href="table&#45;RHNSERVERPROFILETYPE.html#t&#45;fk" title="RHNSERVERPROFILETYPE" alt="" coords="5,85,203,109">
+<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="47,133,161,157">

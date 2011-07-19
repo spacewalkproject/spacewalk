@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Apr 21 10:04:19 2011
+-- created by Oraschemadoc Tue Jul 19 17:31:34 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PROCEDURE "SPACEWALK"."DELETE_SERVER" (
@@ -215,6 +215,8 @@ begin
       ( select sat_cluster_id from rhn_sat_node where server_id = server_id_in );
 
 	delete from rhn_sat_node where server_id = server_id_in;
+
+    delete from rhnPushClient where server_id = server_id_in;
 
 	-- now get rhnServer itself.
 	delete

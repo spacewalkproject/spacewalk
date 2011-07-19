@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Apr 21 10:04:12 2011
+-- created by Oraschemadoc Tue Jul 19 17:31:28 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELTREEVIEW" ("ID", "DEPTH", "NAME", "PADDED_NAME", "CHANNEL_ARCH_ID", "LAST_MODIFIED", "LABEL", "PARENT_OR_SELF_LABEL", "PARENT_OR_SELF_ID", "END_OF_LIFE") AS 

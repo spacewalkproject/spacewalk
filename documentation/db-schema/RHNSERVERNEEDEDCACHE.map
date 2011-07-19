@@ -1,4 +1,4 @@
-<area shape="rect" href="table&#45;RHNSERVERNEEDEDCACHE.html#t&#45;fk" title="RHNSERVERNEEDEDCACHE" alt="" coords="169,88,375,115">
-<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="11,37,115,64">
-<area shape="rect" href="table&#45;RHNPACKAGE.html#t&#45;fk" title="RHNPACKAGE" alt="" coords="5,88,120,115">
-<area shape="rect" href="table&#45;RHNERRATA.html#t&#45;fk" title="RHNERRATA" alt="" coords="12,139,113,165">
+<area shape="rect" href="table&#45;RHNSERVERNEEDEDCACHE.html#t&#45;fk" title="RHNSERVERNEEDEDCACHE" alt="" coords="169,85,375,109">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="11,37,115,61">
+<area shape="rect" href="table&#45;RHNPACKAGE.html#t&#45;fk" title="RHNPACKAGE" alt="" coords="5,85,120,109">
+<area shape="rect" href="table&#45;RHNERRATA.html#t&#45;fk" title="RHNERRATA" alt="" coords="12,133,113,157">

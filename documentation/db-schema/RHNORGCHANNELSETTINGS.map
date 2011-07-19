@@ -1,4 +1,4 @@
-<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="60,37,196,64">
-<area shape="rect" href="table&#45;RHNORGCHANNELSETTINGS.html#t&#45;fk" title="RHNORGCHANNELSETTINGS" alt="" coords="299,88,509,115">
-<area shape="rect" href="table&#45;RHNORGCHANNELSETTINGSTYPE.html#t&#45;fk" title="RHNORGCHANNELSETTINGSTYPE" alt="" coords="5,88,251,115">
-<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="71,139,185,165">
+<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="60,37,196,61">
+<area shape="rect" href="table&#45;RHNORGCHANNELSETTINGS.html#t&#45;fk" title="RHNORGCHANNELSETTINGS" alt="" coords="299,85,509,109">
+<area shape="rect" href="table&#45;RHNORGCHANNELSETTINGSTYPE.html#t&#45;fk" title="RHNORGCHANNELSETTINGSTYPE" alt="" coords="5,85,251,109">
+<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="71,133,185,157">

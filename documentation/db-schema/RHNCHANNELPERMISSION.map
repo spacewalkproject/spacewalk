@@ -1,4 +1,4 @@
-<area shape="rect" href="table&#45;RHNCHANNELPERMISSIONROLE.html#t&#45;fk" title="RHNCHANNELPERMISSIONROLE" alt="" coords="5,37,240,64">
-<area shape="rect" href="table&#45;RHNCHANNELPERMISSION.html#t&#45;fk" title="RHNCHANNELPERMISSION" alt="" coords="289,88,487,115">
-<area shape="rect" href="table&#45;WEB_CONTACT.html#t&#45;fk" title="WEB_CONTACT" alt="" coords="61,88,184,115">
-<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="65,139,180,165">
+<area shape="rect" href="table&#45;RHNCHANNELPERMISSIONROLE.html#t&#45;fk" title="RHNCHANNELPERMISSIONROLE" alt="" coords="5,37,240,61">
+<area shape="rect" href="table&#45;RHNCHANNELPERMISSION.html#t&#45;fk" title="RHNCHANNELPERMISSION" alt="" coords="289,85,487,109">
+<area shape="rect" href="table&#45;WEB_CONTACT.html#t&#45;fk" title="WEB_CONTACT" alt="" coords="61,85,184,109">
+<area shape="rect" href="table&#45;RHNCHANNEL.html#t&#45;fk" title="RHNCHANNEL" alt="" coords="65,133,180,157">

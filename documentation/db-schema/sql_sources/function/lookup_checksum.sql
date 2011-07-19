@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Apr 21 10:04:20 2011
+-- created by Oraschemadoc Tue Jul 19 17:31:34 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CHECKSUM" (checksum_type_in IN VARCHAR2, checksum_in IN VARCHAR2)

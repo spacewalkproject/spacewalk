@@ -1,4 +1,4 @@
--- created by Oraschemadoc Thu Apr 21 10:04:11 2011
+-- created by Oraschemadoc Tue Jul 19 17:31:28 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELFAMILYPERMISSIONS" ("CHANNEL_FAMILY_ID", "ORG_ID", "MAX_MEMBERS", "CURRENT_MEMBERS", "FVE_MAX_MEMBERS", "FVE_CURRENT_MEMBERS", "CREATED", "MODIFIED") AS 
