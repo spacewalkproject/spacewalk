@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.18
+Version:        1.19
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Tue Jul 19 2011 Jan Pazdziora 1.19-1
+- Updating the copyright years.
+
 * Tue May 03 2011 Jan Pazdziora 1.18-1
 - Do chgrp apache for files being deployed.
 
