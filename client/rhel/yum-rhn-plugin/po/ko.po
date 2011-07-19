@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-11 17:20+0100\n"
+"POT-Creation-Date: 2011-07-19 12:06+0200\n"
 "PO-Revision-Date: 2011-02-15 10:10+1000\n"
 "Last-Translator: Eun-Ju Kim <eukim@redhat.com>\n"
 "Language-Team:  <ko@li.org>\n"
@@ -18,58 +18,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../rhnplugin.py:48
+#: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "RHN과 통신하는 도중 오류가 발생했습니다."
 
-#: ../rhnplugin.py:90
+#: ../rhnplugin.py:101
 msgid "RHN Satellite or RHN Classic support will be disabled."
 msgstr "RHN Satellite 또는 RHN Classic 지원은 비활성화됩니다. "
 
 #. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:94
+#: ../rhnplugin.py:105
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*알림* Red Hat Network 리포지터리가 아래 목록에 없습니다. RHN 리포지터리에 액세스하기 위해 이 명령을 root로 실행해야 합니다.  "
+msgstr ""
+"*알림* Red Hat Network 리포지터리가 아래 목록에 없습니다. RHN 리포지터리에 액"
+"세스하기 위해 이 명령을 root로 실행해야 합니다.  "
 
-#: ../rhnplugin.py:108
+#: ../rhnplugin.py:120
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "RHN Proxy 설정을 읽는 도중 오류가 발생했습니다."
 
-#: ../rhnplugin.py:122
+#: ../rhnplugin.py:134
 msgid "This system is not registered with RHN."
 msgstr "이 시스템은 RHN에 등록되지 않았습니다."
 
-#: ../rhnplugin.py:127
+#: ../rhnplugin.py:139
 msgid "RHN channel support will be disabled."
 msgstr "RHN 채널 지원은 비활성화됩니다."
 
-#: ../rhnplugin.py:131
+#: ../rhnplugin.py:143
 msgid "This system is not subscribed to any channels."
 msgstr "이 시스템은 아무 채널에도 등록되지 않았습니다."
 
-#: ../rhnplugin.py:135
-msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr "이 시스템을 RHN에 등록할 수 없습니다. 시스템 ID를 가져올 수 없습니다.\n"
+#: ../rhnplugin.py:147
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+"이 시스템을 RHN에 등록할 수 없습니다. 시스템 ID를 가져올 수 없습니다.\n"
 
-#: ../rhnplugin.py:193
+#: ../rhnplugin.py:238
 msgid "Package profile information could not be sent."
 msgstr "패키지 프로파일 정보를 보낼 수 없습니다."
 
-#. This is compensating for hosted/satellite returning back an error
-#. message instructing RHEL5 clients to run "up2date --register"
-#. bz: 438175
-#: ../rhnplugin.py:200
+#: ../rhnplugin.py:246
 msgid "Error Message:"
 msgstr "오류 메세지: "
 
-#: ../rhnplugin.py:201
+#: ../rhnplugin.py:247
 msgid "Please run rhn_register as root on this client"
 msgstr "클라이언트에서 root로 rhn_register를 실행하십시오 "
 
-#: ../rhnplugin.py:280
+#: ../rhnplugin.py:326
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN에 로그인하기 위해 필요한 정보가 없습니다: %s"
-
