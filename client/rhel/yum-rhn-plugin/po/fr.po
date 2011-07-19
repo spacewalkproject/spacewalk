@@ -1,8 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Alain PORTAL <aportal@univ-montp2.fr>, 2006.
+# Audrey Simons <asimons@redhat.com>, 2004, 2005.
+# Bettina De Monti <bdemonti@redhat.it>, 2001.
+# Damien Durand <splinux@fedoraproject.org>, 2006.
+# Decroux Fabien <fdecroux@redhat.com>, 2006, 2007.
+# Myriam Malga <mmalga@redhat.com>, 2007.
+# Stephane Raimbault <stephane.raimbault@free.fr>, 2004.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# jfenal <jfenal@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
@@ -79,3 +87,5 @@ msgstr "Veuillez exécuter rhn_register en tant que root sur ce client"
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Absence d'informations de connexion requises par RHN : %s"
+
+

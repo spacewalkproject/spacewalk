@@ -1,32 +1,31 @@
-# translation of or.po to Oriya
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Subhransu Behera <sbehera@redhat.com>, 2006.
+# 
+# Subhransu Behera <sbehera@redhat.com>, 2006, 2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Manoj Kumar Giri <mgiri@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: or\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-11 17:20+0100\n"
-"PO-Revision-Date: 2011-02-21 16:54+0530\n"
-"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
-"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
+"POT-Creation-Date: 2011-01-20 05:57-0500\n"
+"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/team/or/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
+"Language: or\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "RHN ସହିତ ସମ୍ବାଦ ବିନିମୟ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା।"
 
 #: ../rhnplugin.py:90
-msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN ସାଟେଲାଇଟ କିମ୍ବା RHN ଉତ୍କୃଷ୍ଟ ଶ୍ରେଣୀ ସହାୟତାକୁ ନିଷ୍କ୍ରିୟ କରି ଦିଆଯିବ।"
+msgid "RHN support will be disabled."
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:94
@@ -35,8 +34,7 @@ msgid ""
 "command as root to access RHN repositories."
 msgstr ""
 "*ଟିପ୍ପଣୀ* Red Hat ନେଟୱର୍କ ସଂଗ୍ରହାଳୟଗୁଡ଼ିକ ନିମ୍ନରେ ତାଲିକାଭୁକ୍ତ ହୋଇନାହିଁ। ଆପଣ "
-"ନିଶ୍ଚିତ ଭାବରେ ଏହି ନିର୍ଦ୍ଦେଶକୁ "
-"RHN ସଂଗ୍ରହାଳୟରେ ମୂଖ୍ୟ ଚାଳକ ଭାବରେ ଚଲାଇବା ଉଚିତ।"
+"ନିଶ୍ଚିତ ଭାବରେ ଏହି ନିର୍ଦ୍ଦେଶକୁ RHN ସଂଗ୍ରହାଳୟରେ ମୂଖ୍ୟ ଚାଳକ ଭାବରେ ଚଲାଇବା ଉଚିତ।"
 
 #: ../rhnplugin.py:108
 msgid "There was an error parsing the RHN proxy settings."
@@ -56,7 +54,8 @@ msgstr "ତନ୍ତ୍ରଟି କୌଣସି ଉପପଥ ସହିତ ହ�
 
 #: ../rhnplugin.py:135
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr "ଏହି ତନ୍ତ୍ର ହୁଏତଃ RHN ରେ ପଞ୍ଜିକୃତ ହୋଇନାହିଁ। SystemId କୁ ଧରିହେଲାନାହିଁ।\n"
 
 #: ../rhnplugin.py:193
@@ -79,5 +78,4 @@ msgstr "rhn_register କୁ ମୂଖ୍ୟ ଚାଳକ ଭାବରେ ଏହ�
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN ପାଇଁ ଅନୁପସ୍ଥିତ ଥିବା ଆବଶ୍ଯକୀୟ ଲଗଇନ ସୂଚନା: %s"
 
-#~ msgid "Either --version, or no commands entered"
-#~ msgstr "ଅଥବା --version, କିମ୍ବା କୌଣସି ନିର୍ଦ୍ଦେଶକୁ ଭରଣ କରାଯାଇ ନାହିଁ।"
+
