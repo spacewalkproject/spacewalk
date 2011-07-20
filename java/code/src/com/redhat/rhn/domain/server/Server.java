@@ -46,6 +46,7 @@ import org.cobbler.SystemRecord;
 
 import java.net.IDN;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -944,6 +945,23 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
+     * Get the hostname aliases for this server
+     * @return Returns the hostname aliases for this server
+     */
+    public List<String> getCnames() {
+        List<String> result = new ArrayList();
+        Iterator nets = networks.iterator();
+        if (nets.hasNext()) {
+            nets.next(); // skip primary interface
+        }
+        while (nets.hasNext()) {
+            Network net = (Network) nets.next();
+            result.add(net.getHostname());
+        }
+        return result;
+    }
+
+    /**
      * Get the primary hostname for this server
      * If hostname is IDN, it is decoded from Pune encoding
      * @return Returns the primary hostname for this server
@@ -951,6 +969,19 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public String getDecodedHostname() {
         String hostname = getHostname();
         return (hostname == null) ? null : IDN.toUnicode(hostname);
+    }
+
+   /**
+     * Get the hostname aliases (cname records) for this server
+     * If hostname is IDN, it is decoded from Pune encoding
+     * @return Returns the primary hostname for this server
+     */
+    public List<String> getDecodedCnames() {
+        List<String> result = new ArrayList();
+        for (String hostname : getCnames()) {
+            result.add(IDN.toUnicode(hostname));
+        }
+        return result;
     }
 
     /**

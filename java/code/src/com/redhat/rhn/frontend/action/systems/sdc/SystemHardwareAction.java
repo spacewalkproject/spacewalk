@@ -131,6 +131,7 @@ public class SystemHardwareAction extends RhnAction {
 
         request.setAttribute("network_hostname", server.getDecodedHostname());
         request.setAttribute("network_ip_addr", server.getIpAddress());
+        request.setAttribute("network_cnames", server.getDecodedCnames());
 
         List<String> nicList = new ArrayList();
         for (NetworkInterface n : server.getNetworkInterfaces()) {

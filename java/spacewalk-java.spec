@@ -84,6 +84,7 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
+Requires: dojo
 %if 0%{?fedora}
 Requires: apache-commons-logging
 %else
