@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.1
+Version: 1.6.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jul 21 2011 Miroslav Suchý 1.6.2-1
+- Sysdate replaced with current_timestamp
+
 * Wed Jul 20 2011 Jan Pazdziora 1.6.1-1
 - Bumping up the Spacewalk version to 1.6 (shown on the WebUI).
 
