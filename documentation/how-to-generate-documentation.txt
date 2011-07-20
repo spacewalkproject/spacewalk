@@ -36,8 +36,10 @@ Documentation for the db schema:
     # update db-schema.readme
     git commit -m 'Updating db schema documentation.' .
 
-documentation of API:
-	cd java/
-    # install ivy
+Documentation of API:
+    cd java/
+    # remove apache-ivy :-(
+    # install ivy from http://mirrors.dotsrc.org/jpackage/5.0/generic/free/
+    # install ant and ant-junit
     ant apidoc-html
     # documentation is in build/reports/apidocs/html
