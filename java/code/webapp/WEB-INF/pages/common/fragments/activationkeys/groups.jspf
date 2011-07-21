@@ -40,7 +40,9 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="grouplist.jsp.name"
-		           sortattr="name" filterattr="name" styleclass="last-column">
+		           sortattr="name"
+                   defaultsort="asc"
+                   filterattr="name" styleclass="last-column">
 		    <c:choose>
 		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
 		    		<a href="/network/systems/groups/details.pxt?sgid=${current.id}">${current.name}</a>
