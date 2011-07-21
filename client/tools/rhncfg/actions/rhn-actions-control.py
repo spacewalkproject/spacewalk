@@ -66,6 +66,7 @@ def main():
 
     if options.enable_run:
         runcontroller.on('run')
+        runcontroller.off('all')
 
     if options.disable_deploy:
         controller.off('deploy')
@@ -85,6 +86,7 @@ def main():
     
     if options.disable_run:
         runcontroller.off('run')
+        runcontroller.off('all')
 
     if options.report:
         mode_list = ['deploy', 'diff', 'upload', 'mtime_upload']
@@ -97,6 +99,10 @@ def main():
             print rstring % (m, status)
         
         status = "disabled"
+        if runcontroller.is_on('all'):
+            runcontroller.off('all')
+            runcontroller.on('run')
+
         if runcontroller.is_on('run'):
             status = "enabled"
         print rstring % ('run', status)

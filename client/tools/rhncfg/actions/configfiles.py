@@ -53,6 +53,9 @@ def _local_permission_check(action_type):
         all_structure = atype_structure[:i]
         all_structure.append('all')
 
+        if os.path.exists(os.path.join(_permission_root_dir, "script/all")) and action_type == "script.run":
+            os.rename(os.path.join(_permission_root_dir, "script/all"),os.path.join(_permission_root_dir, "script/run"))
+
         potential_all_path = apply(os.path.join, all_structure)
         if os.path.exists(os.path.join(_permission_root_dir, potential_all_path)):
             return 1

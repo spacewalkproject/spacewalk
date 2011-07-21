@@ -119,6 +119,12 @@ class RunMode(ConfigFilesBaseMode):
         self.name = "run"
         self.ph.set_rhn_root("/etc/sysconfig/rhn/allowed-actions/script") 
 
+class RunAllMode(ConfigFilesBaseMode):
+    def __init__(self):
+        ConfigFilesBaseMode.__init__(self)
+        self.name = "all"
+        self.ph.set_rhn_root("/etc/sysconfig/rhn/allowed-actions/script")
+
 class AllMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
@@ -150,6 +156,12 @@ class SolarisRunMode(ConfigFilesBaseMode):
         ConfigFilesBaseMode.__init__(self)
         self.name = "run"
         self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/script") 
+
+class SolarisAllRunMode(ConfigFilesBaseMode):
+    def __init__(self):
+        ConfigFilesBaseMode.__init__(self)
+        self.name = "all"
+        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/script")
 
 class SolarisAllMode(ConfigFilesBaseMode):
     def __init__(self):

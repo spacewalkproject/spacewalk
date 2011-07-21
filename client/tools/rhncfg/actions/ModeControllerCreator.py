@@ -56,9 +56,9 @@ def get_controller_creator():
 
 def get_run_controller_creator():
     if string.find(sys.platform, 'sunos') > -1:
-        mode_list = [Modes.SolarisRunMode()]
+        mode_list = [Modes.SolarisRunMode(), Modes.SolarisRunAllMode()]
     else:
-        mode_list = [Modes.RunMode()]
+        mode_list = [Modes.RunMode(), Modes.RunAllMode()]
 
     controller = ModeControllerCreator(mode_list=mode_list)
     return controller

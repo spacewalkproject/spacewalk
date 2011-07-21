@@ -47,6 +47,9 @@ class ModeController:
         for m in self.mode_list.keys():
             self.mode_list[m].on()
 
+        if self.mode_list['all'].is_on():
+            self.mode_list['all'].off()
+
     #Turn off all of the modes.
     def all_off(self):
         for m in self.mode_list.keys():

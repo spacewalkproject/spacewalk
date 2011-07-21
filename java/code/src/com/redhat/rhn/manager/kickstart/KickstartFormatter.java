@@ -120,7 +120,7 @@ public class KickstartFormatter {
     private static final String WGET_RPMS = "wget -P /tmp/rhn_rpms ";
     private static final String REMOTE_CMD =
         "mkdir -p /etc/sysconfig/rhn/allowed-actions/script" + NEWLINE +
-        "touch /etc/sysconfig/rhn/allowed-actions/script/all";
+        "touch /etc/sysconfig/rhn/allowed-actions/script/run";
     private static final String CONFIG_CMD =
         "mkdir -p /etc/sysconfig/rhn/allowed-actions/configfiles" + NEWLINE +
         "touch /etc/sysconfig/rhn/allowed-actions/configfiles/all";
