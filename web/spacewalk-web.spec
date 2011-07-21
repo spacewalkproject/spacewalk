@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.5.17
+Version: 1.5.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jul 21 2011 Jan Pazdziora 1.5.18-1
+- Sysdate replaced with current_timestamp (msuchy@redhat.com)
+
 * Wed Jul 20 2011 Jan Pazdziora 1.5.17-1
 - Dropping the nightly from the Spacewalk WebUI version string.
 
