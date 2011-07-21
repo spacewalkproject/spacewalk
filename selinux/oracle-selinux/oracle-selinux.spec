@@ -72,13 +72,6 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} SELinux
 # Make file contexts relative to oracle_base
 perl -pi -e 's#%{default_oracle_base}#%{oracle_base}#g' SELinux/%{modulename}.fc
 
-# Fedora 15 uses oracledb_port_t instead of oracle_port_t
-%if 0%{?fedora} >= 15
-for i in SELinux/* ; do
-	sed -i 's/\boracle_port_t\b/oracledb_port_t/' $i
-done
-%endif
-
 # Create oracle-nofcontext source files
 cp SELinux/%{modulename}.if SELinux/%{modulename}-nofcontext.if
 cp SELinux/%{modulename}.te SELinux/%{modulename}-nofcontext.te
