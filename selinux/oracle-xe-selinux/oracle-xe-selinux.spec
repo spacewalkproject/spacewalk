@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.21
+Version:         10.2.0.22
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -139,6 +139,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jul 21 2011 Jan Pazdziora 10.2.0.22-1
+- Revert "Fedora 15 uses oracledb_port_t instead of oracle_port_t."
+
 * Mon Jul 18 2011 Jan Pazdziora 10.2.0.21-1
 - Fedora 15 uses oracledb_port_t instead of oracle_port_t.
 
