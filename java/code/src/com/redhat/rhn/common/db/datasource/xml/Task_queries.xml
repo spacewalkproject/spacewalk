@@ -520,7 +520,7 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
                         and puac.package_upgrade_arch_id = ocnp.package_arch_id
         )
 --
-  ) svn
+  ) snv
       JOIN rhnUserReceiveNotifications urn
         ON snv.server_id = urn.server_id
       JOIN rhnServerChannel sc
