@@ -85,7 +85,7 @@ hr { border-bottom: 1px dotted #ccc; height: 1px;}
 .book .toc .chapter a, .book .toc .preface a, .book .toc .chapter strong, .book .toc .glossary a, .book .toc .index a { font-size: medium; font-weight: 900 !important;}
 .application { font-weight: normal !important; font-style: italic; }
 .book .toc .section { font-size: medium; }
-.book .toc dd dd .section { font-size: small; !important}
+.book .toc dd dd .section { font-size: small !important}
 
 .table h6, .figure h6 { margin-top: 0px; color: #A70000;}
 
@@ -127,7 +127,7 @@ dt a{font-weight: normal;}
 .screen .replaceable {color:#444;}
 .screen{background-color:#ede7c8;color:#333;padding:.5em 1em;margin:0em;-moz-border-radius: 8px;}
 pre,code,.guibutton,.keycap,.guilabel{font-size:0.9em;font-family:"liberation mono", "Bitstream vera mono",monospace;}
-.guibutton,.keycap,.guilabel{font-weight:bold;/*white-space:nowrap;*/color:#444;font-family:"liberation sans", "Bitstream vera sans", "dejavu sans" sans-serif;}
+.guibutton,.keycap,.guilabel{font-weight:bold;/*white-space:nowrap;*/color:#444;font-family:"liberation sans", "Bitstream vera sans", "dejavu sans", sans-serif;}
 .guibutton,.guilabel{}
 .keycap{padding: .1em .4em;}
 .example {background-color:#c8c5ac; padding:5px; margin-bottom:10px;}
@@ -353,7 +353,7 @@ div.preface, div.chapter, div.section {padding-top:2em;}
 
 
 pre .keycap{color:white;}
-pre{font-family:"liberation mono", "bitstream vera mono", "dejavu mono" monospace;}
+pre{font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;}
 pre .replaceable, tt .replaceable {
 	color:#444;
 }
