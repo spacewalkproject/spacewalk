@@ -349,9 +349,6 @@ li p:first-child{margin:0em !important; padding:0em !important;}
 /**/
 div.preface, div.chapter, div.section {padding-top:2em;}
 
-.revhistory{font-size:}
-
-
 pre .keycap{color:white;}
 pre{font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;}
 pre .replaceable, tt .replaceable {
