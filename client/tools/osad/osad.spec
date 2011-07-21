@@ -114,13 +114,6 @@ SELinux policy module supporting osa-dispatcher.
 cp prog.init.SUSE prog.init
 %endif
 
-# Fedora 15 uses oracledb_port_t instead of oracle_port_t
-%if 0%{?fedora} >= 15
-for i in osa-dispatcher-selinux/* ; do
-       sed -i 's/\boracle_port_t\b/oracledb_port_t/' $i
-done
-%endif
-
 %build
 make -f Makefile.osad all
 
