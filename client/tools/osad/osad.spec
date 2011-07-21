@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.18
+Version: 5.10.19
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Jul 21 2011 Jan Pazdziora 5.10.19-1
+- Revert "Fedora 15 uses oracledb_port_t instead of oracle_port_t."
+
 * Mon Jul 18 2011 Jan Pazdziora 5.10.18-1
 - Fedora 15 uses oracledb_port_t instead of oracle_port_t.
 
