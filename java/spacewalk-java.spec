@@ -60,8 +60,8 @@ Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
-# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
-%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
+%if 0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
 Requires: jasper5
 Requires: tomcat5-servlet-2.4-api
@@ -84,7 +84,7 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
-%if 0%{?fedora} >= 14
+%if 0%{?fedora}
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-logging
@@ -133,8 +133,8 @@ BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: simple-core
 BuildRequires: stringtree-json
-# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
-%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
+%if 0%{?rhel} && 0%{?rhel} < 6
 BuildRequires: struts >= 0:1.2.9
 BuildRequires: jsp
 BuildRequires: jasper5
@@ -146,7 +146,7 @@ BuildRequires: tomcat6-lib
 %endif
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
-%if 0%{?fedora} && 0%{?fedora} >= 13
+%if 0%{?fedora}
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
 %endif
@@ -240,7 +240,7 @@ Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-dbcp
-%if 0%{?fedora} >= 14
+%if 0%{?fedora}
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-logging
@@ -293,7 +293,7 @@ fi
 ant -Dprefix=$RPM_BUILD_ROOT init-install compile
 
 # checkstyle is broken on Fedora 14 - we skip for now
-%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+%if 0%{?rhel} && 0%{?rhel} < 6
 echo "Running checkstyle on java main sources"
 export CLASSPATH="build/classes"
 export BASE_OPTIONS="-Djavadoc.method.scope=public \
@@ -370,7 +370,7 @@ touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 # Fedoras have cglib version that is not compatible with asm and need objectweb-asm
 # Unfortunately both libraries must be installed for dependencies so we override
 # the asm symlink with objectweb-asm here
-%if 0%{?fedora} >= 13
+%if 0%{?fedora}
 ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.jar
 ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
@@ -482,7 +482,7 @@ fi
 #%{jardir}/asmasm-xml.jar
 #%{jardir}/asmkasm.jar
 
-%if 0%{?fedora} && 0%{?fedora} >= 13
+%if 0%{?fedora}
 # jfreechart-1.0.10-4.fc13.noarch (F13)
 # jfreechart-1.0.13-1.fc14.noarch (F14)
 %{jardir}/jfreechart_jfreechart.jar
@@ -494,8 +494,8 @@ fi
 %{jardir}/jfreechart.jar
 %endif
 
-# EL5/F12 = Struts 1.2 and Tomcat 5, EL6+/F13+ = 1.3 and 6
-%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
+# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
+%if 0%{?rhel} && 0%{?rhel} < 6
 %{jardir}/struts.jar
 %else
 %{jardir}/struts.jar

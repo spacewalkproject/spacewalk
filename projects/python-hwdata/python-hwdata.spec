@@ -1,4 +1,4 @@
-%if ! (0%{?fedora} > 12 || 0%{?rhel} > 5)
+%if ! (0%{?fedora} || 0%{?rhel} > 5)
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %endif
 

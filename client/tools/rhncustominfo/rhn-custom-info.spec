@@ -9,9 +9,6 @@ Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
-%if 0%{?fedora} == 13
-Requires: python-abi = 2.6
-%endif
 %if 0%{?rhel} && 0%{?rhel} <= 4
 BuildRequires: python
 Requires: python-abi = %(%{__python} -c "import sys; print sys.version[:3]")

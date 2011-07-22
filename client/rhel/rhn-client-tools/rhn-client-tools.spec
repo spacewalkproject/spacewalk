@@ -27,7 +27,7 @@ Requires: dbus-1-python
 %else
 Requires: dbus-python
 %endif
-%if 0%{?fedora} > 12 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 Requires: python-gudev
 Requires: python-hwdata
 %else
@@ -66,7 +66,7 @@ BuildRequires: redhat-logos
 %endif
 
 # The following BuildRequires are for check only
-%if 0%{?fedora} >= 12
+%if 0%{?fedora}
 BuildRequires: python-coverage
 BuildRequires: rhnlib
 BuildRequires: rpm-python
@@ -114,10 +114,8 @@ Requires: python-gnome python-gtk
 Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
 %endif
 Requires: usermode-gtk
-%if 0%{?fedora} > 9 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 Requires: gnome-python2-gnome gnome-python2-bonobo
-%endif
-%if 0%{?fedora} > 10 || 0%{?rhel} > 5
 Requires: liberation-sans-fonts
 %endif
 
@@ -140,7 +138,7 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
 touch $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date/loginAuth.pkl
 
-%if 0%{?fedora} > 12 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_hal.*
 %else
 rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_gudev.*
@@ -179,7 +177,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if 0%{?fedora} >= 12
+%if 0%{?fedora}
 %check
 
 make -f Makefile.rhn-client-tools test

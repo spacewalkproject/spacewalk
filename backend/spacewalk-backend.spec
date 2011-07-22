@@ -2,7 +2,7 @@
 %global rhnconf %{_sysconfdir}/rhn
 %global httpdconf %{rhnconf}/satellite-httpd/conf
 %global apacheconfd %{_sysconfdir}/httpd/conf.d
-%if 0%{?fedora} < 13 && 0%{?rhel} < 6
+%if 0%{?rhel} && 0%{?rhel} < 6
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
 %global pythonrhnroot %{python_sitelib}/spacewalk
