@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.12
+Version: 5.4.13
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -53,6 +53,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Fri Jul 22 2011 Jan Pazdziora 5.4.13-1
+- We only support version 5 and newer of RHEL, removing conditions for old
+  versions.
+- We only support version 14 and newer of Fedora, removing conditions for old
+  versions.
+
 * Fri Apr 15 2011 Jan Pazdziora 5.4.12-1
 - build rhn-custom-info on SUSE (mc@suse.de)
 
