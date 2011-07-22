@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.0
+Version: 1.6.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,13 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
+- The rhn-client-tools/doc/releases.txt is out of date, removing.
+- We only support version 5 and newer of RHEL, removing conditions for old
+  versions.
+- We only support version 14 and newer of Fedora, removing conditions for old
+  versions.
+
 * Tue Jul 19 2011 Jan Pazdziora 1.5.16-1
 - Merging Transifex changes for rhn-client-tools.
 - Fixing the `msgid' and `msgstr' entries do not both end with '\n' bug.
