@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.6.0
+Version:    1.6.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
+- cleanup: revhistory style is not used (msuchy@redhat.com)
+- fix typos in css (msuchy@redhat.com)
+
 * Tue Jun 21 2011 Jan Pazdziora 1.5.2-1
 - 708957 - remove RHN Satellite Proxy Release Notes link (tlestach@redhat.com)
 
