@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.6.0
+Version:     1.6.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
+- We only support version 14 and newer of Fedora, removing conditions for old
+  versions.
+
 * Mon Jun 06 2011 Aron Parsons <aparsons@redhat.com> 1.5.3-1
 - spacecmd: remove stray debug statement (aparsons@redhat.com)
 
