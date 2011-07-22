@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.20
+Version: 1.6.1
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
+- We only support version 5 and newer of RHEL, removing conditions for old
+  versions.
+
 * Mon Jul 11 2011 Jan Pazdziora 0.2.20-1
 - 691417 - allow extra whitespace behing nameserver IP in resolv.conf
   (tlestach@redhat.com)
