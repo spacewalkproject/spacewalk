@@ -3,7 +3,7 @@
 %endif
 
 Name:		python-hwdata
-Version:	1.2
+Version:	1.6.1
 Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
@@ -44,6 +44,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
+- We only support version 14 and newer of Fedora, removing conditions for old
+  versions.
+
 * Mon Apr 26 2010 Miroslav Suchý <msuchy@redhat.com> 1.2-1
 - 585138 - change %%files section and patial support for python3
 
