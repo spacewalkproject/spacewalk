@@ -32,11 +32,7 @@ Requires: %{name}-redirect = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
-%if 0%{?rhel} == 4
-#for rhel4 we have no selinux policy, everything else should have
-%else
 Requires: spacewalk-proxy-selinux
-%endif
 Requires: jabberd spacewalk-setup-jabberd
 Requires: httpd
 Requires: sos

@@ -13,11 +13,7 @@ BuildArch:     noarch
 Requires:      rpm-python
 Requires:      rhnlib >= 2.5.38
 Requires:      spacewalk-backend-libs >= 0.8.3
-%if 0%{?rhel} && 0%{?rhel} < 5
-Requires:      up2date
-%else
 Requires:      rhn-client-tools
-%endif
 %if 0%{?suse_version}
 # provides rhn directories for filelist check in OBS
 BuildRequires:      rhn-client-tools

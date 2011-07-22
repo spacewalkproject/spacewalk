@@ -61,7 +61,7 @@ BuildRequires: desktop-file-utils
 %if 0%{?fedora}
 BuildRequires: fedora-logos
 %endif
-%if 0%{?rhel} > 4
+%if 0%{?rhel}
 BuildRequires: redhat-logos
 %endif
 

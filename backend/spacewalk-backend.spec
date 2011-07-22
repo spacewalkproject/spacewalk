@@ -186,13 +186,8 @@ Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
 BuildRequires: python2-devel
 Conflicts: %{name} < 0.8.28
-%if 0%{?rhel} && 0%{?rhel} < 5
-Requires: python-crypto
-BuildRequires: python-crypto
-%else
 Requires: python-hashlib
 BuildRequires: python-hashlib
-%endif
 
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
@@ -251,11 +246,7 @@ Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 1.4.3
-%if 0%{?rhel} && 0%{?rhel} < 5
-Requires: rhnlib  >= 2.1.4-14
-%else
 Requires: rhnlib  >= 2.5.38
-%endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: spacewalk-backend-satellite-tools = %{version}-%{release}

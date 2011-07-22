@@ -45,11 +45,7 @@ Requires: ssl_bridge
 Requires: status_log_acceptor 
 Requires: tsdb 
 Requires: mod_perl
-%if 0%{?rhel} == 4
-#for rhel4 we have no selinux policy, everything else should have
-%else
 Requires: spacewalk-monitoring-selinux
-%endif
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Obsoletes: np-config < 2.111.0
 Provides:  np-config = %{version}
