@@ -163,8 +163,7 @@ EOQ
   }
 
   if (not $opts->{"skip-selinux-test"}) {
-    if (have_semodule()) {	# we have modular SELinux policy (RHEL 5)
-      if (getenforce() eq 'Disabled') {		# we should use it
+      if (getenforce() eq 'Disabled') {		# we should use SELinux
         print loc(<<EOH);
 Red Hat recommends SELinux be configured in either Permissive or Enforcing
 mode for your RHN Satellite installation.  Run /usr/sbin/getenforce to see your
@@ -176,17 +175,6 @@ otherwise be run by the installer.
 EOH
         exit 3;
       }
-    } else {		# we are on pre-modular SELinux sysatem (RHEL 4)
-      if (getenforce() eq 'Enforcing') {	# should not try run SELinux Enforcing
-        print loc(<<EOH);
-SELinux must be in Disabled or Permissive mode for your RHN Satellite to
-install and function properly.  Run /usr/sbin/getenforce to see your current
-mode.  If you are certain that you are not in Enforcing mode you can re-run
-the installer with the flag --skip-selinux-test.
-EOH
-        exit 3;
-      }
-    }
   }
 
   if (not $opts->{"skip-fqdn-test"}
@@ -230,13 +218,6 @@ sub correct_system_version {
   my %version_info = @_;
 
   return 1 if grep { $version_info{version} eq $_ } qw/5Server 6Server/;
-}
-
-sub have_semodule {
-	if (system('/usr/sbin/semodule -l > /dev/null 2>&1')) {
-		return 0;
-	}
-	return 1;
 }
 
 sub getenforce {
