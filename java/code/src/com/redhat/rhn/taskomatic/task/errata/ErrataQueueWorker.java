@@ -143,14 +143,6 @@ class ErrataQueueWorker implements QueueWorker {
         return ErrataFactory.lookupById(new Long(errataId.longValue()));
     }
 
-    protected List findCandidates() throws Exception {
-        SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES);
-        Map params = new HashMap();
-        params.put("threshold", new Integer(1));
-        return select.execute(params);
-    }
-
     private void scheduleAutoUpdates(Errata errata,
                 ActionStatus queuedStatus, Channel chan) throws Exception {
         logger.debug("Scheduling auto updates for " + errata.getAdvisoryName() + "(" +

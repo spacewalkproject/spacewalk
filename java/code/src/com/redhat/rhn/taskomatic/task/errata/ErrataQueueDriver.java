@@ -25,7 +25,6 @@ import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -54,13 +53,7 @@ public class ErrataQueueDriver implements QueueDriver {
         Map params = new HashMap();
         List retval = new LinkedList();
         try {
-            List results = select.execute(params);
-            if (results != null) {
-                for (Iterator iter = results.iterator(); iter.hasNext();) {
-                    retval.add(iter.next());
-                }
-            }
-            return retval;
+            return select.execute(params);
         }
         finally {
             HibernateFactory.closeSession();
