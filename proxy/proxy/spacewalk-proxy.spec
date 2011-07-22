@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.6.0
+Version: 1.6.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -327,6 +327,10 @@ fi
 
 
 %changelog
+* Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
+- We only support version 5 and newer of RHEL, removing conditions for old
+  versions.
+
 * Tue Jul 19 2011 Jan Pazdziora 1.5.11-1
 - Updating the copyright years.
 
