@@ -25,11 +25,7 @@ import struct
 import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
-try:
-    from up2date_client import rhnserver
-    rhnserver_available = True
-except ImportError:
-    rhnserver_available = False
+from up2date_client import rhnserver
 
 try:
     from rhn import rpclib
@@ -713,21 +709,12 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
 
 def exists_getPackageChecksumBySession(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
-    if rhnserver_available:
-        # unfortunatelly we do not have capability for getPackageChecksumBySession function,
-        # but extended_profile in version 2 has been created just 2 months before
-        # getPackageChecksumBySession lets use it instead
-        server = rhnserver.RhnServer()
-        server._server = rpc_server
-        result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
-    else: # rhel4 has no rhnserver
-        server_capabilities = rpc_server.get_server_capability()
-        if 'xmlrpc.packages.extended_profile' in server_capabilities:
-            # that capability can be '1' or '1-2', this is hackish
-            result = server_capabilities['xmlrpc.packages.extended_profile']['version'] > '1' and \
-                server_capabilities['xmlrpc.packages.extended_profile']['value']  # usually '1'
-        else:
-            result = False
+    # unfortunatelly we do not have capability for getPackageChecksumBySession function,
+    # but extended_profile in version 2 has been created just 2 months before
+    # getPackageChecksumBySession lets use it instead
+    server = rhnserver.RhnServer()
+    server._server = rpc_server
+    result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
     return result
 
 # compare two package [n,v,r,e] tuples
