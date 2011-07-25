@@ -65,7 +65,7 @@
     	</c:choose>
     </rl:column>
     <rl:column headerkey="packagelist.jsp.installtime" bound="false" styleclass="last-column"
-		sortattr="installTime" sortable="true">
+		sortattr="installTimeObj" sortable="true">
 		<c:choose>
             <c:when test ="${not empty current.installTime}">${current.installTime}</c:when>
             <c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>

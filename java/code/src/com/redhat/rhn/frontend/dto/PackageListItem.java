@@ -421,6 +421,14 @@ public class PackageListItem extends IdComboDto {
     }
 
     /**
+     * Getter for the Date object
+     * @return installTime Date object
+     */
+    public Date getInstallTimeObj() {
+        return installTime;
+    }
+
+    /**
      * Setter for installTime
      * @param installTimeIn to set
     */
