@@ -95,7 +95,10 @@ def get_available_channels(user, password):
     system_id = re.sub('^ID-', '', rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())[0][0]['system_id'])
     result = []
     for channel in client.system.listChildChannels(key, int(system_id)):
-        result.extend([channel['LABEL']])
+        if 'LABEL' in channel:
+            result.extend([channel['LABEL']])
+        else:
+            result.extend([channel['label']])
     return result
 
 def need_channel(channel):
