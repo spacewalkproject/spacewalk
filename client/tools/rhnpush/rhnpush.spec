@@ -1,7 +1,6 @@
 %define rhnroot %{_datadir}/rhn
 
 Name:          rhnpush
-Summary:       Common programs needed to be installed on the RHN servers/proxies.
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
