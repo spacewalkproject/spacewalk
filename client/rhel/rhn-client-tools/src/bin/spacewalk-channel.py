@@ -86,10 +86,8 @@ def get_available_channels(user, password):
     """ return list of available child channels """
     cfg = config.initUp2dateConfig()
     satellite_url = config.getServerlURL()[0]
-    parts = urlparse.urlsplit(satellite_url)
-    satellite_url = urlparse.SplitResult(parts.scheme, parts.netloc, '/rpc/api',
-        parts.query, parts.fragment).geturl()
-
+    scheme, netloc, path, query, fragment = urlparse.urlsplit(satellite_url)
+    satellite_url = urlparse.urlunsplit((scheme, netloc, '/rpc/api', query, fragment))
     client = xmlrpclib.Server(satellite_url, verbose=0)
     key = client.auth.login(user, password)
     system_id = re.sub('^ID-', '', rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())[0][0]['system_id'])
