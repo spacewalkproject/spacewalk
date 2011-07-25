@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.3
+Version: 1.6.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 25 2011 Tomas Lestach <tlestach@redhat.com> 1.6.4-1
+- 722453 - fix sort according to Installed time on PackageList.do
+  (tlestach@redhat.com)
+- removing some dead code (tlestach@redhat.com)
+
 * Fri Jul 22 2011 Jan Pazdziora 1.6.3-1
 - We only support version 5 and newer of RHEL, removing conditions for old
   versions.
