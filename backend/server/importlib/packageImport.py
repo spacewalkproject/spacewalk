@@ -217,7 +217,7 @@ class PackageImport(ChannelPackageSubscription):
             self.sourceRPMs[sourceRPM] = None
         # Change copyright to license
         # XXX
-        package['copyright'] = package['license']
+        package['copyright'] = self._fix_encoding(package['license'])
 
         for tag in ('recommends', 'suggests', 'supplements'):
             if not package.has_key(tag) or type(package[tag]) != type([]):
