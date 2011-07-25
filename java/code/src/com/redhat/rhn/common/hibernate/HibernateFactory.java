@@ -133,7 +133,7 @@ public abstract class HibernateFactory {
             if (entry.getValue() instanceof Collection) {
                 Collection c = (Collection) entry.getValue();
                 if (c.size() > 100) {
-                    LOG.error("Query exectued with Collection larger than 1000");
+                    LOG.error("Query executed with Collection larger than 1000");
                 }
                 query.setParameterList((String) entry.getKey(), c);
             }
