@@ -183,7 +183,7 @@ int main (int argc, char **argv)
 	if (pass_count % 12 == 0) {
 	    /* end up with the next sleep being +/- 1/2 interval from last
 	     * sleep time */
-	    sleep_until += 1.0 * (rand() - RAND_MAX/2.0) * interval * 60.0 / (RAND_MAX * 1.0);
+	    sleep_until += (int)(1.0 * (rand() - RAND_MAX/2.0) * interval * 60.0 / (RAND_MAX * 1.0));
 	}
 
 	/* sleep_until could be within one minute of now, thanks to
