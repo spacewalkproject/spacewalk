@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.3
+Version: 1.6.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jul 27 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.4-1
+- fixed ORA-00904 in remote commands
+
 * Fri Jul 22 2011 Jan Pazdziora 1.6.3-1
 - We only support version 14 and newer of Fedora, removing conditions for old
   versions.
