@@ -9,7 +9,8 @@
 import string
 import sys 
 sys.path.append('..')
-from rhn import transports, xmlrpclib
+from rhn import transports
+import xmlrpclib
 from cStringIO import StringIO
 
 REFERENCE_XML = {

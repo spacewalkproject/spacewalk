@@ -23,7 +23,7 @@ import time
 import random
 import socket    
 import string
-from rhn.rpclib import xmlrpclib
+import xmlrpclib
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault

@@ -15,7 +15,7 @@
 
 # system module imports
 import string
-from rhn.rpclib import xmlrpclib
+import xmlrpclib
 import random
 
 # common modules imports

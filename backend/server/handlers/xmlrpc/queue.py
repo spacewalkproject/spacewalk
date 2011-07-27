@@ -16,7 +16,7 @@
 
 import sys
 import time
-from rhn.rpclib import xmlrpclib
+import xmlrpclib
 
 from types import IntType, TupleType
 

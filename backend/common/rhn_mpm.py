@@ -17,7 +17,7 @@ import os
 import gzip
 import cStringIO
 import tempfile
-from rhn.rpclib import xmlrpclib
+import xmlrpclib
 
 import struct
 
