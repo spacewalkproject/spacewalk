@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.41
+Version: 2.5.42
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Wed Jul 27 2011 Michael Mraka <michael.mraka@redhat.com> 2.5.42-1
+- import xmlrpclib directly
+- removed unnecessary implicit imports
+
 * Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 2.5.41-1
 - merged backend/common/UserDictCase.py into rhnlib/rhn/UserDictCase.py
 
