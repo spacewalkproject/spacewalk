@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.4
+Version: 1.6.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 28 2011 Jan Pazdziora 1.6.5-1
+- 601524 - kickstart.profile.setAdvancedCall apidoc fix (tlestach@redhat.com)
+- 725555 - fix typo for test in c.size() to match the logging message
+  (mmello@redhat.com)
+- Fixed typo at Query bindParameters() (mmello@redhat.com)
+
 * Mon Jul 25 2011 Tomas Lestach <tlestach@redhat.com> 1.6.4-1
 - 722453 - fix sort according to Installed time on PackageList.do
   (tlestach@redhat.com)
