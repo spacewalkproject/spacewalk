@@ -63,10 +63,7 @@ def init_hook(conduit):
        cachefile = open(cachefilename, 'r')
        repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
        cachefile.close()
-       for repoitem in repolist:
-           if len(repo_item) == 1:
-               repo_item.append('')
-           (repoid, reponame) = repo_item
+       for (repoid, reponame) in repolist:
            repodir = os.path.join(cachedir, repoid)
            if os.path.isdir(repodir) and os.path.isfile(
                         os.path.join(repodir, 'repodata', 'repomd.xml')):
