@@ -61,16 +61,15 @@ def init_hook(conduit):
     cachefilename = os.path.join(cachedir, cachedRHNReposFile)
     if os.access(cachefilename, os.R_OK):
        cachefile = open(cachefilename, 'r')
-       repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
+       repolist = [ line.rstrip() for line in cachefile.readlines()]
        cachefile.close()
-       for (repoid, reponame) in repolist:
-           repodir = os.path.join(cachedir, repoid)
+       for reponame in repolist:
+           repodir = os.path.join(cachedir, reponame)
            if os.path.isdir(repodir):
-               repo = YumRepository(repoid)
+               repo = YumRepository(reponame)
                repo.basecachedir = cachedir
                repo.baseurl = ['file:///' + repodir ]
                repo.urls = repo.baseurl
-               repo.name = reponame
                repo.enable()
                if not repos.findRepos(repo.id):
                    repos.add(repo)
@@ -179,7 +178,7 @@ def prereposetup_hook(conduit):
                 repos.delete(repo.id)
             repos.add(repo)
             if cachefile:
-                cachefile.write("%s %s\n" % (repo.id, repo.name))
+                cachefile.write(repo.id + "\n")
     if cachefile:
         cachefile.close()
 
