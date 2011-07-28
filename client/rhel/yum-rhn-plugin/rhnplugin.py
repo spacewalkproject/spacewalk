@@ -26,9 +26,6 @@ import gettext
 t = gettext.translation('yum-rhn-plugin', fallback=True)
 _ = t.ugettext
 
-sys.path.append('/usr/share/yum-cli')
-from output import YumTextMeter, CacheProgressCallback
-
 # TODO: Get the up2date stuff that we need in a better place,
 # so we don't have to do path magic.
 sys.path.append("/usr/share/rhn/")
@@ -154,17 +151,18 @@ def prereposetup_hook(conduit):
         return
 
     repos = conduit.getRepos()
-    conduit_conf = conduit.getConf()
-    cachedir = conduit_conf.cachedir
-    default_gpgcheck = conduit_conf.gpgcheck
+    cachedir = conduit.getConf().cachedir
+    default_gpgcheck = conduit.getConf().gpgcheck
     gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
-    enablegroups = conduit_conf.enablegroups
-    metadata_expire = conduit_conf.metadata_expire
+    enablegroups = conduit.getConf().enablegroups
+    metadata_expire = conduit.getConf().metadata_expire
 
     cachefilename = os.path.join(cachedir, cachedRHNReposFile)
-    cachefile_content = ''
-    create_cache_even_second_time = not (os.path.exists(cachefilename) and os.path.getsize(cachefilename))
+    try:
+        cachefile = open(cachefilename, 'w')
+    except:
+        cachefile = None
     for channel in svrChannels:
         if channel['version']:
             repo = RhnRepo(channel)
@@ -173,18 +171,11 @@ def prereposetup_hook(conduit):
                 # there will be nearly always only one, and even if there is more
                 # repos, we can ignore them
                 if type(already_exists_repos[0]) == type(repo): # repo is type of RhnRepo
-                    # repo has been already initialized
-                    if create_cache_even_second_time:
-                         cachefile_content += already_exists_repos.id + "\n"
-                    continue
+                    continue # repo has been already initialized
                 else: # YumRepository from _init, made for caching
                     callback = already_exists_repos[0].callback
                     repo.setCallback(callback)
                     repos.delete(repo.id)
-            else: # no repo created in init - setup progressbar
-                if (not (conduit_conf.debuglevel < 2 or not sys.stdout.isatty())):
-                    progressbar = YumTextMeter(fo=sys.stdout)
-                    repo.setCallback(progressbar)
             repo.basecachedir = cachedir
             repo.gpgcheck = gpgcheck
             repo.proxy = proxy_url
@@ -201,15 +192,10 @@ def prereposetup_hook(conduit):
                     conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
                             (repo.id, o[0], o[1]))
             repos.add(repo)
-            cachefile_content += "%s %s\n" % (repo.id, repo.name)
-    if cachefile_content:
-        try:
-            cachefile = open(cachefilename, 'w')
-        except IOError:
-            cachefile = None #  this is not fatal, we can live without cache
-        if cachefile:
-            cachefile.write(cachefile_content)
-            cachefile.close()
+            if cachefile:
+                cachefile.write("%s %s\n" % (repo.id, repo.name))
+    if cachefile:
+        cachefile.close()
 
     # resolve --enablerepo/--disablerepo for RHN repos
     opts = conduit.getCmdLine()[0]
