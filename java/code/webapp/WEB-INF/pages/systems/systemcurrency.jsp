@@ -54,8 +54,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemcurrency.jsp.critical"
-		           sortattr="critical"
-		           defaultsort="desc">
+		           sortattr="critical">
                            <c:choose>
                              <c:when test="${current.critical > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.crit')}">${current.critical}</a>
@@ -77,8 +76,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemcurrency.jsp.important"
-		           sortattr="important"
-		           defaultsort="desc">
+		           sortattr="important">
                            <c:choose>
                              <c:when test="${current.important > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.imp')}">${current.important}</a>
@@ -100,8 +98,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemcurrency.jsp.moderate"
-		           sortattr="moderate"
-		           defaultsort="desc">
+		           sortattr="moderate">
                            <c:choose>
                              <c:when test="${current.moderate > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.mod')}">${current.moderate}</a>
@@ -123,8 +120,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemcurrency.jsp.low"
-		           sortattr="low"
-		           defaultsort="desc">
+		           sortattr="low">
                            <c:choose>
                              <c:when test="${current.low > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.low')}">${current.low}</a>
@@ -146,8 +142,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemcurrency.jsp.bug"
-		           sortattr="bug"
-		           defaultsort="desc">
+		           sortattr="bug">
                            <c:choose>
                              <c:when test="${current.bug > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.bugfixadvisory')}">${current.bug}</a>
@@ -161,8 +156,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemcurrency.jsp.enhancement"
-		           sortattr="enhancement"
-		           defaultsort="desc">
+		           sortattr="enhancement">
                            <c:choose>
                              <c:when test="${current.enhancement > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.productenhancementadvisory')}">${current.enhancement}</a>
@@ -176,15 +170,10 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemcurrency.jsp.score"
-		           sortattr="created"
+		           sortattr="score"
                            styleclass="last-column"
 		           defaultsort="desc">
-                           <c:out value="${current.enhancement * $scEnh +
-				current.bug * scBug +
-				current.low * scLow +
-				current.moderate * scMod +
-				current.important * scImp +
-				current.critical * scCrit}"/>
+                           <c:out value="${current.score}" />
 		</rl:column>
 	</rl:list>
 </rl:listset>
