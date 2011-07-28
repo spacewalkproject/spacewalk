@@ -49,9 +49,9 @@ COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
 from M2Crypto.SSL import SSLError
 
-def prereposetup_hook(conduit):
-    """ 
-    Plugin initialization hook. We setup the RHN channels here. 
+def init_hook(conduit):
+    """
+    Plugin initialization hook. We setup the RHN channels here.
 
     We get a list of RHN channels from the server, then make a repo object for
     each one. This list of repos is then added to yum's list of repos via the 
