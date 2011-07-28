@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.30
+Version:       5.5.31
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Jul 28 2011 Jan Pazdziora 5.5.31-1
+- removing unnecessarry summary line from rhnpush.spec (lzap+git@redhat.com)
+
 * Fri Jul 22 2011 Jan Pazdziora 5.5.30-1
 - We always have rhnserver (no longer building for RHEL 4-).
 - We only support version 5 and newer of RHEL, removing conditions for old
