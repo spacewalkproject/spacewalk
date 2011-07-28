@@ -82,11 +82,6 @@ def prereposetup_hook(conduit):
     """
 
     global rhn_enabled
-
-    if '-C' in sys.argv:
-        # don't communicate with RHN server but use cached repos
-        rhn_enabled = False
-        return
    
     RHN_DISABLED = _("RHN Satellite or RHN Classic support will be disabled.")
     
