@@ -40,6 +40,7 @@ Requires: spacewalk-pxt
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: webserver
+Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-base < 5.3.0
 Provides: rhn-base = 5.3.0
 
@@ -59,6 +60,7 @@ Requires: tomcat5
 Requires: tomcat6
 %endif
 Requires: httpd
+Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 
@@ -72,6 +74,7 @@ Summary: Perl modules and scripts to administer an Oracle database
 Group: Applications/Internet
 Requires: spacewalk-base
 Requires: httpd
+Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-dobby < 5.3.0
 Provides: rhn-dobby = 5.3.0
 
@@ -83,6 +86,7 @@ database.
 %package -n spacewalk-grail
 Summary: Grail, a component framework for Red Hat Network
 Requires: spacewalk-base
+Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Group: Applications/Internet
 Obsoletes: rhn-grail < 5.3.0
 Provides: rhn-grail = 5.3.0
@@ -98,6 +102,7 @@ Requires: spacewalk(spacewalk-base-minimal)
 Requires: httpd
 Obsoletes: rhn-pxt < 5.3.0
 Provides:  rhn-pxt = 5.3.0
+Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n spacewalk-pxt
 This package is the core software of the new Spacewalk site.  It is responsible
@@ -110,6 +115,7 @@ Group: Applications/Internet
 Summary: PXT Tag handlers
 Obsoletes: rhn-sniglets < 5.3.0
 Provides:  rhn-sniglets = 5.3.0
+Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n spacewalk-sniglets
 This package contains the tag handlers for the PXT templates.
