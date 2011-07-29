@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.4
+Version: 1.6.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 29 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.5-1
+- 724963 - use ANSI joins
+- 724963 - use LEFT JOIN instead of MINUS
+
 * Wed Jul 27 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.4-1
 - fixed ORA-00904 in remote commands
 
