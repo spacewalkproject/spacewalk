@@ -72,7 +72,7 @@
         <div align="right">
             <hr />
             <html:submit property="dispatch">
-                <bean:message key="schedulesync.jsp.schedulesync"/>"
+                <bean:message key="schedulesync.jsp.schedulesync"/>
             </html:submit>
         </div>
     </rhn:require>
