@@ -24,7 +24,10 @@ Obsoletes: rhn-help < 5.3.0
 Provides: rhn-help = 5.3.0
 Obsoletes: rhn-html < 5.3.0
 Provides: rhn-html = 5.3.0
-
+# files html/javascript/{builder.js,controls.js,dragdrop.js,effects.js,
+# prototype-1.6.0.js,scriptaculous.js,slider.js,sound.js,unittest.js}
+# are licensed under MIT license
+License: GPLv2 and MIT
 
 %description -n spacewalk-html
 This package contains the HTML files for the Spacewalk web site.
