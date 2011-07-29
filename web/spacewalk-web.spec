@@ -13,7 +13,7 @@ BuildRequires: perl(ExtUtils::MakeMaker)
 %description
 This package contains the code for the Spacewalk Web Site.
 Normally this source RPM does not generate a %{name} binary package,
-but it does generate a number of sub-packages
+but it does generate a number of sub-packages.
 
 %package -n spacewalk-html
 Summary: HTML document files for Spacewalk
@@ -46,7 +46,7 @@ Provides: rhn-base = 5.3.0
 
 %description -n spacewalk-base
 This package includes the core RHN:: packages necessary to manipulate
-database.  This includes RHN::* and RHN::DB::*
+database.  This includes RHN::* and RHN::DB::*.
 
 
 %package -n spacewalk-base-minimal
@@ -102,7 +102,7 @@ Provides:  rhn-pxt = 5.3.0
 %description -n spacewalk-pxt
 This package is the core software of the new Spacewalk site.  It is responsible
 for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
-equivalent to things like Apache::ASP and Mason
+equivalent to things like Apache::ASP and Mason.
 
 
 %package -n spacewalk-sniglets
@@ -112,7 +112,7 @@ Obsoletes: rhn-sniglets < 5.3.0
 Provides:  rhn-sniglets = 5.3.0
 
 %description -n spacewalk-sniglets
-This package contains the tag handlers for the PXT templates
+This package contains the tag handlers for the PXT templates.
 
 
 %prep
