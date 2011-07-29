@@ -26,6 +26,12 @@ from optparse import OptionParser
 from tempfile import mkstemp
 from textwrap import wrap
 
+try:
+    import json
+except ImportError:
+    import simplejson as json  # python < 2.6
+
+
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
 def parse_arguments(args, options = []):
@@ -461,5 +467,100 @@ def read_file(filename):
     handle.close()
 
     return contents
+
+
+def parse_str(s, type_to=None):
+    """
+    Similar to 'read :: Read a => String -> a' in Haskell.
+
+    >>> parse_str('1234567', int)
+    1234567
+    >>> parse_str('1234567')
+    1234567
+    >>> parse_str('abcXYZ012')
+    'abcXYZ012'
+    >>> d = dict(channelLabel="foo-i386-5")
+    >>> d = parse_str('{"channelLabel": "foo-i386-5"}')
+    >>> assert d["channelLabel"] == 'foo-i386-5'
+
+    """
+    try:
+        if type_to is not None and isinstance(type_to, type):
+            return type_to(s)
+
+        elif re.match(r'[1-9]\d*', s):
+            return int(s)
+
+        elif re.match(r'{.*}', s):
+            return json.loads(s)  # retry with json module
+
+        else:
+            return str(s)
+
+    except ValueError:
+        return str(s)
+
+
+def parse_list_str(list_s, sep=","):
+    """
+    simple parser for a list of items separated with "," (comma) or given
+    separator chars.
+
+    >>> assert parse_list_str("") == []
+    >>> assert parse_list_str("a,b") == ["a", "b"]
+    >>> assert parse_list_str("a,b,") == ["a", "b"]
+    >>> assert parse_list_str("a:b:", ":") == ["a", "b"]
+    """
+    return [p for p in list_s.split(sep) if p]
+
+
+def parse_api_args(args, sep=','):
+    """
+    Simple JSON-like expression parser.
+
+    :param args: a list of strings may be separated with sep, and each
+                 string represents parameters passed to API later.
+    :type args:  `str`
+
+    :param sep: A char to separate paramters in `args`
+    :type sep:  `str`
+
+    :rtype:  rpc arg objects, [arg] :: [string]
+
+    >>> parse_api_args('')
+    []
+    >>> parse_api_args('1234567')
+    [1234567]
+    >>> parse_api_args('abcXYZ012')
+    ['abcXYZ012']
+
+    >>> assert parse_api_args('{"channelLabel": "foo-i386-5"}')[0]["channelLabel"] == "foo-i386-5"
+
+    >>> (i, s, d) = parse_api_args('1234567,abcXYZ012,{"channelLabel": "foo-i386-5"}')
+    >>> assert i == 1234567
+    >>> assert s == "abcXYZ012"
+    >>> assert d["channelLabel"] == "foo-i386-5"
+
+    >>> (i, s, d) = parse_api_args('[1234567,"abcXYZ012",{"channelLabel": "foo-i386-5"}]')
+    >>> assert i == 1234567
+    >>> assert s == "abcXYZ012"
+    >>> assert d["channelLabel"] == "foo-i386-5"
+    """
+    if not args:
+        return []
+
+    try:
+        x = json.loads(args)
+        ret = isinstance(x, list) and x or [x]
+
+    except ValueError:
+        ret = [parse_str(a) for a in parse_list_str(args, sep)]
+
+    return ret
+
+
+def json_dump(obj, fp, indent=2, **kwargs):
+    json.dump(obj, fp, ensure_ascii=False, indent=indent, **kwargs)
+
 
 # vim:ts=4:expandtab:
