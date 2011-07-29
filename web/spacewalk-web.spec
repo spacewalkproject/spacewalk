@@ -150,7 +150,6 @@ install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-base
-%defattr(644,root,root,755)
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN.pm
@@ -226,7 +225,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/RHN::TSDB.3pm.gz
 
 %files -n spacewalk-base-minimal
-%defattr(644,root,root,755)
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN/SessionSwap.pm
@@ -237,7 +235,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %files -n spacewalk-dobby
-%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/db-control
 %{_mandir}/man1/db-control.1.gz
 %{perl_vendorlib}/Dobby.pm
@@ -246,24 +243,20 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/Dobby/
 
 %files -n spacewalk-grail
-%defattr(644,root,root,755)
 %{perl_vendorlib}/Grail.pm
 %{perl_vendorlib}/Grail/
 
 %files -n spacewalk-pxt 
-%defattr(644,root,root,755)
 %{perl_vendorlib}/PXT.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
 %{perl_vendorlib}/PXT/
 %{_mandir}/man3/PXT::ApacheHandler.3pm.gz
 
 %files -n spacewalk-sniglets 
-%defattr(644,root,root,755)
 %{perl_vendorlib}/Sniglets.pm
 %{perl_vendorlib}/Sniglets/
 
 %files -n spacewalk-html
-%defattr(644,root,root,755)
 %{_var}/www/html/*
 
 # $Id$
