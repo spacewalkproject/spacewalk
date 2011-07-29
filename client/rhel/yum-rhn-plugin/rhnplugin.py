@@ -94,6 +94,7 @@ def init_hook(conduit):
     filt_parser = FilterOptionParser(add_help_option=False)
     filt_parser.add_option('', '--version', action="store_true")
     filt_parser.add_option('', '--help', action="store_true")
+    filt_parser.add_option('-C', '--cacheonly', action="store_true")
     (filt_opts, filt_commands) = filt_parser.parse_args()
     if filt_opts.version or filt_opts.help or filt_commands == []:
         rhn_enabled = False
@@ -106,6 +107,12 @@ def init_hook(conduit):
         # cleanup cached login info
         if os.path.exists(pcklAuthFileName):
             os.unlink(pcklAuthFileName)
+        return
+    if filt_opts.cacheonly:
+        rhn_enabled = False
+        addCachedRepos(conduit)
+        conduit.info(10, _("Using list of RHN repos from cache") +
+                 "\n" + RHN_DISABLED)
         return
 
     try:
