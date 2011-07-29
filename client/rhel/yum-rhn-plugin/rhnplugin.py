@@ -180,7 +180,7 @@ def init_hook(conduit):
                             (repo.id, o[0], o[1]))
             repos.add(repo)
             if cachefile:
-                cachefile.write(repo.id + "\n")
+                cachefile.write("%s %s\n" % (repo.id, repo.name))
     if cachefile:
         cachefile.close()
 
@@ -195,16 +195,17 @@ def addCachedRepos(conduit):
     if not os.access(cachefilename, os.R_OK):
         return
     cachefile = open(cachefilename, 'r')
-    repolist = [ line.rstrip() for line in cachefile.readlines()]
+    repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
     cachefile.close()
     urls = ["http://dummyvalue"]
-    for reponame in repolist:
-        repodir = os.path.join(cachedir, reponame)
+    for (repoid, reponame) in repolist:
+        repodir = os.path.join(cachedir, repoid)
         if os.path.isdir(repodir):
-            repo = YumRepository(reponame)
+            repo = YumRepository(repoid)
             repo.basecachedir = cachedir
             repo.baseurl = urls
             repo.urls = repo.baseurl
+            repo.name = reponame
             repo.enable()
             if not repos.findRepos(repo.id):
                 repos.add(repo)
