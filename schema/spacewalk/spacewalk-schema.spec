@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 29 2011 Jan Pazdziora 1.6.2-1
+- Adding empty directory for upgrades to 1.6.
+
 * Fri Jul 29 2011 Jan Pazdziora 1.6.1-1
 - When versions match, it really is not an error.
 
