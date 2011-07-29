@@ -54,11 +54,6 @@ database.  This includes RHN::* and RHN::DB::*.
 Summary: Core of Perl modules for %{name} package
 Group: Applications/Internet 
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
-%if 0%{?rhel} && 0%{?rhel} < 6
-Requires: tomcat5
-%else
-Requires: tomcat6
-%endif
 Requires: httpd
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-base-minimal < 5.3.0
