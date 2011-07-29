@@ -64,7 +64,8 @@ my $retried = 0;
 RETRY:
 
 if ($start_schema_norm eq $target_schema_norm) {
-	die "Your database schema already matches the schema package version [$target_schema_norm].\n";
+	warn "Your database schema already matches the schema package version [$target_schema_norm].\n";
+	exit;
 }
 if ($start_schema ne $start_schema_norm
 	or $target_schema ne $target_schema_norm) {
