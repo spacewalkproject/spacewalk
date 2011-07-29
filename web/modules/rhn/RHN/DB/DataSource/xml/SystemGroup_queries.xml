@@ -14,15 +14,16 @@ SELECT  SG.id,
         SG.name AS GROUP_NAME,
         SGT.label AS GROUP_TYPE_LABEL,
        (SELECT 1 FROM rhnUserServerGroupPerms WHERE user_id = :user_id AND server_group_id = SG.id) AS USER_PERMITTED_ACCESS
-  FROM  rhnServerGroupType SGT,
-        rhnServerGroup SG,
+  FROM
+        rhnServerGroup SG
+  LEFT  JOIN rhnServerGroupType SGT
+    ON  SG.group_type = SGT.id,
         rhnSnapshotServerGroup SSG,
         rhnSnapshot SN
  WHERE  SN.id = :ss_id
    AND  SN.server_id = :sid
    AND  SN.id = SSG.snapshot_id
    AND  SSG.server_group_id = SG.id
-   AND  SG.group_type = SGT.id (+)
   </query>
 </mode>
 
