@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.6
+Version: 1.6.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 29 2011 Miroslav Suchý 1.6.7-1
+- Revert "adding tomcat require to spacewalk-base-minimal"
+
 * Fri Jul 29 2011 Miroslav Suchý 1.6.6-1
 - 705363 - remove obscure keys forgotten for ages
 - 705363 - Escape percentage symbol in changelog
