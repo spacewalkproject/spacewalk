@@ -29,7 +29,7 @@ class SpacewalkShell(Cmd):
                       'custominfo', 'distribution', 'errata',
                       'filepreservation', 'group', 'kickstart',
                       'misc', 'org', 'package', 'repo', 'report', 'schedule',
-                      'snippet', 'softwarechannel', 'ssm',
+                      'snippet', 'softwarechannel', 'ssm', 'api',
                       'system', 'user', 'utils' ]
 
     # a SyntaxError is thrown if we don't wrap this in an 'exec'
