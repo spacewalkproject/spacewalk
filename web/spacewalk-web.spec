@@ -296,7 +296,7 @@ rm -rf $RPM_BUILD_ROOT
 - made queries PostgreSQL compatible
 
 * Tue May 17 2011 Miroslav Suchý 1.5.11-1
-- spacewalk-pxt.noarch: W: spelling-error %description -l en_US equlivalent ->
+- spacewalk-pxt.noarch: W: spelling-error %%description -l en_US equlivalent ->
   equivalent, equivalence, univalent (msuchy@redhat.com)
 
 * Tue May 17 2011 Miroslav Suchý 1.5.10-1
