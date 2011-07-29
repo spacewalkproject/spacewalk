@@ -268,18 +268,7 @@ sub trusted_orgs {
 # Channel package functions
 ################################
 
-my %proxy_chans_by_version = ('1.1' => ['redhat-rhn-proxy-as-i386-2.1', 'redhat-rhn-proxy-i386-7.2'],
-			      '3.2' => ['redhat-rhn-proxy-3.2-as-i386-2.1'],
-			      '3.6' => ['redhat-rhn-proxy-3.6-as-i386-2.1', 'redhat-rhn-proxy-3.6-as-i386-3'],
-			      '3.7' => ['redhat-rhn-proxy-3.7-as-i386-2.1', 'redhat-rhn-proxy-3.7-as-i386-3',
- 					'redhat-rhn-proxy-3.7-as-i386-4'],
-                   '4.0' => ['redhat-rhn-proxy-4.0-as-i386-3',
-        		   			'redhat-rhn-proxy-4.0-as-i386-4',
-                           'redhat-rhn-proxy-4.0-as-x86_64-4'],
-                   '4.1' => ['redhat-rhn-proxy-4.1-as-i386-3',
-                             'redhat-rhn-proxy-4.1-as-i386-4'],
-                   '4.2' => ['redhat-rhn-proxy-4.2-as-i386-3',
-                             'redhat-rhn-proxy-4.2-as-i386-4'],
+my %proxy_chans_by_version = (
                    '5.0' => ['redhat-rhn-proxy-5.0-as-i386-4'],
                    '5.1' => ['redhat-rhn-proxy-5.1-as-i386-4',
                              'redhat-rhn-proxy-5.1-as-x86_64-4',
