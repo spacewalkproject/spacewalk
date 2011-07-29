@@ -44,6 +44,7 @@ __revision__ = "$Rev$"
 requires_api_version = '2.5'
 plugin_type = TYPE_CORE
 pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"
+cachedRHNReposFile = 'rhnplugin.repos'
 
 rhn_enabled = True
 
@@ -100,8 +101,11 @@ def init_hook(conduit):
                  "\n" + RHN_DISABLED)
         return
     if filt_commands[0] == 'clean':
-        formReposForClean(conduit)
+        addCachedRepos(conduit)
         conduit.info(10, _("Cleaning") + "\n" + RHN_DISABLED)
+        # cleanup cached login info
+        if os.path.exists(pcklAuthFileName):
+            os.unlink(pcklAuthFileName)
         return
 
     try:
@@ -144,6 +148,11 @@ def init_hook(conduit):
     enablegroups = conduit.getConf().enablegroups
     metadata_expire = conduit.getConf().metadata_expire
 
+    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
+    try:
+        cachefile = open(cachefilename, 'w')
+    except:
+        cachefile = None
     for channel in svrChannels:
         if channel['version']:
             repo = RhnRepo(channel)
@@ -163,35 +172,35 @@ def init_hook(conduit):
                     conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
                             (repo.id, o[0], o[1]))
             repos.add(repo)
+            if cachefile:
+                cachefile.write(repo.id + "\n")
+    if cachefile:
+        cachefile.close()
 
 
-#bz226151,441265
-#Allows a "yum clean all" to succeed without communicating
-#to backend.  Creating a set of dummy repos which mimic the dirs stored locally
-#This gives yum the dir info it needs to peform a clean
-#
-def formReposForClean(conduit):
+def addCachedRepos(conduit):
+    """
+    Add list of repos we've seen last time (from cache file)
+    """
     repos = conduit.getRepos()
     cachedir = conduit.getConf().cachedir
-    try:
-        dir_list = os.listdir(cachedir)
-    except Exception, e:
-        raise yum.Errors.RepoError(str(e))
+    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
+    if not os.access(cachefilename, os.R_OK):
+        return
+    cachefile = open(cachefilename, 'r')
+    repolist = [ line.rstrip() for line in cachefile.readlines()]
+    cachefile.close()
     urls = ["http://dummyvalue"]
-    for dir in dir_list:
-        if dir[0] == ".":
-            continue
-        if os.path.isdir(os.path.join(cachedir,dir)):
-            repo = YumRepository(dir)
+    for reponame in repolist:
+        repodir = os.path.join(cachedir, reponame)
+        if os.path.isdir(repodir):
+            repo = YumRepository(reponame)
             repo.basecachedir = cachedir
             repo.baseurl = urls
             repo.urls = repo.baseurl
             repo.enable()
             if not repos.findRepos(repo.id):
                 repos.add(repo)
-   # cleanup cached login info
-    if os.path.exists(pcklAuthFileName):
-        os.unlink(pcklAuthFileName)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
