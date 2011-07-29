@@ -95,14 +95,15 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
  		SG.name AS GROUP_NAME,
  		SGT.label AS GROUP_TYPE_LABEL,
 		(SELECT 1 FROM rhnUserServerGroupPerms WHERE user_id = :user_id AND server_group_id = SG.id) AS USER_PERMITTED_ACCESS
- 	FROM rhnServerGroupType SGT,
+        FROM
 		rhnServerGroup SG,
- 		rhnVisServerGroupMembership VSGM,
+                rhnVisServerGroupMembership VSGM
+        LEFT JOIN rhnServerGroupType SGT
+                ON VSGM.group_type = SGT.id,
  		rhnUserServerGroupPerms USGP
  	WHERE VSGM.org_id = :org_id
  		AND VSGM.server_id = :sid
  		AND VSGM.group_id = SG.id
-		AND VSGM.group_type = SGT.id (+)
 		AND USGP.user_id = :user_id
  		AND USGP.server_group_id = SG.id
  	ORDER BY UPPER(SG.name)
