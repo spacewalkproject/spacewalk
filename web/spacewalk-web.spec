@@ -50,7 +50,7 @@ database.  This includes RHN::* and RHN::DB::*
 
 
 %package -n spacewalk-base-minimal
-Summary: Minimal .pm's for %{name} package
+Summary: Core of Perl modules for %{name} package
 Group: Applications/Internet 
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 %if 0%{?rhel} && 0%{?rhel} < 6
@@ -64,6 +64,8 @@ Provides: rhn-base-minimal = 5.3.0
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
+This are very basic modules need to handle config files, database, sessions
+and exceptions.
 
 %package -n spacewalk-dobby
 Summary: Perl modules and scripts to administer an Oracle database
