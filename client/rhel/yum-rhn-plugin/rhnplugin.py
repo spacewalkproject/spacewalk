@@ -22,6 +22,8 @@ except ImportError:
     pycurl = None
 
 from iniparse import INIConfig
+from optparse import OptionParser
+
 import gettext
 t = gettext.translation('yum-rhn-plugin', fallback=True)
 _ = t.ugettext
@@ -48,6 +50,10 @@ rhn_enabled = True
 COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
 from M2Crypto.SSL import SSLError
+
+class FilterOptionParser(OptionParser):
+    def error(self, msg):
+        pass
 
 def init_hook(conduit):
     """
@@ -82,6 +88,21 @@ def init_hook(conduit):
         PROXY_ERROR =  _("There was an error parsing the RHN proxy settings.") 
         conduit.error(0, PROXY_ERROR + "\n" + RHN_DISABLED)
         return 
+
+    # check commands and options which don't need network communication
+    filt_parser = FilterOptionParser(add_help_option=False)
+    filt_parser.add_option('', '--version', action="store_true")
+    filt_parser.add_option('', '--help', action="store_true")
+    (filt_opts, filt_commands) = filt_parser.parse_args()
+    if filt_opts.version or filt_opts.help or filt_commands == []:
+        rhn_enabled = False
+        conduit.info(10, _("Either --version, --help or no commands entered") +
+                 "\n" + RHN_DISABLED)
+        return
+    if filt_commands[0] == 'clean':
+        formReposForClean(conduit)
+        conduit.info(10, _("Cleaning") + "\n" + RHN_DISABLED)
+        return
 
     try:
         login_info = up2dateAuth.getLoginInfo()
