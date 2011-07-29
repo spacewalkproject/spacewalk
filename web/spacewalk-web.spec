@@ -125,11 +125,11 @@ This package contains the tag handlers for the PXT templates.
 %setup -q
 
 %build
-make -f Makefile.spacewalk-web PERLARGS="INSTALLDIRS=vendor"
+make -f Makefile.spacewalk-web PERLARGS="INSTALLDIRS=vendor" %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -C modules install DESTDIR=$RPM_BUILD_ROOT PERLARGS="INSTALLDIRS=vendor"
+make -C modules install DESTDIR=$RPM_BUILD_ROOT PERLARGS="INSTALLDIRS=vendor" %{?_smp_mflags}
 make -C html install PREFIX=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name perllocal.pod -exec rm -f {} \;
