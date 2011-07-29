@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.5
+Version: 1.6.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -262,6 +262,21 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 29 2011 Miroslav Suchý 1.6.6-1
+- 705363 - remove obscure keys forgotten for ages
+- 705363 - Escape percentage symbol in changelog
+- 705363 - include LICENSE file in spacewalk-html
+- 705363 - defattr is not required any more if do not differ from default
+- 705363 - add _smp_mflags macro to make to utilize all CPUs while building
+- 705363 - require Perl for all subpackages with Perl modules
+- code cleanup - Proxy 4.x and older are not supported for some time, removing
+- 705363 - description must end with full stop
+- 705363 - spacewalk-web package summary contains lower-case `rpm'
+  abbreviation. Use upper case.
+- 705363 - clarify description and summary
+- 705363 - be more specific about license
+- 705363 - change summary of package
+
 * Fri Jul 29 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.5-1
 - 724963 - use ANSI joins
 - 724963 - use LEFT JOIN instead of MINUS
