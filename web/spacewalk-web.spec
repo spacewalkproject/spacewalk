@@ -1,5 +1,5 @@
 Name: spacewalk-web
-Summary: Spacewalk Web site packages
+Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
 Version: 1.6.5
