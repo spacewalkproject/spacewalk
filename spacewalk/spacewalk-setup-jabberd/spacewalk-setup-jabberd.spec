@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -59,6 +59,11 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Aug 01 2011 Jan Pazdziora 1.6.1-1
+- 726708 - change interval & keepalive only when different from default values
+  (mzazrivec@redhat.com)
+- 726708 - jabberd: set keepalive and interval to 60 (mzazrivec@redhat.com)
+
 * Tue Dec 14 2010 Jan Pazdziora 1.3.2-1
 - We need to check the return value of GetOptions and die if the parameters
   were not correct.
