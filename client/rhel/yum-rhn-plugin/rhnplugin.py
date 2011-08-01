@@ -276,10 +276,10 @@ class RhnRepo(YumRepository):
         # support failover urls, #232567
         urls = []
         if type(channel['url']) == list:
-          for url in channel['url']:
-            urls.append(url + '/GET-REQ/' + self.id)
+            for url in channel['url']:
+                urls.append(url + '/GET-REQ/' + self.id)
         else: # type will be always list since Spacewalk 1.4, in future this will be dead coed
-          urls.append(channel['url'] + '/GET-REQ/' + self.id)
+            urls.append(channel['url'] + '/GET-REQ/' + self.id)
 
         self.baseurl = urls 
         self.urls = self.baseurl
