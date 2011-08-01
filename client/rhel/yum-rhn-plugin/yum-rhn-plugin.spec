@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.0
+Version: 1.6.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,16 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Aug 01 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.1-1
+- call conduit.getConf() only once
+- 691283 - create persistdir in _repos_persistdir instead of PWD
+- 684342 - beside repo.id, cache even repo.name
+- disable network in cache only mode
+- cache list of last seen channels so we can correctly clean them
+- 627525 - disable network communication with certain commands/options
+- reverted init_hook -> prereposetup_hook move
+- Bumping package versions for 1.6.
+
 * Tue Jul 19 2011 Jan Pazdziora 1.5.11-1
 - Merging Transifex changes for yum-rhn-plugin.
 - New translations from Transifex for yum-rhn-plugin.
