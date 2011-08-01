@@ -131,7 +131,10 @@ class BaseMain:
         cfg = config.initUp2dateConfig()
         up2date_cfg = dict(cfg.items())
 
-        server_name = config.getServerlURL()
+        if server_name:
+            server_name = [server_name]
+        else:
+            server_name = config.getServerlURL()
         up2date_cfg['proto'] = urlsplit(server_name[0])[0]
         up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[1], server_name)
         if server_name:
