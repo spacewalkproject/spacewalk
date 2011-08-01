@@ -158,6 +158,8 @@ def init_hook(conduit):
 
     cachefilename = os.path.join(cachedir, cachedRHNReposFile)
     try:
+        if not os.path.exists(cachedir):
+            os.makedirs(cachedir, 0755)
         cachefile = open(cachefilename, 'w')
     except:
         cachefile = None
