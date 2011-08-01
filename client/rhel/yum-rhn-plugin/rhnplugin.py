@@ -198,7 +198,7 @@ def addCachedRepos(conduit):
     repolist = [ line.rstrip().split(' ', 1) for line in cachefile.readlines()]
     cachefile.close()
     urls = ["http://dummyvalue"]
-    for repoitem in repolist:
+    for repo_item in repolist:
         if len(repo_item) == 1:
             repo_item.append('')
         (repoid, reponame) = repo_item
