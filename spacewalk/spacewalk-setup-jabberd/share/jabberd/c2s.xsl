@@ -24,13 +24,13 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="/c2s/io/check/interval">
+<xsl:template match="/c2s/io/check/interval[node() = 0]">
   <xsl:copy>
   <xsl:text>60</xsl:text>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="/c2s/io/check/keepalive">
+<xsl:template match="/c2s/io/check/keepalive[node() = 0]">
   <xsl:copy>
   <xsl:text>60</xsl:text>
   </xsl:copy>
