@@ -10,7 +10,7 @@ SUBDIR		= config_common
 FILES           = __init__ cfg_exceptions \
                   file_utils deploy \
                   handler_base local_config \
-		  repository rhn_log rhn_main rhn_rpc \
+		  repository rhn_log rhn_main \
                   utils transactions rpc_wrapper
 
 

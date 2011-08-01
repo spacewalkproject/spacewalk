@@ -15,7 +15,7 @@
 
 import sys
 import string
-from rhn_rpc import rpclib
+from rhn import rpclib
 import xmlrpclib
 try:
     from socket import error, sslerror, herror, gaierror, timeout
