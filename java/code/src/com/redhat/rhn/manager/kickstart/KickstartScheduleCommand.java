@@ -44,7 +44,6 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
-import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.ProfileDto;
@@ -877,22 +876,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             }
         }
 
-        //fix for bugzilla 450954
-        // We set the reactivation key's base channel to whatever
-        //   an activation key's is set to (assuming there is one)
-        Channel chan = null;
-        for (Token token : ksdata.getDefaultRegTokens()) {
-            if (token.getBaseChannel() != null) {
-                chan = token.getBaseChannel();
-                break;
-            }
-        }
-        if (chan != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Setting reactivation key's base chan to " + chan.getLabel());
-            }
-            key.setBaseChannel(chan);
-        }
         log.debug("** Saving new token");
         ActivationKeyFactory.save(key);
         log.debug("** Saved new token: " + key.getId());
