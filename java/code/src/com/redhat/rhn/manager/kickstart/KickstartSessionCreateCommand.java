@@ -91,12 +91,10 @@ public class KickstartSessionCreateCommand {
         String note = LocalizationService.getInstance().
             getMessage("kickstart.session.newtokennote", " ");
 
-        Channel toolsChannel = KickstartScheduleCommand.getToolsChannel(ksdata, user,
-                null);
         log.debug("creating one-time-activation key: " + user.getLogin());
         ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user,
                 ksdata, null,
-                this.ksession, toolsChannel, BooleanUtils.toBoolean(
+                this.ksession, BooleanUtils.toBoolean(
                         ksdata.getKickstartDefaults().getCfgManagementFlag()), null, note);
         log.debug("added key: " + key.getKey());
 
