@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.9
+Version: 5.10.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Aug 01 2011 Miroslav Suchý 5.10.10-1
+- get server_name from config only if it was not set on command line
+- remove rhn_rpc.py
+
 * Fri Jul 15 2011 Miroslav Suchý 5.10.9-1
 - optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
 
