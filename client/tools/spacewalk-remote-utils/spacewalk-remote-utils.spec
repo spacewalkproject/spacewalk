@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.6.1
+Version:     1.6.2
 Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
@@ -57,6 +57,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Tue Aug 02 2011 Tomas Lestach <tlestach@redhat.com> 1.6.2-1
+- 727531 - adding RHEL5.7 channel definitions (tlestach@redhat.com)
+
 * Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
 - We only support version 14 and newer of Fedora, removing conditions for old
   versions.
