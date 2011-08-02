@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Aug 02 2011 Martin Minar <mminar@redhat.com> 1.6.3-1
+- 702084 - rhn-channel: meaningful message when wrong username / password
+  (mzazrivec@redhat.com)
+
 * Thu Jul 28 2011 Jan Pazdziora 1.6.2-1
 - 713548 - enable running rhn-channel on RHEL5 (tlestach@redhat.com)
 - 713548 - enable running rhn-channel against both RHN and RHN Satellite
