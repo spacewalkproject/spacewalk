@@ -12,6 +12,7 @@ try:
     from spacewalk.common.rhnLog import initLOG, log_debug
     from spacewalk.common.rhnConfig import CFG, initCFG
     from spacewalk.server import rhnSQL
+    from spacewalk.server.rhnPackage import unlink_package_file
 except:
     _LIBPATH = "/usr/share/rhn"
     # add to the path if need be
@@ -19,6 +20,7 @@ except:
         sys.path.append(_LIBPATH)
     from common import CFG, initCFG, initLOG, log_debug
     from server import rhnSQL
+    from server.rhnPackage import unlink_package_file
 
 LOG_FILE='/var/log/rhn/spacewalk-data-fsck.log'
 
@@ -213,17 +215,7 @@ def check_disk_vs_db(disk_content=None, db_content=None):
 def not_in_db(path, options):
     if options.remove:
         log(0, "Removed file missing in db: %s" % (path))
-        os.unlink(path)
-        dirname = os.path.dirname(path)
-        while (dirname != CFG.MOUNT_POINT) and (dirname != CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR):
-            try:
-                os.rmdir(dirname)
-            except OSError, e:
-                if e.errno == 39: #OSError: [Errno 39] Directory not empty
-                    break
-                else:
-                    raise e
-            dirname = os.path.dirname(dirname)
+        unlink_package_file(path)
     else:
         log(0, "File missing in db: %s" % (path))
 

@@ -105,6 +105,22 @@ def check_package_file(rel_path, logpkg, raisepkg):
 
     return filePath
 
+def unlink_package_file(path):
+    try:
+        os.unlink(path)
+    except OSError:
+        log_debug(1,  "Error unlinking %s;" % path)
+    dirname = os.path.dirname(path)
+    base_dir = CFG.MOUNT_POINT + '/' + CFG.PREPENDED_DIR
+    while dirname != base_dir:
+        try:
+            os.rmdir(dirname)
+        except OSError, e:
+            if e.errno == 39: #OSError: [Errno 39] Directory not empty
+                break
+            else:
+                raise e
+        dirname = os.path.dirname(dirname)
 
 # Old client
 # Get a package by [n,v,r,e] and compat arch
