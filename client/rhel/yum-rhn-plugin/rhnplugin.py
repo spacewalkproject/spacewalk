@@ -150,7 +150,6 @@ def init_hook(conduit):
     repos = conduit.getRepos()
     conduit_conf = conduit.getConf()
     cachedir = conduit_conf.cachedir
-    gpgcheck = conduit.confBool('main', 'gpgcheck', conduit_conf.gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     pluginOptions = getRHNRepoOptions(conduit, 'main')
 
@@ -165,7 +164,7 @@ def init_hook(conduit):
         if channel['version']:
             repo = RhnRepo(channel)
             repo.basecachedir = cachedir
-            repo.gpgcheck = gpgcheck
+            repo.gpgcheck = conduit_conf.gpgcheck
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = conduit_conf.enablegroups
