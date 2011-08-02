@@ -169,6 +169,7 @@ def init_hook(conduit):
             repo.sslcacert = sslcacert
             repo.enablegroups = conduit_conf.enablegroups
             repo.metadata_expire = conduit_conf.metadata_expire
+            repo.exclude = conduit_conf.exclude
             repo._proxy_dict = proxy_dict
             if hasattr(conduit_conf, '_repos_persistdir'):
                 repo.base_persistdir = conduit_conf._repos_persistdir
@@ -176,7 +177,10 @@ def init_hook(conduit):
             for options in [pluginOptions, repoOptions]:
                 if options:
                     for o in options:
-                        setattr(repo, o[0], o[1])
+                        if o[0] == 'exclude': # extend current list
+                            setattr(repo, o[0], ",".join(repo.exclude) + ',' + o[1])
+                        else: # replace option
+                            setattr(repo, o[0], o[1])
                         conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
                             (repo.id, o[0], o[1]))
             repos.add(repo)
