@@ -297,6 +297,39 @@ public class ProfileHandler extends BaseHandler {
      */
     public int addScript(String sessionKey, String ksLabel, String contents,
             String interpreter, String type, boolean chroot) {
+        return addScript(sessionKey, ksLabel, contents, interpreter, type,
+                chroot, false);
+    }
+
+    /**
+     * Add a script to a kickstart profile
+     * @param sessionKey key
+     * @param ksLabel the kickstart label
+     * @param contents the contents
+     * @param interpreter the script interpreter to use
+     * @param type "pre" or "post"
+     * @param chroot true if you want it to be chrooted
+     * @return the id of the created script
+     *
+     * @xmlrpc.doc Add a pre/post script to a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
+     * add the script to.")
+     * @xmlrpc.param #param_desc("string", "contents", "The full script to
+     * add.")
+     * @xmlrpc.param #param_desc("string", "interpreter", "The path to the
+     * interpreter to use (i.e. /bin/bash). An empty string will use the
+     * kickstart default interpreter.")
+     * @xmlrpc.param #param_desc("string", "type", "The type of script (either
+     * 'pre' or 'post').")
+     * @xmlrpc.param #param_desc("boolean", "chroot", "Whether to run the script
+     * in the chrooted install location (recommended) or not.")
+     * @xmlrpc.param #param_desc("boolean", "template", "Enable templating using cobbler.")
+     * @xmlrpc.returntype int id - the id of the added script
+     *
+     */
+    public int addScript(String sessionKey, String ksLabel, String contents,
+            String interpreter, String type, boolean chroot, boolean template) {
         User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
@@ -310,6 +343,7 @@ public class ProfileHandler extends BaseHandler {
         script.setInterpreter(interpreter.equals("") ? null : interpreter);
         script.setScriptType(type);
         script.setChroot(chroot ? "Y" : "N");
+        script.setRaw(!template);
         script.setKsdata(ksData);
         ksData.addScript(script);
         HibernateFactory.getSession().save(script);

@@ -77,6 +77,8 @@ public class KickstartScriptSerializer implements XmlRpcCustomSerializer {
             helper.add("chroot", false);
         }
 
+        helper.add("template", !script.getRaw());
+
         helper.writeTo(output);
     }
 }
