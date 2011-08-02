@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.1
+Version: 1.6.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Aug 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.2-1
+- 701189 - make sure cachedir exists
+
 * Mon Aug 01 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.1-1
 - call conduit.getConf() only once
 - 691283 - create persistdir in _repos_persistdir instead of PWD
