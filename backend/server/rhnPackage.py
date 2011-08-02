@@ -111,8 +111,8 @@ def unlink_package_file(path):
     except OSError:
         log_debug(1,  "Error unlinking %s;" % path)
     dirname = os.path.dirname(path)
-    base_dir = CFG.MOUNT_POINT + '/' + CFG.PREPENDED_DIR
-    while dirname != base_dir:
+    base_dirs = (CFG.MOUNT_POINT + '/' + CFG.PREPENDED_DIR, CFG.MOUNT_POINT)
+    while dirname not in base_dirs:
         try:
             os.rmdir(dirname)
         except OSError, e:
