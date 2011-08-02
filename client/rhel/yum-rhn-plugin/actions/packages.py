@@ -253,6 +253,11 @@ class YumAction(yum.YumBase):
                 pkgs = self.pkgSack.searchNevra(name=pkgkeys['name'],
                      epoch=pkgkeys['epoch'], arch=pkgkeys['arch'],
                      ver=pkgkeys['version'], rel=pkgkeys['release'])
+                if not pkgs:
+                    raise yum.Errors.YumBaseError, \
+                        "Cannot find package %s:%s-%s-%s.%s in any of enabled repositories." \
+                        % (pkgkeys['epoch'], pkgkeys['name'], pkgkeys['version'],
+                            pkgkeys['release'], pkgkeys['arch'])
                 for po in pkgs:
                      self.tsInfo.addInstall(po)
             elif action == 'e':
