@@ -152,6 +152,7 @@ def init_hook(conduit):
     cachedir = conduit_conf.cachedir
     gpgcheck = conduit.confBool('main', 'gpgcheck', conduit_conf.gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
+    pluginOptions = getRHNRepoOptions(conduit, 'main')
 
     cachefilename = os.path.join(cachedir, cachedRHNReposFile)
     try:
@@ -173,10 +174,11 @@ def init_hook(conduit):
             if hasattr(conduit_conf, '_repos_persistdir'):
                 repo.base_persistdir = conduit_conf._repos_persistdir
             repoOptions = getRHNRepoOptions(conduit, repo.id)
-            if repoOptions:
-                for o in repoOptions:
-                    setattr(repo, o[0], o[1])
-                    conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
+            for options in [pluginOptions, repoOptions]:
+                if options:
+                    for o in options:
+                        setattr(repo, o[0], o[1])
+                        conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
                             (repo.id, o[0], o[1]))
             repos.add(repo)
             if cachefile:
