@@ -521,6 +521,18 @@ def _delete_files(relpaths):
         except OSError:
             log_debug(1,  "Error unlinking %s;" % path)
 
+        path = os.path.dirname(path)
+        base_dir = CFG.MOUNT_POINT + '/' + CFG.PREPENDED_DIR
+        while path != base_dir:
+            try:
+                os.rmdir(path)
+            except OSError, e:
+                if e.errno == 39:
+                    break
+                else:
+                    raise e
+            path = os.path.dirname(path)
+
 def _bind_many(l):
     h = {}
     lr = []
