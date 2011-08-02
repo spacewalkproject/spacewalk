@@ -150,11 +150,8 @@ def init_hook(conduit):
     repos = conduit.getRepos()
     conduit_conf = conduit.getConf()
     cachedir = conduit_conf.cachedir
-    default_gpgcheck = conduit_conf.gpgcheck
-    gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
+    gpgcheck = conduit.confBool('main', 'gpgcheck', conduit_conf.gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
-    enablegroups = conduit_conf.enablegroups
-    metadata_expire = conduit_conf.metadata_expire
 
     cachefilename = os.path.join(cachedir, cachedRHNReposFile)
     try:
@@ -170,8 +167,8 @@ def init_hook(conduit):
             repo.gpgcheck = gpgcheck
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
-            repo.enablegroups = enablegroups
-            repo.metadata_expire = metadata_expire
+            repo.enablegroups = conduit_conf.enablegroups
+            repo.metadata_expire = conduit_conf.metadata_expire
             repo._proxy_dict = proxy_dict
             if hasattr(conduit_conf, '_repos_persistdir'):
                 repo.base_persistdir = conduit_conf._repos_persistdir
