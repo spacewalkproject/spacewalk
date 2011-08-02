@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Aug 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.3-1
+- fixed package exclusion
+- 725496 - respect default plugin settings from [main]
+
 * Tue Aug 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.2-1
 - 701189 - make sure cachedir exists
 
