@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.channel.ChannelManager;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -36,13 +35,11 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * ChannelFactory
@@ -936,24 +933,6 @@ public class ChannelFactory extends HibernateFactory {
     public static List<Channel> listRedHatBaseChannels() {
         Map params = new HashMap();
         return singleton.listObjectsByNamedQuery("Channel.findRedHatBaseChannels", params);
-    }
-
-
-    /**
-     * Lookup a List of redhat base channels with a given ChannelVersion
-     * @param version the version string to find
-     * @return The List of Channels
-     */
-    public static List<Channel> listRedHatBaseChannelsByVersion(ChannelVersion version) {
-        List<Channel> toReturn = new ArrayList();
-        List<Channel> channels = listRedHatBaseChannels();
-        for (Channel chan : channels) {
-            Set versions = ChannelManager.getChannelVersions(chan);
-            if (versions.contains(version)) {
-                toReturn.add(chan);
-            }
-        }
-        return toReturn;
     }
 
     /**
