@@ -51,6 +51,7 @@ public class ChannelVersion {
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Client", ChannelVersion.RHEL6);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Server", ChannelVersion.RHEL6);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Workstation", ChannelVersion.RHEL6);
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6ComputeNode", ChannelVersion.RHEL6);
 
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("5Client", ChannelVersion.RHEL5);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("5Server", ChannelVersion.RHEL5);
