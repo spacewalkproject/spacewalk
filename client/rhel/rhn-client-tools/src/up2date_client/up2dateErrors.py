@@ -96,21 +96,21 @@ class AuthenticationError(NoLogError):
     pass
 
 class ValidationError(NoLogError, RhnServerException):
-    # indicates an error during server input validation
+    """indicates an error during server input validation"""
     premsg = _("Error validating data at server:\n")
 
 class InvalidRegistrationNumberError(ValidationError):
     pass
 
 class InvalidProductRegistrationError(NoLogError):
-    # indicates an error during server input validation
+    """indicates an error during server input validation"""
     premsg = _("The installation number is invalid")
     
 class OemInfoFileError(NoLogError):
     premsg = _("Error parsing the oemInfo file at field:\n")
 
 class NoBaseChannelError(NoLogError, RhnServerException):
-    # No valid base channel was found for this system
+    """No valid base channel was found for this system"""
     pass
 
 class UnknownMethodException(NoLogError, RhnServerException):
