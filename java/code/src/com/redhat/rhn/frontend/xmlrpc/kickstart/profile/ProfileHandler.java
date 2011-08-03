@@ -309,6 +309,7 @@ public class ProfileHandler extends BaseHandler {
      * @param interpreter the script interpreter to use
      * @param type "pre" or "post"
      * @param chroot true if you want it to be chrooted
+     * @param template enable templating using cobbler
      * @return the id of the created script
      *
      * @xmlrpc.doc Add a pre/post script to a kickstart profile.
