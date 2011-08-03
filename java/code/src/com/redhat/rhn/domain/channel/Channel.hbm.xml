@@ -141,6 +141,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
 
+    <sql-query name="Channel.findRedHatBaseChannelsByUserId">
+        <![CDATA[SELECT {c.*}
+                FROM rhnChannel {c}
+                    INNER JOIN rhnUserChannel uc ON uc.channel_id = c.id
+                    LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
+                WHERE c.org_id is null
+                    AND c.parent_channel is null
+                    AND uc.user_id = :userId]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+
     <sql-query name="Channel.findCustomBaseChannels">
     	<![CDATA[SELECT {c.*}
                 FROM rhnUserChannel uc,

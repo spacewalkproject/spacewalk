@@ -935,6 +935,19 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery("Channel.findRedHatBaseChannels", params);
     }
 
+
+    /**
+     * List all accessible Red Hat base channels for a given user
+     * @param user logged in user
+     * @return list of Red Hat base channels
+     */
+    public static List<Channel> listRedHatBaseChannels(User user) {
+        Map params = new HashMap();
+        params.put("userId", user.getId());
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findRedHatBaseChannelsByUserId", params);
+    }
+
     /**
      * Lookup the original channel of a cloned channel
      * @param chan the channel to find the original of
