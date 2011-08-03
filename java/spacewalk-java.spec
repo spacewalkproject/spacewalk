@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.9
+Version: 1.6.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 03 2011 Tomas Lestach <tlestach@redhat.com> 1.6.10-1
+- adding @param tag (tlestach@redhat.com)
+
 * Tue Aug 02 2011 Tomas Lestach <tlestach@redhat.com> 1.6.9-1
 - 723528 - make templating flag for kickstart scripts accessible also for API
   (tlestach@redhat.com)
