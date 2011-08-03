@@ -348,6 +348,7 @@ public class ProfileHandler extends BaseHandler {
         script.setKsdata(ksData);
         ksData.addScript(script);
         HibernateFactory.getSession().save(script);
+        KickstartFactory.saveKickstartData(ksData);
         return script.getId().intValue();
     }
 
@@ -382,6 +383,7 @@ public class ProfileHandler extends BaseHandler {
         script.setKsdata(null);
         ksData.getScripts().remove(script);
         KickstartFactory.removeKickstartScript(script);
+        KickstartFactory.saveKickstartData(ksData);
 
         return 1;
     }
