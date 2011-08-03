@@ -19,6 +19,8 @@ class Error:
     """base class for errors"""
     premsg = ''
     def __init__(self, errmsg):
+        if not isinstance(errmsg, unicode):
+            errmsg = unicode(errmsg, 'utf-8')
         self.errmsg = self.premsg + errmsg
         self.log = up2dateLog.initLog()
 
@@ -73,6 +75,8 @@ class RpmRemoveError(Error):
         self.args = args
         self.errmsg = ""
         for key in self.args.keys():
+            if not isinstance(errmsg, self.args[key]):
+                self.args[key] = unicode(self.args[key], 'utf-8')
             self.errmsg = self.errmsg + "%s failed because of %s\n" % (
                 key, self.args[key])
         self.data = self.args
@@ -81,6 +85,8 @@ class RpmRemoveError(Error):
 
 class NoLogError(Error):
     def __init__(self, msg):
+        if not isinstance(msg, unicode):
+            errmsg = unicode(msg, 'utf-8')
         self.errmsg = self.premsg + msg
 
     def __repr__(self):
