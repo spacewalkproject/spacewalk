@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.frontend.servlets;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.util.OvalFileAggregator;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
@@ -33,11 +30,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -262,25 +257,6 @@ public class OvalServlet extends HttpServlet {
         }
         retval = aggregator.finish(false);
 
-        return retval;
-    }
-
-    private List screenHiddenErratum(List erratum) {
-        List retval = new LinkedList();
-        if (erratum == null || erratum.size() == 0) {
-            return retval;
-        }
-        SelectMode isErrataHidden =
-            ModeFactory.getMode("Errata_queries", "is_errata_hidden");
-        Map params = new HashMap(1);
-        for (Iterator iter = erratum.iterator(); iter.hasNext();) {
-            Errata e = (Errata) iter.next();
-            params.put("errata_id", e.getId());
-            DataResult result = isErrataHidden.execute(params);
-            if (result.size() == 0) {
-                retval.add(e);
-            }
-        }
         return retval;
     }
 }
