@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.4
+Version: 1.6.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Aug 04 2011 Martin Minar <mminar@redhat.com> 1.6.5-1
+- 727908 - registration: send correct hostname during kickstart
+  (mzazrivec@redhat.com)
+
 * Wed Aug 03 2011 Martin Minar <mminar@redhat.com> 1.6.4-1
 - 702107 - cogent error message for exception when listing child channels
   (mzazrivec@redhat.com)
