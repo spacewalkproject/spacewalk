@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.11
+Version: 1.6.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 04 2011 Simon Lukasik <slukasik@redhat.com> 1.6.12-1
+- 727984 - include static mappings for 6ComputeNode (slukasik@redhat.com)
+- 725889 - show only channels for which the user has entitlements
+  (slukasik@redhat.com)
+- listRedHatBaseChannelsByVersion() was never used, removing
+  (slukasik@redhat.com)
+
 * Thu Aug 04 2011 Jan Pazdziora 1.6.11-1
 - 508936 - rhn-actions-control honor the allowed-actions/scripts/run for remote
   commands (mmello@redhat.com)
