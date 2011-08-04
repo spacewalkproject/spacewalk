@@ -13,6 +13,7 @@ class Log:
     def __init__(self):
         self.app = "up2date"
         self.cfg = config.initUp2dateConfig()
+        self.log_info = ''
     
     def set_app_name(self, name):
         self.app = str(name)
