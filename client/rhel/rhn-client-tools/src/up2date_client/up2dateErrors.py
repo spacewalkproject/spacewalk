@@ -17,8 +17,9 @@ from platform import getPlatform
 
 class Error:
     """base class for errors"""
+    premsg = ''
     def __init__(self, errmsg):
-        self.errmsg = errmsg
+        self.errmsg = self.premsg + errmsg
         self.log = up2dateLog.initLog()
 
     def __repr__(self):
@@ -27,67 +28,42 @@ class Error:
     
 class RpmError(Error):
     """rpm itself raised an error condition"""
-    def __repr__(self):
-        msg = _("RPM error.  The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
+    premsg = _("RPM error.  The message was:\n")
 
 class RhnServerException(Error):
     pass
 
 class PasswordError(RhnServerException):
     """Raise when the server responds with that a password is incorrect"""
-    def __repr__(self):
-        log = up2dateLog.initLog()
-        msg = _("Password error. The message was:\n") + self.errmsg
-        log.log_me(msg)
-        return msg
+    premsg = _("Password error. The message was:\n")
 
 class DependencyError(Error):
     """Raise when a rpm transaction set has a dependency error"""
+    premsg = _("RPM dependency error. The message was:\n")
     def __init__(self, msg, deps=None):
-        self.errmsg = msg
+        Error.__init__(self, msg)
         # just tag on the whole deps tuple, so we have plenty of info
         # to play with
         self.deps = deps
-        
-    def __repr__(self):
-        msg = _("RPM dependency error. The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
 
 
 class CommunicationError(RhnServerException):
     """Indicates a problem doing xml-rpc http communication with the server"""
-    def __repr__(self):
-        msg =  _("Error communicating with server. "\
-                 "The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
+    premsg = _("Error communicating with server. "\
+                 "The message was:\n")
 
 class FileNotFoundError(Error):
     """
     Raise when a package or header that is requested returns
     a 404 error code"""
-    def __repr__(self):
-        msg =  _("File Not Found: \n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
+    premsg =  _("File Not Found: \n")
 
 
 class DelayError(RhnServerException):
     """
     Raise when the expected response from a xml-rpc call
     exceeds a timeout"""
-    def __repr__(self):
-        msg =  _("Delay error from server.  The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
+    premsg =  _("Delay error from server.  The message was:\n")
 
 class RpmRemoveError(Error):
     """
