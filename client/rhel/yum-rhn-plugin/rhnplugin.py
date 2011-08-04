@@ -120,7 +120,7 @@ def init_hook(conduit):
     except up2dateErrors.RhnServerException, e:
         rewordError(e)
         conduit.error(0, COMMUNICATION_ERROR + "\n" + RHN_DISABLED + "\n" +
-            str(e))
+            unicode(e))
         rhn_enabled = False
         return
 
@@ -144,7 +144,7 @@ def init_hook(conduit):
         return
     except up2dateErrors.RhnServerException, e:
         conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
-            "\n" + str(e))
+            "\n" + unicode(e))
         return
 
     repos = conduit.getRepos()
@@ -235,7 +235,7 @@ def posttrans_hook(conduit):
             except up2dateErrors.RhnServerException, e:
                 conduit.error(0, COMMUNICATION_ERROR + "\n" +
                     _("Package profile information could not be sent.") + "\n" + 
-                    str(e))
+                    unicode(e))
 
 def rewordError(e):
     """ This is compensating for hosted/satellite returning back an error
@@ -315,7 +315,7 @@ class RhnRepo(YumRepository):
         try:
             li = up2dateAuth.getLoginInfo()
         except up2dateErrors.RhnServerException, e:
-            raise yum.Errors.RepoError(str(e))
+            raise yum.Errors.RepoError(unicode(e))
 
         # TODO:  do evalution on li auth times to see if we need to obtain a
         # new session...
@@ -342,7 +342,7 @@ class RhnRepo(YumRepository):
                 try:
                     up2dateAuth.updateLoginInfo()
                 except up2dateErrors.RhnServerException, e:
-                    raise yum.Errors.RepoError(str(e))
+                    raise yum.Errors.RepoError(unicode(e))
 
                 return self._noExceptionWrappingGet(url, relative, local,
                     start, end, copy_local, checkfunc, text, reget, cache, size)
@@ -352,7 +352,7 @@ class RhnRepo(YumRepository):
                 "failed to retrieve %s from %s\nerror was %s" % (relative,
                 self.id, e)
         except SSLError, e:
-            raise yum.Errors.RepoError(str(e))
+            raise yum.Errors.RepoError(unicode(e))
         except up2dateErrors.InvalidRedirectionError, e:
             raise up2dateErrors.InvalidRedirectionError(e)
     _YumRepository__get = _getFile
