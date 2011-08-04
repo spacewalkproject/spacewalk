@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.7
+Version: 1.6.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Aug 04 2011 Aron Parsons <aparsons@redhat.com> 1.6.8-1
+- add support for custom messages in the header, footer and login pages
+  (aparsons@redhat.com)
+
 * Fri Jul 29 2011 Miroslav Suchý 1.6.7-1
 - Revert "adding tomcat require to spacewalk-base-minimal"
 
