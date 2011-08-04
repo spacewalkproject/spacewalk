@@ -26,14 +26,20 @@
 </c:if>
 
 <div id="contentRight">
-  <h1 id="rhn_welcome3"><span><bean:message key="login.jsp.welcomemessage"/></span></h1>
+  <c:set var="login_banner" scope="page" value="${rhn:getConfig('web.login_banner')}" />
+  <c:choose>
+    <c:when test="${! empty login_banner}">
+      <p><c:out value="${login_banner}" escapeXml="false"/></p>
+    </c:when>
+    <c:otherwise>
+      <h1 id="rhn_welcome3"><span><bean:message key="login.jsp.welcomemessage"/></span></h1>
 
-    <p><bean:message key="login.jsp.satbody1"/></p>
-    <p><bean:message key="login.jsp.satbody2"/></p>
-    <p><bean:message key="login.jsp.satbody3"/></p>
-    <p><bean:message key="login.jsp.satbody4"/></p>
-
-
+      <p><bean:message key="login.jsp.satbody1"/></p>
+      <p><bean:message key="login.jsp.satbody2"/></p>
+      <p><bean:message key="login.jsp.satbody3"/></p>
+      <p><bean:message key="login.jsp.satbody4"/></p>
+    </c:otherwise>
+  </c:choose>
 </div> <!-- end contentRight -->
 </body>
 </html>

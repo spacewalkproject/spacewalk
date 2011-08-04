@@ -4,6 +4,11 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <!-- header.jsp -->
 
+<c:set var="custom_header" scope="page" value="${rhn:getConfig('web.custom_header')}" />
+<c:if test="${! empty custom_header}">
+    <center><p><c:out value="${custom_header}" escapeXml="false"/></p></center>
+</c:if>
+
 <rhn:require acl="user_authenticated()">
 <div id="utility">
 	<div id="utilityLinks">

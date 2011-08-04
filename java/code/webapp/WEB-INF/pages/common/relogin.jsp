@@ -13,17 +13,26 @@
 <c:if test="${requestScope.hasExpired != 'true'}">
      <h1><bean:message key="relogin.jsp.pleasesignin"/></h1>
 
-  <div class="clearBox">
-  <div class="clearBoxInner">
-  <div class="clearBoxBody">
-    <html:form action="/ReLoginSubmit">
-        <rhn:csrf />
-        <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
-         <html:hidden property="url_bounce" />
-    </html:form>
-  </div><!-- end clearBoxBody -->
-  </div><!-- end clearBoxInner -->
-  </div><!-- end clearBox -->
+  <div id="contentLeft">
+    <div class="clearBox">
+    <div class="clearBoxInner">
+    <div class="clearBoxBody">
+      <html:form action="/ReLoginSubmit">
+          <rhn:csrf />
+          <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
+           <html:hidden property="url_bounce" />
+      </html:form>
+    </div><!-- end clearBoxBody -->
+    </div><!-- end clearBoxInner -->
+    </div><!-- end clearBox -->
+  </div> <!-- end contentLeft -->
+
+  <div id="contentRight">
+    <c:set var="login_banner" scope="page" value="${rhn:getConfig('web.login_banner')}" />
+    <c:if test="${! empty login_banner}">
+      <p><c:out value="${login_banner}" escapeXml="false"/></p>
+    </c:if>
+  </div> <!-- end contentRight -->
 </c:if>
 </rhn:require>
 
