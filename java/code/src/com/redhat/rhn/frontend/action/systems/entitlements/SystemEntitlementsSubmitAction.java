@@ -538,29 +538,6 @@ public class SystemEntitlementsSubmitAction extends
         return new ActionMessage("system_entitlements.emptyselectionerror");
     }
 
-    /**
-     * Used for debug purposes to print out all the error mesages....
-     * @param msgs
-     * @return
-     */
-    private ActionMessages dumpMessages(ActionMessages msgs) {
-        Object [] args = new Object[]{String.valueOf(1), String.valueOf(0)};
-        addToMessage(msgs, "system_entitlements.setToManagementEntitled.success", args);
-        addToMessage(msgs, "system_entitlements.setToManagementEntitled.failure", args);
-        addToMessage(msgs, "system_entitlements.setToUpdateEntitled.success", args);
-        addToMessage(msgs, "system_entitlements.setToUpdateEntitled.failure", args);
-        addToMessage(msgs, "system_entitlements.unentitle.success", args);
-        addToMessage(msgs, "system_entitlements.unentitle.failure", args);
-        addToMessage(msgs, "system_entitlements.provisioning.success", args);
-        addToMessage(msgs, "system_entitlements.provisioning.notEnoughSlots", args);
-        addToMessage(msgs, "system_entitlements.provisioning.noManagement", args);
-        addToMessage(msgs, "system_entitlements.monitoring.success", args);
-        addToMessage(msgs, "system_entitlements.monitoring.notEnoughSlots", args);
-        addToMessage(msgs, "system_entitlements.monitoring.noManagement", args);
-
-        return msgs;
-    }
-
     private void addToMessage(ActionMessages msgs, String key, Object[] args) {
         ActionMessage temp =  new ActionMessage(key, args);
         msgs.add(ActionMessages.GLOBAL_MESSAGE, temp);
