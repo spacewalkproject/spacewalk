@@ -25,7 +25,7 @@ _ = lambda x: gettext.ldgettext("rhn-client-tools", x)
 class moduleClass(ModuleSet):
     def __init__(self):
         ModuleSet.__init__(self)
-        self.priority = 2
+        self.priority = 3
         self.sidebarTitle = _("Set Up Software Updates")
         self.title = _("Set Up Software Updates")
         self.path = "/usr/share/rhn/up2date_client/firstboot"
