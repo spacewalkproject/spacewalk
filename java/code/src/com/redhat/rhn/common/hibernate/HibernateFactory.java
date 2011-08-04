@@ -382,11 +382,6 @@ public abstract class HibernateFactory {
         return retval;
     }
 
-    private void throwRuntimeException(String msg, HibernateException he) {
-        getLogger().error(msg, he);
-        throw new HibernateRuntimeException(msg, he);
-    }
-
     /**
      * Util to reload an object using Hibernate
      * @param obj to be reloaded
