@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.domain.token;
 
-import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
@@ -24,7 +23,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.user.User;
@@ -493,16 +491,6 @@ public class Token implements Identifiable {
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         proc.validateUserAccess(user, getConfigChannels());
         return getConfigChannels();
-    }
-
-    private void checkProvisioning() {
-        if (!getEntitlements().contains(ServerConstants.
-                getServerGroupTypeProvisioningEntitled())) {
-            String msg = String.format("The activation key '%s' needs" +
-                        "  provisioning capabilities to be able to facilitate " +
-                        " the config channel functionality", this);
-                throw new PermissionException(msg);
-        }
     }
 
     /**
