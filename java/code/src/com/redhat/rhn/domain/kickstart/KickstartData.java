@@ -1119,14 +1119,7 @@ public class KickstartData {
         cloned.setOrg(this.getOrg());
         cloned.setChildChannels(new HashSet(this.getChildChannels()));
         cloned.setPartitionData(getPartitionData());
-        if (this.getCommands() != null) {
-            Iterator i = this.getCommands().iterator();
-            while (i.hasNext()) {
-                KickstartCommand cmd = (KickstartCommand) i.next();
-                KickstartCommand clonedCmd = cmd.deepCopy(cloned);
-                cloned.addCommand(clonedCmd);
-            }
-        }
+        copyKickstartCommands(getCommands(), cloned);
 
         // Gotta remember to create a new HashSet with
         // the other objects.  Otherwise hibernate will
@@ -1186,7 +1179,7 @@ public class KickstartData {
     }
 
     // Helper method to copy KickstartCommands
-    private static void copyKickstartCommands(Set commands, KickstartData cloned) {
+    private static void copyKickstartCommands(Collection commands, KickstartData cloned) {
         if (commands != null) {
             Iterator i = commands.iterator();
             while (i.hasNext()) {
