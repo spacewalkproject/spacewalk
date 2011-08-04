@@ -47,7 +47,7 @@ Requires: yum
 %endif
 
 Conflicts: up2date < 5.0.0
-Conflicts: yum-rhn-plugin < 1.1.4-1
+Conflicts: yum-rhn-plugin < 1.6.4-1
 Conflicts: rhncfg < 5.9.23-1
 Conflicts: spacewalk-koan < 0.2.7-1
 Conflicts: rhn-kickstart < 5.4.3-1
@@ -83,7 +83,7 @@ Requires: %{name} = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
-Requires: yum-rhn-plugin >= 1.1.2-1
+Requires: yum-rhn-plugin >= 1.6.4-1
 %endif
 
 %description -n rhn-check
