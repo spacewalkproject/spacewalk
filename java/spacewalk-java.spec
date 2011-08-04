@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.10
+Version: 1.6.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 04 2011 Jan Pazdziora 1.6.11-1
+- 508936 - rhn-actions-control honor the allowed-actions/scripts/run for remote
+  commands (mmello@redhat.com)
+- 679846 - regenerate kickstart file after modifying kickstart scripts
+  (mosvald@redhat.com)
+
 * Wed Aug 03 2011 Tomas Lestach <tlestach@redhat.com> 1.6.10-1
 - adding @param tag (tlestach@redhat.com)
 
