@@ -20,8 +20,7 @@ class Log:
     
     def log_debug(self, *args):
         if self.cfg["debug"] > 1:
-            message ="D: " + string.join(map(lambda a: str(a), args), " ")
-            self.log_me(message)
+            self.log_me("D: ", *args)
     
     def log_me(self, *args):
         """General logging function.
@@ -29,9 +28,11 @@ class Log:
         
         """
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
-        s = ""
+        s = u""
         for i in args:
-            s = s + "%s" % (i,)
+            if not isinstance(i, unicode):
+                i = unicode(i, 'utf-8')
+            s += i
         if self.cfg["debug"] > 1:
             print s
         self.write_log(s)
