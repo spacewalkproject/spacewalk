@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.12
+Version: 1.6.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 04 2011 Tomas Lestach <tlestach@redhat.com> 1.6.13-1
+- remove unused ChannelEditor method (tlestach@redhat.com)
+- remove unused OvalServlet method (tlestach@redhat.com)
+- remove unused SystemEntitlementsSubmitAction method (tlestach@redhat.com)
+- remove unused Token method (tlestach@redhat.com)
+- remove unused Server method (tlestach@redhat.com)
+- reuse unused copyKickstartCommands method (tlestach@redhat.com)
+- remove unused HibernateFactory method (tlestach@redhat.com)
+- fix PMD BrokenNullCheck (tlestach@redhat.com)
+- fix PMD BooleanInstantiation rule break (tlestach@redhat.com)
+
 * Thu Aug 04 2011 Simon Lukasik <slukasik@redhat.com> 1.6.12-1
 - 727984 - include static mappings for 6ComputeNode (slukasik@redhat.com)
 - 725889 - show only channels for which the user has entitlements
