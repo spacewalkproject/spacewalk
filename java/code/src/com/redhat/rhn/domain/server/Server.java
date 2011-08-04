@@ -1390,10 +1390,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
             hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM);
     }
 
-    private boolean hasGuests() {
-        return getGuests().size() > 0;
-    }
-
     /**
      *
      * @return the virtual guests
