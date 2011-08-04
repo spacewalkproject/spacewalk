@@ -57,8 +57,8 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
 
         if (!RhnValidationHelper.getFailedValidation(request)) {
             form.set("country", "US");
-            form.set("contact_email", new Boolean(true));
-            form.set("contact_partner", new Boolean(true));
+            form.set("contact_email", Boolean.TRUE);
+            form.set("contact_partner", Boolean.TRUE);
             form.set("prefix",
                 LocalizationService.getInstance().getMessage("user prefix Mr."));
         }

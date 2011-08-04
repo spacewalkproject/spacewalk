@@ -50,7 +50,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             DynaActionForm form,
             BaseKickstartCommand cmd) {
         String chroot = "Y";
-        Boolean b = new Boolean(true);
+        Boolean b = Boolean.TRUE;
 
         Boolean template = false;
         if (form.get(TEMPLATE) != null) {

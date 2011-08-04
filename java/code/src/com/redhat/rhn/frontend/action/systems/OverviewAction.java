@@ -108,8 +108,7 @@ public class OverviewAction extends RhnListAction {
         }
 
         //Get the user preference from the database (groups or systems)
-        Boolean groups = new Boolean(user.getShowSystemGroupList()
-                .equals("Y"));
+        Boolean groups = user.getShowSystemGroupList().equals("Y");
         request.setAttribute("groups", groups.toString());
 
         ActionForward forward;

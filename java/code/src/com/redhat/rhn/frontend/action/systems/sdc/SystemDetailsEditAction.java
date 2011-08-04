@@ -329,7 +329,7 @@ public class SystemDetailsEditAction extends RhnAction {
         if (s.getBaseEntitlement() != null) {
             daForm.set(BASE_ENTITLEMENT, s.getBaseEntitlement().getLabel());
             request.setAttribute(BASE_ENTITLEMENT_PERMANENT,
-                                 new Boolean(s.getBaseEntitlement().isPermanent()));
+                                 Boolean.valueOf(s.getBaseEntitlement().isPermanent()));
         }
         else {
             daForm.set(BASE_ENTITLEMENT, "none");
@@ -347,11 +347,11 @@ public class SystemDetailsEditAction extends RhnAction {
         }
 
         daForm.set(UserServerPreferenceId.RECEIVE_NOTIFICATIONS,
-                new Boolean(UserManager.lookupUserServerPreferenceValue(
+                Boolean.valueOf(UserManager.lookupUserServerPreferenceValue(
                         user, s, UserServerPreferenceId.RECEIVE_NOTIFICATIONS)));
 
         daForm.set(UserServerPreferenceId.INCLUDE_IN_DAILY_SUMMARY,
-                new Boolean(UserManager.lookupUserServerPreferenceValue(
+                Boolean.valueOf(UserManager.lookupUserServerPreferenceValue(
                         user, s, UserServerPreferenceId.INCLUDE_IN_DAILY_SUMMARY)));
 
         daForm.set(AUTO_UPDATE,

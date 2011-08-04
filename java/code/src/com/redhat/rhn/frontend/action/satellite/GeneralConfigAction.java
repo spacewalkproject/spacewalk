@@ -150,9 +150,8 @@ public class GeneralConfigAction extends BaseConfigAction {
                 String configKey = (String) i.next();
 
                 if (BOOLEAN_CONFIGS.contains(configKey)) {
-                    boolean configValue = Config.get().getBoolean(configKey);
-                    form.set(translateFormPropertyName(configKey),
-                            new Boolean(configValue));
+                    Boolean configValue = Config.get().getBoolean(configKey);
+                    form.set(translateFormPropertyName(configKey), configValue);
                 }
                 else {
                     String configValue = Config.get().getString(configKey);

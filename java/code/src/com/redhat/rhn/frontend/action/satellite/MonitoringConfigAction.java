@@ -141,7 +141,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
         }
         else {
             form.set(IS_MONITORING_SCOUT,
-                    new Boolean(Config.get().getBoolean(
+                    Boolean.valueOf(Config.get().getBoolean(
                             ConfigDefaults.WEB_IS_MONITORING_SCOUT)));
             // form.set(MDOM, IDN.toUnicode((String) form.get(MDOM)));
         }

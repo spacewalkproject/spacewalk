@@ -51,7 +51,7 @@ public class Overview extends RhnAction {
 
         Map summary = manager.getOverviewSummary(user);
         request.setAttribute("summary", summary);
-        request.setAttribute("is_admin", new Boolean(AclManager
+        request.setAttribute("is_admin", Boolean.valueOf(AclManager
                 .hasAcl("org_entitlement(sw_mgr_enterprise); user_role(org_admin)",
                     request, null)));
         request.setAttribute("recentFiles", manager.getRecentlyModifiedConfigFiles(user,

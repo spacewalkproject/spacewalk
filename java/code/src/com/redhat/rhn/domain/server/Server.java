@@ -358,7 +358,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         networkInterfaces = new HashSet();
         customDataValues = new HashSet();
 
-        ignoreEntitlementsForMigration = new Boolean(Boolean.FALSE);
+        ignoreEntitlementsForMigration = Boolean.FALSE;
     }
 
     /**

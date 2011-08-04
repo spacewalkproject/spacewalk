@@ -82,7 +82,7 @@ public class ChannelPermsSetupAction extends RhnListAction {
         request.setAttribute("user", user);
         request.setAttribute("role", "subscribe");
         request.setAttribute("userIsChannelAdmin",
-                             new Boolean(user.hasRole(RoleFactory.CHANNEL_ADMIN)));
+                             Boolean.valueOf(user.hasRole(RoleFactory.CHANNEL_ADMIN)));
         form.set("selectedChannels", selectedChannels.toArray(new String[0]));
 
         return mapping.findForward("default");

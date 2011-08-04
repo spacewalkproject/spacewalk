@@ -18,6 +18,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.listview.ListControl;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.ServletRequest;
 
 /**
@@ -43,14 +45,7 @@ public class RhnUnpagedListAction extends RhnAction {
         }
 
         String filterData = request.getParameter(RequestContext.FILTER_STRING);
-
-        if (filterData != null && !filterData.equals("")) {
-            request.setAttribute("isFiltered", new Boolean(true));
-        }
-        else {
-            request.setAttribute("isFiltered", new Boolean(false));
-        }
-
+        request.setAttribute("isFiltered", Boolean.valueOf(!StringUtils.isEmpty(filterData)));
 
         lc.setFilterData(filterData);
     }

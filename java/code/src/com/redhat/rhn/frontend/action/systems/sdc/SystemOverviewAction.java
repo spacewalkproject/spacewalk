@@ -117,8 +117,8 @@ public class SystemOverviewAction extends RhnAction {
 
         SdcHelper.ssmCheck(request, sid, user);
 
-        request.setAttribute("unentitled", new Boolean(s.getEntitlements().isEmpty()));
-        request.setAttribute("systemInactive", new Boolean(s.isInactive()));
+        request.setAttribute("unentitled", Boolean.valueOf(s.getEntitlements().isEmpty()));
+        request.setAttribute("systemInactive", Boolean.valueOf(s.isInactive()));
         request.setAttribute("criticalErrataCount", criticalErrataCount);
         request.setAttribute("nonCriticalErrataCount", nonCriticalErrataCount);
         request.setAttribute("upgradablePackagesCount", upgradablePackagesCount);

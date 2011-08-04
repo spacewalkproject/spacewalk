@@ -143,9 +143,6 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      * should be checked
      */
     public Boolean getNoChrootVal() {
-       if (this.script.getChroot().equals("Y")) {
-           return new Boolean(false);
-       }
-       return new Boolean(true);
+        return Boolean.valueOf(!this.script.getChroot().equals("Y"));
     }
 }

@@ -46,7 +46,7 @@ public class LoginSetupAction extends RhnAction {
         CertificateManager man = CertificateManager.getInstance();
         if (man.isSatelliteCertExpired()) {
             addMessage(request, "satellite.expired");
-            request.setAttribute(HAS_EXPIRED, new Boolean(true));
+            request.setAttribute(HAS_EXPIRED, Boolean.TRUE);
             return mapping.findForward("default");
         }
         else if (man.isSatelliteCertInGracePeriod()) {

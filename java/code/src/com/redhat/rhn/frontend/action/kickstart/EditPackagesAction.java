@@ -148,7 +148,7 @@ public class EditPackagesAction extends RhnAction {
 
         String newPackages = form.getString(PACKAGE_LIST);
         if (newPackages != null && newPackages.length() > 0) {
-            Boolean first = new Boolean(true);
+            Boolean first = Boolean.TRUE;
             for (StringTokenizer strtok = new StringTokenizer(newPackages, "\n");
                     strtok.hasMoreTokens();) {
 

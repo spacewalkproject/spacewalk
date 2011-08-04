@@ -102,14 +102,14 @@ public class UserEditSetupAction extends RhnAction {
 
         // SETUP Prefix list
         request.setAttribute("availablePrefixes", UserActionHelper.getPrefixes());
-        request.setAttribute("self", new Boolean(loggedInUser.equals(targetUser)));
+        request.setAttribute("self", Boolean.valueOf(loggedInUser.equals(targetUser)));
 
         //Should we display the pam checkbox?
         String pamAuthService = Config.get().getString(
                 ConfigDefaults.WEB_PAM_AUTH_SERVICE);
         if (pamAuthService != null && pamAuthService.trim().length() > 0) {
             request.setAttribute("displaypam", "true");
-            form.set("usepam", new Boolean(targetUser.getUsePamAuthentication()));
+            form.set("usepam", Boolean.valueOf(targetUser.getUsePamAuthentication()));
         }
 
         // Keep the new list tag happy:

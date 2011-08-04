@@ -36,7 +36,6 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -220,16 +219,11 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
 
 
             cmd.setLabel(form.getString(LABEL));
-            cmd.setActive(new
-                    Boolean(BooleanUtils.toBoolean((Boolean) form.get(ACTIVE))));
-            cmd.setIsOrgDefault(new
-                    Boolean(BooleanUtils.toBoolean((Boolean) form.get(ORG_DEFAULT))));
-            cmd.getKickstartData().setPostLog(
-                    BooleanUtils.toBoolean((Boolean) form.get(POST_LOG)));
-            cmd.getKickstartData().setPreLog(
-                    BooleanUtils.toBoolean((Boolean) form.get(PRE_LOG)));
-            cmd.getKickstartData().setKsCfg(
-                    BooleanUtils.toBoolean((Boolean) form.get(KS_CFG)));
+            cmd.setActive((Boolean) form.get(ACTIVE));
+            cmd.setIsOrgDefault((Boolean) form.get(ORG_DEFAULT));
+            cmd.getKickstartData().setPostLog((Boolean) form.get(POST_LOG));
+            cmd.getKickstartData().setPreLog((Boolean) form.get(PRE_LOG));
+            cmd.getKickstartData().setKsCfg((Boolean) form.get(KS_CFG));
 
             processCobblerFormValues(cmd.getKickstartData(), form, ctx.getLoggedInUser());
 
