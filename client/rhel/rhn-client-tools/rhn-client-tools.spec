@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.5
+Version: 1.6.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,13 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Aug 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.6-1
+- 710065 - handle unicode log messages
+- 710065 - handle unicode error messages
+- merged duplicated code to NoLogError class
+- moved duplicated code to base Error class
+- 684250 - correct priority for initial registration screen
+
 * Thu Aug 04 2011 Martin Minar <mminar@redhat.com> 1.6.5-1
 - 727908 - registration: send correct hostname during kickstart
   (mzazrivec@redhat.com)
