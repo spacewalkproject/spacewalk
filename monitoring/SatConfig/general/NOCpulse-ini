@@ -103,6 +103,7 @@ if ($set_macro) {
         my $sth = $ini->dbh->prepare($sql);
         $sth->execute($new_value, $set_macro);
         print $sth->rows, " record updated.\n";
+	$ini->dbh->commit();
         $save = 1;
 } elsif ($set_param) {
         if (!@groups or scalar(@groups) != 1) {
@@ -118,6 +119,7 @@ if ($set_macro) {
         my $sth = $ini->dbh->prepare($sql);
         $sth->execute($new_value, $groups[0], $set_param);
         print $sth->rows, " record updated.\n";
+	$ini->dbh->commit();
         $save = 1;
 }
 
