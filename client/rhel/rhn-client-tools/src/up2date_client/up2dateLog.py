@@ -2,7 +2,6 @@
 # $Id$
 
 import time
-import string
 import config
 import traceback
 
@@ -40,7 +39,7 @@ class Log:
     def trace_me(self):
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
         x = traceback.extract_stack()
-        bar = string.join(traceback.format_list(x))
+        bar = ''.join(traceback.format_list(x))
         self.write_log(bar)
 
     def log_exception(self, type, value, tb):
