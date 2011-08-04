@@ -61,8 +61,9 @@ public class Network {
     }
 
     private void addToMap(Map<String, Object> inet, String key, Object value) {
-        if (value != null || (value instanceof String &&
-                            !StringUtils.isBlank((String)value))) {
+        // do not put null values and empty strings
+        if (value != null && (!(value instanceof String) ||
+                !StringUtils.isBlank((String)value))) {
             inet.put(key, value);
         }
     }
