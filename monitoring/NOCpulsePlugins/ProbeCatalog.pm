@@ -35,10 +35,10 @@ sub describe {
     my $result;
     if ($probe_id) {
 	$result = $probeHashRef->{RECID}.' '.$probeHashRef->{PROBE_TYPE};;
-	if ($probeHashRef->{hostName}) {
-	    $result .= ' on '.$probeHashRef->{hostName}.' ('.$probeHashRef->{hostAddress}.')';
+	if ($probeHashRef->{HOSTNAME}) {
+	    $result .= ' on '.$probeHashRef->{HOSTNAME}.' ('.$probeHashRef->{HOSTADDRESS}.')';
 	} else {
-	    $result .= ' on '.$probeHashRef->{hostAddress};
+	    $result .= ' on '.$probeHashRef->{HOSTADDRESS};
 	}
 	$result .= ': '.$probeHashRef->{DESCRIPTION};
 
