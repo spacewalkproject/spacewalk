@@ -42,12 +42,12 @@ class Log:
         msg = ''.join(traceback.format_list(x))
         self.write_log(msg)
 
-    def log_exception(self, type, value, tb):
+    def log_exception(self, logtype, value, tb):
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
         output = ["\n"] # Accumulate the strings in a list
         output.append("Traceback (most recent call last):\n")
         output = output + traceback.format_list(traceback.extract_tb(tb))
-        output.append("%s: %s\n" % (type, value))
+        output.append("%s: %s\n" % (logtype, value))
         self.write_log("".join(output))
     
     def write_log(self, s):
