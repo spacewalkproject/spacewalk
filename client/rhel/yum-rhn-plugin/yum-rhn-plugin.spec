@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.4
+Version: 1.6.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Aug 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.5-1
+- the latest yum-rhn-plugin and rhn-client-tools require each other
+
 * Thu Aug 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.4-1
 - 710065 - exception messages are in unicode
 
