@@ -125,24 +125,6 @@ public class ChannelEditor {
     }
 
     /**
-     * Private Helper method to convert an object to a Long. We need this since the list of
-     * package ids could either contain Longs (if we were called from java code) or Integers
-     * (if we were called from Xml-Rpc).
-     * @param number An object to be converted (itr.next() from the list)
-     * @return Returns a Long object or null if the object is neither a Long nor an Integer
-     */
-    private Long convertObjectToLong(Object number) {
-        if (number instanceof Long) {
-            return (Long) number;
-        }
-        else if (number instanceof Integer) {
-            Integer integer = (Integer) number;
-            return new Long(integer.longValue());
-        }
-        return null;
-    }
-
-    /**
      * Calls the rhn_channel.update_channel stored proc
      * @param channel The channel to update
      */
