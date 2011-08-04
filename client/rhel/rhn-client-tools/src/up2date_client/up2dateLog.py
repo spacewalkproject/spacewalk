@@ -39,8 +39,8 @@ class Log:
     def trace_me(self):
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
         x = traceback.extract_stack()
-        bar = ''.join(traceback.format_list(x))
-        self.write_log(bar)
+        msg = ''.join(traceback.format_list(x))
+        self.write_log(msg)
 
     def log_exception(self, type, value, tb):
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
