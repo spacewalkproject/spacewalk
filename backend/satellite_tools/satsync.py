@@ -2124,7 +2124,7 @@ def processCommandline():
         Option(     '--no-ssl',              action='store_true',
             help=_('turn off SSL (not recommended)')),
         Option(    '--orgid',                  action='store',
-            help=_('org to which the sync imports data. defaults to the org in the export')),
+            help=_('org to which the sync imports data. defaults to the admin account')),
         Option('-p','--print-configuration', action='store_true',
             help=_('print the configuration and exit')),
         Option(     '--rhn-cert',            action='store',

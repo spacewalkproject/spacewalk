@@ -453,7 +453,8 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     <varlistentry>
         <term>--orgid=<replaceable>ORGID</replaceable></term>
         <listitem>
-            <para>org to which the sync imports data. defaults to the org in the export.</para>
+            <para>Organization to which the sync imports data.
+            The default is to the administrator's account.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
