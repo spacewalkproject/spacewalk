@@ -140,14 +140,12 @@ public class ApiHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "namespace")
      * @xmlrpc.returntype
-     *   #array()
-     *      #struct("method_info")
-     *          #prop_desc("string", "name", "method name")
-     *          #prop_desc("string", "parameters", "method parameters")
-     *          #prop_desc("string", "exceptions", "method exceptions")
-     *          #prop_desc("string", "return", "method return type")
-     *     #struct_end()
-     *   #array_end()
+     *   #struct("method_info")
+     *        #prop_desc("string", "name", "method name")
+     *        #prop_desc("string", "parameters", "method parameters")
+     *        #prop_desc("string", "exceptions", "method exceptions")
+     *        #prop_desc("string", "return", "method return type")
+     *   #struct_end()
      */
     public Map getApiNamespaceCallList(String sessionKey, String namespace)
                                             throws ClassNotFoundException  {
