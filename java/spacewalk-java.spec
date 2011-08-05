@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.15
+Version: 1.6.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 05 2011 Jan Pazdziora 1.6.16-1
+- 710169 - correct documentation for api.getApiCallList() API call
+  (msuchy@redhat.com)
+- 710162 - correct documentation for api.getApiNamespaceCallList() API call
+  (msuchy@redhat.com)
+- 710152 - correct documentation for api.getApiNamespaces() API call
+  (msuchy@redhat.com)
+
 * Fri Aug 05 2011 Miroslav Suchý 1.6.15-1
 - checkstyle - Line is longer than 92 characters.
 
