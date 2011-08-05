@@ -97,7 +97,7 @@ public class ChannelEditor {
         // make sure we work with long ids
         List<Long> longPackageIds = new ArrayList();
         for (Iterator it = packageIds.iterator(); it.hasNext();) {
-            longPackageIds.add(new Long((Integer) it.next()));
+            longPackageIds.add(new Long (((Number)it.next()).longValue()));
         }
 
         List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
