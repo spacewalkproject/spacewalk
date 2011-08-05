@@ -75,24 +75,22 @@ public class ApiHandler extends BaseHandler {
      * @xmlrpc.doc Lists available API namespaces
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
-     *   #array()
-     *      #struct("namespace")
-     *          #prop_desc("string", "namespace", "API namespace")
-     *          #prop_desc("string", "handler", "API Handler")
-     *     #struct_end()
-     *   #array_end()
+     *   #struct("namespace")
+     *        #prop_desc("string", "namespace", "API namespace")
+     *        #prop_desc("string", "handler", "API Handler")
+     *   #struct_end()
      */
     public Map getApiNamespaces(String sessionKey) {
-        Map namespacesList = new HashMap();
+        Map namespacesHash = new HashMap();
         HandlerFactory hf = new HandlerFactory();
 
         Iterator i = getNamespaces().iterator();
         while (i.hasNext()) {
                 String namespace = (String)i.next();
-                namespacesList.put(namespace, StringUtil.getClassNameNoPackage(
+                namespacesHash.put(namespace, StringUtil.getClassNameNoPackage(
                                                 hf.getHandler(namespace).getClass()));
         }
-        return namespacesList;
+        return namespacesHash;
     }
 
     /**
