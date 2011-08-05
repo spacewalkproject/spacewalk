@@ -195,4 +195,17 @@ public class PackageHelper {
     private static void addEntry(Map map, String key, Object value) {
         map.put(key, value);
     }
+
+    /**
+     * Parse filename from package path
+     * @param path package path
+     * @return filename
+     */
+    public static String getPackageFileFromPath(String path) {
+        String[] parts = StringUtils.split(path, '/');
+        if (parts != null && parts.length > 0) {
+            return parts[parts.length - 1];
+        }
+        return null;
+    }
 }

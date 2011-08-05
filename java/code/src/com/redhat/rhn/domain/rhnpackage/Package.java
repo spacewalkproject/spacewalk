@@ -22,8 +22,8 @@ import com.redhat.rhn.domain.errata.impl.PublishedErrata;
 import com.redhat.rhn.domain.errata.impl.UnpublishedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rpm.SourceRpm;
+import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -97,12 +97,7 @@ public class Package extends BaseDomainHelper {
      * @return Returns the file portion of the path.
      */
     public String getFile() {
-        String[] parts = StringUtils.split(getPath(), '/');
-        if (parts != null && parts.length > 0) {
-            return parts[parts.length - 1];
-        }
-
-        return null;
+       return PackageHelper.getPackageFileFromPath(getPath());
     }
 
     /**

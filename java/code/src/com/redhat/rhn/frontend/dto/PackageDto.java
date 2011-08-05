@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.CompressionUtil;
+import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
 
 import java.sql.Blob;
 import java.util.Date;
@@ -55,7 +56,6 @@ public class PackageDto extends BaseDto {
     private Blob otherXml;
     private Blob filelistXml;
     private String cookie;
-    private String file;
 
 
     // Pre-existing queries returning this as a string.
@@ -550,14 +550,6 @@ public class PackageDto extends BaseDto {
      * @return Returns the file.
      */
     public String getFile() {
-        return file;
-    }
-
-
-    /**
-     * @param fileIn The file to set.
-     */
-    public void setFile(String fileIn) {
-        file = fileIn;
+        return PackageHelper.getPackageFileFromPath(getPath());
     }
 }
