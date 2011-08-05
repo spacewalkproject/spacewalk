@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.6
+Version: 1.6.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Aug 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.7-1
+- parse commandline on our own
+
 * Thu Aug 04 2011 Miroslav Suchý 1.6.6-1
 - 690616 - fail to rollback if target package is not available
 
