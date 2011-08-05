@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -142,6 +142,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Aug 05 2011 Jan Pazdziora 1.6.2-1
+- 588923 - Allow sendmail to use Mail::Mailer (and send email).
+
 * Thu Jul 21 2011 Jan Pazdziora 1.6.1-1
 - Revert "Fedora 15 uses oracledb_port_t instead of oracle_port_t."
 
