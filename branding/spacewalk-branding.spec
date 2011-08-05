@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.6.1
+Version:    1.6.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Aug 05 2011 Jan Pazdziora 1.6.2-1
+- 458413 - hide the bubble help links since we do not ship the documentation
+  with Spacewalk.
+
 * Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
 - cleanup: revhistory style is not used (msuchy@redhat.com)
 - fix typos in css (msuchy@redhat.com)
