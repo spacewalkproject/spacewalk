@@ -173,3 +173,5 @@ optional_policy(`
 	')
 	allow spacewalk_monitoring_t oracle_port_t:tcp_socket name_connect;
 ')
+
+mta_send_mail(spacewalk_monitoring_t)
