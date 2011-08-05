@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.7
+Version: 1.6.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Aug 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.8-1
+- convert args to string first
+
 * Thu Aug 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.7-1
 - the latest yum-rhn-plugin and rhn-client-tools require each other
 
