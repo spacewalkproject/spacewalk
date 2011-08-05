@@ -138,6 +138,10 @@ a.help-title img {
   vertical-align: top;
 }
 
+.help-title {
+  display: none;
+}
+
 a[name]:hover {
         color: inherit;
 }
