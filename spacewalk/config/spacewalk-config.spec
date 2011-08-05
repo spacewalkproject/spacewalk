@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.6.0
+Version: 1.6.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -105,6 +105,10 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Fri Aug 05 2011 Jan Pazdziora 1.6.1-1
+- Make monitoring .cgi live again in the /cgi-bin/ namespace, fixing scout
+  config push.
+
 * Tue Jun 21 2011 Jan Pazdziora 1.5.5-1
 - Silence chgrp/chmod, during first installation.
 
