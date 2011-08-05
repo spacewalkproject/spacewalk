@@ -31,7 +31,9 @@ class Log:
         s = u""
         for i in args:
             if not isinstance(i, unicode):
-                i = unicode(i, 'utf-8')
+                # we really need unicode(str(i)) here, because i can be anything
+                # from string or int to list, dict or even class
+                i = unicode(str(i), 'utf-8')
             s += i
         if self.cfg["debug"] > 1:
             print s
