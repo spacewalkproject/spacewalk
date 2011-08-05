@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.4
+Version: 1.6.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -672,6 +672,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Aug 05 2011 Simon Lukasik <slukasik@redhat.com> 1.6.5-1
+- 725637 - documentation should correspond with the behavior
+  (slukasik@redhat.com)
+
 * Wed Aug 03 2011 Simon Lukasik <slukasik@redhat.com> 1.6.4-1
 - In any case, do not attempt to remove /var/satellite (slukasik@redhat.com)
 - extract method: unlink_package_file (slukasik@redhat.com)
