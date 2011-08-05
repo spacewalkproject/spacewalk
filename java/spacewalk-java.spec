@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.14
+Version: 1.6.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 05 2011 Miroslav Suchý 1.6.15-1
+- checkstyle - Line is longer than 92 characters.
+
 * Thu Aug 04 2011 Aron Parsons <aparsons@redhat.com> 1.6.14-1
 - add support for custom messages in the header, footer and login pages
   (aparsons@redhat.com)
