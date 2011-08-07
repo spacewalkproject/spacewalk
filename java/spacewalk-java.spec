@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.17
+Version: 1.6.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sun Aug 07 2011 Jan Pazdziora 1.6.18-1
+- Silencing checkstyle.
+
 * Fri Aug 05 2011 Tomas Lestach <tlestach@redhat.com> 1.6.17-1
 - 728572 - Number is a common interface for both Integer and Long
   (tlestach@redhat.com)
