@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.0
+Version: 1.6.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Mon Aug 08 2011 Jan Pazdziora 1.6.1-1
+- Add the --where-<column-id> option to help and man page.
+- New reports: errata-channels and kickstartable-trees.
+
 * Tue Jul 19 2011 Jan Pazdziora 1.5.4-1
 - Updating the copyright years.
 
