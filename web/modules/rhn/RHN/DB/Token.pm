@@ -426,7 +426,7 @@ sub commit {
   my $dbh = $trans || RHN::DB->connect;
 
   if ($self->id == -1) {
-    my $sth = $dbh->prepare("SELECT rhn_reg_token_seq.nextval FROM DUAL");
+    my $sth = $dbh->prepare("SELECT sequence_nextval('rhn_reg_token_seq') FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
     die "No new token id from seq rhn_reg_token_seq (possible error: " . $sth->errstr . ")" unless $id;
