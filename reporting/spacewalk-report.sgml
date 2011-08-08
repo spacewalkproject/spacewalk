@@ -114,6 +114,16 @@ Generate reports from Spacewalk server in csv format
 	    that field.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></term>
+        <listitem>
+            <para>Limit the output to records where column-id has value
+	    VALUE. It can be used multiple times -- for the same column
+	    it will select records where the column has any of the
+	    VALUEs. When different columns are specified, all of them
+	    have to meet the condition.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 

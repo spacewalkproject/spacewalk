@@ -63,6 +63,9 @@ def processCommandline():
 		Option('--list-fields-info', action='store_true',
 			dest='listfieldsinfo',
 			help='as --list-fields but also prints description for each column'),
+		Option('--where-<column-id>', action='store', metavar='VALUE',
+			dest='_where_trap',
+			help='limit the output to records where column-id has value VALUE'),
 	]
 
 	optionParser = OptionParser( \
@@ -88,6 +91,9 @@ def processCommandline():
 				v = sys.argv[i]
 				del sys.argv[i]
 				i -= 2
+
+			if k == '<column-id>':
+				optionParser.error('use actual column-id in the --where-<column-id> parameter')
 
 			k = k.replace('-', '_')
 			if where.has_key(k):
