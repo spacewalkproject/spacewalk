@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.8
+Version: 1.6.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Aug 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.9-1
+- fixed re-activation key in PostgreSQL
+
 * Thu Aug 04 2011 Aron Parsons <aparsons@redhat.com> 1.6.8-1
 - add support for custom messages in the header, footer and login pages
   (aparsons@redhat.com)
