@@ -29,7 +29,11 @@ class HTTPConnection(httplib.HTTPConnection):
     response_class = HTTPResponse
     
     def __init__(self, host, port=None):
-        httplib.HTTPConnection.__init__(self, host, port)
+        from platform import python_version
+        if python_version() >= '2.6.1':
+            httplib.HTTPConnection.__init__(self, host, port, timeout=SSL.DEFAULT_TIMEOUT)
+        else:
+            httplib.HTTPConnection.__init__(self, host, port)
         self._cb_rs = []
         self._cb_ws = []
         self._cb_ex = []
