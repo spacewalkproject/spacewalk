@@ -1,0 +1,29 @@
+
+synopsis:
+
+	List of erratas in channels
+
+description:
+
+	List of all erratas and their relation to channels.
+
+columns:
+
+	advisory	Advisory / errata identifier
+	channel_label	Channel label
+
+sql:
+
+
+	select advisory, channel_label
+	from (	
+	select rhnErrata.advisory_name as advisory,
+		rhnErrata.id as errata_id,
+		rhnChannel.label as channel_label,
+		rhnChannel.id as channel_id
+	from rhnErrata, rhnChannelErrata, rhnChannel
+	where rhnErrata.id = rhnChannelErrata.errata_id
+		and rhnChannelErrata.channel_id = rhnChannel.id
+	) X
+	-- where placeholder
+	order by advisory, errata_id, channel_label, channel_id

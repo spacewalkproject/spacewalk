@@ -1,0 +1,30 @@
+
+synopsis:
+
+	List of kickstartable trees
+
+description:
+
+	List of all kickstartable trees.
+
+columns:
+
+	organization_id:i	Organization identifier
+	channel_label	Label of the channel
+	tree_label	Kickstartable tree label
+	number_of_files:i	Number of files in the kickstartable tree
+
+sql:
+
+	select organization_id, channel_label, tree_label, number_of_files
+	from (
+	select rhnKickstartableTree.org_id as organization_id,
+		rhnChannel.label as channel_label,
+		rhnKickstartableTree.label as tree_label,
+		( select count(*) from rhnKSTreeFile where rhnKickstartableTree.id = rhnKSTreeFile.kstree_id ) as number_of_files,
+		rhnKickstartableTree.id
+	from rhnKickstartableTree, rhnChannel
+	where rhnKickstartableTree.channel_id = rhnChannel.id
+	) X
+	-- where placeholder
+	order by organization_id, channel_label, tree_label, id
