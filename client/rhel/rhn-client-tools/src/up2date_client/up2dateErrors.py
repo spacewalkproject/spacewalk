@@ -157,7 +157,7 @@ class SSLCertificateVerifyFailedError(RepoError):
             RepoError.__init__(self ,"The certificate %s is expired. Please ensure you have the correct"
                            " certificate and your system time is correct." % certFile)
         else:
-            RepoError.__init__(self, "The SSL certificate %s failed verification." % certFile)
+            RepoError.__init__(self, "The SSL certificate failed verification.")
 
 class SSLCertificateFileNotFound(Error):
     pass
