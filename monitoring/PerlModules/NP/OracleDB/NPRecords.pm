@@ -109,7 +109,7 @@ sub LoadForSatellite
         my $probe_col_str = join(",\n" . ' ' x 17,  @probe_cols);
 
         my $host_col_str = q{
-                 host.ip as "hostAddress",
+                 host.ip as hostaddress,
                  host.name as "hostName",
                  host.os_id};
 
@@ -335,7 +335,7 @@ sub LoadForSatellite
         $class->Map(sub {
                         my $self = shift();
                         $self->addInstVar('parsedCommandLine',
-                                          $self->commandLine($self->get_hostAddress,
+                                          $self->commandLine($self->get_HOSTADDRESS,
                                                             $self->get_CUSTOMER_ID,
                                                             $self->get_NETSAINT_ID));
                     }
