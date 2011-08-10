@@ -589,6 +589,7 @@ public class ProfileHandler extends BaseHandler {
             }
         }
         cmd.getKickstartData().setOptions(customSet);
+        KickstartFactory.saveKickstartData(ksdata);
 
         return 1;
     }
