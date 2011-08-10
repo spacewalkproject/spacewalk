@@ -21,14 +21,14 @@ SELECT P.recid AS ID,
        PS.output 
   FROM rhn_sat_cluster SC,
        rhn_command C,
-       rhn_probe P,
        rhn_check_probe CP,
-       rhn_probe_state PS
+       rhn_probe P
+  LEFT JOIN rhn_probe_state PS
+    ON PS.probe_id = P.recid
   WHERE CP.host_id = :sid
    AND CP.probe_id = P.recid
    AND CP.sat_cluster_id = SC.recid
    AND P.command_id = C.recid
-   AND PS.probe_id(+) = P.recid
  ORDER BY UPPER(PS.state)
   </query>
 </mode>
