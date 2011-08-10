@@ -53,8 +53,8 @@ my %FIELD_MAP =
    ADDRESS               => undef,
    contactGroupCustomers => 'contact_group_customers',
    contactGroupNames     => 'contact_group_names',
-   hostAddress           => 'host_ip',
-   hostName              => 'host_name',
+   HOSTADDRESS           => 'host_ip',
+   HOSTNAME              => 'host_name',
    hostRecid             => 'host_id',
    parsedCommandLine     => 'parameters',
   );
