@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.9
+Version: 1.6.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Aug 10 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.10-1
+- replace oracle specific syntax with ANSI one
+- made NVL2 work in both db backends
+
 * Mon Aug 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.9-1
 - fixed re-activation key in PostgreSQL
 
