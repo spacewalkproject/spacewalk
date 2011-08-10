@@ -28,15 +28,16 @@ SELECT WC.id contact_id,
        WC.login contact_login,
        CM.recid method_id,
        CM.method_name method_name,
-       DECODE( MT.method_type_name, 
-         'Email', CM.email_address, 
-         'Pager', CM.pager_email) method_target
-  FROM rhn_contact_methods CM, 
-       web_contact WC,
-       rhn_method_types MT
+       CASE MT.method_type_name
+          WHEN 'Email' THEN CM.email_address
+          WHEN 'Pager' THEN CM.pager_email END method_target
+  FROM
+       web_contact WC
+  LEFT JOIN rhn_contact_methods CM
+    ON WC.id = CM.contact_id
+  LEFT JOIN rhn_method_types MT
+    ON CM.method_type_id = MT.recid
  WHERE WC.org_id = :org_id
-   AND CM.contact_id (+) = WC.id
-   AND CM.method_type_id = MT.recid (+)
 ORDER BY WC.login, CM.method_name
   </query>
 </mode>
