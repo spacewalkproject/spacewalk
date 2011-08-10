@@ -145,7 +145,7 @@ sub readFromFile
 		$filename = $self->configValue('configFile');
 	}
 	if (! -f $filename ) {
-		print "!!! ******* ERROR ******* !!!: NO CONFIG FILE FOR ".ref($self)." ($filename)!!!!\n";
+		print STDERR "!!! ******* ERROR ******* !!!: NO CONFIG FILE FOR ".ref($self)." ($filename)!!!!\n";
 	} else {
 		local * FILE;
 		open(FILE, '<', $filename);
