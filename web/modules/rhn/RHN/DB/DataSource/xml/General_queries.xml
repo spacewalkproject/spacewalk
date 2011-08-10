@@ -140,7 +140,7 @@ ORDER BY  SN.modified DESC
 	    FROM rhnServerTokenRegs STR
 	   WHERE STR.token_id = RT.id
                   ) system_count,
-         NVL2((SELECT 1 FROM rhnRegTokenOrgDefault RTOD WHERE RTOD.reg_token_id = RT.id), 'Yes', 'No') org_default
+         NVL((SELECT 'Yes' FROM rhnRegTokenOrgDefault RTOD WHERE RTOD.reg_token_id = RT.id), 'No') org_default
     FROM rhnActivationKey AK,
          rhnRegToken RT
    WHERE RT.org_id = :org_id
