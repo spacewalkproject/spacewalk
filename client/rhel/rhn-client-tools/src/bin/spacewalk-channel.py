@@ -92,8 +92,7 @@ def get_available_channels(user, password):
     try:
         key = client.auth.login(user, password)
     except xmlrpclib.Fault, exc:
-        sys.stderr.write("Error during client authentication: %s" % exc.faultString)
-        sys.exit(1)
+        systemExit(1, "Error during client authentication: %s" % exc.faultString)
 
     system_id = re.sub('^ID-', '', rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())[0][0]['system_id'])
     result = []
