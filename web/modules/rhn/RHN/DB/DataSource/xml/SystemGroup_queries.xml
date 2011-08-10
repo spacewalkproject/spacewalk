@@ -33,12 +33,23 @@ SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
          NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
          'unknown' AS ALL_ERRATA,
-         (SELECT  DECODE(
-                  MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-                      1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
-           FROM  rhn_check_probe CP, rhn_probe_state PS, rhnServerGroupMembership SGM
+         (SELECT  CASE MAX(CASE PS.state
+                           WHEN 'OK' THEN  1
+                           WHEN 'PENDING' THEN 2
+                           WHEN 'UNKNOWN' THEN 3
+                           WHEN 'WARNING' THEN 4
+                           WHEN 'CRITICAL' THEN 5
+                           END)
+                  WHEN 1 THEN 'OK'
+                  WHEN 2 THEN 'PENDING'
+                  WHEN 3 THEN 'UNKNOWN'
+                  WHEN 4 THEN 'WARNING'
+                  WHEN 5 THEN 'CRITICAL'
+                  END) ST
+           FROM rhn_probe_state PS, rhnServerGroupMembership SGM
+           LEFT JOIN rhn_check_probe CP
+             ON SGM.server_id = CP.host_id
           WHERE  PS.probe_id = CP.probe_id
-            AND  SGM.server_id = CP.host_id(+)
             AND  SGM.group_id = UMSG.server_group_id
          GROUP BY SGM.group_id) MONITORING_STATUS
   FROM   rhnVisServerGroupOverviewLite GO, rhnUserManagedServerGroups UMSG
@@ -69,12 +80,23 @@ ORDER BY UPPER(NAME)
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
          NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
-         (SELECT  DECODE(
-                  MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-                      1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
-           FROM  rhn_check_probe CP, rhn_probe_state PS, rhnServerGroupMembership SGM
+         (SELECT  CASE MAX(CASE PS.state
+                           WHEN 'OK' THEN  1
+                           WHEN 'PENDING' THEN 2
+                           WHEN 'UNKNOWN' THEN 3
+                           WHEN 'WARNING' THEN 4
+                           WHEN 'CRITICAL' THEN 5
+                           END)
+                  WHEN 1 THEN 'OK'
+                  WHEN 2 THEN 'PENDING'
+                  WHEN 3 THEN 'UNKNOWN'
+                  WHEN 4 THEN 'WARNING'
+                  WHEN 5 THEN 'CRITICAL'
+                  END) ST
+           FROM rhn_probe_state PS, rhnServerGroupMembership SGM
+           LEFT JOIN rhn_check_probe CP
+             ON SGM.server_id = CP.host_id
           WHERE  PS.probe_id = CP.probe_id
-            AND  SGM.server_id = CP.host_id(+)
             AND  SGM.group_id = UMSG.server_group_id
          GROUP BY SGM.group_id) MONITORING_STATUS
   FROM   rhnServerGroupOverview GO, rhnUserManagedServerGroups UMSG,
