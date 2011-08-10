@@ -346,7 +346,7 @@ SELECT	S.id
    AND  SC.channel_id = CP.channel_id
    AND  CP.package_id = :pid
    AND  CP.package_id = P.id
-   AND  NVL((SELECT MAX(PE.evr)
+   AND  COALESCE((SELECT MAX(PE.evr)
            FROM rhnServerPackage SP, rhnPackageEvr PE
           WHERE SP.name_id = P.name_id
             AND SP.server_id = S.id
