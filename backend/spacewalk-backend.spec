@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.5
+Version: 1.6.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -672,6 +672,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 1.6.6-1
+- True and False constants are defined since python 2.4
+- do not mask original error by raise in execption
+
 * Fri Aug 05 2011 Simon Lukasik <slukasik@redhat.com> 1.6.5-1
 - 725637 - documentation should correspond with the behavior
   (slukasik@redhat.com)
