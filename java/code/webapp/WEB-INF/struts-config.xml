@@ -7721,7 +7721,9 @@
          scope="request"
          name="datePickerForm"
          input="/WEB-INF/pages/admin/taskStatus.jsp"
-         type="com.redhat.rhn.frontend.action.satellite.TaskStatusAction">
+         type="com.redhat.rhn.frontend.action.satellite.TaskStatusAction"
+         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/taskStatus.jsp" />
      </action>
@@ -7732,6 +7734,7 @@
          type="com.redhat.rhn.frontend.action.tasko.SatSchedulesAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/schedules.jsp" />
      </action>
@@ -7743,6 +7746,7 @@
          type="com.redhat.rhn.frontend.action.tasko.ScheduleDetailAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/scheduleDetail.jsp" />
         <forward name="disable"
@@ -7758,6 +7762,7 @@
          type="com.redhat.rhn.frontend.action.tasko.DeleteScheduleAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/deleteSchedule.jsp" />
         <forward name="success"
@@ -7770,6 +7775,7 @@
          type="com.redhat.rhn.frontend.action.tasko.BunchDetailAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
        <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/bunchDetail.jsp" />
      </action>
