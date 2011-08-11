@@ -4718,7 +4718,7 @@ Are you sure you would like to continue?</property>
 </widget>
 
 <widget class="GtkDialog" id="alreadyRegisteredDialog">
-  <property name="title" translatable="yes">System software updates already set up</property>
+  <property name="title" translatable="yes">System already registered</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -5035,7 +5035,7 @@ Are you sure you would like to continue?</property>
 </widget>
 
 <widget class="GtkDialog" id="alreadyRegisteredSubscriptionManagerDialog">
-  <property name="title" translatable="yes">System software updates already set up</property>
+  <property name="title" translatable="yes">System already registered</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -5132,7 +5132,7 @@ Are you sure you would like to continue?</property>
 	  <child>
 	    <widget class="GtkLabel" id="label72">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">It appears this system has already been registered with RHN using RHN Certificate-Based Entitlement technology. This tool requires registration using RHN Classic technology.</property>
+	      <property name="label" translatable="yes" context="yes">This system has already been registered with RHN using RHN certificate-based technology.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -5157,8 +5157,7 @@ Are you sure you would like to continue?</property>
 	  <child>
 	    <widget class="GtkLabel" id="label73">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">Except for a few cases, Red Hat recommends customers only register with RHN once.
-</property>
+	      <property name="label" translatable="yes" context="yes">The tool you are using is attempting to re-register using RHN Classic technology. Red Hat recommends (except in a few cases) that customers only register with RHN once.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -5183,7 +5182,7 @@ Are you sure you would like to continue?</property>
 	  <child>
 	    <widget class="GtkLabel" id="label74">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">For more information, including alternate tools, consult this Knowledge Base Article: &lt;a href="https://access.redhat.com/kb/docs/DOC-45563"&gt;https://access.redhat.com/kb/docs/DOC-45563&lt;/a&gt;
+	      <property name="label" translatable="yes" context="yes">To learn more about RHN registration and technologies please consult this Knowledge Base Article: &lt;a href="https://access.redhat.com/kb/docs/DOC-45563"&gt;https://access.redhat.com/kb/docs/DOC-45563&lt;/a&gt;
 </property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
