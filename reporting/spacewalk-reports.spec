@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.1
+Version: 1.6.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 1.6.2-1
+- do not mask original error by raise in execption
+
 * Mon Aug 08 2011 Jan Pazdziora 1.6.1-1
 - Add the --where-<column-id> option to help and man page.
 - New reports: errata-channels and kickstartable-trees.
