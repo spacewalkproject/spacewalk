@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.11
+Version: 5.10.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 5.10.12-1
+- True and False constants are defined since python 2.4
+- do not mask original error by raise in execption
+
 * Thu Aug 04 2011 Jan Pazdziora 5.10.11-1
 - 508936 - rhn-actions-control honor the allowed-actions/scripts/run for remote
   commands (mmello@redhat.com)
