@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.18
+Version: 1.6.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 11 2011 Jan Pazdziora 1.6.19-1
+- 728638 - Fixed kickstart.profile.setAdvancedOptions() to renderize the
+  kickstart after invocating method. (mmello@redhat.com)
+
 * Sun Aug 07 2011 Jan Pazdziora 1.6.18-1
 - Silencing checkstyle.
 
