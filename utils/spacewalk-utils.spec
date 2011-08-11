@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.6.1
+Version:	1.6.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 1.6.2-1
+- do not mask original error by raise in execption
+
 * Thu Jul 21 2011 Jan Pazdziora 1.6.1-1
 - Adding centos6 and fedora15 repos. (jonathan.hoser@helmholtz-muenchen.de)
 
