@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.23
+Version:        5.4.24
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -134,6 +134,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 5.4.24-1
+- do not mask original error by raise in execption
+
 * Thu May 19 2011 Miroslav Suchý 5.4.23-1
 - simplify spec
 - rhn-virtualization-host.noarch: E: incoherent-subsys /etc/rc.d/init.d/rhn-
