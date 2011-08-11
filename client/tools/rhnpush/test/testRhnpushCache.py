@@ -17,9 +17,6 @@ import unittest
 import rhnpush_cache
 import time
 
-True = 1
-False = 0
-
 class UserInfoTestCase(unittest.TestCase):
 	def setUp(self):
 		self.userinfo = rhnpush_cache.UserInfo(5, username='wregglej', password='password')

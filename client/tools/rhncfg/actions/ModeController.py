@@ -16,9 +16,6 @@
 import sys
 import string
 
-True = 1
-False = 0
-
 class ModeMissingException(Exception):
     pass
 

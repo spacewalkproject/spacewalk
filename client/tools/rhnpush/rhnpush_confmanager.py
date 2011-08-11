@@ -19,10 +19,6 @@ import string
 import sys
 import os
 
-
-True = 1
-False = 0
-
 class  ConfManager:
     def __init__(self, optionparser, store_true_list):
         sysdir  = '/etc/sysconfig/rhn'

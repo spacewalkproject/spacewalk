@@ -22,10 +22,6 @@ import server.xmlrpc.up2date
 from misc_functions import create_activation_key
 import misc_functions
 
-True = 1
-False = 0
-
-
 #The Test Server class is a singleton. This allows us to avoid the long setup times between each test.
 class TestServer:
 

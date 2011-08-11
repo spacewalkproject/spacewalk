@@ -25,9 +25,6 @@
 import utils
 import os
 
-True = 1
-False = 0
-
 #This is the class that contains the session.
 class RHNPushSession:
     def __init__(self):

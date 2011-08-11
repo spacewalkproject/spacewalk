@@ -15,10 +15,6 @@
 
 import os
 
-#Forgot about AS 2.1.
-True = 1
-False = 0
-
 #Base class for all modes.
 class BaseMode:
     def __init__(self):

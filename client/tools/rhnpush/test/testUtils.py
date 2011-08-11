@@ -16,9 +16,6 @@
 import unittest
 import utils
 
-True = 1
-False = 0
-
 class TestObj1:
 	def __init__(self):
 		self.a = 1

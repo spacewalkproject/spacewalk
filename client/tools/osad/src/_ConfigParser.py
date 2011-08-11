@@ -104,10 +104,6 @@ import types
 import string
 import sys
 
-# Not available on python 1.5.2
-True = 1
-False = 0
-
 __all__ = ["NoSectionError","DuplicateSectionError","NoOptionError",
            "InterpolationError","InterpolationDepthError","ParsingError",
            "MissingSectionHeaderError","ConfigParser",

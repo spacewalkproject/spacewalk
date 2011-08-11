@@ -29,11 +29,6 @@ from rhn import SSL
 
 from rhn_log import log_debug, log_error
 
-try:
-    True, False
-except NameError:
-    True, False = 1, 0
-
 NS_RHN = "http://jabber.rhn.redhat.com/jabber"
 NS_RHN_SIGNED = "%s/signed" % NS_RHN
 NS_RHN_PRESENCE_SUBSCRIBE = "%s/presence/subscribe" % NS_RHN
