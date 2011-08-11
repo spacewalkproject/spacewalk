@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.20
+Version: 5.10.21
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 5.10.21-1
+- True and False constants are defined since python 2.4
+- do not mask original error by raise in execption
+
 * Thu Jul 21 2011 Jan Pazdziora 5.10.20-1
 - Allow osa-dispatcher to read /sys/.../meminfo.
 
