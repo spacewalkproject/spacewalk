@@ -8,7 +8,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.23
+Version:      1.27.24
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -90,6 +90,11 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Aug 11 2011 Jan Pazdziora 1.27.24-1
+- Properly dereference the array references for old and new files so logfiles
+  contain the number of files in the queue and not strings like
+  "ARRAY(0x12323)" (david.nutter@bioss.ac.uk)
+
 * Fri Feb 18 2011 Jan Pazdziora 1.27.23-1
 - Localize the filehandle globs; also use three-parameter opens.
 
