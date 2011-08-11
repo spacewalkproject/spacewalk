@@ -45,7 +45,7 @@ SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
                   WHEN 3 THEN 'UNKNOWN'
                   WHEN 4 THEN 'WARNING'
                   WHEN 5 THEN 'CRITICAL'
-                  END) ST
+                  END as ST
            FROM rhn_probe_state PS, rhnServerGroupMembership SGM
            LEFT JOIN rhn_check_probe CP
              ON SGM.server_id = CP.host_id
@@ -92,7 +92,7 @@ SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
                   WHEN 3 THEN 'UNKNOWN'
                   WHEN 4 THEN 'WARNING'
                   WHEN 5 THEN 'CRITICAL'
-                  END) ST
+                  END as ST
            FROM rhn_probe_state PS, rhnServerGroupMembership SGM
            LEFT JOIN rhn_check_probe CP
              ON SGM.server_id = CP.host_id
