@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.20
+Version: 	  1.28.21
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 URL:          https://fedorahosted.org/spacewalk
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Thu Aug 11 2011 Jan Pazdziora 1.28.21-1
+- The column names are always uppercase, due to the FetchHashKeyName setting.
+
 * Tue Mar 22 2011 Michael Mraka <michael.mraka@redhat.com> 1.28.20-1
 - fixed segmentation fault in use NOCpulse::DBRecord
 
