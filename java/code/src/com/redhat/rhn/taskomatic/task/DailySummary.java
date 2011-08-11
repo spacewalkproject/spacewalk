@@ -161,7 +161,7 @@ public class DailySummary extends RhnJavaJob {
 
             LocalizationService ls = LocalizationService.getInstance();
             mail.setSubject(ls.getMessage(
-                    "dailysummary.email.subject", ls.formatDate(new Date())));
+                    "dailysummary.email.subject", ls.formatShortDate(new Date())));
             mail.setRecipient(ru.getAddress());
 
             if (log.isDebugEnabled()) {
