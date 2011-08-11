@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.6.2
+Version:     1.6.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 1.6.3-1
+- do not mask original error by raise in execption
+
 * Thu Aug 04 2011 Aron Parsons <aparsons@redhat.com> 1.6.2-1
 - Enable new 'api' module (satoru.satoh@gmail.com)
 - add utility routines for new 'api' module (satoru.satoh@gmail.com)
