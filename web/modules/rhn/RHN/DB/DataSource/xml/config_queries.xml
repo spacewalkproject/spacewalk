@@ -18,24 +18,24 @@ SELECT CR.id AS ID,
        CFT.name as FILETYPE
   FROM rhnConfigChannelType CCT,
        rhnConfigChannel CC,
-       rhnConfigContent CCon,
        rhnConfigFileName CFN,
        rhnConfigFile CF,
-       rhnConfigRevision CR,
        rhnServerConfigChannel SCC,
        rhnConfigFileType CFT,
-       rhnChecksum Csum
+       rhnConfigRevision CR
+  LEFT JOIN rhnConfigContent CCon
+    ON CR.config_content_id = CCon.id
+  LEFT JOIN rhnChecksum Csum
+    ON CCon.checksum_id  = Csum.id
  WHERE SCC.server_id = :sid
    AND SCC.config_channel_id = CF.config_channel_id
    AND CF.id = CR.config_file_id
    AND CF.config_file_name_id = CFN.id
    AND CF.config_channel_id = CC.id
    AND CC.confchan_type_id = CCT.id
-   AND CR.config_content_id = CCon.id (+)
    AND CF.latest_config_revision_id = CR.id
    AND CCT.label in ('normal', 'local_override')
    AND CR.config_file_type_id = CFT.id
-   AND  CCon.checksum_id  = Csum.id(+)
 ORDER BY CCT.priority, SCC.position
   </query>
   <elaborator params="sid" multiple="t">
@@ -152,13 +152,14 @@ ORDER BY UPPER(CFN.path)
   <query params="sid, aid">
 SELECT CFN.path,
        CFF.name AS FAILURE_REASON
-  FROM rhnConfigFileFailure CFF,
+  FROM
        rhnConfigFileName CFN,
        rhnActionConfigFileName ACFN
+  LEFT JOIN rhnConfigFileFailure CFF
+   AND ACFN.failure_id = CFF.id
  WHERE ACFN.server_id = :sid
    AND ACFN.action_id = :aid
    AND ACFN.config_file_name_id = CFN.id
-   AND ACFN.failure_id = CFF.id (+)
 ORDER BY CFN.path
   </query>
 </mode>
