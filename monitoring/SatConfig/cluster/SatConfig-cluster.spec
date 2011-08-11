@@ -1,6 +1,6 @@
 %define sysv_dir       %{_sysconfdir}/rc.d/np.d
 Name:         SatConfig-cluster
-Version:      1.54.9
+Version:      1.54.10
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - cluster information
 URL:          https://fedorahosted.org/spacewalk
@@ -57,6 +57,9 @@ install -m 644 SatCluster.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Aug 11 2011 Jan Pazdziora 1.54.10-1
+- Report the error to STDERR, not STDOUT.
+
 * Fri Feb 18 2011 Jan Pazdziora 1.54.9-1
 - Localize the filehandle globs; also use three-parameter opens.
 
