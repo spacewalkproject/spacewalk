@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.3
+Version:        1.6.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Aug 11 2011 Tomas Lestach <tlestach@redhat.com> 1.6.4-1
+- 722189 - rewrite rhnServerNeededView to reflect all available errata
+  (tlestach@redhat.com)
+
 * Wed Aug 10 2011 Jan Pazdziora 1.6.3-1
 - We missed ON DELETE CASCADE in the past schema upgrade scripts -- fixing now.
 
