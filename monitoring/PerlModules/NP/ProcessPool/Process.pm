@@ -108,11 +108,9 @@ sub spawn {
     my $f;
 
     $f = sprintf($stdout, $$);
-    local * STDOUT;
     open(STDOUT, '>', $f) or die "Couldn't create $f: $!";
 
     $f = sprintf($stderr, $$);
-    local * STDERR;
     open(STDERR, '>>', $f) or die "Couldn't create $f: $!";
 
 
