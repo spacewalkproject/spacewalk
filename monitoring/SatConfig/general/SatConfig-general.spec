@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.23
+Version:      1.216.24
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -65,6 +65,10 @@ install -D -p -m 755 NOCpulse-ini $RPM_BUILD_ROOT%{_sbindir}/NOCpulse-ini
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Aug 11 2011 Jan Pazdziora 1.216.24-1
+- Since autocommit is off in RHN::DB, add explicit commit to ensure our config
+  changes are written to the database (david.nutter@bioss.ac.uk)
+
 * Tue Jul 19 2011 Jan Pazdziora 1.216.23-1
 - Updating the copyright years.
 
