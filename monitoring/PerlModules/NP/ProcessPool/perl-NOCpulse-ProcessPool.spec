@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-ProcessPool
-Version: 	  1.6.0
+Version: 	  1.6.1
 Release: 	  1%{?dist}
 Summary:      Perl implementation of a process pool
 URL:          https://fedorahosted.org/spacewalk
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Thu Aug 11 2011 Jan Pazdziora 1.6.1-1
+- Localization of STDOUT and STDERR was overoptimistic.
+
 * Fri Feb 18 2011 Jan Pazdziora 1.4.1-1
 - Localize the filehandle globs; also use three-parameter opens.
 
