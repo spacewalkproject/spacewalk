@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.19
+Version: 1.6.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 11 2011 Simon Lukasik <slukasik@redhat.com> 1.6.20-1
+- 724918 - added missing acl checks (slukasik@redhat.com)
+
 * Thu Aug 11 2011 Jan Pazdziora 1.6.19-1
 - 728638 - Fixed kickstart.profile.setAdvancedOptions() to renderize the
   kickstart after invocating method. (mmello@redhat.com)
