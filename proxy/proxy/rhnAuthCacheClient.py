@@ -21,6 +21,7 @@
 
 ## language imports
 import socket
+import sys
 
 ## local imports
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -90,7 +91,7 @@ class Shelf:
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
               _("RHN Proxy error (issues connecting to auth cache). "
-                "Please contact your system administrator"))
+                "Please contact your system administrator")), None, sys.exc_info()[2]
 
         wfile = sock.makefile("w")
 
@@ -112,7 +113,7 @@ class Shelf:
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
               _("RHN Proxy error (issues connecting to auth cache). "
-                "Please contact your system administrator"))
+                "Please contact your system administrator")), None, sys.exc_info()[2]
 
         wfile.close()
 
@@ -130,7 +131,7 @@ class Shelf:
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
               _("RHN Proxy error (issues communicating to auth cache). "
-                "Please contact your system administrator"))
+                "Please contact your system administrator")), None, sys.exc_info()[2]
         except Fault, e:
             rfile.close()
             sock.close()
@@ -158,7 +159,7 @@ class Shelf:
             # Instantiate the exception object
             import new
             _dict = {'args' : args}
-            raise new.instance(getattr(__builtins__, name), _dict)
+            raise new.instance(getattr(__builtins__, name), _dict), None, sys.exc_info()[2]
 
         return params[0]
 

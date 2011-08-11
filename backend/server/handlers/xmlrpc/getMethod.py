@@ -22,6 +22,7 @@
 
 import os
 import string
+import sys
 from types import ClassType
 from distutils.sysconfig import get_python_lib
 
@@ -86,7 +87,7 @@ def getMethod(methodName, baseClass):
     try:
         actions = __import__(modulename)
     except ImportError:
-        raise GetMethodException("Could not import module %s" % modulename)
+        raise GetMethodException("Could not import module %s" % modulename), None, sys.exc_info()[2]
 
     className = actions
     # Iterate through the list of components and try to load that specific

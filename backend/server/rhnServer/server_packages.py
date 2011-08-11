@@ -18,6 +18,7 @@
 #
 
 import string
+import sys
 import time
 from types import DictType
 
@@ -227,7 +228,7 @@ class Packages:
                 # LOOKUP_PACKAGE_ARCH failed
                 if e.errno == 20243:
                     log_debug(2, "Unknown package arch found", e)
-                    raise rhnFault(45, "Unknown package arch found")
+                    raise rhnFault(45, "Unknown package arch found"), None, sys.exc_info()[2]
                 
             commits = commits + len(alist)
             del alist

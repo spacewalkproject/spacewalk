@@ -14,6 +14,7 @@
 #
 
 import os
+import sys
 import tempfile
 
 from config_common import handler_base, utils, cfg_exceptions
@@ -107,14 +108,14 @@ class Handler(handler_base.HandlerBase):
                 try:
                     dep_trans.rollback()
                 except FailedRollback, e2:
-                    raise "FAILED ROLLBACK:  ", e2
+                    raise e2, "FAILED ROLLBACK:  ", sys.exc_info()[2]
                 #5/3/05 wregglej - 136415 Added exception stuff for missing user info.
                 except cfg_exceptions.UserNotFound, f:
-                    raise f
+                    raise
                 #5/5/05 wregglej - 136415 Added exception handling for unknown group.
                 except cfg_exceptions.GroupNotFound, f:
-                    raise f
+                    raise
                 else:
-                    raise "Deploy failed, rollback successful:  ", e
+                    raise e, "Deploy failed, rollback successful:  ", sys.exc_info()[2]
             
 

@@ -15,6 +15,7 @@
 # Server-side uploading code
 
 import time
+import sys
 import xmlrpclib
 from spacewalk.common import apache
 
@@ -223,14 +224,14 @@ class ApacheServer(BaseApacheServer):
             client_major = int(client_major)
             client_minor = int(client_minor)
         except ValueError:
-            raise rhnFault(3011, "Invalid version string %s" % client_version)
+            raise rhnFault(3011, "Invalid version string %s" % client_version), None, sys.exc_info()[2]
 
         try:
             server_major = int(server_major)
             server_minor = int(server_minor)
         except ValueError:
             raise rhnException("Invalid server version string %s"
-                % server_version)
+                % server_version), None, sys.exc_info()[2]
 
         if client_major != server_major:
             raise rhnFault(3012, "Client version %s does not match"

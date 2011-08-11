@@ -21,6 +21,7 @@
 
 import os
 import gzip
+import sys
 
 from debian import debfile
 
@@ -61,7 +62,7 @@ def load_deb(stream, filename):
         #header = rhn_deb.get_package_header(file=stream)
         header = deb_Header(filename)
     except:
-        raise InvalidPackageError
+        raise InvalidPackageError, None, sys.exc_info()[2]
     stream.seek(0, 0)
 
     return header, stream
@@ -82,7 +83,7 @@ class deb_Header:
         try:
             self.deb = debfile.DebFile(name)
         except Exception, e:
-            raise InvalidPackageError(e)
+            raise InvalidPackageError(e), None, sys.exc_info()[2]
 
         try:
             # Fill info about package
@@ -97,7 +98,7 @@ class deb_Header:
                 self.version = version_tmpArr[0]
                 self.release = version_tmpArr[1]
         except Exception, e:
-            raise InvalidPackageError(e)
+            raise InvalidPackageError(e), None, sys.exc_info()[2]
 
     def checksum_type(self):
         return DEB_CHECKSUM_TYPE

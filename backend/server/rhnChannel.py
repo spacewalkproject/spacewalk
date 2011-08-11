@@ -17,6 +17,7 @@
 import time
 import string
 import rpm
+import sys
 import xmlrpclib
 
 from types import IntType, ListType, DictType
@@ -102,7 +103,7 @@ class BaseDatabaseObject:
         try:
             self._row.save(with_updates=with_updates)
         except rhnSQL.ModifiedRowError:
-            raise ModifiedError(self._row['id'])
+            raise ModifiedError(self._row['id']), None, sys.exc_info()[2]
 
 
 class BaseChannelObject(BaseDatabaseObject):
@@ -626,7 +627,7 @@ def channels_for_server(server_id):
     try:
         server_id = int(server_id)
     except:
-        raise rhnFault(8, server_id) # Invalid rhnServer.id
+        raise rhnFault(8, server_id), None, sys.exc_info()[2] # Invalid rhnServer.id
     # XXX: need to return unsubsubcribed channels and a way to indicate
     #        they arent already subscribed
 
@@ -724,14 +725,14 @@ def base_channel_for_rel_arch(release, server_arch, org_id=-1,
         if e.errno == 20263:
             # Insufficient permissions for subscription
             log_debug(4,'BaseChannelDeniedError')
-            raise BaseChannelDeniedError()
+            raise BaseChannelDeniedError(), None, sys.exc_info()[2]
         if e.errno == 20244:
             # Server architecture could not be found
             log_debug(4,'InvalidServerArchError')
-            raise InvalidServerArchError(str(server_arch))
+            raise InvalidServerArchError(str(server_arch)), None, sys.exc_info()[2]
         # Re-raise unknown eceptions
         log_debug(4,'unkown exception')
-        raise e
+        raise
 
     log_debug(4, 'got past exceptions')
     return h.fetchone_dict()
@@ -1477,18 +1478,18 @@ def _subscribe_sql(server_id, channel_id, commit = 1):
         subscribe_channel(server_id, channel_id, 0)
     except rhnSQL.SQLSchemaError, e:
         if e.errno == 20235: # channel_family_no_subscriptions
-            raise SubscriptionCountExceeded(channel_id=channel_id)
+            raise SubscriptionCountExceeded(channel_id=channel_id), None, sys.exc_info()[2]
         if e.errno == 20102: # channel_server_one_base
             log_error("Channel subscribe failed, "\
                   "%s already subscribed to %s (?)" % (server_id, channel_id))
-            raise rhnFault(38, "Server already subscribed to %s" % channel_id)
+            raise rhnFault(38, "Server already subscribed to %s" % channel_id), None, sys.exc_info()[2]
         # If we got here, it's an unknown error; ISE (for now)
         log_error("SQLSchemaError", e)
-        raise rhnException(e)
+        raise rhnException(e), None, sys.exc_info()[2]
     except rhnSQL.SQLError, e:
         # If we got here, it's an unknown error; ISE (for now)
         log_error("SQLError", e)
-        raise rhnException(e)
+        raise rhnException(e), None, sys.exc_info()[2]
     if commit:
         rhnSQL.commit()
     return 1
@@ -1502,7 +1503,7 @@ def subscribe_sql(server_id, channel_id, commit=1):
     except SubscriptionCountExceeded:
         log_error("Subscription count exceeded for channel id %s" %
             channel_id)
-        raise rhnFault(70, "Subscription count for the target channel exceeded")
+        raise rhnFault(70, "Subscription count for the target channel exceeded"), None, sys.exc_info()[2]
 
 
 _query_can_subscribe = rhnSQL.Statement("""
@@ -1717,14 +1718,14 @@ def guess_channels_for_server(server, user_id=None, none_ok=0,
                 "registration number, please register with it first at "
                 "http://www.redhat.com/apps/activate/ and then try again.\n\n")
             
-        raise rhnFault(19, msg % error_strings)
+        raise rhnFault(19, msg % error_strings), None, sys.exc_info()[2]
     except BaseChannelDeniedError:
         if none_ok:
             return []
 
         raise rhnFault(71, 
                 _("Insufficient subscription permissions for release (%s, %s") 
-                    % (server.release, server.arch))
+                    % (server.release, server.arch)), None, sys.exc_info()[2]
             
 # Subscribes the server to channels
 # can raise SubscriptionCountExceeded, BaseChannelDeniedError, NoBaseChannelError

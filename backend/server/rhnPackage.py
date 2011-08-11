@@ -119,7 +119,7 @@ def unlink_package_file(path):
             if e.errno == 39: #OSError: [Errno 39] Directory not empty
                 break
             else:
-                raise e
+                raise
         dirname = os.path.dirname(dirname)
 
 # Old client

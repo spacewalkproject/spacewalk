@@ -218,7 +218,7 @@ Create everything as well as unlimited activation key for every channel:
                            "Either the password or username is incorrect.\n")
                     sys.exit(2)
                 else:
-                    raise e
+                    raise
 
         if create_channel:
             base_info = channels[base_channel_label]

@@ -140,11 +140,11 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
         importLib.copy_package(payload_stream.fileno(), basedir=CFG.MOUNT_POINT,
             relpath=relative_path, checksum_type=checksum_type, checksum=checksum, force=1)
     except OSError, e:
-        raise rhnFault(50, "Package upload failed: %s" % e)
+        raise rhnFault(50, "Package upload failed: %s" % e), None, sys.exc_info()[2]
     except importLib.FileConflictError:
-        raise rhnFault(50, "File already exists")
+        raise rhnFault(50, "File already exists"), None, sys.exc_info()[2]
     except:
-        raise rhnFault(50, "File error")
+        raise rhnFault(50, "File error"), None, sys.exc_info()[2]
 
     pkg = mpmSource.create_package(header, size=payload_size,
         checksum_type=checksum_type, checksum=checksum,
@@ -289,12 +289,12 @@ def load_package(package_stream):
         try:
             header, payload_stream = rhn_deb.load(filename=package_stream.name)
         except:
-            raise rhnFault(50, "Unable to load package", explain=0)
+            raise rhnFault(50, "Unable to load package", explain=0), None, sys.exc_info()[2]
     else:
         try:
             header, payload_stream = rhn_mpm.load(file=package_stream)
         except:
-            raise rhnFault(50, "Unable to load package", explain=0)
+            raise rhnFault(50, "Unable to load package", explain=0), None, sys.exc_info()[2]
 
     payload_stream.seek(0, 0)
     if header.packaging == "mpm" or header.packaging == "deb":

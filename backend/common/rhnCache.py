@@ -20,6 +20,7 @@ import os
 import gzip
 import cPickle
 import fcntl
+import sys
 from struct import pack
 from stat import ST_MTIME
 from errno import EEXIST
@@ -221,7 +222,7 @@ class WriteLockedFile(LockedFile):
             fd = _safe_create(self.fname, user, group, mode)
         except UnreadableFileError:
             raise OSError, "cache entry exists, but is not accessible: %s" % \
-                name
+                name, sys.exc_info()[2]
 
         # now we have the fd open, lock it
         _lock(fd)
@@ -313,7 +314,7 @@ class CompressedCache:
             # Some gzip error
             # poking at gzip.zlib may not be such a good idea
             fd.close()
-            raise KeyError(name)
+            raise KeyError(name), None, sys.exc_info()[2]
         fd.close()
 
         return value
@@ -353,7 +354,7 @@ class ObjectCache:
         try:
             return cPickle.loads(pickled)
         except cPickle.UnpicklingError:
-            raise KeyError(name)
+            raise KeyError(name), None, sys.exc_info()[2]
     
     def set(self, name, value, modified = None, user='root', group='root', \
             mode=0755):

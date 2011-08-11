@@ -14,6 +14,7 @@
 #
 
 import os
+import sys
 import tempfile
 import xmlrpclib
 
@@ -59,8 +60,8 @@ class Repository(repository.RPC_Repository):
                 fault_code, fault_string = e.faultCode, e.faultString
                 if fault_code == -2:
                     raise cfg_exceptions.AuthenticationError(
-                        "Invalid username or incorrect password")
-                raise cfg_exceptions.InvalidSession(fault_code, fault_string)
+                        "Invalid username or incorrect password"), None, sys.exc_info()[2]
+                raise cfg_exceptions.InvalidSession(fault_code, fault_string), None, sys.exc_info()[2]
 
             self._save_session()
 
@@ -92,8 +93,8 @@ class Repository(repository.RPC_Repository):
             if e.faultCode == -4011:
                 # File not present
                 raise cfg_exceptions.RepositoryFileMissingError(config_channel,
-                    repopath)
-            raise e
+                    repopath), None, sys.exc_info()[2]
+            raise
         return result
 
     def get_file_info(self, config_channel, repopath, revision=None, auto_delete=1, dest_directory=tempfile.gettempdir()):
@@ -166,18 +167,18 @@ class Repository(repository.RPC_Repository):
             fault_code, fault_string = e.faultCode, e.faultString
             
             if is_first_revision and fault_code == -4013:
-                raise cfg_exceptions.RepositoryFileExistsError(fault_string)
+                raise cfg_exceptions.RepositoryFileExistsError(fault_string), None, sys.exc_info()[2]
             
             if old_revision and fault_code == -4012:
-                raise cfg_exceptions.RepositoryFileVersionMismatchError(fault_string)
+                raise cfg_exceptions.RepositoryFileVersionMismatchError(fault_string), None, sys.exc_info()[2]
             
             if fault_code == -4003:
-                raise cfg_exceptions.ConfigFileTooLargeError(fault_string)
+                raise cfg_exceptions.ConfigFileTooLargeError(fault_string), None, sys.exc_info()[2]
             
             if fault_code == -4014:
-                raise cfg_exceptions.QuotaExceeded(fault_string)
+                raise cfg_exceptions.QuotaExceeded(fault_string), None, sys.exc_info()[2]
             
-            raise cfg_exceptions.RepositoryFilePushError(fault_code, fault_string)
+            raise cfg_exceptions.RepositoryFilePushError(fault_code, fault_string), None, sys.exc_info()[2]
         
         return result
     
@@ -214,8 +215,8 @@ class Repository(repository.RPC_Repository):
             if e.faultCode == -4011:
                 # File not present
                 raise cfg_exceptions.RepositoryFileMissingError(
-                    config_channel, repopath)
-            raise e
+                    config_channel, repopath), None, sys.exc_info()[2]
+            raise
         return revisions
 
     def list_config_channels(self):
@@ -238,7 +239,7 @@ class Repository(repository.RPC_Repository):
                 {'session' : self.session, 'config_channel' : config_channel})
         except xmlrpclib.Fault, e:
             if e.faultCode == -4010:
-                raise cfg_exceptions.ConfigChannelAlreadyExistsError(config_channel)
+                raise cfg_exceptions.ConfigChannelAlreadyExistsError(config_channel), None, sys.exc_info()[2]
             raise
 
     def remove_config_channel(self, config_channel):
@@ -249,9 +250,9 @@ class Repository(repository.RPC_Repository):
                 {'session' : self.session, 'config_channel' : config_channel})
         except xmlrpclib.Fault, e:
             if e.faultCode == -4009:
-                raise cfg_exceptions.ConfigChannelNotInRepo(config_channel)
+                raise cfg_exceptions.ConfigChannelNotInRepo(config_channel), None, sys.exc_info()[2]
             if e.faultCode == -4005:
-                raise cfg_exceptions.ConfigChannelNotEmptyError(config_channel)
+                raise cfg_exceptions.ConfigChannelNotEmptyError(config_channel), None, sys.exc_info()[2]
             raise
     
     def _get_default_delimiters(self):
@@ -290,11 +291,11 @@ class Repository(repository.RPC_Repository):
         except xmlrpclib.Fault, e:
             if e.faultCode == -4011:
                 # File not present
-                raise cfg_exceptions.RepositoryFileMissingError(e.faultString)
+                raise cfg_exceptions.RepositoryFileMissingError(e.faultString), None, sys.exc_info()[2]
             if e.faultCode == -4004:
                 # Binary file requested
-                raise cfg_exceptions.BinaryFileDiffError(e.faultString)
-            raise e
+                raise cfg_exceptions.BinaryFileDiffError(e.faultString), None, sys.exc_info()[2]
+            raise
         return ret
 
     def _get_session(self):

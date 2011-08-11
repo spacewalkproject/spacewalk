@@ -21,6 +21,7 @@
 from string import strip
 from time import strftime, strptime
 import os
+import sys
 
 ## other rhn imports
 from spacewalk.server import rhnSQL
@@ -196,7 +197,7 @@ def set_slots_from_cert(cert):
         except rhnSQL.sql_base.SQLSchemaError, e:
             if e[0] == 20290:
                 free_count = sys_ent_counts[(db_label, 1)] - quantity
-                raise NoFreeEntitlementsError(db_label, free_count)
+                raise NoFreeEntitlementsError(db_label, free_count), None, sys.exc_info()[2]
             else:
                 raise
 
@@ -461,7 +462,7 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
     except:
         # didn't go in!
         raise CaCertInsertionError("ERROR: CA certificate failed to be "
-                                   "inserted into the database")
+                                   "inserted into the database"), None, sys.exc_info()[2]
 
 
 def store_rhnCryptoKey(description, caCert, verbosity=0):
@@ -493,7 +494,7 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
             rhnSQL.commit()
         except rhnSQL.sql_base.SQLError:
             raise CaCertInsertionError(
-                "...the traceback: %s" % fetchTraceback())
+                "...the traceback: %s" % fetchTraceback()), None, sys.exc_info()[2]
 
 
 _querySelectCryptoCertInfo = rhnSQL.Statement("""
@@ -550,7 +551,7 @@ def create_first_private_chan_family():
                      org=1, url='First Org Created')
        except rhnSQL.SQLError, e:
            # if we're here that means we're voilating something
-           raise e
+           raise
            
 
 def verify_family_permissions(orgid=1):

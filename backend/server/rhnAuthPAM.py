@@ -14,6 +14,7 @@
 #
 
 import PAM
+import sys
 
 from spacewalk.common.rhnLog import log_error
 from spacewalk.common.rhnException import rhnException
@@ -61,7 +62,7 @@ def check_password(username, password, service):
         log_error("Password check failed (%s): %s" % (code, resp))
         return 0
     except:
-        raise rhnException('Internal PAM error')
+        raise rhnException('Internal PAM error'), None, sys.exc_info()[2]
     else:
         # Good password
         return 1

@@ -19,6 +19,7 @@
 
 import os
 import string
+import sys
 import tempfile
 from types import TupleType
 
@@ -393,9 +394,9 @@ class Packages(RPC_Base):
         try:
             importer.run()
         except IncompatibleArchError, e:
-            raise rhnFault(50, string.join(e.args), explain=0)
+            raise rhnFault(50, string.join(e.args), explain=0), None, sys.exc_info()[2]
         except InvalidChannelError, e:
-            raise rhnFault(50, str(e), explain=0)
+            raise rhnFault(50, str(e), explain=0), None, sys.exc_info()[2]
 
         affected_channels = importer.affected_channels
 
@@ -433,9 +434,9 @@ class Packages(RPC_Base):
                 org_id, force = rhnPackageUpload.authenticate_session(
                     session, channels=channels, null_org=null_org, force=force)
             except rhnSession.InvalidSessionError:
-                raise rhnFault(33)
+                raise rhnFault(33), None, sys.exc_info()[2]
             except rhnSession.ExpiredSessionError:
-                raise rhnFault(34)
+                raise rhnFault(34), None, sys.exc_info()[2]
 
         if is_source:
             ret = self._getSourcePackageChecksum(org_id, pkg_infos)

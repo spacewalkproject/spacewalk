@@ -21,7 +21,7 @@
 import rpcServer
 import up2dateErrors
 import capabilities
-
+import sys
 import xmlrpclib
 import OpenSSL
 
@@ -49,7 +49,7 @@ class _DoCallWrapper(object):
         try:
             return rpcServer.doCall(method, *args, **kwargs)
         except xmlrpclib.Fault, f:
-            raise self.__exception_from_fault(f)
+            raise self.__exception_from_fault(f), None, sys.exc_info()[2]
         except OpenSSL.SSL.Error, e:
             # TODO This should probably be moved to rhnlib and raise an
             # exception that subclasses OpenSSL.SSL.Error
@@ -61,7 +61,7 @@ class _DoCallWrapper(object):
             if len(pieces) > 2:
                 message = pieces[2].strip(" '")
             if message == 'certificate verify failed':
-                raise up2dateErrors.SSLCertificateVerifyFailedError()
+                raise up2dateErrors.SSLCertificateVerifyFailedError(), None, sys.exc_info()[2]
             else:
                 raise
     

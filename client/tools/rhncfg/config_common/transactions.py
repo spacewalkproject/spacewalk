@@ -117,7 +117,7 @@ class DeployTransaction:
                     try:
                         user_record = pwd.getpwnam(file_info['username'])
                     except Exception, e:
-                        raise cfg_exceptions.UserNotFound(file_info['username'])
+                        raise cfg_exceptions.UserNotFound(file_info['username']), None, sys.exc_info()[2]
             
                     uid = user_record[2]
                 else:
@@ -131,7 +131,7 @@ class DeployTransaction:
                     try:
                         group_record = grp.getgrnam(file_info['groupname'])
                     except Exception, e:
-                        raise cfg_exceptions.GroupNotFound(file_info['groupname'])
+                        raise cfg_exceptions.GroupNotFound(file_info['groupname']), None, sys.exc_info()[2]
     
                     gid = group_record[2]
                 else:

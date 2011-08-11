@@ -236,7 +236,7 @@ def do_login(self, args):
         logging.debug('Server API Version = %s' % self.api_version)
     except Exception, e:
         self.client = None
-        raise e
+        raise
 
     # ensure the server is recent enough
     if self.api_version < self.MINIMUM_API_VERSION:

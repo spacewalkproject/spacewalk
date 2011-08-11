@@ -20,6 +20,7 @@
 import hashlib
 import time
 import string
+import sys
 
 from spacewalk.common.rhnConfig import CFG
 
@@ -90,7 +91,7 @@ class Session:
         try:
             self.session_id = int(arr[0])
         except ValueError:
-            raise InvalidSessionError("Invalid session identifier")
+            raise InvalidSessionError("Invalid session identifier"), None, sys.exc_info()[2]
 
         if digest != self.digest():
             raise InvalidSessionError("Bad session checksum")

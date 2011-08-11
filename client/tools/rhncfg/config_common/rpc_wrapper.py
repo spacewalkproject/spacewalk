@@ -162,16 +162,17 @@ class Server(rpclib.Server):
             except rpclib.InvalidRedirectionError:
                 raise
             except xmlrpclib.Fault, e:
+                save_traceback = sys.exc_info()[2]
                 try:
                     self._failover()
                 except NoMoreServers, f:
-                    raise e #Don't raise the NoMoreServers error, raise the error that triggered the failover.
+                    raise e, None, save_traceback  #Don't raise the NoMoreServers error, raise the error that triggered the failover.
                 continue
             except (error, sslerror, herror, gaierror, timeout), e:
                 try:
                     self._failover()    
                 except NoMoreServers, f:
-                    raise e
+                    raise e, None, save_traceback
                 continue
             succeed = 1 #If we get here then the function call eventually succeeded and we don't need to try again.
         return ret

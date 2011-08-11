@@ -85,7 +85,7 @@ class CheckCli(rhncli.RhnCli):
             return action
         except xmlrpclib.Fault, f:
             if f.faultCode == -31:
-                raise up2dateErrors.InsuffMgmntEntsError(f.faultString)
+                raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
             else:
                 print "Could not retrieve action item from server %s" % self.server
                 print "Error code: %d%s" % (f.faultCode, f.faultString)
@@ -118,7 +118,7 @@ class CheckCli(rhncli.RhnCli):
             return actions
         except xmlrpclib.Fault, f:
             if f.faultCode == -31:
-                raise up2dateErrors.InsuffMgmntEntsError(f.faultString)
+                raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
             else:
                 print "Could not retrieve action item from server %s" % self.server
                 print "Error code: %d%s" % (f.faultCode, f.faultString)

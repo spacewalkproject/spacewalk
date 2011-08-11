@@ -1028,7 +1028,7 @@ def _extract_pstamp_as_release(pstamp):
     try:
         date_time_struct = time.strptime(date_time_stamp, "%y%m%d%H%M%S")
     except ValueError, ve:
-        raise PStampParseException("Error parsing date/time: %s" % str(ve))
+        raise PStampParseException("Error parsing date/time: %s" % str(ve)), None, sys.exc_info()[2]
 
     # Convert the structure into a string in the release number format.
     release_number = time.strftime("%Y.%m.%d.%H.%M", date_time_struct)
@@ -1058,7 +1058,7 @@ def _to_db_timestamp(s):
             if m == _months[i]:
                 break
         else:
-            raise Exception("unknown month %s" % arr[0])
+            raise Exception("unknown month %s" % arr[0]), None, sys.exc_info()[2]
         m = i + 1
 
     d = int(d)

@@ -16,6 +16,7 @@
 import socket
 import string
 import base64
+import sys
 import urllib
 import urlparse
 
@@ -124,7 +125,7 @@ class PackageUpload:
         try:
             self.connection.connect()
         except socket.error, e:
-            raise ConnectionError("Error connecting", str(e))
+            raise ConnectionError("Error connecting", str(e)), None, sys.exc_info()[2]
         
         # Add content_length
         if not self.headers.has_key('Content-Length') and \
@@ -154,7 +155,7 @@ class PackageUpload:
             try:
                 self.connection.send(buf)
             except IOError, e:
-                raise ConnectionError("Error sending body", str(e))
+                raise ConnectionError("Error sending body", str(e)), None, sys.exc_info()[2]
 
     def send_http(self, method, stream_body=None):
         if stream_body is None:

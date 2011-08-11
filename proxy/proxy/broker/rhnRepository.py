@@ -25,6 +25,7 @@ import time
 import glob
 import string
 import cPickle
+import sys
 import types
 from operator import truth
 import xmlrpclib
@@ -129,7 +130,7 @@ class Repository(rhnRepository.Repository):
                         pkgFilename, self.channelName, self.clientInfo)
         except xmlrpclib.Fault, e:
             raise rhnFault(1000,
-                    _("Error retrieving source package: %s") % str(e))
+                    _("Error retrieving source package: %s") % str(e)), None, sys.exc_info()[2]
         if not retval:
             raise rhnFault(17, _("Invalid SRPM package requested: %s")
                                  % pkgFilename)
@@ -242,7 +243,7 @@ def listPackages(function, channel, version):
     except xmlrpclib.ProtocolError, e:
         errcode, errmsg = rpclib.reportError(e.headers)
         raise rhnFault(1000, "RHN Proxy error (xmlrpclib.ProtocolError): "
-                             "errode=%s; errmsg=%s" % (errcode, errmsg))
+                             "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
 
 
 def computePackagePath(nvrea, source=0, prepend=""):
@@ -315,7 +316,7 @@ def cache(stringObject, dir, filename, version):
                 tempfile = tempfile + "%.20f" % time.time()
                 continue
             # Another error
-            raise e
+            raise
         else:
             # We've got the file; everything's nice and dandy
             break

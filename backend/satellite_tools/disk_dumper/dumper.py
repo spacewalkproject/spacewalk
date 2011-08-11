@@ -15,6 +15,7 @@
 
 import time
 import gzip
+import sys
 import tempfile
 from types import ListType
 from cStringIO import StringIO
@@ -263,7 +264,7 @@ class XML_Dumper:
             except IOError:
                 log_error("Client disconnected prematurely")
                 self.close()
-                raise ClosedConnectionError
+                raise ClosedConnectionError, None, sys.exc_info()[2]
         # We're done
         if open_stream:
             self._raw_stream.close()
@@ -342,7 +343,7 @@ class XML_Dumper:
         try:
             id = int(name[prefix_len:])
         except ValueError:
-            raise rhnFault(errnum, errmsg % name)
+            raise rhnFault(errnum, errmsg % name), None, sys.exc_info()[2]
         return id
 
     def _packages(self, packages, prefix, dump_class, sources=0,

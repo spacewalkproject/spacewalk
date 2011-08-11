@@ -18,6 +18,7 @@
 #
 
 import string
+import sys
 from xml.dom.minidom import parseString
 from xml.sax import SAXParseException
 
@@ -129,7 +130,7 @@ class SatelliteCert:
         try:
             self._load(s)
         except SAXParseException:
-            raise ParseException
+            raise ParseException, None, sys.exc_info()[2]
         # Now represent the slots in a more meaningful way
         self._slots.clear()
         for slot_name, (slot_attr, factory) in self._slot_maps.items():

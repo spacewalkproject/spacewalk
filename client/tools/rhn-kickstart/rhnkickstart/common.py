@@ -17,6 +17,7 @@ import os
 import re
 import tempfile
 import urllib
+import sys
 
 from rhnkickstart.kickstart_exceptions import \
     MalformedKickstartFileException, MalformedKickstartURLException, \
@@ -63,7 +64,7 @@ def download_kickstart_file(extra_append):
     except urllib.HTTPError, e:
         raise KickstartDownloadException, \
                   "Error downloading kickstart file from '%s': %s" % \
-                      (ks_url, str(e))
+                      (ks_url, str(e)), sys.exc_info()[2]
     
     # Sanity check to make sure we actually received a kickstart file.
     _ensure_valid_kickstart_file(ks_url, ks_data)
@@ -113,14 +114,14 @@ def _download_install_images(tree_location, remote_path, local_path):
     except urllib.HTTPError, e:
         raise ImageDownloadException, \
                   "Error downloading kernel from '%s': %s" % \
-                      (kernel_url, str(e))
+                      (kernel_url, str(e)), sys.exc_info()[2]
 
     try:
         initrd = urllib.urlopen(initrd_url)
     except urllib.HTTPError, e:
         raise ImageDownloadException, \
                   "Error downloading initrd from '%s': %s" % \
-                      (initrd_url, str(e))
+                      (initrd_url, str(e)), sys.exc_info()[2]
 
     if not os.path.isdir(local_path):
         os.makedirs(local_path)

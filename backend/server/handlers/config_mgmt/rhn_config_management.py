@@ -129,7 +129,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             errno = e.args[0]
             if errno == 2292:
                 raise rhnFault(4005, "Cannot remove non-empty channel %s" %
-                    config_channel, explain=0)
+                    config_channel, explain=0), None, sys.exc_info()[2]
             raise
 
         log_debug(5, "Removed:", config_channel)

@@ -64,7 +64,7 @@ def start_domain(uuid):
     except Exception, e:
         raise VirtualizationException, \
               "Error occurred while attempting to recreate domain %s: %s" % \
-                  (uuid, str(e))
+                  (uuid, str(e)), sys.exc_info()[2]
 
 ###############################################################################
 # Helper Methods
@@ -100,7 +100,7 @@ def _prepare_guest_kernel_and_ramdisk(config):
         os.rename(pygrub_initrd_path, runtime_initrd_path)
     except OSError, oe:
         raise VirtualizationException, \
-              "Error occurred while renaming runtime image paths: %s" % str(oe)
+              "Error occurred while renaming runtime image paths: %s" % str(oe), sys.exc_info()[2]
 
 
 def _extract_image_paths_from_pygrub_output(output):

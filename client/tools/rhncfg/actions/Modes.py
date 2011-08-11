@@ -70,8 +70,8 @@ class PathHandler:
             try:
                 f = open(os.path.join(self.rhn_root, filename), "w")
                 f.close()
-            except Exception, e:
-                raise e
+            except Exception:
+                raise
 
     #remove the file if it's present.
     def remove_file(self, filename):
@@ -79,8 +79,8 @@ class PathHandler:
         if self.check_for_file(filename):
             try:
                 os.remove(os.path.join(self.rhn_root, filename))
-            except Exception, e:
-                raise e
+            except Exception:
+                raise
 
     #Returns True if filename exists in /etc/sysconfig/rhn/allowed-actions/configfiles
     def check_for_file(self, filename):

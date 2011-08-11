@@ -97,7 +97,7 @@ class RhnCli(object):
         except crypto.Error, e:
             sys.stderr.write(_("There was a SSL crypto error: %s\n") % e)
         except SystemExit, e:
-            raise e
+            raise
         except up2dateErrors.AuthenticationError, e:
             sys.stderr.write(_("There was an authentication error: %s\n") % e)
             sys.exit(1)

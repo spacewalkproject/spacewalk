@@ -17,6 +17,7 @@
 # system module imports
 import os
 import stat
+import sys
 
 from rhn import rpclib
 
@@ -231,8 +232,8 @@ class Repository(rhnRepository.Repository):
                         "repodata request", file_name, bypass_filters=True)
                 rhnSQL.commit()
                 # This returns 404 to the client
-                raise rhnFault(6)
-            raise e
+                raise rhnFault(6), None, sys.exc_info()[2]
+            raise
 
     def repodata(self, file_name):
         # By default we're using taskomatic's repomd. But if the config
@@ -347,7 +348,7 @@ class Repository(rhnRepository.Repository):
             stat_info = os.stat(filePath)
         except:
             raise rhnFault(17, "Unable to read package %s"
-                               % os.path.basename(filePath))
+                               % os.path.basename(filePath)), None, sys.exc_info()[2]
         lastModified = stat_info[stat.ST_MTIME]
 
         # OK, file exists, check the cache

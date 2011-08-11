@@ -16,6 +16,7 @@
 from xml.dom.minidom import parse
 import string
 import os
+import sys
 
 ###############################################################################
 # Exceptions
@@ -73,7 +74,8 @@ class DomainConfig:
             self.__dom_tree = parse(self.__file_name).documentElement
         except Exception, e:
             raise DomainConfigError("Error reading config file '%s': %s" % \
-                                        (self.__file_name, str(e)))
+                                        (self.__file_name, str(e))), None, sys.exc_info()[2]
+
 
     def save(self):
         """Saves any changes made to this configuration."""
@@ -84,7 +86,8 @@ class DomainConfig:
                 file.write(self.__dom_tree.toxml())
             except IOError, ioe:
                 raise DomainConfigError("Error saving config file '%s': %s" % \
-                                            (self.__file_name, str(ioe)))
+                                            (self.__file_name, str(ioe))), None, sys.exc_info()[2]
+
         finally:
             if file is not None:
                 file.close()
@@ -242,7 +245,7 @@ class DomainConfig:
         except IndexError, ie:
             raise DomainConfigError(
                 "Error writing %s tag in '%s'." % \
-                    (string.join(tag_path, '/'), self.__file_name))
+                    (string.join(tag_path, '/'), self.__file_name)), None, sys.exc_info()[2]
 
     def __setElementAttribute(self, start_tree, value, *tag_path):
         attribute_name = tag_path[-1]

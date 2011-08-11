@@ -16,6 +16,7 @@
 
 import types
 import string
+import sys
 
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
@@ -198,7 +199,7 @@ def import_channels(channels, orgid=None):
         try:
             timestamp = collection.get_channel_timestamp(c)
         except KeyError:
-            raise Exception, "Could not find channel %s" % c
+            raise Exception, "Could not find channel %s" % c, sys.exc_info()[2]
         c_obj = collection.get_channel(c, timestamp)
         if c_obj is None:
             raise Exception, "Channel not found in cache: %s" % c

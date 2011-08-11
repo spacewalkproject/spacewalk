@@ -18,6 +18,7 @@
 #
 
 import string
+import sys
 
 from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -304,7 +305,7 @@ class Device(GenericDevice):
                         self.data[k] = self.data[k][1:-1]
         except IndexError:
             raise IndexError, "Can not process data = %s, key = %s" % (
-                repr(self.data), k)
+                repr(self.data), k), sys.exc_info()[2]
                 
                                 
 class HardwareDevice(Device):

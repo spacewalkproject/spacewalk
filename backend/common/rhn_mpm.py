@@ -18,8 +18,8 @@ import gzip
 import cStringIO
 import tempfile
 import xmlrpclib
-
 import struct
+import sys
 
 from types import ListType, TupleType
 
@@ -57,9 +57,9 @@ def load(filename=None, file=None, fd=None):
         try:
             return load_rpm(f)
         except InvalidPackageError:
-            raise e
+            raise e, None, sys.exc_info()[2]
         except:
-            raise e
+            raise e, None, sys.exc_info()[2]
 
     return p.header, p.payload_stream
 
@@ -69,7 +69,7 @@ def load_rpm(stream):
     try:
         import rhn_rpm
     except ImportError:
-        raise InvalidPackageError
+        raise InvalidPackageError, None, sys.exc_info()[2]
 
     # Dup the file descriptor, we don't want it to get closed before we read
     # the payload
@@ -82,11 +82,11 @@ def load_rpm(stream):
     try:
         header = rhn_rpm.get_package_header(file=stream)
     except rhn_rpm.InvalidPackageError, e:
-        raise apply(InvalidPackageError, e.args)
+        raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
     except rhn_rpm.error, e:
-        raise InvalidPackageError(e)
+        raise InvalidPackageError(e), None, sys.exc_info()[2]
     except:
-        raise InvalidPackageError
+        raise InvalidPackageError, None, sys.exc_info()[2]
     stream.seek(0, 0)
 
     return header, stream

@@ -72,6 +72,6 @@ class Handler(handler_base.HandlerBase):
                 if e.faultCode == -4011:
                     print "%s does not exist" % remote_file
                     continue
-                raise e
+                raise
             else:
                 print "%s removed" % remote_file

@@ -342,7 +342,7 @@ class RpcApi(object):
             return ret
 
         except xmlrpclib.Fault, m:
-            raise RuntimeError("rpc: method '%s', args '%s'\nError message: %s" % (method_name, str(args), m))
+            raise RuntimeError("rpc: method '%s', args '%s'\nError message: %s" % (method_name, str(args), m)), None, sys.exc_info()[2]
 
     def multicall(self, method_name, argsets):
         """Quick hack to implement XML-RPC's multicall like function.

@@ -237,7 +237,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught while getting channel info." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught while getting channel info." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
         ###BINARY RPM INFO###
         try:
@@ -272,7 +272,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught while getting binary rpm info." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught while getting binary rpm info." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
                     
         ###PACKAGE INFO###
         #This will grab channel package information for a given channel.
@@ -316,7 +316,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught while getting package info." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught while getting package info." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
         ###SOURCE PACKAGE INFO###
         try:
@@ -351,7 +351,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught while getting source package info." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught while getting source package info." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
         ###ERRATA INFO###
         try:
@@ -390,7 +390,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught while getting errata info." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught while getting errata info." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
         
         ###KICKSTART DATA/TREES INFO###
         try:
@@ -427,7 +427,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught while getting kickstart data info." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught while getting kickstart data info." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
         ###KICKSTART FILES INFO###
         try:
@@ -469,7 +469,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught while getting kickstart files info." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught while getting kickstart files info." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
                 
     #The close method overrides the parent classes close method. This implementation
     #closes the self.outstream, which is an addition defined in this subclass.
@@ -516,7 +516,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError(exceptmsg % e.__class__.__name__, tbout.getvalue())
+            raise ISSError(exceptmsg % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
     def dump_arches(self):
         self._dump_simple(self.fm.getArchesFile(), dumper.XML_Dumper.dump_arches,
@@ -585,7 +585,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_channels." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_channels." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
     def dump_channel_packages_short(self):
         try:
@@ -598,7 +598,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_channel_packages_short." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_channel_packages_short." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
             
     def dump_packages(self):
         try:
@@ -627,7 +627,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_packages." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_packages." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
     
     def dump_packages_short(self):
         try:
@@ -654,7 +654,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_packages_short." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_packages_short." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
     def dump_source_packages(self):
         try:
@@ -666,7 +666,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_source_packages." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_source_packages." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
     def dump_errata(self):
         try:
@@ -694,7 +694,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_errata." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_errata." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
     def dump_kickstart_data(self):
         try:
@@ -720,7 +720,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_kickstart_data." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_kickstart_data." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
     def dump_kickstart_files(self):
         try:
@@ -765,7 +765,7 @@ class Dumper(dumper.XML_Dumper):
                 except IOError, e:
                     tbout = cStringIO.StringIO()
                     Traceback(mail=0, ostream=tbout, with_locals=1)
-                    raise ISSError("Error: Error copying file: %s: %s" % (path_to_files, e.__class__.__name__), tbout.getvalue())
+                    raise ISSError("Error: Error copying file: %s: %s" % (path_to_files, e.__class__.__name__), tbout.getvalue()), None, sys.exc_info()[2]
     
                 log2email(5, "Kickstart File: %s" % os.path.join(kickstart_file['base-path'], kickstart_file['relative-path'])) 
         
@@ -779,7 +779,7 @@ class Dumper(dumper.XML_Dumper):
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_kickstart_files." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_kickstart_files." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
     
     #RPM and SRPM dumping code
     def dump_rpms(self):
@@ -822,12 +822,12 @@ class Dumper(dumper.XML_Dumper):
                 except IOError, e:
                     tbout = cStringIO.StringIO()
                     Traceback(mail=0, ostream=tbout, with_locals=1)
-                    raise ISSError("Error: Error copying file %s: %s" % (os.path.join(CFG.MOUNT_POINT, rpm['path']), e.__class__.__name__), tbout.getvalue())
+                    raise ISSError("Error: Error copying file %s: %s" % (os.path.join(CFG.MOUNT_POINT, rpm['path']), e.__class__.__name__), tbout.getvalue()), None, sys.exc_info()[2]
                 except OSError, e:
                     tbout = cStringIO.StringIO()
                     Traceback(mail=0, ostream=tbout, with_locals=1)
                     raise ISSError("Error: Could not make hard link %s: %s (different filesystems?)" % (os.path.join(CFG.MOUNT_POINT, rpm['path']),
-e.__class__.__name__), tbout.getvalue())
+e.__class__.__name__), tbout.getvalue()), None, sys.exc_info()[2]
                 log2email(5, "RPM: %s" % rpm['path'])
     
                 pb.addTo(1)
@@ -840,7 +840,7 @@ e.__class__.__name__), tbout.getvalue())
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_rpms." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError("%s caught in dump_rpms." % e.__class__.__name__, tbout.getvalue()), None, sys.exc_info()[2]
 
 def get_report():
     body = dumpEMAIL_LOG()

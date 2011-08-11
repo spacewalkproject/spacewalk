@@ -39,7 +39,7 @@ class UserAuth:
                 # invalid login/password; set timeout to baffle
                 # brute force password guessing attacks (BZ 672163)
                 time.sleep(2)
-            raise e
+            raise
 
         log_debug(4, "Groups: %s; org_id: %s; user_id: %s" % (
             self.groups, self.org_id, self.user_id))
@@ -53,7 +53,7 @@ class UserAuth:
                 # invalid login/password; set timeout to baffle
                 # brute force password guessing attacks (BZ 672163)
                 time.sleep(2)
-            raise e
+            raise
 
         log_debug(4, "Groups: %s; org_id: %s; user_id: %s" % (
             self.groups, self.org_id, self.user_id))

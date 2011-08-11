@@ -72,7 +72,7 @@ class Lockfile:
         except IOError, e:
             if e.errno == EWOULDBLOCK:
                 raise LockfileLockedException(
-                  "cannot acquire lock on %s." % self.lockfile)
+                  "cannot acquire lock on %s." % self.lockfile), None, sys.exc_info()[2]
             else:
                 raise
         # unlock upon exit

@@ -318,11 +318,11 @@ def check_cert(cert_path):
     try:
         cert = open(cert_path).read()
     except IOError:
-        raise InvalidCertError("Unable to read file", cert_path)
+        raise InvalidCertError("Unable to read file", cert_path), None, sys.exc_info()[2]
     try:
         x509 = SSL.crypto.load_certificate(SSL.crypto.FILETYPE_PEM, cert)
     except SSL.crypto.Error:
-        raise InvalidCertError("Unable to open certificate", cert_path)
+        raise InvalidCertError("Unable to open certificate", cert_path), None, sys.exc_info()[2]
     log_debug(4, "Loading cert", x509.get_subject())
     if x509.has_expired():
         raise InvalidCertError("Expired certificate", cert_path)
@@ -610,7 +610,7 @@ class JabberClient(jabber.Client):
             # Error in the SSL handshake - most likely mismatching CA cert
             log_error("Traceback caught:")
             log_error(extract_traceback())
-            raise SSLHandshakeError
+            raise SSLHandshakeError, None, sys.exc_info()[2]
 
         # Re-init the parsers
         jabber.xmlstream.Stream.connect(self)
@@ -1032,7 +1032,7 @@ class JabberClient(jabber.Client):
                 except SSL.SSL.SysCallError, e:
                     log_debug(5, "Closing socket")
                     self._non_ssl_sock.close()
-                    raise SSLError("OpenSSL error; will retry", str(e))
+                    raise SSLError("OpenSSL error; will retry", str(e)), None, sys.exc_info()[2]
                 log_debug(5, "Read %s bytes" % len(data))
                 if not data:
                     raise JabberError("Premature EOF")

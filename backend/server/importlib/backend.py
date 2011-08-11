@@ -18,6 +18,7 @@
 
 import copy
 import string
+import sys
 
 from spacewalk.common import rhn_rpm
 from spacewalk.common.rhnConfig import CFG
@@ -479,7 +480,6 @@ class Backend:
                 raise TypeError("Expected an IncompletePackage instance, found %s" % \
                                 str(type(package)))
         for package in packages:
-            exception = None
             for type, chksum  in package['checksums'].iteritems():
                 package['checksum_type'] = type
                 package['checksum']      = chksum
@@ -489,10 +489,10 @@ class Backend:
                     exception = None
                     break
                 except InvalidPackageError, e:
-                    exception = e
-            if exception and not ignore_missing:
-                raise exception 
-                    
+                    if ignore_missing:
+                        pass
+                    else:
+                        raise
 
     def lookupSolarisPackages(self, packages, ignore_missing=0):
         for pkg in packages:
@@ -993,8 +993,8 @@ class Backend:
 	        activate_channel_entitlements(cfp['org_id'], 
 		               cfp['channel_family'], cfp['max_members'], cfp['max_flex'])
             except rhnSQL.SQLError, e:
-		raise rhnFault(23, str(e[1]) + ": org_id [%s] family [%s] max [%s]" % \
-		    (cfp['org_id'], cfp['channel_family'], cfp['max_members']), explain=0)
+                raise rhnFault(23, str(e[1]) + ": org_id [%s] family [%s] max [%s]" % \
+                    (cfp['org_id'], cfp['channel_family'], cfp['max_members']), explain=0), None, sys.exc_info()[2]
             
         # The way we constructed the list of channel family permissions, we
         # should have (at least) all of the permissions from the database in
@@ -1255,7 +1255,7 @@ class Backend:
             try:
                 refresh_newest_package(channel_id, caller)
             except rhnSQL.SQLError, e:
-                raise rhnFault(23, str(e[1]), explain=0)
+                raise rhnFault(23, str(e[1]), explain=0), None, sys.exc_info()[2]
             if deleted_packages_list:
                 invalidate_ss = 1
             else:
@@ -1316,9 +1316,9 @@ class Backend:
                 h.executemany(id=ids, value=values)
             except rhnSQL.SQLSchemaError, e:
                 if e.errno == 01401:
-                    raise ValueError, e.errmsg
+                    raise ValueError, e.errmsg, sys.exc_info()[2]
                 else:
-                    raise rhnFault(30, e.errmsg, explain=0)
+                    raise rhnFault(30, e.errmsg, explain=0), None, sys.exc_info()[2]
 
     def __buildQueries(self, childTables):
         childTableLookups = {}
@@ -1629,7 +1629,7 @@ class Backend:
             try:
                 self.__doInsertTable(tname, dict)
             except rhnSQL.SQLError, e:
-                raise rhnFault(54, str(e[1]), explain=0)
+                raise rhnFault(54, str(e[1]), explain=0), None, sys.exc_info()[2]
 
     def __doInsertTable(self, table, hash):
         if not hash:

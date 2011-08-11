@@ -20,6 +20,7 @@
 
 import string
 import time
+import sys
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.server import rhnSQL
@@ -189,7 +190,7 @@ class VirtualizationEventHandler:
             handler = getattr(self, self.HANDLERS[event])
         except KeyError, ke:
             raise VirtualizationEventError(
-                "Don't know how to handle virt event:", event)
+                "Don't know how to handle virt event:", event), None, sys.exc_info()[2]
 
         # Ensure that the event has any required properties before calling the
         # handler.
@@ -612,7 +613,7 @@ class VirtualizationEventHandler:
                 query.execute(**bindings)
             except rhnSQL.SQLError, e:
                 log_error(str(e))
-                raise VirtualizationEventError, str(e)
+                raise VirtualizationEventError, str(e), sys.exc_info()[2]
 
         # Now update the rhnVirtualInstanceInfo table.
  

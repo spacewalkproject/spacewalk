@@ -32,7 +32,7 @@ try:
     config.read(VDSM_CONF)
 except:
     # VDSM not available
-    raise ImportError('local vdsm not found')
+    raise ImportError('local vdsm not found'), None, sys.exc_info()[2]
 
 def getTrustStorePath():
     tsPath = None

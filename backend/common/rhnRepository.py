@@ -18,6 +18,7 @@ import os
 import stat
 import types
 import cStringIO
+import sys
 from rhn import rpclib
 
 from spacewalk.common import rhn_rpm
@@ -168,7 +169,7 @@ class Repository(RPC_Base):
                 s = os.stat(filePath)
             except:
                 raise rhnFault(17, "Unable to read package %s"
-                                   % os.path.basename(filePath))
+                                   % os.path.basename(filePath)), None, sys.exc_info()[2]
             
         lastModified = s[stat.ST_MTIME]
         del s # XXX: not neccessary?

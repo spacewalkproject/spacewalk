@@ -19,6 +19,7 @@ Non-authenticated dumper
 import os
 import xmlrpclib
 import gzip
+import sys
 
 from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -131,7 +132,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         except IOError:
             log_error("Client appears to have closed connection")
             self.close()
-            raise dumper.ClosedConnectionError
+            raise dumper.ClosedConnectionError, None, sys.exc_info()[2]
         log_debug(5, "Bytes sent", len(data))
 
     write = send
@@ -417,15 +418,15 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             return _get_path_from_cursor(h)
         except InvalidPackageError:
             log_debug(4, "Error", "Non-existent package requested", fileName)
-            raise rhnFault(17, _("Invalid RPM package %s requested") % fileName)
+            raise rhnFault(17, _("Invalid RPM package %s requested") % fileName), None, sys.exc_info()[2]
         except NullPathPackageError, e:
             package_id = e[0]
             log_error("Package path null for package id", package_id)
-            raise rhnFault(17, _("Invalid RPM package %s requested") % fileName)
+            raise rhnFault(17, _("Invalid RPM package %s requested") % fileName), None, sys.exc_info()[2]
         except MissingPackageError, e:
             filePath = e[0]
             log_error("Package not found", filePath)
-            raise rhnFault(17, _("Package not found"))
+            raise rhnFault(17, _("Package not found")), None, sys.exc_info()[2]
 
 
 
@@ -435,7 +436,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             stream = open(path)
         except IOError, e:
             if e.errno == 2:
-                raise rhnFault(3007, "Missing file %s" % path)
+                raise rhnFault(3007, "Missing file %s" % path), None, sys.exc_info()[2]
             # Let it flow so we can find it later
             raise
 
@@ -462,7 +463,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
                 # client closed the connection?
                 log_error("Client appears to have closed connection")
                 self.close_rpm()
-                raise dumper.ClosedConnectionError
+                raise dumper.ClosedConnectionError, None, sys.exc_info()[2]
         self.close_rpm()
 
     def close_rpm(self):

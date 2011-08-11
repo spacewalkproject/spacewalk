@@ -21,6 +21,7 @@ import transports
 import urllib
 import socket
 import re
+import sys
 
 from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
 
@@ -381,7 +382,7 @@ class Server:
                 save_response = self._transport.response_status
             except xmlrpclib.ProtocolError, pe:
                 if self.use_handler_path:
-                    raise pe
+                    raise
                 else:
                      save_response = pe.errcode
 
@@ -624,14 +625,14 @@ class GETServer(Server):
                 offset = int(offset)
             except ValueError:
                 # Error
-                raise RangeError("Invalid value `%s' for offset" % offset)
+                raise RangeError("Invalid value `%s' for offset" % offset), None, sys.exc_info()[2]
 
         if amount is not None:
             try:
                 amount = int(amount)
             except ValueError:
                 # Error
-                raise RangeError("Invalid value `%s' for amount" % amount)
+                raise RangeError("Invalid value `%s' for amount" % amount), None, sys.exc_info()[2]
 
             if amount <= 0:
                 raise RangeError("Invalid value `%s' for amount" % amount)

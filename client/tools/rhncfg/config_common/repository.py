@@ -159,7 +159,7 @@ class Repository:
             file_stat = os.lstat(local_path)
         except OSError, e:
             raise cfg_exceptions.RepositoryLocalFileError(
-                "Error lstat()-ing local file: %s" % e)
+                "Error lstat()-ing local file: %s" % e), None, sys.exc_info()[2]
 
         # Dlimiters
         if delim_start or delim_end:
@@ -193,7 +193,7 @@ class Repository:
                 file_contents = open(local_path, "r").read()
             except IOError, e:
                 raise cfg_exceptions.RepositoryLocalFileError(
-                    "Error opening local file: %s" % e)
+                    "Error opening local file: %s" % e), None, sys.exc_info()[2]
 
             self._add_content(file_contents, params)
 

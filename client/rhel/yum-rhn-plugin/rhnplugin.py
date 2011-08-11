@@ -309,7 +309,7 @@ class RhnRepo(YumRepository):
         try:
             li = up2dateAuth.getLoginInfo()
         except up2dateErrors.RhnServerException, e:
-            raise yum.Errors.RepoError(unicode(e))
+            raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
 
         # TODO:  do evalution on li auth times to see if we need to obtain a
         # new session...
@@ -336,7 +336,7 @@ class RhnRepo(YumRepository):
                 try:
                     up2dateAuth.updateLoginInfo()
                 except up2dateErrors.RhnServerException, e:
-                    raise yum.Errors.RepoError(unicode(e))
+                    raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
 
                 return self._noExceptionWrappingGet(url, relative, local,
                     start, end, copy_local, checkfunc, text, reget, cache, size)
@@ -344,11 +344,11 @@ class RhnRepo(YumRepository):
         except URLGrabError, e:
             raise yum.Errors.RepoError, \
                 "failed to retrieve %s from %s\nerror was %s" % (relative,
-                self.id, e)
+                self.id, e), sys.exc_info()[2]
         except SSLError, e:
-            raise yum.Errors.RepoError(unicode(e))
+            raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
         except up2dateErrors.InvalidRedirectionError, e:
-            raise up2dateErrors.InvalidRedirectionError(e)
+            raise up2dateErrors.InvalidRedirectionError(e), None, sys.exc_info()[2]
     _YumRepository__get = _getFile
 
     # This code is copied from yum, we should get the original code to

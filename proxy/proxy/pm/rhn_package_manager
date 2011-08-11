@@ -22,7 +22,7 @@ if __name__ == '__main__':
     except ImportError, e:
         sys.stderr.write("Unable to find package management libraries.\n"
                          "Path not correct? '%s'\n" % LIBPATH)
-        raise ImportError, e
+        raise
 
     try:
         rhn_package_manager.main()

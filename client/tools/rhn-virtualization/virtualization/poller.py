@@ -92,7 +92,7 @@ def poll_hypervisor():
         except libvirt.libvirtError, lve:
             raise VirtualizationException, \
                   "Failed to obtain handle to domain %d: %s" % \
-                      (domainID, repr(lve))
+                      (domainID, repr(lve)), None, sys.exc_info()[2]
 
         uuid = binascii.hexlify(domain.UUID())
         # SEE: http://libvirt.org/html/libvirt-libvirt.html#virDomainInfo

@@ -200,25 +200,25 @@ def activateSatellite_local(options):
     except satellite_cert.ParseException:
         raise RHNCertLocalActivationException(
           'RHN Entitlement Certificate failed to validate - '
-          'failed sanity parse.')
+          'failed sanity parse.'), None, sys.exc_info()[2]
     except satCerts.CertGenerationMismatchError:
         raise RHNCertLocalActivationException(
             'RHN Entitlement Certificate cannot be imported - '
-            'mismatching generation.')
+            'mismatching generation.'), None, sys.exc_info()[2]
     except satCerts.CertVersionMismatchError, e:
         raise RHNCertLocalActivationException(
             'RHN Entitlement Certificate cannot be imported - ' + str(e) \
             + '\nIf you are trying to upgrade the Satellite server, please see the upgrade documentation ' + \
             'located here /etc/sysconfig/rhn/satellite-upgrade/README  (as part of the rhn-upgrade package).  ' + \
             'WARNING: If you want to skip this check, please use --ignore-version-mismatch, but doing so may cause issues ' + \
-            '(including malfunction of the Satellite software).  Only skip the test if instructed to do so by a support technician.')
+            '(including malfunction of the Satellite software).  Only skip the test if instructed to do so by a support technician.'), None, sys.exc_info()[2]
     except satCerts.NoFreeEntitlementsError, e:
         sys.stderr.write(e.message + '\n')
         sys.exit(1)
     except Exception:
         raise RHNCertLocalActivationException(
           'RHN Entitlement Certificate failed to validate: \n'
-          '%s' % rhnTB.fetchTraceback())
+          '%s' % rhnTB.fetchTraceback()), None, sys.exc_info()[2]
 
     return 0
 
@@ -293,7 +293,7 @@ def activateSatellite_remote(options):
             if abs(f.faultCode) != 1025:
                 sys.stderr.write('ERROR: unhandled XMLRPC fault upon '
                                  'remote deactivation (reraising): %s\n' % f)
-                raise RHNCertRemoteActivationException('%s' % f)
+                raise RHNCertRemoteActivationException('%s' % f), None, sys.exc_info()[2]
 
     no_sat_chan_for_version = 'no_sat_for_version'
     no_sat_chan_for_version1 = "Unhandled exception 'no_sat_chan_for_version' (unhandled_named_exception)"
@@ -313,7 +313,7 @@ def activateSatellite_remote(options):
             sys.stderr.write(
                 'ERROR: error upon attempt to activate this %s\n'
                 'against the RHN hosted service.\n\n%s\n' % (PRODUCT_NAME, f))
-            raise RHNCertRemoteActivationException('%s' % f)
+            raise RHNCertRemoteActivationException('%s' % f), None, sys.exc_info()[2]
 
         if not oldApiYN \
           and (abs(f.faultCode) in range(1020, 1039+1)
@@ -322,54 +322,54 @@ def activateSatellite_remote(options):
             if abs(f.faultCode) == 1020:
                 # 1020 results in "no_management_slots"
                 print "NOTE: no management slots found on the hosted account."
-                raise RHNCertRemoteNoManagementSlotsException('%s' % f)
+                raise RHNCertRemoteNoManagementSlotsException('%s' % f), None, sys.exc_info()[2]
             elif abs(f.faultCode) == 1021:
                 # 1021 results in "satellite_already_activated"
                 # This shouldn't happen anymore (we deactivate prior to this step).
                 print "NOTE: this %s is already activated - deactivate on the website and try again." % PRODUCT_NAME
-                raise RHNCertRemoteSatelliteAlreadyActivatedException('%s' % f)
+                raise RHNCertRemoteSatelliteAlreadyActivatedException('%s' % f), None, sys.exc_info()[2]
             elif abs(f.faultCode) == 1022:
                 # 1022 results in "no_access_to_sat_channel"
                 print "NOTE: hosted RHN reports 'no_access_to_sat_channel'."
-                raise RHNCertRemoteNoAccessToSatChannelException('%s' % f)
+                raise RHNCertRemoteNoAccessToSatChannelException('%s' % f), None, sys.exc_info()[2]
             elif abs(f.faultCode) == 1023:
                 # 1023 results in "insufficient_channel_entitlements"
                 print "NOTE: hosted RHN reports 'insufficient_channel_entitlements'."
-                raise RHNCertRemoteInsufficientChannelEntitlementsException('%s' % f)
+                raise RHNCertRemoteInsufficientChannelEntitlementsException('%s' % f), None, sys.exc_info()[2]
             elif abs(f.faultCode) == 1024:
                 # 1024 results in "invalid_sat_certificate"
                 print "NOTE: hosted RHN reports 'invalid_sat_certificate'."
-                raise RHNCertRemoteInvalidSatCertificateException('%s' % f)
+                raise RHNCertRemoteInvalidSatCertificateException('%s' % f), None, sys.exc_info()[2]
             elif abs(f.faultCode) == 1025:
                 # 1025 results in "satellite_not_activated"
                 print """\
 NOTE: hosted RHN reports 'satellite_not_activated'. This is an odd fault that
 indicates an odd state - deactivate on the website and try again."""
-                raise RHNCertRemoteSatelliteNotActivatedException('%s' % f)
+                raise RHNCertRemoteSatelliteNotActivatedException('%s' % f), None, sys.exc_info()[2]
             elif abs(f.faultCode) == 1026:
                 # 1026 results in "satellite_no_base_channel"
                 print """\
 NOTE: hosted RHN reports 'satellite_no_base_channel'. This system is not
 entitled to a base channel in your RHN account."""
-                raise RHNCertRemoteSatelliteNoBaseChannelException('%s' % f)
+                raise RHNCertRemoteSatelliteNoBaseChannelException('%s' % f), None, sys.exc_info()[2]
             elif f.faultString in (no_sat_chan_for_version,
                                    no_sat_chan_for_version1):
                 print """\
 NOTE: hosted RHN reports 'no_sat_chan_for_version'. This system does not have
 access to a channel that corresponds to the version of RHN certificate used to
 attempted activation."""
-                raise RHNCertNoSatChanForVersion('%s' % f)
+                raise RHNCertNoSatChanForVersion('%s' % f), None, sys.exc_info()[2]
 
             # other errors [1027, ..., 1039]:
             sys.stderr.write(
                 'ERROR: error upon attempt to activate this %s\n'
                 'against the RHN hosted service.\n\n%s\n' % (PRODUCT_NAME, f))
-            raise RHNCertRemoteActivationException('%s' % f)
+            raise RHNCertRemoteActivationException('%s' % f), None, sys.exc_info()[2]
 
         # still in except: section. Need to raise unhandled.
         sys.stderr.write('ERROR: unhandled XMLRPC fault upon '
                          'remote activation: %s\n' % f)
-        raise RHNCertRemoteActivationException('%s' % f)
+        raise RHNCertRemoteActivationException('%s' % f), None, sys.exc_info()[2]
 
     return ret
 

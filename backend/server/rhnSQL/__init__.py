@@ -153,7 +153,7 @@ def __test_DB():
     try:
         return __DB
     except NameError:
-        raise SystemError, "Not connected to any database!"    
+        raise SystemError, "Not connected to any database!", sys.exc_info()[2]
 
 # wrapper for a Procedure callable class
 def Procedure(name):

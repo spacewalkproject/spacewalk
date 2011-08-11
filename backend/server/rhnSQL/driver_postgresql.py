@@ -163,8 +163,9 @@ class Database(sql_base.Database):
                 return self.connect(reconnect=0)
 
             # Failed reconnect, time to error out:
-            raise apply(sql_base.SQLConnectError,
-                        [self.database, e.pgcode, e.pgerror, "Attempting Re-Connect to the database failed",])
+            raise sql_base.SQLConnectError(
+                        self.database, e.pgcode, e.pgerror,
+                        "Attempting Re-Connect to the database failed"), None, sys.exc_info()[2]
 
     def is_connected_to(self, backend, host, port, username, password,
                         database):
@@ -266,7 +267,7 @@ class Cursor(sql_base.Cursor):
             # TODO: Constructor for this exception expects a first arg of db,
             # and yet the Oracle driver passes it an errno? Suspect it's not
             # even used.
-            raise rhnSQL.SQLStatementPrepareError(0, str(e), self.sql)
+            raise rhnSQL.SQLStatementPrepareError(0, str(e), self.sql), None, sys.exc_info()[2]
         return retval
 
     def _execute_(self, args, kwargs):

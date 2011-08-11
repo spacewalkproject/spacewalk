@@ -214,7 +214,7 @@ class FileManip:
                 os.unlink(self.full_path)
             except:
                 pass
-            raise FileCreationError(msg)
+            raise FileCreationError(msg), None, sys.exc_info()[2]
         l_file_size = fout.tell()
         fout.close()
 

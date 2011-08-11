@@ -153,7 +153,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
                 raise
             except Exception, e:
                 log_debug(-1, 'ERROR (odd) upon container.batch=[] cleanup: %s' % e)
-                raise e
+                raise
 
     # Interface with containers
     def set_container(self, obj):

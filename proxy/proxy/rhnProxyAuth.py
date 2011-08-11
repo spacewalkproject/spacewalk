@@ -22,6 +22,7 @@ import time
 import string
 import socket
 import xmlrpclib
+import sys
 
 ## local imports
 import rhnAuthCacheClient
@@ -82,7 +83,7 @@ class ProxyAuth:
             log_error("unable to stat %s: %s" % (ProxyAuth.__systemid_filename, repr(e)))
             raise rhnFault(1000,
                       _("RHN Proxy error (RHN Proxy systemid has wrong permissions?). "
-                        "Please contact your system administrator."))
+                        "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         if not self.__systemid_mtime:
             ProxyAuth.__systemid_mtime = mtime
@@ -99,7 +100,7 @@ class ProxyAuth:
             log_error("unable to read %s" % ProxyAuth.__systemid_filename)
             raise rhnFault(1000,
                       _("RHN Proxy error (RHN Proxy systemid has wrong permissions?). "
-                        "Please contact your system administrator."))
+                        "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         # get serverid
         sysid, cruft = xmlrpclib.loads(ProxyAuth.__systemid)
@@ -154,7 +155,7 @@ problems, isn't running, or the token is somehow corrupt.
             Traceback("ProxyAuth.set_cached_token", extra=text)
             raise rhnFault(1000,
                       _("RHN Proxy error (auth caching issue). "
-                        "Please contact your system administrator."))
+                        "Please contact your system administrator.")), None, sys.exc_info()[2]
         log_debug(4, "successfully returning")
         return token
 
@@ -287,7 +288,7 @@ problems, isn't running, or the token is somehow corrupt.
                 if e.faultCode == 10000:
                     # reraise it for the users (outage or "important message"
                     # coming through")
-                    raise rhnFault(e.faultCode, e.faultString)
+                    raise rhnFault(e.faultCode, e.faultString), None, sys.exc_info()[2]
                 # ok... it's some other fault
                 Traceback("ProxyAuth.login (Fault) - RHN Proxy not "
                           "able to log in.")
@@ -295,7 +296,7 @@ problems, isn't running, or the token is somehow corrupt.
                 # clear
                 raise rhnFault(1000,
                           _("RHN Proxy error (during proxy login). "
-                            "Please contact your system administrator."))
+                            "Please contact your system administrator.")), None, sys.exc_info()[2]
             except Exception, e:
                 token = None
                 log_error("Unhandled exception", e)

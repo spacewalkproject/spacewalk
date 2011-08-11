@@ -14,6 +14,7 @@
 # in this software or its documentation.
 #
 
+import sys
 # RHN imports
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
@@ -175,7 +176,7 @@ def get_header(file, fildes=None, source=None):
     try:
         h = rhn_mpm.get_package_header(filename=file, fd=fildes)
     except rhn_mpm.InvalidPackageError:
-        raise uploadLib.UploadError("Package is invalid")
+        raise uploadLib.UploadError("Package is invalid"), None, sys.exc_info()[2]
     # Verify that this is indeed a binary/source. xor magic
     # xor doesn't work with None values, so compare the negated values - the
     # results are identical

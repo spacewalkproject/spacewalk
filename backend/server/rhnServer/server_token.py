@@ -16,6 +16,7 @@
 #
 
 import string
+import sys
 
 from cStringIO import StringIO
 
@@ -203,7 +204,7 @@ def token_server_groups(server_id, tokens_obj):
             log_error("Failed to add server to group", server_id,
                       server_group_id, sg["name"])
             raise rhnFault(80, _("Failed to add server to group %s") % 
-                sg["name"])
+                sg["name"]), None, sys.exc_info()[2]
         else:
             ret.append("Subscribed to server group '%s'" % sg["name"])
     return ret
@@ -641,13 +642,13 @@ class ActivationTokens:
                     #ORA-20220: (servergroup_max_members) - Server group membership
                     #cannot exceed maximum membership
                     raise rhnFault(91, 
-                        _("Registration failed: RHN Software Management service entitlements exhausted"))
+                        _("Registration failed: RHN Software Management service entitlements exhausted")), None, sys.exc_info()[2]
                 #No idea what error may be here...
-                raise rhnFault(90, e.errmsg)
+                raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
             except rhnSQL.SQLError, e:
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.args)
-                raise rhnFault(90, str(e))
+                raise rhnFault(90, str(e)), None, sys.exc_info()[2]
             else:
                 history["entitlement"] = "Entitled as a %s member" % entitlement[1]
 
@@ -685,11 +686,11 @@ class ReRegistrationActivationToken(ReRegistrationToken):
             except rhnSQL.SQLSchemaError, e:
                 log_error("Failed to unentitle server", server_id,
                     ent, e.errmsg)
-                raise rhnFault(90, e.errmsg)
+                raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
             except rhnSQL.SQLError, e:
                 log_error("Failed to unentitle server", server_id,
                     ent, e.args)
-                raise rhnFault(90, str(e))
+                raise rhnFault(90, str(e)), None, sys.exc_info()[2]
 
         # Call parent method:
         ReRegistrationToken.entitle(self, server_id, history, virt_type)

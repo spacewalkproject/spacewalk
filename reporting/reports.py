@@ -1,6 +1,7 @@
 
 import os
 import re
+import sys
 
 REPORT_DEFINITIONS = "/usr/share/spacewalk/reports/data"
 
@@ -26,7 +27,7 @@ class report:
 		try:
 			fd = open(full_path, 'r')
 		except (IOError):
-			raise spacewalk_unknown_report
+			raise spacewalk_unknown_report, None, sys.exc_info()[2]
 		tag = None
 		value = ''
 		re_comment = re.compile('^\s*#')

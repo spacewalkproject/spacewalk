@@ -392,7 +392,7 @@ class apachePOST(apacheRequest):
             self.parser.feed(data)
         except IndexError:
             # malformed XML data
-            raise xmlrpclib.ResponseError
+            raise xmlrpclib.ResponseError, None, sys.exc_info()[2]
 
         self.parser.close()
         # extract the method and arguments; we pass the exceptions through
@@ -422,7 +422,7 @@ class apachePOST(apacheRequest):
             classname, funcname = string.split(method, '.', 1)
         except:
             raise UnknownXML("method '%s' doesn't have a class and function" %
-                             (method,))
+                             (method,)), None, sys.exc_info()[2]
         if not classname or not funcname:
             raise UnknownXML(method)
 

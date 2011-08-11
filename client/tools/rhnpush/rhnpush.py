@@ -639,7 +639,7 @@ class UploadClass(uploadLib.UploadClass):
             except:
 	        # Raise the exception instead of silently dying
                 raise UploadError("Error pushing %s: %s (%s)" % 
-		            (package, msgstr, status))
+		            (package, msgstr, status)), None, sys.exc_info()[2]
             (diff_dict, ), methodname = data
             del methodname
             diff_level = diff_dict['level']

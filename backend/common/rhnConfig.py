@@ -100,7 +100,7 @@ class RHNOptions:
             si = os.stat(self.filename)
         except OSError, e:
             raise ConfigParserError("config file read error",
-                                    self.filename, e.args[1])
+                                    self.filename, e.args[1]), None, sys.exc_info()[2]
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
@@ -571,7 +571,7 @@ def parse_file(filename, single_key = 0):
             (keys, values) = parse_line(line)
         except:
             raise ConfigParserError("Parse Error: <%s:%s>: '%s'" % (
-                filename, lineno, line))
+                filename, lineno, line)), None, sys.exc_info()[2]
         if keys is None: # We don't care about this line
             continue
         # now process the parsed line
@@ -612,7 +612,7 @@ def read_file(filename):
                 combined = combined + line.replace('\\\n', ' ') 
         return new_lines
     except (IOError, OSError), e:
-        raise ConfigParserError("Can not read config file", filename, e.args[1])
+        raise ConfigParserError("Can not read config file", filename, e.args[1]), None, sys.exc_info()[2]
 
 
 def getAllComponents_tree(defaultDir=None):

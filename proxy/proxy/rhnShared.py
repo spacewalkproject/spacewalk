@@ -19,6 +19,7 @@
 import urllib
 import string
 import socket
+import sys
 from types import ListType, TupleType
 
 ## global imports
@@ -123,7 +124,7 @@ class SharedHandler:
             Traceback(mail=0)
             raise rhnFault(1000,
               _("RHN Proxy could not successfully connect its RHN parent. "
-                "Please contact your system administrator."))
+                "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         # At this point the server should be okay
         log_debug(3, "Connected to parent: %s " % self.rhnParent)
@@ -204,12 +205,12 @@ class SharedHandler:
             # XXX: why are we not mailing this out???
             Traceback("SharedHandler._serverCommo", self.req, mail=0)
             raise rhnFault(1000, _(
-                "RHN Proxy error: connection with the RHN server failed"))
+                "RHN Proxy error: connection with the RHN server failed")), None, sys.exc_info()[2]
         except socket.error:
             # maybe self.req.read() failed?
             Traceback("SharedHandler._serverCommo", self.req)
             raise rhnFault(1000, _(
-                "RHN Proxy error: connection with the RHN server failed"))
+                "RHN Proxy error: connection with the RHN server failed")), None, sys.exc_info()[2]
 
         log_debug(2, "HTTP status code (200 means all is well): %s" % status)
 

@@ -53,7 +53,7 @@ class ClientRepository(repository.RPC_Repository):
             if e.faultCode == -9:
                 # System not subscribed
                 raise cfg_exceptions.AuthenticationError(
-                    "Invalid digital server certificate%s" % e.faultString)
+                    "Invalid digital server certificate%s" % e.faultString), None, sys.exc_info()[2]
             raise
         return result
 
@@ -131,7 +131,7 @@ class ClientRepository(repository.RPC_Repository):
                     failed_due_to_quota.append(file)
                 else:
                     raise cfg_exceptions.RepositoryFilePushError(fault_code,
-                        fault_string)
+                        fault_string), None, sys.exc_info()[2]
             except Exception:
                 traceback.print_exc()
                 raise

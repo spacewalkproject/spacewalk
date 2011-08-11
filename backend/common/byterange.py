@@ -15,6 +15,7 @@
 #
 
 import re
+import sys
 
 # common module
 from spacewalk.common.rhnLog import log_debug
@@ -44,7 +45,7 @@ def parse_byteranges(byterange_header, file_size = None):
         start, end = map(_str2int, mo.groups())
     except ValueError:
         # Invalid
-        raise InvalidByteRangeException
+        raise InvalidByteRangeException, None, sys.exc_info()[2]
     if start is not None:
         if start < 0:
             # Invalid

@@ -18,6 +18,7 @@
 # system modules
 import time
 import string
+import sys
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnConfig import CFG
@@ -426,17 +427,17 @@ class Server(ServerWrapper):
                 # Should not normally happen
                 log_error("Failed to entitle", self.server["id"], entitlement,
                     e.errmsg)
-                raise server_lib.rhnSystemEntitlementException("Unable to entitle")
+                raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
             except rhnSQL.SQLError, e:
                 log_error("Failed to entitle", self.server["id"], entitlement,
                     str(e))
-                raise server_lib.rhnSystemEntitlementException("Unable to entitle")
+                raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
             else:
                 if any_base_entitlements:
                     # All is fine
                     return
                 else:
-                    raise server_lib.rhnNoSystemEntitlementsException
+                    raise server_lib.rhnNoSystemEntitlementsException, None, sys.exc_info()[2]
 
     def _entitle(self, entitlement):
         entitle_server = rhnSQL.Procedure("rhn_entitlements.entitle_server")

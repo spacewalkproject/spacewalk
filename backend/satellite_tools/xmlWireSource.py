@@ -173,7 +173,8 @@ class BaseWireSource:
                 break
                 # do not reraise this exception!
         if lastErrorMsg:
-            raise RhnSyncException, lastErrorMsg
+            raise RhnSyncException, lastErrorMsg, sys.exc_info()[2]
+        # Returns a stream
         # Should never be reached
         return stream
 

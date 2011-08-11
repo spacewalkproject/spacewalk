@@ -246,7 +246,7 @@ def _create_disk_image(guest_name, img_size_gb, base_dir = XEN_DISK_IMAGE_DIR):
             os.mkdir(base_dir)
         except Exception, e:
             raise DiskImageCreationException, \
-                  "Could not create %s: %s" % (base_dir, str(e))
+                  "Could not create %s: %s" % (base_dir, str(e)), sys.exc_info()[2]
     
     # Construct the path of the disk image.
     image_path = os.path.join(base_dir, "%s.disk" % guest_name)
@@ -254,7 +254,7 @@ def _create_disk_image(guest_name, img_size_gb, base_dir = XEN_DISK_IMAGE_DIR):
     # If the disk already exists, we will fail.
     if os.path.exists(image_path):
         raise DiskImageCreationException, \
-              "Disk image %s already exists." % image_path
+              "Disk image %s already exists." % image_path, sys.exc_info()[2]
 
     # Attempt to create an image file and fill it with nulls.
     fd = None
@@ -267,7 +267,7 @@ def _create_disk_image(guest_name, img_size_gb, base_dir = XEN_DISK_IMAGE_DIR):
         except Exception, e:
             raise DiskImageCreationException, \
                   "Error while creating image file %s of size %s GB: %s" % \
-                      (image_path, str(img_size_gb), str(e))
+                      (image_path, str(img_size_gb), str(e)), sys.exc_info()[2]
     finally:
         if fd: os.close(fd)
 
@@ -284,7 +284,7 @@ def _connect_to_hypervisor():
         import libvirt
     except ImportError, ie:
         raise VirtLibNotFoundException, \
-              "Unable to locate libvirt: %s" % str(ie)
+              "Unable to locate libvirt: %s" % str(ie), sys.exc_info()[2]
 
     # Attempt to connect to the hypervisor.
     connection = None
@@ -292,7 +292,7 @@ def _connect_to_hypervisor():
         connection = libvirt.open(None)
     except Exception, e:
         raise VirtualizationKickstartException, \
-              "Could not connect to hypervisor: %s" % str(e)
+              "Could not connect to hypervisor: %s" % str(e), sys.exc_info()[2]
 
     return connection
 
@@ -336,7 +336,7 @@ def _begin_domain_installation(connection,
     except Exception, e:
         raise VirtualizationKickstartException, \
               "Error occurred while attempting to create domain %s: %s" % \
-                  (name, str(e))
+                  (name, str(e)), sys.exc_info()[2]
 
     # Wait a bit for the instance to start and then ensure that the domain is 
     # still around.  If it isn't we will assume that it crashed.
@@ -346,7 +346,7 @@ def _begin_domain_installation(connection,
     except Exception, e:
         raise VirtualizationKickstartException, \
               "Domain '%s' exited too quickly.  It probably crashed: %s" % \
-                  (name, str(e))
+                  (name, str(e)), sys.exc_info()[2]
 
     return domain
 
@@ -418,7 +418,7 @@ def _check_guest_mbr(diskPath):
     except Exception, e:
         raise VirtualizationKickstartException, \
             "Error checking for guest disk MBR, install may have failed: %s" % \
-                  diskPath
+                  diskPath, sys.exc_info()[2]
 
 def _create_boot_config_file(name, 
                              mem_kb, 
@@ -446,7 +446,7 @@ def _create_boot_config_file(name,
     except Exception, e:
         raise VirtualizationKickstartException, \
               "Error occurred while attempting to store config file %s: %s" % \
-                  (str(uuid), str(e))
+                  (str(uuid), str(e)), sys.exc_info()[2]
 
     return domain_dir.get_config_path(uuid)
 
@@ -463,7 +463,7 @@ def _boot_domain(uuid):
         raise VirtualizationKickstartException, \
               "Error occurred while rebooting domain '%s' (%s).  " \
               "Traceback: %s" % \
-                  (uuid, str(ve), stack_trace_str)
+                  (uuid, str(ve), stack_trace_str), sys.exc_info()[2]
 
 def syslog_listener(host, port, log_notify_handler):
     """

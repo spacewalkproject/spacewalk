@@ -82,7 +82,7 @@ class Queue(rhnHandler):
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
             raise EmptyAction("Could not get a valid method for %s" % (
-                action['method'],))
+                action['method'],)), None, sys.exc_info()[2]
         # Call the method
         result = method(self.server_id, action['id'], dry_run)
         if result is None:
@@ -397,7 +397,7 @@ class Queue(rhnHandler):
             except ValueError:
                 log_error("Invalid action_id", action_id)
                 raise rhnFault(30, _("Invalid action value type %s (%s)") % 
-                    (action_id, type(action_id)))
+                    (action_id, type(action_id))), None, sys.exc_info()[2]
         # Authenticate the system certificate
         self.auth_system(system_id)
         log_debug(1, self.server_id, action_id, result)
@@ -510,7 +510,7 @@ class Queue(rhnHandler):
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
             raise EmptyAction("Could not get a valid method for %s" % 
-                action_type)
+                action_type), None, sys.exc_info()[2]
         # Call the method
         result = method(self.server_id, action_id, data=data)
         return result

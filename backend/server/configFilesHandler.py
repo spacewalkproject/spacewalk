@@ -19,6 +19,7 @@
 import base64
 import os
 import xmlrpclib
+import sys
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
@@ -233,27 +234,27 @@ class ConfigFilesHandler(rhnHandler):
         except ConfigFilePathIncomplete, e:
             raise rhnFault(4015,
                            "Full path of file '%s' must be specified" % e.file.get('path'),
-                           explain=0)
+                           explain=0), None, sys.exc_info()[2]
         except ConfigFileExistsError, e:
             raise rhnFault(4013, 
                            "File %s already uploaded" % e.file.get('path'),
-                           explain=0)
+                           explain=0), None, sys.exc_info()[2]
         except ConfigFileVersionMismatchError, e:
             raise rhnFault(4012, "File %s uploaded with a different "
-                           "version" % e.file.get('path'), explain=0)
+                           "version" % e.file.get('path'), explain=0), None, sys.exc_info()[2]
         except ConfigFileMissingDelimError, e:
             raise rhnFault(4008, "Delimiter not specified for file %s" %
-                           e.file.get('path'), explain=0)
+                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
         except ConfigFileMissingContentError, e:
             raise rhnFault(4007, "No content sent for file %s" % 
-                           e.file.get('path'), explain=0)
+                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
         except ConfigFileExceedsQuota, e:
             raise rhnFault(4014, "File size of %s exceeds free quota space" %
-                           e.file.get('path'), explain=0)
+                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
         except ConfigFileTooLargeError, e:
             raise rhnFault(4003, "File size of %s larger than %s bytes" %
                            (e.file.get('path'), self._get_maximum_file_size()),
-                           explain=0)
+                           explain=0), None, sys.exc_info()[2]
 
 
         rhnSQL.commit()

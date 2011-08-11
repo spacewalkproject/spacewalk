@@ -13,7 +13,7 @@
 # in this software or its documentation. 
 #
 
-
+import sys
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server.rhnLib import InvalidAction, ShadowAction
 from spacewalk.server.action.utils import SubscribedChannel,\
@@ -67,11 +67,11 @@ def schedule_virt_host_pkg_install(server_id, action_id, dry_run=0):
         else:
             log_debug(4, "dry run requested")
     except NoActionInfo, nai:
-        raise InvalidAction(str(nai))
+        raise InvalidAction(str(nai)), None, sys.exc_info()[2]
     except PackageNotFound, pnf:
-        raise InvalidAction(str(pnf))
+        raise InvalidAction(str(pnf)), None, sys.exc_info()[2]
     except Exception, e:
-        raise InvalidAction(str(e))
+        raise InvalidAction(str(e)), None, sys.exc_info()[2]
 
     log_debug(3, "Completed scheduling install of rhn-virtualization-host and osad!")
     raise ShadowAction("Scheduled installation of RHN Virtualization Host packages.")
