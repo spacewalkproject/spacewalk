@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.43
+Version: 2.5.44
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu Aug 11 2011 Miroslav Suchý 2.5.44-1
+- do not mask original error by raise in execption
+
 * Tue Aug 09 2011 Martin Minar <mminar@redhat.com> 2.5.43-1
 - 688095 - set timeout for HTTP connections (mzazrivec@redhat.com)
 
