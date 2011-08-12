@@ -1192,16 +1192,12 @@ sub _select_table_primary_keys {
   my $table = 'ALL_CONSTRAINTS';
 
   my $sql = <<EOSQL;
-    SELECT ac.constraint_name,
-           ac.table_name,
-           acc.column_name
-    FROM   all_constraints ac,
-           all_cons_columns acc
-    WHERE  UPPER(ac.table_name) = UPPER(?)
-      AND  ac.constraint_type = 'P'
-      AND  ac.constraint_name = acc.constraint_name
-      AND  ac.owner = acc.owner
-    ORDER BY ac.constraint_name, acc.position
+    SELECT constraint_name,
+           table_name,
+           column_name
+    FROM   all_primary_keys
+    WHERE  UPPER(table_name) = UPPER(?)
+    ORDER BY constraint_name, column_name
 EOSQL
 
   my $result = $self->execute($sql, $table, FETCH_ARRAYREF, @args);
