@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.12
+Version: 1.6.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Aug 12 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.13-1
+- removed unnecessary join
+
 * Thu Aug 11 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.12-1
 - fixed couple more joins
 - removed typo parenthesis
