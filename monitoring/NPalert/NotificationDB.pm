@@ -415,7 +415,7 @@ sub select_contact_groups {
     select g.*,  
            (contact_strategy || ':' || ack_completed  || 'Ack') as strategy
      from  $table g, 
-           strategies s
+           rhn_strategies s
      where g.strategy_id = s.recid
 EOSQL
 
