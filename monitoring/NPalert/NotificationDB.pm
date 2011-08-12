@@ -10,6 +10,8 @@ use NOCpulse::Config;
 use NOCpulse::Probe::DataSource::AbstractDatabase qw(:constants);
 use NOCpulse::Probe::Error;
 
+use RHN::DB;
+
 use base qw(NOCpulse::Probe::DataSource::AbstractDatabase);
 use Class::MethodMaker
   get_set =>
@@ -73,25 +75,8 @@ sub init {
 
 sub connect {
   my ($self, %paramHash) = @_;
-  my $cfg = new NOCpulse::Config;
-  $ENV{'ORACLE_HOME'} = $cfg->get('oracle', 'ora_home');
-  my $DBD     = $cfg->get('cf_db', 'dbd');
-  my $DBNAME  = $cfg->get('cf_db', 'name');
-  my $DBUNAME = $cfg->get('cf_db', 'notification_username');
-  my $DBPASS  = $cfg->get('cf_db', 'notification_password');
-
-  my $PrintError = $paramHash{PrintError} || 0;
-  my $RaiseError = $paramHash{RaiseError} || 0;
-  my $AutoCommit = $paramHash{AutoCommit} || 0;
-
-  # Disconnect prior session, if exists
-  if ($self->dbh) {
-    $self->disconnect;
-  }
-
   # Open a connection to the DB
-  $self->dbh(DBI->connect("DBI:$DBD:$DBNAME", $DBUNAME, $DBPASS,
-                 { RaiseError => $RaiseError, AutoCommit => $AutoCommit }));
+  $self->dbh(RHN::DB->connect);
 
   return $self->dbh;
 }
