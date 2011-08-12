@@ -483,10 +483,11 @@ sub select_schedule_and_zone_combos {
       distinct 
         schedule_id, 
         nvl(substr($support_table2.olson_name,1,40),'GMT') as olson_tz_id
-    FROM  $table, $support_table1, $support_table2
+    FROM  $table, $support_table1
+    LEFT  JOIN $support_table2
+      ON  $support_table1.timezone_id = $support_table2.id
     WHERE schedule_id is not null
     AND   $table.contact_id = $support_table1.user_id
-    AND   $support_table2.id (+) = $support_table1.timezone_id
 EOSQL
 
   return $self->execute($sql, undef, FETCH_ARRAYREF);
