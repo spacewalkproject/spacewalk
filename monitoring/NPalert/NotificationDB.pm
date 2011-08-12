@@ -196,10 +196,11 @@ SELECT
     nvl(substr($table3.olson_name,1,40),'GMT') as olson_tz_id,
     $table.snmp_host, $table.snmp_port
 FROM 
-    $table, $table2, $table3
+    $table, $table2
+LEFT JOIN $table3
+  ON $table2.timezone_id = $table3.id
 WHERE
     $table.contact_id = $table2.user_id
-AND $table3.id (+) = $table2.timezone_id
 EOSQL
 
   return $self->execute($sql, $table, FETCH_ARRAYREF);
