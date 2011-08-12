@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.8
+Version: 1.6.9
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Aug 12 2011 Miroslav Suchý 1.6.9-1
+- do not verify md5, size and mtime for /etc/yum/pluginconf.d/rhnplugin.conf
+
 * Thu Aug 11 2011 Miroslav Suchý 1.6.8-1
 - do not mask original error by raise in execption
 
