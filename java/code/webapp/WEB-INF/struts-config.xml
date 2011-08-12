@@ -2242,7 +2242,7 @@
              type="com.redhat.rhn.frontend.action.errata.EditAction"
              parameter="dispatch"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" value="user_role(channel_admin)"/>
+         <set-property property="acls" value="user_role(channel_admin); errata_editable()"/>
          <set-property property="postRequiredIfSubmitted" value="true" />
          <forward name="published"
              path="/errata/manage/SelectChannels.do" redirect="true"/>

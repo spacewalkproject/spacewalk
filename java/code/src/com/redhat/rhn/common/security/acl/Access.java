@@ -20,6 +20,8 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
@@ -422,6 +424,22 @@ public class Access extends BaseHandler implements AclHandler {
         Long cid = getAsLong(map.get("cid"));
         Channel c = ChannelFactory.lookupById(cid);
         return c.isProtected();
+    }
+
+    /**
+     * See if the erratum isn't a Red Hat erratum
+     * @param ctx Our current context, containing the erratum
+     * @param params nevim, dal
+     * @return whether the erratum isn't a Red Hat erratum
+     */
+    public boolean aclErrataEditable(Object ctx, String[] params) {
+        Map map = (Map)ctx;
+        Long eid = getAsLong(map.get("eid"));
+        Errata e = ErrataFactory.lookupById(eid);
+        if (e == null || e.getOrg() == null) {
+            return false;
+        }
+        return true;
     }
 
     /*
