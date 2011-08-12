@@ -115,13 +115,11 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
  	<query params="sid, org_id, user_id">
 	SELECT VSGM.group_id AS ID,
  		SG.name AS GROUP_NAME,
- 		SGT.label AS GROUP_TYPE_LABEL,
+		VSGM.group_type AS GROUP_TYPE_LABEL,
 		(SELECT 1 FROM rhnUserServerGroupPerms WHERE user_id = :user_id AND server_group_id = SG.id) AS USER_PERMITTED_ACCESS
         FROM
 		rhnServerGroup SG,
-                rhnVisServerGroupMembership VSGM
-        LEFT JOIN rhnServerGroupType SGT
-                ON VSGM.group_type = SGT.id,
+                rhnVisServerGroupMembership VSGM,
  		rhnUserServerGroupPerms USGP
  	WHERE VSGM.org_id = :org_id
  		AND VSGM.server_id = :sid
