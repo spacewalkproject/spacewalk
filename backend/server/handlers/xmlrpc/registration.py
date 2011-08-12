@@ -15,6 +15,7 @@
 
 # system modules
 import string
+import sys
 
 from spacewalk.common import rhnFlags, rhnMail
 from spacewalk.common.rhnLog import log_debug, log_error
