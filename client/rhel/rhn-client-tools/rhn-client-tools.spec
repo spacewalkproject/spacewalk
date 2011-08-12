@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.12
+Version: 1.6.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Aug 12 2011 Miroslav Suchý 1.6.13-1
+- do not verify md5, size and mtime for /etc/sysconfig/rhn/up2date
+
 * Thu Aug 11 2011 Jan Pazdziora 1.6.12-1
 - 729161 - default to RHSM in firstboot registration (mzazrivec@redhat.com)
 - 729468 - firstboot dialogs polishing (mzazrivec@redhat.com)
