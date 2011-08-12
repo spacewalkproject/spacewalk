@@ -64,7 +64,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/rhnplugin.conf
+%verify(not md5 mtime size) %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/rhnplugin.conf
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 %{_datadir}/yum-plugins/*
