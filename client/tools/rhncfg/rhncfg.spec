@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.12
+Version: 5.10.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Aug 12 2011 Miroslav Suchý 5.10.13-1
+- add proto, server_name and server_list to local_config overrides
+- None has not iteritems() method
+
 * Thu Aug 11 2011 Miroslav Suchý 5.10.12-1
 - True and False constants are defined since python 2.4
 - do not mask original error by raise in execption
