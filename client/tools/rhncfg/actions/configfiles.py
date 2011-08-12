@@ -409,8 +409,11 @@ def create_key_list():
 
 def _init():
     cfg = config.initUp2dateConfig()
-    local_config.init('rhncfg-client', defaults=dict(cfg.items()))
+    cfg_dict = dict(cfg.items())
+    server_url = config.getServerlURL()
+    cfg_dict['proto'], cfg_dict['server_name'] = utils.parse_url(server_url[0], scheme="https")[:2]
+    if len(server_url) > 1:
+        cfg_dict['server_list'] = server_url
+    local_config.init('rhncfg-client', defaults=cfg_dict)
     set_debug_level(int(local_config.get('debug_level') or 0))
     set_logfile("/var/log/rhncfg-actions")
-
-    
