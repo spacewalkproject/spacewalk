@@ -197,7 +197,7 @@ make -f Makefile.rhn-client-tools test
 %dir %{_sysconfdir}/sysconfig/rhn/allowed-actions
 %dir %{_sysconfdir}/sysconfig/rhn/allowed-actions/configfiles
 %dir %{_sysconfdir}/sysconfig/rhn/allowed-actions/script
-%config(noreplace) %{_sysconfdir}/sysconfig/rhn/up2date
+%verify(not md5 mtime size) %config(noreplace) %{_sysconfdir}/sysconfig/rhn/up2date
 %config(noreplace) %{_sysconfdir}/logrotate.d/up2date
 %config(noreplace) %{_sysconfdir}/rpm/macros.up2date
 
