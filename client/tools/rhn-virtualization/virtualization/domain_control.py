@@ -117,7 +117,7 @@ def _get_domain(uuid):
         domain = conn.lookupByUUIDString(hyphenized_uuid)
     except libvirt.libvirtError, lve:
         raise VirtualizationException, \
-              "Domain UUID '%s' not found: %s", (hyphenized_uuid, str(lve)), None, sys.exc_info()[2]
+              "Domain UUID '%s' not found: %s" (hyphenized_uuid, str(lve)), sys.exc_info()[2]
     return (conn, domain)
 
 def _call_domain_control_routine(uuid, routine_name, *args):
