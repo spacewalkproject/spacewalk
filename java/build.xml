@@ -418,7 +418,6 @@
            debug="on"
            source="1.5"
            target="1.5"
-           includeantruntime="false"
            nowarn="on">
       <classpath>
           <path refid="buildjars" />
@@ -447,7 +446,6 @@
            srcdir="code/internal/src"
            source="1.5"
            target="1.5"
-           includeantruntime="false"
            classpathref="buildjars" >
     </javac>
   </target>
@@ -467,7 +465,6 @@
            encoding="utf-8"
            fork="yes"
            memoryMaximumSize="512m"
-           includeantruntime="false"
            classpathref="buildjars" >
       <src>
         <path location="${build.dir}/src" />
@@ -512,7 +509,6 @@
            encoding="utf-8"
            fork="yes"
            memoryMaximumSize="256m"
-           includeantruntime="false"
            classpathref="alljars" >
       <src>
         <path location="${build.dir}/src" />
@@ -640,7 +636,6 @@ delete from rhnChannel where label like 'ChannelLabel%';
            deprecation="${deprecation}"
            fork="yes"
            memoryMaximumSize="512m"
-           includeantruntime="false"
            classpathref="alljars">
        <src path="${build.dir}/jsp-temp"/>
     </javac>
@@ -755,7 +750,6 @@ delete from rhnChannel where label like 'ChannelLabel%';
            nowarn="on"
            source="1.5"
            target="1.5"
-           includeantruntime="false"
            classpathref="playpen.tests.buildpath" >
       <src>
         <path location="code/playpen/src" />
