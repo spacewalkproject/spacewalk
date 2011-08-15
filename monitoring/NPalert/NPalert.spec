@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.24
+Version:      1.126.25
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,14 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Aug 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.126.25-1
+- 700385 - use standard ANSI join
+- 700385 - use current_timestamps instead of sysdate
+- 700385 - replaced synonym with original table_name
+- 700385 - use standard ANSI join
+- 700385 - created compatibility views for monitoring
+- 700385 - reuse RHN::DB for db connection in NotificationDB.pm
+
 * Thu Jul 21 2011 Miroslav Suchý 1.126.24-1
 - 723899 - run that cron task only if /etc/NOCpulse.ini contains something else
   then comments
