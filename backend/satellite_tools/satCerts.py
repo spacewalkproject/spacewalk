@@ -421,7 +421,7 @@ def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
         ## NUKE IT!
         if deleteRowYN:
             #print 'found a cert, nuking it! id:', rhn_cryptokey_id
-            h = rhnSQL.prepare('delete rhnCryptoKey where id=:rhn_cryptokey_id')
+            h = rhnSQL.prepare('delete from rhnCryptoKey where id=:rhn_cryptokey_id')
             h.execute(rhn_cryptokey_id=rhn_cryptokey_id)
             #rhnSQL.commit()
             rhn_cryptokey_id = -1
