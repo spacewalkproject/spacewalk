@@ -30,7 +30,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="TokenPackage.lookupByToken">
         <![CDATA[from com.redhat.rhn.domain.token.TokenPackage as p
                                         where p.token = :token
-                                     order by p.packageName desc]]>
+                                     order by p.packageName.name]]>
     </query>
 
     <query name="TokenPackage.lookupByName">
