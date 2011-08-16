@@ -83,7 +83,6 @@ fi
 %files server
 %defattr(-,root,root,-)
 %attr(755, nocpulse, nocpulse) %dir %templatedir
-%{perl_vendorlib}/NOCpulse/*
 %cgi_bin/*
 %cgi_mod_perl/*
 %templatedir/*
@@ -93,7 +92,6 @@ fi
 %attr(755,nocpulse,nocpulse) %dir %{vardir}/commands
 %attr(755,nocpulse,nocpulse) %dir %{vardir}/queue/commands
 %{_bindir}/*
-%dir %{perl_vendorlib}/NOCpulse/CommandQueue
 %{perl_vendorlib}/NOCpulse/*
 
 %clean
