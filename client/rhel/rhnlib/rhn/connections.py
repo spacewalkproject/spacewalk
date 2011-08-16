@@ -157,9 +157,31 @@ class HTTPSConnection(HTTPConnection):
     def connect(self):
         "Connect to a host on a given (SSL) port"
         import socket
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(SSL.DEFAULT_TIMEOUT)
-        sock.connect((self.host, self.port))
+
+        results = socket.getaddrinfo(self.host, self.port,
+            socket.AF_UNSPEC, socket.SOCK_STREAM)
+
+        for r in results:
+            af, socktype, proto, canonname, sa = r
+            try:
+                sock = socket.socket(af, socktype, proto)
+            except socket.error, msg:
+                sock = None
+                continue
+
+            sock.settimeout(SSL.DEFAULT_TIMEOUT)
+
+            try:
+                sock.connect((self.host, self.port))
+            except socket.error, e:
+                sock.close()
+                sock = None
+                continue
+            break
+
+        if sock is None:
+            raise socket.error("Unable to connect to the host and port specified")
+
         self.sock = SSL.SSLSocket(sock, self.trusted_certs)
         self.sock.init_ssl()
 
