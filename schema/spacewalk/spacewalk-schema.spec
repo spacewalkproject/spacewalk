@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.6
+Version:        1.6.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Aug 16 2011 Simon Lukasik <slukasik@redhat.com> 1.6.7-1
+- Drop the old function, when creating a new one with different argumeters
+  (slukasik@redhat.com)
+
 * Mon Aug 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.6-1
 - 700385 - schema upgrade scripts
 - 700385 - replaced synonym with original table_name
