@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.20
+Version: 1.6.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 16 2011 Simon Lukasik <slukasik@redhat.com> 1.6.21-1
+- 570925 - provide only a day for the subject of daily summary mail
+  (slukasik@redhat.com)
+- Revert "do not reuse system CLASSPATH variable" (tlestach@redhat.com)
+- 729975 - do not allow to edit Red Hat errata (tlestach@redhat.com)
+- do not reuse system CLASSPATH variable (msuchy@redhat.com)
+
 * Thu Aug 11 2011 Simon Lukasik <slukasik@redhat.com> 1.6.20-1
 - 724918 - added missing acl checks (slukasik@redhat.com)
 
