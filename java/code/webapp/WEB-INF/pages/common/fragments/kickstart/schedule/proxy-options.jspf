@@ -2,6 +2,17 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+
+<script type="text/javascript">
+// clear all input fields in given radio group
+function clearChecked(radioGroup) {
+	var i = radioGroup.length;
+	while (i--) radioGroup[i].checked = false;
+}
+
+//-->
+</script>
+
         <c:if test="${not empty proxies}">
         <h2>
           <img src="/img/rhn-icon-proxy.gif"
@@ -14,13 +25,25 @@
 
         </c:choose>
         <p>
-        <input type="text" name="proxyHostFreeForm" /><br />
 		<c:forEach var="proxy" items="${proxies}">
-			<input type="radio"  name="proxyHost" id="${proxy.value}"
+			<input type="radio"  name="proxyHost" id="x${proxy.value}"
 			<c:choose>
 				<c:when test="${proxy.value == param.proxyHost}">checked</c:when>
 			</c:choose>
-			value='${proxy.value}'/> ${proxy.label}<br />
+            onclick="clearChecked(this.form.proxyHostCname)"
+			value='${proxy.value}'/> <label for="x${proxy.value}">${proxy.label}</label><br />
+            <c:choose>
+            <c:when test="${not empty proxy.value}">
+				<c:set var="property" value="${proxy.value}" />
+	        <c:forEach var="cname" items="${cnames[property]}">
+					<img src="/img/channel_child_node.gif" />
+					<input type="radio"  name="proxyHostCname" id="${cname}"
+						value='${cname}'
+						onclick="clearChecked(this.form.proxyHost)"
+						/><label for="${cname}">${cname}</label><br />
+				</c:forEach>
+			</c:when>
+			</c:choose>
 		</c:forEach>
         <br />
         <bean:message key="kickstart.schedule.tip.proxy.jsp"/>

@@ -791,7 +791,7 @@
             <form-property name="scheduleDate" type="java.util.Date" />
             <form-property name="nextAction" type="java.lang.String" />
             <form-property name="proxyHost" type="java.lang.String" />
-            <form-property name="proxyHostFreeForm" type="java.lang.String" />
+            <form-property name="proxyHostCname" type="java.lang.String" />
             <!--  Advanced Options Page -->
             <form-property name="networkType" type="java.lang.String" />
             <form-property name="networkInterface" type="java.lang.String" />

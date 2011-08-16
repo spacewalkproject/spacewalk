@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
@@ -84,6 +85,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String SYNC_PACKAGE_DISABED = "syncPackageDisabled";
     public static final String SYNC_SYSTEM_DISABLED = "syncSystemDisabled";
     public static final String PROXIES = "proxies";
+    public static final String CNAMES = "cnames";
+    public static final String VALID_CNAMES = "valid_cnames_";
     public static final String KERNEL_PARAMS = "kernelParams";
     public static final String KERNEL_PARAMS_TYPE = "kernelParamsType";
     public static final String KERNEL_PARAMS_DISTRO = "distro";
@@ -93,7 +96,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String POST_KERNEL_PARAMS = "postKernelParams";
     public static final String POST_KERNEL_PARAMS_TYPE = "postKernelParamsType";
     public static final String PROXY_HOST = "proxyHost";
-    public static final String PROXY_HOST_FREE_FORM = "proxyHostFreeForm";
+    public static final String PROXY_HOST_CNAME = "proxyHostCname";
     public static final String IS_VIRTUAL_GUEST = "isVirtualGuest";
     public static final String HOST_SID = "hostSid";
     public static final String VIRT_HOST_IS_REGISTERED = "virtHostIsRegistered";
@@ -170,12 +173,19 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             List<LabelValueBean> formatted = new LinkedList<LabelValueBean>();
 
             formatted.add(lvl10n("kickstart.schedule.default.proxy.jsp", ""));
+            Map cnames = new HashMap();
             for (OrgProxyServer serv : proxies) {
                 formatted.add(lv(serv.getName() + " (" + serv.getCheckin() + ")",
                         serv.getId().toString()));
+                List proxyCnames = Config.get().getList(VALID_CNAMES +
+                    serv.getId().toString());
+                if (!proxyCnames.isEmpty()) {
+                    cnames.put(serv.getId().toString(), proxyCnames);
+                }
             }
             ctx.getRequest().setAttribute(HAS_PROXIES, Boolean.TRUE.toString());
             ctx.getRequest().setAttribute(PROXIES, formatted);
+            ctx.getRequest().setAttribute(CNAMES, cnames);
         }
         else {
             ctx.getRequest().setAttribute(HAS_PROXIES, Boolean.FALSE.toString());
@@ -587,10 +597,10 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             KickstartScheduleCommand cmd) {
         // if we need to go through a proxy, do it here.
         String phost = form.getString(PROXY_HOST);
-        String phostFreeForm = form.getString(PROXY_HOST_FREE_FORM);
+        String phostCname = form.getString(PROXY_HOST_CNAME);
 
-        if (!StringUtils.isEmpty(phostFreeForm)) {
-            cmd.setProxyHost(phostFreeForm);
+        if (!StringUtils.isEmpty(phostCname)) {
+            cmd.setProxyHost(phostCname);
         }
         else if (!StringUtils.isEmpty(phost)) {
             cmd.setProxy(SystemManager.lookupByIdAndOrg(new Long(phost), ctx
