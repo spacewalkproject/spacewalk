@@ -1123,10 +1123,10 @@ def list_all_packages_complete_sql(channel_id):
        and pr.capability_id = pc.id
     union all
     select
-       pr.package_id,
+       prec.package_id,
        'recommends',
-       pr.capability_id,
-       pr.sense,
+       prec.capability_id,
+       prec.sense,
        pc.name,
        pc.version
     from
@@ -1137,10 +1137,10 @@ def list_all_packages_complete_sql(channel_id):
        and prec.capability_id = pc.id
     union all
     select
-       pr.package_id,
+       sugg.package_id,
        'suggests',
-       pr.capability_id,
-       pr.sense,
+       sugg.capability_id,
+       sugg.sense,
        pc.name,
        pc.version
     from
@@ -1151,10 +1151,10 @@ def list_all_packages_complete_sql(channel_id):
        and sugg.capability_id = pc.id
     union all
     select
-       pr.package_id,
+       supp.package_id,
        'supplements',
-       pr.capability_id,
-       pr.sense,
+       supp.capability_id,
+       supp.sense,
        pc.name,
        pc.version
     from
