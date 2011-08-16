@@ -119,5 +119,12 @@ as $$
     end$$
 language plpgsql;
 
+drop function assign_channel_entitlement(
+    channel_family_label_in varchar,
+    from_org_id_in numeric,
+    to_org_id_in numeric,
+    quantity_in numeric
+    );
+
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_entitlements')+1) ) where name = 'search_path';
