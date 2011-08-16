@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.21
+Version: 1.6.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 16 2011 Tomas Lestach <tlestach@redhat.com> 1.6.22-1
+- 654996 - sort activation key packages by name (tlestach@redhat.com)
+
 * Tue Aug 16 2011 Simon Lukasik <slukasik@redhat.com> 1.6.21-1
 - 570925 - provide only a day for the subject of daily summary mail
   (slukasik@redhat.com)
