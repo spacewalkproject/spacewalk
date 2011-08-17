@@ -118,17 +118,17 @@ HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? "
                             "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
 EMAIL                  = _("*Email Address:")
 
-SYSTEM_ALREADY_SETUP = _("System software updates already set up")
+SYSTEM_ALREADY_SETUP = _("System already registered")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
-RHSM_SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been registered with RHN using RHN"
-				" Certificate-Based Entitlement technology. This tool requires registration using"
-				" RHN Classic technology.\n\n"
-				"Except for a few cases, Red Hat recommends customers only register with RHN"
-				" once.\n\n"
-				"For more information, including alternate tools, consult this Knowledge Base"
-				" Article: https://access.redhat.com/kb/docs/DOC-45563")
+RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered with RHN"
+				" using RHN certficate-based technology.\n\n"
+				"The tool you are using is attempting to re-register"
+				" using RHN Classic technology. Red Hat recommends "
+				"(except in a few cases) that customers only register with RHN once.\n\n"
+				"To learn more about RHN registration and technologies please consult this"
+				" Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563")
 
 # Send Window
 SEND_WINDOW      = _("Send Profile Information to Red Hat Network")
