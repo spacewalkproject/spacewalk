@@ -34,10 +34,12 @@ SELECT s.org_id,
        up.name_id,
        x.channel_id
     FROM rhnServer s
-        join rhnServerPackage sp ON sp.server_id = s.id
-        join rhnPackageEvr pe ON pe.id = sp.evr_id
+        join (SELECT sp_sp.server_id, sp_sp.name_id, sp_sp.package_arch_id, max(sp_pe.evr) AS max_evr
+                FROM rhnServerPackage sp_sp
+                    join rhnPackageEvr sp_pe ON sp_pe.id = sp_sp.evr_id
+                    GROUP BY sp_sp.server_id, sp_sp.name_id, sp_sp.package_arch_id) sp ON sp.server_id = s.id
         join rhnPackage up ON up.name_id = sp.name_id
-        join rhnPackageEvr upe ON upe.id = up.evr_id AND pe.evr < upe.evr
+        join rhnPackageEvr upe ON upe.id = up.evr_id AND sp.max_evr < upe.evr
         join rhnPackageUpgradeArchCompat puac ON puac.package_arch_id = sp.package_arch_id AND puac.package_upgrade_arch_id = up.package_arch_id
         join rhnServerChannel sc ON sc.server_id = sp.server_id
         join rhnChannelPackage cp ON cp.package_id = up.id AND cp.channel_id = sc.channel_id
