@@ -24,6 +24,8 @@ except:
     # on rhel4 we do not support selinux
     def lgetfilecon(path):
         return [0, '']
+    def is_selinux_enabled():
+        return 0
 
 from config_common import utils
 
