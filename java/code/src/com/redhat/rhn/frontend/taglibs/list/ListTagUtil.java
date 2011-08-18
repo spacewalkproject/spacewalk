@@ -165,7 +165,9 @@ public class ListTagUtil {
     /**
      * Returns a link containing the URL + ALL the parameters of the
      * request query string minus the sort links, and the alpha link +
-     * the additional params passed in the paramsToAdd map.
+     * the additional params passed in the paramsToAdd map. The resulting
+     * string is urlEncode'd with & encoded as &amp; so it can be used
+     * in a href directly.
      *
      * @param request the Servlet Request
      * @param listName the current list name
@@ -188,7 +190,7 @@ public class ListTagUtil {
             params.append("?");
         }
         else if (url.indexOf('?') != url.length() - 1) {
-            params.append("&");
+            params.append("&amp;");
         }
 
         for (Enumeration<String> en = request.getParameterNames(); en.hasMoreElements();) {
@@ -196,7 +198,7 @@ public class ListTagUtil {
             if (!sortByLabel.equals(paramName) && !sortByDir.equals(paramName) &&
                     !alphaKey.equals(paramName) && !paramsToIgnore.contains(paramName)) {
                 if (params.length() > 1) {
-                    params.append("&");
+                    params.append("&amp;");
                 }
                 params.append(StringUtil.urlEncode(paramName)).append("=")
                             .append(StringUtil.urlEncode(request.getParameter(paramName)));
@@ -204,7 +206,7 @@ public class ListTagUtil {
         }
         for (String key : paramsToAdd.keySet()) {
             if (params.length() > 1) {
-                params.append("&");
+                params.append("&amp;");
             }
             params.append(StringUtil.urlEncode(key)).append("=")
                         .append(StringUtil.urlEncode(paramsToAdd.get(key)));
