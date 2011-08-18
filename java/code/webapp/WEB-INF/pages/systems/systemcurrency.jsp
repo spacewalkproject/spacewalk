@@ -176,6 +176,8 @@
                            <c:out value="${current.score}" />
 		</rl:column>
 	</rl:list>
+    <rl:csv dataset="pageList" name="systemCurrencyList"
+        exportColumns="serverName, critical, important, moderate, low, bug, enhancement, score" />
 </rl:listset>
 </body>
 </html>

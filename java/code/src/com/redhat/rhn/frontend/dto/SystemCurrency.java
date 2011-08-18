@@ -150,6 +150,13 @@ public class SystemCurrency extends BaseDto implements Serializable  {
         return name;
     }
     /**
+     * another getter for name attribute
+     * @return Returns the name.
+     */
+    public String getServerName() {
+        return getName();
+    }
+    /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
