@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.taglibs.list.decorators.ExtraButtonDecorator;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -638,7 +639,8 @@ public class ListTagUtil {
 
         //We set this so we know next time around what the old filter value was
         ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                        makeOldFilterValueByLabel(uniqueName), filterValue));
+                        makeOldFilterValueByLabel(uniqueName),
+                        StringEscapeUtils.escapeHtml(filterValue)));
 
 
         ListTagUtil.write(pageContext, "<td");
@@ -683,7 +685,7 @@ public class ListTagUtil {
         ListTagUtil.write(pageContext, filterValueKey);
         ListTagUtil.write(pageContext, "\" length=\"40\" size=\"10\" value=\"");
         if (filterValue != null) {
-            ListTagUtil.write(pageContext, filterValue);
+            ListTagUtil.write(pageContext, StringEscapeUtils.escapeHtml(filterValue));
         }
         ListTagUtil.write(pageContext, "\" autofocus/>");
 
