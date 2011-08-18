@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.13
+Version: 5.10.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Aug 18 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.14-1
+- 731284 - is_selinux_enabled is not defined on RHEL4
+
 * Fri Aug 12 2011 Miroslav Suchý 5.10.13-1
 - add proto, server_name and server_list to local_config overrides
 - None has not iteritems() method
