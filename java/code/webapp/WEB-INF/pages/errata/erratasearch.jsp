@@ -246,7 +246,7 @@
 
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />
-    <input type="hidden" name="search_string" value="${search_string}" />
+    <html:hidden property="search_string" name="search_string" value="${search_string}" />
     <input type="hidden" name="view_mode" value="${view_mode}" />
     <input type="hidden" name="errata_type_bug" value="<%= request.getParameter("errata_type_bug") %>" />
     <input type="hidden" name="errata_type_security" value="<%= request.getParameter("errata_type_security") %>" />

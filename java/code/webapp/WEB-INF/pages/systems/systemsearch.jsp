@@ -94,7 +94,7 @@
     <rl:listset name="searchSet">
     <rhn:csrf />
     <input type="hidden" name="submitted" value="true"/>
-    <input type="hidden" name="search_string" value="${search_string}" />
+    <html:hidden property="search_string" name="search_string" value="${search_string}" />
     <input type="hidden" name="view_mode" value="${view_mode}" />
     <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
     <input type="hidden" name="invert" value="${invert}" />
