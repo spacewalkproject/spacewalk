@@ -198,7 +198,7 @@ public class ListTagUtil {
                 if (params.length() > 1) {
                     params.append("&");
                 }
-                params.append(paramName).append("=")
+                params.append(StringUtil.urlEncode(paramName)).append("=")
                             .append(StringUtil.urlEncode(request.getParameter(paramName)));
             }
         }
@@ -206,8 +206,8 @@ public class ListTagUtil {
             if (params.length() > 1) {
                 params.append("&");
             }
-            params.append(key).append("=")
-                        .append(paramsToAdd.get(key));
+            params.append(StringUtil.urlEncode(key)).append("=")
+                        .append(StringUtil.urlEncode(paramsToAdd.get(key)));
         }
 
         return url + params.toString();
