@@ -19,7 +19,6 @@
   <property name="build.instrument.dir" location="${build.dir}/instrumented" />
 
   <property name="eclipse.lib.dirs" location="${lib.dir}" />
-  <property name="eclipse.libsrc.dirs" location="${basedir}/code/libsrc" />
 
   <property name="log4j.threshold" value="warn" />
   <property name="rhn.checkout.dir" value="" />

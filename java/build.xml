@@ -65,7 +65,6 @@
       <exec executable="${basedir}/scripts/gen-eclipse.py"
         output="${basedir}/.classpath" >
         <arg value="${eclipse.lib.dirs}:${rhn-home}/buildconf/tempjars:${env.JAVA_HOME}/lib/tools.jar" />
-        <arg value="${eclipse.libsrc.dirs}" />
     </exec>
   </target>
 
