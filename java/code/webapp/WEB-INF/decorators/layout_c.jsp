@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
@@ -35,7 +36,15 @@
 
             </td>
             <td class="page-content">
-            <html:errors/>
+            <logic:messagesPresent>
+              <div class="site-alert">
+                <ul>
+                <html:messages id="message">
+                  <li><c:out value="${message}"/></li>
+                </html:messages>
+                </ul>
+              </div>
+            </logic:messagesPresent>
 			<html:messages id="message" message="true">
 				<rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 			</html:messages>
