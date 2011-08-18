@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.10
+Version: 1.6.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -672,6 +672,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Aug 18 2011 Miroslav Suchý 1.6.11-1
+- 723856 - remove unused variable
+- if we use 1024 as base, we should use kiB, MiB, GiB
+- 731692 - correct output of number beyond decimal point in sat-sync
+
 * Thu Aug 18 2011 Tomas Lestach <tlestach@redhat.com> 1.6.10-1
 - 658533 - remove default currency from backend part of rhn.conf
   (tlestach@redhat.com)
