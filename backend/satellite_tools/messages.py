@@ -64,10 +64,10 @@ Please contact your sales rep or RHN contact
 not_enough_diskspace = _("  ERROR: not enough free space (%s KB) on device.")
 
 package_fetch_successful = _("    %3d/%s Fetch successful: %s (%s bytes)")
-package_fetch_extinct =    _("    %3d/%s Extinct package:  %s")
+package_fetch_extinct =    _("    Extinct package:  %s")
 package_fetch_total_size = _("   Total size: %s")
 package_fetch_remain_size_time = _("      Downloaded %s of %s. Estimated remaining time: %s")
-package_fetch_failed  =    _("    %3d/%s Fetch unsuccessful: %s")
+package_fetch_failed  =    _("    Fetch unsuccessful: %s")
 package_fetch_summary =         _("   RPM fetch summary: %s")
 package_fetch_summary_success = _("       success: %d")
 package_fetch_summary_failed =  _("       failed:  %d")

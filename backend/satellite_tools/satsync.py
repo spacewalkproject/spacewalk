@@ -1908,7 +1908,7 @@ class ThreadDownload(threading.Thread):
                     # Mark the package as extinct
                     self.extinct_packages.put(package_id)
                     log(1, messages.package_fetch_extinct %
-                        (pkg_current, pkgs_total, os.path.basename(path)))
+                        (os.path.basename(path)))
                     break # inner for
 
                 try:
@@ -1926,7 +1926,7 @@ class ThreadDownload(threading.Thread):
                 # Mark the package as failed and move on
                 self.failed_fs_packages.put(package_id)
                 log(1, messages.package_fetch_failed %
-                    (pkg_current, pkgs_total, os.path.basename(path)))
+                    (os.path.basename(path)))
                 # Move to the next package
                 try:
                     self.queue.task_done()
