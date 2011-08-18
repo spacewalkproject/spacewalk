@@ -4754,12 +4754,7 @@ public class SystemHandler extends BaseHandler {
             m.put("low", s.getLow());
             m.put("bug", s.getBug());
             m.put("enh", s.getEnhancement());
-            m.put("score", s.getCritical()    * ConfigDefaults.get().getSCCrit() +
-                           s.getImportant()   * ConfigDefaults.get().getSCImp() +
-                           s.getModerate()    * ConfigDefaults.get().getSCMod() +
-                           s.getLow()         * ConfigDefaults.get().getSCLow() +
-                           s.getBug()         * ConfigDefaults.get().getSCBug() +
-                           s.getEnhancement() * ConfigDefaults.get().getSCEnh());
+            m.put("score", s.getScore());
             l.add(m);
         }
 
