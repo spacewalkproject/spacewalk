@@ -195,10 +195,8 @@ class TempDir:
 
         # add some quick and dirty randomness to the tempfilename
         s = ''
-        x = open('/dev/urandom', 'rb')
         while len(s) < 10:
-            s = s + str(ord(x.read(1)))
-        x.close()
+            s = s + str(ord(os.urandom(1)))
         self.path = tempfile.mkdtemp(suffix='-'+s+suffix)
 
     def getdir(self):
