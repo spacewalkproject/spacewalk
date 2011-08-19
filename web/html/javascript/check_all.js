@@ -16,6 +16,11 @@ function create_checkall_checkbox() {
   if (checkall) {
     checkall.style.display = "inline";
   }
+
+  var update_list_key = document.getElementById("update_list_key_id");
+  if (update_list_key) {
+    update_list_key.style.display = "none";
+  }
 }
 
 function check_all_on_page(form, set_label) {

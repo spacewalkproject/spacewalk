@@ -664,18 +664,19 @@ public class ListDisplayTag extends BodyTagSupport {
 
     private void renderSetButtons(JspWriter out) throws IOException {
         StringBuffer buf = new StringBuffer();
-        addButtonTo(buf, RequestContext.DISPATCH, UPDATE_LIST_KEY);
+        buf.append(addButtonTo(buf, RequestContext.DISPATCH, UPDATE_LIST_KEY,
+                                            "update_list_key_id"));
         buf.append(" ");
-        addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY);
+        buf.append(addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY));
 
         if (numItemsChecked > 0) {
             buf.append(" ");
-            addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY);
+            buf.append(addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY));
         }
         out.println(buf.toString());
     }
 
-    private void addButtonTo(StringBuffer buf, String name,
+    private HtmlTag addButtonTo(StringBuffer buf, String name,
                                String label) {
 
         LocalizationService ls = LocalizationService.getInstance();
@@ -684,9 +685,19 @@ public class ListDisplayTag extends BodyTagSupport {
         input.setAttribute("type", "submit");
         input.setAttribute("name", name);
         input.setAttribute("value", ls.getMessage(label));
-        buf.append(input.render());
+        return input;
 
     }
+
+    private HtmlTag addButtonTo(StringBuffer buf, String name,
+                               String label, String id) {
+
+        HtmlTag input = addButtonTo(buf, name, label);
+        input.setAttribute("id", id);
+        return input;
+
+    }
+
     private void renderPagination(JspWriter out, boolean top)
         throws IOException {
 

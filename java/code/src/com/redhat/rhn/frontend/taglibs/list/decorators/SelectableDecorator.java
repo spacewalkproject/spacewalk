@@ -109,6 +109,7 @@ public class SelectableDecorator extends BaseListDecorator {
             tag.setAttribute("name", buttonName);
             tag.setAttribute("value",
                     ls.getMessage(ListDisplayTag.UPDATE_LIST_KEY));
+            tag.setAttribute("id", "update_list_key_id");
             buf.append(tag.render()).append("&nbsp;");
 
             tag.setAttribute("value",
