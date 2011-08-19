@@ -34,9 +34,6 @@ from sslToolLib import getMachineName, daysTil18Jan2038, incSerial, fixSerial
 
 # defaults where we can see them (NOTE: directory is figured at write time)
 CERT_PATH = '/usr/share/rhn/certs/'
-if not os.path.exists(CERT_PATH):
-    # v3.4.0 and older
-    CERT_PATH = '/var/www/rhns/certs/'
 BUILD_DIR = cleanupNormPath('./ssl-build', dotYN=1)
 HOSTNAME = socket.gethostname()
 MACHINENAME = getMachineName(HOSTNAME)
