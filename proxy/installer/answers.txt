@@ -34,3 +34,6 @@ POPULATE_CONFIG_CHANNEL=Y
 # set this variable to 0 or N
 START_SERVICES=Y
 
+# cname aliases for proxy, this MUST be in parentheses and separated by space
+# do not put here the original hostname
+#SSL_CNAME=(cname.alias.com another.alias.com)

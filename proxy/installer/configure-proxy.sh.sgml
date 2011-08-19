@@ -8,7 +8,7 @@
 
 <RefMeta>
 <RefEntryTitle>&SCRIPTCOMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
-<RefMiscInfo>Version 0.5</RefMiscInfo>
+<RefMiscInfo>Version 1.6</RefMiscInfo>
 </RefMeta>
 
 <RefNameDiv>
@@ -143,6 +143,13 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--ssl-cname=SSL_CNAME</term>
+        <listitem>
+            <para>Cname alias of machine. This will allow you to generate multihost SSL certificate.
+            Can be specified multiple times.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--ssl-common=SSL_COMMON</term>
         <listitem>
             <para>Common name to be used in SSL certificate.</para>
@@ -273,6 +280,13 @@ provide a required response, default answer is used.</para>
         <term>SSL_BUILD_DIR</term>
         <listitem>
            <para>The directory where we build SSL certificate. Default is /root/ssl-build.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>SSL_CNAME</term>
+        <listitem>
+           <para>Cname alias of machine. This will allow you to generate multihost SSL certificate.
+            Has to be specified in format: (cname.alias.com cname.alias2.com ...)</para>
         </listitem>
     </varlistentry>
     <varlistentry>

@@ -62,6 +62,8 @@ options:
             Password to be used for SSL CA certificate.
   --ssl-state=SSL_STATE
 			State to be used in SSL certificate.
+  --ssl-cname=CNAME_ALIAS
+			Cname alias of the machine. Can be specified multiple times.
   --start-services=1
 			1 or Y to start all services after configuration. This is default.
 			0 or N to not start services after configuration.
@@ -77,12 +79,22 @@ HELP
 	exit
 }
 
+parse_answer_file () {
+    local FILE="$1"
+    local ALIAS
+    . $(echo $FILE | cut -d= -f2-)
+    for ALIAS in ${SSL_CNAME[@]}; do
+        SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
+    done
+}
+
 INTERACTIVE=1
+CNAME_INDEX=0
 
 while [ $# -ge 1 ]; do
 	case $1 in
             --help | -h)  print_help;;
-            --answer-file=*) . $(echo $1 | cut -d= -f2-);;
+            --answer-file=*) parse_answer_file $1;;
             --non-interactive) INTERACTIVE=0;;
 
 			--version=*) VERSION=$(echo $1 | cut -d= -f2-);;
@@ -103,6 +115,7 @@ while [ $# -ge 1 ]; do
 			--ssl-country=*) SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
 			--ssl-email=*) SSL_EMAIL=$(echo $1 | cut -d= -f2-);;
 			--ssl-password=*) SSL_PASSWORD=$(echo $1 | cut -d= -f2-);;
+            --ssl-cname=*) SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$(echo $1 | cut -d= -f2-);;
 			--install-monitoring=*) INSTALL_MONITORING=$(echo $1 | cut -d= -f2-);;
 			--enable-scout=*) ENABLE_SCOUT=$(echo $1 | cut -d= -f2-);;
 			--monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
@@ -281,6 +294,14 @@ default_or_input "Country code" SSL_COUNTRY ''
 
 default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
 
+if [ ${#SSL_CNAME_PARSED[@]} -eq 0 ]; then
+  default_or_input "Cname aliases (separated by space)" SSL_CNAME_ASK ''
+  CNAME=($SSL_CNAME_ASK)
+  local ALIAS
+  for ALIAS in ${CNAME[@]}; do
+	SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
+  done
+fi
 
 /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" \
                             --http-proxy="$HTTP_PROXY" \
@@ -460,6 +481,7 @@ echo "Generating SSL key and public certificate:"
                 --set-org="$SSL_ORG" \
                 --set-org-unit="$SSL_ORGUNIT" \
                 --set-email="$SSL_EMAIL" \
+                ${SSL_CNAME_PARSED[@]} \
                 $RHN_SSL_TOOL_PASSWORD_OPTION $RHN_SSL_TOOL_PASSWORD
 config_error $? "SSL key generation failed!"
 
