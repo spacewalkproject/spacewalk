@@ -199,16 +199,7 @@ class TempDir:
         while len(s) < 10:
             s = s + str(ord(x.read(1)))
         x.close()
-        self.path = self._getTempPath(suffix='-'+s+suffix)
-        # tempfile.mkdtemp actaully *creates* the directory
-        if not os.path.exists(self.path):
-            os.makedirs(self.path, 0700)
-
-    def _getTempPath(self, suffix):
-        """ fetch the temporary directory path using the most "correct"
-            mk*temp function for this python version
-        """
-        return tempfile.mkdtemp(suffix=suffix)
+        self.path = tempfile.mkdtemp(suffix='-'+s+suffix)
 
     def getdir(self):
         return self.path
