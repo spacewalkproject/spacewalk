@@ -455,8 +455,10 @@ def figureSerial(caCertFilename, serialFilename, indexFilename):
     # what serial # is the ca cert using (we need to increment from that)
     ret, outstream, errstream = rhn_popen(['/usr/bin/openssl', 'x509', '-noout',
                                            '-serial', '-in', caCertFilename])
-    out = outstream.read(); outstream.close()
-    errstream.read(); errstream.close()
+    out = outstream.read()
+    outstream.close()
+    errstream.read()
+    errstream.close()
     assert not ret
     caSerial = string.split(string.strip(out), '=')
     assert len(caSerial) > 1
