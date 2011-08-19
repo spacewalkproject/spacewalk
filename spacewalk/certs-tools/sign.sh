@@ -135,6 +135,7 @@ serial		= serial 		# The current serial number
 database        = index.txt
 # Commenting for now, the cert gets too big
 x509_extensions = usr_cert
+copy_extensions = copy
 
 # For the CA policy
 [ policy_match ]

@@ -76,6 +76,8 @@ def _getOptionsTree(defs):
 
     _optSetHostname = make_option('--set-hostname', action='store', type="string", help='hostname of the web server you are installing the key set on (default: %s)' % repr(defs['--set-hostname']))
 
+    _optSetCname = make_option('--set-cname', action='append', type="string", help='cname alias of the web server, can be specified multiple times')
+
     _buildRpmOptions = [_optRpmPackager, _optRpmVender, _optRpmOnly]
 
     _genOptions = [
@@ -97,7 +99,7 @@ def _getOptionsTree(defs):
         make_option('--set-common-name', action='store', type="string", help='common name (default: %s)' % repr(defs['--set-common-name'])),
         ] + _genConfOptions
 
-    _serverConfOptions = [ _optSetHostname ] + _genConfOptions
+    _serverConfOptions = [ _optSetHostname, _optSetCname ] + _genConfOptions
 
     # CA generation options
     _caOptions = [
@@ -167,7 +169,7 @@ def _getOptionsTree(defs):
       + _genOptions + [_optServerCertReqOnly]
     _serverCertOnlySet = [_optGenServer] + _serverCertOptions \
       + _genOptions + [_optServerCertOnly]
-    _serverRpmOnlySet = [_optGenServer, _optServerKey, _optServerCertReq, _optServerCert, _optSetHostname ] \
+    _serverRpmOnlySet = [_optGenServer, _optServerKey, _optServerCertReq, _optServerCert, _optSetHostname, _optSetCname ] \
       + _buildRpmOptions + [_optServerRpm, _optServerTar] + _genOptions
 
     optionsTree = {

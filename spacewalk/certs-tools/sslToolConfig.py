@@ -330,6 +330,7 @@ def figureDEFS_distinguishing(options):
     # NOTE: --set-hostname set in figureDEFS_dirs()
     if getOption(options, 'set_email') is not None:
         DEFS['--set-email'] = getOption(options, 'set_email')
+    DEFS['--set-cname'] = getOption(options, 'set_cname') # this is list
 
     # remap to options object
     setOption(options, 'set_country', DEFS['--set-country'])
@@ -340,6 +341,7 @@ def figureDEFS_distinguishing(options):
     setOption(options, 'set_common_name', DEFS['--set-common-name'])
     #setOption(options, 'set_hostname', DEFS['--set-hostname'])
     setOption(options, 'set_email', DEFS['--set-email'])
+    setOption(options, 'set_cname', DEFS['--set-cname'])
 
 
 CONF_TEMPLATE_CA = """\
@@ -360,6 +362,7 @@ serial                  = $dir/serial
 
 # how closely we follow policy
 policy                  = policy_optional
+copy_extensions         = copy
 
 [ policy_optional ]
 countryName             = optional
@@ -412,6 +415,7 @@ default_bits            = 2048
 distinguished_name      = req_distinguished_name
 prompt                  = no
 x509_extensions         = req_server_x509_extensions
+req_extensions          = v3_req
 
 [ req_distinguished_name ]
 %s
@@ -425,9 +429,31 @@ nsCertType = server
 nsComment               = "RHN SSL Tool Generated Certificate"
 subjectKeyIdentifier    = hash
 authorityKeyIdentifier  = keyid, issuer:always
+
+[ v3_req ]
+# Extensions to add to a certificate request
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+
+# Some CAs do not yet support subjectAltName in CSRs.
+# Instead the additional names are form entries on web
+# pages where one requests the certificate...
+subjectAltName          = @alt_names
+
+[alt_names]
+%s
 #===========================================================================
 """
 
+
+def gen_req_alt_names(d):
+    """ generates the alt_names section of the *-openssl.cnf file """
+    i = 0
+    result = ''
+    for name in d['--set-cname']:
+        i += 1
+        result += "DNS.%d = %s\n" % (i, name)
+    return result
 
 def gen_req_distinguished_name(d):
     """ generates the rhn_distinguished section of the *-openssl.cnf file """
@@ -702,7 +728,7 @@ serial                  = $dir/serial
               )
         else:
             openssl_cnf = CONF_TEMPLATE_SERVER \
-              % gen_req_distinguished_name(rdn)
+              % (gen_req_distinguished_name(rdn), gen_req_alt_names(d))
 
         try:
             rotated = rotateFile(filepath=self.filename,verbosity=verbosity)

@@ -505,6 +505,15 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 </listitem>
                 </varlistentry>
                 <varlistentry>
+                <term>--set-cname=<replaceable>HOSTNAME</replaceable></term>
+                <listitem>
+                    <para>set the cname alias (FQDN: fully qualified domain name)
+                    of the RHN Satellite or RHN Proxy. This will generate certificate
+                    with multiple hostnames. Can be specified multiple times.
+                    </para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
                 <term>--set-email=<replaceable>EMAIL</replaceable></term>
                 <listitem>
                     <para>email address (default: admin@example.com)</para>
@@ -610,7 +619,8 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
         <member><command>rhn-ssl-tool --gen-server -pMY_CA_PASSWORD
         --set-state="North Carolina" --set-city=Raleigh --set-org="Example
         Inc." --set-org-unit="IS/IT" --email="taw@example.com"
-        --set-hostname="rhnbox1.example.com" --dir=/etc/sysconfig/rhn/ssl</command></member>
+        --set-hostname="rhnbox1.example.com" --set-cname="rhnbox1.localnet"
+        --dir=/etc/sysconfig/rhn/ssl</command></member>
 </simplelist>
 </RefSect1>
 
