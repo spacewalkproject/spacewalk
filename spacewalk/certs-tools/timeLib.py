@@ -33,14 +33,7 @@
 #
 
 
-from time import strftime, strptime, mktime, gmtime, timezone
-_struct_time = type(())
-try:
-    # struct_time not in python 1.5.2
-    from time import struct_time
-    _struct_time = struct_time
-except ImportError:
-    pass
+from time import strftime, strptime, mktime, gmtime, timezone, struct_time
 from time import time
 
 MIN = 60.0
@@ -80,7 +73,7 @@ def secs2str(format, secs):
 str2tup = strptime
     # str2tup(s, format)
 def tup2secs(tup):
-    assert isinstance(tup, _struct_time)
+    assert isinstance(tup, struct_time)
     return mktime(tup) - timezone
 def secs2tup(secs):
     assert type(secs) in (type(1), type(1L), type(1.0))
@@ -185,7 +178,7 @@ def tup_addYMD(tup, years=0, months=0, days=0, ignoreLeapYear=0):
     """
     tup = list(tup)
     tup[0], tup[1], tup[2], tup[7] = tup[0]+years, tup[1]+months, tup[2]+days, tup[7]+days
-    tup = _struct_time(tup)
+    tup = struct_time(tup)
     checkTuple(tup)
     return tup
 
@@ -264,7 +257,7 @@ def _test():
            % str(tup_addYMD(secs2tup(nowS), 1,1,1, ignoreLeapYear=1)))
 
     try:
-        tup = _struct_time((2004, 02, 28, 6, 35, 14, 0, 285, 1))
+        tup = struct_time((2004, 02, 28, 6, 35, 14, 0, 285, 1))
         print 'This is a good leap day: %s' % str(tup_addYMD(tup, 0,0,1))
     except LeapYearException, e:
         print 'Verified correctly bad! - %s' % e
@@ -272,7 +265,7 @@ def _test():
         print 'Verified good!'
 
     try:
-        tup = _struct_time((2005, 02, 28, 6, 35, 14, 0, 285, 1))
+        tup = struct_time((2005, 02, 28, 6, 35, 14, 0, 285, 1))
         # for printing
         print 'This is a bad leap day: %s' % str(tup_addYMD(tup, 0,0,1, ignoreLeapYear=1))
         # for breaking
@@ -286,7 +279,7 @@ def _test():
     t = secs2tup(MAXINT) 
     t = list(t)
     t[5] = t[5] + 1
-    t = _struct_time(t)
+    t = struct_time(t)
     print "One second over the POSIX Epoch max: %s" % t
     try:
         print "checkTuple(t)..."; checkTuple(t)
@@ -295,7 +288,7 @@ def _test():
     t = secs2tup(MININT)
     t = list(t)
     t[5] = t[5] - 1
-    t = _struct_time(t)
+    t = struct_time(t)
     print "One second under the POSIX Epoch min: %s" % t
     try:
         print "checkTuple(t)..."; checkTuple(t)
@@ -309,7 +302,7 @@ def _test():
     t = list(t)
     t[1] = 4 # april
     t[2] = 31
-    t = _struct_time(t)
+    t = struct_time(t)
     try:
         print "checkTuple(t)..."; checkTuple(t)
     except Exception, e:
@@ -320,7 +313,7 @@ def _test():
     t = list(t)
     t[1] = 3 # march
     t[2] = 31
-    t = _struct_time(t)
+    t = struct_time(t)
     try:
         print "checkTuple(t)..."; checkTuple(t)
     except Exception, e:
