@@ -86,6 +86,8 @@ Provides: rhns-server = 1:%{version}-%{release}
 
 #this exists only on rhel5 and rhel6
 Conflicts: python-sgmlop
+# cobbler-web is known to break our configuration
+Conflicts: cobbler-web
 
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: mod_python
