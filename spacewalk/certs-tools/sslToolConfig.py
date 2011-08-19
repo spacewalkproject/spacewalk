@@ -55,9 +55,6 @@ CA_OPENSSL_CNF_NAME = 'rhn-ca-openssl.cnf'
 SERVER_OPENSSL_CNF_NAME = 'rhn-server-openssl.cnf'
 
 MD = 'sha1'
-#MD = 'md5'
-
-#CRYPTO = '-aes256' # openssl on AS2.1 (< v0.9.7a) can't understand aes256
 CRYPTO = '-des3'
 
 
