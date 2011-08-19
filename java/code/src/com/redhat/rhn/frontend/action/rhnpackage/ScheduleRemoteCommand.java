@@ -40,6 +40,7 @@ import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -92,9 +93,10 @@ public class ScheduleRemoteCommand extends RhnAction {
             strutsDelegate.saveMessages(request, msgs);
 
             String mode = (String) f.get("mode");
+            Map params = new HashMap();
+            params.put("sid", sid);
             forward = strutsDelegate.forwardParams(
-                    mapping.findForward(getForward(mode)),
-                    request.getParameterMap());
+                    mapping.findForward(getForward(mode)), params);
         }
 
         return forward;
