@@ -61,7 +61,7 @@ Provides: rhn-base-minimal = 5.3.0
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
-This are very basic modules need to handle config files, database, sessions
+This are very basic modules need to handle configuration files, database, sessions
 and exceptions.
 
 %package -n spacewalk-dobby
