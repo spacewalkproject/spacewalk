@@ -449,20 +449,6 @@ def gen_req_distinguished_name(d):
     return s
 
 
-def gen_signature(d):
-    """ generate a signature such as:
-        /C=US/ST=North Carolina/L=....
-
-        XXX NOT USED CURRENTLY
-    """
-    s = ""
-    keys = ('C', 'ST', 'L', 'O', 'OU', 'CN', 'emailAddress')
-    for key in keys:
-        if d.has_key(key) and string.strip(d[key]):
-            s = s + '/%s=%s' % (key, string.strip(d[key]))
-    return s
-
-
 def figureSerial(caCertFilename, serialFilename, indexFilename):
     """ for our purposes we allow the same serial number for server certs
         BUT WE DO NOT ALLOW server certs and CA certs to share the same
