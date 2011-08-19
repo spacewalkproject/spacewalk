@@ -206,7 +206,7 @@ class TempDir:
     getpath = getdir
 
     def __del__(self):
-        "a destructor that may never be called because python 1.5.2 sucks"
+        """ delete temporary directory when done with it """
         self._shutil.rmtree(self.path)
 
     close = __del__
