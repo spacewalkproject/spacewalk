@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.13
+Version: 1.6.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Aug 19 2011 Miroslav Suchý 1.6.14-1
+- 705363 - remove executable bit from modules and javascript
+- 705363 - Replace word "config" with "configuration" in spacewalk-base-minimal
+  description
+- 705363 - normalize home page URL
+
 * Fri Aug 12 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.13-1
 - removed unnecessary join
 
