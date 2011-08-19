@@ -36,7 +36,6 @@ public class SetTag extends ColumnTag {
     private String alt;
     private String type;
     private boolean showButtons = true;
-    private boolean showImg = false;
     private boolean disabled = false;
 
     /**
@@ -121,63 +120,45 @@ public class SetTag extends ColumnTag {
         throws IOException {
         super.renderData(out, parent);
         //Render contents of column here
-        if (isShowImg()) {
-            HtmlTag image = new HtmlTag("img");
-            image.setAttribute("src", getImg());
-
-            if (this.getTitle() != null) {
-                image.setAttribute("title", LocalizationService.getInstance()
-                                   .getMessage(this.getTitle()));
-            }
-
-            if (this.getAlt() != null) {
-                image.setAttribute("alt", LocalizationService.getInstance()
-                                   .getMessage(this.getAlt()));
-            }
-
-            out.print(image.render());
+        HtmlTag cbox = new HtmlTag("input");
+        if (type == null || type.equals("checkbox")) {
+            cbox.setAttribute("type", "checkbox");
+            cbox.setAttribute("onclick", "checkbox_clicked(this, '" +
+                              getSet().getLabel() + "')");
         }
         else {
-            HtmlTag cbox = new HtmlTag("input");
-            if (type == null || type.equals("checkbox")) {
-                cbox.setAttribute("type", "checkbox");
-                cbox.setAttribute("onclick", "checkbox_clicked(this, '" +
-                                  getSet().getLabel() + "')");
-            }
-            else {
-                cbox.setAttribute("type", "radio");
-            }
-            cbox.setAttribute("name", "items_selected");
-            cbox.setAttribute("value", getValue());
-
-            //Should checkbox be checked?
-            if (checkboxChecked()) {
-                cbox.setAttribute("checked", "true");
-                parent.incrementChecked();
-            }
-
-            //Should checkbox be disabled?
-            if (disabled) {
-                cbox.setAttribute("disabled", "disabled");
-            }
-
-            if (this.getTitle() != null) {
-                cbox.setAttribute("title", LocalizationService.getInstance()
-                                  .getMessage(this.getTitle()));
-            }
-
-            if (this.getAlt() != null) {
-                cbox.setAttribute("alt", LocalizationService.getInstance()
-                                  .getMessage(this.getAlt()));
-            }
-
-            HtmlTag hideme = new HtmlTag("input");
-            hideme.setAttribute("type", "hidden");
-            hideme.setAttribute("name", "items_on_page");
-            hideme.setAttribute("value", getValue());
-
-            out.print(cbox.render() + "\n" + hideme.render());
+            cbox.setAttribute("type", "radio");
         }
+        cbox.setAttribute("name", "items_selected");
+        cbox.setAttribute("value", getValue());
+
+        //Should checkbox be checked?
+        if (checkboxChecked()) {
+            cbox.setAttribute("checked", "true");
+            parent.incrementChecked();
+        }
+
+        //Should checkbox be disabled?
+        if (disabled) {
+            cbox.setAttribute("disabled", "disabled");
+        }
+
+        if (this.getTitle() != null) {
+            cbox.setAttribute("title", LocalizationService.getInstance()
+                              .getMessage(this.getTitle()));
+        }
+
+        if (this.getAlt() != null) {
+            cbox.setAttribute("alt", LocalizationService.getInstance()
+                              .getMessage(this.getAlt()));
+        }
+
+        HtmlTag hideme = new HtmlTag("input");
+        hideme.setAttribute("type", "hidden");
+        hideme.setAttribute("name", "items_on_page");
+        hideme.setAttribute("value", getValue());
+
+        out.print(cbox.render() + "\n" + hideme.render());
     }
 
     /**
@@ -281,18 +262,6 @@ public class SetTag extends ColumnTag {
         this.img = imgIn;
     }
     /**
-     * @return Returns the showImg.
-     */
-    public boolean isShowImg() {
-        return showImg;
-    }
-    /**
-     * @param showImgIn The showImg to set.
-     */
-    public void setShowImg(boolean showImgIn) {
-       this.showImg = showImgIn;
-    }
-    /**
      * @return Returns the title.
      */
     public String getTitle() {
@@ -361,7 +330,6 @@ public class SetTag extends ColumnTag {
         title = null;
         alt = null;
         type = null;
-        showImg = false;
         disabled = false;
         super.release();
     }

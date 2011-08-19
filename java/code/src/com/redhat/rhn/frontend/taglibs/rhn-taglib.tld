@@ -610,11 +610,6 @@
             <required>false</required>
         </attribute>
         <attribute>
-            <name>showImg</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
             <name>disabled</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
