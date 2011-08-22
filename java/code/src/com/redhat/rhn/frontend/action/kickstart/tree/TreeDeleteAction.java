@@ -26,6 +26,8 @@ import org.apache.struts.action.DynaActionForm;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * TreeDeleteAction  class for deleting Kickstart Trees
  * @version $Rev: 1 $
@@ -70,7 +72,7 @@ public class TreeDeleteAction extends BaseTreeAction {
      * {@inheritDoc}
      */
     protected ValidatorError processCommandSetters(PersistOperation operation,
-                                                            DynaActionForm form) {
+            DynaActionForm form, HttpServletRequest request) {
        return null;
     }
 
