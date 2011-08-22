@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.25
+Version: 1.6.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 22 2011 Tomas Lestach <tlestach@redhat.com> 1.6.26-1
+- fix deleting kickstart tree distribution (tlestach@redhat.com)
+- do not see a reason to set these attributes (tlestach@redhat.com)
+
 * Mon Aug 22 2011 Martin Minar <mminar@redhat.com> 1.6.25-1
 - 585010 - mark the Update List button with it so that we can disable it later.
   (jpazdziora@redhat.com)
