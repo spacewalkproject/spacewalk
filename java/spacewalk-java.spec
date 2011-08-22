@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.24
+Version: 1.6.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -546,6 +546,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 22 2011 Martin Minar <mminar@redhat.com> 1.6.25-1
+- 585010 - mark the Update List button with it so that we can disable it later.
+  (jpazdziora@redhat.com)
+- 691849 - forward only sid parameter (tlestach@redhat.com)
+- 691849 - it's not allowed to store empty string to the DB
+  (tlestach@redhat.com)
+- removing showImg attribute from SetTag (tlestach@redhat.com)
+
 * Thu Aug 18 2011 Tomas Lestach <tlestach@redhat.com> 1.6.24-1
 - 658533 - unify score computing for WebUI and API (tlestach@redhat.com)
 - 663697 - enable csv export of System Currency Report (tlestach@redhat.com)
