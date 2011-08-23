@@ -450,9 +450,12 @@ def gen_req_alt_names(d):
     """ generates the alt_names section of the *-openssl.cnf file """
     i = 0
     result = ''
-    for name in d['--set-cname']:
-        i += 1
-        result += "DNS.%d = %s\n" % (i, name)
+    if '--set-cname' in d and d['--set-cname']:
+        for name in d['--set-cname']:
+            i += 1
+            result += "DNS.%d = %s\n" % (i, name)
+    if not result:
+        result = "DNS.1 =\n"
     return result
 
 def gen_req_distinguished_name(d):
