@@ -487,13 +487,15 @@ def read_network():
     except:
         netdict['ipaddr'] = "127.0.0.1"
 
-    hostname, ipaddr = findHostByRoute()
 
-    if netdict['hostname'] != hostname and hostname != 'localhost.localdomain':
-        netdict['hostname'] = hostname
+    if netdict['hostname'] == 'localhost.localdomain' or \
+    netdict['ipaddr'] == "127.0.0.1":
+        hostname, ipaddr = findHostByRoute()
 
-    if netdict['ipaddr'] != ipaddr and ipaddr != "127.0.0.1":
-        netdict['ipaddr'] = ipaddr
+        if netdict['hostname'] == 'localhost.localdomain':
+            netdict['hostname'] = hostname
+        if netdict['ipaddr'] == "127.0.0.1":
+            netdict['ipaddr'] = ipaddr
 
     if netdict['ipaddr'] is None:
         netdict['ipaddr'] = ''
