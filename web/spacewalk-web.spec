@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.15
+Version: 1.6.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -258,6 +258,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Aug 23 2011 Miroslav Suchý 1.6.16-1
+- 705363 - reformat description text for spacewalk-base-minimal not to exceed
+  80 columns
+- 705363 - do not provide perl(PXT::Config) by two packages
+
 * Mon Aug 22 2011 Martin Minar <mminar@redhat.com> 1.6.15-1
 - 585010 - mark the Update List button with it so that we can disable it later.
   (jpazdziora@redhat.com)
