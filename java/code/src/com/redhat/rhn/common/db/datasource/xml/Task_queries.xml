@@ -294,8 +294,9 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
 
 <write-mode name="taskomatic_package_changelog_cleanup">
    <query params="">
+<!-- DISTINCT makes the DELETE faster for postgresql (no difference for oracle) -->
     DELETE FROM rhnPackageChangeLogData
-        WHERE id NOT IN ( SELECT changelog_data_id FROM rhnPackageChangeLogRec )
+        WHERE id NOT IN ( SELECT DISTINCT changelog_data_id FROM rhnPackageChangeLogRec )
    </query>
 </write-mode>
 
