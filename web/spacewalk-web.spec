@@ -245,6 +245,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/PXT.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
 %{perl_vendorlib}/PXT/
+%exclude %{perl_vendorlib}/PXT/Config.pm
 %{_mandir}/man3/PXT::ApacheHandler.3pm.gz
 
 %files -n spacewalk-sniglets 
