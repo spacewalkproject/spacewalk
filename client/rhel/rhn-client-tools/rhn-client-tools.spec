@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.14
+Version: 1.6.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Aug 24 2011 Martin Minar <mminar@redhat.com> 1.6.15-1
+- Revert "727908 - registration: send correct hostname during kickstart"
+  (mzazrivec@redhat.com)
+
 * Wed Aug 17 2011 Martin Minar <mminar@redhat.com> 1.6.14-1
 - 729468 - TUI: polish registration messages (mzazrivec@redhat.com)
 
