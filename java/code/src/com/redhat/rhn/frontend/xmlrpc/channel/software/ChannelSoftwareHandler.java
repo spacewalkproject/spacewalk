@@ -57,6 +57,7 @@ import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.manager.channel.ChannelEditor;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
+import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.channel.repo.BaseRepoCommand;
 import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
 import com.redhat.rhn.manager.errata.ErrataManager;
@@ -496,6 +497,86 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return lookupChannelById(user, id);
     }
 
+    /**
+     * Allows to modify channel attributes
+     * @param sessionKey WebSession containing User information.
+     * @param channelId id of channel to be modified
+     * @param details map of channel attributes to be changed
+     * @return 1 if edit was successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Allows to modify channel attributes
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("int", "channelDd", "channel id")
+     * @xmlrpc.param
+     *  #struct("channel_map")
+     *      #prop_desc("string", "checksum_label", "new channel repository checksum label
+     *          (optional)")
+     *      #prop_desc("string", "name", "new channel name (optional)")
+     *      #prop_desc("string", "summary", "new channel summary (optional)")
+     *      #prop_desc("string", "description", "new channel description (optional)")
+     *      #prop_desc("string", "maintainer_name", "new channel maintainer name
+     *          (optional)")
+     *      #prop_desc("string", "maintainer_email", "new channel email address
+     *          (optional)")
+     *      #prop_desc("string", "maintainer_phone", "new channel phone number (optional)")
+     *      #prop_desc("string", "gpg_key_url", "new channel gpg key url (optional)")
+     *      #prop_desc("string", "gpg_key_id", "new channel gpg key id (optional)")
+     *      #prop_desc("string", "gpg_key_fp", "new channel gpg key fingerprint
+     *          (optional)")
+     *  #struct_end()
+
+     *@xmlrpc.returntype #return_int_success()
+     */
+    public int setDetails(String sessionKey, Integer channelId, Map details) {
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelById(user, channelId);
+
+        UpdateChannelCommand ucc = new UpdateChannelCommand(user, channel);
+
+        if (details.containsKey("checksum_label")) {
+            ucc.setChecksumLabel((String) details.get("checksum_label"));
+        }
+
+        if (details.containsKey("name")) {
+            ucc.setName((String) details.get("name"));
+        }
+
+        if (details.containsKey("summary")) {
+            ucc.setSummary((String)details.get("summary"));
+        }
+
+        if (details.containsKey("description")) {
+            ucc.setDescription((String)details.get("description"));
+        }
+
+        if (details.containsKey("maintainer_name")) {
+            ucc.setMaintainerName((String)details.get("maintainer_name"));
+        }
+
+        if (details.containsKey("maintainer_email")) {
+            ucc.setMaintainerEmail((String)details.get("maintainer_email"));
+        }
+
+        if (details.containsKey("maintainer_phone")) {
+            ucc.setMaintainerPhone((String)details.get("maintainer_phone"));
+        }
+
+        if (details.containsKey("gpg_key_url")) {
+            ucc.setGpgKeyUrl((String)details.get("gpg_key_url"));
+        }
+
+        if (details.containsKey("gpg_key_id")) {
+            ucc.setGpgKeyId((String)details.get("gpg_key_id"));
+        }
+
+        if (details.containsKey("gpg_key_fp")) {
+            ucc.setGpgKeyFp((String)details.get("gpg_key_fp"));
+        }
+
+       ucc.update(channelId.longValue());
+        return 1;
+    }
+
 
     /**
      * Returns the number of available subscriptions for the given channel
@@ -605,7 +686,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setSummary(summary);
         ccc.setParentLabel(parentLabel);
         ccc.setUser(user);
-        ccc.setChecksum(checksumType);
+        ccc.setChecksumLabel(checksumType);
         ccc.setGpgKeyUrl((String)gpgKey.get("url"));
         ccc.setGpgKeyId((String)gpgKey.get("id"));
         ccc.setGpgKeyFp((String)gpgKey.get("fingerprint"));

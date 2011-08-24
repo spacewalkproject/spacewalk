@@ -326,7 +326,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         // times where python would make this SOOOO much easier.
         UpdateChannelCommand ucc = new UpdateChannelCommand();
         ucc.setArchLabel((String)form.get("arch"));
-        ucc.setChecksum((String)form.get("checksum"));
+        ucc.setChecksumLabel((String)form.get("checksum"));
         ucc.setLabel((String)form.get("label"));
         ucc.setName((String)form.get("name"));
         ucc.setSummary((String)form.get("summary"));
@@ -396,7 +396,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         // times where python would make this SOOOO much easier.
         CreateChannelCommand ccc = new CreateChannelCommand();
         ccc.setArchLabel((String)form.get("arch"));
-        ccc.setChecksum((String)form.get("checksum"));
+        ccc.setChecksumLabel((String)form.get("checksum"));
         ccc.setLabel((String)form.get("label"));
         ccc.setName((String)form.get("name"));
         ccc.setSummary((String)form.get("summary"));

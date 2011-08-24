@@ -18,8 +18,10 @@ package com.redhat.rhn.manager.channel;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.common.ChecksumType;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChecksumLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
 
 /**
@@ -33,6 +35,46 @@ public class UpdateChannelCommand extends CreateChannelCommand {
      */
     public UpdateChannelCommand() {
         super();
+    }
+
+    /**
+     * prefill all channel atrributes
+     * @param userIn user, that tries to update the channel
+     * @param channelIn to be updated
+     */
+    public UpdateChannelCommand(User userIn, Channel channelIn) {
+        user = userIn;
+        label = channelIn.getLabel();
+        name = channelIn.getName();
+        summary = channelIn.getSummary();
+        description = channelIn.getDescription();
+        if (channelIn.getChannelArch() == null) {
+            archLabel = null;
+        }
+        else {
+            archLabel = channelIn.getChannelArch().getLabel();
+        }
+        if (channelIn.getParentChannel() == null) {
+            parentLabel = null;
+        }
+        else {
+            parentLabel = channelIn.getParentChannel().getLabel();
+        }
+        if (channelIn.getParentChannel() == null) {
+            parentId = null;
+        }
+        else {
+            parentId = channelIn.getParentChannel().getId();
+        }
+        gpgKeyUrl = channelIn.getGPGKeyUrl();
+        gpgKeyId = channelIn.getGPGKeyId();
+        gpgKeyFp = channelIn.getGPGKeyFp();
+        checksum = channelIn.getChecksumTypeLabel();
+        maintainerName = channelIn.getMaintainerName();
+        maintainerEmail = channelIn.getMaintainerEmail();
+        maintainerPhone = channelIn.getMaintainerPhone();
+        supportPolicy = channelIn.getSupportPolicy();
+        access = channelIn.getAccess();
     }
 
     /**
@@ -66,6 +108,9 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         }
 
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
+        if (ct == null) {
+            throw new InvalidChecksumLabelException(checksum);
+        }
         if (checksumChanged(c.getChecksumTypeLabel(), ct) && c.getPackageCount() > 0) {
             // schedule repo re generation if the checksum type changed
             // and the channel has packages
@@ -76,7 +121,6 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setName(name);
         c.setSummary(summary);
         c.setDescription(description);
-        c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);

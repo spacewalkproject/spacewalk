@@ -108,10 +108,10 @@ public class CreateChannelCommand {
     }
 
     /**
-     * @param checksumIn The name to set.
+     * @param checksumLabelIn The name to set.
      */
-    public void setChecksum(String checksumIn) {
-        this.checksum = checksumIn;
+    public void setChecksumLabel(String checksumLabelIn) {
+        this.checksum = checksumLabelIn;
     }
 
     /**
@@ -437,5 +437,4 @@ public class CreateChannelCommand {
             throw new InvalidGPGUrlException();
         }
     }
-
 }
