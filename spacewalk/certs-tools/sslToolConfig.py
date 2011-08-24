@@ -446,16 +446,16 @@ subjectAltName          = @alt_names
 """
 
 
-def gen_req_alt_names(d):
+def gen_req_alt_names(d, hostname):
     """ generates the alt_names section of the *-openssl.cnf file """
     i = 0
     result = ''
+    dnsname = [ hostname ]
     if '--set-cname' in d and d['--set-cname']:
-        for name in d['--set-cname']:
-            i += 1
-            result += "DNS.%d = %s\n" % (i, name)
-    if not result:
-        result = "DNS.1 =\n"
+        dnsname.extend(d['--set-cname'])
+    for name in dnsname:
+        i += 1
+        result += "DNS.%d = %s\n" % (i, name)
     return result
 
 def gen_req_distinguished_name(d):
@@ -731,7 +731,7 @@ serial                  = $dir/serial
               )
         else:
             openssl_cnf = CONF_TEMPLATE_SERVER \
-              % (gen_req_distinguished_name(rdn), gen_req_alt_names(d))
+              % (gen_req_distinguished_name(rdn), gen_req_alt_names(d, rdn['CN']))
 
         try:
             rotated = rotateFile(filepath=self.filename,verbosity=verbosity)
