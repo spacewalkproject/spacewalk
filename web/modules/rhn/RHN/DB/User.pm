@@ -1696,7 +1696,7 @@ sub revoke_servergroup_permission {
             where   wc.id = usgp.user_id
                 and sg.id = usgp.server_group_id
                 and sg.org_id = wc.org_id
-            );
+            )
 EOS
     $dbh->call_procedure('rhn_user.remove_servergroup_perm', $uid, $sgid);
   }
