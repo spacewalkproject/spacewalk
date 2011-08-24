@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.28
+Version: 1.6.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -547,6 +547,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 24 2011 Tomas Lestach <tlestach@redhat.com> 1.6.29-1
+- 662200 - allow modification of selected channel attributes via API
+  (tlestach@redhat.com)
+
 * Tue Aug 23 2011 Tomas Lestach <tlestach@redhat.com> 1.6.28-1
 - make the taskomatic cleanup delete faster for Postgresql (jonathan.hoser
   @helmholtz-muenchen.de)
