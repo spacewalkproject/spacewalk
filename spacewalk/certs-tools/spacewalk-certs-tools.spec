@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.3
+Version: 1.6.4
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Wed Aug 24 2011 Miroslav Suchý 1.6.4-1
+- if subjectAltName is used, hostname must be present in dNSName
+
 * Tue Aug 23 2011 Miroslav Suchý 1.6.3-1
 - do not fail if --set-cname is not specified
 
