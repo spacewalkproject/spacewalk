@@ -480,19 +480,21 @@ class Backend:
                 raise TypeError("Expected an IncompletePackage instance, found %s" % \
                                 str(type(package)))
         for package in packages:
+            # here we need to figure out which checksum we have in the database
+            not_found = None
             for type, chksum  in package['checksums'].iteritems():
                 package['checksum_type'] = type
                 package['checksum']      = chksum
                 package['checksum_id']  = checksums[(type, chksum)]
                 try:
                     self.__lookupObjectCollection([package], 'rhnPackage')
-                    exception = None
+                    not_found = None
                     break
                 except InvalidPackageError, e:
-                    if ignore_missing:
-                        pass
-                    else:
-                        raise
+                    not_found = (e, sys.exc_info()[2])
+            if not_found and not ignore_missing:
+                # package is not in database at all
+                raise not_found[0], None, not_found[1]
 
     def lookupSolarisPackages(self, packages, ignore_missing=0):
         for pkg in packages:
