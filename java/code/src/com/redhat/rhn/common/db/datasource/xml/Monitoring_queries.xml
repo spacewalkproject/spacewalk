@@ -26,13 +26,15 @@ SELECT  O_ID, ENTRY_TIME, DATA
 
 <mode name="probe_suites_in_org" class="com.redhat.rhn.frontend.dto.monitoring.ProbeSuiteDto">
   <query params="org_id, user_id"><![CDATA[
-SELECT csouter.recid suite_id, csouter.suite_name suite_name, csouter.description description,
- (SELECT count(DISTINCT cp.host_id) system_count
+SELECT csouter.recid as suite_id,
+       csouter.suite_name as suite_name,
+       csouter.description as description,
+ (SELECT count(DISTINCT cp.host_id) as system_count
     FROM RHN_CHECK_SUITE_PROBE csp,
          RHN_SERVICE_PROBE_ORIGINS spo, RHN_CHECK_PROBE cp
     WHERE csouter.recid = csp.check_suite_id AND
           csp.probe_id = spo.origin_probe_id AND
-          spo.service_probe_id = cp.probe_id) system_count,
+          spo.service_probe_id = cp.probe_id) as system_count,
  (SELECT count(DISTINCT cp.host_id)
     FROM RHN_CHECK_SUITE_PROBE csp,
          RHN_SERVICE_PROBE_ORIGINS spo, RHN_CHECK_PROBE cp,
@@ -41,7 +43,7 @@ SELECT csouter.recid suite_id, csouter.suite_name suite_name, csouter.descriptio
           csp.probe_id = spo.origin_probe_id AND
           spo.service_probe_id = cp.probe_id AND
           cp.host_id = usp.server_id AND
-          usp.user_id = :user_id) access_count
+          usp.user_id = :user_id) as access_count
 FROM rhn_check_suites csouter
     WHERE csouter.customer_id = :org_id
     ]]>
