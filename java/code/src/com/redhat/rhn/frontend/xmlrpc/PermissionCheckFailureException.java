@@ -76,6 +76,17 @@ public class PermissionCheckFailureException extends FaultException  {
 
     /**
      * Constructor
+     * @param role1 Cause for the exception (bad role)
+     * @param role2 Cause for the exception (bad role)
+     */
+    public PermissionCheckFailureException(Role role1, Role role2) {
+        super(-23, "permissionCheckFailure", "You do not have permissions to " +
+                "perform this action. You need to have at least a " + role1.getName() +
+                " or " + role2.getName() + " role to perform this action");
+    }
+
+    /**
+     * Constructor
      * @param ent  Cause for the exception (bad org entitlement type)
      */
     public PermissionCheckFailureException(OrgEntitlementType ent) {

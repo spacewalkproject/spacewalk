@@ -142,6 +142,35 @@ public class CryptoKeysHandler extends BaseHandler {
     }
 
     /**
+     * Updates type and content of the key identified by the description
+     *
+     * @param sessionKey   identifies the user that is logged in and performing the call
+     * @param description  description of the key used for identification
+     * @param type         type of key being created
+     * @param content      contents of the key itself
+     * @return 1 if the delete was successful
+     * @throws KickstartKeyDeleteException if there is an error during the delete
+     *
+     * @xmlrpc.doc Updates type and content of the key identified by the description
+     * @xmlrpc.param #param("string", "session_key")
+     * @xmlrpc.param #param("string", "description")
+     * @xmlrpc.param #param_desc("string", "type", "valid values are GPG or SSL")
+     * @xmlrpc.param #param("string", "content")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int update(String sessionKey, String description, String type, String content) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        BaseHandler.ensureOrgOrConfigAdmin(loggedInUser);
+
+        EditCryptoKeyCommand cmd = new EditCryptoKeyCommand(loggedInUser, description);
+        cmd.setType(type);
+        cmd.setContents(content);
+        cmd.store();    // in this case we do not expect any error
+                        // because we do not touch description
+        return 1;
+    }
+
+    /**
      * Returns all of the data associated with the given key.
      *
      * @param sessionKey  identifies the user that is logged in and performing the call

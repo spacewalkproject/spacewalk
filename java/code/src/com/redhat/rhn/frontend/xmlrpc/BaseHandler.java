@@ -275,6 +275,22 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     }
 
     /**
+     * Public helper method to make sure a user has either
+     * an org admin or a config admin role
+     * If not, this will throw a generic Permission exception.
+     * @param user The user to check
+     * @throws PermissionCheckFailureException if user is neither org nor config admin.
+     */
+    public static void ensureOrgOrConfigAdmin(User user)
+        throws PermissionCheckFailureException {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN) &&
+                !user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionCheckFailureException(RoleFactory.ORG_ADMIN,
+                    RoleFactory.CONFIG_ADMIN);
+        }
+    }
+
+    /**
      * Private helper method to make sure a user  the given role..
      * If not, this will throw a generic Permission exception.
      * @param user The user to check

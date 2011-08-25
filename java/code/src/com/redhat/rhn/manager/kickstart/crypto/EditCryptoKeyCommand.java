@@ -52,5 +52,8 @@ public class EditCryptoKeyCommand extends BaseCryptoKeyCommand {
         }
 
         this.key = KickstartFactory.lookupCryptoKey(description, currentUser.getOrg());
+        if (this.key == null) {
+            throw new NoSuchCryptoKeyException(description);
+        }
     }
 }
