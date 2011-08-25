@@ -318,7 +318,7 @@ public class Access extends BaseHandler implements AclHandler {
         if (suites == null || suites.length != 1) {
             throw new IllegalArgumentException("Expected exactly one suite_id");
         }
-        String suite = suites[0];
+        Long suite = Long.parseLong(suites[0]);
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "probe_suite_accessible");
         Map params = new HashMap();
         params.put("user_id", user.getId());
