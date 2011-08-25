@@ -37,7 +37,6 @@ This package contains the HTML files for the Spacewalk web site.
 Group: Applications/Internet
 Summary: Programs needed to be installed on the RHN Web base classes
 Requires: spacewalk-pxt
-Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: webserver
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
