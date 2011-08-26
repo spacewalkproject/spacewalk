@@ -90,6 +90,7 @@ public class LoginAction extends RhnAction {
         String username = (String) f.get("username");
         String password = (String) f.get("password");
         String urlBounce = (String) f.get("url_bounce");
+        String requestMethod = (String) f.get("request_method");
 
         ActionErrors e = new ActionErrors();
         User user = loginUser(username, password, request, response, e);
@@ -99,6 +100,13 @@ public class LoginAction extends RhnAction {
             if (urlBounce == null || urlBounce.trim().equals("")) {
                 if (log.isDebugEnabled()) {
                     log.debug("2 - url bounce is empty using [" + DEFAULT_URL_BOUNCE + "]");
+                }
+                urlBounce = DEFAULT_URL_BOUNCE;
+            }
+            if (requestMethod.equals("POST")) {
+                if (log.isDebugEnabled()) {
+                    log.debug("2 - POST method used, using default url bounce [" +
+                        DEFAULT_URL_BOUNCE + "]");
                 }
                 urlBounce = DEFAULT_URL_BOUNCE;
             }

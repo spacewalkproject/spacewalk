@@ -122,6 +122,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         try {
             StringBuffer redirectURI = new StringBuffer(request.getRequestURI());
             String params = ServletUtils.requestParamsToQueryString(request);
+            String requestMethod = request.getMethod();
             // don't want to put the ? in the url if there are no params
             if (!StringUtils.isEmpty(params)) {
                 redirectURI.append("?");
@@ -134,6 +135,8 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
             else {
                 request.setAttribute("url_bounce", redirectURI.toString());
             }
+
+            request.setAttribute("request_method", requestMethod);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/ReLogin.do");
             dispatcher.forward(request, response);

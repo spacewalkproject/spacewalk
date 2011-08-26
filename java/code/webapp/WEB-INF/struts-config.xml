@@ -10,6 +10,7 @@
             <form-property name="username" type="java.lang.String"/>
             <form-property name="password" type="java.lang.String"/>
             <form-property name="url_bounce" type="java.lang.String"/>
+            <form-property name="request_method" type="java.lang.String"/>
         </form-bean>
       <form-bean name="activationKeyForm"
            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">

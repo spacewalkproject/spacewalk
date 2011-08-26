@@ -65,6 +65,7 @@ public class LoginSetupAction extends RhnAction {
 
         // ok handle the case where we're doing the ReLogin page
         String urlBounce = (String) request.getAttribute("url_bounce");
+        String requestMethod = (String) request.getAttribute("request_method");
 
         if (!StringUtils.isEmpty(urlBounce)) {
 
@@ -74,6 +75,16 @@ public class LoginSetupAction extends RhnAction {
 
             DynaActionForm f = (DynaActionForm)form;
             f.set("url_bounce", urlBounce);
+        }
+
+        if (!StringUtils.isEmpty(requestMethod)) {
+
+            if (log.isDebugEnabled()) {
+                log.debug("request.getAttribute(request_method): " + requestMethod);
+            }
+
+            DynaActionForm f = (DynaActionForm)form;
+            f.set("request_method", requestMethod);
         }
 
         return mapping.findForward("default");
