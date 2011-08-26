@@ -31,10 +31,7 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_time_zone_names IS 'tznms  time zone names';
 
-CREATE UNIQUE INDEX rhn_time_zone_names_uq
-    ON rhn_time_zone_names (display_name)
-    TABLESPACE [[64k_tbs]];
-
 ALTER TABLE rhn_time_zone_names
-    ADD CONSTRAINT rhn_time_zone_names_uq UNIQUE (display_name);
+    ADD CONSTRAINT rhn_time_zone_names_uq UNIQUE (display_name)
+    USING INDEX TABLESPACE [[64k_tbs]];
 

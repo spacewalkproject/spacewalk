@@ -25,12 +25,9 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_command_queue_params IS 'cqprm   command queue parameter definitions';
 
-CREATE UNIQUE INDEX rhn_cqprm_instance_id_ord_pk
-    ON rhn_command_queue_params (instance_id, ord)
-    TABLESPACE [[4m_tbs]];
-
 ALTER TABLE rhn_command_queue_params
-    ADD CONSTRAINT rhn_cqprm_instance_id_ord_pk PRIMARY KEY (instance_id, ord);
+    ADD CONSTRAINT rhn_cqprm_instance_id_ord_pk PRIMARY KEY (instance_id, ord)
+    USING INDEX TABLESPACE [[4m_tbs]];
 
 ALTER TABLE rhn_command_queue_params
     ADD CONSTRAINT rhn_cqprm_cqins_instance_id_fk FOREIGN KEY (instance_id)

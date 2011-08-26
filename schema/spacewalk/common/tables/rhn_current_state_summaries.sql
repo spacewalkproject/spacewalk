@@ -27,10 +27,7 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_current_state_summaries IS 'cursu  current state summaries (monitoring)';
 
-CREATE UNIQUE INDEX rhn_current_state_summaries_pk
-    ON rhn_current_state_summaries (customer_id, template_id, state)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_current_state_summaries
-    ADD CONSTRAINT rhn_current_state_summaries_pk PRIMARY KEY (customer_id, template_id, state);
+    ADD CONSTRAINT rhn_current_state_summaries_pk PRIMARY KEY (customer_id, template_id, state)
+    USING INDEX TABLESPACE [[2m_tbs]];
 

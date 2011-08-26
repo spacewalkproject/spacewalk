@@ -28,12 +28,9 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_config_parameter IS 'confp  configuration parameter definition';
 
-CREATE UNIQUE INDEX rhn_confp_group_name_name_pk
-    ON rhn_config_parameter (group_name, name)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_config_parameter
-    ADD CONSTRAINT rhn_confp_group_name_name_pk PRIMARY KEY (group_name, name);
+    ADD CONSTRAINT rhn_confp_group_name_name_pk PRIMARY KEY (group_name, name)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_config_parameter
     ADD CONSTRAINT rhn_confp_grpnm_group_name_fk FOREIGN KEY (group_name)

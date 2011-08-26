@@ -24,10 +24,6 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_redirect_method_targets IS 'rdrme  redirect method targets';
 
-CREATE UNIQUE INDEX rhn_rdrme_pk
-    ON rhn_redirect_method_targets (redirect_id, contact_method_id)
-    TABLESPACE [[2m_tbs]];
-
 CREATE INDEX rhn_rdrme_redirect_id_idx
     ON rhn_redirect_method_targets (redirect_id)
     TABLESPACE [[2m_tbs]];
@@ -37,7 +33,8 @@ CREATE INDEX rhn_rdrme_cmid_idx
     TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_redirect_method_targets
-    ADD CONSTRAINT rhn_rdrme_pk PRIMARY KEY (redirect_id, contact_method_id);
+    ADD CONSTRAINT rhn_rdrme_pk PRIMARY KEY (redirect_id, contact_method_id)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_redirect_method_targets
     ADD CONSTRAINT rhn_rdrmt_cmeth_redirect_id_fk FOREIGN KEY (contact_method_id)

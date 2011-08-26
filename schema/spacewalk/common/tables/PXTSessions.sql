@@ -29,11 +29,6 @@ ENABLE ROW MOVEMENT
 LOGGING
 ;
 
-CREATE UNIQUE INDEX pxt_sessions_pk
-    ON PXTSessions (id)
-    TABLESPACE [[8m_tbs]]
-    NOLOGGING;
-
 CREATE INDEX PXTSessions_user
     ON PXTSessions (web_user_id)
     TABLESPACE [[4m_tbs]]
@@ -47,5 +42,7 @@ CREATE INDEX PXTSessions_expires
 CREATE SEQUENCE pxt_id_seq;
 
 ALTER TABLE PXTSessions
-    ADD CONSTRAINT pxt_sessions_pk PRIMARY KEY (id);
+    ADD CONSTRAINT pxt_sessions_pk PRIMARY KEY (id)
+    USING INDEX TABLESPACE [[8m_tbs]]
+    NOLOGGING;
 

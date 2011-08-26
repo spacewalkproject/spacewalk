@@ -24,12 +24,9 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_os_commands_xref IS 'oscxr  operating systems - commands cross ref';
 
-CREATE UNIQUE INDEX rhn_oscxr_os_id_commands_id_pk
-    ON rhn_os_commands_xref (os_id, commands_id)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_os_commands_xref
-    ADD CONSTRAINT rhn_oscxr_os_id_commands_id_pk PRIMARY KEY (os_id, commands_id);
+    ADD CONSTRAINT rhn_oscxr_os_id_commands_id_pk PRIMARY KEY (os_id, commands_id)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_os_commands_xref
     ADD CONSTRAINT rhn_oscxr_cmmnd_commands_id_fk FOREIGN KEY (commands_id)

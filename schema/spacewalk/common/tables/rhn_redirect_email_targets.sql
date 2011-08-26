@@ -24,16 +24,13 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_redirect_email_targets IS 'rdret  redirect email targets';
 
-CREATE UNIQUE INDEX rhn_rdret_pk
-    ON rhn_redirect_email_targets (redirect_id, email_address)
-    TABLESPACE [[2m_tbs]];
-
 CREATE INDEX rhn_rdret_redirect_id_idx
     ON rhn_redirect_email_targets (redirect_id)
     TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_redirect_email_targets
-    ADD CONSTRAINT rhn_rdret_pk PRIMARY KEY (redirect_id, email_address);
+    ADD CONSTRAINT rhn_rdret_pk PRIMARY KEY (redirect_id, email_address)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_redirect_email_targets
     ADD CONSTRAINT rhn_rdret_rdrct_redirect_id_fk FOREIGN KEY (redirect_id)

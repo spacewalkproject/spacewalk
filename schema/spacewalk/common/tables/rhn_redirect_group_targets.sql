@@ -24,16 +24,13 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_redirect_group_targets IS 'rdrgt  redirect group targets';
 
-CREATE UNIQUE INDEX rhn_rdrgt_pk
-    ON rhn_redirect_group_targets (redirect_id, contact_group_id)
-    TABLESPACE [[2m_tbs]];
-
 CREATE INDEX rhn_rdrgt_redirect_id_idx
     ON rhn_redirect_group_targets (redirect_id)
     TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_redirect_group_targets
-    ADD CONSTRAINT rhn_rdrgt_pk PRIMARY KEY (redirect_id, contact_group_id);
+    ADD CONSTRAINT rhn_rdrgt_pk PRIMARY KEY (redirect_id, contact_group_id)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_redirect_group_targets
     ADD CONSTRAINT rhn_rdrgt_rdrct_redirect_id_fk FOREIGN KEY (redirect_id)

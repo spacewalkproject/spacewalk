@@ -51,14 +51,11 @@ CREATE UNIQUE INDEX rhn_cmmnd_name_uq
     ON rhn_command (name)
     TABLESPACE [[2m_tbs]];
 
-CREATE UNIQUE INDEX rhn_cmmnd_recid_comm_cl_uq
-    ON rhn_command (recid, command_class)
-    TABLESPACE [[2m_tbs]];
-
 CREATE SEQUENCE rhn_commands_recid_seq START WITH 305;
 
 ALTER TABLE rhn_command
-    ADD CONSTRAINT rhn_cmmnd_recid_comm_cl_uq UNIQUE (recid, command_class);
+    ADD CONSTRAINT rhn_cmmnd_recid_comm_cl_uq UNIQUE (recid, command_class)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_command
     ADD CONSTRAINT rhn_cmmnd_cmdgr_group_name_fk FOREIGN KEY (group_name)

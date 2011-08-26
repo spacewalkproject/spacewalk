@@ -29,11 +29,8 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_config_macro IS 'confm configuration macro def';
 
-CREATE UNIQUE INDEX rhn_confm_name_pk
-    ON rhn_config_macro (name)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_config_macro
-    ADD CONSTRAINT rhn_confm_name_pk PRIMARY KEY (name);
+    ADD CONSTRAINT rhn_confm_name_pk PRIMARY KEY (name)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 

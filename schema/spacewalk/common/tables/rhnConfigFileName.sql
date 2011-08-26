@@ -26,10 +26,6 @@ CREATE TABLE rhnConfigFileName
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_cfname_id_pk
-    ON rhnConfigFileName (id)
-    TABLESPACE [[2m_tbs]];
-
 CREATE UNIQUE INDEX rhn_cfname_path_uq
     ON rhnConfigFileName (path)
     TABLESPACE [[4m_tbs]];
@@ -37,5 +33,6 @@ CREATE UNIQUE INDEX rhn_cfname_path_uq
 CREATE SEQUENCE rhn_cfname_id_seq;
 
 ALTER TABLE rhnConfigFileName
-    ADD CONSTRAINT rhn_cfname_id_pk PRIMARY KEY (id);
+    ADD CONSTRAINT rhn_cfname_id_pk PRIMARY KEY (id)
+    USING INDEX TABLESPACE [[2m_tbs]];
 

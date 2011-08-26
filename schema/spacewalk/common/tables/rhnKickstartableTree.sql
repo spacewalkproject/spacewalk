@@ -46,10 +46,6 @@ CREATE TABLE rhnKickstartableTree
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_kstree_id_pk
-    ON rhnKickstartableTree (id)
-    TABLESPACE [[4m_tbs]];
-
 CREATE UNIQUE INDEX rhn_kstree_oid_label_uq
     ON rhnKickstartableTree (org_id, label)
     TABLESPACE [[8m_tbs]];
@@ -57,5 +53,6 @@ CREATE UNIQUE INDEX rhn_kstree_oid_label_uq
 CREATE SEQUENCE rhn_kstree_id_seq;
 
 ALTER TABLE rhnKickstartableTree
-    ADD CONSTRAINT rhn_kstree_id_pk PRIMARY KEY (id);
+    ADD CONSTRAINT rhn_kstree_id_pk PRIMARY KEY (id)
+    USING INDEX TABLESPACE [[4m_tbs]];
 

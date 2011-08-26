@@ -28,12 +28,9 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_probe_param_value IS 'ppval  param value for a probe running a command';
 
-CREATE UNIQUE INDEX rhn_ppval_p_id_cmd_id_parm_pk
-    ON rhn_probe_param_value (probe_id, command_id, param_name)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_probe_param_value
-    ADD CONSTRAINT rhn_ppval_p_id_cmd_id_parm_pk PRIMARY KEY (probe_id, command_id, param_name);
+    ADD CONSTRAINT rhn_ppval_p_id_cmd_id_parm_pk PRIMARY KEY (probe_id, command_id, param_name)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_probe_param_value
     ADD CONSTRAINT rhn_ppval_chkpb_probe_id_fk FOREIGN KEY (probe_id)

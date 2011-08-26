@@ -27,10 +27,6 @@ CREATE TABLE rhnChannelPermissionRole
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_cperm_role_id_pk
-    ON rhnChannelPermissionRole (id)
-    TABLESPACE [[64k_tbs]];
-
 CREATE INDEX rhn_cperm_role_label_id_idx
     ON rhnChannelPermissionRole (label, id)
     TABLESPACE [[64k_tbs]];
@@ -38,7 +34,8 @@ CREATE INDEX rhn_cperm_role_label_id_idx
 CREATE SEQUENCE rhn_cperm_role_id_seq;
 
 ALTER TABLE rhnChannelPermissionRole
-    ADD CONSTRAINT rhn_cperm_role_id_pk PRIMARY KEY (id);
+    ADD CONSTRAINT rhn_cperm_role_id_pk PRIMARY KEY (id)
+    USING INDEX TABLESPACE [[64k_tbs]];
 
 ALTER TABLE rhnChannelPermissionRole
     ADD CONSTRAINT rhn_cperm_role_label_uq UNIQUE (label);

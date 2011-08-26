@@ -32,9 +32,6 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_command_queue_execs IS 'cqexe  command queue execution records';
 
-CREATE UNIQUE INDEX rhn_cqexe_inst_id_nsaint_pk
-    ON rhn_command_queue_execs (instance_id, netsaint_id);
-
 CREATE INDEX rhn_command_queue_netsaint_idx
     ON rhn_command_queue_execs (netsaint_id)
     TABLESPACE [[8m_tbs]];

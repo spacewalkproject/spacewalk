@@ -40,10 +40,6 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_probe IS 'probe  probe definitions';
 
-CREATE UNIQUE INDEX rhn_probe_recid_probe_type_uq
-    ON rhn_probe (recid, probe_type)
-    TABLESPACE [[8m_tbs]];
-
 CREATE INDEX rhn_probe_check_command_id_idx
     ON rhn_probe (command_id)
     TABLESPACE [[8m_tbs]];
@@ -63,7 +59,8 @@ CREATE INDEX rhn_probe_contact_grp_idx
 CREATE SEQUENCE rhn_probes_recid_seq;
 
 ALTER TABLE rhn_probe
-    ADD CONSTRAINT rhn_probe_recid_probe_type_uq UNIQUE (recid, probe_type);
+    ADD CONSTRAINT rhn_probe_recid_probe_type_uq UNIQUE (recid, probe_type)
+    USING INDEX TABLESPACE [[8m_tbs]];
 
 ALTER TABLE rhn_probe
     ADD CONSTRAINT rhn_probe_cmmnd_command_id_fk FOREIGN KEY (command_id)

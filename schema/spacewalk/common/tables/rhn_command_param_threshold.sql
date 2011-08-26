@@ -32,12 +32,9 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_command_param_threshold IS 'coptr  a parameter for a particular command';
 
-CREATE UNIQUE INDEX rhn_coptr_id_p_name_p_type_pk
-    ON rhn_command_param_threshold (command_id, param_name, param_type)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_command_param_threshold
-    ADD CONSTRAINT rhn_coptr_id_p_name_p_type_pk PRIMARY KEY (command_id, param_name, param_type);
+    ADD CONSTRAINT rhn_coptr_id_p_name_p_type_pk PRIMARY KEY (command_id, param_name, param_type)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_command_param_threshold
     ADD CONSTRAINT rhn_coptr_cmd_id_cmd_cl_fk FOREIGN KEY (command_id, command_class)
