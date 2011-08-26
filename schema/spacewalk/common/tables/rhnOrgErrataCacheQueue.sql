@@ -25,15 +25,11 @@ CREATE TABLE rhnOrgErrataCacheQueue
                       DEFAULT (0) NOT NULL
 )
 ENABLE ROW MOVEMENT
+NOLOGGING
 ;
 
 CREATE UNIQUE INDEX rhn_oecq_oid_uq
     ON rhnOrgErrataCacheQueue (org_id)
+    NOLOGGING
     TABLESPACE [[4m_tbs]];
-
-ALTER TABLE rhnOrgErrataCacheQueue
-    NOLOGGING;
-
-ALTER INDEX rhn_oecq_oid_uq
-    NOLOGGING;
 
