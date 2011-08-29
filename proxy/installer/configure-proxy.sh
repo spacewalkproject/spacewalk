@@ -316,7 +316,6 @@ default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
 if [ ${#SSL_CNAME_PARSED[@]} -eq 0 ]; then
   default_or_input "Cname aliases (separated by space)" SSL_CNAME_ASK ''
   CNAME=($SSL_CNAME_ASK)
-  local ALIAS
   for ALIAS in ${CNAME[@]}; do
 	SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
   done
