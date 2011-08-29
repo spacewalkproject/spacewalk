@@ -196,7 +196,7 @@ It seems you tried to use the --set-cname option. On inspection we noticed that 
 and add this line:
  copy_extensions = copy
 in
- [ ca ]
+ [ CA_default ]
 section.
 Then re-run this script again.
 WARNING
