@@ -28,7 +28,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +56,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
 
         RequestContext context = new RequestContext(request);
         DynaActionForm form = (DynaActionForm)formIn;
+        User loggedInUser  = context.getLoggedInUser();
 
         Long cikid = context.getParamAsLong(CIKID_PARAM);
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);
@@ -78,7 +78,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
             request.setAttribute(MODIFIER_PARAM, key.getLastModifier().getLogin());
         }
         else {
-            request.setAttribute(MODIFIER_PARAM, "");
+            request.setAttribute(MODIFIER_PARAM, key.getCreator().getLogin());
         }
 
         Map params = new HashMap();
@@ -88,11 +88,15 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
 
         if (context.wasDispatched("system.jsp.customkey.updatebutton")) {
 
-            key.setDescription((String)form.get(DESC_PARAM));
-            key.setModified(new Date());
+            String description = (String)form.get(DESC_PARAM);
+            if (description.length() < 2) {
+                createErrorMessage(request, "system.customkey.error.tooshort", null);
+                return mapping.findForward("default");
+            }
 
+            key.setDescription(description);
+            key.setLastModifier(loggedInUser);
             ServerFactory.saveCustomKey(key);
-
             return mapping.findForward("updated");
         }
 
