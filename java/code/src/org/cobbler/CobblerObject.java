@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.StringUtil;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -335,11 +336,15 @@ public abstract class CobblerObject {
 
     private String convertOptionsMap(Map<String, Object> map) {
         StringBuilder string = new StringBuilder();
-        for (Object key : map.keySet()) {
-            if (StringUtils.isEmpty((String)map.get(key))) {
+        for (String key : map.keySet()) {
+            if (map.get(key) == null) {
                 string.append(key + " ");
-            }
-            else {
+            } else if(map.get(key) instanceof List<?>){
+                List<String> values = (List)map.get(key);
+                for (String value : values) {
+                    string.append(key + "=" + value + " ");
+                }
+            } else {
                 string.append(key + "=" + map.get(key) + " ");
             }
         }
@@ -372,7 +377,7 @@ public abstract class CobblerObject {
     private Map<String, Object> parseKernelOpts(String kernelOpts) {
         Map<String, Object> toRet = new HashMap<String, Object>();
 
-        if (StringUtils.isEmpty(kernelOpts)) {
+        if (kernelOpts == null || kernelOpts.equals("")) {
             return toRet;
         }
 
@@ -380,10 +385,15 @@ public abstract class CobblerObject {
         for (String option : options) {
             String[] split = option.split("=");
             if (split.length == 1) {
-                toRet.put(split[0], "");
-            }
-            else if (split.length == 2) {
-                toRet.put(split[0], split[1]);
+                toRet.put(split[0], null);
+            } else if (split.length == 2) {
+                if (toRet.containsKey(split[0])) {
+                    List<String> list = (List)toRet.get(split[0]);
+                    list.add(split[1]);
+                    toRet.put(split[0], list);
+                } else {
+                    toRet.put(split[0],new ArrayList<String>(Arrays.asList(split[1])));
+                }
             }
         }
         return toRet;
