@@ -1,0 +1,3 @@
+alter table rhnChannelPermissionRole disable constraint rhn_cperm_role_id_pk;
+drop index rhn_cperm_role_id_pk;
+alter table rhnChannelPermissionRole enable constraint rhn_cperm_role_id_pk;

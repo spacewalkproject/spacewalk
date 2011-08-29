@@ -1,0 +1,3 @@
+alter table rhn_probe disable constraint rhn_probe_recid_probe_type_uq;
+drop index rhn_probe_recid_probe_type_uq;
+alter table rhn_probe enable constraint rhn_probe_recid_probe_type_uq;

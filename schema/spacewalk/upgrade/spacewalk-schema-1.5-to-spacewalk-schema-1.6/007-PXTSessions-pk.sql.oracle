@@ -1,0 +1,3 @@
+alter table PXTSessions disable constraint pxt_sessions_pk;
+drop index pxt_sessions_pk;
+alter table PXTSessions enable constraint pxt_sessions_pk;

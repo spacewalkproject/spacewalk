@@ -1,0 +1,3 @@
+alter table rhnKickstartableTree disable constraint rhn_kstree_id_pk;
+drop index rhn_kstree_id_pk;
+alter table rhnKickstartableTree enable constraint rhn_kstree_id_pk;

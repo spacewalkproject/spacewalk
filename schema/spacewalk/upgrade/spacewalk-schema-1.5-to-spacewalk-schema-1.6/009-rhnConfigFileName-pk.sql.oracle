@@ -1,0 +1,3 @@
+alter table rhnConfigFileName disable constraint rhn_cfname_id_pk;
+drop index rhn_cfname_id_pk;
+alter table rhnConfigFileName enable constraint rhn_cfname_id_pk;

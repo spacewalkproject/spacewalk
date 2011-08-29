@@ -1,0 +1,3 @@
+alter table rhn_command disable constraint rhn_cmmnd_recid_comm_cl_uq;
+drop index rhn_cmmnd_recid_comm_cl_uq;
+alter table rhn_command enable constraint rhn_cmmnd_recid_comm_cl_uq;

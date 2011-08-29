@@ -1,0 +1,3 @@
+alter table rhn_service_probe_origins disable constraint rhn_srvpo_serv_pr_id_orig_uq;
+drop index rhn_srvpo_serv_pr_id_orig_uq;
+alter table rhn_service_probe_origins enable constraint rhn_srvpo_serv_pr_id_orig_uq;
