@@ -72,6 +72,45 @@ public class CustomInfoHandler extends BaseHandler {
     }
 
     /**
+     * Update description of a custom key
+     * @param sessionKey key
+     * @param keyLabel string
+     * @param keyDescription string
+     * @return 1 on success, 0 on failure
+     * @throws FaultException A FaultException is thrown if a key doesn't exist or
+     * an iinvalid description is provided
+     *
+     * @xmlrpc.doc  Update description of a custom key
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "keyLabel", "key to change")
+     * @xmlrpc.param #param_desc("string", "keyDescription", "new key's description")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int updateKey(String sessionKey, String keyLabel,
+                String keyDescription) throws FaultException {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(keyLabel,
+                loggedInUser.getOrg());
+
+        if (key == null) {
+            throw new FaultException(-1, "keyDoesNotExist",
+                    "A custom key with label: " + keyLabel + "does not exist.");
+        }
+
+        if ((keyDescription.length() < 2)) {
+            throw new FaultException(-1, "labelOrDescriptionTooShort",
+                    "Label and description must be at least two characters long");
+        }
+
+        key.setDescription(keyDescription);
+        key.setLastModifier(loggedInUser);
+        ServerFactory.saveCustomKey(key);
+        return 1;
+    }
+
+    /**
      * Delete an existing custom key
      * @param sessionKey key
      * @param keyLabel string
