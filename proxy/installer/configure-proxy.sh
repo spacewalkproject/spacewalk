@@ -314,12 +314,15 @@ default_or_input "Country code" SSL_COUNTRY ''
 default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
 
 if [ ${#SSL_CNAME_PARSED[@]} -eq 0 ]; then
-  default_or_input "Cname aliases (separated by space)" SSL_CNAME_ASK ''
-  CNAME=($SSL_CNAME_ASK)
-  for ALIAS in ${CNAME[@]}; do
-	SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
-  done
-  check_ca_conf
+  VARIABLE_ISSET=$(set | grep "^SSL_CNAME=")
+  if [ -z $VARIABLE_ISSET ]; then
+    default_or_input "Cname aliases (separated by space)" SSL_CNAME_ASK ''
+    CNAME=($SSL_CNAME_ASK)
+    for ALIAS in ${CNAME[@]}; do
+      SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
+    done
+    check_ca_conf
+  fi
 fi
 
 /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" \
