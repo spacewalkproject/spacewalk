@@ -1,3 +1,11 @@
+alter table rhnActionConfigFileName disable constraint rhn_actioncf_name_cfnid_fk;
+alter table rhnConfigFile disable constraint rhn_conffile_cfnid_fk;
+alter table rhnConfigInfo disable constraint rhn_confinfo_symlink_fk;
+alter table rhnFileListMembers disable constraint rhn_flmembers_cfnid_fk;
 alter table rhnConfigFileName disable constraint rhn_cfname_id_pk;
 drop index rhn_cfname_id_pk;
 alter table rhnConfigFileName enable constraint rhn_cfname_id_pk;
+alter table rhnActionConfigFileName enable constraint rhn_actioncf_name_cfnid_fk;
+alter table rhnConfigFile enable constraint rhn_conffile_cfnid_fk;
+alter table rhnConfigInfo enable constraint rhn_confinfo_symlink_fk;
+alter table rhnFileListMembers enable constraint rhn_flmembers_cfnid_fk;
