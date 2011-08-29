@@ -49,6 +49,7 @@
                     <c:if test="${system.virtualGuest}">
                       <c:if test="${not channel.freeForGuests}">
                         <span class="asterisk">*&nbsp;</span>
+                        <c:set var="display_asterisk" value="true" scope="page" />
                       </c:if>
                       <c:choose>
                         <c:when test="${channel.freeForGuests && system.virtualInstance.hostSystem != null}">
@@ -84,7 +85,7 @@
           </ul>
         </c:otherwise>
       </c:choose>
-      <c:if test="${system.virtualGuest && channel.availableSubscriptions != null}">
+      <c:if test="${pageScope.display_asterisk}">
         <c:if test="${not empty system.virtualInstance.hostSystem.id}">
           <span class="asterisk">*&nbsp;</span><bean:message key="sdc.channels.edit.virtsubwarning" arg0="${system.virtualInstance.hostSystem.id}"
             arg1="${system.virtualInstance.hostSystem.name}"/>
