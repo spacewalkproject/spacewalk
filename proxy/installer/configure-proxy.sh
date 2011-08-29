@@ -187,6 +187,23 @@ is_hosted () {
     return $?
 }
 
+check_ca_conf () {
+	if ! grep '^[[:space:]]*copy_extensions[[:space:]]*=[[:space:]]*copy' /root/ssl-build/rhn-ca-openssl.cnf >/dev/null \
+		&& [ ${#SSL_CNAME_PARSED[@]} -gt 0 ];  then
+		cat <<WARNING
+It seems you tried to use the --set-cname option. On inspection we noticed that the openssl configuration file we use is missing a critically important option. Without this option, not only will multi host SSL certificates not work, but the planet Earth will implode in a massive rip in the time/space continuum. To avoid this failure, we choose to gracefully exit here and request for you to edit the openssl configuration file
+ /root/ssl-build/rhn-ca-openssl.cnf
+and add this line:
+ copy_extensions = copy
+in
+ [ ca ]
+section.
+Then re-run this script again.
+WARNING
+		exit 3
+	fi
+}
+
 #do we have yum or up2date?
 YUM_OR_UPDATE="up2date -i"
 UPGRADE="up2date -u"
@@ -247,6 +264,8 @@ CA_KEYS
 	exit 1
 fi
 
+check_ca_conf
+
 if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by nobody user.
 	exit 1
@@ -301,6 +320,7 @@ if [ ${#SSL_CNAME_PARSED[@]} -eq 0 ]; then
   for ALIAS in ${CNAME[@]}; do
 	SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
   done
+  check_ca_conf
 fi
 
 /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" \
