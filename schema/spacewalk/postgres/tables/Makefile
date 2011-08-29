@@ -10,7 +10,7 @@
 #
 
 COMMON := ../../common
-FLAGS  := STYLE=postgres COMMON=../$(COMMON) CFLAGS="-O best"
+FLAGS  := COMMON=../$(COMMON)
 
 common :
 	@mkdir -p common

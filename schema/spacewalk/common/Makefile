@@ -26,7 +26,7 @@ endif
 SRCDIR    := $(shell find $(COMMON) -name $(NAME))
 SOURCES   := $(wildcard $(SRCDIR)/*)
 FILES     := $(notdir $(SOURCES))
-CHAMELEON := chameleon -fs $(STYLE) $(CFLAGS)
+ORA2PG    := ../../../spacewalk-oracle2postgresql
 RMLINKS   := find . -type l -delete
 RMTRASH   := rm -f lextab* parsetab* parser.out
 
@@ -38,7 +38,7 @@ files : $(FILES)
 	@$(RMTRASH)
 
 %.sql : %.cql
-	$(CHAMELEON) -o $@ $^
+	$(ORA2PG) $^ > $@
 
 links :
 	@$(RMLINKS)
