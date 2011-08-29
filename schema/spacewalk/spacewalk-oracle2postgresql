@@ -1,0 +1,25 @@
+#!/bin/sed -f
+
+# data types
+s/\bVARCHAR2/VARCHAR/i;
+s/\bDATE\b/TIMESTAMPTZ/i;
+s/\bNUMBER(\([1-9]\|1[0-9]\))/SMALLINT/i;
+s/\bNUMBER([0-9]\+,\([0-9]\+\))/FLOAT(\1)/i;
+s/\bNUMBER\b/NUMERIC/i;
+s/\bBLOB\b/BYTEA/i;
+
+# functions
+s/\bSYSDATE\b/CURRENT_TIMESTAMP/i;
+
+# tablespace and index clauses
+s/USING INDEX TABLESPACE[[:blank:]]\+\[\[[^[:blank:]]\+\]\]//i;
+s/\bTABLESPACE[[:blank:]]\+\[\[[^[:blank:]]\+\]\]//i;
+s/ENABLE ROW MOVEMENT//i;
+s/\(NO\)\?LOGGING//i;
+s/\(NO\)\?PARALLEL//i;
+
+# sequences
+s/\(CREATE[[:blank:]]\+SEQUENCE.*\)[[:blank:]]\+ORDER/\1/i;
+
+# strip white spaces
+s/^[[:blank:]]$//i;
