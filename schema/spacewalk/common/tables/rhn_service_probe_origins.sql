@@ -26,10 +26,6 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_service_probe_origins IS 'srvpo  mapping from a replicated service probe to the check suite probe it was copied from.  uq instead of pk because need to set origin_probe_id to null!!!';
 
-CREATE UNIQUE INDEX rhn_srvpo_serv_orig_pr_id_uq
-    ON rhn_service_probe_origins (origin_probe_id, service_probe_id)
-    TABLESPACE [[8m_tbs]];
-
 ALTER TABLE rhn_service_probe_origins
     ADD CONSTRAINT rhn_srvpo_serv_pr_id_orig_uq UNIQUE (service_probe_id, origin_probe_id)
     USING INDEX TABLESPACE [[8m_tbs]];
