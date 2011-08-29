@@ -177,7 +177,7 @@
 		</rl:column>
 	</rl:list>
     <rl:csv dataset="pageList" name="systemCurrencyList"
-        exportColumns="serverName, critical, important, moderate, low, bug, enhancement, score" />
+        exportColumns="id, serverName, critical, important, moderate, low, bug, enhancement, score" />
 </rl:listset>
 </body>
 </html>
