@@ -196,8 +196,13 @@ public class ActivationKey extends BaseDomainHelper {
     /**
      * @param disabled The disabled to set
      */
-    public void setDisabled(Long disabled) {
-        this.getToken().setDisabled(disabled);
+    public void setDisabled(Boolean disabled) {
+        if (disabled) {
+            this.getToken().disable();
+        }
+        else {
+            this.getToken().enable();
+        }
     }
 
     /**

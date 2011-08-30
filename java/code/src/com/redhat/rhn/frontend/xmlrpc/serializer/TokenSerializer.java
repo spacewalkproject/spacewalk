@@ -138,5 +138,6 @@ public class TokenSerializer implements XmlRpcCustomSerializer {
 
        Boolean universalDefault =  Boolean.valueOf(token.isOrgDefault());
        helper.add("universal_default", universalDefault);
+       helper.add("disabled", Boolean.valueOf(token.isTokenDisabled()));
    }
 }

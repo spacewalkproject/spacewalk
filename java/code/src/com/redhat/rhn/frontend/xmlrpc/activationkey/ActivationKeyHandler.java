@@ -295,6 +295,7 @@ public class ActivationKeyHandler extends BaseHandler {
         validKeys.add("usage_limit");
         validKeys.add("unlimited_usage_limit");
         validKeys.add("universal_default");
+        validKeys.add("disabled");
         validateMap(validKeys, details);
 
         User user = getLoggedInUser(sessionKey);
@@ -343,6 +344,10 @@ public class ActivationKeyHandler extends BaseHandler {
         if (details.containsKey("universal_default")) {
             Boolean universalDefault = (Boolean)details.get("universal_default");
             aKey.setUniversalDefault(universalDefault.booleanValue());
+        }
+
+        if (details.containsKey("disabled")) {
+            aKey.setDisabled((Boolean)details.get("disabled"));
         }
 
         manager.update(aKey, description, baseChannel);

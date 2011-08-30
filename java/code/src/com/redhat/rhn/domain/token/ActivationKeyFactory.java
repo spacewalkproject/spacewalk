@@ -137,7 +137,7 @@ public class ActivationKeyFactory extends HibernateFactory {
         }
         newKey.setNote((String)Scrubber.scrub(note));
         newKey.getToken().setDeployConfigs(false); // Don't deploy configs by default
-        newKey.setDisabled(new Long(0)); // Enable by default
+        newKey.setDisabled(Boolean.FALSE); // Enable by default
         newKey.setUsageLimit(usageLimit);
 
         if (baseChannel != null) {
