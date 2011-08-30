@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.30
+Version: 1.6.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -547,6 +547,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 30 2011 Martin Minar <mminar@redhat.com> 1.6.31-1
+- update custom info changes (tlestach@redhat.com)
+- 699527 - introduce system.custominfo.updateKey API (tlestach@redhat.com)
+- 692797 - display asterisk explanation only when asterisk was used on the page
+  (tlestach@redhat.com)
+- 663697 - adding system id to system currency csv export (tlestach@redhat.com)
+- 709724 - bounce to default url for expired POST requests
+  (mzazrivec@redhat.com)
+
 * Thu Aug 25 2011 Tomas Lestach <tlestach@redhat.com> 1.6.30-1
 - 699489 - introduce kickstart.keys.update API (tlestach@redhat.com)
 
