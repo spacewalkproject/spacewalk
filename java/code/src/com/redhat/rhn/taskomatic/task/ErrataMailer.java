@@ -118,7 +118,7 @@ public class ErrataMailer extends RhnJavaJob {
         List orgServers = getOrgRelevantServers(errataId, orgId, channelId);
 
         if (orgServers == null || orgServers.size() == 0) {
-            log.info("No relevant servers found for erratum " + errata.getId() +
+            log.debug("No relevant servers found for erratum " + errata.getId() +
                     " in channel " + channelId + " for org " + orgId +
                     " ... skipping.");
             return;
