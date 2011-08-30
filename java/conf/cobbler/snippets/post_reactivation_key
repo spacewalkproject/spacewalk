@@ -1,5 +1,5 @@
 %post --nochroot --interpreter /usr/bin/python
-    try:
+try:
     import xmlrpclib
     import shutil
     import os
