@@ -471,7 +471,7 @@ Complete information about this errata can be found at the following location:
 Summary:
 {3}
 
-{4}{5}{6}
+{4} {5} {6}
 {7}
 ------------------------------------------------------------------------------
     </source>
@@ -499,7 +499,7 @@ Umfassende Informationen zu diesem Erratum finden Sie unter:
 Zusammenfassung:
 {3}
 
-{4}{5}{6}
+{4} {5} {6}
 {7}
 ------------------------------------------------------------------------------
 </target></trans-unit>
