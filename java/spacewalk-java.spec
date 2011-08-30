@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.31
+Version: 1.6.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -547,6 +547,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 30 2011 Tomas Lestach <tlestach@redhat.com> 1.6.32-1
+- 640535 - add extra spaces between topic, description and note in Errata Alert
+  e-mails (tlestach@redhat.com)
+- 640535 - lower amount of logging mailer messages (tlestach@redhat.com)
+- 640535 - prevent listing duplicate servers in the Errata Alert e-mails
+  (cperry@redhat.com)
+- 730999 - fixed bad indentation (michael.mraka@redhat.com)
+
 * Tue Aug 30 2011 Martin Minar <mminar@redhat.com> 1.6.31-1
 - update custom info changes (tlestach@redhat.com)
 - 699527 - introduce system.custominfo.updateKey API (tlestach@redhat.com)
