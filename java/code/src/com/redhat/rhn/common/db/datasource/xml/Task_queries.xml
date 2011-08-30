@@ -470,7 +470,7 @@ ORDER BY next_action DESC
 
 <mode name="erratamailer_get_relevant_servers">
    <query params="errata_id,org_id, channel_id">
-    SELECT snv.server_id AS server_id, S.name, S.release, SA.name as arch,
+    SELECT DISTINCT snv.server_id AS server_id, S.name, S.release, SA.name as arch,
         urn.user_id
       FROM (
 --
