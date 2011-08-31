@@ -75,13 +75,9 @@ class YumUpdateMetadata(UpdateMetadata):
                             no.add(un)
 
 class ContentSource:
-    url = None
-    name = None
     repo = None
     cache_dir = '/var/cache/rhn/reposync/'
     def __init__(self, url, name):
-        self.url = url
-        self.name = name
         self._clean_cache(self.cache_dir + name)
 
         # read the proxy configuration in /etc/rhn/rhn.conf
@@ -96,15 +92,12 @@ class ContentSource:
             self.proxy_url = "http://%s" %(self.proxy_addr)
         else:
             self.proxy_url = None
-
-    def list_packages(self):
-        """ list packages"""
-        repo = yum.yumRepo.YumRepository(self.name)
+        repo = yum.yumRepo.YumRepository(name)
         self.repo = repo
         repo.cache = 0
         repo.metadata_expire = 0
-        repo.mirrorlist = self.url
-        repo.baseurl = [self.url]
+        repo.mirrorlist = url
+        repo.baseurl = [url]
         repo.basecachedir = self.cache_dir
         if self.proxy_url is not None:
             repo.proxy = self.proxy_url
@@ -115,8 +108,11 @@ class ContentSource:
         warnings.restore()
 
         repo.setup(False)
-        sack = repo.getPackageSack()
-        sack.populate(repo, 'metadata', None, 0)
+
+    def list_packages(self):
+        """ list packages"""
+        sack = self.repo.getPackageSack()
+        sack.populate(self.repo, 'metadata', None, 0)
         list = sack.returnPackages()
         to_return = []
         for pack in list:
