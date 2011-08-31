@@ -396,6 +396,58 @@ public class KickstartHandler extends BaseHandler {
     }
 
     /**
+     * En/Disable kickstart profile
+     *
+     * @param sessionKey User's session key.
+     * @param profileLabel Label for tree we want to en/disable
+     * @param disabled True to disable the profile
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Enable/Disable a Kickstart Profile
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the
+     * kickstart tree you want to en/disable")
+     * @xmlrpc.param #param_desc("string", "disabled" "true to disable the profile")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int disableProfile(String sessionKey, String profileLabel, Boolean disabled) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(RoleFactory.CONFIG_ADMIN);
+        }
+        KickstartData ksData = lookupKsData(profileLabel, loggedInUser.getOrg());
+
+        KickstartEditCommand cmd = new KickstartEditCommand(
+                ksData.getId(), loggedInUser);
+
+        cmd.setActive(!disabled);
+        cmd.store();
+
+        return 1;
+    }
+
+    /**
+     * Returns whether a kickstart profile is disabled
+     *
+     * @param sessionKey User's session key.
+     * @param profileLabel kickstart profile label
+     * @return true if profile is disabled
+     *
+     * @xmlrpc.doc Returns whether a kickstart profile is disabled
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "profileLabel" "kickstart profile label")
+     * @xmlrpc.returntype true if profile is disabled
+     */
+    public boolean isProfileDisabled(String sessionKey, String profileLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksData = lookupKsData(profileLabel, loggedInUser.getOrg());
+
+        return !ksData.isActive();
+    }
+
+    /**
      * Rename a kickstart profile.
      *
      * @param sessionKey User's session key.
