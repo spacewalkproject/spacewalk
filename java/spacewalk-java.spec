@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.32
+Version: 1.6.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -547,6 +547,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 31 2011 Tomas Lestach <tlestach@redhat.com> 1.6.33-1
+- 725059 - en/disable kickstart profiles using API (tlestach@redhat.com)
+- 725050 - en/disable activation keys using API (tlestach@redhat.com)
+
 * Tue Aug 30 2011 Tomas Lestach <tlestach@redhat.com> 1.6.32-1
 - 640535 - add extra spaces between topic, description and note in Errata Alert
   e-mails (tlestach@redhat.com)
