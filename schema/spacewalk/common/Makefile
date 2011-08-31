@@ -11,10 +11,6 @@
 # in this software or its documentation.
 #
 
-ifndef STYLE
-STYLE := oracle
-$(warning STYLE not defined, using $(STYLE))
-endif
 ifndef COMMON
 COMMON := ../../../common
 $(warning COMMON not defined, using $(COMMON))
