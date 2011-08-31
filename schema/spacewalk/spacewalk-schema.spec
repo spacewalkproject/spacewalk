@@ -12,6 +12,7 @@ BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  perl(Digest::SHA1)
+BuildRequires:  python
 
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
