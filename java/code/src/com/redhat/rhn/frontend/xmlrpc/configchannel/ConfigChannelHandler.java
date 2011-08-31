@@ -98,6 +98,32 @@ public class ConfigChannelHandler extends BaseHandler {
     }
 
     /**
+     *  Delete specified revisions of a given configuration file
+     *  @param sessionKey User's session key.
+     *  @param configChannelLabel Config channel label.
+     *  @param filePath The configuration file path.
+     *  @param revisions List of configuration file revisions to delete.
+     *  @return 1 if deletion succeeds, errors out otherwise.
+     */
+    public int deleteFileRevisions(String sessionKey, String configChannelLabel,
+                                   String filePath, List<Integer> revisions) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigChannel cc = configHelper.lookupGlobal(loggedInUser, configChannelLabel);
+        ConfigurationManager cm = ConfigurationManager.getInstance();
+        ConfigFile cf = cm.lookupConfigFile(loggedInUser, cc.getId(), filePath);
+
+        for (Integer rev_id : revisions) {
+            ConfigRevision cr = cm.lookupConfigRevisionByRevId(loggedInUser, cf,
+                rev_id.longValue());
+            cm.deleteConfigRevision(loggedInUser, cr);
+        }
+
+        return 1;
+    }
+
+    /**
      * Return a struct of config channel details.
      * @param sessionKey User's session key.
      * @param configChannelLabel Config channel label.

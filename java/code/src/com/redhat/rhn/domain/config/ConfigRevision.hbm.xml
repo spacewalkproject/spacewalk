@@ -33,4 +33,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				column="config_file_type_id"
 				cascade="none" />
 	</class>
+	<query name="ConfigRevision.findByRevisionAndConfigFile">
+	    <![CDATA[from com.redhat.rhn.domain.config.ConfigRevision as cr
+	            where cr.revision = :rev and
+	                  cr.configFile = :cf]]>
+	</query>
 </hibernate-mapping>

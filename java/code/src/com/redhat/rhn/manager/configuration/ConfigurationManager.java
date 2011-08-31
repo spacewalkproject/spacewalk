@@ -1884,6 +1884,36 @@ public class ConfigurationManager extends BaseManager {
     }
 
     /**
+     * For a given configuration file, looks up a config revision id
+     * @param user The user requesting to lookup a config revision.
+     * @param cf The ConfigFile that the revision applies to
+     * @param rev_id The ConfigFile revision id.
+     * @return The sought for config revision.
+     */
+    public ConfigRevision lookupConfigRevisionByRevId(User user, ConfigFile cf,
+            Long rev_id) {
+        ConfigRevision cr = ConfigurationFactory.lookupConfigRevisionByRevId(cf, rev_id);
+
+        if (cr == null) {
+            throw new LookupException("Could not find config revision with revision id="
+                    + rev_id);
+        }
+
+        if (!accessToRevision(user.getId(), cr.getId())) {
+            LocalizationService ls = LocalizationService.getInstance();
+            LookupException e =
+                new LookupException("Could not find config revision with revision id="
+                    + rev_id);
+            e.setLocalizedTitle(ls.getMessage("lookup.configrev.title"));
+            e.setLocalizedReason1(ls.getMessage("lookup.configrev.reason1"));
+            e.setLocalizedReason2(ls.getMessage("lookup.configrev.reason2"));
+            throw e;
+        }
+
+        return cr;
+    }
+
+    /**
      * @param uid The user id
      * @param ccid The config channel id
      * @return whether the user with the given id can view the

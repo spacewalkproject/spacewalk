@@ -407,6 +407,21 @@ public class ConfigurationFactory extends HibernateFactory {
         return a;
     }
 
+
+    /**
+     * Finds a ConfigRevision for a given ConfigFile and given revision id
+     * @param ConfigFile The ConfigFile to look for.
+     * @param rev_id The ConfigFile revision to look for.
+     * @return ConfigRevision The sought for ConfigRevision.
+     */
+    public static ConfigRevision lookupConfigRevisionByRevId(ConfigFile cf, Long rev_id) {
+        Session session = HibernateFactory.getSession();
+        Query q = session.getNamedQuery("ConfigRevision.findByRevisionAndConfigFile");
+        q.setLong("rev", rev_id.longValue());
+        q.setEntity("cf", cf);
+        return (ConfigRevision) q.uniqueResult();
+    }
+
     /**
      * Finds a ConfigInfo from the database with a given id.
      * @param id The identifier for the ConfigInfo
