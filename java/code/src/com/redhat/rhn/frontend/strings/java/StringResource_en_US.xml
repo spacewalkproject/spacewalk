@@ -6110,7 +6110,7 @@ user before attempting to deactivate their account.</source>
 
 
     <trans-unit id="restart.config.error">
-        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
+        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: /usr/sbin/service rhn-satellite restart.  Please contact support for more information.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
@@ -6519,14 +6519,14 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
       <trans-unit id="kickstart.schedule.nobasechannel">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a base channel.</source>
+        <source>System {0} cannot be kickstarted because it does not have a base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
 
       <trans-unit id="kickstart.schedule.nosuchdevice">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a &lt;strong&gt; {1} &lt;/strong&gt; network device.</source>
+        <source>System {0} cannot be kickstarted because it does not have a {1} network device.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -6560,7 +6560,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
       <trans-unit id="kickstart.schedule.noup2date">
-        <source>A kickstart was not scheduled for &lt;strong&gt;&lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;&lt;/strong&gt; because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
+        <source>A kickstart was not scheduled for {1} ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -7061,21 +7061,21 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="configmanager.filedetails.path.no-starting-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must start with a '/'</source>
+<source>{0}: Configuration file path names must start with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">etc/tomcat5: Configuration file path names must start with a '/'</context>
         </context-group>
       </trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-ending-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names may not end with a '/'</source>
+<source>{0}: Configuration file path names may not end with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/tomcat5/: Configuration file path names may not end with a '/'</context>
         </context-group>
       </trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-relative-dirs">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must be absolute paths - '..' is not allowed</source>
+<source>{0}: Configuration file path names must be absolute paths - '..' is not allowed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/../etc/tomcat5: Configuration file path names must be absolute paths - '..' is not allowed</context>
@@ -7103,7 +7103,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="configmanager.filedetails.content.bad-macro">
-<source>Invalid macro - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
+<source>Invalid macro - make sure the file isn't a binary file! '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">Invalid macro - make sure the file isn't a binary file!\n'kjhafkjgy((7623=' </context>
