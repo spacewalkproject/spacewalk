@@ -209,12 +209,12 @@ class BaseTableLookup:
         # Stub
         return None
 
-    def _getCachedQuery(self, key):
+    def _getCachedQuery(self, key, blob_map=None):
         if self.queries.has_key(key):
             # Serve it from the pool
             return self.queries[key]
 
-        statement = self.dbmodule.prepare(self._buildQuery(key))
+        statement = self.dbmodule.prepare(self._buildQuery(key), blob_map=blob_map)
         # And save it to the cached queries pool
         self.queries[key] = statement
         return statement
@@ -408,9 +408,7 @@ class TableInsert(TableUpdate):
         self.count = 1000
 
         self.insert_fields = self.pks + self.otherfields + self.blob_fields
-        self.insert_values = map(lambda x: ':%s' % x, self.pks + self.otherfields)
-        for f in self.blob_fields:
-            self.insert_values.append('empty_blob()')
+        self.insert_values = map(lambda x: ':%s' % x, self.pks + self.otherfields + self.blob_fields)
     
     def _buildQuery(self, key):
         q = self.queryTemplate % (self.table.name, 
@@ -419,26 +417,16 @@ class TableInsert(TableUpdate):
         return q
 
     def query(self, values):
-        # Take the blob values out of the hash
-        blob_values = {}
-        for f in self.blob_fields:
-            blob_values[f] = values[f]
-            del values[f]
-        # Copy the primary keys too
-        for f in self.pks:
-            blob_values[f] = values[f][:]
+        if self.blob_fields:
+            blob_map = {}
+            for f in self.blob_fields:
+                blob_map[f] = f
+        else:
+            blob_map = None
 
         # Do the insert
-        statement = self._getCachedQuery(None)
+        statement = self._getCachedQuery(None, blob_map=blob_map)
         executeStatement(statement, values, self.count)
-
-        if not self.blob_fields:
-            # Nothing else to do
-            return
-        
-        valuesHash, blobValuesHash = self._split_blob_values(blob_values, blob_only=1)
-
-        self._update_blobs(blobValuesHash)
 
     
 def executeStatement(statement, valuesHash, chunksize):
