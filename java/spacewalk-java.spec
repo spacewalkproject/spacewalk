@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.33
+Version: 1.6.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -547,6 +547,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 31 2011 Tomas Lestach <tlestach@redhat.com> 1.6.34-1
+- fix NPE for KickstartDetailsEditAction (tlestach@redhat.com)
+
 * Wed Aug 31 2011 Tomas Lestach <tlestach@redhat.com> 1.6.33-1
 - 725059 - en/disable kickstart profiles using API (tlestach@redhat.com)
 - 725050 - en/disable activation keys using API (tlestach@redhat.com)
