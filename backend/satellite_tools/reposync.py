@@ -114,6 +114,7 @@ class RepoSync:
             print "Channel does not exist or is not custom"
             sys.exit(1)
 
+        start_time = datetime.now()
         for url in self.urls:
             plugin = self.load_plugin()(url, self.channel_label)
             self.import_packages(plugin, url)
@@ -123,8 +124,10 @@ class RepoSync:
                 [self.channel_label], [], "server.app.yumreposync")
             taskomatic.add_to_erratacache_queue(self.channel_label)
         self.update_date()
-        rhnSQL.commit()        
-        self.print_msg("Sync complete")
+        rhnSQL.commit()
+        total_time = datetime.now() - start_time
+        self.print_msg("Sync completed.")
+        self.print_msg("Total time: %s" % str(total_time).split('.')[0])
 
 
     def update_date(self):
