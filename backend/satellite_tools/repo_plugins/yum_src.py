@@ -117,6 +117,7 @@ class ContentSource:
         list = sack.returnPackages()
         if filters:
             list = self._filter_packages(list, filters)
+            list = self._get_package_dependencies(sack, list)
         to_return = []
         for pack in list:
             if pack.arch == 'src':
@@ -172,6 +173,15 @@ class ContentSource:
             else:
                 raise UpdateNoticeException
         return selected
+
+    def _get_package_dependencies(self, sack, packages):
+        yumbase = yum.YumBase()
+        yumbase.pkgSack = sack
+        resolved_deps = yumbase.findDeps(packages)
+        for (pkg,deps) in resolved_deps.items():
+            for (dep,dep_packages) in deps.items():
+                packages.extend(dep_packages)
+        return yum.misc.unique(packages)
 
     def get_package(self, package):
         """ get package """
