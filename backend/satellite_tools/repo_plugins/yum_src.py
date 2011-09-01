@@ -109,7 +109,8 @@ class ContentSource:
 
         repo.setup(False)
 
-    def list_packages(self):
+
+    def list_packages(self, filters):
         """ list packages"""
         sack = self.repo.getPackageSack()
         sack.populate(self.repo, 'metadata', None, 0)

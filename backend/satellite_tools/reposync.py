@@ -15,6 +15,7 @@
 #
 import sys, os, time
 import hashlib
+import re
 from datetime import datetime
 import traceback
 from optparse import OptionParser
@@ -34,6 +35,11 @@ from spacewalk.server import taskomatic
 default_log_location = '/var/log/rhn/reposync/'
 default_hash = 'sha256'
 
+def set_filter_opt(option, opt_str, value, parser):
+    if opt_str in [ '--include', '-i']: f_type = '+'
+    else:                               f_type = '-'
+    parser.values.filters.append((f_type, re.split('[,\s]+', value)))
+
 class RepoSync:
 
     parser = None
@@ -44,6 +50,7 @@ class RepoSync:
     fail = False
     quiet = False
     regen = False
+    filters = []
 
     def main(self):
         initCFG('server')
@@ -89,6 +96,7 @@ class RepoSync:
             quit = True
             self.error_msg("--channel must be specified")
 
+        self.filters = options.filters
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
 
@@ -132,6 +140,9 @@ class RepoSync:
         self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported', default='yum')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
         self.parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Print no output, still logs output")
+        self.parser.add_option('-i', '--include', action='callback', callback=set_filter_opt, type='str', nargs=1, dest='filters', default=[], help="List of included packages")
+        self.parser.add_option('-e', '--exclude', action='callback', callback=set_filter_opt, type='str', nargs=1, dest='filters', default=[], help="List of excluded packages")
+
         return self.parser.parse_args()
 
     def load_plugin(self):
@@ -308,7 +319,7 @@ class RepoSync:
         self.regen = True
 
     def import_packages(self, plug, url):
-        packages = plug.list_packages()
+        packages = plug.list_packages(self.filters)
         to_process = []
         self.print_msg("Repo " + url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
