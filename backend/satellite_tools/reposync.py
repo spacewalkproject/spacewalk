@@ -321,7 +321,11 @@ class RepoSync:
     def import_packages(self, plug, url):
         packages = plug.list_packages(self.filters)
         to_process = []
-        self.print_msg("Repo " + url + " has " + str(len(packages)) + " packages.")
+        num_passed = len(packages)
+        self.print_msg("Repo URL: %s" % url)
+        self.print_msg("Packages in repo:             %5d" % plug.num_packages)
+        if plug.num_excluded:
+            self.print_msg("Packages passed filter rules: %5d" % num_passed)
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
@@ -349,6 +353,10 @@ class RepoSync:
         if num_to_process == 0:
             self.print_msg("No new packages to sync.")
             return
+        else:
+            self.print_msg("Packages already synced:      %5d" % 
+                                                  (num_passed - num_to_process))
+            self.print_msg("Packages to sync:             %5d" % num_to_process)
 
         self.regen=True
         is_non_local_repo = (url.find("file://") < 0)

@@ -108,6 +108,8 @@ class ContentSource:
         warnings.restore()
 
         repo.setup(False)
+        self.num_packages = 0
+        self.num_excluded = 0
 
 
     def list_packages(self, filters):
@@ -115,9 +117,11 @@ class ContentSource:
         sack = self.repo.getPackageSack()
         sack.populate(self.repo, 'metadata', None, 0)
         list = sack.returnPackages()
+        self.num_packages = len(list)
         if filters:
             list = self._filter_packages(list, filters)
             list = self._get_package_dependencies(sack, list)
+            self.num_excluded = self.num_packages - len(list)
         to_return = []
         for pack in list:
             if pack.arch == 'src':
