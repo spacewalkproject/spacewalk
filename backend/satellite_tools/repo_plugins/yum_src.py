@@ -115,6 +115,8 @@ class ContentSource:
         sack = self.repo.getPackageSack()
         sack.populate(self.repo, 'metadata', None, 0)
         list = sack.returnPackages()
+        if filters:
+            list = self._filter_packages(list, filters)
         to_return = []
         for pack in list:
             if pack.arch == 'src':
@@ -129,6 +131,47 @@ class ContentSource:
             new_pack.checksum      = pack.checksums[0][1]
             to_return.append(new_pack)
         return to_return
+
+    def _filter_packages(self, packages, filters):
+        """ implement include / exclude logic
+            filters are: [ ('+', includelist1), ('-', excludelist1),
+                           ('+', includelist2), ... ]
+        """
+        if filters is None:
+            return
+
+        selected = []
+        excluded = []
+        if filters[0][0] == '-':
+            # first filter is exclude, start with full package list
+            # and then exclude from it
+            selected = packages
+        else:
+            excluded = packages
+
+        for filter in filters:
+            sense, pkg_list = filter
+            if sense == '+':
+                # include
+                exactmatch, matched, unmatched = yum.packages.parsePackages(
+                                                        excluded, pkg_list)
+                allmatched = yum.misc.unique(exactmatch + matched)
+                selected = yum.misc.unique(selected + allmatched)
+                for pkg in allmatched:
+                    if pkg in excluded:
+                        excluded.remove(pkg)
+            elif sense == '-':
+                # exclude
+                exactmatch, matched, unmatched = yum.packages.parsePackages(
+                                                        selected, pkg_list)
+                allmatched = yum.misc.unique(exactmatch + matched)
+                for pkg in allmatched:
+                    if pkg in selected:
+                        selected.remove(pkg)
+                excluded = yum.misc.unique(excluded + allmatched)
+            else:
+                raise UpdateNoticeException
+        return selected
 
     def get_package(self, package):
         """ get package """
