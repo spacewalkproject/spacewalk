@@ -6091,11 +6091,11 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
 
 
     <trans-unit id="restart.config.error">
-        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
+        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: /usr/sbin/service rhn-satellite restart.  Please contact support for more information.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>Hubo un error al reiniciar el servidor satélite. Se puede reiniciar manualmente desde la consola ejecutando el comando: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;. Por favor contacte al equipo de asistencia para obtener mayor información.</target></trans-unit>
+      <target>Hubo un error al reiniciar el servidor satélite. Se puede reiniciar Guíamente desde la consola ejecutando el comando: /usr/sbin/service rhn-satellite restart. Por favor contacte al equipo de asistencia para obtener mayor información.</target></trans-unit>
 
     <trans-unit id="config.storeconfig.error">
         <source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
@@ -6512,18 +6512,18 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <target>No se encontró ningún perfil compatible con este sistema. Puede ser que no ha creado ningún perfil kickstart o que su sistema no tiene un Canal Base.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nobasechannel">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a base channel.</source>
+        <source>System {0} cannot be kickstarted because it does not have a base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>No se pudo kickstart el sistema &lt;strong&gt; {0} &lt;/strong&gt; porque no tiene un canal base.</target></trans-unit>
+      <target>No se pudo kickstart el sistema {0} porque no tiene un canal base.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosuchdevice">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a &lt;strong&gt; {1} &lt;/strong&gt; network device.</source>
+        <source>System {0} cannot be kickstarted because it does not have a {1} network device.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>El sistema &lt;strong&gt; {0} &lt;/strong&gt; no puede ser instalado con kickstart porque no tiene un dispositivo de red &lt;strong&gt; {1} &lt;/strong&gt;.</target></trans-unit>
+      <target>El sistema {0} no puede ser instalado con kickstart porque no tiene un dispositivo de red {1} .</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosubs">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
@@ -6553,11 +6553,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <target>Usted no tiene suscripciones al canal {0} restantes para el canal base actual de este sistema.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.noup2date">
-        <source>A kickstart was not scheduled for &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
+        <source>A kickstart was not scheduled for {1} ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>kickstart para &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; no fue programado porque el perfil de paquetes no contiene el paquete 'up2date'. La actualización del perfil de paquetes de ese sistema puede requerirse.</target></trans-unit>
+      <target>kickstart para {1} ({0}) no fue programado porque el perfil de paquetes no contiene el paquete 'up2date'. La actualización del perfil de paquetes de ese sistema puede requerirse.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.up2dateerror">
         <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
@@ -7054,26 +7054,26 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>No se especificó la ruta de archivo</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.no-starting-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must start with a '/'</source>
+<source>{0}: Configuration file path names must start with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">etc/tomcat5: Configuration file path names must start with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: Los nombres de ruta de acceso al archivo de configuración deben comenzar con un '/'</target></trans-unit>
+      <target>{0}: Los nombres de ruta de acceso al archivo de configuración deben comenzar con un '/'</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-ending-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names may not end with a '/'</source>
+<source>{0}: Configuration file path names may not end with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/tomcat5/: Configuration file path names may not end with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: Los nombres de ruta de acceso al archivo de configuración no deben terminar con un '/'</target></trans-unit>
+      <target>{0}: Los nombres de ruta de acceso al archivo de configuración no deben terminar con un '/'</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-relative-dirs">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must be absolute paths - '..' is not allowed</source>
+<source>{0}: Configuration file path names must be absolute paths - '..' is not allowed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/../etc/tomcat5: Configuration file path names must be absolute paths - '..' is not allowed</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: Los nombres de ruta de acceso al archivo de configuración deben ser absolutos - '..' no está permitido</target></trans-unit>
+      <target>{0}: Los nombres de ruta de acceso al archivo de configuración deben ser absolutos - '..' no está permitido</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.no-macro-name">
 <source>Cannot find a macro function name - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
         <context-group name="ctx">
@@ -7096,12 +7096,12 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Argumento no válido '{1}' pasado a la función macro '{0}'</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.bad-macro">
-<source>Invalid macro - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
+<source>Invalid macro - make sure the file isn't a binary file! '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">Invalid macro - make sure the file isn't a binary file!\n'kjhafkjgy((7623=' </context>
         </context-group>
-      <target>macro no válido - asegúrese de que el archivo no sea binario&lt;p/&gt;'{0}'</target></trans-unit>
+      <target>macro no válido - asegúrese de que el archivo no sea binario '{0}'</target></trans-unit>
 
       <trans-unit id="configdiff.schedule.success">
         <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} systems.</source>

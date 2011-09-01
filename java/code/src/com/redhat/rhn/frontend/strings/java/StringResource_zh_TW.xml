@@ -6065,11 +6065,11 @@ user before attempting to deactivate their account.</source>
 
 
     <trans-unit id="restart.config.error">
-        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
+        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: /usr/sbin/service rhn-satellite restart.  Please contact support for more information.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>在重新啟動衛星伺服器時發生錯誤。您可以在命令列模式下手動重新啟動：&lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;。請連絡技術支援部，已獲得更多訊息。</target></trans-unit>
+      <target>在重新啟動衛星伺服器時發生錯誤。您可以在命令列模式下手動重新啟動：/usr/sbin/service rhn-satellite restart。請連絡技術支援部，已獲得更多訊息。</target></trans-unit>
 
     <trans-unit id="config.storeconfig.error">
         <source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
@@ -6486,18 +6486,18 @@ Follow this url to see the full list of inactive systems:
       <target>找不到與這台系統相容的設定檔。若不是您沒有建立任何 Kickstart 設定檔，就是這台系統沒有基礎頻道。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nobasechannel">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a base channel.</source>
+        <source>System {0} cannot be kickstarted because it does not have a base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>無法 kickstart &lt;strong&gt;{0}&lt;/strong&gt;，因為它沒有基礎頻道。</target></trans-unit>
+      <target>無法 kickstart {0}，因為它沒有基礎頻道。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosuchdevice">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a &lt;strong&gt; {1} &lt;/strong&gt; network device.</source>
+        <source>System {0} cannot be kickstarted because it does not have a {1} network device.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target></target></trans-unit>
+      <target>無法 kickstart 系統 {0} ，因為它沒有 {1} 網路裝置。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosubs">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
@@ -6527,11 +6527,11 @@ Follow this url to see the full list of inactive systems:
       <target>您已經沒有剩餘的訂閱數至此系統目前基礎頻道的 {0} 頻道。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.noup2date">
-        <source>A kickstart was not scheduled for &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
+        <source>A kickstart was not scheduled for {1} ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>&lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; 並未排程 kickstart，因為套件設定檔並不包含「up2date」套件。您需要更新這台系統的套件設定檔。</target></trans-unit>
+      <target>{1} ({0}) 並未排程 kickstart，因為套件設定檔並不包含「up2date」套件。您需要更新這台系統的套件設定檔。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.up2dateerror">
         <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
@@ -7028,26 +7028,26 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>尚未指定檔案路徑</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.no-starting-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must start with a '/'</source>
+<source>{0}: Configuration file path names must start with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">etc/tomcat5: Configuration file path names must start with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;：配置檔案路徑名稱必須已一個「/」作為起始</target></trans-unit>
+      <target>{0}：配置檔案路徑名稱必須已一個「/」作為起始</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-ending-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names may not end with a '/'</source>
+<source>{0}: Configuration file path names may not end with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/tomcat5/: Configuration file path names may not end with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;：配置檔案路徑名稱不能已一個「/」作為結尾</target></trans-unit>
+      <target>{0}：配置檔案路徑名稱不能已一個「/」作為結尾</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-relative-dirs">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must be absolute paths - '..' is not allowed</source>
+<source>{0}: Configuration file path names must be absolute paths - '..' is not allowed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/../etc/tomcat5: Configuration file path names must be absolute paths - '..' is not allowed</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;：配置檔案路徑名稱必須是絕對路徑 -「..」是不被允許的</target></trans-unit>
+      <target>{0}：配置檔案路徑名稱必須是絕對路徑 -「..」是不被允許的</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.no-macro-name">
 <source>Cannot find a macro function name - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
         <context-group name="ctx">
@@ -7070,12 +7070,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>對巨集函數名稱「{0}」無效的引數「{1}」</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.bad-macro">
-<source>Invalid macro - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
+<source>Invalid macro - make sure the file isn't a binary file! '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">Invalid macro - make sure the file isn't a binary file!\n'kjhafkjgy((7623=' </context>
         </context-group>
-      <target>無效的巨集 - 請確認檔案非二進位檔案！&lt;p/&gt;「{0}」</target></trans-unit>
+      <target>無效的巨集 - 請確認檔案非二進位檔案！ 「{0}」</target></trans-unit>
 
       <trans-unit id="configdiff.schedule.success">
         <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} systems.</source>

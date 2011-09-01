@@ -6066,11 +6066,11 @@ user before attempting to deactivate their account.</source>
 
 
     <trans-unit id="restart.config.error">
-        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
+        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: /usr/sbin/service rhn-satellite restart.  Please contact support for more information.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>satellite를 재시작하는데 오류가 발생하였습니다. 콘솔에서 &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt; 명령을 입력하여 재시작시킬 수 있습니다. 보다 자세한 정보는 지원팀에게 문의하시기 바랍니다.</target></trans-unit>
+      <target>satellite를 재시작하는데 오류가 발생하였습니다. 콘솔에서 /usr/sbin/service rhn-satellite restart 명령을 입력하여 재시작시킬 수 있습니다. 보다 자세한 정보는 지원팀에게 문의하시기 바랍니다.</target></trans-unit>
 
     <trans-unit id="config.storeconfig.error">
         <source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
@@ -6487,18 +6487,18 @@ Follow this url to see the full list of inactive systems:
       <target>이 시스템과 호환되는 프로파일을 찾을 수 없습니다. 킥스타트 프로파일을 생성하지 않으셨거나 기본 채널이 시스템에서 존재하지 않습니다.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nobasechannel">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a base channel.</source>
+        <source>System {0} cannot be kickstarted because it does not have a base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>시스템 &lt;strong&gt; {0} &lt;/strong&gt;은 기본 채널이 없기 때문에 킥스타트되어질 수 없습니다.</target></trans-unit>
+      <target>시스템 {0} 은 기본 채널이 없기 때문에 킥스타트할 수 없습니다.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosuchdevice">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a &lt;strong&gt; {1} &lt;/strong&gt; network device.</source>
+        <source>System {0} cannot be kickstarted because it does not have a {1} network device.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target></target></trans-unit>
+      <target>시스템 {0} 에는 {1} 네트워크 장치가 없기 때문에 킥스타트할 수 없습니다. </target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosubs">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
@@ -6528,11 +6528,11 @@ Follow this url to see the full list of inactive systems:
       <target>현재 이 시스템의 기본 채널에 대해 {0} 채널에 남아있는 서브스크립션이 없습니다.  </target></trans-unit>
 
       <trans-unit id="kickstart.schedule.noup2date">
-        <source>A kickstart was not scheduled for &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
+        <source>A kickstart was not scheduled for {1} ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>패키지 프로파일에 'up2date'패키지가 들어있지 않아 킥스타트가 &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt;에 대해 스케줄되지 않았습니다. 시스템의 패키지 프로파일을 업데이트해야 합니다.</target></trans-unit>
+      <target>패키지 프로파일에 'up2date'패키지가 들어있지 않아 킥스타트가 {1} ({0})에 대해 스케줄되지 않았습니다. 시스템의 패키지 프로파일을 업데이트해야 합니다.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.up2dateerror">
         <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
@@ -7029,26 +7029,26 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>파일 경로가 지정되지 않았습니다.</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.no-starting-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must start with a '/'</source>
+<source>{0}: Configuration file path names must start with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">etc/tomcat5: Configuration file path names must start with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: 설정 파일 경로명은 반드시 '/'로 시작해야 합니다.</target></trans-unit>
+      <target>{0}: 설정 파일 경로명은 반드시 '/'로 시작해야 합니다.</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-ending-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names may not end with a '/'</source>
+<source>{0}: Configuration file path names may not end with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/tomcat5/: Configuration file path names may not end with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: 설정 파일 경로명이 '/'로 끝나서는 안됩니다.</target></trans-unit>
+      <target>{0}: 설정 파일 경로명이 '/'로 끝나서는 안됩니다.</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-relative-dirs">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must be absolute paths - '..' is not allowed</source>
+<source>{0}: Configuration file path names must be absolute paths - '..' is not allowed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/../etc/tomcat5: Configuration file path names must be absolute paths - '..' is not allowed</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: 설정 파일 경로명은 완전 경로로 '..'이 포함되어서는 안됩니다</target></trans-unit>
+      <target>{0}: 설정 파일 경로명은 완전 경로로 '..'이 포함되어서는 안됩니다</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.no-macro-name">
 <source>Cannot find a macro function name - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
         <context-group name="ctx">
@@ -7071,12 +7071,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>매크로 함수 '{0}'에 부적절한 인수 '{1}'</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.bad-macro">
-<source>Invalid macro - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
+<source>Invalid macro - make sure the file isn't a binary file! '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">Invalid macro - make sure the file isn't a binary file!\n'kjhafkjgy((7623=' </context>
         </context-group>
-      <target>부적절한 매크로 - 파일이 바이너리 파일이 아닌지 확인!&lt;p/&gt;'{0}'</target></trans-unit>
+      <target>부적절한 매크로 - 파일이 바이너리 파일이 아닌지 확인! '{0}'</target></trans-unit>
 
       <trans-unit id="configdiff.schedule.success">
         <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} systems.</source>

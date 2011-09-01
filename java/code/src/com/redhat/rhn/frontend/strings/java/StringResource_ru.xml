@@ -6066,11 +6066,11 @@ user before attempting to deactivate their account.</source>
 
 
     <trans-unit id="restart.config.error">
-        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
+        <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: /usr/sbin/service rhn-satellite restart.  Please contact support for more information.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-      <target>Произошла ошибка при рестарте Satellite. Он может быть перезапущен вручную с консоли командой &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;. За дальнейшей информацией обратитесь в службу поддержки.</target></trans-unit>
+      <target>Произошла ошибка при рестарте Satellite. Он может быть перезапущен вручную с консоли командой /usr/sbin/service rhn-satellite restart. За дальнейшей информацией обратитесь в службу поддержки.</target></trans-unit>
 
     <trans-unit id="config.storeconfig.error">
         <source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
@@ -6487,18 +6487,18 @@ Follow this url to see the full list of inactive systems:
       <target>Не найдено ни одного профиля, совместимого с данной системой. Либо профили кикстарта не были созданы, либо у системы нет базового канала.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nobasechannel">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a base channel.</source>
+        <source>System {0} cannot be kickstarted because it does not have a base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>Не может быть выполнен кикстарт системы &lt;strong&gt; {0} &lt;/strong&gt;, поскольку для неё не определён базовый канал.</target></trans-unit>
+      <target>Не может быть выполнен кикстарт системы {0} , поскольку для неё не определён базовый канал.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosuchdevice">
-        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a &lt;strong&gt; {1} &lt;/strong&gt; network device.</source>
+        <source>System {0} cannot be kickstarted because it does not have a {1} network device.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target></target></trans-unit>
+      <target>Невозможно выполнить установку в системе {0} , так как она не оборудована сетевым устройством {1} .</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nosubs">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
@@ -6528,11 +6528,11 @@ Follow this url to see the full list of inactive systems:
       <target>У вас не осталось подписок к каналу {0} для заданного базового канала этой системы.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.noup2date">
-        <source>A kickstart was not scheduled for &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
+        <source>A kickstart was not scheduled for {1} ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-      <target>Не был назначен кикстарт для &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt;, поскольку профиль пакетов не содержит пакет up2date. Возможно, надо обновить профиль пакетов системы.</target></trans-unit>
+      <target>Не был назначен кикстарт для {1} ({0}), поскольку профиль пакетов не содержит пакет up2date. Возможно, надо обновить профиль пакетов системы.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.up2dateerror">
         <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
@@ -7029,26 +7029,26 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>Не указан путь к файлу</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.no-starting-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must start with a '/'</source>
+<source>{0}: Configuration file path names must start with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">etc/tomcat5: Configuration file path names must start with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: путь к файлу конфигурации должен начинаться с «/»</target></trans-unit>
+      <target>{0}: путь к файлу конфигурации должен начинаться с «/»</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-ending-slash">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names may not end with a '/'</source>
+<source>{0}: Configuration file path names may not end with a '/'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/tomcat5/: Configuration file path names may not end with a '/'</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: путь к файлу конфигурации не должен заканчиваться на «/»</target></trans-unit>
+      <target>{0}: путь к файлу конфигурации не должен заканчиваться на «/»</target></trans-unit>
       <trans-unit id="configmanager.filedetails.path.has-relative-dirs">
-<source>&lt;strong&gt;{0}&lt;/strong&gt;: Configuration file path names must be absolute paths - '..' is not allowed</source>
+<source>{0}: Configuration file path names must be absolute paths - '..' is not allowed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/../etc/tomcat5: Configuration file path names must be absolute paths - '..' is not allowed</context>
         </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;: необходимо указать абсолютный путь к файлу конфигурации, не допустимо использовать «..»</target></trans-unit>
+      <target>{0}: необходимо указать абсолютный путь к файлу конфигурации, не допустимо использовать «..»</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.no-macro-name">
 <source>Cannot find a macro function name - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
         <context-group name="ctx">
@@ -7071,12 +7071,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>Неверные аргументы '{1}' функции макроса '{0}'</target></trans-unit>
       <trans-unit id="configmanager.filedetails.content.bad-macro">
-<source>Invalid macro - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
+<source>Invalid macro - make sure the file isn't a binary file! '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">Invalid macro - make sure the file isn't a binary file!\n'kjhafkjgy((7623=' </context>
         </context-group>
-      <target>Неверный макрос. Убедитесь, что файл не является бинарным. &lt;p/&gt;'{0}'</target></trans-unit>
+      <target>Неверный макрос. Убедитесь, что файл не является бинарным.  '{0}'</target></trans-unit>
 
       <trans-unit id="configdiff.schedule.success">
         <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} systems.</source>
