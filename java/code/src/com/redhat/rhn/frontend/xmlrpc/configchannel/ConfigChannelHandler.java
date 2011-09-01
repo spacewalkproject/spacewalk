@@ -161,6 +161,41 @@ public class ConfigChannelHandler extends BaseHandler {
     }
 
     /**
+     * Get revision for specified config file
+     * @param sessionKey User's session key.
+     * @param configChannelLabel Config channel label.
+     * @param filePath The configuration file path.
+     * @param revision The configuration file revision.
+     * @return Revisions of the configuration file, errors out otherwise.
+     *
+     * @xmlrpc.doc Get revision of the specified config file
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "configChannelLabel",
+     *                          "label of config channel to lookup on")
+     * @xmlrpc.param #param_desc("string", "filePath", "config file path to examine")
+     * @xmlrpc.param #param_desc("int", "revision", "config file revision to examine")
+     * @xmlrpc.returntype
+     * $ConfigRevisionSerializer
+     */
+    public ConfigRevision getFileRevision(String sessionKey, String configChannelLabel,
+                               String filePath, Integer revision) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigChannel cc = configHelper.lookupGlobal(loggedInUser, configChannelLabel);
+        ConfigurationManager cm = ConfigurationManager.getInstance();
+        ConfigFile cf = cm.lookupConfigFile(loggedInUser, cc.getId(), filePath);
+
+        if (cf == null) {
+            throw new FaultException(1022, "InvalidConfigFileException",
+                "Could not find configuration file with filePath=: " + filePath);
+        }
+
+        ConfigRevision cr = cm.lookupConfigRevisionByRevId(loggedInUser, cf,
+            revision.longValue());
+        return cr;
+    }
+
+    /**
      * Return a struct of config channel details.
      * @param sessionKey User's session key.
      * @param configChannelLabel Config channel label.
