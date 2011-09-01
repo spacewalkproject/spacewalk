@@ -1914,6 +1914,15 @@ public class ConfigurationManager extends BaseManager {
     }
 
     /**
+     * For a given configuration file, return list of config revisions
+     * @param cf ConfigFile to lookup the revision for.
+     * @return List of config file revisions.
+     */
+    public List lookupConfigRevisions(ConfigFile cf) {
+        return ConfigurationFactory.lookupConfigRevisions(cf);
+    }
+
+    /**
      * @param uid The user id
      * @param ccid The config channel id
      * @return whether the user with the given id can view the

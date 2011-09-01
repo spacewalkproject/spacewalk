@@ -124,6 +124,43 @@ public class ConfigChannelHandler extends BaseHandler {
     }
 
     /**
+     * Get list of revisions for specified config file
+     * @param sessionKey User's session key.
+     * @param configChannelLabel Config channel label.
+     * @param filePath The configuration file path.
+     * @return List of revisions of the configuration file, errors out otherwise.
+     *
+     * @xmlrpc.doc Get list of revisions for specified config file
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel",
+     *                          "label of config channel to lookup on")
+     * @xmlrpc.param
+     *          #param_desc("string", "config file path to examine")
+     * @xmlrpc.returntype
+     * #array()
+     * $ConfigRevisionSerializer
+     * #array_end()
+     */
+    public List getFileRevisions(String sessionKey, String configChannelLabel,
+                                 String filePath) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigChannel cc = configHelper.lookupGlobal(loggedInUser, configChannelLabel);
+        ConfigurationManager cm = ConfigurationManager.getInstance();
+        ConfigFile cf = cm.lookupConfigFile(loggedInUser, cc.getId(), filePath);
+
+        if (cf == null) {
+            throw new FaultException(1022, "InvalidConfigFileException",
+                "Could not find configuration file with filePath=: " + filePath);
+        }
+
+        ArrayList<ConfigRevision> revisions =
+            (ArrayList<ConfigRevision>) cm.lookupConfigRevisions(cf);
+
+        return revisions;
+    }
+
+    /**
      * Return a struct of config channel details.
      * @param sessionKey User's session key.
      * @param configChannelLabel Config channel label.

@@ -38,4 +38,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	            where cr.revision = :rev and
 	                  cr.configFile = :cf]]>
 	</query>
+    <query name="ConfigRevision.findByConfigFile">
+        <![CDATA[from com.redhat.rhn.domain.config.ConfigRevision as cr
+                where cr.configFile = :cf]]>
+    </query>
 </hibernate-mapping>
