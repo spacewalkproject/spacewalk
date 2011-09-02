@@ -5,15 +5,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <html:html xhtml="true">
-  <head>
-    <script src="/dojo/dojo/dojo.js" djConfig="parseOnLoad: true">
-    <script type="text/javascript">
-      dojo.require("dijit.form.DropDownButton");
-      dojo.require("dijit.TooltipDialog");
-      dojo.require("dijit.form.TextBox");
-      dojo.require("dijit.form.Button");
-    </script>
-  </head>
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
@@ -163,23 +154,6 @@
               <c:out value="${network_hostname}" />
             </c:otherwise>
           </c:choose>
-        </td>
-        <td>
-          <div dojoType="dijit.form.DropDownButton">
-            <span>
-              + Add CName alias
-            </span>
-            <div dojoType="dijit.TooltipDialog">
-              <label for="cname_alias">
-                CName alias:
-              </label>
-              <input dojoType="dijit.form.TextBox" id="cname_alias" name="cname_alias">
-              <br>
-              <button dojoType="dijit.form.Button" type="submit">
-                Save
-              </button>
-            </div>
-          </div>
         </td>
       </tr>
       <c:forEach items="${network_cnames}" var="cname_alias" varStatus="loop">

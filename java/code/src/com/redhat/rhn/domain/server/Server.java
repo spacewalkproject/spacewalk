@@ -113,6 +113,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set<? extends ServerGroup> groups;
     private Set<Capability> capabilities;
 
+    public static final String VALID_CNAMES = "valid_cnames_";
+
     /**
      * @return Returns the capabilities.
      */
@@ -950,13 +952,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
      */
     public List<String> getCnames() {
         List<String> result = new ArrayList();
-        Iterator nets = networks.iterator();
-        if (nets.hasNext()) {
-            nets.next(); // skip primary interface
-        }
-        while (nets.hasNext()) {
-            Network net = (Network) nets.next();
-            result.add(net.getHostname());
+        List proxyCnames = Config.get().getList(VALID_CNAMES +
+                    serverInfo.getId().toString());
+        if (!proxyCnames.isEmpty()) {
+            result.addAll(proxyCnames);
         }
         return result;
     }
