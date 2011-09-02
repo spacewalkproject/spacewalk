@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.36
+Version: 1.6.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -547,6 +547,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 02 2011 Miroslav Suchý 1.6.37-1
+- show cname aliases in hw tab from config file (msuchy@redhat.com)
+- Checkstyle fixes (mzazrivec@redhat.com)
+
 * Fri Sep 02 2011 Tomas Lestach <tlestach@redhat.com> 1.6.36-1
 - checkstyle fix (tlestach@redhat.com)
 
