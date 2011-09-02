@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.6.2
+Version:    1.6.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Sep 02 2011 Jan Pazdziora 1.6.3-1
+- 558972 - making the navigational bar nice on 2000+ px wide screens.
+
 * Fri Aug 05 2011 Jan Pazdziora 1.6.2-1
 - 458413 - hide the bubble help links since we do not ship the documentation
   with Spacewalk.
