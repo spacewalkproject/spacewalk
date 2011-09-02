@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.34
+Version: 1.6.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -547,6 +547,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 02 2011 Martin Minar <mminar@redhat.com> 1.6.35-1
+- 734799 - New API: configchannel.getFileRevision (mzazrivec@redhat.com)
+- 734799 - New API: configchannel.getFileRevisions (mzazrivec@redhat.com)
+- 734799 - New API: configchannel.deleteFileRevisions (mzazrivec@redhat.com)
+
 * Wed Aug 31 2011 Tomas Lestach <tlestach@redhat.com> 1.6.34-1
 - fix NPE for KickstartDetailsEditAction (tlestach@redhat.com)
 
