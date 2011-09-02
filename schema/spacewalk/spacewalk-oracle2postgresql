@@ -3,8 +3,6 @@
 # data types
 s/\bVARCHAR2/VARCHAR/i;
 s/\bDATE\b/TIMESTAMPTZ/i;
-s/\bNUMBER(\([1-9]\|1[0-9]\))/SMALLINT/i;
-s/\bNUMBER([0-9]\+,\([0-9]\+\))/FLOAT(\1)/i;
 s/\bNUMBER\b/NUMERIC/i;
 s/\bBLOB\b/BYTEA/i;
 
