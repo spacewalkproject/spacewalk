@@ -114,9 +114,9 @@ public class ConfigChannelHandler extends BaseHandler {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         ConfigFile cf = cm.lookupConfigFile(loggedInUser, cc.getId(), filePath);
 
-        for (Integer rev_id : revisions) {
+        for (Integer revId : revisions) {
             ConfigRevision cr = cm.lookupConfigRevisionByRevId(loggedInUser, cf,
-                rev_id.longValue());
+                revId.longValue());
             cm.deleteConfigRevision(loggedInUser, cr);
         }
 
