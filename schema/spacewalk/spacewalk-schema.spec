@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.11
+Version:        1.6.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Sep 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.12-1
+- upgrade scripts for SMALLINT -> NUMERIC
+- upgrade script for FLOAT -> NUMERIC fix
+- don't translate NUMBER(X) to SMALLINT or FLOAT
+
 * Wed Aug 31 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.11-1
 - removed obsoleted warning
 - Fedora 15 needs explicit BuildRequires for python
