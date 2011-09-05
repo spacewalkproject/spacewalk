@@ -374,6 +374,11 @@ ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{_datadir}/rhn/li
 ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %endif
 
+# 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
+%if 0%{?fedora} >= 15
+ln -s -f %{_javadir}/mchange-commons.jar $RPM_BUILD_ROOT%{jardir}/mchange-commons.jar
+%endif
+
 # delete JARs which must not be deployed
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
@@ -451,6 +456,11 @@ fi
 %{jardir}/jpam.jar
 %{jardir}/jta.jar
 %{jardir}/log4j.jar
+
+%if 0%{?fedora} >= 15
+%{jardir}/mchange-commons.jar
+%endif
+
 %{jardir}/oro.jar
 %{jardir}/oscache.jar
 %{jardir}/quartz.jar
