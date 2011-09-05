@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.38
+Version: 1.6.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 05 2011 Jan Pazdziora 1.6.39-1
+- 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
+
 * Fri Sep 02 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.38-1
 - fixed column alias syntax
 - suite_id is number not string
