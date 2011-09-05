@@ -86,28 +86,30 @@ def init_hook(conduit):
         return 
 
     # check commands and options which don't need network communication
-    cmd_args = sys.argv[1:]
-    if ('--help' in cmd_args
-        or '--version' in cmd_args
-        or cmd_args == []):
-        rhn_enabled = False
-        conduit.info(10, _("Either --version, --help or no commands entered") +
-                 "\n" + RHN_DISABLED)
-        return
-    if 'clean' in cmd_args:
-        addCachedRepos(conduit)
-        conduit.info(10, _("Cleaning") + "\n" + RHN_DISABLED)
-        # cleanup cached login info
-        if os.path.exists(pcklAuthFileName):
-            os.unlink(pcklAuthFileName)
-        return
-    if ('-C' in cmd_args
-        or '--cacheonly' in cmd_args):
-        rhn_enabled = False
-        addCachedRepos(conduit)
-        conduit.info(10, _("Using list of RHN repos from cache") +
-                 "\n" + RHN_DISABLED)
-        return
+    prog_name = os.path.basename(sys.argv[0])
+    if prog_name == 'yum':
+        cmd_args = sys.argv[1:]
+        if ('--help' in cmd_args
+            or '--version' in cmd_args
+            or cmd_args == []):
+            rhn_enabled = False
+            conduit.info(10, _("Either --version, --help or no commands entered") +
+                     "\n" + RHN_DISABLED)
+            return
+        if 'clean' in cmd_args:
+            addCachedRepos(conduit)
+            conduit.info(10, _("Cleaning") + "\n" + RHN_DISABLED)
+            # cleanup cached login info
+            if os.path.exists(pcklAuthFileName):
+                os.unlink(pcklAuthFileName)
+            return
+        if ('-C' in cmd_args
+            or '--cacheonly' in cmd_args):
+            rhn_enabled = False
+            addCachedRepos(conduit)
+            conduit.info(10, _("Using list of RHN repos from cache") +
+                     "\n" + RHN_DISABLED)
+            return
 
     try:
         login_info = up2dateAuth.getLoginInfo()
