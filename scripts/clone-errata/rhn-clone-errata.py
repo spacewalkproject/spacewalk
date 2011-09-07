@@ -1,11 +1,11 @@
 #!/bin/env python
 # Script that uses RHN API to clone RHN Errata to Satellite
 # or Spacewalk server.
-# Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2008--2011  Red Hat, Inc.
 #
 # Author: Andy Speagle (andy.speagle@wichita.edu)
 #
-# This script was written based on the "rhn-clone-errata.py"
+# This script is an extension of the original "rhn-clone-errata.py"
 # script written by:  Lars Jonsson (ljonsson@redhat.com)
 #
 # (THANKS!)
@@ -49,23 +49,117 @@
 #	Modified how the publish happens.  Now it creates the errata and THEN
 #	calls the separate errata.publish() function.  I was having some
 #	intermittent time-outs doing the two together in the errata.create()
-#	 function.
+#	function.
+#
+# 0.5 - 2010-03-17 - Andy Speagle
+#
+#	Moved servers, users and passwords to a config file of your choice.
+#	Many config options changed as a result. Options on the command line
+#	override config file options.
+#
+#	Merged proxy support code from Colin Coe <colin.coe@gmail.com> (THANKS!)
+#
+#	Modified some of the formatting for logfile output.
+#
+#	I continue to suck at Python.
+#
+# 0.6 - 2010-03-18 - Andy Speagle
+#
+#	Corrected a grievous bug in the new Proxy code.
+#
+#	Moved Channel and ChannelSuffix maps to the config file.
+#
+# 0.7 - 2010-11-10 - Andy Speagle
+#
+#	Minor bugfixes a/o cosmetic changes.
+#
+# 0.8.1 - 2011-06-06 - Andy Speagle
+#
+#	Testing out new proxy code for handling authenticated proxies also.
+#	NOT PRODUCTION CODE
+#
+# 0.8.2 - 2011-06-06 - Andy Speagle
+#
+#	Update to new proxy code.
+#
+# 0.8.3 - 2011-06-06 - Andy Speagle
+#
+#	Add selector for which server connections need proxy.  This is crude, will cleanup later.
+#
+# 0.8.4 - 2011-06-06 - Andy Speagle
+#
+#	Add some code to handle transparent proxies.
+#
 
-import xmlrpclib
+import xmlrpclib, httplib
 from optparse import OptionParser
 from time import time, localtime, strftime
 from datetime import datetime, timedelta
-import sys
-import os
-import re
+import sys, os, re
+import ConfigParser
+import base64, urllib
+from urllib import unquote, splittype, splithost
+
+class AuthProxyTransport(xmlrpclib.Transport):
+    def set_proxy(self, proxy):
+	self.proxy = options.proxy
+
+    def request(self, host, handler, request_body, verbose=0):
+	type, r_type = splittype(self.proxy)
+
+	if 'http' in type:
+	    phost, XXX = splithost(r_type)
+	else:
+	    phost = self.proxy
+
+	puser_pass = None
+	if '@' in phost:
+	    user_pass, phost = phost.split('@', 1)
+            if ':' in user_pass:
+                user, password = user_pass.split(':', 1)
+                puser_pass = base64.encodestring('%s:%s' % (unquote(user),unquote(password))).strip()
+
+        urlopener = urllib.FancyURLopener({'http':'http://%s'%phost})
+        if not puser_pass:
+            urlopener.addheaders = [('User-agent', self.user_agent)]
+        else:
+            urlopener.addheaders = [('User-agent', self.user_agent),('Proxy-authorization', 'Basic ' + puser_pass)]
+
+	host = unquote(host)
+        f = urlopener.open("http://%s%s"%(host,handler), request_body)
+
+        self.verbose = verbose
+        return self.parse_response(f)
+
+class ProxiedTransport(xmlrpclib.Transport):
+    def set_proxy(self, proxy):
+        self.proxy = options.proxy
+    def make_connection(self, host):
+        self.realhost = host
+        h = httplib.HTTP(self.proxy)
+        return h
+    def send_request(self, connection, handler, request_body):
+        connection.putrequest("POST", "http://%s%s" % (self.realhost, handler))
+    def send_host(self, connection, host):
+        connection.putheader("Host", self.realhost)
 
 class RHNServer:
-    def __init__(self,servername,user,passwd): 
+    def __init__(self,servername,user,passwd,proxy_enable):
         self.rhnServerName = servername
         self.login = user
         self.password = passwd
         self.rhnUrl = 'https://'+self.rhnServerName+'/rpc/api'
-        self.server = xmlrpclib.Server(self.rhnUrl)
+	self.proxy_enable = proxy_enable
+	if self.proxy_enable:
+#	if options.proxy is None:
+#	    self.server = xmlrpclib.Server(self.rhnUrl)
+#	else:
+#	    proxy = ProxiedTransport()
+	    proxy = AuthProxyTransport()
+	    proxy.set_proxy(options.proxy);
+	    self.server = xmlrpclib.Server(self.rhnUrl, transport=proxy)
+	else:
+	    self.server = xmlrpclib.Server(self.rhnUrl)
         self.rhnSession = self.rhnLogin(self.login,self.password,0)
 
     def rhnLogin(self, login, password, retry): 
@@ -162,6 +256,31 @@ class RHNServer:
             else: 
                 return self.getErrataKeywords(advisory, (retry + 1))
 	return keywords
+
+    def getErrataCVEs(self,advisory,retry):
+        keywords = []
+        try:
+            keywords = self.server.errata.listCves(self.rhnSession,advisory)
+        except xmlrpclib.Fault, f:
+            if options.verbose:
+                print "Fault Code: %d\tFault String: %s" % (f.faultCode,f.faultString)
+            if f.faultCode == -20 or f.faultCode == -1:
+                self.rhnLogin(self.login,self.password,0)
+                return self.server.errata.listCves(self.rhnSession,advisory)
+            elif f.faultCode == -208:
+                if options.verbose:
+                    print "Errata %s Doesn't Exist on %s ..." % (advisory,self.rhnServerName)
+                return []
+            else:
+                print "Error Getting CVEs : "+advisory
+        except xmlrpclib.ProtocolError, err:
+            if options.verbose:
+                print "ProtocolError: %d - %s" % (err.errcode,err.errmsg)
+            if retry > 3:
+                raise
+            else:
+                return self.getErrataCves(advisory, (retry + 1))
+        return keywords
 
     def getErrataBugs(self,advisory,retry):
 	bugs = []
@@ -277,7 +396,7 @@ class RHNServer:
             if retry > 3:
                 raise
             else:
-                return self.server.packages.findPackageChannels(pkgid, (retry + 1))
+                return self.server.packages.findPackageChannels(pkgid, (retrun + 1))
         return channels
 
     def cloneErrata(self,dest_chan,errata,retry):
@@ -289,7 +408,7 @@ class RHNServer:
             print "Fault Code: %d\tFault String: %s" % (f.faultCode,f.faultString)
             if f.faultCode == -20 or f.faultCode == -1:
                 self.rhnLogin(self.login,self.password,0)
-                return self.server.errata.clone(self.rhnSession,dest_chan,errata)
+                return self.self.server.errata.clone(self.rhnSession,dest_chan,errata)
             else:
                 raise
         except xmlrpclib.ProtocolError, err:
@@ -358,7 +477,7 @@ class SPWServer(RHNServer):
                 print "Errata Already Exists..."
                 return []
             else:
-                print "Error Creating Errata!"
+                print "Error Publishing Errata!"
                 raise
         except xmlrpclib.ProtocolError, err:
             if options.verbose:
@@ -394,23 +513,59 @@ class SPWServer(RHNServer):
                 return self.errataCreate(info,bugs,keywords,packages,publish,channels, (retry + 1))
         return new_errata
 
+    def setDetails(self,advisory,details,retry):
+        out=[]
+        try:
+            new_errata = self.server.errata.setDetails(self.rhnSession,advisory,details)
+        except xmlrpclib.Fault, f:
+            if options.verbose:
+                print "Fault Code: %d - %s" % (f.faultCode,f.faultString)
+            if f.faultCode == -20 or f.faultCode == -1:
+                self.rhnLogin(self.login,self.password,0)
+                return self.server.errata.create(self.rhnSession,info,bugs,keywords,packages,publish,channels)
+            else:
+                print "Can't Update Errata Details!"
+                raise
+        except xmlrpclib.ProtocolError, err:
+            if options.verbose:
+                print "ProtocolError: %d - %s" % (err.errcode,err.errmsg)
+            if retry > 3:
+                raise
+            else:
+                return self.setDetails(advisory,details, (retry + 1))
+        return out
+
 def parse_args():
     parser = OptionParser()
-    parser.add_option("-s", "--spw-server", type="string", dest="src_server",
+    parser.add_option("-s", "--spw-server", type="string", dest="spw_server",
             help="Spacewalk Server (spacewalk.mydomain.org)") 
-    parser.add_option("-l", "--login", type="string", dest="login",
-            help="RHN Login") 
-    parser.add_option("-p", "--password", type="string", dest="passwd",
-            help="RHN password") 
+    parser.add_option("-S", "--rhn-server", type="string", dest="rhn_server",
+	    help="RHN Server (rhn.redhat.com)")
+    parser.add_option("-u", "--spw-user", type="string", dest="spw_user",
+            help="Spacewalk User")
+    parser.add_option("-p", "--spw-pass", type="string", dest="spw_pass",
+            help="Spacewalk Password")
+    parser.add_option("-U", "--rhn-user", type="string", dest="rhn_user",
+	    help="RHN User")
+    parser.add_option("-P", "--rhn-pass", type="string", dest="rhn_pass",
+	    help="RHN Password")
+    parser.add_option("-f", "--config-file", type="string", dest="cfg_file",
+	    help="Config file for servers, users and passwords.")
     parser.add_option("-c", "--src-channel", type="string", dest="src_channel",
             help="Source Channel Label: ie.\"rhel-x86_64-server-5\"") 
     parser.add_option("-b", "--begin-date", type="string", dest="bdate",
 	    help="Beginning Date: ie. \"19000101\" (defaults to \"19000101\")")
     parser.add_option("-e", "--end-date", type="string", dest="edate",
 	    help="Ending Date: ie. \"19001231\" (defaults to TODAY)")
-    parser.add_option("-u", "--publish", action="store_true", dest="publish", default=False,
+    parser.add_option("-i", "--publish", action="store_true", dest="publish", default=False,
 	    help="Publish Errata (into destination channels)")
-    parser.add_option("-f", "--format-header", action="store_true", dest="format", default=False,
+    parser.add_option("-x", "--proxy", type="string", dest="proxy",
+	    help="Proxy server and port to use (e.g. proxy.company.com:3128)")
+    parser.add_option("--no-spw-proxy", action="store_true", dest="nospwproxy", default=False,
+	    help="Don't proxy the Spacewalk server connection. (Proxy by default, if proxy is set)")
+    parser.add_option("--no-rhn-proxy", action="store_true", dest="norhnproxy", default=False,
+	    help="Don't proxy the RHN server connection. (Proxy by default, if proxy is set)")
+    parser.add_option("-F", "--format-header", action="store_true", dest="format", default=False,
 	    help="Format header for logfiles")
     parser.add_option("-v", "--verbose", action="store_true", dest="verbose", default=False)
     parser.add_option("-q", "--quiet", action="store_true", dest="quiet", default=False)
@@ -428,90 +583,92 @@ def main():
 
     options = parse_args()
 
-    if (options.src_server and options.login and options.passwd) is None:
+#   Config File Format:  It needs to be ConfigParser compliant:
+#
+#   [Section]
+#   option=value
+
+    if (options.cfg_file):
+	config = ConfigParser.ConfigParser()
+	config.read (options.cfg_file)
+
+	if options.spw_server is None:
+	    options.spw_server = config.get ('Spacewalk', 'spw_server')
+	if options.spw_user is None:
+	    options.spw_user = config.get ('Spacewalk', 'spw_user')
+	if options.spw_pass is None:
+	    options.spw_pass = config.get ('Spacewalk', 'spw_pass')
+	if options.rhn_server is None:
+	    options.rhn_server = config.get ('RHN', 'rhn_server')
+	if options.rhn_user is None:
+	    options.rhn_user = config.get ('RHN', 'rhn_user')
+	if options.rhn_pass is None:
+	    options.rhn_pass = config.get ('RHN', 'rhn_pass')
+
+#	Here we setup our mappings from RHN to Spacewalk software channels.
+#	These are read from the config file in this format:
+#
+#	[ChanMap]
+#	RHNChannel = SPWChannel
+#
+#	Example:
+#	rhn-tools-rhel-x86_64-server-5 = rhel-x86_64-server-rhntools-5
+
+	chanMap = {}
+
+	for chan in config.options('ChanMap'):
+	    chanMap[chan] = config.get('ChanMap', chan)
+
+#	Here we also setup mappings from RHN channels to errata suffixes.
+#	Since we can't easily publish automagically, while ensuring that
+#	the right packages go into the right channels, we're going to
+#	split multi-channel affecting errata into individual errata
+#	that are suffixed with something meaningful that identifies
+#	each sub-errata per channel... blah blah... Of course, modify this
+#	as you will.  I'm not sure if this will be required in the future.
+#
+#	[ChanSuffixMap]
+#	RHNChannel = ErrataSuffix
+#
+#	Example:
+#	rhn-tools-rhel-x86_64-server-5 = R5-64-T
+
+	chanSuffixMap = {}
+
+	for chan in config.options('ChanSuffixMap'):
+	    chanSuffixMap[chan] = config.get('ChanSuffixMap', chan)
+
+    if (options.spw_server and options.spw_user and options.spw_pass and
+	options.rhn_server and options.rhn_user and options.rhn_pass) is None:
         print "try: "+sys.argv[0]+" --help"
         sys.exit(2)
-
-    if options.format:
-	strYest = datetime.today() - timedelta(1)
-	print >>sys.stdout, "CLONE:%s:%s" % (options.src_channel, strYest.strftime("%Y%m%d"))
-	print >>sys.stderr, "CLONE:%s:%s" % (options.src_channel, strYest.strftime("%Y%m%d"))
-
-#   I don't reckon this should change anytime soon...
-#
-    svrRHN = 'rhn.redhat.com'
-
-#   Ok, configure your RHN credentials here...
-#
-    userRHN = 'wsuadmin'
-    passRHN = 'W$youAdm'
-
-#   Here we setup our mappings from RHN to Local software channels.
-#   Set these to what you have created for your SPW.
-#   They are paired as:
-#
-#   RHNChannel: SPWChannel
-#
-    chanMap = {
-		'rhel-x86_64-server-5':			'rhel-x86_64-server-5',
-		'rhn-tools-rhel-x86_64-server-5':	'rhel-x86_64-server-rhntools-5',
-		'rhel-x86_64-server-productivity-5':	'rhel-x86_64-server-productivity-5',
-		'rhel-x86_64-server-supplementary-5':	'rhel-x86_64-server-supplementary-5',
-		'rhel-x86_64-server-vt-5':		'rhel-x86_64-server-vt-5',
-		'rhel-i386-server-5':			'rhel-i386-server-5',
-		'rhn-tools-rhel-i386-server-5':		'rhel-i386-server-rhntools-5',
-                'rhel-i386-server-productivity-5': 	'rhel-i386-server-productivity-5',
-                'rhel-i386-server-supplementary-5':	'rhel-i386-server-supplementary-5',
-                'rhel-i386-server-vt-5':		'rhel-i386-server-vt-5',
-		'rhel-x86_64-as-4':			'rhel-x86_64-server-4',
-		'rhel-x86_64-as-4-extras':		'rhel-x86_64-server-extras-4',
-		'rhn-tools-rhel-4-as-x86_64':		'rhel-x86_64-server-rhntools-4',
-		'rhel-i386-as-4':			'rhel-i386-server-4',
-		'rhel-i386-as-4-extras':		'rhel-i386-server-extras-4',
-		'rhn-tools-rhel-4-as-i386':		'rhel-i386-server-rhntools-4'
-		};
-
-#   Here we also setup mappings from RHN channels to errata suffixes.
-#   Since we can't easily publish automagically, while ensuring that
-#   the right packages go into the right channels, we're going to
-#   split multi-channel affecting errata into individual errata
-#   that are suffixed with something meaningful that identifies
-#   each sub-errata per channel... blah blah... Of course, modify this
-#   as you will.
-#
-#   RHNChannel: ErrataSuffix
-#
-    chanSuffixMap = {
-		'rhel-x86_64-server-5':			'R5-64',
-		'rhn-tools-rhel-x86_64-server-5':	'R5-64-T',
-		'rhel-x86_64-server-productivity-5':	'R5-64-P',
-		'rhel-x86_64-server-supplementary-5':	'R5-64-S',
-		'rhel-x86_64-server-vt-5':		'R5-64-V',
-		'rhel-i386-server-5':			'R5-32',
-		'rhn-tools-rhel-i386-server-5':		'R5-32-T',
-		'rhel-i386-server-productivity-5':	'R5-32-P',
-		'rhel-i386-server-supplementary-5':	'R5-32-S',
-		'rhel-i386-server-vt-5':		'R5-32-V',
-		'rhel-x86_64-as-4':			'R4-64',
-		'rhel-x86_64-as-4-extras':		'R4-64-E',
-		'rhn-tools-rhel-4-as-x86_64':		'R4-64-T',
-		'rhel-i386-as-4':			'R4-32',
-		'rhel-i386-as-4-extras':		'R4-32-E',
-		'rhn-tools-rhel-4-as-i386':		'R4-32-T'
-		};
 
     if chanMap[options.src_channel] is None:
 	print "Invalid Channel!"
 	sys.exit(2)
 
-    myRHN = RHNServer(svrRHN,userRHN,passRHN)
-    mySPW = SPWServer(options.src_server,options.login,options.passwd)
+    rhnProxy = 0
+    spwProxy = 0
+
+    if options.proxy is not None:
+	if not options.norhnproxy:
+	    rhnProxy = 1
+        if not options.nospwproxy:
+	    spwProxy = 1
+
+    myRHN = RHNServer(options.rhn_server, options.rhn_user, options.rhn_pass, rhnProxy)
+    mySPW = SPWServer(options.spw_server, options.spw_user, options.spw_pass, spwProxy)
 
     dateStart = options.bdate or '19000101'
-    dateEnd = options.edate or strftime("%Y%m%d", localtime())
+    dateToday = strftime("%Y%m%d", localtime())
+    dateEnd = options.edate or dateToday
+
+    if options.format:
+	print >>sys.stdout, "%s:CLONE:%s" % (dateToday, options.src_channel)
+	print >>sys.stderr, "%s:CLONE:%s" % (dateToday, options.src_channel)
 
     for rhnErrata in myRHN.listChannelErrata(options.src_channel,dateStart,dateEnd,0):
-	if not options.quiet:
+	if not options.quiet and not options.format:
             print rhnErrata['errata_advisory']
 
 #   	Now, let's check if we already have this errata locally...
@@ -537,13 +694,18 @@ def main():
 		        continue
 		    else:
 		        if not pkgFind:
-			    print "Hmmm... Package Missing: %s" % pkg['package_name']
+			    if options.format:
+				print >>sys.stderr, "%s:%s:Hmmm... "+\
+				    "Package Missing: %s" % (dateToday, rhnErrata['errata_advisory'], pkg['package_name'])
+			    else:
+				print "Hmmm... Package Missing: %s" % pkg['package_name']
 		        else:
 			    spwErrPackages.append(pkgFind[0]['id'])
 		            break
 
 	    spwErrDetails = myRHN.getErrataDetails(rhnErrata['errata_advisory'],0)
             spwErrKeywords = myRHN.getErrataKeywords(rhnErrata['errata_advisory'],0)
+	    spwErrCVEs = myRHN.getErrataCVEs(rhnErrata['errata_advisory'],0)
 
 	    spwErrBugs = []
             tmpBugs = myRHN.getErrataBugs(rhnErrata['errata_advisory'],0)
@@ -551,7 +713,7 @@ def main():
             for bug in tmpBugs:
                 spwErrBugs.append({'id': int(bug), 'summary': tmpBugs[bug]})
 
-	    if not options.quiet:
+	    if not options.quiet and not options.format:
 	        print "\t%s - %s" % (spwErrDetails['errata_issue_date'],spwErrDetails['errata_synopsis'])
 
 	    spwErrObject = mySPW.errataCreate ({ 'synopsis': spwErrDetails['errata_synopsis'],\
@@ -571,16 +733,27 @@ def main():
 					         [chanMap[options.src_channel]],\
 					         0)
 
-	    print "\tErrata Created: %d" % spwErrObject['id']
+	    if options.format:
+		print "%s#%s#Errata Created#" % (dateToday, spwErrataName),
+	    else:
+		print "\tErrata Created: %d" % spwErrObject['id']
 
 	    if options.publish:
 		spwPublish = mySPW.errataPublish (spwErrataName, [chanMap[options.src_channel]], 0)
-		print "\tErrata Published!" 
+		if options.format:
+		    print "Errata Published"
+		else:
+		    print "\tErrata Published!"
 	    else:
-		print "\t Errata Not Published!"
+		if options.format:
+		    print "Errata Not Published"
+		else:
+		    print "\tErrata Not Published!"
         else:
-            if not options.quiet:
-                print "\tErrata already exists.  %s" % spwErrataName
+	    if options.format:
+		print "%s#%s#Errata Already Exists" % (dateToday, spwErrataName)
+            elif not options.quiet:
+                print "\tErrata Already Exists.  %s" % spwErrataName
 		continue
 
 if __name__ == "__main__":
