@@ -29,19 +29,13 @@ CREATE TABLE rhn_redirects
     last_update_date     DATE,
     start_date           DATE NOT NULL,
     recurring            NUMBER(12)
-                             DEFAULT (0) NOT NULL
-                             CONSTRAINT RHN_RDRCT_RECUR_VALID
-                                 CHECK (recurring in (0, 1)),
+                             DEFAULT (0) NOT NULL,
     recurring_frequency  NUMBER(12)
-                             DEFAULT (2)
-                             CONSTRAINT RHN_RDRCT_RECUR_FREQ_VALID
-                                 CHECK (recurring_frequency in (2,3,6)),
+                             DEFAULT (2),
     recurring_duration   NUMBER(12)
                              DEFAULT (0),
     recurring_dur_type   NUMBER(12)
                              DEFAULT (12)
-                             CONSTRAINT rhn_rdrct_rec_dtype_valid
-                                 CHECK ( recurring_dur_type in (12,11,5,3,1) )
 )
 ENABLE ROW MOVEMENT
 ;
@@ -79,3 +73,14 @@ ALTER TABLE rhn_redirects
     ADD CONSTRAINT rhn_rdrct_rdrtp_redir_type_fk FOREIGN KEY (redirect_type)
     REFERENCES rhn_redirect_types (name);
 
+ALTER TABLE rhn_redirects
+    ADD CONSTRAINT RHN_RDRCT_RECUR_VALID
+    CHECK (recurring in (0, 1));
+
+ALTER TABLE rhn_redirects
+    ADD CONSTRAINT RHN_RDRCT_RECUR_FREQ_VALID
+    CHECK (recurring_frequency in (2,3,6));
+
+ALTER TABLE rhn_redirects
+    ADD CONSTRAINT RHN_RDRCT_REC_DTYPE_VALID
+    CHECK ( recurring_dur_type in (12,11,5,3,1) );
