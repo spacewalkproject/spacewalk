@@ -21,6 +21,7 @@ use RHN::DB ();
 use PXT::Config ();
 use PXT::Handlers ();
 use PXT::Utils ();
+use HTML::Entities ();
 
 sub register_primary_tags {
   my $class = shift;
@@ -129,7 +130,7 @@ sub pxt_passthrough_handler {
 sub pxt_form_handler {
   my $pxt = shift;
   my %a = @_;
-  $a{action} ||= $pxt->uri;
+  $a{action} ||= HTML::Entities::encode_entities($pxt->uri, '<>&"');
   my $block = delete $a{__block__};
   my $s = join(" ", map {lc($_) . qq(="$a{$_}")} keys %a);
   return "<form $s>" . $block . "</form>";
