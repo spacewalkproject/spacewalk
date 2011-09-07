@@ -416,17 +416,26 @@ class RepoSync:
         package['name'] = pack.name
         package['version'] = pack.version
         package['release'] = pack.release
-        package['epoch'] = pack.epoch
         package['arch'] = pack.arch
         package['checksum'] = pack.checksum
         package['checksum_type'] = pack.checksum_type
         package['channels']  = [{'label':self.channel_label,
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
-        try:
-           self._importer_run(package, caller, backend)
-        except:
+
+        imported = False
+        # yum's createrepo puts epoch="0" to primary.xml even for packages
+        # with epoch='' so we have to check empty epoch first because it's
+        # more common situation
+        if pack.epoch == '0':
             package['epoch'] = ''
+            try:
+                self._importer_run(package, caller, backend)
+                imported = True
+            except:
+                pass
+        if not imported:
+            package['epoch'] = pack.epoch
             self._importer_run(package, caller, backend)
 
         backend.commit()
