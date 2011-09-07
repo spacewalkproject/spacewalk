@@ -1211,6 +1211,51 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Delete the specified list of guest profiles for a given host.
+     * @param sessionKey The sessionKey containing the logged in user.
+     * @param hostId The id of the host system.
+     * @param guestNames List of guest names to delete.
+     * @return 1 in case of success, traceback otherwise.
+     */
+    public Integer deleteGuestProfiles(String sessionKey, Integer hostId,
+        List<String> guestNames) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, hostId);
+
+        if (server != null && !server.isVirtualHost()) {
+            throw new FaultException(1005, "notAHostSystem",
+                "The system ID specified (" + hostId +
+                ") does not represent a host system");
+        }
+
+        List<String> availableGuests = new ArrayList();
+
+        for (VirtualInstance vi : server.getGuests()) {
+            availableGuests.add(vi.getName());
+        }
+
+        for (String gn : guestNames) {
+            if (!availableGuests.contains(gn)) {
+                throw new InvalidSystemException();
+            }
+        }
+
+        for (VirtualInstance vi : server.getGuests()) {
+            if (!guestNames.contains(vi.getName())) {
+                continue;
+            }
+
+            if (vi.isRegisteredGuest()) {
+                throw new SystemsNotDeletedException("Unable to delete guest profile " +
+                    vi.getName() + ": the guest is registered.");
+            }
+            server.removeGuest(vi);
+        }
+
+        return 1;
+    }
+
+    /**
      * Delete systems given a list of system ids.
      * This call queues the systems for deletion
      * @param sessionKey The sessionKey containing the logged in user
