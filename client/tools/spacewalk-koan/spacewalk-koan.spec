@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.6.1
+Version: 1.6.2
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Sep 07 2011 Martin Minar <mminar@redhat.com> 1.6.2-1
+- 736066 - parse ifconfig output in POSIX locale only (mzazrivec@redhat.com)
+
 * Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
 - We only support version 5 and newer of RHEL, removing conditions for old
   versions.
