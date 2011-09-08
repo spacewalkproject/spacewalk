@@ -59,6 +59,10 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- Fedora 14
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '421caddb97a1071f', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 15
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'b4ebf579069c8460', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+
 
 -- Spacewalk
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
@@ -69,6 +73,23 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- RHEL 6
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '199e2f91fd431d51', lookup_package_key_type('gpg'), lookup_package_provider('Red Hat Inc.'));
+
+-- CentOS 6
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '0946fca2c105b9de', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
+
+-- Scientific Linux 6
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '915d75e09b1fd350', lookup_package_key_type('gpg'), lookup_package_provider('Scientific Linux'));
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'b0b4183f192a7d7d', lookup_package_key_type('gpg'), lookup_package_provider('Scientific Linux'));
+
+-- EPEL 5
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '119cc036217521f6', lookup_package_key_type('gpg'), lookup_package_provider('EPEL'));
+-- EPEL 6
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '3b49df2a0608b895', lookup_package_key_type('gpg'), lookup_package_provider('EPEL'));
 
 
 commit;
