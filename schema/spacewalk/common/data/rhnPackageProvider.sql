@@ -28,6 +28,8 @@ insert into rhnPackageProvider (id, name) values
 (sequence_nextval('rhn_package_provider_id_seq'), 'Oracle Inc.' );
 insert into rhnPackageProvider (id, name) values
 (sequence_nextval('rhn_package_provider_id_seq'), 'Spacewalk' );
+insert into rhnPackageProvider (id, name) values
+(sequence_nextval('rhn_package_provider_id_seq'), 'EPEL' );
 
 
 
