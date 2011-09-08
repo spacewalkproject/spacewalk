@@ -82,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/NOCpulse
 %dir %{perl_vendorlib}/NOCpulse/Probe
 %dir %{perl_vendorlib}/NOCpulse/Probe/DataSource
+%dir %{perl_vendorlib}/NOCpulse/Probe/Shell
 %{perl_vendorlib}/NOCpulse/Probe/Config*
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/AbstractDataSource.pm
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/AbstractDatabase.pm
@@ -124,7 +125,16 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestWindowsCommand.pm
 %{perl_vendorlib}/NOCpulse/Probe/*.pm
 %{perl_vendorlib}/NOCpulse/Probe/SNMP*
-%{perl_vendorlib}/NOCpulse/Probe/Shell*
+%{perl_vendorlib}/NOCpulse/Probe/Shell/AbstractShell.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/CannedWindowsService.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/Local.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/SSH.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/Unix.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/WindowsService.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/test
+%{perl_vendorlib}/NOCpulse/Probe/Shell/test/TestSQLPlus.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/test/TestShell.pm
+%{perl_vendorlib}/NOCpulse/Probe/Shell/test/TestWindowsService.pm
 %{perl_vendorlib}/NOCpulse/Probe/Utils*
 %{perl_vendorlib}/NOCpulse/Probe/test*
 %{_mandir}/man3/NOCpulse::Probe::DataSource*
