@@ -59,8 +59,10 @@ sub startActions
 		if ($configIsInstalled) {
 			# REQUIRE that NOCpulse.ini is installed, else bad stuff could happen if 
 			# MOC services start.
-			$self->startModule(GenerateNotifConfig);
 			$self->startModule(NotifEscalator);
+                                # NotifEscalator should be the first one because
+                                # it generates /etc/notification/static/notif.ini
+			$self->startModule(GenerateNotifConfig);
 			$self->startModule(NotifLauncher);
 			$self->startModule(Notifier);
 			$self->startModule(AckProcessor);
