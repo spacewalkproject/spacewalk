@@ -203,12 +203,12 @@ class RhnCli(object):
     @staticmethod
     def __exceptionHandler(type, value, tb):
         log = up2dateLog.initLog()
-        print _("An error has occurred:")
+        sys.stderr.write(_("An error has occurred:") + "\n")
         if hasattr(value, "errmsg"):
-            print value.errmsg
+            sys.stderr.write(str(value.errmsg) + "\n")
             log.log_exception(type, value, tb)
         else:
-            print type
+            sys.stderr.write(str(type) + "\n")
             log.log_exception(type, value, tb)
 
-        print _("See /var/log/up2date for more information")
+        sys.stderr.write(_("See /var/log/up2date for more information") + "\n")
