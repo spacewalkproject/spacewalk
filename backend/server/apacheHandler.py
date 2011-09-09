@@ -20,7 +20,7 @@ import string
 from spacewalk.common import apache, rhnApache, rhnTB, rhnFlags
 from spacewalk.common.rhnException import rhnException, rhnFault
 from spacewalk.common.rhnConfig import CFG, initCFG
-from spacewalk.common.rhnLog import log_debug, log_error, initLOG
+from spacewalk.common.rhnLog import log_debug, log_error, initLOG, log_setreq
 
 # local module imports
 import rhnSQL
@@ -57,6 +57,7 @@ class apacheHandler(apacheSession):
 
     def headerParserHandler(self, req):
 
+        log_setreq(req)
         ##We need to init CFG and Logging
         options = req.get_options()
         # if we are initializing out of a <Location> handler don't

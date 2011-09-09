@@ -27,8 +27,7 @@ from spacewalk.common import apache
 # Now local module imports
 import rhnFlags
 from rhn.UserDictCase import UserDictCase
-from rhnLog import log_debug
-from rhnLog import log_error
+from rhnLog import log_debug, log_error, log_setreq
 from rhnTranslate import cat
 
 class rhnApache:
@@ -58,6 +57,7 @@ class rhnApache:
         input object
         """
 
+        log_setreq(req)
         log_debug(3)
         self.start_time = time.time()
         # Decline if this is a subrequest:
