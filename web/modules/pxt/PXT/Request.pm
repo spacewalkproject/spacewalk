@@ -624,9 +624,7 @@ sub derelative_url {
 
   $url->host(PXT::Config->get('base_domain')) unless $url->host;
 
-  # for base_port; ignore base_port in ssl mode for now, as it
-  # probably wouldn't work
-  $url->port(PXT::Config->get('base_port')) if PXT::Config->get('base_port') and not $url->scheme eq 'https';
+  $url->port(PXT::Config->get('base_port')) if PXT::Config->get('base_port');
 
   return $url;
 }
