@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.40
+Version: 1.6.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 09 2011 Martin Minar <mminar@redhat.com> 1.6.41-1
+- 736381 - New API: system.deleteGuestProfiles() (mzazrivec@redhat.com)
+
 * Wed Sep 07 2011 Jan Pazdziora 1.6.40-1
 - Do not send error message in case of success (jrenner@suse.de)
 
