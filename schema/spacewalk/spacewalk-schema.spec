@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.14
+Version:        1.6.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Sep 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.15-1
+- added EPEL to the list of package providers
+- added rpm signing keys for F15, CentOS 6, Scientfic Linux 6 and EPEL
+
 * Wed Sep 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.14-1
 - create constraints out of table so new and upgraded schemas are equal
 
