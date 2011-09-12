@@ -665,13 +665,14 @@ public class ListDisplayTag extends BodyTagSupport {
     private void renderSetButtons(JspWriter out) throws IOException {
         StringBuffer buf = new StringBuffer();
         buf.append(addButtonTo(buf, RequestContext.DISPATCH, UPDATE_LIST_KEY,
-                                            "update_list_key_id"));
+                                            "update_list_key_id").render());
         buf.append(" ");
-        buf.append(addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY));
+        buf.append(addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY).render());
 
         if (numItemsChecked > 0) {
             buf.append(" ");
-            buf.append(addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY));
+            buf.append(addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY)
+                .render());
         }
         out.println(buf.toString());
     }
