@@ -15,6 +15,7 @@
 # $Id$
 
 import os
+import sys
 import tempfile
 
 from spacewalk.common import rhn_mpm, rhn_deb
