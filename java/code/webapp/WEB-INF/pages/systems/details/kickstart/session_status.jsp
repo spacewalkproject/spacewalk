@@ -160,7 +160,7 @@
 <c:if test="${ksession.serverProfile != null}">
   <tr class="list-row-even">
     <td class="first-column">
-      <c:if test="${package_synch}">
+      <c:if test="${package_synch_scheduled}">
         <img src="/img/rhn-listicon-ok.gif"/>
       </c:if>
     </td>
