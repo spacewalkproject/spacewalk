@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.10
+Version:      1.184.11
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -153,6 +153,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
+* Tue Sep 13 2011 Jan Pazdziora 1.184.11-1
+- Addressing warning: File listed twice caused by the previous commit.
+- remove duplicated SQLPlus.pm file from main package as it is already in
+  -Oracle (iartarisi@suse.cz)
+
 * Thu Aug 11 2011 Jan Pazdziora 1.184.10-1
 - The column names are always uppercase, due to the FetchHashKeyName setting.
 
