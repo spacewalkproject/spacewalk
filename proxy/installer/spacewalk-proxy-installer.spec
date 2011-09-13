@@ -18,6 +18,7 @@ Requires: rhncfg-actions
 Requires: glibc-common
 Requires: chkconfig
 Requires: libxslt
+Requires: spacewalk-certs-tools >= 1.6.4
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: proxy-installer < 5.3.0
 Provides: proxy-installer = 5.3.0
