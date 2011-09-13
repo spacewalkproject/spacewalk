@@ -132,9 +132,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/Shell/Unix.pm
 %{perl_vendorlib}/NOCpulse/Probe/Shell/WindowsService.pm
 %{perl_vendorlib}/NOCpulse/Probe/Shell/test
-%{perl_vendorlib}/NOCpulse/Probe/Shell/test/TestSQLPlus.pm
-%{perl_vendorlib}/NOCpulse/Probe/Shell/test/TestShell.pm
-%{perl_vendorlib}/NOCpulse/Probe/Shell/test/TestWindowsService.pm
 %{perl_vendorlib}/NOCpulse/Probe/Utils*
 %{perl_vendorlib}/NOCpulse/Probe/test*
 %{_mandir}/man3/NOCpulse::Probe::DataSource*
