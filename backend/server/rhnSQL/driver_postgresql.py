@@ -202,6 +202,11 @@ class Database(sql_base.Database):
             sql = "select rhn_asdf_%s(%s)" % (sha1, qparams)
         return Cursor(dbh=self.dbh, sql=sql, force=force)
 
+    def execute(self, sql, *args, **kwargs):
+        cursor = self.prepare(sql)
+        cursor.execute(*args, **kwargs)
+        return cursor
+
     def transaction(self, name):
         if not name:
             raise rhnException("Can not set a transaction without a name", name)
