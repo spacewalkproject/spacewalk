@@ -124,6 +124,7 @@ def init_hook(conduit):
         conduit.error(0, _("This system is not registered with RHN.") + "\n" +
             RHN_DISABLED)
         rhn_enabled = False
+        truncateRHNReposCache(conduit)
         return 
 
     CHANNELS_DISABLED = _("RHN channel support will be disabled.")
@@ -132,6 +133,7 @@ def init_hook(conduit):
     except up2dateErrors.NoChannelsError:
         conduit.error(0, _("This system is not subscribed to any channels.") + 
             "\n" + CHANNELS_DISABLED)
+        truncateRHNReposCache(conduit)
         return
     except up2dateErrors.NoSystemIdError:
         conduit.error(0, _("This system may not be a registered to RHN. SystemId could not be acquired.\n") +
@@ -149,13 +151,7 @@ def init_hook(conduit):
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     pluginOptions = getRHNRepoOptions(conduit, 'main')
 
-    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
-    try:
-        if not os.path.exists(cachedir):
-            os.makedirs(cachedir, 0755)
-        cachefile = open(cachefilename, 'w')
-    except:
-        cachefile = None
+    cachefile = openRHNReposCache(conduit)
     for channel in svrChannels:
         if channel['version']:
             repo = RhnRepo(channel)
@@ -185,6 +181,22 @@ def init_hook(conduit):
     if cachefile:
         cachefile.close()
 
+def openRHNReposCache(conduit):
+    cachedir = conduit.getConf().cachedir
+    cachefilename = os.path.join(cachedir, cachedRHNReposFile)
+    try:
+        if not os.path.exists(cachedir):
+            os.makedirs(cachedir, 0755)
+        cachefile = open(cachefilename, 'w')
+    except:
+        cachefile = None
+    return cachefile
+
+def truncateRHNReposCache(conduit):
+    cachefile = openRHNReposCache(conduit)
+    if cachefile:
+        cachefile.truncate()
+        cachefile.close()
 
 def addCachedRepos(conduit):
     """
