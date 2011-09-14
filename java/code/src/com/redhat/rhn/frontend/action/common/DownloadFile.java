@@ -244,7 +244,6 @@ public class DownloadFile extends DownloadAction {
             tree = KickstartFactory.lookupKickstartTreeByLabel(label);
         }
 
-
         if (map.containsKey("child") &&
                       !Config.get().getBoolean("ks_restrict_child_channels")) {
             Channel child = ChannelFactory.lookupByLabel(map.get("child"));
@@ -467,6 +466,10 @@ public class DownloadFile extends DownloadAction {
 
             if (child == null) {
                 diskPath = kickstartMount + "/" + tree.getBasePath() + path;
+            }
+            else if (path.endsWith("/comps.xml")) {
+                diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
+                    "/" + child.getComps().getRelativeFilename();
             }
             else {
                 String[] split = StringUtils.split(path, '/');
