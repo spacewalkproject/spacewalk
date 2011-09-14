@@ -1,0 +1,6 @@
+rhncfg (5.10.14) unstable; urgency=low
+
+  * Update to upstream version
+  * The Debian client on x86_64 should send amd64-debian-linux
+
+ -- Marcelo Moreira de Mello <mmello@redhat.com>  Fri, 9 Sep 2011 08:12:00 -0300
