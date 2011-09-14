@@ -3,7 +3,7 @@
 #
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
-params=-f Makefile.rhncfg PREFIX=$(CURDIR)/debian/rhncfg
+params=-f Makefile.rhncfg PREFIX=$(CURDIR)/debian/rhncfg MANDIR=$(DESTDIR)/usr/share/man
 
 override_dh_auto_clean:
 	$(MAKE) $(params) clean
