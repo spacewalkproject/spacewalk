@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.11
+Version:      1.184.12
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -145,6 +145,13 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestOracle.pm
 
 %changelog
+* Wed Sep 14 2011 Jan Pazdziora 1.184.12-1
+- The NOCpulse::Probe::Shell::SQLPlus needs to be in perl-NOCpulse-Probe, not
+  in -Oracle.
+- Revert "remove duplicated SQLPlus.pm file from main package as it is already
+  in -Oracle" and "Addressing warning: File listed twice caused by the previous
+  commit."
+
 * Tue Sep 13 2011 Jan Pazdziora 1.184.11-1
 - Addressing warning: File listed twice caused by the previous commit.
 - remove duplicated SQLPlus.pm file from main package as it is already in
