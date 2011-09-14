@@ -36,3 +36,8 @@ apt-spacewalk - instructions are little different:
   #or build binary package
   debuild -b
 
+How to regenerate repo:
+-----------------------
+cd spacewalk/debian
+dpkg-scanpackages  dists/spacewalk-unstable/binary-amd64 |gzip >dists/spacewalk-unstable/binary-amd64/Packages.gz
+dpkg-scanpackages  dists/spacewalk-unstable/binary-i386 |gzip >dists/spacewalk-unstable/binary-i386/Packages.gz
