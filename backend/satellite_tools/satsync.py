@@ -518,6 +518,7 @@ class Syncer:
     def syncCert(self):
         "sync the RHN satellite cert if applicable (to local DB & filesystem)"
 
+        store_cert = True
         if self.mountpoint:
             if self.rhn_cert:
                 # Certificate was presented on the command line
@@ -534,14 +535,14 @@ class Syncer:
                     raise RhnSyncException(_("No certificate found. " 
                     "Please use --rhn-cert"))
                 cert = row['cert']
-                return self._process_cert(cert, store_cert=0)
+                store_cert = False
         else:
             log2(1, 3, ["", _("RHN Entitlement Certificate sync")])
             certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN,
                                                       self.xml_dump_version)
             cert = string.strip(certSource.download())
 
-        return self._process_cert(cert)
+        return self._process_cert(cert, store_cert)
 
     def _process_cert(self, cert, store_cert=1):
         """Give the cert a check - if it's broken xml we'd better find it out
