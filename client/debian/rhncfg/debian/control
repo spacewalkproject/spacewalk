@@ -10,7 +10,6 @@ Homepage: https://fedorahosted.org/spacewalk
 Package: rhncfg
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-rhnlib (>= 2.5.40), rhn-client-tools
-Provides: rhncfg
 Recommends: apt-spacewalk
 Description: Red Hat Network Configuration Management Client is some tools
  which provides a interface used to communicate against configuration channels.
