@@ -1,3 +1,3 @@
-Files in this directory are updated using make tag-minor-release
-or make tag-release called from directories of individual packages.
-To not modify them without knowing what your've doing.
+Files in this directory are updated using tito tag invoked from
+directories of individual packages.
+Do not modify these files manually without knowing what your've doing.
