@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.44
+Version: 1.6.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 15 2011 Miroslav Suchý 1.6.45-1
+- 719677 - download comps file of child channels during kickstart
+
 * Thu Sep 15 2011 Jan Pazdziora 1.6.44-1
 - Revert "529483 - adding referer check for HTTP requests to java stack"
 - We should not pass empty strings to SQL, use null instead.
