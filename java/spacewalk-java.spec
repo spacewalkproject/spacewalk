@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.43
+Version: 1.6.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 15 2011 Jan Pazdziora 1.6.44-1
+- Revert "529483 - adding referer check for HTTP requests to java stack"
+- We should not pass empty strings to SQL, use null instead.
+
 * Mon Sep 12 2011 Jan Pazdziora 1.6.43-1
 - 585010 - We need to render the object.
 
