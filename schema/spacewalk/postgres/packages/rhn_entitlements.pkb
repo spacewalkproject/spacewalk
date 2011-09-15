@@ -7,7 +7,7 @@
 --   (code path of simple rhn-satellite-activate)
 -- assign_channel_entitlement
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -602,12 +602,31 @@ as $$
                 order by sgm.modified desc
                 limit quantity_in;                
         
+        -- Get the orgs of Virtual guests
+        -- Since they may belong to different orgs
+        virt_guest_orgs cursor for
+                select  distinct (s.org_id)
+                from rhnServer s
+                    inner join  rhnVirtualInstance vi on vi.virtual_system_id = s.id
+                where
+                    vi.host_system_id = server_id_in
+                    and s.org_id <> (select s1.org_id from rhnServer s1 where s1.id = vi.host_system_id) ;
+
         org_id_val numeric;
         max_members_val numeric;
+        max_flex_val numeric;
         current_members_calc numeric;
         sg_id numeric;
-
+        is_virt numeric := 0;
     begin
+          select 1 into is_virt
+                from rhnServerEntitlementView
+           where server_id = server_id_in
+                 and label in ('virtualization_host', 'virtualization_host_platform');
+
+      if not found then
+          is_virt := 0;
+      end if;
 
         select org_id
         into org_id_val
@@ -616,6 +635,33 @@ as $$
 
         -- deal w/ channel entitlements first ...
         for family in families loop
+            if is_virt = 0 then
+            -- if the host_server does not have virt
+            --- find all possible flex slots
+            -- and set each of the flex eligible guests to Y
+                UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+                where sc.server_id in (
+                            select vi.virtual_system_id
+                            from rhnServerFveCapable sfc
+                                inner join rhnVirtualInstance vi on vi.virtual_system_id = sfc.server_id
+                            where vi.host_system_id = server_id_in
+                                  and sfc.channel_family_id = family.channel_family_id
+                              order by vi.modified desc
+                            limit free_slots
+                );
+            else
+            -- if the host_server has virt
+            -- set all its flex guests to N
+                UPDATE rhnServerChannel sc set sc.is_fve = 'N'
+                where
+                    sc.channel_id in (select cfm.channel_id from rhnChannelFamilyMembers cfm
+                                      where cfm.CHANNEL_FAMILY_ID = family.channel_family_id)
+                    and sc.is_fve = 'Y'
+                    and sc.server_id in
+                            (select vi.virtual_system_id  from rhnVirtualInstance vi
+                                    where vi.host_system_id = server_id_in);
+            end if;
+
             -- get the current (physical) members of the family
             current_members_calc := 
                 rhn_channel.channel_family_current_members(family.channel_family_id,
@@ -624,6 +670,12 @@ as $$
             -- get the max members of the family
             select max_members
             into max_members_val
+            from rhnPrivateChannelFamily
+            where channel_family_id = family.channel_family_id
+            and org_id = org_id_val;
+
+            select fve_max_members
+            into max_flex_val
             from rhnPrivateChannelFamily
             where channel_family_id = family.channel_family_id
             and org_id = org_id_val;
@@ -652,7 +704,8 @@ as $$
                     -- argh, transposed again?!
                     perform rhn_entitlements.set_family_count(org_id_val,
                                      family.channel_family_id,
-                                     max_members_val);
+                                     max_members_val, max_flex_val);
+                    --TODO calculate this correctly
                 end if; 
 
            end if;
@@ -663,6 +716,13 @@ as $$
             -- what's the difference of doing this vs the unavoidable set_family_count above?
             perform rhn_channel.update_family_counts(family.channel_family_id,
                                              org_id_val);
+
+            -- It is possible that the guests belong  to a different org than the host
+            -- so we are going to update the family counts in the guests orgs also
+            for org in virt_guest_orgs loop
+                    perform rhn_channel.update_family_counts(family.channel_family_id,
+                                             org.org_id);
+            end loop;
         end loop;
 
         for a_group_type in group_types loop
