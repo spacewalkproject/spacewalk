@@ -68,16 +68,6 @@ sub handler {
   my $cookies = $r->pnotes('pxt_cookies');
   my $request = $r->pnotes('pxt_request');
 
-  #verify referer hostname is correct
-  my $referer = $r->headers_in->{'referer'};
-  if ($referer) {
-      my $hostname = $r->hostname;
-      my $ref_host = URI->new($referer)->host;
-      if ($hostname ne $ref_host) {
-        return PXT::ApacheHandler->handle_redirect($r, $request, "/rhn/YourRhn.do");
-      }
-  }
-
   my $filename = $r->filename;
   my ($file_contents, $file_classes);
 
