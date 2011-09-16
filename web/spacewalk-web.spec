@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.20
+Version: 1.6.21
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 16 2011 Jan Pazdziora 1.6.21-1
+- CVE-2011-3344, 731647 - HTML-encode the self-referencing link.
+
 * Thu Sep 15 2011 Jan Pazdziora 1.6.20-1
 - Revert "529483 - adding referer check to perl stack"
 
