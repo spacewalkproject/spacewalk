@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.46
+Version: 1.6.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 16 2011 Tomas Lestach <tlestach@redhat.com> 1.6.47-1
+- 717984 - list only ssm systems in SSM Selected Systems List tab
+  (tlestach@redhat.com)
+- update copyright info (mzazrivec@redhat.com)
+- 619723 - Add support for open ranges, like bytes=9500- or bytes=-500.
+  (jpazdziora@redhat.com)
+- 509563 - add missing import (mzazrivec@redhat.com)
+- 509563 - remove system profile from cobbler during system deletion
+  (mzazrivec@redhat.com)
+- 732350 - link mchange-commons jar to taskomatic (tlestach@redhat.com)
+
 * Fri Sep 16 2011 Jan Pazdziora 1.6.46-1
 - CVE-2011-2927, 730955 - remove markup from localized string resources as
   well.
