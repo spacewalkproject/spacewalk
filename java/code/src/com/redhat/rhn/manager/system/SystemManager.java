@@ -270,6 +270,10 @@ public class SystemManager extends BaseManager {
          * server.
          */
         Server server = lookupByIdAndUser(sid, user);
+
+        CobblerSystemRemoveCommand rc = new CobblerSystemRemoveCommand(user, server);
+        rc.store();
+
         if (server.isVirtualGuest()) {
             VirtualInstance virtInstance = server.getVirtualInstance();
             virtInstance.deleteGuestSystem();
