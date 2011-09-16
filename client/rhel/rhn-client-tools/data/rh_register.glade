@@ -1426,7 +1426,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
       <child>
 	<widget class="GtkLabel" id="label98">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes" context="yes">This assistant will guide you through connecting your system  to Red Hat Network (RHN) for software updates, such as:</property>
+	  <property name="label" translatable="yes" context="yes">This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant. You will need the following at this time:</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">False</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1469,7 +1469,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <child>
 		<widget class="GtkLabel" id="label35">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">• Your Red Hat Network or Red Hat Network Satellite login </property>
+		  <property name="label" translatable="yes" context="yes">• A network connection</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1494,7 +1494,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <child>
 		<widget class="GtkLabel" id="label36">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">• A name for your system's Red Hat Network profile</property>
+		  <property name="label" translatable="yes" context="yes">• Your Red Hat Network or Red Hat Network Satellite login </property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1519,7 +1519,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <child>
 		<widget class="GtkLabel" id="label37">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">• The address to your Red Hat Network Satellite (optional)</property>
+		  <property name="label" translatable="yes" context="yes">• The location of your Red Hat Network Satellite or Proxy (optional)</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
