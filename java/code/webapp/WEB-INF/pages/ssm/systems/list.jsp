@@ -12,12 +12,9 @@
   <bean:message key="ssm.list.systems.header" />
 </h2>
 <p><bean:message key="ssm.list.systems.summary" /></p>
-<%--
 <c:set var="notSelectable" value="true"/>
 <c:set var="showLastCheckin" value="true"/>
-<c:set var="noPackages" value="true"/>
-<c:set var="noErrata" value="true"/>
---%>
+<c:set var="noUpdates" value="true"/>
 
 <rl:listset name="systemListSet" legend="system">
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>

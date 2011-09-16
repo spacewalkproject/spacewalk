@@ -14,17 +14,18 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.systems.SystemListSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,36 +35,27 @@ import javax.servlet.http.HttpServletResponse;
  * ListSystemsAction
  * @version $Rev$
  */
-public class ListSystemsAction extends RhnAction {
+public class ListSystemsAction extends RhnAction implements Listable {
+
     /**
-     *
-     * {@inheritDoc}
+     * ${@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        RequestContext context = new RequestContext(request);
-
-        RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
-
-        if (context.wasDispatched("ssm.list.systems.confirmbutton")) {
-            RhnSet set = RhnSetDecl.SYSTEMS.get(context.getLoggedInUser());
-
-            DynaActionForm daForm = (DynaActionForm)formIn;
-
-            // Logic to remove hosts from SSM goes here
-
-            return mapping.findForward("confirm");
-        }
-
-        new SystemListSetupAction().execute(mapping, formIn, request, response);
-//        ListHelper helper = new ListHelper(this, request);
-//        helper.setListName("systemList");
-//        helper.setDataSetName("pageList");
-//        helper.execute();
-
+        ListHelper helper = new ListHelper(this, request);
+        helper.setListName("systemList");
+        helper.setDataSetName("pageList");
+        helper.execute();
         return mapping.findForward("default");
+    }
+
+    /**
+     * ${@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        return SystemManager.inSet(context.getLoggedInUser(),
+                RhnSetDecl.SYSTEMS.getLabel());
     }
 }

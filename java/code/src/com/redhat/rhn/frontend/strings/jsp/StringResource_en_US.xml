@@ -5489,7 +5489,7 @@ value for this entitlement, excluding the default organization's consumption.</s
          <source>Selected Systems List</source>
        </trans-unit>
        <trans-unit id="ssm.list.systems.summary">
-         <source>&lt;p&gt;Below are your selected systems. All actions taken within this interface will apply only to the relevant systems in this set.&lt;/p&gt;&lt;p&gt;To remove systems from the current set, un-check those systems to be removed.&lt;/p&gt;</source> 
+         <source>&lt;p&gt;Below are your selected systems. All actions taken within this interface will apply only to the these systems.&lt;/p&gt;</source>
        </trans-unit>
      </group>
 
