@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.45
+Version: 1.6.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,20 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 16 2011 Jan Pazdziora 1.6.46-1
+- CVE-2011-2927, 730955 - remove markup from localized string resources as
+  well.
+- CVE-2011-2927, 730955 - remove markup from the error messages.
+- CVE-2011-2927, 730955 - replace <html:errors> with loop that can use c:out to
+  escape HTML.
+- CVE-2011-2927, 730955 - using struts quotes values properly.
+- CVE-2011-2920, 681032 - escape the hidden element value to avoid XSS.
+- Encode the & in makeParamsLink.
+- CVE-2011-2919, 713478 - URL-encode parameter names, not just values, in the
+  URL.
+- CVE-2011-1594, 672167 - only local redirects are allowed
+  (michael.mraka@redhat.com)
+
 * Thu Sep 15 2011 Miroslav Suchý 1.6.45-1
 - 719677 - download comps file of child channels during kickstart
 
