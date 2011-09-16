@@ -409,7 +409,8 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
     return new_action_id
 
 _query_lookup_subscribed_server_channels = rhnSQL.Statement("""
-    select sc.channel_id, NVL2(c.parent_channel, 0, 1) is_base_channel
+    select sc.channel_id,
+           case when c.parent_channel is null then 0 else 1 end is_base_channel
       from rhnServerChannel sc, rhnChannel c
      where sc.server_id = :server_id
        and sc.channel_id = c.id
