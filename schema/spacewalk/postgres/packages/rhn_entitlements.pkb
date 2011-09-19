@@ -1431,7 +1431,8 @@ as $$
                    select server_id
                    from rhnServerFveCapable
                        where SERVER_ORG_ID = org_id_in and
-                             channel_family_id = cfam_id;
+                             channel_family_id = cfam_id
+                       limit quantity;
 
     begin
 
@@ -1480,7 +1481,10 @@ as $$
                    for system in to_convert_reg(cfam_id, org_id_in, reduce_quantity) loop
                       --rhn_channel.convert_to_regular(system.server_id, cfam_id);
                       UPDATE rhnServerChannel sc set sc.is_fve = 'N'
-                           where sc.server_id = system.server_id;
+                           where sc.server_id = system.server_id
+                                 and sc.channel_id in (select cfm.channel_id
+                                                          from rhnChannelFamilyMembers cfm
+                                                          where cfm.channel_family_id = cfam_id);
                    end loop;
 
                    --reset previous counts
@@ -1507,7 +1511,10 @@ as $$
                     for system in to_convert_flex(cfam_id, org_id_in, reduce_quantity) loop
 --                          rhn_channel.convert_to_fve(system.server_id, cfam_id);
                         UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
-                           where sc.server_id = system.server_id;
+                           where sc.server_id = system.server_id
+                                 and sc.channel_id in (select cfm.channel_id
+                                                          from rhnChannelFamilyMembers cfm
+                                                          where cfm.channel_family_id = cfam_id);
                     end loop;
                     prev_ent_count := prev_ent_count - reduce_quantity;
                     prev_flex_count := prev_flex_count + reduce_quantity;
