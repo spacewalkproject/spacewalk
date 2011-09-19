@@ -26,6 +26,18 @@ create schema rhn_channel;
 --update pg_setting
 update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_path';
 
+    create or replace function obtain_read_lock(channel_family_id_in in numeric, org_id_in in numeric)
+    returns void as $$
+    declare
+        read_lock date;
+    begin
+        select created into read_lock
+          from rhnPrivateChannelFamily
+         where channel_family_id = channel_family_id_in and org_id = org_id_in
+           for update;
+    end$$ language plpgsql;
+
+    -- this "emulates" cursor server_base_subscriptions defined in oracle/rhn_channel.pks
     create or replace function server_base_subscriptions(server_id_in NUMERIC)
     returns boolean as $$
     begin
@@ -35,23 +47,13 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
 		      AND C.parent_channel IS NULL);
     end$$ language plpgsql;
 
+    -- this "emulates" cursor server_base_subscriptions defined in oracle/rhn_channel.pks
     create or replace function check_server_subscription(server_id_in NUMERIC, channel_id_in NUMERIC)
     returns boolean as $$
     begin
       return exists(SELECT channel_id FROM rhnServerChannel WHERE server_id = server_id_in AND channel_id = channel_id_in);
     end$$ language plpgsql;
 
-
-    create or replace function obtain_read_lock(channel_family_id_in in numeric, org_id_in in numeric)
-    returns void as $$
-    declare
-        read_lock date;
-    begin
-        select created into read_lock
-        from rhnPrivateChannelFamily
-        where channel_family_id = channel_family_id_in and org_id = org_id_in
-        for update;
-    end$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION subscribe_server(server_id_in IN NUMERIC, channel_id_in NUMERIC, immediate_in NUMERIC default 1, user_id_in in numeric default null, recalcfamily_in NUMERIC default 1) returns void
     AS $$
