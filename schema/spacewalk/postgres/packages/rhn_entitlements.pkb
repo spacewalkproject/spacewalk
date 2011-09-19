@@ -1649,8 +1649,8 @@ as $$
                                 and rs.org_id = customer_id_in
                                 and rs.id = rsc.server_id
                                 and rsc.channel_id = rcfm.channel_id
-                                and rcfm.channel_family_id =
-                                    channel_family_id_in
+                                and rcfm.channel_family_id =  channel_family_id_in
+                                and rsc.is_fve = is_fve_in
                                 -- we only want to grab servers consuming
                                 -- physical slots.
                                 and exists (
@@ -1673,12 +1673,12 @@ as $$
         is_fve_in := 'N';
 
         for sc in serverchannels loop
-            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1);
+            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1, 0, 0);
 
         tmp_quantity := flex_in;
         is_fve_in := 'Y';
         for sc in serverchannels loop
-            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1);
+            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1, 0, 0);
         end loop;
         end loop;
                 perform rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
