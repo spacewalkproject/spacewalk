@@ -1377,6 +1377,12 @@ SELECT S.id,
     </query>
 </callable-mode>
 
+<callable-mode name="add_tag_to_snapshot">
+    <query params="snapshot_id, org_id, tag_name">
+    { call rhn_server.tag_snapshot(:snapshot_id, :org_id, :tag_name) }
+    </query>
+</callable-mode>
+
 <callable-mode name="can_entitle_server">
   <query params="sid, entitlement">
     {:retval = call rhn_entitlements.can_entitle_server(:sid, :entitlement)}

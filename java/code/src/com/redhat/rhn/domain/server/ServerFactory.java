@@ -813,4 +813,19 @@ public class ServerFactory extends HibernateFactory {
                 new HashMap(), systemIds, "sids");
     }
 
+    /**
+     * Adds tag to the snapshot
+     * @param snpId snapshot id
+     * @param orgId org id
+     * @param tagName name of the tag
+     */
+    public static void addTagToSnapshot(Long snpId, Long orgId, String tagName) {
+        CallableMode m = ModeFactory.getCallableMode("System_queries",
+        "add_tag_to_snapshot");
+        Map inParams = new HashMap();
+        inParams.put("snapshot_id", snpId);
+        inParams.put("org_id", orgId);
+        inParams.put("tag_name", tagName);
+        m.execute(inParams, new HashMap());
+    }
 }

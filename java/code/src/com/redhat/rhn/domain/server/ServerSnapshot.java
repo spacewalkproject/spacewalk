@@ -209,6 +209,21 @@ public class ServerSnapshot extends BaseDomainHelper {
     }
 
     /**
+     * adds tag to the snapshot
+     * @param tagName name of the tag
+     * @return true if tag was added to snapshot
+     */
+    public boolean addTag(String tagName) {
+        for (SnapshotTag tag : getTags()) {
+            if (tagName.equals(tag.getName().getName())) {
+                return false;
+            }
+        }
+        ServerFactory.addTagToSnapshot(getId(), getOrg().getId(), tagName);
+        return true;
+    }
+
+    /**
      *
      * {@inheritDoc}
      */

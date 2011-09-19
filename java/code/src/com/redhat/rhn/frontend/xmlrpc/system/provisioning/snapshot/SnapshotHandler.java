@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.SnapshotTagAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSnapshotException;
@@ -261,6 +262,27 @@ public class SnapshotHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
         ServerFactory.deleteSnapshot(snap);
+        return 1;
+    }
+
+    /**
+     * Adds tag to snapshot
+     * @param sessionKey session key
+     * @param snapId shapshot id
+     * @param tagName name iof the snapshot tag
+     * @return 1 on success
+
+     * @xmlrpc.param sessionKey #session_key()
+     * @xmlrpc.param snapId #param_desc("int", "snapshotId", "Id of the snapshot")
+     * @xmlrpc.param tagName #param_desc("string", "tag", "Name of the snapshot tag")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int addTagToSnapshot(String sessionKey, Integer snapId, String tagName) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
+        if (!snap.addTag(tagName)) {
+            throw new SnapshotTagAlreadyExistsException(tagName);
+        }
         return 1;
     }
 
