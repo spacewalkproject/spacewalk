@@ -723,6 +723,30 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
            and channel_family_id = channel_family_id_in;
     END$$ language plpgsql;
     
+    create or replace function update_group_family_counts(group_label_in IN VARCHAR,
+                                   org_id_in IN NUMERIC)
+    returns void
+    as $$
+    BEGIN
+        FOR i IN (
+                SELECT DISTINCT CFM.channel_family_id, SG.org_id
+                 FROM rhnChannelFamilyMembers CFM
+                 JOIN rhnServerChannel SC
+                   ON SC.channel_id = CFM.channel_id
+                 JOIN rhnServerGroupMembers SGM
+                   ON SC.server_id = SGM.server_id
+                 JOIN rhnServerGroup SG
+                   ON SGM.server_group_id = SG.id
+                 JOIN rhnServerGroupType SGT
+                   ON SG.group_type = SGT.id
+                WHERE SGT.label = group_label_in
+                  AND SG.org_id = org_id_in
+                  AND SGT.is_base = 'Y'
+        ) LOOP
+            perform rhn_channel.update_family_counts(i.channel_family_id, i.org_id);
+        END LOOP;
+    END$$ language plpgsql;
+
     CREATE OR REPLACE FUNCTION available_chan_subscriptions(channel_id_in IN NUMERIC, 
                                           org_id_in IN NUMERIC)
     RETURNS NUMERIC
