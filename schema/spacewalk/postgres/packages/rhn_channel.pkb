@@ -445,7 +445,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         return NULL;
     end$$ language plpgsql;
 
-    CREATE OR REPLACE FUNCTION clear_subscriptions(server_id_in IN NUMERIC, deleting_server IN NUMERIC default 0 ) returns void
+    CREATE OR REPLACE FUNCTION clear_subscriptions(server_id_in IN NUMERIC, deleting_server IN NUMERIC default 0,
+                                update_family_countsYN IN NUMERIC default 1 ) returns void
     AS $$
     declare
         server_channels cursor(server_id_in numeric) for
@@ -455,13 +456,29 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                         rhnChannelFamilyMembers cfm
                 where   s.id = server_id_in
                         and s.id = sc.server_id
-                        and sc.channel_id = cfm.channel_id;
+                        and sc.channel_id = cfm.channel_id
+                order by cfm.channel_family_id;
+        last_channel_family_id rhnChannelFamilyMembers.channel_family_id%type := -1;
+        last_channel_org_id    rhnServer.org_id%type := -1;
     BEGIN
         for channel in server_channels(server_id_in)
         loop
-                perform rhn_channel.unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server);
-                perform rhn_channel.update_family_counts(channel.channel_family_id, channel.org_id);
+                perform rhn_channel.unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server, 0);
+                if update_family_countsYN > 0
+                    and channel.channel_family_id != last_channel_family_id then
+                    -- update family counts only once
+                    -- after all channels with same family has been fetched
+                    if last_channel_family_id != -1 then
+                        perform rhn_channel.update_family_counts(channel.channel_family_id, channel.org_id);
+                    end if;
+                    last_channel_family_id := channel.channel_family_id;
+                    last_channel_org_id    := channel.org_id;
+                end if;
         end loop;
+        if update_family_countsYN > 0 and last_channel_family_id != -1 then
+            -- update the last family fetched
+            perform rhn_channel.update_family_counts(last_channel_family_id, last_channel_org_id);
+        end if;
     END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION unsubscribe_server(server_id_in IN NUMERIC, channel_id_in NUMERIC, immediate_in NUMERIC default 1, unsubscribe_children_in numeric default 0,
