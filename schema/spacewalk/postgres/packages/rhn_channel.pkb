@@ -163,6 +163,80 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         END IF;
             
     END$$ language plpgsql;
+
+
+
+    create or replace function can_convert_to_fve(server_id_in IN NUMERIC, channel_family_id_val IN NUMERIC)
+    RETURNS NUMERIC
+    as $$
+    declare
+        fve_convertible_entries cursor for
+        select 1  from
+            rhnServerFveCapable cap
+          where cap.server_id = server_id_in
+                AND cap.channel_family_id = channel_family_id_val;
+    BEGIN
+        FOR entry IN fve_convertible_entries LOOP
+            return 1;
+        END LOOP;
+        RETURN 0;
+    END can_convert_to_fve;
+
+
+
+    -- Converts server channel_family to use a flex entitlement
+    create or replace function convert_to_fve(server_id_in IN NUMERIC, channel_family_id_val IN NUMERIC)
+    returns void
+    as $$
+        available_fve_subs      NUMERIC;
+        server_org_id_val       NUMERIC;
+    BEGIN
+
+        --
+        -- Use the org_id of the server only if the org_id of the channel = NULL.
+        -- This is required for subscribing to shared channels.
+        --
+        SELECT org_id
+          INTO server_org_id_val
+          FROM rhnServer
+         WHERE id = server_id_in;
+
+
+            obtain_read_lock(channel_family_id_val, server_org_id_val);
+        if not found then
+                perform rhn_exception.raise_exception('channel_family_no_subscriptions');
+        end if;
+        IF (can_convert_to_fve(server_id_in, channel_family_id_val ) = 0)
+            THEN
+                perform rhn_exception.raise_exception('server_cannot_convert_to_flex');
+        END IF;
+
+        available_fve_subs := rhn_channel.available_fve_family_subs(channel_family_id_val, server_org_id_val);
+
+        IF (available_fve_subs > 0)
+        THEN
+
+            insert into rhnServerHistory (id,server_id,summary,details) (
+                select  nextval('rhn_event_id_seq'),
+                        server_id_in,
+                        'converted to flex entitlement' || SUBSTR(cf.label, 0, 99),
+                        cf.label
+                from    rhnChannelFamily cf
+                where   cf.id = channel_family_id_val
+            );
+
+            UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+                           where sc.server_id = server_id_in and
+                                 sc.channel_id in
+                                    (select cfm.channel_id from rhnChannelFamilyMembers cfm
+                                                where cfm.CHANNEL_FAMILY_ID = channel_family_id_val);
+
+            perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        ELSE
+            perform rhn_exception.raise_exception('not_enough_flex_entitlements');
+        END IF;
+
+    END$$ language plpgsql;
     
     create or replace function can_server_consume_virt_channl(
         server_id_in in numeric,
