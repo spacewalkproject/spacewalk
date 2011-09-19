@@ -1,11 +1,4 @@
--- Note: this file is not a full equivalent of the Oracle sources.
--- Neither the flex stuff nor the update_family_countsYN was fully migrated.
--- Migrated functions or code paths:
---
--- can_entitle_server
--- entitle_server
---   (code path of simple rhn-satellite-activate)
--- assign_channel_entitlement
+-- oracle equivalent source sha1 8fcbc1336a4b7f715fb1304875a38ebd0ae53565
 --
 -- Copyright (c) 2008--2011 Red Hat, Inc.
 --
