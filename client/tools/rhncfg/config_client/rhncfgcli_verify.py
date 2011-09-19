@@ -176,13 +176,12 @@ class Handler(handler_base.HandlerBase):
         
         status = []
         stat_err = 0
+        #Stat the destination file
+        try:
+            dst_stat = os.lstat(dst)
+        except:
+            stat_err = 1
         if type != 'symlink':
-            #Stat the destination file
-            try:
-                dst_stat = os.lstat(dst)
-            except:
-                stat_err = 1
-    
             src_user = info['username']
             if not stat_err:
                 #check for owner differences
