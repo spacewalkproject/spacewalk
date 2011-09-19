@@ -1374,10 +1374,15 @@ as $$
             perform rhn_exception.raise_exception(
                           'not_enough_entitlements_in_base_org');
         else
+            -- don't update family counts after every server
+            -- will do bulk update afterwards
             perform rhn_entitlements.set_group_count(org_id_in,
                                              'S',
                                              group_type,
-                                             quantity_in);
+                                             quantity_in,
+                                             0);
+            -- bulk update family counts
+            perform rhn_channel.update_group_family_counts(group_label_in, org_id_in);
         end if;
 
     end$$
