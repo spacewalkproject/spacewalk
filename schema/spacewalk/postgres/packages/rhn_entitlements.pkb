@@ -1285,7 +1285,7 @@ as $$
         new_ent_count := from_org_prev_ent_count - quantity_in;
         new_ent_count_flex := from_org_prev_ent_count_flex - flex_in;
     
-        if from_org_prev_ent_count > new_ent_count then
+        if from_org_prev_ent_count >= new_ent_count then
             new_quantity := to_org_prev_ent_count + quantity_in;
         end if;
 
