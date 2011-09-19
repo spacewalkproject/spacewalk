@@ -41,44 +41,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
       return exists(SELECT channel_id FROM rhnServerChannel WHERE server_id = server_id_in AND channel_id = channel_id_in);
     end$$ language plpgsql;
 
-    CREATE OR REPLACE FUNCTION get_license_path(channel_id_in IN NUMERIC)
-    RETURNS VARCHAR
-    AS $$
-    declare
-        license_val VARCHAR(1000);
-    BEGIN
-        SELECT CFL.license_path INTO license_val
-          FROM rhnChannelFamilyLicense CFL, rhnChannelFamilyMembers CFM
-         WHERE CFM.channel_id = channel_id_in
-           AND CFM.channel_family_id = CFL.channel_family_id;
-
-        IF NOT FOUND THEN
-          RETURN NULL;
-        END IF;
-    
-        RETURN license_val;
-    END$$ language plpgsql;
-
-
-    CREATE OR REPLACE FUNCTION license_consent(channel_id_in IN NUMERIC, user_id_in IN NUMERIC, server_id_in IN NUMERIC) returns void
-    AS $$
-    declare
-        channel_family_id_val NUMERIC;
-    BEGIN
-        channel_family_id_val := rhn_channel.family_for_channel(channel_id_in);
-        IF channel_family_id_val IS NULL
-        THEN
-            perform rhn_exception.raise_exception('channel_subscribe_no_family');
-        END IF;
-        
-        IF rhn_channel.get_license_path(channel_id_in) IS NULL
-        THEN
-            perform rhn_exception.raise_exception('channel_consent_no_license');
-        END IF;
-        
-        INSERT INTO rhnChannelFamilyLicenseConsent (channel_family_id, user_id, server_id)
-        VALUES (channel_family_id_val, user_id_in, server_id_in);
-    END$$ language plpgsql;
 
     create or replace function obtain_read_lock(channel_family_id_in in numeric, org_id_in in numeric)
     returns void as $$
