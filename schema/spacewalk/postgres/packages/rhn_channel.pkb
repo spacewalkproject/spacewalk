@@ -139,8 +139,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
            rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1 OR
             (available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1)
         THEN
-            if rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 0
-                AND available_subscriptions> 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1 THEN
+            if rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 0 AND available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1 THEN
                 is_fve_char := 'Y';
             end if;
 
