@@ -908,7 +908,7 @@ class ExporterMain:
             sys.exit(0)
 
         if self.options.list_channels:
-            self.print_list_channels()
+            self.print_list_channels(self.list_channels())
             sys.exit(0)
 
         #From this point on everything should assume a list of channels, so it needs to be a list
