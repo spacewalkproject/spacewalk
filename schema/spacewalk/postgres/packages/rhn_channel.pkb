@@ -684,6 +684,34 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         return current_members_count;
     end$$ language plpgsql;
 
+
+    create or replace function cfam_curr_fve_members(
+        channel_family_id_in IN NUMERIC,
+        org_id_in IN NUMERIC)
+    returns numeric
+    as $$
+    declare
+        current_members_count number := 0;
+
+    begin
+        select count(sc.server_id)
+          into current_members_count
+          from rhnServerChannel sc,
+               rhnChannelFamilyMembers cfm,
+               rhnServer s
+         where s.org_id = org_id_in
+           and s.id = sc.server_id
+           and cfm.channel_family_id = channel_family_id_in
+           and cfm.channel_id = sc.channel_id
+           and exists (
+                select 1
+                  from rhnChannelFamilyServerFve cfsp
+                 where cfsp.CHANNEL_FAMILY_ID = channel_family_id_in
+                   and cfsp.server_id = s.id
+                );
+
+        return current_members_count;
+    end$$ language plpgsql;
     CREATE OR REPLACE FUNCTION update_family_counts(channel_family_id_in IN NUMERIC, 
                                    org_id_in IN NUMERIC) returns void
     AS $$
