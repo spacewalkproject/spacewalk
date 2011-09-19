@@ -716,11 +716,11 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                                    org_id_in IN NUMERIC) returns void
     AS $$
     BEGIN
-                update rhnPrivateChannelFamily
-                set current_members =
-                rhn_channel.channel_family_current_members(channel_family_id_in, org_id_in)
-                        where org_id = org_id_in
-                                and channel_family_id = channel_family_id_in;
+        update rhnPrivateChannelFamily
+           set current_members = rhn_channel.channel_family_current_members(channel_family_id_in, org_id_in)
+               fve_current_members = rhn_channel.cfam_curr_fve_members(channel_family_id_in,org_id_in)
+         where org_id = org_id_in
+           and channel_family_id = channel_family_id_in;
     END$$ language plpgsql;
     
     CREATE OR REPLACE FUNCTION available_chan_subscriptions(channel_id_in IN NUMERIC, 
