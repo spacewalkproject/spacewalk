@@ -1,9 +1,5 @@
 -- oracle equivalent source sha1 57ec75b0aacf78d2bba70e5ad4158bccacccf265
 --
--- This file is not yet in sync with Oracle. Synced functions are:
--- subscribe_server + all subfunctions
--- unsubscribe_server + all subfunctions
---
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
@@ -180,7 +176,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
             return 1;
         END LOOP;
         RETURN 0;
-    END can_convert_to_fve;
+    END$$ language plpgsql;
 
 
 
@@ -188,6 +184,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     create or replace function convert_to_fve(server_id_in IN NUMERIC, channel_family_id_val IN NUMERIC)
     returns void
     as $$
+    declare
         available_fve_subs      NUMERIC;
         server_org_id_val       NUMERIC;
     BEGIN
@@ -202,7 +199,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
          WHERE id = server_id_in;
 
 
-            obtain_read_lock(channel_family_id_val, server_org_id_val);
+        perform obtain_read_lock(channel_family_id_val, server_org_id_val);
         if not found then
                 perform rhn_exception.raise_exception('channel_family_no_subscriptions');
         end if;
@@ -676,7 +673,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     declare
         current_members_count numeric := 0;
     begin
-        select  count(distinct sc.server_id)
+        select  count(distinct server_id)
         into    current_members_count
           from  rhnChannelFamilyServerPhysical cfsp
          where  cfsp.channel_family_id = channel_family_id_in
@@ -691,7 +688,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     returns numeric
     as $$
     declare
-        current_members_count number := 0;
+        current_members_count numeric := 0;
 
     begin
         select count(sc.server_id)
@@ -717,7 +714,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     AS $$
     BEGIN
         update rhnPrivateChannelFamily
-           set current_members = rhn_channel.channel_family_current_members(channel_family_id_in, org_id_in)
+           set current_members = rhn_channel.channel_family_current_members(channel_family_id_in, org_id_in),
                fve_current_members = rhn_channel.cfam_curr_fve_members(channel_family_id_in,org_id_in)
          where org_id = org_id_in
            and channel_family_id = channel_family_id_in;
@@ -727,6 +724,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                                    org_id_in IN NUMERIC)
     returns void
     as $$
+    declare
+        i record;
     BEGIN
         FOR i IN (
                 SELECT DISTINCT CFM.channel_family_id, SG.org_id
