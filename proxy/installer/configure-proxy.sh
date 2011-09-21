@@ -188,7 +188,8 @@ is_hosted () {
 }
 
 check_ca_conf () {
-    if awk '/^[[:space:]]*\[[[:space:]]*[_[:alnum:]]*[[:space:]]*]/ {CORRECT_SECTION=0} \
+    if [ -f /root/ssl-build/rhn-ca-openssl.cnf ] \
+        && awk '/^[[:space:]]*\[[[:space:]]*[_[:alnum:]]*[[:space:]]*]/ {CORRECT_SECTION=0} \
         /^[[:space:]]*\[[[:space:]]*CA_default[[:space:]]*]/ {CORRECT_SECTION=1} \
         /^[[:space:]]*copy_extensions[[:space:]]*=[[:space:]]*copy/ && CORRECT_SECTION==1 {exit 1}' \
         /root/ssl-build/rhn-ca-openssl.cnf > /dev/null \
