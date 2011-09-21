@@ -8109,6 +8109,10 @@ Follow this url to see the full list of inactive systems:
           <source>Snapshot tag already exists: {0}</source>
       </trans-unit>
 
+      <trans-unit id="api.provisioning.snapshot.nosuchtag">
+          <source>No such server snapshot tag: {0}</source>
+      </trans-unit>
+
       <trans-unit id="api.package.provider.invalidKeyType">
           <source>The package key type specified ({0}) is invalid.</source>
       </trans-unit>

@@ -66,6 +66,8 @@ import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
+import com.redhat.rhn.domain.server.ServerSnapshot;
+import com.redhat.rhn.domain.server.SnapshotTag;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
@@ -90,6 +92,7 @@ import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchCobblerSystemRecordException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchSnapshotTagException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NotEnoughEntitlementsException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
@@ -97,6 +100,7 @@ import com.redhat.rhn.frontend.xmlrpc.ProfileNameTooLongException;
 import com.redhat.rhn.frontend.xmlrpc.ProfileNameTooShortException;
 import com.redhat.rhn.frontend.xmlrpc.ProfileNoBaseChannelException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
+import com.redhat.rhn.frontend.xmlrpc.SnapshotTagAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.SystemIdInstantiationException;
 import com.redhat.rhn.frontend.xmlrpc.SystemsNotDeletedException;
 import com.redhat.rhn.frontend.xmlrpc.UndefinedCustomFieldsException;
@@ -4814,7 +4818,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Get the UUID from the given system ID.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("string", "serverId")
+     * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype string
      */
     public String getUuid(String sessionKey, Integer serverId) {
@@ -4827,5 +4831,61 @@ public class SystemHandler extends BaseHandler {
         else {
             return "";
         }
+    }
+
+    /**
+     * Tags latest system snapshot
+     * @param sessionKey the session key
+     * @param serverId server id
+     * @param tagName tag
+     * @return 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc Tags latest system snapshot
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "tagName")
+     * @xmlrpc.return int - #return_int_success()
+     */
+    public int tagLatestSnapshot(String sessionKey, Integer serverId, String tagName) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError",
+            "System does not have provisioning entitlement: " + server.getId());
+        }
+        List<ServerSnapshot> snps = ServerFactory.listSnapshots(loggedInUser.getOrg(),
+                server, null, null);
+        if (snps.isEmpty()) {
+            SystemManager.snapshotServer(server, "Initial snapshot");
+            snps = ServerFactory.listSnapshots(loggedInUser.getOrg(), server, null, null);
+        }
+        if (!snps.get(0).addTag(tagName)) {
+            throw new SnapshotTagAlreadyExistsException(tagName);
+        }
+        return 1;
+    }
+
+    /**
+     * Deletes tag from system snapshot
+     * @param sessionKey the session key
+     * @param serverId server id
+     * @param tagName tag
+     * @return 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc Deletes tag from system snapshot
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "tagName")
+     * @xmlrpc.return int - #return_int_success()
+     */
+    public int deleteTagFromSnapshot(String sessionKey, Integer serverId, String tagName) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+        SnapshotTag tag = ServerFactory.lookupSnapshotTagbyName(tagName);
+        if (tag == null) {
+            throw new NoSuchSnapshotTagException(tagName);
+        }
+        ServerFactory.removeTagFromSnapshot(server.getId(), tag);
+        return 1;
     }
 }
