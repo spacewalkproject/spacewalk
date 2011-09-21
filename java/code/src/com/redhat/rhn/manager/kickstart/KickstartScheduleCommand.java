@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -62,6 +63,7 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
 import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
@@ -567,9 +569,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (!cobblerOnly) {
             // Setup Cobbler system profile
             KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
-            String tokenList =
-                KickstartFormatter.generateActivationKeyString(
-                        ksdata, kickstartSession);
+            String tokenList;
+
+            if (ksdata.getRegistrationType(null).equals(RegistrationType.REACTIVATION)) {
+                tokenList = KickstartFormatter.generateActivationKeyString(
+                    ksdata, kickstartSession);
+            }
+            else {
+                // RegistrationType.DELETION && RegistrationType.NONE
+                tokenList = org.cobbler.Profile.lookupById(CobblerXMLRPCHelper.getConnection(
+                    Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)),
+                    ksdata.getCobblerId()).getRedHatManagementKey();
+            }
 
             CobblerSystemCreateCommand cmd =
                 getCobblerSystemCreateCommand(user, server,
@@ -681,14 +692,16 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         RegistrationType regType = getKsdata().getRegistrationType(user);
 
+        if (regType.equals(RegistrationType.REACTIVATION)) {
             // Create a new activation key for the target system.
-        createKickstartActivationKey(this.user,
-                this.ksdata,
-                RegistrationType.NONE.equals(regType) ? null : getTargetServer(),
-                this.kickstartSession,
-                cfgMgmtFlag,
-                1L,
-                note);
+            createKickstartActivationKey(this.user,
+                    this.ksdata,
+                    RegistrationType.REACTIVATION.equals(regType) ? getTargetServer() : null,
+                    this.kickstartSession,
+                    cfgMgmtFlag,
+                    1L,
+                    note);
+        }
         this.createdProfile = processProfileType(this.profileType);
         log.debug("** profile created: " + createdProfile);
     }

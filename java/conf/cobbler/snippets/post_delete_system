@@ -1,7 +1,7 @@
-%post --interpreter /usr/bin/python
+%post --interpreter /usr/bin/python --nochroot
 import xmlrpclib
 import os.path
-system_id = "/root/systemid.old"
+system_id = "/tmp/rhn/systemid"
 try:
     if os.path.exists(system_id):
         client =  xmlrpclib.Server("http://$http_server/rpc/api")
