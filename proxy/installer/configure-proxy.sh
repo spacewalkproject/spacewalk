@@ -191,7 +191,7 @@ check_ca_conf () {
     if awk '/^[[:space:]]*\[[[:space:]]*[_[:alnum:]]*[[:space:]]*]/ {CORRECT_SECTION=0} \
         /^[[:space:]]*\[[[:space:]]*CA_default[[:space:]]*]/ {CORRECT_SECTION=1} \
         /^[[:space:]]*copy_extensions[[:space:]]*=[[:space:]]*copy/ && CORRECT_SECTION==1 {exit 1}' \
-        /root/ssl-build/rhn-ca-openssl.cnf \
+        /root/ssl-build/rhn-ca-openssl.cnf > /dev/null \
 		&& [ ${#SSL_CNAME_PARSED[@]} -gt 0 ];  then
 		cat <<WARNING
 It seems you tried to use the --set-cname option. On inspection we noticed that the openssl configuration file we use is missing a critically important option. Without this option, not only will multi host SSL certificates not work, but the planet Earth will implode in a massive rip in the time/space continuum. To avoid this failure, we choose to gracefully exit here and request for you to edit the openssl configuration file
