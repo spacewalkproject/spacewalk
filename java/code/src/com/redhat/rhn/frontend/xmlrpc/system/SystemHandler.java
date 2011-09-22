@@ -3301,19 +3301,7 @@ public class SystemHandler extends BaseHandler {
      */
     public Object [] getScriptResults(String sessionKey, Integer actionId) {
         User loggedInUser = getLoggedInUser(sessionKey);
-
-        ScriptRunAction action = null;
-        try {
-            action = (ScriptRunAction)ActionManager.lookupAction(loggedInUser,
-                    new Long(actionId.longValue()));
-        }
-        catch (LookupException e) {
-            throw new NoSuchActionException(actionId.toString(), e);
-        }
-        catch (ClassCastException e) {
-            throw new InvalidActionTypeException(e);
-        }
-
+        ScriptRunAction action = lookupScriptRunAction(actionId, loggedInUser);
         ScriptActionDetails details = action.getScriptActionDetails();
 
         if (details.getResults() == null) {
@@ -3326,6 +3314,63 @@ public class SystemHandler extends BaseHandler {
             results.add(r);
         }
         return results.toArray();
+    }
+
+    /**
+     * Returns action script contents for script run actions
+     * @param sessionKey session key
+     * @param actionId action identifier
+     * @return script details
+     *
+     * @xmlrpc.doc Returns script details for script run actions
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("int", "actionId", "ID of the script run action.")
+     * @xmlrpc.returntype
+     *      #struct("Script details")
+     *          #prop_desc("int" "id" "action id")
+     *          #prop_desc("string" "content" "script content")
+     *          #prop_desc("string" "id" "action id")
+     *          #prop_desc("string" "run_as_user" "Run as user")
+     *          #prop_desc("string" "run_as_group" "Run as group")
+     *          #prop_desc("int" "timeout" "Timeout in seconds")
+     *          #prop("$ScriptResultSerializer", "result")
+     *      #struct_end()
+     */
+    public Map getScriptActionDetails(String sessionKey, Integer actionId) {
+        Map retDetails = new HashMap();
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ScriptRunAction action = lookupScriptRunAction(actionId, loggedInUser);
+        ScriptActionDetails details = action.getScriptActionDetails();
+        retDetails.put("id", action.getId());
+        retDetails.put("content", details.getScriptContents());
+        retDetails.put("run_as_user", details.getUsername());
+        retDetails.put("run_as_group", details.getGroupname());
+        retDetails.put("timeout", details.getTimeout());
+
+        if (details.getResults() != null) {
+            List<ScriptResult> results = new LinkedList<ScriptResult>();
+            for (Iterator it = details.getResults().iterator(); it.hasNext();) {
+                ScriptResult r = (ScriptResult)it.next();
+                results.add(r);
+            }
+            retDetails.put("result", results.toArray());
+        }
+        return retDetails;
+    }
+
+    private ScriptRunAction lookupScriptRunAction(Integer actionId, User loggedInUser) {
+        ScriptRunAction action = null;
+        try {
+            action = (ScriptRunAction)ActionManager.lookupAction(loggedInUser,
+                    new Long(actionId.longValue()));
+        }
+        catch (LookupException e) {
+            throw new NoSuchActionException(actionId.toString(), e);
+        }
+        catch (ClassCastException e) {
+            throw new InvalidActionTypeException(e);
+        }
+        return action;
     }
 
     /**
