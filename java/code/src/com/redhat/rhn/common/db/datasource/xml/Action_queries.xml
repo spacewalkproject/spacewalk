@@ -313,7 +313,7 @@ INSERT INTO rhnServerAction (server_id, action_id, status, REMAINING_TRIES)
 <write-mode name="add_config_rev_to_action">
   <query params="sid, aid, crid">
 INSERT INTO rhnActionConfigRevision (id, server_id, action_id, config_revision_id)
-   values (rhn_actioncr_id_seq.nextval, :sid, :aid, :crid)
+   values (sequence_nextval('rhn_actioncr_id_seq'), :sid, :aid, :crid)
   </query>
 </write-mode>
 
