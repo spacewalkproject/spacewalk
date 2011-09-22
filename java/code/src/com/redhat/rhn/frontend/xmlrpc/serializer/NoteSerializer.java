@@ -63,6 +63,7 @@ public class NoteSerializer implements XmlRpcCustomSerializer {
         add(helper, "note", note.getNote());
         add(helper, "system_id", note.getServer().getId());
         add(helper, "creator", note.getCreator().getLogin());
+        add(helper, "updated", note.getModified());
         helper.writeTo(output);
     }
 
