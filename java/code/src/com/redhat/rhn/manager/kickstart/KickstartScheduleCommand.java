@@ -63,7 +63,6 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.cobbler.CobblerConnection;
 import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
@@ -577,9 +576,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             }
             else {
                 // RegistrationType.DELETION && RegistrationType.NONE
-                tokenList = org.cobbler.Profile.lookupById(CobblerXMLRPCHelper.getConnection(
-                    Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)),
-                    ksdata.getCobblerId()).getRedHatManagementKey();
+                tokenList = org.cobbler.Profile.lookupById(
+                    CobblerXMLRPCHelper.getConnection(
+                        Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)),
+                        ksdata.getCobblerId()).getRedHatManagementKey();
             }
 
             CobblerSystemCreateCommand cmd =
@@ -695,12 +695,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (regType.equals(RegistrationType.REACTIVATION)) {
             // Create a new activation key for the target system.
             createKickstartActivationKey(this.user,
-                    this.ksdata,
-                    RegistrationType.REACTIVATION.equals(regType) ? getTargetServer() : null,
-                    this.kickstartSession,
-                    cfgMgmtFlag,
-                    1L,
-                    note);
+                this.ksdata,
+                RegistrationType.REACTIVATION.equals(regType) ? getTargetServer() : null,
+                this.kickstartSession,
+                cfgMgmtFlag,
+                1L,
+                note);
         }
         this.createdProfile = processProfileType(this.profileType);
         log.debug("** profile created: " + createdProfile);
