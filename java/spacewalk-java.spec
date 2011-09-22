@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.47
+Version: 1.6.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 22 2011 Tomas Lestach <tlestach@redhat.com> 1.6.48-1
+- 680489 - introduce tag system tag related API calls (tlestach@redhat.com)
+- 680489 - intorduce system.provisioning.snapshot.addTagToSnapshot API call
+  (tlestach@redhat.com)
+- checkstyle issues (tlestach@redhat.com)
+- 740306 - fix delete -> register reprovisioning scenario
+  (mzazrivec@redhat.com)
+
 * Fri Sep 16 2011 Tomas Lestach <tlestach@redhat.com> 1.6.47-1
 - 717984 - list only ssm systems in SSM Selected Systems List tab
   (tlestach@redhat.com)
