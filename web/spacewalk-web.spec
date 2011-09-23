@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.22
+Version: 1.6.23
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 23 2011 Jan Pazdziora 1.6.23-1
+- The /etc/rhn/default/rhn_web.conf does not need to be provided by -pxt since
+  it is provided by -base-minimal.
+
 * Mon Sep 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.22-1
 - 723461 - let emails be sent to localhost by default
 
