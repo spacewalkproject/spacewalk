@@ -130,13 +130,13 @@ find $RPM_BUILD_ROOT -type f -name perllocal.pod -exec rm -f {} \;
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/www/html/pub
-mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
+mkdir -p $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/httpd/conf
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily
 
-install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
-install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
+install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
+install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
 
@@ -225,14 +225,14 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Exception.pm
 %{perl_vendorlib}/RHN/DB.pm
 %{perl_vendorlib}/PXT/Config.pm
-%attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
+%attr(640,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_web.conf
 %doc LICENSE
 
 %files -n spacewalk-dobby
 %attr(755,root,root) %{_bindir}/db-control
 %{_mandir}/man1/db-control.1.gz
 %{perl_vendorlib}/Dobby.pm
-%attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_dobby.conf
+%attr(640,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 %{perl_vendorlib}/Dobby/
 
