@@ -333,10 +333,10 @@ install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/loca
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn
-install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/classes
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirup}
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirwiz}
@@ -344,9 +344,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{cobdirsnippets}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_hibernate.conf
-install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
-install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
+install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
+install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
@@ -537,9 +537,9 @@ fi
 
 %files config
 %defattr(644, root, root)
-%config %{_sysconfdir}/rhn/default/rhn_hibernate.conf
-%config %{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
-%config %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
+%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
+%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 
