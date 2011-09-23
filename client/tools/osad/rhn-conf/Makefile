@@ -6,6 +6,6 @@
 TOP	= ..
 
 INSTALL_FILES	= $(wildcard *.conf)
-INSTALL_DEST	= /etc/rhn/default
+INSTALL_DEST	= /usr/share/rhn/config-defaults
 
 include $(TOP)/Makefile.defs
