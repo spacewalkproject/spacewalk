@@ -880,4 +880,29 @@ def do_softwarechannel_regenerateneededcache(self, args):
     if self.user_confirm('Are you sure [y/N]: '):
         self.client.channel.software.regenerateNeededCache(self.session)
 
+####################
+
+def help_softwarechannel_regenerateyumcache(self):
+    print 'softwarechannel_regenerateyumcache: '
+    print 'Regenerate the YUM cache for a software channel'
+    print
+    print 'usage: softwarechannel_regnerateyumcache <CHANNEL ...>'
+
+def complete_softwarechannel_regenerateyumcache(self, text, line, beg, end):
+    return tab_completer(self.do_softwarechannel_list('', True), text)
+
+def do_softwarechannel_regenerateyumcache(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_softwarechannel_regenerateyumcache()
+        return
+    
+    # allow globbing of software channel names
+    channels = filter_results(self.do_softwarechannel_list('', True), args)
+
+    for channel in channels:
+        logging.debug('Regenerating YUM cache for %s' % channel)
+        self.client.channel.software.regenerateYumCache(self.session, channel)
+
 # vim:ts=4:expandtab:
