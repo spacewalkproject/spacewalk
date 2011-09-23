@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.16
+Version:        1.6.17
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Sep 23 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.17-1
+- synced rhn_channel with oracle
+- synced rhn_entitlement with oracle
+
 * Thu Sep 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.16-1
 - 529064 - fixed update_needed_cache which wrongly updated cache if a package
   was in more erratas
