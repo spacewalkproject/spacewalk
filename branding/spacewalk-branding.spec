@@ -39,7 +39,7 @@ install -d -m 755 %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/
 install -d -m 755 %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/
 %endif
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
-install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn/default
+install -d -m 755 %{buildroot}/%{_prefix}/share/rhn/config-defaults
 cp -pR css %{buildroot}/%{_var}/www/html/
 cp -pR img %{buildroot}/%{_var}/www/html/
 # Appplication expects two favicon's for some reason, copy it so there's just
@@ -54,7 +54,7 @@ ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/weba
 %else
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
 %endif
-cp -p conf/rhn_docs.conf %{buildroot}/%{_sysconfdir}/rhn/default/rhn_docs.conf
+cp -p conf/rhn_docs.conf %{buildroot}/%{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 
 %clean
 rm -rf %{buildroot}
@@ -79,7 +79,7 @@ rm -rf %{buildroot}
 %else
 %{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
 %endif
-%{_sysconfdir}/rhn/default/rhn_docs.conf
+%{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 %doc LICENSE
 
 %changelog
