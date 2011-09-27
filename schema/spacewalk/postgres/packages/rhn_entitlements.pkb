@@ -1069,7 +1069,7 @@ as $$
             -- if we're removing a base ent, then be sure to
             -- remove the server's channel subscriptions.
             if ( type_is_base = 'Y' ) then
-                   perform rhn_channel.clear_subscriptions(sgrecord.server_id, update_family_countsYN);
+                   perform rhn_channel.clear_subscriptions(sgrecord.server_id, 0, update_family_countsYN);
             end if;
 
             end loop;
