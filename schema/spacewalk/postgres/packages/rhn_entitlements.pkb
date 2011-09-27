@@ -632,7 +632,7 @@ as $$
             -- if the host_server does not have virt
             --- find all possible flex slots
             -- and set each of the flex eligible guests to Y
-                UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+                UPDATE rhnServerChannel sc set is_fve = 'Y'
                 where sc.server_id in (
                             select vi.virtual_system_id
                             from rhnServerFveCapable sfc
@@ -645,7 +645,7 @@ as $$
             else
             -- if the host_server has virt
             -- set all its flex guests to N
-                UPDATE rhnServerChannel sc set sc.is_fve = 'N'
+                UPDATE rhnServerChannel sc set is_fve = 'N'
                 where
                     sc.channel_id in (select cfm.channel_id from rhnChannelFamilyMembers cfm
                                       where cfm.CHANNEL_FAMILY_ID = family.channel_family_id)
@@ -1473,7 +1473,7 @@ as $$
                    -- We need to convert some systems from flex guest to regular
                    for system in to_convert_reg(cfam_id, org_id_in, reduce_quantity) loop
                       --rhn_channel.convert_to_regular(system.server_id, cfam_id);
-                      UPDATE rhnServerChannel sc set sc.is_fve = 'N'
+                      UPDATE rhnServerChannel sc set is_fve = 'N'
                            where sc.server_id = system.server_id
                                  and sc.channel_id in (select cfm.channel_id
                                                           from rhnChannelFamilyMembers cfm
@@ -1503,7 +1503,7 @@ as $$
                     reduce_quantity := prev_ent_count - quantity_in;
                     for system in to_convert_flex(cfam_id, org_id_in, reduce_quantity) loop
 --                          rhn_channel.convert_to_fve(system.server_id, cfam_id);
-                        UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+                        UPDATE rhnServerChannel sc set is_fve = 'Y'
                            where sc.server_id = system.server_id
                                  and sc.channel_id in (select cfm.channel_id
                                                           from rhnChannelFamilyMembers cfm
