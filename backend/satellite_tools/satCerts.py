@@ -301,14 +301,6 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
 
     rhnSQL.commit()
 
-_query_update_dates = rhnSQL.Statement("""
-    UPDATE rhnSatelliteCert
-       SET issued = :issued, expires = :expires
-     WHERE label = :label
-           AND ((version is null and :version is null)
-                OR version = :version)
-""")
-
 _query_latest_version = rhnSQL.Statement("""
     SELECT COALESCE(version, 0) as version, version as orig_version, cert,
         TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') as issued,
@@ -346,12 +338,6 @@ _query_update_web_customer = rhnSQL.Statement("""
 _query_update_web_user = rhnSQL.Statement("""
     UPDATE web_user_personal_info
     SET company = :owner
-""")
-
-_query_update_rhnchannelfamily = rhnSQL.Statement("""
-    UPDATE rhnchannelfamily
-    SET name = :owner
-    WHERE org_id = 1
 """)
 
 #
