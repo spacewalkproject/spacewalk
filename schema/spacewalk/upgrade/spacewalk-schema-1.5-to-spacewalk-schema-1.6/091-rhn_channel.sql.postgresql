@@ -1,11 +1,11 @@
 -- oracle equivalent source sha1 b14267384bc104605623a41b755e68e0103b5aa8
 
+--update pg_setting
+update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_path';
+
 drop function get_license_path(channel_id_in in numeric);
 drop function license_consent(channel_id_in in numeric, user_id_in in numeric, server_id_in in numeric);
 drop function clear_subscriptions(server_id_in in numeric, deleting_server in numeric);
-
---update pg_setting
-update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_path';
 
     create or replace function obtain_read_lock(channel_family_id_in in numeric, org_id_in in numeric)
     returns void as $$
