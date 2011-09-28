@@ -29,7 +29,7 @@ def help_distribution_create(self):
 
 options:
   -n NAME
-  -d path to tree
+  -p path to tree
   -b base channel to associate with
   -t install type [fedora|rhel_4/5/6|generic_rpm]'''
 
