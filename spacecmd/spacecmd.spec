@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.6.4
+Version:     1.6.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,13 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Sep 28 2011 Aron Parsons <parsonsa@bit-sys.com> 1.6.5-1
+- spacecmd: wrong argument in distribution_create help message (parsonsa@bit-
+  sys.com)
+- Automatic commit of package [spacecmd] release [1.6.4-1]. (parsonsa@bit-
+  sys.com)
+- spacecmd: added softwarechannel_regenerateyumcache (parsonsa@bit-sys.com)
+
 * Fri Sep 23 2011 Aron Parsons <parsonsa@bit-sys.com> 1.6.4-1
 - spacecmd: added softwarechannel_regenerateyumcache (parsonsa@bit-sys.com)
 
