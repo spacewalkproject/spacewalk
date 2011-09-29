@@ -64,9 +64,11 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 
@@ -2584,4 +2586,88 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return ChannelFactory.lookupContentSource(new Long(id.longValue()));
     }
 
+    /**
+     * Lists associated repos with the given channel
+     * @param sessionKey session key
+     * @param channelLabel channel label
+     * @return list of associates repos
+     *
+     * @xmlrpc.doc Lists associated repos with the given channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ContentSourceSerializer
+     *      #array_end()
+     */
+    public List<ContentSource> listChannelRepos(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = ChannelManager.lookupByLabel(loggedInUser.getOrg(),
+                channelLabel);
+        return ChannelFactory.lookupContentSources(loggedInUser.getOrg(), channel);
+    }
+
+    /**
+     * Trigger immediate repo synchronization
+     * @param sessionKey session key
+     * @param channelLabel channel label
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Trigger immediate repo synchronization
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int syncRepo(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        new TaskomaticApi().scheduleSingleRepoSync(chan, loggedInUser);
+        return 1;
+    }
+    /**
+     * Schedule periodic repo synchronization
+     * @param sessionKey session key
+     * @param channelLabel channel label
+     * @param cronExpr cron expression, if empty all periodic schedules will be disabled
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Schedule periodic repo synchronization
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+     * @xmlrpc.param #param_desc("string", "cron expression",
+     *      "if empty all periodic schedules will be disabled")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int syncRepo(String sessionKey, String channelLabel, String cronExpr) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        if (StringUtils.isEmpty(cronExpr)) {
+            new TaskomaticApi().unscheduleRepoSync(chan, loggedInUser);
+        }
+        else {
+            new TaskomaticApi().scheduleRepoSync(chan, loggedInUser, cronExpr);
+        }
+        return 1;
+    }
+
+    /**
+     * Returns repo synchronization cron expression
+     * @param sessionKey session key
+     * @param channelLabel channel label
+     * @return cron expression
+     *
+     * @xmlrpc.doc Returns repo synchronization cron expression
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+     * @xmlrpc.return cron expression
+     */
+    public String getRepoSyncCronExpression(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+            String cronExpr = new TaskomaticApi().getRepoSyncSchedule(chan, loggedInUser);
+            if (StringUtils.isEmpty(cronExpr)) {
+                return new String("");
+            }
+            return cronExpr;
+    }
 }
