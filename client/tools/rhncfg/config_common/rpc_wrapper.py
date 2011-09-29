@@ -169,6 +169,7 @@ class Server(rpclib.Server):
                     raise e, None, save_traceback  #Don't raise the NoMoreServers error, raise the error that triggered the failover.
                 continue
             except (error, sslerror, herror, gaierror, timeout), e:
+                save_traceback = sys.exc_info()[2]
                 try:
                     self._failover()    
                 except NoMoreServers, f:
