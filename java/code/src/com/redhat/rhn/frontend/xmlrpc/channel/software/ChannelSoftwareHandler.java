@@ -959,7 +959,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("string", "channelLabel - labels of the channels to
      *              subscribe the system to.")
-     * @xmlrpc.returntype int - 1 on success, 0 otherwise
+     * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
     public int setSystemChannels(String sessionKey, Integer sid, List channelLabels)
@@ -2358,7 +2358,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "label", "label of repo wanted")
     * @xmlrpc.param #param_desc("string", "type", "type of repo wanted")
     * @xmlrpc.param #param_desc("string", "url", "url of repo wanted")
-    * @xmlrpc.returntype ContentSource
+    * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource createRepo(String sessionKey, String label, String type,
             String url) {
@@ -2385,7 +2385,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.doc Creates a ContentSource (repo)
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("long", "id", "ID of repo to be removed")
-    * @xmlrpc.returntype Integer
+    * @xmlrpc.returntype #return_int_success()
    **/
     public Integer removeRepo(String sessionKey, Integer id) {
         User user = getLoggedInUser(sessionKey);
@@ -2404,7 +2404,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.doc Creates a ContentSource (repo)
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "label", "label of repo to be removed")
-    * @xmlrpc.returntype Integer
+    * @xmlrpc.returntype #return_int_success()
    **/
     public Integer removeRepo(String sessionKey, String label) {
         User user = getLoggedInUser(sessionKey);
@@ -2425,7 +2425,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "chanLabel", "of the channel to use")
     * @xmlrpc.param #param_desc("string", "repoLabel", "of the repo to associate")
-    * @xmlrpc.returntype Channel
+    * @xmlrpc.returntype $ChannelSerializer
    **/
     public Channel associateRepo(String sessionKey, String chanLabel, String repoLabel) {
         User user = getLoggedInUser(sessionKey);
@@ -2450,7 +2450,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "chanLabel", "of the channel to use")
     * @xmlrpc.param #param_desc("string", "repoLabel", "of the repo to disassociate")
-    * @xmlrpc.returntype Channel
+    * @xmlrpc.returntype $ChannelSerializer
    **/
     public Channel disassociateRepo(String sessionKey, String chanLabel, String repoLabel) {
         User user = getLoggedInUser(sessionKey);
@@ -2477,7 +2477,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
     * @xmlrpc.param #param_desc("string", "url", "new URL to use")
-    * @xmlrpc.returntype ContentSource
+    * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
         User user = getLoggedInUser(sessionKey);
@@ -2498,7 +2498,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "label", "of the repo to use")
     * @xmlrpc.param #param_desc("string", "url", "new URL to use")
-    * @xmlrpc.returntype ContentSource
+    * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoUrl(String sessionKey, String label, String url) {
         User user = getLoggedInUser(sessionKey);
@@ -2519,7 +2519,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
     * @xmlrpc.param #param_desc("string", "label", "new label to use")
-    * @xmlrpc.returntype ContentSource
+    * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoLabel(String sessionKey, Integer id, String label) {
         User user = getLoggedInUser(sessionKey);
@@ -2542,7 +2542,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
     * @xmlrpc.param #param_desc("string", "label", "new label to use")
     * @xmlrpc.param #param_desc("string", "url", "new URL to use")
-    * @xmlrpc.returntype ContentSource
+    * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepo(String sessionKey, Integer id, String label,
             String url) {
