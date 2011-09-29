@@ -28,9 +28,6 @@ import syncLib
 
 DEFAULT_ORG = 1
 
-class NoFreeEntitlementsError(Exception):
-    "No free entitlements available to activate this satellite"
-
 # Singleton-like
 class BaseCollection:
     _shared_state = {}

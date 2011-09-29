@@ -52,9 +52,6 @@ sequences = {
     'rhnPackageChangeLogData'   : 'rhn_pkg_cld_id_seq',
 }
 
-class NoFreeEntitlementsError(Exception):
-    "No free entitlements available to activate this satellite"  
-
 class Backend:
     # This object is initialized by the specific subclasses (e.g.
     # OracleBackend)
