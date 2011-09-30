@@ -953,16 +953,6 @@ SELECT PI.server_id ID, S.name, TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') 
   </query>
 </mode>
 
-<mode name="org_proxy_servers_evr" class="com.redhat.rhn.domain.rhnpackage.PackageEvr">
-  <query params="org_id">
-SELECT  PE.epoch, PE.version, PE.release
-  FROM  rhnServer S, rhnProxyInfo PI, rhnPackageEVR PE
- WHERE  S.org_id = :org_id
-   AND  PI.server_id = S.id
-   AND  PI.proxy_evr_id = PE.id
-  </query>
-</mode>
-
 <mode name="proxy_path_for_server" class="com.redhat.rhn.frontend.dto.ServerPath">
   <query params="sid">
 SELECT SP.proxy_server_id ID, S.name, (SP.position + 1) AS position, SP.hostname
