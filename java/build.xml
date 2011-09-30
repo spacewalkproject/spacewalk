@@ -596,7 +596,7 @@
 
   <target name="cleanup-tests">
       <property file="${rhn.config.dir}/rhn.conf" prefix="rhn.db"/>
-      <property file="${rhn.config.dir}/default/rhn_hibernate.conf" prefix="rhn.db"/>
+      <property file="/usr/share/rhn/config-defaults/rhn_hibernate.conf" prefix="rhn.db"/>
       <sql
         driver="${rhn.db.hibernate.connection.driver_class}"
         url="${rhn.db.hibernate.connection.url}"

@@ -137,9 +137,9 @@
   <target name="install-taskomatic"
           description="Used to run taskomatic on your local workstation">
     <echo message="NOTE: This task should be run as root since it modifies /etc and /usr/bin" />
-    <symlink link="/etc/rhn/default/rhn_taskomatic_daemon.conf"
+    <symlink link="/usr/share/rhn/config-defaults/rhn_taskomatic_daemon.conf"
              resource="${rhn-home}/conf/default/rhn_taskomatic_daemon.conf" />
-    <symlink link="/etc/rhn/default/rhn_org_quartz.conf"
+    <symlink link="/usr/share/rhn/config-defaults/rhn_org_quartz.conf"
              resource="${rhn-home}/conf/default/rhn_org_quartz.conf" />
     <symlink link="/etc/init.d/taskomatic"
              resource="${rhn-home}/scripts/taskomatic" />
@@ -153,8 +153,8 @@
           description="Used to uninstall taskomatic from your local workstation">
     <echo message="NOTE: This task should be run as root since it modifies /etc and /usr/bin" />
     <echo message="This target should be run as root since it modifies /etc and /usr/bin" />
-    <delete file="/etc/rhn/default/rhn_taskomatic_daemon.conf" />
-    <delete file="/etc/rhn/default/rhn_org_quartz.conf" />
+    <delete file="/usr/share/rhn/config-defaults/rhn_taskomatic_daemon.conf" />
+    <delete file="/usr/share/rhn/config-defaults/rhn_org_quartz.conf" />
     <delete file="/etc/init.d/taskomatic" />
     <delete file="/usr/bin/taskomaticd" />
   </target>
