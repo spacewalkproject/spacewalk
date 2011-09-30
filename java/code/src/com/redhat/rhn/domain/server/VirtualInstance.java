@@ -40,7 +40,7 @@ public class VirtualInstance extends BaseDomainHelper {
     private Server guest;
     private Server host;
     private String uuid;
-    private boolean confirmed;
+    private Long confirmed;
     private VirtualInstanceInfo info;
 
     /**
@@ -88,17 +88,17 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      *
-     * @return true or false
+     * @return confirmed
      */
-    public boolean isConfirmed() {
+    public Long getConfirmed() {
         return confirmed;
     }
 
     /**
      *
-     * @param isConfirmed true or false
+     * @param isConfirmed long
      */
-    public void setConfirmed(boolean isConfirmed) {
+    public void setConfirmed(Long isConfirmed) {
         confirmed = isConfirmed;
     }
 

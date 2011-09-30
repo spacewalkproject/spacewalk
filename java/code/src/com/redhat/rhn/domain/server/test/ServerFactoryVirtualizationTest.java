@@ -180,7 +180,7 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
 
         Server retrievedGuest = ServerFactory.lookupById(guest.getId());
         retrievedGuest.setName("the_guest");
-        retrievedGuest.getVirtualInstance().setConfirmed(true);
+        retrievedGuest.getVirtualInstance().setConfirmed(1);
 
         ServerFactory.save(retrievedGuest);
         flushAndEvict(retrievedGuest);
@@ -188,8 +188,8 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
         Server updatedGuest = ServerFactory.lookupById(guest.getId());
 
         assertEquals(updatedGuest.getName(), retrievedGuest.getName());
-        assertEquals(updatedGuest.getVirtualInstance().isConfirmed(),
-                retrievedGuest.getVirtualInstance().isConfirmed());
+        assertEquals(updatedGuest.getVirtualInstance().getConfirmed(),
+                retrievedGuest.getVirtualInstance().getConfirmed());
     }
 
 }
