@@ -145,7 +145,7 @@ sub synch_nolog {
                 where check_probe.probe_id = probe.recid
                 and check_probe.sat_cluster_id = ?
                 and host.recid = check_probe.host_id
-             )
+             ) X
            };
          $sth = CSDBRecord->DoSql($sql, $sat_cluster_id);
     };
