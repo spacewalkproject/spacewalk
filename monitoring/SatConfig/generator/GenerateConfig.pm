@@ -27,7 +27,9 @@ sub handler {
                    location_name as physical_location_name,
                    sat_node.max_concurrent_checks, sat_node.sched_log_level,
                    sat_node.sput_log_level, sat_node.dq_log_level
-            from   sat_cluster, sat_node, physical_location
+            from   rhn_sat_cluster sat_cluster,
+                   rhn_sat_node sat_node,
+                   rhn_physical_location physical_location
             where  sat_cluster.recid = sat_node.sat_cluster_id
             and    sat_cluster.physical_location_id = physical_location.recid
             and    sat_cluster.recid = ?
@@ -46,7 +48,7 @@ sub handler {
         # Get the auto_update flag
         CFDBRecord->LoadFromSqlWithBind(q{
             select recid, auto_update
-            from   customer
+            from   rhn_customer_monitoring
             where  recid = ?
             },
             [$customerId], 'RECID');
@@ -112,7 +114,7 @@ sub synch_nolog {
     my $sth;
     eval {
         $sth = CSDBRecord->DoSql(q{
-            delete from deployed_probe
+            delete from rhn_deployed_probe
             where sat_cluster_id = ?
             or probe_type = 'url'
         },
@@ -133,11 +135,13 @@ sub synch_nolog {
 
     eval {
            my $sql = qq{
-             insert into deployed_probe($ins_probe_cols, sat_cluster_id, os_id)
+             insert into rhn_deployed_probe($ins_probe_cols, sat_cluster_id, os_id)
              select $ins_probe_cols, sat_cluster_id, os_id
              from (
                 select $sel_probe_cols, check_probe.sat_cluster_id, host.os_id
-                from probe, check_probe, host
+                from rhn_probe probe,
+                     rhn_check_probe check_probe,
+                     rhn_host host
                 where check_probe.probe_id = probe.recid
                 and check_probe.sat_cluster_id = ?
                 and host.recid = check_probe.host_id
