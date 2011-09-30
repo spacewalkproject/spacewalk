@@ -331,15 +331,6 @@ VALUES (:server_id,
   </query>
 </mode>
 
-<write-mode name="make_server_proxy">
-  <query params="server_id, evr_id">
-INSERT
-  INTO rhnProxyInfo
-            (server_id, proxy_evr_id)
-VALUES (:server_id, :evr_id)
-  </query>
-</write-mode>
-
 <write-mode name="ready_errata_cache_queue">
   <query params="org_id, server_count, processed">
 INSERT
