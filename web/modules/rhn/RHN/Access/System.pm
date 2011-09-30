@@ -139,17 +139,6 @@ sub org_has_proxies {
   return 0;
 }
 
-# Given a string of the form 'version-release(:epoch)', return an
-# array of (epoch, version, release)
-sub version_string_to_evr_array {
-  my $version = shift;
-
-  my @vre = split(/[-:]/, $version);
-  my @target_evr = ((exists $vre[2] ? $vre[2] : '0'), $vre[0], $vre[1]);
-
-  return @target_evr;
-}
-
 sub package_available_to_system {
   my $pxt = shift;
   my $package_name = shift;
