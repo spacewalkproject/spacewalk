@@ -8,7 +8,7 @@
 
 <RefMeta>
 <RefEntryTitle>&SCRIPTCOMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
-<RefMiscInfo>Version 0.6</RefMiscInfo>
+<RefMiscInfo>Version 1.6</RefMiscInfo>
 </RefMeta>
 
 <RefNameDiv>
@@ -21,7 +21,7 @@ Read values from &SERVER; configuration files.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>&SCRIPTCOMMAND; get  <replaceable>component</replaceable> <replaceable>key</replaceable></command> 
+        <command>&SCRIPTCOMMAND; get  <replaceable>component</replaceable> <replaceable>key</replaceable></command>
     </cmdsynopsis>
     <cmdsynopsis>
         <command>&SCRIPTCOMMAND; list <replaceable>component</replaceable></command>
@@ -35,12 +35,12 @@ Read values from &SERVER; configuration files.
 
 <RefSect1><Title>Description</Title>
 <para>
-This script parse configuration files of &SERVER; including /etc/rhn/rhn.conf and /etc/rhn/default/* and write list of 
-one componenet or write value of some key. 
+This script parses configuration files of &SERVER; including /etc/rhn/rhn.conf and /usr/share/rhn/config-defaults/* and outputs list of
+values for specified component, or outputs value of specified key.
 </para>
 <para>
 Executing &SCRIPTCOMMAND; with only one parameter (e.g. &SCRIPTCOMMAND; key) is equivalent of &SCRIPTCOMMAND; get '' key
-</para> 
+</para>
 </RefSect1>
 
 <RefSect1><Title>Options</Title>
@@ -63,7 +63,7 @@ Executing &SCRIPTCOMMAND; with only one parameter (e.g. &SCRIPTCOMMAND; key) is 
 <RefSect1><Title>Authors</Title>
 <simplelist>
     <member>Miroslav Suchý <email>msuchy@redhat.com</email></member>
-    <member>Jan Pazdziora Ph.D. </member>
+    <member>Jan Pazdziora</member>
 </simplelist>
 </RefSect1>
 </RefEntry>
