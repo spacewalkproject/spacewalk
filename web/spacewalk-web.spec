@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.23
+Version: 1.6.24
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 1.6.24-1
+- 621531 - update web Config to use the new /usr/share/rhn/config-defaults
+  location.
+- 621531 - move /etc/rhn/default to /usr/share/rhn/config-defaults (web).
+
 * Fri Sep 23 2011 Jan Pazdziora 1.6.23-1
 - The /etc/rhn/default/rhn_web.conf does not need to be provided by -pxt since
   it is provided by -base-minimal.
