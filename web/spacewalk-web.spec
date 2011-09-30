@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.24
+Version: 1.6.25
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 1.6.25-1
+- 678118 - if system already is proxy, losen the ACL and show the tab.
+- Recent commit makes version_string_to_evr_array unused, dropping.
+- Removing proxy_evr_at_least, org_proxy_evr_at_least, aclOrgProxyEvrAtLeast as
+  they are no longer used.
+- Remove proxy_evr_at_least ACLs -- all supported proxy versions are 3+.
+- Make the pxt Connection acl match the java version -- new acl
+  org_has_proxies.
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.24-1
 - 621531 - update web Config to use the new /usr/share/rhn/config-defaults
   location.
