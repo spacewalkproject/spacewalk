@@ -141,7 +141,7 @@ sub synch_nolog {
                 select $sel_probe_cols, check_probe.sat_cluster_id, host.os_id
                 from rhn_probe probe,
                      rhn_check_probe check_probe,
-                     rhn_host host
+                     rhn_host_monitoring host
                 where check_probe.probe_id = probe.recid
                 and check_probe.sat_cluster_id = ?
                 and host.recid = check_probe.host_id

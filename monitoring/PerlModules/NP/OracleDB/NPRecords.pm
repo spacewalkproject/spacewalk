@@ -117,7 +117,9 @@ sub LoadForSatellite
           SELECT $probe_col_str, /* Checks */
                  check_probe.sat_cluster_id as netsaint_id,
                  $host_col_str
-	  FROM   probe, check_probe, host
+	  FROM   rhn_probe probe,
+                 rhn_check_probe check_probe,
+                 rhn_host_monitoring host
           WHERE  check_probe.probe_id = probe.recid
           AND    check_probe.host_id = host.recid
           AND    check_probe.sat_cluster_id = ?
@@ -129,7 +131,7 @@ sub LoadForSatellite
         $class->InstanceCount > 0 or return 0;
 
 	# Fetch OS IDs and names for later mapping
-	CFDBRecord->LoadFromSql("SELECT recid, os_name FROM os", 'RECID');
+	CFDBRecord->LoadFromSql("SELECT recid, os_name FROM rhn_os", 'RECID');
 	my $os = CFDBRecord->Instances;
 	CFDBRecord->ReleaseAllInstances;
 
@@ -184,8 +186,8 @@ sub LoadForSatellite
                                 m.snmp_host,
                                 m.snmp_port,
                                 m.sender_sat_cluster_id
-                      FROM      contact_groups g, contact_methods m,
-                                contact_group_members map
+                      FROM      rhn_contact_groups g, rhn_contact_methods m,
+                                rhn_contact_group_members map
                       WHERE     map.contact_group_id = g.recid
                       AND       map.member_contact_method_id = m.recid
                       AND       g.recid in (".join(', ', @placeholder).')';
@@ -211,7 +213,7 @@ sub LoadForSatellite
 	# Now %snmpdests contains a list of SNMP destinatios for each
 	# contact group.
 	$sql = "SELECT recid,contact_group_name,customer_id
-		FROM   contact_groups
+		FROM   rhn_contact_groups
 		WHERE  recid in (".join(', ', @placeholder).")";
         CFDBRecord->LoadFromSqlWithBind($sql, \@contactGroupIds, 'RECID');
         $class->Map(
@@ -249,26 +251,26 @@ sub LoadForSatellite
 	# Fetch service probes and host probes for all sats/scouts ...
 	my $probeSubquery = "
               SELECT probe_id
-              FROM   host_probe
+              FROM   rhn_host_probe
               WHERE  sat_cluster_id = ?
               UNION
               SELECT probe_id
-              FROM   check_probe
+              FROM   rhn_check_probe
               WHERE  sat_cluster_id = ?
               UNION
               SELECT probe_id
-              FROM   sat_cluster_probe
+              FROM   rhn_sat_cluster_probe
               WHERE  sat_cluster_id = ?
               UNION
               SELECT probe_id
-              FROM   url_probe
+              FROM   rhn_url_probe
               WHERE  sat_cluster_id = ?
 	";
 
 	# Load up the commands table and add the command group name to the probe records
 	CommandRecord->LoadFromSqlWithBind('
            select c.recid, c.name, c.description, c.command_class, c.group_name
-           from command c, probe p
+           from rhn_command c, rhn_probe p
            where p.command_id = c.recid
            and p.recid in ('.$probeSubquery.')',
           [$satClusterId, $satClusterId, $satClusterId, $satClusterId],
@@ -290,7 +292,7 @@ sub LoadForSatellite
 	CommandMetricRecord->LoadFromSqlWithBind("
           select m.command_class, m.metric_id, m.label, m.description,
                  u.unit_label, u.description as unit_description
-          from metrics m, units u, command c, probe p
+          from rhn_metrics m, rhn_units u, rhn_command c, rhn_probe p
           where m.command_class = c.command_class
           and m.storage_unit_id = u.unit_id
           and p.command_id = c.recid
@@ -303,7 +305,7 @@ sub LoadForSatellite
           select cp.command_id, cp.param_name, cp.param_type, cp.mandatory, cp.description,
                  command.command_class,
                  'NA' as threshold_type_name, 'NA' as threshold_metric_id
-          from command_parameter cp, probe p, command
+          from rhn_command_parameter cp, rhn_probe p, rhn_command command
           where cp.param_type = 'config'
           and p.command_id = cp.command_id
           and p.recid in ($probeSubquery)
@@ -312,7 +314,8 @@ sub LoadForSatellite
           select cp.command_id, cp.param_name, cp.param_type, cp.mandatory, cp.description,
                  command.command_class,
                  ct.threshold_type_name, ct.threshold_metric_id
-          from command_parameter cp, command_parameter_threshold ct, probe p, command
+          from rhn_command_parameter cp, rhn_command_parameter_threshold ct,
+               rhn_probe p, rhn_command command
           where cp.param_type = 'threshold'
           and p.command_id = cp.command_id
           and ct.command_id = cp.command_id
@@ -326,7 +329,7 @@ sub LoadForSatellite
 	# Load the probe parameter values.
 	ProbeParamValueRecord->LoadFromSqlWithBind('
           select probe_id, command_id, param_name, value
-          from probe_param_value
+          from rhn_probe_param_value
           where probe_id in ('.$probeSubquery.')',
           [$satClusterId, $satClusterId, $satClusterId, $satClusterId],
           ('PROBE_ID', 'PARAM_NAME'));
@@ -456,7 +459,7 @@ sub LoadAll
 	my ($class) = @_;
 	$class->LoadFromSql("
            select recid, name, description, command_class, group_name, for_host_probe
-           from command", 'RECID');
+           from rhn_command", 'RECID');
 }
 
 ############################################
@@ -504,7 +507,7 @@ sub LoadForSatCluster
 	# Fetch service probes and host probes for all sats/scouts ...
 	my $alertquery = "
 	SELECT 	*
-	FROM 	snmp_alert
+	FROM 	rhn_snmp_alert
 	WHERE 	sender_cluster_id = $satClusterId";
 
 	# Just Do Me
@@ -530,7 +533,7 @@ sub ClearForSatCluster
 
 	# Delete SNMP alerts for $satClusterId up to and including $lastRecid
 	my $alertquery = "
-	DELETE 	from snmp_alert
+	DELETE 	from rhn_snmp_alert
 	WHERE 	sender_cluster_id = $satClusterId
 	AND     recid <= $lastRecid";
 
