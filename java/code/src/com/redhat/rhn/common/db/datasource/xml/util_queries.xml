@@ -5,7 +5,6 @@
    SELECT text as prefix
      FROM web_user_prefix
     WHERE text != '.'
-      AND text != ' '
  ORDER BY text
   </query>
 </mode>

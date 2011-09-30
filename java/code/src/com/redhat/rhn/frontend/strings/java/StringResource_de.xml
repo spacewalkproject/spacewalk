@@ -1059,6 +1059,12 @@
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>-</target></trans-unit>
+      <trans-unit id="user prefix  ">
+<source> </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      <target> </target></trans-unit>
 
       <trans-unit id="user.delete">
 <source>Deleted user &lt;strong&gt;{0}&lt;/strong&gt;.</source>

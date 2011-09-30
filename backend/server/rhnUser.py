@@ -174,7 +174,7 @@ class User:
             self.info[name] = value[:128]
             changed = 1            
         elif name == "prefix":
-            values = ["Mr.", "Mrs.", "Ms.", "Dr.", "Hr.", "Sr."]
+            values = ["Mr.", "Mrs.", "Ms.", "Dr.", "Hr.", "Sr.", " "]
             # Now populate a dictinary of valid values
             valids = UserDictCase()
             for v in values: # initialize from good values, with and w/o the dot
