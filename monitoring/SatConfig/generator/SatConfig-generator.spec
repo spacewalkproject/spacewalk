@@ -2,7 +2,7 @@
 %define install_prefix %{perl_vendorlib}/NOCpulse/SatConfig
 
 Name:         SatConfig-generator
-Version:      2.29.13
+Version:      2.29.14
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
 URL:          https://fedorahosted.org/spacewalk
@@ -54,6 +54,10 @@ install -m 644 GenerateConfig.pm $RPM_BUILD_ROOT%{install_prefix}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Sep 30 2011 Michael Mraka <michael.mraka@redhat.com> 2.29.14-1
+- 741782 - subquery in FROM must have an alias
+- 741782 - replaced aliases with table names
+
 * Mon May 02 2011 Jan Pazdziora 2.29.13-1
 - No need to Disconnect, hopefully.
 - Since RHN::DB sets FetchHashKeyName to NAME_uc and monitoring now uses
