@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.21
+Version: 5.10.22
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 5.10.22-1
+- 621531 - move /etc/rhn/default to /usr/share/rhn/config-defaults (osa-
+  dispatcher).
+
 * Thu Aug 11 2011 Miroslav Suchý 5.10.21-1
 - True and False constants are defined since python 2.4
 - do not mask original error by raise in execption
