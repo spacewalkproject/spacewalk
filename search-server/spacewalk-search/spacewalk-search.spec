@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -116,6 +116,13 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 1.6.3-1
+- 621531 - update startup scripts to use the new /usr/share/rhn/config-defaults
+  location.
+- 621531 - update search Configuration to use the new /usr/share/rhn/config-
+  defaults location.
+- 621531 - move /etc/rhn/search to /usr/share/rhn/config-defaults (search).
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.2-1
 - 621531 - fixing comment - the search server uses /etc/rhn/search, not
   /etc/rhn/default.
