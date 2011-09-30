@@ -34,7 +34,7 @@ APP_LONG_NAME="rhn-search"
 
 # Wrapper
 WRAPPER_CMD="/usr/bin/rhnsearchd"
-WRAPPER_CONF="/etc/rhn/search/rhn_search_daemon.conf"
+WRAPPER_CONF="/usr/share/rhn/config-defaults/rhn_search_daemon.conf"
 
 # Priority at which to run the wrapper.  See "man nice" for valid priorities.
 #  nice is only used if a priority is specified.
@@ -64,7 +64,7 @@ unlock() {
     IDXDIR=`grep search.index_work_dir /etc/rhn/rhn.conf`
     if [ -z $IDXDIR ]
     then
-        IDXDIR=`grep search.index_work_dir /etc/rhn/search/rhn_search.conf`
+        IDXDIR=`grep search.index_work_dir /usr/share/rhn/config-defaults/rhn_search.conf`
     fi
 
     if [ ! -z $IDXDIR ]

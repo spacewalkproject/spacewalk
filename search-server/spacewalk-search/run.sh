@@ -6,8 +6,8 @@ if [ ! "$RETURN_VAL" -eq "0" ]; then
     exit 1;
 fi
 
-if [ ! -r "/etc/rhn/search/rhn_search.conf" ]; then
-    echo "you need to symlink rhn_search.conf as /etc/rhn/search/rhn_search.conf"
+if [ ! -r "/usr/share/rhn/config-defaults/rhn_search.conf" ]; then
+    echo "you need to symlink rhn_search.conf as /usr/share/rhn/config-defaults/rhn_search.conf"
     exit 2;
 fi
 
