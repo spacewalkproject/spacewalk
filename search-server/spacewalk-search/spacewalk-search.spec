@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.1
+Version: 1.6.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -117,6 +117,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 1.6.2-1
+- 621531 - fixing comment - the search server uses /etc/rhn/search, not
+  /etc/rhn/default.
+
 * Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
 - We only support version 14 and newer of Fedora, removing conditions for old
   versions.
