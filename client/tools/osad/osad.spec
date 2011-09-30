@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.22
+Version: 5.10.23
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 5.10.23-1
+- 689939 - match star in common name.
+
 * Fri Sep 30 2011 Jan Pazdziora 5.10.22-1
 - 621531 - move /etc/rhn/default to /usr/share/rhn/config-defaults (osa-
   dispatcher).
