@@ -36,8 +36,6 @@ sub register_acl_handlers {
   $acl->register_handler(system_kickstart_session_exists => \&kickstart_session_exists);
   $acl->register_handler(system_packaging_type => \&system_packaging_type);
   $acl->register_handler(system_profile_capable => \&system_profile_capable);
-  $acl->register_handler(proxy_evr_at_least => \&proxy_evr_at_least);
-  $acl->register_handler(org_proxy_evr_at_least => \&org_proxy_evr_at_least);
   $acl->register_handler(org_has_proxies => \&org_has_proxies);
   $acl->register_handler(package_available => \&package_available_to_system);
   $acl->register_handler(action_pending_named => \&action_pending_named);
@@ -123,48 +121,6 @@ sub system_profile_capable {
   return 0 unless $sid;
 
   return 1 if (RHN::Server->system_profile_capable($sid, $cap));
-
-  return 0;
-}
-
-# Returns true if system is a proxy, and it reports an evr in
-# rhnProxyInfo, and that evr is greater than or equal to the input
-sub proxy_evr_at_least {
-  my $pxt = shift;
-  my $version = shift;
-
-  my $sid = $pxt->param('sid');
-
-  return 0 unless $sid;
-  return 0 unless $version;
-
-  my @system_evr = RHN::Server->proxy_evr($sid);
-  my @target_evr = version_string_to_evr_array($version);
-
-  return 0 unless (@system_evr);
-
-  return 1 if RHN::Package->vercmp(@system_evr, @target_evr) >= 0;
-
-  return 0;
-}
-
-# Return true if the org has at least one registered proxy whose
-# version is greater than the provided version
-sub org_proxy_evr_at_least {
-  my $pxt = shift;
-  my $version = shift;
-
-  my @target_evr = version_string_to_evr_array($version);
-
-  my $ds = new RHN::DataSource::System (-mode => 'org_proxy_servers');
-  my $data = $ds->execute_query(-org_id => $pxt->user->org_id);
-
-  foreach my $row (@{$data}) {
-    my @system_evr = RHN::Server->proxy_evr($row->{ID});
-
-    next unless (@system_evr);
-    return 1 if RHN::Package->vercmp(@system_evr, @target_evr) >= 0;
-  }
 
   return 0;
 }

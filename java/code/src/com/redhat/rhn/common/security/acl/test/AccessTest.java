@@ -235,29 +235,6 @@ public class AccessTest extends RhnBaseTestCase {
 
 
 
-    public void testOrgProxyEvrAtLeast() throws Exception {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        context.put("user", user);
-        String param = "org_proxy_evr_at_least(3.6-2)";
-        String param2 = "org_proxy_evr_at_least(3.6-3)";
-
-        Server server = ServerFactoryTest.createTestServer(user);
-        PackageEvr evr = PackageEvrFactory.createPackageEvr(null, "3.6", "2");
-
-        WriteMode m = ModeFactory.
-        getWriteMode("test_queries", "make_server_proxy");
-        Map params = new HashMap();
-        params.put("server_id", server.getId());
-        params.put("evr_id", evr.getId());
-        m.executeUpdate(params);
-
-        boolean access = acl.evalAcl(context, param);
-        assertTrue(access);
-        access = acl.evalAcl(context, param2);
-        assertFalse(access);
-    }
-
     public void testUnimplementedMethods() {
 
         String[] methods = { "user_authenticated()" };
