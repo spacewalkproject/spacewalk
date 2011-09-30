@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.49
+Version: 1.6.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 1.6.50-1
+- 621531 - update java build configs to use the new /usr/share/rhn/config-
+  defaults location.
+- 621531 - update java Config and taskomatic to use the new /usr/share/rhn
+  /config-defaults location.
+- 621531 - move /etc/rhn/default to /usr/share/rhn/config-defaults (java).
+- fix xmlrpc returntypes (tlestach@redhat.com)
+- 682845 - schedule repo synchronization through API (tlestach@redhat.com)
+
 * Thu Sep 22 2011 Tomas Lestach <tlestach@redhat.com> 1.6.49-1
 - 610157 - introduce system.getScriptActionDetails API (tlestach@redhat.com)
 - 740427 - use sequence_nextval function (tlestach@redhat.com)
