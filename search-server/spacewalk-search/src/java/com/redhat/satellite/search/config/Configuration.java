@@ -41,8 +41,8 @@ import java.util.TreeSet;
  * global config, but you can instantiate one of your own if you want. This
  * layer insulates us from changing the underlying implementation.
  * <p>
- * Config files are properties, with /etc/rhn/search/rhn.conf setting defaults
- * that can be overridden /etc/rhn/rhn.conf.
+ * Config files are properties, with /usr/share/rhn/config-defaults/*.conf
+ * setting defaults that can be overridden by /etc/rhn/rhn.conf.
  *
  * @version $Rev$
  */
@@ -60,6 +60,11 @@ public class Configuration {
     public static final String DEFAULT_CONF_DIR = "/etc/rhn";
 
     /**
+     * The directory in which to look for default config values
+     */
+    public static final String DEFAULT_DEFAULT_CONF_DIR = "/usr/share/rhn/config-defaults";
+
+    /**
      * The system property containing the RHN configuration directory.
      * If the property is not set, config files are read
      * from {@link #DEFAULT_CONF_DIR}
@@ -69,7 +74,7 @@ public class Configuration {
     /**
      * The system property containing the SearchServer  configuration directory.
      * If the property is not set, config files are read
-     * from {@link #DEFAULT_CONF_DIR}/search
+     * from /usr/share/rhn/config-defaults
      */
     private static final String SEARCH_CONF_DIR_PROPERTY = "search.config.dir";
 
@@ -181,7 +186,7 @@ public class Configuration {
         String confDir = System.getProperty(SEARCH_CONF_DIR_PROPERTY);
 
         if (StringUtils.isBlank(confDir)) {
-            confDir = getRHNConfigDir() + "/search";
+            confDir = DEFAULT_DEFAULT_CONF_DIR;
         }
         return confDir;
     }
