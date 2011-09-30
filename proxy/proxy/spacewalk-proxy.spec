@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -320,6 +320,9 @@ fi
 
 
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 1.6.3-1
+- 621531 - move /etc/rhn/default to /usr/share/rhn/config-defaults (proxy).
+
 * Thu Aug 11 2011 Miroslav Suchý 1.6.2-1
 - do not mask original error by raise in execption
 
