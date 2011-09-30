@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.multiorg;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.action.user.UserActionHelper;
@@ -24,6 +25,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.CreateOrgCommand;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -73,14 +75,15 @@ public class OrgCreateAction extends RhnAction {
          */
             if (dynaForm.get("usepam") != null &&
                     ((Boolean) dynaForm.get("usepam")).booleanValue()) {
-                String hash = MD5Crypt.crypt("" + System.currentTimeMillis());
-                if (dynaForm.get(UserActionHelper.DESIRED_PASS) == null ||
-                        dynaForm.get(UserActionHelper.DESIRED_PASS).equals("")) {
-                    dynaForm.set(UserActionHelper.DESIRED_PASS, hash);
+                String fakePassword = MD5Crypt.crypt("" + System.currentTimeMillis()).
+                    substring(0, UserDefaults.get().getMaxPasswordLength());
+                if (StringUtils.isEmpty(
+                        (String) dynaForm.get(UserActionHelper.DESIRED_PASS))) {
+                    dynaForm.set(UserActionHelper.DESIRED_PASS, fakePassword);
                 }
-                if (dynaForm.get(UserActionHelper.DESIRED_PASS_CONFIRM) == null ||
-                        dynaForm.get(UserActionHelper.DESIRED_PASS_CONFIRM).equals("")) {
-                    dynaForm.set(UserActionHelper.DESIRED_PASS_CONFIRM, hash);
+                if (StringUtils.isEmpty(
+                        (String) dynaForm.get(UserActionHelper.DESIRED_PASS_CONFIRM))) {
+                    dynaForm.set(UserActionHelper.DESIRED_PASS_CONFIRM, fakePassword);
                 }
             }
 
