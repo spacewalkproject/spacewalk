@@ -80,8 +80,9 @@ def getMachineName(hostname):
         yyy.zzz.com     --> yyy
         zzz.com         --> zzz.com
         xxx             --> xxx
+        *.yyy.zzz.com   --> _star_.yyy
     """
-    hn = string.split(hostname, '.')
+    hn = string.split(hostname.replace('*', '_star_'), '.')
     if len(hn) < 3:
         return hostname
     return string.join(hn[:-2], '.')
