@@ -23,6 +23,7 @@ from rhn.UserDictCase import UserDictCase
 
 _CONFIG_ROOT = '/etc/rhn'
 _CONFIG_FILE = '%s/rhn.conf' % _CONFIG_ROOT
+_CONFIG_DEFAULTS_ROOT = '/usr/share/rhn/config-defaults'
 
 
 def warn(*args):
@@ -140,7 +141,7 @@ class RHNOptions:
         self.__merge()
 
     def _parseDefaults(self, allCompsYN=0):
-        """ Parsing of the /etc/rhn/default/*.conf (or equivalent)
+        """ Parsing of the /usr/share/rhn/config-defaults/*.conf (or equivalent)
         Make sure we have all the needed default config files loaded
         We store the defaults in a dictionary, keyed on the component tuple
         """
@@ -153,9 +154,9 @@ class RHNOptions:
                 # XXX: Should we do timestamp checking for this one too?
                 continue
             # Create the config file name
-            conffile = "%s/default/rhn.conf" % (self.root)
+            conffile = "%s/rhn.conf" % (_CONFIG_DEFAULTS_ROOT)
             if comp:
-                conffile = "%s/default/rhn_%s.conf" % (self.root,
+                conffile = "%s/rhn_%s.conf" % (_CONFIG_DEFAULTS_ROOT,
                                                        '_'.join(comp))
             # if the file is not there (or can't be read), skip
             if not os.access(conffile, os.R_OK):
@@ -629,7 +630,7 @@ def getAllComponents_tree(defaultDir=None):
     """
 
     if defaultDir is None:
-        defaultDir = _CONFIG_ROOT+'/default'
+        defaultDir = _CONFIG_DEFAULTS_ROOT
     comps = glob.glob('%s/*.conf' % defaultDir)
     compTree = {}
     for comp in comps:
