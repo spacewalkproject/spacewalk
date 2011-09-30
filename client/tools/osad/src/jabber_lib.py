@@ -22,6 +22,7 @@ import socket
 import jabber
 import random
 import string
+import fnmatch
 from optparse import OptionParser, Option
 import traceback
 from cStringIO import StringIO
@@ -679,7 +680,7 @@ class JabberClient(jabber.Client):
         if hdot[-1] != '.':
             hdot = hdot + '.'
         
-        if common_name != hdot:
+        if common_name != hdot and not fnmatch.fnmatchcase(hdot, common_name):
             raise SSLVerifyError("Mismatch: peer name: %s; common name: %s" %
                 (self._host, common_name))
             
