@@ -418,20 +418,21 @@ class TableInsert(TableUpdate):
 
     def query(self, values):
         if self.blob_fields:
+            chunksize = 1
             blob_map = {}
             for f in self.blob_fields:
                 blob_map[f] = f
         else:
+            chunksize = self.count
             blob_map = None
 
         # Do the insert
         statement = self._getCachedQuery(None, blob_map=blob_map)
-        executeStatement(statement, values, self.count)
+        executeStatement(statement, values, chunksize)
 
     
 def executeStatement(statement, valuesHash, chunksize):
     # Executes a statement with chunksize values at the time
-    chunksize = 1000
     if not valuesHash:
         # Empty hash
         return
@@ -442,13 +443,19 @@ def executeStatement(statement, valuesHash, chunksize):
             if not vals:
                 # Empty
                 break
-            tempdict[k] = vals[:chunksize]
+            if chunksize > 1:
+                tempdict[k] = vals[:chunksize]
+            else:
+                tempdict[k] = vals[0]
             del vals[:chunksize]
         if not tempdict:
             # Empty dictionary: we're done
             break
         # Now execute it
-        count = count + apply(statement.executemany, (), tempdict)
+        if chunksize > 1:
+            count += statement.executemany(**tempdict)
+        else:
+            count += statement.execute(**tempdict)
     return count
 
 
