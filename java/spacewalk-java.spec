@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.50
+Version: 1.6.51
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 30 2011 Jan Pazdziora 1.6.51-1
+- 678118 - if system already is proxy, losen the ACL and show the tab.
+- Removing make_server_proxy query as it is no longer used.
+- Removing org_proxy_servers_evr query as it is no longer used.
+- Removing proxy_evr_at_least, org_proxy_evr_at_least, aclOrgProxyEvrAtLeast as
+  they are no longer used.
+- Remove proxy_evr_at_least ACLs -- all supported proxy versions are 3+.
+- 602179 - limit fake generated password to maximal password length
+  (tlestach@redhat.com)
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.50-1
 - 621531 - update java build configs to use the new /usr/share/rhn/config-
   defaults location.
