@@ -41,7 +41,7 @@ import java.util.TreeSet;
  * global config, but you can instantiate one of your own if you want. This
  * layer insulates us from changing the underlying implementation.
  * <p>
- * Config files are properties, with /etc/rhn/default/rhn.conf setting defaults
+ * Config files are properties, with /etc/rhn/search/rhn.conf setting defaults
  * that can be overridden /etc/rhn/rhn.conf.
  *
  * @version $Rev$
