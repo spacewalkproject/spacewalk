@@ -10,7 +10,7 @@
     <rhn-tab name="Connection" url="/network/systems/details/connection.pxt" acl="org_has_proxies()"/>
     <rhn-tab name="Proxy" url="/network/systems/details/proxy.pxt" acl="user_role(org_admin); system_feature(ftr_proxy_capable); org_channel_family(rhn-proxy); child_channel_candidate(rhn-proxy); org_entitlement(rhn_provisioning); not system_is_satellite(); not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
       <rhn-tab name="Activation" url="/network/systems/details/proxy.pxt" />
-      <rhn-tab name="Systems Using Proxy" url="/network/systems/details/proxy-clients.pxt" acl="system_is_proxy();proxy_evr_at_least(3.1-1)"/>
+      <rhn-tab name="Systems Using Proxy" url="/network/systems/details/proxy-clients.pxt" acl="system_is_proxy()"/>
     </rhn-tab>
     <rhn-tab name="Reactivation" url="/network/systems/details/activation.pxt" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
