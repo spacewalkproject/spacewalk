@@ -35,8 +35,8 @@ import java.util.TreeSet;
  * global config, but you can instantiate one of your own if you want. This
  * layer insulates us from changing the underlying implementation.
  * <p>
- * Config files are properties, with /etc/rhn/default/rhn.conf setting defaults
- * that can be overridden /etc/rhn/rhn.conf.
+ * Config files are properties, with /usr/share/rhn/config-defaults/rhn.conf
+ * setting defaults that can be overridden by /etc/rhn/rhn.conf.
  *
  * @version $Rev$
  */
@@ -55,6 +55,11 @@ public class Config {
      * The default directory in which to look for config files
      */
     public static final String DEFAULT_CONF_DIR = "/etc/rhn";
+
+    /**
+     * The directory in which to look for default config values
+     */
+    public static final String DEFAULT_DEFAULT_CONF_DIR = "/usr/share/rhn/config-defaults";
 
     /**
      * The system property containing the configuration directory.
@@ -110,7 +115,7 @@ public class Config {
      * those
      */
     public Config() throws ConfigException {
-        addPath(getDefaultConfigDir() + "/default");
+        addPath(DEFAULT_DEFAULT_CONF_DIR);
         addPath(getDefaultConfigFilePath());
         parseFiles();
     }
