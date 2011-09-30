@@ -216,7 +216,7 @@ sub reset_default {
 sub master_configs {
   my $self = shift;
 
-  return "/etc/rhn/default/rhn_$self->{domain}.conf";
+  return "/usr/share/rhn/config-defaults/rhn_$self->{domain}.conf";
 }
 
 sub local_configs {
