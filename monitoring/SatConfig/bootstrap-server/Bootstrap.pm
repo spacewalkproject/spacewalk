@@ -56,7 +56,7 @@ sub handler
 	my $satrec;
 	
 	if (defined($ssk)) {
-	    $satrec  = SatNodeRecord->LoadOneFromSql("select recid,ip,sat_cluster_id,scout_shared_key from sat_node where scout_shared_key = '$ssk'");
+	    $satrec  = SatNodeRecord->LoadOneFromSql("select recid,ip,sat_cluster_id,scout_shared_key from rhn_sat_node where scout_shared_key = '$ssk'");
 	    if (! defined($satrec)) {
 		return &Reject($request, "Couldn't look up record for Scout Shared Key $ssk: $@");
 	    } 
