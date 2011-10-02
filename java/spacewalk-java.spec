@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.51
+Version: 1.6.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sun Oct 02 2011 Jan Pazdziora 1.6.52-1
+- Removing unused imports.
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.51-1
 - 678118 - if system already is proxy, losen the ACL and show the tab.
 - Removing make_server_proxy query as it is no longer used.
