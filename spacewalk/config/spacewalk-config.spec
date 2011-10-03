@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -105,6 +105,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Mon Oct 03 2011 Jan Pazdziora 1.6.3-1
+- 621531 - fixing rhn.conf(5) man page.
+
 * Fri Sep 16 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.2-1
 - 713477 - made session cookies httponly
 
