@@ -4031,6 +4031,20 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="message.servernotdeleted">
+<source>System profile {0} could not be deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Overview</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="message.servernotdeleted_cobbler">
+<source>System profile {0} could not be deleted. Check cobbler service.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Overview</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="message.ssm.serverdeleted">
 <source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; system from the System Set Manager.</source>
         <context-group name="ctx">

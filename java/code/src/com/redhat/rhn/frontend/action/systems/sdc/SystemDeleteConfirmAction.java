@@ -77,10 +77,22 @@ public class SystemDeleteConfirmAction extends RhnAction {
                 }
             }
 
-            // Now we can remove the system
-            SystemManager.deleteServer(loggedInUser, sid);
-
-            createSuccessMessage(request, "message.serverdeleted", sid.toString());
+            try {
+                // Now we can remove the system
+                SystemManager.deleteServer(loggedInUser, sid);
+                createSuccessMessage(request, "message.serverdeleted.param",
+                        sid.toString());
+            }
+            catch (RuntimeException e) {
+                if (e.getMessage().contains("cobbler")) {
+                    createErrorMessage(request, "message.servernotdeleted_cobbler",
+                            sid.toString());
+                }
+                else {
+                    createErrorMessage(request, "message.servernotdeleted", sid.toString());
+                    throw e;
+                }
+            }
 
             forward = strutsDelegate.forwardParams(mapping.findForward("success"), params);
         }
