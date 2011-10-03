@@ -314,7 +314,7 @@ sub LoadForSatellite
           select cp.command_id, cp.param_name, cp.param_type, cp.mandatory, cp.description,
                  command.command_class,
                  ct.threshold_type_name, ct.threshold_metric_id
-          from rhn_command_parameter cp, rhn_command_parameter_threshold ct,
+          from rhn_command_parameter cp, rhn_command_param_threshold ct,
                rhn_probe p, rhn_command command
           where cp.param_type = 'threshold'
           and p.command_id = cp.command_id
