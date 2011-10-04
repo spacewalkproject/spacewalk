@@ -577,7 +577,7 @@ def read_dmi():
         return dmidict
 
     # System Information 
-    vendor = dmi_vendor();
+    vendor = dmi_vendor()
     if vendor:
         dmidict["vendor"] = vendor
         
