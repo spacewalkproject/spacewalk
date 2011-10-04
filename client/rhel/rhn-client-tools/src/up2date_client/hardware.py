@@ -96,7 +96,7 @@ def get_dmi_data(path):
     """
     dmi_data = _initialize_dmi_data()
     if dmi_data is None:
-       return ''
+        return ''
     data = dmi_data.xpathEval(path)
     if data != []:
         return data[0].content
