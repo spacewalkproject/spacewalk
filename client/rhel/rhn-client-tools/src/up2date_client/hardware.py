@@ -144,12 +144,12 @@ def cpu_count():
     Beware that it can be different from number of active CPU (e.g. on s390x architecture
     """
     try:
-        dir = os.listdir('/sys/devices/system/cpu/')
+        cpu_dir = os.listdir('/sys/devices/system/cpu/')
     except OSError:
-        dir = []
+        cpu_dir = []
 
     re_cpu = re.compile(r"^cpu[0-9]+$")
-    return len([i for i in dir if re_cpu.match(i)])
+    return len([i for i in cpu_dir if re_cpu.match(i)])
 
 
 # This has got to be one of the ugliest fucntions alive
