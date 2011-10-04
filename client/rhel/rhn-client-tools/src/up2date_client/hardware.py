@@ -486,7 +486,7 @@ def read_network():
 
     netdict['hostname'] = gethostname()
     try:
-        list_of_addrs = getaddrinfo(gethostname(),None)
+        list_of_addrs = getaddrinfo(gethostname(), None)
         ipv4_addrs = filter(lambda x:x[0]==socket.AF_INET, list_of_addrs)
         # take first ipv4 addr
         netdict['ipaddr'] = ipv4_addrs[0][4][0]
