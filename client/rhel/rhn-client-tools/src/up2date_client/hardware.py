@@ -86,7 +86,7 @@ def _initialize_dmi_data():
                 if dmi_warn:
                     dmidecode.clear_warnings()
                 return None
-            _dmi_data = data.xpathNewContext();
+            _dmi_data = data.xpathNewContext()
     return _dmi_data
 
 def get_dmi_data(path):
