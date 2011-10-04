@@ -189,12 +189,14 @@ class RegisterKsCli(rhncli.RhnCli):
             if hw['class'] == 'NETINFO':
                 hostname = hw.get('hostname')
                 ipaddr = hw.get('ipaddr')
+                ip6addr = hw.get('ipaddr6')
                 
         if hostname:
             profileName = idn_pune_to_unicode(hostname)
-        else:
-            if ipaddr:
-                profileName = ipaddr
+        elif ipaddr:
+            profileName = ipaddr
+        elif ip6addr:
+            profileName = ip6addr
                 
         if not profileName:
             print _("A profilename was not specified, "\

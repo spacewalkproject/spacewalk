@@ -400,12 +400,10 @@ def read_memory_2_6():
 
 
 def findHostByRoute():
-    """ returns [hostname, intf]
+    """ returns [hostname, intf, intf6]
 
         Where hostname is you FQDN of this machine.
-        And intf is numeric IP address. If IPv4 is present, then it
-        is prefered, but IPv6 address can be returned if IPv4 is not
-        present.
+        And intf is numeric IPv4 address. And intf6 is IPv6 address.
     """
     cfg = config.initUp2dateConfig()
     sl = config.getServerlURL()
@@ -413,12 +411,14 @@ def findHostByRoute():
     st = {'https':443, 'http':80}
     hostname = None
     intf = None
+    intf6 = None
     for serverUrl in sl:
+        server = serverUrl.split('/')[2]
+        servertype = serverUrl.split(':')[0]
+        port = st[servertype]
+
         for family in (AF_INET, AF_INET6):
             s = socket.socket(family)
-            server = serverUrl.split('/')[2]
-            servertype = serverUrl.split(':')[0]
-            port = st[servertype]
 
             if cfg['enableProxy']:
                 server_port = config.getProxySetting()
@@ -428,14 +428,15 @@ def findHostByRoute():
             try:
                 s.settimeout(5)
                 s.connect((server, port))
-                (intf, port) = s.getsockname()[:2]
+                if family == AF_INET:
+                    intf = s.getsockname()[0]
+                else:
+                    intf6 = s.getsockname()[0]
                 hostname = socket.getfqdn(server)
             except socket.error:
                 s.close()
                 continue
-            # we have hostname do not continue for other family
             s.close()
-            break
         
     # Override hostname with the one in /etc/sysconfig/network 
     # for bz# 457953
@@ -457,7 +458,7 @@ def findHostByRoute():
         
     if hostname == None or hostname == 'localhost.localdomain':
         hostname = "unknown"
-    return hostname, intf
+    return hostname, intf, intf6
 
 def get_slave_hwaddr(master, slave):
     hwaddr = ""
@@ -493,15 +494,25 @@ def read_network():
     except:
         netdict['ipaddr'] = "127.0.0.1"
 
+    try:
+        list_of_addrs = getaddrinfo(gethostname(), None)
+        ipv6_addrs = filter(lambda x:x[0]==socket.AF_INET6, list_of_addrs)
+        # take first ipv6 addr
+        netdict['ip6addr'] = ipv6_addrs[0][4][0]
+    except:
+        netdict['ip6addr'] = "::1"
 
     if netdict['hostname'] == 'localhost.localdomain' or \
-    netdict['ipaddr'] == "127.0.0.1":
-        hostname, ipaddr = findHostByRoute()
+            netdict['ipaddr'] == "127.0.0.1" or \
+            netdict['ip6addr'] == "::1":
+        hostname, ipaddr, ip6addr = findHostByRoute()
 
         if netdict['hostname'] == 'localhost.localdomain':
             netdict['hostname'] = hostname
         if netdict['ipaddr'] == "127.0.0.1":
             netdict['ipaddr'] = ipaddr
+        if netdict['ip6addr'] == "::1":
+            netdict['ip6addr'] = ipaddr
 
     if netdict['ipaddr'] is None:
         netdict['ipaddr'] = ''
@@ -509,8 +520,7 @@ def read_network():
 
 def read_network_interfaces():
     intDict = {}
-    intDict['class'] = "NETINTERFACES"
-    
+
     interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
     for interface in interfaces:
         try:

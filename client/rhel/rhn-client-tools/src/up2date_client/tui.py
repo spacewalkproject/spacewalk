@@ -681,7 +681,10 @@ class HardwareWindow:
 
         for hw in tui.hardware:
             if hw['class'] == 'NETINFO':
-                hardware_text += hw['ipaddr'] + "  "
+                if hw['ipaddr']:
+                    hardware_text += hw['ipaddr'] + "  "
+                elif hw['ip6addr']:
+                    hardware_text += hw['ip6addr'] + "  "
 
         hardware_text += _("Memory: ")
 

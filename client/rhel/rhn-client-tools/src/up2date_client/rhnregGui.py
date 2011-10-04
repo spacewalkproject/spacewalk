@@ -667,13 +667,16 @@ class CreateProfilePage:
                             if hw['class'] == 'NETINFO':
                                 hostname = hw.get('hostname')
                                 ipaddr = hw.get('ipaddr')
+                                ip6addr = hw.get('ip6addr')
             # the check against "unknown" is a bit lame, but it's
             # the minimal change to fix #144704 
                 if hostname and (hostname != "unknown"):
                     profileName = hostname
-                else:
-                    if ipaddr:
-                        profileName = ipaddr
+                elif ipaddr:
+                    profileName = ipaddr
+                elif ip6addr:
+                    profileName = ip6addr
+
                 if profileName:
                     self.createProfileXml.get_widget("systemNameEntry").set_text(profileName)
                 else:
