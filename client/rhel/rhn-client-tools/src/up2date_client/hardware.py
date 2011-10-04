@@ -400,6 +400,13 @@ def read_memory_2_6():
 
 
 def findHostByRoute():
+    """ returns [hostname, intf]
+
+        Where hostname is you FQDN of this machine.
+        And intf is numeric IP address. If IPv4 is present, then it
+        is prefered, but IPv6 address can be returned if IPv4 is not
+        present.
+    """
     cfg = config.initUp2dateConfig()
     sl = config.getServerlURL()
 
