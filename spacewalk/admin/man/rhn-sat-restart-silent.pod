@@ -1,0 +1,18 @@
+=pod
+
+=head1 NAME
+
+rhn-sat-restart-silent - restart Spacewalk silently
+
+=head1 SYNOPSIS
+
+B<rhn-sat-restart-silent>
+
+=head1 DESCRIPTION
+
+This command will restart all Spacewalk services and omit all output. Including errors!
+This script is used internally by Spacewalk server. You should never call it directly. You should use B<spacewalk-service>(8) instead.
+
+=head1 SEE ALSO
+
+B<spacewalk-service>(8)
