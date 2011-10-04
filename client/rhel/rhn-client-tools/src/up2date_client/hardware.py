@@ -435,7 +435,7 @@ def findHostByRoute():
     # for bz# 457953
     
     if os.access("/etc/sysconfig/network", os.R_OK):
-	networkinfo = open("/etc/sysconfig/network", "r").readlines()
+        networkinfo = open("/etc/sysconfig/network", "r").readlines()
 	
         for info in networkinfo:
             if not len(info):
