@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.54
+Version: 1.6.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 04 2011 Tomas Lestach <tlestach@redhat.com> 1.6.55-1
+- 729784 - support for passalgo in advanced options of kickstart profiles
+  (tlestach@redhat.com)
+- add exception handling for server deletion (tlestach@redhat.com)
+
 * Mon Oct 03 2011 Miroslav Suchý 1.6.54-1
 - 229836 - allow empty prefix for user
 
