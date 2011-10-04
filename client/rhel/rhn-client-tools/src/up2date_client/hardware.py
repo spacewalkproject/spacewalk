@@ -371,7 +371,7 @@ def read_memory_2_6():
         return {}
     meminfo = open("/proc/meminfo", "r").read()
     lines = meminfo.split("\n")
-    dict = {}
+    meminfo_dict = {}
     for line in lines:
         blobs = line.split(":", 1)
         key = blobs[0]
@@ -379,17 +379,17 @@ def read_memory_2_6():
             continue
         #print blobs
         value = blobs[1].strip()
-        dict[key] = value
+        meminfo_dict[key] = value
         
     memdict = {}
     memdict["class"] = "MEMORY"
     
-    total_str = dict['MemTotal']
+    total_str = meminfo_dict['MemTotal']
     blips = total_str.split(" ")
     total_k = long(blips[0])
     megs = long(total_k/(1024))
 
-    swap_str = dict['SwapTotal']
+    swap_str = meminfo_dict['SwapTotal']
     blips = swap_str.split(' ')
     swap_k = long(blips[0])
     swap_megs = long(swap_k/(1024))
