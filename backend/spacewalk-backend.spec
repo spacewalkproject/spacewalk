@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.25
+Version: 1.6.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Oct 04 2011 Miroslav Suchý 1.6.26-1
+- 742905 - if thread will throw traceback do not forget to release lock, so
+  other threads can continue
+- 229836 - allow empty prefix for user
+
 * Mon Oct 03 2011 Jan Pazdziora 1.6.25-1
 - removed dead exception (michael.mraka@redhat.com)
 - removed dead queries (michael.mraka@redhat.com)
