@@ -47,15 +47,7 @@ def _check_status(daemon):
         return False
     return True
 
-
-vdsm_enabled = None
-if not _check_status("libvirtd"):
-    # Only check for vdsm if libvirt is disabled.
-    # sometimes due to manual intervention both could be running
-    # in such case use libvirt as the system is now in 
-    # un supported state.
-    vdsm_enabled = _check_status("vdsmd")
-
+vdsm_enabled = _check_status("vdsmd")
 
 ###############################################################################
 # Public Interface
