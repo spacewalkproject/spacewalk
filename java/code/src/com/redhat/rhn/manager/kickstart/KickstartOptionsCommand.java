@@ -92,6 +92,9 @@ public class KickstartOptionsCommand  extends BaseKickstartCommand {
                     if (name.equals("url")) {
                         v.setAdditionalNotesKey("kickstart.options.url.note");
                     }
+                    else if (name.equals("rootpw")) {
+                        v.setAdditionalNotesKey("kickstart.options.rootpw.note");
+                    }
 
                     v.setArg(args);
                     v.setEnabled(Boolean.TRUE);

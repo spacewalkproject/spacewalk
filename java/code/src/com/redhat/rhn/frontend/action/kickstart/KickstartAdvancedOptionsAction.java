@@ -23,6 +23,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -117,7 +118,8 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                             if (cn.getName().equals("rootpw")) {
                                 String pwarg = request.getParameter(argsName);
                                 // password already encrypted
-                                if (pwarg.startsWith("$1$")) {
+                                String md5Crypt = request.getParameter("md5_crypt_rootpw");
+                                if (StringUtils.isEmpty(md5Crypt)) {
                                     kc.setArguments(pwarg);
                                 }
                                 // password changed, encrypt it

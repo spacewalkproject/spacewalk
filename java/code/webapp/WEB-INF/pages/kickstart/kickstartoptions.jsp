@@ -42,10 +42,20 @@
                 <c:when test="${option.hasArgs}">
                   <td><input type="checkbox" name="${option.name}" value="${option.name}" ${enabled} /></td>
                   <td>
-                      <input type="text" name="<c:out value="${option.name}" />_txt" value="${option.arg}" size="64"/><br/>
-                      <c:if test="${option.additionalNotesKey != null}">
-                          <bean:message key="${option.additionalNotesKey}"/>
-                      </c:if>
+                    <c:choose>
+                      <c:when test="${option.name == 'rootpw'}">
+                        <input type="text" name="<c:out value="${option.name}" />_txt" value="${option.arg}" size="48"/>
+                        <input type="checkbox" name='md5_crypt_rootpw' value='md5_crypt_rootpw' id="md5_crypt_rootpw"/>
+                        <label for="md5_crypt_rootpw"><c:out value="MD5 Encrypt"/></label>
+                        <br/>
+                      </c:when>
+                      <c:otherwise>
+                        <input type="text" name="<c:out value="${option.name}" />_txt" value="${option.arg}" size="64"/><br/>
+                      </c:otherwise>
+                    </c:choose>
+                    <c:if test="${option.additionalNotesKey != null}">
+                        <bean:message key="${option.additionalNotesKey}"/>
+                    </c:if>
                   </td>
                 </c:when>
                 <c:otherwise>
