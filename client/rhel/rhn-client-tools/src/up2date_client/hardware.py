@@ -408,27 +408,28 @@ def findHostByRoute():
     hostname = None
     intf = None
     for serverUrl in sl:
-        s = socket.socket()
-        server = string.split(serverUrl, '/')[2]
-        servertype = string.split(serverUrl, ':')[0]
-        port = st[servertype]
-        
-        if cfg['enableProxy']:
-            server_port = config.getProxySetting()
-            (server, port) = string.split(server_port, ':')
-            port = int(port)
+        for family in (AF_INET, AF_INET6):
+            s = socket.socket(family)
+            server = string.split(serverUrl, '/')[2]
+            servertype = string.split(serverUrl, ':')[0]
+            port = st[servertype]
 
-        try:
-            s.settimeout(5)
-            s.connect((server, port))
-            (intf, port) = s.getsockname()
-            hostname = socket.gethostbyaddr(intf)[0]
-        # I dislike generic excepts, but is the above fails
-        # for any reason, were not going to be able to
-        # find a good hostname....
-        except:
+            if cfg['enableProxy']:
+                server_port = config.getProxySetting()
+                (server, port) = string.split(server_port, ':')
+                port = int(port)
+
+            try:
+                s.settimeout(5)
+                s.connect((server, port))
+                (intf, port) = s.getsockname()[:2]
+                hostname = socket.getfqdn(server)
+            except socket.error:
+                s.close()
+                continue
+            # we have hostname do not continue for other family
             s.close()
-            continue
+            break
         
     # Override hostname with the one in /etc/sysconfig/network 
     # for bz# 457953
@@ -450,7 +451,6 @@ def findHostByRoute():
         
     if hostname == None or hostname == 'localhost.localdomain':
         hostname = "unknown"
-        s.close()
     return hostname, intf
 
 def get_slave_hwaddr(master, slave):
