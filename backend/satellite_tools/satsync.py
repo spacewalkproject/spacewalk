@@ -1902,8 +1902,12 @@ class ThreadDownload(threading.Thread):
             # Retry a number of times, we may have network errors
             for i in range(cfg['networkRetries']):
                 self.lock.acquire()
-                rpmFile, stream = self.syncer._get_package_stream(self.channel,
-                    package_id, nvrea, self.sources)
+                try:
+                    rpmFile, stream = self.syncer._get_package_stream(self.channel,
+                        package_id, nvrea, self.sources)
+                except:
+                    self.lock.release()
+                    raise
                 self.lock.release()
                 if stream is None:
                     # Mark the package as extinct
