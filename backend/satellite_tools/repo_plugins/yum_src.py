@@ -99,6 +99,8 @@ class ContentSource:
         repo.mirrorlist = url
         repo.baseurl = [url]
         repo.basecachedir = self.cache_dir
+        if hasattr(repo, 'base_persistdir'):
+            repo.base_persistdir = self.cache_dir
         if self.proxy_url is not None:
             repo.proxy = self.proxy_url
 
