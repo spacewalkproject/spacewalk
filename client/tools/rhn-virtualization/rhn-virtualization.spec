@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.25
+Version:        5.4.26
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -134,6 +134,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Oct 05 2011 Martin Minar <mminar@redhat.com> 5.4.26-1
+- 742811 - check for running vdsm only (colin.coe@gmail.com)
+
 * Fri Aug 12 2011 Miroslav Suchý 5.4.25-1
 - fix syntax errors
 
