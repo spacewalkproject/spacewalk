@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.55
+Version: 1.6.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 06 2011 Tomas Lestach <tlestach@redhat.com> 1.6.56-1
+- 738988 - erratum associated with an ActionMessage might be deleted in the
+  mean time (tlestach@redhat.com)
+
 * Tue Oct 04 2011 Tomas Lestach <tlestach@redhat.com> 1.6.55-1
 - 729784 - support for passalgo in advanced options of kickstart profiles
   (tlestach@redhat.com)
