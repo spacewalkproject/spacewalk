@@ -512,7 +512,7 @@ def read_network():
         if netdict['ipaddr'] == "127.0.0.1":
             netdict['ipaddr'] = ipaddr
         if netdict['ip6addr'] == "::1":
-            netdict['ip6addr'] = ipaddr
+            netdict['ip6addr'] = ip6addr
 
     if netdict['ipaddr'] is None:
         netdict['ipaddr'] = ''
