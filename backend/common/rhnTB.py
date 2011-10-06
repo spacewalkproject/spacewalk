@@ -150,7 +150,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
 
     # we always log it somewhere
     if ostream:
-        ostream.write("%s\n" % exc.getvalue())
+        ostream.write("%s\n" % exc.getvalue().encode('utf-8'))
 
     ret = 0                             # default return value
     if mail:
