@@ -334,7 +334,8 @@ public class DailySummary extends RhnJavaJob {
                 HashMap<String, Integer> counts = errataActions.get(advisoryKey);
                 counts.put(am.getStatus(), am.getCount());
 
-                if (!errataSynopsis.containsKey(am.getAdvisory())) {
+                if (am.getAdvisory() != null &&
+                        !errataSynopsis.containsKey(am.getAdvisory())) {
                     errataSynopsis.put(am.getAdvisory(), am.getSynopsis());
                 }
             }
