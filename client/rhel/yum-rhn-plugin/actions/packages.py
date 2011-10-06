@@ -19,6 +19,7 @@ import time
 
 import yum
 import yum.Errors
+from yum.plugins import PluginYumExit
 
 sys.path.append("/usr/share/yum-cli")
 
@@ -476,7 +477,7 @@ def _run_yum_action(command, cache_only=None):
         data["name"] = "failed_deps"
         return (18, "Failed: packages requested raised "\
                 "dependency problems: %s" % str(e), data)
-    except yum.Errors.YumBaseError, e:
+    except (yum.Errors.YumBaseError, PluginYumExit), e:
         status = 6,
         message = "Error while executing packages action: %s" % str(e)
         data = {}
