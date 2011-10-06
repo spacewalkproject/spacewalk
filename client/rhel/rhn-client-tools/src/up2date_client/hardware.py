@@ -520,6 +520,7 @@ def read_network():
 
 def read_network_interfaces():
     intDict = {}
+    intDict['class'] = "NETINTERFACES"
 
     interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
     for interface in interfaces:
