@@ -444,7 +444,13 @@ def server_supports_eus():
     return cfg["supportsEUS"]
 
 def sendHardware(systemId, hardwareList):
+    def remove_ip6addr(x):
+        if x['class'] == 'NETINFO' and 'ip6addr' in x:
+            del x['ip6addr']
+        return x
     s = rhnserver.RhnServer()
+    if not s.capabilities.hasCapability('ipv6', 1):
+        hardwareList = map(remove_ip6addr, hardwareList)
     s.registration.add_hw_profile(systemId, _encode_characters(hardwareList))
    
 def sendPackages(systemId, packageList):
