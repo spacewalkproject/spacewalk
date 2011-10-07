@@ -26,6 +26,10 @@ class Handler(handler_base.HandlerBase):
         type = args[3]
     
         if type == 'symlink':
+            if not os.path.exists(dst):
+                print "Symbolic link '%s' is missing" % dst
+                return
+
             #dst is a symlink, so just tell the user we're skipping the entry
             srclink = os.readlink(src)
             destlink = os.readlink(dst)
