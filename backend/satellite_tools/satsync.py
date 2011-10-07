@@ -745,14 +745,18 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         p_format = _('      %s %-40s %4s %s')
         log(1, t_format % _('base-channels'))
         # Relevant parent channels
+        no_base_channel = True
         for plabel in pc_labels:
             if plabel not in relevant:
                 continue
 
+            no_base_channel = False
             timestamp = self._channel_collection.get_channel_timestamp(plabel)
             channel_object = self._channel_collection.get_channel(plabel,
                 timestamp)
             self._printChannel(plabel, channel_object, p_format, (plabel in ch_requested_imported))
+        if no_base_channel:
+            log(1, p_format % (' ', _('NONE RELEVANT'), '', ''))
 
         # Relevant parent channels
         for plabel in pc_labels:
