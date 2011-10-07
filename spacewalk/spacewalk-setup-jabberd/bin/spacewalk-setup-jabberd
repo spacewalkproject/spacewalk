@@ -24,13 +24,20 @@ my $verbose = 0;
 my $macros = '';
 my $help = 0;
 my %macros = ('hostname' => Sys::Hostname::hostname(),
-              'server_pem' => '/etc/pki/spacewalk/jabberd/server.pem');
+              'server_pem' => '/etc/pki/spacewalk/jabberd/server.pem',
+              'localhost' => '127.0.0.1',
+              'ipaddress' => '0.0.0.0');
 
 # Try to guess correct path to jabberd's server.pem
 my $q = `rpm -qf /etc/jabberd/server.pem 2> /dev/null`;
 chomp $q;
 if ($q =~ /^rhn-(org-)?httpd-ssl-key-pair/) {
 	$macros{'server_pem'} = '/etc/jabberd/server.pem';
+}
+
+if (-f "/proc/net/if_inet6") {
+        $macros{'localhost'} = '::1';
+        $macros{'ipaddress'} = '::';
 }
 
 my $usage = <<EOHELP;
