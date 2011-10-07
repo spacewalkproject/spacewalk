@@ -28,10 +28,10 @@
                     <td align="right">
                         <c:choose>
                             <c:when test="${parent.systemCount == 1}">
-                                <strong><bean:message key="ssmchildsubs.jsp.one-system"/></strong>
+                                <a href="/rhn/channels/ChannelSubscribers.do?cid=${parent.id}"><strong><bean:message key="ssmchildsubs.jsp.one-system"/></strong></a>
                             </c:when>
                             <c:otherwise>
-                                <strong><bean:message key="ssmchildsubs.jsp.num-systems" arg0="${parent.systemCount}"/></strong>
+                                <a href="/rhn/channels/ChannelSubscribers.do?cid=${parent.id}"><strong><bean:message key="ssmchildsubs.jsp.num-systems" arg0="${parent.systemCount}"/></strong></a>
                             </c:otherwise>
                         </c:choose>
                     </td>
@@ -55,10 +55,10 @@
                                     <bean:message key="ssmchildsubs.jsp.no-system"/>
                                 </c:when>
                                 <c:when test="${child.systemCount == 1}">
-                                    <bean:message key="ssmchildsubs.jsp.one-system"/>
+                                    <a href="/rhn/channels/ChannelSubscribers.do?cid=${child.id}"><bean:message key="ssmchildsubs.jsp.one-system"/></a>
                                 </c:when>
                                 <c:otherwise>
-                                    <bean:message key="ssmchildsubs.jsp.num-systems" arg0="${child.systemCount}"/>
+                                    <a href="/rhn/channels/ChannelSubscribers.do?cid=${child.id}"><bean:message key="ssmchildsubs.jsp.num-systems" arg0="${child.systemCount}"/></a>
                                 </c:otherwise>
                             </c:choose>
                         </td>
