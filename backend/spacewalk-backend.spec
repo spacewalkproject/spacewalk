@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.26
+Version: 1.6.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.27-1
+- 622490 - even if parent channel isn't in dump there might be some child
+  channels
+- 743259 - send IPv6 addresses only if server support it
+- encode string to utf-8 before writing to output
+
 * Tue Oct 04 2011 Miroslav Suchý 1.6.26-1
 - 742905 - if thread will throw traceback do not forget to release lock, so
   other threads can continue
