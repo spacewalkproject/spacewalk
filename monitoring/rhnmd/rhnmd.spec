@@ -27,6 +27,8 @@ Obsoletes:      rhnmd.x86_64 < 5.3.0-5
 Provides:       rhnmd.i386 = %{version}
 Provides:       rhnmd.x86_64 = %{version}
 
+Requires(post): /usr/sbin/semanage, /sbin/restorecon
+
 %description
 rhnmd enables secure ssh-based communication between the monitoring
 scout and the monitored host. 
@@ -88,6 +90,9 @@ then
 fi
 %endif
 /sbin/chkconfig --add rhnmd
+/usr/sbin/semanage fcontext -a -t sshd_key_t '/var/lib/nocpulse/\.ssh/nocpulse-identity' || :
+/usr/sbin/semanage fcontext -a -t ssh_home_t '/var/lib/nocpulse/\.ssh/authorized_keys' || :
+/sbin/restorecon -rvv /var/lib/nocpulse || :
 
 %preun
 if [ $1 = 0 ]; then
