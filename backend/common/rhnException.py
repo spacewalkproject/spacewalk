@@ -239,6 +239,8 @@ maximum membership exceeded"),
      700: _("Maximum username length violation"),
      701: _("Maximum password length violation"),
 
+     800: _("System Name cannot be less than 3 characters"),
+
      # 1000-1999: RHN Proxy specific errors:
      # issued by an RHN Proxy to the client
      1000: _("RHN Proxy error."),

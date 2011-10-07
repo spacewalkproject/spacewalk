@@ -218,6 +218,11 @@ class Registration(rhnHandler):
               and new_system_user_pass | new_system_activation_key (>= rhel5)
         """
 
+        if profile_name is not None and not \
+           rhnFlags.test("re_registration_token") and \
+           len(profile_name) < 3:
+           raise rhnFault(800)
+
         # log entry point
         if data.has_key("token"):
             log_item = "token = '%s'" % data["token"]
