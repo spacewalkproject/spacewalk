@@ -516,6 +516,8 @@ def read_network():
 
     if netdict['ipaddr'] is None:
         netdict['ipaddr'] = ''
+    if netdict['ip6addr'] is None:
+        netdict['ip6addr'] = ''
     return netdict
 
 def read_network_interfaces():
