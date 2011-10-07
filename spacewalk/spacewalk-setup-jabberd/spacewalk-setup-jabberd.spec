@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -59,6 +59,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Oct 07 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.2-1
+- 715299 - jabberd IPv6 configuration
+
 * Mon Aug 01 2011 Jan Pazdziora 1.6.1-1
 - 726708 - change interval & keepalive only when different from default values
   (mzazrivec@redhat.com)
