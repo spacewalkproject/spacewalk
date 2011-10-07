@@ -9,7 +9,21 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="/Server/Service[@name='Catalina']/Connector[@port='8080' or @port='8009']">
+<xsl:template match="/Server/Service[@name='Catalina']/Connector[@port='8009']">
+  <xsl:element name="Connector">
+    <xsl:copy-of select="@*" />
+    <xsl:attribute name="URIEncoding">UTF-8</xsl:attribute>
+    <xsl:attribute name="address">127.0.0.1</xsl:attribute>
+  </xsl:element>
+  <xsl:copy-of select="preceding-sibling::node()[last()][self::text()]" />
+  <xsl:element name="Connector">
+    <xsl:copy-of select="@*" />
+    <xsl:attribute name="URIEncoding">UTF-8</xsl:attribute>
+    <xsl:attribute name="address">::1</xsl:attribute>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="/Server/Service[@name='Catalina']/Connector[@port='8080']">
   <xsl:element name="Connector">
     <xsl:copy-of select="@*" />
     <xsl:attribute name="URIEncoding">UTF-8</xsl:attribute>
