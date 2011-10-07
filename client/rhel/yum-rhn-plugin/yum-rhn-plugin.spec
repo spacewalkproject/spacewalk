@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.11
+Version: 1.6.12
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Oct 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.12-1
+- pass error messages from yum plugin to rhn_check
+
 * Tue Sep 13 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.11-1
 - 735339 - truncate rhnplugin.repos when there are no rhn channels
 
