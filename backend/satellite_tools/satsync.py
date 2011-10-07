@@ -759,7 +759,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if plabel not in relevant:
                 continue
 
-            timestamp = self._channel_collection.get_channel_timestamp(plabel)
             cchannels = self._channel_collection.get_child_channels(plabel)
             # chns has only the channels we are interested in
             # (and that's all the channels if we list them)
