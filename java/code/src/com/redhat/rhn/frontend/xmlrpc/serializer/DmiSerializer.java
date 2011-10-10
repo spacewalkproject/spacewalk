@@ -38,9 +38,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("string", "product")
  *          #prop("string", "asset")
  *          #prop("string", "board")
- *          #prop("string", "bios_release")
- *          #prop("string", "bios_vendor")
- *          #prop("string", "bios_version")
+ *          #prop_desc("string", "bios_release", "(optional)")
+ *          #prop_desc("string", "bios_vendor", "(optional)")
+ *          #prop_desc("string", "bios_version", "(optional)")
  *      #struct_end()
  */
 public class DmiSerializer implements XmlRpcCustomSerializer {
@@ -59,18 +59,16 @@ public class DmiSerializer implements XmlRpcCustomSerializer {
         SerializerHelper bean = new SerializerHelper(builtInSerializer);
         Dmi dmi = (Dmi) value;
 
-        if (dmi.getSystem() == null) {
-            return;
-        }
-
         bean.add("vendor", StringUtils.defaultString(dmi.getVendor()));
         bean.add("system", StringUtils.defaultString(dmi.getSystem()));
         bean.add("product", StringUtils.defaultString(dmi.getProduct()));
         bean.add("asset", StringUtils.defaultString(dmi.getAsset()));
         bean.add("board", StringUtils.defaultString(dmi.getBoard()));
-        bean.add("bios_release", StringUtils.defaultString(dmi.getBios().getRelease()));
-        bean.add("bios_vendor", StringUtils.defaultString(dmi.getBios().getVendor()));
-        bean.add("bios_version", StringUtils.defaultString(dmi.getBios().getVersion()));
+        if (dmi.getBios() != null) {
+            bean.add("bios_release", StringUtils.defaultString(dmi.getBios().getRelease()));
+            bean.add("bios_vendor", StringUtils.defaultString(dmi.getBios().getVendor()));
+            bean.add("bios_version", StringUtils.defaultString(dmi.getBios().getVersion()));
+        }
         bean.writeTo(output);
     }
 
