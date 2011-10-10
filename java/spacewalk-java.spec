@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.56
+Version: 1.6.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 10 2011 Jan Pazdziora 1.6.57-1
+- 741476, 743407 - it is the null dmi.getBios() which caused the problem in bug
+  452956 actually.
+- 421991 - in SSM add link to list of systems subscribed to channels
+  (msuchy@redhat.com)
+
 * Thu Oct 06 2011 Tomas Lestach <tlestach@redhat.com> 1.6.56-1
 - 738988 - erratum associated with an ActionMessage might be deleted in the
   mean time (tlestach@redhat.com)
