@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.27
+Version: 1.6.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 10 2011 Jan Pazdziora 1.6.28-1
+- 433325 - do not allow to register system with profile name less then 3
+  characters (msuchy@redhat.com)
+
 * Fri Oct 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.27-1
 - 622490 - even if parent channel isn't in dump there might be some child
   channels
