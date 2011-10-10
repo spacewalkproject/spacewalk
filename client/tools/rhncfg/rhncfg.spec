@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.16
+Version: 5.10.17
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 10 2011 Jan Pazdziora 5.10.17-1
+- 743424 - rhncfg-client diff: don't traceback on missing symlink
+  (mzazrivec@redhat.com)
+
 * Thu Sep 29 2011 Miroslav Suchý 5.10.16-1
 - add save_traceback even into this branch
 
