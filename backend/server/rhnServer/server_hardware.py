@@ -373,7 +373,7 @@ class CPUDevice(Device):
 class NetworkInformation(Device):
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
     def __init__(self, dict = None):
-        fields = ["hostname", "ipaddr"]
+        fields = ["hostname", "ipaddr", "ip6addr"]
         mapping = { 'class' : None }
         Device.__init__(self, "rhnServerNetwork", fields, dict, mapping)
         # use our own sequence
