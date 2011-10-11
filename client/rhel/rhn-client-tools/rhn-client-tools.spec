@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.22
+Version: 1.6.23
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Oct 11 2011 Tomas Lestach <tlestach@redhat.com> 1.6.23-1
+- 706148 - set _uri, when connecting to a different server (luvilla@redhat.com)
+
 * Fri Oct 07 2011 Miroslav Suchý 1.6.22-1
 - 743259 - if IPv6 is not present, send empty string instead of None
 
