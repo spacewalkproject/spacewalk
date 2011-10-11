@@ -52,6 +52,7 @@ public class ServerDocumentBuilder implements DocumentBuilder {
 
             if (name.equals("name") || name.equals("cpuModel") ||
                     name.equals("hostname") || name.equals("ipaddr") ||
+                    name.equals("ip6addr") ||
                     (name.equals("runningKernel"))) {
                 store = Field.Store.YES;
             }

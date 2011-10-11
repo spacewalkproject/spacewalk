@@ -13,6 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="hostname" column="hostname" type="string" length="128"
             />
         <property name="ipaddr" column="ipaddr" type="string" length="16" />
+        <property name="ip6addr" column="ip6addr" type="string" length="45" />
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"

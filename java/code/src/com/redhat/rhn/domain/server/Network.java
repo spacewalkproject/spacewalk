@@ -28,6 +28,7 @@ public class Network extends BaseDomainHelper {
     private Long id;
     private String hostname;
     private String ipaddr;
+    private String ip6addr;
     private Server server;
 
 
@@ -74,6 +75,20 @@ public class Network extends BaseDomainHelper {
     }
 
     /**
+     * @return Returns the ip6addr.
+     */
+    public String getIp6addr() {
+        return ip6addr;
+    }
+
+    /**
+     * @param i The ip6addr to set.
+     */
+    public void setIp6addr(String i) {
+        this.ip6addr = i;
+    }
+
+    /**
      * @return Returns the server.
      */
     public Server getServer() {
@@ -98,6 +113,7 @@ public class Network extends BaseDomainHelper {
         return new EqualsBuilder().append(id, castOther.id)
                                   .append(hostname, castOther.hostname)
                                   .append(ipaddr, castOther.ipaddr)
+                                  .append(ip6addr, castOther.ip6addr)
                                   .isEquals();
     }
 
@@ -108,6 +124,7 @@ public class Network extends BaseDomainHelper {
         return new HashCodeBuilder().append(id)
                                     .append(hostname)
                                     .append(ipaddr)
+                                    .append(ip6addr)
                                     .toHashCode();
     }
 }

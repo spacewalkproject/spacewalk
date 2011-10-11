@@ -3057,6 +3057,13 @@ available for this kickstart profile to function properly.
         </context-group>
      </trans-unit>
 
+     <trans-unit id="systemsearch_ipv6">
+    <source>IPv6 Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
+
      <trans-unit id="systemsearch.jsp.packages">
 		<source>Packages</source>
         <context-group name="ctx">

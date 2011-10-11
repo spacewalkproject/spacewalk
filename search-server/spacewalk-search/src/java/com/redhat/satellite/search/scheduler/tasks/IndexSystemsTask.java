@@ -60,6 +60,7 @@ public class IndexSystemsTask extends GenericIndexTask {
         attrs.put("country", srvr.getCountry());
         attrs.put("hostname", srvr.getHostname());
         attrs.put("ipaddr", srvr.getIpaddr());
+        attrs.put("ip6addr", srvr.getIpaddr());
         attrs.put("dmiVendor", srvr.getDmiVendor());
         attrs.put("dmiSystem", srvr.getDmiSystem());
         attrs.put("dmiProduct", srvr.getDmiProduct());

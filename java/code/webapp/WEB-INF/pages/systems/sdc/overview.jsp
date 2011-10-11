@@ -107,6 +107,19 @@
         </c:choose>
         </td>
       </tr>
+      <tr>
+        <th><bean:message key="sdc.details.overview.ip6addy"/></th>
+        <td>
+        <c:choose>
+          <c:when test="${system.ip6Address == null}">
+            <bean:message key="sdc.details.overview.unknown"/>
+          </c:when>
+          <c:otherwise>
+            <c:out value="${system.ip6Address}" />
+          </c:otherwise>
+        </c:choose>
+        </td>
+      </tr>
       <c:if test="${system.virtualGuest}">
         <tr>
           <th><bean:message key="sdc.details.overview.virtualization"/></th>

@@ -23,6 +23,7 @@
                 sl.country as country,
                 rsn.hostname as hostname,
                 rsn.ipaddr as ipaddr,
+                rsn.ip6addr ad ip6addr,
                 dmi.vendor as dmiVendor,
                 dmi.system as dmiSystem,
                 dmi.product as dmiProduct,

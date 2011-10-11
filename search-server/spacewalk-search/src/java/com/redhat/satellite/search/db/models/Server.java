@@ -44,6 +44,7 @@ public class Server extends GenericRecord {
     /* Network Info */
     private String hostname;
     private String ipaddr;
+    private String ip6addr;
 
     /* DMI Info */
     private String dmiVendor;
@@ -274,6 +275,20 @@ public class Server extends GenericRecord {
      */
     public void setIpaddr(String ipaddrIn) {
         this.ipaddr = ipaddrIn;
+    }
+
+    /**
+     * @return the ip6addr
+     */
+    public String getIp6addr() {
+        return ip6addr;
+    }
+
+    /**
+     * @param ip6addrIn the ip6addr to set
+     */
+    public void setIp6addr(String ip6addrIn) {
+        this.ip6addr = ip6addrIn;
     }
 
     /**

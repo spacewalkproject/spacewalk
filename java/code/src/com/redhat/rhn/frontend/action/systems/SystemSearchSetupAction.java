@@ -109,7 +109,8 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                                      /* network info */
                                      {
                                          SystemSearchHelper.HOSTNAME,
-                                         SystemSearchHelper.IP
+                                         SystemSearchHelper.IP,
+                                         SystemSearchHelper.IP6
                                      },
                                      /* packages */
                                      {

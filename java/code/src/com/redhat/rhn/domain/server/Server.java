@@ -824,6 +824,19 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return null;
     }
 
+    /**
+     * Get the primary ipv6 address for this server
+     * @return Returns the primary ip for this server
+     */
+    public String getIp6Address() {
+        Network n = findPrimaryIpv6Network();
+        if (n != null) {
+            log.debug("Found a Network: " + n.getIp6addr());
+            return n.getIp6addr();
+        }
+        return null;
+    }
+
 
     /**
      * Return the NetworkInterface which Spacewalk is guessing is
@@ -920,7 +933,23 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return null;
     }
 
-
+    private Network findPrimaryIpv6Network() {
+        if (!networks.isEmpty()) {
+            Iterator i = networks.iterator();
+            while (i.hasNext()) {
+                Network n = (Network) i.next();
+                String addr = n.getIp6addr();
+                if (addr != null &&
+                        !addr.equals("::1")) {
+                    log.debug("returning Network that is !localhost");
+                    return n;
+                }
+            }
+            log.debug("giving up, returning 1st Network");
+            return (Network) networks.iterator().next();
+        }
+        return null;
+    }
 
     /**
      * Get the primary MAC/hardware address for this server

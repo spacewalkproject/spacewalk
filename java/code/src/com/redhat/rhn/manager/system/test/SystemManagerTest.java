@@ -760,6 +760,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         map.put("systemsearch_dmi_asset", dmi.getAsset());
         map.put("systemsearch_hostname", network.getHostname());
         map.put("systemsearch_ip", network.getIpaddr());
+        map.put("systemsearch_ipv6", network.getIp6addr());
         map.put("systemsearch_needed_packages", p.getPackageName().getName());
         map.put("systemsearch_installed_packages", p.getPackageName().getName());
         map.put("systemsearch_custom_info", value.getValue());

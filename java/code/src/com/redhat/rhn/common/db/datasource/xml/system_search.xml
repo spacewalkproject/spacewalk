@@ -475,8 +475,29 @@ SELECT  USP.server_id AS ID
   <elaborator name="systemsearch_ip_elab"/>
 </mode>
 
+<mode name="systemsearch_ipv6" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
+  <query params="user_id, search_string">
+SELECT  USP.server_id AS ID
+  FROM  rhnUserServerPerms USP
+ WHERE  USP.user_id = :user_id
+   AND  EXISTS (SELECT  1
+                  FROM  rhnServerNetwork SN
+     WHERE  SN.server_id = USP.server_id
+       AND  INSTR(SN.ip6addr, :search_string) > 0 )
+  </query>
+  <elaborator name="entitlements"/>
+  <elaborator name="base_elaborator"/>
+  <elaborator name="systemsearch_ip6_elab"/>
+</mode>
+
 <query name="systemsearch_ip_elab" params="" multiple="f">
   SELECT  SN.server_id AS ID, SN.ipaddr MATCHING_FIELD
+    FROM  rhnServerNetwork SN
+   WHERE  SN.server_id IN(%s)
+</query>
+
+<query name="systemsearch_ip6_elab" params="" multiple="f">
+  SELECT  SN.server_id AS ID, SN.ip6addr MATCHING_FIELD
     FROM  rhnServerNetwork SN
    WHERE  SN.server_id IN(%s)
 </query>

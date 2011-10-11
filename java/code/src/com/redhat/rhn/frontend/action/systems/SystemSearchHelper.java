@@ -79,6 +79,7 @@ public class SystemSearchHelper {
     public static final String DMI_ASSET = "systemsearch_dmi_asset";
     public static final String HOSTNAME = "systemsearch_hostname";
     public static final String IP = "systemsearch_ip";
+    public static final String IP6 = "systemsearch_ipv6";
     public static final String INSTALLED_PACKAGES = "systemsearch_installed_packages";
     public static final String NEEDED_PACKAGES = "systemsearch_needed_packages";
     public static final String RUNNING_KERNEL = "systemsearch_running_kernel";
@@ -342,6 +343,10 @@ public class SystemSearchHelper {
         }
         else if (IP.equals(mode)) {
             query = "ipaddr:(" + terms + ")";
+            index = SERVER_INDEX;
+        }
+        else if (IP6.equals(mode)) {
+            query = "ip6addr:(" + terms + ")";
             index = SERVER_INDEX;
         }
         else if (INSTALLED_PACKAGES.equals(mode)) {
