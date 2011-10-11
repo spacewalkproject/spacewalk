@@ -187,7 +187,7 @@ def _set_server_capabilities():
         'rhncfg.filetype.directory'             : {'version' : 1, 'value' : 1},
         'xmlrpc.packages.extended_profile'      : {'version' : '1-2', 'value' : 1},
         'staging_content'                       : {'version' : 1, 'value' : 1},
-        'ipv6'                                  : {'version' : 1, 'value' : 0},
+        'ipv6'                                  : {'version' : 0, 'value' : 1},
     }
     l = []
     for name, hashval in capabilities.items():
