@@ -231,7 +231,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
             ScriptRunAction sra = ActionManager.scheduleScriptRun(user, servers,
-                "", sad, earliest);
+                null, sad, earliest);
             sra.setPrerequisite(pa);
             ActionManager.storeAction(sra);
             showMessages(msgs, sra, server, numPackages, mode);
