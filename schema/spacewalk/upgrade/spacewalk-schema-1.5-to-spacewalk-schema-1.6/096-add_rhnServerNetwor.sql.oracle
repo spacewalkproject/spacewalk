@@ -1,0 +1,1 @@
+alter table rhnServerNetwork add ip6addr2 varchar2(45);

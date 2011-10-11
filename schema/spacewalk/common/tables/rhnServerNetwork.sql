@@ -24,6 +24,7 @@ CREATE TABLE rhnServerNetwork
                        REFERENCES rhnServer (id),
     hostname   VARCHAR2(128),
     ipaddr     VARCHAR(16),
+    ip6addr    VARCHAR2(45),
     created    DATE
                    DEFAULT (sysdate) NOT NULL,
     modified   DATE
