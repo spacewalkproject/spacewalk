@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.user;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
@@ -79,31 +77,10 @@ public class AdminUserEditAction extends UserEditActionHelper {
         User loggedInUser = requestContext.getLoggedInUser();
 
         //Update the users details with info entered on the form
-        ActionErrors errors = updateDetails(targetUser, form);
+        ActionErrors errors = updateDetails(loggedInUser, targetUser, form);
         //If we have validation/form errors, return now and let the user fix those first
         if (!errors.isEmpty()) {
             return returnFailure(mapping, request, errors, targetUser.getId());
-        }
-
-        /*
-         * Update PAM Authentication attribute
-         * If we're a satellite that is configured to use pam and the loggedIn user is an
-         * org_admin (and therefore the checkbox was displayed), we need to inspect the
-         * "usepam" field on the form and set the targetUser's pam auth attribute
-         * accordingly. (we don't want to set this field if it wasn't displayed or if the
-         * user doesn't have access to set this attribute)
-         */
-        String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
-        if (pamAuthService != null &&
-                pamAuthService.trim().length() > 0 &&
-                loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
-            if (form.get("usepam") != null &&
-                    ((Boolean) form.get("usepam")).booleanValue()) {
-                targetUser.setUsePamAuthentication(true);
-            }
-            else {
-                targetUser.setUsePamAuthentication(false);
-            }
         }
 
         //Create the user info updated success message

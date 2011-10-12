@@ -44,7 +44,7 @@ public class SelfEditAction extends UserEditActionHelper {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
 
-        ActionErrors errors = updateDetails(user, form);
+        ActionErrors errors = updateDetails(user, user, form);
 
         //If there are no errors, store the user and return the success mapping
         if (errors.isEmpty()) {
