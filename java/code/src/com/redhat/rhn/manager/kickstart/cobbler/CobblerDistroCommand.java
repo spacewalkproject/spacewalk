@@ -84,12 +84,14 @@ public class CobblerDistroCommand extends CobblerCommand {
             if (xen == null) {
                 xen = Distro.create(con, tree.getCobblerXenDistroName(),
                         tree.getKernelXenPath(), tree.getInitrdXenPath(), ksmeta);
+                xen.setBreed(tree.getInstallType().getCobblerBreed());
                 xen.save();
                 tree.setCobblerXenId(xen.getId());
             }
             else {
                 xen.setKernel(tree.getKernelXenPath());
                 xen.setInitrd(tree.getInitrdXenPath());
+                xen.setBreed(tree.getInstallType().getCobblerBreed());
                 xen.setKsMeta(ksmeta);
                 xen.save();
             }
@@ -106,6 +108,7 @@ public class CobblerDistroCommand extends CobblerCommand {
         if (nonXen != null) {
             nonXen.setInitrd(tree.getInitrdPath());
             nonXen.setKernel(tree.getKernelPath());
+            nonXen.setBreed(tree.getInstallType().getCobblerBreed());
             nonXen.setKsMeta(ksmeta);
             nonXen.save();
         }

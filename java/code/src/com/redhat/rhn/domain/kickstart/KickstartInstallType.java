@@ -32,6 +32,7 @@ public class KickstartInstallType extends BaseDomainHelper {
     public static final String FEDORA = "fedora";
     public static final String GENERIC = "generic";
     public static final String SUSE = "suse";
+    public static final String REDHAT = "redhat";
 
     private Long id;
     private String label;
@@ -164,6 +165,23 @@ public class KickstartInstallType extends BaseDomainHelper {
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getLabel()).toHashCode();
+    }
+
+    /**
+     * get the string cobbler understands as breed
+     * @return cobbler breed compatible string
+     */
+    public String getCobblerBreed() {
+        String breed = REDHAT;
+
+        if (getLabel().equals("generic_rpm")) {
+            breed = GENERIC;
+        }
+        else if (getLabel().equals(SUSE)) {
+            breed = SUSE;
+        }
+
+        return breed;
     }
 
 }
