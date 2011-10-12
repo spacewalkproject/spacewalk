@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.57
+Version: 1.6.58
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 12 2011 Jan Pazdziora 1.6.58-1
+- 691849 - Add missing fix for schedule command AFTER package install.
+  (jrenner@suse.de)
+
 * Mon Oct 10 2011 Jan Pazdziora 1.6.57-1
 - 741476, 743407 - it is the null dmi.getBios() which caused the problem in bug
   452956 actually.
