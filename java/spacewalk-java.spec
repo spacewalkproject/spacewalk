@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.58
+Version: 1.6.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 13 2011 Tomas Lestach <tlestach@redhat.com> 1.6.59-1
+- Fixed pam setting on user page not saving (jrenner@suse.de)
+- Set breed in cobbler correctly (ug@suse.de)
+
 * Wed Oct 12 2011 Jan Pazdziora 1.6.58-1
 - 691849 - Add missing fix for schedule command AFTER package install.
   (jrenner@suse.de)
