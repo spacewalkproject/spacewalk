@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.3
+Version: 1.6.4
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -116,6 +116,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Thu Oct 13 2011 Miroslav Suchý 1.6.4-1
+- 745102 - display IPv6 from networkinfo in SDC and in system search
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.3-1
 - 621531 - update startup scripts to use the new /usr/share/rhn/config-defaults
   location.
