@@ -374,6 +374,7 @@ class NetworkInformation(Device):
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
     def __init__(self, dict = None):
         fields = ["hostname", "ipaddr", "ip6addr"]
+        self._autonull = ('ipaddr', 'ip6addr')
         mapping = { 'class' : None }
         Device.__init__(self, "rhnServerNetwork", fields, dict, mapping)
         # use our own sequence
