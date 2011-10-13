@@ -39,7 +39,8 @@ public abstract class UserEditActionHelper extends RhnAction {
      * @param form The form we're grabbing the info from
      * @return Returns an ActionErrors object containing the errors (if any) that occurred.
      */
-    public ActionErrors updateDetails(User loggedInUser, User targetUser, DynaActionForm form) {
+    public ActionErrors updateDetails(User loggedInUser, User targetUser,
+            DynaActionForm form) {
 
         //get validation errors
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
@@ -82,14 +83,16 @@ public abstract class UserEditActionHelper extends RhnAction {
      * @param targetUser The user that will be updated
      * @param form The form containing the attribute value to use
      */
-    protected void updatePamAttribute(User loggedInUser, User targetUser, DynaActionForm form) {
+    protected void updatePamAttribute(User loggedInUser, User targetUser,
+            DynaActionForm form) {
         String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
-        if (pamAuthService != null && pamAuthService.trim().length() > 0
-                && loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
-            if (form.get("usepam") != null
-                    && ((Boolean) form.get("usepam")).booleanValue()) {
+        if (pamAuthService != null && pamAuthService.trim().length() > 0 &&
+                loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
+            if (form.get("usepam") != null &&
+                    ((Boolean) form.get("usepam")).booleanValue()) {
                 targetUser.setUsePamAuthentication(true);
-            } else {
+            }
+            else {
                 targetUser.setUsePamAuthentication(false);
             }
         }
