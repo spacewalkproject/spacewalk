@@ -73,8 +73,8 @@ for my $c (sort keys %{ $files{postgres} }) {
 	my $first_line = <FILE>;
 	close FILE;
 	if (not defined $first_line or not $first_line =~ /^-- oracle equivalent source (?:(none)|sha1 ([0-9a-f]{40}))$/) {
-		print "PostgreSQL file [$c] does not specify SHA1 of Oracle source nor none\n" if $show_ignored;
-		# $error = 1;
+		print "PostgreSQL file [$c] does not specify SHA1 of Oracle source nor none\n" if $show_ignored or $c =~ /^upgrade/;
+		$error = 1 if $c =~ /^upgrade/;
 		next;
 	}
 	my $oracle_sha1 = $2;

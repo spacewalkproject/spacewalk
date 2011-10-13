@@ -1,1 +1,3 @@
+-- oracle equivalent source sha1 14e52cbb32ea06e1f5f88f961fd055a72cddc4fa
+
 alter table rhnServerNetwork add column ip6addr varchar(45);
