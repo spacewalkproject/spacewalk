@@ -17,8 +17,10 @@ package com.redhat.rhn.frontend.taglibs.list.decorators;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.SelectableColumnTag;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -84,17 +86,21 @@ public class SelectableDecorator extends BaseListDecorator {
             args[0] = selected;
             //
             //
-            String msg = ls.getMessage("message.numselected", args);
-            ListTagUtil.write(pageContext, "&nbsp;<strong><span id=\"");
-            if (isHeader) {
-                ListTagUtil.write(pageContext, "pagination_selcount_top");
+            String setName = ListTagHelper.lookupSetDeclFor(listName,
+                    pageContext.getRequest());
+            if (!RhnSetDecl.SYSTEMS.getLabel().equals(setName)) {
+                String msg = ls.getMessage("message.numselected", args);
+                ListTagUtil.write(pageContext, "&nbsp;<strong><span id=\"");
+                if (isHeader) {
+                    ListTagUtil.write(pageContext, "pagination_selcount_top");
+                }
+                else {
+                    ListTagUtil.write(pageContext, "pagination_selcount_bottom");
+                }
+                ListTagUtil.write(pageContext, "\">");
+                ListTagUtil.write(pageContext, msg);
+                ListTagUtil.write(pageContext, "</span></strong>");
             }
-            else {
-                ListTagUtil.write(pageContext, "pagination_selcount_bottom");
-            }
-            ListTagUtil.write(pageContext, "\">");
-            ListTagUtil.write(pageContext, msg);
-            ListTagUtil.write(pageContext, "</span></strong>");
         }
     }
 

@@ -102,7 +102,8 @@ public class DWRItemSelector {
     private String getResponse(int setSize, String setLabel) {
         StringBuffer responseText = new StringBuffer();
         LocalizationService ls = LocalizationService.getInstance();
-        if (RhnSetDecl.SYSTEMS.getLabel().equals(setLabel)) {
+        Boolean systemsRelated = RhnSetDecl.SYSTEMS.getLabel().equals(setLabel);
+        if (systemsRelated) {
             String headerMessage;
             if (setSize == 0) {
                 headerMessage = ls.getMessage("header.jsp.noSystemsSelected");
@@ -122,8 +123,11 @@ public class DWRItemSelector {
             responseText.append(",");
         }
 
-        String  paginationMessage = ls.getMessage("message.numselected",
-                                                Integer.toString(setSize));
+        String paginationMessage = "";
+        if (!systemsRelated) {
+            paginationMessage = ls.getMessage("message.numselected",
+                    Integer.toString(setSize));
+        }
         responseText.append("\"pagination\":\"").
                         append(paginationMessage).
                         append("\"");

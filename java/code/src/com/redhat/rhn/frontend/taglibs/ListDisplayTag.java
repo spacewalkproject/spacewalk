@@ -29,6 +29,7 @@ import com.redhat.rhn.frontend.listview.AlphaBar;
 import com.redhat.rhn.frontend.listview.PaginationUtil;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.acl.AclManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -758,7 +759,7 @@ public class ListDisplayTag extends BodyTagSupport {
         out.println(LocalizationService.getInstance()
                     .getMessage("message.range", args));
 
-        if (set != null) {
+        if ((set != null) && (!RhnSetDecl.SYSTEMS.getLabel().equals(set.getLabel()))) {
             if (top) {
                 out.print("<strong><span id=\"pagination_selcount_top\">");
             }
