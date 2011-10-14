@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.30
+Version: 1.6.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 14 2011 Martin Minar <mminar@redhat.com> 1.6.31-1
+- 745102 - if ip address is not set, convert "" to null (msuchy@redhat.com)
+
 * Tue Oct 11 2011 Miroslav Suchý 1.6.30-1
 - 745102 - accept IPv6 address in NETINFO record
 
