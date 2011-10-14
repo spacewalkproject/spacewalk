@@ -370,7 +370,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         conf_channel_id = row['id']
 
         file_path = dict.get('path')
-	result = self.push_file(conf_channel_id, dict)
+        result = self.push_file(conf_channel_id, dict)
 
         file_too_large = result.get('file_too_large')
         if file_too_large:
