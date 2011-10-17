@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.61
+Version: 1.6.62
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 17 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.62-1
+- 746090 - fixed join condition in query
+- 589799 - omit number of selected items for SSM related system selections
+
 * Thu Oct 13 2011 Miroslav Suchý 1.6.61-1
 - 745102 - display IPv6 from networkinfo in SDC and in system search
 
