@@ -136,9 +136,9 @@ class SharedHandler:
                 log_debug(3, "HTTP proxy info: %s" % self.httpProxy)
         else:
             log_debug(3, "HTTP proxy info: not using an HTTP proxy")
+        peer = self.responseContext.getConnection().sock.getpeername()
         log_debug(4, "Other connection info: %s:%s%s" % 
-            (self.responseContext.getConnection().sock.getpeername() + \
-            (self.uri, )))
+            (peer[0], peer[1], self.uri))
 
     def _create_connection(self):
         """ Returns a Connection object """
