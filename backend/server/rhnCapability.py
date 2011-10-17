@@ -186,6 +186,7 @@ def _set_server_capabilities():
         'rhncfg.content.base64_decode'          : {'version' : 1, 'value' : 1},
         'rhncfg.filetype.directory'             : {'version' : 1, 'value' : 1},
         'xmlrpc.packages.extended_profile'      : {'version' : '1-2', 'value' : 1},
+        'xmlrpc.errata.patch_names'             : {'version' : 1, 'value' : 1},
         'staging_content'                       : {'version' : 1, 'value' : 1},
         'ipv6'                                  : {'version' : 1, 'value' : 1},
     }
