@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.31
+Version: 1.6.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 17 2011 Jan Pazdziora 1.6.32-1
+- add an 'xmlrpc.errata.patch_names' capability (iartarisi@suse.cz)
+- 600555 - removing the Management word from the error message because it is
+  not Management entitlements we might be having problems with.
+- consistent spacing (mzazrivec@redhat.com)
+
 * Fri Oct 14 2011 Martin Minar <mminar@redhat.com> 1.6.31-1
 - 745102 - if ip address is not set, convert "" to null (msuchy@redhat.com)
 
