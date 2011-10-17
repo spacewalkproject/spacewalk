@@ -164,8 +164,8 @@ SELECT distinct s.id, s.name,
            WHEN 5 THEN 'CRITICAL' END ) ST
            FROM  rhn_check_probe statcp
            LEFT JOIN rhn_probe_state statps
-             ON s.id = statcp.host_id
-          WHERE statcp.probe_id = statps.probe_id
+             ON statcp.probe_id = statps.probe_id
+          WHERE s.id = statcp.host_id
           GROUP BY s.id ) status
 FROM rhn_check_suites cs,
      rhn_check_suite_probe csp,
