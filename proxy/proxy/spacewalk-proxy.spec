@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.6.3
+Version: 1.6.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -320,6 +320,9 @@ fi
 
 
 %changelog
+* Mon Oct 17 2011 Miroslav Suchý 1.6.4-1
+- 719659 - correctly handle getpeername() on IPv6
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.3-1
 - 621531 - move /etc/rhn/default to /usr/share/rhn/config-defaults (proxy).
 
