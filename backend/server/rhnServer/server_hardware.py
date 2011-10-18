@@ -180,7 +180,7 @@ class GenericDevice:
         self.data = {}
         # default to the hardware seq...
         self.sequence = "rhn_hw_dev_id_seq"
-        self.__varchar_fields = ("description", "board")
+        self._autonull = ("description", "board")
     def getid(self):
         if self.id == 0:
             self.id = rhnSQL.Sequence(self.sequence)()
@@ -191,11 +191,6 @@ class GenericDevice:
         if self.status == 0: # original item, unchanged            
             return 0
         return 1
-    def unsetEmptyFields(self):
-        """ empty string fields mapped to varchar must be saved as NULL values """
-        for field_name in self.__varchar_fields:
-            if field_name in self.data and self.data[field_name] == '':
-                self.data[field_name] = None
     def save(self, sysid):
         """ save data in the rhnDevice table """
         log_debug(4, self.__table, self.status, self.data)
@@ -208,7 +203,7 @@ class GenericDevice:
             del t[self.id]
             return 0
         # set description to null if empty
-        self.unsetEmptyFields()
+        self._null_columns([self.data], self._autonull)
         # make sure we have a device id
         devid = self.getid()
         for k in self.data.keys():
@@ -243,7 +238,7 @@ class GenericDevice:
         # list of dicts
         for param in params:
             for name in names:
-                if param.has_key(name) and param[name] == '':
+                if name in param and param[name] == '':
                     param[name] = None
 
 class Device(GenericDevice):
@@ -374,9 +369,9 @@ class NetworkInformation(Device):
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
     def __init__(self, dict = None):
         fields = ["hostname", "ipaddr", "ip6addr"]
-        self._autonull = ('ipaddr', 'ip6addr')
         mapping = { 'class' : None }
         Device.__init__(self, "rhnServerNetwork", fields, dict, mapping)
+        self._autonull = ('ipaddr', 'ip6addr')
         # use our own sequence
         self.sequence = "rhn_server_net_id_seq"
         # bugzilla: 129840 kudzu (rhpl) will sometimes pad octets
