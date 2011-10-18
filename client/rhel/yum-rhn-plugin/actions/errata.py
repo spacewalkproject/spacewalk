@@ -17,7 +17,7 @@ __rhnexport__ = [
     'update']
 
 # action version we understand
-ACTION_VERSION = 2 
+ACTION_VERSION = 2
 
 def __getErrataInfo(errata_id):
     s = rhnserver.RhnServer()
@@ -28,7 +28,7 @@ def update(errataidlist, cache_only=None):
 
     if type(errataidlist) not in [type([]), type(())]:
         errataidlist = [ errataidlist ]
-        
+
     for errataid in errataidlist:
         tmpList = __getErrataInfo(errataid)
         packagelist = packagelist + tmpList
@@ -39,10 +39,10 @@ def update(errataidlist, cache_only=None):
         current_packages_with_arch[p['name']+p['arch']] = p
         current_packages[p['name']] = p
 
-    u = {}   
+    u = {}
     # only update packages that are currently installed
     # since an "applicable errata" may only contain some packages
-    # that actually apply. aka kernel. Fun fun fun. 
+    # that actually apply. aka kernel. Fun fun fun.
 
     if len(packagelist[0]) > 4:
         # Newer sats send down arch, filter using name+arch
@@ -64,19 +64,19 @@ def update(errataidlist, cache_only=None):
     # this is the WRONG thing to do - we want to keep the specific versions
     # that the user has asked for.
     packagelist = map(lambda a: u[a], u.keys())
-   
+
     if packagelist == []:
 	data = {}
 	data['version'] = "0"
 	data['name'] = "errata.update.no_packages"
 	data['erratas'] = errataidlist
-	
-	return (39, 
-		"No packages from that errata are available", 
+
+	return (39,
+		"No packages from that errata are available",
 		data)
- 
+
     return packages.update(packagelist, cache_only)
-   
+
 
 def main():
 	print update([23423423])
@@ -84,4 +84,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
- 

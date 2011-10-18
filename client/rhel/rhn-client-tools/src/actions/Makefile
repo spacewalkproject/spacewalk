@@ -3,7 +3,7 @@
 # $Id$
 
 ACTIONS		= up2date_config hardware reboot \
-		  rhnsd systemid errata __init__
+		  rhnsd systemid __init__
 PYFILES		= $(addsuffix .py, $(ACTIONS))
 OBJECTS		= $(PYFILES) $(addsuffix .pyc, $(ACTIONS))
 

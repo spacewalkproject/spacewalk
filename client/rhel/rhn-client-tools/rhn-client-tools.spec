@@ -249,7 +249,6 @@ make -f Makefile.rhn-client-tools test
 # actions for rhn_check to run
 %{_datadir}/rhn/actions/__init__.*
 %{_datadir}/rhn/actions/hardware.*
-%{_datadir}/rhn/actions/errata.*
 %{_datadir}/rhn/actions/systemid.*
 %{_datadir}/rhn/actions/reboot.*
 %{_datadir}/rhn/actions/rhnsd.*
