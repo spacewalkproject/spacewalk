@@ -76,7 +76,7 @@ class RepoSync:
         if not options.url:
             if options.channel_label:
                 # TODO:need to look at user security across orgs
-                h = rhnSQL.prepare("""select s.source_url
+                h = rhnSQL.prepare("""select s.id, s.source_url
                                       from rhnContentSource s,
                                            rhnChannelContentSource cs,
                                            rhnChannel c
@@ -84,14 +84,14 @@ class RepoSync:
                                        and cs.channel_id = c.id
                                        and c.label = :label""")
                 h.execute(label=options.channel_label)
-                source_urls = h.fetchall_dict() or []
-                if source_urls:
-                    self.urls = [row['source_url'] for row in source_urls]
+                source_data = h.fetchall_dict() or []
+                if source_data:
+                    self.urls = [(row['id'], row['source_url']) for row in source_data]
                 else:
                     quit = True
                     self.error_msg("Channel has no URL associated")
         else:
-            self.urls = [options.url]
+            self.urls = [(None, options.url)]
         if not options.channel_label:
             quit = True
             self.error_msg("--channel must be specified")
@@ -115,9 +115,9 @@ class RepoSync:
             sys.exit(1)
 
         start_time = datetime.now()
-        for url in self.urls:
+        for (id, url) in self.urls:
             plugin = self.load_plugin()(url, self.channel_label)
-            self.import_packages(plugin, url)
+            self.import_packages(plugin, id, url)
             self.import_updates(plugin, url)
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
@@ -321,8 +321,21 @@ class RepoSync:
         importer.run()
         self.regen = True
 
-    def import_packages(self, plug, url):
-        packages = plug.list_packages(self.filters)
+    def import_packages(self, plug, source_id, url):
+        if (not self.filters) and source_id:
+            h = rhnSQL.prepare("""
+                    select flag, filter
+                      from rhnContentSourceFilter
+                     where source_id = :source_id
+                     order by sort_order """)
+            h.execute(source_id = source_id)
+            filter_data = h.fetchall_dict() or []
+            filters = [(row['flag'], re.split('[,\s]+', row['filter']))
+                                                         for row in filter_data]
+        else:
+            filters = self.filters
+
+        packages = plug.list_packages(filters)
         to_process = []
         num_passed = len(packages)
         self.print_msg("Repo URL: %s" % url)
