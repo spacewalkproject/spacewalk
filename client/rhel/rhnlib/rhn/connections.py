@@ -18,9 +18,7 @@ import socket
 from platform import python_version
 
 # Import into the local namespace some httplib-related names
-_CS_REQ_SENT = httplib._CS_REQ_SENT
-_CS_IDLE = httplib._CS_IDLE
-ResponseNotReady = httplib.ResponseNotReady
+from httplib import _CS_REQ_SENT, _CS_IDLE, ResponseNotReady
 
 class HTTPResponse(httplib.HTTPResponse):
     def set_callback(self, rs, ws, ex, user_data, callback):
