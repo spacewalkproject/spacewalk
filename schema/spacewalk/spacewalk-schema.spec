@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.21
+Version:        1.6.22
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Oct 18 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.22-1
+- rhnContentSourceFilter stores package filters for repos
+
 * Thu Oct 13 2011 Jan Pazdziora 1.6.21-1
 - Unspecified SHA1s have to be reported for upgrades.
 
