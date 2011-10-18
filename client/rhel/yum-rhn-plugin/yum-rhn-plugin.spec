@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.12
+Version: 1.6.13
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Oct 18 2011 Miroslav Suchý 1.6.13-1
+- move errata.py action to the yum-rhn-plugin package (iartarisi@suse.cz)
+
 * Fri Oct 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.12-1
 - pass error messages from yum plugin to rhn_check
 
