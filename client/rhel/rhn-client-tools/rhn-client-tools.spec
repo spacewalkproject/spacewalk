@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.24
+Version: 1.6.25
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,12 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Oct 19 2011 Miroslav Suchý 1.6.25-1
+- 743259 - RHEL5 now has python-ethtool 0.6 - simplify code
+- 743259 - get_ipv6_addresses does not return one item, but list
+- 745438 - up2date_config: use localhost to avoid confusion
+  (mzazrivec@redhat.com)
+
 * Tue Oct 18 2011 Miroslav Suchý 1.6.24-1
 - move errata.py action to the yum-rhn-plugin package (iartarisi@suse.cz)
 
