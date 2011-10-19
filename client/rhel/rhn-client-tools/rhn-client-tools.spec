@@ -15,11 +15,7 @@ BuildRequires: update-desktop-files
 Requires: rhnlib >= 2.5.41
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-ethtool
-%else
 Requires: python-ethtool >= 0.4
-%endif
 Requires: gnupg
 Requires: sh-utils
 %if 0%{?suse_version}
