@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.32
+Version:       5.5.33
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Wed Oct 19 2011 Michael Mraka <michael.mraka@redhat.com> 5.5.33-1
+- removed test for already removed object_has_attr()
+- removed dead function object_has_attr()
+
 * Thu Aug 11 2011 Miroslav Suchý 5.5.32-1
 - True and False constants are defined since python 2.4
 - do not mask original error by raise in execption
