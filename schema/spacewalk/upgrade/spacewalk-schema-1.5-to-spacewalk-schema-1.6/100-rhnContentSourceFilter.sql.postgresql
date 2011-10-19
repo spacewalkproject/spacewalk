@@ -12,8 +12,8 @@ rhnContentSourceFilter
         flag            varchar(1) NOT NULL
                         check (flag in ('+','-')),
         filter          varchar(4000) NOT NULL,
-        created         date default current_timestamp NOT NULL,
-        modified        date default current_timestamp NOT NULL
+        created         timestamptz default current_timestamp NOT NULL,
+        modified        timestamptz default current_timestamp NOT NULL
 )
   ;
 
