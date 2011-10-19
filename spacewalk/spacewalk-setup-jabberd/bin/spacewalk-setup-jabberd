@@ -61,7 +61,7 @@ if ($macros) {
 	}
 }
 
-foreach my $basename ('c2s', 's2s', 'sm') {
+foreach my $basename ('c2s', 's2s', 'sm', 'router') {
 	my $configfile = "/etc/jabberd/$basename.xml";
 	my $template = "/usr/share/spacewalk/setup/jabberd/$basename.xsl";
 
