@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.5
+Version: 1.6.6
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -56,6 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Wed Oct 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.6-1
+- removed dead function getCertValidityRange()
+- removed dead function getCertValidityDates()
+- removed dead function getExistingOverridesConfig()
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.5-1
 - 689939 - allow rhn-ssl-tool to work with --set-hostname='*.example.com'.
 
