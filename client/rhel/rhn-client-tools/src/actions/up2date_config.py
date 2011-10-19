@@ -120,7 +120,7 @@ def main():
     
     pprint.pprint(update(configdata))
 
-    configdata['serverURL'] = "http://hokeypokeyland.org/XMLRPC"
+    configdata['serverURL'] = "http://localhost/XMLRPC"
     pprint.pprint(update(configdata))
 
 if __name__ == "__main__":
