@@ -18,7 +18,8 @@ CREATE TABLE rhnServerNetAddress4
 (
     interface_id  NUMBER NOT NULL
                    CONSTRAINT rhn_srv_net_iaddress4_iid_fk
-                       REFERENCES rhnServerNetInterface (id),
+                       REFERENCES rhnServerNetInterface (id)
+                       ON DELETE CASCADE,
     address    VARCHAR2(64),
     netmask    VARCHAR2(64),
     broadcast  VARCHAR2(64),
