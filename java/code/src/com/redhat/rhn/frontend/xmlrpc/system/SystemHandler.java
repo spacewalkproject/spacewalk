@@ -1220,6 +1220,12 @@ public class SystemHandler extends BaseHandler {
      * @param hostId The id of the host system.
      * @param guestNames List of guest names to delete.
      * @return 1 in case of success, traceback otherwise.
+     *
+     * @xmlrpc.doc Delete the specified list of guest profiles for a given host
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "hostId")
+     * @xmlrpc.param #array_single("string", "guestNames")
+     * @xmlrpc.returntype #return_int_success()
      */
     public Integer deleteGuestProfiles(String sessionKey, Integer hostId,
         List<String> guestNames) {
