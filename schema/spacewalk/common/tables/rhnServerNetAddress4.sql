@@ -31,9 +31,10 @@ CREATE TABLE rhnServerNetAddress4
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_net_addr4_iid_addr_idx
+CREATE INDEX rhn_srv_net_addr4_iid_addr_idx
     ON rhnServerNetAddress4 (interface_id, address)
-    TABLESPACE [[8m_tbs]];
+    TABLESPACE [[64k_tbs]];
 
 ALTER TABLE rhnServerNetAddress4
-    ADD CONSTRAINT rhn_net_add4_iid_addr_uq UNIQUE (interface_id, address);
+    ADD CONSTRAINT rhn_srv_net_addr4_iid_addr_uq UNIQUE (interface_id, address);
+

@@ -14,15 +14,15 @@
 --
 
 
-CREATE TABLE rhnServerNetAddress6
+CREATE TABLE rhnServerNetAddress4
 (
     interface_id  NUMBER NOT NULL
-                   CONSTRAINT rhn_srv_net_iaddress6_iid_fk
+                   CONSTRAINT rhn_srv_net_iaddress4_iid_fk
                        REFERENCES rhnServerNetInterface (id)
                        ON DELETE CASCADE,
-    address    VARCHAR2(45),
-    netmask    VARCHAR2(49),
-    scope      VARCHAR2(64),
+    address    VARCHAR2(64),
+    netmask    VARCHAR2(64),
+    broadcast  VARCHAR2(64),
     created    DATE
                    DEFAULT (sysdate) NOT NULL,
     modified   DATE
@@ -31,10 +31,9 @@ CREATE TABLE rhnServerNetAddress6
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_srv_net_ad6_iid_sc_ad_idx
-    ON rhnServerNetAddress6 (interface_id, scope, address)
-    TABLESPACE [[64_tbs]];
+CREATE INDEX rhn_srv_net_addr4_iid_addr_idx
+    ON rhnServerNetAddress4 (interface_id, address)
+    TABLESPACE [[64k_tbs]];
 
-ALTER TABLE rhnServerNetAddress6
-    ADD CONSTRAINT rhn_srv_net_ad6_iid_sc_ad_uq UNIQUE (interface_id, scope, address);
-
+ALTER TABLE rhnServerNetAddress4
+    ADD CONSTRAINT rhn_srv_net_addr4_iid_addr_uq UNIQUE (interface_id, address);
