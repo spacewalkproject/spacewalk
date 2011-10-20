@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 -- 2011 Red Hat, Inc.
+-- Copyright (c) 2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,17 +14,14 @@
 --
 
 
-CREATE TABLE rhnServerNetInterface
+CREATE TABLE rhnServerNetAddress4
 (
-    id         NUMBER NOT NULL
-                   CONSTRAINT rhn_srv_net_iface_id_pk PRIMARY KEY
-                       USING INDEX TABLESPACE [[4m_tbs]],
-    server_id  NUMBER NOT NULL
-                   CONSTRAINT rhn_srv_net_iface_sid_fk
-                       REFERENCES rhnServer (id),
-    name       VARCHAR2(32) NOT NULL,
-    hw_addr    VARCHAR2(18),
-    module     VARCHAR2(128),
+    interface_id  NUMBER NOT NULL
+                   CONSTRAINT rhn_srv_net_iaddress4_iid_fk
+                       REFERENCES rhnServerNetInterface (id),
+    address    VARCHAR2(64),
+    netmask    VARCHAR2(64),
+    broadcast  VARCHAR2(64),
     created    DATE
                    DEFAULT (sysdate) NOT NULL,
     modified   DATE
@@ -33,11 +30,10 @@ CREATE TABLE rhnServerNetInterface
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_srv_net_iface_sid_name_idx
-    ON rhnServerNetInterface (server_id, name)
+CREATE INDEX rhn_srv_net_address4_iid_address_idx
+    ON rhnServerNetAddress4 (interface_id, address)
     TABLESPACE [[8m_tbs]];
 
-ALTER TABLE rhnServerNetInterface
-    ADD CONSTRAINT rhn_srv_net_iface_sid_name_uq UNIQUE (server_id, name);
+ALTER TABLE rhnServerNetAddress4
+    ADD CONSTRAINT rhn_srv_net_address4_iid_address_uq UNIQUE (interface_id, address);
 
-CREATE SEQUENCE rhn_srv_net_iface_id_seq;
