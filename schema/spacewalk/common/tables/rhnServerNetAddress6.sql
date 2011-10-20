@@ -31,9 +31,9 @@ CREATE TABLE rhnServerNetAddress6
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_net_addr6_iid_sc_addr_idx
+CREATE INDEX rhn_srv_net_ad6_iid_sc_ad_idx
     ON rhnServerNetAddress6 (interface_id, scope, address)
-    TABLESPACE [[8m_tbs]];
+    TABLESPACE [[64_tbs]];
 
 ALTER TABLE rhnServerNetAddress6
-    ADD CONSTRAINT rhn_net_addr6_iid_sc_addr_uq UNIQUE (interface_id, scope, address);
+    ADD CONSTRAINT rhn_srv_net_ad6_iid_sc_ad_uq UNIQUE (interface_id, scope, address);
