@@ -15,9 +15,11 @@ begin
 			select 1 n, sum(nrcpu) || ' CPUs' m
 			from rhncpu where rhncpu.server_id = sid
 			union all
-			select 2, name||' '||ip_addr||'/'||netmask||' '||hw_addr val
-			from rhnservernetinterface
-			where rhnservernetinterface.server_id = sid
+			select 2, ni.name||' '||na4.address||'/'||na4.netmask||' '||ni.hw_addr val
+			from rhnservernetinterface ni,
+			     rhnServerNetAddress4 na4
+			where ni.server_id = sid
+			  and ni.id = na4.interface_id
 			)
 		order by n, m
 		) loop
