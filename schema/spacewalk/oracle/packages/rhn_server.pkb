@@ -712,10 +712,12 @@ is
 		server_id_in in number
 	) return varchar2 is
 		cursor interfaces is
-			select	name, ip_addr
-			from	rhnServerNetInterface
-			where	server_id = server_id_in
-				and ip_addr != '127.0.0.1';
+			select	ni.name as name, na4.address as address
+			from	rhnServerNetInterface ni,
+                    rhnServerNetAddress4 na4
+			where	ni.server_id = server_id_in
+                and ni.id = na4.interface_id
+				and na4.address != '127.0.0.1';
 		cursor addresses is
 			select	ipaddr ip_addr
 			from	rhnServerNetwork
@@ -726,7 +728,7 @@ is
 			return addr.ip_addr;
 		end loop;
 		for iface in interfaces loop
-			return iface.ip_addr;
+			return iface.address;
 		end loop;
 		return NULL;
 	end get_ip_address;
