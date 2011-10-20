@@ -31,7 +31,7 @@ ENABLE ROW MOVEMENT
 ;
 
 CREATE INDEX rhn_net_addr6_iid_sc_addr_idx
-    ON rhnServerNetAddress4 (interface_id, scope, address)
+    ON rhnServerNetAddress6 (interface_id, scope, address)
     TABLESPACE [[8m_tbs]];
 
 ALTER TABLE rhnServerNetAddress6
