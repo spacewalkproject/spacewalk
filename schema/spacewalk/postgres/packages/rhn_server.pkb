@@ -764,10 +764,12 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	) returns varchar as $$
         declare
 		interfaces cursor is
-			select	name, ip_addr
-			from	rhnServerNetInterface
+			select	ni.name as name, na4.address as address
+			from	rhnServerNetInterface ni,
+			        rhnServerNetAddress4 na4
 			where	server_id = server_id_in
-				and ip_addr != '127.0.0.1';
+                and ni.id = na4.interface_id
+				and na4.address != '127.0.0.1';
 		addresses cursor is
 			select	ipaddr ip_addr
 			from	rhnServerNetwork
@@ -778,7 +780,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 			return addr.ip_addr;
 		end loop;
 		for iface in interfaces loop
-			return iface.ip_addr;
+			return iface.address;
 		end loop;
 		return NULL;
 	end$$ language plpgsql;
