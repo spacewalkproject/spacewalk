@@ -318,6 +318,16 @@ def update(package_list, cache_only=None):
                     'release' : package[2],
                     }
 
+        if len(package) == 5 \
+            and package[1] == '' \
+            and package[2] == '' \
+            and package[3] == '' \
+            and package[4] == '' \
+            and yum_base.rpmdb.searchNevra(name=package[0]):
+            log.log_debug('Package %s is already installed' % package[0])
+            package_list.remove(package)
+            continue
+
         if len(package) > 4:
             pkgkeys['arch'] = package[4]
         else:
