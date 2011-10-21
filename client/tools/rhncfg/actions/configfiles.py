@@ -311,6 +311,14 @@ def deploy(params, topdir=None, cache_only=None):
 
 
 def diff(params, cache_only=None):
+    def is_utf8(input):
+        """Returns true if input is a valid UTF-8 string, False otherwise."""
+        try:
+            input.decode('utf-8')
+        except UnicodeDecodeError:
+            return False
+        return True
+
     if cache_only:
         return (0, "no-ops for caching", {})
 
@@ -342,6 +350,9 @@ def diff(params, cache_only=None):
         extras['missing_files'] = missing_files
     
     if diffs:
+        for file in diffs.keys():
+            if not is_utf8(diffs[file]):
+                diffs[file] = "%s: binary files differ" % file
         extras['diffs'] = diffs
 
     log_to_file(0, "Files successfully diffed: %s %s" % (format_file_string(files, create_key_list()), str(extras)))
