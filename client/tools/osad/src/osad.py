@@ -239,7 +239,7 @@ class Runner(jabber_lib.Runner):
             config = self.read_config()
             raise jabber_lib.NeedRestart
            
-        client.process(timeout=None)
+        client.process(timeout=180)
 
     def read_config(self):
         ret = {}
