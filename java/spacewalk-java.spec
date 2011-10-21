@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.62
+Version: 1.6.63
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 21 2011 Miroslav Suchý 1.6.63-1
+- 627809 - write out storage devices if *storage* device list is not empty
+- 627809 - send xen virtual block devices to rhnParent
+- 736381,732091 - adding api doc (tlestach@redhat.com)
+- 680489 - fix api doc (tlestach@redhat.com)
+
 * Mon Oct 17 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.62-1
 - 746090 - fixed join condition in query
 - 589799 - omit number of selected items for SSM related system selections
