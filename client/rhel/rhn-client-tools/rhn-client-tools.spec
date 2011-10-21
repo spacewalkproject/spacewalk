@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.25
+Version: 1.6.26
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Oct 21 2011 Miroslav Suchý 1.6.26-1
+- 627809 - send xen virtual block devices to rhnParent
+- Revert "729161 - default to RHSM in firstboot registration"
+  (mzazrivec@redhat.com)
+
 * Wed Oct 19 2011 Miroslav Suchý 1.6.25-1
 - 743259 - RHEL5 now has python-ethtool 0.6 - simplify code
 - 743259 - get_ipv6_addresses does not return one item, but list
