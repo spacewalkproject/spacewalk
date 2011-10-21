@@ -228,6 +228,10 @@ def classify_hal(node):
         if node.properties['storage.drive_type'] == 'tape':
             return 'TAPE'
 
+    if 'xen.type' in node.properties:
+        if node.properties['xen.type'] == 'vbd':
+            return 'HD'
+
     #PRINTER
     if node.properties.has_key('printer.product'):
         return 'PRINTER'
