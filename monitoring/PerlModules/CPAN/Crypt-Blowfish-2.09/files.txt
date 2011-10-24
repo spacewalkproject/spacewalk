@@ -1,4 +1,0 @@
-/usr/lib/perl5/man/man3/Crypt::Blowfish.3
-/usr/lib/perl5/site_perl/5.005/i386-linux/Crypt/Blowfish.pm
-/usr/lib/perl5/site_perl/5.005/i386-linux/auto/Crypt/Blowfish/Blowfish.bs
-/usr/lib/perl5/site_perl/5.005/i386-linux/auto/Crypt/Blowfish/Blowfish.so

@@ -1,6 +1,0 @@
-Dear «François Müller»,
-
-As you requested, I have rewritten the MIME:: parser modules to support
-the creation of MIME messages.
-
-Eryq
