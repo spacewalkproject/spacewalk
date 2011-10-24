@@ -175,7 +175,7 @@ def do_system_reboot(self, args):
         system_id = self.get_system_id(system)
         if not system_id: continue
 
-        self.client.system.scheduleReboot(self.session, id, action_time)
+        self.client.system.scheduleReboot(self.session, system_id, action_time)
 
 ####################
 
