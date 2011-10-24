@@ -1815,11 +1815,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         elif (bytes/mega == 0):
             return "%d kiB" %(bytes / 1024)
         elif (bytes/giga == 0):
-            mega_value=bytes / mega
-            return "%d.%03d MiB" %(mega_value, (bytes % mega) / kilo)
+            mega_value=float(bytes) / mega
+            return "%.3f MiB" %(mega_value)
         else:
-            giga_value=bytes / giga
-            return "%d.%03d GiB" %(giga_value, (bytes % giga) / mega)
+            giga_value=float(bytes) / giga
+            return "%.3f GiB" %(giga_value)
 
     def _get_package_stream(self, channel, package_id, nvrea, sources):
         """ returns (filepath, stream), so in the case of a "wire source",
