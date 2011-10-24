@@ -2390,7 +2390,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public Integer removeRepo(String sessionKey, Integer id) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
 
         ChannelFactory.remove(repo);
         return 1;
@@ -2485,7 +2486,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
         repo.setSourceUrl(url);
         ChannelFactory.save(repo);
         return repo;
@@ -2528,7 +2530,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public ContentSource updateRepoLabel(String sessionKey, Integer id, String label) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
         repo.setLabel(label);
         ChannelFactory.save(repo);
         return repo;
@@ -2552,7 +2555,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public ContentSource updateRepo(String sessionKey, Integer id, String label,
             String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
         repo.setLabel(label);
         repo.setSourceUrl(url);
         ChannelFactory.save(repo);
@@ -2589,7 +2593,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *     $ContentSourceSerializer
      */
     public ContentSource getRepoDetails(String sessionKey, Integer id) {
-        return ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        User user = getLoggedInUser(sessionKey);
+        return ChannelFactory.lookupContentSource(new Long(id.longValue()), user.getOrg());
     }
 
     /**
