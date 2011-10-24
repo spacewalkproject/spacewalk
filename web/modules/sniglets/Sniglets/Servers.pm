@@ -61,10 +61,6 @@ sub register_tags {
 
   # has to run after server_details
   $pxt->register_tag('rhn-server-network-details' => \&server_network_details, 2);
-  # slightly different than the rhn-server-network-details, this gives access to
-  # more detailed info about the network interfaces, as opposed to just hostname/ipaddy
-  $pxt->register_tag('rhn-server-network-interfaces' => \&server_network_interfaces, 2);
-
 
   $pxt->register_tag('rhn-server-history-event-details' => \&server_history_event_details);
 
