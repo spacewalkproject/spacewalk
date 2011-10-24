@@ -1,8 +1,10 @@
--- oracle equivalent source sha1 d37db54a176f593bd9727921ed20d00d6cd95f4b
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnServerNetInterface.sql
+-- oracle equivalent source sha1 1c9678fc0e82b0d0e1f659358120c971bc9bda20
 create or replace function rhn_srv_net_iface_mod_trig_fun() returns trigger as
 $$
 begin
+    if new.id is null then 
+    	new.id := nextval('rhn_srv_net_iface_id_seq'); 
+    end if;
 	new.modified := current_timestamp;
  	return new;
 end;
