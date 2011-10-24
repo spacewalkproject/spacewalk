@@ -690,64 +690,6 @@ sub server_network_details {
   return $ret;
 }
 
-
-sub server_network_interfaces {
-  my $pxt = shift;
-  my %params = @_;
-  my $ret = '';
-  my $current;
-
-  my $server = $pxt->pnotes('server');
-
-  throw "No server." unless $server;
-
-  my @net_interfaces = $server->get_net_interfaces;
-
-  my %subst;
-
-  if (not @net_interfaces) {
-    return '';
-  }
-
-  PXT::Debug->log(7, "got net_interfaces...");
-
-  my $block = $params{__block__};
-  $block =~ m/<rhn-interface-data>(.*?)<\/rhn-interface-data>/gism;
-  my $device_data_block = $1;
-
-
-  my $unknown = '<span class="no-details">(unknown)</span>';
-  my $html = '';
-  my $counter = 1;
-  foreach my $interface (@net_interfaces) {
-
-    my %subst;
-    if ($counter % 2) {
-      $subst{row_class} = 'list-row-odd';
-    }
-    else {
-      $subst{row_class} = 'list-row-even';
-    }
-
-
-    $subst{interface_name} = $interface->name; # NOT NULL
-    $subst{interface_ip_addr} = defined $interface->ip_addr ? PXT::Utils->escapeHTML($interface->ip_addr) : $unknown;
-    $subst{interface_netmask} = defined $interface->netmask ? PXT::Utils->escapeHTML($interface->netmask) : $unknown;
-    $subst{interface_broadcast} = defined $interface->broadcast ? PXT::Utils->escapeHTML($interface->broadcast) : $unknown;
-    $subst{interface_hw_addr} = defined $interface->hw_addr ? PXT::Utils->escapeHTML($interface->hw_addr) : $unknown;
-    $subst{interface_module} = defined $interface->module ? PXT::Utils->escapeHTML($interface->module) : $unknown;
-
-    $html .= PXT::Utils->perform_substitutions($device_data_block, \%subst);
-    $counter++;
-  }
-
-  PXT::Debug->log(7, "html:  $html");
-
-  $block =~ s{<rhn-interface-data>.*?<\/rhn-interface-data>}{$html}ism;
-
-  return $block;
-}
-
 # must happen *after* server_hardware_profile... so use tags
 # correctly!
 sub server_device {
