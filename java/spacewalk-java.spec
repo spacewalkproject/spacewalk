@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.63
+Version: 1.6.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 24 2011 Simon Lukasik <slukasik@redhat.com> 1.6.64-1
+- No need to have separate configuration per Tomcat's version
+  (slukasik@redhat.com)
+- 748341 - No need to specify docBase, when it's the same as appBase
+  (slukasik@redhat.com)
+
 * Fri Oct 21 2011 Miroslav Suchý 1.6.63-1
 - 627809 - write out storage devices if *storage* device list is not empty
 - 627809 - send xen virtual block devices to rhnParent
