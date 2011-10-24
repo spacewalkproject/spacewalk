@@ -17,6 +17,5 @@
   allowLinking - true to allow Tomcat to follow symlinks.
 -->
 
-<Context path="/rhn" docBase="/var/lib/tomcat5/webapps/rhn/"
-         debug="0" reloadable="false" allowLinking="true">
+<Context path="/rhn" debug="0" reloadable="false" allowLinking="true">
 </Context>
