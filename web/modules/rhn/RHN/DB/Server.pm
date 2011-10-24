@@ -25,7 +25,6 @@ use RHN::DB::Server::CdDevice;
 use RHN::DB::Server::HwDevice;
 use RHN::DB::Server::StorageDevice;
 use RHN::DB::Server::NetInfo;
-use RHN::DB::Server::NetInterface;
 use RHN::DB::TableClass;
 
 use RHN::DataSource::Errata;
