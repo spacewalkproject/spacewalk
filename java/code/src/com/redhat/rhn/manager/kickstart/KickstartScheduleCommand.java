@@ -684,12 +684,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             note = "Automatically generated activation key.";
         }
 
-        boolean cfgMgmtFlag =
-            this.getKsdata()
-                .getKickstartDefaults()
-                .getCfgManagementFlag()
-                .booleanValue();
-
         RegistrationType regType = getKsdata().getRegistrationType(user);
 
         if (regType.equals(RegistrationType.REACTIVATION)) {
@@ -698,7 +692,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 this.ksdata,
                 RegistrationType.REACTIVATION.equals(regType) ? getTargetServer() : null,
                 this.kickstartSession,
-                cfgMgmtFlag,
                 1L,
                 note);
         }
@@ -853,7 +846,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param ksdata associated with the key
      * @param server being kickstarted (can be null)
      * @param session associated with the kickstart (NOT NULL)
-     * @param deployConfigs if you want to or not
      * @param note to add to key
      * @param usageLimit to apply to the key.  null for unlimited.
      * @return ActivationKey that has been saved to the DB.
@@ -862,7 +854,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             KickstartData ksdata,
             Server server,
             KickstartSession session,
-            boolean deployConfigs,
             Long usageLimit,
             String note) {
 
@@ -870,7 +861,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         ActivationKey key = ActivationKeyManager.getInstance().
                                 createNewReActivationKey(creator, server, note, session);
         key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
-        key.setDeployConfigs(deployConfigs);
+        key.setDeployConfigs(false);
         key.setUsageLimit(usageLimit);
         if (KickstartVirtualizationType.paraHost().
                 equals(ksdata.getKickstartDefaults().getVirtualizationType())) {

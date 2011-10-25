@@ -27,7 +27,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.profile.ProfileManager;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
@@ -94,8 +93,8 @@ public class KickstartSessionCreateCommand {
         log.debug("creating one-time-activation key: " + user.getLogin());
         ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user,
                 ksdata, null,
-                this.ksession, BooleanUtils.toBoolean(
-                        ksdata.getKickstartDefaults().getCfgManagementFlag()), null, note);
+                this.ksession,
+                null, note);
         log.debug("added key: " + key.getKey());
 
         // Need to add child channels to the key so when kickstarting the
