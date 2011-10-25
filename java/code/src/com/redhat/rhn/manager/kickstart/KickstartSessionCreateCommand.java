@@ -89,7 +89,7 @@ public class KickstartSessionCreateCommand {
         User user = UserFactory.findRandomOrgAdmin(owner);
         log.debug("Got random orgadmin: " + user.getLogin());
         String note = LocalizationService.getInstance().
-            getMessage("kickstart.session.newtokennote", " ");
+            getMessage("kickstart.profile.default_session", ksdata.getLabel());
 
         log.debug("creating one-time-activation key: " + user.getLogin());
         ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user,
