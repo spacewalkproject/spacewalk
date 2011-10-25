@@ -173,10 +173,10 @@ def cleanse_ip_addr(ip_addr):
     
 class GenericDevice:
     """ A generic device class """
-    def __init__(self, table):
+    table = "override-GenericDevice"
+    def __init__(self):
         self.id = 0
         self.status = 1 # just added
-        self.__table = table
         self.data = {}
         # default to the hardware seq...
         self.sequence = "rhn_hw_dev_id_seq"
@@ -193,10 +193,10 @@ class GenericDevice:
         return 1
     def save(self, sysid):
         """ save data in the rhnDevice table """
-        log_debug(4, self.__table, self.status, self.data)
+        log_debug(4, self.table, self.status, self.data)
         if not self.must_save():
             return 0
-        t = rhnSQL.Table(self.__table, "id")
+        t = rhnSQL.Table(self.table, "id")
         # check if we have to delete
         if self.status == 2 and self.id:
             # delete the entry
@@ -217,8 +217,8 @@ class GenericDevice:
         """ reload from rhnDevice table based on devid """
         if not devid:
             return -1
-        self.__init__(self.__table)
-        t = rhnSQL.Table(self.__table, "id")
+        self.__init__(self.table)
+        t = rhnSQL.Table(self.table, "id")
         self.data = t[devid]
         # clean up fields we don't want
         for k in ["created", "modified"]:
@@ -251,13 +251,13 @@ class Device(GenericDevice):
         table. The mapping allows transformation from whatever comes in to
         valid fields in the table Looks complicated but it isn't -- gafton
     """
-    def __init__(self, table, fields, dict = None, mapping = None):
-        GenericDevice.__init__(self, table)
+    def __init__(self, fields, dict = None, mapping = None):
+        GenericDevice.__init__(self)
         x = {}
         for k in fields:
             x[k] = None
         self.data = UserDictCase(x)
-        if dict is None:
+        if not dict:
             return
         # make sure we get a UserDictCase to work with
         if type(dict) == type({}):
@@ -305,6 +305,7 @@ class Device(GenericDevice):
                                 
 class HardwareDevice(Device):
     """ A more specific device based on the Device class """
+    table = "rhnDevice"
     def __init__(self, dict = None):
         fields = ['class', 'bus', 'device', 'driver', 'detached',
                   'description', 'pcitype', 'prop1', 'prop2',
@@ -312,13 +313,14 @@ class HardwareDevice(Device):
         # get a processed mapping
         mapping = kudzu_mapping(dict)
         # ... and do little to no work
-        Device.__init__(self, "rhnDevice", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         # use the hardware id sequencer
         self.sequence = "rhn_hw_dev_id_seq"
         
 class CPUDevice(Device):
     """ A class for handling CPU - mirrors the rhnCPU structure """
-    def __init__(self, dict = {}):
+    table = "rhnCPU"
+    def __init__(self, dict = None):
         fields = ['cpu_arch_id',  'architecture', 'bogomips', 'cache',
                   'family', 'mhz', 'stepping', 'flags', 'model',
                   'version', 'vendor', 'nrcpu', 'acpiVersion',
@@ -340,7 +342,10 @@ class CPUDevice(Device):
             'class' : None,
             }
         # now instantiate this class
-        Device.__init__(self, "rhnCPU", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
+        self.sequence = "rhn_cpu_id_seq"
+        if not dict:
+            return
         if self.data.get("cpu_arch_id") is not None:
             return # all fine, we have the arch
         # if we don't have an architecture, guess it        
@@ -355,8 +360,6 @@ class CPUDevice(Device):
             raise AttributeError, "Invalid architecture for CPU: `%s'" % arch
         self.data["cpu_arch_id"] = row["id"]
         del self.data["architecture"]
-        # use our own sequence
-        self.sequence = "rhn_cpu_id_seq"
         if self.data.has_key("nrcpu"): # make sure this is a number
             try:
                 self.data["nrcpu"] = int(self.data["nrcpu"])
@@ -367,10 +370,11 @@ class CPUDevice(Device):
                 
 class NetworkInformation(Device):
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
+    table = "rhnServerNetwork"
     def __init__(self, dict = None):
         fields = ["hostname", "ipaddr", "ip6addr"]
         mapping = { 'class' : None }
-        Device.__init__(self, "rhnServerNetwork", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         self._autonull = ('ipaddr', 'ip6addr')
         # use our own sequence
         self.sequence = "rhn_server_net_id_seq"
@@ -555,12 +559,15 @@ def _transpose(hasharr):
 
 class MemoryInformation(Device):
     """ Memory information """
+    table = "rhnRAM"
     def __init__(self, dict = None):
         fields = ["ram", "swap"]
         mapping = { "class" : None }
-        Device.__init__(self, "rhnRAM", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_ram_id_seq"
+        if not dict:
+            return
         # Sometimes we get sent a NNNNL number and we need to strip the L
         for k in fields:
             if not self.data.has_key(k):
@@ -573,13 +580,16 @@ class MemoryInformation(Device):
 
 class DMIInformation(Device):
     """ DMI information """
+    table = "rhnServerDMI"
     def __init__(self, dict = None):
         fields = ["vendor", "system", "product", "asset", "board",
                   "bios_vendor", "bios_version", "bios_release"]
         mapping = { "class" : None }
-        Device.__init__(self, "rhnServerDMI", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_server_dmi_id_seq"
+        if not dict:
+            return
 
         # deal with hardware with insanely long dmi strings...
         for key, value in self.data.items():
@@ -589,6 +599,7 @@ class DMIInformation(Device):
 
 class InstallInformation(Device):
     """ Install information """
+    table = "rhnServerInstallInfo"
     def __init__(self, dict = None):
         fields = ['install_method', 'iso_status', 'mediasum']
         mapping = { 
@@ -597,7 +608,7 @@ class InstallInformation(Device):
             'isostatus'     : 'iso_status',
             'mediasum'      : 'mediasum',
         }
-        Device.__init__(self, "rhnServerInstallInfo", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         self.sequence = 'rhn_server_install_info_id_seq'
 
 class Hardware:
@@ -703,29 +714,20 @@ class Hardware:
         self.__changed = 0
         return 0
 
-    def __load_from_db(self, db, DevClass, sysid):
+    def __load_from_db(self, DevClass, sysid):
         """ Load a certain hardware class from the database """
         if not self.__hardware.has_key(DevClass):
             self.__hardware[DevClass] = []
-        
-        h = rhnSQL.prepare("select * from %s where server_id = :sysid" % db)
+
+        h = rhnSQL.prepare("select id from %s where server_id = :sysid" % DevClass.table)
         h.execute(sysid = sysid)
         rows = h.fetchall_dict() or []
-        
+
         for device in rows:
             dev_id = device['id']
-                
-            # get rid of the keys we do not support
-            for k in ["server_id", "created", "modified", "id"]:
-                if device.has_key(k):
-                    del device[k]
-            dev = DevClass(device)
-
-            # we know better
-            dev.id = dev_id
-            dev.status = 0
+            dev = DevClass()
+            dev.reload(dev_id)
             self.__hardware[DevClass].append(dev)
-        return 0
     
     def reload_hardware_byid(self, sysid):
         """ load all hardware devices for a server """
@@ -734,19 +736,16 @@ class Hardware:
             return -1
         self.__hardware = {} # discard what was already loaded
         # load from all hardware databases
-        self.__load_from_db("rhnDevice", HardwareDevice, sysid)
-        self.__load_from_db("rhnCPU", CPUDevice, sysid)
-        self.__load_from_db("rhnServerDMI", DMIInformation, sysid)        
-        self.__load_from_db("rhnServerNetwork", NetworkInformation, sysid)        
-        self.__load_from_db("rhnRAM", MemoryInformation, sysid)        
-        self.__load_from_db("rhnServerInstallInfo", InstallInformation, sysid)
+        self.__load_from_db(HardwareDevice, sysid)
+        self.__load_from_db(CPUDevice, sysid)
+        self.__load_from_db(DMIInformation, sysid)
+        self.__load_from_db(NetworkInformation, sysid)
+        self.__load_from_db(MemoryInformation, sysid)
+        self.__load_from_db(InstallInformation, sysid)
 
         net_iface_info = NetIfaceInformation()
         net_iface_info.reload(sysid)
-        
-        self.__hardware[NetIfaceInformation] = []
-        self.__hardware[NetIfaceInformation].append(net_iface_info)
-        
+
         # now set the flag
         self.__changed = 0
         self.__loaded = 1
