@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -137,6 +138,12 @@ public class TaskomaticApi {
         }
     }
 
+    private void ensureOrgAdminRole(User user) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            throw new PermissionException(RoleFactory.ORG_ADMIN);
+        }
+    }
+
     /**
      * Creates a new schedule, unschedules, if en existing is defined
      * @param user shall be sat admin
@@ -167,7 +174,7 @@ public class TaskomaticApi {
     }
 
     private void unscheduleTask(String jobLabel, User user) {
-        ensureSatAdminRole(user);
+        ensureOrgAdminRole(user);
         invoke("tasko.unscheduleBunch", user.getOrg().getId(), jobLabel);
     }
 
