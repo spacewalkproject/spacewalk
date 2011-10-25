@@ -703,29 +703,13 @@ class Hardware:
         self.__changed = 0
         return 0
 
-    def __load_from_db(self, db, DevClass, sysid):
+    def __load_from_db(self, DevClass, sysid):
         """ Load a certain hardware class from the database """
         if not self.__hardware.has_key(DevClass):
             self.__hardware[DevClass] = []
-        
-        h = rhnSQL.prepare("select * from %s where server_id = :sysid" % db)
-        h.execute(sysid = sysid)
-        rows = h.fetchall_dict() or []
-        
-        for device in rows:
-            dev_id = device['id']
-                
-            # get rid of the keys we do not support
-            for k in ["server_id", "created", "modified", "id"]:
-                if device.has_key(k):
-                    del device[k]
-            dev = DevClass(device)
-
-            # we know better
-            dev.id = dev_id
-            dev.status = 0
-            self.__hardware[DevClass].append(dev)
-        return 0
+        dev = DevClass()
+        dev.reload(sysid)
+        self.__hardware[DevClass].append(dev)
     
     def reload_hardware_byid(self, sysid):
         """ load all hardware devices for a server """
@@ -734,18 +718,13 @@ class Hardware:
             return -1
         self.__hardware = {} # discard what was already loaded
         # load from all hardware databases
-        self.__load_from_db("rhnDevice", HardwareDevice, sysid)
-        self.__load_from_db("rhnCPU", CPUDevice, sysid)
-        self.__load_from_db("rhnServerDMI", DMIInformation, sysid)        
-        self.__load_from_db("rhnServerNetwork", NetworkInformation, sysid)        
-        self.__load_from_db("rhnRAM", MemoryInformation, sysid)        
-        self.__load_from_db("rhnServerInstallInfo", InstallInformation, sysid)
-
-        net_iface_info = NetIfaceInformation()
-        net_iface_info.reload(sysid)
-        
-        self.__hardware[NetIfaceInformation] = []
-        self.__hardware[NetIfaceInformation].append(net_iface_info)
+        self.__load_from_db(HardwareDevice, sysid)
+        self.__load_from_db(CPUDevice, sysid)
+        self.__load_from_db(DMIInformation, sysid)        
+        self.__load_from_db(NetworkInformation, sysid)        
+        self.__load_from_db(MemoryInformation, sysid)        
+        self.__load_from_db(InstallInformation, sysid)
+        self.__load_from_db(NetIfaceInformation, sysid)
         
         # now set the flag
         self.__changed = 0
