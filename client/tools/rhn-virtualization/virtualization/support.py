@@ -82,7 +82,7 @@ def refresh():
     else:
         domains = poller.poll_hypervisor()
 
-        if not len(domains) and libvirt.open(None).getType() == 'Xen':
+        if not len(domains) and libvirt.openReadOnly(None).getType() == 'Xen':
            # On a KVM/QEMU host, libvirt reports no domain entry for host itself
            # On a Xen host, either there were no domains or xend might not be
            # running. Don't proceed further.
@@ -184,7 +184,7 @@ def _is_host_domain():
         # No libvirt, dont bother with the rest
         return False
     try:
-        conn = libvirt.open(None)
+        conn = libvirt.openReadOnly(None)
     except libvirt.libvirtError: # libvirtd is not running
         sys.stderr.write(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"))
         return False
