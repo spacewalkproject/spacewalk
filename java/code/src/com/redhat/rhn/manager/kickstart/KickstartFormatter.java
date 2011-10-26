@@ -134,7 +134,7 @@ public class KickstartFormatter {
         "cp -fa /tmp/ks-tree-shadow/* /mnt/sysimage/tmp/ks-tree-copy" + NEWLINE +
         "fi" + NEWLINE +
         "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE +
-        "cp -f /tmp/ks-pre.log* /mnt/sysimage/root/" + NEWLINE;
+        "cp -f /tmp/ks-pre.log* /mnt/sysimage/root/ || :" + NEWLINE;
     private static final String RHN_TRACE = "set -x" + NEWLINE;
     private static final String XMLRPC_HOST =
         Config.get().getString(ConfigDefaults.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
