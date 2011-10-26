@@ -325,7 +325,7 @@ _query_schedule_config_files = rhnSQL.Statement("""
                and cf.latest_config_revision_id is not null
                and cf.state_id = cfs.id
                and cfs.label = 'alive'
-            )
+            ) X
 """)
 def schedule_config_deploy(server_id, action_id, kickstart_session_id,
         server_profile):
