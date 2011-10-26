@@ -924,7 +924,7 @@ public class KickstartFormatter {
         retval.append("cat /tmp/ssl-key-* > /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT" +
                 NEWLINE);
         retval.append("perl -pe 's/RHNS-CA-CERT/RHN-ORG-TRUSTED-SSL-CERT/g' " +
-                "-i /etc/sysconfig/rhn/*" + NEWLINE);
+                "-i /etc/sysconfig/rhn/up2date" + NEWLINE);
 
         return retval.toString();
     }
