@@ -151,7 +151,7 @@ def poll_through_vdsm():
 
     if not len(domains['vmList']):
         # No domains, exit.
-        return
+        return {}
 
     state = {}
     for domain in domains['vmList']:
