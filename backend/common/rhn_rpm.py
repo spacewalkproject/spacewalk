@@ -112,8 +112,10 @@ class RPM_Header:
                 key_id = ret[9:17]
             elif ret_len <= 72: # V4 DSA signature
                 key_id = ret[18:26]
-            else: # ret_len <= 536 # V3 RSA/SHA256 signature
+            elif ret_len <= 536: # V3 RSA/SHA256 signature
                 key_id = ret[10:18]
+            else: # ret_len <= 543 # V4 RSA/SHA signature
+                key_id = ret[19:27]
 
             key_id_len = len(key_id)
             format = "%dB" % key_id_len
