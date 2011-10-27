@@ -1383,6 +1383,14 @@ sub get_net_infos {
   return @net_infos;
 }
 
+# returns an array of all the net info objects related to a server
+sub get_net_interfaces {
+  my $self = shift;
+
+  my @net_interfaces = RHN::DB::Server::NetInterface->lookup_net_interface_by_server($self->id);
+  return @net_interfaces;
+}
+
 
 #
 # build some accessors
