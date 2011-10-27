@@ -126,6 +126,7 @@ public class ConfigFileBuilder {
             ConfigFile cf, boolean onCreate) {
 
         ConfigurationManager manager = ConfigurationManager.getInstance();
+        ConfigRevision prevRevision = cf.getLatestConfigRevision();
         ConfigRevision revision;
 
         if (onCreate) {
@@ -159,8 +160,7 @@ public class ConfigFileBuilder {
                 revision.getConfigContent().setBinary(form.isBinary());
                 if (form.isBinary()) {
                     // copy delims from the previous revision
-                    ConfigContent prevContent = cf.getLatestConfigRevision().
-                        getConfigContent();
+                    ConfigContent prevContent = prevRevision.getConfigContent();
                     revision.getConfigContent().setDelimStart(prevContent.getDelimStart());
                     revision.getConfigContent().setDelimEnd(prevContent.getDelimEnd());
                 }
@@ -177,6 +177,10 @@ public class ConfigFileBuilder {
             revision.setRevision(Long.parseLong(form.getRevNumber()));
         }
 
+        if (!onCreate && revision.matches(prevRevision)) {
+            ConfigurationFactory.removeConfigRevision(revision, user.getOrg().getId());
+            return prevRevision;
+        }
         // Committing the revision commits the file for us (which commits the
         // Channel, so everybody's pointers get updated...)
         ConfigurationFactory.commit(revision);
@@ -198,10 +202,11 @@ public class ConfigFileBuilder {
                                         throws ValidatorException {
         form.validatePath();
         ValidatorResult result;
-        if (!form.getType().equals(file.getLatestConfigRevision().getConfigFileType())) {
+        ConfigRevision latestRevision = file.getLatestConfigRevision();
+        if (!form.getType().equals(latestRevision.getConfigFileType())) {
 
             LocalizationService ls = LocalizationService.getInstance();
-            String fromType = ls.getMessage(file.getLatestConfigRevision().
+            String fromType = ls.getMessage(latestRevision.
                                                     getConfigFileType().getMessageKey());
             String toType =  ls.getMessage(form.getType().getMessageKey());
             ValidatorException.raiseException("error.config-cannot-change-type",
@@ -211,7 +216,7 @@ public class ConfigFileBuilder {
         try {
             if (!StringUtils.isBlank(form.getRevNumber())) {
                 Long l = Long.parseLong(form.getRevNumber());
-                if (l.longValue() <= file.getLatestConfigRevision().getRevision()) {
+                if (l.longValue() <= latestRevision.getRevision()) {
                     result = new ValidatorResult();
                     result.addError(new ValidatorError("error.config.revnum.too-old",
                             form.getPath()));
@@ -220,7 +225,7 @@ public class ConfigFileBuilder {
             }
             else {
                 form.setRevNumber(String.valueOf(
-                        file.getLatestConfigRevision().getRevision() + 1));
+                        latestRevision.getRevision() + 1));
             }
         }
         catch (NumberFormatException nfe) {

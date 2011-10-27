@@ -18,6 +18,9 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.common.Checksum;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * ConfigContent - Class representation of the table rhnConfigContent.
  * @version $Rev$
@@ -161,4 +164,35 @@ public class ConfigContent extends BaseDomainHelper {
     public void setDelimEnd(String delimEndIn) {
         this.delimEnd = delimEndIn;
     }
+
+    /**
+    *
+    * {@inheritDoc}
+    */
+   public int hashCode() {
+       return new HashCodeBuilder()
+           .append(this.getChecksum())
+           .append(this.getContents())
+           .append(this.getDelimStart())
+           .append(this.getDelimEnd())
+           .append(this.isBinary())
+               .toHashCode();
+   }
+
+   /**
+   *
+   * {@inheritDoc}
+   */
+   public boolean equals(Object object) {
+       if (object == null || !(object instanceof ConfigContent)) {
+           return false;
+       }
+       ConfigContent that = (ConfigContent) object;
+       return new EqualsBuilder()
+           .append(this.getChecksum(), that.getChecksum())
+           .append(this.isBinary(), that.isBinary())
+           .append(this.getDelimStart(), that.getDelimStart())
+           .append(this.getDelimEnd(), that.getDelimEnd())
+               .isEquals();
+   }
 }

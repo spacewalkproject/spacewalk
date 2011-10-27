@@ -17,7 +17,6 @@ package com.redhat.rhn.domain.config;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-
 import java.util.Date;
 
 /**
@@ -195,5 +194,17 @@ public class ConfigRevision extends BaseDomainHelper {
      */
     public boolean isSymlink() {
         return (configFileType != null && configFileType.getLabel().equals("symlink"));
+    }
+
+    /**
+     * does the revision match to the other config revision
+     * @param other the other revision
+     * @return True if matches
+     */
+    public boolean matches(ConfigRevision other) {
+        return configFile.equals(other.getConfigFile()) &&
+                configContent.equals(other.getConfigContent()) &&
+                configFileType.equals(other.getConfigFileType()) &&
+                configInfo.equals(other.getConfigInfo());
     }
 }
