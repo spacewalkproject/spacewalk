@@ -349,6 +349,20 @@ def schedule_config_deploy(server_id, action_id, kickstart_session_id,
     else:
         aid = action_id
 
+    tokens_obj = rhnFlags.get("registration_token")
+    if not tokens_obj:
+        log_debug(3, "Failed to get the registration_token")
+        return aid
+    else:
+        tokens_obj = rhnFlags.get("registration_token")
+        deployment = false
+        for token in tokens_obj.tokens:
+            if token['deploy_configs'] == 'Y':
+                deployment = true
+                break
+        if not deployment:
+            return aid
+
     next_action_id = rhnAction.schedule_server_action(
         server_id,
         action_type='configfiles.deploy',
