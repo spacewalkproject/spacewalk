@@ -20,24 +20,30 @@ def main():
     except:
         pass
     server_url = "https://" + server_name + "/APPLET" 
-    diff_count = 0
 
     mem_usage = None
+    mem_usage_VmSize_max = None
+    mem_usage_VmSize_first = None
+    mem_usage_VmSize_allowed_percent = 0.1   # [%] allowed gain of first -> max
     for i in range(10000):
         run_test(server_url, ca_cert)
         if i % 100 == 0:
             new_mem_usage = mem_usage_int()
             if mem_usage is not None:
-                if mem_usage[1] != new_mem_usage[1]:
-                    diff_count = diff_count + 1
+                if new_mem_usage[1] > mem_usage_VmSize_max:
+                    mem_usage_VmSize_max = new_mem_usage[1]
+            else:
+                mem_usage_VmSize_max = new_mem_usage[1]
+                mem_usage_VmSize_first = new_mem_usage[1]
             mem_usage = new_mem_usage
 
             print "memory usage: %s %s %s" % mem_usage[1:4]
 
-    if diff_count > 4:
+    percent = float((mem_usage_VmSize_max - mem_usage_VmSize_first)) / (float(mem_usage_VmSize_first) / 100)
+    if percent >= mem_usage_VmSize_allowed_percent:
         # Failure
         print "Test FAILS"
-        return diff_count
+        return 1
 
     print "Test PASSES"
     return 0
