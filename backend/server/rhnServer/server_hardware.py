@@ -690,7 +690,7 @@ class Hardware:
         return 0
 
     def save_hardware_byid(self, sysid):
-        """ ave the hardware list """
+        """Save the hardware list """
         log_debug(3, sysid, "changed = %s" % self.__changed)
         hardware = self.__hardware
         if hardware == {}: # nothing loaded
