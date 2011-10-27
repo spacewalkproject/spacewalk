@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.64
+Version: 1.6.66
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 26 2011 Martin Minar <mminar@redhat.com> 1.6.66-1
+- 737838 - allow org admins to unschedule repo sync (org tasks)
+  (tlestach@redhat.com)
+- 692357 - clone also kernel and kernel post options when cloning a ks profile
+  (tlestach@redhat.com)
+- DISTINCT is equivalent to UNIQUE. (jpazdziora@redhat.com)
+- 726114 - allow macro delimiters in configchannel.createOrUpdatePath for
+  directories (tlestach@redhat.com)
+
+* Tue Oct 25 2011 Jan Pazdziora 1.6.65-1
+- 682845 - get rid of ChannelFactory.lookupContentSource(id) method without org
+  param (tlestach@redhat.com)
+- 682845 - get rid of ChannelFactory.lookupContentSource(label) method without
+  org param (tlestach@redhat.com)
+- Amending incorrect substitution from ee3623222bf. (slukasik@redhat.com)
+- 682845 - fix apidoc of repository related APIs (tlestach@redhat.com)
+- Do not hardcode config identifier, use defaults instead.
+  (slukasik@redhat.com)
+
 * Mon Oct 24 2011 Simon Lukasik <slukasik@redhat.com> 1.6.64-1
 - No need to have separate configuration per Tomcat's version
   (slukasik@redhat.com)

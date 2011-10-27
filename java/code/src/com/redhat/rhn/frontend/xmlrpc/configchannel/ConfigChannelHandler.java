@@ -382,10 +382,8 @@ public class ConfigChannelHandler extends BaseHandler {
         validKeys.add(ConfigRevisionSerializer.PERMISSIONS);
         validKeys.add(ConfigRevisionSerializer.REVISION);
         validKeys.add(ConfigRevisionSerializer.SELINUX_CTX);
-        if (!isDir) {
-            validKeys.add(ConfigRevisionSerializer.MACRO_START);
-            validKeys.add(ConfigRevisionSerializer.MACRO_END);
-        }
+        validKeys.add(ConfigRevisionSerializer.MACRO_START);
+        validKeys.add(ConfigRevisionSerializer.MACRO_END);
         validateMap(validKeys, data);
 
         if (data.get(ConfigRevisionSerializer.SELINUX_CTX) == null) {

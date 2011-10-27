@@ -28,7 +28,6 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
-import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
@@ -1170,11 +1169,6 @@ public class KickstartData {
         cloned.setDefaultRegTokens(newTokens);
         cloned.setNoBase(this.getNoBase());
         cloned.setIgnoreMissing(this.getIgnoreMissing());
-
-        //create a new session one
-        KickstartSessionCreateCommand cmd = new KickstartSessionCreateCommand(
-                user.getOrg(), cloned);
-        cmd.store();
 
     }
 
