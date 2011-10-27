@@ -193,7 +193,6 @@ Manages RPM packages for the RHN proxy
 <simplelist>
     <member>rhn-proxy(8)</member>
     <member>rhn-proxy-activate(8)</member>
-    <member>rhn-proxy-debug(8)</member>
 </simplelist>
 </RefSect1>
 

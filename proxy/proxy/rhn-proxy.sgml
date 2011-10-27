@@ -41,7 +41,6 @@
 <simplelist>
     <member>rhn_package_manager(8)</member>
     <member>rhn-proxy-activate(8)</member>
-    <member>rhn-proxy-debug(8)</member>
 </simplelist>
 </RefSect1>
 

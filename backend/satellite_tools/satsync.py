@@ -1807,19 +1807,17 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
     # Translate x bytes to string "x MB", "x GB" or "x kB"
     def _bytes_to_fuzzy(self, bytes):
-        kilo=1024
-        mega=kilo*1024
-        giga=mega*1024
-        if (bytes/kilo == 0):
-            return "%d bytes" %(bytes)
-        elif (bytes/mega == 0):
-            return "%d kiB" %(bytes / 1024)
-        elif (bytes/giga == 0):
-            mega_value=bytes / mega
-            return "%d.%03d MiB" %(mega_value, (bytes % mega) / kilo)
-        else:
-            giga_value=bytes / giga
-            return "%d.%03d GiB" %(giga_value, (bytes % giga) / mega)
+        units = [ 'bytes', 'kiB', 'MiB', 'GiB', 'TiB', 'PiB']
+        base = 1024
+        fuzzy = bytes
+        for unit in units:
+            if fuzzy >= base:
+                fuzzy = float(fuzzy)/base
+            else:
+                break
+        int_len = len("%d" % fuzzy)
+        fract_len = 3 - int_len
+        return "%*.*f %s" % (int_len, fract_len, fuzzy, unit)
 
     def _get_package_stream(self, channel, package_id, nvrea, sources):
         """ returns (filepath, stream), so in the case of a "wire source",

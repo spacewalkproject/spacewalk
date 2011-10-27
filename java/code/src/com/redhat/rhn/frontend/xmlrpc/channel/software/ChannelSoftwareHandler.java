@@ -2346,18 +2346,18 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
    /**
-    * Creates a ContentSource (repo)
-    * @param sessionKey WebSession containing User information.
+    * Creates a repository
+    * @param sessionKey Session containing user information.
     * @param label of the repo to be created
     * @param type of the repo (YUM only for now)
     * @param url of the repo
-    * @return the new ContentSource
+    * @return new ContentSource
     *
-    * @xmlrpc.doc Creates a ContentSource (repo)
+    * @xmlrpc.doc Creates a repository
     * @xmlrpc.param #session_key()
-    * @xmlrpc.param #param_desc("string", "label", "label of repo wanted")
-    * @xmlrpc.param #param_desc("string", "type", "type of repo wanted")
-    * @xmlrpc.param #param_desc("string", "url", "url of repo wanted")
+    * @xmlrpc.param #param_desc("string", "label", "repository label")
+    * @xmlrpc.param #param_desc("string", "type", "repository type (only YUM is supported)")
+    * @xmlrpc.param #param_desc("string", "url", "repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource createRepo(String sessionKey, String label, String type,
@@ -2372,65 +2372,69 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         repoCmd.store();
 
-        ContentSource repo = ChannelFactory.lookupContentSource(label);
+        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
+                user.getOrg(), label);
         return repo;
     }
 
    /**
-    * Removes a ContentSource (repo)
-    * @param sessionKey WebSession containing User information.
+    * Removes a repository
+    * @param sessionKey Session containing user information.
     * @param id of the repo to be removed
     * @return Integer 1 on success
     *
-    * @xmlrpc.doc Creates a ContentSource (repo)
+    * @xmlrpc.doc Removes a repository
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("long", "id", "ID of repo to be removed")
     * @xmlrpc.returntype #return_int_success()
    **/
     public Integer removeRepo(String sessionKey, Integer id) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
 
         ChannelFactory.remove(repo);
         return 1;
     }
 
    /**
-    * Removes a ContentSource (repo)
-    * @param sessionKey WebSession containing User information.
+    * Removes a repository
+    * @param sessionKey Session containing user information.
     * @param label of the repo to be removed
     * @return Integer 1 on success
     *
-    * @xmlrpc.doc Creates a ContentSource (repo)
+    * @xmlrpc.doc Removes a repository
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "label", "label of repo to be removed")
     * @xmlrpc.returntype #return_int_success()
    **/
     public Integer removeRepo(String sessionKey, String label) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(label);
+        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
+                label);
 
         ChannelFactory.remove(repo);
         return 1;
     }
 
    /**
-    * Associates a ContentSource (repo) with a channel
-    * @param sessionKey WebSession containing User information.
+    * Associates a repository with a channel
+    * @param sessionKey Session containing user information.
     * @param chanLabel of the channel to use
     * @param repoLabel of the repo to associate
     * @return the channel with the newly associated repo
     *
-    * @xmlrpc.doc Associates a ContentSource (repo) with a channel
+    * @xmlrpc.doc Associates a repository with a channel
     * @xmlrpc.param #session_key()
-    * @xmlrpc.param #param_desc("string", "chanLabel", "of the channel to use")
-    * @xmlrpc.param #param_desc("string", "repoLabel", "of the repo to associate")
+    * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+    * @xmlrpc.param #param_desc("string", "repoLabel", "repository label")
     * @xmlrpc.returntype $ChannelSerializer
    **/
     public Channel associateRepo(String sessionKey, String chanLabel, String repoLabel) {
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, chanLabel);
-        ContentSource repo = ChannelFactory.lookupContentSource(repoLabel);
+        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
+                repoLabel);
 
         Set<ContentSource> set = channel.getSources();
         set.add(repo);
@@ -2440,22 +2444,23 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
    /**
-    * Disassociates a ContentSource (repo) with a channel
-    * @param sessionKey WebSession containing User information.
+    * Disassociates a repository from a channel
+    * @param sessionKey Session containing user information.
     * @param chanLabel of the channel to use
     * @param repoLabel of the repo to disassociate
     * @return the channel minus the disassociated repo
     *
-    * @xmlrpc.doc Disassociates a ContentSource (repo) with a channel
+    * @xmlrpc.doc Disassociates a repository from a channel
     * @xmlrpc.param #session_key()
-    * @xmlrpc.param #param_desc("string", "chanLabel", "of the channel to use")
-    * @xmlrpc.param #param_desc("string", "repoLabel", "of the repo to disassociate")
+    * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+    * @xmlrpc.param #param_desc("string", "repoLabel", "repository label")
     * @xmlrpc.returntype $ChannelSerializer
    **/
     public Channel disassociateRepo(String sessionKey, String chanLabel, String repoLabel) {
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, chanLabel);
-        ContentSource repo = ChannelFactory.lookupContentSource(repoLabel);
+        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
+                repoLabel);
 
         Set<ContentSource> set = channel.getSources();
         set.remove(repo);
@@ -2467,71 +2472,74 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
    /**
-    * Updates the ContentSource (repo) source URL
-    * @param sessionKey WebSession containing User information.
+    * Updates repository source URL
+    * @param sessionKey Session containing user information.
     * @param id ID of the repo
     * @param url new URL to use
     * @return the updated repo
     *
-    * @xmlrpc.doc Updates the ContentSource (repo) source URL
+    * @xmlrpc.doc Updates repository source URL
     * @xmlrpc.param #session_key()
-    * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
-    * @xmlrpc.param #param_desc("string", "url", "new URL to use")
+    * @xmlrpc.param #param_desc("int", "id", "repository id")
+    * @xmlrpc.param #param_desc("string", "url", "repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
         repo.setSourceUrl(url);
         ChannelFactory.save(repo);
         return repo;
     }
 
    /**
-    * Updates the ContentSource (repo) source URL
-    * @param sessionKey WebSession containing User information.
+    * Updates repository source URL
+    * @param sessionKey Session containing user information.
     * @param label of the repo to use
     * @param url new URL to use
     * @return the updated repo
     *
-    * @xmlrpc.doc Updates the ContentSource (repo) source URL
+    * @xmlrpc.doc Updates repository source URL
     * @xmlrpc.param #session_key()
-    * @xmlrpc.param #param_desc("string", "label", "of the repo to use")
-    * @xmlrpc.param #param_desc("string", "url", "new URL to use")
+    * @xmlrpc.param #param_desc("string", "label", "repository label")
+    * @xmlrpc.param #param_desc("string", "url", "repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoUrl(String sessionKey, String label, String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(label);
+        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
+                label);
         repo.setSourceUrl(url);
         ChannelFactory.save(repo);
         return repo;
     }
 
    /**
-    * Updates the ContentSource's (repo) label
-    * @param sessionKey WebSession containing User information.
+    * Updates repository label
+    * @param sessionKey Session containing user information.
     * @param id ID of the repo
     * @param label new label
     * @return the updated repo
     *
-    * @xmlrpc.doc Updates the ContentSource's (repo) label
+    * @xmlrpc.doc Updates repository label
     * @xmlrpc.param #session_key()
-    * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
-    * @xmlrpc.param #param_desc("string", "label", "new label to use")
+    * @xmlrpc.param #param_desc("int", "id", "repository id")
+    * @xmlrpc.param #param_desc("string", "label", "new repository label")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoLabel(String sessionKey, Integer id, String label) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
         repo.setLabel(label);
         ChannelFactory.save(repo);
         return repo;
     }
 
    /**
-    * Updates a ContentSource (repo)
-    * @param sessionKey WebSession containing User information.
+    * Updates a repository
+    * @param sessionKey Session containing user information.
     * @param id ID of the repo
     * @param label new label
     * @param url new URL
@@ -2539,15 +2547,16 @@ public class ChannelSoftwareHandler extends BaseHandler {
     *
     * @xmlrpc.doc Updates a ContentSource (repo)
     * @xmlrpc.param #session_key()
-    * @xmlrpc.param #param_desc("Long", "id", "of the repo to use")
-    * @xmlrpc.param #param_desc("string", "label", "new label to use")
-    * @xmlrpc.param #param_desc("string", "url", "new URL to use")
+    * @xmlrpc.param #param_desc("int", "id", "repository id")
+    * @xmlrpc.param #param_desc("string", "label", "new repository label")
+    * @xmlrpc.param #param_desc("string", "url", "new repository URL")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepo(String sessionKey, Integer id, String label,
             String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
+                user.getOrg());
         repo.setLabel(label);
         repo.setSourceUrl(url);
         ChannelFactory.save(repo);
@@ -2556,23 +2565,24 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Returns the details of the given repo
-     * @param sessionKey WebSession containing User information.
+     * @param sessionKey Session containing user information.
      * @param repoLabel Label of repo whose details are sought.
      * @return the repo requested.
      *
-     * @xmlrpc.doc Returns details of the given repo
+     * @xmlrpc.doc Returns details of the given repository
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "repoLabel", "repo to query")
      * @xmlrpc.returntype
      *     $ContentSourceSerializer
      */
     public ContentSource getRepoDetails(String sessionKey, String repoLabel) {
-        return ChannelFactory.lookupContentSource(repoLabel);
+        User user = getLoggedInUser(sessionKey);
+        return ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(), repoLabel);
     }
 
     /**
      * Returns the details of the given repo
-     * @param sessionKey WebSession containing User information.
+     * @param sessionKey Session containing user information.
      * @param id ID of repo whose details are sought.
      * @return the repo requested.
      *
@@ -2583,7 +2593,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *     $ContentSourceSerializer
      */
     public ContentSource getRepoDetails(String sessionKey, Integer id) {
-        return ChannelFactory.lookupContentSource(new Long(id.longValue()));
+        User user = getLoggedInUser(sessionKey);
+        return ChannelFactory.lookupContentSource(new Long(id.longValue()), user.getOrg());
     }
 
     /**

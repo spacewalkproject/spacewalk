@@ -40,6 +40,7 @@ public class Device extends BaseDomainHelper {
     public static final String BUS_USB = "USB";
     public static final String BUS_VIO = "VIO";
     public static final String BUS_PCI = "PCI";
+    public static final String BUS_XEN = "XEN";
 
     /** Constants for Device classes */
     public static final String CLASS_AUDIO = "AUDIO";

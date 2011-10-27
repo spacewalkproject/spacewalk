@@ -235,7 +235,7 @@
       </c:forEach>
     </table>
 
-    <c:if test="${not empty videoDevices}">
+    <c:if test="${not empty storageDevices}">
     <h2><bean:message key="sdc.details.hardware.storage"/></h2>
     <table class="list" width="90%" cellspacing="0">
       <thead>

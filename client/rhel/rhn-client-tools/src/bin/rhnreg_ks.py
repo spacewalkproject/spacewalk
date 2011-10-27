@@ -178,7 +178,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 sys.stderr.write(_("Warning: yum-rhn-plugin is not present, could not enable it."))
         except IOError, e:
             sys.stderr.write(_("Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
-        RegisterKsCli.__runRhnCheck()
+        RegisterKsCli.__runRhnCheck(self.options.verbose)
 
     @staticmethod
     def __generateProfileName(hardwareList):
@@ -207,8 +207,11 @@ class RegisterKsCli(rhncli.RhnCli):
         return profileName
 
     @staticmethod
-    def __runRhnCheck():
-        os.system("/usr/sbin/rhn_check")
+    def __runRhnCheck(verbose):
+        if verbose:
+            os.system("/usr/sbin/rhn_check %s" % '-' + ('v' * verbose))
+        else:
+            os.system("/usr/sbin/rhn_check")
 
 if __name__ == "__main__":
     cli = RegisterKsCli()

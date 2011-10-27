@@ -118,30 +118,6 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup a content source  by id
-     * @param id the id to lookup
-     * @return the ContentSource
-     */
-    public static ContentSource lookupContentSource(Long id) {
-        Map params = new HashMap();
-        params.put("id", id);
-        return (ContentSource) singleton.lookupObjectByNamedQuery(
-                "ContentSource.findById", params);
-    }
-
-    /**
-     * Lookup a content source  by label
-     * @param label the label to lookup
-     * @return the ContentSource
-     */
-    public static ContentSource lookupContentSource(String label) {
-        Map params = new HashMap();
-        params.put("label", label);
-        return (ContentSource) singleton.lookupObjectByNamedQuery(
-                "ContentSource.findByLabel", params);
-    }
-
-    /**
      * Lookup a content source by org
      * @param org the org to lookup
      * @return the ContentSource(s)
@@ -173,12 +149,12 @@ public class ChannelFactory extends HibernateFactory {
      * @param label repo label
      * @return the ContentSource(s)
      */
-    public static List<ContentSource> lookupContentSourceByOrgAndLabel(Org org,
+    public static ContentSource lookupContentSourceByOrgAndLabel(Org org,
             String label) {
         Map params = new HashMap();
         params.put("org", org);
         params.put("label", label);
-        return singleton.listObjectsByNamedQuery(
+        return (ContentSource) singleton.lookupObjectByNamedQuery(
                 "ContentSource.findByOrgAndLabel", params);
     }
 

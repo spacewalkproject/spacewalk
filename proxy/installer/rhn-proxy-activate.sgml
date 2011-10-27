@@ -166,7 +166,6 @@
 <simplelist>
     <member>rhn_package_manager(8)</member>
     <member>rhn-proxy(8)</member>
-    <member>rhn-proxy-debug(8)</member>
     <member>configure-proxy.sh(8)</member>
 </simplelist>
 </RefSect1>

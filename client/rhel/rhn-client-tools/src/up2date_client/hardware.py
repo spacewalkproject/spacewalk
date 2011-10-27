@@ -15,7 +15,7 @@
 
 # This thing gets the hardware configuraion out of a system
 """Used to read hardware info from kudzu, /proc, etc"""
-from socket import gethostname, AF_INET, AF_INET6
+from socket import gethostname, getaddrinfo, AF_INET, AF_INET6
 import socket
 import re
 import os

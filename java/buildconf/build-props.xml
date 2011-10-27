@@ -80,7 +80,7 @@
   <property name="build.jar.dependencies"
       value="ant ant-junit ${ant-contrib.path} antlr
       ${common.jar.dependencies} tanukiwrapper ${tomcat-jars} ${jasper-jars}
-       concurrent" />
+       concurrent xalan-j2" />
 
   <property name="run.jar.dependencies"
       value="antlr ${asm} cglib c3p0 commons-discovery dom4j jaf jta

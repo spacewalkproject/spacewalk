@@ -168,7 +168,7 @@ class ConnectionManager {
  Config.get()
                     .getString(ConfigDefaults.DB_PASSWORD));
             String connectionUrl =
-                        Config.get().getString("hibernate.connection.driver_proto") + ":";
+                        Config.get().getString(ConfigDefaults.DB_PROTO) + ":";
             String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
             String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
             String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);

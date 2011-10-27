@@ -1,9 +1,0 @@
-ChangeLog
-Error.pm
-Error.ppd
-MANIFEST
-Makefile.PL
-README
-example
-t/01throw.t
-t/02order.t

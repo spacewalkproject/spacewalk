@@ -102,7 +102,7 @@ public class BaseRepoCommand {
         repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
 
         if (!this.label.equals(repo.getLabel())) {
-            if (!ChannelFactory.lookupContentSourceByOrgAndLabel(org, label).isEmpty()) {
+            if (ChannelFactory.lookupContentSourceByOrgAndLabel(org, label) != null) {
                 throw new InvalidRepoLabelException(label);
             }
             repo.setLabel(this.label);

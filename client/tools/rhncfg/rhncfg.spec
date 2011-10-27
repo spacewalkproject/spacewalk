@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.18
+Version: 5.10.19
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 24 2011 Jan Pazdziora 5.10.19-1
+- 743121 - don't report differences containing invalid UTF-8
+  (mzazrivec@redhat.com)
+
 * Wed Oct 19 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.10.18-1
 - 743424 - rhncfg-client diff: do not fail when not a valid symlink
 

@@ -134,7 +134,7 @@ public class KickstartFormatter {
         "cp -fa /tmp/ks-tree-shadow/* /mnt/sysimage/tmp/ks-tree-copy" + NEWLINE +
         "fi" + NEWLINE +
         "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE +
-        "cp -f /tmp/ks-pre.log* /mnt/sysimage/root/" + NEWLINE;
+        "cp -f /tmp/ks-pre.log* /mnt/sysimage/root/ || :" + NEWLINE;
     private static final String RHN_TRACE = "set -x" + NEWLINE;
     private static final String XMLRPC_HOST =
         Config.get().getString(ConfigDefaults.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
@@ -923,8 +923,8 @@ public class KickstartFormatter {
 
         retval.append("cat /tmp/ssl-key-* > /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT" +
                 NEWLINE);
-        retval.append("perl -npe 's/RHNS-CA-CERT/RHN-ORG-TRUSTED-SSL-CERT/g' " +
-                "-i /etc/sysconfig/rhn/*" + NEWLINE);
+        retval.append("perl -pe 's/RHNS-CA-CERT/RHN-ORG-TRUSTED-SSL-CERT/g' " +
+                "-i /etc/sysconfig/rhn/up2date" + NEWLINE);
 
         return retval.toString();
     }

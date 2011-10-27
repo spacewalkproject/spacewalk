@@ -6627,6 +6627,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
+      <trans-unit id="kickstart.profile.default_session">
+        <source>Default session activation key for profile {0}.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="kickstart.session.newprofile">
         <source>Profile for kickstart session {0}.</source>
         <context-group name="ctx">

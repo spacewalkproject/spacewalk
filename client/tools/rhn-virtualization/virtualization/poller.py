@@ -72,7 +72,7 @@ def poll_hypervisor():
         return {}
 
     try:
-        conn = libvirt.open(None)
+        conn = libvirt.openReadOnly(None)
     except libvirt.libvirtError, lve:
         # virConnectOpen() failed
         sys.stderr.write(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"))
@@ -151,7 +151,7 @@ def poll_through_vdsm():
 
     if not len(domains['vmList']):
         # No domains, exit.
-        return
+        return {}
 
     state = {}
     for domain in domains['vmList']:
@@ -193,7 +193,7 @@ def poll_state(uuid):
     Polls just the state of the guest with the provided UUID.  This state is
     returned.
     """
-    conn = libvirt.open(None)
+    conn = libvirt.openReadOnly(None)
     if not conn:
         raise VirtualizationException, \
               "Failed to open connection to hypervisor."

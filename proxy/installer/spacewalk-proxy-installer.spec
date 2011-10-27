@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.6.5
+Version: 1.6.7
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -84,6 +84,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Oct 26 2011 Miroslav Suchý 1.6.7-1
+- there is no rhn-proxy-debug for some time
+
+* Mon Oct 24 2011 Miroslav Suchý 1.6.6-1
+- increase maximum_object_size_in_memory
+- comment some squid directives
+
 * Wed Sep 21 2011 Miroslav Suchý 1.6.5-1
 - 737853 - if rhn-ca-openssl.cnf does not exist, then check should succeed
 - 737853 - do not print output of awk, we care just about exit code

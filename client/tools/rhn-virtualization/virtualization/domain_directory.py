@@ -67,7 +67,7 @@ class DomainDirectory:
 
     def __init__(self):
         self.__path = CONFIG_DIR
-        self.conn = libvirt.open(None)
+        self.conn = libvirt.openReadOnly(None)
         if not self.conn:
             raise VirtualizationException, \
                   "Failed to open connection to hypervisor."
