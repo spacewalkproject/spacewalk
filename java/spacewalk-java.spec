@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.66
+Version: 1.6.67
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,20 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 28 2011 Jan Pazdziora 1.6.67-1
+- 600527 - for kickstart session (re)activation keys, always set the
+  deployConfigs to false.
+- The KickstartSessionCreateCommand is duplicated in KickstartWizardHelper.
+- For the default_session, use better note in rhnregtoken table.
+- declare net.sf.antcontrib.logic.For task to fix create-webapp-dir
+  (berendt@b1-systems.de)
+- adding xalan-j2 to the build.jar.dependencies property
+  (berendt@b1-systems.de)
+- When there are not ks-pre.log files, do not return error.
+- Doing replacement on all files is not nice.
+- The -n and -p are exclusive in perl, let us just settle on -p.
+- 748903 - extend search_string maxlenght (tlestach@redhat.com)
+
 * Wed Oct 26 2011 Martin Minar <mminar@redhat.com> 1.6.66-1
 - 737838 - allow org admins to unschedule repo sync (org tasks)
   (tlestach@redhat.com)
