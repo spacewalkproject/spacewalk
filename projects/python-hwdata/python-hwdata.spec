@@ -9,7 +9,7 @@ Summary:	Python bindings to hwdata package
 BuildArch:  noarch
 Group:		Development/Libraries
 License:	GPLv2
-URL:		https://fedorahosted.org/spacewalk
+URL:		https://fedorahosted.org/spacewalk/wiki/Projects/python-hwdata
 Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
