@@ -294,10 +294,6 @@ if __name__ == "__main__":
         # useless.  Just exit.
         sys.exit(0)
 
-    if not domain_list:
-    # No domains returned, nothing to do, exit polling
-        sys.exit(0)
-
     # create the unkonwn domain config files (for libvirt only)
     if libvirt and not vdsm_enabled:
         uuid_list = domain_list.keys()
