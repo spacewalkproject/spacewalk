@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.29
+Version:        5.4.30
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -134,6 +134,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Oct 31 2011 Miroslav Suchý 5.4.30-1
+- fix vm-state poller (ug@suse.de)
+
 * Thu Oct 27 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.4.29-1
 - 742811 - domain_directory: R/O access to libvirtd is sufficient
 
