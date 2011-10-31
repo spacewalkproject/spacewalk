@@ -533,6 +533,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelById(user, channelId);
 
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("checksum_label");
+        validKeys.add("name");
+        validKeys.add("summary");
+        validKeys.add("description");
+        validKeys.add("maintainer_name");
+        validKeys.add("maintainer_email");
+        validKeys.add("maintainer_phone");
+        validKeys.add("gpg_key_url");
+        validKeys.add("gpg_key_id");
+        validKeys.add("gpg_key_fp");
+        validateMap(validKeys, details);
+
         UpdateChannelCommand ucc = new UpdateChannelCommand(user, channel);
 
         if (details.containsKey("checksum_label")) {
