@@ -183,7 +183,7 @@ class RegisterKsCli(rhncli.RhnCli):
     @staticmethod
     def __generateProfileName(hardwareList):
         hostname = None
-        ipaddr = None
+        ipaddr = ip6addr = None
         profileName = None
         for hw in hardwareList:
             if hw['class'] == 'NETINFO':
