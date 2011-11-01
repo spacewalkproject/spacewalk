@@ -70,7 +70,7 @@ class RetryServer(rpclib.Server):
                 self._host, self._handler = urllib.splithost(uri)
                 self._orig_handler = self._handler
                 self._type = typ
-                self._uri = uri
+                self._uri = self.serverList.server()
                 if not self._handler:
                     self._handler = "/RPC2"
                 self._allow_redirect = 1
