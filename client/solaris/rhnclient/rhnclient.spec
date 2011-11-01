@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.13
+Version: 0.14
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Tue Nov 01 2011 Michael Mraka <michael.mraka@redhat.com> 0.14-1
+- 744287 - fixed path so it isn't substituted in rpm2pkg
+
 * Wed Mar 30 2011 Miroslav Suchý 0.13-1
 - 683200 - instead of encodings.idna use wrapper from rhn.connections, which
   workaround corner cases
