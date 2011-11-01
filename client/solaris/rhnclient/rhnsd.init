@@ -30,7 +30,7 @@ RHNSD_PID=$PREFIX/var/run/rhnsd.pid
 [ -f $PREFIX/etc/sysconfig/rhn/systemid ] || exit 0
 
 # read configuration settings (interval) for rhnsd, if present.
-if [ -f $PREFIX//etc/sysconfig/rhn/rhnsd ]; then
+if [ -f $PREFIX/etc/sysconfig/rhn/rhnsd ]; then
   . $PREFIX/etc/sysconfig/rhn/rhnsd
 fi
 
