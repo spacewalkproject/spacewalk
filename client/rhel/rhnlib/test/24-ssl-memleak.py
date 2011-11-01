@@ -24,7 +24,7 @@ def main():
     mem_usage = None
     mem_usage_VmSize_max = None
     mem_usage_VmSize_first = None
-    mem_usage_VmSize_allowed_percent = 0.1   # [%] allowed gain of first -> max
+    mem_usage_VmSize_allowed_percent = 0.5   # [%] allowed gain of first -> max
     for i in range(10000):
         run_test(server_url, ca_cert)
         if i % 100 == 0:
@@ -42,7 +42,7 @@ def main():
     percent = float((mem_usage_VmSize_max - mem_usage_VmSize_first)) / (float(mem_usage_VmSize_first) / 100)
     if percent >= mem_usage_VmSize_allowed_percent:
         # Failure
-        print "Test FAILS"
+        print "Test FAILS (%s %%)" % percent
         return 1
 
     print "Test PASSES"
