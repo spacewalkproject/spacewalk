@@ -30,6 +30,14 @@
           </tr>
           <tr>
               <th>
+                  <bean:message key="kickstart.script.scriptname"/>
+              </th>
+              <td>
+                  ${ksscript.scriptName}
+              </td>
+          </tr>
+          <tr>
+              <th>
                   <bean:message key="kickstart.script.language"/>
               </th>
               <td>

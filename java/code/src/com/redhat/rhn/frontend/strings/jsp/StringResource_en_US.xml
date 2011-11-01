@@ -10571,6 +10571,13 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+    <trans-unit id="kickstartscript.jsp.scriptname">
+        <source>Script Name</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
+        </context-group>
+    </trans-unit>
+
     <trans-unit id="kickstartscript.jsp.language">
         <source>Scripting Language</source>
         <context-group name="ctx">
@@ -11641,6 +11648,13 @@ Please note that some manual configuration of these scripts may still be require
 
       <trans-unit id="kickstart.script.language">
         <source>Scripting Language</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="kickstart.script.scriptname">
+        <source>Script Name</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
         </context-group>

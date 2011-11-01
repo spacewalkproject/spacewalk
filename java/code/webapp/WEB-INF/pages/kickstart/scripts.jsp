@@ -41,6 +41,9 @@
         <rhn:column header="kickstartscript.jsp.scriptnum">
           <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}"><bean:message key="kickstartscript.jsp.script"/> ${current.position}</a>
         </rhn:column>
+        <rhn:column header="kickstartscript.jsp.scriptname">
+          <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}">${current.scriptName}</a>
+        </rhn:column>
         <rhn:column header="kickstartscript.jsp.language">
         ${current.interpreter}
         </rhn:column>

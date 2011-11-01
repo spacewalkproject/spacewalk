@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction {
 
+    public static final String SCRIPTNAME = "script_name";
     public static final String CONTENTS = "contents";
     public static final String LANGUAGE = "language";
     public static final String TYPE = "type";
@@ -73,11 +74,13 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             return new ValidatorError("kickstart.script.toolarge",
                     LocalizationService.getInstance().formatNumber(new Long(maxLength)));
         }
+
         kssc.setScript(form.getString(LANGUAGE),
                 scriptValue,
                 form.getString(TYPE),
                 chroot,
-                template);
+                template,
+                form.getString(SCRIPTNAME));
         return null;
     }
 
@@ -100,6 +103,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
 
         BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
         form.set(CONTENTS, kssc.getContents());
+        form.set(SCRIPTNAME, kssc.getScriptName());
         form.set(LANGUAGE, kssc.getLanguage());
         form.set(TYPE, kssc.getType());
         form.set(NOCHROOT, kssc.getNoChrootVal());

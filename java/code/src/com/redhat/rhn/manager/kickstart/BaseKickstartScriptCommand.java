@@ -61,9 +61,11 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      * @param typeIn of script (KickstartScript.TYPE_POST or KickstartScript.TYPE_PRE)
      * @param chrootIn value of chroot ("Y" or "N")
      * @param templatize whether to templatize the script or not
+     * @param scriptName name of the script
      */
     public void setScript(String language, String contentsIn,
-                               String typeIn, String chrootIn, boolean templatize) {
+                               String typeIn, String chrootIn, boolean templatize,
+                               String scriptName) {
         if (!typeIn.equals(KickstartScript.TYPE_POST) &&
                 !typeIn.equals(KickstartScript.TYPE_PRE)) {
             throw new IllegalArgumentException("Unknown script type: " + typeIn);
@@ -86,10 +88,18 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
             language = language.trim();
         }
 
+        if (StringUtils.isBlank(scriptName)) {
+            scriptName = null;
+        }
+        else {
+            scriptName = scriptName.trim();
+        }
+
         this.script.setInterpreter(language);
         this.script.setScriptType(typeIn);
         this.script.setChroot(chrootIn);
         this.script.setRaw(!templatize); //template is the ! of raw
+        this.script.setScriptName(scriptName);
     }
 
     /**
@@ -107,6 +117,14 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      */
     public String getLanguage() {
         return this.script.getInterpreter();
+    }
+
+    /**
+     * Get the name of this script
+     * @return String
+     */
+    public String getScriptName() {
+        return this.script.getScriptName();
     }
 
     /**

@@ -30,10 +30,27 @@ public class ScriptDto extends BaseDto {
     private String chroot;
     private String interpreter;
     private int position;
+    private String scriptName;
     private static final String BASH = "bash";
     private static final String PRE = "Pre";
     private static final String POST = "Post";
     private static final String CHROOTPOST = "Nochroot Post";
+
+    /**
+     *
+     * @return scriptName
+     */
+    public String getScriptName() {
+        return scriptName;
+    }
+
+    /**
+     *
+     * @param scriptNameIn to set
+     */
+    public void setScriptName(String scriptNameIn) {
+        this.scriptName = scriptNameIn;
+    }
 
     /**
      *

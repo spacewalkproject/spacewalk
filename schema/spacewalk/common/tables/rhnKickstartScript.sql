@@ -17,6 +17,7 @@
 CREATE TABLE rhnKickstartScript
 (
     id            NUMBER NOT NULL,
+    script_name   VARCHAR2(40),
     kickstart_id  NUMBER NOT NULL
                       CONSTRAINT rhn_ksscript_ksid_fk
                           REFERENCES rhnKSData (id)

@@ -32,6 +32,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
     private String scriptType;
     private String chroot;
     private String interpreter;
+    private String scriptName;
     private byte[] data;
     private Date created;
     private Date modified;
@@ -45,6 +46,22 @@ public class KickstartScript implements Comparable<KickstartScript> {
     public KickstartScript() {
         this.chroot = "Y";
         this.scriptType = TYPE_PRE;
+    }
+
+    /**
+     * Getter for scriptName
+     * @return String to get
+    */
+    public String getScriptName() {
+        return this.scriptName;
+    }
+
+    /**
+     * Setter for scriptName
+     * @param scriptNameIn to set
+    */
+    public void setScriptName(String scriptNameIn) {
+        this.scriptName = scriptNameIn;
     }
 
     /**
@@ -214,6 +231,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
     public KickstartScript deepCopy(KickstartData ksDataIn) {
         KickstartScript cloned = new KickstartScript();
         cloned.setChroot(this.getChroot());
+        cloned.setScriptName(this.getScriptName());
         cloned.setData(this.getData());
         cloned.setInterpreter(this.getInterpreter());
         cloned.setKsdata(ksDataIn);
