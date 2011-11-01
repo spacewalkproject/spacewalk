@@ -1,0 +1,95 @@
+#!/usr/bin/python
+#
+# Author: Aron Parsons <parsonsa@bit-sys.com>
+#
+
+from optparse import Option, OptionParser
+import logging, os, shutil, sys, tempfile, xmlrpclib
+import gpgme
+
+opts = [ Option('-u', '--username'),
+         Option('-p', '--password'),
+         Option('-s', '--server'),
+         Option('-t', '--test', action = 'store_true'),
+         Option('-d', '--debug', action = 'store_true')
+       ]
+
+usage = '%prog [options] GPG_KEY ...'
+
+(options, args) = OptionParser(option_list = opts, usage = usage).parse_args()
+
+if options.debug:
+    level = logging.DEBUG
+else:
+    level = logging.INFO
+
+logging.basicConfig(level = level, format = '%(levelname)s: %(message)s')
+        
+# warn the user that they're in test mode
+if options.test:
+    logging.info('TEST MODE: no providers will be added to the server')
+
+if not options.server:
+    options.server = 'localhost'
+
+if not options.username or not options.password:
+    logging.error('--username or --password missing')
+    sys.exit(1)
+
+if not len(args):
+    logging.error('You must supply at least one key file')
+    sys.exit(1)
+
+# login to the Spacewalk server
+try:
+    client = xmlrpclib.Server('https://%s/rpc/api' % options.server)
+    session = client.auth.login(options.username, options.password)
+except Exception, e:
+    if options.debug: logging.exception(e)
+    logging.error('Failed to login to the server')
+    sys.exit(1)
+
+for key_file in args:
+    logging.debug('Processing %s' % key_file)
+
+    if not os.path.exists(key_file):
+        logging.error('%s does not exist' % key_file)
+        continue
+
+    # use a temporary directory for the GPG keyring
+    gpg_home = tempfile.mkdtemp()
+    logging.debug('Using %s as the GPG directory' % gpg_home)
+    os.environ['GNUPGHOME'] = gpg_home
+
+    # read the key's provider and ID
+    try:
+        ctx = gpgme.Context()
+    
+        result = ctx.import_(open(key_file, 'rb'))
+    
+        for key in ctx.keylist():
+            provider_name = key.uids[0].name
+            key_id = key.subkeys[0].keyid.lower()
+
+        # remove our temporary GPG home
+        shutil.rmtree(gpg_home)
+    except Exception, e:
+        if options.debug: logging.exception(e)
+        logging.error('Failed to read the key: %s' % key_file)
+        continue
+    
+    try:
+        logging.info('Adding %s as %s' % (key_id, provider_name))
+
+        if options.test: continue
+    
+        client.packages.provider.associateKey(session, 
+                                              provider_name, 
+                                              key_id,
+                                              'gpg')
+    except Exception, e:
+        if options.debug: logging.exception(e)
+        logging.error('Failed to add the key to the server: %s' % key_file)
+        continue
+
+# vim:ts=4:expandtab:
