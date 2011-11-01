@@ -91,7 +91,7 @@ class RhnCli(object):
             sys.stderr.write(_("A common cause of this error is the system time being incorrect. " \
                                "Verify that the time on this system is correct.\n"))
             sys.exit(1)
-        except SSL.SysCallError, socket.error:
+        except (SSL.SysCallError, socket.error), e:
             sys.stderr.write("OpenSSL.SSL.SysCallError: %s\n" % str(e))
             sys.exit(2)
         except crypto.Error, e:
