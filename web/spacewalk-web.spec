@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.25
+Version: 1.6.26
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Nov 02 2011 Jan Pazdziora 1.6.26-1
+- Workaround for DBD::Pg bug https://rt.cpan.org/Ticket/Display.html?id=70953.
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.25-1
 - 678118 - if system already is proxy, losen the ACL and show the tab.
 - Recent commit makes version_string_to_evr_array unused, dropping.
