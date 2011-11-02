@@ -59,11 +59,14 @@ class _DoCallWrapper(object):
             pieces = error.split(',')
             message = ""
             if len(pieces) > 2:
-                message = pieces[2].strip(" '")
+                message = pieces[2]
+            elif len(pieces) == 2:
+                message = pieces[1]
+            message = message.strip(" '")
             if message == 'certificate verify failed':
                 raise up2dateErrors.SSLCertificateVerifyFailedError(), None, sys.exc_info()[2]
             else:
-                raise
+                raise up2dateErrors.NetworkError(message), None, sys.exc_info()[2]
     
     def __exception_from_fault(self, fault):
             if fault.faultCode == -3:

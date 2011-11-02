@@ -15,7 +15,14 @@ import OpenSSL
 import config
 from platform import getPlatform
 
-class Error:
+if getPlatform() == 'deb':
+    RepoError = Error
+    class YumBaseError:
+        pass
+else:
+    from yum.Errors import RepoError, YumBaseError
+
+class Error(YumBaseError):
     """base class for errors"""
     premsg = ''
     def __init__(self, errmsg):
@@ -138,10 +145,9 @@ class ServerCapabilityError(Error):
 class NoChannelsError(NoLogError):
     pass
 
-if getPlatform() == 'deb':
-    RepoError = Error
-else:
-    from yum.Errors import RepoError
+class NetworkError(Error):
+    """ some generic network error occured, e.g. connection reset by peer """
+    premsg = _("Network error: ")
 
 class SSLCertificateVerifyFailedError(RepoError):
     def __init__(self):
