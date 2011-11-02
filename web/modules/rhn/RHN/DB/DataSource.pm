@@ -44,7 +44,7 @@ sub run_complex_query {
 
   while (my @values = splice @all_values, 0, MAX_BIND_PARAMS, ()) {
     my %param_map = map { ("p$_", $values[$_]) } 0 .. $#values;
-    my $query_body = sprintf $original_body, join(", ", map { ":$_" } keys %param_map);
+    my $query_body = sprintf $original_body, join(", ", map { ":$_" } sort keys %param_map);
 
     my %query_params = %{$original_params};
     @query_params{keys %param_map} = values %param_map;
