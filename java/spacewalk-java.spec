@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.70
+Version: 1.6.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 03 2011 Tomas Lestach <tlestach@redhat.com> 1.6.71-1
+- 725050 - fix activationkey.setDetails apidoc (tlestach@redhat.com)
+- 723528 - fix kickstart.profile.listScripts apidoc (tlestach@redhat.com)
+- 610784 - fix system.listNotes apidoc (tlestach@redhat.com)
+- 610157 - fix system.getScriptActionDetails apidoc (tlestach@redhat.com)
+- 751017 - item identifing user which scheduled the action is optional
+  (slukasik@redhat.com)
+
 * Wed Nov 02 2011 Tomas Lestach <tlestach@redhat.com> 1.6.70-1
 - introducing name for scripts in kickstart profiles in the webinterface
   (berendt@b1-systems.de)
