@@ -3335,11 +3335,10 @@ public class SystemHandler extends BaseHandler {
      *      #struct("Script details")
      *          #prop_desc("int" "id" "action id")
      *          #prop_desc("string" "content" "script content")
-     *          #prop_desc("string" "id" "action id")
      *          #prop_desc("string" "run_as_user" "Run as user")
      *          #prop_desc("string" "run_as_group" "Run as group")
      *          #prop_desc("int" "timeout" "Timeout in seconds")
-     *          #prop("$ScriptResultSerializer", "result")
+     *          #array_single("$ScriptResultSerializer", "result")
      *      #struct_end()
      */
     public Map getScriptActionDetails(String sessionKey, Integer actionId) {
