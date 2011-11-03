@@ -37,6 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("string", "note", "Contents of the note")
  *   #prop_desc("int", "system_id", "The id of the system associated with the note")
  *   #prop_desc("string", "creator",  "Creator of the note")
+ *   #prop_desc("date", "updated",  "Date of the last note update")
  * #struct_end()
  */
 public class NoteSerializer implements XmlRpcCustomSerializer {
