@@ -21,6 +21,7 @@
 import sys
 import os
 import xmlrpclib
+import socket
 
 from optparse import Option
 from optparse import OptionParser
