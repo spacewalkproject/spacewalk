@@ -53,6 +53,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
 *       #struct_end()
 *     #prop_array_end()
 *     #prop("boolean", "universal_default")
+*     #prop("boolean", "disabled")
 *   #struct_end()
 */
 public class TokenSerializer implements XmlRpcCustomSerializer {
