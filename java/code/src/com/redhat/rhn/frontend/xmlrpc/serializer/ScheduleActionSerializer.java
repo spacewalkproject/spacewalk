@@ -34,7 +34,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("int", "id", "Action Id.")
  *   #prop_desc("string", "name", "Action name.")
  *   #prop_desc("string", "type", "Action type.")
- *   #prop_desc("string", "scheduler", "The user that scheduled the action.")
+ *   #prop_desc("string", "scheduler", "The user that scheduled the action. (optional)")
  *   #prop_desc($date, "earliest", "The earliest date and time the action
  *   will be performed")
  *   #prop_desc("int", "completedSystems", "Number of systems that completed the action.")
