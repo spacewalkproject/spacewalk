@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.32
+Version: 1.6.33
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Nov 03 2011 Miroslav Suchý 1.6.33-1
+- 595837 - add missing import
+
 * Wed Nov 02 2011 Miroslav Suchý 1.6.32-1
 - 595837 - all up2date bugs now inherit from YumBaseError so yum/pup can catch
   them
