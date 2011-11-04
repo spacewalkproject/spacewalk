@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Fri Nov 04 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.2-1
+- 679335 - remove osa-dispatcher login credentials from rhn.conf
+
 * Fri Oct 07 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.1-1
 - 715271 - define AJP connector on [::1]:8009
 
