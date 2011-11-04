@@ -1040,8 +1040,6 @@ sub populate_initial_configs {
      hibernate_driver_proto => $hibernate_driver_proto,
      traceback_mail => $answers->{'admin-email'},
      jabberDOThostname => $answers->{hostname},
-     osadispatcherDOTusername => 'rhn-dispatcher-sat',
-     osadispatcherDOTpassword => 'rhn-dispatcher-' . random_password(6),
      serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
      serverDOTnls_lang => 'english.' . $charset,
      server_secret_key => generate_secret(),
@@ -1263,27 +1261,6 @@ sub random_bits {
   }
 
   return $rand_data;
-}
-
-
-
-sub random_password {
-  my $length = shift;
-
-  die "random password too short\n"
-    unless $length > 5;
-
-  my $ret;
-  my @chars = ('a'..'z');
-  my @nums = ('0'..'9');
-
-  $ret .= $chars[int rand @chars]
-    while $length-- > 5;
-
-  $ret .= $nums[int rand @nums]
-    while $length-- >= 0;
-
-  return $ret;
 }
 
 sub setup_gpg {
