@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.71
+Version: 1.6.72
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 04 2011 Tomas Lestach <tlestach@redhat.com> 1.6.72-1
+- 723528 - fix template attribute type in kickstart.profile API documentation
+  (tlestach@redhat.com)
+- 699505 - restrict manageable flag only for custom channels
+  (tlestach@redhat.com)
+- 699505 - fix typo: *managable -> *mangeable in channel.software APIs and
+  their doc (tlestach@redhat.com)
+- 593300 - handle directoriy and symlink config revision comparism
+  (tlestach@redhat.com)
+
 * Thu Nov 03 2011 Tomas Lestach <tlestach@redhat.com> 1.6.71-1
 - 725050 - fix activationkey.setDetails apidoc (tlestach@redhat.com)
 - 723528 - fix kickstart.profile.listScripts apidoc (tlestach@redhat.com)
