@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.6.3
+Version: 1.6.4
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -105,6 +105,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Fri Nov 04 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.4-1
+- 679335 - remove osa-dispatcher login credentials from rhn.conf
+
 * Mon Oct 03 2011 Jan Pazdziora 1.6.3-1
 - 621531 - fixing rhn.conf(5) man page.
 
