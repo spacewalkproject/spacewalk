@@ -39,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                      shell.")
  *          #prop_desc("boolean", "chroot", "True if the script will be executed within the
  *                  chroot environment.")
- *          #prop_desc("string", "template", "True if templating using cobbler is enabled")
+ *          #prop_desc("boolean", "template", "True if templating using cobbler is enabled")
  *     #struct_end()
  */
 public class KickstartScriptSerializer implements XmlRpcCustomSerializer {
