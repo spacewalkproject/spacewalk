@@ -26,9 +26,9 @@ import redstone.xmlrpc.XmlRpcServer;
  */
 public class RhnXmlRpcServer extends XmlRpcServer {
 
-    private static ThreadLocal server = new ThreadLocal();
-
-    private static ThreadLocal proto = new ThreadLocal();
+    private static ThreadLocal<String> server = new ThreadLocal<String>();
+    private static ThreadLocal<String> proto = new ThreadLocal<String>();
+    private static ThreadLocal<String> caller = new ThreadLocal<String>();
 
     /**
      * Adding a method to get the callerIp into the XmlRpc for logging.
@@ -49,6 +49,7 @@ public class RhnXmlRpcServer extends XmlRpcServer {
         throws Throwable {
         server.set(serverHost);
         proto.set(protoc);
+        caller.set(callerIp);
         XmlRpcDispatcher dispatcher = new XmlRpcDispatcher(this, callerIp);
         dispatcher.dispatch(xmlInput, output);
     }
@@ -67,5 +68,13 @@ public class RhnXmlRpcServer extends XmlRpcServer {
      */
     public static String getProtocol() {
         return (String) proto.get();
+    }
+
+    /**
+     * Retrieve the IP of the current xmlrpc call's caller.
+     * @return the IP of the caller
+     */
+    public static String getCallerIp() {
+        return (String) caller.get();
     }
 }

@@ -77,7 +77,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         StringBuffer buf = new StringBuffer();
         try {
             buf.append("REQUESTED FROM: ");
-            buf.append("*callerIp*"); // TODO: what happened to the caller's IP
+            buf.append(RhnXmlRpcServer.getCallerIp());
             buf.append(" CALL: ");
             buf.append(invocation.getHandlerName());
             buf.append(".");
@@ -114,7 +114,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         StringBuffer buf = new StringBuffer();
         try {
             buf.append("REQUESTED FROM: ");
-            buf.append("*callerIp*"); // TODO: what happened to the caller's IP
+            buf.append(RhnXmlRpcServer.getCallerIp());
             buf.append(" CALL: ");
             buf.append(invocation.getHandlerName());
             buf.append(".");
