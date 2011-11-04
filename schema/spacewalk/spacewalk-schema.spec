@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.26
+Version:        1.6.27
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Nov 04 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.27-1
+- 679335 - store osa-dispatcher jabber password in DB
+
 * Thu Nov 03 2011 Jan Pazdziora 1.6.26-1
 - On PostgreSQL, use varchar instead of varchar2.
 
