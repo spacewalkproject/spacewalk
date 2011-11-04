@@ -1138,6 +1138,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        if (!channel.isCustom()) {
+            throw new InvalidChannelException(
+                    "Manageable flag is relevant for custom channels only.");
+        }
         //Verify permissions
         if (!(UserManager.verifyChannelAdmin(loggedInUser, channel) ||
               loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN))) {
@@ -1214,6 +1218,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
                 loggedInUser, login);
 
         Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
+        if (!channel.isCustom()) {
+            throw new InvalidChannelException(
+                    "Manageable flag is relevant for custom channels only.");
+        }
         //Verify permissions
         if (!(UserManager.verifyChannelAdmin(loggedInUser, channel) ||
               loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN))) {
