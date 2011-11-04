@@ -16,7 +16,9 @@
 import sys
 import select
 import socket
+import string
 import SocketServer
+from random import choice
 from rhn.connections import idn_ascii_to_pune
 from spacewalk.common.rhnLog import initLOG, log_debug, log_error
 from spacewalk.common.rhnConfig import initCFG, CFG
@@ -50,16 +52,29 @@ class Runner(jabber_lib.Runner):
         self._state_ids = {}
 
     def read_config(self):
-        if not CFG.jabber_username:
-            raise ValueError("Username not specified")
-        if not CFG.jabber_password:
-            raise ValueError("Password not specified")
         ret = {
-            'username'      : CFG.jabber_username,
-            'password'      : CFG.jabber_password,
             'jabber_server' : CFG.jabber_server,
         }
         return ret
+
+    _query_get_dispatcher_password = """
+    select password
+      from rhnPushDispatcher
+     where jabber_id like :jabber_id
+    """
+    def get_dispatcher_password(self, username):
+        h = rhnSQL.prepare(self._query_get_dispatcher_password)
+        h.execute(jabber_id = username + "%")
+        ret = h.fetchall_dict()
+
+        if ret and len(ret) == 1:
+            return ret[0]['password']
+        else:
+            return None
+
+    def create_dispatcher_password(self, length):
+        chars = string.ascii_letters + string.digits
+        return "".join(choice(chars) for x in range(length))
 
     def setup_config(self, config):
         # Figure out the log level
@@ -81,8 +96,10 @@ class Runner(jabber_lib.Runner):
 
         rhnSQL.initDB()
 
-        self._username = config.get('username')
-        self._password = config.get('password')
+        self._username = 'rhn-dispatcher-sat'
+        self._password = self.get_dispatcher_password(self._username)
+        if not self._password:
+            self._password = self.create_dispatcher_password(32)
         self._resource = 'superclient'
         js = config.get('jabber_server')
         self._jabber_servers = [ idn_ascii_to_pune(js) ]
@@ -245,16 +262,16 @@ class Runner(jabber_lib.Runner):
             if i is null then
                 -- Have to insert the row
                 insert into rhnPushDispatcher 
-                       (id, jabber_id, last_checkin, hostname, port)
+                       (id, jabber_id, last_checkin, hostname, port, password)
                 values (sequence_nextval('rhn_pushdispatch_id_seq'), :jabber_id_in, current_timestamp,
-                       :hostname_in, :port_in);
+                       :hostname_in, :port_in, :password);
             end if;
         end;
     """)
 
     def _register_dispatcher(self, jabber_id, hostname, port):
         h = rhnSQL.prepare(self._query_register_dispatcher, params = ( 'hostname_in varchar', 'port_in numeric', 'jabber_id_in varchar' ))
-        h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port)
+        h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password=self._password)
         rhnSQL.commit()
 
     _query_get_client_jids = rhnSQL.Statement("""

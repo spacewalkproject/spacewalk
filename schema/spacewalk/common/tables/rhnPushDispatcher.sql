@@ -20,6 +20,7 @@ CREATE TABLE rhnPushDispatcher
                       CONSTRAINT rhn_pushdispatch_id_pk PRIMARY KEY
                       USING INDEX TABLESPACE [[8m_tbs]],
     jabber_id     VARCHAR2(128) NOT NULL,
+    password      VARCHAR(32),
     last_checkin  DATE
                       DEFAULT (sysdate) NOT NULL,
     hostname      VARCHAR2(256) NOT NULL,
