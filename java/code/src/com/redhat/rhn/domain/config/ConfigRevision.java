@@ -203,8 +203,9 @@ public class ConfigRevision extends BaseDomainHelper {
      */
     public boolean matches(ConfigRevision other) {
         return configFile.equals(other.getConfigFile()) &&
-                configContent.equals(other.getConfigContent()) &&
                 configFileType.equals(other.getConfigFileType()) &&
-                configInfo.equals(other.getConfigInfo());
+                configInfo.equals(other.getConfigInfo()) &&
+                (configContent == null ? other.getConfigContent() == null :
+                configContent.equals(other.getConfigContent()));
     }
 }
