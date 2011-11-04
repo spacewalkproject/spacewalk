@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.24
+Version: 5.10.25
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Nov 04 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.10.25-1
+- 679335 - store osa-dispatcher jabber password in DB
+
 * Fri Oct 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.10.24-1
 - 679353 - automatically detect system re-registration
 
