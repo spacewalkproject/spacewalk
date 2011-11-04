@@ -130,9 +130,11 @@ sub update_query {
 
   return '' unless grep { exists $changed_fields{$_} } $self->column_names;
 
+  my $remove_alias = "$self->{alias}.";
   my $ret;
   $ret .= "UPDATE $self->{name} $self->{alias}\nSET ";
   $ret .= join(", ", map { "$_ = " .  $self->type_to_placeholder($_) }
+               map { ($remove_alias eq substr($_, 0, length($remove_alias))) ? substr($_, length($remove_alias)) : $_ }
 	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
 
   $ret .= "\nWHERE ";
