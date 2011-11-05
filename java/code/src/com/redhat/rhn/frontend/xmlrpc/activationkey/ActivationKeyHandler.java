@@ -282,6 +282,7 @@ public class ActivationKeyHandler extends BaseHandler {
      *   #prop_desc("boolean", "unlimited_usage_limit", "Set true
      *   for unlimited usage and to override usage_limit")
      *   #prop_desc("boolean", "universal_default", "optional")
+     *   #prop_desc("boolean", "disabled", "optional")
      * #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
