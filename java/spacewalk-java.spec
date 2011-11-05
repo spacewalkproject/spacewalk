@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.72
+Version: 1.6.73
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Nov 05 2011 Simon Lukasik <slukasik@redhat.com> 1.6.73-1
+- 725050 - fix activationkey.[gs]etDetails apidoc (slukasik@redhat.com)
+
 * Fri Nov 04 2011 Tomas Lestach <tlestach@redhat.com> 1.6.72-1
 - 723528 - fix template attribute type in kickstart.profile API documentation
   (tlestach@redhat.com)
