@@ -93,7 +93,7 @@ class RpmRemoveError(Error):
 class NoLogError(Error):
     def __init__(self, msg):
         if not isinstance(msg, unicode):
-            errmsg = unicode(msg, 'utf-8')
+            msg = unicode(msg, 'utf-8')
         self.errmsg = self.premsg + msg
 
     def __repr__(self):
