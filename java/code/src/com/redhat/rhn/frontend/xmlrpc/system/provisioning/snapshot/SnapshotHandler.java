@@ -273,9 +273,9 @@ public class SnapshotHandler extends BaseHandler {
      * @return 1 on success
      *
      * @xmlrpc.doc Adds tag to snapshot
-     * @xmlrpc.param sessionKey #session_key()
-     * @xmlrpc.param snapId #param_desc("int", "snapshotId", "Id of the snapshot")
-     * @xmlrpc.param tagName #param_desc("string", "tag", "Name of the snapshot tag")
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("int", "snapshotId", "Id of the snapshot")
+     * @xmlrpc.param #param_desc("string", "tag", "Name of the snapshot tag")
      * @xmlrpc.returntype #return_int_success()
      */
     public int addTagToSnapshot(String sessionKey, Integer snapId, String tagName) {
