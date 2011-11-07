@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.73
+Version: 1.6.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 07 2011 Tomas Lestach <tlestach@redhat.com> 1.6.74-1
+- 680489 - fix system.provisioning.snapshot.addTagToSnapshot API doc
+  (tlestach@redhat.com)
+- 680489 - fix system.deleteTagFromSnapshot API doc return type
+  (tlestach@redhat.com)
+- 680489 - fix system.tagLatestSnapshot API doc return type
+  (tlestach@redhat.com)
+- fix system.createSystemRecord API doc return type (tlestach@redhat.com)
+- delete redundant comments (tlestach@redhat.com)
+- 734799 - Correct API documentation (slukasik@redhat.com)
+
 * Sat Nov 05 2011 Simon Lukasik <slukasik@redhat.com> 1.6.73-1
 - 725050 - fix activationkey.[gs]etDetails apidoc (slukasik@redhat.com)
 
