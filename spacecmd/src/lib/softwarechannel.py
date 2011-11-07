@@ -891,6 +891,43 @@ def do_softwarechannel_adderrata(self, args):
     self.generate_errata_cache(True)
 
 ####################
+def help_softwarechannel_setorgaccess(self):
+    print 'Set the org-access for the software channel'
+    print '''usage : softwarechannel_setorgaccess <channel_label> [options]
+-d,--disable : disable org access (private, no org sharing)
+-e,--enable : enable org access (public access to all trusted orgs)'''
+
+def do_softwarechannel_setorgaccess(self, args):
+    if not len(args):
+        self.help_softwarechannel_setorgaccess()
+        return
+    options = [ Option('-e', '--enable', action='store_true'),
+                Option('-d', '--disable', action='store_true') ]
+    (args, options) = parse_arguments(args, options)
+
+    if not len(args):
+        self.help_softwarechannel_setorgaccess()
+        return
+
+    # allow globbing of software channel names
+    channels = filter_results(self.do_softwarechannel_list('', True), args)
+
+    add_separator = False
+
+    for channel in channels:
+        # If they just specify a channel and --enable/--disable
+        # this implies public/private access
+        if (options.enable):
+            logging.info("Making org sharing public for channel : %s, " % channel)
+            self.client.channel.access.setOrgSharing(self.session, channel, 'public')
+        elif (options.disable):
+            logging.info("Making org sharing private for channel : %s, " % channel)
+            self.client.channel.access.setOrgSharing(self.session, channel, 'private')
+        else:
+            self.help_softwarechannel_setorgaccess()
+            return
+
+####################
 
 def help_softwarechannel_regenerateneededcache(self):
     print 'softwarechannel_regenerateneededcache: '
