@@ -891,6 +891,28 @@ def do_softwarechannel_adderrata(self, args):
     self.generate_errata_cache(True)
 
 ####################
+def help_softwarechannel_getorgaccess(self):
+    print 'Get the org-access for the software channel'
+    print 'usage : softwarechannel_getorgaccess : get org access for all channels'
+    print 'usage : softwarechannel_getorgaccess <channel_label(s)> : get org access for specific channel(s)'
+
+def do_softwarechannel_getorgaccess(self, args):
+
+    (args, options) = parse_arguments(args)
+
+    # If no args are passed, we dump the org access for all channels
+    if not len(args):
+        channels = self.do_softwarechannel_list('', True)
+    else:
+        # allow globbing of software channel names
+        channels = filter_results(self.do_softwarechannel_list('', True), args)
+
+    for channel in channels:
+        logging.debug("Getting org-access for channel %s" % channel)
+        sharing = self.client.channel.access.getOrgSharing(self.session, channel)
+        print "%s : %s" % (channel, sharing)
+
+####################
 def help_softwarechannel_setorgaccess(self):
     print 'Set the org-access for the software channel'
     print '''usage : softwarechannel_setorgaccess <channel_label> [options]
