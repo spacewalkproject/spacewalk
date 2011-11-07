@@ -80,8 +80,8 @@ class RpmRemoveError(Error):
     Raise when we can't remove a package for some reason
     (failed deps, etc)"""
     def __init__(self, args):
+        Error.__init__(self, "")
         self.args = args
-        self.value = ""
         for key in self.args.keys():
             if not isinstance(self.args[key], unicode):
                 self.args[key] = unicode(self.args[key], 'utf-8')
@@ -208,7 +208,7 @@ class PasswordMaxLengthError(NoLogError):
 
 class InsuffMgmntEntsError(RhnServerException):
     def __init__(self, msg ):
-        self.value = self.changeExplanation(msg)
+        RhnServerException.__init__(self, self.changeExplanation(msg))
 
     def __repr__(self):
         return self.value
