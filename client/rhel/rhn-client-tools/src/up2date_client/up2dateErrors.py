@@ -82,7 +82,7 @@ class RpmRemoveError(Error):
         self.args = args
         self.errmsg = ""
         for key in self.args.keys():
-            if not isinstance(errmsg, self.args[key]):
+            if not isinstance(self.args[key], unicode):
                 self.args[key] = unicode(self.args[key], 'utf-8')
             self.errmsg = self.errmsg + "%s failed because of %s\n" % (
                 key, self.args[key])
