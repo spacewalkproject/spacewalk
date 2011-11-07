@@ -57,14 +57,19 @@ def help_softwarechannel_list(self):
     print '''usage: softwarechannel_list [options]'
 options:
   -v verbose (display label and summary)
+  -t tree view (pretty-print child-channels)
 '''
 
 def do_softwarechannel_list(self, args, doreturn = False):
-    options = [ Option('-v', '--verbose', action='store_true') ]
+    options = [ Option('-v', '--verbose', action='store_true'),
+                Option('-t', '--tree', action='store_true') ]
     (args, options) = parse_arguments(args, options)
 
-    channels = self.client.channel.listAllChannels(self.session)
-    labels = [c.get('label') for c in channels]
+    if (options.tree):
+        labels = self.list_base_channels()
+    else:
+        channels = self.client.channel.listAllChannels(self.session)
+        labels = [c.get('label') for c in channels]
 
     # filter the list if arguments were passed
     if args:
@@ -78,8 +83,16 @@ def do_softwarechannel_list(self, args, doreturn = False):
                 for l in sorted(labels):
                     details = self.client.channel.software.getDetails(self.session, l)
                     print "%s : %s" % (l,details['summary'])
+                    if (options.tree):
+                        for c in self.list_child_channels(parent=l):
+                            cdetails = self.client.channel.software.getDetails(self.session, c)
+                            print " |-%s : %s" % (c,cdetails['summary'])
             else:
-                print '\n'.join(sorted(labels))
+                for l in sorted(labels):
+                    print "%s" % l
+                    if (options.tree):
+                        for c in self.list_child_channels(parent=l):
+                            print " |-%s" % c
 
 ####################
 
