@@ -104,6 +104,15 @@ public class ConfigChannelHandler extends BaseHandler {
      *  @param filePath The configuration file path.
      *  @param revisions List of configuration file revisions to delete.
      *  @return 1 if deletion succeeds, errors out otherwise.
+     *
+     * @xmlrpc.doc Delete specified revisions of a given configuration file
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel",
+     *                          "Label of config channel to lookup on.")
+     * @xmlrpc.param #param_desc("string", "filePath",
+     *                          "Configuration file path.")
+     * @xmlrpc.param #array_single("int", "List of revisions to delete")
+     * @xmlrpc.returntype #return_int_success()
      */
     public int deleteFileRevisions(String sessionKey, String configChannelLabel,
                                    String filePath, List<Integer> revisions) {
@@ -134,8 +143,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel",
      *                          "label of config channel to lookup on")
-     * @xmlrpc.param
-     *          #param_desc("string", "config file path to examine")
+     * @xmlrpc.param #param_desc("string", "filePath",
+     *                          "config file path to examine")
      * @xmlrpc.returntype
      * #array()
      * $ConfigRevisionSerializer
