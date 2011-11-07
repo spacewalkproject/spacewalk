@@ -4473,7 +4473,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("string", "ksLabel")
-     * @xmlrpc.returntype int - #return_int_success()
+     * @xmlrpc.returntype #return_int_success()
      */
     public int createSystemRecord(String sessionKey, Integer serverId, String ksLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
