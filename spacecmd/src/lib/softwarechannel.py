@@ -54,23 +54,32 @@ def do_softwarechannel_getentitlements(self, args):
 
 def help_softwarechannel_list(self):
     print 'softwarechannel_list: List all available software channels'
-    print 'usage: softwarechannel_list'
+    print '''usage: softwarechannel_list [options]'
+options:
+  -v verbose (display label and summary)
+'''
 
 def do_softwarechannel_list(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-v', '--verbose', action='store_true') ]
+    (args, options) = parse_arguments(args, options)
 
     channels = self.client.channel.listAllChannels(self.session)
-    channels = [c.get('label') for c in channels]
+    labels = [c.get('label') for c in channels]
 
     # filter the list if arguments were passed
     if args:
-        channels = filter_results(channels, args, True)
+        labels = filter_results(labels, args, True)
 
     if doreturn:
-        return channels
+        return labels
     else:
-        if len(channels):
-            print '\n'.join(sorted(channels))
+        if len(labels):
+            if (options.verbose):
+                for l in sorted(labels):
+                    details = self.client.channel.software.getDetails(self.session, l)
+                    print "%s : %s" % (l,details['summary'])
+            else:
+                print '\n'.join(sorted(labels))
 
 ####################
 
