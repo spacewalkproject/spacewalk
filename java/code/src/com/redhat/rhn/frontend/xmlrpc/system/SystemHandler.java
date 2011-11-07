@@ -4879,7 +4879,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("string", "tagName")
-     * @xmlrpc.return int - #return_int_success()
+     * @xmlrpc.returntype #return_int_success()
      */
     public int tagLatestSnapshot(String sessionKey, Integer serverId, String tagName) {
         User loggedInUser = getLoggedInUser(sessionKey);
