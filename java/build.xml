@@ -621,6 +621,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
   <target name="jspcompile" depends="pack,unwar-webapp"
           description="precompile jsp's">
     <mkdir dir="${build.dir}/jsp-temp" />
+    <mkdir dir="${build.dir}/apidoc-temp" />
     <mkdir dir="${build.dir}/webapp/rhnjava/WEB-INF/classes" />
     <jasper2
         validateXml="false"
@@ -628,6 +629,12 @@ delete from rhnChannel where label like 'ChannelLabel%';
         uriroot="${build.dir}/webapp/rhnjava"
         webXmlFragment="${build.dir}/webapp/generated_web.xml"
         outputDir="${build.dir}/jsp-temp" />
+    <jasper2
+        validateXml="false"
+        verbose="2"
+        uriroot="${prefix}${webapp-dir}/rhn"
+        webXmlFragment="${build.dir}/webapp/generated_apidoc.xml"
+        outputDir="${build.dir}/apidoc-temp" />
     <javac destdir="${build.dir}/webapp/rhnjava/WEB-INF/classes"
            debug="off" optimize="on"
            source="1.5"
@@ -637,12 +644,19 @@ delete from rhnChannel where label like 'ChannelLabel%';
            memoryMaximumSize="512m"
            classpathref="alljars">
        <src path="${build.dir}/jsp-temp"/>
+       <src path="${build.dir}/apidoc-temp"/>
     </javac>
     <loadfile property="jspc.web.fragment"
               srcfile="${build.dir}/webapp/generated_web.xml" />
     <replace file="${build.dir}/webapp/rhnjava/WEB-INF/web.xml">
       <replacefilter token="&lt;!-- add precompiled jsp servlets --&gt;"
               value="${jspc.web.fragment}"/>
+    </replace>
+    <loadfile property="jspc.web.fragment.apidoc"
+              srcfile="${build.dir}/webapp/generated_apidoc.xml" />
+    <replace file="${build.dir}/webapp/rhnjava/WEB-INF/web.xml">
+      <replacefilter token="&lt;!-- add generated apidoc --&gt;"
+              value="${jspc.web.fragment.apidoc}"/>
     </replace>
     <delete file="${rhn.war}"/>
     <jar basedir="${build.dir}/webapp/rhnjava"
@@ -802,17 +816,14 @@ delete from rhnChannel where label like 'ChannelLabel%';
   </target>
 
 
-  <target name="install"
-          depends="init-install,init,compile-notests,pack,apidoc-jsp,jspcompile"
-          description="Install the webapp to the directory specified by $prefix">
+  <target name="apidoc-install"
+          depends="apidoc-jsp"
+          description="Copies apidoc to the target directory">
+
     <delete dir="${prefix}${webapp-dir}/rhn" />
-    <delete dir="${prefix}/usr/share/rhn/lib" />
     <mkdir dir="${prefix}${webapp-dir}/rhn" />
     <mkdir dir="${prefix}${webapp-dir}/rhn/apidoc" />
     <mkdir dir="${prefix}${webapp-dir}/rhn/apidoc/handlers" />
-    <mkdir dir="${prefix}/usr/share/rhn/lib" />
-    <unjar src="${rhn.war}" dest="${prefix}${webapp-dir}/rhn" />
-
     <!--
      - copy the apidocs to the right place
      -->
@@ -831,6 +842,14 @@ delete from rhnChannel where label like 'ChannelLabel%';
     <copy toDir="${prefix}${webapp-dir}rhn/apidoc/handlers/">
         <fileset dir="${report.dir}/apidocs/jsp/handlers/" />
     </copy>
+  </target>
+
+  <target name="install"
+          depends="init-install,init,compile-notests,pack,apidoc-jsp,apidoc-install,jspcompile"
+          description="Install the webapp to the directory specified by $prefix">
+    <delete dir="${prefix}/usr/share/rhn/lib" />
+    <mkdir dir="${prefix}/usr/share/rhn/lib" />
+    <unjar src="${rhn.war}" dest="${prefix}${webapp-dir}/rhn" />
 
     <!--
      - copy the jar that contains our code to /usr/share/rhn/lib to be shared
