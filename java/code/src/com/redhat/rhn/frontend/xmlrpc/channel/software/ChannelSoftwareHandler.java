@@ -2346,7 +2346,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              #prop_desc("long","id", "ID of the repo")
      *              #prop_desc("string","label", "label of the repo")
      *              #prop_desc("string","sourceUrl", "URL of the repo")
-     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *          #struct_end()
      *      #array_end()
      **/
