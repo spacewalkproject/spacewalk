@@ -25,6 +25,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.Session;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * NetworkInterface
@@ -39,6 +40,7 @@ public class NetworkInterface extends BaseDomainHelper implements
     private String hwaddr;
     private String module;
     private ServerNetAddress4 sa4 = null;
+    private ArrayList<ServerNetAddress6> sa6 = null;
 
     /**
      * @return Returns the interfaceid.
@@ -241,6 +243,21 @@ public class NetworkInterface extends BaseDomainHelper implements
     public boolean isPublic() {
         return isValid() && !(getIpaddr().equals("127.0.0.1") ||
                                         getIpaddr().equals("0.0.0.0"));
+    }
+
+    /**
+     * Retrieve list of IPv6 addresses
+     * @return List of ServerNetAddress6 objects
+     */
+    public ArrayList<ServerNetAddress6> getIPv6Addresses() {
+        if (sa6 == null) {
+            Session session = HibernateFactory.getSession();
+            sa6 = (ArrayList<ServerNetAddress6>)
+				session.getNamedQuery("ServerNetAddress6.lookup_by_id")
+                .setParameter("interface_id", this.interfaceId).list();
+        }
+
+        return sa6;
     }
 
 }

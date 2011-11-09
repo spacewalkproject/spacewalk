@@ -19678,6 +19678,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.hardware.network_ip6_addr">
+            <source>IPv6 Address:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
          <trans-unit id="sdc.details.notes.message">
             <source>The following notes are associated with this system.</source>
             <context-group name="ctx">
