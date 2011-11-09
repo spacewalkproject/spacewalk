@@ -112,6 +112,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="KickstartData.cobblerIds">
         <![CDATA[select t.cobblerId from com.redhat.rhn.domain.kickstart.KickstartData as t]]>
     </query>
+    <query name="KickstartData.findByCKeyDescription">
+        <![CDATA[
+        select kd from com.redhat.rhn.domain.kickstart.KickstartData kd,
+        com.redhat.rhn.domain.kickstart.crypto.CryptoKey ck
+        where ck.description = :ck_description
+        and ck in elements(kd.cryptoKeys)]]>
+    </query>
 
     <sql-query name="commandSort">
             <load-collection alias="sortcol" role="com.redhat.rhn.domain.kickstart.KickstartData.commands"/>

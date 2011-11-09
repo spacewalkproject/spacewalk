@@ -608,6 +608,19 @@ public class KickstartFactory extends HibernateFactory {
     }
 
     /**
+     * List kickstart data by crypto key
+     * @param ckDescription crypto key description
+     * @return List of kickstart data with associated crypto key
+     */
+    public static List<KickstartData> listKickstartDataByCKeyDescription(
+            String ckDescription) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("ck_description", ckDescription);
+        return singleton.listObjectsByNamedQuery(
+                "KickstartData.findByCKeyDescription", params, true);
+    }
+
+    /**
      * list all kickstart trees stored in the satellite
      * @return list of kickstart trees
      */

@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.xmlrpc.kickstart.keys;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
@@ -167,6 +169,11 @@ public class CryptoKeysHandler extends BaseHandler {
         cmd.setContents(content);
         cmd.store();    // in this case we do not expect any error
                         // because we do not touch description
+
+        for (KickstartData kData :
+            KickstartFactory.listKickstartDataByCKeyDescription(description)) {
+            KickstartFactory.saveKickstartData(kData);
+        }
         return 1;
     }
 
