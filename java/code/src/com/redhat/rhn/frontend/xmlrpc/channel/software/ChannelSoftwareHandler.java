@@ -46,11 +46,15 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidChannelArchException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
 import com.redhat.rhn.frontend.xmlrpc.MultipleBaseChannelException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchContentSourceException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
 import com.redhat.rhn.frontend.xmlrpc.system.SystemHandler;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
@@ -496,7 +500,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public Channel getDetails(String sessionKey, Integer id)
         throws NoSuchChannelException {
         User user = getLoggedInUser(sessionKey);
-        return lookupChannelById(user, id);
+        return lookupChannelById(user, id.longValue());
     }
 
     /**
@@ -531,7 +535,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public int setDetails(String sessionKey, Integer channelId, Map details) {
         User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelById(user, channelId);
+        Channel channel = lookupChannelById(user, channelId.longValue());
 
         Set<String> validKeys = new HashSet<String>();
         validKeys.add("checksum_label");
@@ -1751,7 +1755,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Channel channel = ChannelFactory.lookupByLabelAndUser(label, user);
         if (channel == null) {
-            throw new NoSuchChannelException();
+            throw new NoSuchChannelException(label);
         }
 
         return channel;
@@ -1764,18 +1768,18 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Channel channel = ChannelManager.lookupByLabel(
                 org, label);
         if (channel == null) {
-            throw new NoSuchChannelException();
+            throw new NoSuchChannelException(label);
         }
 
         return channel;
     }
 
-    private Channel lookupChannelById(User user, int id)
+    private Channel lookupChannelById(User user, Long id)
         throws NoSuchChannelException {
 
         Channel channel = ChannelManager.lookupByIdAndUser(new Long(id), user);
         if (channel == null) {
-            throw new NoSuchChannelException();
+            throw new NoSuchChannelException(id);
         }
 
         return channel;
@@ -2328,7 +2332,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
                                             throws NoSuchChannelException {
         User user = getLoggedInUser(sessionKey);
         String repoLastBuild =
-                ChannelManager.getRepoLastBuild(lookupChannelById(user, id));
+                ChannelManager.getRepoLastBuild(lookupChannelById(user, id.longValue()));
         if (repoLastBuild == null) {
             return "";
         }
@@ -2410,8 +2414,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public Integer removeRepo(String sessionKey, Integer id) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
-                user.getOrg());
+        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
 
         ChannelFactory.remove(repo);
         return 1;
@@ -2430,8 +2433,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public Integer removeRepo(String sessionKey, String label) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
-                label);
+        ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
 
         ChannelFactory.remove(repo);
         return 1;
@@ -2453,8 +2455,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public Channel associateRepo(String sessionKey, String chanLabel, String repoLabel) {
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, chanLabel);
-        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
-                repoLabel);
+        ContentSource repo = lookupContentSourceByLabel(repoLabel, user.getOrg());
 
         Set<ContentSource> set = channel.getSources();
         set.add(repo);
@@ -2479,8 +2480,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public Channel disassociateRepo(String sessionKey, String chanLabel, String repoLabel) {
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, chanLabel);
-        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
-                repoLabel);
+        ContentSource repo = lookupContentSourceByLabel(repoLabel, user.getOrg());
 
         Set<ContentSource> set = channel.getSources();
         set.remove(repo);
@@ -2506,9 +2506,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
-                user.getOrg());
-        repo.setSourceUrl(url);
+        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
+        setRepoUrl(repo, url);
         ChannelFactory.save(repo);
         return repo;
     }
@@ -2528,9 +2527,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public ContentSource updateRepoUrl(String sessionKey, String label, String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(),
-                label);
-        repo.setSourceUrl(url);
+        ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
+        setRepoUrl(repo, url);
         ChannelFactory.save(repo);
         return repo;
     }
@@ -2550,9 +2548,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public ContentSource updateRepoLabel(String sessionKey, Integer id, String label) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
-                user.getOrg());
-        repo.setLabel(label);
+        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
+        setRepoLabel(repo, label);
         ChannelFactory.save(repo);
         return repo;
     }
@@ -2575,10 +2572,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public ContentSource updateRepo(String sessionKey, Integer id, String label,
             String url) {
         User user = getLoggedInUser(sessionKey);
-        ContentSource repo = ChannelFactory.lookupContentSource(new Long(id.longValue()),
-                user.getOrg());
-        repo.setLabel(label);
-        repo.setSourceUrl(url);
+        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
+        setRepoLabel(repo, label);
+        setRepoUrl(repo, url);
         ChannelFactory.save(repo);
         return repo;
     }
@@ -2597,7 +2593,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public ContentSource getRepoDetails(String sessionKey, String repoLabel) {
         User user = getLoggedInUser(sessionKey);
-        return ChannelFactory.lookupContentSourceByOrgAndLabel(user.getOrg(), repoLabel);
+        return lookupContentSourceByLabel(repoLabel, user.getOrg());
     }
 
     /**
@@ -2614,7 +2610,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public ContentSource getRepoDetails(String sessionKey, Integer id) {
         User user = getLoggedInUser(sessionKey);
-        return ChannelFactory.lookupContentSource(new Long(id.longValue()), user.getOrg());
+        return lookupContentSourceById(id.longValue(), user.getOrg());
     }
 
     /**
@@ -2633,8 +2629,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public List<ContentSource> listChannelRepos(String sessionKey, String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        Channel channel = ChannelManager.lookupByLabel(loggedInUser.getOrg(),
-                channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         return ChannelFactory.lookupContentSources(loggedInUser.getOrg(), channel);
     }
 
@@ -2700,5 +2695,43 @@ public class ChannelSoftwareHandler extends BaseHandler {
                 return new String("");
             }
             return cronExpr;
+    }
+
+    private ContentSource lookupContentSourceById(Long repoId, Org org) {
+        ContentSource cs = ChannelFactory.lookupContentSource(repoId, org);
+        if (cs == null) {
+            throw new NoSuchContentSourceException(repoId);
+        }
+        return cs;
+    }
+
+    private ContentSource lookupContentSourceByLabel(String repoLabel, Org org) {
+        ContentSource cs = ChannelFactory.lookupContentSourceByOrgAndLabel(org, repoLabel);
+        if (cs == null) {
+            throw new NoSuchContentSourceException(repoLabel);
+        }
+        return cs;
+    }
+
+    private void setRepoLabel(ContentSource cs, String repoLabel) {
+        if (StringUtils.isEmpty(repoLabel)) {
+            throw new InvalidParameterException("label might not be empty");
+        }
+        if (ChannelFactory.lookupContentSourceByOrgAndLabel(cs.getOrg(), repoLabel) !=
+                null) {
+            throw new InvalidRepoLabelException(repoLabel);
+        }
+        cs.setLabel(repoLabel);
+    }
+
+    private void setRepoUrl(ContentSource cs, String repoUrl) {
+        if (StringUtils.isEmpty(repoUrl)) {
+            throw new InvalidParameterException("url might not be empty");
+        }
+        if (!ChannelFactory.lookupContentSourceByOrgAndRepo(cs.getOrg(),
+                ChannelFactory.CONTENT_SOURCE_TYPE_YUM, repoUrl).isEmpty()) {
+            throw new InvalidRepoUrlException(repoUrl);
+        }
+        cs.setSourceUrl(repoUrl);
     }
 }

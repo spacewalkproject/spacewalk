@@ -41,6 +41,22 @@ public class NoSuchChannelException extends FaultException  {
         // begin member variable initialization
     }
 
+    /**
+     * Constructor
+     * @param channelLabel missing channel label
+     */
+    public NoSuchChannelException(String channelLabel) {
+        super(-210 , "noSuchChannel" , "No such channel: " + channelLabel);
+    }
+
+    /**
+     * Constructor
+     * @param channelId missing channel id
+     */
+    public NoSuchChannelException(Long channelId) {
+        super(-210 , "noSuchChannel" , "No such channel with id: " + channelId);
+    }
+
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
