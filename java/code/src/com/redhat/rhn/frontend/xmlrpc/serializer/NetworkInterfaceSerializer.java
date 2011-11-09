@@ -39,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "netmask", "Network mask assigned to device")
  *          #prop_desc("string", "hardware_address", "Hardware Address of device.")
  *          #prop_desc("string", "module", "Network driver used for this device.")
- *          #prop_desc("string", "broadcase", " Broadcast address for device.")
+ *          #prop_desc("string", "broadcast", " Broadcast address for device.")
  *      #struct_end()
  *
  */
