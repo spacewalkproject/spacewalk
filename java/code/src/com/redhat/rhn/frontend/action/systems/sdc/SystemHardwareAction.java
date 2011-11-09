@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.server.ServerNetAddress6;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -131,6 +132,7 @@ public class SystemHardwareAction extends RhnAction {
 
         request.setAttribute("network_hostname", server.getDecodedHostname());
         request.setAttribute("network_ip_addr", server.getIpAddress());
+        request.setAttribute("network_ip6_addr", server.getIp6Address());
         request.setAttribute("network_cnames", server.getDecodedCnames());
 
         List<String> nicList = new ArrayList();
@@ -152,6 +154,22 @@ public class SystemHardwareAction extends RhnAction {
             nicList2.add(nic);
         }
         request.setAttribute("network_interfaces", nicList2);
+
+        List nicList3 = new ArrayList();
+        for (String nicName : nicList) {
+            NetworkInterface n = server.getNetworkInterface(nicName);
+            for (ServerNetAddress6 na6 : n.getIPv6Addresses()) {
+                Map nic = new HashMap();
+                nic.put("name", n.getName());
+                nic.put("hwaddr", n.getHwaddr());
+                nic.put("module", n.getModule());
+                nic.put("ip6", na6.getAddress());
+                nic.put("netmask", na6.getNetmask());
+                nic.put("scope", na6.getScope());
+                nicList3.add(nic);
+            }
+        }
+        request.setAttribute("ipv6_network_interfaces", nicList3);
 
         List<String> hdd = new ArrayList();
         List miscDevices = new ArrayList();
