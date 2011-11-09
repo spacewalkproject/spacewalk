@@ -11,10 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="server_id" />
             <key-property name="name" type="string" column="name" length="32"/>
         </composite-id>
-        <property name="ipaddr" column="ip_addr" type="string" length="64" />
-        <property name="netmask" column="netmask" type="string" length="64" />
-        <property name="broadcast" column="broadcast" type="string"
-            length="64" />
+        <property name="interfaceId" column="id" type="long" />
         <property name="hwaddr" column="hw_addr" type="string" length="18" />
         <property name="module" column="module" type="string" length="128" />
         <property name="created" column="created" type="timestamp"
