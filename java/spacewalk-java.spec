@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.74
+Version: 1.6.75
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 09 2011 Tomas Lestach <tlestach@redhat.com> 1.6.75-1
+- precompile also apidoc jsp pages (tlestach@redhat.com)
+- 682845 - fix channel.software.listUserRepos API doc (tlestach@redhat.com)
+- 682845 - fix channel.software.getRepoSyncCronExpression API doc
+  (tlestach@redhat.com)
+- example with usage of xmlrpclib.DateTime is presented twice, remove one
+  (msuchy@redhat.com)
+
 * Mon Nov 07 2011 Tomas Lestach <tlestach@redhat.com> 1.6.74-1
 - 680489 - fix system.provisioning.snapshot.addTagToSnapshot API doc
   (tlestach@redhat.com)
