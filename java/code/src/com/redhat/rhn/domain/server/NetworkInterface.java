@@ -253,7 +253,7 @@ public class NetworkInterface extends BaseDomainHelper implements
         if (sa6 == null) {
             Session session = HibernateFactory.getSession();
             sa6 = (ArrayList<ServerNetAddress6>)
-				session.getNamedQuery("ServerNetAddress6.lookup_by_id")
+                session.getNamedQuery("ServerNetAddress6.lookup_by_id")
                 .setParameter("interface_id", this.interfaceId).list();
         }
 
