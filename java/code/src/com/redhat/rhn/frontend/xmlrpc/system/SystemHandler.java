@@ -1371,19 +1371,20 @@ public class SystemHandler extends BaseHandler {
 
 
     /**
-     * Get the IP and hostname for a given server
+     * Get the addresses and hostname for a given server
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id of the server in question
-     * @return Returns a map containing the servers IP and hostname attributes
+     * @return Returns a map containing the servers addresses and hostname attributes
      * @throws FaultException A FaultException is thrown if the server corresponding to
      * sid cannot be found.
      *
-     * @xmlrpc.doc Get the IP address and hostname for a given server.
+     * @xmlrpc.doc Get the addresses and hostname for a given server.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype
      *          #struct("network info")
-     *              #prop_desc("string", "ip", "IP address of server")
+     *              #prop_desc("string", "ip", "IPv4 address of server")
+     *              #prop_desc("string", "ip6", "IPv6 address of server")
      *              #prop_desc("string", "hostname", "Hostname of server")
      *          #struct_end()
      */
@@ -1392,13 +1393,15 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        // Get the ip and hostname for the server
+        // Get the ip, ip6 and hostname for the server
         String ip = server.getIpAddress();
+        String ip6 = server.getIp6Address();
         String hostname = server.getHostname();
 
         // Stick in a map and return
         Map network = new HashMap();
         network.put("ip", StringUtils.defaultString(ip));
+        network.put("ip6", StringUtils.defaultString(ip6));
         network.put("hostname", StringUtils.defaultString(hostname));
 
         return network;
