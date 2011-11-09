@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.server.ServerNetAddress4"
+        table="rhnServerNetAddress4">
+        <composite-id>
+            <key-property name="interfaceId" column="interface_id" type="long" />
+            <key-property name="address" column="address" type="string" length="64"/>
+        </composite-id>
+        <property name="netmask" column="netmask" type="string" length="64"/>
+        <property name="broadcast" column="broadcast" type="string" length="64"/>
+        <property name="created" column="modified" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
+    </class>
+
+    <query name="ServerNetAddress4.lookup">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerNetAddress4 as sa
+                 where sa.interfaceId = :interface_id]]>
+    </query>
+</hibernate-mapping>
