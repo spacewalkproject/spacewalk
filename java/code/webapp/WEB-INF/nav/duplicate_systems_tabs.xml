@@ -4,6 +4,9 @@
   <rhn-tab name="duplicate.systems.nav.ips">
     <rhn-tab-url>/rhn/systems/DuplicateIPList.do</rhn-tab-url>
   </rhn-tab>
+  <rhn-tab name="duplicate.systems.nav.ip6s">
+    <rhn-tab-url>/rhn/systems/DuplicateIPv6List.do</rhn-tab-url>
+  </rhn-tab>
   <rhn-tab name="duplicate.systems.nav.hostname">
     <rhn-tab-url>/rhn/systems/DuplicateHostName.do</rhn-tab-url>
  </rhn-tab>

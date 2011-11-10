@@ -62,6 +62,9 @@
         <trans-unit id="row.ip">
             <source>IP Address</source>
         </trans-unit>
+        <trans-unit id="row.ipv6">
+            <source>IPv6 Address</source>
+        </trans-unit>
 		<trans-unit id="row.hostname">
             <source>Hostname</source>
         </trans-unit>
