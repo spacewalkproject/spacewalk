@@ -664,7 +664,12 @@ def md5sum_for_stream(data_stream):
     format"""
 
     md5obj = hashlib.new('md5')
-    md5obj.update(data_stream.read())
+    while True:
+        buf = data_stream.read(1024000)
+        if buf:
+            md5obj.update(buf)
+        else:
+            break
     data_stream.seek(0)
 
     return md5obj.hexdigest()
