@@ -15,12 +15,15 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.domain.server.NetworkInterface;
+import com.redhat.rhn.domain.server.ServerNetAddress6;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
@@ -40,6 +43,13 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "hardware_address", "Hardware Address of device.")
  *          #prop_desc("string", "module", "Network driver used for this device.")
  *          #prop_desc("string", "broadcast", " Broadcast address for device.")
+ *          #array("list of ipv6 addresses")
+ *              #struct("ipv6 address")
+ *                  #prop_desc("string", "address", "IPv6 address of this network device")
+ *                  #prop_desc("string", "netmask", "IPv6 netmask of this network device")
+ *                  #prop_desc("string", "scope", "IPv6 address scope")
+ *              #struct_end()
+ *          #array_end()
  *      #struct_end()
  *
  */
@@ -57,8 +67,19 @@ public class NetworkInterfaceSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         NetworkInterface device = (NetworkInterface)value;
         SerializerHelper devMap = new SerializerHelper(builtInSerializer);
+        ArrayList ipv6List = new ArrayList();
+
+        for (ServerNetAddress6 addr : device.getIPv6Addresses()) {
+//            SerializerHelper m = new SerializerHelper(builtInSerializer);
+            HashMap m = new HashMap();
+            m.put("address", StringUtils.defaultString(addr.getAddress()));
+            m.put("netmask", StringUtils.defaultString(addr.getNetmask()));
+            m.put("scope", StringUtils.defaultString(addr.getScope()));
+            ipv6List.add(m);
+        }
 
         devMap.add("interface", StringUtils.defaultString(device.getName()));
+        devMap.add("ipv6", ipv6List);
         devMap.add("ip", StringUtils.defaultString(device.getIpaddr()));
         devMap.add("netmask", StringUtils.defaultString(device.getNetmask()));
         devMap.add("broadcast", StringUtils.defaultString(device.getBroadcast()));
