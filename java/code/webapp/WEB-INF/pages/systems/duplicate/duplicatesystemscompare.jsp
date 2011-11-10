@@ -109,8 +109,8 @@
 	</tr>
 	<tr>
 		<th colspan="${requestScope.systems.size + 1}"><bean:message key="System Identity Properties"/>&nbsp;
-			 <a  id='sysIdHide' href="javascript:pageToggleRows('sysId', ['lastCheckinRow', 'macAddressRow','ipAddressRow','systemGroupsRow'])"><bean:message key="Click Here To Hide"/> </a>
-			 <a  style="display:none" id='sysIdShow' href="javascript:pageToggleRows('sysId', ['lastCheckinRow', 'macAddressRow','ipAddressRow','systemGroupsRow'])"><bean:message key="Click Here To Show"/> </a>
+			 <a  id='sysIdHide' href="javascript:pageToggleRows('sysId', ['lastCheckinRow', 'macAddressRow','ipAddressRow','ipv6AddressRow','systemGroupsRow'])"><bean:message key="Click Here To Hide"/> </a>
+			 <a  style="display:none" id='sysIdShow' href="javascript:pageToggleRows('sysId', ['lastCheckinRow', 'macAddressRow','ipAddressRow','ipv6AddressRow','systemGroupsRow'])"><bean:message key="Click Here To Show"/> </a>
 	    </th>
 	</tr>
 	<tr class="list-row-odd" id="lastCheckinRow">
@@ -131,7 +131,13 @@
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
-	<tr class="list-row-even"  id = "systemGroupsRow">
+	<tr class="list-row-even" id = "ipv6AddressRow">
+		<c:set var ="key" value="row.ipv6"/>
+		<c:set var ="items_list" value="${requestScope.systems.ipv6Addresses}"/>
+		<c:set var ="href" value=""/>
+		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
+	</tr>
+	<tr class="list-row-odd"  id = "systemGroupsRow">
 		<c:set var ="key" value="System Groups"/>
 		<c:set var ="items_list" value="${requestScope.systems.systemGroups}"/>
 		<c:set var ="href" value="/network/systems/groups/details.pxt?sgid="/>
