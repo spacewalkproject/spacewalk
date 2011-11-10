@@ -2747,6 +2747,29 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * List duplicate systems by ipv6 address
+     * @param user the user doing the search
+     * @param inactiveHours the number of hours a system hasn't checked in
+     *          to consider it inactive
+     * @return List of DuplicateSystemGrouping objects
+     */
+    public static List listDuplicatesByIPv6(User user, long inactiveHours) {
+        List ignoreIps = new ArrayList();
+        ignoreIps.add("::1");
+        return listDuplicates(user, "duplicate_system_ids_ipv6", ignoreIps, inactiveHours);
+    }
+
+    /**
+     * List duplicate systems by ipv6 address
+     * @param user the user doing the search
+     * @param ip  ip address of the system
+     * @return List of DuplicateSystemGrouping objects
+     */
+    public static  List<SystemOverview> listDuplicatesByIPv6(User user, String ip) {
+        return listDuplicates(user, "duplicate_system_ids_ipv6_key", ip);
+    }
+
+    /**
      * List duplicate systems by mac address
      * @param user the user doing the search
      * @param inactiveHours the number of hours a system hasn't checked in

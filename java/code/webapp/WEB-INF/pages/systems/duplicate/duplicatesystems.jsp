@@ -24,6 +24,10 @@
 		<c:set var="filtermessage" value="row.ip"/>
 		<c:set var="key_type" value="ip"/>
 	</c:when>
+	<c:when test="${not empty requestScope.ipv6}">
+		<c:set var="filtermessage" value="row.ipv6"/>
+		<c:set var="key_type" value="ipv6"/>
+	</c:when>
 	<c:otherwise>
 		<c:set var="filtermessage" value="row.macaddress"/>
 		<c:set var="key_type" value="macaddress"/>

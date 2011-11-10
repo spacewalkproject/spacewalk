@@ -45,6 +45,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
     private static final String INACTIVE_COUNT = "inactive_count";
     public static final String MAC_ADDRESS = "macaddress";
     public static final String HOSTNAME = "hostname";
+    public static final String IPV6 = "ipv6";
     /**
      *
      * {@inheritDoc}
@@ -116,6 +117,9 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
         }
         else if (contextIn.getRequest().getAttribute(MAC_ADDRESS) != null) {
             return SystemManager.listDuplicatesByMac(contextIn.getLoggedInUser(), count);
+        }
+        else if (contextIn.getRequest().getAttribute(IPV6) != null) {
+            return SystemManager.listDuplicatesByIPv6(contextIn.getLoggedInUser(), count);
         }
         return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser(), count);
     }
