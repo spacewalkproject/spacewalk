@@ -1641,9 +1641,10 @@ SELECT 1
 			inner join rhnUserServerPerms USP on S.id = USP.server_id
         	 	inner join rhnServerNetInterface NI on NI.server_id = S.id
         	 	inner join rhnServerInfo si on si.server_id = S.id
+                inner join rhnServerNetAddress4 sa4 on sa4.interface_id = NI.id
         where
 		 USP.user_id = :uid
-        	 and NI.ip_addr = :key
+     and sa4.address = :key
     </query>
 </mode>
 
