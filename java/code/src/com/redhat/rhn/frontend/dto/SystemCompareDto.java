@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.server.MonitoredServer;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.domain.server.ServerNetAddress6;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -174,6 +175,18 @@ public class SystemCompareDto {
         List<List> addresses = new LinkedList<List>();
         for (Server system : servers) {
             addresses.add(getIpAddresses(system));
+        }
+        return compareList(addresses);
+    }
+
+    /**
+     * Returns a list of ( ipv6 addresses available per system)
+     * @return a list of ip addresses per system
+     */
+    public List<List<Item>> getIpv6Addresses() {
+        List<List> addresses = new LinkedList<List>();
+        for (Server system : servers) {
+            addresses.add(getIpv6Addresses(system));
         }
         return compareList(addresses);
     }
@@ -403,6 +416,19 @@ public class SystemCompareDto {
             }
         }
         return macs;
+    }
+
+    private List<String> getIpv6Addresses(Server system) {
+        List<String> addrs = new LinkedList<String>();
+        for (NetworkInterface n : system.getNetworkInterfaces()) {
+            for (ServerNetAddress6 ad6 : n.getIPv6Addresses()) {
+                String addr = ad6.getAddress();
+                if (addr != null && !addr.equals("::1")) {
+                    addrs.add(addr);
+                }
+            }
+        }
+        return addrs;
     }
 
     /**

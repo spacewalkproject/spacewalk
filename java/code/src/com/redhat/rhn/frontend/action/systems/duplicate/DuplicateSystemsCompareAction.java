@@ -132,6 +132,9 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
         else if (DuplicateSystemsAction.MAC_ADDRESS.equals(keyType)) {
             return SystemManager.listDuplicatesByMac(contextIn.getLoggedInUser(), key);
         }
+        else if (DuplicateSystemsAction.IPV6.equals(keyType)) {
+            return SystemManager.listDuplicatesByIPv6(contextIn.getLoggedInUser(), key);
+        }
         return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser(), key);
     }
 }
