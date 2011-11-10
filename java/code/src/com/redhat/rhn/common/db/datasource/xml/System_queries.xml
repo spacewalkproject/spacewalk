@@ -1678,6 +1678,22 @@ SELECT 1
     </query>
 </mode>
 
+<mode name="duplicate_system_ids_ipv6_key" class="com.redhat.rhn.frontend.dto.SystemOverview">
+    <query params="uid, key">
+        select distinct s.id as id,
+               s.name as name,
+               si.checkin as last_checkin,
+               1 as selectable
+          from rhnserver s inner join
+               rhnuserserverperms usp on s.id = usp.server_id inner join
+               rhnservernetinterface ni on ni.server_id = s.id inner join
+               rhnserverinfo si on si.server_id = s.id inner join
+               rhnservernetaddress6 sa6 on sa6.interface_id = ni.id
+         where usp.user_id = :uid and
+               sa6.address = :key
+    </query>
+</mode>
+
 <mode name="duplicate_system_ids_mac" class="com.redhat.rhn.frontend.dto.NetworkDto">
     <query params="uid, inactive_date">
         SELECT distinct S.id as id, S.name as name, NI.hw_addr as key, si.checkin as last_checkin,
