@@ -20,6 +20,7 @@ import subprocess
 import shutil
 import tempfile
 import select
+import zipfile
 
 # exceptions -------------------------------------------------------------
 
@@ -227,23 +228,22 @@ class ArchiveParser(object):
 # parser for zip archives ------------------------------------------------
 
 class ZipParser(ArchiveParser):
+    def __init__(self, archive, tempdir="/tmp/"):
+        self.zip_file = zipfile.ZipFile(archive, 'r')
+        ArchiveParser.__init__(self, archive, tempdir)
 
     def _get_archive_dir(self):
-        list_cmd = "unzip -l %s" % (self._archive,)
-        file = os.popen(list_cmd).readlines()[3].split()[3][:-1]
-        # file is usually top most dir... but not always
-        # take first directory from relative path
-        return file.split('/')[0]
+        return self.zip_file.namelist()[0]
 
-    def _explode_cmd(self):
-        """Return the appropriate command for exploding a zip archive"""
-
-        if not _has_executable("unzip"):
-            raise ArchiveException("cannot open %s, 'unzip' not found" % self._archive)
-
+    def _explode(self, archive):
+        """Explode zip archive"""
         self._archive_dir = os.path.join(self._temp_dir, self._get_archive_dir())
 
-        return "unzip -q -n %s -d %s" % (self._archive, self._temp_dir)
+        try:
+            self.zip_file.extractall(self._temp_dir)
+        except:
+            raise InvalidArchiveError("Archive did not expand to %s" % self._archive_dir)
+        return
 
 # parser for tar archives ------------------------------------------------
 
