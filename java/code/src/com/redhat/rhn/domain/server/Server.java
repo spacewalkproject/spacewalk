@@ -880,6 +880,12 @@ public class Server extends BaseDomainHelper implements Identifiable {
                     log.debug("Found NetworkInterface !localhost");
                     return n;
                 }
+                for (ServerNetAddress6 ad6 : n.getIPv6Addresses()) {
+                    if (ad6 != null && !ad6.getAddress().equals("::1")) {
+                        log.debug("Found NetworkInterface !localhost");
+                        return n;
+                    }
+                }
             }
             // If we didnt match any of the above criteria
             // just give up and return the 1st one.
