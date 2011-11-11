@@ -1113,11 +1113,11 @@
       <target>{0} ਵਿੱਚ ਸੈਟੇਲਾਈਟ ਪਰਬੰਧਕ ਰੋਲ ਸ਼ਾਮਿਲ ਕੀਤਾ ਗਿਆ ਹੈ</target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>ਤੁਸੀਂ &lt;strong&gt;ਹੋਰ&lt;/strong&gt; ਸੰਸਥਾ ਪਰਬੰਧਕ ਨੂੰ ਹਟਾ ਨਹੀਂ
+      <target>ਤੁਸੀਂ ਹੋਰ ਸੰਸਥਾ ਪਰਬੰਧਕ ਨੂੰ ਹਟਾ ਨਹੀਂ
 ਸਕਦੇ। ਇਹਨਾਂ ਦੇ ਖਾਤੇ ਹਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ
 ਇਸ ਉਪਭੋਗੀ ਤੋਂ 'ਸੰਸਥਾ ਪਰਬੰਧਕ' ਰੋਲ ਹਟਾਓ।</target></trans-unit>
 

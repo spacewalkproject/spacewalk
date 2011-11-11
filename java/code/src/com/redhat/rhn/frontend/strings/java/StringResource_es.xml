@@ -1113,11 +1113,11 @@
       <target>Rol de administrador del satélite añadido a {0} </target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>No puede borrar &lt;strong&gt;otro&lt;/strong&gt; administrador de la organización. Por favor borre el rol de 'Administrador de la organización' de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
+      <target>No puede borrar otro administrador de la organización. Por favor borre el rol de 'Administrador de la organización' de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
 
       <trans-unit id="user.cannot.delete.last.sat.admin">
 <source>Cannot delete the last remaining satellite administrator.</source>

@@ -1113,11 +1113,11 @@
       <target>在 {0} 中添加 Satellite 管理员角色</target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>您不能删除 &lt;strong&gt;另一个&lt;/strong&gt; 机构管理员。在删除他们的帐户前请把他们从 '机构管理员' 角色中删除</target></trans-unit>
+      <target>您不能删除 另一个 机构管理员。在删除他们的帐户前请把他们从 '机构管理员' 角色中删除</target></trans-unit>
 
       <trans-unit id="user.cannot.delete.last.sat.admin">
 <source>Cannot delete the last remaining satellite administrator.</source>

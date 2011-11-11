@@ -1113,11 +1113,11 @@
       <target>Satellite 管理者ロールを {0} に追加しました　</target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>&lt;strong&gt;別の&lt;/strong&gt; Organization Administrator (組織管理者) を削除することはできません。 このユーザーの「Organization Administrator」ロールを削除してからアカウントの削除を行なってください。</target></trans-unit>
+      <target>別の Organization Administrator (組織管理者) を削除することはできません。 このユーザーの「Organization Administrator」ロールを削除してからアカウントの削除を行なってください。</target></trans-unit>
 
       <trans-unit id="user.cannot.delete.last.sat.admin">
 <source>Cannot delete the last remaining satellite administrator.</source>

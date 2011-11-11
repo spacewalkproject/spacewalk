@@ -1119,11 +1119,11 @@
       <target>{0}-এ Satellite অ্যাডমিনিস্ট্রেটরের ভূমিকা যোগ করা হয়েছে</target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>আপনি &lt;strong&gt;অন্যান্য&lt;/strong&gt; প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের অ্যাকাউন্ট মুছে ফেলতে সক্ষম হবেন না। ব্যবহারকারীর অ্যাকাউন্ট নিষ্ক্রিয় করার পূর্বে অ্যাকাউন্ট থেকে 'প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের' ভূমিকা সরিয়ে নিন।</target></trans-unit>
+      <target>আপনি অন্যান্য প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের অ্যাকাউন্ট মুছে ফেলতে সক্ষম হবেন না। ব্যবহারকারীর অ্যাকাউন্ট নিষ্ক্রিয় করার পূর্বে অ্যাকাউন্ট থেকে 'প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের' ভূমিকা সরিয়ে নিন।</target></trans-unit>
 
       <trans-unit id="user.cannot.delete.last.sat.admin">
 <source>Cannot delete the last remaining satellite administrator.</source>

@@ -1113,11 +1113,11 @@
       <target>{0}க்கு சேட்டிலைட் நிர்வாக பங்குடன் சேர்க்கப்படுகிறது</target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>நீங்கள் &lt;strong&gt;வேறு&lt;/strong&gt; நிறுவன நிர்வாகியை அழிக்க முடியாது. அவர்களுடைய கணக்கினை அழிக்கும் முன்,  இந்தப் பயனருடைய நிறுவன நிர்வாகி பதவியை நீக்கவும்.</target></trans-unit>
+      <target>நீங்கள் வேறு நிறுவன நிர்வாகியை அழிக்க முடியாது. அவர்களுடைய கணக்கினை அழிக்கும் முன்,  இந்தப் பயனருடைய நிறுவன நிர்வாகி பதவியை நீக்கவும்.</target></trans-unit>
 
       <trans-unit id="user.cannot.delete.last.sat.admin">
 <source>Cannot delete the last remaining satellite administrator.</source>

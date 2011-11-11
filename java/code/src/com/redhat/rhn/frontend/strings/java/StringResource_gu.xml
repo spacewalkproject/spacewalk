@@ -1113,11 +1113,11 @@
       <target>{0} માં સેટેલાઈટ સંચાલક ભૂમિકા ઉમેરાયેલ છે</target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>તમે &lt;strong&gt;અન્ય&lt;/strong&gt; સંસ્થા સંચાલકને કાઢી શકશો નહિં. મહેરબાની કરીને 'સંસ્થા સંચાલક' ભૂમિકાને આ વપરાશકર્તામાંથી તેમનું ખાતું કાઢી નાંખવા પહેલાં દૂર કરો</target></trans-unit>
+      <target>તમે અન્ય સંસ્થા સંચાલકને કાઢી શકશો નહિં. મહેરબાની કરીને 'સંસ્થા સંચાલક' ભૂમિકાને આ વપરાશકર્તામાંથી તેમનું ખાતું કાઢી નાંખવા પહેલાં દૂર કરો</target></trans-unit>
 
       <trans-unit id="user.cannot.delete.last.sat.admin">
 <source>Cannot delete the last remaining satellite administrator.</source>

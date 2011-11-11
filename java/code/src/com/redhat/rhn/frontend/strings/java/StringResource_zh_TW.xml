@@ -1113,11 +1113,11 @@
       <target>已將衛星伺服器管理員角色新增至 {0}</target></trans-unit>
 
       <trans-unit id="user.deleteadmin">
-<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
+<source>You cannot delete another organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-      <target>您不能刪除「&lt;strong&gt;另一個&lt;/strong&gt;」組織管理員。在試圖刪除「組織管理員」的帳號前，請先移除這使用者的組織管理員角色。</target></trans-unit>
+      <target>您不能刪除「另一個」組織管理員。在試圖刪除「組織管理員」的帳號前，請先移除這使用者的組織管理員角色。</target></trans-unit>
 
       <trans-unit id="user.cannot.delete.last.sat.admin">
 <source>Cannot delete the last remaining satellite administrator.</source>
