@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.76
+Version: 1.6.77
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.77-1
+- 738999 - VirtualInstance.confirmed is number not boolean
+
 * Wed Nov 09 2011 Tomas Lestach <tlestach@redhat.com> 1.6.76-1
 - 682845 - check the input parameters for repo related APIs
   (tlestach@redhat.com)
