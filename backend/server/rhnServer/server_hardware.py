@@ -385,17 +385,15 @@ class NetworkInformation(Device):
 
 class NetIfaceInformation(Device):
     key_mapping = {
-        'ipaddr'    : 'ip_addr',
         'hwaddr'    : 'hw_addr',
         'module'    : 'module',
-        'netmask'   : 'netmask',
-        'broadcast' : 'broadcast',
     }
     def __init__(self, dict=None):
+        log_debug(4, dict)
         self.ifaces = {}
         self.db_ifaces = []
         # parameters which are not allowed to be empty and set to NULL
-        self._autonull = ('ip_addr','netmask','broadcast','hw_addr','module')
+        self._autonull = ('hw_addr','module')
         if not dict:
             return
         for name, info in dict.items():
@@ -416,11 +414,11 @@ class NetIfaceInformation(Device):
                     raise rhnFault(53, "Unable to find required field %s"
                             % key)
                 val = info[k]
-                if mapping in ['ip_addr', 'netmask', 'broadcast']:
-                    # bugzilla: 129840 kudzu (rhpl) will sometimes pad octets
-                    # with leading zeros, causing confusion; clean those up
-                    val = cleanse_ip_addr(val)
                 vdict[mapping] = val
+            if 'ipaddr' in info and info['ipaddr']:
+                vdict['ipv4'] = NetIfaceAddress4([{'ipaddr': info['ipaddr'], 'broadcast': info['broadcast'], 'netmask': info['netmask']}])
+            if 'ipv6' in info and info['ipv6']:
+                vdict['ipv6'] = NetIfaceAddress6(info["ipv6"])
             self.ifaces[name] = vdict
 
     def save(self, server_id):
@@ -450,20 +448,46 @@ class NetIfaceInformation(Device):
             updates.append(uploaded_iface)
 
         # Everything else in self.ifaces has to be inserted
-        for name, iface in ifaces.items():
+        for name, info in ifaces.items():
+            iface = {}
             iface['name'] = name
             iface['server_id'] = server_id
+            iface['hw_addr'] = info['hw_addr']
+            iface['module'] = info['module']
             inserts.append(iface)
 
         log_debug(4, "Deletes", deletes)
         log_debug(4, "Updates", updates)
         log_debug(4, "Inserts", inserts)
 
-        self._delete(deletes)
         self._update(updates)
         self._insert(inserts)
-
+        ifaces = self.ifaces.copy()
+        for name, info in ifaces.items():
+            if not 'ipv6' in info:
+                info['ipv6'] = NetIfaceAddress6()
+            info['ipv6'].save(self.get_server_id(server_id, name))
+            if not 'ipv4' in info:
+                info['ipv4'] = NetIfaceAddress4()
+            info['ipv4'].save(self.get_server_id(server_id, name))
+        # delete address (if any) of deleted interaces
+        for d in deletes:
+            interface = NetIfaceAddress6()
+            interface.save(self.get_server_id(server_id, d['name']))
+            interface = NetIfaceAddress4()
+            interface.save(self.get_server_id(server_id, d['name']))
+        self._delete(deletes)
         return 0
+
+    def get_server_id(self, server_id, name):
+        """ retrieve id for given server_id and name """
+        h = rhnSQL.prepare("select id from rhnServerNetInterface where server_id=:server_id and name=:name")
+        h.execute(server_id=server_id, name=name)
+        row = h.fetchone_dict()
+        if row:
+            return row['id']
+        else:
+            return None
 
     def _insert(self, params):
         q = """insert into rhnServerNetInterface
@@ -474,7 +498,7 @@ class NetIfaceInformation(Device):
         columns.sort()
         bind_params = string.join(map(lambda x: ':' + x, columns), ", ")
         h = rhnSQL.prepare(q % (string.join(columns, ", "), bind_params))
-        return self._dml(h, params)
+        return _dml(h, params)
 
     def _delete(self, params):
         q = """delete from rhnServerNetInterface
@@ -483,7 +507,7 @@ class NetIfaceInformation(Device):
         columns = ['server_id', 'name']
         wheres = map(lambda x: '%s = :%s' % (x, x), columns) 
         h = rhnSQL.prepare(q % string.join(wheres, " and "))
-        return self._dml(h, params)
+        return _dml(h, params)
 
     def _update(self, params):
         q = """update rhnServerNetInterface
@@ -501,17 +525,8 @@ class NetIfaceInformation(Device):
         updates = string.join(updates, ", ")
         
         h = rhnSQL.prepare(q % (updates, wheres))
-        return self._dml(h, params)
+        return _dml(h, params)
 
-    def _dml(self, statement, params):
-        log_debug(5, params)
-        if not params:
-            return 0
-        params = _transpose(params)
-        rowcount = apply(statement.executemany, (), params)
-        log_debug(5, "Affected rows", rowcount)
-        return rowcount
-            
     def reload(self, server_id):
         h = rhnSQL.prepare("""
             select * 
@@ -524,13 +539,186 @@ class NetIfaceInformation(Device):
             row = h.fetchone_dict()
             if not row:
                 break
-            hval = { 'name' : row['name'], 'server_id' : server_id }
+            hval = { 'primary_id' : row['id'], 'name' : row['name'], 'server_id' : server_id }
+            for key in self.key_mapping.values():
+                hval[key] = row[key]
+            hval['ipv4'] = NetIfaceAddress4()
+            hval['ipv4'].reload(hval['primary_id'])
+            hval['ipv6'] = NetIfaceAddress6()
+            hval['ipv6'].reload(hval['primary_id'])
+            self.db_ifaces.append(hval)
+
+        self.status = 0
+        return 0
+
+class NetIfaceAddress(Device):
+    key_mapping = {
+        'netmask'    : 'netmask',
+        'address'    : 'address',
+    }
+    unique = ['address'] # to be overriden by child
+    table = 'rhnServerNetAddress' # to be overriden by child
+    def __init__(self, list_ifaces=None):
+        log_debug(4, list_ifaces)
+        self.ifaces = {}
+        self.db_ifaces = []
+        # parameters which are not allowed to be empty and set to NULL
+        self._autonull = ('address','netmask')
+        self.sequence = "rhn_srv_net_iface_id_seq"
+        if not list_ifaces:
+            return
+        for info in list_ifaces:
+            if not isinstance(info, type({})):
+                raise rhnFault(53, "Unexpected format for interface %s" %
+                    info)
+            vdict = {}
+            for key, mapping in self.key_mapping.items():
+                # Look at the mapping first; if not found, look for the key
+                if info.has_key(mapping):
+                    k = mapping
+                else:
+                    k = key
+                if not info.has_key(k):
+                    raise rhnFault(53, "Unable to find required field %s"
+                            % (key))
+                val = info[k]
+                if mapping in ['ip_addr', 'netmask', 'broadcast', 'address']:
+                    # bugzilla: 129840 kudzu (rhpl) will sometimes pad octets
+                    # with leading zeros, causing confusion; clean those up
+                    val = self.cleanse_ip_addr(val)
+                vdict[mapping] = val
+            self.ifaces[vdict['address']] = vdict
+
+    def cleanse_ip_addr(self, val):
+        """ to be overriden by child """
+        return val
+
+    def save(self, interface_id):
+        log_debug(4, self.ifaces)
+        self.reload(interface_id)
+        log_debug(4, "Net addresses in DB", self.db_ifaces)
+
+        # Compute updates, deletes and inserts
+        inserts = []
+        updates = []
+        deletes = []
+        ifaces = self.ifaces.copy()
+        for iface in self.db_ifaces:
+            address = iface['address']
+            if not self.ifaces.has_key(iface['address']):
+                # To be deleted
+                deletes.append(iface)
+                continue
+            uploaded_iface = ifaces[address]
+            del ifaces[address]
+            # FIXME this is inefficient for IPv4 as it row is present it will be always update
+            if _hash_eq(uploaded_iface, iface):
+                # Same value
+                continue
+            uploaded_iface.update({'interface_id' : interface_id})
+            updates.append(uploaded_iface)
+
+        # Everything else in self.ifaces has to be inserted
+        for name, iface in ifaces.items():
+            iface['address'] = iface['address']
+            iface['interface_id'] = interface_id
+            inserts.append(iface)
+
+        log_debug(4, "Deletes", deletes)
+        log_debug(4, "Updates", updates)
+        log_debug(4, "Inserts", inserts)
+
+        self._delete(deletes)
+        self._update(updates)
+        self._insert(inserts)
+
+    def _insert(self, params):
+        q = """insert into %s
+            (%s) values (%s)"""
+        self._null_columns(params, self._autonull)
+
+        columns = self.key_mapping.values() + ['interface_id']
+        columns.sort()
+        bind_params = string.join(map(lambda x: ':' + x, columns), ", ")
+        h = rhnSQL.prepare(q % (self.table, string.join(columns, ", "), bind_params))
+        return _dml(h, params)
+
+    def _delete(self, params):
+        q = """delete from %s
+            where %s"""
+
+        columns = self.unique
+        wheres = map(lambda x: '%s = :%s' % (x, x), columns)
+        h = rhnSQL.prepare(q % (self.table, string.join(wheres, " and ")))
+        return _dml(h, params)
+
+    def _update(self, params):
+        q = """update %s
+            set %s
+            where %s"""
+        self._null_columns(params, self._autonull)
+
+        wheres = self.unique
+        wheres = map(lambda x: '%s = :%s' % (x, x), wheres)
+        wheres = string.join(wheres, " and ")
+
+        updates = self.key_mapping.values()
+        updates.sort()
+        updates = map(lambda x: '%s = :%s' % (x, x), updates)
+        updates = string.join(updates, ", ")
+
+        h = rhnSQL.prepare(q % (self.table, updates, wheres))
+        return _dml(h, params)
+
+    def reload(self, interface_id):
+        h = rhnSQL.prepare("""
+            select *
+            from %s
+            where interface_id = :interface_id
+        """ % self.table)
+        h.execute(interface_id=interface_id)
+        self.db_ifaces = []
+        while 1:
+            row = h.fetchone_dict()
+            if not row:
+                break
+            hval = { 'interface_id' : row['interface_id']}
             for key in self.key_mapping.values():
                 hval[key] = row[key]
             self.db_ifaces.append(hval)
 
         self.status = 0
         return 0
+
+class NetIfaceAddress6(NetIfaceAddress):
+    """ IPv6 Network interface """
+    key_mapping = {
+        'netmask' : 'netmask',
+        'addr'    : 'address',
+        'scope'   : 'scope',
+    }
+    table = 'rhnServerNetAddress6'
+    unique = ['interface_id', 'address', 'scope']
+    def __init__(self, addr_dict=None):
+        NetIfaceAddress.__init__(self, addr_dict)
+        self._autonull = ('address', 'netmask', 'scope')
+
+class NetIfaceAddress4(NetIfaceAddress):
+    """ IPv4 Network interface """
+    key_mapping = {
+        'netmask'   : 'netmask',
+        'ipaddr'    : 'address',
+        'broadcast' : 'broadcast',
+    }
+    table = 'rhnServerNetAddress4'
+    unique = ['interface_id']
+    def __init__(self, addr_dict=None):
+        NetIfaceAddress.__init__(self, addr_dict)
+        self._autonull = ('address', 'netmask', 'broadcast')
+
+    def cleanse_ip_addr(self, val):
+        return cleanse_ip_addr(val)
+
 
 def _hash_eq(h1, h2):
     """ Compares two hashes and return 1 if the first is a subset of the second """
@@ -541,6 +729,15 @@ def _hash_eq(h1, h2):
         if h2[k] != v:
             return 0
     return 1
+
+def _dml(statement, params):
+    log_debug(5, params)
+    if not params:
+        return 0
+    params = _transpose(params)
+    rowcount = apply(statement.executemany, (), params)
+    log_debug(5, "Affected rows", rowcount)
+    return rowcount
 
 def _transpose(hasharr):
     """ Transpose the array of hashes into a hash of arrays """
@@ -553,7 +750,10 @@ def _transpose(hasharr):
 
     for hval in hasharr:
         for k in keys:
-            result[k].append(hval[k])
+            if hval.has_key(k):
+                result[k].append(hval[k])
+            else:
+                result[k].append(None)
 
     return result
 
