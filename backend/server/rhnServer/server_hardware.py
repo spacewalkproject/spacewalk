@@ -739,7 +739,8 @@ def _transpose(hasharr):
 
     for hval in hasharr:
         for k in keys:
-            result[k].append(hval[k])
+            if hval.has_key(k):
+                result[k].append(hval[k])
 
     return result
 
