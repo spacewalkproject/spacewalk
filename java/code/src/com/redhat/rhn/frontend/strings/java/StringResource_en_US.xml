@@ -3177,7 +3177,7 @@ available for this kickstart profile to function properly.
       </trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">

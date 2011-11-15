@@ -3132,13 +3132,13 @@ available for this kickstart profile to function properly.
       <target>ਤੁਸੀਂ ਇਧਾਰ ਸੰਗਠਨ {0} ਨੂੰ ਹਟਾ ਨਹੀਂ ਸਕਦੇ</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>ਤੁਸੀਂ &lt;strong&gt;ਹੋਰ&lt;/strong&gt; ਸੰਸਥਾ ਪਰਬੰਧਕ ਨੂੰ ਅਯੋਗ ਨਹੀਂ
+      <target>ਤੁਸੀਂ ਹੋਰ ਸੰਸਥਾ ਪਰਬੰਧਕ ਨੂੰ ਅਯੋਗ ਨਹੀਂ
 ਕਰ ਸਕਦੇ। ਇਹਨਾਂ ਦੇ ਖਾਤੇ ਅਯੋਗ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ
 ਇਸ ਉਪਭੋਗੀ ਤੋਂ 'ਸੰਸਥਾ ਪਰਬੰਧਕ' ਰੋਲ ਹਟਾਓ।</target></trans-unit>
 

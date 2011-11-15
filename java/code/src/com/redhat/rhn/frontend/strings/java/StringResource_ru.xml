@@ -3130,13 +3130,13 @@ available for this kickstart profile to function properly.
       <target>Вы не можете удалить базовую Организацию {0}</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>Вы не можете деактивировать &lt;strong&gt;другого&lt;/strong&gt; Администратора
+      <target>Вы не можете деактивировать другого Администратора
 организации. Удалите роль «Администратора организации» из профиля
 данного пользователя, а затем повторите попытку.</target></trans-unit>
 

@@ -3154,13 +3154,13 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
       <target>Impossibile cancellare l'Organizzazione di base {0}</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>Non è possibile disabilitare un &lt;strong&gt;altro&lt;/strong&gt; organization
+      <target>Non è possibile disabilitare un altro organization
 administrator. Si prega di rimuovere il ruolo di 'Organization Administrator' da questo
 utente prima di disabilitare l'account in questione.</target></trans-unit>
 

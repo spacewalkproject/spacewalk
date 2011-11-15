@@ -3154,13 +3154,13 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
       <target>土台となる組織 {0} は削除できません。</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>&lt;strong&gt;別の&lt;/strong&gt; Organization Administrator (組織管理者) を非アクティブにすることはできません。
+      <target>別の Organization Administrator (組織管理者) を非アクティブにすることはできません。
 このユーザーの「Organization Administrator」ロールを削除してからアカウントを非アクティブ
 にしてください</target></trans-unit>
 

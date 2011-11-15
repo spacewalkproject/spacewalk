@@ -3136,13 +3136,13 @@ available for this kickstart profile to function properly.
       <target>মূল প্রতিষ্ঠান {0} মুছে ফেলা যাবে না</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>আপনি &lt;strong&gt;অন্যান্য&lt;/strong&gt; প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের অ্যাকাউন্ট
+      <target>আপনি অন্যান্য প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের অ্যাকাউন্ট
 নিষ্ক্রিয় করতে সক্ষম হবেন না। ব্যবহারকারীর অ্যাকাউন্ট নিষ্ক্রিয় করার পূর্বে অ্যাকাউন্ট থেকে
 'প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের' ভূমিকা সরিয়ে নিন।</target></trans-unit>
 

@@ -3161,13 +3161,13 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
       <target>Sie k&amp;ouml;nnen die Basisorganisation {0} nicht l&amp;ouml;schen</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>Sie k&amp;ouml;nnen keinen &lt;strong&gt;anderen&lt;/strong&gt; Organisations-
+      <target>Sie k&amp;ouml;nnen keinen anderen Organisations-
 Administrator deaktivieren. Bitte entfernen Sie 'die Organisations-Administrator'-Funktion dieses
 Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
 

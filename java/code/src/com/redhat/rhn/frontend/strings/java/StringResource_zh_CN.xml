@@ -3155,13 +3155,13 @@ available for this kickstart profile to function properly.
       <target>您不能删除基本机构 {0}</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>您不能取消激活 &lt;strong&gt;另一个&lt;/strong&gt; 机构管理
+      <target>您不能取消激活 另一个 机构管理
 员。在取消激活他们的帐户前请把他们从 '机构管理员' 角色中
 删除。</target></trans-unit>
 

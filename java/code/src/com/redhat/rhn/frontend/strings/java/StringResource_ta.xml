@@ -3130,13 +3130,13 @@ available for this kickstart profile to function properly.
       <target>நீங்கள் அடிப்படை நிறுவனம் {0} ஐ அழிக்க முடியாது</target></trans-unit>
 
       <trans-unit id="userdisable.error.orgadmin">
-<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
+<source>You cannot deactivate another organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-      <target>நீங்கள் &lt;strong&gt;மற்றொரு&lt;/strong&gt; நிறுவன
+      <target>நீங்கள் மற்றொரு நிறுவன
 நிர்வாகியை செயலிழக்க முடியாது. முதலில் நிறுவன நிர்வாகி பதவியை இந்த
 பயனருக்கு நீக்கிவிட்டு அவருடைய கணக்கினை செயலிழக்கச்செய்யவும்.</target></trans-unit>
 
