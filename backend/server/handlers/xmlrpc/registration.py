@@ -972,31 +972,29 @@ class Registration(rhnHandler):
                     packagesV2.append(p)
         return packagesV2
 
-    def add_hw_profile(self, system_id, hwlist):
-        """ Insert a new profile for the server """
-        log_debug(5, system_id, hwlist)
-        server = self.auth_system(system_id)
-        # log the entry
+    def __add_hw_profile_no_auth(self, server, hwlist):
+        """ Insert a new profile for the server, but do not authenticate """
         log_debug(1, server.getid(), "items: %d" % len(hwlist))
         for hardware in hwlist:
             server.add_hardware(hardware)
         # XXX: check return code
         server.save_hardware()
+
+    def add_hw_profile(self, system_id, hwlist):
+        """ Insert a new profile for the server """
+        log_debug(5, system_id, hwlist)
+        server = self.auth_system(system_id)
+        self.__add_hw_profile_no_auth(server, hwlist)
         return 0
 
     def refresh_hw_profile(self, system_id, hwlist):
         """ Recreate the server HW profile """
         log_debug(5, system_id, hwlist)
         server = self.auth_system(system_id)
-        # log the entry
-        log_debug(1, server.getid(), "items: %d" % len(hwlist))
         # clear out the existing list first
         # the only difference between add_hw_profile and refresh_hw_profile
         server.delete_hardware()
-        for hardware in hwlist:
-            server.add_hardware(hardware)
-        # XXX: check return code
-        server.save_hardware()
+        self.__add_hw_profile_no_auth(server, hwlist)
         return 0
         
     def welcome_message(self, lang = None):
