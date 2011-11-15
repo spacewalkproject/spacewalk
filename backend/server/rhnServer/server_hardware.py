@@ -217,7 +217,6 @@ class GenericDevice:
         """ reload from rhnDevice table based on devid """
         if not devid:
             return -1
-        self.__init__(self.__table)
         t = rhnSQL.Table(self.__table, "id")
         self.data = t[devid]
         # clean up fields we don't want
