@@ -443,9 +443,12 @@ class NetIfaceInformation(Device):
             updates.append(uploaded_iface)
 
         # Everything else in self.ifaces has to be inserted
-        for name, iface in ifaces.items():
+        for name, info in ifaces.items():
+            iface = {}
             iface['name'] = name
             iface['server_id'] = server_id
+            iface['hw_addr'] = info['hw_addr']
+            iface['module'] = info['module']
             inserts.append(iface)
 
         log_debug(4, "Deletes", deletes)
@@ -458,11 +461,11 @@ class NetIfaceInformation(Device):
         ifaces = self.ifaces.copy()
         for name, info in ifaces.items():
             if 'ipv6' in info:
-                iface['ipv6'].save(self.get_server_id(server_id, iface['name']))
+                info['ipv6'].save(self.get_server_id(server_id, name))
             else:
                 pass # wipe old records if any
             if 'ipv4' in info:
-                iface['ipv4'].save(self.get_server_id(server_id, iface['name']))
+                info['ipv4'].save(self.get_server_id(server_id, name))
             else:
                 pass # wipe old records if any
         return 0
@@ -705,7 +708,7 @@ class NetIfaceAddress4(NetIfaceAddress):
         self._autonull = ('address', 'netmask', 'broadcast')
 
     def cleanse_ip_addr(self, val):
-        cleanse_ip_addr(val)
+        return cleanse_ip_addr(val)
         
 
 def _hash_eq(h1, h2):
