@@ -567,7 +567,7 @@ class NetIfaceAddress(Device):
                 else:
                     k = key
                 if not info.has_key(k):
-                    raise rhnFault(53, "Unable2 to find required field %s"
+                    raise rhnFault(53, "Unable to find required field %s"
                             % (key))
                 val = info[k]
                 if mapping in ['ip_addr', 'netmask', 'broadcast', 'address']:
