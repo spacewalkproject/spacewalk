@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.27
+Version: 1.6.28
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Nov 16 2011 Tomas Lestach <tlestach@redhat.com> 1.6.28-1
+- 754379 - fix deletion-url in pxt pages (tlestach@redhat.com)
+
 * Fri Nov 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.27-1
 - removed aliases from SET part of UPDATE
 
