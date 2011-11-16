@@ -460,11 +460,11 @@ class NetIfaceInformation(Device):
             if 'ipv6' in info:
                 iface['ipv6'].save(self.get_server_id(server_id, iface['name']))
             else:
-                pass # wipe old recoreds if any
+                pass # wipe old records if any
             if 'ipv4' in info:
                 iface['ipv4'].save(self.get_server_id(server_id, iface['name']))
             else:
-                pass # wipe old recoreds if any
+                pass # wipe old records if any
         return 0
 
     def get_server_id(self, server_id, name):
