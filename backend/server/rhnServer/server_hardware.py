@@ -740,6 +740,8 @@ def _transpose(hasharr):
         for k in keys:
             if hval.has_key(k):
                 result[k].append(hval[k])
+            else:
+                result[k].append(None)
 
     return result
 
