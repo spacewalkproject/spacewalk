@@ -562,5 +562,22 @@ def parse_api_args(args, sep=','):
 def json_dump(obj, fp, indent=2, **kwargs):
     json.dump(obj, fp, ensure_ascii=False, indent=indent, **kwargs)
 
+def json_dump_to_file(obj, filename, indent = 2):
+
+    json_data = json.dumps(obj, indent)
+    if json_data == None:
+        logging.error("Could not generate json data object!" % k)
+        return False
+    try:
+            fd = open(filename, 'w')
+            fd.write(json_data)
+            fd.close()
+    except IOError, E:
+        logging.error("Could not open file %s for writing, permissions?" % \
+            filename)
+        print E.strerror
+        return False
+
+    return True
 
 # vim:ts=4:expandtab:

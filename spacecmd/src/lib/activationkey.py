@@ -917,4 +917,108 @@ def do_activationkey_setuniversaldefault(self, args):
 
     self.client.activationkey.setDetails(self.session, key, details)
 
+####################
+
+def help_activationkey_export(self):
+    print 'activationkey_export: export activation key(s) to json format file'
+    print '''usage: activationkey_export <KEY> <KEY> [options]
+options:
+    -f outfile.json : specify an output filename, defaults to <KEY>.json
+                      if exporting a single key, akeys.json for multiple keys,
+                      or akey_all.json of no KEY specified (export ALL)
+
+Note : KEY list is optional, default is to export ALL keys '''
+
+def complete_activationkey_export(self, text, line, beg, end):
+    return tab_completer(self.do_activationkey_list('', True), text)
+
+def export_activationkey_getdetails(self, key):
+    # Get the key details
+    logging.info("Getting activation key details for %s" % key)
+    details = self.client.activationkey.getDetails(self.session, key)
+
+    # Get the key config-channel data, add it to the existing details
+    logging.debug("activationkey.listConfigChannels %s" % key)
+    ccdlist = []
+    try:
+        ccdlist = self.client.activationkey.listConfigChannels(self.session, \
+            key)
+    except Exception, E:
+        logging.debug("activationkey.listConfigChannel threw an exeception, \
+            probably not provisioning entitled, setting config_channels=False")
+    cclist = [ c['label'] for c in ccdlist ]
+    logging.debug("Got config channel label list of %s" % cclist)
+    details['config_channels'] = cclist
+
+    logging.debug("activationkey.checkConfigDeployment %s" % key) 
+    details['config_deploy'] = \
+        self.client.activationkey.checkConfigDeployment(self.session, key)
+
+    # Get group details, as the server group IDs are not necessarily the same
+    # across servers, so we need the group name on import
+    details['server_groups'] = []
+    if len(details['server_group_ids']) != 0:
+        grp_detail_list=[]
+        for grp in details['server_group_ids']:
+            grp_details = self.client.systemgroup.getDetails(self.session, grp)
+            if grp_details:
+                grp_detail_list.append(grp_details)
+        details['server_groups'] = [ g['name'] for g in grp_detail_list ]
+
+    # Now append the details dict describing the key to the specified file
+    return details
+
+def do_activationkey_export(self, args):
+    options = [ Option('-f', '--file', action='store') ]
+    (args, options) = parse_arguments(args, options)
+
+    filename=""
+    if options.file != None:
+        logging.debug("Passed filename do_activationkey_export %s" % \
+            options.file)
+        filename=options.file
+
+    # Get the list of keys to export and sort out the filename if required
+    keys=[]
+    if not len(args):
+        if len(filename) == 0:
+            filename="akey_all.json"
+        logging.info("Exporting ALL activation keys to %s" % filename)
+        keys = self.do_activationkey_list('', True)
+    else:
+        # allow globbing of activationkey channel names
+        keys = filter_results(self.do_activationkey_list('', True), args)
+        logging.debug("activationkey_export called with args %s, keys=%s" % \
+            (args, keys))
+        if (len(keys) == 0):
+            logging.error("Error, no valid key passed, check key-name is " + \
+                " correct with spacecmd activationkey_list")
+            return
+        if len(filename) == 0:
+            # No filename arg, so we try to do something sensible:
+            # If we are exporting exactly one key, we default to keyname.json
+            # otherwise, generic akeys.json name
+            if len(keys) == 1:
+                filename="%s.json" % keys[0]
+            else:
+                filename="akeys.json"
+
+    # Dump as a list of dict
+    keydetails_list=[]
+    for k in keys:
+        logging.info("Exporting key %s to %s" % (k, filename))
+        keydetails_list.append(self.export_activationkey_getdetails(k))
+
+    logging.debug("About to dump %d keys to %s" % \
+        (len(keydetails_list), filename))
+    # Check if filepath exists, if it is an existing file
+    # we prompt the user for confirmation
+    if os.path.isfile(filename):
+        if not self.user_confirm("File %s exists, confirm overwrite file? (y/n)" % \
+                    filename):
+            return 
+    if json_dump_to_file(keydetails_list, filename) != True:
+        logging.error("Error saving exported keys to file" % filename)
+        return
+
 # vim:ts=4:expandtab:
