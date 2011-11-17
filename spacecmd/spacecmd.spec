@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.6.6
+Version:     1.6.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,20 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Nov 16 2011 Aron Parsons <aparsons@redhat.com> 1.6.7-1
+- spacecmd: remove comma from softwarechannel_setorgaccess output
+  (aparsons@redhat.com)
+- spacecmd: add tab completion to softwarechannel_{get,set}orgaccess
+  (aparsons@redhat.com)
+- spacecmd enhancement : add softwarechannel_getorgaccess command
+  (shardy@redhat.com)
+- spacecmd enhancement : add softwarechannel_setorgaccess command
+  (shardy@redhat.com)
+- spacecmd enhancement : softwarechannel_list add tree pretty print option
+  (shardy@redhat.com)
+- spacecmd enhancement : softwarechannel_list add verbose mode
+  (shardy@redhat.com)
+
 * Mon Oct 24 2011 Aron Parsons <parsonsa@bit-sys.com> 1.6.6-1
 - spacecmd: use correct variable in system_reboot (parsonsa@bit-sys.com)
 
