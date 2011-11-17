@@ -580,4 +580,17 @@ def json_dump_to_file(obj, filename, indent = 2):
 
     return True
 
+def json_read_from_file(filename):
+    try:
+        data = open(filename).read()
+        try:
+            jsondata = json.loads(data)
+            return jsondata
+        except:
+            print "could not read in data from %s" % filename
+    except IOError, E:
+        if verbose:
+            print "could not open file %s for reading, check permissions?" % filename
+        return None
+
 # vim:ts=4:expandtab:

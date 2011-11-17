@@ -1021,4 +1021,92 @@ def do_activationkey_export(self, args):
         logging.error("Error saving exported keys to file" % filename)
         return
 
+####################
+
+def help_activationkey_import(self):
+    print 'activationkey_import: import activation key(s) from json file'
+    print '''usage: activationkey_import <JSONFILES...>'''
+
+def do_activationkey_import(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) == 0:
+        logging.error("Error, no filename passed")
+        self.help_activationkey_import() 
+        return
+
+    for filename in args:
+        logging.debug("Passed filename do_activationkey_import %s" % filename)
+        keydetails_list = json_read_from_file(filename)
+        if len(keydetails_list) == 0:
+            logging.error("Error, could not read json data from %s" % filename)
+            return
+        for keydetails in keydetails_list:
+            if self.import_activationkey_fromdetails(keydetails) != True:
+                logging.error("Error importing activationkey %s" % \
+                    keydetails['key'])
+
+# create a new key based on the dict from export_activationkey_getdetails
+def import_activationkey_fromdetails(self, keydetails):
+
+    # First we check that an existing key with the same name does not exist
+    existing_keys = self.do_activationkey_list('', True)
+    if keydetails['key'] in existing_keys:
+        logging.error("ERROR : key %s already exists! Skipping!" % \
+            keydetails['key'])
+        return False
+    else:
+        # create the key, we need to drop the org prefix from the key name
+        keyname = re.sub('^[0-9]-', '', keydetails['key'])
+        logging.info("Found key %s, importing as %s" % \
+            (keydetails['key'], keyname))
+        if keydetails['usage_limit'] != 0:
+            newkey = self.client.activationkey.create(self.session,
+                                           keyname,
+                                           keydetails['description'],
+                                           keydetails['base_channel_label'],
+                                           keydetails['usage_limit'],
+                                           keydetails['entitlements'],
+                                           keydetails['universal_default'])
+        else:
+            newkey = self.client.activationkey.create(self.session,
+                                           keyname,
+                                           keydetails['description'],
+                                           keydetails['base_channel_label'],
+                                           keydetails['entitlements'],
+                                           keydetails['universal_default'])
+        if len(newkey) == 0:
+            logging.error("Error, activation key import failed for %s" % \
+                keyname)
+            return False
+        # add child channels
+        self.client.activationkey.addChildChannels(self.session, newkey,\
+            keydetails['child_channel_labels'])
+        # set config channel options and channels (missing are skipped)
+        if keydetails['config_deploy'] != 0:
+            self.client.activationkey.enableConfigDeployment(self.session,\
+                newkey)
+        else:
+            self.client.activationkey.disableConfigDeployment(self.session,\
+                newkey)
+        if len(keydetails['config_channels']) > 0:
+            self.client.activationkey.addConfigChannels(self.session, [newkey],\
+                keydetails['config_channels'], False)
+        # set groups (missing groups are created)
+        gids = []
+        for grp in keydetails['server_groups']:
+            grpdetails = self.client.systemgroup.getDetails(self.session, grp)
+            if grpdetails == None:
+                logging.info("System group %s doesn't exist, creating" % grp)
+                grpdetails = self.client.systemgroup.create(self.session, grp,\
+                     grp)
+            gids.append(grpdetails.get('id'))
+        logging.debug("Adding groups %s to key %s" % (gids, newkey)) 
+        self.client.activationkey.addServerGroups(self.session, newkey, gids)
+        # Finally add the package list
+        self.client.activationkey.addPackages(self.session, newkey, \
+            keydetails['packages'])
+
+        return True
+
 # vim:ts=4:expandtab:
