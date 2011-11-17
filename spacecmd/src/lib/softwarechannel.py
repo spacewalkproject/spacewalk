@@ -948,10 +948,10 @@ def do_softwarechannel_setorgaccess(self, args):
         # If they just specify a channel and --enable/--disable
         # this implies public/private access
         if (options.enable):
-            logging.info("Making org sharing public for channel : %s, " % channel)
+            logging.info("Making org sharing public for channel : %s " % channel)
             self.client.channel.access.setOrgSharing(self.session, channel, 'public')
         elif (options.disable):
-            logging.info("Making org sharing private for channel : %s, " % channel)
+            logging.info("Making org sharing private for channel : %s " % channel)
             self.client.channel.access.setOrgSharing(self.session, channel, 'private')
         else:
             self.help_softwarechannel_setorgaccess()
