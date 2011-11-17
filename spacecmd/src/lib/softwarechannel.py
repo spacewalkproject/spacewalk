@@ -891,10 +891,14 @@ def do_softwarechannel_adderrata(self, args):
     self.generate_errata_cache(True)
 
 ####################
+
 def help_softwarechannel_getorgaccess(self):
     print 'Get the org-access for the software channel'
     print 'usage : softwarechannel_getorgaccess : get org access for all channels'
     print 'usage : softwarechannel_getorgaccess <channel_label(s)> : get org access for specific channel(s)'
+
+def complete_softwarechannel_getorgaccess(self, text, line, beg, end):
+    return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_getorgaccess(self, args):
 
@@ -913,11 +917,15 @@ def do_softwarechannel_getorgaccess(self, args):
         print "%s : %s" % (channel, sharing)
 
 ####################
+
 def help_softwarechannel_setorgaccess(self):
     print 'Set the org-access for the software channel'
     print '''usage : softwarechannel_setorgaccess <channel_label> [options]
 -d,--disable : disable org access (private, no org sharing)
 -e,--enable : enable org access (public access to all trusted orgs)'''
+
+def complete_softwarechannel_setorgaccess(self, text, line, beg, end):
+    return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_setorgaccess(self, args):
     if not len(args):
