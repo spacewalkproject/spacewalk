@@ -87,11 +87,8 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
         throws Exception {
 
         NetworkInterface netint = new NetworkInterface();
-        netint.setBroadcast("foo.bar.doo.doo");
         netint.setHwaddr(macAddress);
-        netint.setIpaddr(ipAddress);
         netint.setModule("test");
-        netint.setNetmask("255.255.255.0");
 
         netint.setName(networkName);
         server.addNetworkInterface(netint);
