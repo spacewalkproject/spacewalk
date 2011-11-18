@@ -42,8 +42,6 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         Server serv = ServerFactoryTest.createTestServer(user);
         NetworkInterface nic = new NetworkInterface();
         nic.setName("eth0");
-        nic.setIpaddr("192.168.0.5");
-        nic.setHwaddr("aa:aa:aa");
         nic.setServer(serv);
         serv.getNetworkInterfaces().add(nic);
 
@@ -71,14 +69,12 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         Server serv = ServerFactoryTest.createTestServer(user);
         NetworkInterface nic = new NetworkInterface();
         nic.setName("eth0");
-        nic.setIpaddr("192.168.1.5"); //not in range
         nic.setHwaddr("aa:aa:aa");
         nic.setServer(serv);
         serv.getNetworkInterfaces().add(nic);
 
         nic = new NetworkInterface();
         nic.setName("eth1");
-        nic.setIpaddr("192.168.0.5"); //in range
         nic.setHwaddr("aa:aa:aa");
         nic.setServer(serv);
         serv.getNetworkInterfaces().add(nic);
@@ -113,7 +109,6 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         NetworkInterface nic = new NetworkInterface();
         nic.setName("eth0");
         nic.setHwaddr("aa:aa:aa");
-        nic.setIpaddr("192.168.1.5"); //not in range
         nic.setServer(serv);
         serv.getNetworkInterfaces().add(nic);
 
@@ -142,7 +137,6 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         Server serv = ServerFactoryTest.createTestServer(user);
         NetworkInterface nic = new NetworkInterface();
         nic.setName("eth0");
-        nic.setIpaddr("192.168.1.5"); //not in range
         nic.setHwaddr("aa:aa:aa");
         nic.setServer(serv);
         serv.getNetworkInterfaces().add(nic);
