@@ -220,9 +220,10 @@ class GenericDevice:
         t = rhnSQL.Table(self.table, "id")
         self.data = t[devid]
         # clean up fields we don't want
-        for k in ["created", "modified"]:
-            if self.data.has_key(k):
-                del self.data[k]
+        if self.data:
+            for k in ["created", "modified"]:
+                if self.data.has_key(k):
+                    del self.data[k]
         self.id = devid
         self.status = 0
         return 0
