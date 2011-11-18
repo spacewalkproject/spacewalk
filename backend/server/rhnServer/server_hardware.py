@@ -257,7 +257,7 @@ class Device(GenericDevice):
         for k in fields:
             x[k] = None
         self.data = UserDictCase(x)
-        if dict is None:
+        if not dict:
             return
         # make sure we get a UserDictCase to work with
         if type(dict) == type({}):
@@ -318,7 +318,7 @@ class HardwareDevice(Device):
         
 class CPUDevice(Device):
     """ A class for handling CPU - mirrors the rhnCPU structure """
-    def __init__(self, dict = {}):
+    def __init__(self, dict = None):
         fields = ['cpu_arch_id',  'architecture', 'bogomips', 'cache',
                   'family', 'mhz', 'stepping', 'flags', 'model',
                   'version', 'vendor', 'nrcpu', 'acpiVersion',
@@ -341,6 +341,9 @@ class CPUDevice(Device):
             }
         # now instantiate this class
         Device.__init__(self, "rhnCPU", fields, dict, mapping)
+        self.sequence = "rhn_cpu_id_seq"
+        if not dict:
+            return
         if self.data.get("cpu_arch_id") is not None:
             return # all fine, we have the arch
         # if we don't have an architecture, guess it        
@@ -355,8 +358,6 @@ class CPUDevice(Device):
             raise AttributeError, "Invalid architecture for CPU: `%s'" % arch
         self.data["cpu_arch_id"] = row["id"]
         del self.data["architecture"]
-        # use our own sequence
-        self.sequence = "rhn_cpu_id_seq"
         if self.data.has_key("nrcpu"): # make sure this is a number
             try:
                 self.data["nrcpu"] = int(self.data["nrcpu"])
@@ -757,6 +758,8 @@ class MemoryInformation(Device):
         Device.__init__(self, "rhnRAM", fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_ram_id_seq"
+        if not dict:
+            return
         # Sometimes we get sent a NNNNL number and we need to strip the L
         for k in fields:
             if not self.data.has_key(k):
@@ -776,6 +779,8 @@ class DMIInformation(Device):
         Device.__init__(self, "rhnServerDMI", fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_server_dmi_id_seq"
+        if not dict:
+            return
 
         # deal with hardware with insanely long dmi strings...
         for key, value in self.data.items():
