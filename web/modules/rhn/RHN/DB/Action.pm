@@ -168,9 +168,6 @@ sub cancel_pending_for_system {
   my $dbh = $params{transaction} || RHN::DB->connect;
 
   my $sth = $dbh->prepare(<<EOQ);
-DECLARE
-
-cursor pending_actions is
 SELECT A.id
   FROM rhnAction A,
        rhnServerAction SA
@@ -178,17 +175,14 @@ SELECT A.id
    AND SA.status = 0
    AND SA.action_id = A.id
    AND A.prerequisite IS NULL
-ORDER BY A.id;
-
-BEGIN
-
-for action in pending_actions loop
-  rhn_server.remove_action(:server_id, action.id);
-end loop;
-END;
+ORDER BY A.id
 EOQ
 
   $sth->execute_h(server_id => $params{server_id});
+
+  while (my @results = $sth->fetchrow()) {
+    $dbh->call_procedure('rhn_server.remove_action', $params{server_id}, $results[0]);
+  }
 
   if (defined $params{transaction}) {
     return $params{transaction};
@@ -207,12 +201,7 @@ sub delete_set_from_action {
 
   my $dbh = RHN::DB->connect;
 
-
-
   my $query = <<EOQ;
-DECLARE
-
-cursor selected_servers is
 SELECT SA.server_id
   FROM rhnServerAction SA, rhnSet ST
  WHERE ST.user_id = :user_id
@@ -220,16 +209,13 @@ SELECT SA.server_id
    AND ST.element = SA.server_id
    AND SA.action_id = :action_id
    AND SA.status = 0;
-
-BEGIN
-for server in selected_servers loop
-  rhn_server.remove_action(server.server_id, :action_id);
-end loop;
-END;
 EOQ
 
   my $sth = $dbh->prepare($query);
   $sth->execute_h(action_id => $aid, user_id => $uid, label => $set_name);
+  while (my @results = $sth->fetchrow()) {
+    $dbh->call_procedure('rhn_server.remove_action', $results[0], $aid);
+  }
   $dbh->commit;
 }
 
@@ -242,9 +228,6 @@ sub delete_system_from_action_set {
   my $dbh = RHN::DB->connect;
 
   my $query = <<EOQ;
-DECLARE
-
-cursor selected_actions is
 SELECT SA.action_id
   FROM rhnSet ST, rhnServerAction SA
  WHERE ST.user_id = :user_id
@@ -252,16 +235,15 @@ SELECT SA.action_id
    AND SA.server_id = :server_id
    AND ST.element = SA.action_id
    AND SA.status = 0;
-
-BEGIN
-for action in selected_actions loop
-  rhn_server.remove_action(:server_id, action.action_id);
-end loop;
-END;
 EOQ
 
   my $sth = $dbh->prepare($query);
   $sth->execute_h(server_id => $sid, user_id => $uid, label => $set_name);
+
+  while (my @results = $sth->fetchrow()) {
+    $dbh->call_procedure('rhn_server.remove_action', $sid, $results[0]);
+  }
+
   $dbh->commit;
 
 }
