@@ -89,7 +89,9 @@ public class UpdateCustomDataAction extends RhnAction {
 
             request.setAttribute(CREATE_PARAM, cdv.getCreated());
             request.setAttribute(MODIFY_PARAM, cdv.getModified());
-            request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
+            if (cdv.getCreator() != null) {
+                request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
+            }
             if (cdv.getLastModifier() == null) {
                 request.setAttribute(MODIFIER_PARAM, user.getLogin());
             }
