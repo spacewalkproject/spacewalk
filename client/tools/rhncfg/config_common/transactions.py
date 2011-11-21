@@ -88,9 +88,17 @@ class DeployTransaction:
 			log_debug(9, "os.renames failed, using shutil functions")
 			path_dir, path_file = os.path.split(path)
 			new_path_dir, new_path_file = os.path.split(new_path)
-			if os.path.isdir(new_path_dir):
-			    log_debug(9, "backup directory %s exists, copying %s to it" % (new_path_dir, new_path_file))
-                	    shutil.copy(path, new_path)
+                        if os.path.isdir(new_path_dir):
+                            if os.path.islink(path):
+                                log_debug(9, "copying symlink %s to %s"% (path,new_path_dir))
+                                linkto = os.readlink(path)
+                                if os.path.exists(new_path):
+                                    log_debug(9, "symlink %s exists, removing it"% (path))
+                                    os.unlink(new_path)
+                                os.symlink(linkto,new_path)
+                            else:
+                                log_debug(9, "backup directory %s exists, copying %s to it" % (new_path_dir, new_path_file))
+                                shutil.copy(path, new_path)
 			else:
 			    log_debug(9, "backup directory does not exist, creating the tree now")
                 	    shutil.copytree(path_dir, new_path_dir, symlinks=0)
