@@ -457,19 +457,23 @@ class NetIfaceInformation(Device):
         log_debug(4, "Updates", updates)
         log_debug(4, "Inserts", inserts)
 
-        self._delete(deletes)
         self._update(updates)
         self._insert(inserts)
         ifaces = self.ifaces.copy()
         for name, info in ifaces.items():
-            if 'ipv6' in info:
-                info['ipv6'].save(self.get_server_id(server_id, name))
-            else:
-                pass # wipe old records if any
-            if 'ipv4' in info:
-                info['ipv4'].save(self.get_server_id(server_id, name))
-            else:
-                pass # wipe old records if any
+            if not 'ipv6' in info:
+                info['ipv6'] = NetIfaceAddress6()
+            info['ipv6'].save(self.get_server_id(server_id, name))
+            if not 'ipv4' in info:
+                info['ipv4'] = NetIfaceAddress4()
+            info['ipv4'].save(self.get_server_id(server_id, name))
+        # delete address (if any) of deleted interaces
+        for d in deletes:
+            interface = NetIfaceAddress6()
+            interface.save(self.get_server_id(server_id, d['name']))
+            interface = NetIfaceAddress4()
+            interface.save(self.get_server_id(server_id, d['name']))
+        self._delete(deletes)
         return 0
 
     def get_server_id(self, server_id, name):
