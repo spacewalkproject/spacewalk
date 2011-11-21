@@ -43,6 +43,12 @@ class Error(YumBaseError):
         else:
             return YumBaseError.__getattribute__(self, name)
 
+    def __setattr__(self, name, value):
+        """ Spacewalk backend still use errmsg, let have errmsg as alias to value """
+        if name == 'errmsg':
+            self.__dict__['value'] = value
+        else:
+            YumBaseError.__setattr__(self, name, value)
     
 class RpmError(Error):
     """rpm itself raised an error condition"""
