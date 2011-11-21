@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.19
+Version: 5.10.20
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Nov 21 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.20-1
+- 627490 - fixed cross device symlink backup
+
 * Mon Oct 24 2011 Jan Pazdziora 5.10.19-1
 - 743121 - don't report differences containing invalid UTF-8
   (mzazrivec@redhat.com)
