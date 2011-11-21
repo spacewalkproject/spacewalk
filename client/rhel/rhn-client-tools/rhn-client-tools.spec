@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.34
+Version: 1.6.35
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Nov 21 2011 Miroslav Suchý 1.6.35-1
+- 751760 - make errmsg as an alias to value
+
 * Mon Nov 07 2011 Miroslav Suchý 1.6.34-1
 - call parent's constructor
 - 751760 - use attribute value, which our ancestor use
