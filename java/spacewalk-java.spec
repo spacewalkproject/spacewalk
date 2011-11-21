@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.77
+Version: 1.6.78
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 21 2011 Jan Pazdziora 1.6.78-1
+- Remove markup from another error message (jrenner@suse.de)
+- Remove markup from error message in all translation files (jrenner@suse.de)
+- Catch a java.lang.NullPointerException when web_contact got deleted and
+  rhnServerCustomDataValue.created_by became null.
+- Fix the *callerIp* in API logfile (jrenner@suse.de)
+
 * Tue Nov 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.77-1
 - 738999 - VirtualInstance.confirmed is number not boolean
 
