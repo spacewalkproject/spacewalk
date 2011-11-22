@@ -201,12 +201,44 @@ public class NetworkInterface extends BaseDomainHelper implements
     }
 
     /**
+     * findServerNetAddress6ByScope
+     * @param scope Address scope to search for.
+     * @return Returns IPv6 address of the given scope for the given interface.
+     */
+    private String findServerNetAddress6ByScope(String scope) {
+        Session session = HibernateFactory.getSession();
+        ServerNetAddress6 ad6 = (ServerNetAddress6)
+            session.getNamedQuery("ServerNetAddress6.lookup_by_scope_and_id")
+            .setParameter("interface_id", this.interfaceId)
+            .setParameter("scope", scope)
+            .uniqueResult();
+
+        if (ad6 == null) {
+            return null;
+        }
+        else {
+            return ad6.getAddress();
+        }
+    }
+
+    /**
+     * @return If available, returns a global IPv6 address.
+     */
+    public String getIp6Addr() {
+        return findServerNetAddress6ByScope("universe");
+    }
+
+    /**
      * returns true if the NetworkInterface is disabled
      * @return if it's empty or not
      */
     public boolean isDisabled() {
-        return this.getIpaddr() == null || this.getIpaddr().equals("0") ||
-                this.getIpaddr().equals("");
+        return (this.getIpaddr() == null ||
+                this.getIpaddr().equals("0") ||
+                this.getIpaddr().equals("")) &&
+               (this.getIp6Addr() == null ||
+                this.getIp6Addr().equals("") ||
+                this.getIp6Addr().equals("0"));
     }
 
 
