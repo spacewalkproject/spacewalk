@@ -369,11 +369,12 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
         header.update(dct)
 
     # a patch can patch multiple packages
-    subdir = ''
+    patch_path = prefix
+    patch_path_with_subdir = os.path.join('patches/', patch_path)
     # recent format has files in patches subdir
-    if os.path.isdir(os.path.join(archive_parser._archive_dir, 'patches/', prefix)):
-        subdir = 'patches/'
-    pkgs, x = archive_parser.list(os.path.join(subdir, prefix))
+    if os.path.isdir(os.path.join(archive_parser._archive_dir, patch_path_with_subdir)):
+        patch_path = patch_path_with_subdir
+    pkgs, x = archive_parser.list(patch_path)
 
     for pkg in pkgs:
         pkginfo_file = os.path.join(prefix, pkg, 'pkginfo')
@@ -407,7 +408,7 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
         header['package_size'] = os.path.getsize(archive)
         package.payload_stream = open(archive)
     else:
-        zip_file = archive_parser.zip(os.path.join(subdir,prefix))
+        zip_file = archive_parser.zip(patch_path)
         _temp_files.append(zip_file)
 
         header['package_name'] = os.path.basename(zip_file)
