@@ -1128,6 +1128,7 @@
       <form-property name="label" type="java.lang.String" />
       <form-property name="description" type="java.lang.String" />
       <form-property name="submitted" type="java.lang.Boolean" />
+      <form-property name="no_scrub" type="java.lang.String" initial="description"/>
     </form-bean>
 
     <form-bean name="updateCustomDataForm"
@@ -1136,6 +1137,7 @@
       <form-property name="label" type="java.lang.String" />
       <form-property name="value" type="java.lang.String" />
       <form-property name="submitted" type="java.lang.Boolean" />
+      <form-property name="no_scrub" type="java.lang.String" initial="value"/>
     </form-bean>
 
     <form-bean name="updateTaskSchedule"

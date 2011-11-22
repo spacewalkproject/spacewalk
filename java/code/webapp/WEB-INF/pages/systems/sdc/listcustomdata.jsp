@@ -34,7 +34,7 @@
             <tr>
               <th>${current.label}</th>
               <td width="50%">
-                <pre>${current.value}</pre>
+                <pre><c:out value="${current.value}" /></pre>
                 <a href="/rhn/systems/details/UpdateCustomData.do?sid=${system.id}&cikid=${current.cikid}">
                   <bean:message key="sdc.details.customdata.editvalue"/>
                 </a>
