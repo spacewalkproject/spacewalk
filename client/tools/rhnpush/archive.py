@@ -202,9 +202,11 @@ class ArchiveParser(object):
         os.chdir(parent_dir)
 
         zip_file = os.path.join(self._parent_dir, "%s.zip" % zip_dir)
-
-        cmd = "zip -q -r %s %s" % (zip_file, zip_dir)
-        stat = _my_popen(cmd)
+        fd = zipfile.ZipFile(zip_file, 'w', zipfile.ZIP_DEFLATED)
+        for base, dirs, files in os.walk(zip_dir):
+            fd.write(base)
+            for f in files:
+                fd.write(os.path.join(base, f))
 
         os.chdir(cwd)
 
