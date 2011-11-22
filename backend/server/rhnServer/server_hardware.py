@@ -173,6 +173,7 @@ def cleanse_ip_addr(ip_addr):
     
 class GenericDevice:
     """ A generic device class """
+    __table = "override-GenericDevice"
     def __init__(self, table):
         self.id = 0
         self.status = 1 # just added
@@ -251,8 +252,8 @@ class Device(GenericDevice):
         table. The mapping allows transformation from whatever comes in to
         valid fields in the table Looks complicated but it isn't -- gafton
     """
-    def __init__(self, table, fields, dict = None, mapping = None):
-        GenericDevice.__init__(self, table)
+    def __init__(self, fields, dict = None, mapping = None):
+        GenericDevice.__init__(self)
         x = {}
         for k in fields:
             x[k] = None
@@ -305,6 +306,7 @@ class Device(GenericDevice):
                                 
 class HardwareDevice(Device):
     """ A more specific device based on the Device class """
+    __table = "rhnDevice"
     def __init__(self, dict = None):
         fields = ['class', 'bus', 'device', 'driver', 'detached',
                   'description', 'pcitype', 'prop1', 'prop2',
@@ -312,12 +314,13 @@ class HardwareDevice(Device):
         # get a processed mapping
         mapping = kudzu_mapping(dict)
         # ... and do little to no work
-        Device.__init__(self, "rhnDevice", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         # use the hardware id sequencer
         self.sequence = "rhn_hw_dev_id_seq"
         
 class CPUDevice(Device):
     """ A class for handling CPU - mirrors the rhnCPU structure """
+    __table = "rhnCPU"
     def __init__(self, dict = None):
         fields = ['cpu_arch_id',  'architecture', 'bogomips', 'cache',
                   'family', 'mhz', 'stepping', 'flags', 'model',
@@ -340,7 +343,7 @@ class CPUDevice(Device):
             'class' : None,
             }
         # now instantiate this class
-        Device.__init__(self, "rhnCPU", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         self.sequence = "rhn_cpu_id_seq"
         if not dict:
             return
@@ -368,10 +371,11 @@ class CPUDevice(Device):
                 
 class NetworkInformation(Device):
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
+    __table = "rhnServerNetwork"
     def __init__(self, dict = None):
         fields = ["hostname", "ipaddr", "ip6addr"]
         mapping = { 'class' : None }
-        Device.__init__(self, "rhnServerNetwork", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         self._autonull = ('ipaddr', 'ip6addr')
         # use our own sequence
         self.sequence = "rhn_server_net_id_seq"
@@ -554,7 +558,7 @@ class NetIfaceAddress(Device):
         'address'    : 'address',
     }
     unique = ['address'] # to be overriden by child
-    table = 'rhnServerNetAddress' # to be overriden by child
+    __table = 'rhnServerNetAddress' # to be overriden by child
     def __init__(self, list_ifaces=None):
         log_debug(4, list_ifaces)
         self.ifaces = {}
@@ -637,7 +641,7 @@ class NetIfaceAddress(Device):
         columns = self.key_mapping.values() + ['interface_id']
         columns.sort()
         bind_params = string.join(map(lambda x: ':' + x, columns), ", ")
-        h = rhnSQL.prepare(q % (self.table, string.join(columns, ", "), bind_params))
+        h = rhnSQL.prepare(q % (self.__table, string.join(columns, ", "), bind_params))
         return _dml(h, params)
 
     def _delete(self, params):
@@ -646,7 +650,7 @@ class NetIfaceAddress(Device):
 
         columns = self.unique
         wheres = map(lambda x: '%s = :%s' % (x, x), columns)
-        h = rhnSQL.prepare(q % (self.table, string.join(wheres, " and ")))
+        h = rhnSQL.prepare(q % (self.__table, string.join(wheres, " and ")))
         return _dml(h, params)
 
     def _update(self, params):
@@ -664,7 +668,7 @@ class NetIfaceAddress(Device):
         updates = map(lambda x: '%s = :%s' % (x, x), updates)
         updates = string.join(updates, ", ")
 
-        h = rhnSQL.prepare(q % (self.table, updates, wheres))
+        h = rhnSQL.prepare(q % (self.__table, updates, wheres))
         return _dml(h, params)
 
     def reload(self, interface_id):
@@ -672,7 +676,7 @@ class NetIfaceAddress(Device):
             select *
             from %s
             where interface_id = :interface_id
-        """ % self.table)
+        """ % self.__table)
         h.execute(interface_id=interface_id)
         self.db_ifaces = []
         while 1:
@@ -694,7 +698,7 @@ class NetIfaceAddress6(NetIfaceAddress):
         'addr'    : 'address',
         'scope'   : 'scope',
     }
-    table = 'rhnServerNetAddress6'
+    __table = 'rhnServerNetAddress6'
     unique = ['interface_id', 'address', 'scope']
     def __init__(self, addr_dict=None):
         NetIfaceAddress.__init__(self, addr_dict)
@@ -707,7 +711,7 @@ class NetIfaceAddress4(NetIfaceAddress):
         'ipaddr'    : 'address',
         'broadcast' : 'broadcast',
     }
-    table = 'rhnServerNetAddress4'
+    __table = 'rhnServerNetAddress4'
     unique = ['interface_id']
     def __init__(self, addr_dict=None):
         NetIfaceAddress.__init__(self, addr_dict)
@@ -756,10 +760,11 @@ def _transpose(hasharr):
 
 class MemoryInformation(Device):
     """ Memory information """
+    __table = "rhnRAM"
     def __init__(self, dict = None):
         fields = ["ram", "swap"]
         mapping = { "class" : None }
-        Device.__init__(self, "rhnRAM", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_ram_id_seq"
         if not dict:
@@ -776,11 +781,12 @@ class MemoryInformation(Device):
 
 class DMIInformation(Device):
     """ DMI information """
+    __table = "rhnServerDMI"
     def __init__(self, dict = None):
         fields = ["vendor", "system", "product", "asset", "board",
                   "bios_vendor", "bios_version", "bios_release"]
         mapping = { "class" : None }
-        Device.__init__(self, "rhnServerDMI", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_server_dmi_id_seq"
         if not dict:
@@ -794,6 +800,7 @@ class DMIInformation(Device):
 
 class InstallInformation(Device):
     """ Install information """
+    __table = "rhnServerInstallInfo"
     def __init__(self, dict = None):
         fields = ['install_method', 'iso_status', 'mediasum']
         mapping = { 
@@ -802,7 +809,7 @@ class InstallInformation(Device):
             'isostatus'     : 'iso_status',
             'mediasum'      : 'mediasum',
         }
-        Device.__init__(self, "rhnServerInstallInfo", fields, dict, mapping)
+        Device.__init__(self, fields, dict, mapping)
         self.sequence = 'rhn_server_install_info_id_seq'
 
 class Hardware:
@@ -912,9 +919,16 @@ class Hardware:
         """ Load a certain hardware class from the database """
         if not self.__hardware.has_key(DevClass):
             self.__hardware[DevClass] = []
-        dev = DevClass()
-        dev.reload(sysid)
-        self.__hardware[DevClass].append(dev)
+
+        h = rhnSQL.prepare("select id from %s where server_id = :sysid" % DevClass.__table)
+        h.execute(sysid = sysid)
+        rows = h.fetchall_dict() or []
+        
+        for device in rows:
+            dev_id = device['id']
+            dev = DevClass()
+            dev.reload(dev_id)
+            self.__hardware[DevClass].append(dev)
     
     def reload_hardware_byid(self, sysid):
         """ load all hardware devices for a server """
@@ -929,7 +943,9 @@ class Hardware:
         self.__load_from_db(NetworkInformation, sysid)        
         self.__load_from_db(MemoryInformation, sysid)        
         self.__load_from_db(InstallInformation, sysid)
-        self.__load_from_db(NetIfaceInformation, sysid)
+        
+        net_iface_info = NetIfaceInformation()
+        net_iface_info.reload(sysid)
         
         # now set the flag
         self.__changed = 0
