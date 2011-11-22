@@ -1,0 +1,6 @@
+-- oracle equivalent source sha1 37531557b1d0368256273ea973cbdbc6eac3dd19
+
+DROP INDEX rhn_server_dmi_sid_idx;
+
+CREATE UNIQUE INDEX rhn_server_dmi_sid_uq
+    ON rhnServerDMI (server_id);
