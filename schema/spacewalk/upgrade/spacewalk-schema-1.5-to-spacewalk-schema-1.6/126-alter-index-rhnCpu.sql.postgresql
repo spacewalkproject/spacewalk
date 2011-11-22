@@ -1,0 +1,6 @@
+-- oracle equivalent source sha1 9cf5504d7dabce531f966048916bf85ce13e43ed
+
+DROP INDEX rhn_cpu_server_id_idx;
+
+CREATE UNIQUE INDEX rhn_cpu_server_id_uq
+    ON rhnCpu (server_id);
