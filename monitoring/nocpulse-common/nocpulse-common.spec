@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.2.0
+Version:      2.2.1
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -150,6 +150,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Nov 22 2011 Miroslav Suchý 2.2.1-1
+- bump up version
+- 755963 - logrotate nocpulse even on Fedora 16
+
 * Thu Jun 02 2011 Miroslav Suchý 2.1.24-1
 - 710002 - create initial NOCpulse.ini on correct place
 
