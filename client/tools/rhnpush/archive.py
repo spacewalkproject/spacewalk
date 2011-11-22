@@ -21,6 +21,7 @@ import shutil
 import tempfile
 import select
 import zipfile
+import tarfile
 
 # exceptions -------------------------------------------------------------
 
@@ -249,20 +250,23 @@ class ZipParser(ArchiveParser):
 # parser for tar archives ------------------------------------------------
 
 class TarParser(ArchiveParser):
+    def __init__(self, archive, tempdir="/tmp/"):
+        self.tar_file = tarfile.open(archive, 'r')
+        ArchiveParser.__init__(self, archive, tempdir)
 
     def _get_archive_dir(self):
-        list_cmd = "tar -tf %s" % (self._archive,)
-        return os.popen(list_cmd).readlines()[0][:-2]
+        return self.tar_file.getnames()[0]
 
-    def _explode_cmd(self):
-        """Return the appropriate command for exploding a tar archive"""
-
-        if not _has_executable("tar"):
-            raise ArchiveException("cannot open %s, 'tar' not found" % self._archive)
-
+    def _explode(self, archive):
+        """Explode tar archive"""
         self._archive_dir = os.path.join(self._temp_dir, self._get_archive_dir())
 
-        return "cd %s; tar xf %s" % (self._temp_dir, self._archive)
+        try:
+            self.tar_file.extractall(path=self._temp_dir)
+        except Exception, e:
+            raise InvalidArchiveError("Archive did not expand to %s: %s" %
+                                                (self._archive_dir, str(e)))
+        return
 
 # parser for cpio archives -----------------------------------------------
 
