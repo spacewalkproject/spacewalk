@@ -173,11 +173,10 @@ def cleanse_ip_addr(ip_addr):
     
 class GenericDevice:
     """ A generic device class """
-    __table = "override-GenericDevice"
-    def __init__(self, table):
+    table = "override-GenericDevice"
+    def __init__(self):
         self.id = 0
         self.status = 1 # just added
-        self.__table = table
         self.data = {}
         # default to the hardware seq...
         self.sequence = "rhn_hw_dev_id_seq"
@@ -194,10 +193,10 @@ class GenericDevice:
         return 1
     def save(self, sysid):
         """ save data in the rhnDevice table """
-        log_debug(4, self.__table, self.status, self.data)
+        log_debug(4, self.table, self.status, self.data)
         if not self.must_save():
             return 0
-        t = rhnSQL.Table(self.__table, "id")
+        t = rhnSQL.Table(self.table, "id")
         # check if we have to delete
         if self.status == 2 and self.id:
             # delete the entry
@@ -218,7 +217,7 @@ class GenericDevice:
         """ reload from rhnDevice table based on devid """
         if not devid:
             return -1
-        t = rhnSQL.Table(self.__table, "id")
+        t = rhnSQL.Table(self.table, "id")
         self.data = t[devid]
         # clean up fields we don't want
         if self.data:
@@ -306,7 +305,7 @@ class Device(GenericDevice):
                                 
 class HardwareDevice(Device):
     """ A more specific device based on the Device class """
-    __table = "rhnDevice"
+    table = "rhnDevice"
     def __init__(self, dict = None):
         fields = ['class', 'bus', 'device', 'driver', 'detached',
                   'description', 'pcitype', 'prop1', 'prop2',
@@ -320,7 +319,7 @@ class HardwareDevice(Device):
         
 class CPUDevice(Device):
     """ A class for handling CPU - mirrors the rhnCPU structure """
-    __table = "rhnCPU"
+    table = "rhnCPU"
     def __init__(self, dict = None):
         fields = ['cpu_arch_id',  'architecture', 'bogomips', 'cache',
                   'family', 'mhz', 'stepping', 'flags', 'model',
@@ -371,7 +370,7 @@ class CPUDevice(Device):
                 
 class NetworkInformation(Device):
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
-    __table = "rhnServerNetwork"
+    table = "rhnServerNetwork"
     def __init__(self, dict = None):
         fields = ["hostname", "ipaddr", "ip6addr"]
         mapping = { 'class' : None }
@@ -558,7 +557,7 @@ class NetIfaceAddress(Device):
         'address'    : 'address',
     }
     unique = ['address'] # to be overriden by child
-    __table = 'rhnServerNetAddress' # to be overriden by child
+    table = 'rhnServerNetAddress' # to be overriden by child
     def __init__(self, list_ifaces=None):
         log_debug(4, list_ifaces)
         self.ifaces = {}
@@ -641,7 +640,7 @@ class NetIfaceAddress(Device):
         columns = self.key_mapping.values() + ['interface_id']
         columns.sort()
         bind_params = string.join(map(lambda x: ':' + x, columns), ", ")
-        h = rhnSQL.prepare(q % (self.__table, string.join(columns, ", "), bind_params))
+        h = rhnSQL.prepare(q % (self.table, string.join(columns, ", "), bind_params))
         return _dml(h, params)
 
     def _delete(self, params):
@@ -650,7 +649,7 @@ class NetIfaceAddress(Device):
 
         columns = self.unique
         wheres = map(lambda x: '%s = :%s' % (x, x), columns)
-        h = rhnSQL.prepare(q % (self.__table, string.join(wheres, " and ")))
+        h = rhnSQL.prepare(q % (self.table, string.join(wheres, " and ")))
         return _dml(h, params)
 
     def _update(self, params):
@@ -668,7 +667,7 @@ class NetIfaceAddress(Device):
         updates = map(lambda x: '%s = :%s' % (x, x), updates)
         updates = string.join(updates, ", ")
 
-        h = rhnSQL.prepare(q % (self.__table, updates, wheres))
+        h = rhnSQL.prepare(q % (self.table, updates, wheres))
         return _dml(h, params)
 
     def reload(self, interface_id):
@@ -676,7 +675,7 @@ class NetIfaceAddress(Device):
             select *
             from %s
             where interface_id = :interface_id
-        """ % self.__table)
+        """ % self.table)
         h.execute(interface_id=interface_id)
         self.db_ifaces = []
         while 1:
@@ -698,7 +697,7 @@ class NetIfaceAddress6(NetIfaceAddress):
         'addr'    : 'address',
         'scope'   : 'scope',
     }
-    __table = 'rhnServerNetAddress6'
+    table = 'rhnServerNetAddress6'
     unique = ['interface_id', 'address', 'scope']
     def __init__(self, addr_dict=None):
         NetIfaceAddress.__init__(self, addr_dict)
@@ -711,7 +710,7 @@ class NetIfaceAddress4(NetIfaceAddress):
         'ipaddr'    : 'address',
         'broadcast' : 'broadcast',
     }
-    __table = 'rhnServerNetAddress4'
+    table = 'rhnServerNetAddress4'
     unique = ['interface_id']
     def __init__(self, addr_dict=None):
         NetIfaceAddress.__init__(self, addr_dict)
@@ -760,7 +759,7 @@ def _transpose(hasharr):
 
 class MemoryInformation(Device):
     """ Memory information """
-    __table = "rhnRAM"
+    table = "rhnRAM"
     def __init__(self, dict = None):
         fields = ["ram", "swap"]
         mapping = { "class" : None }
@@ -781,7 +780,7 @@ class MemoryInformation(Device):
 
 class DMIInformation(Device):
     """ DMI information """
-    __table = "rhnServerDMI"
+    table = "rhnServerDMI"
     def __init__(self, dict = None):
         fields = ["vendor", "system", "product", "asset", "board",
                   "bios_vendor", "bios_version", "bios_release"]
@@ -800,7 +799,7 @@ class DMIInformation(Device):
 
 class InstallInformation(Device):
     """ Install information """
-    __table = "rhnServerInstallInfo"
+    table = "rhnServerInstallInfo"
     def __init__(self, dict = None):
         fields = ['install_method', 'iso_status', 'mediasum']
         mapping = { 
@@ -920,7 +919,7 @@ class Hardware:
         if not self.__hardware.has_key(DevClass):
             self.__hardware[DevClass] = []
 
-        h = rhnSQL.prepare("select id from %s where server_id = :sysid" % DevClass.__table)
+        h = rhnSQL.prepare("select id from %s where server_id = :sysid" % DevClass.table)
         h.execute(sysid = sysid)
         rows = h.fetchall_dict() or []
         
