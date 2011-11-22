@@ -241,8 +241,9 @@ class ZipParser(ArchiveParser):
 
         try:
             self.zip_file.extractall(self._temp_dir)
-        except:
-            raise InvalidArchiveError("Archive did not expand to %s" % self._archive_dir)
+        except Exception, e:
+            raise InvalidArchiveError("Archive did not expand to %s: %s" %
+                                                (self._archive_dir, str(e)))
         return
 
 # parser for tar archives ------------------------------------------------

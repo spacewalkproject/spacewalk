@@ -235,8 +235,7 @@ def _run(archives=sys.argv[1:]):
                 raise MPMInputError("'%s' does not appear to contain Solaris content")
 
         except Exception, e:
-            print "Error creating mpm for %s:" % archive
-            # print str(e)
+            print "Error creating mpm for %s: %s" % (archive, repr(e))
 
         # cleanup as we go
         if options.CLEANUP:
