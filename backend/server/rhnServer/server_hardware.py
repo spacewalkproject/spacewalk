@@ -654,7 +654,9 @@ class NetIfaceAddress(Device):
         columns = self.unique
         wheres = map(lambda x: '%s = :%s' % (x, x), columns)
         h = rhnSQL.prepare(q % (self.table, string.join(wheres, " and ")))
-        return _dml(h, params)
+        # filter out params, which are not used in query
+        bind_params = dict((c, params[c]) for c in columns)
+        return _dml(h, bind_params)
 
     def _update(self, params):
         q = """update %s
