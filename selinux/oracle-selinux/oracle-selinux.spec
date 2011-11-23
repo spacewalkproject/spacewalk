@@ -19,7 +19,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.31
+Version:         0.1.23.32
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -222,6 +222,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Wed Nov 23 2011 Jan Pazdziora 0.1.23.32-1
+- Require the roles.
+
 * Fri Jul 22 2011 Jan Pazdziora 0.1.23.31-1
 - We only support version 14 and newer of Fedora, removing conditions for old
   versions.
