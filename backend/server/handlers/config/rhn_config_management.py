@@ -196,8 +196,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigRevision cr
           left join rhnConfigContent ccont
             on cr.config_content_id = ccont.id
-          left join rhnChecksumView c
-            on ccont.checksum_id = c.id,
+          left join
+            (select cs.id, cs.checksum_type, cs.checksum
+               from rhnChecksumView cs
+               inner join rhnConfigContent ccont
+                 on ccont.checksum_id = cs.id) c
+            on c.id = ccont.checksum_id,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
 	       rhnConfigFileType cft,
