@@ -439,6 +439,9 @@ class rhnFault(Exception):
             return xmlrpclib.Fault(1, s.getvalue())
         return xmlrpclib.Fault(-self.code, s.getvalue())
 
+class rhnNotFound(Exception):
+    """ Raised when we want return 404 Not Found """
+    pass
 
 if __name__ == "__main__":
     print "You can not run this module by itself"

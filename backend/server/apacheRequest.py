@@ -27,7 +27,7 @@ from spacewalk.common import apache, rhnFlags
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common import byterange
 from spacewalk.common.rhnLog import log_debug, log_error
-from spacewalk.common.rhnException import rhnFault, \
+from spacewalk.common.rhnException import rhnFault, rhnNotFound,\
         redirectException #to catch redirect exception
 from spacewalk.common.rhnTranslate import _
 from spacewalk.common.rhnLib import setHeaderValue
@@ -136,7 +136,8 @@ class apacheRequest:
                 extra="Response sent back to the caller:\n%s\n" % (
                     response.faultString,),
                 severity="notification")
-            
+        except rhnNotFound, e:
+            return apache.HTTP_NOT_FOUND
         #pkilambi:catch exception if redirect
         except redirectException, re:
             log_debug(3,"redirect exception caught",re.path)

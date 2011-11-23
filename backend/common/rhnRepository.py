@@ -27,7 +27,7 @@ from spacewalk.common import rhn_rpm
 import rhnFlags
 from rhnLog import log_debug
 from rhnLib import rfc822time
-from rhnException import rhnException, rhnFault
+from rhnException import rhnException, rhnFault, rhnNotFound
 from RPC_Base import RPC_Base
 
 class Repository(RPC_Base):
@@ -43,7 +43,8 @@ class Repository(RPC_Base):
         self.functions = [
             'getPackage',
             'getPackageHeader',
-            'getPackageSource'
+            'getPackageSource',
+            'i18n',
         ]
 
     def set_compress_headers(self, val):
@@ -104,6 +105,14 @@ class Repository(RPC_Base):
             filePath = self.getPackagePath(pkg_spec)
         
         return self._getFile(filePath)
+
+    def i18n(self, translation, *args):
+        """ Translations files for Ubuntu. E.g. Translation-en_US.bz2
+
+            We do not support it so just return 404. But do not fail with
+            traceback.
+        """
+        raise rhnNotFound()
 
     def getPackageSource(self, pkgFilename):
         """ Get srpm packrge. """
