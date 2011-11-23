@@ -439,7 +439,7 @@ class NetIfaceInformation(Device):
                 deletes.append({'server_id' : server_id, 'name' : name})
                 continue
 
-            uploaded_iface = ifaces[name]
+            uploaded_iface = ifaces[name].copy()
             del ifaces[name]
             if _hash_eq(uploaded_iface, iface):
                 # Same value
@@ -611,6 +611,8 @@ class NetIfaceAddress(Device):
             address = iface['address']
             if not self.ifaces.has_key(iface['address']):
                 # To be deleted
+                # filter out params, which are not used in query
+                iface = dict((column, iface[column]) for column in self.unique)
                 deletes.append(iface)
                 continue
             uploaded_iface = ifaces[address]
