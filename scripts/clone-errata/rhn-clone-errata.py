@@ -90,6 +90,18 @@
 #
 #	Add some code to handle transparent proxies.
 #
+# 0.9.0 - 2011-11-17 - Andy Speagle
+#
+#	Included patch from Pierre Casenove <pcasenove@gmail.com> that gives an option for a
+#	full sync of all channels listed in the configuration file.
+#
+#	Thanks, Pierre!
+#
+#	Additionally, changed the default behaviour of how the script handles errata that are
+#	missing packages on the system.  The script now skips any errata that is missing one
+#	or more packages on the system.  However, I've added an option to allow the script
+#	to ignore missing packages so that the old behaviour remains.
+#
 
 import xmlrpclib, httplib
 from optparse import OptionParser
@@ -559,6 +571,8 @@ def parse_args():
 	    help="Ending Date: ie. \"19001231\" (defaults to TODAY)")
     parser.add_option("-i", "--publish", action="store_true", dest="publish", default=False,
 	    help="Publish Errata (into destination channels)")
+    parser.add_option("-I", "--ignore-missing-packages", action="store_true", dest="ignoremissing", default=False,
+	    help="Ignore Missing Packages")
     parser.add_option("-x", "--proxy", type="string", dest="proxy",
 	    help="Proxy server and port to use (e.g. proxy.company.com:3128)")
     parser.add_option("--no-spw-proxy", action="store_true", dest="nospwproxy", default=False,
@@ -567,6 +581,8 @@ def parse_args():
 	    help="Don't proxy the RHN server connection. (Proxy by default, if proxy is set)")
     parser.add_option("-F", "--format-header", action="store_true", dest="format", default=False,
 	    help="Format header for logfiles")
+    parser.add_option("-A", "--sync-all-channels", action="store_true", dest="fullsync", default=False,
+	    help="Synchronize erratas of all channels listed in the provided configuration file")
     parser.add_option("-v", "--verbose", action="store_true", dest="verbose", default=False)
     parser.add_option("-q", "--quiet", action="store_true", dest="quiet", default=False)
 
@@ -616,8 +632,14 @@ def main():
 
 	chanMap = {}
 
-	for chan in config.options('ChanMap'):
-	    chanMap[chan] = config.get('ChanMap', chan)
+	if options.fullsync:
+	    for chan in config.options('ChanMap'):
+		chanMap[chan] = config.get('ChanMap', chan)
+	else:
+	    if options.src_channel is None:
+		print "Source channel not given, aborting"
+		sys.exit(2)
+	    chanMap[options.src_channel] = config.get('ChanMap', options.src_channel)
 
 #	Here we also setup mappings from RHN channels to errata suffixes.
 #	Since we can't easily publish automagically, while ensuring that
@@ -643,10 +665,6 @@ def main():
         print "try: "+sys.argv[0]+" --help"
         sys.exit(2)
 
-    if chanMap[options.src_channel] is None:
-	print "Invalid Channel!"
-	sys.exit(2)
-
     rhnProxy = 0
     spwProxy = 0
 
@@ -663,98 +681,127 @@ def main():
     dateToday = strftime("%Y%m%d", localtime())
     dateEnd = options.edate or dateToday
 
-    if options.format:
-	print >>sys.stdout, "%s:CLONE:%s" % (dateToday, options.src_channel)
-	print >>sys.stderr, "%s:CLONE:%s" % (dateToday, options.src_channel)
+    for chan in chanMap:
+        if chanMap[chan] is None:
+            print "Invalid Channel!"
+            sys.exit(2)
 
-    for rhnErrata in myRHN.listChannelErrata(options.src_channel,dateStart,dateEnd,0):
-	if not options.quiet and not options.format:
-            print rhnErrata['errata_advisory']
+        if options.format:
+	    print >>sys.stdout, "%s:CLONE:%s" % (dateToday, chan)
+	    print >>sys.stderr, "%s:CLONE:%s" % (dateToday, chan)
 
-#   	Now, let's check if we already have this errata locally...
-	spwErrataName = rhnErrata['errata_advisory']+':'+chanSuffixMap[options.src_channel]
-	spwErrCheck = mySPW.getErrataDetails (spwErrataName,0)
-
-	if not spwErrCheck:
-#           Ok, so the errata doesn't already exists... let's get busy creating it.
-	    spwErrSolution = "Before applying this update, make sure that all "+\
-	        "previously-released errata relevant to your system have been applied."	
-
-	    spwErrPackages = []
-	    for pkg in myRHN.getErrataPackages(rhnErrata['errata_advisory'],0):
-	        pkgFind = mySPW.searchNVREA(pkg['package_name'],\
-					    pkg['package_version'],\
-					    pkg['package_release'],\
-					    '',\
-					    pkg['package_arch_label'],\
-					    0)
-
-	        for pkgChan in pkg['providing_channels']:
-		    if pkgChan != options.src_channel:
-		        continue
-		    else:
-		        if not pkgFind:
-			    if options.format:
-				print >>sys.stderr, "%s:%s:Hmmm... "+\
-				    "Package Missing: %s" % (dateToday, rhnErrata['errata_advisory'], pkg['package_name'])
-			    else:
-				print "Hmmm... Package Missing: %s" % pkg['package_name']
-		        else:
-			    spwErrPackages.append(pkgFind[0]['id'])
-		            break
-
-	    spwErrDetails = myRHN.getErrataDetails(rhnErrata['errata_advisory'],0)
-            spwErrKeywords = myRHN.getErrataKeywords(rhnErrata['errata_advisory'],0)
-	    spwErrCVEs = myRHN.getErrataCVEs(rhnErrata['errata_advisory'],0)
-
-	    spwErrBugs = []
-            tmpBugs = myRHN.getErrataBugs(rhnErrata['errata_advisory'],0)
-
-            for bug in tmpBugs:
-                spwErrBugs.append({'id': int(bug), 'summary': tmpBugs[bug]})
-
+        for rhnErrata in myRHN.listChannelErrata(chan,dateStart,dateEnd,0):
 	    if not options.quiet and not options.format:
-	        print "\t%s - %s" % (spwErrDetails['errata_issue_date'],spwErrDetails['errata_synopsis'])
+                print rhnErrata['errata_advisory']
 
-	    spwErrObject = mySPW.errataCreate ({ 'synopsis': spwErrDetails['errata_synopsis'],\
-					         'advisory_name': spwErrataName,\
-					         'advisory_release': 1,\
-					         'advisory_type': spwErrDetails['errata_type'],\
-					         'product': 'RHEL',\
-					         'topic': spwErrDetails['errata_topic'],\
-					         'description': spwErrDetails['errata_description'],\
-					         'references': spwErrDetails['errata_references'],\
-					         'notes': spwErrDetails['errata_notes'],\
-					         'solution': spwErrSolution },\
-				     	         spwErrBugs,\
-					         spwErrKeywords,\
-					         spwErrPackages,\
-					         0,\
-					         [chanMap[options.src_channel]],\
-					         0)
+#   	    Now, let's check if we already have this errata locally...
+	    spwErrataName = rhnErrata['errata_advisory']+':'+chanSuffixMap[chan]
+	    spwErrCheck = mySPW.getErrataDetails (spwErrataName,0)
 
-	    if options.format:
-		print "%s#%s#Errata Created#" % (dateToday, spwErrataName),
-	    else:
-		print "\tErrata Created: %d" % spwErrObject['id']
+	    if not spwErrCheck:
+#               Ok, so the errata doesn't already exists... let's get busy creating it.
+	        spwErrSolution = "Before applying this update, make sure that all "+\
+	            "previously-released errata relevant to your system have been applied."
 
-	    if options.publish:
-		spwPublish = mySPW.errataPublish (spwErrataName, [chanMap[options.src_channel]], 0)
-		if options.format:
-		    print "Errata Published"
-		else:
-		    print "\tErrata Published!"
-	    else:
-		if options.format:
-		    print "Errata Not Published"
-		else:
-		    print "\tErrata Not Published!"
-        else:
-	    if options.format:
-		print "%s#%s#Errata Already Exists" % (dateToday, spwErrataName)
-            elif not options.quiet:
-                print "\tErrata Already Exists.  %s" % spwErrataName
-		continue
+	        spwErrPackages = []
+
+		missingcheck = 0
+
+	        for pkg in myRHN.getErrataPackages(rhnErrata['errata_advisory'],0):
+	            pkgFind = mySPW.searchNVREA(pkg['package_name'],\
+						pkg['package_version'],\
+					        pkg['package_release'],\
+					        '',\
+					        pkg['package_arch_label'],\
+					        0)
+
+	            for pkgChan in pkg['providing_channels']:
+		        if pkgChan != chan:
+		            continue
+		        else:
+		            if not pkgFind:
+				missingcheck += 1
+
+			        if options.format:
+				    print >>sys.stderr, "%s:%s:Hmmm... "+\
+				        "Package Missing: %s" % (dateToday, rhnErrata['errata_advisory'], pkg['package_name'])
+			        else:
+				    print "Hmmm... Package Missing: %s" % pkg['package_name']
+
+		            else:
+			        spwErrPackages.append(pkgFind[0]['id'])
+		                break
+
+		if missingcheck:
+		    if options.ignoremissing:
+                        skiptext = "Ignoring missing package(s) and continuing..."
+
+			if options.format:
+			    print >>sys.stderr, "%s" % skiptext
+			else:
+			    print "%s" % skiptext
+                    else:
+                        skiptext = "Skipping errata due to missing package(s)..."
+
+                        if options.format:
+                            print >>sys.stderr, "%s" % skiptext
+                        else:
+                            print "%s" % skiptext
+
+			continue
+
+	        spwErrDetails = myRHN.getErrataDetails(rhnErrata['errata_advisory'],0)
+                spwErrKeywords = myRHN.getErrataKeywords(rhnErrata['errata_advisory'],0)
+	        spwErrCVEs = myRHN.getErrataCVEs(rhnErrata['errata_advisory'],0)
+
+	        spwErrBugs = []
+                tmpBugs = myRHN.getErrataBugs(rhnErrata['errata_advisory'],0)
+
+                for bug in tmpBugs:
+                    spwErrBugs.append({'id': int(bug), 'summary': tmpBugs[bug]})
+
+	        if not options.quiet and not options.format:
+	            print "\t%s - %s" % (spwErrDetails['errata_issue_date'],spwErrDetails['errata_synopsis'])
+
+	        spwErrObject = mySPW.errataCreate ({ 'synopsis': spwErrDetails['errata_synopsis'],\
+					             'advisory_name': spwErrataName,\
+					             'advisory_release': 1,\
+					             'advisory_type': spwErrDetails['errata_type'],\
+					             'product': 'RHEL',\
+					             'topic': spwErrDetails['errata_topic'],\
+					             'description': spwErrDetails['errata_description'],\
+					             'references': spwErrDetails['errata_references'],\
+					             'notes': spwErrDetails['errata_notes'],\
+					             'solution': spwErrSolution },\
+						     spwErrBugs,\
+					             spwErrKeywords,\
+					             spwErrPackages,\
+					             0,\
+					             [chanMap[chan]],\
+					             0)
+
+	        if options.format:
+		    print "%s#%s#Errata Created#" % (dateToday, spwErrataName),
+	        else:
+		    print "\tErrata Created: %d" % spwErrObject['id']
+
+	        if options.publish:
+		    spwPublish = mySPW.errataPublish (spwErrataName, [chanMap[chan]], 0)
+		    if options.format:
+		        print "Errata Published"
+		    else:
+		        print "\tErrata Published!"
+	        else:
+		    if options.format:
+		        print "Errata Not Published"
+		    else:
+		        print "\tErrata Not Published!"
+            else:
+	        if options.format:
+		    print "%s#%s#Errata Already Exists" % (dateToday, spwErrataName)
+                elif not options.quiet:
+                    print "\tErrata Already Exists.  %s" % spwErrataName
+		    continue
 
 if __name__ == "__main__":
     main()

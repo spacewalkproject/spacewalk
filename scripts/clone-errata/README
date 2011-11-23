@@ -36,6 +36,13 @@ options:
   -e EDATE, --end-date=EDATE
                         Ending Date: ie. "19001231" (defaults to TODAY)
   -i, --publish         Publish Errata (into destination channels)
+  -I, --ignoremissing	Default behavior is to skip errata for which
+			there are missing packages, this option
+			allows the errata to be created without
+			packages that it should have.
+  -A, --sync-all-channels
+			This option clones errata for all channels
+			configured in the config file.
   -x PROXY, --proxy=PROXY
                         Proxy server and port to use (e.g.
                         proxy.company.com:3128)
@@ -54,3 +61,11 @@ options:
 	I'm presently working on adding in support for CVEs
 	but am running into an issue.  Probably done in
 	version 1.6 ...
+
+2011/11/17 - Andy speagle
+
+	Default behavior of how errata with missing packages
+	are handled has been changed.  If an errata is missing
+	packages, the script will now, by default, skip creating
+	that errata.  You can use "-I" to ignore missing packages
+	and continue creating the errata.
