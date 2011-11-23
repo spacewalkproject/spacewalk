@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.6.7
+Version:     1.6.9
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,24 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Nov 23 2011 Aron Parsons <parsonsa@bit-sys.com> 1.6.9-1
+- spacecmd: fix some errors in system_runscript (parsonsa@bit-sys.com)
+- spacecmd: changed some non-critical errors to warnings (parsonsa@bit-sys.com)
+- spacecmd: cleaned up error messages (parsonsa@bit-sys.com)
+- spacecmd: activationkey_clone cleanup (parsonsa@bit-sys.com)
+- spacecmd enhancement : Add activationkey_clone command (shardy@redhat.com)
+- spacecmd enhancement : Add activationkey_import command (shardy@redhat.com)
+- spacecmd enhancement : Add activationkey_export command (shardy@redhat.com)
+
+* Wed Nov 23 2011 Aron Parsons <parsonsa@bit-sys.com>
+- spacecmd: fix some errors in system_runscript (parsonsa@bit-sys.com)
+- spacecmd: changed some non-critical errors to warnings (parsonsa@bit-sys.com)
+- spacecmd: cleaned up error messages (parsonsa@bit-sys.com)
+- spacecmd: activationkey_clone cleanup (parsonsa@bit-sys.com)
+- spacecmd enhancement : Add activationkey_clone command (shardy@redhat.com)
+- spacecmd enhancement : Add activationkey_import command (shardy@redhat.com)
+- spacecmd enhancement : Add activationkey_export command (shardy@redhat.com)
+
 * Wed Nov 16 2011 Aron Parsons <aparsons@redhat.com> 1.6.7-1
 - spacecmd: remove comma from softwarechannel_setorgaccess output
   (aparsons@redhat.com)
