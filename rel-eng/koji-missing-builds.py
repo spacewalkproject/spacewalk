@@ -40,7 +40,8 @@ distmap = {'6E':'.el6',
            'f12':'.fc12',
            'f13':'.fc13',
            'f14':'.fc14',
-           'f15':'.fc15'}
+           'f15':'.fc15',
+           'f16':'.fc16'}
 
 distsuffix = ''
 tag = args[0]
