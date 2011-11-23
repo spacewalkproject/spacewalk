@@ -335,19 +335,19 @@ def do_system_runscript(self, args):
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
 
-        script_file = prompt_user('Script File [create]:')
+        options.file = prompt_user('Script File [create]:')
 
         # read the script provided by the user
-        if script_file:
+        if options.file:
             keep_script_file = True
 
-            options.script = read_file(os.path.abspath(script_file))
+            script_contents = read_file(os.path.abspath(options.file))
         else:
             # have the user write their script
-            (options.script, script_file) = editor('#!/bin/bash')
+            (script_contents, options.file) = editor('#!/bin/bash')
             keep_script_file = False
 
-        if not options.script:
+        if not script_contents:
             logging.error('No script provided')
             return
     else:
@@ -360,7 +360,8 @@ def do_system_runscript(self, args):
             logging.error('A script file is required')
             return
 
-        options.script = read_file(options.file)
+        script_contents = read_file(options.file)
+        keep_script_file = True
 
     # display a summary
     print
@@ -371,7 +372,7 @@ def do_system_runscript(self, args):
     print
     print 'Script Contents'
     print '---------------'
-    print options.script
+    print script_contents
 
     # have the user confirm
     if not self.user_confirm(): return
@@ -389,7 +390,7 @@ def do_system_runscript(self, args):
                                                          options.user,
                                                          options.group,
                                                          options.timeout,
-                                                         options.script,
+                                                         script_contents,
                                                          options.start_time)
 
         logging.info('Action ID: %i' % action_id)
@@ -408,7 +409,7 @@ def do_system_runscript(self, args):
                                                          options.user,
                                                          options.group,
                                                          options.timeout,
-                                                         options.script,
+                                                         script_contents,
                                                          options.start_time)
 
                 logging.info('Action ID: %i' % action_id)
@@ -422,9 +423,9 @@ def do_system_runscript(self, args):
     # don't delete a pre-existing script that the user provided
     if not keep_script_file:
         try:
-            os.remove(script_file)
+            os.remove(options.file)
         except OSError:
-            logging.error('Could not remove %s' % script_file)
+            logging.error('Could not remove %s' % options.file)
 
 ####################
 
