@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.6.3
+Version:	1.6.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 23 2011 Jan Pazdziora 1.6.4-1
+- Prevent Malformed UTF-8 character error upon dump.
+
 * Fri Sep 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.3-1
 - updated spacewalk repos
 - added scientific linux 6 repo
