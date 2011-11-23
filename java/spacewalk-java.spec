@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.78
+Version: 1.6.79
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 23 2011 Jan Pazdziora 1.6.79-1
+- No scrubbing of key description and custom key value, also escape the value
+  which can now contain full range of characters.
+
 * Mon Nov 21 2011 Jan Pazdziora 1.6.78-1
 - Remove markup from another error message (jrenner@suse.de)
 - Remove markup from error message in all translation files (jrenner@suse.de)
