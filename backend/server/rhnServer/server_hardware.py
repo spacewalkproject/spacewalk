@@ -611,6 +611,8 @@ class NetIfaceAddress(Device):
             address = iface['address']
             if not self.ifaces.has_key(iface['address']):
                 # To be deleted
+                # filter out params, which are not used in query
+                iface = dict((column, iface[column]) for column in self.unique)
                 deletes.append(iface)
                 continue
             uploaded_iface = ifaces[address]
@@ -654,9 +656,7 @@ class NetIfaceAddress(Device):
         columns = self.unique
         wheres = map(lambda x: '%s = :%s' % (x, x), columns)
         h = rhnSQL.prepare(q % (self.table, string.join(wheres, " and ")))
-        # filter out params, which are not used in query
-        bind_params = dict((c, params[c]) for c in columns)
-        return _dml(h, bind_params)
+        return _dml(h, params)
 
     def _update(self, params):
         q = """update %s
