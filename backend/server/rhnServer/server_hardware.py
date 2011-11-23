@@ -445,6 +445,10 @@ class NetIfaceInformation(Device):
                 # Same value
                 continue
             uploaded_iface.update({'name' : name, 'server_id' : server_id})
+            if 'ipv4' in uploaded_iface:
+                del(uploaded_iface['ipv4'])
+            if 'ipv6' in uploaded_iface:
+                del(uploaded_iface['ipv6'])
             updates.append(uploaded_iface)
 
         # Everything else in self.ifaces has to be inserted
