@@ -64,6 +64,11 @@ optional_policy(`
 ')
 
 # TODO: create dba role
+gen_require(`
+	role staff_r;
+	role system_r;
+	role sysadm_r;
+')
 oracle_management_role(staff_r)
 oracle_management_role(system_r)
 oracle_management_role(sysadm_r)
@@ -198,6 +203,9 @@ tunable_policy(`oracle_11g_support',`
 	allow oracle_tnslsnr_t self:process execstack;
 ')
 
+gen_require(`
+	role unconfined_r;
+')
 role unconfined_r types oracle_sqlplus_t;
 role unconfined_r types oracle_lsnrctl_t;
 role unconfined_r types oracle_tnslsnr_t;
