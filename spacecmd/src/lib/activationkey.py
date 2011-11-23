@@ -1112,7 +1112,7 @@ def import_activationkey_fromdetails(self, keydetails):
 ####################
 
 def help_activationkey_clone(self):
-    print 'activationkey_clone: Clone a Kickstart profile'
+    print 'activationkey_clone: Clone an activation key'
     print '''usage: activationkey_clone [options]
 
 options:
@@ -1140,26 +1140,24 @@ def do_activationkey_clone(self, args):
         print '\n'.join(sorted(allkeys))
         print
 
-        options.name = prompt_user('Origianl Profile:', noblank = True)
+        options.name = prompt_user('Original Key:', noblank = True)
 
-        options.clonename = prompt_user('Cloned Profile:', noblank = True)
+        options.clonename = prompt_user('Cloned Key:', noblank = True)
     else:
-
         if not options.name:
-            logging.error('The Activationkey name is required')
+            logging.error('The --name option is required')
             return
 
         if not options.clonename:
-            logging.error('The Activationkey clone name is required')
+            logging.error('The --clonename option is required')
             return
 
     if not options.name in allkeys:
-        logging.error("Error, key %s does not seem to exist satellite?"\
-             % options.name)
+        logging.error("Key %s does not exist" % options.name)
         return
 
     if options.clonename in allkeys:
-        logging.error("Error, clone name %s already exists!" % options.name)
+        logging.error("Key %s already exists" % options.clonename)
         return
 
     # Replace the key-name with the clonename specified by the user
@@ -1232,6 +1230,5 @@ def do_activationkey_clone(self, args):
     if self.import_activationkey_fromdetails(keydetails) != True:
         logging.error("Error cloning activationkey %s to %s" % \
          (options.name, options.clonename))
-
 
 # vim:ts=4:expandtab:
