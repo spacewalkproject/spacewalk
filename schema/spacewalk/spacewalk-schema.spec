@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.28
+Version:        1.6.29
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Nov 23 2011 Jan Pazdziora 1.6.29-1
+- Fixing wrong plpgsql code.
+
 * Wed Nov 16 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.28-1
 - pgsql: varchar2 -> varchar
 
