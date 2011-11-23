@@ -920,8 +920,9 @@ def do_activationkey_setuniversaldefault(self, args):
 ####################
 
 def help_activationkey_export(self):
-    print 'activationkey_export: export activation key(s) to json format file'
-    print '''usage: activationkey_export <KEY> <KEY> [options]
+    print 'activationkey_export: Export activation key(s) to JSON format file'
+    print '''usage: activationkey_export [options] [<KEY> ...]
+
 options:
     -f outfile.json : specify an output filename, defaults to <KEY>.json
                       if exporting a single key, akeys.json for multiple keys,
@@ -946,6 +947,7 @@ def export_activationkey_getdetails(self, key):
     except Exception, E:
         logging.debug("activationkey.listConfigChannel threw an exeception, \
             probably not provisioning entitled, setting config_channels=False")
+
     cclist = [ c['label'] for c in ccdlist ]
     logging.debug("Got config channel label list of %s" % cclist)
     details['config_channels'] = cclist
@@ -961,8 +963,10 @@ def export_activationkey_getdetails(self, key):
         grp_detail_list=[]
         for grp in details['server_group_ids']:
             grp_details = self.client.systemgroup.getDetails(self.session, grp)
+
             if grp_details:
                 grp_detail_list.append(grp_details)
+
         details['server_groups'] = [ g['name'] for g in grp_detail_list ]
 
     # Now append the details dict describing the key to the specified file
@@ -990,10 +994,12 @@ def do_activationkey_export(self, args):
         keys = filter_results(self.do_activationkey_list('', True), args)
         logging.debug("activationkey_export called with args %s, keys=%s" % \
             (args, keys))
+
         if (len(keys) == 0):
             logging.error("Error, no valid key passed, check key-name is " + \
                 " correct with spacecmd activationkey_list")
             return
+
         if len(filename) == 0:
             # No filename arg, so we try to do something sensible:
             # If we are exporting exactly one key, we default to keyname.json
@@ -1011,12 +1017,14 @@ def do_activationkey_export(self, args):
 
     logging.debug("About to dump %d keys to %s" % \
         (len(keydetails_list), filename))
+
     # Check if filepath exists, if it is an existing file
     # we prompt the user for confirmation
     if os.path.isfile(filename):
         if not self.user_confirm("File %s exists, confirm overwrite file? (y/n)" % \
                     filename):
             return 
+
     if json_dump_to_file(keydetails_list, filename) != True:
         logging.error("Error saving exported keys to file" % filename)
         return
@@ -1024,23 +1032,25 @@ def do_activationkey_export(self, args):
 ####################
 
 def help_activationkey_import(self):
-    print 'activationkey_import: import activation key(s) from json file'
-    print '''usage: activationkey_import <JSONFILES...>'''
+    print 'activationkey_import: import activation key(s) from JSON file(s)'
+    print '''usage: activationkey_import <JSONFILE ...>'''
 
 def do_activationkey_import(self, args):
     (args, options) = parse_arguments(args)
 
     if len(args) == 0:
-        logging.error("Error, no filename passed")
+        logging.error("No filename passed")
         self.help_activationkey_import() 
         return
 
     for filename in args:
         logging.debug("Passed filename do_activationkey_import %s" % filename)
         keydetails_list = json_read_from_file(filename)
+
         if len(keydetails_list) == 0:
-            logging.error("Error, could not read json data from %s" % filename)
+            logging.error("Could not read json data from %s" % filename)
             return
+
         for keydetails in keydetails_list:
             if self.import_activationkey_fromdetails(keydetails) != True:
                 logging.error("Error importing activationkey %s" % \
@@ -1048,9 +1058,9 @@ def do_activationkey_import(self, args):
 
 # create a new key based on the dict from export_activationkey_getdetails
 def import_activationkey_fromdetails(self, keydetails):
-
     # First we check that an existing key with the same name does not exist
     existing_keys = self.do_activationkey_list('', True)
+
     if keydetails['key'] in existing_keys:
         logging.error("ERROR : key %s already exists! Skipping!" % \
             keydetails['key'])
@@ -1060,6 +1070,7 @@ def import_activationkey_fromdetails(self, keydetails):
         keyname = re.sub('^[0-9]-', '', keydetails['key'])
         logging.info("Found key %s, importing as %s" % \
             (keydetails['key'], keyname))
+
         if keydetails['usage_limit'] != 0:
             newkey = self.client.activationkey.create(self.session,
                                            keyname,
@@ -1079,9 +1090,11 @@ def import_activationkey_fromdetails(self, keydetails):
             logging.error("Error, activation key import failed for %s" % \
                 keyname)
             return False
+
         # add child channels
         self.client.activationkey.addChildChannels(self.session, newkey,\
             keydetails['child_channel_labels'])
+
         # set config channel options and channels (missing are skipped)
         if keydetails['config_deploy'] != 0:
             self.client.activationkey.enableConfigDeployment(self.session,\
@@ -1089,9 +1102,11 @@ def import_activationkey_fromdetails(self, keydetails):
         else:
             self.client.activationkey.disableConfigDeployment(self.session,\
                 newkey)
+
         if len(keydetails['config_channels']) > 0:
             self.client.activationkey.addConfigChannels(self.session, [newkey],\
                 keydetails['config_channels'], False)
+
         # set groups (missing groups are created)
         gids = []
         for grp in keydetails['server_groups']:
@@ -1101,8 +1116,10 @@ def import_activationkey_fromdetails(self, keydetails):
                 grpdetails = self.client.systemgroup.create(self.session, grp,\
                      grp)
             gids.append(grpdetails.get('id'))
+
         logging.debug("Adding groups %s to key %s" % (gids, newkey)) 
         self.client.activationkey.addServerGroups(self.session, newkey, gids)
+
         # Finally add the package list
         self.client.activationkey.addPackages(self.session, newkey, \
             keydetails['packages'])
