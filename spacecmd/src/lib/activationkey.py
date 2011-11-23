@@ -1061,8 +1061,7 @@ def import_activationkey_fromdetails(self, keydetails):
     existing_keys = self.do_activationkey_list('', True)
 
     if keydetails['key'] in existing_keys:
-        logging.error("ERROR : key %s already exists! Skipping!" % \
-            keydetails['key'])
+        logging.warning("%s already exists! Skipping!" % keydetails['key'])
         return False
     else:
         # create the key, we need to drop the org prefix from the key name
@@ -1216,7 +1215,7 @@ def do_activationkey_clone(self, args):
 
                     new_child_channel_labels.append(newc)
                 else:
-                    logging.error("Found child channel %s key %s, but %s" % \
+                    logging.warning("Found child channel %s key %s, but %s" % \
                          (c, keydetails['key'], newc) + \
                          " does not exist, skipping!")
 
@@ -1241,7 +1240,7 @@ def do_activationkey_clone(self, args):
 
                 new_config_channels.append(newcc)
             else:
-                logging.error("Found config channel %s for key %s, but %s " % \
+                logging.warning("Found config channel %s for key %s, but %s " % \
                      (cc, keydetails['key'], newcc) + \
                     "does not exist, skipping!")
 
