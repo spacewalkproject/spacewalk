@@ -996,8 +996,7 @@ def do_activationkey_export(self, args):
             (args, keys))
 
         if (len(keys) == 0):
-            logging.error("Error, no valid key passed, check key-name is " + \
-                " correct with spacecmd activationkey_list")
+            logging.error("Invalid activation key passed")
             return
 
         if len(filename) == 0:
@@ -1026,7 +1025,7 @@ def do_activationkey_export(self, args):
             return 
 
     if json_dump_to_file(keydetails_list, filename) != True:
-        logging.error("Error saving exported keys to file" % filename)
+        logging.error("Failed to save exported keys to file" % filename)
         return
 
 ####################
@@ -1053,7 +1052,7 @@ def do_activationkey_import(self, args):
 
         for keydetails in keydetails_list:
             if self.import_activationkey_fromdetails(keydetails) != True:
-                logging.error("Error importing activationkey %s" % \
+                logging.error("Failed to import key %s" % \
                     keydetails['key'])
 
 # create a new key based on the dict from export_activationkey_getdetails
@@ -1087,7 +1086,7 @@ def import_activationkey_fromdetails(self, keydetails):
                                            keydetails['entitlements'],
                                            keydetails['universal_default'])
         if len(newkey) == 0:
-            logging.error("Error, activation key import failed for %s" % \
+            logging.error("Failed to import key %s" % \
                 keyname)
             return False
 
@@ -1226,7 +1225,7 @@ def do_activationkey_clone(self, args):
 
             keydetails['child_channel_labels'] = new_child_channel_labels
         else:
-            logging.error("Error, regex-replacement results in new " + \
+            logging.error("Regex-replacement results in new " + \
                 "base-channel %s which does not exist!" % newbasech)
 
         # Finally, any config-channels 
@@ -1253,7 +1252,7 @@ def do_activationkey_clone(self, args):
 
     # Finally : import the key from the modified keydetails dict
     if self.import_activationkey_fromdetails(keydetails) != True:
-        logging.error("Error cloning activationkey %s to %s" % \
+        logging.error("Failed to clone %s to %s" % \
          (options.name, options.clonename))
 
 # vim:ts=4:expandtab:
