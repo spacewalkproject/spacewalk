@@ -1189,6 +1189,7 @@ def do_activationkey_clone(self, args):
             # If it doesn't we can only skip it and print a warning
             all_childch = self.list_child_channels(system=None,\
                 parent=newbasech, subscribed=False)
+
             new_child_channel_labels = []
             for c in keydetails['child_channel_labels']:
                 newc = re.sub(findstr, replacestr, c)
@@ -1196,13 +1197,16 @@ def do_activationkey_clone(self, args):
                     logging.debug("Found child channel %s for key %s, " % \
                          (c, keydetails['key']) + \
                          "replacing with %s" % newc)
+
                     new_child_channel_labels.append(newc)
                 else:
                     logging.error("Found child channel %s key %s, but %s" % \
                          (c, keydetails['key'], newc) + \
                          " does not exist, skipping!")
+
             logging.debug("Processed all child channels, " + \
                  "new_child_channel_labels=%s" % new_child_channel_labels)
+
             keydetails['child_channel_labels'] = new_child_channel_labels
         else:
             logging.error("Error, regex-replacement results in new " + \
@@ -1213,17 +1217,21 @@ def do_activationkey_clone(self, args):
         allccs =  self.do_configchannel_list('', True)
         for cc in keydetails['config_channels']:
             newcc = re.sub(findstr, replacestr, cc)
+
             if newcc in allccs:
                 logging.debug("Found config channel %s for key %s, " % \
                     (cc, keydetails['key']) + \
                     "replacing with %s" % newcc)
+
                 new_config_channels.append(newcc)
             else:
                 logging.error("Found config channel %s for key %s, but %s " % \
                      (cc, keydetails['key'], newcc) + \
                     "does not exist, skipping!")
+
         logging.debug("Processed all config channels, " + \
             "new_config_channels = %s" % new_config_channels)
+
         keydetails['config_channels'] = new_config_channels
 
     # Finally : import the key from the modified keydetails dict
