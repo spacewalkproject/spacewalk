@@ -320,7 +320,7 @@ class CheckCli(rhncli.RhnCli):
 
     @staticmethod
     def __do_call(method, params, kwargs={}):
-        log.log_debug("do_call", method, params, kwargs)
+        log.log_debug("do_call ", method, params, kwargs)
 
         method = getMethod.getMethod(method, "/usr/share/rhn/", "actions")
         retval = method(*params, **kwargs)
