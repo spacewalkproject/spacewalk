@@ -13,7 +13,8 @@ columns:
 	server_id:i	System identifier
 	profile_name	Profile name, as stored on server
 	hostname	Hostname, as reported by the system
-	ip_address	IP address, as reported by the system
+	ip_address	IPv4 address, as reported by the system
+        ipv6_address    IPv6 address, as reported by the system
 	registered_by	User under which the system is registered
 	registration_time	Registration time
 	last_checkin_time	Last checkin time
@@ -40,7 +41,7 @@ multival_columns:
 
 sql:
 
-	select server_id, profile_name, hostname, ip_address, registered_by,
+	select server_id, profile_name, hostname, ip_address, ipv6_address, registered_by,
 		registration_time, last_checkin_time, kernel_version,
 		packages_out_of_date, errata_out_of_date,
 		software_channel, configuration_channel,
@@ -48,6 +49,7 @@ sql:
 	from (
 	select rhnserver.id as server_id, rhnserver.name as profile_name,
 		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
+		trim(rhnservernetwork.ip6addr) as ipv6_address,
 		( select login from web_contact where rhnserver.creator_id = web_contact.id ) as registered_by,
 		to_char(rhnserver.created, 'YYYY-MM-DD HH24:MI:SS') as registration_time,
 		( select to_char(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnserverinfo where rhnserver.id = server_id ) as last_checkin_time,
@@ -75,7 +77,7 @@ sql:
 		get_hw_info_as_clob(rhnserver.id, '; ') as hardware
 	from rhnserver left outer join
 		(
-		select server_id, hostname, ipaddr
+		select server_id, hostname, ipaddr, ip6addr
 		from rhnservernetwork
 		where id in (
 			select min(id)
