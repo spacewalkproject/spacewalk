@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.33
+Version:       5.5.34
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Nov 24 2011 Michael Mraka <michael.mraka@redhat.com> 5.5.34-1
+- replaced external zip with zipfile module
+- replaced external tar with tarfile module
+- don't call os.path.join() over and over
+- don't read 2GB file into memory at once
+- don't hide original error message
+- replaced external unzip with zipfile module
+
 * Wed Oct 19 2011 Michael Mraka <michael.mraka@redhat.com> 5.5.33-1
 - removed test for already removed object_has_attr()
 - removed dead function object_has_attr()
