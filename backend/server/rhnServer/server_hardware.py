@@ -439,7 +439,7 @@ class NetIfaceInformation(Device):
                 deletes.append({'server_id' : server_id, 'name' : name})
                 continue
 
-            uploaded_iface = ifaces[name]
+            uploaded_iface = ifaces[name].copy()
             del ifaces[name]
             if _hash_eq(uploaded_iface, iface):
                 # Same value
