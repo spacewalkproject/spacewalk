@@ -14,6 +14,7 @@ columns:
 	profile_name	Profile name, as stored on server
 	hostname	Hostname, as reported by the system
 	ip_address	IP address, as reported by the system
+	ipv6_address    IPv6 address, as reported by the system
 
 sql:
 
@@ -21,11 +22,12 @@ sql:
 	select rhnErrata.advisory_name as advisory,
 		rhnServerNeededErrataCache.server_id,
 		rhnServer.name as profile_name,
-		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address
+		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
+		trim(rhnservernetwork.ip6addr) as ipv6_address
 	from rhnErrata, rhnServer,
 		rhnServerNeededErrataCache left outer join
 		(
-		select server_id, hostname, ipaddr
+		select server_id, hostname, ipaddr, ip6addr
 		from rhnservernetwork
 		where id in (
 			select min(id)
