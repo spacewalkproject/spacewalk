@@ -130,13 +130,16 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
                 val = string.join(values.split(), "")  # remove whitespaces
                 val = val.split(',')  # split packages
                 for v in val:
-                    nv = v.split('(')
-                    name = nv[0]
-                    # TODO FIX VERSION AND FLAGS
-                    if (len(nv) > 1):
-                        version = nv[1].rstrip(')')
+                    version = ''
+                    if '|' in v:
+                        # TODO: store alternative-package-names semantically someday
+                        name = v
                     else:
-                        version = ''
+                        nv = v.split('(')
+                        name = nv[0]
+                        # TODO FIX VERSION AND FLAGS
+                        if (len(nv) > 1):
+                            version = nv[1].rstrip(')')
                     hash = {'name' : name, 'version' : version, 'flags' : 0}
                     finst = dclass()
                     finst.populate(hash)
