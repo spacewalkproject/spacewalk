@@ -81,7 +81,7 @@ SELECT distinct
       FROM rhn_command_queue_execs
       WHERE netsaint_id = CQE.netsaint_id
       AND command_id = 1)
-  AND SC.deployed = 1
+  AND SC.deployed = '1'
 </query>
 
 
@@ -142,7 +142,7 @@ SELECT distinct
       FROM rhn_command_queue_execs
       WHERE netsaint_id = CQE.netsaint_id
       AND command_id = 1)
-  AND SC.deployed = 1
+  AND SC.deployed = '1'
 </query>
 
 
