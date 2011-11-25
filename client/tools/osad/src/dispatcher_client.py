@@ -203,19 +203,6 @@ class Client(jabber_lib.JabberClient):
         if ret:
             rhnSQL.commit()
 
-    _query_update_client_message_sent = rhnSQL.Statement("""
-        update rhnPushClient
-           set next_action_time = sysdate + :delta / 86400
-         where jabber_id = :jid
-    """)
-    def update_client_message_sent(self, jid):
-        jid = str(jid)
-        h = rhnSQL.prepare(self._query_update_client_message_sent)
-        delta = 10
-        ret = h.execute(delta=delta, jid=jid)
-        if ret:
-            rhnSQL.commit()
-
 class InvalidClientError(Exception):
     pass
 
