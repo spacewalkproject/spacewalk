@@ -60,9 +60,10 @@ ORDER BY UPPER(SC.description)
 - if date executed is not null then an exit status of '0' is OK, '1' is warning, otherwise "error"
 -->
 <query name="config_push_status" params="org_id">
-SELECT distinct decode(
-       CQE.date_executed, null, case when current_timestamp &lt; CQI.expiration_date then 'PENDING' else 'EXPIRED' end,
-       case when exit_status = 0 then 'OK' when exit_status = 1 then 'WARNING' else 'ERROR' end) AS CONFIG_STATUS,
+SELECT distinct
+       case when CQE.date_executed is null then (
+       case when current_timestamp &lt; CQI.expiration_date then 'PENDING' else 'EXPIRED' end ) else (
+       case when exit_status = 0 then 'OK' when exit_status = 1 then 'WARNING' else 'ERROR' end ) end AS CONFIG_STATUS,
        SC.recid AS id,
        CQI.last_update_user,
        TO_CHAR(CQI.date_submitted, 'YYYY-MM-DD HH24:MI:SS') AS DATE_SUBMITTED,
@@ -121,9 +122,10 @@ SELECT 1 AS PUSH_NEEDED,
 
 
 <query name="config_push_status_all" params="">
-SELECT distinct decode(
-       CQE.date_executed, null, case when current_timestamp &lt; CQI.expiration_date then 'PENDING' else 'EXPIRED' end,
-       case when exit_status = 0 then 'OK' when exit_status = 1 then 'WARNING' else 'ERROR' end) AS CONFIG_STATUS,
+SELECT distinct
+       case when CQE.date_executed is null then (
+       case when current_timestamp &lt; CQI.expiration_date then 'PENDING' else 'EXPIRED' end ) else (
+       case when exit_status = 0 then 'OK' when exit_status = 1 then 'WARNING' else 'ERROR' end ) end AS CONFIG_STATUS,
        SC.recid AS id,
        CQI.last_update_user,
        TO_CHAR(CQI.date_submitted, 'YYYY-MM-DD HH24:MI:SS') AS DATE_SUBMITTED,
