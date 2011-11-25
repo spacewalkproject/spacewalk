@@ -62,7 +62,7 @@ ORDER BY UPPER(SC.description)
 <query name="config_push_status" params="org_id">
 SELECT distinct decode(
        CQE.date_executed, null, case when current_timestamp &lt; CQI.expiration_date then 'PENDING' else 'EXPIRED' end,
-       decode(exit_status, 0, 'OK', 1, 'WARNING', 'ERROR')) AS CONFIG_STATUS,
+       case when exit_status = 0 then 'OK' when exit_status = 1 then 'WARNING' else 'ERROR' end) AS CONFIG_STATUS,
        SC.recid AS id,
        CQI.last_update_user,
        TO_CHAR(CQI.date_submitted, 'YYYY-MM-DD HH24:MI:SS') AS DATE_SUBMITTED,
@@ -123,7 +123,7 @@ SELECT 1 AS PUSH_NEEDED,
 <query name="config_push_status_all" params="">
 SELECT distinct decode(
        CQE.date_executed, null, case when current_timestamp &lt; CQI.expiration_date then 'PENDING' else 'EXPIRED' end,
-       decode(exit_status, 0, 'OK', 1, 'WARNING', 'ERROR')) AS CONFIG_STATUS,
+       case when exit_status = 0 then 'OK' when exit_status = 1 then 'WARNING' else 'ERROR' end) AS CONFIG_STATUS,
        SC.recid AS id,
        CQI.last_update_user,
        TO_CHAR(CQI.date_submitted, 'YYYY-MM-DD HH24:MI:SS') AS DATE_SUBMITTED,
