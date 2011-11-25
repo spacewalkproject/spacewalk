@@ -100,7 +100,7 @@ SELECT 1 AS PUSH_NEEDED,
        WHERE P.recid = CP.probe_id
        AND CP.sat_cluster_id = SC.recid)
   ) last_update,
-  (SELECT nvl(MAX(CQE.date_executed), to_date(1, 'J')) push_date
+  (SELECT nvl(MAX(CQE.date_executed), to_date('1', 'J')) push_date
       FROM rhn_command_queue_execs CQE,
            rhn_command_queue_instances CQI,
            rhn_sat_cluster SC
@@ -160,7 +160,7 @@ SELECT 1 AS PUSH_NEEDED,
        WHERE P.recid = CP.probe_id
        AND CP.sat_cluster_id = SC.recid)
   ) last_update,
-  (SELECT nvl(MAX(CQE.date_executed), to_date(1, 'J')) push_date
+  (SELECT nvl(MAX(CQE.date_executed), to_date('1', 'J')) push_date
       FROM rhn_command_queue_execs CQE,
            rhn_command_queue_instances CQI,
            rhn_sat_cluster SC
