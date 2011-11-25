@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 9cf5504d7dabce531f966048916bf85ce13e43ed
+-- oracle equivalent source sha1 061451bfe6e3c20f6a56e6844336f10007f7eebd
 
 DROP INDEX rhn_cpu_server_id_idx;
 
