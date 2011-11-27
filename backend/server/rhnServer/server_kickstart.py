@@ -355,10 +355,10 @@ def schedule_config_deploy(server_id, action_id, kickstart_session_id,
         return aid
     else:
         tokens_obj = rhnFlags.get("registration_token")
-        deployment = false
+        deployment = False
         for token in tokens_obj.tokens:
             if token['deploy_configs'] == 'Y':
-                deployment = true
+                deployment = True
                 break
         if not deployment:
             return aid
