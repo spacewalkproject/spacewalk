@@ -17,6 +17,7 @@
 #
 # $Id$
 
+import sys
 import difflib
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
