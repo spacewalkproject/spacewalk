@@ -645,9 +645,6 @@ def call(function, *params):
 
     return ret
 
-def raw_call(function, *params):
-    return function(*params)
-
 
 def parseXMLRPCfault(fault):
     if not isinstance(fault, xmlrpclib.Fault):
