@@ -1,18 +1,4 @@
--- oracle equivalent source sha1 7d7357a60861def0d2bee056efb81cd80fedffdd
-
-create or replace function rhn_servernetwork_mod_trig_fun() returns trigger as
-$$
-begin
-	new.modified := current_timestamp;
- 	return new;
-end;
-$$ language plpgsql;
-
-create trigger
-rhn_servernetwork_mod_trig
-before insert or update on rhnServerNetwork
-for each row
-execute procedure rhn_servernetwork_mod_trig_fun();
+-- oracle equivalent source sha1 c4740f0347166823c12b86d3fe2f9d73a50b43e0
 
 create or replace function rhn_servnet_ipaddr_mon_trig_fun() returns trigger as
 $$
