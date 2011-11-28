@@ -113,6 +113,7 @@ sub ProcessInput {
 
       # Truncate to fit into a varchar2(4000)
       $value = substr($value, 0, 3996) . '...' if (length($value) > 4000);
+      $value = ' ' if (length($value) == 0);
 
       push(@values, "$field = ?");
       push(@bindvars, $value);
