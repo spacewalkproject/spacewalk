@@ -270,7 +270,7 @@ class Runner(jabber_lib.Runner):
     """)
 
     def _register_dispatcher(self, jabber_id, hostname, port):
-        h = rhnSQL.prepare(self._query_register_dispatcher, params = ( 'hostname_in varchar', 'port_in numeric', 'jabber_id_in varchar' ))
+        h = rhnSQL.prepare(self._query_register_dispatcher, params = ( 'hostname_in varchar', 'port_in numeric', 'jabber_id_in varchar', 'password varchar' ))
         h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password=self._password)
         rhnSQL.commit()
 
