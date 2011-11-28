@@ -54,28 +54,6 @@ def set_client_capabilities(capabilities):
 def get_client_capabilities():
     return rhnFlags.get('client-capabilities')
 
-def get_db_client_capabilities(server_id):
-    h = rhnSQL.prepare("""
-        select cc.capability_name_id, ccn.name capability, cc.version
-        from rhnClientCapability cc, rhnClientCapabilityName ccn
-        where cc.server_id = :server_id
-        and cc.capability_name_id = ccn.id
-    """)
-    h.execute(server_id=server_id)
-    ret = {}
-    while 1:
-        row = h.fetchone_dict()
-        if not row:
-            break
-        name = row['capability']
-        version = row['version']
-        value = None
-        ret[name] = {
-            'version'   : version,
-            'value'     : value,
-        }
-    return ret
-
 def update_client_capabilities(server_id):
     caps = get_client_capabilities()
 

@@ -89,13 +89,6 @@ def main():
     server_id = sobj.getid()
     print "Registered server", server_id
 
-    caps = rhnCapability.get_db_client_capabilities(server_id)
-    caps_len = len(caps.keys())
-    expected_len = len(str_caps)
-    if caps_len != expected_len:
-        print "FAILED: return %d caps, expected %d" % (caps_len, expected_len)
-        return 1
-    print "Succeeded", caps
     return 0
 
 if __name__ == '__main__':
