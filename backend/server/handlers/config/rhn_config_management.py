@@ -174,11 +174,11 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     _query_client_get_file = rhnSQL.Statement("""
         select :path path,
                cc.label config_channel, 
-               ccont.contents file_contents,
-               ccont.is_binary is_binary,
+               c.contents file_contents,
+               c.is_binary is_binary,
                c.checksum_type,
                c.checksum,
-               ccont.delim_start, ccont.delim_end,
+               c.delim_start, c.delim_end,
                cr.revision,
                cf.modified,
                ci.username,
@@ -194,14 +194,14 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
                rhnConfigRevision cr
-          left join rhnConfigContent ccont
-            on cr.config_content_id = ccont.id
           left join
-            (select cs.id, cs.checksum_type, cs.checksum
+            (select ccont.id, cs.checksum_type, cs.checksum,
+                    ccont.contents, ccont.is_binary,
+                    ccont.delim_start, ccont.delim_end
                from rhnChecksumView cs
                inner join rhnConfigContent ccont
                  on ccont.checksum_id = cs.id) c
-            on c.id = ccont.checksum_id,
+            on cr.config_content_id = c.id,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
 	       rhnConfigFileType cft,
