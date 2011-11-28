@@ -881,29 +881,6 @@ def _unique_list_of_dicts(list_):
     return list_
 
 
-def unique_patches(dict1, dict2, key):
-    """traverse lists of patches in 2 dictionaries, and remove and duplicates
-    from the list in dict2"""
-    # NOTE this is something of a kludge, and a bug that came up after the main
-    # implementation because a patch can patch multiple packages and each
-    # pkginfo file for each package can list the same requires, conflicts,
-    # obsoletes patches, potentially adding the same patch(es) to these lists
-    # multiple times
-
-    removals = []
-
-    # simple mxn algorithm, these lists shouldn't be more than a couple of
-    # elements in length
-    for p1 in dict1[key]:
-        for p2 in dict2[key]:
-            if p1['name'] == p2['name'] and p1['version'] == p2['version']:
-                removals.append(p2)
-
-    for r in removals:
-        dict2[key].remove(r)
-
-    return dict2[key]
-
 # write mpm files --------------------------------------------------------
 
 def write_mpm(mpm):
