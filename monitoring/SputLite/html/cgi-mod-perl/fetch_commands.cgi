@@ -151,7 +151,7 @@ if( defined $clusterid ) {
 
       # Update the command_queue_execs table to indicate that the
       # satellite has downloaded the commands
-      my $rv = $CF_DB->updateCQ_Exec($iid, $clusterid, 'cluster', ['date_accepted = sysdate']);
+      my $rv = $CF_DB->updateCQ_Exec($iid, $clusterid, 'cluster', ['date_accepted = current_timestamp']);
     }
   }
 
@@ -164,7 +164,7 @@ if( defined $clusterid ) {
       
       # Update the command_queue_execs table to indicate that the
       # satellite has downloaded the commands
-      my $rv = $CF_DB->updateCQ_Exec($iid, $nodeid, 'node', ['date_accepted = sysdate']);
+      my $rv = $CF_DB->updateCQ_Exec($iid, $nodeid, 'node', ['date_accepted = current_timestamp']);
   }
 
   print "</COMMANDS>\n";
