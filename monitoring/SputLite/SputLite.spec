@@ -5,7 +5,7 @@
 %define vardir         /var/lib/nocpulse
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.6.1
+Version:      1.6.2
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -98,6 +98,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Nov 28 2011 Miroslav Suchý 1.6.2-1
+- replace sysdate with current_timestamp (mc@suse.de)
+- postgres seems to reject empty text for stdout and stderr column (mc@suse.de)
+
 * Tue Aug 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.1-1
 - remove perl module files from the -server package
 
