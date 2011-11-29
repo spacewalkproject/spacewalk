@@ -180,7 +180,7 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
 
         Server retrievedGuest = ServerFactory.lookupById(guest.getId());
         retrievedGuest.setName("the_guest");
-        retrievedGuest.getVirtualInstance().setConfirmed(1);
+        retrievedGuest.getVirtualInstance().setConfirmed((long) 1);
 
         ServerFactory.save(retrievedGuest);
         flushAndEvict(retrievedGuest);
