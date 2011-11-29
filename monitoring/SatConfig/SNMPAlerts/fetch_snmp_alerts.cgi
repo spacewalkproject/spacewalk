@@ -32,7 +32,7 @@ sub satellitemenu {
   my $menu = "<SELECT SIZE=10 NAME='$name'>\n";
 
   my $satref = SatClusterRecord->LoadFromSql(
-                                  "SELECT * FROM sat_cluster", 'RECID');
+                                  "SELECT * FROM rhn_sat_cluster", 'RECID');
   my $satsort = sub {
     $_[0]->{'CUSTOMER_ID'} <=> $_[1]->{'CUSTOMER_ID'} 
     or
