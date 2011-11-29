@@ -55,8 +55,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
 
-  $pxt->register_tag('rhn-server-device' => \&server_device, 1);
-
   # has to run after server_details
   $pxt->register_tag('rhn-server-network-details' => \&server_network_details, 2);
 
@@ -686,60 +684,6 @@ sub server_network_details {
   }
 
   return $ret;
-}
-
-# must happen *after* server_hardware_profile... so use tags
-# correctly!
-sub server_device {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $current;
-  my $devices_html = '';
-
-  my $class = $params{'class'};
-
-  my $server_devices = $pxt->pnotes("server_devices");
-
-  my $device_list = $server_devices->{$class};
-
-  if (!$device_list) {
-    return '';
-  }
-
-  my %valid_attribs = (HwDevice =>[qw/driver description pcitype bus vendor_id subdevice_id/,
-				   qw/detached subvendor_id device device_id vendorstring/],
-		       StorageDevice => [qw/driver physical pcitype description bus logical detached device/]);
-
-  my $counter = 0;
-  my $block = $params{__block__};
-  $block =~ m/<rhn-device-data>(.*?)<\/rhn-device-data>/gism;
-  my $device_data_block = $1;
-
-  foreach my $device (@{$device_list}) {
-
-    my %subst;
-
-    if ($counter % 2) {
-      $subst{row_class} = 'list-row-even';
-    } else {
-      $subst{row_class} = 'list-row-odd';
-    }
-
-    foreach my $attrib (@{$valid_attribs{(split /::/, ref $device)[-1]}}) {
-      $subst{lc($class) . "_${attrib}"} = defined $device->$attrib() ? $device->$attrib() : "";
-    }
-    $counter++;
-
-    PXT::Utils->escapeHTML_multi(\%subst);
-
-    $devices_html .= PXT::Utils->perform_substitutions($device_data_block, \%subst);
-  }
-
-
-  $block =~ s/<rhn-device-data>.*?<\/rhn-device-data>/$devices_html/gism;
-
-  return $block;
 }
 
 my @user_server_prefs = ( { name => 'receive_notifications',
