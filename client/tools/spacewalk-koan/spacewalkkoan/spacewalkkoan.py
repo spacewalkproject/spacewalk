@@ -55,7 +55,7 @@ def find_name_servers():
     servers = execute("cat /etc/resolv.conf | perl -lne '/^nameserver\s+(\S+)/ and print $1'")
     ret = []
     for s in servers:
-        if s != "127.0.0.1":
+        if s not in ("127.0.0.1", "::1"):
             ret.append(s)
     return ret
 
