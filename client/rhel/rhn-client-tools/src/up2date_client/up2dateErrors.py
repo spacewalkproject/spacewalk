@@ -17,8 +17,13 @@ from platform import getPlatform
 
 if getPlatform() == 'deb':
     RepoError = Error
-    class YumBaseError:
-        pass
+    class YumBaseError(Exception):
+        def __init__(self, errmsg):
+            self.value = errmsg
+        def __getattribute__(self, name):
+            raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
+        def __setattr__(self, name, value):
+            raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
 else:
     from yum.Errors import RepoError, YumBaseError
 
@@ -41,14 +46,25 @@ class Error(YumBaseError):
         if name == 'errmsg':
             return self.value
         else:
-            return YumBaseError.__getattribute__(self, name)
+            if hasattr(YumBaseError, '__getattribute__'):
+                # rhel5 has no __getattribute__()
+                return YumBaseError.__getattribute__(self, name)
+            else:
+                if name in self.__dict__:
+                    return self.__dict__[name]
+                else:
+                    raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
 
     def __setattr__(self, name, value):
         """ Spacewalk backend still use errmsg, let have errmsg as alias to value """
         if name == 'errmsg':
             self.__dict__['value'] = value
         else:
-            YumBaseError.__setattr__(self, name, value)
+            if hasattr(YumBaseError, '__setattr__'):
+                # rhel5 has no __setattr__()
+                YumBaseError.__setattr__(self, name, value)
+            else:
+                self.__dict__[name] = value
     
 class RpmError(Error):
     """rpm itself raised an error condition"""
