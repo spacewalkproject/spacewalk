@@ -849,24 +849,6 @@ sub server_set_lock_cb {
   $pxt->redirect("index.pxt");
 }
 
-sub ks_session_redir {
-  my $class = shift;
-  my $node = shift;
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  throw 'no sid' unless $sid;
-
-  my $session = RHN::Kickstart::Session->lookup(-sid => $sid, -org_id => $pxt->user->org_id, -soft => 1);
-  my $state = $session ? $session->session_state_label : '';
-
-  if ($session and $state ne 'complete' and $state ne 'failed') {
-    $pxt->redirect('/network/systems/details/kickstart/session_status.pxt?sid=' . $sid);
-  }
-
-  return;
-}
-
 sub remote_command_form {
   my $pxt = shift;
   my %attr = @_;
