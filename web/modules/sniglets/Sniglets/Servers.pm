@@ -79,8 +79,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:ssm_change_system_prefs_cb' => \&ssm_change_system_prefs_cb);
 
-  $pxt->register_callback('rhn:delete_servers_cb' => \&delete_servers_cb);
-
   $pxt->register_callback('rhn:system-activation-key-cb' => \&system_activation_key_cb);
 
   $pxt->register_callback('rhn:server_set_lock_cb' => \&server_set_lock_cb);
