@@ -94,17 +94,7 @@ class Errata(rhnHandler):
                 and e.id = ce.errata_id
         """)
         h.execute(name = pkg[0], dist = str(osRel))
-        ret = []
-        # sanitize the results for display in the clients
-        while 1:
-            row = h.fetchone_dict()
-            if row is None:
-                break
-            for k in row.keys():
-                if row[k] is None:
-                    row[k] = "N/A"
-            ret.append(row)
-        return ret
+        return self._sanitize_result(h)
 
     def getPackageErratum(self, system_id, pkg):
         """ Clients v2+ - Get errata for a package given [n,v,r,e,a,...] format
@@ -164,6 +154,9 @@ class Errata(rhnHandler):
         """) # " emacs sucks
         h.execute(name = name, ver = ver, rel = rel, epoch = epoch, 
                   server_id = str(self.server_id))
+        return self._sanitize_result(h)
+
+    def _sanitize_result(self, h):
         ret = []
         # sanitize the results for display in the clients
         while 1:
