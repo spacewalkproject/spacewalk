@@ -55,7 +55,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
 
-  $pxt->register_tag('rhn-server-hardware-profile' => \&server_hardware_profile);
   $pxt->register_tag('rhn-dmi-info' => \&server_dmi_info, 1);
   $pxt->register_tag('rhn-server-device' => \&server_device, 1);
 
@@ -778,81 +777,6 @@ sub server_dmi_info {
 
   $block = PXT::Utils->perform_substitutions($block, $subst);
   return $block;
-}
-
-sub server_hardware_profile {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid');
-  die "no server id" unless ($sid);
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  $pxt->pnotes(server => $server);
-
-  if (not $server->has_hardware_profile) {
-    return "<div align=\"center\"><strong>Hardware not yet profiled.</strong></div>";
-  }
-
-
-  my $ret = $params{__block__};
-
-  my @storage_devices = $server->get_storage_devices;
-  my @cd_devices = $server->get_cd_devices;
-
-  # Hardware devices can have the following classes (note
-  # that these could have been changed in the db after I
-  # write this!!):
-
-  #  CLASS
-  #  ----------------
-  # AUDIO
-  # MODEM
-  # MOUSE
-  # NETWORK
-  # OTHER
-  # SCSI
-  # SOCKET
-  # USB
-  # VIDEO
-
-
-  my @hardware_devices = $server->get_hw_devices;
-
-  # USB fix
-  foreach my $hw_device (@hardware_devices) {
-    if (defined $hw_device->bus() and $hw_device->bus eq 'USB') {
-#      warn "HW USB fix... class from: " . $hw_device->class;
-      $hw_device->class('USB');
-#      warn "to:  " . $hw_device->class;
-    }
-  }
-
-  my %hw_dev_sorted;
-
-  # we're mushing these all to be handled by a subtag
-  push @{ $hw_dev_sorted{$_->class} }, $_ foreach (@hardware_devices, @storage_devices, @cd_devices);
-
-  my %subst;
-
-  # take care of the one-off's here...
-  $subst{server_name} = PXT::Utils->escapeHTML($server->name || '');
-
-  foreach (qw/cpu_model cpu_mhz cpu_bogomips cpu_arch_name cpu_vendor cpu_cache cpu_stepping cpu_family memory_ram memory_swap/) {
-    $subst{$_} = defined $server->$_() ? $server->$_() : '';
-    $subst{cpu_arch_name} = $server->get_cpu_arch_name || '';
-  }
-
-  $subst{cpu_count} = defined $server->cpu_nrcpu() ? $server->cpu_nrcpu() : '';
-
-  PXT::Utils->escapeHTML_multi(\%subst);
-
-  $pxt->pnotes('server_devices' => \%hw_dev_sorted);
-
-  return PXT::Utils->perform_substitutions($ret, \%subst);
-  #return Data::Dumper->Dump([($server)]);
-  #return "<pre>".Data::Dumper->Dump([(%hw_dev_sorted)])."</pre>";
 }
 
 my @user_server_prefs = ( { name => 'receive_notifications',
