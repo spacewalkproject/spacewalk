@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.30
+Version:        1.6.31
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Nov 29 2011 Miroslav Suchý 1.6.31-1
+- IPv6: in tables rhnRam, rhnCpu and rhnServerDMI allow only one record per
+  server
+- IPv6: insert id from sequence using trigger
+- IPv6: get_hw_info_as_clob schema upgrade script (mzazrivec@redhat.com)
+- IPv6: upgrade script for rhn_server.pkb (mzazrivec@redhat.com)
+- IPv6: schema upgrade
+- IPv6: get_hw_info_as_clob: adapt to IPv6 changes (mzazrivec@redhat.com)
+- IPv6: update rhn_server.get_ip_address() to reflect IPv6 changes
+  (mzazrivec@redhat.com)
+- IPv6: schema change
+
 * Fri Nov 25 2011 Jan Pazdziora 1.6.30-1
 - Fix the in out parameter handling.
 
