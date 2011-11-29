@@ -563,20 +563,6 @@ sub server_history_event_details {
   return $params{__block__};
 }
 
-sub base_entitlement {
-  my $pxt = shift;
-  my $server = shift;
-
-  my ($base_entitlement) = grep { $_->{IS_BASE} eq 'Y' } $server->entitlements;
-
-  if ($base_entitlement) {
-    return $pxt->user->org->slot_name($base_entitlement->{LABEL});
-  }
-  else {
-    return "None";
-  }
-}
-
 sub reboot_server_cb {
   my $pxt = shift;
   my $sid = $pxt->param('sid');
