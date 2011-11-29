@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Tue Nov 29 2011 Miroslav Suchý 1.6.3-1
+- IPv6: reporting - make inventory report IPv6 aware
+- IPv6: reporting - make errata-systems report IPv6 aware
+
 * Thu Aug 11 2011 Miroslav Suchý 1.6.2-1
 - do not mask original error by raise in execption
 
