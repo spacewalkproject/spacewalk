@@ -2096,8 +2096,8 @@ SELECT  CC.id, CC.name
                                              FROM rhnSet RS LEFT OUTER JOIN rhnServerConfigChannel SCC
                                              ON RS.element = SCC.server_id
                                             WHERE RS.label = 'system_list'
-                                            AND SCC.config_channel_id = XXX.config_channel_id
-                                            AND SCC.server_id = null) )
+                                            AND SCC.config_channel_id is null
+                                            AND SCC.server_id is null) )
 ORDER BY UPPER(CC.name)
   </query>
   <elaborator name="ssm_channel_elab" />
@@ -2126,7 +2126,7 @@ SELECT  CC.id, CC.name
                                             FROM rhnSet RS LEFT OUTER JOIN rhnServerConfigChannel SCC
                                             ON RS.element = SCC.server_id
                                            WHERE RS.label = 'system_list'
-                                           AND SCC.config_channel_id = XXX.config_channel_id
+                                           AND SCC.config_channel_id is null
                                            AND SCC.server_id is null) )
 ORDER BY UPPER(CC.name)
   </query>
