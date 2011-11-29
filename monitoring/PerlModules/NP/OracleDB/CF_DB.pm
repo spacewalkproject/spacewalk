@@ -80,7 +80,7 @@ sub CQ_Commands {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "COMMAND_QUEUE_COMMANDS";
+  my $table  = "RHN_COMMAND_QUEUE_COMMANDS";
   my $idseq  = "COMMAND_Q_COMMAND_RECID_SEQ.NEXTVAL";
   my $keycol = 'RECID';
   my @cols   = qw(RECID            DESCRIPTION
@@ -140,7 +140,7 @@ sub CQ_Instances {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "COMMAND_QUEUE_INSTANCES";
+  my $table  = "RHN_COMMAND_QUEUE_INSTANCES";
   my $idseq  = "COMMAND_Q_INSTANCE_RECID_SEQ.NEXTVAL";
   my $keycol = 'RECID';
   my @cols   = qw(RECID            COMMAND_ID          NOTES            
@@ -197,7 +197,7 @@ sub CQ_Execs {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "COMMAND_QUEUE_EXECS";
+  my $table  = "RHN_COMMAND_QUEUE_EXECS";
   my $keycol = 'INSTANCE_ID,NETSAINT_ID';
   my @cols   = qw(INSTANCE_ID      NETSAINT_ID       TARGET_TYPE
                   DATE_ACCEPTED    DATE_EXECUTED     
@@ -243,7 +243,7 @@ sub CQ_Params {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "COMMAND_QUEUE_PARAMS";
+  my $table  = "RHN_COMMAND_QUEUE_PARAMS";
   my $keycol = 'INSTANCE_ID,ORD';
   my @cols   = qw(INSTANCE_ID ORD VALUE);
 
@@ -278,7 +278,7 @@ sub CQ_Sessions {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "COMMAND_QUEUE_SESSIONS";
+  my $table  = "RHN_COMMAND_QUEUE_SESSIONS";
   my $keycol = 'CONTACT_ID';
   my @cols   = qw(CONTACT_ID SESSION_ID EXPIRATION_DATE
                   LAST_UPDATE_USER LAST_UPDATE_DATE);
@@ -329,7 +329,7 @@ sub Customer {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = 'CUSTOMER';
+  my $table  = 'RHN_CUSTOMER_MONITORING';
   my $idseq  = 'CUSTOMER_RECID_SEQ.NEXTVAL';
   my $keycol = 'RECID';
 
@@ -390,7 +390,7 @@ sub Netsaint {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = 'SAT_CLUSTER';
+  my $table  = 'RHN_SAT_CLUSTER';
   my $idseq  = 'COMMAND_TARGET_RECID_SEQ.NEXTVAL';
   my $keycol = 'RECID';
 
@@ -513,7 +513,7 @@ sub LL_Netsaint {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = 'LL_NETSAINT';
+  my $table  = 'RHN_LL_NETSAINT';
   my $keycol = 'NETSAINT_ID';
   my @cols   = qw(NETSAINT_ID CITY);
   my $idnum;
@@ -551,7 +551,7 @@ sub Contact {
   my $bindvars      = shift || [];
   my $orderby       = shift || [];
 
-  my $table  = "CONTACT";
+  my $table  = "RHN_CONTACT_MONITORING";
   my $idseq  = "CONTACT_RECID_SEQ";
   my $keycol = 'RECID';
   my @cols   = qw( RECID                       CUSTOMER_ID
@@ -813,7 +813,7 @@ sub getUnexpiredCQ_Execs_by_instance_netsaint {
   my $nsid    = shift;
   my $orderby = shift;
 
-  my $tables   = "command_queue_instances ins,command_queue_execs exec";
+  my $tables   = "rhn_command_queue_instances ins,rhn_command_queue_execs exec";
 
   my @execcols = (map("exec.$_", $self->CQ_Execs('columns')));
 
