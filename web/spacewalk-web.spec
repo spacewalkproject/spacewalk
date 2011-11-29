@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.30
+Version: 1.6.31
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Nov 29 2011 Miroslav Suchý 1.6.31-1
+- IPv6: code cleanup - package RHN::DB::Server::NetInterface is not used
+  anymore
+- IPv6: code cleanup - function get_net_interfaces is not used anymore
+- IPv6: code cleanup - function server_network_interfaces is not used anymore
+- IPv6: code cleanup - tag rhn-server-network-interfaces is not used anywhere
+
 * Fri Nov 25 2011 Jan Pazdziora 1.6.30-1
 - Replace nvl with coalesce.
 - Matching the to_char prototype.
