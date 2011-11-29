@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.37
+Version: 1.6.38
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Nov 29 2011 Miroslav Suchý 1.6.38-1
+- define __init__, __getattribute__, __setattr__ on Debian and workaround those
+  mising methods on RHEL5
+
 * Thu Nov 24 2011 Jan Pazdziora 1.6.37-1
 - 735346 - add space after do_call in cases like
   do_callpackages.checkNeedUpdate(rhnsd=1,){}.
