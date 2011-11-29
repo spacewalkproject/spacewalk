@@ -5,7 +5,7 @@
 %define vardir         /var/lib/nocpulse
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.6.2
+Version:      1.6.3
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -98,6 +98,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Nov 29 2011 Jan Pazdziora 1.6.3-1
+- Correct fix for the vn_rhn_command_queue_execs_stderr constraint issue.
+- Revert "postgres seems to reject empty text for stdout and stderr column"
+
 * Mon Nov 28 2011 Miroslav Suchý 1.6.2-1
 - replace sysdate with current_timestamp (mc@suse.de)
 - postgres seems to reject empty text for stdout and stderr column (mc@suse.de)
