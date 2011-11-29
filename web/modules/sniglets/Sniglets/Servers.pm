@@ -55,9 +55,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
 
-  # has to run after server_details
-  $pxt->register_tag('rhn-server-network-details' => \&server_network_details, 2);
-
   $pxt->register_tag('rhn-server-history-event-details' => \&server_history_event_details);
 
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
@@ -642,48 +639,6 @@ sub reboot_server_cb {
 #
 #  $pxt->push_message(site_info => $message);
   $pxt->redirect("/rhn/systems/details/Overview.do?sid=$sid&message=system.reboot.scheduled&messagep1=" . $server->name . "&messagep2=" . $pretty_earliest_date . "&messagep3=" . $action_id);
-}
-
-sub server_network_details {
-  my $pxt = shift;
-  my %params = @_;
-  my $ret = '';
-  my $current;
-
-  my $server = $pxt->pnotes('server');
-
-  throw "No server." unless $server;
-
-  my @netinfos = $server->get_net_infos;
-
-  my %subst;
-
-  if (not @netinfos) {
-
-    %subst = (counter => '', ip => 'unknown', hostname => 'unknown');
-    PXT::Debug->log(7, "subst:  " . Data::Dumper->Dump([(\%subst)]));
-    return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-  }
-
-  PXT::Debug->log(7, "got netinfos...");
-
-  my $counter = 1;
-
-  my $html = $params{__block__};
-
-  foreach my $netinfo (@netinfos) {
-    my %subst;
-
-    $subst{ip} = defined $netinfo->ipaddr ? $netinfo->ipaddr : "";
-    $subst{hostname} = defined $netinfo->hostname ? $netinfo->hostname : "";
-    $subst{counter} = $counter > 1 ? " ".$counter : "";
-
-    PXT::Utils->escapeHTML_multi(\%subst);
-
-    $ret .= PXT::Utils->perform_substitutions($html, \%subst);
-  }
-
-  return $ret;
 }
 
 my @user_server_prefs = ( { name => 'receive_notifications',
