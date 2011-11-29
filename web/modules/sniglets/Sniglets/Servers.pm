@@ -577,22 +577,6 @@ sub base_entitlement {
   }
 }
 
-sub addon_entitlements {
-  my $pxt = shift;
-  my $server = shift;
-
-  my @system_entitlements = $server->entitlements;
-  my @addon_entitlements = grep { $_->{IS_BASE} eq 'N' } @system_entitlements;
-
-  @addon_entitlements = map { $pxt->user->org->slot_name($_->{LABEL}) } @addon_entitlements;
-
-  unless (@addon_entitlements) {
-    push @addon_entitlements, "None";
-  }
-
-  return join(", ", @addon_entitlements);
-}
-
 sub reboot_server_cb {
   my $pxt = shift;
   my $sid = $pxt->param('sid');
