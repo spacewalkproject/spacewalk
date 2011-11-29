@@ -936,31 +936,31 @@ sub show_history {
   my @order_selects1 = map { $count++; /sat_node/i ? "NULL as order$count" :  "$_ as order$count" } @order_selects;
   $count=0;
   @order_selects     = map { $count++; "$_ as order$count" } @order_selects;
-  my $iid_line       =  'command_queue_execs.INSTANCE_ID as iid';
+  my $iid_line       =  'rhn_command_queue_execs.INSTANCE_ID as iid';
   $select1 .= join(",\n",@selects1,$iid_line,@order_selects1);
   $select2 .= join(",\n",@selects,$iid_line,@order_selects);
 
   # from
-  my $from1 = "\nFROM\ncommand_queue_commands,\ncommand_queue_execs,\ncommand_queue_instances,\ncustomer,\nsat_cluster";
-  my $from2 = $from1 . ",\nsat_node\n";
+  my $from1 = "\nFROM\nrhn_command_queue_commands,\nrhn_command_queue_execs,\nrhn_command_queue_instances,\nrhn_customer_monitoring,\nrhn_sat_cluster";
+  my $from2 = $from1 . ",\nrhn_sat_node\n";
   $from1   .= "\n";
 
 # standard where clause
   my $where = "
-AND  sat_cluster.customer_id = customer.recid
-AND  command_queue_execs.instance_id = command_queue_instances.recid 
-AND  command_queue_instances.command_id = command_queue_commands.recid\n";
+AND  rhn_sat_cluster.customer_id = customer.recid
+AND  rhn_command_queue_execs.instance_id = rhn_command_queue_instances.recid
+AND  rhn_command_queue_instances.command_id = rhn_command_queue_commands.recid\n";
 
 # clusters
 my $where1 = 
-"AND  sat_cluster.recid = command_queue_execs.netsaint_id 
-AND command_queue_execs.target_type = 'cluster'\n";
+"AND  rhn_sat_cluster.recid = rhn_command_queue_execs.netsaint_id
+AND rhn_command_queue_execs.target_type = 'cluster'\n";
 
 # nodes
 my $where2 = 
-"AND sat_node.recid = command_queue_execs.netsaint_id 
-AND command_queue_execs.target_type = 'node'
-AND sat_node.sat_cluster_id = sat_cluster.recid\n";
+"AND rhn_sat_node.recid = rhn_command_queue_execs.netsaint_id
+AND rhn_command_queue_execs.target_type = 'node'
+AND rhn_sat_node.sat_cluster_id = rhn_sat_cluster.recid\n";
   
   # additional where clauses for user's search criteria
   foreach (1..5) {
@@ -1670,36 +1670,36 @@ sub exec_query_menu {
   my $blank = $params{'blank'};  #empty first field
 
   my %fields = ( 
-    'command line'            => 'command_queue_commands.COMMAND_LINE',
-    'command description'     => 'command_queue_commands.DESCRIPTION',
-    'command effective group' => 'command_queue_commands.EFFECTIVE_GROUP',
-    'command effective user'  => 'command_queue_commands.EFFECTIVE_USER',
-    'command notes'           => 'command_queue_commands.NOTES',
-    'command is permanent'    => 'command_queue_commands.PERMANENT',
-    'command id'              => 'command_queue_commands.RECID',
-    'date accepted'           => 'command_queue_execs.DATE_ACCEPTED',
-    'date executed'           => 'command_queue_execs.DATE_EXECUTED',
-    'execution time'          => 'command_queue_execs.EXECUTION_TIME',
-    'exit status'             => 'command_queue_execs.EXIT_STATUS',
-    'instance id'             => 'command_queue_execs.INSTANCE_ID',
-    'stderr'                  => 'command_queue_execs.STDERR',
-    'stdout'                  => 'command_queue_execs.STDOUT',
-    'target type'             => 'command_queue_execs.TARGET_TYPE',
-    'date submitted'          => 'command_queue_instances.DATE_SUBMITTED',
-    'expiration date'         => 'command_queue_instances.EXPIRATION_DATE',
-    'instance notes'          => 'command_queue_instances.NOTES',
-    'notify_email'            => 'command_queue_instances.NOTIFY_EMAIL',
-    'timeout'                 => 'command_queue_instances.TIMEOUT',
-    'customer is deleted'     => 'customer.DELETED',
-    'customer description'    => 'customer.DESCRIPTION',
-    'customer type'           => 'customer.TYPE',
-    'customer id'             => 'sat_cluster.CUSTOMER_ID',
-    'sat cluster description' => 'sat_cluster.DESCRIPTION',
-    'sat cluster id'          => 'sat_cluster.RECID',
-    'sat cluster is deployed' => 'sat_cluster.DEPLOYED',
-    'sat node ip'             => 'sat_node.IP',
-    'sat node mac'            => 'sat_node.MAC_ADDRESS',
-    'sat node recid'          => 'sat_node.RECID',
+    'command line'            => 'rhn_command_queue_commands.COMMAND_LINE',
+    'command description'     => 'rhn_command_queue_commands.DESCRIPTION',
+    'command effective group' => 'rhn_command_queue_commands.EFFECTIVE_GROUP',
+    'command effective user'  => 'rhn_command_queue_commands.EFFECTIVE_USER',
+    'command notes'           => 'rhn_command_queue_commands.NOTES',
+    'command is permanent'    => 'rhn_command_queue_commands.PERMANENT',
+    'command id'              => 'rhn_command_queue_commands.RECID',
+    'date accepted'           => 'rhn_command_queue_execs.DATE_ACCEPTED',
+    'date executed'           => 'rhn_command_queue_execs.DATE_EXECUTED',
+    'execution time'          => 'rhn_command_queue_execs.EXECUTION_TIME',
+    'exit status'             => 'rhn_command_queue_execs.EXIT_STATUS',
+    'instance id'             => 'rhn_command_queue_execs.INSTANCE_ID',
+    'stderr'                  => 'rhn_command_queue_execs.STDERR',
+    'stdout'                  => 'rhn_command_queue_execs.STDOUT',
+    'target type'             => 'rhn_command_queue_execs.TARGET_TYPE',
+    'date submitted'          => 'rhn_command_queue_instances.DATE_SUBMITTED',
+    'expiration date'         => 'rhn_command_queue_instances.EXPIRATION_DATE',
+    'instance notes'          => 'rhn_command_queue_instances.NOTES',
+    'notify_email'            => 'rhn_command_queue_instances.NOTIFY_EMAIL',
+    'timeout'                 => 'rhn_command_queue_instances.TIMEOUT',
+    'customer is deleted'     => 'rhn_customer_monitoring.DELETED',
+    'customer description'    => 'rhn_customer_monitoring.DESCRIPTION',
+    'customer type'           => 'rhn_customer_monitoring.TYPE',
+    'customer id'             => 'rhn_sat_cluster.CUSTOMER_ID',
+    'sat cluster description' => 'rhn_sat_cluster.DESCRIPTION',
+    'sat cluster id'          => 'rhn_sat_cluster.RECID',
+    'sat cluster is deployed' => 'rhn_sat_cluster.DEPLOYED',
+    'sat node ip'             => 'rhn_sat_node.IP',
+    'sat node mac'            => 'rhn_sat_node.MAC_ADDRESS',
+    'sat node recid'          => 'rhn_sat_node.RECID',
   );
 
   my $namekey = $name;
