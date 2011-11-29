@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.81
+Version: 1.6.82
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 29 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.82-1
+- unit test fix (mzazrivec@redhat.com)
+
 * Tue Nov 29 2011 Miroslav Suchý 1.6.81-1
 - IPv6: disabled interface - take IPv6 addresses into account
   (mzazrivec@redhat.com)
