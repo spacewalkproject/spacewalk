@@ -100,7 +100,7 @@ sub CQ_Commands {
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
     unshift(@$bindvars, $idnum);
-    push(@$whereclauses, sprintf("'%s'", $self->username), 'sysdate');
+    push(@$whereclauses, sprintf("'%s'", $self->username), 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -158,7 +158,7 @@ sub CQ_Instances {
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
     unshift(@$bindvars, $idnum);
-    push(@$whereclauses, 'sysdate', sprintf("'%s'", $self->username), 'sysdate');
+    push(@$whereclauses, 'current_timestamp', sprintf("'%s'", $self->username), 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -212,7 +212,7 @@ sub CQ_Execs {
 
   } elsif ($action eq 'insert') {
 
-    push(@$whereclauses, 'sysdate');
+    push(@$whereclauses, 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -289,7 +289,7 @@ sub CQ_Sessions {
 
   } elsif ($action eq 'insert') {
 
-    push(@$whereclauses, sprintf("'%s'", $self->username), 'sysdate');
+    push(@$whereclauses, sprintf("'%s'", $self->username), 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -350,7 +350,7 @@ sub Customer {
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
     unshift(@$bindvars, $idnum);
-    push(@$whereclauses, sprintf("'%s'", $self->username), 'sysdate');
+    push(@$whereclauses, sprintf("'%s'", $self->username), 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -411,7 +411,7 @@ sub Netsaint {
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
     unshift(@$bindvars, $idnum);
-    push(@$whereclauses, sprintf("'%s'", $self->username), 'sysdate');
+    push(@$whereclauses, sprintf("'%s'", $self->username), 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -477,7 +477,7 @@ sub Node {
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
     unshift(@$bindvars, $idnum);
-    push(@$whereclauses, sprintf("'%s'", $self->username), 'sysdate');
+    push(@$whereclauses, sprintf("'%s'", $self->username), 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -580,7 +580,7 @@ sub Contact {
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
     unshift(@$bindvars, $idnum);
-    push(@$whereclauses, sprintf("'%s'", $self->username), 'sysdate');
+    push(@$whereclauses, sprintf("'%s'", $self->username), 'current_timestamp');
 
   } elsif ($action eq 'select') {
 
@@ -820,7 +820,7 @@ sub getUnexpiredCQ_Execs_by_instance_netsaint {
   my @where    = ("netsaint_id = ?", 
                   "instance_id = ?",
 		  "instance_id = ins.recid",
-		  "expiration_date > sysdate");
+		  "expiration_date > current_timestamp");
 
   my @bind     = ($nsid, $iid); 
 
@@ -962,7 +962,7 @@ sub getUnexpiredCQ_SessionBySessionId {
 
   my($dataref, $ordref) = 
     $self->CQ_Sessions('select', ['session_id = ?', 
-                                  'expiration_date > sysdate'], [$sid]);
+                                  'expiration_date > current_timestamp'], [$sid]);
 
   # This query should only return one row, so just return the record.
   if (scalar(@$ordref)) {
@@ -1419,7 +1419,7 @@ sub get_sysdate {
 #################
   my $self = shift();
 
-  my $statement = sprintf("SELECT TO_CHAR(sysdate, '%s') as current_time FROM dual",$self->dateformat);
+  my $statement = sprintf("SELECT TO_CHAR(current_timestamp, '%s') as current_time FROM dual",$self->dateformat);
   my $ref       = $self->dbexec($statement);
 
   return $ref->[0]->[0];
