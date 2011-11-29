@@ -48,8 +48,22 @@ def find_host_name():
 def find_netmask(device):
     return execute("LANG=C ifconfig %s | perl -lne '/Mask:([\d.]+)/ and print $1'" % device)[0]
 
+def find_netmask6(device):
+    nm6 = execute("LANG=C ifconfig %s | perl -lne '/inet6 addr: [[:xdigit:]:]+\/([\d]+).+Scope:Global/ and print $1'" % device)
+    if nm6:
+        return nm6[0]
+    else:
+        return ""
+
 def find_ip(device):
     return execute("LANG=C ifconfig %s | perl -lne '/inet addr:([\d.]+)/ and print $1'" % device)[0]
+
+def find_ip6(device):
+    ip6 = execute("LANG=C ifconfig %s | perl -lne '/inet6 addr: ([[:xdigit:]:]+).+Scope:Global/ and print $1'" % device)
+    if ip6:
+        return ip6[0]
+    else:
+        return ""
 
 def find_name_servers():
     servers = execute("cat /etc/resolv.conf | perl -lne '/^nameserver\s+(\S+)/ and print $1'")
