@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.46
+Version: 1.6.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Nov 29 2011 Miroslav Suchý 1.6.47-1
+- IPv6: filter out params, which are not used in query
+- IPv6: do not pass to oracle more params than is necessary
+- IPv6: if there is no data, do not try to access it
+- IPv6: do not call constructor in reload
+- IPv6: change backend to store IPv6 interfaces into DB
+- IPv6: __load_from_db: load devices using its method save()
+
 * Tue Nov 29 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.46-1
 - removed dead function
 
