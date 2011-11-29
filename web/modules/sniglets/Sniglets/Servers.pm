@@ -55,7 +55,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
 
-  $pxt->register_tag('rhn-dmi-info' => \&server_dmi_info, 1);
   $pxt->register_tag('rhn-server-device' => \&server_device, 1);
 
   # has to run after server_details
@@ -740,42 +739,6 @@ sub server_device {
 
   $block =~ s/<rhn-device-data>.*?<\/rhn-device-data>/$devices_html/gism;
 
-  return $block;
-}
-
-sub server_dmi_info {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $server = $pxt->pnotes('server');
-
-  throw "No server found." unless $server;
-
-  my $subst;
-
-  my @dmi_fields = qw/vendor system product bios_vendor board bios_release bios_version asset/;
-
-  my $got_dmi;
-
-  foreach my $field (@dmi_fields) {
-
-    my $fn = 'dmi_' . $field;
-    my $temp = $server->$fn();
-
-    if ($temp) {
-
-      $subst->{$fn} = PXT::Utils->escapeHTML($temp);
-      $got_dmi = 1;
-    }
-    else {
-      $subst->{$fn} = '&#160;';
-    }
-  }
-
-  return '' if not $got_dmi;
-
-  $block = PXT::Utils->perform_substitutions($block, $subst);
   return $block;
 }
 
