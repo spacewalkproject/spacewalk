@@ -247,7 +247,10 @@ class Handler(handler_base.HandlerBase):
             src_selinux = info['selinux_ctx']
             if src_selinux:
                 if not stat_err:
-                    dst_selinux = lgetfilecon(dst)[1]
+                    try:
+                        dst_selinux = lgetfilecon(dst)[1]
+                    except OSError:
+                        dst_selinux = ""
                     if dst_selinux == None:
                         dst_selinux = ""
                 else:
