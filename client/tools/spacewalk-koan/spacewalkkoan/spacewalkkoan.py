@@ -46,7 +46,11 @@ def find_host_name():
     return execute("hostname")[0]
 
 def find_netmask(device):
-    return execute("LANG=C ifconfig %s | perl -lne '/Mask:([\d.]+)/ and print $1'" % device)[0]
+    nm = execute("LANG=C ifconfig %s | perl -lne '/Mask:([\d.]+)/ and print $1'" % device)
+    if nm:
+        return nm[0]
+    else:
+        return ""
 
 def find_netmask6(device):
     nm6 = execute("LANG=C ifconfig %s | perl -lne '/inet6 addr: [[:xdigit:]:]+\/([\d]+).+Scope:Global/ and print $1'" % device)
@@ -56,7 +60,11 @@ def find_netmask6(device):
         return ""
 
 def find_ip(device):
-    return execute("LANG=C ifconfig %s | perl -lne '/inet addr:([\d.]+)/ and print $1'" % device)[0]
+    ip = execute("LANG=C ifconfig %s | perl -lne '/inet addr:([\d.]+)/ and print $1'" % device)
+    if ip:
+        return ip[0]
+    else:
+        return ""
 
 def find_ip6(device):
     ip6 = execute("LANG=C ifconfig %s | perl -lne '/inet6 addr: ([[:xdigit:]:]+).+Scope:Global/ and print $1'" % device)
