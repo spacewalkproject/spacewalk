@@ -87,12 +87,18 @@ rm -rf %{buildroot}
 
 %pre
 
+%if 0%{fedora} >= 16
+%define min_uid 1000
+%else
+%define min_uid 500
+%endif
+
 ORACLE_UID=`id -u oracle`
 if [ -z "$ORACLE_UID" ] ; then
-    echo "The oracle user has to exist with uid < 500 before installing this package."
+    echo "The oracle user has to exist with uid < %{min_uid} before installing this package."
     exit 1
-elif [ $ORACLE_UID -ge 500 ] ; then
-    echo "The oracle user has to exist with uid < 500 before installing this package."
+elif [ $ORACLE_UID -ge %{min_uid} ] ; then
+    echo "The oracle user has to exist with uid < %{min_uid} before installing this package."
     echo "User with uid [$ORACLE_UID] found which is not good."
     exit 1
 fi
