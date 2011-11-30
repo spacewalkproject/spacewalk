@@ -10,6 +10,8 @@ begin
 end;
 $$ language plpgsql;
 
+drop trigger if exists rhn_srv_net_iface_mod_trig on rhnServerNetInterface;
+
 create trigger
 rhn_srv_net_iface_mod_trig
 before insert or update on rhnServerNetInterface
