@@ -29,7 +29,11 @@ Requires: jakarta-commons-logging
 %endif
 Requires: jpackage-utils >= 0:1.5
 Requires: log4j
+%if 0%{?fedora} >= 16
+Requires: jakarta-oro
+%else
 Requires: oro
+%endif
 #Requires: lucene
 Requires: quartz
 Requires: redstone-xmlrpc
@@ -50,7 +54,11 @@ BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
 BuildRequires: log4j
+%if 0%{?fedora} >= 16
+BuildRequires: jakarta-oro
+%else
 BuildRequires: oro
+%endif
 #BuildRequires: lucene
 BuildRequires: quartz
 BuildRequires: redstone-xmlrpc
