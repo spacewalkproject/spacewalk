@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.31
+Version:        1.6.32
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Nov 30 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.32-1
+- pgsql: schema upgrade fixes
+
 * Tue Nov 29 2011 Miroslav Suchý 1.6.31-1
 - IPv6: in tables rhnRam, rhnCpu and rhnServerDMI allow only one record per
   server
