@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.22
+Version:         10.2.0.23
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -145,6 +145,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Nov 30 2011 Michael Mraka <michael.mraka@redhat.com> 10.2.0.23-1
+- system user uids are < 1000 on Fedora 16
+
 * Thu Jul 21 2011 Jan Pazdziora 10.2.0.22-1
 - Revert "Fedora 15 uses oracledb_port_t instead of oracle_port_t."
 
