@@ -428,11 +428,12 @@ def findHostByRoute():
             try:
                 s.settimeout(5)
                 s.connect((server, port))
+                intf_tmp = s.getsockname()[0]
                 if family == AF_INET:
-                    intf = s.getsockname()[0]
+                    intf = intf_tmp
                 else:
-                    intf6 = s.getsockname()[0]
-                hostname = socket.getfqdn(server)
+                    intf6 = intf_tmp
+                hostname = socket.getfqdn(intf_tmp)
             except socket.error:
                 s.close()
                 continue
