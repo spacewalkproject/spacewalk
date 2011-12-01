@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 f5872e029cf1b053c88bd876afc8f253461772ac
+-- oracle equivalent source sha1 c24be10b35b70f16e763cdff7eced317f2119751
 
 alter table rhnServerNetInterface add id numeric;
 
