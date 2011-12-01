@@ -69,7 +69,7 @@ SELECT org.id,
        (SELECT count(*)
             FROM rhnTrustedOrgs tr
             WHERE tr.org_trust_id = org.id AND
-                  tr.org_id = :org_id) trusted
+                  tr.org_id = :org_id) as trusted
 FROM   web_customer org
 WHERE  org.id != :org_id
  </query>
