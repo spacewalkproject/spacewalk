@@ -433,7 +433,9 @@ def findHostByRoute():
                     intf = intf_tmp
                 else:
                     intf6 = intf_tmp
-                hostname = socket.getfqdn(intf_tmp)
+                hostname_tmp = socket.getfqdn(intf_tmp)
+                if hostname_tmp != intf_tmp:
+                    hostname = hostname_tmp
             except socket.error:
                 s.close()
                 continue
