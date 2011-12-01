@@ -417,7 +417,7 @@ def findHostByRoute():
         servertype = serverUrl.split(':')[0]
         port = st[servertype]
 
-        for family in (AF_INET, AF_INET6):
+        for family in (AF_INET6, AF_INET):
             s = socket.socket(family)
 
             if cfg['enableProxy']:
