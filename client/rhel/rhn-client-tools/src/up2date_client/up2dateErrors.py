@@ -14,18 +14,18 @@ _ = t.ugettext
 import OpenSSL
 import config
 from pkgplatform import getPlatform
+from platform import dist
 
-if getPlatform() == 'deb':
-    RepoError = Error
+if getPlatform() == 'deb' or dist()[0] == 'SuSE':
     class YumBaseError(Exception):
         def __init__(self, errmsg):
             self.value = errmsg
-        def __getattribute__(self, name):
+        def __getattr__(self, name):
             raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
         def __setattr__(self, name, value):
             raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
 else:
-    from yum.Errors import RepoError, YumBaseError
+    from yum.Errors import YumBaseError
 
 class Error(YumBaseError):
     """base class for errors"""
@@ -65,7 +65,12 @@ class Error(YumBaseError):
                 YumBaseError.__setattr__(self, name, value)
             else:
                 self.__dict__[name] = value
-    
+
+if getPlatform() == 'deb' or dist()[0] == 'SuSE':
+    RepoError = Error
+else:
+    from yum.Errors import RepoError
+
 class RpmError(Error):
     """rpm itself raised an error condition"""
     premsg = _("RPM error.  The message was:\n")
