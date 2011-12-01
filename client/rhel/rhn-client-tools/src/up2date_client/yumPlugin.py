@@ -21,6 +21,9 @@ def pluginEnable():
         else:
             createDefaultYumRHNPluginConf()
             conf_changed = 1
+    elif os.path.exists("/usr/lib/zypp/plugins/services/spacewalk"):
+        """SUSE zypp plugin is installed"""
+        plugin_present = 1
     return plugin_present, conf_changed
 
 def YumRHNPluginPackagePresent():
