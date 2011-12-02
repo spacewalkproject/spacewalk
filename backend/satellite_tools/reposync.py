@@ -416,7 +416,7 @@ class RepoSync:
                 package.header, self.channel['org_id'],
                 package.checksum_type, package.checksum)
         package_dict, diff_level = rhnPackageUpload.push_package(package.header,
-                package.payload_stream, package.checksum_type, package.checksum,
+                package.path, package.payload_stream, package.checksum_type, package.checksum,
                 force=False,
                 header_start=package.header_start, header_end=package.header_end,
                 relative_path=rel_package_path,

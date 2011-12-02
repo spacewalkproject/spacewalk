@@ -784,7 +784,7 @@ def removeNone(list):
 
 # Assorted functions for various things
 
-def copy_package(fd, basedir, relpath, checksum_type, checksum, force=None):
+def move_package(filename, basedir, relpath, checksum_type, checksum, force=None):
     """
     Copies the information from the file descriptor to a file
     Checks the file's checksum, raising FileConflictErrror if it's different
@@ -805,20 +805,9 @@ def copy_package(fd, basedir, relpath, checksum_type, checksum, force=None):
     # Create the directory where the file will reside
     if not os.path.exists(dir):
         createPath(dir)
-    pkgfd = os.open(packagePath, os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
-    os.lseek(fd, 0, 0)
-    while 1:
-        buffer = os.read(fd, 65536)
-        if not buffer:
-            break
-        n = os.write(pkgfd, buffer)
-        if n != len(buffer):
-            # Error writing to the file
-            raise IOError, "Wrote %s out of %s bytes in file %s" % (
-                n, len(buffer), packagePath)
-    os.close(pkgfd)
+    os.rename(filename, packagePath)
     # set the path perms readable by all users
-    setPermsPath(packagePath, chmod=0644)
+    os.chmod(packagePath, 0644)
 
 
 # Returns a list of containing nevra for the given RPM header

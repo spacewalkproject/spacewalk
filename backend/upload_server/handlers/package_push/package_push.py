@@ -135,7 +135,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             raise rhnFault(104, "Mismatching information")
         
         package_dict, diff_level = rhnPackageUpload.push_package(header,
-            temp_stream, checksum_type, checksum, force=self.force,
+            temp_stream.name, payload_stream, checksum_type, checksum, force=self.force,
             header_start=header_start, header_end=header_end,
             relative_path=self.rel_package_path, org_id=self.org_id)
         temp_stream.delete=False

@@ -127,7 +127,7 @@ def relative_path_from_nevra_without_package_name(nevra, org_id, checksum_type, 
     return get_package_path_without_package_name(nevra, org_id,
                                      CFG.PREPENDED_DIR, checksum_type, checksum)
 
-def push_package(header, payload_stream, checksum_type, checksum, org_id=None, force=None,
+def push_package(header, temp_path, payload_stream, checksum_type, checksum, org_id=None, force=None,
     header_start=None, header_end=None, channels=[], relative_path=None):
     """Uploads an RPM package
     """
@@ -140,7 +140,7 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
 
     # First write the package to the filesystem to final location
     try:
-        importLib.copy_package(payload_stream.fileno(), basedir=CFG.MOUNT_POINT,
+        importLib.move_package(temp_path, basedir=CFG.MOUNT_POINT,
             relpath=relative_path, checksum_type=checksum_type, checksum=checksum, force=1)
     except OSError, e:
         raise rhnFault(50, "Package upload failed: %s" % e), None, sys.exc_info()[2]
