@@ -163,10 +163,14 @@ sub commit {
   my $dbh = RHN::DB->connect;
   my $ciid;
   if ($ftype eq 'symlink') {
-      $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx, $self->symlink_target_filename_id);
+      $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode,
+	 ((defined $self->selinux_ctx && $self->selinux_ctx ne '')?$self->selinux_ctx:undef),
+	 $self->symlink_target_filename_id);
   }
   else {
-    $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx, undef);
+    $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode,
+       ((defined $self->selinux_ctx && $self->selinux_ctx ne '')?$self->selinux_ctx:undef),
+       undef);
   }
   
   my $ccid = $self->config_content_id;
