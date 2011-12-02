@@ -488,34 +488,28 @@ def read_network():
     netdict = {}
     netdict['class'] = "NETINFO"
 
-    netdict['hostname'] = gethostname()
-    try:
-        list_of_addrs = getaddrinfo(gethostname(), None)
-        ipv4_addrs = filter(lambda x:x[0]==socket.AF_INET, list_of_addrs)
-        # take first ipv4 addr
-        netdict['ipaddr'] = ipv4_addrs[0][4][0]
-    except:
-        netdict['ipaddr'] = "127.0.0.1"
+    netdict['hostname'], netdict['ipaddr'], netdict['ip6addr'] = findHostByRoute()
 
-    try:
-        list_of_addrs = getaddrinfo(gethostname(), None)
-        ipv6_addrs = filter(lambda x:x[0]==socket.AF_INET6, list_of_addrs)
-        # take first ipv6 addr
-        netdict['ip6addr'] = ipv6_addrs[0][4][0]
-    except:
-        netdict['ip6addr'] = "::1"
+    if netdict['hostname'] == "unknown":
+        netdict['hostname'] = gethostname()
 
-    if netdict['hostname'] == 'localhost.localdomain' or \
-            netdict['ipaddr'] == "127.0.0.1" or \
-            netdict['ip6addr'] == "::1":
-        hostname, ipaddr, ip6addr = findHostByRoute()
+    if netdict['ipaddr'] is None:
+        try:
+            list_of_addrs = getaddrinfo(netdict['hostname'], None)
+            ipv4_addrs = filter(lambda x:x[0]==socket.AF_INET, list_of_addrs)
+            # take first ipv4 addr
+            netdict['ipaddr'] = ipv4_addrs[0][4][0]
+        except:
+            netdict['ipaddr'] = "127.0.0.1"
 
-        if netdict['hostname'] == 'localhost.localdomain':
-            netdict['hostname'] = hostname
-        if netdict['ipaddr'] == "127.0.0.1":
-            netdict['ipaddr'] = ipaddr
-        if netdict['ip6addr'] == "::1":
-            netdict['ip6addr'] = ip6addr
+    if netdict['ip6addr'] is None:
+        try:
+            list_of_addrs = getaddrinfo(netdict['hostname'], None)
+            ipv6_addrs = filter(lambda x:x[0]==socket.AF_INET6, list_of_addrs)
+            # take first ipv6 addr
+            netdict['ip6addr'] = ipv6_addrs[0][4][0]
+        except:
+            netdict['ip6addr'] = "::1"
 
     if netdict['ipaddr'] is None:
         netdict['ipaddr'] = ''
